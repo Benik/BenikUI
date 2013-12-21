@@ -1,0 +1,14 @@
+﻿## Interface: 50400
+## Author: Benik
+## Version: 1.0
+## Title: |cff1784d1ElvUI|r_BenikUI
+## Notes: an ElvUI 6+ edit
+## RequiredDeps: ElvUI
+## DefaultState: Enabled
+## OptionalDeps: SharedMedia
+
+## locales\load_locales.xml
+media\load_media.xml
+init.lua
+layout\layout.lua
+modules\load_modules.xml

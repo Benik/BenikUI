@@ -1,0 +1,6 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<script file="chat\chat.lua"/>
+	<script file="misc\buttonbar.lua"/>
+	<script file="dashboard\dashboard.lua"/>
+	<Include file="dashboard\load_panels.xml"/>
+</Ui>
