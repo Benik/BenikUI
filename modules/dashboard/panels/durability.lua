@@ -1,6 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local BUID = E:GetModule('BuiDashboard')
 
-local id = 4
 local displayString = ""
 local tooltipString = "%d%%"
 local totalDurability = 0
@@ -40,49 +40,51 @@ local slots = {
 	["ShoulderSlot"] = L['Shoulder'],
 	["HeadSlot"] = L['Head'],
 }
+function BUID:CreateDurability()
+	local id = 4
+	dboard[id].Status:SetScript("OnEvent", function( self, ...)
 
-board[id].Status:SetScript("OnEvent", function( self, ...)
-
-	lastPanel = self
-	totalDurability = 100
-	
-	for index, value in pairs(slots) do
-		local slot = GetInventorySlotInfo(index)
-		current, max = GetInventoryItemDurability(slot)
+		lastPanel = self
+		totalDurability = 100
 		
-		if current then
-			invDurability[value] = (current/max)*100
+		for index, value in pairs(slots) do
+			local slot = GetInventorySlotInfo(index)
+			current, max = GetInventoryItemDurability(slot)
+			
+			if current then
+				invDurability[value] = (current/max)*100
 
-			if ((current/max) * 100) < totalDurability then
-				totalDurability = (current/max) * 100
+				if ((current/max) * 100) < totalDurability then
+					totalDurability = (current/max) * 100
+				end
 			end
 		end
-	end
-	
-	board[id].Text:SetFormattedText(displayString, totalDurability)
+		
+		dboard[id].Text:SetFormattedText(displayString, totalDurability)
 
-	self:SetMinMaxValues(0, 100)
-	self:SetValue(totalDurability)
-	
-	if( totalDurability >= 75 ) then
-		self:SetStatusBarColor(30 / 255, 1, 30 / 255, .8)
-	elseif totalDurability < 75 and totalDurability > 40 then
-		self:SetStatusBarColor(1, 180 / 255, 0, .8)
-	else
-		self:SetStatusBarColor(1, 75 / 255, 75 / 255, 0.5, .8)
-	end
-end)
+		self:SetMinMaxValues(0, 100)
+		self:SetValue(totalDurability)
+		
+		if( totalDurability >= 75 ) then
+			self:SetStatusBarColor(30 / 255, 1, 30 / 255, .8)
+		elseif totalDurability < 75 and totalDurability > 40 then
+			self:SetStatusBarColor(1, 180 / 255, 0, .8)
+		else
+			self:SetStatusBarColor(1, 75 / 255, 75 / 255, 0.5, .8)
+		end
+	end)
+	dboard[id].dummyf:EnableMouse(true)
+	dboard[id].dummyf:SetScript('OnEnter', OnEnter)
+	dboard[id].dummyf:SetScript('OnLeave', OnLeave)
+	dboard[id]:SetScript('OnMouseUp', Click)
+
+	dboard[id].Status:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
+	dboard[id].Status:RegisterEvent("MERCHANT_SHOW")
+	dboard[id].Status:RegisterEvent("PLAYER_ENTERING_WORLD")
+end
 
 local function ValueColorUpdate(hex, r, g, b)
 	displayString = string.join("", DURABILITY, ": ", hex, "%d%%|r")
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
-board[id]:EnableMouse(true)
-board[id]:SetScript('OnEnter', OnEnter)
-board[id]:SetScript('OnLeave', OnLeave)
-board[id]:SetScript('OnMouseUp', Click)
-
-board[id].Status:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
-board[id].Status:RegisterEvent("MERCHANT_SHOW")
-board[id].Status:RegisterEvent("PLAYER_ENTERING_WORLD")

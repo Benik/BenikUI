@@ -1,6 +1,9 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<script file="chat\chat.lua"/>
-	<script file="misc\buttonbar.lua"/>
-	<script file="dashboard\dashboard.lua"/>
+	<Include file="unitframes\load_units.xml"/>
+	<Include file="actionbars\load_actionbars.xml"/>
 	<Include file="dashboard\load_panels.xml"/>
+	<Include file="misc\load_misc.xml"/>
+	<Include file="datatexts\load_datatexts.xml"/>
+	<Include file="skins\load_skins.xml"/>
 </Ui>

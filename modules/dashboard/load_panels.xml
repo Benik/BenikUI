@@ -1,8 +1,10 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<script file="dashboard.lua"/>
 	<Script file="panels\durability.lua"/>
 	<Script file="panels\volume.lua"/>
 	<Script file="panels\fps.lua"/>
 	<Script file="panels\ms.lua"/>
 	<Script file="panels\tokens.lua"/>
 	<Script file="panels\memory.lua"/>
+	<Script file='options.lua'/>
 </Ui>

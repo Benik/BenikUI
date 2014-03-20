@@ -1,6 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-
-local id = 3
+local BUID = E:GetModule('BuiDashboard')
 
 local bandwidthString = "%.2f Mbps"
 local percentageString = "%.2f%%"
@@ -54,52 +53,59 @@ end
 local int = 10
 
 local function Update( self, t )
+	local id = 3
 	int = int - t
 
 	if( int < 0 ) then
 		RebuildAddonList( self )
 		local total = UpdateMemory()
-		board[id].Text:SetText( "Memory: "..formatMem( total ) )
-		board[id].Status:SetMinMaxValues( 0, 100000 )
-		board[id].Status:SetValue( total )
+		dboard[id].Text:SetText( "Memory: "..formatMem( total ) )
+		dboard[id].Status:SetMinMaxValues( 0, 100000 )
+		dboard[id].Status:SetValue( total )
 		int = 10
 	end
 end
 
-board[id].Status:SetScript( "OnMouseDown", function ()
-	collectgarbage( "collect" )
-	Update( board[id].Status, 10 )
-end )
+function BUID:CreateMemory()
+	local id = 3
+	dboard[id].dummyf:SetScript( "OnMouseDown", function ()
+		collectgarbage( "collect" )
+		Update( dboard[id].Status, 10 )
+	end )
 
-board[id].Status:SetScript( "OnEnter", function( self )
-	if( not InCombatLockdown() ) then
-		self.tooltip = true
-		local bandwidth = GetAvailableBandwidth()
-		GameTooltip:SetOwner( board[id], "ANCHOR_RIGHT", 5, 0 )
-		GameTooltip:ClearLines()
-		if( bandwidth ~= 0 ) then
-			GameTooltip:AddDoubleLine( L['Bandwidth'], string.format( bandwidthString, bandwidth ), 0.69, 0.31, 0.31, 0.84, 0.75, 0.65 )
-			GameTooltip:AddDoubleLine( L['Download'], string.format( percentageString, GetDownloadedPercentage() * 100 ), 0.69, 0.31, 0.31, 0.84, 0.75, 0.65 )
-			GameTooltip:AddLine( " " )
-		end
-
-		local totalMemory = UpdateMemory()
-		for i = 1, #memoryTable do
-			if( memoryTable[i][4] ) then
-				local red = memoryTable[i][3] / totalMemory
-				local green = 1 - red
-				GameTooltip:AddDoubleLine( memoryTable[i][2], formatMem( memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0 )
+	dboard[id].dummyf:SetScript( "OnEnter", function( self )
+		if( not InCombatLockdown() ) then
+			self.tooltip = true
+			local bandwidth = GetAvailableBandwidth()
+			GameTooltip:SetOwner( dboard[id], "ANCHOR_RIGHT", 5, 0 )
+			GameTooltip:ClearLines()
+			if( bandwidth ~= 0 ) then
+				GameTooltip:AddDoubleLine( L['Bandwidth'], string.format( bandwidthString, bandwidth ), 0.69, 0.31, 0.31, 0.84, 0.75, 0.65 )
+				GameTooltip:AddDoubleLine( L['Download'], string.format( percentageString, GetDownloadedPercentage() * 100 ), 0.69, 0.31, 0.31, 0.84, 0.75, 0.65 )
+				GameTooltip:AddLine( " " )
 			end
+
+			local totalMemory = UpdateMemory()
+			for i = 1, #memoryTable do
+				if( memoryTable[i][4] ) then
+					local red = memoryTable[i][3] / totalMemory
+					local green = 1 - red
+					GameTooltip:AddDoubleLine( memoryTable[i][2], formatMem( memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0 )
+				end
+			end
+			GameTooltip:Show()
 		end
-		GameTooltip:Show()
-	end
-end )
-board[id].Status:SetScript( "OnLeave", function( self )
-	self.tooltip = false
-	GameTooltip:Hide()
-end )
-board[id].Status:SetScript( "OnUpdate", Update )
-board[id].Status:SetScript( "OnEvent", function( self, event )
-	collectgarbage( "collect" )
-end )
-Update( board[id].Status, 10 )
+	end )
+	
+	dboard[id].dummyf:SetScript( "OnLeave", function( self )
+		self.tooltip = false
+		GameTooltip:Hide()
+	end )
+	
+	dboard[id].Status:SetScript( "OnUpdate", Update )
+	dboard[id].Status:SetScript( "OnEvent", function( self, event )
+		collectgarbage( "collect" )
+	end )
+	
+	Update( dboard[id].Status, 10 )
+end

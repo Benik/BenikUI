@@ -1,4 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local BUI = E:GetModule('BenikUI');
+local BUID = E:GetModule('BuiDashboard')
 local LSM = LibStub("LibSharedMedia-3.0")
 
 local DASH_HEIGHT = 20
@@ -13,10 +15,10 @@ local currency = {
 	{ 777, 0},		-- Timeless Coins
 	{ 697, 20 },	-- Elder Charm of Good Fortune
 	{ 738, 0 },		-- Lesser Charm of Good Fortune
-	{ 390, 10200 },	-- Conquest Points
-	{ 392, 4000 },	-- Honor Points
+	--{ 390, 10200 },	-- Conquest Points
+	--{ 392, 4000 },	-- Honor Points
 	--{ 515, 0 },		-- Darkmoon Prize Ticket
-	--{ 402, 0 },		-- Ironpaw Token
+	{ 402, 0 },		-- Ironpaw Token
 	{ 776, 10 },	-- Warforged Seal
 
 	--[[{ 241, 250 },
@@ -54,12 +56,14 @@ local function tholderOnFade()
 end
 
 local function updateCurrency()
-	local tholder = CreateFrame('Frame', 'tokenHolder', E.UIParent)
-	tholder:CreateBackdrop('Transparent')
-	tholder:Width(DASH_WIDTH)
-	tholder:Point('TOPLEFT', BenikDashboard, 'BOTTOMLEFT', 0, -10)
-	
-	local tholderdecor = E:BenikStyle('tokenHolderDecor', tokenHolder)
+	local tholder
+	if not tholder then
+		tholder = CreateFrame('Frame', 'tokenHolder', E.UIParent)
+		tholder:CreateBackdrop('Transparent')
+		tholder:Width(DASH_WIDTH)
+		tholder:Point('TOPLEFT', BuiDashboard, 'BOTTOMLEFT', 0, -10)
+	end
+	tholder:Style()
 	tholder.backdrop:Hide()
 	E.FrameLocks['tokenHolder'] = true;
 	
@@ -81,12 +85,13 @@ local function updateCurrency()
 		wipe( Tokens )
 	end
 
+	local num = 0
 	for i, v in ipairs( currency ) do
 		local id, max = unpack( v )
 		local name, amount, icon = GetCurrencyInfo( id )
 
 		if( name and amount > 0 ) then
-			local num = tholder:GetNumChildren()
+			num = num + 1 or -1
 			tholder:Height(((DASH_HEIGHT + SPACING) * num) + SPACING)
 			tholder.backdrop:Show()
 
@@ -99,13 +104,13 @@ local function updateCurrency()
 			TokensFrame.dummy:Point( "BOTTOMLEFT", TokensFrame, "BOTTOMLEFT", 2, 2 )
 			TokensFrame.dummy:Size(DASH_WIDTH - 26, 3)
 
-			TokensFrame.dummyStatus = CreateFrame("StatusBar", "TokensDummyStatus" .. id, TokensFrame.dummy)
-			TokensFrame.dummyStatus:SetInside()
-			TokensFrame.dummyStatus:SetStatusBarTexture(E["media"].normTex)
-			TokensFrame.dummyStatus:SetStatusBarColor(1, 1, 1, .2)
+			TokensFrame.dummy.dummyStatus = TokensFrame.dummy:CreateTexture(nil, 'OVERLAY')
+			TokensFrame.dummy.dummyStatus:SetInside()
+			TokensFrame.dummy.dummyStatus:SetTexture(E["media"].BuiFlat) -- check BuiFlat ain't loading
+			TokensFrame.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
 
 			TokensFrame.Status = CreateFrame( "StatusBar", "TokensStatus" .. id, TokensFrame.dummy )
-			TokensFrame.Status:SetStatusBarTexture(E["media"].normTex)
+			TokensFrame.Status:SetStatusBarTexture(E["media"].BuiFlat) -- check BuiFlat ain't loading
 			if max == 0 then
 				TokensFrame.Status:SetMinMaxValues( 0, amount )
 			else
@@ -122,13 +127,14 @@ local function updateCurrency()
 			TokensFrame.spark:SetPoint('CENTER', TokensFrame.Status:GetStatusBarTexture(), 'RIGHT')
 
 			TokensFrame.Text = TokensFrame.Status:CreateFontString( nil, "OVERLAY" )
-			TokensFrame.Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, nil)
+			TokensFrame.Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 			TokensFrame.Text:Point( "CENTER", TokensFrame, "CENTER", -10, 1 )
-			TokensFrame.Text:Width( TokensFrame:GetWidth() - 4 )
+			TokensFrame.Text:Width( TokensFrame:GetWidth() - 20 )
+			TokensFrame.Text:SetWordWrap(false)
 			TokensFrame.Text:SetShadowColor( 0, 0, 0 )
 			TokensFrame.Text:SetShadowOffset( 1.25, -1.25 )
 			if max == 0 then
-				TokensFrame.Text:SetText( format( "%s / ~", amount ) )
+				TokensFrame.Text:SetText( format( "%s", amount ) )
 			else
 				TokensFrame.Text:SetText( format( "%s / %s", amount, max ) )
 			end
@@ -146,13 +152,13 @@ local function updateCurrency()
 
 			TokensFrame:SetScript( "OnEnter", function( self )
 				TokensFrame.Text:SetText( format( "%s", name ) )
-				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 3, 0);
 				GameTooltip:SetCurrencyByID(id)
 			end )
 				
 			TokensFrame:SetScript( "OnLeave", function( self )
 				if max == 0 then
-					TokensFrame.Text:SetText( format( "%s / ~", amount ) )
+					TokensFrame.Text:SetText( format( "%s", amount ) )
 				else
 					TokensFrame.Text:SetText( format( "%s / %s", amount, max ) )
 				end				
@@ -176,9 +182,11 @@ local function updateCurrency()
 	E:CreateMover(tokenHolder, "tokenHolderMover", L["tokenHolder"])
 end
 
+
 local updater = CreateFrame("Frame")
+updater:RegisterEvent("PLAYER_ENTERING_WORLD")
 updater:RegisterEvent("PLAYER_HONOR_GAIN")
-updater:RegisterEvent("QUEST_ACCEPTED")
-updater:RegisterEvent("QUEST_FINISHED")
+updater:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 updater:SetScript("OnEvent", updateCurrency)
 hooksecurefunc("BackpackTokenFrame_Update", updateCurrency)
+hooksecurefunc("TokenFrame_Update", updateCurrency)

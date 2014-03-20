@@ -1,0 +1,660 @@
+local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local BUI = E:GetModule('BenikUI');
+
+local CURRENT_PAGE = 0
+local MAX_PAGE = 8
+
+local function SetupBuiLayout()
+	
+	-- General
+	do
+		E.db.general.font = "Bui Prototype"
+		E.db.general.fontSize = 10
+		E.db.general.stickyFrames = false
+		E.db.general.topPanel = false
+		E.db.general.bottomPanel = false
+		E.db.general.minimap.locationText = "HIDE"
+		E.db.general.minimap.size = 150
+		E.db.general.backdropfadecolor.r = 0.054
+		E.db.general.backdropfadecolor.g = 0.054
+		E.db.general.backdropfadecolor.b = 0.054
+		E.db.general.valuecolor.a = 1
+		E.db.general.valuecolor.r = 1
+		E.db.general.valuecolor.g = 0.5019607843137255
+		E.db.general.valuecolor.b = 0
+		E.db.general.experience.textFormat = "CURPERC"
+		E.db.general.experience.width = 412
+		E.db.general.reputation.textFormat = "CURPERC"
+		E.db.general.reputation.textSize = 8
+		E.db.general.reputation.width = 180
+		E.db.datatexts.leftChatPanel = false
+		E.db.datatexts.rightChatPanel = false
+	end
+	
+	-- Tooltip
+	do
+		E.db.tooltip.healthBar.font = "Bui Prototype"
+		E.db.tooltip.healthBar.fontSize = 9
+		E.db.tooltip.healthBar.fontOutline = 'OUTLINE'
+	end
+	
+	-- movers
+	do
+		E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-140"
+		E.db.movers.BNETMover = "TOPRIGHTElvUIParentTOPRIGHT-4-199"
+		E.db.movers.BuiDashboardMover = "TOPLEFTElvUIParentTOPLEFT4-8"
+		E.db.movers.DigSiteProgressBarMover = "BOTTOMElvUIParentBOTTOM0315"
+		E.db.movers.ExperienceBarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-4204"
+		E.db.movers.GMMover = "TOPLEFTElvUIParentTOPLEFT155-4"
+		E.db.movers.LeftChatMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT222"
+		E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-2"
+		E.db.movers.MicrobarMover = "TOPLEFTElvUIParentTOPLEFT4-4"
+		E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT-4-6"
+		E.db.movers.ReputationBarMover = "TOPRIGHTElvUIParentTOPRIGHT-2-181"
+		E.db.movers.RightChatMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-222"
+		E.db.movers.VehicleSeatMover = "TOPLEFTElvUIParentTOPLEFT155-81"
+		E.db.movers.WatchFrameMover = "TOPRIGHTElvUIParentTOPRIGHT-122-292"
+		E.db.movers.tokenHolderMover = "TOPLEFTElvUIParentTOPLEFT4-119"
+	end
+	
+	if IsAddOnLoaded("ElvUI_LocPlus") then
+		E.db.locplus.lpfont = "Bui Visitor1"
+		E.db.locplus.lpfontsize = 10
+		E.db.locplus.dtheight = 16
+		E.db.locplus.lpwidth = 220
+		E.db.locplus.dtwidth = 120
+		E.db.locplus.trunc = true
+		E.db.movers.LocationMover = "TOPElvUIParentTOP0-7"
+	end
+	
+	if IsAddOnLoaded("ElvUI_LocLite") then
+		E.db.loclite.lpfont = "Bui Visitor1"
+		E.db.loclite.lpfontsize = 10
+		E.db.loclite.dtheight = 16
+		E.db.loclite.lpwidth = 220
+		E.db.loclite.trunc = true
+		E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-7"
+	end	
+	
+	if InstallStepComplete then
+		InstallStepComplete.message = L["BenikUI Layout Applied"]
+		InstallStepComplete:Show()		
+	end
+	E:UpdateAll(true)
+end
+
+local function SetupBuiChat()
+	for i = 1, NUM_CHAT_WINDOWS do
+		local frame = _G[format("ChatFrame%s", i)]
+		FCF_SetChatWindowFontSize(nil, frame, 10)
+	end
+	
+	do
+		E.db.chat.tabFont = "Bui Visitor1"
+		E.db.chat.tabFontSize = 10
+		E.db.chat.tabFontOutline = 'MONOCROMEOUTLINE'
+		E.db.chat.font = "Bui Prototype"
+		E.db.chat.panelHeight = 150
+	end
+	
+	if InstallStepComplete then
+		InstallStepComplete.message = L["BenikUI Chat Applied"]
+		InstallStepComplete:Show()		
+	end
+	E:UpdateAll(true)
+end
+
+local function SetupBuiAbs()
+	-- Actionbars
+	do
+		E.db.actionbar.bar1.backdrop = false;
+		E.db.actionbar.bar1.buttons = 12;
+		E.db.actionbar.bar1.buttonspacing = 4;
+		E.db.actionbar.bar1.buttonsize = 30;
+		E.db.actionbar.bar2.enabled = true;
+		E.db.actionbar.bar2.backdrop = true;
+		E.db.actionbar.bar2.buttons = 12;
+		E.db.actionbar.bar2.buttonspacing = 4;
+		E.db.actionbar.bar2.heightMult = 2;
+		E.db.actionbar.bar2.buttonsize = 30;
+		E.db.actionbar.bar3.backdrop = true;
+		E.db.actionbar.bar3.buttons = 10;
+		E.db.actionbar.bar3.buttonsPerRow = 5;
+		E.db.actionbar.bar3.buttonspacing = 4;
+		E.db.actionbar.bar3.buttonsize = 30;
+		E.db.actionbar.bar4.backdrop = true;
+		E.db.actionbar.bar4.buttons = 12;
+		E.db.actionbar.bar4.buttonspacing = 4;
+		E.db.actionbar.bar4.buttonsize = 26;
+		E.db.actionbar.bar5.backdrop = true;
+		E.db.actionbar.bar5.buttons = 10;
+		E.db.actionbar.bar5.buttonsPerRow = 5;
+		E.db.actionbar.bar5.buttonspacing = 4;
+		E.db.actionbar.bar5.buttonsize = 30;
+		
+		E.db.actionbar.barPet.buttonspacing = 4;
+		E.db.actionbar.barPet.buttonsPerRow = 10;
+		E.db.actionbar.barPet.buttonsize = 27;
+		E.db.actionbar.barPet.backdrop = true;
+		
+		E.db.actionbar.font = "Bui Visitor1";
+		E.db.actionbar.fontOutline = 'MONOCROMEOUTLINE';
+		E.db.actionbar.fontSize = 10;
+		
+		E.db.bab.enable = true
+	end
+	
+	-- movers
+	do
+		E.db.movers.ArenaHeaderMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-56346"
+		E.db.movers.BossButton = "BOTTOMElvUIParentBOTTOM0283"
+		E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-56-397"
+		E.db.movers.BuffsMover = "TOPRIGHTElvUIParentTOPRIGHT-189-3"
+		E.db.movers.DebuffsMover = "TOPRIGHTElvUIParentTOPRIGHT-189-134"
+		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM092"
+		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM058"
+		E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM29558"
+		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-29558"	
+		E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM013"
+		E.db.movers.ShiftAB = "TOPLEFTElvUIParentTOPLEFT407-39"
+	end
+
+	if InstallStepComplete then
+		InstallStepComplete.message = L["BenikUI Actionbars Applied"]
+		InstallStepComplete:Show()		
+	end
+	E:UpdateAll(true)
+end
+
+local function SetupBuiUfs()
+	-- Empty Bars
+	do
+		E.db.ufb.barheight = 15
+		E.db.ufb.barshow = true
+	end
+	
+	-- Units
+	do
+	-- general
+		E.db.unitframe.font = "Bui Visitor1"
+		E.db.unitframe.fontSize = 10
+		E.db.unitframe.fontOutline = 'NONE'
+		E.db.unitframe.colors.transparentAurabars = true
+		E.db.unitframe.colors.transparentCastbar = true
+		E.db.unitframe.colors.healthclass = false
+		E.db.unitframe.statusbar = "BuiFlat"
+	-- player
+		E.db.unitframe.units.player.debuffs.attachTo = "BUFFS"
+		E.db.unitframe.units.player.debuffs.sizeOverride = 32
+		E.db.unitframe.units.player.debuffs.yOffset = 2
+		E.db.unitframe.units.player.portrait.enable = true
+		E.db.unitframe.units.player.portrait.overlay = true
+		E.db.unitframe.units.player.castbar.icon = false
+		E.db.unitframe.units.player.castbar.width = 300
+		--[[E.db.unitframe.units.player.customTexts = {}
+		E.db.unitframe.units.player.customTexts.group = {}
+		E.db.unitframe.units.player.customTexts.group.font = "Bui Visitor1"
+		E.db.unitframe.units.player.customTexts.group.size = 10
+		E.db.unitframe.units.player.customTexts.group.fontOutline = "OUTLINE"
+		E.db.unitframe.units.player.customTexts.group.justifyH = "RIGHT"
+		E.db.unitframe.units.player.customTexts.group.xOffset = -128
+		E.db.unitframe.units.player.customTexts.group.yOffset = 8
+		E.db.unitframe.units.player.customTexts.group.text_format = "[playergroup]"]]
+		E.db.unitframe.units.player.width = 300
+		E.db.unitframe.units.player.height = 33
+		E.db.unitframe.units.player.buffs.enable = true
+		E.db.unitframe.units.player.buffs.sizeOverride = 32
+		E.db.unitframe.units.player.buffs.attachTo = "FRAME"
+		E.db.unitframe.units.player.buffs.yOffset = 8
+		E.db.unitframe.units.player.threatStyle = "ICONTOPRIGHT"
+		E.db.unitframe.units.player.power.height = 5
+		E.db.unitframe.units.player.power.detachedWidth = 298
+		E.db.unitframe.units.player.power.yOffset = -25
+	-- target
+		E.db.unitframe.units.target.debuffs.anchorPoint = "TOPLEFT"
+		E.db.unitframe.units.target.portrait.enable = true
+		E.db.unitframe.units.target.portrait.overlay = true
+		E.db.unitframe.units.target.power.xOffset = 2
+		E.db.unitframe.units.target.power.detachedWidth = 298 -- get the mover
+		E.db.unitframe.units.target.power.hideonnpc = false
+		E.db.unitframe.units.target.power.height = 5
+		E.db.unitframe.units.target.power.yOffset = -25
+		E.db.unitframe.units.target.width = 300
+		E.db.unitframe.units.target.castbar.icon = false
+		E.db.unitframe.units.target.castbar.width = 300
+		E.db.unitframe.units.target.height = 33
+		E.db.unitframe.units.target.threatStyle = "ICONTOPLEFT"
+		E.db.unitframe.units.target.buffs.anchorPoint = "TOPLEFT"
+		E.db.unitframe.units.target.buffs.sizeOverride = 32
+		E.db.unitframe.units.target.buffs.yOffset = 8
+	-- pet
+		E.db.unitframe.units.pet.height = 24
+		E.db.unitframe.units.pet.power.height = 5
+	-- focus
+		E.db.unitframe.units.focus.power.height = 5
+		E.db.unitframe.units.focus.width = 122
+		E.db.unitframe.units.focus.castbar.height = 6
+		E.db.unitframe.units.focus.castbar.width = 122
+	-- targettarget
+		E.db.unitframe.units.targettarget.height = 24
+		E.db.unitframe.units.targettarget.power.height = 5
+	-- raid 10
+		E.db.unitframe.units.raid10.power.power = false
+	-- raid 25
+		E.db.unitframe.units.raid25.power.enable = false
+	end
+	
+	-- Movers
+	do
+		E.db.movers.AltPowerBarMover = "TOPElvUIParentTOP0-66"
+		E.db.movers.ElvUF_AssistMover = "TOPLEFTElvUIParentTOPLEFT4-392"
+		E.db.movers.ElvUF_FocusMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-442178"
+		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4210"
+		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0191"
+		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM-231147"
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-231182"
+		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4210"
+		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT2179"
+		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4211"
+		E.db.movers.ElvUF_RaidpetMover = "TOPLEFTElvUIParentTOPLEFT4-444"
+		E.db.movers.ElvUF_TankMover = "TOPLEFTElvUIParentTOPLEFT4-292"
+		E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMElvUIParentBOTTOM231147"
+		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM231182"
+		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0164"
+		E.db.movers.PlayerPowerBarMover = "BOTTOMElvUIParentBOTTOM-231215"
+		E.db.movers.TargetPowerBarMover = "BOTTOMElvUIParentBOTTOM247215"
+	end
+	
+	if InstallStepComplete then
+		InstallStepComplete.message = L["BenikUI Unitframes Applied"]
+		InstallStepComplete:Show()		
+	end
+	E:UpdateAll(true)
+end
+
+local function SetupBuiAuras()
+	-- Auras
+	do
+		E.db.auras.timeXOffset = -1
+		E.db.auras.font = "Bui Visitor1"
+		E.db.auras.fontSize = 9
+		E.db.auras.fontOutline = 'MONOCROMEOUTLINE'
+		E.db.auras.fadeThreshold = 10
+		E.db.auras.buffs.horizontalSpacing = 3
+		E.db.auras.buffs.size = 30
+		E.db.auras.consolidatedBuffs.font = "Bui Visitor1"
+		E.db.auras.consolidatedBuffs.fontSize = 9
+		E.db.auras.consolidatedBuffs.fontOutline = 'MONOCROMEOUTLINE'
+		E.db.auras.debuffs.size = 30
+	end
+
+	if InstallStepComplete then
+		InstallStepComplete.message = L["BenikUI Auras Applied"]
+		InstallStepComplete:Show()		
+	end
+	E:UpdateAll(true)
+end
+
+function E:SetupBuiDts(role)
+	-- Data Texts
+	do
+		E.db.datatexts.panelTransparency = true
+		E.db.datatexts.font = "Bui Visitor1"
+		E.db.datatexts.fontOutline = "MONOCROMEOUTLINE"
+		E.db.datatexts.fontSize = 10
+		E.db.datatexts.panels.BuiLeftChatDTPanel.right = "Mail"
+		if role == 'tank' then
+			E.db.datatexts.panels.BuiLeftChatDTPanel.left = "Avoidance"
+			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Vengeance'
+		elseif role == 'dpsMelee' then
+			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'Attack Power'
+			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = "Haste"
+		elseif role == 'healer' or 'dpsCaster' then
+			E.db.datatexts.panels.BuiLeftChatDTPanel.left = "Spell/Heal Power"
+			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = "Haste"
+		end
+		E.db.datatexts.panels.BuiRightChatDTPanel.right = "Gold"
+		E.db.datatexts.panels.BuiRightChatDTPanel.middle = "Bags"
+		E.db.datatexts.panels.BuiRightChatDTPanel.left = "Mastery"
+	end
+	
+	if InstallStepComplete then
+		InstallStepComplete.message = L["BenikUI DataTexts Applied"]
+		InstallStepComplete:Show()		
+	end
+	E:UpdateAll(true)
+end
+
+local function ResetAll()
+	InstallNextButton:Disable()
+	InstallPrevButton:Disable()
+	InstallOption1Button:Hide()
+	InstallOption1Button:SetScript("OnClick", nil)
+	InstallOption1Button:SetText("")
+	InstallOption2Button:Hide()
+	InstallOption2Button:SetScript('OnClick', nil)
+	InstallOption2Button:SetText('')
+	InstallOption3Button:Hide()
+	InstallOption3Button:SetScript('OnClick', nil)
+	InstallOption3Button:SetText('')	
+	InstallOption4Button:Hide()
+	InstallOption4Button:SetScript('OnClick', nil)
+	InstallOption4Button:SetText('')
+	BUIInstallFrame.SubTitle:SetText("")
+	BUIInstallFrame.Desc1:SetText("")
+	BUIInstallFrame.Desc2:SetText("")
+	BUIInstallFrame.Desc3:SetText("")
+	BUIInstallFrame:Size(550, 400)
+end
+
+local function InstallComplete()
+	E.private.install_complete = E.version
+	E.db.bui.installed = true
+	
+	if GetCVarBool("Sound_EnableMusic") then
+		StopMusic()
+	end
+	
+	ReloadUI()
+end
+
+local function SetPage(PageNum)
+	CURRENT_PAGE = PageNum
+	ResetAll()
+	InstallStatus:SetValue(PageNum)
+	
+	local f = BUIInstallFrame
+	
+	if PageNum == MAX_PAGE then
+		InstallNextButton:Disable()
+	else
+		InstallNextButton:Enable()
+	end
+	
+	if PageNum == 1 then
+		InstallPrevButton:Disable()
+	else
+		InstallPrevButton:Enable()
+	end
+
+	if PageNum == 1 then
+		f.SubTitle:SetText(format(L["Welcome to BenikUI version %s, for ElvUI %s."], BUI.Version, E.version))
+		f.Desc1:SetText(L["By pressing the Continue button, BenikUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
+		f.Desc2:SetText(BUI:cOption(L["BenikUI options are marked with light blue color, inside ElvUI options."]))
+		f.Desc3:SetText(L["Please press the continue button to go onto the next step."])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript("OnClick", InstallComplete)
+		InstallOption1Button:SetText(L["Skip Process"])			
+	elseif PageNum == 2 then
+		f.SubTitle:SetText(L["Layout"])
+		f.Desc1:SetText(L["This part of the installation changes the default ElvUI look. This is why you downloaded BenikUI :)"])
+		f.Desc2:SetText(L["Please click the button below to apply the new layout."])
+		f.Desc3:SetText(L["Importance: |cff07D400High|r"])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript("OnClick", SetupBuiLayout)
+		InstallOption1Button:SetText(L["Setup Layout"])
+	elseif PageNum == 3 then
+		f.SubTitle:SetText(L["Chat"])
+		f.Desc1:SetText(L["This part of the installation process sets up your chat fonts and colors.\r|cffff8000This doesn't touch your chat tabs|r"])
+		f.Desc2:SetText(L["Please click the button below to setup your chat windows."])
+		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript("OnClick", SetupBuiChat)
+		InstallOption1Button:SetText(L["Setup Chat"])
+	elseif PageNum == 4 then
+		f.SubTitle:SetText(L["Actionbars"])
+		f.Desc1:SetText(L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
+		f.Desc2:SetText(L["Please click the button below to setup your actionbars."])
+		f.Desc3:SetText(L["Importance: |cff07D400High|r"])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', SetupBuiAbs)
+		InstallOption1Button:SetText(L["Setup Actionbars"])			
+	elseif PageNum == 5 then
+		f.SubTitle:SetText(L['Unitframes'])
+		f.Desc1:SetText(L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars.\r|cffff8000This doesn't touch your current raid/party layout|r"])
+		f.Desc2:SetText(L["Please click the button below to setup your Unitframes."])
+		f.Desc3:SetText(L["Importance: |cff07D400High|r"])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', SetupBuiUfs)
+		InstallOption1Button:SetText(L["Setup Unitframes"])	
+	elseif PageNum == 6 then
+		f.SubTitle:SetText(L["Auras"])
+		f.Desc1:SetText(L["This part of the installation process will only change the Aura system fonts.\r|cffff8000This doesn't touch any filters you already made|r"])
+		f.Desc2:SetText(L["Please click the button below to setup your auras."])
+		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', SetupBuiAuras)
+		InstallOption1Button:SetText(L["Setup Auras"])	
+	elseif PageNum == 7 then
+		f.SubTitle:SetText(L["Datatexts"])
+		f.Desc1:SetText(L["This part of the installation process will fill BenikUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
+		f.Desc2:SetText(L["Please click the button below to setup your datatexts."])
+		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; E:SetupBuiDts('tank') end)
+		InstallOption1Button:SetText(L['Tank'])
+		InstallOption2Button:Show()
+		InstallOption2Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; E:SetupBuiDts('healer') end)
+		InstallOption2Button:SetText(L['Healer'])
+		InstallOption3Button:Show()
+		InstallOption3Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; E:SetupBuiDts('dpsMelee') end)
+		InstallOption3Button:SetText(L['Physical DPS'])
+		InstallOption4Button:Show()
+		InstallOption4Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; E:SetupBuiDts('dpsCaster') end)
+		InstallOption4Button:SetText(L['Caster DPS'])	
+	elseif PageNum == 8 then
+		f.SubTitle:SetText(L["Installation Complete"])
+		f.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
+		f.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])			
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript("OnClick", InstallComplete)
+		InstallOption1Button:SetText(L["Finished"])				
+		BUIInstallFrame:Size(550, 350)
+		if InstallStepComplete then
+			InstallStepComplete.message = L["BenikUI Installed"]
+			InstallStepComplete:Show()		
+		end
+	end
+end
+
+local function NextPage()	
+	if CURRENT_PAGE ~= MAX_PAGE then
+		CURRENT_PAGE = CURRENT_PAGE + 1
+		SetPage(CURRENT_PAGE)
+	end
+end
+
+local function PreviousPage()
+	if CURRENT_PAGE ~= 1 then
+		CURRENT_PAGE = CURRENT_PAGE - 1
+		SetPage(CURRENT_PAGE)
+	end
+end
+
+function E:SetupBui()	
+	if not InstallStepComplete then
+		local imsg = CreateFrame("Frame", "InstallStepComplete", E.UIParent)
+		imsg:Size(418, 72)
+		imsg:Point("TOP", 0, -190)
+		imsg:Hide()
+		imsg:SetScript('OnShow', function(self)
+			if self.message then 
+				PlaySoundFile([[Sound\Interface\LevelUp.wav]])
+				self.text:SetText(self.message)
+				UIFrameFadeOut(self, 3.5, 1, 0)
+				E:Delay(4, function() self:Hide() end)	
+				self.message = nil
+				
+				if imsg.firstShow == false then
+					if GetCVarBool("Sound_EnableMusic") then
+						PlayMusic([[Sound\Music\ZoneMusic\DMF_L70ETC01.mp3]])
+					end					
+					imsg.firstShow = true
+				end
+			else
+				self:Hide()
+			end
+		end)
+		
+		imsg.firstShow = false
+		
+		imsg.bg = imsg:CreateTexture(nil, 'BACKGROUND')
+		imsg.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
+		imsg.bg:SetPoint('BOTTOM')
+		imsg.bg:Size(326, 103)
+		imsg.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
+		imsg.bg:SetVertexColor(1, 1, 1, 0.6)
+		
+		imsg.lineTop = imsg:CreateTexture(nil, 'BACKGROUND')
+		imsg.lineTop:SetDrawLayer('BACKGROUND', 2)
+		imsg.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
+		imsg.lineTop:SetPoint("TOP")
+		imsg.lineTop:Size(418, 7)
+		imsg.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
+		
+		imsg.lineBottom = imsg:CreateTexture(nil, 'BACKGROUND')
+		imsg.lineBottom:SetDrawLayer('BACKGROUND', 2)
+		imsg.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
+		imsg.lineBottom:SetPoint("BOTTOM")
+		imsg.lineBottom:Size(418, 7)
+		imsg.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
+		
+		imsg.text = imsg:CreateFontString(nil, 'ARTWORK', 'GameFont_Gigantic')
+		imsg.text:Point("BOTTOM", 0, 12)
+		imsg.text:SetTextColor(1, 0.82, 0)
+		imsg.text:SetJustifyH("CENTER")
+	end
+
+	--Create Frame
+	if not BUIInstallFrame then
+		local f = CreateFrame("Button", "BUIInstallFrame", E.UIParent)
+		f.SetPage = SetPage
+		f:Size(550, 400)
+		f:SetTemplate("Transparent")
+		f:SetPoint("CENTER")
+		f:SetFrameStrata('TOOLTIP')
+		f:StyleOnFrame()
+		
+		f.Title = f:CreateFontString(nil, 'OVERLAY')
+		f.Title:FontTemplate(nil, 17, nil)
+		f.Title:Point("TOP", 0, -5)
+		f.Title:SetText(L["|cffff8000BenikUI Installation|r"])
+		
+		f.Next = CreateFrame("Button", "InstallNextButton", f, "UIPanelButtonTemplate")
+		f.Next:StripTextures()
+		f.Next:SetTemplate("Default", true)
+		f.Next:Size(110, 25)
+		f.Next:Point("BOTTOMRIGHT", -5, 5)
+		f.Next:SetText(CONTINUE)
+		f.Next:Disable()
+		f.Next:SetScript("OnClick", NextPage)
+		E.Skins:HandleButton(f.Next, true)
+		
+		f.Prev = CreateFrame("Button", "InstallPrevButton", f, "UIPanelButtonTemplate")
+		f.Prev:StripTextures()
+		f.Prev:SetTemplate("Default", true)
+		f.Prev:Size(110, 25)
+		f.Prev:Point("BOTTOMLEFT", 5, 5)
+		f.Prev:SetText(PREVIOUS)	
+		f.Prev:Disable()
+		f.Prev:SetScript("OnClick", PreviousPage)
+		E.Skins:HandleButton(f.Prev, true)
+		
+		f.Status = CreateFrame("StatusBar", "InstallStatus", f)
+		f.Status:SetFrameLevel(f.Status:GetFrameLevel() + 2)
+		f.Status:CreateBackdrop("Default")
+		f.Status:SetStatusBarTexture(E["media"].normTex)
+		f.Status:SetStatusBarColor(unpack(E["media"].rgbvaluecolor))
+		f.Status:SetMinMaxValues(0, MAX_PAGE)
+		f.Status:Point("TOPLEFT", f.Prev, "TOPRIGHT", 6, -2)
+		f.Status:Point("BOTTOMRIGHT", f.Next, "BOTTOMLEFT", -6, 2)
+		f.Status.text = f.Status:CreateFontString(nil, 'OVERLAY')
+		f.Status.text:FontTemplate()
+		f.Status.text:SetPoint("CENTER")
+		f.Status.text:SetText(CURRENT_PAGE.." / "..MAX_PAGE)
+		f.Status:SetScript("OnValueChanged", function(self)
+			self.text:SetText(self:GetValue().." / "..MAX_PAGE)
+		end)
+		
+		f.Option1 = CreateFrame("Button", "InstallOption1Button", f, "UIPanelButtonTemplate")
+		f.Option1:StripTextures()
+		f.Option1:Size(160, 30)
+		f.Option1:Point("BOTTOM", 0, 45)
+		f.Option1:SetText("")
+		f.Option1:Hide()
+		E.Skins:HandleButton(f.Option1, true)
+		
+		f.Option2 = CreateFrame("Button", "InstallOption2Button", f, "UIPanelButtonTemplate")
+		f.Option2:StripTextures()
+		f.Option2:Size(110, 30)
+		f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45)
+		f.Option2:SetText("")
+		f.Option2:Hide()
+		f.Option2:SetScript('OnShow', function() f.Option1:SetWidth(110); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45) end)
+		f.Option2:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point("BOTTOM", 0, 45) end)
+		E.Skins:HandleButton(f.Option2, true)		
+		
+		f.Option3 = CreateFrame("Button", "InstallOption3Button", f, "UIPanelButtonTemplate")
+		f.Option3:StripTextures()
+		f.Option3:Size(100, 30)
+		f.Option3:Point('LEFT', f.Option2, 'RIGHT', 4, 0)
+		f.Option3:SetText("")
+		f.Option3:Hide()
+		f.Option3:SetScript('OnShow', function() f.Option1:SetWidth(100); f.Option1:ClearAllPoints(); f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); f.Option2:SetWidth(100); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOM', f, 'BOTTOM', 0, 45)  end)
+		f.Option3:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point("BOTTOM", 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
+		E.Skins:HandleButton(f.Option3, true)			
+		
+		f.Option4 = CreateFrame("Button", "InstallOption4Button", f, "UIPanelButtonTemplate")
+		f.Option4:StripTextures()
+		f.Option4:Size(100, 30)
+		f.Option4:Point('LEFT', f.Option3, 'RIGHT', 4, 0)
+		f.Option4:SetText("")
+		f.Option4:Hide()
+		f.Option4:SetScript('OnShow', function() 
+			f.Option1:Width(100)
+			f.Option2:Width(100)
+			
+			f.Option1:ClearAllPoints(); 
+			f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); 
+			f.Option2:ClearAllPoints(); 
+			f.Option2:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45)  
+		end)
+		f.Option4:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point("BOTTOM", 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
+		E.Skins:HandleButton(f.Option4, true)			
+
+		f.SubTitle = f:CreateFontString(nil, 'OVERLAY')
+		f.SubTitle:FontTemplate(nil, 15, nil)		
+		f.SubTitle:Point("TOP", 0, -40)
+		
+		f.Desc1 = f:CreateFontString(nil, 'OVERLAY')
+		f.Desc1:FontTemplate()	
+		f.Desc1:Point("TOPLEFT", 20, -75)	
+		f.Desc1:Width(f:GetWidth() - 40)
+		
+		f.Desc2 = f:CreateFontString(nil, 'OVERLAY')
+		f.Desc2:FontTemplate()	
+		f.Desc2:Point("TOPLEFT", 20, -125)		
+		f.Desc2:Width(f:GetWidth() - 40)
+		
+		f.Desc3 = f:CreateFontString(nil, 'OVERLAY')
+		f.Desc3:FontTemplate()	
+		f.Desc3:Point("TOPLEFT", 20, -175)	
+		f.Desc3:Width(f:GetWidth() - 40)
+	
+		local close = CreateFrame("Button", "InstallCloseButton", f, "UIPanelCloseButton")
+		close:SetPoint("TOPRIGHT", f, "TOPRIGHT")
+		close:SetScript("OnClick", function()
+			f:Hide()
+		end)		
+		E.Skins:HandleCloseButton(close)
+		
+		f.tutorialImage = f:CreateTexture('InstallTutorialImage', 'OVERLAY')
+		f.tutorialImage:Size(256, 128)
+		f.tutorialImage:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga')
+		f.tutorialImage:Point('BOTTOM', 0, 70)
+
+	end
+	
+	BUIInstallFrame:Show()
+	NextPage()
+end
