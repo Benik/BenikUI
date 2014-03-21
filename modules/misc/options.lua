@@ -20,6 +20,8 @@ local function XpRepPositions(value)
 	else
 		BXR:RevertXpRep()
 	end
+	M:EnableDisable_ReputationBar()
+	M:EnableDisable_ExperienceBar()
 end
 
 local function xprepTable()

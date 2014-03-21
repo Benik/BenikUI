@@ -20,12 +20,11 @@ function BXR:CreateXPStatus()
 		rested:SetParent(PlayerBar)
 		rested:SetInside(PlayerBar)
 		rested:SetStatusBarTexture(E.media.BuiFlat)
-		--rested:SetAlpha(0.5)
 		rested:Hide()
-
+		
+		self:ShowHideRepXpText()
 		ElvUI_ExperienceBar:Hide()
 		ElvUI_ExperienceBar:SetAlpha(0)
-	else return
 	end
 end
 
@@ -41,9 +40,9 @@ function BXR:CreateRepStatus()
 		reps:SetAlpha(0.6)
 		reps:Hide()	
 		
+		self:ShowHideRepXpText()
 		ElvUI_ReputationBar:Hide()
 		ElvUI_ReputationBar:SetAlpha(0)
-	else return
 	end
 end
 
@@ -51,7 +50,7 @@ function BXR:RevertXpRep()
 	if E.db.xprep.show == 'NONE' then
 		ElvUI_ExperienceBar:Show()
 		ElvUI_ExperienceBar:SetAlpha(1)
-		
+		if E.db.general.experience.textFormat ~= 'NONE' then ElvUI_ExperienceBar.text:Show() end
 		local xp = ElvUI_ExperienceBar.statusBar
 		xp:ClearAllPoints()
 		xp:SetParent(ElvUI_ExperienceBar)
@@ -67,6 +66,7 @@ function BXR:RevertXpRep()
 
 		ElvUI_ReputationBar:Show()
 		ElvUI_ReputationBar:SetAlpha(1)
+		if E.db.general.reputation.textFormat ~= 'NONE' then ElvUI_ReputationBar.text:Show() end
 		
 		local reps = ElvUI_ReputationBar.statusBar
 		reps:ClearAllPoints()
@@ -75,9 +75,9 @@ function BXR:RevertXpRep()
 		reps:SetAlpha(1)
 		reps:Show()
 		
+		self:ShowHideRepXpText()
 		M:EnableDisable_ReputationBar()
 		M:EnableDisable_ExperienceBar()
-	else return
 	end
 end
 
@@ -123,12 +123,9 @@ end
 function BXR:Initialize()
 	CheckBars()
 	hooksecurefunc(M, 'EnableDisable_ExperienceBar', BXR.CreateXPStatus)
-	--self:CreateXPStatus()
 	hooksecurefunc(M, 'EnableDisable_ReputationBar', BXR.CreateRepStatus)
-	--self:CreateRepStatus()
 	self:ShowHideRepXpText()
 	self:ChangeRepXpFont()
-	--self:RevertXpRep()
 end
 
 E:RegisterModule(BXR:GetName())
