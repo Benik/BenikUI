@@ -1,3 +1,6 @@
+[b]0.35beta[/b] (Mar 23, 2014)
+*Fixed an overnight Tokens Dashboard issue.
+
 [b]0.30beta[/b] (Mar 23, 2014)
 *Fixed all(?) rep/xp issues on playerbar.
 *Almost re-wrote the Tokens Dashboard.
