@@ -76,14 +76,6 @@ function BUIT:CreateTokensHolder()
 		end	
 	end)
 
-	--[[if( Tokens[1] ) then
-		for i = 1, getn( Tokens ) do
-			Tokens[i]:Kill()
-			tholder.backdrop:Kill()
-		end
-		wipe( Tokens )
-	end]]
-
 	local num = 0
 	for i, v in ipairs( currency ) do
 		local id, max = unpack( v )
@@ -106,7 +98,6 @@ function BUIT:UpdateTokens()
 	if( Tokens[1] ) then
 		for i = 1, getn( Tokens ) do
 			Tokens[i]:Kill()
-			--tokenHolder.backdrop:Kill()
 		end
 		wipe( Tokens )
 	end

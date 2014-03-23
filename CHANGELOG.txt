@@ -1,3 +1,6 @@
+[b]0.36beta[/b] (Mar 23, 2014)
+*Made the prev issue permanent.
+
 [b]0.35beta[/b] (Mar 23, 2014)
 *Fixed an overnight Tokens Dashboard issue.
 
