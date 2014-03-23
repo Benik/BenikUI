@@ -1,9 +1,9 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 local DT = E:GetModule('DataTexts')
 local M = E:GetModule('Misc');
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = LibStub('LibSharedMedia-3.0')
 
 local PANEL_HEIGHT = 19;
 local SIDE_BUTTON_WIDTH = 16;
@@ -20,9 +20,9 @@ local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
 local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent)
 
 -- How to appear in datatext options
---L['BuiMiddleDTPanel'] = L["Bui Middle Panel"];
-L['BuiLeftChatDTPanel'] = BUI:cOption(L["BUI Left Chat Panel"]);
-L['BuiRightChatDTPanel'] = BUI:cOption(L["BUI Right Chat Panel"]);
+--L['BuiMiddleDTPanel'] = L['Bui Middle Panel'];
+L['BuiLeftChatDTPanel'] = BUI:cOption(L['BUI Left Chat Panel']);
+L['BuiRightChatDTPanel'] = BUI:cOption(L['BUI Right Chat Panel']);
 
 -- Setting default datatexts
 P.datatexts.panels.BuiLeftChatDTPanel = {
@@ -40,16 +40,16 @@ P.datatexts.panels.BuiRightChatDTPanel = {
 local gsub = string.gsub
 local upper = string.upper
 
-local menuFrame = CreateFrame("Frame", "BuiGameClickMenu", E.UIParent)
-menuFrame:SetTemplate("Transparent", true)
-BuiGameClickMenu:StyleOnFrame()
+local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
+menuFrame:SetTemplate('Transparent', true)
+BuiGameClickMenu:Style('Outside')
 
-local calendar_string = gsub(SLASH_CALENDAR1, "/", "")
-calendar_string = gsub(calendar_string, "^%l", upper)
+local calendar_string = gsub(SLASH_CALENDAR1, '/', '')
+calendar_string = gsub(calendar_string, '^%l', upper)
 
 local menuList = {
 	{text = CHARACTER_BUTTON,
-	func = function() ToggleCharacter("PaperDollFrame") end},
+	func = function() ToggleCharacter('PaperDollFrame') end},
 	{text = SPELLBOOK_ABILITIES_BUTTON,
 	func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
 	{text = MOUNTS_AND_PETS,
@@ -72,7 +72,7 @@ local menuList = {
 			HideUIPanel(PlayerTalentFrame)
 		end
 	end},
-	{text = L["Farm Mode"],
+	{text = L['Farm Mode'],
 	func = FarmMode},
 	{text = TIMEMANAGER_TITLE,
 	func = function() ToggleFrame(TimeManagerFrame) end},		
@@ -104,7 +104,7 @@ local menuList = {
 	end},
 	{text = LFG_TITLE,
 	func = function() PVEFrame_ToggleFrame(); end},
-	{text = L["Raid Browser"],
+	{text = L['Raid Browser'],
 	func = function() ToggleFrame(RaidBrowserFrame); end},
 	{text = ENCOUNTER_JOURNAL, 
 	func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
@@ -150,7 +150,7 @@ function BUI:ChangeLayout()
 	LeftMiniPanel:SetHeight(PANEL_HEIGHT)
 	RightMiniPanel:SetHeight(PANEL_HEIGHT)
 	ElvConfigToggle:SetHeight(PANEL_HEIGHT)
-	ElvConfigToggle.text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+	ElvConfigToggle.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 	ElvConfigToggle.text:SetTextColor(unpackColor(E.db.general.valuecolor))
 
 	LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
@@ -195,7 +195,7 @@ function BUI:ChangeLayout()
 		bbuttons[i]:CreateSoftGlow()
 		bbuttons[i].sglow:Hide()
 		bbuttons[i].text = bbuttons[i]:CreateFontString(nil, 'OVERLAY')
-		bbuttons[i].text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+		bbuttons[i].text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		bbuttons[i].text:SetPoint('CENTER', 1, 0)
 		bbuttons[i].text:SetJustifyH('CENTER')
 		bbuttons[i].text:SetTextColor(unpackColor(E.db.general.valuecolor))
@@ -215,10 +215,10 @@ function BUI:ChangeLayout()
 				else
 					bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
 				end
-				GameTooltip:SetOwner(bbuttons[i], "ANCHOR_TOP", -64, 2 )
+				GameTooltip:SetOwner(bbuttons[i], 'ANCHOR_TOP', -64, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L["Game Menu"], selectioncolor)
-				GameTooltip:AddLine(L["ShiftClick to toggle chat"], 0.7, 0.7, 1)
+				GameTooltip:AddLine(L['Game Menu'], selectioncolor)
+				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
@@ -241,9 +241,9 @@ function BUI:ChangeLayout()
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				bbuttons[i].sglow:Show()
-				GameTooltip:SetOwner(bbuttons[i], "ANCHOR_TOP", 0, 2 )
+				GameTooltip:SetOwner(bbuttons[i], 'ANCHOR_TOP', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L["Toggle Configuration"], selectioncolor)
+				GameTooltip:AddLine(L['Toggle Configuration'], selectioncolor)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
@@ -277,10 +277,10 @@ function BUI:ChangeLayout()
 						end
 					end)
 				end
-				GameTooltip:SetOwner(bbuttons[i], "ANCHOR_TOP", 64, 2 )
+				GameTooltip:SetOwner(bbuttons[i], 'ANCHOR_TOP', 64, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L["Toggle Tokens"], selectioncolor)
-				GameTooltip:AddLine(L["ShiftClick to toggle chat"], 0.7, 0.7, 1)
+				GameTooltip:AddLine(L['Toggle Tokens'], selectioncolor)
+				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
@@ -310,9 +310,9 @@ function BUI:ChangeLayout()
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				bbuttons[i].sglow:Show()
-				GameTooltip:SetOwner(bbuttons[i], "ANCHOR_TOP", 0, 2 )
+				GameTooltip:SetOwner(bbuttons[i], 'ANCHOR_TOP', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L["Toggle Dashboard"], selectioncolor)
+				GameTooltip:AddLine(L['Toggle Dashboard'], selectioncolor)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
@@ -324,8 +324,8 @@ function BUI:ChangeLayout()
 		end
 	end
 
-	LeftChatPanel.backdrop:StyleInFrame("LeftChatPanel_Bui") -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
-	RightChatPanel.backdrop:StyleInFrame('RightChatPanel_Bui')
+	LeftChatPanel.backdrop:Style('Inside', 'LeftChatPanel_Bui') -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
+	RightChatPanel.backdrop:Style('Inside', 'RightChatPanel_Bui')
 	
 	-- Minimap elements styling
 	Minimap.backdrop:StyleOnFrame()

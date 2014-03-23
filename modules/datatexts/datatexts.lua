@@ -5,5 +5,5 @@ local DT = E:GetModule('DataTexts')
 DT.SetupTooltipBui = DT.SetupTooltip
 function DT:SetupTooltip(panel)
 	self:SetupTooltipBui(panel)
-	self.tooltip:StyleOnFrame()
+	self.tooltip:Style('Outside')
 end

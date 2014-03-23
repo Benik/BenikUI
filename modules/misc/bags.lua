@@ -6,7 +6,7 @@ local SPACING = (E.PixelMode and 1 or 5)
 local BORDER = E.Border;
 
 function BUIB:StyleBags()
-	ElvUI_ContainerFrame:StyleOnFrame('playerbags')
+	ElvUI_ContainerFrame:Style('Oustide', 'playerbags')
 	ElvUI_ContainerFrameContainerHolder:StyleOnFrame()
 	
 	if ElvUI_ContainerFrameContainerHolder then
@@ -15,8 +15,8 @@ function BUIB:StyleBags()
 end
 
 function BUIB:OpenBankBags()
-	ElvUI_BankContainerFrame:StyleOnFrame('playerbank')
-	ElvUI_BankContainerFrameContainerHolder:StyleOnFrame()
+	ElvUI_BankContainerFrame:Style('Oustide', 'playerbank')
+	ElvUI_BankContainerFrameContainerHolder:Style('Oustide')
 	
 	if ElvUI_BankContainerFrameContainerHolder then
 		ElvUI_BankContainerFrameContainerHolder:Point('BOTTOMLEFT', playerbank, 'TOPLEFT', 0, SPACING + BORDER)
@@ -29,11 +29,11 @@ function BUIB:SkinBlizzBags()
 	for i=1, NUM_CONTAINER_FRAMES, 1 do
 		local container = _G["ContainerFrame"..i]
 		if container.backdrop then
-			container.backdrop:StyleInFrame()
+			container.backdrop:Style('Inside')
 		end
 	end
 	if BankFrame then
-		BankFrame:StyleOnFrame()
+		BankFrame:Style('Outside')
 	end
 end
 

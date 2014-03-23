@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local LSM = LibStub("LibSharedMedia-3.0")
 
@@ -10,12 +10,10 @@ local function unpackColor(color)
 end
 
 local function CreateSoftShadow(f)
-	if f.shadow then return end
-	
-	borderr, borderg, borderb = 0, 0, 0
-	backdropr, backdropg, backdropb = 0, 0, 0
+	local borderr, borderg, borderb = 0, 0, 0
+	local backdropr, backdropg, backdropb = 0, 0, 0
 
-	local shadow = CreateFrame("Frame", nil, f)
+	local shadow = f.shadow or CreateFrame("Frame", nil, f) -- This way you can replace current shadows.
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, 2, 2)
@@ -30,9 +28,9 @@ end
 
 local function CreateSoftGlow(f)
 	if f.sglow then return end
-	
-	borderr, borderg, borderb = 1, 1, .5
-	backdropr, backdropg, backdropb = 1, 1, .5
+
+	local borderr, borderg, borderb = 1, 1, .5
+	local backdropr, backdropg, backdropb = 1, 1, .5
 
 	local sglow = CreateFrame("Frame", nil, f)
 	sglow:SetFrameLevel(1)
@@ -47,52 +45,29 @@ local function CreateSoftGlow(f)
 	f.sglow = sglow
 end
 
-local function Style(f)
+local function Style(f, template, name)
 	if f.style then return end
 
-	local style = CreateFrame('Frame', nil, f)
-	style:CreateBackdrop('Default', true)
-	style:SetParent(f.backdrop)
-	style:Point('TOPLEFT', f, 'TOPLEFT', 0, 5)
-	style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', 0, SPACING)
+	local style = CreateFrame('Frame', name or nil, f)
+	if not template then
+		style:CreateBackdrop('Default', true)
+	else
+		style:SetTemplate('Default', true)
+	end
+	local tlx, tly, brx, bry
+	if template == 'Inside' then
+		tlx, tly, brx, bry = 0, SPACING, 0, -5
+	elseif template == 'Outside' then
+		tlx, tly, brx, bry = 0, 5, 0, -SPACING
+	elseif template == 'Skin' then
+		tlx, tly, brx, bry = SPACING, 5, -SPACING, 0
+	elseif template == 'Small' then
+		tlx, tly, brx, bry = 0, 6, 0, 1
+	end
+	style:Point('TOPLEFT', f, 'TOPLEFT', tlx, tly)
+	style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
 	
 	f.style = style
-end
-
-local function StyleOnFrame(f, name)
-	if f.styleof then return end
-
-	local styleof = CreateFrame('Frame', name, f)
-	styleof:SetTemplate('Default', true)
-	styleof:SetParent(f)
-	styleof:Point('TOPLEFT', f, 'TOPLEFT', 0, 5) -- 4 or 5?.. that is the question :P
-	styleof:Point('BOTTOMRIGHT', f, 'TOPRIGHT', 0, -SPACING)
-
-	f.styleof = styleof
-end
-
-local function StyleInFrame(f, name)
-	if f.styleif then return end
-
-	local styleif = CreateFrame('Frame', name, f)
-	styleif:SetTemplate('Default', true)
-	styleif:SetParent(f)
-	styleif:Point('TOPLEFT', f, 'TOPLEFT', 0, SPACING)
-	styleif:Point('BOTTOMRIGHT', f, 'TOPRIGHT', 0, -5)
-
-	f.styleif = styleif
-end
-
-local function StyleSkins(f)
-	if f.stylesk then return end
-
-	local stylesk = CreateFrame('Frame', name, f)
-	stylesk:CreateBackdrop('Default', true)
-	stylesk:SetParent(f)
-	stylesk:Point('TOPLEFT', f, 'TOPLEFT', SPACING, 5)
-	stylesk:Point('BOTTOMRIGHT', f, 'TOPRIGHT', -SPACING, 0)
-
-	f.stylesk = stylesk
 end
 
 local function addapi(object)
@@ -100,9 +75,6 @@ local function addapi(object)
 	if not object.CreateSoftShadow then mt.CreateSoftShadow = CreateSoftShadow end
 	if not object.CreateSoftGlow then mt.CreateSoftGlow = CreateSoftGlow end
 	if not object.Style then mt.Style = Style end
-	if not object.StyleOnFrame then mt.StyleOnFrame = StyleOnFrame end
-	if not object.StyleInFrame then mt.StyleInFrame = StyleInFrame end
-	if not object.StyleSkins then mt.StyleSkins = StyleSkins end
 end
 
 local handled = {["Frame"] = true}
@@ -119,14 +91,4 @@ while object do
 	end
 	
 	object = EnumerateFrames(object)
-end
-
-function BUI:StyleBlizSkins(name, parent, ...)
-	local frame = CreateFrame('Frame', name, E.UIParent)
-	frame:CreateBackdrop('Default', true)
-	frame:SetParent(parent)
-	frame:Point('TOPLEFT', parent, 'TOPLEFT', SPACING, 5)
-	frame:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', -SPACING, 0)
-
-	return frame
 end
