@@ -3,7 +3,7 @@ Credits : Sinaris, Elv
 made for BenikUI under Sinaris permission. Big thanks :)
 ]]
 
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUID = E:NewModule('BuiDashboard')
 local LSM = LibStub("LibSharedMedia-3.0")

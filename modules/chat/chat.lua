@@ -12,10 +12,8 @@ end]]
 E.BenikUpdateBlizzardFonts = E.UpdateBlizzardFonts
 function E:UpdateBlizzardFonts()
 	self:BenikUpdateBlizzardFonts()
-	
 	UIDROPDOWNMENU_DEFAULT_TEXT_HEIGHT = 10
 	CHAT_FONT_HEIGHTS = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
-
 end
 
 -- Place the new chat frame
@@ -35,6 +33,6 @@ function CH:UpdateAnchors()
 			end
 		end
 	end
-	
+
 	CH:PositionChat(true)
 end

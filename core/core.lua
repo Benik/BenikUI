@@ -7,7 +7,6 @@ local addon, ns = ...
 
 local backdropr, backdropg, backdropb, backdropa, borderr, borderg, borderb = 0, 0, 0, 1, 0, 0, 0
 
---BUI.TexCoords = {.07, 0.93, -.07, 0.85}
 BUI.TexCoords = {.07, 0.93, -.07, 0.85}
 BUI.Title = "|cff00c0faBenikUI|r"
 BUI.Version = GetAddOnMetadata("ElvUI_BenikUI", "Version")

@@ -16,25 +16,22 @@ end
 if E.db.bab == nil then E.db.bab = {} end
 
 function BAB:StyleBackdrops()
-	
 	-- Actionbar backdrops
 	for i = 1, 10 do
 		local styleBacks = {_G["ElvUI_Bar"..i]}
 		for _, frame in pairs(styleBacks) do
 			if frame.backdrop then
-				frame.backdrop:StyleOnFrame(frame:GetName().."_Bui")
+				frame.backdrop:Style('Outside', frame:GetName().."_Bui")
 			end
 		end	
 	end
-	
 	-- Other bar backdrops
 	local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags}
 	for _, frame in pairs(styleOtherBacks) do
 		if frame.backdrop then
-			frame.backdrop:StyleOnFrame(frame:GetName().."_Bui")
+			frame.backdrop:Style('Outside', frame:GetName().."_Bui")
 		end
 	end
-
 end
 
 function BAB:TestShowBar()
@@ -86,14 +83,14 @@ function BAB:CreateButtons()
 				abtn[i]:SetScript('OnClick', ab3_OnClick)
 			end)
 		end
-		
+
 		-- left button
 		if i == 2 then
 			abtn[i]:Point('LEFT', ElvUI_Bar2_Bui, 'LEFT')	
 			abtn[i]:SetScript('OnEnter', function(self)
 				abtn[i]:SetAlpha(1)
 				abtn[i]:SetScript('OnClick', ab5_OnClick)
-			end)			
+			end)
 		end
 		abtn[i]:SetScript('OnLeave', function(self)
 			abtn[i]:SetAlpha(0)

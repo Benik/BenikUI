@@ -11,7 +11,7 @@ A.CreateIconBui = A.CreateIcon
 function A:CreateIcon(button)
 	self:CreateIconBui(button)
 	
-	button:StyleInFrame('decor')
+	button:Style('Inside', 'decor')
 	button.time:SetShadowColor(0, 0, 0)
 	button.time:SetShadowOffset(1.25, -1.25)
 	button.count:SetShadowColor(0, 0, 0)
