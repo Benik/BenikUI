@@ -261,7 +261,15 @@ function BUIS:Initialize()
 		end)
 	end
 
-	AS:RegisterSkin('BenikUI', BUIS.BenikUISkins)
+	local function BenikUISkins(event, addon)
+		if event == 'ADDON_LOADED' then
+			BUIS:BlizzardUI_LOD_Skins(event, addon)
+		else
+			BUIS:BenikUISkins()
+		end
+	end
+
+	AS:RegisterSkin('BenikUI', BenikUISkins, 'ADDON_LOADED')
 	AS:RegisterSkin('SkadaSkin', SkadaDecor, 2) -- Priority 2 will run after my skin.
 	AS:RegisterSkin('RecountSkin', RecountDecor, 2) -- Priority 2 will run after my skin.
 end
