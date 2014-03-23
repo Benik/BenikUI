@@ -62,7 +62,7 @@ function BUIT:CreateTokensHolder()
 		tholder:CreateBackdrop('Transparent')
 		tholder:Width(DASH_WIDTH)
 		tholder:Point('TOPLEFT', BuiDashboard, 'BOTTOMLEFT', 0, -10)
-		tholder:Style()
+		tholder.backdrop:Style('Outside')
 		tholder.backdrop:Hide()
 	end
 	

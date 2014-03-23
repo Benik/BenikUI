@@ -1,3 +1,7 @@
+[b]0.37beta[/b] (Mar 23, 2014)
+*Azilroka's magic touch overhawled the styling functions and the skins. Still issues to solve though.
+*Added option in ElvUI options -> General -> Media -> Fonts, that will force (or not) BenikUI fonts on names and combat text. This requires a client restart to apply.
+
 [b]0.36beta[/b] (Mar 23, 2014)
 *Made the prev issue permanent.
 

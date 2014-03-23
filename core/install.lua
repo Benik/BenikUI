@@ -533,7 +533,7 @@ function E:SetupBui()
 		f:SetTemplate("Transparent")
 		f:SetPoint("CENTER")
 		f:SetFrameStrata('TOOLTIP')
-		f:StyleOnFrame()
+		f:Style('Outside')
 		
 		f.Title = f:CreateFontString(nil, 'OVERLAY')
 		f.Title:FontTemplate(nil, 17, nil)

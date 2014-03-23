@@ -1,5 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 
+if not E.db.fbf.forceBuiFonts then return end
+
 BenikFont = CreateFrame("Frame", "BenikFont");
 local benikUIfont = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE.TTF"
 

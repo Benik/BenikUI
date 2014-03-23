@@ -16,6 +16,7 @@ local FreeBlizzFrames = {
 	ElvUI_StaticPopup1,
 	ElvUI_StaticPopup2,
 	ElvUI_StaticPopup3,
+	ElvUITutorialWindow, -- nope
 	FriendsFrame,
 	GameMenuFrame,
 	GossipFrame,
@@ -100,10 +101,12 @@ local BlizzUiFrames = {
 function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	for i, v in ipairs(BlizzUiFrames) do
 		local blizzAddon, blizzFrame, elvoption = unpack( v )
-		if (event == "ADDON_LOADED" and addon == blizzAddon) or (blizzFrame and not blizzFrame.style) then
+		--if (event == "ADDON_LOADED" and addon == blizzAddon) or (blizzFrame and not blizzFrame.style) then
+		if (event == "ADDON_LOADED" and addon == blizzAddon) then--or (blizzFrame and not blizzFrame.style) then
 			if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard[elvoption] ~= true then return end
 			if blizzFrame then
-				blizzFrame:Style('Skin') -- Style them all
+				--blizzFrame:Style('Skin') -- Style them all
+				BUI:StyleBlizSkins(nil, blizzFrame)
 				-- Fixes
 				if addon == "Blizzard_AchievementUI" then
 					if AchievementFrameCloseButton then
@@ -127,7 +130,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 					end
 				end
 				if addon == "Blizzard_GuildUI" then
-					GuildMemberDetailFrame:Style('Skin')
+					GuildMemberDetailFrame:Style('Outside')
 				end
 			end
 		end
@@ -142,7 +145,7 @@ function BUIS:BenikUISkins()
 	-- Blizzard Styles
 	for _, frame in pairs(FreeBlizzFrames) do
 		if frame then
-			frame:Style('Skin')
+			frame:Style('Outside')
 		end
 	end
 
@@ -183,11 +186,11 @@ end
 
 function BUIS:Initialize()
 	local AS = E:GetModule('AddOnSkins', true)
-	if not AS then  -- Integrate into AddOnSkins otherwise run the skin changes.
-		self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
-		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
-		return
-	end
+	--if not AS then  -- Integrate into AddOnSkins otherwise run the skin changes.
+		--self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
+		--self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
+		--return
+	--end
 
 	--[[
 	-- If you want the Decor on always then you will have to uncomment and adjust the resize function for the embed otherwise just delete this comment section.
@@ -217,8 +220,8 @@ function BUIS:Initialize()
 			E.Options.args.addonskins.args.embed.args.EmbedLeftWidth.min = floor(EmbedSystem_MainWindow:GetWidth() * .25)
 			E.Options.args.addonskins.args.embed.args.EmbedLeftWidth.max = floor(EmbedSystem_MainWindow:GetWidth() * .75)
 		end
-	end
-	]]
+	end]]
+	
 
 	local function SkadaDecor()
 		if not AS:CheckAddOn('Skada') then return end
@@ -268,7 +271,8 @@ function BUIS:Initialize()
 			BUIS:BenikUISkins()
 		end
 	end
-
+	self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
 	AS:RegisterSkin('BenikUI', BenikUISkins, 'ADDON_LOADED')
 	AS:RegisterSkin('SkadaSkin', SkadaDecor, 2) -- Priority 2 will run after my skin.
 	AS:RegisterSkin('RecountSkin', RecountDecor, 2) -- Priority 2 will run after my skin.

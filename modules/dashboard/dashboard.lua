@@ -24,7 +24,7 @@ function BUID:CreateDashboardHolder()
 	dholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
 	dholder:SetFrameStrata('LOW')
 	dholder:Size(DASH_WIDTH, ((DASH_HEIGHT+10)*DASH_NUM)+(DASH_SPACING*DASH_NUM) + DASH_SPACING)
-	dholder:Style()
+	dholder.backdrop:Style('Outside')
 	E.FrameLocks['BuiDashboard'] = true;
 	E:CreateMover(BuiDashboard, "BuiDashboardMover", L["Dashboard"]) -- temporary
 end
@@ -91,7 +91,6 @@ function BUID:Initialize()
 	self:CreateDashboardHolder()
 	self:CreateBoards()
 	self:HolderWidth()
-	--self:InitTokens()
 	self:CreateFps()
 	self:CreateMs()
 	self:CreateMemory()

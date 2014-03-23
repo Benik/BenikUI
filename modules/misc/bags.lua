@@ -6,8 +6,8 @@ local SPACING = (E.PixelMode and 1 or 5)
 local BORDER = E.Border;
 
 function BUIB:StyleBags()
-	ElvUI_ContainerFrame:Style('Oustide', 'playerbags')
-	ElvUI_ContainerFrameContainerHolder:StyleOnFrame()
+	ElvUI_ContainerFrame:Style('Outside', 'playerbags')
+	ElvUI_ContainerFrameContainerHolder:Style('Outside')
 	
 	if ElvUI_ContainerFrameContainerHolder then
 		ElvUI_ContainerFrameContainerHolder:Point('BOTTOMLEFT', playerbags, 'TOPLEFT', 0, SPACING + BORDER)
@@ -15,8 +15,8 @@ function BUIB:StyleBags()
 end
 
 function BUIB:OpenBankBags()
-	ElvUI_BankContainerFrame:Style('Oustide', 'playerbank')
-	ElvUI_BankContainerFrameContainerHolder:Style('Oustide')
+	ElvUI_BankContainerFrame:Style('Outside', 'playerbank')
+	ElvUI_BankContainerFrameContainerHolder:Style('Outside')
 	
 	if ElvUI_BankContainerFrameContainerHolder then
 		ElvUI_BankContainerFrameContainerHolder:Point('BOTTOMLEFT', playerbank, 'TOPLEFT', 0, SPACING + BORDER)
