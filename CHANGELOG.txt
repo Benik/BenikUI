@@ -1,0 +1,14 @@
+[b]0.30beta[/b] (Mar 23, 2014)
+*Fixed all(?) rep/xp issues on playerbar.
+*Almost re-wrote the Tokens Dashboard.
+*Finished the Dashboards width options.
+*Added decoration in Recount (not embedded) Window. (AddOnSkins_ElvUI required).
+*Added decoration in Skada (not embedded) Window. (AddOnSkins_ElvUI required).
+*Disabled the Auras UpdateHeader function edit (for smaller aura icons height). Isn't updating..
+*Minor file cleanup.
+
+[b]0.25beta[/b] (Mar 21, 2014)
+*Fixed most rep/xp issues on playerbar. 
+
+[b]0.20beta[/b]
+*Initial beta Release

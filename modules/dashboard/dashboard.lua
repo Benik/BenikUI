@@ -29,61 +29,61 @@ function BUID:CreateDashboardHolder()
 	E:CreateMover(BuiDashboard, "BuiDashboardMover", L["Dashboard"]) -- temporary
 end
 
-dboard = {}
+BUID.board = {}
 function BUID:HolderWidth()
 	local DASH_WIDTH = E.db.utils.dwidth
 	BuiDashboard:Width(DASH_WIDTH)
 	for i = 1, DASH_NUM do
-		dboard[i]:Width(DASH_WIDTH - 6)
-		dboard[i].dummyf:Width(DASH_WIDTH - 6)
+		BUID.board[i]:Width(DASH_WIDTH - 6)
+		BUID.board[i].dummyf:Width(DASH_WIDTH - 6)
 	end
 end
 
 function BUID:CreateBoards()
 	for i = 1, DASH_NUM do
-		dboard[i] = CreateFrame('Frame', 'dboard'..i, BuiDashboard)
-		dboard[i]:Width(DASH_WIDTH - 6)
-		dboard[i]:Height(3)
+		BUID.board[i] = CreateFrame('Frame', 'BUID.board'..i, BuiDashboard)
+		BUID.board[i]:Width(DASH_WIDTH - 6)
+		BUID.board[i]:Height(3)
 		
 		if i == 1 then
-			dboard[i]:Point('TOP', BuiDashboard, 'TOP', 0, -DASH_HEIGHT-(DASH_SPACING*3))
+			BUID.board[i]:Point('TOP', BuiDashboard, 'TOP', 0, -DASH_HEIGHT-(DASH_SPACING*3))
 		else
-			dboard[i]:Point('TOP', dboard[i-1], 'BOTTOM', 0, -(DASH_HEIGHT*2)-DASH_SPACING)
+			BUID.board[i]:Point('TOP', BUID.board[i-1], 'BOTTOM', 0, -(DASH_HEIGHT*2)-DASH_SPACING)
 		end
 		
-		dboard[i].dummyf = CreateFrame("Frame", "dummyFrame" .. i, BuiDashboard)
-		dboard[i].dummyf:Width(DASH_WIDTH - 6)
-		dboard[i].dummyf:Height(20)
+		BUID.board[i].dummyf = CreateFrame("Frame", "dummyFrame" .. i, BuiDashboard)
+		BUID.board[i].dummyf:Width(DASH_WIDTH - 6)
+		BUID.board[i].dummyf:Height(20)
 		
 		if i == 1 then
-			dboard[i].dummyf :Point('TOP', BuiDashboard, 'TOP')
+			BUID.board[i].dummyf :Point('TOP', BuiDashboard, 'TOP')
 		else
-			dboard[i].dummyf :Point('TOP', dboard[i-1].dummyf, 'BOTTOM')
+			BUID.board[i].dummyf :Point('TOP', BUID.board[i-1].dummyf, 'BOTTOM')
 		end
 		
-		dboard[i].dummy = dboard[i]:CreateTexture(nil, 'OVERLAY')
-		dboard[i].dummy:SetInside()
-		dboard[i].dummy:SetTexture(E["media"].BuiFlat)
-		dboard[i].dummy:SetVertexColor(1, 1, 1, .2)
+		BUID.board[i].dummy = BUID.board[i]:CreateTexture(nil, 'OVERLAY')
+		BUID.board[i].dummy:SetInside()
+		BUID.board[i].dummy:SetTexture(E["media"].BuiFlat)
+		BUID.board[i].dummy:SetVertexColor(1, 1, 1, .2)
 		
-		dboard[i].Status = CreateFrame("StatusBar", nil, dboard[i])
-		dboard[i].Status:SetInside()
-		dboard[i].Status:SetStatusBarTexture(E["media"].BuiFlat)
-		dboard[i].Status:SetMinMaxValues(0, 100)
-		dboard[i].Status:SetStatusBarColor(1, 0.5, 0.1, 1)
+		BUID.board[i].Status = CreateFrame("StatusBar", nil, BUID.board[i])
+		BUID.board[i].Status:SetInside()
+		BUID.board[i].Status:SetStatusBarTexture(E["media"].BuiFlat)
+		BUID.board[i].Status:SetMinMaxValues(0, 100)
+		BUID.board[i].Status:SetStatusBarColor(1, 0.5, 0.1, 1)
 		
-		dboard[i].spark = dboard[i].Status:CreateTexture(nil, "OVERLAY", nil);
-		dboard[i].spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-		dboard[i].spark:Size(12, 6);
-		dboard[i].spark:SetBlendMode("ADD");
-		dboard[i].spark:Point('CENTER', dboard[i].Status:GetStatusBarTexture(), 'RIGHT')	
+		BUID.board[i].spark = BUID.board[i].Status:CreateTexture(nil, "OVERLAY", nil);
+		BUID.board[i].spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
+		BUID.board[i].spark:Size(12, 6);
+		BUID.board[i].spark:SetBlendMode("ADD");
+		BUID.board[i].spark:Point('CENTER', BUID.board[i].Status:GetStatusBarTexture(), 'RIGHT')	
 		
-		dboard[i].Text = dboard[i].Status:CreateFontString(nil, "OVERLAY")
-		dboard[i].Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-		dboard[i].Text:Point("BOTTOMLEFT", dboard[i], "BOTTOMLEFT", 2, 4)
-		dboard[i].Text:SetJustifyH('LEFT')
-		dboard[i].Text:SetShadowColor(0, 0, 0)
-		dboard[i].Text:SetShadowOffset(1.25, -1.25)
+		BUID.board[i].Text = BUID.board[i].Status:CreateFontString(nil, "OVERLAY")
+		BUID.board[i].Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+		BUID.board[i].Text:Point("BOTTOMLEFT", BUID.board[i], "BOTTOMLEFT", 2, 4)
+		BUID.board[i].Text:SetJustifyH('LEFT')
+		BUID.board[i].Text:SetShadowColor(0, 0, 0)
+		BUID.board[i].Text:SetShadowOffset(1.25, -1.25)
 	end
 end
 
