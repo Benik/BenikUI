@@ -18,12 +18,12 @@ local function buiTable()
 			name = {
 				order = 1,
 				type = "header",
-				name = L["BenikUI "]..BUI:cOption(BUI.Version)..L["by Benik (EU-Emerald Dream)"],
+				name = L["BenikUI "]..BUI:cOption(BUI.Version)..L[" by Benik (EU-Emerald Dream)"],
 			},		
 			desc = {
 				order = 2,
 				type = "description",
-				name = L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "]..BUI:cOption(L["light blue color."]),
+				name = L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options, marked with "]..BUI:cOption(L["light blue color."]),
 			},
 			spacer1 = {
 				order = 3,

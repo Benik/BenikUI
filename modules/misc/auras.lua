@@ -92,7 +92,7 @@ function A:UpdateAura(button, index)
 	end
 end
 
---[[A.UpdateHeaderBui = A.UpdateHeader
+A.UpdateHeaderBui = A.UpdateHeader
 function A:UpdateHeader(header)
 	self:UpdateHeaderBui(header)
 	if(not E.private.auras.enable) then return end
@@ -128,7 +128,7 @@ function A:UpdateHeader(header)
 		index = index + 1
 		child = select(index, header:GetChildren())
 	end
-end]]
+end
 
 A.UpdateTempEnchantBui = A.UpdateTempEnchant
 function A:UpdateTempEnchant(button, index)

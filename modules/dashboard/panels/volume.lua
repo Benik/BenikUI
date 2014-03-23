@@ -93,7 +93,7 @@ function BUID:CreateVolume()
 	
 	local dummy = CreateFrame('Frame', 'Voldummy', BuiDashboard)
 	dummy:Size(16,16)
-	dummy:Point("BOTTOMRIGHT", BUID.board[id], "BOTTOMRIGHT", 2, 0)
+	dummy:Point("BOTTOMRIGHT", dboard[id], "BOTTOMRIGHT", 2, 0)
 	dummy:SetFrameStrata('LOW')
 	dummy.text = dummy:CreateFontString(nil, "OVERLAY")
 	dummy.text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
@@ -109,7 +109,7 @@ function BUID:CreateVolume()
 	dummy:SetScript("OnMouseWheel", dummy_OnMouseWheel)
 	dummy:SetScript("OnMouseUp", dummy_OnClick)
 
-	BUID.board[id].Status:SetScript("OnUpdate", function(self)
+	dboard[id].Status:SetScript("OnUpdate", function(self)
 		local volGet = GetCVar("Sound_MasterVolume")
 		local volume = tonumber(E:Round(100 * volGet, 0))
 
@@ -144,10 +144,10 @@ function BUID:CreateVolume()
 		
 		dummy.text:SetText(icon)
 		local displayFormat = string.join("", VOLUME..":", statusColors[color], " %d%%|r")
-		BUID.board[id].Text:SetFormattedText(displayFormat, volume)
+		dboard[id].Text:SetFormattedText(displayFormat, volume)
 	end)
-	BUID.board[id].Status:RegisterEvent("VARIABLES_LOADED")
-	BUID.board[id].Status:RegisterEvent("CVAR_UPDATE")
+	dboard[id].Status:RegisterEvent("VARIABLES_LOADED")
+	dboard[id].Status:RegisterEvent("CVAR_UPDATE")
 end
 
 

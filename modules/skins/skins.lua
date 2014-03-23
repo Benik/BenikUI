@@ -162,40 +162,8 @@ recountFrame:SetScript("OnEvent",function(self, event)
 			end)
 			Recount_DetailWindow.TitleBackground:StripTextures()
 			StyleRecount(nil, Recount_DetailWindow)
-			StyleRecount('RecountDecor', Recount_MainWindow)
-			if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedRecount then
-				RecountDecor:Hide()
-			else
-				RecountDecor:Show()
-			end
 		end
 		recountFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
-	end
-end)
-
---------------
--- Style Skada
---------------
-local skadaFrame = CreateFrame("Frame")
-skadaFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-skadaFrame:SetScript("OnEvent",function(self, event)
-	if event == "PLAYER_ENTERING_WORLD" then
-		if IsAddOnLoaded("Skada") and IsAddOnLoaded("AddOnSkins_ElvUI") then
-			local SkadaDisplayBar = Skada.displays['bar']
-			hooksecurefunc(SkadaDisplayBar, 'ApplySettings', function(self, win)
-				local skada = win.bargroup
-				skada.backdrop:StyleOnFrame('skadaDecor')
-				if win.db.enabletitle then
-					skada.button:StripTextures()
-				end
-				if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
-					skadaDecor:Hide()
-				else
-					skadaDecor:Show()
-				end
-			end)		
-		end
-		skadaFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end
 end)
 

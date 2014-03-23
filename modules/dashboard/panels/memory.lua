@@ -59,25 +59,25 @@ local function Update( self, t )
 	if( int < 0 ) then
 		RebuildAddonList( self )
 		local total = UpdateMemory()
-		BUID.board[id].Text:SetText( "Memory: "..formatMem( total ) )
-		BUID.board[id].Status:SetMinMaxValues( 0, 100000 )
-		BUID.board[id].Status:SetValue( total )
+		dboard[id].Text:SetText( "Memory: "..formatMem( total ) )
+		dboard[id].Status:SetMinMaxValues( 0, 100000 )
+		dboard[id].Status:SetValue( total )
 		int = 10
 	end
 end
 
 function BUID:CreateMemory()
 	local id = 3
-	BUID.board[id].dummyf:SetScript( "OnMouseDown", function ()
+	dboard[id].dummyf:SetScript( "OnMouseDown", function ()
 		collectgarbage( "collect" )
-		Update( BUID.board[id].Status, 10 )
+		Update( dboard[id].Status, 10 )
 	end )
 
-	BUID.board[id].dummyf:SetScript( "OnEnter", function( self )
+	dboard[id].dummyf:SetScript( "OnEnter", function( self )
 		if( not InCombatLockdown() ) then
 			self.tooltip = true
 			local bandwidth = GetAvailableBandwidth()
-			GameTooltip:SetOwner( BUID.board[id], "ANCHOR_RIGHT", 5, 0 )
+			GameTooltip:SetOwner( dboard[id], "ANCHOR_RIGHT", 5, 0 )
 			GameTooltip:ClearLines()
 			if( bandwidth ~= 0 ) then
 				GameTooltip:AddDoubleLine( L['Bandwidth'], string.format( bandwidthString, bandwidth ), 0.69, 0.31, 0.31, 0.84, 0.75, 0.65 )
@@ -97,15 +97,15 @@ function BUID:CreateMemory()
 		end
 	end )
 	
-	BUID.board[id].dummyf:SetScript( "OnLeave", function( self )
+	dboard[id].dummyf:SetScript( "OnLeave", function( self )
 		self.tooltip = false
 		GameTooltip:Hide()
 	end )
 	
-	BUID.board[id].Status:SetScript( "OnUpdate", Update )
-	BUID.board[id].Status:SetScript( "OnEvent", function( self, event )
+	dboard[id].Status:SetScript( "OnUpdate", Update )
+	dboard[id].Status:SetScript( "OnEvent", function( self, event )
 		collectgarbage( "collect" )
 	end )
 	
-	Update( BUID.board[id].Status, 10 )
+	Update( dboard[id].Status, 10 )
 end

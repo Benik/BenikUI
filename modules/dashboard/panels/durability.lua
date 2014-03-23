@@ -42,7 +42,7 @@ local slots = {
 }
 function BUID:CreateDurability()
 	local id = 4
-	BUID.board[id].Status:SetScript("OnEvent", function( self, ...)
+	dboard[id].Status:SetScript("OnEvent", function( self, ...)
 
 		lastPanel = self
 		totalDurability = 100
@@ -60,7 +60,7 @@ function BUID:CreateDurability()
 			end
 		end
 		
-		BUID.board[id].Text:SetFormattedText(displayString, totalDurability)
+		dboard[id].Text:SetFormattedText(displayString, totalDurability)
 
 		self:SetMinMaxValues(0, 100)
 		self:SetValue(totalDurability)
@@ -73,14 +73,14 @@ function BUID:CreateDurability()
 			self:SetStatusBarColor(1, 75 / 255, 75 / 255, 0.5, .8)
 		end
 	end)
-	BUID.board[id].dummyf:EnableMouse(true)
-	BUID.board[id].dummyf:SetScript('OnEnter', OnEnter)
-	BUID.board[id].dummyf:SetScript('OnLeave', OnLeave)
-	BUID.board[id]:SetScript('OnMouseUp', Click)
+	dboard[id].dummyf:EnableMouse(true)
+	dboard[id].dummyf:SetScript('OnEnter', OnEnter)
+	dboard[id].dummyf:SetScript('OnLeave', OnLeave)
+	dboard[id]:SetScript('OnMouseUp', Click)
 
-	BUID.board[id].Status:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
-	BUID.board[id].Status:RegisterEvent("MERCHANT_SHOW")
-	BUID.board[id].Status:RegisterEvent("PLAYER_ENTERING_WORLD")
+	dboard[id].Status:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
+	dboard[id].Status:RegisterEvent("MERCHANT_SHOW")
+	dboard[id].Status:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 local function ValueColorUpdate(hex, r, g, b)
