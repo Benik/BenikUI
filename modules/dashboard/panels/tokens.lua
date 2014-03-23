@@ -1,10 +1,10 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local BUI = E:GetModule('BenikUI');
-local BUID = E:GetModule('BuiDashboard')
+local BUIT = E:NewModule('BuiTokensDashboard', 'AceEvent-3.0', 'AceHook-3.0')
 local LSM = LibStub("LibSharedMedia-3.0")
 
 local DASH_HEIGHT = 20
-local DASH_WIDTH = 150
+local DASH_WIDTH = E.db.utils.twidth or E.db.utils.dwidth or 150
 local DASH_SPACING = 3
 local SPACING = (E.PixelMode and 1 or 5)
 
@@ -55,17 +55,16 @@ local function tholderOnFade()
 	tokenHolder:Hide()
 end
 
-local function updateCurrency()
+function BUIT:CreateTokensHolder()
 	local tholder
 	if not tholder then
 		tholder = CreateFrame('Frame', 'tokenHolder', E.UIParent)
 		tholder:CreateBackdrop('Transparent')
 		tholder:Width(DASH_WIDTH)
 		tholder:Point('TOPLEFT', BuiDashboard, 'BOTTOMLEFT', 0, -10)
+		tholder:Style()
+		tholder.backdrop:Hide()
 	end
-	tholder:Style()
-	tholder.backdrop:Hide()
-	E.FrameLocks['tokenHolder'] = true;
 	
 	tholder:SetScript("OnEvent",function(self, event)
 		if event == "PLAYER_REGEN_DISABLED" then
@@ -88,35 +87,52 @@ local function updateCurrency()
 	local num = 0
 	for i, v in ipairs( currency ) do
 		local id, max = unpack( v )
-		local name, amount, icon = GetCurrencyInfo( id )
+		local name, amount = GetCurrencyInfo( id )
 
 		if( name and amount > 0 ) then
-			num = num + 1 or -1
+			num = num + 1
 			tholder:Height(((DASH_HEIGHT + SPACING) * num) + SPACING)
 			tholder.backdrop:Show()
+		end
+	end
+	self:UpdateTHolderDimensions()
+	tokenHolder:RegisterEvent("PLAYER_REGEN_DISABLED")
+	tokenHolder:RegisterEvent("PLAYER_REGEN_ENABLED")
+	E.FrameLocks['tokenHolder'] = true;
+	E:CreateMover(tokenHolder, "tokenHolderMover", L["tokenHolder"])
+end
 
-			local TokensFrame = CreateFrame( "Frame", "Tokens" .. id, tokenHolder)
-			TokensFrame:Size(DASH_WIDTH, DASH_HEIGHT)
+function BUIT:UpdateTokens()
+
+	for i, v in ipairs(currency) do
+		local id, max = unpack(v)
+		local name, amount, icon = GetCurrencyInfo(id)
+
+		if(name and amount > 0) then
+			local TokensFrame = CreateFrame("Frame", "Tokens" .. id, tokenHolder)
+			TokensFrame:Height(DASH_HEIGHT)
+			TokensFrame:Width(DASH_WIDTH)
 			TokensFrame:Point("TOPLEFT", tokenHolder, "TOPLEFT", SPACING, -SPACING)
-			TokensFrame:EnableMouse( true )
+			TokensFrame:EnableMouse(true)
 
-			TokensFrame.dummy = CreateFrame( "Frame", "TokensDummy" .. id, TokensFrame )
-			TokensFrame.dummy:Point( "BOTTOMLEFT", TokensFrame, "BOTTOMLEFT", 2, 2 )
-			TokensFrame.dummy:Size(DASH_WIDTH - 26, 3)
+			TokensFrame.dummy = CreateFrame("Frame", "TokensDummy" .. id, TokensFrame)
+			TokensFrame.dummy:Point("BOTTOMLEFT", TokensFrame, "BOTTOMLEFT", 2, 2)
+			TokensFrame.dummy:Point("BOTTOMRIGHT", TokensFrame, "BOTTOMRIGHT", -24, 0)
+			TokensFrame.dummy:Height(3)
 
 			TokensFrame.dummy.dummyStatus = TokensFrame.dummy:CreateTexture(nil, 'OVERLAY')
 			TokensFrame.dummy.dummyStatus:SetInside()
-			TokensFrame.dummy.dummyStatus:SetTexture(E["media"].BuiFlat) -- check BuiFlat ain't loading
+			TokensFrame.dummy.dummyStatus:SetTexture(E["media"].BuiFlat)
 			TokensFrame.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
 
-			TokensFrame.Status = CreateFrame( "StatusBar", "TokensStatus" .. id, TokensFrame.dummy )
-			TokensFrame.Status:SetStatusBarTexture(E["media"].BuiFlat) -- check BuiFlat ain't loading
+			TokensFrame.Status = CreateFrame("StatusBar", "TokensStatus" .. id, TokensFrame.dummy)
+			TokensFrame.Status:SetStatusBarTexture(E["media"].BuiFlat)
 			if max == 0 then
-				TokensFrame.Status:SetMinMaxValues( 0, amount )
+				TokensFrame.Status:SetMinMaxValues(0, amount)
 			else
-				TokensFrame.Status:SetMinMaxValues( 0, max )
+				TokensFrame.Status:SetMinMaxValues(0, max)
 			end
-			TokensFrame.Status:SetValue( amount )
+			TokensFrame.Status:SetValue(amount)
 			TokensFrame.Status:SetStatusBarColor(1, 180 / 255, 0, 1)
 			TokensFrame.Status:SetInside()
 			
@@ -126,67 +142,92 @@ local function updateCurrency()
 			TokensFrame.spark:SetBlendMode("ADD");
 			TokensFrame.spark:SetPoint('CENTER', TokensFrame.Status:GetStatusBarTexture(), 'RIGHT')
 
-			TokensFrame.Text = TokensFrame.Status:CreateFontString( nil, "OVERLAY" )
+			TokensFrame.Text = TokensFrame.Status:CreateFontString(nil, "OVERLAY")
 			TokensFrame.Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-			TokensFrame.Text:Point( "CENTER", TokensFrame, "CENTER", -10, 1 )
-			TokensFrame.Text:Width( TokensFrame:GetWidth() - 20 )
+			TokensFrame.Text:Point("CENTER", TokensFrame, "CENTER", -10, 1)
+			TokensFrame.Text:Width(TokensFrame:GetWidth() - 20)
 			TokensFrame.Text:SetWordWrap(false)
-			TokensFrame.Text:SetShadowColor( 0, 0, 0 )
-			TokensFrame.Text:SetShadowOffset( 1.25, -1.25 )
+			TokensFrame.Text:SetShadowColor(0, 0, 0)
+			TokensFrame.Text:SetShadowOffset(1.25, -1.25)
 			if max == 0 then
-				TokensFrame.Text:SetText( format( "%s", amount ) )
+				TokensFrame.Text:SetText(format("%s", amount))
 			else
-				TokensFrame.Text:SetText( format( "%s / %s", amount, max ) )
+				TokensFrame.Text:SetText(format("%s / %s", amount, max))
 			end
 
-			TokensFrame.IconBG = CreateFrame( "Frame", "TokensIconBG" .. id, TokensFrame )
+			TokensFrame.IconBG = CreateFrame("Frame", "TokensIconBG" .. id, TokensFrame)
 			TokensFrame.IconBG:SetTemplate('Transparent')
-			TokensFrame.IconBG:Size( 18 )
-			TokensFrame.IconBG:Point( "BOTTOMRIGHT", TokensFrame, "BOTTOMRIGHT", -SPACING*2, SPACING )
+			TokensFrame.IconBG:Size(18)
+			TokensFrame.IconBG:Point("BOTTOMRIGHT", TokensFrame, "BOTTOMRIGHT", -SPACING*2, SPACING)
 
-			TokensFrame.Icon = TokensFrame.IconBG:CreateTexture( nil, "ARTWORK" )
-			TokensFrame.Icon:Point( "TOPLEFT", TokensFrame.IconBG, "TOPLEFT", SPACING, -SPACING )
-			TokensFrame.Icon:Point( "BOTTOMRIGHT", TokensFrame.IconBG, "BOTTOMRIGHT", -SPACING, SPACING )
-			TokensFrame.Icon:SetTexCoord( 0.08, 0.92, 0.08, 0.92 )
-			TokensFrame.Icon:SetTexture( icon )
+			TokensFrame.Icon = TokensFrame.IconBG:CreateTexture(nil, "ARTWORK")
+			TokensFrame.Icon:Point("TOPLEFT", TokensFrame.IconBG, "TOPLEFT", SPACING, -SPACING)
+			TokensFrame.Icon:Point("BOTTOMRIGHT", TokensFrame.IconBG, "BOTTOMRIGHT", -SPACING, SPACING)
+			TokensFrame.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+			TokensFrame.Icon:SetTexture(icon)
 
-			TokensFrame:SetScript( "OnEnter", function( self )
-				TokensFrame.Text:SetText( format( "%s", name ) )
+			TokensFrame:SetScript("OnEnter", function(self)
+				TokensFrame.Text:SetText(format("%s", name))
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 3, 0);
 				GameTooltip:SetCurrencyByID(id)
-			end )
+			end)
 				
-			TokensFrame:SetScript( "OnLeave", function( self )
+			TokensFrame:SetScript("OnLeave", function(self)
 				if max == 0 then
-					TokensFrame.Text:SetText( format( "%s", amount ) )
+					TokensFrame.Text:SetText(format("%s", amount))
 				else
-					TokensFrame.Text:SetText( format( "%s / %s", amount, max ) )
+					TokensFrame.Text:SetText(format("%s / %s", amount, max))
 				end				
 				GameTooltip:Hide()
-			end )
+			end)
 
-			tinsert( Tokens, TokensFrame )
+			tinsert(Tokens, TokensFrame)
 		end
 	end
 
-	for key, frame in ipairs( Tokens ) do
+	for key, frame in ipairs(Tokens) do
 		frame:ClearAllPoints()
-		if( key == 1 ) then
+		if(key == 1) then
 			frame:Point( "TOPLEFT", tokenHolder, "TOPLEFT", 0, -SPACING)
 		else
-			frame:Point( "TOP", Tokens[key - 1], "BOTTOM", 0, -SPACING )
+			frame:Point("TOP", Tokens[key - 1], "BOTTOM", 0, -SPACING)
 		end
 	end
-	tokenHolder:RegisterEvent("PLAYER_REGEN_DISABLED")
-	tokenHolder:RegisterEvent("PLAYER_REGEN_ENABLED")
-	E:CreateMover(tokenHolder, "tokenHolderMover", L["tokenHolder"])
+end
+
+function BUIT:TokenEvents()
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", 'UpdateTokens')
+	self:RegisterEvent("PLAYER_HONOR_GAIN", 'UpdateTokens')
+	self:RegisterEvent("CURRENCY_DISPLAY_UPDATE", 'UpdateTokens')
+	self:SecureHook("BackpackTokenFrame_Update", 'UpdateTokens')
+	self:SecureHook("TokenFrame_Update", 'UpdateTokens')
 end
 
 
-local updater = CreateFrame("Frame")
-updater:RegisterEvent("PLAYER_ENTERING_WORLD")
-updater:RegisterEvent("PLAYER_HONOR_GAIN")
-updater:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
-updater:SetScript("OnEvent", updateCurrency)
-hooksecurefunc("BackpackTokenFrame_Update", updateCurrency)
-hooksecurefunc("TokenFrame_Update", updateCurrency)
+function BUIT:UpdateTHolderDimensions()
+	if E.db.utils.sameWidth then
+		tokenHolder:Width(E.db.utils.dwidth)
+	else
+		tokenHolder:Width(E.db.utils.twidth)
+	end
+	for key, frame in ipairs(Tokens) do
+		if E.db.utils.sameWidth then
+			frame:Width(E.db.utils.dwidth)
+		else
+			frame:Width(E.db.utils.twidth)
+		end
+	end
+end
+
+function BUIT:TokenDefaults()
+	if E.db.utils.twidth == nil then E.db.utils.twidth = 150 end
+end
+
+function BUIT:Initialize()
+	self:TokenDefaults()
+	self:CreateTokensHolder()
+	self:TokenEvents()
+	self:UpdateTHolderDimensions()
+end
+
+E:RegisterModule(BUIT:GetName())

@@ -49,7 +49,7 @@ local function xprepTable()
 				name = L["Hide Text"],
 				desc = L["Hides the XP or Rep text from the statusbars"],
 				get = function(info) return E.db.xprep[ info[#info] ] end,
-				set = function(info, value) E.db.xprep[ info[#info] ] = value; BXR:ShowHideRepXpText(); end,
+				set = function(info, value) E.db.xprep[ info[#info] ] = value; BXR:ShowHideXpText(); BXR:ShowHideRepText(); end,
 			},
 			textStyle = {
 				order = 3,

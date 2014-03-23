@@ -12,7 +12,7 @@ local statusColors = {
 
 function BUID:CreateMs()
 	local id = 2
-	dboard[id].Status:SetScript("OnUpdate", function(self, elapsed)
+	BUID.board[id].Status:SetScript("OnUpdate", function(self, elapsed)
 		LastUpdate = LastUpdate - elapsed
 
 		if(LastUpdate < 0) then
@@ -33,7 +33,7 @@ function BUID:CreateMs()
 				mscolor = 3
 			end
 			local displayFormat = string.join("", "MS: ", statusColors[mscolor], "%d|r")
-			dboard[id].Text:SetFormattedText(displayFormat, value)
+			BUID.board[id].Text:SetFormattedText(displayFormat, value)
 			LastUpdate = 1
 		end
 	end)
