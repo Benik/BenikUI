@@ -1,5 +1,9 @@
+[b]0.38beta[/b] (Mar 25, 2014)
+*Done with skin styling. Not with this result without Azilroka. Big thanks :)
+*Added BenikUI Style in TinyDPS skin
+
 [b]0.37beta[/b] (Mar 23, 2014)
-*Azilroka's magic touch overhawled the styling functions and the skins. Still issues to solve though.
+*Azilroka's magic touch overhauled the styling functions and the skins. Still issues to solve though.
 *Added option in ElvUI options -> General -> Media -> Fonts, that will force (or not) BenikUI fonts on names and combat text. This requires a client restart to apply.
 
 [b]0.36beta[/b] (Mar 23, 2014)
