@@ -83,7 +83,7 @@ function A:UpdateAura(button, index)
 	-- Set color and value of statusbar
 	local timeLeft = button.timeLeft
 	if not timeLeft then
-		button.Bar:SetStatusBarColor(0, 0, 0, 0)
+		button.Bar:Hide()
 	else
 	local r, g, b
 		button.Bar:SetValue(timeLeft)

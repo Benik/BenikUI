@@ -6,6 +6,7 @@ local BAB = E:GetModule('BuiActionbars');
 -- Defaults
 P['bab'] = {
 	['enable'] = true,
+	['chooseAb'] = 'BAR2',
 }
 
 local function abTable()
@@ -25,7 +26,20 @@ local function abTable()
 						order = 1,
 						type = "toggle",
 						name = SHOW,
-						desc = L["Show small buttons over Actionbar 2 decoration, to show/hide Actionbars 3 or 5."],
+						desc = L["Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5."],
+						get = function(info) return E.db.bab[ info[#info] ] end,
+						set = function(info, value) E.db.bab[ info[#info] ] = value; BAB:ShowButtons() end,	
+					},
+					chooseAb = {
+						order = 1,
+						type = "select",
+						name = L["Show in"],
+						desc = L["Choose Actionbar to show to"],
+						values = {
+							['BAR1'] = L['Bar 1'],
+							['BAR2'] = L['Bar 2'],
+						},
+						disabled = function() return not E.db.bab.enable end,
 						get = function(info) return E.db.bab[ info[#info] ] end,
 						set = function(info, value) E.db.bab[ info[#info] ] = value; BAB:ShowButtons() end,	
 					},

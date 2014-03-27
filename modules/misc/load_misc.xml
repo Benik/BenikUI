@@ -1,6 +1,5 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<script file="bags.lua"/>
-	<script file="fonts.lua"/>
 	<script file="auras.lua"/>
 	<script file="threat.lua"/>
 	<script file="tooltip.lua"/>

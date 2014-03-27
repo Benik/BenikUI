@@ -2,7 +2,6 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local BUI = E:GetModule('BenikUI');
 
 if E.db.bui == nil then E.db.bui = {} end
-if E.db.fbf == nil then E.db.fbf = {} end
 
 -- Defaults
 P['bui'] = {
@@ -47,29 +46,3 @@ local function buiTable()
 end
 
 table.insert(E.BuiConfig, buiTable)
-
--- Defaults
-P['fbf'] = {
-	['forceBuiFonts'] = true,
-}
-
-local function buiGeneralTable()
-	E.Options.args.general.args.media.args.fbf = {
-		order = 1,
-		type = 'group',
-		name = BUI.Title,
-		guiInline = true,
-		args = {
-			forceBuiFonts = {
-				order = 1,
-				type = "toggle",
-				name = BUI:cOption(L["Force BenikUI fonts"]),
-				desc = L["The font that appears on the text above players heads and combat text. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r"],
-				get = function(info) return E.db.fbf[ info[#info] ] end,
-				set = function(info, value) E.db.fbf[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-			},
-		},
-	}
-end
-
-table.insert(E.BuiConfig, buiGeneralTable)

@@ -33,7 +33,7 @@ local FreeBlizzFrames = {
 	PetitionFrame, -- check
 	PetJournalParent,
 	PetPaperDollFrame,
-	PetStableFrame, -- check
+	PetStableFrame,
 	QuestLogDetailFrame,
 	QuestLogFrame,
 	QueueStatusFrame,
@@ -53,7 +53,7 @@ local FreeBlizzFrames = {
 	TradeFrame, -- check
 	TransmogrifyConfirmationPopup,
 	VideoOptionsFrame,
-	--WorldMapFrame, -- checked not loading on big map, only small but decor shifts to the left
+	WorldMapFrame, -- checked not loading on big map
 	WorldStateScoreScrollFrame, -- check
 }
 
@@ -174,115 +174,96 @@ function BUIS:BenikUISkins()
 
 	MerchantFrame.style:Point('TOPLEFT', MerchantFrame, 'TOPLEFT', 6, 5)
 	MerchantFrame.style:Point('BOTTOMRIGHT', MerchantFrame, 'TOPRIGHT', 2, -1)
-end
+	
+	WorldMapFrame.style:Point('TOPLEFT', WorldMapFrame, 'TOPLEFT', 2, 6)
+	WorldMapFrame.style:Point('BOTTOMRIGHT', WorldMapFrame, 'TOPRIGHT', 2, 1)
 
-function BUIS:Initialize()
-	self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
-	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
-end
-
-----------------
--- Style Recount
-----------------
-local function StyleRecount(name, parent, ...)
-	local frame = CreateFrame('Frame', name, E.UIParent)
-	frame:SetTemplate('Default', true)
-	frame:SetParent(parent)
-	frame:Point('TOPLEFT', parent, 'TOPLEFT', 0, -SPACING)
-	frame:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', 0, -7)
-end
-
-local recountFrame = CreateFrame("Frame")
-recountFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-recountFrame:SetScript("OnEvent",function(self, event)
-	if IsAddOnLoaded("Recount") and IsAddOnLoaded("AddOnSkins_ElvUI") then
-		Recount_MainWindow.TitleBackground:StripTextures()
-		Recount_ConfigWindow.TitleBackground:StripTextures()
-		StyleRecount(nil, Recount_ConfigWindow)
-		hooksecurefunc(Recount, 'ShowReport', function(self)
-			if Recount_ReportWindow.TitleBackground then -- Without this check, it pops lua error
-				Recount_ReportWindow.TitleBackground:StripTextures()
-				StyleRecount(nil, Recount_ReportWindow)
-			end
-		end)
-		Recount_DetailWindow.TitleBackground:StripTextures()
-		StyleRecount(nil, Recount_DetailWindow)
-		StyleRecount('RecountDecor', Recount_MainWindow)
-		hooksecurefunc(AS, 'Embed_Check', function(self, message)
-			if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedRecount then
-				RecountDecor:Hide()
-			else
-				RecountDecor:Show()
-			end
-		end)
-	end
-	recountFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end)
-
---------------
--- Style Skada
---------------
-local skadaFrame = CreateFrame("Frame")
-skadaFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-skadaFrame:SetScript("OnEvent",function(self, event)
-	if IsAddOnLoaded("Skada") and IsAddOnLoaded("AddOnSkins_ElvUI") then
-		local SkadaDisplayBar = Skada.displays['bar']
-		hooksecurefunc(SkadaDisplayBar, 'ApplySettings', function(self, win)
-			local skada = win.bargroup
-			skada.backdrop:Style('Outside')
-			if win.db.enabletitle then
-				skada.button:StripTextures()
-			end
-			if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
-				skada.backdrop.style:Hide()
-			else
-				skada.backdrop.style:Show()
-			end
-		end)		
-	end
-	skadaFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end)
-
-----------------
--- style TinyDPS
-----------------
-local tdFrame = CreateFrame("Frame")
-tdFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-tdFrame:SetScript("OnEvent",function(self, event)
-	if IsAddOnLoaded("TinyDPS") and IsAddOnLoaded("AddOnSkins_ElvUI") then
-		tdpsFrame:Style('Outside')
-	end
-	tdFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end)
-
----------------
--- LocationPlus
----------------
-local lpFrame = CreateFrame("Frame")
-lpFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-lpFrame:SetScript("OnEvent",function(self, event)
-	if IsAddOnLoaded("ElvUI_LocPlus") then
-		local framestoskin = {LeftCoordDtPanel, RightCoordDtPanel, LocationPlusPanel, XCoordsPanel, YCoordsPanel}
-		for _, frame in pairs(framestoskin) do
-			frame:Style('Outside')
-		end
-	end
-	lpFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end)
-
----------------
--- LocationLite
----------------
-local llFrame = CreateFrame("Frame")
-llFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-llFrame:SetScript("OnEvent",function(self, event)
-	if IsAddOnLoaded("ElvUI_LocLite") then
+	-- AddOn Styles
+	if IsAddOnLoaded('ElvUI_LocLite') then
 		local framestoskin = {LocationLitePanel, XCoordsLite, YCoordsLite}
 		for _, frame in pairs(framestoskin) do
 			frame:Style('Outside')
 		end
 	end
-	llFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end)
+	if IsAddOnLoaded('ElvUI_LocPlus') then
+		local framestoskin = {LeftCoordDtPanel, RightCoordDtPanel, LocationPlusPanel, XCoordsPanel, YCoordsPanel}
+		for _, frame in pairs(framestoskin) do
+			frame:Style('Outside')
+		end
+	end
+end
+
+function BUIS:Initialize()
+	if not AS then  -- If AddOnSkins is not found then run the skin changes.
+		self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
+		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
+	end
+end
+
+if AS then
+	V['addonskins']['BenikUI'] = true -- Default added
+
+	local function SkadaDecor()
+		if not AS:CheckAddOn('Skada') then return end
+		hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
+			local skada = win.bargroup
+			skada.backdrop:Style('Outside')
+			if win.db.enabletitle then
+				skada.button:StripTextures()
+			end
+			hooksecurefunc(AS, 'Embed_Check', function(self, message) -- Hook in a hook :P
+				if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
+					skada.backdrop.style:Hide()
+				else
+					skada.backdrop.style:Show()
+				end
+			end)
+		end)
+	end
+	
+	local function StyleRecount(name, parent, ...)
+		local recountdecor = CreateFrame('Frame', name, E.UIParent)
+		recountdecor:SetTemplate('Default', true)
+		recountdecor:SetParent(parent)
+		recountdecor:Point('TOPLEFT', parent, 'TOPLEFT', 0, -SPACING)
+		recountdecor:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', 0, -7)
+
+		return recountdecor
+	end
+
+	local function RecountDecor()
+	if not AS:CheckAddOn('Recount') then return end
+	StyleRecount('recountMain', Recount_MainWindow)
+	Recount_MainWindow.TitleBackground:StripTextures()
+	Recount_ConfigWindow.TitleBackground:StripTextures()
+	StyleRecount(nil, Recount_ConfigWindow)
+	hooksecurefunc(Recount, 'ShowReport', function(self)
+		if Recount_ReportWindow.TitleBackground then
+			Recount_ReportWindow.TitleBackground:StripTextures()
+			StyleRecount(nil, Recount_ReportWindow)
+		end
+	end)
+	Recount_DetailWindow.TitleBackground:StripTextures()
+	StyleRecount(nil, Recount_DetailWindow)
+		hooksecurefunc(AS, 'Embed_Check', function(self, message)
+			if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedRecount then
+				recountMain:Hide()
+			else
+				recountMain:Show()
+			end
+		end)
+	end
+
+	local function BenikUISkins(self, event, addon)
+		if event == 'ADDON_LOADED' then
+			BUIS:BlizzardUI_LOD_Skins(event, addon)
+			BUIS:BenikUISkins()
+		end
+	end
+
+	AS:RegisterSkin('BenikUI', BenikUISkins, 'ADDON_LOADED')
+	AS:RegisterSkin('SkadaSkin', SkadaDecor, 2) -- Priority 2 will run after my skin.
+	AS:RegisterSkin('RecountSkin', RecountDecor, 2) -- Priority 2 will run after my skin.
+end
 
 E:RegisterModule(BUIS:GetName())

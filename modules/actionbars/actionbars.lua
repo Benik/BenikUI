@@ -34,16 +34,6 @@ function BAB:StyleBackdrops()
 	end
 end
 
-function BAB:TestShowBar()
-	ElvUI_Bar2_Bui.text = ElvUI_Bar2_Bui:CreateFontString(nil, 'OVERLAY')
-	ElvUI_Bar2_Bui.text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-	ElvUI_Bar2_Bui.text:SetPoint('RIGHT')
-	ElvUI_Bar2_Bui.text:SetJustifyH('LEFT')
-	ElvUI_Bar2_Bui.text:SetJustifyV('CENTER')
-	ElvUI_Bar2_Bui.text:SetTextColor(unpackColor(E.db.general.valuecolor))
-	ElvUI_Bar2_Bui.text:SetText('->')
-end
-
 local function ab3_OnClick(self)
 	if E.db.actionbar['bar3']['enabled'] == true then
 		E.db.actionbar['bar3']['enabled'] = false
@@ -62,12 +52,11 @@ local function ab5_OnClick(self)
 	AB:UpdateButtonSettings('bar5');
 end
 
+-- Switch ABs buttons
 local abtn = {}
 function BAB:CreateButtons()
 	for i = 1, 2 do
 		abtn[i] = CreateFrame('Button', 'BuiABbutton_'..i, E.UIParent)
-		abtn[i]:SetTemplate('Default', true)
-		abtn[i]:SetParent(ElvUI_Bar2_Bui)
 		abtn[i]:Size(10, 6)
 		abtn[i].color = abtn[i]:CreateTexture(nil, 'OVERLAY')
 		abtn[i].color:SetInside()
@@ -75,43 +64,55 @@ function BAB:CreateButtons()
 		abtn[i].color:SetVertexColor(1, 0.5, 0.1, 1)
 		abtn[i]:SetAlpha(0)
 
-		-- right button
-		if i == 1 then
-			abtn[i]:Point('RIGHT', ElvUI_Bar2_Bui, 'RIGHT')	
-			abtn[i]:SetScript('OnEnter', function(self)
-				abtn[i]:SetAlpha(1)
+		abtn[i]:SetScript('OnEnter', function(self)
+			abtn[i]:SetAlpha(1)
+			if i == 1 then
 				abtn[i]:SetScript('OnClick', ab3_OnClick)
-			end)
-		end
-
-		-- left button
-		if i == 2 then
-			abtn[i]:Point('LEFT', ElvUI_Bar2_Bui, 'LEFT')	
-			abtn[i]:SetScript('OnEnter', function(self)
-				abtn[i]:SetAlpha(1)
+			else
 				abtn[i]:SetScript('OnClick', ab5_OnClick)
-			end)
-		end
+			end
+		end)
+
 		abtn[i]:SetScript('OnLeave', function(self)
 			abtn[i]:SetAlpha(0)
 		end)
 	end
+	self:ShowButtons()
 end
 
 function BAB:ShowButtons()
-	if E.db.bab.enable == true then
-		BuiABbutton_1:Show()
-		BuiABbutton_2:Show()
-	else
-		BuiABbutton_1:Hide()
-		BuiABbutton_2:Hide()
+	local bar1 = ElvUI_Bar1_Bui
+	local bar2 = ElvUI_Bar2_Bui
+	
+	for i = 1, 2 do
+		abtn[i]:ClearAllPoints()
+		if E.db.bab.chooseAb == 'BAR2' then
+			abtn[i]:SetParent(bar2)
+			if i == 1 then
+				abtn[i]:Point('RIGHT', bar2, 'RIGHT')
+			else
+				abtn[i]:Point('LEFT', bar2, 'LEFT')
+			end
+		else
+			abtn[i]:SetParent(bar1)
+			if i == 1 then
+				abtn[i]:Point('RIGHT', bar1, 'RIGHT')
+			else
+				abtn[i]:Point('LEFT', bar1, 'LEFT')
+			end
+		end
+		
+		if E.db.bab.enable then
+			abtn[i]:Show()
+		else
+			abtn[i]:Hide()
+		end
 	end
 end
 
 function BAB:Initialize()
 	self:StyleBackdrops()
 	self:CreateButtons()
-	self:ShowButtons()
 end
 
 E:RegisterModule(BAB:GetName())

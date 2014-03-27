@@ -38,13 +38,18 @@ local function SetupBuiLayout()
 		E.db.tooltip.healthBar.fontOutline = 'OUTLINE'
 	end
 	
+	-- Nameplates
+	do
+		E.db.nameplate.font = "Bui Visitor1"
+	end
+	
 	-- movers
 	do
 		E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-140"
 		E.db.movers.BNETMover = "TOPRIGHTElvUIParentTOPRIGHT-4-199"
 		E.db.movers.BuiDashboardMover = "TOPLEFTElvUIParentTOPLEFT4-8"
 		E.db.movers.DigSiteProgressBarMover = "BOTTOMElvUIParentBOTTOM0315"
-		E.db.movers.ExperienceBarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-4204"
+		E.db.movers.ExperienceBarMover = "BOTTOMElvUIParentBOTTOM047"
 		E.db.movers.GMMover = "TOPLEFTElvUIParentTOPLEFT155-4"
 		E.db.movers.LeftChatMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT222"
 		E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-2"
@@ -64,6 +69,8 @@ local function SetupBuiLayout()
 		E.db.locplus.lpwidth = 220
 		E.db.locplus.dtwidth = 120
 		E.db.locplus.trunc = true
+		E.db.locplus.lpauto = false
+		E.db.locplus.displayOther = "NONE"
 		E.db.movers.LocationMover = "TOPElvUIParentTOP0-7"
 	end
 	
@@ -73,6 +80,7 @@ local function SetupBuiLayout()
 		E.db.loclite.dtheight = 16
 		E.db.loclite.lpwidth = 220
 		E.db.loclite.trunc = true
+		E.db.loclite.lpauto = false
 		E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-7"
 	end	
 	
@@ -191,6 +199,7 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.player.portrait.overlay = true
 		E.db.unitframe.units.player.castbar.icon = false
 		E.db.unitframe.units.player.castbar.width = 300
+		E.db.unitframe.units.player.castbar.height = 18
 		--[[E.db.unitframe.units.player.customTexts = {}
 		E.db.unitframe.units.player.customTexts.group = {}
 		E.db.unitframe.units.player.customTexts.group.font = "Bui Visitor1"
@@ -277,13 +286,13 @@ local function SetupBuiAuras()
 	do
 		E.db.auras.timeXOffset = -1
 		E.db.auras.font = "Bui Visitor1"
-		E.db.auras.fontSize = 9
+		E.db.auras.fontSize = 10
 		E.db.auras.fontOutline = 'MONOCROMEOUTLINE'
 		E.db.auras.fadeThreshold = 10
 		E.db.auras.buffs.horizontalSpacing = 3
 		E.db.auras.buffs.size = 30
 		E.db.auras.consolidatedBuffs.font = "Bui Visitor1"
-		E.db.auras.consolidatedBuffs.fontSize = 9
+		E.db.auras.consolidatedBuffs.fontSize = 10
 		E.db.auras.consolidatedBuffs.fontOutline = 'MONOCROMEOUTLINE'
 		E.db.auras.debuffs.size = 30
 	end
@@ -402,21 +411,21 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript("OnClick", SetupBuiChat)
 		InstallOption1Button:SetText(L["Setup Chat"])
 	elseif PageNum == 4 then
-		f.SubTitle:SetText(L["Actionbars"])
-		f.Desc1:SetText(L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
-		f.Desc2:SetText(L["Please click the button below to setup your actionbars."])
-		f.Desc3:SetText(L["Importance: |cff07D400High|r"])
-		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', SetupBuiAbs)
-		InstallOption1Button:SetText(L["Setup Actionbars"])			
-	elseif PageNum == 5 then
 		f.SubTitle:SetText(L['Unitframes'])
 		f.Desc1:SetText(L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars.\r|cffff8000This doesn't touch your current raid/party layout|r"])
 		f.Desc2:SetText(L["Please click the button below to setup your Unitframes."])
 		f.Desc3:SetText(L["Importance: |cff07D400High|r"])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', SetupBuiUfs)
-		InstallOption1Button:SetText(L["Setup Unitframes"])	
+		InstallOption1Button:SetText(L["Setup Unitframes"])		
+	elseif PageNum == 5 then
+		f.SubTitle:SetText(L["Actionbars"])
+		f.Desc1:SetText(L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
+		f.Desc2:SetText(L["Please click the button below to setup your actionbars."])
+		f.Desc3:SetText(L["Importance: |cff07D400High|r"])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', SetupBuiAbs)
+		InstallOption1Button:SetText(L["Setup Actionbars"])	
 	elseif PageNum == 6 then
 		f.SubTitle:SetText(L["Auras"])
 		f.Desc1:SetText(L["This part of the installation process will only change the Aura system fonts.\r|cffff8000This doesn't touch any filters you already made|r"])

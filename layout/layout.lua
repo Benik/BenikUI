@@ -118,6 +118,7 @@ local function unpackColor(color)
 end
 
 local function BuiGameMenu_OnMouseUp()
+	if ElvUI_ContainerFrame:IsShown() then return end
 	E:DropDown(menuList, menuFrame, -148, 304)
 	GameTooltip:Hide()
 end
