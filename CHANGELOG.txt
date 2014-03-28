@@ -1,3 +1,6 @@
+[b]0.41beta[/b] (Mar 29, 2014)
+*Added the default options for Target detached frame.
+
 [b]0.40beta[/b] (Mar 29, 2014)
 *Tiny changes on skin styling.
 *Made another attempt on Target Detached Portrait. Mirrored the player one. Something is missing. Doesn't get the target changes onload. Re-enabling it or make any changes on target it applies.. reload and go kill yourself

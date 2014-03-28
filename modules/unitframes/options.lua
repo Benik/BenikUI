@@ -7,10 +7,15 @@ local UF = E:GetModule('UnitFrames');
 P['ufb'] = {
 	['barshow'] = true,
 	['barheight'] = 20,
-	['detachPortrait'] = false,
-	['portraitWidth'] = 150,
-	['portraitHeight'] = 150,
-	['shadowPortrait'] = false,
+	['detachPlayerPortrait'] = false,
+	['PlayerPortraitWidth'] = 150,
+	['PlayerPortraitHeight'] = 150,
+	['PlayerPortraitShadow'] = false,
+	['detachTargetPortrait'] = false,
+	['getPlayerPortraitSize'] = true,
+	['TargetPortraitWidth'] = 150,
+	['TargetPortraitHeight'] = 150,
+	['TargetPortraitShadow'] = false,
 }
 
 local function ufTable()
