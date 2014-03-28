@@ -102,7 +102,7 @@ local function ufTargetTable()
 		name = BUI.Title,
 		guiInline = true,
 		get = function(info) return E.db.ufb[ info[#info] ] end,
-		set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:ArrangeTarget(); UF:Update_TargetFrame() end,
+		set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:ArrangeTarget(); end,
 		args = {		
 			detachTargetPortrait = {
 				order = 1,

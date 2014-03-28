@@ -87,8 +87,14 @@ function UFB:ArrangeTarget()
 				portrait.backdrop:Show()
 				portrait.backdrop:ClearAllPoints()
 				portrait.backdrop:Point("TOPRIGHT", frame, "TOPRIGHT", E.PixelMode and -1 or 0, 0)
+
+				if db.portrait.style == '3D' then
+					portrait:SetFrameLevel(frame:GetFrameLevel() + 5)
+				end	
 				
 				if TARGET_PORTRAIT_DETACHED then
+					portrait:Point('BOTTOMLEFT', portrait.backdrop, 'BOTTOMLEFT', BORDER, BORDER)		
+					portrait:Point('TOPRIGHT', portrait.backdrop, 'TOPRIGHT', -BORDER-BORDER, -BORDER)
 					if E.db.ufb.TargetPortraitShadow then
 						portrait.backdrop.shadow:Show()
 					else
@@ -104,8 +110,7 @@ function UFB:ArrangeTarget()
 					
 					if not portrait.backdrop.mover then
 						portrait.backdrop:ClearAllPoints()
-						portrait.backdrop:Point('LEFT', frame, 'RIGHT')
-						--portrait.backdrop:Point('BOTTOMRIGHT', frame, 'BOTTOMRIGHT', UNIT_HEIGHT + SPACING, 0)
+						portrait.backdrop:Point('TOPLEFT', frame, 'TOPRIGHT')
 						portrait.backdrop:SetFrameLevel(power:GetFrameLevel() + 1)
 						E:CreateMover(portrait.backdrop, 'TargetPortraitMover', 'Target Portrait', nil, nil, nil, 'ALL,SOLO')
 					else
@@ -125,7 +130,7 @@ function UFB:ArrangeTarget()
 			end	
 		end
 	end
-	frame:UpdateAllElements()
+	--frame:UpdateAllElements()
 end
 
 function UFB:InitTarget()

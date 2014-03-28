@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
-local UFB = E:NewModule('BuiUnits', 'AceHook-3.0');
+local UFB = E:NewModule('BuiUnits', "AceHook-3.0", 'AceEvent-3.0');
+local UF = E:GetModule('UnitFrames');
 
 if E.db.ufb == nil then E.db.ufb = {} end
 
@@ -21,10 +22,15 @@ function UFB:UnitDefaults()
 	end
 end
 
+function UFB:LoadTarget()
+	self:InitTarget()
+end
+
 function UFB:Initialize()
 	self:UnitDefaults()
 	self:InitPlayer()
 	self:InitTarget()
+	--self:RegisterEvent('PLAYER_ENTERING_WORLD', 'InitTarget')
 end
 
 E:RegisterModule(UFB:GetName())

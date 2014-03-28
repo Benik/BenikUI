@@ -1,3 +1,7 @@
+[b]0.40beta[/b] (Mar 29, 2014)
+*Tiny changes on skin styling.
+*Made another attempt on Target Detached Portrait. Mirrored the player one. Something is missing. Doesn't get the target changes onload. Re-enabling it or make any changes on target it applies.. reload and go kill yourself
+
 [b]0.39beta[/b] (Mar 28, 2014)
 *Reverted to Azilroka's skin file after his latest update in AddOnSkins (v2.15). A bit more fine tuning may needed.
 *Removed the font.lua file. No need to force users to use BenikUI. On it's final release, BenikUI will have a seperate addon to override ElvUI name and damage font, to fit with BenikUI. What was added in 0.37b wasn't working as intended.

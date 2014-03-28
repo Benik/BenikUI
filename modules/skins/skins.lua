@@ -194,17 +194,17 @@ function BUIS:BenikUISkins()
 end
 
 function BUIS:Initialize()
-	if not AS then  -- If AddOnSkins is not found then run the skin changes.
-		self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
-		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
-	end
+	if AS then return end
+	self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
 end
+
 
 if AS then
 	V['addonskins']['BenikUI'] = true -- Default added
 
 	local function SkadaDecor()
-		if not AS:CheckAddOn('Skada') then return end
+		--if not AS:CheckAddOn('Skada') then return end
 		hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 			local skada = win.bargroup
 			skada.backdrop:Style('Outside')
@@ -232,7 +232,7 @@ if AS then
 	end
 
 	local function RecountDecor()
-	if not AS:CheckAddOn('Recount') then return end
+	--if not AS:CheckAddOn('Recount') then return end
 	StyleRecount('recountMain', Recount_MainWindow)
 	Recount_MainWindow.TitleBackground:StripTextures()
 	Recount_ConfigWindow.TitleBackground:StripTextures()
@@ -253,17 +253,23 @@ if AS then
 			end
 		end)
 	end
+	
+	local function TinyDPSDecor()
+		tdpsFrame:Style('Outside')
+	end
 
 	local function BenikUISkins(self, event, addon)
 		if event == 'ADDON_LOADED' then
 			BUIS:BlizzardUI_LOD_Skins(event, addon)
+		else
 			BUIS:BenikUISkins()
 		end
 	end
 
-	AS:RegisterSkin('BenikUI', BenikUISkins, 'ADDON_LOADED')
-	AS:RegisterSkin('SkadaSkin', SkadaDecor, 2) -- Priority 2 will run after my skin.
-	AS:RegisterSkin('RecountSkin', RecountDecor, 2) -- Priority 2 will run after my skin.
+    AS:RegisterSkin('BenikUI', BenikUISkins, 'ADDON_LOADED')
+	if AS:CheckAddOn('Skada') then AS:RegisterSkin('SkadaSkin', SkadaDecor, 2) end
+	if AS:CheckAddOn('Recount') then AS:RegisterSkin('RecountSkin', RecountDecor, 2) end
+	if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPSSkin', TinyDPSDecor, 2) end
 end
 
 E:RegisterModule(BUIS:GetName())
