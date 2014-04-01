@@ -2,7 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local BUI = E:GetModule('BenikUI');
 
 local CURRENT_PAGE = 0
-local MAX_PAGE = 8
+local MAX_PAGE = 9
 
 local function SetupBuiLayout()
 	
@@ -49,7 +49,6 @@ local function SetupBuiLayout()
 		E.db.movers.BNETMover = "TOPRIGHTElvUIParentTOPRIGHT-4-199"
 		E.db.movers.BuiDashboardMover = "TOPLEFTElvUIParentTOPLEFT4-8"
 		E.db.movers.DigSiteProgressBarMover = "BOTTOMElvUIParentBOTTOM0315"
-		E.db.movers.ExperienceBarMover = "BOTTOMElvUIParentBOTTOM047"
 		E.db.movers.GMMover = "TOPLEFTElvUIParentTOPLEFT155-4"
 		E.db.movers.LeftChatMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT222"
 		E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-2"
@@ -86,6 +85,51 @@ local function SetupBuiLayout()
 	
 	if InstallStepComplete then
 		InstallStepComplete.message = L["BenikUI Layout Applied"]
+		InstallStepComplete:Show()		
+	end
+	E:UpdateAll(true)
+end
+
+
+function E:SetupBuiColors(color)
+	-- Colors
+	do
+		if color == 'Diablo' then
+			E.db.general.backdropfadecolor.a = 0.800000011920929
+			E.db.general.backdropfadecolor.r = 0.1254901960784314
+			E.db.general.backdropfadecolor.g = 0.05490196078431373
+			E.db.general.backdropfadecolor.b = 0.05098039215686274
+			E.db.general.backdropcolor.r = 0.1058823529411765
+			E.db.general.backdropcolor.g = 0.05490196078431373
+			E.db.general.backdropcolor.b = 0.0392156862745098
+		elseif color == 'Hearthstone' then
+			E.db.general.backdropfadecolor.a = 0.800000011920929
+			E.db.general.backdropfadecolor.r = 0.08627450980392157
+			E.db.general.backdropfadecolor.g = 0.1098039215686275
+			E.db.general.backdropfadecolor.b = 0.1490196078431373
+			E.db.general.backdropcolor.r = 0.07058823529411765
+			E.db.general.backdropcolor.g = 0.08627450980392157
+			E.db.general.backdropcolor.b = 0.1176470588235294
+		elseif color == 'Mists' then
+			E.db.general.backdropfadecolor.a = 0.800000011920929
+			E.db.general.backdropfadecolor.r = 0.04313725490196078
+			E.db.general.backdropfadecolor.g = 0.1019607843137255
+			E.db.general.backdropfadecolor.b = 0.1019607843137255
+			E.db.general.backdropcolor.r = 0.02745098039215686
+			E.db.general.backdropcolor.g = 0.06274509803921569
+			E.db.general.backdropcolor.b = 0.06274509803921569
+		elseif color == 'Elv' then
+			E.db.general.backdropfadecolor.a = 0.800000011920929
+			E.db.general.backdropfadecolor.r = 0.05490196078431373
+			E.db.general.backdropfadecolor.g = 0.05490196078431373
+			E.db.general.backdropfadecolor.b = 0.05490196078431373
+			E.db.general.backdropcolor.r = 0.1019607843137255
+			E.db.general.backdropcolor.g = 0.1019607843137255
+			E.db.general.backdropcolor.b = 0.1019607843137255		
+		end
+	end
+	if InstallStepComplete then
+		InstallStepComplete.message = L["Color Theme Applied"]
 		InstallStepComplete:Show()		
 	end
 	E:UpdateAll(true)
@@ -186,7 +230,7 @@ local function SetupBuiUfs()
 	-- general
 		E.db.unitframe.font = "Bui Visitor1"
 		E.db.unitframe.fontSize = 10
-		E.db.unitframe.fontOutline = 'NONE'
+		E.db.unitframe.fontOutline = 'MONOCROMEOUTLINE'
 		E.db.unitframe.colors.transparentAurabars = true
 		E.db.unitframe.colors.transparentCastbar = true
 		E.db.unitframe.colors.healthclass = false
@@ -200,16 +244,9 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.player.castbar.icon = false
 		E.db.unitframe.units.player.castbar.width = 300
 		E.db.unitframe.units.player.castbar.height = 18
-		--[[E.db.unitframe.units.player.customTexts = {}
-		E.db.unitframe.units.player.customTexts.group = {}
-		E.db.unitframe.units.player.customTexts.group.font = "Bui Visitor1"
-		E.db.unitframe.units.player.customTexts.group.size = 10
-		E.db.unitframe.units.player.customTexts.group.fontOutline = "OUTLINE"
-		E.db.unitframe.units.player.customTexts.group.justifyH = "RIGHT"
-		E.db.unitframe.units.player.customTexts.group.xOffset = -128
-		E.db.unitframe.units.player.customTexts.group.yOffset = 8
-		E.db.unitframe.units.player.customTexts.group.text_format = "[playergroup]"]]
 		E.db.unitframe.units.player.width = 300
+		E.db.unitframe.units.player.health.xOffset = 2
+		E.db.unitframe.units.player.health.yOffset = -25
 		E.db.unitframe.units.player.height = 33
 		E.db.unitframe.units.player.buffs.enable = true
 		E.db.unitframe.units.player.buffs.sizeOverride = 32
@@ -220,11 +257,18 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.player.power.detachedWidth = 298
 		E.db.unitframe.units.player.power.yOffset = -25
 	-- target
+		E.db.unitframe.units.target.health.xOffset = -40
+		E.db.unitframe.units.target.health.yOffset = -25
+		E.db.unitframe.units.target.health.text_format = ""
+		E.db.unitframe.units.target.name.xOffset = 8
+		E.db.unitframe.units.target.name.yOffset = -25
+		E.db.unitframe.units.target.name.position = "RIGHT"
+		E.db.unitframe.units.target.name.text_format = "[healthcolor][health:current-percent] [namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]"
 		E.db.unitframe.units.target.debuffs.anchorPoint = "TOPLEFT"
 		E.db.unitframe.units.target.portrait.enable = true
 		E.db.unitframe.units.target.portrait.overlay = true
 		E.db.unitframe.units.target.power.xOffset = 2
-		E.db.unitframe.units.target.power.detachedWidth = 298 -- get the mover
+		E.db.unitframe.units.target.power.detachedWidth = 298
 		E.db.unitframe.units.target.power.hideonnpc = false
 		E.db.unitframe.units.target.power.height = 5
 		E.db.unitframe.units.target.power.yOffset = -25
@@ -272,6 +316,7 @@ local function SetupBuiUfs()
 		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0164"
 		E.db.movers.PlayerPowerBarMover = "BOTTOMElvUIParentBOTTOM-231215"
 		E.db.movers.TargetPowerBarMover = "BOTTOMElvUIParentBOTTOM247215"
+		E.db.movers.ExperienceBarMover = "BOTTOMElvUIParentBOTTOM047"
 	end
 	
 	if InstallStepComplete then
@@ -403,6 +448,23 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript("OnClick", SetupBuiLayout)
 		InstallOption1Button:SetText(L["Setup Layout"])
 	elseif PageNum == 3 then
+		f.SubTitle:SetText(L["Color Themes"])
+		f.Desc1:SetText(L["This part of the installation will apply the Color Themes"])
+		f.Desc2:SetText(L["Please click the button below to apply the new color themes."])
+		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', function() E:SetupBuiColors('Elv'); end)
+		InstallOption1Button:SetText(L['ElvUI'])
+		InstallOption2Button:Show()
+		InstallOption2Button:SetScript('OnClick', function() E:SetupBuiColors('Diablo'); end)
+		InstallOption2Button:SetText(L['Diablo'])
+		InstallOption3Button:Show()
+		InstallOption3Button:SetScript('OnClick', function() E:SetupBuiColors('Mists'); end)
+		InstallOption3Button:SetText(L['Mists'])
+		InstallOption4Button:Show()
+		InstallOption4Button:SetScript('OnClick', function() E:SetupBuiColors('Hearthstone'); end)
+		InstallOption4Button:SetText(L['Hearthstone'])	
+	elseif PageNum == 4 then
 		f.SubTitle:SetText(L["Chat"])
 		f.Desc1:SetText(L["This part of the installation process sets up your chat fonts and colors.\r|cffff8000This doesn't touch your chat tabs|r"])
 		f.Desc2:SetText(L["Please click the button below to setup your chat windows."])
@@ -410,7 +472,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript("OnClick", SetupBuiChat)
 		InstallOption1Button:SetText(L["Setup Chat"])
-	elseif PageNum == 4 then
+	elseif PageNum == 5 then
 		f.SubTitle:SetText(L['Unitframes'])
 		f.Desc1:SetText(L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars.\r|cffff8000This doesn't touch your current raid/party layout|r"])
 		f.Desc2:SetText(L["Please click the button below to setup your Unitframes."])
@@ -418,7 +480,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', SetupBuiUfs)
 		InstallOption1Button:SetText(L["Setup Unitframes"])		
-	elseif PageNum == 5 then
+	elseif PageNum == 6 then
 		f.SubTitle:SetText(L["Actionbars"])
 		f.Desc1:SetText(L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
 		f.Desc2:SetText(L["Please click the button below to setup your actionbars."])
@@ -426,7 +488,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', SetupBuiAbs)
 		InstallOption1Button:SetText(L["Setup Actionbars"])	
-	elseif PageNum == 6 then
+	elseif PageNum == 7 then
 		f.SubTitle:SetText(L["Auras"])
 		f.Desc1:SetText(L["This part of the installation process will only change the Aura system fonts.\r|cffff8000This doesn't touch any filters you already made|r"])
 		f.Desc2:SetText(L["Please click the button below to setup your auras."])
@@ -434,7 +496,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', SetupBuiAuras)
 		InstallOption1Button:SetText(L["Setup Auras"])	
-	elseif PageNum == 7 then
+	elseif PageNum == 8 then
 		f.SubTitle:SetText(L["Datatexts"])
 		f.Desc1:SetText(L["This part of the installation process will fill BenikUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
 		f.Desc2:SetText(L["Please click the button below to setup your datatexts."])
@@ -450,8 +512,8 @@ local function SetPage(PageNum)
 		InstallOption3Button:SetText(L['Physical DPS'])
 		InstallOption4Button:Show()
 		InstallOption4Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; E:SetupBuiDts('dpsCaster') end)
-		InstallOption4Button:SetText(L['Caster DPS'])	
-	elseif PageNum == 8 then
+		InstallOption4Button:SetText(L['Caster DPS'])
+	elseif PageNum == 9 then
 		f.SubTitle:SetText(L["Installation Complete"])
 		f.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 		f.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])			

@@ -6,6 +6,7 @@ if E.db.bui == nil then E.db.bui = {} end
 -- Defaults
 P['bui'] = {
 	['installed'] = nil,
+	['colorTheme'] = 'Elv',
 }
 
 local function buiTable()
@@ -40,7 +41,20 @@ local function buiTable()
 				order = 5,
 				type = "header",
 				name = "",
-			},	
+			},
+			colorTheme = {
+				order = 6,
+				type = "select",
+				name = L["Color themes"],
+				values = {
+					['Elv'] = L['ElvUI'],
+					['Diablo'] = L['Diablo'],
+					['Hearthstone'] = L['Hearthstone'],
+					['Mists'] = L['Mists'],
+				},
+				get = function(info) return E.db.bui[ info[#info] ] end,
+				set = function(info, color) E.db.bui[ info[#info] ] = color; E:SetupBuiColors(color); end,
+			},
 		},
 	}
 end

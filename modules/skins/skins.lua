@@ -79,6 +79,8 @@ local BlizzUiFrames = {
 	{"Blizzard_BindingUI", "KeyBindingFrame", "binding"},
 	{"Blizzard_BlackMarketUI", "BlackMarketFrame", "bmah"}, -- check
 	{"Blizzard_Calendar", "CalendarFrame", "calendar"},
+	{"Blizzard_Calendar", "CalendarViewEventFrame", "calendar"},
+	{"Blizzard_Calendar", "CalendarViewHolidayFrame", "calendar"},
 	{"Blizzard_GuildBankUI", "GuildBankFrame", "gbank"},
 	{"Blizzard_GuildUI", "GuildFrame", "guild"}, -- check
 	{"Blizzard_GuildControlUI", "GuildControlUI", "guildcontrol"}, -- check
@@ -204,7 +206,6 @@ if AS then
 	V['addonskins']['BenikUI'] = true -- Default added
 
 	local function SkadaDecor()
-		--if not AS:CheckAddOn('Skada') then return end
 		hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 			local skada = win.bargroup
 			skada.backdrop:Style('Outside')
@@ -232,7 +233,6 @@ if AS then
 	end
 
 	local function RecountDecor()
-	--if not AS:CheckAddOn('Recount') then return end
 	StyleRecount('recountMain', Recount_MainWindow)
 	Recount_MainWindow.TitleBackground:StripTextures()
 	Recount_ConfigWindow.TitleBackground:StripTextures()
@@ -257,6 +257,16 @@ if AS then
 	local function TinyDPSDecor()
 		tdpsFrame:Style('Outside')
 	end
+	
+	local function AtlasLootDecor()
+		if AtlasLootDefaultFrame then
+			AtlasLootDefaultFrame:HookScript('OnShow', function(self) self:Style('Outside') end)
+		end
+	end
+	
+	local function AltoholicDecor()
+		AltoholicFrame:Style('Outside')
+	end
 
 	local function BenikUISkins(self, event, addon)
 		if event == 'ADDON_LOADED' then
@@ -270,6 +280,8 @@ if AS then
 	if AS:CheckAddOn('Skada') then AS:RegisterSkin('SkadaSkin', SkadaDecor, 2) end
 	if AS:CheckAddOn('Recount') then AS:RegisterSkin('RecountSkin', RecountDecor, 2) end
 	if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPSSkin', TinyDPSDecor, 2) end
+	if AS:CheckAddOn('AtlasLoot') then AS:RegisterSkin('AtlasLootSkin', AtlasLootDecor, 2) end
+	if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('AltoholicSkin', AltoholicDecor, 2) end
 end
 
 E:RegisterModule(BUIS:GetName())

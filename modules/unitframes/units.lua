@@ -22,15 +22,10 @@ function UFB:UnitDefaults()
 	end
 end
 
-function UFB:LoadTarget()
-	self:InitTarget()
-end
-
 function UFB:Initialize()
 	self:UnitDefaults()
 	self:InitPlayer()
 	self:InitTarget()
-	--self:RegisterEvent('PLAYER_ENTERING_WORLD', 'InitTarget')
 end
 
 E:RegisterModule(UFB:GetName())

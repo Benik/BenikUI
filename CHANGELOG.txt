@@ -1,3 +1,8 @@
+[b]0.42beta[/b] (Apr 2, 2014)
+*Added 3 color themes plus the default ElvUI. 'Diablo' (dark red), 'Mists' (dark green), 'Hearthstone' (dark blue). Available in BenikUI options or in the install (step 3).
+*Added AtlasLoot, Altoholic styled skin.
+*Changed Tooltip statusbar texture.
+
 [b]0.41beta[/b] (Mar 29, 2014)
 *Added the default options for Target detached frame.
 

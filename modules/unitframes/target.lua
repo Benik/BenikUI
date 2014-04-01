@@ -130,7 +130,7 @@ function UFB:ArrangeTarget()
 			end	
 		end
 	end
-	--frame:UpdateAllElements()
+	frame:UpdateAllElements()
 end
 
 function UFB:InitTarget()

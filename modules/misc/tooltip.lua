@@ -4,4 +4,5 @@ local BUI = E:GetModule('BenikUI');
 function BUI:StyleTooltip()
 	GameTooltip:Style('Outside', 'GameTooltipDecor')
 	GameTooltipDecor:SetClampedToScreen(true)
+	GameTooltipStatusBar:SetStatusBarTexture(E["media"].BuiFlat)
 end
