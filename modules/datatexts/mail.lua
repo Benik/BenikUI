@@ -1,6 +1,6 @@
 local E, L, V, P, G, _ =  unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
-
+-- Based on Repooc's and Darth Predator's S&L ElvUI edit mail datatext.
 local Read;
 
 local function OnEvent(self, event, ...)
@@ -75,5 +75,5 @@ MiniMapMailFrame:Hide();
 	onLeaveFunc - function to fire OnLeave, if not provided one will be set for you that hides the tooltip.
 ]]
 
-DT:RegisterDatatext('Mail', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'PLAYER_LOGIN','MAIL_SHOW'}, OnEvent, nil, nil, OnEnter)
+DT:RegisterDatatext('BuiMail', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'PLAYER_LOGIN','MAIL_SHOW'}, OnEvent, nil, nil, OnEnter)
 

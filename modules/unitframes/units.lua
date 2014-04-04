@@ -9,16 +9,16 @@ function UFB:UnitDefaults()
 		E.db.ufb.barheight = 20
 	end
 	if E.db.ufb.PlayerPortraitWidth == nil then
-		E.db.ufb.PlayerPortraitWidth = 150
+		E.db.ufb.PlayerPortraitWidth = 110
 	end	
 	if E.db.ufb.PlayerPortraitHeight == nil then
-		E.db.ufb.PlayerPortraitHeight = 150
+		E.db.ufb.PlayerPortraitHeight = 85
 	end	
 	if E.db.ufb.TargetPortraitWidth == nil then
-		E.db.ufb.TargetPortraitWidth = 150
+		E.db.ufb.TargetPortraitWidth = 110
 	end	
 	if E.db.ufb.TargetPortraitHeight == nil then
-		E.db.ufb.TargetPortraitHeight = 150
+		E.db.ufb.TargetPortraitHeight = 85
 	end
 end
 

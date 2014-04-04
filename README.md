@@ -2,14 +2,13 @@ ElvUI_BenikUI
 =============
 an external ElvUI edit
 
-Due to early beta stage, the ui will only be available in GitHub: https://github.com/Benik/ElvUI_BenikUI
-- Current version 0.25beta (Mar 21, 2014)
+Due to early beta stage, the ui will only be available in GitHub
 
 - Please run the installer when prompted.
 
 - Enhancements:
 
-> Decors all ElvUI frames.
+> Decors all ElvUI/Blizz frames.
 
 > Adds a bar in player and target like TukUI does that can be used to place hp/power text etc. Mouse over can show rep or xp.
 

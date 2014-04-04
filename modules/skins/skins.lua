@@ -50,6 +50,7 @@ local FreeBlizzFrames = {
 	TabardFrame,
 	TicketStatusFrameButton, -- check
 	TokenFrame,
+	TokenFramePopup,
 	TradeFrame, -- check
 	TransmogrifyConfirmationPopup,
 	VideoOptionsFrame,
@@ -138,7 +139,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 					end
 				end
 				if addon == "Blizzard_GuildUI" then
-					GuildMemberDetailFrame:Style('Skin')
+					GuildMemberDetailFrame:Style('Outside')
 				end
 			end
 		end
@@ -193,6 +194,22 @@ function BUIS:BenikUISkins()
 			frame:Style('Outside')
 		end
 	end
+	if IsAddOnLoaded('ElvUI_SLE') then
+		local bgs = {BottomBG, LeftBG, RightBG, ActionBG,}		
+		for _, frame in pairs(bgs) do
+			frame:Style('Outside')
+		end
+		
+		local dts = {DP_1, DP_2, Top_Center, DP_3, DP_4, DP_5, Bottom_Panel, DP_6}
+		for _, frame in pairs(dts) do
+			frame:Style('Outside')
+		end
+		
+		local other = {Main_Flares, Mark_Menu}
+		for _, frame in pairs(other) do
+			frame:Style('Outside')
+		end
+	end
 end
 
 function BUIS:Initialize()
@@ -212,13 +229,16 @@ if AS then
 			if win.db.enabletitle then
 				skada.button:StripTextures()
 			end
-			hooksecurefunc(AS, 'Embed_Check', function(self, message) -- Hook in a hook :P
-				if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
-					skada.backdrop.style:Hide()
-				else
-					skada.backdrop.style:Show()
-				end
-			end)
+			if not skada.backdrop.ishooked then
+				hooksecurefunc(AS, 'Embed_Check', function(self, message) -- Hook in a hook :P
+					if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
+						skada.backdrop.style:Hide()
+					else
+						skada.backdrop.style:Show()
+					end
+				end)
+				skada.backdrop.ishooked = true
+			end
 		end)
 	end
 	

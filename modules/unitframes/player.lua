@@ -7,9 +7,6 @@ local SPACING = E.Spacing;
 local BORDER = E.Border;
 
 local frame = _G["ElvUF_Player"]
-local health = frame.Health
-local power = frame.Power
-local portrait = frame.Portrait
 
 local function playerbar_onEnter(self)
 	if InCombatLockdown() then return end
@@ -24,11 +21,11 @@ local function playerbar_onEnter(self)
 			local cur, max = M:GetXP('player')
 			local level = UnitLevel('player')
 			
-			GameTooltip:AddDoubleLine(L['Experience'], (LEVEL..format(': %d', level)), 1, 1, 1, 0, 1, 0)
+			GameTooltip:AddLine((LEVEL..format(' : %d', level)), 0, 1, 0)
 			GameTooltip:AddLine(' ')
 			
-			GameTooltip:AddDoubleLine(L['XP:'], format(' %d / %d (%d%%)', cur, max, cur/max * 100), 1, 1, 1)
-			GameTooltip:AddDoubleLine(L['Remaining:'], format(' %d (%d%% - %d '..L['Bars']..')', max - cur, (max - cur) / max * 100, 20 * (max - cur) / max), 1, 1, 1)	
+			GameTooltip:AddDoubleLine(XP.." :", format(' %d / %d (%d%%)', cur, max, cur/max * 100), 1, 1, 1)
+			GameTooltip:AddDoubleLine(L['Remaining :'], format(' %d (%d%% - %d '..L['Bars']..')', max - cur, (max - cur) / max * 100, 20 * (max - cur) / max), 1, 1, 1)	
 			
 			if rested then
 				GameTooltip:AddDoubleLine(L['Rested:'], format('+%d (%d%%)', rested, rested / max * 100), 1, 1, 1)
@@ -36,22 +33,21 @@ local function playerbar_onEnter(self)
 			GameTooltip:Show()
 		end
 	elseif E.db.xprep.show == 'REP' then
-		local name = GetWatchedFactionInfo()
+		local name, reaction, min, max, value, factionID = GetWatchedFactionInfo()
 		if E.db.general.reputation.enable and name then
+			ElvUI_ReputationBar.statusBar:Show()
 			GameTooltip:ClearLines()
 			GameTooltip:SetOwner(self, 'ANCHOR_BOTTOM', 0, -6)
-			
-			local name, reaction, min, max, value, factionID = GetWatchedFactionInfo()
+
 			local friendID, _, _, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
 			if name then
 				GameTooltip:AddLine(name)
 				GameTooltip:AddLine(' ')
 				
-				GameTooltip:AddDoubleLine(STANDING..':', friendID and friendTextLevel or _G['FACTION_STANDING_LABEL'..reaction], 1, 1, 1)
-				GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', value - min, max - min, (value - min) / (max - min) * 100), 1, 1, 1)
+				GameTooltip:AddDoubleLine(STANDING..' :', friendID and friendTextLevel or _G['FACTION_STANDING_LABEL'..reaction], 1, 1, 1)
+				GameTooltip:AddDoubleLine(REPUTATION..' :', format('%d / %d (%d%%)', value - min, max - min, (value - min) / (max - min) * 100), 1, 1, 1)
 			end
 			GameTooltip:Show()
-			ElvUI_ReputationBar.statusBar:Show()
 		end
 	end
 end
@@ -75,11 +71,11 @@ function UFB:ApplyPlayerChanges()
 	playerbar:SetFrameStrata('BACKGROUND')
 	playerbar:SetScript('OnEnter', playerbar_onEnter)
 	playerbar:SetScript('OnLeave', playerbar_onLeave)
-
-	if not portrait.backdrop.shadow then
-		portrait.backdrop:CreateSoftShadow()
-		portrait.backdrop.shadow:Hide()
-	end
+	
+	--Create a frame we can anchor portrait.backdrop to.
+	--This frame is persistent regardless of portrait style and will fix the issue of portrait not following mover when changing style.
+	local f = CreateFrame("Frame", nil, frame)
+	frame.portraitmover = f
 
 	self:ArrangePlayer()
 end
@@ -112,6 +108,8 @@ function UFB:ArrangePlayer()
 	
 	-- Empty Bar
 	do
+		local health = frame.Health
+		local power = frame.Power
 		if USE_EMPTY_BAR then
 			PlayerBar:Show()
 			
@@ -135,53 +133,64 @@ function UFB:ArrangePlayer()
 	
 	-- Portrait
 	do	
+		local portrait = frame.Portrait --Need to make them local here, since frame.Portrait changes whether you use 2D or 3D. It needs to update when executed.
 		if USE_PORTRAIT then
-			if USE_PORTRAIT_OVERLAY then
-				if db.portrait.style == '3D' then
-					portrait:SetFrameLevel(health:GetFrameLevel() + 1)
+			if not USE_PORTRAIT_OVERLAY then
+				if not portrait.backdrop.shadow then
+					portrait.backdrop:CreateSoftShadow()
+					portrait.backdrop.shadow:SetAlpha(0)
 				end
-				portrait:SetAllPoints(health)
-				portrait:SetAlpha(0.3)
-				portrait:Show()		
-				portrait.backdrop:Hide()
-			else
-				portrait.backdrop:ClearAllPoints()
-				portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", BORDER, 0)
-				portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", BORDER, 0)
-				if PORTRAIT_DETACHED then
-					portrait:Point('BOTTOMLEFT', portrait.backdrop, 'BOTTOMLEFT', BORDER, BORDER)		
-					portrait:Point('TOPRIGHT', portrait.backdrop, 'TOPRIGHT', -BORDER-BORDER, -BORDER)
-					if E.db.ufb.PlayerPortraitShadow then
-						portrait.backdrop.shadow:Show()
-					else
-						portrait.backdrop.shadow:Hide()
-					end
-					portrait.backdrop:Width(PLAYER_PORTRAIT_WIDTH)
-					portrait.backdrop:Height(PLAYER_PORTRAIT_HEIGHT)			
-					if not portrait.backdrop.mover then
-						portrait.backdrop:ClearAllPoints()
-						portrait.backdrop:Point('TOPRIGHT', frame, 'TOPLEFT')
-						portrait.backdrop:SetFrameLevel(power:GetFrameLevel() + 1)
-						E:CreateMover(portrait.backdrop, 'PlayerPortraitMover', 'Player Portrait', nil, nil, nil, 'ALL,SOLO')
-					else
-						portrait.backdrop:ClearAllPoints()
-						portrait.backdrop:SetPoint("BOTTOMLEFT", portrait.backdrop.mover, "BOTTOMLEFT")
-						portrait.backdrop.mover:SetScale(1)
-						portrait.backdrop.mover:SetAlpha(1)		
-					end
 				
-				elseif USE_MINI_CLASSBAR and USE_CLASSBAR and not db.classbar.detachFromFrame then
-					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", 0, -((CLASSBAR_HEIGHT/2)))
-				elseif USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
-					portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+				if E.db.ufb.PlayerPortraitTransparent then
+					portrait.backdrop:SetTemplate('Transparent')
 				else
-					portrait:Point('BOTTOMLEFT', portrait.backdrop, 'BOTTOMLEFT', BORDER, BORDER)		
-					portrait:Point('TOPRIGHT', portrait.backdrop, 'TOPRIGHT', -BORDER-BORDER, -BORDER)
+					portrait.backdrop:SetTemplate('Default', true)
 				end
+
+				if E.db.ufb.PlayerPortraitShadow and PORTRAIT_DETACHED then
+					portrait.backdrop.shadow:SetAlpha(1)
+				else
+					portrait.backdrop.shadow:SetAlpha(0)
+				end
+
+				if PORTRAIT_DETACHED then
+					frame.portraitmover:Width(PLAYER_PORTRAIT_WIDTH)
+					frame.portraitmover:Height(PLAYER_PORTRAIT_HEIGHT)
+					portrait.backdrop:SetAllPoints(frame.portraitmover)
+
+					if not frame.portraitmover.mover then
+						frame.portraitmover:ClearAllPoints()
+						frame.portraitmover:Point('TOPRIGHT', frame, 'TOPLEFT', -BORDER, 0)
+						E:CreateMover(frame.portraitmover, 'PlayerPortraitMover', 'Player Portrait', nil, nil, nil, 'ALL,SOLO')
+						frame.portraitmover:ClearAllPoints()
+						frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")
+					else
+						frame.portraitmover:ClearAllPoints()
+						frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")		
+					end
+				else
+					portrait.backdrop:ClearAllPoints()
+					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", BORDER, 0)
+
+					if USE_EMPTY_BAR then
+						portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					elseif USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					else
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					end
+					
+					if db.portrait.style == '3D' then
+						portrait.backdrop:SetFrameLevel(frame.Power:GetFrameLevel() + 1)
+					end
+				end
+				portrait:ClearAllPoints()
+				portrait:Point('BOTTOMLEFT', portrait.backdrop, 'BOTTOMLEFT', BORDER, BORDER)		
+				portrait:Point('TOPRIGHT', portrait.backdrop, 'TOPRIGHT', -(E.PixelMode and db.portrait.style == '3D' and BORDER*2 or BORDER), -BORDER) --Fix portrait overlapping border when pixel mode and 3D style is enabled
 			end
 		end
 	end
-
+	frame:UpdateAllElements()
 end
 
 function UFB:InitPlayer()

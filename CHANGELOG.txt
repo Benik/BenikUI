@@ -1,3 +1,11 @@
+[b]0.43beta[/b] (Apr 4, 2014)
+*BenikUI style in Shadow & Light edit.
+*Detached Portraits at last! (Big thanks to Blazeflack).
+*Added an option to make the non overlayed portraits transparent (detached or not).
+*Removed the XP & Rep "Hide Text" option on the PlayerBar. Way too many checks with minimal result. Hiding the text can still be done in ElvUI General options.
+*Applied a small fix for Skada style (Thanks Azilroka).
+*Renamed the Mail datatext to BuiMail, so it doesn't conflict or show as duplicate, if another addon adds a similar datatext.
+
 [b]0.42beta[/b] (Apr 2, 2014)
 *Added 3 color themes plus the default ElvUI. 'Diablo' (dark red), 'Mists' (dark green), 'Hearthstone' (dark blue). Available in BenikUI options or in the install (step 3).
 *Added AtlasLoot, Altoholic styled skin.

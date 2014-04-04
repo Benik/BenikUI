@@ -8,14 +8,16 @@ P['ufb'] = {
 	['barshow'] = true,
 	['barheight'] = 20,
 	['detachPlayerPortrait'] = false,
-	['PlayerPortraitWidth'] = 150,
-	['PlayerPortraitHeight'] = 150,
+	['PlayerPortraitWidth'] = 110,
+	['PlayerPortraitHeight'] = 85,
 	['PlayerPortraitShadow'] = false,
+	['PlayerPortraitTransparent'] = true,
 	['detachTargetPortrait'] = false,
 	['getPlayerPortraitSize'] = true,
-	['TargetPortraitWidth'] = 150,
-	['TargetPortraitHeight'] = 150,
+	['TargetPortraitWidth'] = 110,
+	['TargetPortraitHeight'] = 85,
 	['TargetPortraitShadow'] = false,
+	['TargetPortraitTransparent'] = true,
 }
 
 local function ufTable()
@@ -68,11 +70,38 @@ local function ufPlayerTable()
 				order = 1,
 				type = "toggle",
 				name = L["Detach Portrait"],
-				width = "full",
+				set = function(info, value)
+					E.db.ufb[ info[#info] ] = value;
+					--Easiest way to properly set new width of various elements on the player frame
+					--such as classbar, stagger, power etc. The alternative is to include a lot of code
+					--in UFB:ArrangePlayer() to reposition these elements.
+					if value == true then
+						E.Options.args.unitframe.args.player.args.portrait.args.width.min = 0
+						E.db.unitframe.units.player.portrait.width = 0
+					else
+						E.Options.args.unitframe.args.player.args.portrait.args.width.min = 15
+						E.db.unitframe.units.player.portrait.width = 45
+					end
+					UF:CreateAndUpdateUF('player')--This will call UF:Update_PlayerFrame and subsequently UFB:ArrangePlayer()
+				end,
 				disabled = function() return E.db.unitframe.units.player.portrait.overlay end,
 			},
-			PlayerPortraitWidth = {
+			PlayerPortraitTransparent = {
 				order = 2,
+				type = "toggle",
+				name = L["Transparent"],
+				desc = L["Makes the portrait backdrop transparent"],
+				disabled = function() return E.db.unitframe.units.player.portrait.overlay end,
+			},
+			PlayerPortraitShadow = {
+				order = 3,
+				type = "toggle",
+				name = L["Shadow"],
+				desc = L["Add shadow under the portrait"],
+				disabled = function() return not E.db.ufb.detachPlayerPortrait end,
+			},
+			PlayerPortraitWidth = {
+				order = 4,
 				type = "range",
 				name = L["Width"],
 				desc = L["Change the detached portrait width"],
@@ -80,19 +109,12 @@ local function ufPlayerTable()
 				min = 10, max = 250, step = 1,
 			},	
 			PlayerPortraitHeight = {
-				order = 3,
+				order = 5,
 				type = "range",
 				name = L["Height"],
 				desc = L["Change the detached portrait height"],
 				disabled = function() return not E.db.ufb.detachPlayerPortrait end,
 				min = 10, max = 250, step = 1,
-			},
-			PlayerPortraitShadow = {
-				order = 4,
-				type = "toggle",
-				name = L["Shadow"],
-				desc = L["Add shadow under the portrait"],
-				disabled = function() return not E.db.ufb.detachPlayerPortrait end,
 			},
 		},
 	}
@@ -113,18 +135,45 @@ local function ufTargetTable()
 				order = 1,
 				type = "toggle",
 				name = L["Detach Portrait"],
-				width = "full",
+				set = function(info, value)
+					E.db.ufb[ info[#info] ] = value;
+					--Easiest way to properly set new width of various elements on the target frame
+					--such as classbar, stagger, power etc. The alternative is to include a lot of code
+					--in UFB:ArrangePlayer() to reposition these elements.
+					if value == true then
+						E.Options.args.unitframe.args.target.args.portrait.args.width.min = 0
+						E.db.unitframe.units.target.portrait.width = 0
+					else
+						E.Options.args.unitframe.args.target.args.portrait.args.width.min = 15
+						E.db.unitframe.units.target.portrait.width = 45
+					end
+					UF:CreateAndUpdateUF('target')--This will call UF:Update_TargetFrame and subsequently UFB:ArrangePlayer()
+				end,
 				disabled = function() return E.db.unitframe.units.target.portrait.overlay end,
 			},
-			getPlayerPortraitSize = {
+			TargetPortraitTransparent = {
 				order = 2,
+				type = "toggle",
+				name = L["Transparent"],
+				desc = L["Makes the portrait backdrop transparent"],
+				disabled = function() return E.db.unitframe.units.target.portrait.overlay end,
+			},
+			TargetPortraitShadow = {
+				order = 3,
+				type = "toggle",
+				name = L["Shadow"],
+				desc = L["Add shadow under the portrait"],
+				disabled = function() return not E.db.ufb.detachTargetPortrait end,
+			},
+			getPlayerPortraitSize = {
+				order = 4,
 				type = "toggle",
 				name = L["Player Size"],
 				desc = L["Copy Player portrait width and height"],
 				disabled = function() return not E.db.ufb.detachTargetPortrait end,
 			},
 			TargetPortraitWidth = {
-				order = 3,
+				order = 5,
 				type = "range",
 				name = L["Width"],
 				desc = L["Change the detached portrait width"],
@@ -132,19 +181,12 @@ local function ufTargetTable()
 				min = 10, max = 250, step = 1,
 			},	
 			TargetPortraitHeight = {
-				order = 4,
+				order = 6,
 				type = "range",
 				name = L["Height"],
 				desc = L["Change the detached portrait height"],
 				disabled = function() return E.db.ufb.getPlayerPortraitSize or not E.db.ufb.detachTargetPortrait end,
 				min = 10, max = 250, step = 1,
-			},
-			TargetPortraitShadow = {
-				order = 5,
-				type = "toggle",
-				name = L["Shadow"],
-				desc = L["Add shadow under the portrait"],
-				disabled = function() return not E.db.ufb.detachTargetPortrait end,
 			},
 		},
 	}

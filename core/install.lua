@@ -356,7 +356,7 @@ function E:SetupBuiDts(role)
 		E.db.datatexts.font = "Bui Visitor1"
 		E.db.datatexts.fontOutline = "MONOCROMEOUTLINE"
 		E.db.datatexts.fontSize = 10
-		E.db.datatexts.panels.BuiLeftChatDTPanel.right = "Mail"
+		E.db.datatexts.panels.BuiLeftChatDTPanel.right = "BuiMail"
 		if role == 'tank' then
 			E.db.datatexts.panels.BuiLeftChatDTPanel.left = "Avoidance"
 			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Vengeance'

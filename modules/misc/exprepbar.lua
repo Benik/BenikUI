@@ -21,8 +21,7 @@ function BXR:CreateXPStatus()
 		rested:SetInside(PlayerBar)
 		rested:SetStatusBarTexture(E.media.BuiFlat)
 		rested:Hide()
-		
-		BXR:ShowHideXpText()
+
 		ElvUI_ExperienceBar:Hide()
 		ElvUI_ExperienceBar:SetAlpha(0)
 	end
@@ -40,8 +39,7 @@ function BXR:CreateRepStatus()
 		reps:SetStatusBarTexture(E.media.BuiFlat)
 		reps:SetAlpha(0.6)
 		reps:Hide()	
-		
-		BXR:ShowHideRepText()
+
 		ElvUI_ReputationBar:Hide()
 		ElvUI_ReputationBar:SetAlpha(0)
 	end
@@ -52,7 +50,6 @@ function BXR:RevertXpRep()
 		if UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.general.experience.enable and not IsXPUserDisabled() then
 			ElvUI_ExperienceBar:Show()
 			ElvUI_ExperienceBar:SetAlpha(1)
-			if E.db.general.experience.textFormat ~= 'NONE' then ElvUI_ExperienceBar.text:Show() end
 			
 			local xp = ElvUI_ExperienceBar.statusBar
 			xp:ClearAllPoints()
@@ -66,43 +63,22 @@ function BXR:RevertXpRep()
 			rested:SetParent(ElvUI_ExperienceBar)
 			rested:SetInside(ElvUI_ExperienceBar)
 			rested:Show()
+			M:EnableDisable_ExperienceBar()
+		end
+		
+		local name = GetWatchedFactionInfo()
+		if E.db.general.reputation.enable and name then
+			ElvUI_ReputationBar:Show()
+			ElvUI_ReputationBar:SetAlpha(1)
 			
-			BXR:ShowHideXpText()
-		end
-		ElvUI_ReputationBar:Show()
-		ElvUI_ReputationBar:SetAlpha(1)
-		if E.db.general.reputation.textFormat ~= 'NONE' then ElvUI_ReputationBar.text:Show() end
-		
-		local reps = ElvUI_ReputationBar.statusBar
-		reps:ClearAllPoints()
-		reps:SetParent(ElvUI_ReputationBar)
-		reps:SetInside(ElvUI_ReputationBar)
-		reps:SetAlpha(1)
-		reps:Show()
-		
-		BXR:ShowHideRepText()
-		M:EnableDisable_ReputationBar()
-		M:EnableDisable_ExperienceBar()
-	end
-end
+			local reps = ElvUI_ReputationBar.statusBar
+			reps:ClearAllPoints()
+			reps:SetParent(ElvUI_ReputationBar)
+			reps:SetInside(ElvUI_ReputationBar)
+			reps:SetAlpha(1)
+			reps:Show()
 
-function BXR:ShowHideXpText()
-	if E.db.xprep.text then
-		if E.db.xprep.show == 'XP' then
-			ElvUI_ExperienceBar.text:Hide()
-		else
-			ElvUI_ExperienceBar.text:Show()
-		end
-	end
-end
-
-function BXR:ShowHideRepText()
-	local name = GetWatchedFactionInfo()
-	if E.db.xprep.text and name then
-		if E.db.xprep.show == 'REP' then
-			ElvUI_ReputationBar.text:Hide()
-		else
-			ElvUI_ReputationBar.text:Show()
+			M:EnableDisable_ReputationBar()
 		end
 	end
 end
@@ -134,8 +110,6 @@ function BXR:Initialize()
 	CheckBars()
 	hooksecurefunc(M, 'EnableDisable_ExperienceBar', BXR.CreateXPStatus)
 	hooksecurefunc(M, 'EnableDisable_ReputationBar', BXR.CreateRepStatus)
-	self:ShowHideXpText()
-	self:ShowHideRepText()
 	self:ChangeRepXpFont()
 end
 

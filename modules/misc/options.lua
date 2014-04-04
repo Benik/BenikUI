@@ -43,16 +43,8 @@ local function xprepTable()
 				get = function(info) return E.db.xprep[ info[#info] ] end,
 				set = function(info, value) E.db.xprep[ info[#info] ] = value; XpRepPositions(value); end,
 			},
-			text = {
-				order = 2,
-				type = "toggle",
-				name = L["Hide Text"],
-				desc = L["Hides the XP or Rep text from the statusbars"],
-				get = function(info) return E.db.xprep[ info[#info] ] end,
-				set = function(info, value) E.db.xprep[ info[#info] ] = value; BXR:ShowHideXpText(); BXR:ShowHideRepText(); end,
-			},
 			textStyle = {
-				order = 3,
+				order = 2,
 				type = "select",
 				name = L["Copy Font Style from"],
 				values = {
@@ -60,7 +52,6 @@ local function xprepTable()
 					['DATA'] = L['Datatexts'],
 					['UNIT'] = L['Unitframes'],
 				},
-				disabled = function() return E.db.xprep.text end,
 				get = function(info) return E.db.xprep[ info[#info] ] end,
 				set = function(info, value) E.db.xprep[ info[#info] ] = value; BXR:ChangeRepXpFont(); end,
 			},
