@@ -1,5 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
-local UFB = E:NewModule('BuiUnits', "AceHook-3.0", 'AceEvent-3.0');
+local UFB = E:NewModule('BuiUnits', 'AceHook-3.0', 'AceEvent-3.0');
 local UF = E:GetModule('UnitFrames');
 
 if E.db.ufb == nil then E.db.ufb = {} end

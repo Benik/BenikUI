@@ -1,6 +1,6 @@
 ﻿## Interface: 50400
 ## Author: Benik
-## Version: 0.43beta
+## Version: 0.44beta
 ## Title: |cff1784d1ElvUI|r_BenikUI
 ## Notes: an ElvUI 6+ edit
 ## RequiredDeps: ElvUI

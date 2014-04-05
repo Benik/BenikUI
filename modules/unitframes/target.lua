@@ -26,7 +26,6 @@ function UFB:ArrangeTarget()
 	local EMPTY_BARS_HEIGHT = E.db.ufb.barheight
 	local TargetBar = BUI_TargetBar
 	local db = E.db['unitframe']['units'].target
-	local UNIT_HEIGHT = db.height
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_DETACHED = E.db.ufb.detachTargetPortrait

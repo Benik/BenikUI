@@ -8,70 +8,13 @@ local BORDER = E.Border;
 
 local frame = _G["ElvUF_Player"]
 
-local function playerbar_onEnter(self)
-	if InCombatLockdown() then return end
-	if E.db.xprep.show == 'XP' then
-		if UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.general.experience.enable and not IsXPUserDisabled() then
-			ElvUI_ExperienceBar.statusBar:Show()
-			ElvUI_ExperienceBar.rested:Show()
-
-			GameTooltip:ClearLines()
-			GameTooltip:SetOwner(self, 'ANCHOR_BOTTOM', 0, -6)
-			
-			local cur, max = M:GetXP('player')
-			local level = UnitLevel('player')
-			
-			GameTooltip:AddLine((LEVEL..format(' : %d', level)), 0, 1, 0)
-			GameTooltip:AddLine(' ')
-			
-			GameTooltip:AddDoubleLine(XP.." :", format(' %d / %d (%d%%)', cur, max, cur/max * 100), 1, 1, 1)
-			GameTooltip:AddDoubleLine(L['Remaining :'], format(' %d (%d%% - %d '..L['Bars']..')', max - cur, (max - cur) / max * 100, 20 * (max - cur) / max), 1, 1, 1)	
-			
-			if rested then
-				GameTooltip:AddDoubleLine(L['Rested:'], format('+%d (%d%%)', rested, rested / max * 100), 1, 1, 1)
-			end
-			GameTooltip:Show()
-		end
-	elseif E.db.xprep.show == 'REP' then
-		local name, reaction, min, max, value, factionID = GetWatchedFactionInfo()
-		if E.db.general.reputation.enable and name then
-			ElvUI_ReputationBar.statusBar:Show()
-			GameTooltip:ClearLines()
-			GameTooltip:SetOwner(self, 'ANCHOR_BOTTOM', 0, -6)
-
-			local friendID, _, _, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
-			if name then
-				GameTooltip:AddLine(name)
-				GameTooltip:AddLine(' ')
-				
-				GameTooltip:AddDoubleLine(STANDING..' :', friendID and friendTextLevel or _G['FACTION_STANDING_LABEL'..reaction], 1, 1, 1)
-				GameTooltip:AddDoubleLine(REPUTATION..' :', format('%d / %d (%d%%)', value - min, max - min, (value - min) / (max - min) * 100), 1, 1, 1)
-			end
-			GameTooltip:Show()
-		end
-	end
-end
-
-local function playerbar_onLeave(self)
-	if E.db.xprep.show == 'XP' then
-		ElvUI_ExperienceBar.statusBar:Hide()
-		if ElvUI_ExperienceBar.rested then ElvUI_ExperienceBar.rested:Hide() end
-		GameTooltip:Hide()
-	elseif E.db.xprep.show == 'REP' then
-		ElvUI_ReputationBar.statusBar:Hide()
-		GameTooltip:Hide()
-	end
-end
-
 function UFB:ApplyPlayerChanges()
 
 	local playerbar = _G["BUI_PlayerBar"] or CreateFrame('Frame', 'BUI_PlayerBar', E.UIParent)
 	playerbar:SetTemplate('Transparent')
 	playerbar:SetParent(frame)
 	playerbar:SetFrameStrata('BACKGROUND')
-	playerbar:SetScript('OnEnter', playerbar_onEnter)
-	playerbar:SetScript('OnLeave', playerbar_onLeave)
-	
+
 	--Create a frame we can anchor portrait.backdrop to.
 	--This frame is persistent regardless of portrait style and will fix the issue of portrait not following mover when changing style.
 	local f = CreateFrame("Frame", nil, frame)
@@ -93,14 +36,6 @@ function UFB:ArrangePlayer()
 	local USE_MINI_POWERBAR = db.power.width == 'spaced' and USE_POWERBAR
 	local POWERBAR_DETACHED = db.power.detachFromFrame
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR and not POWERBAR_DETACHED
-	local POWERBAR_OFFSET = db.power.offset
-	local POWERBAR_HEIGHT = db.power.height
-	local POWERBAR_WIDTH = POWERBAR_DETACHED and db.power.detachedWidth or (db.width - (BORDER*2))
-
-	local USE_CLASSBAR = db.classbar.enable and CAN_HAVE_CLASSBAR
-	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and USE_CLASSBAR and db.classbar.detachFromFrame ~= true
-	local CLASSBAR_HEIGHT = db.classbar.height
-	local CLASSBAR_WIDTH = db.width - (BORDER*2)
 	
 	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth

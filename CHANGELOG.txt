@@ -1,3 +1,7 @@
+[b]0.44beta[/b] (Apr 6, 2014)
+*Reworked the xp and rep on PlayerBar. This time it's perfectofinal :P
+*Cleanup.
+
 [b]0.43beta[/b] (Apr 4, 2014)
 *BenikUI style in Shadow & Light edit.
 *Detached Portraits at last! (Big thanks to Blazeflack).

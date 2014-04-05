@@ -1,116 +1,238 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local M = E:GetModule('Misc');
-local BXR = E:NewModule('BUIExpRep')
+local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0')
 local LSM = LibStub("LibSharedMedia-3.0")
 
-function BXR:CreateXPStatus()
-	if E.db.xprep.show == 'XP' and UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.general.experience.enable and not IsXPUserDisabled() then
-		local PlayerBar = BUI_PlayerBar
-		
-		local xp = ElvUI_ExperienceBar.statusBar
-		xp:ClearAllPoints()
-		xp:SetParent(PlayerBar)
-		xp:SetInside(PlayerBar)
-		xp:SetStatusBarTexture(E.media.BuiFlat)
-		xp:SetAlpha(0.6)
-		xp:Hide()
-		
-		local rested = ElvUI_ExperienceBar.rested
-		rested:ClearAllPoints()
-		rested:SetParent(PlayerBar)
-		rested:SetInside(PlayerBar)
-		rested:SetStatusBarTexture(E.media.BuiFlat)
-		rested:Hide()
+local function xp_onEnter(self)
+	if InCombatLockdown() then return end
+	self:SetAlpha(0.8)
 
-		ElvUI_ExperienceBar:Hide()
-		ElvUI_ExperienceBar:SetAlpha(0)
+	GameTooltip:ClearLines()
+	GameTooltip:SetOwner(self, 'ANCHOR_BOTTOM', 0, -7)
+	
+	local cur, max = BXR:GetXP('player')
+	local level = UnitLevel('player')
+	
+	GameTooltip:AddLine((LEVEL..format(' : %d', level)), 0, 1, 0)
+	GameTooltip:AddLine(' ')
+	
+	GameTooltip:AddDoubleLine(XP.." :", format(' %d / %d (%d%%)', cur, max, cur/max * 100), 1, 1, 1)
+	GameTooltip:AddDoubleLine(L['Remaining :'], format(' %d (%d%% - %d '..L['Bars']..')', max - cur, (max - cur) / max * 100, 20 * (max - cur) / max), 1, 1, 1)	
+	
+	if rested then
+		GameTooltip:AddDoubleLine(L['Rested:'], format('+%d (%d%%)', rested, rested / max * 100), 1, 1, 1)
+	end
+	GameTooltip:Show()
+end
+
+local function rep_onEnter(self)
+	if InCombatLockdown() then return end
+	self:SetAlpha(0.6)
+	GameTooltip:ClearLines()
+	GameTooltip:SetOwner(self, 'ANCHOR_BOTTOM', 0, -7)
+	
+	local name, reaction, min, max, value, factionID = GetWatchedFactionInfo()
+	local friendID, _, _, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
+	if name then
+		GameTooltip:AddLine(name)
+		GameTooltip:AddLine(' ')
+		GameTooltip:AddDoubleLine(STANDING..' :', friendID and friendTextLevel or _G['FACTION_STANDING_LABEL'..reaction], 1, 1, 1)
+		GameTooltip:AddDoubleLine(REPUTATION..' :', format('%d / %d (%d%%)', value - min, max - min, (value - min) / (max - min) * 100), 1, 1, 1)
+	end
+	GameTooltip:Show()
+end
+
+local function bars_onLeave(self)
+	self:SetAlpha(0)
+	GameTooltip:Hide()
+end
+
+function BXR:GetXP(unit)
+	if(unit == 'pet') then
+		return GetPetExperience()
+	else
+		return UnitXP(unit), UnitXPMax(unit)
 	end
 end
 
-function BXR:CreateRepStatus()
-	local name = GetWatchedFactionInfo()
-	if E.db.xprep.show == 'REP' and E.db.general.reputation.enable and name then
-		local PlayerBar = BUI_PlayerBar
-		
-		local reps = ElvUI_ReputationBar.statusBar
-		reps:ClearAllPoints()
-		reps:SetParent(PlayerBar)
-		reps:SetInside(PlayerBar)
-		reps:SetStatusBarTexture(E.media.BuiFlat)
-		reps:SetAlpha(0.6)
-		reps:Hide()	
+function BXR:UpdateExperience(event)
 
-		ElvUI_ReputationBar:Hide()
-		ElvUI_ReputationBar:SetAlpha(0)
+	local bar = self.xpbar
+
+	if(UnitLevel('player') == MAX_PLAYER_LEVEL) or IsXPUserDisabled() then
+		bar:Hide()
+	else
+		bar:Show()
+		
+		local cur, max = self:GetXP('player')
+		bar:SetMinMaxValues(0, max)
+		bar:SetValue(cur - 1 >= 0 and cur - 1 or 0)
+		bar:SetValue(cur)
+		
+		local rested = GetXPExhaustion()
+		local text = ''
+		local textFormat = E.db.general.experience.textFormat
+		
+		if rested and rested > 0 then
+			bar.rested:SetMinMaxValues(0, max)
+			bar.rested:SetValue(min(cur + rested, max))
+			
+			if textFormat == 'PERCENT' then
+				text = format('%d%% R:%d%%', cur / max * 100, rested / max * 100)
+			elseif textFormat == 'CURMAX' then
+				text = format('%s - %s R:%s', E:ShortValue(cur), E:ShortValue(max), E:ShortValue(rested))
+			elseif textFormat == 'CURPERC' then
+				text = format('%s - %d%% R:%s [%d%%]', E:ShortValue(cur), cur / max * 100, E:ShortValue(rested), rested / max * 100)
+			end
+		else
+			bar.rested:SetMinMaxValues(0, 1)
+			bar.rested:SetValue(0)	
+
+			if textFormat == 'PERCENT' then
+				text = format('%d%%', cur / max * 100)
+			elseif textFormat == 'CURMAX' then
+				text = format('%s - %s', E:ShortValue(cur), E:ShortValue(max))
+			elseif textFormat == 'CURPERC' then
+				text = format('%s - %d%%', E:ShortValue(cur), cur / max * 100)
+			end			
+		end
+		self:ChangeRepXpFont()
+		bar.text:SetText(text)
+	end
+
+end
+
+local backupColor = FACTION_BAR_COLORS[1]
+function BXR:UpdateReputation(event)
+
+	local bar = self.repbar
+	
+	local ID = 100
+	local isFriend, friendText
+	local name, reaction, min, max, value = GetWatchedFactionInfo()
+	local numFactions = GetNumFactions();
+
+	if not name then
+		bar:Hide()
+	else
+		bar:Show()
+
+		local text = ''
+		local textFormat = E.db.general.reputation.textFormat		
+		local color = FACTION_BAR_COLORS[reaction] or backupColor
+		bar:SetStatusBarColor(color.r, color.g, color.b)	
+
+		bar:SetMinMaxValues(min, max)
+		bar:SetValue(value)
+		
+		for i=1, numFactions do
+			local factionName, _, standingID,_,_,_,_,_,_,_,_,_,_, factionID = GetFactionInfo(i);
+			local friendID, friendRep, friendMaxRep, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
+			if factionName == name then
+				if friendID ~= nil then
+					isFriend = true
+					friendText = friendTextLevel
+				else
+					ID = standingID
+				end
+			end
+		end
+		
+		if textFormat == 'PERCENT' then
+			text = format('%s: %d%% [%s]', name, ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
+		elseif textFormat == 'CURMAX' then
+			text = format('%s: %s - %s [%s]', name, E:ShortValue(value - min), E:ShortValue(max - min), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
+		elseif textFormat == 'CURPERC' then
+			text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
+		end					
+		self:ChangeRepXpFont()
+		bar.text:SetText(text)		
+	end
+
+end
+
+function BXR:EnableDisable_ExperienceBar()
+
+	if UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.xprep.show == 'XP' then
+		self:RegisterEvent('PLAYER_XP_UPDATE', 'UpdateExperience')
+		self:RegisterEvent('PLAYER_LEVEL_UP', 'UpdateExperience')
+		self:RegisterEvent("DISABLE_XP_GAIN", 'UpdateExperience')
+		self:RegisterEvent("ENABLE_XP_GAIN", 'UpdateExperience')
+		self:RegisterEvent('UPDATE_EXHAUSTION', 'UpdateExperience')
+		self:UpdateExperience()	
+	else
+		self:UnregisterEvent('PLAYER_XP_UPDATE')
+		self:UnregisterEvent('PLAYER_LEVEL_UP')
+		self:UnregisterEvent("DISABLE_XP_GAIN")
+		self:UnregisterEvent("ENABLE_XP_GAIN")
+		self:UnregisterEvent('UPDATE_EXHAUSTION')
+		self.xpbar:Hide()
 	end
 end
 
-function BXR:RevertXpRep()
-	if E.db.xprep.show == 'NONE' then
-		if UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.general.experience.enable and not IsXPUserDisabled() then
-			ElvUI_ExperienceBar:Show()
-			ElvUI_ExperienceBar:SetAlpha(1)
-			
-			local xp = ElvUI_ExperienceBar.statusBar
-			xp:ClearAllPoints()
-			xp:SetParent(ElvUI_ExperienceBar)
-			xp:SetInside(ElvUI_ExperienceBar)
-			xp:SetAlpha(0.8)
-			xp:Show()
-			
-			local rested = ElvUI_ExperienceBar.rested
-			rested:ClearAllPoints()
-			rested:SetParent(ElvUI_ExperienceBar)
-			rested:SetInside(ElvUI_ExperienceBar)
-			rested:Show()
-			M:EnableDisable_ExperienceBar()
-		end
-		
-		local name = GetWatchedFactionInfo()
-		if E.db.general.reputation.enable and name then
-			ElvUI_ReputationBar:Show()
-			ElvUI_ReputationBar:SetAlpha(1)
-			
-			local reps = ElvUI_ReputationBar.statusBar
-			reps:ClearAllPoints()
-			reps:SetParent(ElvUI_ReputationBar)
-			reps:SetInside(ElvUI_ReputationBar)
-			reps:SetAlpha(1)
-			reps:Show()
+function BXR:EnableDisable_ReputationBar()
 
-			M:EnableDisable_ReputationBar()
-		end
+	if E.db.xprep.show == 'REP' then
+		self:RegisterEvent('UPDATE_FACTION', 'UpdateReputation')
+		self:UpdateReputation()
+	else
+		self:UnregisterEvent('UPDATE_FACTION')
+		self.repbar:Hide()
 	end
 end
 
 function BXR:ChangeRepXpFont()
+	local bar
+	if E.db.xprep.show == 'REP' then
+		bar = self.repbar
+	elseif E.db.xprep.show == 'XP' then
+		bar = self.xpbar
+	else return
+	end
 	if E.db.xprep.textStyle == 'DATA' then
-		ElvUI_ReputationBar.text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-		ElvUI_ExperienceBar.text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+		bar.text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 	elseif E.db.xprep.textStyle == 'UNIT' then
-		ElvUI_ReputationBar.text:FontTemplate(LSM:Fetch("font", E.db.unitframe.font), E.db.unitframe.fontSize, E.db.unitframe.fontOutline)
-		ElvUI_ExperienceBar.text:FontTemplate(LSM:Fetch("font", E.db.unitframe.font), E.db.unitframe.fontSize, E.db.unitframe.fontOutline)
+		bar.text:FontTemplate(LSM:Fetch("font", E.db.unitframe.font), E.db.unitframe.fontSize, E.db.unitframe.fontOutline)
 	else
-		ElvUI_ReputationBar.text:FontTemplate(nil, E.db.general.reputation.textSize)
-		ElvUI_ExperienceBar.text:FontTemplate(nil, E.db.general.experience.textSize)
+		bar.text:FontTemplate(nil, E.db.general.reputation.textSize)
 	end
 end
 
-local function CheckBars()
-	if E.db.xprep.show == 'REP' then
-		BXR:CreateRepStatus()
-	elseif E.db.xprep.show == 'XP' then
-		BXR:CreateXPStatus()
-	else
-		BXR:RevertXpRep()
-	end
+function BXR:LoadBars()
+	self.xpbar = CreateFrame("StatusBar", nil, BUI_PlayerBar)
+	self.xpbar:SetInside()
+	self.xpbar:SetStatusBarTexture(E["media"].BuiFlat)
+	self.xpbar:SetStatusBarColor(0, 0.4, 1, .8)
+	self.xpbar:SetAlpha(0)
+
+	self.xpbar.text = self.xpbar:CreateFontString(nil, 'OVERLAY')
+	self.xpbar.text:SetPoint('CENTER')	
+				
+	self.xpbar.rested = CreateFrame("StatusBar", nil, self.xpbar)
+	self.xpbar.rested:SetInside(BUI_PlayerBar)
+	self.xpbar.rested:SetStatusBarTexture(E["media"].BuiFlat)
+	self.xpbar.rested:SetStatusBarColor(1, 0, 1, 0.2)
+	self.xpbar:SetScript('OnEnter', xp_onEnter)
+	self.xpbar:SetScript('OnLeave', bars_onLeave)
+
+	self.repbar = CreateFrame("StatusBar", nil, BUI_PlayerBar)
+	self.repbar:SetInside()
+	self.repbar:SetStatusBarTexture(E["media"].BuiFlat)
+	self.repbar:SetAlpha(0)
+	self.repbar.text = self.repbar:CreateFontString(nil, 'OVERLAY')
+	self.repbar.text:SetPoint('CENTER')
+	self.repbar.text:Width(BUI_PlayerBar:GetWidth() - 20)
+	self.repbar.text:SetWordWrap(false)
+	self.repbar:SetScript('OnEnter', rep_onEnter)
+	self.repbar:SetScript('OnLeave', bars_onLeave)
+	
+	--self:ChangeRepXpFont()
+	self:EnableDisable_ExperienceBar()
+	self:EnableDisable_ReputationBar()
+
 end
 
 function BXR:Initialize()
-	CheckBars()
-	hooksecurefunc(M, 'EnableDisable_ExperienceBar', BXR.CreateXPStatus)
-	hooksecurefunc(M, 'EnableDisable_ReputationBar', BXR.CreateRepStatus)
-	self:ChangeRepXpFont()
+	self:LoadBars()
 end
 
 E:RegisterModule(BXR:GetName())

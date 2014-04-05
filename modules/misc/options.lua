@@ -1,28 +1,14 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUI = E:GetModule('BenikUI');
 local BXR = E:GetModule('BUIExpRep');
-local M = E:GetModule('Misc');
 
 if E.db.xprep == nil then E.db.xprep = {} end
 
 -- Defaults
 P['xprep'] = {
 	['show'] = "REP",
-	['text'] = true,
 	['textStyle'] = 'UNIT',
 }
-
-local function XpRepPositions(value)
-	if value == 'REP' then
-		BXR:CreateRepStatus()
-	elseif value == 'XP' then
-		BXR:CreateXPStatus()
-	else
-		BXR:RevertXpRep()
-	end
-	M:EnableDisable_ReputationBar()
-	M:EnableDisable_ExperienceBar()
-end
 
 local function xprepTable()
 	E.Options.args.bui.args.xprep = {
@@ -41,7 +27,7 @@ local function xprepTable()
 					['XP'] = L['Experience'],
 				},
 				get = function(info) return E.db.xprep[ info[#info] ] end,
-				set = function(info, value) E.db.xprep[ info[#info] ] = value; XpRepPositions(value); end,
+				set = function(info, value) E.db.xprep[ info[#info] ] = value; BXR:EnableDisable_ReputationBar(); BXR:EnableDisable_ExperienceBar(); end,
 			},
 			textStyle = {
 				order = 2,
