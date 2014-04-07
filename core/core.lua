@@ -8,7 +8,7 @@ local addon, ns = ...
 local backdropr, backdropg, backdropb, backdropa, borderr, borderg, borderb = 0, 0, 0, 1, 0, 0, 0
 
 BUI.TexCoords = {.07, 0.93, -.07, 0.85}
-BUI.Title = "|cff00c0faBenikUI|r"
+BUI.Title = "|cff00c0faBenikUI |r"
 BUI.Version = GetAddOnMetadata("ElvUI_BenikUI", "Version")
 
 function BUI:cOption(name)
@@ -48,7 +48,7 @@ function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:InitBUI()
 	if E.private.install_complete == E.version and E.db.bui.installed == nil then E:SetupBui() end
-	print(BUI.Title..format(" v|cff00c0fa%s|r",BUI.Version)..L[" is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598"])
+	print(BUI.Title..format("v|cff00c0fa%s|r",BUI.Version)..L[" is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598"])
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
 

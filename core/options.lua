@@ -18,34 +18,45 @@ local function buiTable()
 			name = {
 				order = 1,
 				type = "header",
-				name = L["BenikUI "]..BUI:cOption(BUI.Version)..L["by Benik (EU-Emerald Dream)"],
-			},		
-			desc = {
+				name = BUI.Title..BUI:cOption(BUI.Version)..L["by Benik (EU-Emerald Dream)"],
+			},
+			logo = {
 				order = 2,
+				type = "description",
+				name = "",
+				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 256, 128 end,
+			},			
+			desc = {
+				order = 3,
 				type = "description",
 				name = L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "]..BUI:cOption(L["light blue color."]),
 			},
+			desc2 = {
+				order = 4,
+				type = "description",
+				name = BUI:cOption(L["Credits:"])..L[" Elv, Tukz, Blazeflack, Azilroka, Sinaris, Repooc, Darth Predator, Dandruff, ElvUI community"],
+			},
 			spacer1 = {
-				order = 3,
+				order = 5,
 				type = "description",
 				name = "",
 			},
 			install = {
-				order = 4,
+				order = 6,
 				type = "execute",
 				name = L['Install'],
 				desc = L['Run the installation process.'],
 				func = function() E:SetupBui(); E:ToggleConfig(); end,
 			},
-			spacer12 = {
-				order = 5,
+			spacer2 = {
+				order = 7,
 				type = "header",
 				name = "",
 			},
 			colorTheme = {
-				order = 6,
+				order = 8,
 				type = "select",
-				name = L["Color themes"],
+				name = L["Color Themes"],
 				values = {
 					['Elv'] = L['ElvUI'],
 					['Diablo'] = L['Diablo'],

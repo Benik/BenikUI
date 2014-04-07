@@ -38,8 +38,8 @@ local function ufTable()
 					barshow = {
 						order = 1,
 						type = "toggle",
-						name = SHOW,
-						desc = L["Show the Empty frames (Player and Target)."],	
+						name = ENABLE,
+						desc = L["Enable the Empty frames (Player and Target)."],	
 					},
 					barheight = {
 						order = 2,
@@ -72,9 +72,6 @@ local function ufPlayerTable()
 				name = L["Detach Portrait"],
 				set = function(info, value)
 					E.db.ufb[ info[#info] ] = value;
-					--Easiest way to properly set new width of various elements on the player frame
-					--such as classbar, stagger, power etc. The alternative is to include a lot of code
-					--in UFB:ArrangePlayer() to reposition these elements.
 					if value == true then
 						E.Options.args.unitframe.args.player.args.portrait.args.width.min = 0
 						E.db.unitframe.units.player.portrait.width = 0

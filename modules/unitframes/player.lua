@@ -1,7 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
-local M = E:GetModule('Misc');
 
 local SPACING = E.Spacing;
 local BORDER = E.Border;
@@ -69,6 +68,7 @@ function UFB:ArrangePlayer()
 	-- Portrait
 	do	
 		local portrait = frame.Portrait --Need to make them local here, since frame.Portrait changes whether you use 2D or 3D. It needs to update when executed.
+		
 		if USE_PORTRAIT then
 			if not USE_PORTRAIT_OVERLAY then
 				if not portrait.backdrop.shadow then
@@ -92,6 +92,8 @@ function UFB:ArrangePlayer()
 					frame.portraitmover:Width(PLAYER_PORTRAIT_WIDTH)
 					frame.portraitmover:Height(PLAYER_PORTRAIT_HEIGHT)
 					portrait.backdrop:SetAllPoints(frame.portraitmover)
+					portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
+					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
 
 					if not frame.portraitmover.mover then
 						frame.portraitmover:ClearAllPoints()

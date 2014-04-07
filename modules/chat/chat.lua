@@ -1,13 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local CH = E:GetModule('Chat')
 
---[[ Copy Chat button (the battle log fecks it up)
-CH.BenikStyleChat = CH.StyleChat
-function CH:StyleChat(frame)
-	self:BenikStyleChat(frame)
-	frame.button:SetPoint('TOPRIGHT', 0, 20)
-end]]
-
 -- Moar font sizes in chat
 E.BenikUpdateBlizzardFonts = E.UpdateBlizzardFonts
 function E:UpdateBlizzardFonts()

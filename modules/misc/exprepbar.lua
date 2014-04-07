@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0')
+local M = E:GetModule('Misc')
 local LSM = LibStub("LibSharedMedia-3.0")
 
 local function xp_onEnter(self)
@@ -70,7 +71,7 @@ function BXR:UpdateExperience(event)
 		
 		local rested = GetXPExhaustion()
 		local text = ''
-		local textFormat = E.db.general.experience.textFormat
+		local textFormat = E.db.xprep.textFormat
 		
 		if rested and rested > 0 then
 			bar.rested:SetMinMaxValues(0, max)
@@ -117,7 +118,7 @@ function BXR:UpdateReputation(event)
 		bar:Show()
 
 		local text = ''
-		local textFormat = E.db.general.reputation.textFormat		
+		local textFormat = E.db.xprep.textFormat		
 		local color = FACTION_BAR_COLORS[reaction] or backupColor
 		bar:SetStatusBarColor(color.r, color.g, color.b)	
 
@@ -152,7 +153,7 @@ end
 
 function BXR:EnableDisable_ExperienceBar()
 
-	if UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.xprep.show == 'XP' then
+	if UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.ufb.barshow and E.db.xprep.show == 'XP' then
 		self:RegisterEvent('PLAYER_XP_UPDATE', 'UpdateExperience')
 		self:RegisterEvent('PLAYER_LEVEL_UP', 'UpdateExperience')
 		self:RegisterEvent("DISABLE_XP_GAIN", 'UpdateExperience')
@@ -171,7 +172,7 @@ end
 
 function BXR:EnableDisable_ReputationBar()
 
-	if E.db.xprep.show == 'REP' then
+	if E.db.ufb.barshow and E.db.xprep.show == 'REP' then
 		self:RegisterEvent('UPDATE_FACTION', 'UpdateReputation')
 		self:UpdateReputation()
 	else
@@ -224,11 +225,9 @@ function BXR:LoadBars()
 	self.repbar.text:SetWordWrap(false)
 	self.repbar:SetScript('OnEnter', rep_onEnter)
 	self.repbar:SetScript('OnLeave', bars_onLeave)
-	
-	--self:ChangeRepXpFont()
+
 	self:EnableDisable_ExperienceBar()
 	self:EnableDisable_ReputationBar()
-
 end
 
 function BXR:Initialize()

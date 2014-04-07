@@ -91,7 +91,7 @@ function BUIT:CreateTokensHolder()
 	tokenHolder:RegisterEvent("PLAYER_REGEN_DISABLED")
 	tokenHolder:RegisterEvent("PLAYER_REGEN_ENABLED")
 	E.FrameLocks['tokenHolder'] = true;
-	E:CreateMover(tokenHolder, "tokenHolderMover", L["tokenHolder"])
+	E:CreateMover(tokenHolder, "tokenHolderMover", L['Tokens'])
 end
 
 function BUIT:UpdateTokens()
@@ -145,8 +145,7 @@ function BUIT:UpdateTokens()
 			TokensFrame.Text:Point("CENTER", TokensFrame, "CENTER", -10, 1)
 			TokensFrame.Text:Width(TokensFrame:GetWidth() - 20)
 			TokensFrame.Text:SetWordWrap(false)
-			TokensFrame.Text:SetShadowColor(0, 0, 0)
-			TokensFrame.Text:SetShadowOffset(1.25, -1.25)
+
 			if max == 0 then
 				TokensFrame.Text:SetText(format("%s", amount))
 			else

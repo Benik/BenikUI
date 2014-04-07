@@ -1,3 +1,11 @@
+[b]0.45beta[/b] (Apr 8, 2014)
+*Fixed the detached portraits strata. They should now overlap the player and target frame.
+*Fixed the xp/rep text format not changing cause were calling ElvUI's text format option. Added an option in BenikUI.
+*BenikUI chat datatexts will hide when default ElvUI ones are shown. (needs a moar testing.. going to bed)
+*Updated locales.
+*Added the logo at the options. Probably I will remove it.. dunno yet
+*Added a couple of frames not styled.
+
 [b]0.44beta[/b] (Apr 6, 2014)
 *Reworked the xp and rep on PlayerBar. This time it's perfectofinal :P
 *Cleanup.

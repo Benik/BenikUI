@@ -84,7 +84,7 @@ local function SetupBuiLayout()
 	end	
 	
 	if InstallStepComplete then
-		InstallStepComplete.message = L["BenikUI Layout Applied"]
+		InstallStepComplete.message = BUI.Title..L["Layout Set"]
 		InstallStepComplete:Show()		
 	end
 	E:UpdateAll(true)
@@ -129,7 +129,7 @@ function E:SetupBuiColors(color)
 		end
 	end
 	if InstallStepComplete then
-		InstallStepComplete.message = L["Color Theme Applied"]
+		InstallStepComplete.message = L["Color Theme Set"]
 		InstallStepComplete:Show()		
 	end
 	E:UpdateAll(true)
@@ -150,7 +150,7 @@ local function SetupBuiChat()
 	end
 	
 	if InstallStepComplete then
-		InstallStepComplete.message = L["BenikUI Chat Applied"]
+		InstallStepComplete.message = BUI.Title..L["Chat Set"]
 		InstallStepComplete:Show()		
 	end
 	E:UpdateAll(true)
@@ -212,7 +212,7 @@ local function SetupBuiAbs()
 	end
 
 	if InstallStepComplete then
-		InstallStepComplete.message = L["BenikUI Actionbars Applied"]
+		InstallStepComplete.message = BUI.Title..L["Actionbars Set"]
 		InstallStepComplete:Show()		
 	end
 	E:UpdateAll(true)
@@ -320,7 +320,7 @@ local function SetupBuiUfs()
 	end
 	
 	if InstallStepComplete then
-		InstallStepComplete.message = L["BenikUI Unitframes Applied"]
+		InstallStepComplete.message = BUI.Title..L["Unitframes Set"]
 		InstallStepComplete:Show()		
 	end
 	E:UpdateAll(true)
@@ -343,7 +343,7 @@ local function SetupBuiAuras()
 	end
 
 	if InstallStepComplete then
-		InstallStepComplete.message = L["BenikUI Auras Applied"]
+		InstallStepComplete.message = BUI.Title..L["Auras Set"]
 		InstallStepComplete:Show()		
 	end
 	E:UpdateAll(true)
@@ -373,7 +373,7 @@ function E:SetupBuiDts(role)
 	end
 	
 	if InstallStepComplete then
-		InstallStepComplete.message = L["BenikUI DataTexts Applied"]
+		InstallStepComplete.message = BUI.Title..L["DataTexts Set"]
 		InstallStepComplete:Show()		
 	end
 	E:UpdateAll(true)
@@ -473,7 +473,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript("OnClick", SetupBuiChat)
 		InstallOption1Button:SetText(L["Setup Chat"])
 	elseif PageNum == 5 then
-		f.SubTitle:SetText(L['Unitframes'])
+		f.SubTitle:SetText(L['UnitFrames'])
 		f.Desc1:SetText(L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars.\r|cffff8000This doesn't touch your current raid/party layout|r"])
 		f.Desc2:SetText(L["Please click the button below to setup your Unitframes."])
 		f.Desc3:SetText(L["Importance: |cff07D400High|r"])
@@ -481,15 +481,15 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript('OnClick', SetupBuiUfs)
 		InstallOption1Button:SetText(L["Setup Unitframes"])		
 	elseif PageNum == 6 then
-		f.SubTitle:SetText(L["Actionbars"])
+		f.SubTitle:SetText(L["ActionBars"])
 		f.Desc1:SetText(L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
 		f.Desc2:SetText(L["Please click the button below to setup your actionbars."])
 		f.Desc3:SetText(L["Importance: |cff07D400High|r"])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', SetupBuiAbs)
-		InstallOption1Button:SetText(L["Setup Actionbars"])	
+		InstallOption1Button:SetText(L["Setup ActionBars"])	
 	elseif PageNum == 7 then
-		f.SubTitle:SetText(L["Auras"])
+		f.SubTitle:SetText(L["Auras System"])
 		f.Desc1:SetText(L["This part of the installation process will only change the Aura system fonts.\r|cffff8000This doesn't touch any filters you already made|r"])
 		f.Desc2:SetText(L["Please click the button below to setup your auras."])
 		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
@@ -497,7 +497,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript('OnClick', SetupBuiAuras)
 		InstallOption1Button:SetText(L["Setup Auras"])	
 	elseif PageNum == 8 then
-		f.SubTitle:SetText(L["Datatexts"])
+		f.SubTitle:SetText(L["DataTexts"])
 		f.Desc1:SetText(L["This part of the installation process will fill BenikUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
 		f.Desc2:SetText(L["Please click the button below to setup your datatexts."])
 		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
@@ -522,7 +522,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetText(L["Finished"])				
 		BUIInstallFrame:Size(550, 350)
 		if InstallStepComplete then
-			InstallStepComplete.message = L["BenikUI Installed"]
+			InstallStepComplete.message = BUI.Title..L["Installed"]
 			InstallStepComplete:Show()		
 		end
 	end

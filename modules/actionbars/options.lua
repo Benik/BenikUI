@@ -33,7 +33,7 @@ local function abTable()
 					chooseAb = {
 						order = 1,
 						type = "select",
-						name = L["Show in"],
+						name = L["Show in:"],
 						desc = L["Choose Actionbar to show to"],
 						values = {
 							['BAR1'] = L['Bar 1'],

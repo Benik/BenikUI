@@ -1,6 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUI = E:GetModule('BenikUI');
 local BXR = E:GetModule('BUIExpRep');
+local UFB = E:GetModule('BuiUnits');
 
 if E.db.xprep == nil then E.db.xprep = {} end
 
@@ -12,21 +13,23 @@ P['xprep'] = {
 
 local function xprepTable()
 	E.Options.args.bui.args.xprep = {
-		order = 7,
+		order = 30,
 		type = 'group',
 		name = L["XP - Rep"],
+		disabled = function() return not E.db.ufb.barshow end,
+		get = function(info) return E.db.xprep[ info[#info] ] end,
 		guiInline = true,
 		args = {
 			show = {
 				order = 1,
 				type = "select",
 				name = L["Show in PlayerBar"],
+				desc = L["Empty Frames must be enabled \n(in UnitFrames options)"],
 				values = {
 					['NONE'] = L['None'],
 					['REP'] = L['Reputation'],
 					['XP'] = L['Experience'],
 				},
-				get = function(info) return E.db.xprep[ info[#info] ] end,
 				set = function(info, value) E.db.xprep[ info[#info] ] = value; BXR:EnableDisable_ReputationBar(); BXR:EnableDisable_ExperienceBar(); end,
 			},
 			textStyle = {
@@ -35,11 +38,22 @@ local function xprepTable()
 				name = L["Copy Font Style from"],
 				values = {
 					['DAFAULT'] = DEFAULT,
-					['DATA'] = L['Datatexts'],
-					['UNIT'] = L['Unitframes'],
+					['DATA'] = L['DataTexts'],
+					['UNIT'] = L['UnitFrames'],
 				},
-				get = function(info) return E.db.xprep[ info[#info] ] end,
 				set = function(info, value) E.db.xprep[ info[#info] ] = value; BXR:ChangeRepXpFont(); end,
+			},
+			textFormat = {
+				order = 3,
+				type = 'select',
+				name = L["Text Format"],
+				values = {
+					NONE = NONE,
+					PERCENT = L["Percent"],
+					CURMAX = L["Current - Max"],
+					CURPERC = L["Current - Percent"],
+				},
+				set = function(info, value) E.db.xprep[ info[#info] ] = value; if E.db.xprep.show == 'XP' then BXR:UpdateExperience() elseif E.db.xprep.show == 'REP' then BXR:UpdateReputation() end; end,
 			},
 		},
 	}

@@ -26,7 +26,7 @@ function BUID:CreateDashboardHolder()
 	dholder:Size(DASH_WIDTH, ((DASH_HEIGHT+10)*DASH_NUM)+(DASH_SPACING*DASH_NUM) + DASH_SPACING)
 	dholder.backdrop:Style('Outside')
 	E.FrameLocks['BuiDashboard'] = true;
-	E:CreateMover(BuiDashboard, "BuiDashboardMover", L["Dashboard"]) -- temporary
+	E:CreateMover(BuiDashboard, "BuiDashboardMover", L["Dashboard"])
 end
 
 BUID.board = {}
@@ -82,8 +82,6 @@ function BUID:CreateBoards()
 		BUID.board[i].Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		BUID.board[i].Text:Point("BOTTOMLEFT", BUID.board[i], "BOTTOMLEFT", 2, 4)
 		BUID.board[i].Text:SetJustifyH('LEFT')
-		BUID.board[i].Text:SetShadowColor(0, 0, 0)
-		BUID.board[i].Text:SetShadowOffset(1.25, -1.25)
 	end
 end
 

@@ -12,10 +12,6 @@ function A:CreateIcon(button)
 	self:CreateIconBui(button)
 	
 	button:Style('Inside', 'decor')
-	button.time:SetShadowColor(0, 0, 0)
-	button.time:SetShadowOffset(1.25, -1.25)
-	button.count:SetShadowColor(0, 0, 0)
-	button.count:SetShadowOffset(1.25, -1.25)
 	
 	local Bar = CreateFrame('StatusBar', nil, decor)
 	Bar:SetInside(decor)

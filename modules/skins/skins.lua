@@ -14,6 +14,7 @@ local FreeBlizzFrames = {
 	ClassTrainerFrame,
 	ConsolidatedBuffsTooltip, -- check
 	DressUpFrame,
+	DropDownList1,
 	ElvUI_StaticPopup1,
 	ElvUI_StaticPopup2,
 	ElvUI_StaticPopup3,
@@ -23,11 +24,13 @@ local FreeBlizzFrames = {
 	GuildRegistrarFrame,
 	InterfaceOptionsFrame,
 	ItemRefTooltip,
+	ItemTextFrame,
 	LFGDungeonReadyPopup,
 	LFGDungeonReadyDialog,
 	LFGDungeonReadyStatus,
 	MailFrame,
 	MerchantFrame,
+	MinimapRightClickMenu,
 	OpenMailFrame,
 	PaperDollItemsFrame,
 	PetitionFrame, -- check

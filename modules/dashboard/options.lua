@@ -14,7 +14,7 @@ P['utils'] = {
 
 local function utilsTable()
 	E.Options.args.bui.args.utils = {
-		order = 6,
+		order = 20,
 		type = 'group',
 		name = L["Dashboards"],
 		guiInline = true,
