@@ -1,3 +1,7 @@
+[b]0.46beta[/b] (Apr 9, 2014)
+*Made BenikUI layout a seperate module.
+*Different (more efficient) approach on hide/show chat datatexts.
+
 [b]0.45beta[/b] (Apr 8, 2014)
 *Fixed the detached portraits strata. They should now overlap the player and target frame.
 *Fixed the xp/rep text format not changing cause were calling ElvUI's text format option. Added an option in BenikUI.

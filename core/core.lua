@@ -40,7 +40,6 @@ function BUI:AddOptions()
 end
 
 function BUI:InitBUI()
-	self:ChangeLayout()
 	self:StyleTooltip()
 end
 

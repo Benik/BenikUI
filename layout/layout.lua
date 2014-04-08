@@ -1,4 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
+local BUIL = E:NewModule('BuiLayout', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 local DT = E:GetModule('DataTexts')
@@ -146,7 +147,33 @@ end
 
 local bbuttons = {}
 
-function BUI:ChangeLayout()
+function BUIL:ToggleBuiDts()
+	if E.db.datatexts.leftChatPanel then
+		BuiLeftChatDTPanel:Hide()
+		for i = 3, 4 do
+			bbuttons[i]:Hide()
+		end
+	else
+		BuiLeftChatDTPanel:Show()
+		for i = 3, 4 do
+			bbuttons[i]:Show()
+		end
+	end
+	
+	if E.db.datatexts.rightChatPanel then
+		BuiRightChatDTPanel:Hide()
+		for i = 1, 2 do
+			bbuttons[i]:Hide()
+		end
+	else
+		BuiRightChatDTPanel:Show()
+		for i = 1, 2 do
+			bbuttons[i]:Show()
+		end
+	end
+end
+
+function BUIL:ChangeLayout()
 	
 	LeftMiniPanel:SetHeight(PANEL_HEIGHT)
 	RightMiniPanel:SetHeight(PANEL_HEIGHT)
@@ -171,16 +198,12 @@ function BUI:ChangeLayout()
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
 	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
-	LeftChatDataPanel:HookScript('OnShow', function(self) Bui_ldtp:Hide() end)
-	LeftChatDataPanel:HookScript('OnHide', function(self) Bui_ldtp:Show() end)
 	
 	-- Right dt panel
 	Bui_rdtp:SetTemplate('Transparent')
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
-	RightChatDataPanel:HookScript('OnShow', function(self) Bui_rdtp:Hide() end)
-	RightChatDataPanel:HookScript('OnHide', function(self) Bui_rdtp:Show() end)
 
 	-- dummy frame for chat/threat (left)
 	Bui_dchat:SetFrameStrata('LOW')
@@ -204,11 +227,6 @@ function BUI:ChangeLayout()
 		bbuttons[i].text:SetPoint('CENTER', 1, 0)
 		bbuttons[i].text:SetJustifyH('CENTER')
 		bbuttons[i].text:SetTextColor(unpackColor(E.db.general.valuecolor))
-		
-		for i = 1, 2 do
-			RightChatDataPanel:HookScript('OnShow', function(self) bbuttons[i]:Hide() end)
-			RightChatDataPanel:HookScript('OnHide', function(self) bbuttons[i]:Show() end)
-		end
 		
 		-- Game menu button
 		if i == 1 then
@@ -262,12 +280,7 @@ function BUI:ChangeLayout()
 				bbuttons[i].sglow:Hide()
 				GameTooltip:Hide()
 			end)
-
-		for i = 3, 4 do
-			LeftChatDataPanel:HookScript('OnShow', function(self) bbuttons[i]:Hide() end)
-			LeftChatDataPanel:HookScript('OnHide', function(self) bbuttons[i]:Show() end)
-		end
-			
+	
 		-- Tokens Button	
 		elseif i == 3 then
 			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
@@ -345,6 +358,13 @@ function BUI:ChangeLayout()
 	-- Minimap elements styling
 	Minimap.backdrop:Style('Outside')
 	ElvUI_ConsolidatedBuffs:Style('Outside')
-
+	
 end
+
+function BUIL:Initialize()
+	self:ChangeLayout()
+	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ToggleBuiDts)
+end
+
+E:RegisterModule(BUIL:GetName())
 
