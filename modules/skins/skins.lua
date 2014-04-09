@@ -198,20 +198,16 @@ function BUIS:BenikUISkins()
 		end
 	end
 	if IsAddOnLoaded('ElvUI_SLE') then
-		local bgs = {BottomBG, LeftBG, RightBG, ActionBG,}		
-		for _, frame in pairs(bgs) do
+		local sleFrames = {BottomBG, LeftBG, RightBG, ActionBG, DP_1, DP_2, Top_Center, DP_3, DP_4, DP_5, Bottom_Panel, DP_6, Main_Flares, Mark_Menu}		
+		for _, frame in pairs(sleFrames) do
 			frame:Style('Outside')
 		end
-		
-		local dts = {DP_1, DP_2, Top_Center, DP_3, DP_4, DP_5, Bottom_Panel, DP_6}
-		for _, frame in pairs(dts) do
+	end
+	if IsAddOnLoaded('RareCoordinator') then
+		local rcFrames = {RC, RC.opt, RCnotify, RCminimized}
+		for _, frame in pairs(rcFrames) do
 			frame:Style('Outside')
-		end
-		
-		local other = {Main_Flares, Mark_Menu}
-		for _, frame in pairs(other) do
-			frame:Style('Outside')
-		end
+		end		
 	end
 end
 

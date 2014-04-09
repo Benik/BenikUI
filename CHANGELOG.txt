@@ -1,72 +1,151 @@
+[b]0.47beta[/b] (Apr 10, 2014)
+
+*Layout fix on hide/show chat datatexts.
+
+*Added RareCoordinator in BenikUI style. Minor changes in S&L styling.
+
+*Fixed a lua error when the threat bar was set in left chat. Also fixed the threat bar behaviour when default ElvUI chat datatexts are enabled.
+TODO: Auras status bars; ain't working as intended.
+
+
+
 [b]0.46beta[/b] (Apr 9, 2014)
+
 *Made BenikUI layout a seperate module.
+
 *Different (more efficient) approach on hide/show chat datatexts.
 
+
+
 [b]0.45beta[/b] (Apr 8, 2014)
+
 *Fixed the detached portraits strata. They should now overlap the player and target frame.
+
 *Fixed the xp/rep text format not changing cause were calling ElvUI's text format option. Added an option in BenikUI.
+
 *BenikUI chat datatexts will hide when default ElvUI ones are shown. (needs a moar testing.. going to bed)
+
 *Updated locales.
+
 *Added the logo at the options. Probably I will remove it.. dunno yet
+
 *Added a couple of frames not styled.
 
+
+
 [b]0.44beta[/b] (Apr 6, 2014)
+
 *Reworked the xp and rep on PlayerBar. This time it's perfectofinal :P
+
 *Cleanup.
 
+
+
 [b]0.43beta[/b] (Apr 4, 2014)
+
 *BenikUI style in Shadow & Light edit.
+
 *Detached Portraits at last! (Big thanks to Blazeflack).
+
 *Added an option to make the non overlayed portraits transparent (detached or not).
+
 *Removed the XP & Rep "Hide Text" option on the PlayerBar. Way too many checks with minimal result. Hiding the text can still be done in ElvUI General options.
+
 *Applied a small fix for Skada style (Thanks Azilroka).
+
 *Renamed the Mail datatext to BuiMail, so it doesn't conflict or show as duplicate, if another addon adds a similar datatext.
 
-[b]0.42beta[/b] (Apr 2, 2014)
+[b]0.42beta
+[/b] (Apr 2, 2014)
+
 *Added 3 color themes plus the default ElvUI. 'Diablo' (dark red), 'Mists' (dark green), 'Hearthstone' (dark blue). Available in BenikUI options or in the install (step 3).
+
 *Added AtlasLoot, Altoholic styled skin.
+
 *Changed Tooltip statusbar texture.
 
+
+
 [b]0.41beta[/b] (Mar 29, 2014)
+
 *Added the default options for Target detached frame.
 
+
+
 [b]0.40beta[/b] (Mar 29, 2014)
+
 *Tiny changes on skin styling.
+
 *Made another attempt on Target Detached Portrait. Mirrored the player one. Something is missing. Doesn't get the target changes onload. Re-enabling it or make any changes on target it applies.. reload and go kill yourself
 
+
+
 [b]0.39beta[/b] (Mar 28, 2014)
+
 *Reverted to Azilroka's skin file after his latest update in AddOnSkins (v2.15). A bit more fine tuning may needed.
+
 *Removed the font.lua file. No need to force users to use BenikUI. On it's final release, BenikUI will have a seperate addon to override ElvUI name and damage font, to fit with BenikUI. What was added in 0.37b wasn't working as intended.
+
 *Added option for the actionbars switch buttons. The user can now choose on which bar (1 or 2) the Switch buttons will show.
+
 *Added style in WorldMap (needs testing for taints). The style applies only on small and quest map not on the big map.
+
 *Fixed a visibility bug when the game menu and the bags were opened.
+
 *Fine tune the install profile.
 
+
+
 [b]0.38beta[/b] (Mar 25, 2014)
+
 *Done with skin styling. Not with this result without Azilroka. Big thanks :)
+
 *Added BenikUI Style in TinyDPS skin
 
+
+
 [b]0.37beta[/b] (Mar 23, 2014)
+
 *Azilroka's magic touch overhauled the styling functions and the skins. Still issues to solve though.
+
 *Added option in ElvUI options -> General -> Media -> Fonts, that will force (or not) BenikUI fonts on names and combat text. This requires a client restart to apply.
 
+
+
 [b]0.36beta[/b] (Mar 23, 2014)
+
 *Made the prev issue permanent.
 
+
+
 [b]0.35beta[/b] (Mar 23, 2014)
+
 *Fixed an overnight Tokens Dashboard issue.
 
+
+
 [b]0.30beta[/b] (Mar 23, 2014)
+
 *Fixed all(?) rep/xp issues on playerbar.
+
 *Almost re-wrote the Tokens Dashboard.
+
 *Finished the Dashboards width options.
+
 *Added decoration in Recount (not embedded) Window. (AddOnSkins_ElvUI required).
+
 *Added decoration in Skada (not embedded) Window. (AddOnSkins_ElvUI required).
+
 *Disabled the Auras UpdateHeader function edit (for smaller aura icons height). Isn't updating..
+
 *Minor file cleanup.
 
 [b]0.25beta[/b] (Mar 21, 2014)
+
 *Fixed most rep/xp issues on playerbar. 
 
+
+
 [b]0.20beta[/b]
+
 *Initial beta Release

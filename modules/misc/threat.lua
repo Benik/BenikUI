@@ -1,25 +1,33 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local THREAT = E:GetModule('Threat')
+local BTH = E:NewModule('BuiThreat', 'AceHook-3.0');
+local THREAT = E:GetModule('Threat');
+local LO = E:GetModule('Layout');
 
-E.Threat = THREAT
-
-THREAT.BuiUpdatePosition = THREAT.UpdatePosition
-function THREAT:UpdatePosition()
-	self:BuiUpdatePosition()
-	if self.db.position == 'RIGHTCHAT' then
-		self.bar:SetInside(BuiDummyThreat)
-		self.bar:SetParent(BuiDummyThreat)
-		self.bar:HookScript('OnShow', function(self)
-			BuiRightChatDTPanel:Hide()
-		end)
-		self.bar:HookScript('OnHide', function(self)
-			BuiRightChatDTPanel:Show()
-		end)
+function BTH:UpdateThreatPosition()
+	local bar = ElvUI_ThreatBar
+	if E.db.general.threat.position == 'RIGHTCHAT' then
+		if E.db.datatexts.rightChatPanel then
+			bar:SetInside(RightChatDataPanel)
+			bar:SetParent(RightChatDataPanel)
+		else
+			bar:SetInside(BuiDummyThreat)
+			bar:SetParent(BuiDummyThreat)
+		end
 	else
-		self.bar:SetInside(BuiDummyChat)
-		self.bar:SetParent(BuiDummyChat)	
+		if E.db.datatexts.leftChatPanel then
+			bar:SetInside(LeftChatDataPanel)
+			bar:SetParent(LeftChatDataPanel)
+		else
+			bar:SetInside(BuiDummyChat)
+			bar:SetParent(BuiDummyChat)
+		end
 	end
-	
-	self.bar.text:FontTemplate(nil, self.db.textSize)
-	self.bar:SetFrameStrata('MEDIUM')
 end
+
+function BTH:Initialize()
+	self:UpdateThreatPosition()
+	hooksecurefunc(LO, 'ToggleChatPanels', BTH.UpdateThreatPosition)
+	hooksecurefunc(THREAT, 'UpdatePosition', BTH.UpdateThreatPosition)
+end
+
+E:RegisterModule(BTH:GetName())

@@ -201,7 +201,7 @@ function BUIL:ChangeLayout()
 	
 	-- Right dt panel
 	Bui_rdtp:SetTemplate('Transparent')
-	Bui_ldtp:SetFrameStrata('BACKGROUND')
+	Bui_rdtp:SetFrameStrata('BACKGROUND')
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
 
@@ -358,7 +358,7 @@ function BUIL:ChangeLayout()
 	-- Minimap elements styling
 	Minimap.backdrop:Style('Outside')
 	ElvUI_ConsolidatedBuffs:Style('Outside')
-	
+	self:ToggleBuiDts()
 end
 
 function BUIL:Initialize()
