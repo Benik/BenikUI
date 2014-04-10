@@ -1,3 +1,7 @@
+[b]0.48beta[/b] (Apr 11, 2014)
+
+*Added an option to disable BenikUI chat datatexts. In order to show, default ElvUI chat datatexts must be disabled.
+
 [b]0.47beta[/b] (Apr 10, 2014)
 
 *Layout fix on hide/show chat datatexts.

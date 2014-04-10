@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUI = E:GetModule('BenikUI');
+local LO = E:GetModule('Layout');
 
 if E.db.bui == nil then E.db.bui = {} end
 
@@ -7,6 +8,7 @@ if E.db.bui == nil then E.db.bui = {} end
 P['bui'] = {
 	['installed'] = nil,
 	['colorTheme'] = 'Elv',
+	['buiDts'] = true,
 }
 
 local function buiTable()
@@ -65,6 +67,14 @@ local function buiTable()
 				},
 				get = function(info) return E.db.bui[ info[#info] ] end,
 				set = function(info, color) E.db.bui[ info[#info] ] = color; E:SetupBuiColors(color); end,
+			},
+			buiDts = {
+				order = 9,
+				type = "toggle",
+				name = L["Chat DataTexts"],
+				desc = L["Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled"],
+				get = function(info) return E.db.bui[ info[#info] ] end,
+				set = function(info, value) E.db.bui[ info[#info] ] = value; LO:ToggleChatPanels(); end,	
 			},
 		},
 	}

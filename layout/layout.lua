@@ -148,7 +148,7 @@ end
 local bbuttons = {}
 
 function BUIL:ToggleBuiDts()
-	if E.db.datatexts.leftChatPanel then
+	if not E.db.bui.buiDts or E.db.datatexts.leftChatPanel then
 		BuiLeftChatDTPanel:Hide()
 		for i = 3, 4 do
 			bbuttons[i]:Hide()
@@ -160,7 +160,7 @@ function BUIL:ToggleBuiDts()
 		end
 	end
 	
-	if E.db.datatexts.rightChatPanel then
+	if not E.db.bui.buiDts or E.db.datatexts.rightChatPanel then
 		BuiRightChatDTPanel:Hide()
 		for i = 1, 2 do
 			bbuttons[i]:Hide()

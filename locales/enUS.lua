@@ -74,4 +74,5 @@ L["Change the detached portrait width"] = true
 L["Change the detached portrait height"] = true
 L["Player Size"] = true
 L["Copy Player portrait width and height"] = true
-
+L["BenikUI DataTexts"] = true
+L["Show/Hide BenikUI DataTexts."] = true

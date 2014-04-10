@@ -22,6 +22,7 @@ function BTH:UpdateThreatPosition()
 			bar:SetParent(BuiDummyChat)
 		end
 	end
+	bar:SetFrameStrata('MEDIUM')
 end
 
 function BTH:Initialize()
