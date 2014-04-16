@@ -202,17 +202,10 @@ end
 
 
 function BUIT:UpdateTHolderDimensions()
-	if E.db.utils.sameWidth then
-		tokenHolder:Width(E.db.utils.dwidth)
-	else
-		tokenHolder:Width(E.db.utils.twidth)
-	end
-	for key, frame in ipairs(Tokens) do
-		if E.db.utils.sameWidth then
-			frame:Width(E.db.utils.dwidth)
-		else
-			frame:Width(E.db.utils.twidth)
-		end
+	tokenHolder:Width(E.db.utils.twidth)
+
+	for _, frame in pairs(Tokens) do
+		frame:Width(E.db.utils.twidth)
 	end
 end
 

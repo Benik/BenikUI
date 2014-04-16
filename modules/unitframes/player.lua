@@ -39,7 +39,7 @@ function UFB:ArrangePlayer()
 	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
 	local PLAYER_PORTRAIT_HEIGHT = E.db.ufb.PlayerPortraitHeight
-	
+
 	-- Empty Bar
 	do
 		local health = frame.Health
@@ -67,9 +67,10 @@ function UFB:ArrangePlayer()
 	
 	-- Portrait
 	do	
-		local portrait = frame.Portrait --Need to make them local here, since frame.Portrait changes whether you use 2D or 3D. It needs to update when executed.
+		local portrait = frame.Portrait
 		
 		if USE_PORTRAIT then
+
 			if not USE_PORTRAIT_OVERLAY then
 				if not portrait.backdrop.shadow then
 					portrait.backdrop:CreateSoftShadow()
@@ -92,9 +93,10 @@ function UFB:ArrangePlayer()
 					frame.portraitmover:Width(PLAYER_PORTRAIT_WIDTH)
 					frame.portraitmover:Height(PLAYER_PORTRAIT_HEIGHT)
 					portrait.backdrop:SetAllPoints(frame.portraitmover)
-					portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
-					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
-
+					if db.portrait.style == '3D' then
+						portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
+						portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
+					end
 					if not frame.portraitmover.mover then
 						frame.portraitmover:ClearAllPoints()
 						frame.portraitmover:Point('TOPRIGHT', frame, 'TOPLEFT', -BORDER, 0)

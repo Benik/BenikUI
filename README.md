@@ -16,7 +16,7 @@ Due to early beta stage, the ui will only be available in GitHub
 
 > Tokens Dashboard based on AsphyxiaUI.
 
-> Detached portraits - player and target.
+> Detached portraits - player and target (see below for issues).
 
 > Buttons beside the chat datatexts, that can show/hide the previous dahboards (left chat) and Game menu - ElvUI options (right side).
 
@@ -27,6 +27,10 @@ Due to early beta stage, the ui will only be available in GitHub
 - Compatibility:
 S&L and most of ElvUI plugins that I could test.
 
-I will appreciate any help on testing.
+- Log:
+Everything seems smooth so far except:
+Target detached portrait still ain't working, so I don't recommend enabling it. Well, enabling it works but after a reload it gets messed up. Player detached portrait is working fine.
+
+I will appreciate any help on testing or solving issues.
 
 Thanks :D 

@@ -41,7 +41,7 @@ end
 
 function BUID:CreateBoards()
 	for i = 1, DASH_NUM do
-		BUID.board[i] = CreateFrame('Frame', 'BUID.board'..i, BuiDashboard)
+		BUID.board[i] = CreateFrame('Frame', nil, BuiDashboard)
 		BUID.board[i]:Width(DASH_WIDTH - 6)
 		BUID.board[i]:Height(3)
 		
@@ -51,14 +51,14 @@ function BUID:CreateBoards()
 			BUID.board[i]:Point('TOP', BUID.board[i-1], 'BOTTOM', 0, -(DASH_HEIGHT*2)-DASH_SPACING)
 		end
 		
-		BUID.board[i].dummyf = CreateFrame("Frame", "dummyFrame" .. i, BuiDashboard)
+		BUID.board[i].dummyf = CreateFrame("Frame", nil, BuiDashboard)
 		BUID.board[i].dummyf:Width(DASH_WIDTH - 6)
 		BUID.board[i].dummyf:Height(20)
 		
 		if i == 1 then
-			BUID.board[i].dummyf :Point('TOP', BuiDashboard, 'TOP')
+			BUID.board[i].dummyf:Point('TOP', BuiDashboard, 'TOP')
 		else
-			BUID.board[i].dummyf :Point('TOP', BUID.board[i-1].dummyf, 'BOTTOM')
+			BUID.board[i].dummyf:Point('TOP', BUID.board[i-1].dummyf, 'BOTTOM')
 		end
 		
 		BUID.board[i].dummy = BUID.board[i]:CreateTexture(nil, 'OVERLAY')

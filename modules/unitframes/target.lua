@@ -66,7 +66,7 @@ function UFB:ArrangeTarget()
 	
 	-- Portrait
 	do	
-		local portrait = frame.Portrait --Need to make them local here, since frame.Portrait changes whether you use 2D or 3D. It needs to update when executed.
+		local portrait = frame.Portrait
 		
 		if USE_PORTRAIT then
 			if not USE_PORTRAIT_OVERLAY then
@@ -93,8 +93,10 @@ function UFB:ArrangeTarget()
 					portrait.backdrop.SetPoint = nil
 					portrait.backdrop:SetAllPoints(frame.portraitmover)
 					portrait.backdrop.SetPoint = E.noop
-					portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
-					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
+					if db.portrait.style == '3D' then
+						portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
+						portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
+					end
 
 					if not frame.portraitmover.mover then
 						frame.portraitmover:ClearAllPoints()

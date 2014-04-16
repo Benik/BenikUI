@@ -1,3 +1,15 @@
+[b]1.00[/b] (Apr 16, 2014)
+
+*Final release.
+*Fixed and cleaned many small thingies.
+*Added Zygor guides in BenikUI style.
+*Rearranged the options (got jealous from Blazeflack :P)
+
+[b]0.49beta[/b] (Apr 13, 2014)
+
+*Removed the statusbars from buffs and debuffs. Wasn't working as intended.
+*Added an option to hide player text values (health, power or any customText), when mouse over to show xp or rep bars. This is done to prevent rep or xp text overlapping health or power values in case the text is wide (usually with big rep names). Each value will hide if their y offset is < -10.
+
 [b]0.48beta[/b] (Apr 11, 2014)
 
 *Added an option to disable BenikUI chat datatexts. In order to show, default ElvUI chat datatexts must be disabled.

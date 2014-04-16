@@ -13,14 +13,18 @@ P['utils'] = {
 }
 
 local function utilsTable()
-	E.Options.args.bui.args.utils = {
+	E.Options.args.bui.args.config.args.utils = {
 		order = 20,
 		type = 'group',
 		name = L["Dashboards"],
-		guiInline = true,
 		args = {
-			infod = {
+			header = {
 				order = 1,
+				type = "header",
+				name = L['Dashboards'],
+			},
+			infod = {
+				order = 2,
 				type = 'group',
 				name = L["Width"],
 				guiInline = true,
@@ -41,14 +45,6 @@ local function utilsTable()
 						desc = L["Change the Tokens Dashboard width."],
 						min = 120, max = 220, step = 1,
 						disabled = function() return E.db.utils.sameWidth end,
-						get = function(info) return E.db.utils[ info[#info] ] end,
-						set = function(info, value) E.db.utils[ info[#info] ] = value; BUIT:UpdateTHolderDimensions() end,	
-					},
-					sameWidth = {
-						order = 3,
-						type = "toggle",
-						name = L['Same Width'],
-						desc = L["Applies the System width to the Tokens."],
 						get = function(info) return E.db.utils[ info[#info] ] end,
 						set = function(info, value) E.db.utils[ info[#info] ] = value; BUIT:UpdateTHolderDimensions() end,	
 					},

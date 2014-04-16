@@ -15,6 +15,7 @@ local FreeBlizzFrames = {
 	ConsolidatedBuffsTooltip, -- check
 	DressUpFrame,
 	DropDownList1,
+	DropDownList2,
 	ElvUI_StaticPopup1,
 	ElvUI_StaticPopup2,
 	ElvUI_StaticPopup3,
@@ -255,15 +256,16 @@ if AS then
 	StyleRecount('recountMain', Recount_MainWindow)
 	Recount_MainWindow.TitleBackground:StripTextures()
 	Recount_ConfigWindow.TitleBackground:StripTextures()
-	StyleRecount(nil, Recount_ConfigWindow)
-	hooksecurefunc(Recount, 'ShowReport', function(self)
-		if Recount_ReportWindow.TitleBackground then
-			Recount_ReportWindow.TitleBackground:StripTextures()
-			StyleRecount(nil, Recount_ReportWindow)
-		end
-	end)
 	Recount_DetailWindow.TitleBackground:StripTextures()
 	StyleRecount(nil, Recount_DetailWindow)
+	StyleRecount(nil, Recount_ConfigWindow)
+		hooksecurefunc(Recount, 'ShowReport', function(self)
+			if Recount_ReportWindow.TitleBackground then
+				Recount_ReportWindow.TitleBackground:StripTextures()
+				StyleRecount(nil, Recount_ReportWindow)
+			end
+		end)
+
 		hooksecurefunc(AS, 'Embed_Check', function(self, message)
 			if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedRecount then
 				recountMain:Hide()
@@ -274,17 +276,36 @@ if AS then
 	end
 	
 	local function TinyDPSDecor()
-		tdpsFrame:Style('Outside')
+		if tdpsFrame then
+			tdpsFrame:Style('Outside')
+		end
 	end
 	
 	local function AtlasLootDecor()
 		if AtlasLootDefaultFrame then
-			AtlasLootDefaultFrame:HookScript('OnShow', function(self) self:Style('Outside') end)
+			AtlasLootDefaultFrame:Style('Outside', 'ALDecor')
+			AtlasLootDefaultFrame:HookScript('OnShow', function(self) ALDecor:Show(); end)
+			AtlasLootDefaultFrame:HookScript('OnHide', function(self) ALDecor:Hide(); end)
+		end
+		if AtlasLootTooltipTEMP then
+			AtlasLootTooltipTEMP:Style('Outside', 'ALTooltipDecor')
+			AtlasLootTooltipTEMP:HookScript('OnShow', function(self) ALTooltipDecor:Show(); end)
+			AtlasLootTooltipTEMP:HookScript('OnHide', function(self) ALTooltipDecor:Hide(); end)
+			ALTooltipDecor:SetClampedToScreen(true)
 		end
 	end
 	
 	local function AltoholicDecor()
-		AltoholicFrame:Style('Outside')
+		if AltoholicFrame then
+			AltoholicFrame:Style('Outside')
+		end
+	end
+	
+	local function ZygorDecor()
+		local zgFrames = {ZygorGuidesViewerFrame_Border, ZygorGuidesViewer_CreatureViewer}
+		for _, frame in pairs(zgFrames) do
+			frame:Style('Outside', frame:GetName()..'Decor')
+		end
 	end
 
 	local function BenikUISkins(self, event, addon)
@@ -301,6 +322,7 @@ if AS then
 	if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPSSkin', TinyDPSDecor, 2) end
 	if AS:CheckAddOn('AtlasLoot') then AS:RegisterSkin('AtlasLootSkin', AtlasLootDecor, 2) end
 	if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('AltoholicSkin', AltoholicDecor, 2) end
+	if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('ZygorSkin', ZygorDecor, 2) end
 end
 
 E:RegisterModule(BUIS:GetName())

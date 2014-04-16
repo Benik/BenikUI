@@ -3,8 +3,34 @@ local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0')
 local M = E:GetModule('Misc')
 local LSM = LibStub("LibSharedMedia-3.0")
 
+local frame = _G["ElvUF_Player"]
+local min_yOffset = -10
+
+local function XpRepMouseOverText()
+
+	if E.db.unitframe.units.player.health.yOffset < min_yOffset then
+		frame.Health.value:SetAlpha(0)
+	end
+	
+	if E.db.unitframe.units.player.power.yOffset < min_yOffset then
+		frame.Power.value:SetAlpha(0)
+	end
+	
+	if E.db.unitframe.units.player.customTexts == {} then
+		for objectName, _ in pairs(E.db.unitframe.units.player.customTexts) do
+			if E.db.unitframe.units.player.customTexts[objectName].yOffset < min_yOffset then
+				frame[objectName]:SetAlpha(0)
+			end
+		end
+	end
+
+end
+
 local function xp_onEnter(self)
 	if InCombatLockdown() then return end
+	if E.db.xprep.mouseOver then
+		XpRepMouseOverText()
+	end
 	self:SetAlpha(0.8)
 
 	GameTooltip:ClearLines()
@@ -27,7 +53,11 @@ end
 
 local function rep_onEnter(self)
 	if InCombatLockdown() then return end
+	if E.db.xprep.mouseOver then
+		XpRepMouseOverText()
+	end
 	self:SetAlpha(0.6)
+	
 	GameTooltip:ClearLines()
 	GameTooltip:SetOwner(self, 'ANCHOR_BOTTOM', 0, -7)
 	
@@ -45,6 +75,19 @@ end
 local function bars_onLeave(self)
 	self:SetAlpha(0)
 	GameTooltip:Hide()
+	if frame.Health.value:GetAlpha() == 0 then
+		frame.Health.value:SetAlpha(1)
+	end
+	if frame.Power.value:GetAlpha() == 0 then
+		frame.Power.value:SetAlpha(1)
+	end
+	if E.db.unitframe.units.player.customTexts == {} then
+		for objectName, _ in pairs(E.db.unitframe.units.player.customTexts) do
+			if frame[objectName]:GetAlpha() == 0 then
+				frame[objectName]:SetAlpha(1)
+			end
+		end
+	end
 end
 
 function BXR:GetXP(unit)
@@ -229,6 +272,7 @@ function BXR:LoadBars()
 	self:EnableDisable_ExperienceBar()
 	self:EnableDisable_ReputationBar()
 end
+
 
 function BXR:Initialize()
 	self:LoadBars()
