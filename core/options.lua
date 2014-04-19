@@ -9,7 +9,14 @@ P['bui'] = {
 	['installed'] = nil,
 	['colorTheme'] = 'Elv',
 	['buiDts'] = true,
+	['buiFonts'] = true,
 }
+
+local function CheckFontAddon(enabled)
+	if IsAddOnLoaded("ElvUI_BenikUI_Fonts") then
+		enabled = true
+	end
+end
 
 local function buiTable()
 	E.Options.args.bui = {
@@ -35,7 +42,6 @@ local function buiTable()
 				type = "execute",
 				name = L['Install'],
 				desc = L['Run the installation process.'],
-				--width = "double",
 				func = function() E:SetupBui(); E:ToggleConfig(); end,
 			},
 			spacer2 = {
@@ -60,7 +66,7 @@ local function buiTable()
 							['Mists'] = L['Mists'],
 						},
 						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, color) E.db.bui[ info[#info] ] = color; E:SetupBuiColors(color); end,
+						set = function(info, color) E.db.bui[ info[#info] ] = color; BUI:BuiColorThemes(color); end,
 					},
 					buiDts = {
 						order = 2,
@@ -69,6 +75,14 @@ local function buiTable()
 						desc = L["Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled"],
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; LO:ToggleChatPanels(); end,	
+					},
+					buiFonts = {
+						order = 3,
+						type = "toggle",
+						name = L["Force BenikUI fonts"],
+						desc = L["Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r"],
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; value, _, _, _ = GetAddOnInfo("ElvUI_BenikUI_Fonts"); BUI:EnableBuiFonts(); E:StaticPopup_Show("PRIVATE_RL"); end,	
 					},
 				},
 			},

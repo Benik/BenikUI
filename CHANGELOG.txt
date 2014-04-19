@@ -1,3 +1,11 @@
+[b]1.01[/b] (Apr 19, 2014)
+
+*Added/changed stuff in the install routine.
+*Added BenikUI style in some more frames and tabs.
+*Changed the fonts addon a bit. More elegant now and added BenikUI font in Quest title.
+*Added an option to force or not BenikUI fonts. A game restart is required to apply.
+*Played with the Style function.
+
 [b]1.00[/b] (Apr 16, 2014)
 
 *Final release.

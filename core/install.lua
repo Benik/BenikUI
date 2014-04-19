@@ -20,8 +20,10 @@ local function SetupBuiLayout()
 		E.db.general.backdropfadecolor.b = 0.054
 		E.db.general.valuecolor.a = 1
 		E.db.general.valuecolor.r = 1
-		E.db.general.valuecolor.g = 0.5019607843137255
+		E.db.general.valuecolor.g = 0.5
 		E.db.general.valuecolor.b = 0
+		E.db.general.experience.enable = false
+		E.db.general.reputation.enable = false
 		E.db.general.experience.textFormat = "CURPERC"
 		E.db.general.experience.width = 412
 		E.db.general.reputation.textFormat = "CURPERC"
@@ -61,28 +63,39 @@ local function SetupBuiLayout()
 		E.db.movers.tokenHolderMover = "TOPLEFTElvUIParentTOPLEFT4-119"
 	end
 	
-	if IsAddOnLoaded("ElvUI_LocPlus") then
-		E.db.locplus.lpfont = "Bui Visitor1"
-		E.db.locplus.lpfontsize = 10
-		E.db.locplus.dtheight = 16
-		E.db.locplus.lpwidth = 220
-		E.db.locplus.dtwidth = 120
-		E.db.locplus.trunc = true
-		E.db.locplus.lpauto = false
-		E.db.locplus.displayOther = "NONE"
-		E.db.movers.LocationMover = "TOPElvUIParentTOP0-7"
+	-- LocationPlus
+	if E.db.locplus == nil then E.db.locplus = {} end
+	E.db.locplus.lpfont = "Bui Visitor1"
+	E.db.locplus.lpfontsize = 10
+	E.db.locplus.lpfontflags = "MONOCHROMEOUTLINE"
+	E.db.locplus.dtheight = 16
+	E.db.locplus.lpwidth = 220
+	E.db.locplus.dtwidth = 120
+	E.db.locplus.trunc = true
+	E.db.locplus.lpauto = false
+	E.db.locplus.both = false
+	E.db.locplus.displayOther = "NONE"
+	E.db.movers.LocationMover = "TOPElvUIParentTOP0-7"
+
+	-- LocationLite
+	if E.db.loclite == nil then E.db.loclite = {} end
+	E.db.loclite.lpfont = "Bui Visitor1"
+	E.db.loclite.lpfontflags = "MONOCHROMEOUTLINE"
+	E.db.loclite.lpfontsize = 10
+	E.db.loclite.dtheight = 16
+	E.db.loclite.lpwidth = 220
+	E.db.loclite.trunc = true
+	E.db.loclite.lpauto = false
+	E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-7"
+	
+	if(UnitLevel('player') == MAX_PLAYER_LEVEL) then
+		E.db.xprep.show = "REP"
+	else
+		E.db.xprep.show = "XP"
 	end
-	
-	if IsAddOnLoaded("ElvUI_LocLite") then
-		E.db.loclite.lpfont = "Bui Visitor1"
-		E.db.loclite.lpfontsize = 10
-		E.db.loclite.dtheight = 16
-		E.db.loclite.lpwidth = 220
-		E.db.loclite.trunc = true
-		E.db.loclite.lpauto = false
-		E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-7"
-	end	
-	
+	E.db.xprep.textFormat = "CURMAX"
+	E.db.xprep.textStyle = "UNIT"
+
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L["Layout Set"]
 		InstallStepComplete:Show()		
@@ -90,12 +103,11 @@ local function SetupBuiLayout()
 	E:UpdateAll(true)
 end
 
-
-function E:SetupBuiColors(color)
+function BUI:BuiColorThemes(color)
 	-- Colors
 	do
 		if color == 'Diablo' then
-			E.db.general.backdropfadecolor.a = 0.800000011920929
+			E.db.general.backdropfadecolor.a = 0.80
 			E.db.general.backdropfadecolor.r = 0.1254901960784314
 			E.db.general.backdropfadecolor.g = 0.05490196078431373
 			E.db.general.backdropfadecolor.b = 0.05098039215686274
@@ -103,7 +115,7 @@ function E:SetupBuiColors(color)
 			E.db.general.backdropcolor.g = 0.05490196078431373
 			E.db.general.backdropcolor.b = 0.0392156862745098
 		elseif color == 'Hearthstone' then
-			E.db.general.backdropfadecolor.a = 0.800000011920929
+			E.db.general.backdropfadecolor.a = 0.80
 			E.db.general.backdropfadecolor.r = 0.08627450980392157
 			E.db.general.backdropfadecolor.g = 0.1098039215686275
 			E.db.general.backdropfadecolor.b = 0.1490196078431373
@@ -111,7 +123,7 @@ function E:SetupBuiColors(color)
 			E.db.general.backdropcolor.g = 0.08627450980392157
 			E.db.general.backdropcolor.b = 0.1176470588235294
 		elseif color == 'Mists' then
-			E.db.general.backdropfadecolor.a = 0.800000011920929
+			E.db.general.backdropfadecolor.a = 0.80
 			E.db.general.backdropfadecolor.r = 0.04313725490196078
 			E.db.general.backdropfadecolor.g = 0.1019607843137255
 			E.db.general.backdropfadecolor.b = 0.1019607843137255
@@ -119,7 +131,7 @@ function E:SetupBuiColors(color)
 			E.db.general.backdropcolor.g = 0.06274509803921569
 			E.db.general.backdropcolor.b = 0.06274509803921569
 		elseif color == 'Elv' then
-			E.db.general.backdropfadecolor.a = 0.800000011920929
+			E.db.general.backdropfadecolor.a = 0.80
 			E.db.general.backdropfadecolor.r = 0.05490196078431373
 			E.db.general.backdropfadecolor.g = 0.05490196078431373
 			E.db.general.backdropfadecolor.b = 0.05490196078431373
@@ -128,11 +140,16 @@ function E:SetupBuiColors(color)
 			E.db.general.backdropcolor.b = 0.1019607843137255		
 		end
 	end
+	E:UpdateAll(true)
+end
+
+function E:SetupBuiColors()
+	BUI:BuiColorThemes()
+	
 	if InstallStepComplete then
-		InstallStepComplete.message = L["Color Theme Set"]
+		InstallStepComplete.message = BUI.Title..L["Color Theme Set"]
 		InstallStepComplete:Show()		
 	end
-	E:UpdateAll(true)
 end
 
 local function SetupBuiChat()
@@ -189,6 +206,10 @@ local function SetupBuiAbs()
 		E.db.actionbar.barPet.buttonsize = 27;
 		E.db.actionbar.barPet.backdrop = true;
 		
+		E.db.actionbar.stanceBar.buttonspacing = 2
+		E.db.actionbar.stanceBar.backdrop = false
+		E.db.actionbar.stanceBar.buttonsize = 24
+		
 		E.db.actionbar.font = "Bui Visitor1";
 		E.db.actionbar.fontOutline = 'MONOCROMEOUTLINE';
 		E.db.actionbar.fontSize = 10;
@@ -208,7 +229,7 @@ local function SetupBuiAbs()
 		E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM29558"
 		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-29558"	
 		E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM013"
-		E.db.movers.ShiftAB = "TOPLEFTElvUIParentTOPLEFT407-39"
+		E.db.movers.ShiftAB = "BOTTOMElvUIParentBOTTOM0134"
 	end
 
 	if InstallStepComplete then
@@ -244,16 +265,20 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.player.castbar.icon = false
 		E.db.unitframe.units.player.castbar.width = 300
 		E.db.unitframe.units.player.castbar.height = 18
+		E.db.unitframe.units.player.classbar.detachFromFrame = true
+		E.db.unitframe.units.player.classbar.detachedWidth = 140
+		E.db.unitframe.units.player.classbar.fill = "spaced"
 		E.db.unitframe.units.player.width = 300
 		E.db.unitframe.units.player.health.xOffset = 2
 		E.db.unitframe.units.player.health.yOffset = -25
 		E.db.unitframe.units.player.height = 33
 		E.db.unitframe.units.player.buffs.enable = true
-		E.db.unitframe.units.player.buffs.sizeOverride = 32
+		E.db.unitframe.units.player.buffs.sizeOverride = 30
 		E.db.unitframe.units.player.buffs.attachTo = "FRAME"
-		E.db.unitframe.units.player.buffs.yOffset = 8
+		E.db.unitframe.units.player.buffs.yOffset = 2
 		E.db.unitframe.units.player.threatStyle = "ICONTOPRIGHT"
 		E.db.unitframe.units.player.power.height = 5
+		E.db.unitframe.units.player.power.width = 'fill'
 		E.db.unitframe.units.player.power.detachedWidth = 298
 		E.db.unitframe.units.player.power.yOffset = -25
 	-- target
@@ -271,6 +296,7 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.target.power.detachedWidth = 298
 		E.db.unitframe.units.target.power.hideonnpc = false
 		E.db.unitframe.units.target.power.height = 5
+		E.db.unitframe.units.target.power.width = 'fill'
 		E.db.unitframe.units.target.power.yOffset = -25
 		E.db.unitframe.units.target.width = 300
 		E.db.unitframe.units.target.castbar.icon = false
@@ -278,19 +304,22 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.target.height = 33
 		E.db.unitframe.units.target.threatStyle = "ICONTOPLEFT"
 		E.db.unitframe.units.target.buffs.anchorPoint = "TOPLEFT"
-		E.db.unitframe.units.target.buffs.sizeOverride = 32
-		E.db.unitframe.units.target.buffs.yOffset = 8
+		E.db.unitframe.units.target.buffs.sizeOverride = 30
+		E.db.unitframe.units.target.buffs.yOffset = 2
 	-- pet
 		E.db.unitframe.units.pet.height = 24
 		E.db.unitframe.units.pet.power.height = 5
+		E.db.unitframe.units.pet.power.width = 'fill'
 	-- focus
 		E.db.unitframe.units.focus.power.height = 5
+		E.db.unitframe.units.focus.power.width = 'fill'
 		E.db.unitframe.units.focus.width = 122
 		E.db.unitframe.units.focus.castbar.height = 6
 		E.db.unitframe.units.focus.castbar.width = 122
 	-- targettarget
 		E.db.unitframe.units.targettarget.height = 24
 		E.db.unitframe.units.targettarget.power.height = 5
+		E.db.unitframe.units.targettarget.power.width = 'fill'
 	-- raid 10
 		E.db.unitframe.units.raid10.power.power = false
 	-- raid 25
@@ -316,6 +345,7 @@ local function SetupBuiUfs()
 		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0164"
 		E.db.movers.PlayerPowerBarMover = "BOTTOMElvUIParentBOTTOM-231215"
 		E.db.movers.TargetPowerBarMover = "BOTTOMElvUIParentBOTTOM247215"
+		E.db.movers.ClassBarMover = "BOTTOMElvUIParentBOTTOM-1349"
 		E.db.movers.ExperienceBarMover = "BOTTOMElvUIParentBOTTOM047"
 	end
 	
@@ -340,6 +370,35 @@ local function SetupBuiAuras()
 		E.db.auras.consolidatedBuffs.fontSize = 10
 		E.db.auras.consolidatedBuffs.fontOutline = 'MONOCROMEOUTLINE'
 		E.db.auras.debuffs.size = 30
+		
+		-- ElvUI_VisualAuraTimers
+		if E.db.VAT == nil then E.db.VAT = {} end
+		E.db.VAT.enableStaticColor = true
+		E.db.VAT.barHeight = 6
+		E.db.VAT.spacing = -7
+		E.db.VAT.staticColor.r = 1
+		E.db.VAT.staticColor.g = 0.5
+		E.db.VAT.staticColor.b = 0
+		E.db.VAT.showText = true
+		E.db.VAT.colors.minutesIndicator.r = 1
+		E.db.VAT.colors.minutesIndicator.g = 0.5
+		E.db.VAT.colors.minutesIndicator.b = 0
+		E.db.VAT.colors.hourminutesIndicator.r = 1
+		E.db.VAT.colors.hourminutesIndicator.g = 0.5
+		E.db.VAT.colors.hourminutesIndicator.b = 0
+		E.db.VAT.colors.expireIndicator.r = 1
+		E.db.VAT.colors.expireIndicator.g = 0.5
+		E.db.VAT.colors.expireIndicator.b = 0
+		E.db.VAT.colors.secondsIndicator.r = 1
+		E.db.VAT.colors.secondsIndicator.g = 0.5
+		E.db.VAT.colors.secondsIndicator.b = 0
+		E.db.VAT.colors.daysIndicator.r = 1
+		E.db.VAT.colors.daysIndicator.g = 0.5
+		E.db.VAT.colors.daysIndicator.b = 0
+		E.db.VAT.colors.hoursIndicator.r = 1
+		E.db.VAT.colors.hoursIndicator.r = 0.5
+		E.db.VAT.colors.hoursIndicator.r = 0
+		E.db.VAT.position = "TOP"
 	end
 
 	if InstallStepComplete then
@@ -453,16 +512,16 @@ local function SetPage(PageNum)
 		f.Desc2:SetText(L["Please click the button below to apply the new color themes."])
 		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() E:SetupBuiColors('Elv'); end)
+		InstallOption1Button:SetScript('OnClick', function() E:SetupBuiColors(); BUI:BuiColorThemes('Elv'); end)
 		InstallOption1Button:SetText(L['ElvUI'])
 		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() E:SetupBuiColors('Diablo'); end)
+		InstallOption2Button:SetScript('OnClick', function() E:SetupBuiColors(); BUI:BuiColorThemes('Diablo'); end)
 		InstallOption2Button:SetText(L['Diablo'])
 		InstallOption3Button:Show()
-		InstallOption3Button:SetScript('OnClick', function() E:SetupBuiColors('Mists'); end)
+		InstallOption3Button:SetScript('OnClick', function() E:SetupBuiColors(); BUI:BuiColorThemes('Mists'); end)
 		InstallOption3Button:SetText(L['Mists'])
 		InstallOption4Button:Show()
-		InstallOption4Button:SetScript('OnClick', function() E:SetupBuiColors('Hearthstone'); end)
+		InstallOption4Button:SetScript('OnClick', function() E:SetupBuiColors(); BUI:BuiColorThemes('Hearthstone'); end)
 		InstallOption4Button:SetText(L['Hearthstone'])	
 	elseif PageNum == 4 then
 		f.SubTitle:SetText(L["Chat"])

@@ -232,7 +232,7 @@ function BXR:ChangeRepXpFont()
 		bar = self.xpbar
 	else return
 	end
-	if E.db.xprep.textStyle == 'DATA' then
+	if E.db.xprep.textStyle == 'DTS' then
 		bar.text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 	elseif E.db.xprep.textStyle == 'UNIT' then
 		bar.text:FontTemplate(LSM:Fetch("font", E.db.unitframe.font), E.db.unitframe.fontSize, E.db.unitframe.fontOutline)

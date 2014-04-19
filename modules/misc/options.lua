@@ -48,8 +48,8 @@ local function xprepTable()
 						type = "select",
 						name = L["Copy Font Style from"],
 						values = {
-							['DAFAULT'] = DEFAULT,
-							['DATA'] = L['DataTexts'],
+							['DEFAULT'] = DEFAULT,
+							['DTS'] = L['DataTexts'],
 							['UNIT'] = L['UnitFrames'],
 						},
 						set = function(info, value) E.db.xprep[ info[#info] ] = value; BXR:ChangeRepXpFont(); end,

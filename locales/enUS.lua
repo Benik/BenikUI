@@ -76,3 +76,5 @@ L["BenikUI DataTexts"] = true
 L["Show/Hide BenikUI DataTexts."] = true
 L["Hide text values"] = true
 L["Hides health, power and custom text values when mousing over, if their yOffset is"] = true
+L["Force BenikUI fonts"] = true
+L["Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r"] = true

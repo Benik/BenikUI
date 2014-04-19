@@ -8,6 +8,7 @@ local SPACING = (E.PixelMode and 1 or 5)
 -----------------------------------------------
 
 local FreeBlizzFrames = {
+	AddFriendFrame,
 	AudioOptionsFrame,
 	BNToastFrame,
 	ChatConfigFrame,
@@ -66,7 +67,9 @@ local FreeBlizzFrames = {
 -- the style is smaller by 1-2 pixels
 -------------------------------------
 local FreeBlizzSmallerFrames = {
+	ChannelFrameDaughterFrame,
 	HelpFrame,
+	HelpFrameHeader,
 	PVEFrame,
 	QuestFrame,
 	QuestNPCModel,
@@ -99,7 +102,7 @@ local BlizzUiFrames = {
 	{"Blizzard_ReforgingUI", "ReforgingFrame", "reforge"},
 	{"Blizzard_ItemSocketingUI", "ItemSocketingFrame", "socket"},
 	{"Blizzard_TalentUI", "PlayerTalentFrame", "talent"},
-	{"Blizzard_TimeManager", "TimeManagerFrame", "timemanager"},
+	--{"Blizzard_TimeManager", "TimeManagerFrame", "timemanager"},
 	{"Blizzard_TradeSkillUI", "TradeSkillFrame", "trade"},
 	{"Blizzard_TrainerUI", "ClassTrainerFrame", "trainer"},
 	{"Blizzard_VoidStorageUI", "VoidStorageFrame", "voidstorage"},
@@ -109,7 +112,7 @@ function BUI:StyleBlizzard(parent, ...)
 	local frame = CreateFrame('Frame', parent..'Decor', E.UIParent)
 	frame:CreateBackdrop('Default', true)
 	frame:SetParent(parent)
-	frame:Point('TOPLEFT', parent, 'TOPLEFT', SPACING, 5)
+	frame:Point('TOPLEFT', parent, 'TOPLEFT', SPACING, 4)
 	frame:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', -SPACING, 0)
 end
 
@@ -139,7 +142,10 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				end
 				if addon == "Blizzard_TalentUI" then 
 					for i = 1, 2 do
-						_G['PlayerSpecTab'..i]:Style('Inside')
+						local tab = _G['PlayerSpecTab'..i]
+						tab:Style('Inside')
+						tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
+						tab:GetNormalTexture():SetInside()
 					end
 				end
 				if addon == "Blizzard_GuildUI" then
@@ -148,6 +154,14 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			end
 		end
 	end
+	
+	-- What the fart is wrong with this check?
+	--if addon == "Blizzard_TimeManager" then
+		if E.private.skins.blizzard.timemanager == true then
+			TimeManagerFrame:Style('Outside')
+		else return end
+	--end
+	
 	if addon == "Blizzard_EncounterJournal" then
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true then return end
 		EncounterJournal:Style('Small')
@@ -167,14 +181,24 @@ function BUIS:BenikUISkins()
 			frame:Style('Small')
 		end
 	end
-
+	
+	-- SpellBook tabs
 	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs", function()
 		for i = 1, MAX_SKILLLINE_TABS do
 			local tab = _G["SpellBookSkillLineTab"..i]
 			tab:Style('Inside')
+			tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
 		end
 	end)
-
+	
+	-- SpellBook Core abilities tabs
+	local function SkinCoreTabs(index)
+		local button = SpellBookCoreAbilitiesFrame.SpecTabs[index]
+		button:Style('Inside')
+		button:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
+	end
+	hooksecurefunc('SpellBook_GetCoreAbilitySpecTab', SkinCoreTabs)
+	
 	-- Style Changes
 	DressUpFrame.style:Point('TOPLEFT', DressUpFrame, 'TOPLEFT', 6, 5)
 	DressUpFrame.style:Point('BOTTOMRIGHT', DressUpFrame, 'TOPRIGHT', -32, -1)

@@ -44,7 +44,6 @@ local function utilsTable()
 						name = L['Tokens'],
 						desc = L["Change the Tokens Dashboard width."],
 						min = 120, max = 220, step = 1,
-						disabled = function() return E.db.utils.sameWidth end,
 						get = function(info) return E.db.utils[ info[#info] ] end,
 						set = function(info, value) E.db.utils[ info[#info] ] = value; BUIT:UpdateTHolderDimensions() end,	
 					},

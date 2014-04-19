@@ -58,11 +58,11 @@ local function Style(f, template, name)
 	if template == 'Inside' then
 		tlx, tly, brx, bry = 0, 0, 0, -6
 	elseif template == 'Outside' then
-		tlx, tly, brx, bry = 0, 5, 0, -SPACING
+		tlx, tly, brx, bry = 0, 4, 0, -SPACING
 	elseif template == 'Skin' then
 		tlx, tly, brx, bry = SPACING, 5, -SPACING, 0
 	elseif template == 'Small' then
-		tlx, tly, brx, bry = -SPACING, 6, SPACING, 0
+		tlx, tly, brx, bry = -SPACING, 5, SPACING, 0
 	end
 	style:Point('TOPLEFT', f, 'TOPLEFT', tlx, tly)
 	style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
