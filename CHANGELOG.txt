@@ -1,3 +1,8 @@
+[b]1.02[/b] (Apr 21, 2014)
+
+*Added options to disable each of the Dashboards. Also can now be hidden while in combat.
+*Added an option to apply transparency in actionbar dackdrops and actionbar buttons. My ElvUI_Transparent_AB plugin, in case is loaded, will be disabled.
+
 [b]1.01[/b] (Apr 19, 2014)
 
 *Added/changed stuff in the install routine.

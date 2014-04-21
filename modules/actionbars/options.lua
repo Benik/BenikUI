@@ -5,6 +5,7 @@ local BAB = E:GetModule('BuiActionbars');
 
 -- Defaults
 P['bab'] = {
+	['transBack'] = true,
 	['enable'] = true,
 	['chooseAb'] = 'BAR2',
 }
@@ -16,8 +17,16 @@ local function abTable()
 		name = BUI.Title,
 		guiInline = true,
 		args = {
-			general = {
+			transBack = {
 				order = 1,
+				type = "toggle",
+				name = L["Transparent Backdrops"],
+				desc = L["Applies transparency in all actionbar backdrops and actionbar buttons."],
+				get = function(info) return E.db.bab[ info[#info] ] end,
+				set = function(info, value) E.db.bab[ info[#info] ] = value; BAB:TransparentBackdrops() end,	
+			},
+			general = {
+				order = 2,
 				type = 'group',
 				name = BUI:cOption(L["Switch Buttons"]),
 				guiInline = true,

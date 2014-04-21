@@ -12,12 +12,6 @@ P['bui'] = {
 	['buiFonts'] = true,
 }
 
-local function CheckFontAddon(enabled)
-	if IsAddOnLoaded("ElvUI_BenikUI_Fonts") then
-		enabled = true
-	end
-end
-
 local function buiTable()
 	E.Options.args.bui = {
 		order = 9000,

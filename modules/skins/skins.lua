@@ -30,6 +30,7 @@ local FreeBlizzFrames = {
 	LFGDungeonReadyPopup,
 	LFGDungeonReadyDialog,
 	LFGDungeonReadyStatus,
+	LootWonAlertFrame1,
 	MailFrame,
 	MerchantFrame,
 	MinimapRightClickMenu,

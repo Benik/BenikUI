@@ -3,8 +3,10 @@ local BUI = E:GetModule('BenikUI');
 local BUIT = E:NewModule('BuiTokensDashboard', 'AceEvent-3.0', 'AceHook-3.0')
 local LSM = LibStub("LibSharedMedia-3.0")
 
+if E.db.utils == nil then E.db.utils = {} end
+
 local DASH_HEIGHT = 20
-local DASH_WIDTH = E.db.utils.twidth or E.db.utils.dwidth or 150
+local DASH_WIDTH = E.db.utils.twidth or 150
 local DASH_SPACING = 3
 local SPACING = (E.PixelMode and 1 or 5)
 
@@ -66,32 +68,33 @@ function BUIT:CreateTokensHolder()
 		tholder.backdrop:Hide()
 	end
 	
-	tholder:SetScript("OnEvent",function(self, event)
-		if event == "PLAYER_REGEN_DISABLED" then
-			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			self.fadeInfo.finishedFunc = tholderOnFade
-		elseif event == "PLAYER_REGEN_ENABLED" then
-			UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-			self:Show()
-		end	
-	end)
-
-	local num = 0
-	for i, v in ipairs( currency ) do
-		local id, max = unpack( v )
-		local name, amount = GetCurrencyInfo( id )
-
-		if( name and amount > 0 ) then
-			num = num + 1
-			tholder:Height(((DASH_HEIGHT + SPACING) * num) + SPACING)
-			tholder.backdrop:Show()
-		end
+	if E.db.utils.Tcombat then
+		tholder:SetScript("OnEvent",function(self, event)
+			if event == "PLAYER_REGEN_DISABLED" then
+				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+				self.fadeInfo.finishedFunc = tholderOnFade
+			elseif event == "PLAYER_REGEN_ENABLED" then
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+				self:Show()
+			end	
+		end)
 	end
+
+	self:UpdateTokens()
 	self:UpdateTHolderDimensions()
-	tokenHolder:RegisterEvent("PLAYER_REGEN_DISABLED")
-	tokenHolder:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self:EnableDisableCombat()
 	E.FrameLocks['tokenHolder'] = true;
 	E:CreateMover(tokenHolder, "tokenHolderMover", L['Tokens'])
+end
+
+function BUIT:EnableDisableCombat()
+	if E.db.utils.Tcombat then
+		tokenHolder:RegisterEvent("PLAYER_REGEN_DISABLED")
+		tokenHolder:RegisterEvent("PLAYER_REGEN_ENABLED")	
+	else
+		tokenHolder:UnregisterEvent("PLAYER_REGEN_DISABLED")
+		tokenHolder:UnregisterEvent("PLAYER_REGEN_ENABLED")	
+	end
 end
 
 function BUIT:UpdateTokens()
@@ -100,13 +103,19 @@ function BUIT:UpdateTokens()
 			Tokens[i]:Kill()
 		end
 		wipe( Tokens )
+		tokenHolder.backdrop:Hide()
 	end
-
+	
+	local num = 0
 	for i, v in ipairs(currency) do
 		local id, max = unpack(v)
 		local name, amount, icon = GetCurrencyInfo(id)
 
 		if(name and amount > 0) then
+			num = num + 1
+			tokenHolder:Height(((DASH_HEIGHT + SPACING) * num) + SPACING)
+			tokenHolder.backdrop:Show()
+			
 			local TokensFrame = CreateFrame("Frame", "Tokens" .. id, tokenHolder)
 			TokensFrame:Height(DASH_HEIGHT)
 			TokensFrame:Width(DASH_WIDTH)
@@ -200,7 +209,6 @@ function BUIT:TokenEvents()
 	self:SecureHook("TokenFrame_Update", 'UpdateTokens')
 end
 
-
 function BUIT:UpdateTHolderDimensions()
 	tokenHolder:Width(E.db.utils.twidth)
 
@@ -214,6 +222,7 @@ function BUIT:TokenDefaults()
 end
 
 function BUIT:Initialize()
+	if E.db.utils.enableTokens ~= true then return end
 	self:TokenDefaults()
 	self:CreateTokensHolder()
 	self:TokenEvents()

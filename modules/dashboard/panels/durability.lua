@@ -40,6 +40,7 @@ local slots = {
 	["ShoulderSlot"] = L['Shoulder'],
 	["HeadSlot"] = L['Head'],
 }
+
 function BUID:CreateDurability()
 	local id = 4
 	BUID.board[id].Status:SetScript("OnEvent", function( self, ...)

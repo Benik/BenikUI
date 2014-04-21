@@ -34,11 +34,68 @@ function BAB:StyleBackdrops()
 	end
 end
 
+-- from ElvUI_TrasparentBackdrops plugin
+function BAB:TransparentBackdrops()
+	-- Actionbar backdrops
+	for i = 1, 10 do
+		local transBars = {_G["ElvUI_Bar"..i]}
+		for _, frame in pairs(transBars) do
+			if frame.backdrop then
+				if E.db.bab.transBack then
+					frame.backdrop:SetTemplate('Transparent')
+				else
+					frame.backdrop:SetTemplate('Default')
+				end
+			end
+		end	
+		
+		-- Buttons
+		for k = 1, 12 do
+			local buttonBars = {_G["ElvUI_Bar"..i.."Button"..k]}
+			for _, button in pairs(buttonBars) do
+				if button.backdrop then
+					if E.db.bab.transBack then
+						button.backdrop:SetTemplate('Transparent')
+					else
+						button.backdrop:SetTemplate('Default', true)
+					end
+				end
+			end
+		end	
+	end
+
+	-- Other bar backdrops
+	local transOtherBars = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags}
+	for _, frame in pairs(transOtherBars) do
+		if frame.backdrop then
+			if E.db.bab.transBack then
+				frame.backdrop:SetTemplate('Transparent')
+			else
+				frame.backdrop:SetTemplate('Default')
+			end
+		end
+	end
+	
+	-- Pet Buttons
+	for i=1, NUM_PET_ACTION_SLOTS do
+		local petButtons = {_G["PetActionButton"..i]}
+		for _, button in pairs(petButtons) do
+			if button.backdrop then
+				if E.db.bab.transBack then
+					button.backdrop:SetTemplate('Transparent')
+				else
+					button.backdrop:SetTemplate('Default', true)
+				end
+			end
+		end
+	end
+end
+
 local function ab3_OnClick(self)
-	if E.db.actionbar['bar3']['enabled'] == true then
-		E.db.actionbar['bar3']['enabled'] = false
-	elseif E.db.actionbar['bar3']['enabled'] == false then
-		E.db.actionbar['bar3']['enabled'] = true
+	if E.db.actionbar.bar3.enabled == true then
+		E.db.actionbar.bar3.enabled = false
+	elseif E.db.actionbar.bar3.enabled == false then
+		E.db.actionbar.bar3.enabled = true
 	end
 	AB:UpdateButtonSettings('bar3');
 end
@@ -57,7 +114,7 @@ local abtn = {}
 function BAB:CreateButtons()
 	for i = 1, 2 do
 		abtn[i] = CreateFrame('Button', 'BuiABbutton_'..i, E.UIParent)
-		abtn[i]:Size(10, 6)
+		abtn[i]:Size(10, 5)
 		abtn[i].color = abtn[i]:CreateTexture(nil, 'OVERLAY')
 		abtn[i].color:SetInside()
 		abtn[i].color:SetTexture(E["media"].BuiFlat)
@@ -112,7 +169,9 @@ end
 
 function BAB:Initialize()
 	self:StyleBackdrops()
+	self:TransparentBackdrops()
 	self:CreateButtons()
+	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end
 end
 
 E:RegisterModule(BAB:GetName())

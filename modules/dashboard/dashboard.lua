@@ -9,13 +9,16 @@ local BUID = E:NewModule('BuiDashboard')
 local LSM = LibStub("LibSharedMedia-3.0")
 
 if E.db.utils == nil then E.db.utils = {} end
-if E.db.utils.dwidth == nil then E.db.utils.dwidth = 150 end
 
 local DASH_HEIGHT = 7
-local DASH_WIDTH = E.db.utils.dwidth
+local DASH_WIDTH = E.db.utils.dwidth or 150
 local DASH_NUM = 5
 local DASH_SPACING = 3
 local SPACING = (E.PixelMode and 1 or 5)
+
+local function dholderOnFade()
+	BuiDashboard:Hide()
+end
 
 -- Bar Holder
 function BUID:CreateDashboardHolder()
@@ -25,8 +28,32 @@ function BUID:CreateDashboardHolder()
 	dholder:SetFrameStrata('LOW')
 	dholder:Size(DASH_WIDTH, ((DASH_HEIGHT+10)*DASH_NUM)+(DASH_SPACING*DASH_NUM) + DASH_SPACING)
 	dholder.backdrop:Style('Outside')
+	
+	if E.db.utils.Scombat then
+		dholder:SetScript("OnEvent",function(self, event)
+			if event == "PLAYER_REGEN_DISABLED" then
+				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+				self.fadeInfo.finishedFunc = dholderOnFade
+			elseif event == "PLAYER_REGEN_ENABLED" then
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+				self:Show()
+			end	
+		end)
+	end
+
 	E.FrameLocks['BuiDashboard'] = true;
-	E:CreateMover(BuiDashboard, "BuiDashboardMover", L["Dashboard"])
+	E:CreateMover(BuiDashboard, "BuiDashboardMover", L["System"])
+	self:EnableDisableCombat()
+end
+
+function BUID:EnableDisableCombat()
+	if E.db.utils.Scombat then
+		BuiDashboard:RegisterEvent("PLAYER_REGEN_DISABLED")
+		BuiDashboard:RegisterEvent("PLAYER_REGEN_ENABLED")	
+	else
+		BuiDashboard:UnregisterEvent("PLAYER_REGEN_DISABLED")
+		BuiDashboard:UnregisterEvent("PLAYER_REGEN_ENABLED")	
+	end
 end
 
 BUID.board = {}
@@ -86,6 +113,7 @@ function BUID:CreateBoards()
 end
 
 function BUID:Initialize()
+	if E.db.utils.enableSystem ~= true then return end
 	self:CreateDashboardHolder()
 	self:CreateBoards()
 	self:HolderWidth()
