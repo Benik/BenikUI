@@ -242,7 +242,6 @@ function BUIS:Initialize()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
 end
 
-
 if AS then
 	V['addonskins']['BenikUI'] = true -- Default added
 
@@ -254,7 +253,7 @@ if AS then
 				skada.button:StripTextures()
 			end
 			if not skada.backdrop.ishooked then
-				hooksecurefunc(AS, 'Embed_Check', function(self, message) -- Hook in a hook :P
+				hooksecurefunc(AS, 'Embed_Check', function(self, message)
 					if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
 						skada.backdrop.style:Hide()
 					else

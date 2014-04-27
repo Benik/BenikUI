@@ -1,3 +1,14 @@
+[b]1.04[/b] (Apr 27, 2014)
+
+*Changed position of the right chat buttons. "G" (Game menu) button is now on left and "C" (ElvUI config) button (aka "E") is now on the right. Also edited dropdown.lua, so that the menu position will not be related to mouse clicks. See dropmenu.lua in core folder.
+*Removed the "C" button under the minimap. It's already at the bottomright chat corner. It will appear when BenikUI dataTexts are disabled.
+*Added option to toggle BenikUI dataTexts transparency. Hmm.. they look nice without transparency :)
+TODO: adopt BG dts
+
+[b]1.03[/b] (Apr 21, 2014)
+
+*Forgot to remove LootWonAlertFrame1 from skinning. Looks baaaad :P
+
 [b]1.02[/b] (Apr 21, 2014)
 
 *Added options to disable each of the Dashboards. Also can now be hidden while in combat.

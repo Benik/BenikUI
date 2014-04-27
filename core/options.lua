@@ -10,6 +10,7 @@ P['bui'] = {
 	['colorTheme'] = 'Elv',
 	['buiDts'] = true,
 	['buiFonts'] = true,
+	['transparentDts'] = false,
 }
 
 local function buiTable()
@@ -62,21 +63,37 @@ local function buiTable()
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, color) E.db.bui[ info[#info] ] = color; BUI:BuiColorThemes(color); end,
 					},
-					buiDts = {
-						order = 2,
-						type = "toggle",
-						name = L["Chat DataTexts"],
-						desc = L["Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled"],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; LO:ToggleChatPanels(); end,	
-					},
 					buiFonts = {
-						order = 3,
+						order = 2,
 						type = "toggle",
 						name = L["Force BenikUI fonts"],
 						desc = L["Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r"],
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; value, _, _, _ = GetAddOnInfo("ElvUI_BenikUI_Fonts"); BUI:EnableBuiFonts(); E:StaticPopup_Show("PRIVATE_RL"); end,	
+					},
+				},
+			},
+			datatexts = {
+				order = 6,
+				type = "group",
+				name = L["DataTexts"],
+				guiInline = true,
+				args = {
+					buiDts = {
+						order = 1,
+						type = "toggle",
+						name = ENABLE,
+						desc = L["Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled"],
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; LO:ToggleChatPanels(); end,	
+					},
+					transparentDts = {
+						order = 2,
+						type = "toggle",
+						name = L["Panel Transparency"],
+						disabled = function() return not E.db.bui.buiDts end,
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiLayout'):ToggleTransparency(); end,	
 					},
 				},
 			},

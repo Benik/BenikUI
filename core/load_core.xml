@@ -4,4 +4,5 @@
 	<script file="functions.lua"/>
 	<script file="options.lua"/>
 	<script file="install.lua"/>
+	<script file="dropmenu.lua"/>
 </Ui>

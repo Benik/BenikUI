@@ -12,10 +12,6 @@ function BUIB:StyleBags()
 	if ElvUI_ContainerFrameContainerHolder then
 		ElvUI_ContainerFrameContainerHolder:Point('BOTTOMLEFT', playerbags, 'TOPLEFT', 0, SPACING + BORDER)
 	end
-	-- Hide opened Game Menu when opening bags
-	ElvUI_ContainerFrame:HookScript('OnShow', function(self)
-		BuiGameClickMenu:Hide()
-	end)
 end
 
 function BUIB:OpenBankBags()

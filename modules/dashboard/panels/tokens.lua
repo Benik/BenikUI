@@ -106,14 +106,12 @@ function BUIT:UpdateTokens()
 		tokenHolder.backdrop:Hide()
 	end
 	
-	local num = 0
 	for i, v in ipairs(currency) do
 		local id, max = unpack(v)
 		local name, amount, icon = GetCurrencyInfo(id)
 
 		if(name and amount > 0) then
-			num = num + 1
-			tokenHolder:Height(((DASH_HEIGHT + SPACING) * num) + SPACING)
+			tokenHolder:Height(((DASH_HEIGHT + SPACING) * (#Tokens + 1)) + SPACING)
 			tokenHolder.backdrop:Show()
 			
 			local TokensFrame = CreateFrame("Frame", "Tokens" .. id, tokenHolder)

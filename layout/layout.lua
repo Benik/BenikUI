@@ -3,7 +3,7 @@ local BUIL = E:NewModule('BuiLayout', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 local DT = E:GetModule('DataTexts')
-local M = E:GetModule('Misc');
+local M = E:GetModule('Minimap');
 local LSM = LibStub('LibSharedMedia-3.0')
 
 local PANEL_HEIGHT = 19;
@@ -119,9 +119,8 @@ local function unpackColor(color)
 end
 
 local function BuiGameMenu_OnMouseUp()
-	if ElvUI_ContainerFrame:IsShown() then return end
-	E:DropDown(menuList, menuFrame, -148, 304)
 	GameTooltip:Hide()
+	BUI:Dropmenu(menuList, menuFrame, BuiButton_2, "tLeft", -SPACING, SPACING)
 end
 
 local function tholderOnFade()
@@ -173,35 +172,66 @@ function BUIL:ToggleBuiDts()
 	end
 end
 
+function BUIL:ResizeMinimapPanels()
+	
+	LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+	if E.db.auras.consolidatedBuffs.enable and E.db.datatexts.minimapPanels and E.private.general.minimap.enable and E.private.auras.disableBlizzard then
+		if E.db.bui.buiDts then
+			LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', (E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
+			RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', E.ConsolidatedBuffsWidth + SPACING, -SPACING)
+			ElvConfigToggle:Hide()
+		else
+			LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
+			RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
+			ElvConfigToggle:Show()
+		end
+	else
+		LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
+		RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
+	end
+	RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
+	
+end
+
+function BUIL:ToggleTransparency()
+	if E.db.bui.transparentDts then
+		Bui_ldtp:SetTemplate('Transparent')
+		Bui_rdtp:SetTemplate('Transparent')
+		for i = 1, BUTTON_NUM do
+			bbuttons[i]:SetTemplate('Transparent')
+		end
+	else
+		Bui_ldtp:SetTemplate('Default', true)
+		Bui_rdtp:SetTemplate('Default', true)
+		for i = 1, BUTTON_NUM do
+			bbuttons[i]:SetTemplate('Default', true)
+		end	
+	end
+end
+
 function BUIL:ChangeLayout()
 	
 	LeftMiniPanel:SetHeight(PANEL_HEIGHT)
 	RightMiniPanel:SetHeight(PANEL_HEIGHT)
-	ElvConfigToggle:SetHeight(PANEL_HEIGHT)
-	ElvConfigToggle.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-	ElvConfigToggle.text:SetTextColor(unpackColor(E.db.general.valuecolor))
-
-	LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-	LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
-	
-	RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
-	RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
-	
-	ElvConfigToggle:Point('TOPLEFT', RightMiniPanel, 'TOPRIGHT', SPACING, 0)
-	ElvConfigToggle:Point('BOTTOMLEFT', RightMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
 	
 	ElvUI_ConsolidatedBuffs:Point('TOPLEFT', Minimap.backdrop, 'TOPRIGHT', SPACING, 0)
 	ElvUI_ConsolidatedBuffs:Point('BOTTOMLEFT', Minimap.backdrop, 'BOTTOMRIGHT', SPACING, 0)
-	
+
+	ElvConfigToggle:Point('TOPLEFT', RightMiniPanel, 'TOPRIGHT', SPACING, 0)
+	ElvConfigToggle:Point('BOTTOMLEFT', RightMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
+	ElvConfigToggle:SetHeight(PANEL_HEIGHT)
+	ElvConfigToggle.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+	ElvConfigToggle.text:SetTextColor(unpackColor(E.db.general.valuecolor))	
+
 	-- Left dt panel
-	Bui_ldtp:SetTemplate('Transparent')
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
+	Bui_ldtp:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
 	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
 	
 	-- Right dt panel
-	Bui_rdtp:SetTemplate('Transparent')
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
+	Bui_rdtp:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
 
@@ -218,7 +248,8 @@ function BUIL:ChangeLayout()
 	-- Buttons
 	for i = 1, BUTTON_NUM do
 		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i, E.UIParent)
-		bbuttons[i]:SetTemplate('Transparent')
+		bbuttons[i]:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
+		bbuttons[i]:RegisterForClicks('AnyUp')
 		bbuttons[i]:SetFrameStrata('BACKGROUND')
 		bbuttons[i]:CreateSoftGlow()
 		bbuttons[i].sglow:Hide()
@@ -228,52 +259,56 @@ function BUIL:ChangeLayout()
 		bbuttons[i].text:SetJustifyH('CENTER')
 		bbuttons[i].text:SetTextColor(unpackColor(E.db.general.valuecolor))
 		
-		-- Game menu button
+		-- ElvUI Config
 		if i == 1 then
 			bbuttons[i]:Point('TOPLEFT', Bui_rdtp, 'TOPRIGHT', SPACING, 0)
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i].parent = RightChatPanel
-			bbuttons[i].text:SetText('G')
+			bbuttons[i].text:SetText('C')
 			
+			bbuttons[i]:SetScript('OnClick', function(self, btn)
+				if btn == 'LeftButton' then
+					E:ToggleConfig()
+				else
+					--E:BGStats() --will enable when (and if) I could adopt the bg dataTexts
+				end
+			end)
+
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				bbuttons[i].sglow:Show()
 				if IsShiftKeyDown() then
 					bbuttons[i].text:SetText('>')
 					bbuttons[i]:SetScript('OnClick', ChatButton_OnClick)
-				else
-					bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
 				end
-				GameTooltip:SetOwner(bbuttons[i], 'ANCHOR_TOP', -64, 2 )
+				GameTooltip:SetOwner(bbuttons[i], 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L['Game Menu'], selectioncolor)
+				GameTooltip:AddLine(L['Toggle Configuration'], selectioncolor)
 				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
 			
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				bbuttons[i].text:SetText('G')
+				bbuttons[i].text:SetText('C')
 				bbuttons[i].sglow:Hide()
 				GameTooltip:Hide()
 			end)
 		
-		-- ElvUI Config
+		-- Game menu button
 		elseif i == 2 then
 			bbuttons[i]:Point('TOPRIGHT', Bui_rdtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_rdtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
-			bbuttons[i].text:SetText('E')
+			bbuttons[i].text:SetText('G')
 
-			bbuttons[i]:SetScript('OnClick', function(self)
-				E:ToggleConfig()
-			end)
+			bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				bbuttons[i].sglow:Show()
-				GameTooltip:SetOwner(bbuttons[i], 'ANCHOR_TOP', 0, 2 )
+				GameTooltip:SetOwner(bbuttons[i], 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L['Toggle Configuration'], selectioncolor)
+				GameTooltip:AddLine(L['Game Menu'], selectioncolor)
 				GameTooltip:Show()
-				if InCombatLockdown() then GameTooltip:Hide() end
+				if InCombatLockdown() or BuiGameClickMenu:IsShown() then GameTooltip:Hide() end
 			end)
 			
 			bbuttons[i]:SetScript('OnLeave', function(self)
@@ -358,12 +393,16 @@ function BUIL:ChangeLayout()
 	-- Minimap elements styling
 	Minimap.backdrop:Style('Outside')
 	ElvUI_ConsolidatedBuffs:Style('Outside')
+	self:ResizeMinimapPanels()
+	self:ToggleTransparency()
 	self:ToggleBuiDts()
 end
 
 function BUIL:Initialize()
 	self:ChangeLayout()
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ToggleBuiDts)
+	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ResizeMinimapPanels)
+	hooksecurefunc(M, 'UpdateSettings', BUIL.ResizeMinimapPanels)
 end
 
 E:RegisterModule(BUIL:GetName())
