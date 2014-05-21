@@ -11,6 +11,7 @@ P['bui'] = {
 	['buiDts'] = true,
 	['buiFonts'] = true,
 	['transparentDts'] = false,
+	['toggleMail'] = true,
 }
 
 local function buiTable()
@@ -94,6 +95,22 @@ local function buiTable()
 						disabled = function() return not E.db.bui.buiDts end,
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiLayout'):ToggleTransparency(); end,	
+					},
+				},
+			},
+			mail = {
+				order = 7,
+				type = "group",
+				name = L["Mail"],
+				guiInline = true,
+				args = {
+					toggleMail = {
+						order = 1,
+						type = "toggle",
+						name = L["Hide Mail Icon"],
+						desc = L["Show/Hide Mail Icon on minimap"],
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('DataTexts'):ToggleMailFrame(); E:StaticPopup_Show("PRIVATE_RL"); end,	
 					},
 				},
 			},

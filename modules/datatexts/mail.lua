@@ -60,8 +60,12 @@ local function OnEnter(self)
 end
 
 -- Hide the mail icon from minimap
-MiniMapMailFrame.Show = MiniMapMailFrame.Hide;
-MiniMapMailFrame:Hide();
+function DT:ToggleMailFrame()
+	if E.db.bui.toggleMail then
+		MiniMapMailFrame.Show = MiniMapMailFrame.Hide;
+		MiniMapMailFrame:Hide();
+	end
+end
 
 --[[
 	DT:RegisterDatatext(name, events, eventFunc, updateFunc, clickFunc, onEnterFunc, onLeaveFunc)

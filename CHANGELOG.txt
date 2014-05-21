@@ -1,3 +1,7 @@
+[b]1.05[/b] (May 21, 2014)
+
+*Added an option that can show/hide the mail icon from the minimap (requires a reloadui).
+
 [b]1.04[/b] (Apr 27, 2014)
 
 *Changed position of the right chat buttons. "G" (Game menu) button is now on left and "C" (ElvUI config) button (aka "E") is now on the right. Also edited dropdown.lua, so that the menu position will not be related to mouse clicks. See dropmenu.lua in core folder.

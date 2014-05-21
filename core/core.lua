@@ -41,6 +41,7 @@ end
 
 function BUI:InitBUI()
 	self:StyleTooltip()
+	E:GetModule('DataTexts'):ToggleMailFrame()
 end
 
 function BUI:Initialize()
