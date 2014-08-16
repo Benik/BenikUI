@@ -56,7 +56,7 @@ local function Style(f, template, name)
 	end
 	local tlx, tly, brx, bry
 	if template == 'Inside' then
-		tlx, tly, brx, bry = 0, 0, 0, -6
+		tlx, tly, brx, bry = 0, 0, 0, -5
 	elseif template == 'Outside' then
 		tlx, tly, brx, bry = 0, 4, 0, -SPACING
 	elseif template == 'Skin' then

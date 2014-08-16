@@ -12,6 +12,7 @@ P['bui'] = {
 	['buiFonts'] = true,
 	['transparentDts'] = false,
 	['toggleMail'] = true,
+	['mailSound'] = false,
 }
 
 local function buiTable()
@@ -101,7 +102,7 @@ local function buiTable()
 			mail = {
 				order = 7,
 				type = "group",
-				name = L["Mail"],
+				name = MAIL_LABEL,
 				guiInline = true,
 				args = {
 					toggleMail = {
@@ -112,6 +113,15 @@ local function buiTable()
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('DataTexts'):ToggleMailFrame(); E:StaticPopup_Show("PRIVATE_RL"); end,	
 					},
+					-- Enable when the sound plays with no issues
+					--[[mailSound = {
+						order = 2,
+						type = "toggle",
+						name = L["Play Sound"],
+						desc = L["Play a sound when receiving a new mail"],
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; end,	
+					},]]
 				},
 			},
 			config = {

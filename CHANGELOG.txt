@@ -1,3 +1,12 @@
+[b]1.06[/b] (Aug 16, 2014)
+
+*Fixed the portrait issue with druid, mage, warlock or priest. All player portraits should detach now.
+*Added option to change BenikUI XP and Rep bars colors.
+*Added option to change the Dashboards fonts.
+*Fixed a possible lua error when styling the bank frame.
+*Fixed a possible lua error during the install.
+*Styled the Copy Chat frame.
+
 [b]1.05[/b] (May 21, 2014)
 
 *Added an option that can show/hide the mail icon from the minimap (requires a reloadui).

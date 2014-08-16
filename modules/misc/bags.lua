@@ -15,8 +15,10 @@ function BUIB:StyleBags()
 end
 
 function BUIB:OpenBankBags()
-	ElvUI_BankContainerFrame:Style('Outside', 'playerbank')
-	ElvUI_BankContainerFrameContainerHolder:Style('Outside')
+	if ElvUI_BankContainerFrame then
+		ElvUI_BankContainerFrame:Style('Outside', 'playerbank')
+		ElvUI_BankContainerFrameContainerHolder:Style('Outside')
+	end
 	
 	if ElvUI_BankContainerFrameContainerHolder then
 		ElvUI_BankContainerFrameContainerHolder:Point('BOTTOMLEFT', playerbank, 'TOPLEFT', 0, SPACING + BORDER)

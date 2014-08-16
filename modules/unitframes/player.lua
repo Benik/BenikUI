@@ -129,10 +129,10 @@ function UFB:ArrangePlayer()
 			end
 		end
 	end
-	frame:UpdateAllElements()
 end
 
 function UFB:InitPlayer()
 	self:ApplyPlayerChanges()
+	hooksecurefunc(UF, 'UpdatePlayerFrameAnchors', UFB.ArrangePlayer) -- class portrait issue fix
 	hooksecurefunc(UF, 'Update_PlayerFrame', UFB.ArrangePlayer)
 end

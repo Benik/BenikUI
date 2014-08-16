@@ -11,6 +11,10 @@ P['utils'] = {
 	['Tcombat'] = true,
 	['dwidth'] = 150,
 	['twidth'] = 150,
+	['dtfont'] = true,
+	['dbfont'] = E.db.datatexts.font,
+	['dbfontsize'] = E.db.datatexts.fontSize,
+	['dbfontflags'] = E.db.datatexts.fontOutline,
 }
 
 local function utilsTable()
@@ -91,6 +95,51 @@ local function utilsTable()
 						disabled = function() return not E.db.utils.enableTokens end,
 						get = function(info) return E.db.utils[ info[#info] ] end,
 						set = function(info, value) E.db.utils[ info[#info] ] = value; E:GetModule('BuiTokensDashboard'):UpdateTHolderDimensions() end,	
+					},
+				},
+			},
+			font = {
+				order = 4,
+				type = "group",
+				name = L["Fonts"],
+				guiInline = true,
+				disabled = function() return not E.db.utils.enableSystem and not E.db.utils.enableTokens end,
+				get = function(info) return E.db.utils[ info[#info] ] end,
+				set = function(info, value) E.db.utils[ info[#info] ] = value; if E.db.utils.enableSystem then E:GetModule('BuiDashboard'):ChangeFont() end; if E.db.utils.enableTokens then E:GetModule('BuiTokensDashboard'):UpdateTokens() end; end,
+				args = {
+					dtfont = {
+						order = 1,
+						name = L["Use DataTexts font"],
+						type = 'toggle',
+						width = "full",
+					},
+					dbfont = {
+						type = "select", dialogControl = 'LSM30_Font',
+						order = 2,
+						name = L["Font"],
+						desc = L["Choose font for both dashboards."],
+						disabled = function() return E.db.utils.dtfont end,
+						values = AceGUIWidgetLSMlists.font,
+					},
+					dbfontsize = {
+						order = 3,
+						name = L["Font Size"],
+						desc = L["Set the font size."],
+						disabled = function() return E.db.utils.dtfont end,
+						type = "range",
+						min = 6, max = 22, step = 1,
+					},
+					dbfontflags = {
+						order = 4,
+						name = L["Font Outline"],
+						disabled = function() return E.db.utils.dtfont end,
+						type = 'select',
+						values = {
+							['NONE'] = L['None'],
+							['OUTLINE'] = 'OUTLINE',
+							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
+							['THICKOUTLINE'] = 'THICKOUTLINE',
+						},
 					},
 				},
 			},

@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ =  unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
+local LSM = LibStub('LibSharedMedia-3.0')
 -- Based on Repooc's and Darth Predator's S&L ElvUI edit mail datatext.
 local Read;
 
@@ -30,6 +31,10 @@ local function OnEvent(self, event, ...)
 	
 	if newMail then
 		self.text:SetText("|cff00ff00New Mail|r")
+		-- testing sound when new mail. Here spams
+		--[[if E.db.bui.mailSound then
+			PlaySoundFile("Interface\\AddOns\\ElvUI_BenikUI\\media\\sounds\\mail.mp3", "Master")
+		end]]
 		Read = false;
 	else
 		self.text:SetText("No Mail")

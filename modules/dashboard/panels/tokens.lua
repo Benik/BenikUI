@@ -113,6 +113,7 @@ function BUIT:UpdateTokens()
 		if(name and amount > 0) then
 			tokenHolder:Height(((DASH_HEIGHT + SPACING) * (#Tokens + 1)) + SPACING)
 			tokenHolder.backdrop:Show()
+			--E["media"].dbFont = LSM:Fetch("font", E.db.utils.dbfont)
 			
 			local TokensFrame = CreateFrame("Frame", "Tokens" .. id, tokenHolder)
 			TokensFrame:Height(DASH_HEIGHT)
@@ -148,7 +149,11 @@ function BUIT:UpdateTokens()
 			TokensFrame.spark:SetPoint('CENTER', TokensFrame.Status:GetStatusBarTexture(), 'RIGHT')
 
 			TokensFrame.Text = TokensFrame.Status:CreateFontString(nil, "OVERLAY")
-			TokensFrame.Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+			if E.db.utils.dtfont then
+				TokensFrame.Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+			else
+				TokensFrame.Text:FontTemplate(LSM:Fetch("font", E.db.utils.dbfont), E.db.utils.dbfontsize, E.db.utils.dbfontflags)
+			end
 			TokensFrame.Text:Point("CENTER", TokensFrame, "CENTER", -10, 1)
 			TokensFrame.Text:Width(TokensFrame:GetWidth() - 20)
 			TokensFrame.Text:SetWordWrap(false)

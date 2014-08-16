@@ -78,3 +78,6 @@ L["Force BenikUI fonts"] = true
 L["Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r"] = true
 L["Transparent Backdrops"] = true
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
+L["Hide Mail Icon"] = true
+L["Show/Hide Mail Icon on minimap"] = true
+L["Use DataTexts font"] = true

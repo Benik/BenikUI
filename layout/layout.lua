@@ -393,6 +393,7 @@ function BUIL:ChangeLayout()
 	-- Minimap elements styling
 	Minimap.backdrop:Style('Outside')
 	ElvUI_ConsolidatedBuffs:Style('Outside')
+	CopyChatFrame:Style('Inside')
 	self:ResizeMinimapPanels()
 	self:ToggleTransparency()
 	self:ToggleBuiDts()

@@ -106,9 +106,19 @@ function BUID:CreateBoards()
 		BUID.board[i].spark:Point('CENTER', BUID.board[i].Status:GetStatusBarTexture(), 'RIGHT')	
 		
 		BUID.board[i].Text = BUID.board[i].Status:CreateFontString(nil, "OVERLAY")
-		BUID.board[i].Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		BUID.board[i].Text:Point("BOTTOMLEFT", BUID.board[i], "BOTTOMLEFT", 2, 4)
 		BUID.board[i].Text:SetJustifyH('LEFT')
+	end
+	self:ChangeFont()
+end
+
+function BUID:ChangeFont()
+	for i = 1, DASH_NUM do
+		if E.db.utils.dtfont then
+			BUID.board[i].Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+		else
+			BUID.board[i].Text:FontTemplate(LSM:Fetch("font", E.db.utils.dbfont), E.db.utils.dbfontsize, E.db.utils.dbfontflags)
+		end
 	end
 end
 

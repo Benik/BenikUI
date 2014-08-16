@@ -162,8 +162,6 @@ function BXR:UpdateReputation(event)
 
 		local text = ''
 		local textFormat = E.db.xprep.textFormat		
-		local color = FACTION_BAR_COLORS[reaction] or backupColor
-		bar:SetStatusBarColor(color.r, color.g, color.b)	
 
 		bar:SetMinMaxValues(min, max)
 		bar:SetValue(value)
@@ -187,7 +185,8 @@ function BXR:UpdateReputation(event)
 			text = format('%s: %s - %s [%s]', name, E:ShortValue(value - min), E:ShortValue(max - min), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
 		elseif textFormat == 'CURPERC' then
 			text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
-		end					
+		end
+		self:ChangeRepColor()
 		self:ChangeRepXpFont()
 		bar.text:SetText(text)		
 	end
@@ -241,11 +240,16 @@ function BXR:ChangeRepXpFont()
 	end
 end
 
+-- Custom color
+local color = { r = 1, g = 1, b = 1, a = 1 }
+local function unpackColor(color)
+	return color.r, color.g, color.b, color.a
+end
+
 function BXR:LoadBars()
 	self.xpbar = CreateFrame("StatusBar", nil, BUI_PlayerBar)
 	self.xpbar:SetInside()
 	self.xpbar:SetStatusBarTexture(E["media"].BuiFlat)
-	self.xpbar:SetStatusBarColor(0, 0.4, 1, .8)
 	self.xpbar:SetAlpha(0)
 
 	self.xpbar.text = self.xpbar:CreateFontString(nil, 'OVERLAY')
@@ -254,7 +258,7 @@ function BXR:LoadBars()
 	self.xpbar.rested = CreateFrame("StatusBar", nil, self.xpbar)
 	self.xpbar.rested:SetInside(BUI_PlayerBar)
 	self.xpbar.rested:SetStatusBarTexture(E["media"].BuiFlat)
-	self.xpbar.rested:SetStatusBarColor(1, 0, 1, 0.2)
+	self.xpbar.rested:SetFrameLevel(self.xpbar:GetFrameLevel() - 1)
 	self.xpbar:SetScript('OnEnter', xp_onEnter)
 	self.xpbar:SetScript('OnLeave', bars_onLeave)
 
@@ -268,11 +272,32 @@ function BXR:LoadBars()
 	self.repbar.text:SetWordWrap(false)
 	self.repbar:SetScript('OnEnter', rep_onEnter)
 	self.repbar:SetScript('OnLeave', bars_onLeave)
+	
+	self:ChangeXPcolor()
 
 	self:EnableDisable_ExperienceBar()
 	self:EnableDisable_ReputationBar()
 end
 
+function BXR:ChangeXPcolor()
+	if E.db.xprep.default then
+		self.xpbar:SetStatusBarColor(0, 0.4, 1, .8)
+		self.xpbar.rested:SetStatusBarColor(1, 0, 1, 0.2)
+	else
+		self.xpbar:SetStatusBarColor(unpackColor(E.db.xprep.xp))
+		self.xpbar.rested:SetStatusBarColor(unpackColor(E.db.xprep.rested))
+	end
+end
+
+function BXR:ChangeRepColor()
+	if E.db.xprep.default then
+		local _, reaction = GetWatchedFactionInfo()
+		local color = FACTION_BAR_COLORS[reaction] or backupColor
+		self.repbar:SetStatusBarColor(color.r, color.g, color.b)
+	else
+		self.repbar:SetStatusBarColor(unpackColor(E.db.xprep.reputation))
+	end
+end
 
 function BXR:Initialize()
 	self:LoadBars()
