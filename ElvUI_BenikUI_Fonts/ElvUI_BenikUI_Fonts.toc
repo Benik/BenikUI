@@ -1,0 +1,10 @@
+﻿## Interface: 50400
+## Author: Benik
+## Version: 1.01
+## Title: |cff1784d1ElvUI|r_BenikUI_Fonts
+## Notes: Override ElvUI nameplates and damage font, to fit with BenikUI
+## RequiredDeps: ElvUI_BenikUI
+## DefaultState: Enabled
+## OptionalDeps: SharedMedia
+
+fonts.lua
