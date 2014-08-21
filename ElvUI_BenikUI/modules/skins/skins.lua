@@ -1,8 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUIS = E:NewModule('BuiSkins', "AceHook-3.0", 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
-local AS = E:GetModule('AddOnSkins', true)
-
+local AS = unpack(AddOnSkins)
 local SPACING = (E.PixelMode and 1 or 5)
 
 -----------------------------------------------
@@ -269,7 +268,7 @@ if AS then
 		local recountdecor = CreateFrame('Frame', name, E.UIParent)
 		recountdecor:SetTemplate('Default', true)
 		recountdecor:SetParent(parent)
-		recountdecor:Point('TOPLEFT', parent, 'TOPLEFT', 0, -SPACING)
+		recountdecor:Point('TOPLEFT', parent, 'TOPLEFT', 0, -2)
 		recountdecor:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', 0, -7)
 
 		return recountdecor

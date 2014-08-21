@@ -11,5 +11,3 @@ ElvUF.Tags.Methods['playergroup'] = function(unit)
 		end
 	end
 end
-
-

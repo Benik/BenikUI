@@ -18,17 +18,27 @@ P['ufb'] = {
 	['TargetPortraitHeight'] = 85,
 	['TargetPortraitShadow'] = false,
 	['TargetPortraitTransparent'] = true,
+	['powerstatusbar'] = "BuiFlat",
 }
 
 local function ufTable()
 	E.Options.args.unitframe.args.general.args.ufb = {
-		order = 3,
+		order = 2,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
 		args = {
-			eframes = {
+			powerstatusbar = {
+				type = "select", dialogControl = 'LSM30_Statusbar',
 				order = 1,
+				name = BUI:cOption(L["PowerBar"])..BUI.newsign,
+				desc = L["Power statusbar texture."],
+				values = AceGUIWidgetLSMlists.statusbar,
+				get = function(info) return E.db.ufb[ info[#info] ] end,				
+				set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:Update_PowerStatusBar() end,
+			},
+			eframes = {
+				order = 2,
 				type = 'group',
 				name = BUI:cOption(L["Empty Frames"]),
 				guiInline = true,
@@ -39,7 +49,7 @@ local function ufTable()
 						order = 1,
 						type = "toggle",
 						name = ENABLE,
-						desc = L["Enable the Empty frames (Player and Target)."],	
+						desc = L["Enable the Empty frames (Player and Target)."],
 					},
 					barheight = {
 						order = 2,
@@ -54,7 +64,6 @@ local function ufTable()
 		},
 	}
 end
-
 table.insert(E.BuiConfig, ufTable)
 
 local function ufPlayerTable()
@@ -79,7 +88,7 @@ local function ufPlayerTable()
 						E.Options.args.unitframe.args.player.args.portrait.args.width.min = 15
 						E.db.unitframe.units.player.portrait.width = 45
 					end
-					UF:CreateAndUpdateUF('player')--This will call UF:Update_PlayerFrame and subsequently UFB:ArrangePlayer()
+					UF:CreateAndUpdateUF('player')
 				end,
 				disabled = function() return E.db.unitframe.units.player.portrait.overlay end,
 			},
@@ -116,7 +125,6 @@ local function ufPlayerTable()
 		},
 	}
 end
-
 table.insert(E.BuiConfig, ufPlayerTable)
 
 local function ufTargetTable()
@@ -144,7 +152,7 @@ local function ufTargetTable()
 						E.Options.args.unitframe.args.target.args.portrait.args.width.min = 15
 						E.db.unitframe.units.target.portrait.width = 45
 					end
-					UF:CreateAndUpdateUF('target')--This will call UF:Update_TargetFrame and subsequently UFB:ArrangePlayer()
+					UF:CreateAndUpdateUF('target')
 				end,
 				disabled = function() return E.db.unitframe.units.target.portrait.overlay end,
 			},
@@ -188,5 +196,4 @@ local function ufTargetTable()
 		},
 	}
 end
-
 table.insert(E.BuiConfig, ufTargetTable)

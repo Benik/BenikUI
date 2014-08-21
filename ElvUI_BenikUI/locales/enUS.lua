@@ -15,8 +15,8 @@ L["This part of the installation changes the default ElvUI look. This is why you
 L["Please click the button below to apply the new layout."] = true
 L["Setup Layout"] = true
 L["Color Themes"] = true
-L["This part of the installation will apply the Color Themes"] = true
-L["Please click the button below to apply the new color themes."] = true
+L["This part of the installation will apply a Color Theme"] = true
+L["Please click a button below to apply a color theme."] = true
 L['Diablo'] = true
 L['Mists'] = true
 L['Hearthstone'] = true
@@ -81,3 +81,5 @@ L["Applies transparency in all actionbar backdrops and actionbar buttons."] = tr
 L["Hide Mail Icon"] = true
 L["Show/Hide Mail Icon on minimap"] = true
 L["Use DataTexts font"] = true
+L["PowerBar"] = true
+L["Power statusbar texture."] = true

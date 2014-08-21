@@ -1,3 +1,13 @@
+[b]1.08[/b] (Aug 21, 2014)
+
+*Adopted latest Azilroka's AddonSkins changes. Fixed Recount Decor.
+*Added the ability to use different texture on unit power bars (Unitframe options).
+*All new BenikUI features are now marked with a yellow "!".
+
+[b]1.07[/b] (Aug 16, 2014)
+
+*Added the ElvUI_BenikUI_Fonts folder missing from v1.06.
+
 [b]1.06[/b] (Aug 16, 2014)
 
 *Fixed the portrait issue with druid, mage, warlock or priest. All player portraits should detach now.
@@ -108,8 +118,9 @@ TODO: Auras status bars; ain't working as intended.
 
 *Renamed the Mail datatext to BuiMail, so it doesn't conflict or show as duplicate, if another addon adds a similar datatext.
 
-[b]0.42beta
-[/b] (Apr 2, 2014)
+
+
+[b]0.42beta[/b] (Apr 2, 2014)
 
 *Added 3 color themes plus the default ElvUI. 'Diablo' (dark red), 'Mists' (dark green), 'Hearthstone' (dark blue). Available in BenikUI options or in the install (step 3).
 
@@ -192,6 +203,8 @@ TODO: Auras status bars; ain't working as intended.
 *Disabled the Auras UpdateHeader function edit (for smaller aura icons height). Isn't updating..
 
 *Minor file cleanup.
+
+
 
 [b]0.25beta[/b] (Mar 21, 2014)
 

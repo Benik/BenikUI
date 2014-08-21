@@ -280,6 +280,7 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.player.power.height = 5
 		E.db.unitframe.units.player.power.width = 'fill'
 		E.db.unitframe.units.player.power.detachedWidth = 298
+		E.db.unitframe.units.player.power.detachFromFrame = false
 		E.db.unitframe.units.player.power.yOffset = -25
 	-- target
 		E.db.unitframe.units.target.health.xOffset = -40
@@ -294,6 +295,7 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.target.portrait.overlay = true
 		E.db.unitframe.units.target.power.xOffset = 2
 		E.db.unitframe.units.target.power.detachedWidth = 298
+		E.db.unitframe.units.target.power.detachFromFrame = false
 		E.db.unitframe.units.target.power.hideonnpc = false
 		E.db.unitframe.units.target.power.height = 5
 		E.db.unitframe.units.target.power.width = 'fill'
@@ -344,7 +346,7 @@ local function SetupBuiUfs()
 		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM231182"
 		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0164"
 		E.db.movers.PlayerPowerBarMover = "BOTTOMElvUIParentBOTTOM-231215"
-		E.db.movers.TargetPowerBarMover = "BOTTOMElvUIParentBOTTOM247215"
+		E.db.movers.TargetPowerBarMover = "BOTTOMElvUIParentBOTTOM231215"
 		E.db.movers.ClassBarMover = "BOTTOMElvUIParentBOTTOM-1349"
 		E.db.movers.ExperienceBarMover = "BOTTOMElvUIParentBOTTOM047"
 	end
@@ -510,8 +512,8 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetText(L["Setup Layout"])
 	elseif PageNum == 3 then
 		f.SubTitle:SetText(L["Color Themes"])
-		f.Desc1:SetText(L["This part of the installation will apply the Color Themes"])
-		f.Desc2:SetText(L["Please click the button below to apply the new color themes."])
+		f.Desc1:SetText(L["This part of the installation will apply a Color Theme"])
+		f.Desc2:SetText(L["Please click a button below to apply a color theme."])
 		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', function() E:SetupBuiColors(); BUI:BuiColorThemes('Elv'); end)

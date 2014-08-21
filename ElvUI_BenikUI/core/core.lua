@@ -10,6 +10,7 @@ local backdropr, backdropg, backdropb, backdropa, borderr, borderg, borderb = 0,
 BUI.TexCoords = {.08, 0.92, -.12, 0.85}
 BUI.Title = "|cff00c0faBenikUI |r"
 BUI.Version = GetAddOnMetadata("ElvUI_BenikUI", "Version")
+BUI.newsign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
 
 function BUI:cOption(name)
 	local BUI_COLOR = "|cff00c0fa%s |r"
