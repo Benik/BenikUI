@@ -6,11 +6,11 @@ UF.LSM = LSM
 
 if E.db.ufb == nil then E.db.ufb = {} end
 
-local untiframes = {"Player", "Target", "TargetTarget", "Pet", "Focus", "FocusTarget"}
+local unitfs = {"Player", "Target", "TargetTarget", "Pet", "Focus", "FocusTarget"}
 
 function UFB:Update_PowerStatusBar(unit)
 	-- Units
-	for _, frame in pairs(untiframes) do 
+	for _, frame in pairs(unitfs) do 
 		local self = _G["ElvUF_"..frame]
 		local unit = string.lower(frame)
 		local power = self.Power
