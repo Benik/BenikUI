@@ -1,7 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUIS = E:NewModule('BuiSkins', "AceHook-3.0", 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
-local AS = unpack(AddOnSkins)
+
 local SPACING = (E.PixelMode and 1 or 5)
 
 -----------------------------------------------
@@ -209,42 +209,51 @@ function BUIS:BenikUISkins()
 	WorldMapFrame.style:Point('BOTTOMRIGHT', WorldMapFrame, 'TOPRIGHT', 2, 1)
 
 	-- AddOn Styles
-	if IsAddOnLoaded('ElvUI_LocLite') then
+	if IsAddOnLoaded('ElvUI_LocLite') and E.db.elvuiaddons.loclite then
 		local framestoskin = {LocationLitePanel, XCoordsLite, YCoordsLite}
 		for _, frame in pairs(framestoskin) do
-			frame:Style('Outside')
+			if frame then
+				frame:Style('Outside')
+			end
 		end
 	end
-	if IsAddOnLoaded('ElvUI_LocPlus') then
+	
+	if IsAddOnLoaded('ElvUI_LocPlus') and E.db.elvuiaddons.locplus then
 		local framestoskin = {LeftCoordDtPanel, RightCoordDtPanel, LocationPlusPanel, XCoordsPanel, YCoordsPanel}
 		for _, frame in pairs(framestoskin) do
-			frame:Style('Outside')
+			if frame then
+				frame:Style('Outside')
+			end
 		end
 	end
-	if IsAddOnLoaded('ElvUI_SLE') then
+	
+	if IsAddOnLoaded('ElvUI_SLE') and E.db.elvuiaddons.sle then
 		local sleFrames = {BottomBG, LeftBG, RightBG, ActionBG, DP_1, DP_2, Top_Center, DP_3, DP_4, DP_5, Bottom_Panel, DP_6, Main_Flares, Mark_Menu}		
 		for _, frame in pairs(sleFrames) do
-			frame:Style('Outside')
+			if frame then
+				frame:Style('Outside')
+			end
 		end
 	end
-	if IsAddOnLoaded('RareCoordinator') then
-		local rcFrames = {RC, RC.opt, RCnotify, RCminimized}
-		for _, frame in pairs(rcFrames) do
-			frame:Style('Outside')
-		end		
+	
+	if IsAddOnLoaded('SquareMinimapButtons') and E.db.elvuiaddons.smb then
+		local smbFrame = SquareMinimapButtonBar
+		if smbFrame then
+			smbFrame:Style('Outside')
+		end
 	end
 end
 
 function BUIS:Initialize()
-	if AS then return end
 	self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
 end
 
-if AS then
-	V['addonskins']['BenikUI'] = true -- Default added
+if IsAddOnLoaded("AddOnSkins") then
+	local AS = unpack(AddOnSkins)
 
 	local function SkadaDecor()
+		if not E.db.addonskins.skada then return end
 		hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 			local skada = win.bargroup
 			skada.backdrop:Style('Outside')
@@ -275,12 +284,13 @@ if AS then
 	end
 
 	local function RecountDecor()
-	StyleRecount('recountMain', Recount_MainWindow)
-	Recount_MainWindow.TitleBackground:StripTextures()
-	Recount_ConfigWindow.TitleBackground:StripTextures()
-	Recount_DetailWindow.TitleBackground:StripTextures()
-	StyleRecount(nil, Recount_DetailWindow)
-	StyleRecount(nil, Recount_ConfigWindow)
+		if not E.db.addonskins.recount then return end
+		StyleRecount('recountMain', Recount_MainWindow)
+		Recount_MainWindow.TitleBackground:StripTextures()
+		Recount_ConfigWindow.TitleBackground:StripTextures()
+		Recount_DetailWindow.TitleBackground:StripTextures()
+		StyleRecount(nil, Recount_DetailWindow)
+		StyleRecount(nil, Recount_ConfigWindow)
 		hooksecurefunc(Recount, 'ShowReport', function(self)
 			if Recount_ReportWindow.TitleBackground then
 				Recount_ReportWindow.TitleBackground:StripTextures()
@@ -298,12 +308,14 @@ if AS then
 	end
 	
 	local function TinyDPSDecor()
+		if not E.db.addonskins.tinydps then return end
 		if tdpsFrame then
 			tdpsFrame:Style('Outside')
 		end
 	end
 	
 	local function AtlasLootDecor()
+		if not E.db.addonskins.atlasloot then return end
 		if AtlasLootDefaultFrame then
 			AtlasLootDefaultFrame:Style('Outside', 'ALDecor')
 			AtlasLootDefaultFrame:HookScript('OnShow', function(self) ALDecor:Show(); end)
@@ -318,18 +330,28 @@ if AS then
 	end
 	
 	local function AltoholicDecor()
+		if not E.db.addonskins.altoholic then return end
 		if AltoholicFrame then
 			AltoholicFrame:Style('Outside')
 		end
 	end
 	
 	local function ZygorDecor()
+		if not E.db.addonskins.zg then return end
 		local zgFrames = {ZygorGuidesViewerFrame_Border, ZygorGuidesViewer_CreatureViewer}
 		for _, frame in pairs(zgFrames) do
 			frame:Style('Outside', frame:GetName()..'Decor')
 		end
 	end
-
+	
+	local function RareCoordDecor()
+		if not E.db.addonskins.rc then return end
+		local rcFrames = {RC, RC.opt, RCnotify, RCminimized}
+		for _, frame in pairs(rcFrames) do
+			frame:Style('Outside')
+		end	
+	end
+	
 	local function BenikUISkins(self, event, addon)
 		if event == 'ADDON_LOADED' then
 			BUIS:BlizzardUI_LOD_Skins(event, addon)
@@ -338,12 +360,12 @@ if AS then
 		end
 	end
 
-    AS:RegisterSkin('BenikUI', BenikUISkins, 'ADDON_LOADED')
 	if AS:CheckAddOn('Skada') then AS:RegisterSkin('SkadaSkin', SkadaDecor, 2) end
 	if AS:CheckAddOn('Recount') then AS:RegisterSkin('RecountSkin', RecountDecor, 2) end
 	if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPSSkin', TinyDPSDecor, 2) end
 	if AS:CheckAddOn('AtlasLoot') then AS:RegisterSkin('AtlasLootSkin', AtlasLootDecor, 2) end
 	if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('AltoholicSkin', AltoholicDecor, 2) end
+	if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinatorSkin', RareCoordDecor, 2) end
 	if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('ZygorSkin', ZygorDecor, 2) end
 end
 

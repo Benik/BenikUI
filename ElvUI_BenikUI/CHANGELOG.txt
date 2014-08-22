@@ -1,3 +1,10 @@
+[b]1.09[/b] (Aug 23, 2014)
+
+*Prevented a lua error in case AddOnSkins addon is not loaded. 
+*Changed the way AddOnSkins and BenikUI interact with eachother.
+*Added BenikUI Style in Azilroka's Square Minimap Buttons addon.
+*Added options to enable/disable BenikUI style on ElvUI addons (like S&L, LocationPlus, etc) and any addon skinned by AddOnSkins and gets styled from BenikUI. (requires reload)
+
 [b]1.08[/b] (Aug 21, 2014)
 
 *Adopted latest Azilroka's AddonSkins changes. Fixed Recount Decor.
