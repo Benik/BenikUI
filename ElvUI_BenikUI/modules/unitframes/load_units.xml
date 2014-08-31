@@ -3,5 +3,6 @@
 	<Script file="player.lua"/>
 	<Script file="target.lua"/>
 	<Script file="tags.lua"/>
+	<Script file="castbar.lua"/>
 	<Script file="options.lua"/>
 </Ui>

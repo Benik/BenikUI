@@ -19,6 +19,7 @@ local FreeBlizzFrames = {
 	ElvUI_StaticPopup1,
 	ElvUI_StaticPopup2,
 	ElvUI_StaticPopup3,
+	FloatingBattlePetTooltip,
 	FriendsFrame,
 	GameMenuFrame,
 	GossipFrame,
@@ -299,7 +300,7 @@ if IsAddOnLoaded("AddOnSkins") then
 		end)
 
 		hooksecurefunc(AS, 'Embed_Check', function(self, message)
-			if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedRecount then
+			if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedMain == "Recount" then
 				recountMain:Hide()
 			else
 				recountMain:Show()

@@ -83,3 +83,5 @@ L["Show/Hide Mail Icon on minimap"] = true
 L["Use DataTexts font"] = true
 L["PowerBar"] = true
 L["Power statusbar texture."] = true
+L["CONFLICT_WARNING"] = "It would appear you have ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap loaded. BenikUI Attach Castbar feature has been disabled."
+L["I understand"] = true

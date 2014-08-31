@@ -15,6 +15,10 @@ local function XpRepMouseOverText()
 	if E.db.unitframe.units.player.power.yOffset < min_yOffset then
 		frame.Power.value:SetAlpha(0)
 	end
+
+	if E.db.unitframe.units.player.name.yOffset < min_yOffset then
+		frame.Name:SetAlpha(0)
+	end	
 	
 	if E.db.unitframe.units.player.customTexts == {} then
 		for objectName, _ in pairs(E.db.unitframe.units.player.customTexts) do
@@ -81,6 +85,9 @@ local function bars_onLeave(self)
 	if frame.Power.value:GetAlpha() == 0 then
 		frame.Power.value:SetAlpha(1)
 	end
+	if frame.Name:GetAlpha() == 0 then
+		frame.Name:SetAlpha(1)
+	end	
 	if E.db.unitframe.units.player.customTexts == {} then
 		for objectName, _ in pairs(E.db.unitframe.units.player.customTexts) do
 			if frame[objectName]:GetAlpha() == 0 then

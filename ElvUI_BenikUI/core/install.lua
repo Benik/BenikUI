@@ -153,9 +153,25 @@ function E:SetupBuiColors()
 end
 
 local function SetupBuiChat()
+
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format("ChatFrame%s", i)]
+		local chatFrameId = frame:GetID()
+		local chatName = FCF_GetChatWindowInfo(chatFrameId)
+		
 		FCF_SetChatWindowFontSize(nil, frame, 10)
+		
+		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
+		if i == 3 and chatName == LOOT.." / "..TRADE then
+			FCF_UnDockFrame(frame)
+			frame:ClearAllPoints()
+			frame:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 1, 3)
+			FCF_DockFrame(frame)
+			FCF_SetLocked(frame, 1)
+			frame:Show()
+		end
+		FCF_SavePositionAndDimensions(frame)
+		FCF_StopDragging(frame)
 	end
 	
 	do
@@ -245,6 +261,21 @@ local function SetupBuiUfs()
 		E.db.ufb.barheight = 15
 		E.db.ufb.barshow = true
 	end
+
+	-- Auras
+	do
+		E.db.auras.timeXOffset = -1
+		E.db.auras.font = "Bui Visitor1"
+		E.db.auras.fontSize = 10
+		E.db.auras.fontOutline = 'MONOCROMEOUTLINE'
+		E.db.auras.fadeThreshold = 10
+		E.db.auras.buffs.horizontalSpacing = 3
+		E.db.auras.buffs.size = 30
+		E.db.auras.consolidatedBuffs.font = "Bui Visitor1"
+		E.db.auras.consolidatedBuffs.fontSize = 10
+		E.db.auras.consolidatedBuffs.fontOutline = 'MONOCROMEOUTLINE'
+		E.db.auras.debuffs.size = 30
+	end
 	
 	-- Units
 	do
@@ -255,6 +286,9 @@ local function SetupBuiUfs()
 		E.db.unitframe.colors.transparentAurabars = true
 		E.db.unitframe.colors.transparentCastbar = true
 		E.db.unitframe.colors.healthclass = false
+		E.db.unitframe.colors.power.MANA.r = 1
+		E.db.unitframe.colors.power.MANA.g = 0.5
+		E.db.unitframe.colors.power.MANA.b = 0
 		E.db.unitframe.statusbar = "BuiFlat"
 	-- player
 		E.db.unitframe.units.player.debuffs.attachTo = "BUFFS"
@@ -358,21 +392,73 @@ local function SetupBuiUfs()
 	E:UpdateAll(true)
 end
 
-local function SetupBuiAuras()
-	-- Auras
+function BUI:SetupAddOnSkins()
+	if IsAddOnLoaded('AddOnSkins') then
+		if IsAddOnLoaded('Recount') then
+			E.private['addonskins']['EmbedMain'] = 'Recount'
+			E.private['addonskins']['EmbedSystem'] = true
+			E.private['addonskins']['RecountBackdrop'] = false
+			E.private['addonskins']['EmbedBelowTop'] = false
+			E.private['addonskins']['TransparentEmbed'] = true
+		elseif IsAddOnLoaded('DBM') then
+			E.private['addonskins']['DBMFont'] = 'Bui Visitor1'
+			E.private['addonskins']['DBMFontSize'] = 10
+			E.private['addonskins']['DBMFontFlag'] = 'MONOCHROMEOUTLINE'
+		elseif IsAddOnLoaded('Skada') then
+			E.private['addonskins']['SkadaBackdrop'] = false
+			E.private['addonskins']['EmbedSystemDual'] = true
+			E.private['addonskins']['EmbedBelowTop'] = false
+			E.private['addonskins']['TransparentEmbed'] = true
+			E.private['addonskins']['EmbedMain'] = 'Skada'
+			E.private['addonskins']['EmbedLeft'] = 'Skada'
+			E.private['addonskins']['EmbedRight'] = 'Skada'
+			E.private['addonskins']['EmbedLeftWidth'] = 128
+		end
+	end
+end
+
+local function SetupBuiAddons()
+	-- Recount Profile
+	if IsAddOnLoaded('Recount') then
+		print(BUI.Title..L["- Recount profile successfully created!"])
+		RecountDB['profiles']['BenikUI'] = {
+			["Colors"] = {
+				["Other Windows"] = {
+					["Title Text"] = {
+						["g"] = 0.5019607843137255,
+						["b"] = 0,
+					},
+				},
+				["Window"] = {
+					["Title Text"] = {
+						["g"] = 0.5019607843137255,
+						["b"] = 0,
+					},
+				},
+				["Bar"] = {
+					["Bar Text"] = {
+						["a"] = 1,
+					},
+					["Total Bar"] = {
+						["a"] = 1,
+					},
+				},
+			},
+			["DetailWindowY"] = 0,
+			["DetailWindowX"] = 0,
+			["GraphWindowX"] = 0,
+			["Locked"] = true,
+			["FrameStrata"] = "2-LOW",
+			["BarTextColorSwap"] = true,
+			["BarTexture"] = "BuiEmpty",
+			["CurDataSet"] = "OverallData",
+			["ClampToScreen"] = true,
+			["Font"] = "Bui Visitor1",	
+			["Scaling"] = 0.95,
+		}
+	end
+
 	do
-		E.db.auras.timeXOffset = -1
-		E.db.auras.font = "Bui Visitor1"
-		E.db.auras.fontSize = 10
-		E.db.auras.fontOutline = 'MONOCROMEOUTLINE'
-		E.db.auras.fadeThreshold = 10
-		E.db.auras.buffs.horizontalSpacing = 3
-		E.db.auras.buffs.size = 30
-		E.db.auras.consolidatedBuffs.font = "Bui Visitor1"
-		E.db.auras.consolidatedBuffs.fontSize = 10
-		E.db.auras.consolidatedBuffs.fontOutline = 'MONOCROMEOUTLINE'
-		E.db.auras.debuffs.size = 30
-		
 		-- ElvUI_VisualAuraTimers
 		if E.db.VAT == nil then E.db.VAT = {} end
 		if IsAddOnLoaded("ElvUI_VisualAuraTimers") then
@@ -401,12 +487,13 @@ local function SetupBuiAuras()
 			E.db.VAT.colors.hoursIndicator.r = 1
 			E.db.VAT.colors.hoursIndicator.r = 0.5
 			E.db.VAT.colors.hoursIndicator.r = 0
+			E.db.VAT.statusbarTexture = "BuiFlat"
 			E.db.VAT.position = "TOP"
 		end
 	end
 
 	if InstallStepComplete then
-		InstallStepComplete.message = BUI.Title..L["Auras Set"]
+		InstallStepComplete.message = BUI.Title..L["Addons Set"]
 		InstallStepComplete:Show()		
 	end
 	E:UpdateAll(true)
@@ -550,16 +637,8 @@ local function SetPage(PageNum)
 		f.Desc3:SetText(L["Importance: |cff07D400High|r"])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', SetupBuiAbs)
-		InstallOption1Button:SetText(L["Setup ActionBars"])	
+		InstallOption1Button:SetText(L["Setup ActionBars"])
 	elseif PageNum == 7 then
-		f.SubTitle:SetText(L["Auras System"])
-		f.Desc1:SetText(L["This part of the installation process will only change the Aura system fonts.\r|cffff8000This doesn't touch any filters you already made|r"])
-		f.Desc2:SetText(L["Please click the button below to setup your auras."])
-		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
-		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', SetupBuiAuras)
-		InstallOption1Button:SetText(L["Setup Auras"])	
-	elseif PageNum == 8 then
 		f.SubTitle:SetText(L["DataTexts"])
 		f.Desc1:SetText(L["This part of the installation process will fill BenikUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
 		f.Desc2:SetText(L["Please click the button below to setup your datatexts."])
@@ -576,6 +655,14 @@ local function SetPage(PageNum)
 		InstallOption4Button:Show()
 		InstallOption4Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; E:SetupBuiDts('dpsCaster') end)
 		InstallOption4Button:SetText(L['Caster DPS'])
+	elseif PageNum == 8 then
+		f.SubTitle:SetText(L["Addons"])
+		f.Desc1:SetText(L["This part of the installation process will apply changes to the addons like Skada, Recount, DBM"])
+		f.Desc2:SetText(L["Please click the button below to setup your addons."])
+		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', function() SetupBuiAddons(); BUI:SetupAddOnSkins(); end)
+		InstallOption1Button:SetText(L["Setup Addons"])	
 	elseif PageNum == 9 then
 		f.SubTitle:SetText(L["Installation Complete"])
 		f.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
