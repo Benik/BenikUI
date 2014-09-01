@@ -392,7 +392,7 @@ local function SetupBuiUfs()
 	E:UpdateAll(true)
 end
 
-function BUI:SetupAddOnSkins()
+local function SetupAddOnSkins()
 	if IsAddOnLoaded('AddOnSkins') then
 		if IsAddOnLoaded('Recount') then
 			E.private['addonskins']['EmbedMain'] = 'Recount'
@@ -404,15 +404,6 @@ function BUI:SetupAddOnSkins()
 			E.private['addonskins']['DBMFont'] = 'Bui Visitor1'
 			E.private['addonskins']['DBMFontSize'] = 10
 			E.private['addonskins']['DBMFontFlag'] = 'MONOCHROMEOUTLINE'
-		elseif IsAddOnLoaded('Skada') then
-			E.private['addonskins']['SkadaBackdrop'] = false
-			E.private['addonskins']['EmbedSystemDual'] = true
-			E.private['addonskins']['EmbedBelowTop'] = false
-			E.private['addonskins']['TransparentEmbed'] = true
-			E.private['addonskins']['EmbedMain'] = 'Skada'
-			E.private['addonskins']['EmbedLeft'] = 'Skada'
-			E.private['addonskins']['EmbedRight'] = 'Skada'
-			E.private['addonskins']['EmbedLeftWidth'] = 128
 		end
 	end
 end
@@ -661,7 +652,7 @@ local function SetPage(PageNum)
 		f.Desc2:SetText(L["Please click the button below to setup your addons."])
 		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() SetupBuiAddons(); BUI:SetupAddOnSkins(); end)
+		InstallOption1Button:SetScript('OnClick', function() SetupBuiAddons(); SetupAddOnSkins(); end)
 		InstallOption1Button:SetText(L["Setup Addons"])	
 	elseif PageNum == 9 then
 		f.SubTitle:SetText(L["Installation Complete"])

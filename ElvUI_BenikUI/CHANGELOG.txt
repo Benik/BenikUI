@@ -1,3 +1,7 @@
+[b]1.11[/b] (Sep 01, 2014)
+
+*Removed Skada AddOnSkins settings from the installer. Was causing issues on some profiles. BenikUI will style any Skada window but it won't apply any premade settings, like Embeds, fonts, bars.
+
 [b]1.10[/b] (Sep 01, 2014)
 
 *Added a new feature: Attach Castbar on the EmptyBars. Credits: Blazeflack, with his permission, based in his addon ElvUI_CastBarPowerOverlay (http://www.tukui.org/addons/index.php?act=view&id=62).
