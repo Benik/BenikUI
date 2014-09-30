@@ -120,7 +120,7 @@ end
 
 local function BuiGameMenu_OnMouseUp()
 	GameTooltip:Hide()
-	BUI:Dropmenu(menuList, menuFrame, BuiButton_2, "tLeft", -SPACING, SPACING)
+	BUI:Dropmenu(menuList, menuFrame, BuiButton_2, 'tLeft', -SPACING, SPACING)
 end
 
 local function tholderOnFade()

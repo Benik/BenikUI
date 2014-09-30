@@ -6,7 +6,7 @@ made for BenikUI under Sinaris permission. Big thanks :)
 local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUID = E:NewModule('BuiDashboard')
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = LibStub('LibSharedMedia-3.0')
 
 if E.db.utils == nil then E.db.utils = {} end
 
@@ -30,11 +30,11 @@ function BUID:CreateDashboardHolder()
 	dholder.backdrop:Style('Outside')
 	
 	if E.db.utils.Scombat then
-		dholder:SetScript("OnEvent",function(self, event)
-			if event == "PLAYER_REGEN_DISABLED" then
+		dholder:SetScript('OnEvent',function(self, event)
+			if event == 'PLAYER_REGEN_DISABLED' then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 				self.fadeInfo.finishedFunc = dholderOnFade
-			elseif event == "PLAYER_REGEN_ENABLED" then
+			elseif event == 'PLAYER_REGEN_ENABLED' then
 				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 				self:Show()
 			end	
@@ -42,17 +42,17 @@ function BUID:CreateDashboardHolder()
 	end
 
 	E.FrameLocks['BuiDashboard'] = true;
-	E:CreateMover(BuiDashboard, "BuiDashboardMover", L["System"])
+	E:CreateMover(BuiDashboard, 'BuiDashboardMover', L['System'])
 	self:EnableDisableCombat()
 end
 
 function BUID:EnableDisableCombat()
 	if E.db.utils.Scombat then
-		BuiDashboard:RegisterEvent("PLAYER_REGEN_DISABLED")
-		BuiDashboard:RegisterEvent("PLAYER_REGEN_ENABLED")	
+		BuiDashboard:RegisterEvent('PLAYER_REGEN_DISABLED')
+		BuiDashboard:RegisterEvent('PLAYER_REGEN_ENABLED')	
 	else
-		BuiDashboard:UnregisterEvent("PLAYER_REGEN_DISABLED")
-		BuiDashboard:UnregisterEvent("PLAYER_REGEN_ENABLED")	
+		BuiDashboard:UnregisterEvent('PLAYER_REGEN_DISABLED')
+		BuiDashboard:UnregisterEvent('PLAYER_REGEN_ENABLED')	
 	end
 end
 
@@ -78,7 +78,7 @@ function BUID:CreateBoards()
 			BUID.board[i]:Point('TOP', BUID.board[i-1], 'BOTTOM', 0, -(DASH_HEIGHT*2)-DASH_SPACING)
 		end
 		
-		BUID.board[i].dummyf = CreateFrame("Frame", nil, BuiDashboard)
+		BUID.board[i].dummyf = CreateFrame('Frame', nil, BuiDashboard)
 		BUID.board[i].dummyf:Width(DASH_WIDTH - 6)
 		BUID.board[i].dummyf:Height(20)
 		
@@ -90,23 +90,23 @@ function BUID:CreateBoards()
 		
 		BUID.board[i].dummy = BUID.board[i]:CreateTexture(nil, 'OVERLAY')
 		BUID.board[i].dummy:SetInside()
-		BUID.board[i].dummy:SetTexture(E["media"].BuiFlat)
+		BUID.board[i].dummy:SetTexture(E['media'].BuiFlat)
 		BUID.board[i].dummy:SetVertexColor(1, 1, 1, .2)
 		
-		BUID.board[i].Status = CreateFrame("StatusBar", nil, BUID.board[i])
+		BUID.board[i].Status = CreateFrame('StatusBar', nil, BUID.board[i])
 		BUID.board[i].Status:SetInside()
-		BUID.board[i].Status:SetStatusBarTexture(E["media"].BuiFlat)
+		BUID.board[i].Status:SetStatusBarTexture(E['media'].BuiFlat)
 		BUID.board[i].Status:SetMinMaxValues(0, 100)
 		BUID.board[i].Status:SetStatusBarColor(1, 0.5, 0.1, 1)
 		
-		BUID.board[i].spark = BUID.board[i].Status:CreateTexture(nil, "OVERLAY", nil);
+		BUID.board[i].spark = BUID.board[i].Status:CreateTexture(nil, 'OVERLAY', nil);
 		BUID.board[i].spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
 		BUID.board[i].spark:Size(12, 6);
-		BUID.board[i].spark:SetBlendMode("ADD");
+		BUID.board[i].spark:SetBlendMode('ADD');
 		BUID.board[i].spark:Point('CENTER', BUID.board[i].Status:GetStatusBarTexture(), 'RIGHT')	
 		
-		BUID.board[i].Text = BUID.board[i].Status:CreateFontString(nil, "OVERLAY")
-		BUID.board[i].Text:Point("BOTTOMLEFT", BUID.board[i], "BOTTOMLEFT", 2, 4)
+		BUID.board[i].Text = BUID.board[i].Status:CreateFontString(nil, 'OVERLAY')
+		BUID.board[i].Text:Point('BOTTOMLEFT', BUID.board[i], 'BOTTOMLEFT', 2, 4)
 		BUID.board[i].Text:SetJustifyH('LEFT')
 	end
 	self:ChangeFont()
@@ -115,9 +115,9 @@ end
 function BUID:ChangeFont()
 	for i = 1, DASH_NUM do
 		if E.db.utils.dtfont then
-			BUID.board[i].Text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+			BUID.board[i].Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
-			BUID.board[i].Text:FontTemplate(LSM:Fetch("font", E.db.utils.dbfont), E.db.utils.dbfontsize, E.db.utils.dbfontflags)
+			BUID.board[i].Text:FontTemplate(LSM:Fetch('font', E.db.utils.dbfont), E.db.utils.dbfontsize, E.db.utils.dbfontflags)
 		end
 	end
 end

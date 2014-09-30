@@ -1,11 +1,11 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local BUID = E:GetModule('BuiDashboard')
 
-local bandwidthString = "%.2f Mbps"
-local percentageString = "%.2f%%"
+local bandwidthString = '%.2f Mbps'
+local percentageString = '%.2f%%'
 
-local kiloByteString = "|cfff6a01a %d|r".." kb"
-local megaByteString = "|cfff6a01a %.2f|r".." mb"
+local kiloByteString = '|cfff6a01a %d|r'..' kb'
+local megaByteString = '|cfff6a01a %.2f|r'..' mb'
 
 local function formatMem( memory )
 	local mult = 10^1
@@ -59,7 +59,7 @@ local function Update( self, t )
 	if( int < 0 ) then
 		RebuildAddonList( self )
 		local total = UpdateMemory()
-		BUID.board[id].Text:SetText( "Memory: "..formatMem( total ) )
+		BUID.board[id].Text:SetText( 'Memory: '..formatMem( total ) )
 		BUID.board[id].Status:SetMinMaxValues( 0, 100000 )
 		BUID.board[id].Status:SetValue( total )
 		int = 10
@@ -68,21 +68,21 @@ end
 
 function BUID:CreateMemory()
 	local id = 3
-	BUID.board[id].dummyf:SetScript( "OnMouseDown", function ()
-		collectgarbage( "collect" )
+	BUID.board[id].dummyf:SetScript( 'OnMouseDown', function ()
+		collectgarbage( 'collect' )
 		Update( BUID.board[id].Status, 10 )
 	end )
 
-	BUID.board[id].dummyf:SetScript( "OnEnter", function( self )
+	BUID.board[id].dummyf:SetScript( 'OnEnter', function( self )
 		if( not InCombatLockdown() ) then
 			self.tooltip = true
 			local bandwidth = GetAvailableBandwidth()
-			GameTooltip:SetOwner( BUID.board[id], "ANCHOR_RIGHT", 5, 0 )
+			GameTooltip:SetOwner( BUID.board[id], 'ANCHOR_RIGHT', 5, 0 )
 			GameTooltip:ClearLines()
 			if( bandwidth ~= 0 ) then
 				GameTooltip:AddDoubleLine( L['Bandwidth'], string.format( bandwidthString, bandwidth ), 0.69, 0.31, 0.31, 0.84, 0.75, 0.65 )
 				GameTooltip:AddDoubleLine( L['Download'], string.format( percentageString, GetDownloadedPercentage() * 100 ), 0.69, 0.31, 0.31, 0.84, 0.75, 0.65 )
-				GameTooltip:AddLine( " " )
+				GameTooltip:AddLine( ' ' )
 			end
 
 			local totalMemory = UpdateMemory()
@@ -97,14 +97,14 @@ function BUID:CreateMemory()
 		end
 	end )
 	
-	BUID.board[id].dummyf:SetScript( "OnLeave", function( self )
+	BUID.board[id].dummyf:SetScript( 'OnLeave', function( self )
 		self.tooltip = false
 		GameTooltip:Hide()
 	end )
 	
-	BUID.board[id].Status:SetScript( "OnUpdate", Update )
-	BUID.board[id].Status:SetScript( "OnEvent", function( self, event )
-		collectgarbage( "collect" )
+	BUID.board[id].Status:SetScript( 'OnUpdate', Update )
+	BUID.board[id].Status:SetScript( 'OnEvent', function( self, event )
+		collectgarbage( 'collect' )
 	end )
 	
 	Update( BUID.board[id].Status, 10 )

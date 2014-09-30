@@ -4,15 +4,15 @@ local BUID = E:GetModule('BuiDashboard')
 local LastUpdate = 1
 
 local statusColors = {
-	"|cff0CD809",
-	"|cffE8DA0F",
-	"|cffFF9000",
-	"|cffD80909"
+	'|cff0CD809',
+	'|cffE8DA0F',
+	'|cffFF9000',
+	'|cffD80909'
 }
 
 function BUID:CreateMs()
 	local id = 2
-	BUID.board[id].Status:SetScript("OnUpdate", function(self, elapsed)
+	BUID.board[id].Status:SetScript('OnUpdate', function(self, elapsed)
 		LastUpdate = LastUpdate - elapsed
 
 		if(LastUpdate < 0) then
@@ -32,7 +32,7 @@ function BUID:CreateMs()
 				self:SetStatusBarColor(1, 75 / 255, 75 / 255, 0.5, .8)
 				mscolor = 3
 			end
-			local displayFormat = string.join("", "MS: ", statusColors[mscolor], "%d|r")
+			local displayFormat = string.join('', 'MS: ', statusColors[mscolor], '%d|r')
 			BUID.board[id].Text:SetFormattedText(displayFormat, value)
 			LastUpdate = 1
 		end

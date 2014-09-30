@@ -1,5 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local BUIB = E:NewModule('BuiBags', "AceHook-3.0", 'AceEvent-3.0');
+local BUIB = E:NewModule('BuiBags', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
 local B = E:GetModule('Bags')
 local SPACING = (E.PixelMode and 1 or 5)
@@ -29,7 +29,7 @@ function BUIB:SkinBlizzBags()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bags ~= true or E.private.bags.enable then return end
 
 	for i=1, NUM_CONTAINER_FRAMES, 1 do
-		local container = _G["ContainerFrame"..i]
+		local container = _G['ContainerFrame'..i]
 		if container.backdrop then
 			container.backdrop:Style('Inside')
 		end
@@ -42,7 +42,7 @@ end
 function BUIB:AllInOneBags()
 	if E.private.bags.enable ~= true then return; end
 	self:StyleBags()
-	self:RegisterEvent("BANKFRAME_OPENED", "OpenBankBags")
+	self:RegisterEvent('BANKFRAME_OPENED', 'OpenBankBags')
 end
 
 function BUIB:Initialize()

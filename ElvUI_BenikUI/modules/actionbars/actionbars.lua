@@ -2,7 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local AB = E:GetModule('ActionBars');
 local BAB = E:NewModule('BuiActionbars');
 local BUI = E:GetModule('BenikUI');
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = LibStub('LibSharedMedia-3.0')
 
 if E.private.actionbar.enable ~= true then return; end
 
@@ -18,10 +18,10 @@ if E.db.bab == nil then E.db.bab = {} end
 function BAB:StyleBackdrops()
 	-- Actionbar backdrops
 	for i = 1, 10 do
-		local styleBacks = {_G["ElvUI_Bar"..i]}
+		local styleBacks = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(styleBacks) do
 			if frame.backdrop then
-				frame.backdrop:Style('Outside', frame:GetName().."_Bui")
+				frame.backdrop:Style('Outside', frame:GetName()..'_Bui')
 			end
 		end	
 	end
@@ -29,7 +29,7 @@ function BAB:StyleBackdrops()
 	local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags}
 	for _, frame in pairs(styleOtherBacks) do
 		if frame.backdrop then
-			frame.backdrop:Style('Outside', frame:GetName().."_Bui")
+			frame.backdrop:Style('Outside', frame:GetName()..'_Bui')
 		end
 	end
 end
@@ -38,7 +38,7 @@ end
 function BAB:TransparentBackdrops()
 	-- Actionbar backdrops
 	for i = 1, 10 do
-		local transBars = {_G["ElvUI_Bar"..i]}
+		local transBars = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(transBars) do
 			if frame.backdrop then
 				if E.db.bab.transBack then
@@ -51,7 +51,7 @@ function BAB:TransparentBackdrops()
 		
 		-- Buttons
 		for k = 1, 12 do
-			local buttonBars = {_G["ElvUI_Bar"..i.."Button"..k]}
+			local buttonBars = {_G['ElvUI_Bar'..i..'Button'..k]}
 			for _, button in pairs(buttonBars) do
 				if button.backdrop then
 					if E.db.bab.transBack then
@@ -78,7 +78,7 @@ function BAB:TransparentBackdrops()
 	
 	-- Pet Buttons
 	for i=1, NUM_PET_ACTION_SLOTS do
-		local petButtons = {_G["PetActionButton"..i]}
+		local petButtons = {_G['PetActionButton'..i]}
 		for _, button in pairs(petButtons) do
 			if button.backdrop then
 				if E.db.bab.transBack then
@@ -117,7 +117,7 @@ function BAB:CreateButtons()
 		abtn[i]:Size(10, 5)
 		abtn[i].color = abtn[i]:CreateTexture(nil, 'OVERLAY')
 		abtn[i].color:SetInside()
-		abtn[i].color:SetTexture(E["media"].BuiFlat)
+		abtn[i].color:SetTexture(E['media'].BuiFlat)
 		abtn[i].color:SetVertexColor(1, 0.5, 0.1, 1)
 		abtn[i]:SetAlpha(0)
 

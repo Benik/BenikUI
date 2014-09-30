@@ -1,9 +1,9 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0')
 local M = E:GetModule('Misc')
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = LibStub('LibSharedMedia-3.0')
 
-local frame = _G["ElvUF_Player"]
+local frame = _G['ElvUF_Player']
 local min_yOffset = -10
 
 local function XpRepMouseOverText()
@@ -46,7 +46,7 @@ local function xp_onEnter(self)
 	GameTooltip:AddLine((LEVEL..format(' : %d', level)), 0, 1, 0)
 	GameTooltip:AddLine(' ')
 	
-	GameTooltip:AddDoubleLine(XP.." :", format(' %d / %d (%d%%)', cur, max, cur/max * 100), 1, 1, 1)
+	GameTooltip:AddDoubleLine(XP..' :', format(' %d / %d (%d%%)', cur, max, cur/max * 100), 1, 1, 1)
 	GameTooltip:AddDoubleLine(L['Remaining :'], format(' %d (%d%% - %d '..L['Bars']..')', max - cur, (max - cur) / max * 100, 20 * (max - cur) / max), 1, 1, 1)	
 	
 	if rested then
@@ -205,15 +205,15 @@ function BXR:EnableDisable_ExperienceBar()
 	if UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.ufb.barshow and E.db.xprep.show == 'XP' then
 		self:RegisterEvent('PLAYER_XP_UPDATE', 'UpdateExperience')
 		self:RegisterEvent('PLAYER_LEVEL_UP', 'UpdateExperience')
-		self:RegisterEvent("DISABLE_XP_GAIN", 'UpdateExperience')
-		self:RegisterEvent("ENABLE_XP_GAIN", 'UpdateExperience')
+		self:RegisterEvent('DISABLE_XP_GAIN', 'UpdateExperience')
+		self:RegisterEvent('ENABLE_XP_GAIN', 'UpdateExperience')
 		self:RegisterEvent('UPDATE_EXHAUSTION', 'UpdateExperience')
 		self:UpdateExperience()	
 	else
 		self:UnregisterEvent('PLAYER_XP_UPDATE')
 		self:UnregisterEvent('PLAYER_LEVEL_UP')
-		self:UnregisterEvent("DISABLE_XP_GAIN")
-		self:UnregisterEvent("ENABLE_XP_GAIN")
+		self:UnregisterEvent('DISABLE_XP_GAIN')
+		self:UnregisterEvent('ENABLE_XP_GAIN')
 		self:UnregisterEvent('UPDATE_EXHAUSTION')
 		self.xpbar:Hide()
 	end
@@ -239,9 +239,9 @@ function BXR:ChangeRepXpFont()
 	else return
 	end
 	if E.db.xprep.textStyle == 'DTS' then
-		bar.text:FontTemplate(LSM:Fetch("font", E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+		bar.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 	elseif E.db.xprep.textStyle == 'UNIT' then
-		bar.text:FontTemplate(LSM:Fetch("font", E.db.unitframe.font), E.db.unitframe.fontSize, E.db.unitframe.fontOutline)
+		bar.text:FontTemplate(LSM:Fetch('font', E.db.unitframe.font), E.db.unitframe.fontSize, E.db.unitframe.fontOutline)
 	else
 		bar.text:FontTemplate(nil, E.db.general.reputation.textSize)
 	end
@@ -254,24 +254,24 @@ local function unpackColor(color)
 end
 
 function BXR:LoadBars()
-	self.xpbar = CreateFrame("StatusBar", nil, BUI_PlayerBar)
+	self.xpbar = CreateFrame('StatusBar', nil, BUI_PlayerBar)
 	self.xpbar:SetInside()
-	self.xpbar:SetStatusBarTexture(E["media"].BuiFlat)
+	self.xpbar:SetStatusBarTexture(E['media'].BuiFlat)
 	self.xpbar:SetAlpha(0)
 
 	self.xpbar.text = self.xpbar:CreateFontString(nil, 'OVERLAY')
 	self.xpbar.text:SetPoint('CENTER')	
 				
-	self.xpbar.rested = CreateFrame("StatusBar", nil, self.xpbar)
+	self.xpbar.rested = CreateFrame('StatusBar', nil, self.xpbar)
 	self.xpbar.rested:SetInside(BUI_PlayerBar)
-	self.xpbar.rested:SetStatusBarTexture(E["media"].BuiFlat)
+	self.xpbar.rested:SetStatusBarTexture(E['media'].BuiFlat)
 	self.xpbar.rested:SetFrameLevel(self.xpbar:GetFrameLevel() - 1)
 	self.xpbar:SetScript('OnEnter', xp_onEnter)
 	self.xpbar:SetScript('OnLeave', bars_onLeave)
 
-	self.repbar = CreateFrame("StatusBar", nil, BUI_PlayerBar)
+	self.repbar = CreateFrame('StatusBar', nil, BUI_PlayerBar)
 	self.repbar:SetInside()
-	self.repbar:SetStatusBarTexture(E["media"].BuiFlat)
+	self.repbar:SetStatusBarTexture(E['media'].BuiFlat)
 	self.repbar:SetAlpha(0)
 	self.repbar.text = self.repbar:CreateFontString(nil, 'OVERLAY')
 	self.repbar.text:SetPoint('CENTER')

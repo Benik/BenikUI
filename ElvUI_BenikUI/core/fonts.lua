@@ -3,8 +3,8 @@ local BUI = E:GetModule('BenikUI');
 
 function BUI:EnableBuiFonts()
 	if E.db.bui.buiFonts then
-		EnableAddOn("ElvUI_BenikUI_Fonts")
+		EnableAddOn('ElvUI_BenikUI_Fonts')
 	else
-		DisableAddOn("ElvUI_BenikUI_Fonts")
+		DisableAddOn('ElvUI_BenikUI_Fonts')
 	end
 end

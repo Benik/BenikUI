@@ -27,7 +27,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset)
 	if not frame.buttons then
 		frame.buttons = {}
 		frame:SetParent(parent)
-		frame:SetFrameStrata("DIALOG")
+		frame:SetFrameStrata('DIALOG')
 		frame:SetClampedToScreen(true)
 		tinsert(UISpecialFrames, frame:GetName())
 		frame:Hide()
@@ -42,21 +42,21 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset)
 
 	for i=1, #list do 
 		if not frame.buttons[i] then
-			frame.buttons[i] = CreateFrame("Button", nil, frame)
+			frame.buttons[i] = CreateFrame('Button', nil, frame)
 			
 			frame.buttons[i].hoverTex = frame.buttons[i]:CreateTexture(nil, 'OVERLAY')
 			frame.buttons[i].hoverTex:SetAllPoints()
 			frame.buttons[i].hoverTex:SetTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]])
-			frame.buttons[i].hoverTex:SetBlendMode("ADD")
+			frame.buttons[i].hoverTex:SetBlendMode('ADD')
 			frame.buttons[i].hoverTex:Hide()
 
 			frame.buttons[i].text = frame.buttons[i]:CreateFontString(nil, 'BORDER')
 			frame.buttons[i].text:SetAllPoints()
 			frame.buttons[i].text:FontTemplate()
-			frame.buttons[i].text:SetJustifyH("LEFT")
+			frame.buttons[i].text:SetJustifyH('LEFT')
 
-			frame.buttons[i]:SetScript("OnEnter", OnEnter)
-			frame.buttons[i]:SetScript("OnLeave", OnLeave)			
+			frame.buttons[i]:SetScript('OnEnter', OnEnter)
+			frame.buttons[i]:SetScript('OnLeave', OnLeave)			
 		end
 
 		frame.buttons[i]:Show()
@@ -64,26 +64,26 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset)
 		frame.buttons[i]:SetWidth(BUTTON_WIDTH)
 		frame.buttons[i].text:SetText(list[i].text)
 		frame.buttons[i].func = list[i].func
-		frame.buttons[i]:SetScript("OnClick", OnClick)
+		frame.buttons[i]:SetScript('OnClick', OnClick)
 
 		if i == 1 then
-			frame.buttons[i]:SetPoint("TOPLEFT", frame, "TOPLEFT", PADDING, -PADDING)
+			frame.buttons[i]:SetPoint('TOPLEFT', frame, 'TOPLEFT', PADDING, -PADDING)
 		else
-			frame.buttons[i]:SetPoint("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT")
+			frame.buttons[i]:SetPoint('TOPLEFT', frame.buttons[i-1], 'BOTTOMLEFT')
 		end
 	end
 
 	frame:SetHeight((#list * BUTTON_HEIGHT) + PADDING * 2)
 	frame:SetWidth(BUTTON_WIDTH + PADDING * 2)	
 	frame:ClearAllPoints()
-	if pos == "tLeft" then
-		frame:SetPoint("BOTTOMRIGHT", parent, "TOPLEFT", xOffset, yOffset)
-	elseif pos == "tRight" then
-		frame:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", xOffset, yOffset)
-	elseif pos == "bLeft" then
-		frame:SetPoint("TOPRIGHT", parent, "BOTTOMLEFT", xOffset, yOffset)
-	elseif pos == "bRight" then
-		frame:SetPoint("TOPLEFT", parent, "BOTTOMRIGHT", xOffset, yOffset)				
+	if pos == 'tLeft' then
+		frame:SetPoint('BOTTOMRIGHT', parent, 'TOPLEFT', xOffset, yOffset)
+	elseif pos == 'tRight' then
+		frame:SetPoint('BOTTOMLEFT', parent, 'TOPRIGHT', xOffset, yOffset)
+	elseif pos == 'bLeft' then
+		frame:SetPoint('TOPRIGHT', parent, 'BOTTOMLEFT', xOffset, yOffset)
+	elseif pos == 'bRight' then
+		frame:SetPoint('TOPLEFT', parent, 'BOTTOMRIGHT', xOffset, yOffset)				
 	end
 
 	ToggleFrame(frame)

@@ -1,6 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = LibStub('LibSharedMedia-3.0')
 
 local SPACING = (E.PixelMode and 1 or 5)
 
@@ -13,12 +13,12 @@ local function CreateSoftShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
-	local shadow = f.shadow or CreateFrame("Frame", nil, f) -- This way you can replace current shadows.
+	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, 2, 2)
 	shadow:SetBackdrop( { 
-		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2),
+		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(2),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
@@ -32,12 +32,12 @@ local function CreateSoftGlow(f)
 	local borderr, borderg, borderb = 1, 1, .5
 	local backdropr, backdropg, backdropb = 1, 1, .5
 
-	local sglow = CreateFrame("Frame", nil, f)
+	local sglow = CreateFrame('Frame', nil, f)
 	sglow:SetFrameLevel(1)
 	sglow:SetFrameStrata(f:GetFrameStrata())
 	sglow:SetOutside(f, 2, 2)
 	sglow:SetBackdrop( { 
-		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(3),
+		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
 	sglow:SetBackdropColor(unpackColor(E.db.general.valuecolor), 0)
@@ -77,8 +77,8 @@ local function addapi(object)
 	if not object.Style then mt.Style = Style end
 end
 
-local handled = {["Frame"] = true}
-local object = CreateFrame("Frame")
+local handled = {['Frame'] = true}
+local object = CreateFrame('Frame')
 addapi(object)
 addapi(object:CreateTexture())
 addapi(object:CreateFontString())

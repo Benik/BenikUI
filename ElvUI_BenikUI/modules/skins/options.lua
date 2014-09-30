@@ -4,29 +4,27 @@ local BUIS = E:GetModule('BuiSkins');
 
 if E.db.buiskins == nil then E.db.buiskins = {} end
 if E.db.elvuiaddons == nil then E.db.elvuiaddons = {} end
-if E.db.addonskins == nil then E.db.addonskins = {} end
+if E.db.buiaddonskins == nil then E.db.buiaddonskins = {} end
 
 local DecorElvUIAddons = {
-	{"ElvUI_LocLite", "LocationLite", "loclite"},
-	{"ElvUI_LocPlus", "LocationPlus", "locplus"},
-	{"ElvUI_SLE", "Shadow & Light", "sle"},
-	{"SquareMinimapButtons", "Square Minimap Buttons", "smb"},
+	{'ElvUI_LocLite', 'LocationLite', 'loclite'},
+	{'ElvUI_LocPlus', 'LocationPlus', 'locplus'},
+	{'ElvUI_SLE', 'Shadow & Light', 'sle'},
+	{'SquareMinimapButtons', 'Square Minimap Buttons', 'smb'},
 }
 
 local DecorAddons = {
-	{"RareCoordinator", "Rare Coordinator", "rc"},
-	{"Skada", "Skada", "skada"},
-	{"Recount", "Recount", "recount"},
-	{"TinyDPS", "TinyDPS", "tinydps"},
-	{"AtlasLoot", "AtlasLoot", "atlasloot"},
-	{"Altoholic", "Altoholic", "altoholic"},
-	{"ZygorGuidesViewer", "Zygor Guides", "zg"},
+	{'RareCoordinator', 'Rare Coordinator', 'rc'},
+	{'Skada', 'Skada', 'skada'},
+	{'Recount', 'Recount', 'recount'},
+	{'TinyDPS', 'TinyDPS', 'tinydps'},
+	{'AtlasLoot', 'AtlasLoot', 'atlasloot'},
+	{'Altoholic', 'Altoholic', 'altoholic'},
+	{'ZygorGuidesViewer', 'Zygor Guides', 'zg'},
+	{'Clique', 'Clique', 'clique'},
 }
 
 -- Defaults
-P['buiskins'] = {
-}
-
 P['elvuiaddons'] = {
 	['loclite'] = true,
 	['locplus'] = true,
@@ -34,7 +32,7 @@ P['elvuiaddons'] = {
 	['smb'] = true,
 }
 
-P['addonskins'] = {
+P['buiaddonskins'] = {
 	['rc'] = true,
 	['skada'] = true,
 	['recount'] = true,
@@ -42,18 +40,19 @@ P['addonskins'] = {
 	['atlasloot'] = true,
 	['altoholic'] = true,
 	['zg'] = true,
+	['clique'] = true,
 }
 
 local function SkinTable()
 	E.Options.args.bui.args.config.args.buiskins = {
 		order = 40,
 		type = 'group',
-		name = L["AddOns Decor"]..BUI.newsign,
+		name = L['AddOns Decor']..BUI.newsign,
 		args = {
 			header = {
 				order = 1,
-				type = "header",
-				name = L["Choose which addon you wish to be decorated to fit with BenikUI style"],
+				type = 'header',
+				name = L['Choose which addon you wish to be decorated to fit with BenikUI style'],
 			},
 		},
 	}
@@ -62,9 +61,9 @@ local function SkinTable()
 		order = 1,
 		type = 'group',
 		guiInline = true,
-		name = L["ElvUI AddOns"],
+		name = L['ElvUI AddOns'],
 		get = function(info) return E.db.elvuiaddons[ info[#info] ] end,
-		set = function(info, value) E.db.elvuiaddons[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+		set = function(info, value) E.db.elvuiaddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			},
 		}
@@ -74,20 +73,20 @@ local function SkinTable()
 		local addonName, addonString, addonOption = unpack( v )
 		E.Options.args.bui.args.config.args.buiskins.args.elvuiaddons.args[addonOption] = {
 			order = elvorder + 1,
-			type = "toggle",
+			type = 'toggle',
 			name = addonString,
-			desc = L["Enable/Disable this decor."],
+			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
 			disabled = function() return not IsAddOnLoaded(addonName) end,
 		}
 	end
 	
-	E.Options.args.bui.args.config.args.buiskins.args.addonskins = {
+	E.Options.args.bui.args.config.args.buiskins.args.buiaddonskins = {
 		order = 2,
 		type = 'group',
 		guiInline = true,
-		name = L["AddOnSkins"],
-		get = function(info) return E.db.addonskins[ info[#info] ] end,
-		set = function(info, value) E.db.addonskins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+		name = L['AddOnSkins'],
+		get = function(info) return E.db.buiaddonskins[ info[#info] ] end,
+		set = function(info, value) E.db.buiaddonskins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			},
 		}
@@ -95,12 +94,12 @@ local function SkinTable()
 	local addorder = 0
 	for i, v in ipairs(DecorAddons) do
 		local addonName, addonString, addonOption = unpack( v )
-		E.Options.args.bui.args.config.args.buiskins.args.addonskins.args[addonOption] = {
+		E.Options.args.bui.args.config.args.buiskins.args.buiaddonskins.args[addonOption] = {
 			order = addorder + 1,
-			type = "toggle",
+			type = 'toggle',
 			name = addonString,
-			desc = L["Enable/Disable this decor."],
-			disabled = function() return not (IsAddOnLoaded("AddOnSkins") and IsAddOnLoaded(addonName)) end,
+			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
+			disabled = function() return not (IsAddOnLoaded('AddOnSkins') and IsAddOnLoaded(addonName)) end,
 		}
 	end		
 end

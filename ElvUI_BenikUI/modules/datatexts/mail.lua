@@ -7,7 +7,7 @@ local Read;
 local function OnEvent(self, event, ...)
 	local newMail = false
 	
-	if event == "UPDATE_PENDING_MAIL" or event == "PLAYER_ENTERING_WORLD" or event =="PLAYER_LOGIN" then
+	if event == 'UPDATE_PENDING_MAIL' or event == 'PLAYER_ENTERING_WORLD' or event =='PLAYER_LOGIN' then
 	
 		newMail = HasNewMail() 
 		
@@ -15,11 +15,11 @@ local function OnEvent(self, event, ...)
 			unreadMail = newMail
 		end
 	
-		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		self:UnregisterEvent("PLAYER_LOGIN")
+		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
+		self:UnregisterEvent('PLAYER_LOGIN')
 	end
 	
-	if event == "MAIL_INBOX_UPDATE" or event == "MAIL_SHOW" or event == "MAIL_CLOSED" then
+	if event == 'MAIL_INBOX_UPDATE' or event == 'MAIL_SHOW' or event == 'MAIL_CLOSED' then
 		for i = 1, GetInboxNumItems() do
 			local _, _, _, _, _, _, _, _, wasRead = GetInboxHeaderInfo(i);
 			if( not wasRead ) then
@@ -30,14 +30,14 @@ local function OnEvent(self, event, ...)
 	end
 	
 	if newMail then
-		self.text:SetText("|cff00ff00New Mail|r")
+		self.text:SetText(L['|cff00ff00New Mail|r'])
 		-- testing sound when new mail. Here spams
 		--[[if E.db.bui.mailSound then
-			PlaySoundFile("Interface\\AddOns\\ElvUI_BenikUI\\media\\sounds\\mail.mp3", "Master")
+			PlaySoundFile('Interface\\AddOns\\ElvUI_BenikUI\\media\\sounds\\mail.mp3', 'Master')
 		end]]
 		Read = false;
 	else
-		self.text:SetText("No Mail")
+		self.text:SetText('No Mail')
 		Read = true;
 	end
 

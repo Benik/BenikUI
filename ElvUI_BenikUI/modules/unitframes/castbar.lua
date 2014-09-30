@@ -35,12 +35,12 @@ function BUIC:CastbarSetSize(unit, bar)
 	local cdb = E.db.unitframe.units[unit].castbar;
 
 	if unit == 'player' or unit == 'target' then
-		if bar == _G["BUI_PlayerBar"] or bar == _G["BUI_TargetBar"] then
+		if bar == _G['BUI_PlayerBar'] or bar == _G['BUI_TargetBar'] then
 			local UnitUF = BuiUnits[unit][1];
 			local Mover = BuiUnits[unit][2];
 			local EmptyBar = bar;
 			local ebw = EmptyBar:GetWidth();
-			local ebh = EmptyBar:GetHeight();
+			local ebh = EmptyBar:GetHeight() - 2;
 			local origWidth, origHeight = UnitUF:GetWidth(), 18
 			
 			if E.db.ufb.barshow and E.db.ufb.attachCastbar then
@@ -80,7 +80,7 @@ end
 function BUIC:CastbarSetPosition(unit, bar)
 	local cdb = E.db.unitframe.units[unit].castbar;
 
-	if (unit == 'player' and bar == _G["BUI_PlayerBar"]) or (unit == 'target' and bar == _G["BUI_TargetBar"]) then
+	if (unit == 'player' and bar == _G['BUI_PlayerBar']) or (unit == 'target' and bar == _G['BUI_TargetBar']) then
 		local UnitUF = BuiUnits[unit][1];
 		local Mover = BuiUnits[unit][2];
 		local EmptyBar = bar;
@@ -107,26 +107,26 @@ function BUIC:CastbarSetPosition(unit, bar)
 			
 			-- Set position of castbar text according to chosen y offset
 			UnitUF.Castbar.Text:ClearAllPoints()
-			UnitUF.Castbar.Text:SetPoint("LEFT", UnitUF.Castbar, "LEFT", 4, E.db.ufb.yOffsetText)
+			UnitUF.Castbar.Text:SetPoint('LEFT', UnitUF.Castbar, 'LEFT', 4, E.db.ufb.yOffsetText)
 			UnitUF.Castbar.Time:ClearAllPoints()
-			UnitUF.Castbar.Time:SetPoint("RIGHT", UnitUF.Castbar, "RIGHT", -4, E.db.ufb.yOffsetText)
+			UnitUF.Castbar.Time:SetPoint('RIGHT', UnitUF.Castbar, 'RIGHT', -4, E.db.ufb.yOffsetText)
 
 			-- Position the castbar on top of the EmptyBar
 			Mover:ClearAllPoints()
-			Mover:SetPoint("TOPLEFT", EmptyBar, "TOPLEFT", 0, 0)
-			Mover:SetPoint("BOTTOMRIGHT", EmptyBar, "BOTTOMRIGHT", 0, 0)
+			Mover:SetPoint('TOPLEFT', EmptyBar, 'TOPLEFT', 0, 0)
+			Mover:SetPoint('BOTTOMRIGHT', EmptyBar, 'BOTTOMRIGHT', 0, 0)
 		else
 			-- Reset text
 			UnitUF.Castbar.Text:ClearAllPoints()
-			UnitUF.Castbar.Text:SetPoint("LEFT", UnitUF.Castbar, "LEFT", 4, 0)
+			UnitUF.Castbar.Text:SetPoint('LEFT', UnitUF.Castbar, 'LEFT', 4, 0)
 			UnitUF.Castbar.Time:ClearAllPoints()
-			UnitUF.Castbar.Time:SetPoint("RIGHT", UnitUF.Castbar, "RIGHT", -4, 0)
+			UnitUF.Castbar.Time:SetPoint('RIGHT', UnitUF.Castbar, 'RIGHT', -4, 0)
 			UnitUF.Castbar.Text:SetAlpha(1)
 			UnitUF.Castbar.Time:SetAlpha(1)
 
 			-- Revert castbar position to default
 			Mover:ClearAllPoints()
-			Mover:SetPoint("TOPRIGHT", UnitUF and EmptyBar or EmptyBar, "BOTTOMRIGHT", 0, -(E.PixelMode and E:Scale(3) or E:Scale(6)))
+			Mover:SetPoint('TOPRIGHT', UnitUF and EmptyBar or EmptyBar, 'BOTTOMRIGHT', 0, -(E.PixelMode and E:Scale(3) or E:Scale(6)))
 		end
 	end
 end

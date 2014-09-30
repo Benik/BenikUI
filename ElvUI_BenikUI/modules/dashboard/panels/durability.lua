@@ -1,14 +1,14 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local BUID = E:GetModule('BuiDashboard')
 
-local displayString = ""
-local tooltipString = "%d%%"
+local displayString = ''
+local tooltipString = '%d%%'
 local totalDurability = 0
 local current, max, lastPanel
 local invDurability = {}
 
 local function OnEnter(self)
-	GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 5, 0)
+	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
 	GameTooltip:ClearAllPoints()
 	
 	GameTooltip:ClearLines()
@@ -25,25 +25,25 @@ local function OnLeave(self)
 end
 
 local function Click()
-	ToggleCharacter("PaperDollFrame")
+	ToggleCharacter('PaperDollFrame')
 end
 
 local slots = {
-	["SecondaryHandSlot"] = L['Offhand'],
-	["MainHandSlot"] = L['Main Hand'],
-	["FeetSlot"] = L['Feet'],
-	["LegsSlot"] = L['Legs'],
-	["HandsSlot"] = L['Hands'],
-	["WristSlot"] = L['Wrist'],
-	["WaistSlot"] = L['Waist'],
-	["ChestSlot"] = L['Chest'],
-	["ShoulderSlot"] = L['Shoulder'],
-	["HeadSlot"] = L['Head'],
+	['SecondaryHandSlot'] = L['Offhand'],
+	['MainHandSlot'] = L['Main Hand'],
+	['FeetSlot'] = L['Feet'],
+	['LegsSlot'] = L['Legs'],
+	['HandsSlot'] = L['Hands'],
+	['WristSlot'] = L['Wrist'],
+	['WaistSlot'] = L['Waist'],
+	['ChestSlot'] = L['Chest'],
+	['ShoulderSlot'] = L['Shoulder'],
+	['HeadSlot'] = L['Head'],
 }
 
 function BUID:CreateDurability()
 	local id = 4
-	BUID.board[id].Status:SetScript("OnEvent", function( self, ...)
+	BUID.board[id].Status:SetScript('OnEvent', function( self, ...)
 
 		lastPanel = self
 		totalDurability = 100
@@ -79,13 +79,13 @@ function BUID:CreateDurability()
 	BUID.board[id].dummyf:SetScript('OnLeave', OnLeave)
 	BUID.board[id]:SetScript('OnMouseUp', Click)
 
-	BUID.board[id].Status:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
-	BUID.board[id].Status:RegisterEvent("MERCHANT_SHOW")
-	BUID.board[id].Status:RegisterEvent("PLAYER_ENTERING_WORLD")
+	BUID.board[id].Status:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
+	BUID.board[id].Status:RegisterEvent('MERCHANT_SHOW')
+	BUID.board[id].Status:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = string.join("", DURABILITY, ": ", hex, "%d%%|r")
+	displayString = string.join('', DURABILITY, ': ', hex, '%d%%|r')
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 

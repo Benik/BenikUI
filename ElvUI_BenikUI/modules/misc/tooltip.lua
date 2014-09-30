@@ -2,7 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Pr
 local BUI = E:GetModule('BenikUI');
 
 function BUI:StyleTooltip()
-	GameTooltip:Style('Outside', 'GameTooltipDecor')
-	GameTooltipDecor:SetClampedToScreen(true)
+	GameTooltip:Style('Outside')
+	GameTooltip.style:SetClampedToScreen(true)
 	GameTooltipStatusBar:SetStatusBarTexture(E["media"].BuiFlat)
 end
