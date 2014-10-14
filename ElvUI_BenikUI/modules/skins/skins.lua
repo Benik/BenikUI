@@ -4,10 +4,9 @@ local BUI = E:GetModule('BenikUI');
 
 local SPACING = (E.PixelMode and 1 or 5)
 
------------------------------------------------
-
 local FreeBlizzFrames = {
 	AddFriendFrame,
+	AddonList,
 	AudioOptionsFrame,
 	BNToastFrame,
 	ChatConfigFrame,
@@ -22,25 +21,27 @@ local FreeBlizzFrames = {
 	FloatingBattlePetTooltip,
 	FriendsFrame,
 	GameMenuFrame,
+	GearManagerDialogPopup,
 	GossipFrame,
 	GuildRegistrarFrame,
 	InterfaceOptionsFrame,
-	ItemRefTooltip,
+	--ItemRefTooltip,
 	ItemTextFrame,
 	LFGDungeonReadyPopup,
 	LFGDungeonReadyDialog,
 	LFGDungeonReadyStatus,
+	LootFrame,
 	MailFrame,
 	MerchantFrame,
-	MinimapRightClickMenu,
+	--MinimapRightClickMenu,
 	OpenMailFrame,
-	PaperDollItemsFrame,
+	PaperDollFrame,
 	PetitionFrame, -- check
 	PetJournalParent,
 	PetPaperDollFrame,
 	PetStableFrame,
-	QuestLogDetailFrame,
-	QuestLogFrame,
+	QuestLogPopupDetailFrame,
+	--QuestLogFrame,
 	QueueStatusFrame,
 	RaidInfoFrame,
 	ReadyCheckFrame,
@@ -56,7 +57,7 @@ local FreeBlizzFrames = {
 	TicketStatusFrameButton, -- check
 	TokenFrame,
 	TokenFramePopup,
-	TradeFrame, -- check
+	TradeFrame,
 	TransmogrifyConfirmationPopup,
 	VideoOptionsFrame,
 	WorldStateScoreScrollFrame, -- check
@@ -124,11 +125,9 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				BUI:StyleBlizzard(blizzFrame)
 				-- Fixes
 				if addon == 'Blizzard_AchievementUI' then
-					if AchievementFrameCloseButton then
-						AchievementFrameCloseButton:Point('TOPRIGHT', AchievementFrame, 'TOPRIGHT', 4, 5) -- reposition the button a bit
-					end
-					if AchievementFrameFilterDropDown then
-						AchievementFrameFilterDropDown:Point('TOPRIGHT', AchievementFrame, 'TOPRIGHT', -44, 2) -- reposition the dropdown a bit
+					if AchievementFrameDecor then
+						AchievementFrameDecor:Point('TOPLEFT', AchievementFrame.backdrop, 'TOPLEFT', SPACING, 4)
+						AchievementFrameDecor:Point('BOTTOMRIGHT', AchievementFrame.backdrop, 'TOPRIGHT', -SPACING, 0)						
 					end
 				end
 				if addon == 'Blizzard_GuildBankUI' then
@@ -152,8 +151,11 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 					end
 				end
 				if addon == 'Blizzard_GuildUI' then
-					if not GuildMemberDetailFrame.style then
-						GuildMemberDetailFrame:Style('Outside')
+					local GuildFrames = {GuildMemberDetailFrame, GuildTextEditFrame, GuildLogFrame}
+					for _, frame in pairs(GuildFrames) do
+						if frame and not frame.style then
+							frame:Style('Outside')
+						end
 					end
 				end
 			end
@@ -226,8 +228,8 @@ function BUIS:BenikUISkins()
 	-- Map styling fix
 	local function FixMapStyle()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then return end
-		if not WorldMapFrame.backdrop.style then
-			WorldMapFrame.backdrop:Style('Outside')
+		if not WorldMapFrame.BorderFrame.backdrop.style then
+			WorldMapFrame.BorderFrame.backdrop:Style('Outside')
 		end
 	end
 	

@@ -3,10 +3,11 @@ local BUI = E:GetModule('BenikUI');
 local BUIT = E:NewModule('BuiTokensDashboard', 'AceEvent-3.0', 'AceHook-3.0')
 local LSM = LibStub('LibSharedMedia-3.0')
 
-if E.db.utils == nil then E.db.utils = {} end
+if E.db.dashboards == nil then E.db.dashboards = {} end
+if E.db.dashboards.tokens == nil then E.db.dashboards.tokens = {} end
 
 local DASH_HEIGHT = 20
-local DASH_WIDTH = E.db.utils.twidth or 150
+local DASH_WIDTH = E.db.dashboards.tokens.width or 150
 local DASH_SPACING = 3
 local SPACING = (E.PixelMode and 1 or 5)
 
@@ -46,6 +47,16 @@ local BUIcurrency = {
 	676,	-- Pandaren Archaeology Fragment
 	677,	-- Mogu Archaeology Fragment
 	754,	-- Mantid Archaeology Fragment
+	
+	-- WoD
+	821,	-- Draenor Clans Archaeology Fragment
+	828,	-- Ogre Archaeology Fragment
+	829,	-- Arakkoa Archaeology Fragment
+	824,	-- Garrison Resources
+	823,	-- Apexis Crystal (for gear, like the valors)
+	994,	-- Seal of Tempered Fate (Raid loot roll)
+	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
+	944,	-- Artifact Fragment (PvP)
 }
 
 local function tholderOnFade()
@@ -53,17 +64,22 @@ local function tholderOnFade()
 end
 
 function BUIT:CreateTokensHolder()
+	local db = E.db.dashboards.tokens
 	local tholder
 	if not tholder then
 		tholder = CreateFrame('Frame', 'tokenHolder', E.UIParent)
 		tholder:CreateBackdrop('Transparent')
 		tholder:Width(DASH_WIDTH)
-		tholder:Point('TOPLEFT', BuiDashboard, 'BOTTOMLEFT', 0, -10)
+		if E.db.dashboards.system.enableSystem then
+			tholder:Point('TOPLEFT', BuiDashboard, 'BOTTOMLEFT', 0, -10)
+		else
+			tholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
+		end
 		tholder.backdrop:Style('Outside')
 		tholder.backdrop:Hide()
 	end
 	
-	if E.db.utils.Tcombat then
+	if db.combat then
 		tholder:SetScript('OnEvent',function(self, event)
 			if event == 'PLAYER_REGEN_DISABLED' then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
@@ -83,7 +99,7 @@ function BUIT:CreateTokensHolder()
 end
 
 function BUIT:EnableDisableCombat()
-	if E.db.utils.Tcombat then
+	if E.db.dashboards.tokens.combat then
 		tokenHolder:RegisterEvent('PLAYER_REGEN_DISABLED')
 		tokenHolder:RegisterEvent('PLAYER_REGEN_ENABLED')	
 	else
@@ -93,6 +109,8 @@ function BUIT:EnableDisableCombat()
 end
 
 function BUIT:UpdateTokens()
+	local db = E.db.dashboards.tokens
+	
 	if( Tokens[1] ) then
 		for i = 1, getn( Tokens ) do
 			Tokens[i]:Kill()
@@ -112,10 +130,10 @@ function BUIT:UpdateTokens()
 				totalMax = 3000
 			end
 			
-			if isDiscovered == false then E.db.utils[name] = false end
+			if isDiscovered == false then db.chooseTokens[name] = false end
 			
-			if E.db.utils[name] == true then
-				if E.db.utils.Tshow or amount > 0 then
+			if db.chooseTokens[name] == true then
+				if db.zeroamount or amount > 0 then
 					tokenHolder:Height(((DASH_HEIGHT + SPACING) * (#Tokens + 1)) + SPACING)
 					tokenHolder.backdrop:Show()
 					
@@ -153,15 +171,14 @@ function BUIT:UpdateTokens()
 					TokensFrame.spark:SetPoint('CENTER', TokensFrame.Status:GetStatusBarTexture(), 'RIGHT')
 
 					TokensFrame.Text = TokensFrame.Status:CreateFontString(nil, 'OVERLAY')
-					if E.db.utils.dtfont then
+					if E.db.dashboards.dashfont.useDTfont then
 						TokensFrame.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 					else
-						TokensFrame.Text:FontTemplate(LSM:Fetch('font', E.db.utils.dbfont), E.db.utils.dbfontsize, E.db.utils.dbfontflags)
+						TokensFrame.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
 					end
 					TokensFrame.Text:Point('CENTER', TokensFrame, 'CENTER', -10, 1)
 					TokensFrame.Text:Width(TokensFrame:GetWidth() - 20)
 					TokensFrame.Text:SetWordWrap(false)
-
 					if totalMax == 0 then
 						TokensFrame.Text:SetText(format('%s', amount))
 					else
@@ -181,14 +198,14 @@ function BUIT:UpdateTokens()
 
 					TokensFrame:SetScript('OnEnter', function(self)
 						TokensFrame.Text:SetText(format('%s', name))
-						if E.db.utils.Ttooltip then
+						if db.tooltip then
 							GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 							GameTooltip:SetCurrencyByID(id)
 						end
 					end)
 					
 					-- Flash
-					if E.db.utils.Tflash then
+					if db.flash then
 						E:Flash(TokensFrame, 0.2)
 					end
 			
@@ -226,19 +243,20 @@ function BUIT:TokenEvents()
 end
 
 function BUIT:UpdateTHolderDimensions()
-	tokenHolder:Width(E.db.utils.twidth)
+	local db = E.db.dashboards.tokens
+	tokenHolder:Width(db.width)
 
 	for _, frame in pairs(Tokens) do
-		frame:Width(E.db.utils.twidth)
+		frame:Width(db.width)
 	end
 end
 
 function BUIT:TokenDefaults()
-	if E.db.utils.twidth == nil then E.db.utils.twidth = 150 end
+	if E.db.dashboards.tokens.width == nil then E.db.dashboards.tokens.width = 150 end
 end
 
 function BUIT:Initialize()
-	if E.db.utils.enableTokens ~= true then return end
+	if E.db.dashboards.tokens.enableTokens ~= true then return end
 	self:TokenDefaults()
 	self:CreateTokensHolder()
 	self:TokenEvents()

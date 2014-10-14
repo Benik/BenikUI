@@ -5,6 +5,7 @@ local LO = E:GetModule('Layout');
 
 function BTH:UpdateThreatPosition()
 	local bar = ElvUI_ThreatBar
+	bar:SetStatusBarTexture(E['media'].BuiFlat)
 	if E.db.general.threat.position == 'RIGHTCHAT' then
 		if E.db.datatexts.rightChatPanel then
 			bar:SetInside(RightChatDataPanel)

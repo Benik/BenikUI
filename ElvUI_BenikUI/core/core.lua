@@ -5,10 +5,15 @@ local LSM = LibStub('LibSharedMedia-3.0')
 local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, ns = ...
 
-BUI.TexCoords = {.08, 0.92, -.12, 0.85}
+BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = string.format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
+
+local function StyleTooltip()
+	GameTooltip:Style('Inside')
+	GameTooltipStatusBar:SetStatusBarTexture(E["media"].BuiFlat)
+end
 
 function BUI:cOption(name)
 	local BUI_COLOR = '|cff00c0fa%s |r'
@@ -39,14 +44,19 @@ function BUI:AddOptions()
 end
 
 function BUI:InitBUI()
-	self:StyleTooltip()
+	StyleTooltip()
 	E:GetModule('DataTexts'):ToggleMailFrame()
 end
 
 function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:InitBUI()
+	if E.db.utils then E.db.utils = nil end -- delete the old Dashboards db.
 	if E.private.install_complete == E.version and E.db.bui.installed == nil then E:SetupBui() end
+	-- run the setup when a profile gets deleted.
+	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
+	if ElvDB.profileKeys and profileKey == nil then E:SetupBui() end
+
 	print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598'])
 	EP:RegisterPlugin(addon, self.AddOptions)
 end

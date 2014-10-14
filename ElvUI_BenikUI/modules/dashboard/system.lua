@@ -8,10 +8,12 @@ local BUI = E:GetModule('BenikUI');
 local BUID = E:NewModule('BuiDashboard')
 local LSM = LibStub('LibSharedMedia-3.0')
 
-if E.db.utils == nil then E.db.utils = {} end
+if E.db.dashboards == nil then E.db.dashboards = {} end
+if E.db.dashboards.system == nil then E.db.dashboards.system = {} end
+--if E.db.dashboards.dashfont == nil then E.db.dashboards.dashfont = {} end
 
 local DASH_HEIGHT = 7
-local DASH_WIDTH = E.db.utils.dwidth or 150
+local DASH_WIDTH = E.db.dashboards.system.width or 150
 local DASH_NUM = 5
 local DASH_SPACING = 3
 local SPACING = (E.PixelMode and 1 or 5)
@@ -29,7 +31,7 @@ function BUID:CreateDashboardHolder()
 	dholder:Size(DASH_WIDTH, ((DASH_HEIGHT+10)*DASH_NUM)+(DASH_SPACING*DASH_NUM) + DASH_SPACING)
 	dholder.backdrop:Style('Outside')
 	
-	if E.db.utils.Scombat then
+	if E.db.dashboards.system.combat then
 		dholder:SetScript('OnEvent',function(self, event)
 			if event == 'PLAYER_REGEN_DISABLED' then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
@@ -47,7 +49,7 @@ function BUID:CreateDashboardHolder()
 end
 
 function BUID:EnableDisableCombat()
-	if E.db.utils.Scombat then
+	if E.db.dashboards.system.combat then
 		BuiDashboard:RegisterEvent('PLAYER_REGEN_DISABLED')
 		BuiDashboard:RegisterEvent('PLAYER_REGEN_ENABLED')	
 	else
@@ -58,7 +60,7 @@ end
 
 BUID.board = {}
 function BUID:HolderWidth()
-	local DASH_WIDTH = E.db.utils.dwidth
+	local DASH_WIDTH = E.db.dashboards.system.width
 	BuiDashboard:Width(DASH_WIDTH)
 	for i = 1, DASH_NUM do
 		BUID.board[i]:Width(DASH_WIDTH - 6)
@@ -114,16 +116,16 @@ end
 
 function BUID:ChangeFont()
 	for i = 1, DASH_NUM do
-		if E.db.utils.dtfont then
+		if E.db.dashboards.dashfont.useDTfont then
 			BUID.board[i].Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
-			BUID.board[i].Text:FontTemplate(LSM:Fetch('font', E.db.utils.dbfont), E.db.utils.dbfontsize, E.db.utils.dbfontflags)
+			BUID.board[i].Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
 		end
 	end
 end
 
 function BUID:Initialize()
-	if E.db.utils.enableSystem ~= true then return end
+	if E.db.dashboards.system.enableSystem ~= true then return end
 	self:CreateDashboardHolder()
 	self:CreateBoards()
 	self:HolderWidth()

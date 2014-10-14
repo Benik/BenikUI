@@ -3,13 +3,6 @@ local BUI = E:GetModule('BenikUI');
 local UFB = E:GetModule('BuiUnits');
 local BAB = E:GetModule('BuiActionbars');
 
--- Defaults
-P['bab'] = {
-	['transBack'] = true,
-	['enable'] = true,
-	['chooseAb'] = 'BAR2',
-}
-
 local function abTable()
 	E.Options.args.actionbar.args.bab = {
 		order = 20,

@@ -15,9 +15,7 @@ f:SetScript("OnEvent", function()
 	SetFont(QuestFont_Large, 		benikUIfont, 11, nil);
 	QuestFont_Shadow_Huge:SetShadowOffset(0, 0)
 	SetFont(QuestFont_Shadow_Huge, 	benikUIfont, 15, nil);
-	
 
 	DAMAGE_TEXT_FONT = benikUIfont;
 	UNIT_NAME_FONT = benikUIfont;
-
 end)

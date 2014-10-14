@@ -4,32 +4,6 @@ local UFB = E:GetModule('BuiUnits');
 local BUIC = E:GetModule('BuiCastbar');
 local UF = E:GetModule('UnitFrames');
 
--- Defaults
-P['ufb'] = {
-	-- EmptyBars
-	['barshow'] = true,
-	['barheight'] = 20,
-	-- Detach portrait
-	['detachPlayerPortrait'] = false,
-	['PlayerPortraitWidth'] = 110,
-	['PlayerPortraitHeight'] = 85,
-	['PlayerPortraitShadow'] = false,
-	['PlayerPortraitTransparent'] = true,
-	['detachTargetPortrait'] = false,
-	['getPlayerPortraitSize'] = true,
-	['TargetPortraitWidth'] = 110,
-	['TargetPortraitHeight'] = 85,
-	['TargetPortraitShadow'] = false,
-	['TargetPortraitTransparent'] = true,
-	-- Powerbar texture
-	['powerstatusbar'] = 'BuiFlat',
-	-- Castbar attach
-	['attachCastbar'] = true,
-	['castText'] = true,
-	['yOffsetText'] = -15,
-	['overText'] = false,
-}
-
 local function ufTable()
 	E.Options.args.bui.args.config.args.ufb = {
 		order = 10,
@@ -70,7 +44,7 @@ local function ufTable()
 					powerstatusbar = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
 						order = 1,
-						name = L['PowerBar Texture']..BUI.newsign,
+						name = L['PowerBar Texture'],
 						desc = L['Power statusbar texture.'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.ufb[ info[#info] ] end,				
@@ -90,7 +64,7 @@ local function ufTable()
 					attachCastbar = {
 						order = 1,
 						type = 'toggle',
-						name = L['Attach on Empty Frames']..BUI.newsign,
+						name = L['Attach on Empty Frames'],
 						desc = L['Attaches Player and Target Castbar on the Empty Frames.'],
 					},
 					castText = {

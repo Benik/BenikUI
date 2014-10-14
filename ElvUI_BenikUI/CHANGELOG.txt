@@ -1,4 +1,18 @@
-[b]1.12[/b] (Sep 25, 2014)
+[b]2.00[/b] (Okt 14, 2014)
+
+*Updated for WoD 6.02 and ElvUI 7.
+*Minor adjustments in the install settings.
+*Blizz styling fixes.
+*Added WoD Tokens in the Tokens Dashboard.
+*Added a new Dashboard: Professions.
+*Removed the defaults from the options. Now they have their own file.
+*Fixed a lua error when the tokens Dashboard is disabled (thanks emoxxxkid).
+
+[b]1.13[/b] (Okt 1, 2014)
+
+Overnight uploads... wrong skins.lua file.
+
+[b]1.12[/b] (Sep 30, 2014)
 
 *Revambed the Tokens Dashboard.
 - Added options to choose which tokens to show

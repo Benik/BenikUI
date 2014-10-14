@@ -78,13 +78,14 @@ L['Show/Hide Tooltips'] = true
 L['Flash on updates'] = true
 L['Select Tokens'] = true
 L['Use DataTexts font'] = true
-L['Choose font for both dashboards.'] = true
+L['Choose font for all dashboards.'] = true
 L['Set the font size.'] = true
 L['Enable/Disable '] = true
 L['Click :'] = true
 L['RightClick :'] = true
 L['MouseWheel :'] = true
 L['Tip: Grayed tokens are not yet discovered'] = true
+L['Select Professions'] = true
 
 -- DataTexts
 L['|cff00ff00New Mail|r'] = true

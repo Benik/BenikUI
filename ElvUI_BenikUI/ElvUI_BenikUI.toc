@@ -1,8 +1,8 @@
-﻿## Interface: 50400
+﻿## Interface: 60000
 ## Author: Benik
-## Version: 1.12
+## Version: 2.00
 ## Title: |cff1784d1ElvUI|r_BenikUI
-## Notes: an ElvUI 6+ edit
+## Notes: an ElvUI 7+ edit
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia
@@ -11,6 +11,7 @@
 
 media\load_media.xml
 locales\load_locales.xml
+defaults\load_defaults.xml
 core\load_core.xml
 layout\layout.lua
 modules\load_modules.xml

@@ -4,18 +4,7 @@ local LO = E:GetModule('Layout');
 
 if E.db.bui == nil then E.db.bui = {} end
 
--- Defaults
-P['bui'] = {
-	['installed'] = nil,
-	['colorTheme'] = 'Elv',
-	['buiDts'] = true,
-	['buiFonts'] = true,
-	['transparentDts'] = false,
-	['toggleMail'] = true,
-	['mailSound'] = false,
-}
-
-local function buiTable()
+local function buiCore()
 	E.Options.args.bui = {
 		order = 9000,
 		type = 'group',
@@ -135,4 +124,4 @@ local function buiTable()
 	}
 end
 
-table.insert(E.BuiConfig, buiTable)
+table.insert(E.BuiConfig, buiCore)

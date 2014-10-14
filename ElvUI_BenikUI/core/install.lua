@@ -27,8 +27,12 @@ local function SetupBuiLayout()
 		E.db.general.experience.textFormat = 'CURPERC'
 		E.db.general.experience.width = 412
 		E.db.general.reputation.textFormat = 'CURPERC'
+		E.db.general.reputation.orientation = 'HORIZONTAL'
 		E.db.general.reputation.textSize = 8
-		E.db.general.reputation.width = 180
+		E.db.general.reputation.height = 10
+		E.db.general.reputation.width = 412
+		E.private.general.namefont = 'Bui Prototype'
+		E.private.general.dmgfont = 'Bui Prototype'
 		E.db.datatexts.leftChatPanel = false
 		E.db.datatexts.rightChatPanel = false
 	end
@@ -48,21 +52,23 @@ local function SetupBuiLayout()
 	end
 	
 	-- movers
+	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 	do
 		E.db.movers.AlertFrameMover = 'TOPElvUIParentTOP0-140'
-		E.db.movers.BNETMover = 'TOPRIGHTElvUIParentTOPRIGHT-4-199'
+		E.db.movers.BNETMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-182'
 		E.db.movers.BuiDashboardMover = 'TOPLEFTElvUIParentTOPLEFT4-8'
 		E.db.movers.DigSiteProgressBarMover = 'BOTTOMElvUIParentBOTTOM0315'
-		E.db.movers.GMMover = 'TOPLEFTElvUIParentTOPLEFT155-4'
+		E.db.movers.GMMover = 'TOPLEFTElvUIParentTOPLEFT158-38'
 		E.db.movers.LeftChatMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT222'
 		E.db.movers.LocationLiteMover = 'TOPElvUIParentTOP0-2'
-		E.db.movers.MicrobarMover = 'TOPLEFTElvUIParentTOPLEFT4-4'
-		E.db.movers.MinimapMover = 'TOPRIGHTElvUIParentTOPRIGHT-4-6'
-		E.db.movers.ReputationBarMover = 'TOPRIGHTElvUIParentTOPRIGHT-2-181'
+		E.db.movers.MicrobarMover = 'TOPLEFTElvUIParentTOPLEFT158-5'
+		E.db.movers.MinimapMover = 'TOPRIGHTElvUIParentTOPRIGHT-4-5'
+		E.db.movers.ReputationBarMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-2175'
 		E.db.movers.RightChatMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-222'
 		E.db.movers.VehicleSeatMover = 'TOPLEFTElvUIParentTOPLEFT155-81'
 		E.db.movers.WatchFrameMover = 'TOPRIGHTElvUIParentTOPRIGHT-122-292'
 		E.db.movers.tokenHolderMover = 'TOPLEFTElvUIParentTOPLEFT4-119'
+		E.db.movers.ProfessionsMover = 'TOPRIGHTElvUIParentTOPRIGHT-3-185'
 	end
 	
 	-- LocationPlus
@@ -244,8 +250,8 @@ local function SetupBuiAbs()
 		E.db.movers.ArenaHeaderMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-56346'
 		E.db.movers.BossButton = 'BOTTOMElvUIParentBOTTOM0283'
 		E.db.movers.BossHeaderMover = 'TOPRIGHTElvUIParentTOPRIGHT-56-397'
-		E.db.movers.BuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-189-3'
-		E.db.movers.DebuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-189-134'
+		E.db.movers.BuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-3'
+		E.db.movers.DebuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-134'
 		E.db.movers.ElvAB_1 = 'BOTTOMElvUIParentBOTTOM092'
 		E.db.movers.ElvAB_2 = 'BOTTOMElvUIParentBOTTOM058'
 		E.db.movers.ElvAB_3 = 'BOTTOMElvUIParentBOTTOM29558'
@@ -362,10 +368,10 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.targettarget.height = 24
 		E.db.unitframe.units.targettarget.power.height = 5
 		E.db.unitframe.units.targettarget.power.width = 'fill'
-	-- raid 10
-		E.db.unitframe.units.raid10.power.power = false
-	-- raid 25
-		E.db.unitframe.units.raid25.power.enable = false
+	-- raid
+		E.db.unitframe.units.raid.power.enable = false
+	-- raid 40
+		E.db.unitframe.units.raid40.power.enable = false
 	end
 	
 	-- Movers
@@ -373,13 +379,12 @@ local function SetupBuiUfs()
 		E.db.movers.AltPowerBarMover = 'TOPElvUIParentTOP0-66'
 		E.db.movers.ElvUF_AssistMover = 'TOPLEFTElvUIParentTOPLEFT4-392'
 		E.db.movers.ElvUF_FocusMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-442178'
-		E.db.movers.ElvUF_PartyMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT4210'
+		E.db.movers.ElvUF_PartyMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
 		E.db.movers.ElvUF_PetMover = 'BOTTOMElvUIParentBOTTOM0191'
 		E.db.movers.ElvUF_PlayerCastbarMover = 'BOTTOMElvUIParentBOTTOM-231147'
 		E.db.movers.ElvUF_PlayerMover = 'BOTTOMElvUIParentBOTTOM-231182'
-		E.db.movers.ElvUF_Raid10Mover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT4210'
-		E.db.movers.ElvUF_Raid25Mover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2179'
-		E.db.movers.ElvUF_Raid40Mover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT4211'
+		E.db.movers.ElvUF_RaidMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
+		E.db.movers.ElvUF_Raid40Mover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
 		E.db.movers.ElvUF_RaidpetMover = 'TOPLEFTElvUIParentTOPLEFT4-444'
 		E.db.movers.ElvUF_TankMover = 'TOPLEFTElvUIParentTOPLEFT4-292'
 		E.db.movers.ElvUF_TargetCastbarMover = 'BOTTOMElvUIParentBOTTOM231147'
@@ -451,7 +456,6 @@ local function SetupBuiAddons()
 			['CurDataSet'] = 'OverallData',
 			['ClampToScreen'] = true,
 			['Font'] = 'Bui Visitor1',	
-			['Scaling'] = 0.95,
 		}
 	end
 
@@ -461,7 +465,7 @@ local function SetupBuiAddons()
 		if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 			E.db.VAT.enableStaticColor = true
 			E.db.VAT.barHeight = 6
-			E.db.VAT.spacing = -7
+			E.db.VAT.spacing = -6
 			E.db.VAT.staticColor.r = 1
 			E.db.VAT.staticColor.g = 0.5
 			E.db.VAT.staticColor.b = 0

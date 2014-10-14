@@ -2,30 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local BUI = E:GetModule('BenikUI');
 local BUID = E:GetModule('BuiDashboard');
 local BUIT = E:GetModule('BuiTokensDashboard');
-
-if E.db.utils == nil then E.db.utils = {} end
-
--- Defaults
-P['utils'] = {
-	['enableSystem'] = true,
-	['enableTokens'] = true,
-	['Scombat'] = false,
-	['Tcombat'] = true,
-	['Ttooltip'] = true,
-	['Tshow'] = false,
-	['Tflash'] = true,
-	['dwidth'] = 150,
-	['twidth'] = 150,
-	['dtfont'] = true,
-	['dbfont'] = E.db.datatexts.font,
-	['dbfontsize'] = E.db.datatexts.fontSize,
-	['dbfontflags'] = E.db.datatexts.fontOutline,
-	['Justice Points'] = true,
-	['Valor Points'] = true,
-	['Timeless Coin'] = true,
-	['Conquest Points'] = true,
-	['Honor Points'] = true,
-}
+local BUIP = E:GetModule('BuiProfessionsDashboard')
 
 local dungeonTokens = {
 	776,	-- Warforged Seal
@@ -36,12 +13,15 @@ local dungeonTokens = {
 	615,	-- Essence of Corrupted Deathwing
 	395,	-- Justice Points
 	396,	-- Valor Points
+	823,	-- Apexis Crystal (for gear, like the valors)
+	994,	-- Seal of Tempered Fate (Raid loot roll)
 }
 
 local pvpTokens = {
 	390,	-- Conquest Points
 	392,	-- Honor Points
 	391,	-- Tol Barad Commendation
+	944,	-- Artifact Fragment (PvP)
 }
 
 local secondaryTokens = {
@@ -57,6 +37,8 @@ local miscTokens = {
 	515,	-- Darkmoon Prize Ticket
 	777,	-- Timeless Coin
 	789,	-- Bloody Coin
+	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
+	824,	-- Garrison Resources
 }
 
 local archyTokens = {
@@ -72,6 +54,9 @@ local archyTokens = {
 	676,	-- Pandaren Archaeology Fragment
 	677,	-- Mogu Archaeology Fragment
 	754,	-- Mantid Archaeology Fragment
+	821,	-- Draenor Clans Archaeology Fragment
+	828,	-- Ogre Archaeology Fragment
+	829,	-- Arakkoa Archaeology Fragment
 }
 	
 local currencyTables = {
@@ -87,16 +72,16 @@ local function UpdateTokenOptions()
 	for i, v in ipairs(currencyTables) do
 		local tableName, optionName = unpack(v)
 		local optionOrder = 1
-		for i, id in ipairs(tableName) do
+		for _, id in ipairs(tableName) do
 			local tname, _, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
 			if tname then
-				E.Options.args.bui.args.config.args.utils.args.tokens.args.chooseTokens.args[optionName].args[tname] = {
+				E.Options.args.bui.args.config.args.dashboards.args.tokens.args.chooseTokens.args[optionName].args[tname] = {
 					order = optionOrder + 1,
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
 					desc = L['Enable/Disable ']..tname,
-					get = function(info) return E.db.utils[ info[#info] ] end,
-					set = function(info, value) E.db.utils[ info[#info] ] = value; BUIT:UpdateTokens(); end,
+					get = function(info) return E.db.dashboards.tokens.chooseTokens[tname] end,
+					set = function(info, value) E.db.dashboards.tokens.chooseTokens[tname] = value; BUIT:UpdateTokens(); end,
 					disabled = function() return not isDiscovered end,
 				}
 			end
@@ -104,12 +89,57 @@ local function UpdateTokenOptions()
 	end
 end
 
-local function utilsTable()
-	E.Options.args.bui.args.config.args.utils = {
+local function UpdateProfessionOptions()
+	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
+	local optionOrder = 1
+	if (prof1 or prof2 or archy or fishing or cooking or firstAid) then
+		E.Options.args.bui.args.config.args.dashboards.args.professions.args.choosePofessions = {
+			order = 5,
+			type = 'group',
+			guiInline = true,
+			name = L['Select Professions'],
+			disabled = function() return not E.db.dashboards.professions.enableProfessions end,
+			args = {
+			},
+		}
+		local proftable = { GetProfessions() }
+		for _, id in pairs(proftable) do
+			local pname, icon = GetProfessionInfo(id)
+			if pname then
+				E.Options.args.bui.args.config.args.dashboards.args.professions.args.choosePofessions.args[pname] = {
+					order = optionOrder + 1,
+					type = 'toggle',
+					name = '|T'..icon..':18|t '..pname,
+					desc = L['Enable/Disable ']..pname,
+					get = function(info) return E.db.dashboards.professions.choosePofessions[pname] end,
+					set = function(info, value) E.db.dashboards.professions.choosePofessions[pname] = value; BUIP:UpdateProfessions(); end,
+				}			
+			end
+		end
+	else
+		E.Options.args.bui.args.config.args.dashboards.args.professions.args.choosePofessions = {
+			order = 5,
+			type = 'group',
+			guiInline = true,
+			name = L['Select Professions'],
+			disabled = function() return not E.db.dashboards.professions.enableProfessions end,
+			args = {
+				noprof = {
+					order = 1,
+					type = 'description',
+					name = PROFESSIONS_MISSING_PROFESSION,
+				},	
+			},
+		}		
+	end
+end
+
+local function dashboardsTable()
+	E.Options.args.bui.args.config.args.dashboards = {
 		order = 20,
 		type = 'group',
-		name = L['Dashboards'],
-		childGroups = "select",
+		name = L['Dashboards']..BUI.newsign,
+		childGroups = "tab",
 		args = {
 			header = {
 				order = 1,
@@ -126,27 +156,27 @@ local function utilsTable()
 						type = 'toggle',
 						name = ENABLE,
 						desc = L['Enable the System Dashboard.'],
-						get = function(info) return E.db.utils[ info[#info] ] end,
-						set = function(info, value) E.db.utils[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
+						get = function(info) return E.db.dashboards.system.enableSystem end,
+						set = function(info, value) E.db.dashboards.system.enableSystem = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
-					Scombat = {
+					combat = {
 						order = 2,
 						name = L['Combat Fade'],
 						desc = L['Show/Hide System Dashboard when in combat'],
 						type = 'toggle',
-						disabled = function() return not E.db.utils.enableSystem end,
-						get = function(info) return E.db.utils[ info[#info] ] end,
-						set = function(info, value) E.db.utils[ info[#info] ] = value; BUID:EnableDisableCombat(); end,					
+						disabled = function() return not E.db.dashboards.system.enableSystem end,
+						get = function(info) return E.db.dashboards.system.combat end,
+						set = function(info, value) E.db.dashboards.system.combat = value; BUID:EnableDisableCombat(); end,					
 					},
-					dwidth = {
+					width = {
 						order = 3,
 						type = 'range',
 						name = L['Width'],
 						desc = L['Change the System Dashboard width.'],
 						min = 120, max = 220, step = 1,
-						disabled = function() return not E.db.utils.enableSystem end,
-						get = function(info) return E.db.utils[ info[#info] ] end,
-						set = function(info, value) E.db.utils[ info[#info] ] = value; BUID:HolderWidth() end,	
+						disabled = function() return not E.db.dashboards.system.enableSystem end,
+						get = function(info) return E.db.dashboards.system.width end,
+						set = function(info, value) E.db.dashboards.system.width = value; BUID:HolderWidth() end,	
 					},
 				},
 			},
@@ -161,55 +191,55 @@ local function utilsTable()
 						name = ENABLE,
 						width = 'full',
 						desc = L['Enable the Tokens Dashboard.'],
-						get = function(info) return E.db.utils[ info[#info] ] end,
-						set = function(info, value) E.db.utils[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
+						get = function(info) return E.db.dashboards.tokens.enableTokens end,
+						set = function(info, value) E.db.dashboards.tokens.enableTokens = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
-					Tcombat = {
+					combat = {
 						order = 2,
 						name = L['Combat Fade'],
 						desc = L['Show/Hide Tokens Dashboard when in combat'],
 						type = 'toggle',
-						disabled = function() return not E.db.utils.enableTokens end,
-						get = function(info) return E.db.utils[ info[#info] ] end,
-						set = function(info, value) E.db.utils[ info[#info] ] = value; BUIT:EnableDisableCombat(); end,					
+						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+						get = function(info) return E.db.dashboards.tokens.combat end,
+						set = function(info, value) E.db.dashboards.tokens.combat = value; BUIT:EnableDisableCombat(); end,					
 					},
-					Ttooltip = {
+					tooltip = {
 						order = 3,
-						name = L['Tooltip']..BUI.newsign,
+						name = L['Tooltip'],
 						desc = L['Show/Hide Tooltips'],
 						type = 'toggle',
-						disabled = function() return not E.db.utils.enableTokens end,
-						get = function(info) return E.db.utils[ info[#info] ] end,
-						set = function(info, value) E.db.utils[ info[#info] ] = value; BUIT:UpdateTokens(); end,					
+						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+						get = function(info) return E.db.dashboards.tokens.tooltip end,
+						set = function(info, value) E.db.dashboards.tokens.tooltip = value; BUIT:UpdateTokens(); end,					
 					},
-					twidth = {
+					width = {
 						order = 4,
 						type = 'range',
 						name = L['Width'],
 						desc = L['Change the Tokens Dashboard width.'],
 						min = 120, max = 220, step = 1,
-						disabled = function() return not E.db.utils.enableTokens end,
-						get = function(info) return E.db.utils[ info[#info] ] end,
-						set = function(info, value) E.db.utils[ info[#info] ] = value; BUIT:UpdateTHolderDimensions(); end,	
+						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+						get = function(info) return E.db.dashboards.tokens.width end,
+						set = function(info, value) E.db.dashboards.tokens.width = value; BUIT:UpdateTHolderDimensions(); end,	
 					},
-					Tshow = {
+					zeroamount = {
 						order = 5,
-						name = L['Show zero amount tokens']..BUI.newsign,
+						name = L['Show zero amount tokens'],
 						desc = L['Show the token, even if the amount is 0'],
 						type = 'toggle',
-						disabled = function() return not E.db.utils.enableTokens end,
-						get = function(info) return E.db.utils[ info[#info] ] end,
-						set = function(info, value) E.db.utils[ info[#info] ] = value; BUIT:UpdateTokens(); end,					
+						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+						get = function(info) return E.db.dashboards.tokens.zeroamount end,
+						set = function(info, value) E.db.dashboards.tokens.zeroamount = value; BUIT:UpdateTokens(); end,					
 					},
-					Tflash = {
+					flash = {
 						order = 6,
-						name = L['Flash on updates']..BUI.newsign,
+						name = L['Flash on updates'],
 						type = 'toggle',
-						disabled = function() return not E.db.utils.enableTokens end,
-						get = function(info) return E.db.utils[ info[#info] ] end,
-						set = function(info, value) E.db.utils[ info[#info] ] = value; BUIT:UpdateTokens(); end,					
+						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+						get = function(info) return E.db.dashboards.tokens.flash end,
+						set = function(info, value) E.db.dashboards.tokens.flash = value; BUIT:UpdateTokens(); end,					
 					},
-					Tdesc = {
+					desc = {
 						order = 7,
 						name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered']),
 						type = 'header',					
@@ -217,8 +247,8 @@ local function utilsTable()
 					chooseTokens = {
 						order = 8,
 						type = 'group',
-						name = L['Select Tokens']..BUI.newsign,
-						disabled = function() return not E.db.utils.enableTokens end,
+						name = L['Select Tokens'],
+						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
 						args = {
 							dTokens = {
 								order = 1,
@@ -259,16 +289,64 @@ local function utilsTable()
 					},
 				},
 			},
-			font = {
+			professions = {
 				order = 4,
+				type = 'group',
+				name = TRADE_SKILLS..BUI.newsign,
+				args = {
+					enableProfessions = {
+						order = 1,
+						type = 'toggle',
+						name = ENABLE,
+						width = 'full',
+						desc = L['Enable the Professions Dashboard.'],
+						get = function(info) return E.db.dashboards.professions.enableProfessions end,
+						set = function(info, value) E.db.dashboards.professions.enableProfessions = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
+					},
+					combat = {
+						order = 2,
+						name = L['Combat Fade'],
+						desc = L['Show/Hide Professions Dashboard when in combat'],
+						type = 'toggle',
+						disabled = function() return not E.db.dashboards.professions.enableProfessions end,
+						get = function(info) return E.db.dashboards.professions.combat end,
+						set = function(info, value) E.db.dashboards.professions.combat = value; BUIP:EnableDisableCombat(); end,					
+					},
+					width = {
+						order = 3,
+						type = 'range',
+						name = L['Width'],
+						desc = L['Change the Professions Dashboard width.'],
+						min = 120, max = 220, step = 1,
+						disabled = function() return not E.db.dashboards.professions.enableProfessions end,
+						get = function(info) return E.db.dashboards.professions.width end,
+						set = function(info, value) E.db.dashboards.professions.width = value; BUIP:UpdatePholderDimensions(); end,	
+					},
+					capped = {
+						order = 4,
+						name = L['Filter Capped'],
+						desc = L['Show/Hide Professions that are skill capped'],
+						type = 'toggle',
+						disabled = function() return not E.db.dashboards.professions.enableProfessions end,
+						get = function(info) return E.db.dashboards.professions.capped end,
+						set = function(info, value) E.db.dashboards.professions.capped = value; BUIP:UpdateProfessions(); end,					
+					},
+				},
+			},
+			dashfont = {
+				order = 1,
 				type = 'group',
 				name = L['Fonts'],
 				guiInline = true,
-				disabled = function() return not E.db.utils.enableSystem and not E.db.utils.enableTokens end,
-				get = function(info) return E.db.utils[ info[#info] ] end,
-				set = function(info, value) E.db.utils[ info[#info] ] = value; if E.db.utils.enableSystem then BUID:ChangeFont() end; if E.db.utils.enableTokens then BUIT:UpdateTokens(); end; end,
+				disabled = function() return not E.db.dashboards.system.enableSystem and not E.db.dashboards.tokens.enableTokens and not E.db.dashboards.professions.enableProfessions end,
+				get = function(info) return E.db.dashboards.dashfont[ info[#info] ] end,
+				set = function(info, value) E.db.dashboards.dashfont[ info[#info] ] = value;
+					if E.db.dashboards.system.enableSystem then BUID:ChangeFont() end;
+					if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end;
+					if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end;
+					end,
 				args = {
-					dtfont = {
+					useDTfont = {
 						order = 1,
 						name = L['Use DataTexts font'],
 						type = 'toggle',
@@ -278,22 +356,22 @@ local function utilsTable()
 						type = 'select', dialogControl = 'LSM30_Font',
 						order = 2,
 						name = L['Font'],
-						desc = L['Choose font for both dashboards.'],
-						disabled = function() return E.db.utils.dtfont end,
+						desc = L['Choose font for all dashboards.'],
+						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
 						values = AceGUIWidgetLSMlists.font,
 					},
 					dbfontsize = {
 						order = 3,
 						name = FONT_SIZE,
 						desc = L['Set the font size.'],
-						disabled = function() return E.db.utils.dtfont end,
+						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
 						type = 'range',
 						min = 6, max = 22, step = 1,
 					},
 					dbfontflags = {
 						order = 4,
 						name = L['Font Outline'],
-						disabled = function() return E.db.utils.dtfont end,
+						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
 						type = 'select',
 						values = {
 							['NONE'] = L['None'],
@@ -306,9 +384,13 @@ local function utilsTable()
 			},
 		},
 	}
-	-- update the options, when the tokens dashboard gets updated
-	hooksecurefunc(BUIT, 'UpdateTokens', UpdateTokenOptions)
+	-- update the options, when ElvUI Config fires
+	hooksecurefunc(E, "ToggleConfig", UpdateTokenOptions)
+	hooksecurefunc(E, "ToggleConfig", UpdateProfessionOptions)
 end
 
-table.insert(E.BuiConfig, utilsTable)
+table.insert(E.BuiConfig, dashboardsTable)
 table.insert(E.BuiConfig, UpdateTokenOptions)
+table.insert(E.BuiConfig, UpdateProfessionOptions)
+
+

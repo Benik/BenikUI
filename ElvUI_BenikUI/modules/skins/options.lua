@@ -24,30 +24,11 @@ local DecorAddons = {
 	{'Clique', 'Clique', 'clique'},
 }
 
--- Defaults
-P['elvuiaddons'] = {
-	['loclite'] = true,
-	['locplus'] = true,
-	['sle'] = true,
-	['smb'] = true,
-}
-
-P['buiaddonskins'] = {
-	['rc'] = true,
-	['skada'] = true,
-	['recount'] = true,
-	['tinydps'] = true,
-	['atlasloot'] = true,
-	['altoholic'] = true,
-	['zg'] = true,
-	['clique'] = true,
-}
-
 local function SkinTable()
 	E.Options.args.bui.args.config.args.buiskins = {
 		order = 40,
 		type = 'group',
-		name = L['AddOns Decor']..BUI.newsign,
+		name = L['AddOns Decor'],
 		args = {
 			header = {
 				order = 1,

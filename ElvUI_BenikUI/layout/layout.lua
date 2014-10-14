@@ -50,13 +50,9 @@ calendar_string = gsub(calendar_string, '^%l', upper)
 
 local menuList = {
 	{text = CHARACTER_BUTTON,
-	func = function() ToggleCharacter('PaperDollFrame') end},
+	func = function() ToggleCharacter("PaperDollFrame") end},
 	{text = SPELLBOOK_ABILITIES_BUTTON,
 	func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
-	{text = MOUNTS_AND_PETS,
-	func = function()
-		TogglePetJournal();
-	end},
 	{text = TALENTS_BUTTON,
 	func = function()
 		if not PlayerTalentFrame then
@@ -72,26 +68,29 @@ local menuList = {
 		else
 			HideUIPanel(PlayerTalentFrame)
 		end
+	end},	
+	{text = MOUNTS,
+	func = function()
+		TogglePetJournal(1);
 	end},
-	{text = L['Farm Mode'],
+	{text = PETS,
+	func = function()
+		TogglePetJournal(2)
+	end},
+	{text = TOY_BOX,
+	func = function() 
+		TogglePetJournal(3)
+	end},
+	{text = L["Farm Mode"],
 	func = FarmMode},
 	{text = TIMEMANAGER_TITLE,
 	func = function() ToggleFrame(TimeManagerFrame) end},		
 	{text = ACHIEVEMENT_BUTTON,
 	func = function() ToggleAchievementFrame() end},
-	{text = QUESTLOG_BUTTON,
-	func = function() ToggleFrame(QuestLogFrame) end},
 	{text = SOCIAL_BUTTON,
 	func = function() ToggleFriendsFrame() end},
 	{text = calendar_string,
 	func = function() GameTimeFrame:Click() end},
-	{text = PLAYER_V_PLAYER,
-	func = function()
-		if not PVPUIFrame then
-			PVP_LoadUI()
-		end	
-		ToggleFrame(PVPUIFrame) 
-	end},
 	{text = ACHIEVEMENTS_GUILD_TAB,
 	func = function()
 		if IsInGuild() then
@@ -105,12 +104,10 @@ local menuList = {
 	end},
 	{text = LFG_TITLE,
 	func = function() PVEFrame_ToggleFrame(); end},
-	{text = L['Raid Browser'],
-	func = function() ToggleFrame(RaidBrowserFrame); end},
+	--[[{text = L["Raid Browser"],
+	func = function() ToggleFrame(RaidBrowserFrame); end},]]
 	{text = ENCOUNTER_JOURNAL, 
-	func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
-	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end},
-	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end}
+	func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end}
 }
 
 local color = { r = 1, g = 1, b = 1 }
@@ -391,7 +388,7 @@ function BUIL:ChangeLayout()
 	RightChatPanel.backdrop:Style('Inside', 'RightChatPanel_Bui')
 	
 	-- Minimap elements styling
-	Minimap.backdrop:Style('Outside')
+	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end
 	ElvUI_ConsolidatedBuffs:Style('Outside')
 	CopyChatFrame:Style('Inside')
 	self:ResizeMinimapPanels()

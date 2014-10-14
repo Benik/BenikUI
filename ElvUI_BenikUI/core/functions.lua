@@ -56,13 +56,13 @@ local function Style(f, template, name)
 	end
 	local tlx, tly, brx, bry
 	if template == 'Inside' then
-		tlx, tly, brx, bry = 0, 0, 0, -5
+		tlx, tly, brx, bry = 0, SPACING, 0, -4
 	elseif template == 'Outside' then
 		tlx, tly, brx, bry = 0, 4, 0, -SPACING
 	elseif template == 'Skin' then
-		tlx, tly, brx, bry = SPACING, 5, -SPACING, 0
+		tlx, tly, brx, bry = SPACING, 4, -SPACING, 0
 	elseif template == 'Small' then
-		tlx, tly, brx, bry = -SPACING, 5, SPACING, 0
+		tlx, tly, brx, bry = -SPACING, 4, SPACING, -SPACING
 	end
 	style:Point('TOPLEFT', f, 'TOPLEFT', tlx, tly)
 	style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
@@ -91,14 +91,4 @@ while object do
 	end
 	
 	object = EnumerateFrames(object)
-end
-
-function BUI:StyleBlizSkins(name, parent, ...)
-	local frame = CreateFrame('Frame', name, E.UIParent)
-	frame:CreateBackdrop('Default', true)
-	frame:SetParent(parent)
-	frame:Point('TOPLEFT', parent, 'TOPLEFT', SPACING, 5)
-	frame:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', -SPACING, 0)
-
-	return frame
 end

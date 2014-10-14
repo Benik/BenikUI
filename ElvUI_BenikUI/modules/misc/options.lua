@@ -5,16 +5,6 @@ local UFB = E:GetModule('BuiUnits');
 
 if E.db.xprep == nil then E.db.xprep = {} end
 
--- Defaults
-P['xprep'] = {
-	['show'] = 'REP',
-	['textStyle'] = 'UNIT',
-	['mouseOver'] = true,
-	['xp'] = { r = 0, g = 0.4, b = 1, a = .8 },
-	['rested'] = { r = 1, g = 0, b = 1, a = .2 },
-	['reputation'] = {r = 0, g = 1, b = 0, a = .8 },
-}
-
 local function xprepTable()
 	E.Options.args.bui.args.config.args.xprep = {
 		order = 30,

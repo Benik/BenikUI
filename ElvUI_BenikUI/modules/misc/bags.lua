@@ -6,7 +6,7 @@ local SPACING = (E.PixelMode and 1 or 5)
 local BORDER = E.Border;
 
 function BUIB:StyleBags()
-	ElvUI_ContainerFrame:Style('Outside', 'playerbags')
+	ElvUI_ContainerFrame:Style('Inside', 'playerbags')
 	ElvUI_ContainerFrameContainerHolder:Style('Outside')
 
 	if ElvUI_ContainerFrameContainerHolder then
