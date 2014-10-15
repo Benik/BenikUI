@@ -5,6 +5,7 @@ local BUI = E:GetModule('BenikUI');
 local SPACING = (E.PixelMode and 1 or 5)
 
 local FreeBlizzFrames = {
+	AchievementAlertFrame1,
 	AddFriendFrame,
 	AddonList,
 	AudioOptionsFrame,
@@ -25,7 +26,7 @@ local FreeBlizzFrames = {
 	GossipFrame,
 	GuildRegistrarFrame,
 	InterfaceOptionsFrame,
-	--ItemRefTooltip,
+	ItemRefTooltip,
 	ItemTextFrame,
 	LFGDungeonReadyPopup,
 	LFGDungeonReadyDialog,
@@ -112,7 +113,7 @@ function BUI:StyleBlizzard(parent, ...)
 	local frame = CreateFrame('Frame', parent..'Decor', E.UIParent)
 	frame:CreateBackdrop('Default', true)
 	frame:SetParent(parent)
-	frame:Point('TOPLEFT', parent, 'TOPLEFT', SPACING, 4)
+	frame:Point('TOPLEFT', parent, 'TOPLEFT', SPACING, 3)
 	frame:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', -SPACING, 0)
 end
 
@@ -123,13 +124,16 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard[elvoption] ~= true then return end
 			if blizzFrame then
 				BUI:StyleBlizzard(blizzFrame)
-				-- Fixes
+				
+				-- Fixes/Style tabs, buttons, etc
 				if addon == 'Blizzard_AchievementUI' then
 					if AchievementFrameDecor then
-						AchievementFrameDecor:Point('TOPLEFT', AchievementFrame.backdrop, 'TOPLEFT', SPACING, 4)
-						AchievementFrameDecor:Point('BOTTOMRIGHT', AchievementFrame.backdrop, 'TOPRIGHT', -SPACING, 0)						
+						AchievementFrameDecor:ClearAllPoints()
+						AchievementFrameDecor:Point('TOPLEFT', AchievementFrame, 'TOPLEFT', SPACING, 9)
+						AchievementFrameDecor:Point('BOTTOMRIGHT', AchievementFrame, 'TOPRIGHT', -SPACING, 6)			
 					end
 				end
+				
 				if addon == 'Blizzard_GuildBankUI' then
 					for i = 1, 8 do
 						local button = _G['GuildBankTab'..i..'Button']
@@ -140,6 +144,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 						end
 					end
 				end
+				
 				if addon == 'Blizzard_TalentUI' then 
 					for i = 1, 2 do
 						local tab = _G['PlayerSpecTab'..i]
@@ -150,6 +155,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 						end
 					end
 				end
+				
 				if addon == 'Blizzard_GuildUI' then
 					local GuildFrames = {GuildMemberDetailFrame, GuildTextEditFrame, GuildLogFrame}
 					for _, frame in pairs(GuildFrames) do
@@ -158,19 +164,28 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 						end
 					end
 				end
+				
+				if addon == 'Blizzard_VoidStorageUI' then
+					for i = 1, 2 do
+						local tab = VoidStorageFrame["Page"..i]
+						if not tab.style then
+							tab:Style('Inside')
+							tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
+							tab:GetNormalTexture():SetInside()
+						end						
+					end
+				end
+			
 			end
 		end
 	end
 	
-	-- What the fart is wrong with this check?
-	--if addon == 'Blizzard_TimeManager' then
-		if E.private.skins.blizzard.timemanager == true then
-			if not TimeManagerFrame.style then
-				TimeManagerFrame:Style('Outside')
-			end
-		else return end
-	--end
-	
+	if E.private.skins.blizzard.enable == true or E.private.skins.blizzard.timemanager == true then
+		if not TimeManagerFrame.style then
+			TimeManagerFrame:Style('Outside')
+		end
+	else return end
+
 	if addon == 'Blizzard_EncounterJournal' then
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true then return end
 		if not EncounterJournal.style then

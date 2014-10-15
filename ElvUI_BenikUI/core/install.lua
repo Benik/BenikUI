@@ -10,7 +10,7 @@ local function SetupBuiLayout()
 	do
 		E.db.general.font = 'Bui Prototype'
 		E.db.general.fontSize = 10
-		E.db.general.stickyFrames = false
+		E.db.general.stickyFrames = true
 		E.db.general.topPanel = false
 		E.db.general.bottomPanel = false
 		E.db.general.minimap.locationText = 'HIDE'
@@ -23,14 +23,9 @@ local function SetupBuiLayout()
 		E.db.general.valuecolor.g = 0.5
 		E.db.general.valuecolor.b = 0
 		E.db.general.experience.enable = false
-		E.db.general.reputation.enable = false
 		E.db.general.experience.textFormat = 'CURPERC'
-		E.db.general.experience.width = 412
+		E.db.general.reputation.enable = false
 		E.db.general.reputation.textFormat = 'CURPERC'
-		E.db.general.reputation.orientation = 'HORIZONTAL'
-		E.db.general.reputation.textSize = 8
-		E.db.general.reputation.height = 10
-		E.db.general.reputation.width = 412
 		E.private.general.namefont = 'Bui Prototype'
 		E.private.general.dmgfont = 'Bui Prototype'
 		E.db.datatexts.leftChatPanel = false
