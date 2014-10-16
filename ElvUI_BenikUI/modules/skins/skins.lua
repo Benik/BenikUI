@@ -5,7 +5,7 @@ local BUI = E:GetModule('BenikUI');
 local SPACING = (E.PixelMode and 1 or 5)
 
 local FreeBlizzFrames = {
-	AchievementAlertFrame1,
+	AchievementAlertFrame1, -- test
 	AddFriendFrame,
 	AddonList,
 	AudioOptionsFrame,
@@ -34,7 +34,7 @@ local FreeBlizzFrames = {
 	LootFrame,
 	MailFrame,
 	MerchantFrame,
-	--MinimapRightClickMenu,
+	MinimapRightClickMenu,
 	OpenMailFrame,
 	PaperDollFrame,
 	PetitionFrame, -- check
@@ -42,7 +42,6 @@ local FreeBlizzFrames = {
 	PetPaperDollFrame,
 	PetStableFrame,
 	QuestLogPopupDetailFrame,
-	--QuestLogFrame,
 	QueueStatusFrame,
 	RaidInfoFrame,
 	ReadyCheckFrame,
@@ -84,15 +83,15 @@ local BlizzUiFrames = {
 	{'Blizzard_ArchaeologyUI', 'ArchaeologyFrame', 'archaeology'},
 	{'Blizzard_AuctionUI', 'AuctionFrame', 'auctionhouse'},
 	{'Blizzard_BarbershopUI', 'BarberShopFrame', 'barber'},
-	{'Blizzard_BattlefieldMinimap', 'BattlefieldMinimap', 'bgmap'}, -- check
+	{'Blizzard_BattlefieldMinimap', 'BattlefieldMinimap', 'bgmap'},
 	{'Blizzard_BindingUI', 'KeyBindingFrame', 'binding'},
-	{'Blizzard_BlackMarketUI', 'BlackMarketFrame', 'bmah'}, -- check
+	{'Blizzard_BlackMarketUI', 'BlackMarketFrame', 'bmah'},
 	{'Blizzard_Calendar', 'CalendarFrame', 'calendar'},
 	{'Blizzard_Calendar', 'CalendarViewEventFrame', 'calendar'},
 	{'Blizzard_Calendar', 'CalendarViewHolidayFrame', 'calendar'},
 	{'Blizzard_GuildBankUI', 'GuildBankFrame', 'gbank'},
-	{'Blizzard_GuildUI', 'GuildFrame', 'guild'}, -- check
-	{'Blizzard_GuildControlUI', 'GuildControlUI', 'guildcontrol'}, -- check
+	{'Blizzard_GuildUI', 'GuildFrame', 'guild'},
+	{'Blizzard_GuildControlUI', 'GuildControlUI', 'guildcontrol'},
 	{'Blizzard_InspectUI', 'InspectFrame', 'inspect'},
 	{'Blizzard_ItemAlterationUI', 'TransmogrifyFrame', 'transmogrify'},
 	{'Blizzard_ItemUpgradeUI', 'ItemUpgradeFrame', 'itemUpgrade'},
@@ -100,7 +99,6 @@ local BlizzUiFrames = {
 	{'Blizzard_MacroUI', 'MacroFrame', 'macro'},
 	{'Blizzard_PetJournal', 'PetJournalParent', 'mounts'},
 	{'Blizzard_PVPUI', 'PVPUIFrame', 'pvp'},
-	{'Blizzard_ReforgingUI', 'ReforgingFrame', 'reforge'},
 	{'Blizzard_ItemSocketingUI', 'ItemSocketingFrame', 'socket'},
 	{'Blizzard_TalentUI', 'PlayerTalentFrame', 'talent'},
 	--{'Blizzard_TimeManager', 'TimeManagerFrame', 'timemanager'},
