@@ -182,6 +182,9 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		if not TimeManagerFrame.style then
 			TimeManagerFrame:Style('Outside')
 		end
+		if not StopwatchFrame.backdrop.style then
+			StopwatchFrame.backdrop:Style('Outside')
+		end
 	else return end
 
 	if addon == 'Blizzard_EncounterJournal' then
