@@ -2,7 +2,7 @@ ElvUI_BenikUI
 =============
 an external ElvUI edit
 
-- Requires ElvUI 6+. Please run the installer when prompted.
+- Requires ElvUI 7+. Please run the installer when prompted.
 
 - Suggestions, recommendations, things to add/remove ;) or to say thanks: http://www.tukui.org/addons/index.php?act=view&id=228
 
@@ -14,9 +14,11 @@ an external ElvUI edit
 
 >Adds a bar in player and target like TukUI does, that can be used to place hp/power text etc. Mouse over can show rep or xp.
 
->Enhanced Dashboard that shows ms, fps, memory, durability, volume. Volume can be adjusted by left/right click - mouseover the speaker icon.
+>System Dashboard that shows ms, fps, memory, durability, volume. Volume can be adjusted by left/right click - mouseover the speaker icon.
 
 >Tokens Dashboard based on AsphyxiaUI.
+
+>Professions Dashboard.
 
 >Detached portraits - player and target.
 
@@ -35,7 +37,7 @@ S&L and most of ElvUI plugins that I could test.
 >Elv, Tukz, Blazeflack, Azilroka, Sinaris, Repooc, Darth Predator, Dandruff, ElvUI community
 
 - Known Issues:
->Playing a male worgen character, will fail to detach player portrait.
+>none.
 
 I will appreciate any help on testing or solving issues.
 
