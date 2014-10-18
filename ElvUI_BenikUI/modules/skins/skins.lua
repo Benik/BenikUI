@@ -400,6 +400,9 @@ if IsAddOnLoaded('AddOnSkins') then
 	local function CliqueDecor()
 		if not E.db.buiaddonskins.clique then return end
 		CliqueConfig.backdrop:Style('Outside')
+		local tab = CliqueSpellTab
+		tab.backdrop:Style('Inside')
+		tab:GetNormalTexture():SetTexCoord(.08, 0.92, 0.08, 0.92)
 	end
 	
 	local function BenikUISkins(self, event, addon)

@@ -10,7 +10,6 @@ local LSM = LibStub('LibSharedMedia-3.0')
 
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.system == nil then E.db.dashboards.system = {} end
---if E.db.dashboards.dashfont == nil then E.db.dashboards.dashfont = {} end
 
 local DASH_HEIGHT = 7
 local DASH_WIDTH = E.db.dashboards.system.width or 150
