@@ -1,3 +1,11 @@
+[b]2.01[/b] (Okt 18, 2014)
+
+*Installer stuff
+*Stopwatch frame style
+*Add/remove Blizz/ElvUI frames from styling
+*Achievements frame styling fix
+*Style new Void Storage tabs
+
 [b]2.00[/b] (Okt 14, 2014)
 
 *Updated for WoD 6.02 and ElvUI 7.
