@@ -23,9 +23,17 @@ local function SetupBuiLayout()
 		E.db.general.valuecolor.g = 0.5
 		E.db.general.valuecolor.b = 0
 		E.db.general.experience.enable = false
-		E.db.general.experience.textFormat = 'CURPERC'
+		E.db.general.experience.textFormat = 'NONE'
+		E.db.general.experience.height = 147
+		E.db.general.experience.width = 10
+		E.db.general.experience.textSize = 9
+		E.db.general.reputation.orientation = 'VERTICAL'
 		E.db.general.reputation.enable = false
-		E.db.general.reputation.textFormat = 'CURPERC'
+		E.db.general.reputation.textFormat = 'NONE'
+		E.db.general.reputation.height = 147
+		E.db.general.reputation.width = 10
+		E.db.general.reputation.textSize = 9
+		E.db.general.reputation.orientation = 'VERTICAL'
 		E.private.general.namefont = 'Bui Prototype'
 		E.private.general.dmgfont = 'Bui Prototype'
 		E.db.datatexts.leftChatPanel = false
@@ -58,7 +66,8 @@ local function SetupBuiLayout()
 		E.db.movers.LocationLiteMover = 'TOPElvUIParentTOP0-2'
 		E.db.movers.MicrobarMover = 'TOPLEFTElvUIParentTOPLEFT158-5'
 		E.db.movers.MinimapMover = 'TOPRIGHTElvUIParentTOPRIGHT-4-5'
-		E.db.movers.ReputationBarMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-2175'
+		E.db.movers.ReputationBarMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-41523'
+		E.db.movers.ExperienceBarMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT41523'
 		E.db.movers.RightChatMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-222'
 		E.db.movers.VehicleSeatMover = 'TOPLEFTElvUIParentTOPLEFT155-81'
 		E.db.movers.WatchFrameMover = 'TOPRIGHTElvUIParentTOPRIGHT-122-292'
@@ -77,6 +86,7 @@ local function SetupBuiLayout()
 	E.db.locplus.trunc = true
 	E.db.locplus.lpauto = false
 	E.db.locplus.both = false
+	E.db.locplus.hidecoords = false
 	E.db.locplus.displayOther = 'NONE'
 	E.db.movers.LocationMover = 'TOPElvUIParentTOP0-7'
 
@@ -505,7 +515,7 @@ function E:SetupBuiDts(role)
 		E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'BuiMail'
 		if role == 'tank' then
 			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'Avoidance'
-			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Vengeance'
+			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Resolve'
 		elseif role == 'dpsMelee' then
 			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'Attack Power'
 			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Haste'
