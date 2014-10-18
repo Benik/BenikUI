@@ -20,12 +20,29 @@ P['bab'] = {
 
 -- XP/Rep
 P['xprep'] = {
+	['enable'] = true,
 	['show'] = 'REP',
-	['textStyle'] = 'UNIT',
-	['mouseOver'] = true,
-	['xp'] = { r = 0, g = 0.4, b = 1, a = .8 },
-	['rested'] = { r = 1, g = 0, b = 1, a = .2 },
-	['reputation'] = {r = 0, g = 1, b = 0, a = .8 },
+	['text'] = {
+		['tStyle'] = 'UNIT',
+		['tFormat'] = 'CURPERC',
+		['mouseOver'] = true,
+	},
+	['color'] = {
+		['experience'] = {
+			['default'] = true,
+			['xp'] = { r = 0, g = 0.4, b = 1, a = .8 },
+			['rested'] = { r = 1, g = 0, b = 1, a = .2 },
+			['applyInElvUI'] = false,
+		},
+		['reputation'] = {
+			['default'] = true,
+			['friendly'] = {r = 0, g = .6, b = .1, a = .8 },
+			['neutral'] = {r = .9, g = .7, b = 0, a = .8 },
+			['unfriendly'] = {r = .75, g = .27, b = 0, a = .8 },
+			['hated'] = {r = 1, g = 0, b = 0, a = .8 },
+			['applyInElvUI'] = false,
+		},
+	},
 }
 
 -- Dashboards

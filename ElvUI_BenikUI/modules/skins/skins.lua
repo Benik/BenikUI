@@ -48,6 +48,7 @@ local FreeBlizzFrames = {
 	ReadyCheckListenerFrame,
 	ReputationDetailFrame,
 	ReputationFrame,
+	SideDressUpFrame,
 	SpellBookFrame,
 	StackSplitFrame,
 	StaticPopup1,

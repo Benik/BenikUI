@@ -32,7 +32,7 @@ end
 
 local function xp_onEnter(self)
 	if InCombatLockdown() then return end
-	if E.db.xprep.mouseOver then
+	if E.db.xprep.text.mouseOver then
 		XpRepMouseOverText()
 	end
 	self:SetAlpha(0.8)
@@ -57,7 +57,7 @@ end
 
 local function rep_onEnter(self)
 	if InCombatLockdown() then return end
-	if E.db.xprep.mouseOver then
+	if E.db.xprep.text.mouseOver then
 		XpRepMouseOverText()
 	end
 	self:SetAlpha(0.6)
@@ -121,7 +121,7 @@ function BXR:UpdateExperience(event)
 		
 		local rested = GetXPExhaustion()
 		local text = ''
-		local textFormat = E.db.xprep.textFormat
+		local textFormat = E.db.xprep.text.tformat
 		
 		if rested and rested > 0 then
 			bar.rested:SetMinMaxValues(0, max)
@@ -168,7 +168,7 @@ function BXR:UpdateReputation(event)
 		bar:Show()
 
 		local text = ''
-		local textFormat = E.db.xprep.textFormat		
+		local textFormat = E.db.xprep.text.tFormat		
 
 		bar:SetMinMaxValues(min, max)
 		bar:SetValue(value)
@@ -238,9 +238,9 @@ function BXR:ChangeRepXpFont()
 		bar = self.xpbar
 	else return
 	end
-	if E.db.xprep.textStyle == 'DTS' then
+	if E.db.xprep.text.tStyle == 'DTS' then
 		bar.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-	elseif E.db.xprep.textStyle == 'UNIT' then
+	elseif E.db.xprep.text.tStyle == 'UNIT' then
 		bar.text:FontTemplate(LSM:Fetch('font', E.db.unitframe.font), E.db.unitframe.fontSize, E.db.unitframe.fontOutline)
 	else
 		bar.text:FontTemplate(nil, E.db.general.reputation.textSize)
@@ -287,26 +287,69 @@ function BXR:LoadBars()
 end
 
 function BXR:ChangeXPcolor()
-	if E.db.xprep.default then
+	local db = E.db.xprep.color.experience
+	local elvxpstatus = ElvUI_ExperienceBar.statusBar
+	local elvrestedstatus = ElvUI_ExperienceBar.rested
+	
+	if db.default then
 		self.xpbar:SetStatusBarColor(0, 0.4, 1, .8)
 		self.xpbar.rested:SetStatusBarColor(1, 0, 1, 0.2)
+		if db.applyInElvUI then
+			elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
+			elvrestedstatus:SetStatusBarColor(1, 0, 1, 0.2)
+		end
 	else
-		self.xpbar:SetStatusBarColor(unpackColor(E.db.xprep.xp))
-		self.xpbar.rested:SetStatusBarColor(unpackColor(E.db.xprep.rested))
+		self.xpbar:SetStatusBarColor(unpackColor(db.xp))
+		self.xpbar.rested:SetStatusBarColor(unpackColor(db.rested))
+		if db.applyInElvUI then
+			elvxpstatus:SetStatusBarColor(unpackColor(db.xp))
+			elvrestedstatus:SetStatusBarColor(unpackColor(db.rested))
+		else
+			elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
+			elvrestedstatus:SetStatusBarColor(1, 0, 1, 0.2)		
+		end
 	end
 end
 
 function BXR:ChangeRepColor()
-	if E.db.xprep.default then
-		local _, reaction = GetWatchedFactionInfo()
-		local color = FACTION_BAR_COLORS[reaction] or backupColor
+	local db = E.db.xprep.color.reputation
+	local _, reaction = GetWatchedFactionInfo()
+	local color = FACTION_BAR_COLORS[reaction] or backupColor
+	local elvstatus = ElvUI_ReputationBar.statusBar
+	
+	if db.default then
 		self.repbar:SetStatusBarColor(color.r, color.g, color.b)
-	else
-		self.repbar:SetStatusBarColor(unpackColor(E.db.xprep.reputation))
+		if db.applyInElvUI then
+			elvstatus:SetStatusBarColor(color.r, color.g, color.b)
+		end
+	else 
+		if reaction >= 5 then
+			self.repbar:SetStatusBarColor(unpackColor(db.friendly))
+			if db.applyInElvUI then
+				elvstatus:SetStatusBarColor(unpackColor(db.friendly))
+			end
+		elseif reaction == 4 then
+			self.repbar:SetStatusBarColor(unpackColor(db.neutral))
+			if db.applyInElvUI then
+				elvstatus:SetStatusBarColor(unpackColor(db.neutral))
+			end
+		elseif reaction == 3 then
+			self.repbar:SetStatusBarColor(unpackColor(db.unfriendly))
+			if db.applyInElvUI then
+				elvstatus:SetStatusBarColor(unpackColor(db.unfriendly))
+			end
+		elseif reaction < 3 then
+			self.repbar:SetStatusBarColor(unpackColor(db.hated))
+			if db.applyInElvUI then
+				elvstatus:SetStatusBarColor(unpackColor(db.hated))
+			end
+		end
+		if not db.applyInElvUI then elvstatus:SetStatusBarColor(color.r, color.g, color.b) end
 	end
 end
 
 function BXR:Initialize()
+	if E.db.ufb.barshow ~= true or E.db.xprep.enable ~= true then return end
 	self:LoadBars()
 end
 

@@ -22,7 +22,7 @@ end
 
 function BUI:RegisterBuiMedia()
 	--Fonts
-	E['media'].buiFont = LSM:Fetch('font', 'BUI Prototype')
+	E['media'].buiFont = LSM:Fetch('font', 'Bui Prototype')
 	E['media'].buiVisitor = LSM:Fetch('font', 'Bui Visitor1')
 	E['media'].buiVisitor2 = LSM:Fetch('font', 'Bui Visitor2')
 	E['media'].buiTuk = LSM:Fetch('font', 'Bui Tukui')
