@@ -13,7 +13,6 @@ if E.db.dashboards.system == nil then E.db.dashboards.system = {} end
 
 local DASH_HEIGHT = 20
 local DASH_WIDTH = E.db.dashboards.system.width or 150
-local DASH_NUM = 5
 local DASH_SPACING = 3
 local SPACING = (E.PixelMode and 1 or 5)
 
@@ -31,7 +30,7 @@ function BUID:CreateSystemHolder()
 	sholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
 	sholder:SetFrameStrata('LOW')
 	sholder:Width(DASH_WIDTH)
-	sholder:Height(((DASH_HEIGHT+10)*DASH_NUM)+(DASH_SPACING*DASH_NUM) + DASH_SPACING)
+	sholder:Height(DASH_HEIGHT)
 	sholder.backdrop:Style('Outside')
 	
 	if E.db.dashboards.system.combat then

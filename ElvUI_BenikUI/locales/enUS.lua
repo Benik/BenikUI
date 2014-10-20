@@ -86,6 +86,7 @@ L['RightClick :'] = true
 L['MouseWheel :'] = true
 L['Tip: Grayed tokens are not yet discovered'] = true
 L['Select Professions'] = true
+L['Select System Board'] = true
 
 -- DataTexts
 L['|cff00ff00New Mail|r'] = true
