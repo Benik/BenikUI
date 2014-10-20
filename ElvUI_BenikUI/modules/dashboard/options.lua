@@ -67,6 +67,22 @@ local currencyTables = {
 	{archyTokens, 'aTokens'},
 }
 
+local boards = {"FPS", "MS", "Memory", "Durability", "Volume"}
+
+local function UpdateSystemOptions()
+	for _, boardname in pairs(boards) do
+		local optionOrder = 1
+		E.Options.args.bui.args.config.args.dashboards.args.system.args.chooseSystem.args[boardname] = {
+			order = optionOrder + 1,
+			type = 'toggle',
+			name = boardname,
+			desc = L['Enable/Disable ']..boardname,
+			get = function(info) return E.db.dashboards.system.chooseSystem[boardname] end,
+			set = function(info, value) E.db.dashboards.system.chooseSystem[boardname] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+		}
+	end
+end
+
 -- these options must be updated when the player discovers a new token.
 local function UpdateTokenOptions()
 	for i, v in ipairs(currencyTables) do
@@ -155,6 +171,7 @@ local function dashboardsTable()
 						order = 1,
 						type = 'toggle',
 						name = ENABLE,
+						width = 'full',
 						desc = L['Enable the System Dashboard.'],
 						get = function(info) return E.db.dashboards.system.enableSystem end,
 						set = function(info, value) E.db.dashboards.system.enableSystem = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
@@ -176,7 +193,16 @@ local function dashboardsTable()
 						min = 120, max = 220, step = 1,
 						disabled = function() return not E.db.dashboards.system.enableSystem end,
 						get = function(info) return E.db.dashboards.system.width end,
-						set = function(info, value) E.db.dashboards.system.width = value; BUID:HolderWidth() end,	
+						set = function(info, value) E.db.dashboards.system.width = value; BUID:UpdateSysHolderDimensions() end,	
+					},
+					chooseSystem = {
+						order = 4,
+						type = 'group',
+						guiInline = true,
+						name = L['Select System Board'],
+						disabled = function() return not E.db.dashboards.system.enableSystem end,
+						args = {
+						},
 					},
 				},
 			},
@@ -390,6 +416,7 @@ local function dashboardsTable()
 end
 
 table.insert(E.BuiConfig, dashboardsTable)
+table.insert(E.BuiConfig, UpdateSystemOptions)
 table.insert(E.BuiConfig, UpdateTokenOptions)
 table.insert(E.BuiConfig, UpdateProfessionOptions)
 

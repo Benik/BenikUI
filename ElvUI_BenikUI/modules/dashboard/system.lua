@@ -11,27 +11,31 @@ local LSM = LibStub('LibSharedMedia-3.0')
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.system == nil then E.db.dashboards.system = {} end
 
-local DASH_HEIGHT = 7
+local DASH_HEIGHT = 20
 local DASH_WIDTH = E.db.dashboards.system.width or 150
 local DASH_NUM = 5
 local DASH_SPACING = 3
 local SPACING = (E.PixelMode and 1 or 5)
 
+local boards = {"FPS", "MS", "Memory", "Durability", "Volume"}
+local loadedBoards = {}
+
 local function dholderOnFade()
-	BuiDashboard:Hide()
+	sysHolder:Hide()
 end
 
 -- Bar Holder
-function BUID:CreateDashboardHolder()
-	local dholder = CreateFrame('Frame', 'BuiDashboard', E.UIParent)
-	dholder:CreateBackdrop('Transparent')
-	dholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
-	dholder:SetFrameStrata('LOW')
-	dholder:Size(DASH_WIDTH, ((DASH_HEIGHT+10)*DASH_NUM)+(DASH_SPACING*DASH_NUM) + DASH_SPACING)
-	dholder.backdrop:Style('Outside')
+function BUID:CreateSystemHolder()
+	local sholder = CreateFrame('Frame', 'sysHolder', E.UIParent)
+	sholder:CreateBackdrop('Transparent')
+	sholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
+	sholder:SetFrameStrata('LOW')
+	sholder:Width(DASH_WIDTH)
+	sholder:Height(((DASH_HEIGHT+10)*DASH_NUM)+(DASH_SPACING*DASH_NUM) + DASH_SPACING)
+	sholder.backdrop:Style('Outside')
 	
 	if E.db.dashboards.system.combat then
-		dholder:SetScript('OnEvent',function(self, event)
+		sholder:SetScript('OnEvent',function(self, event)
 			if event == 'PLAYER_REGEN_DISABLED' then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 				self.fadeInfo.finishedFunc = dholderOnFade
@@ -42,97 +46,117 @@ function BUID:CreateDashboardHolder()
 		end)
 	end
 
-	E.FrameLocks['BuiDashboard'] = true;
-	E:CreateMover(BuiDashboard, 'BuiDashboardMover', L['System'])
+	E.FrameLocks['sysHolder'] = true;
+	E:CreateMover(sysHolder, 'BuiDashboardMover', L['System'])
 	self:EnableDisableCombat()
+	self:UpdateBoards()
 end
 
 function BUID:EnableDisableCombat()
 	if E.db.dashboards.system.combat then
-		BuiDashboard:RegisterEvent('PLAYER_REGEN_DISABLED')
-		BuiDashboard:RegisterEvent('PLAYER_REGEN_ENABLED')	
+		sysHolder:RegisterEvent('PLAYER_REGEN_DISABLED')
+		sysHolder:RegisterEvent('PLAYER_REGEN_ENABLED')	
 	else
-		BuiDashboard:UnregisterEvent('PLAYER_REGEN_DISABLED')
-		BuiDashboard:UnregisterEvent('PLAYER_REGEN_ENABLED')	
+		sysHolder:UnregisterEvent('PLAYER_REGEN_DISABLED')
+		sysHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')	
 	end
 end
 
-BUID.board = {}
-function BUID:HolderWidth()
-	local DASH_WIDTH = E.db.dashboards.system.width
-	BuiDashboard:Width(DASH_WIDTH)
-	for i = 1, DASH_NUM do
-		BUID.board[i]:Width(DASH_WIDTH - 6)
-		BUID.board[i].dummyf:Width(DASH_WIDTH - 6)
+function BUID:UpdateSysHolderDimensions()
+	sysHolder:Width(E.db.dashboards.system.width)
+
+	for _, frame in pairs(loadedBoards) do
+		frame:Width(E.db.dashboards.system.width)
 	end
 end
 
-function BUID:CreateBoards()
-	for i = 1, DASH_NUM do
-		BUID.board[i] = CreateFrame('Frame', nil, BuiDashboard)
-		BUID.board[i]:Width(DASH_WIDTH - 6)
-		BUID.board[i]:Height(3)
-		
-		if i == 1 then
-			BUID.board[i]:Point('TOP', BuiDashboard, 'TOP', 0, -DASH_HEIGHT-(DASH_SPACING*3))
-		else
-			BUID.board[i]:Point('TOP', BUID.board[i-1], 'BOTTOM', 0, -(DASH_HEIGHT*2)-DASH_SPACING)
+function BUID:UpdateBoards()
+	local db = E.db.dashboards.system
+	if( loadedBoards[1] ) then
+		for i = 1, getn( loadedBoards ) do
+			loadedBoards[i]:Kill()
 		end
-		
-		BUID.board[i].dummyf = CreateFrame('Frame', nil, BuiDashboard)
-		BUID.board[i].dummyf:Width(DASH_WIDTH - 6)
-		BUID.board[i].dummyf:Height(20)
-		
-		if i == 1 then
-			BUID.board[i].dummyf:Point('TOP', BuiDashboard, 'TOP')
-		else
-			BUID.board[i].dummyf:Point('TOP', BUID.board[i-1].dummyf, 'BOTTOM')
-		end
-		
-		BUID.board[i].dummy = BUID.board[i]:CreateTexture(nil, 'OVERLAY')
-		BUID.board[i].dummy:SetInside()
-		BUID.board[i].dummy:SetTexture(E['media'].BuiFlat)
-		BUID.board[i].dummy:SetVertexColor(1, 1, 1, .2)
-		
-		BUID.board[i].Status = CreateFrame('StatusBar', nil, BUID.board[i])
-		BUID.board[i].Status:SetInside()
-		BUID.board[i].Status:SetStatusBarTexture(E['media'].BuiFlat)
-		BUID.board[i].Status:SetMinMaxValues(0, 100)
-		BUID.board[i].Status:SetStatusBarColor(1, 0.5, 0.1, 1)
-		
-		BUID.board[i].spark = BUID.board[i].Status:CreateTexture(nil, 'OVERLAY', nil);
-		BUID.board[i].spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-		BUID.board[i].spark:Size(12, 6);
-		BUID.board[i].spark:SetBlendMode('ADD');
-		BUID.board[i].spark:Point('CENTER', BUID.board[i].Status:GetStatusBarTexture(), 'RIGHT')	
-		
-		BUID.board[i].Text = BUID.board[i].Status:CreateFontString(nil, 'OVERLAY')
-		BUID.board[i].Text:Point('BOTTOMLEFT', BUID.board[i], 'BOTTOMLEFT', 2, 4)
-		BUID.board[i].Text:SetJustifyH('LEFT')
+		wipe( loadedBoards )
+		sysHolder.backdrop:Hide()
 	end
-	self:ChangeFont()
+
+	for _, name in pairs(boards) do
+		if db.chooseSystem[name] == true then
+			sysHolder.backdrop:Show()
+			sysHolder:Height(((DASH_HEIGHT + SPACING) * (#loadedBoards + 1)) + SPACING)
+
+			local sysFrame = CreateFrame('Frame', name, sysHolder)
+			sysFrame:Height(DASH_HEIGHT)
+			sysFrame:Width(DASH_WIDTH)
+			sysFrame:Point('TOPLEFT', sysHolder, 'TOPLEFT', SPACING, -SPACING)
+			sysFrame:EnableMouse(true)
+			
+			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
+			sysFrame.dummy:Point('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 2)
+			sysFrame.dummy:Point('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', -4, 0)
+			sysFrame.dummy:Height(3)
+
+			sysFrame.dummy.dummyStatus = sysFrame.dummy:CreateTexture(nil, 'OVERLAY')
+			sysFrame.dummy.dummyStatus:SetInside()
+			sysFrame.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
+			sysFrame.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
+			
+			sysFrame.Status = CreateFrame('StatusBar', nil, sysFrame.dummy)
+			sysFrame.Status:SetStatusBarTexture(E['media'].BuiFlat)
+			sysFrame.Status:SetMinMaxValues(0, 100)
+			sysFrame.Status:SetStatusBarColor(1, 0.5, 0.1, 1)
+			sysFrame.Status:SetInside()
+			
+			sysFrame.spark = sysFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
+			sysFrame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
+			sysFrame.spark:SetSize(12, 6);
+			sysFrame.spark:SetBlendMode('ADD');
+			sysFrame.spark:SetPoint('CENTER', sysFrame.Status:GetStatusBarTexture(), 'RIGHT')			
+			
+			sysFrame.Text = sysFrame.Status:CreateFontString(nil, 'OVERLAY')
+			sysFrame.Text:Point('LEFT', sysFrame, 'LEFT', 6, 2)
+			sysFrame.Text:SetJustifyH('LEFT')
+
+			tinsert(loadedBoards, sysFrame)
+		end
+	end
+
+	for key, frame in ipairs(loadedBoards) do
+		frame:ClearAllPoints()
+		if(key == 1) then
+			frame:Point( 'TOPLEFT', sysHolder, 'TOPLEFT', 0, -SPACING)
+		else
+			frame:Point('TOP', loadedBoards[key - 1], 'BOTTOM', 0, -SPACING)
+		end
+	end
+
 end
 
 function BUID:ChangeFont()
-	for i = 1, DASH_NUM do
+	for _, frame in pairs(loadedBoards) do
 		if E.db.dashboards.dashfont.useDTfont then
-			BUID.board[i].Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+			frame.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
-			BUID.board[i].Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
+			frame.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
 		end
 	end
 end
 
 function BUID:Initialize()
+	
 	if E.db.dashboards.system.enableSystem ~= true then return end
-	self:CreateDashboardHolder()
-	self:CreateBoards()
-	self:HolderWidth()
-	self:CreateFps()
-	self:CreateMs()
-	self:CreateMemory()
-	self:CreateDurability()
-	self:CreateVolume()
+	local db = E.db.dashboards.system.chooseSystem
+
+	if (db.FPS ~= true and db.MS ~= true and db.Memory ~= true and db.Durability ~= true and db.Volume ~= true) then return end	
+
+	self:CreateSystemHolder()
+	self:ChangeFont()
+	
+	if db.FPS then self:CreateFps() end
+	if db.MS then self:CreateMs() end
+	if db.Memory then self:CreateMemory() end
+	if db.Durability then self:CreateDurability() end
+	if db.Volume then self:CreateVolume() end
 end
 
 E:RegisterModule(BUID:GetName())

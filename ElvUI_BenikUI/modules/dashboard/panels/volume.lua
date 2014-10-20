@@ -10,7 +10,7 @@ local function GetVolumePercent(cat)
     return volume;
 end
 
-local function dummy_OnEnter(self)
+local function iconBG_OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, -20)
 	GameTooltip:ClearAllPoints()
 	
@@ -35,7 +35,7 @@ local function dummy_OnEnter(self)
 	GameTooltip:Show()
 end
 
-local function dummy_OnLeave(self)
+local function iconBG_OnLeave(self)
 	GameTooltip:Hide()
 end
 
@@ -57,7 +57,7 @@ local function Sound_MasterVolumeDown()
 	end
 end
 
-local function dummy_OnMouseWheel(self, d)
+local function iconBG_OnMouseWheel(self, d)
 	if (d > 0) then
 		Sound_MasterVolumeUp()
 	else
@@ -66,9 +66,8 @@ local function dummy_OnMouseWheel(self, d)
 end
 
 -- Toggle all sounds
-function dummy_OnClick(self, btn)
+function iconBG_OnClick(self, btn)
 	if btn == 'LeftButton' then
-		--Sound_ToggleMusic()
 		Sound_ToggleSound()
 	end
 	
@@ -89,50 +88,50 @@ local SOUND_MEDIUM_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\
 local SOUND_MAX_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\\sound-max.blp:14:14|t')
 
 function BUID:CreateVolume()
-	local id = 5
+	local boardName = Volume
 	
-	local dummy = CreateFrame('Frame', 'Voldummy', BuiDashboard)
-	dummy:Size(16,16)
-	dummy:Point('BOTTOMRIGHT', BUID.board[id], 'BOTTOMRIGHT', 2, 0)
-	dummy:SetFrameStrata('LOW')
-	dummy.text = dummy:CreateFontString(nil, 'OVERLAY')
-	dummy.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-	dummy.text:Point('RIGHT', dummy, 'RIGHT')
-	dummy.text:SetJustifyH('LEFT')
-	dummy.text:SetTextColor(1, 0.5, 0.1)
-	dummy.text:SetShadowColor(0, 0, 0)
-	dummy.text:SetShadowOffset(1.25, -1.25)
-	dummy:EnableMouse(true)
-	dummy:EnableMouseWheel(true)
-	dummy:SetScript('OnEnter', dummy_OnEnter)
-	dummy:SetScript('OnLeave', dummy_OnLeave)
-	dummy:SetScript('OnMouseWheel', dummy_OnMouseWheel)
-	dummy:SetScript('OnMouseUp', dummy_OnClick)
+	local iconBG = CreateFrame('Frame', nil, boardName)
+	iconBG:Size(16,16)
+	iconBG:Point('BOTTOMRIGHT', boardName, 'BOTTOMRIGHT', 0, 4)
+	iconBG:SetFrameStrata('LOW')
+	iconBG.text = iconBG:CreateFontString(nil, 'OVERLAY')
+	iconBG.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+	iconBG.text:Point('RIGHT', iconBG, 'RIGHT')
+	iconBG.text:SetJustifyH('LEFT')
+	iconBG.text:SetTextColor(1, 0.5, 0.1)
+	iconBG.text:SetShadowColor(0, 0, 0)
+	iconBG.text:SetShadowOffset(1.25, -1.25)
+	iconBG:EnableMouse(true)
+	iconBG:EnableMouseWheel(true)
+	iconBG:SetScript('OnEnter', iconBG_OnEnter)
+	iconBG:SetScript('OnLeave', iconBG_OnLeave)
+	iconBG:SetScript('OnMouseWheel', iconBG_OnMouseWheel)
+	iconBG:SetScript('OnMouseUp', iconBG_OnClick)
 
-	BUID.board[id].Status:SetScript('OnUpdate', function(self)
+	boardName.Status:SetScript('OnUpdate', function(self)
 		local volGet = GetCVar('Sound_MasterVolume')
-		local volume = tonumber(E:Round(100 * volGet, 0))
+		local volumeValue = tonumber(E:Round(100 * volGet, 0))
 
 		local max = 100
 		local color = 3
 		local icon
 		
-		self:SetValue(volume)
+		self:SetValue(volumeValue)
 
 		if (GetCVar('Sound_EnableSFX') == '0') then
 			color = 1
-			dummy:SetAlpha(1)
+			iconBG:SetAlpha(1)
 			icon = SOUND_MUTE_ICON
 		else
-			if(volume * 100 / max >= 75) then
+			if(volumeValue * 100 / max >= 75) then
 				self:SetStatusBarColor(30 / 255, 1, 30 / 255, .8)
 				color = 3
 				icon = SOUND_MAX_ICON
-			elseif volume * 100 / max < 75 and volume * 100 / max > 30 then
+			elseif volumeValue * 100 / max < 75 and volumeValue * 100 / max > 30 then
 				self:SetStatusBarColor(1, 180 / 255, 0, .8)
 				color = 2
 				icon = SOUND_MEDIUM_ICON
-			elseif volume == 0 then
+			elseif volumeValue == 0 then
 				icon = SOUND_MUTE_ICON
 				color = 1
 			else
@@ -142,12 +141,12 @@ function BUID:CreateVolume()
 			end
 		end
 		
-		dummy.text:SetText(icon)
+		iconBG.text:SetText(icon)
 		local displayFormat = string.join('', VOLUME..':', statusColors[color], ' %d%%|r')
-		BUID.board[id].Text:SetFormattedText(displayFormat, volume)
+		boardName.Text:SetFormattedText(displayFormat, volumeValue)
 	end)
-	BUID.board[id].Status:RegisterEvent('VARIABLES_LOADED')
-	BUID.board[id].Status:RegisterEvent('CVAR_UPDATE')
+	boardName.Status:RegisterEvent('VARIABLES_LOADED')
+	boardName.Status:RegisterEvent('CVAR_UPDATE')
 end
 
 

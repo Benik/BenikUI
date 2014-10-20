@@ -71,7 +71,7 @@ function BUIT:CreateTokensHolder()
 		tholder:CreateBackdrop('Transparent')
 		tholder:Width(DASH_WIDTH)
 		if E.db.dashboards.system.enableSystem then
-			tholder:Point('TOPLEFT', BuiDashboard, 'BOTTOMLEFT', 0, -10)
+			tholder:Point('TOPLEFT', sysHolder, 'BOTTOMLEFT', 0, -10)
 		else
 			tholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
 		end

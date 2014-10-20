@@ -2,6 +2,7 @@ local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Profi
 local BUID = E:GetModule('BuiDashboard')
 
 local LastUpdate = 1
+local format = string.format
 
 local statusColors = {
 	'|cff0CD809',
@@ -10,11 +11,14 @@ local statusColors = {
 	'|cffD80909'
 }
 
-function BUID:CreateMs()
-	local id = 2
-	BUID.board[id].Status:SetScript('OnUpdate', function(self, elapsed)
-		LastUpdate = LastUpdate - elapsed
+local homeLatencyString = "%d ms"
+local worldLatencyString = "%d ms"
 
+function BUID:CreateMs()
+	local boardName = MS
+	boardName.Status:SetScript('OnUpdate', function(self, elapsed)
+		LastUpdate = LastUpdate - elapsed
+		
 		if(LastUpdate < 0) then
 			self:SetMinMaxValues(0, 200)
 			local value = (select(4, GetNetStats()))
@@ -33,7 +37,7 @@ function BUID:CreateMs()
 				mscolor = 3
 			end
 			local displayFormat = string.join('', 'MS: ', statusColors[mscolor], '%d|r')
-			BUID.board[id].Text:SetFormattedText(displayFormat, value)
+			boardName.Text:SetFormattedText(displayFormat, value)
 			LastUpdate = 1
 		end
 	end)

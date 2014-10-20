@@ -51,6 +51,13 @@ P['dashboards'] = {
 		['enableSystem'] = true,
 		['combat'] = false,
 		['width'] = 150,
+		['chooseSystem'] = {
+			['FPS'] = true,
+			['MS'] = true,
+			['Memory'] = true,
+			['Durability'] = true,
+			['Volume'] = true,
+		},
 	},
 	
 	['tokens'] = {
