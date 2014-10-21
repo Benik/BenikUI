@@ -247,6 +247,59 @@ function BXR:ChangeRepXpFont()
 	end
 end
 
+-- Style ElvUI default XP/Rep bars
+local SPACING = (E.PixelMode and 1 or 5)
+
+local function StyleXpRepBars()
+	local xp = ElvUI_ExperienceBar
+	-- top decor
+	xp.ft = CreateFrame('Frame', nil, xp)
+	xp.ft:SetTemplate('Default', true)
+	xp.ft:Point('TOPLEFT', xp, 'TOPLEFT', 0, 4)
+	xp.ft:Point('BOTTOMRIGHT', xp, 'TOPRIGHT')
+	-- bottom decor
+	xp.fb = CreateFrame('Frame', nil, xp)
+	xp.fb:SetTemplate('Default', true)
+	xp.fb:Point('TOPLEFT', xp, 'BOTTOMLEFT', 0, -SPACING)
+	xp.fb:Point('BOTTOMRIGHT', xp, 'BOTTOMRIGHT', 0, -20)
+	
+	local rp = ElvUI_ReputationBar
+	-- top decor
+	rp.ft = CreateFrame('Frame', nil, rp)
+	rp.ft:SetTemplate('Default', true)
+	rp.ft:Point('TOPLEFT', rp, 'TOPLEFT', 0, 4)
+	rp.ft:Point('BOTTOMRIGHT', rp, 'TOPRIGHT')
+	-- bottom decor		
+	rp.fb = CreateFrame('Frame', nil, rp)
+	rp.fb:SetTemplate('Default', true)
+	rp.fb:Point('TOPLEFT', rp, 'BOTTOMLEFT', 0, -SPACING)
+	rp.fb:Point('BOTTOMRIGHT', rp, 'BOTTOMRIGHT', 0, -20)
+end
+
+function BXR:ApplyXpRepStyling()
+	local xp = ElvUI_ExperienceBar
+	if E.db.general.experience.enable == true then
+		if E.db.general.experience.orientation == 'VERTICAL' then
+			xp.ft:Show()
+			xp.fb:Show()
+		else
+			xp.ft:Hide()
+			xp.fb:Hide()
+		end
+	end	
+	
+	local rp = ElvUI_ReputationBar
+	if E.db.general.reputation.enable == true then
+		if E.db.general.reputation.orientation == 'VERTICAL' then
+			rp.ft:Show()
+			rp.fb:Show()
+		else
+			rp.ft:Hide()
+			rp.fb:Hide()
+		end
+	end
+end
+
 -- Custom color
 local color = { r = 1, g = 1, b = 1, a = 1 }
 local function unpackColor(color)
@@ -351,6 +404,9 @@ end
 function BXR:Initialize()
 	if E.db.ufb.barshow ~= true or E.db.xprep.enable ~= true then return end
 	self:LoadBars()
+	StyleXpRepBars()
+	self:ApplyXpRepStyling()
+	hooksecurefunc(M, 'UpdateExpRepDimensions', BXR.ApplyXpRepStyling)
 end
 
 E:RegisterModule(BXR:GetName())
