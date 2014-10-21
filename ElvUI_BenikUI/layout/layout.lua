@@ -118,6 +118,7 @@ end
 local function BuiGameMenu_OnMouseUp()
 	GameTooltip:Hide()
 	BUI:Dropmenu(menuList, menuFrame, BuiButton_2, 'tLeft', -SPACING, SPACING)
+	PlaySound("igMainMenuOptionCheckBoxOff");
 end
 
 local function tholderOnFade()
@@ -125,7 +126,7 @@ local function tholderOnFade()
 end
 
 local function DashboardOnFade()
-	BuiDashboard:Hide()
+	sysHolder:Hide()
 end
 
 local function ChatButton_OnClick(self)
@@ -139,6 +140,7 @@ local function ChatButton_OnClick(self)
 		UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
 		self.parent.fadeInfo.finishedFunc = self.parent.fadeFunc
 	end
+	PlaySound("igMainMenuOptionCheckBoxOff");
 end
 
 local bbuttons = {}
@@ -266,6 +268,7 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:SetScript('OnClick', function(self, btn)
 				if btn == 'LeftButton' then
 					E:ToggleConfig()
+					PlaySound("igMainMenuOptionCheckBoxOff");
 				else
 					--E:BGStats() --will enable when (and if) I could adopt the bg dataTexts
 				end
@@ -335,6 +338,7 @@ function BUIL:ChangeLayout()
 							UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
 							tokenHolder:Show()
 						end
+						PlaySound("igMainMenuOptionCheckBoxOff");
 					end)
 				end
 				GameTooltip:SetOwner(bbuttons[i], 'ANCHOR_TOP', 64, 2 )
@@ -358,14 +362,15 @@ function BUIL:ChangeLayout()
 			bbuttons[i].text:SetText('D')
 			
 			bbuttons[i]:SetScript('OnClick', function(self)
-				if not BuiDashboard then return end
-				if BuiDashboard:IsVisible() then
-					UIFrameFadeOut(BuiDashboard, 0.2, BuiDashboard:GetAlpha(), 0)
-					BuiDashboard.fadeInfo.finishedFunc = DashboardOnFade
+				if not sysHolder then return end
+				if sysHolder:IsVisible() then
+					UIFrameFadeOut(sysHolder, 0.2, sysHolder:GetAlpha(), 0)
+					sysHolder.fadeInfo.finishedFunc = DashboardOnFade
 				else
-					UIFrameFadeIn(BuiDashboard, 0.2, BuiDashboard:GetAlpha(), 1)
-					BuiDashboard:Show()
+					UIFrameFadeIn(sysHolder, 0.2, sysHolder:GetAlpha(), 1)
+					sysHolder:Show()
 				end
+				PlaySound("igMainMenuOptionCheckBoxOff");
 			end)
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
