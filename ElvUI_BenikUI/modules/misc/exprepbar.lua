@@ -251,29 +251,72 @@ end
 local SPACING = (E.PixelMode and 1 or 5)
 
 local function StyleXpRepBars()
+	-- Xp Bar
 	local xp = ElvUI_ExperienceBar
 	-- top decor
 	xp.ft = CreateFrame('Frame', nil, xp)
 	xp.ft:SetTemplate('Default', true)
 	xp.ft:Point('TOPLEFT', xp, 'TOPLEFT', 0, 4)
 	xp.ft:Point('BOTTOMRIGHT', xp, 'TOPRIGHT')
-	-- bottom decor
-	xp.fb = CreateFrame('Frame', nil, xp)
+	
+	-- bottom decor/button
+	xp.fb = CreateFrame('Button', nil, xp)
 	xp.fb:SetTemplate('Default', true)
+	xp.fb:CreateSoftGlow()
+	xp.fb.sglow:Hide()
 	xp.fb:Point('TOPLEFT', xp, 'BOTTOMLEFT', 0, -SPACING)
 	xp.fb:Point('BOTTOMRIGHT', xp, 'BOTTOMRIGHT', 0, -20)
+	xp.fb:SetScript('OnEnter', function(self)
+		self.sglow:Show()
+		GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(SPELLBOOK_ABILITIES_BUTTON, selectioncolor)
+		GameTooltip:Show()
+		if InCombatLockdown() then GameTooltip:Hide() end
+	end)
 	
+	xp.fb:SetScript('OnLeave', function(self)
+		self.sglow:Hide()
+		GameTooltip:Hide()
+	end)
+	
+	xp.fb:SetScript('OnClick', function(self)
+		if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end
+	end)
+	
+	-- Rep bar
 	local rp = ElvUI_ReputationBar
 	-- top decor
 	rp.ft = CreateFrame('Frame', nil, rp)
 	rp.ft:SetTemplate('Default', true)
 	rp.ft:Point('TOPLEFT', rp, 'TOPLEFT', 0, 4)
 	rp.ft:Point('BOTTOMRIGHT', rp, 'TOPRIGHT')
-	-- bottom decor		
-	rp.fb = CreateFrame('Frame', nil, rp)
+	
+	-- bottom decor/button	
+	rp.fb = CreateFrame('Button', nil, rp)
 	rp.fb:SetTemplate('Default', true)
+	rp.fb:CreateSoftGlow()
+	rp.fb.sglow:Hide()
 	rp.fb:Point('TOPLEFT', rp, 'BOTTOMLEFT', 0, -SPACING)
 	rp.fb:Point('BOTTOMRIGHT', rp, 'BOTTOMRIGHT', 0, -20)
+
+	rp.fb:SetScript('OnEnter', function(self)
+		self.sglow:Show()
+		GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(BINDING_NAME_TOGGLECHARACTER2, selectioncolor)
+		GameTooltip:Show()
+		if InCombatLockdown() then GameTooltip:Hide() end
+	end)
+	
+	rp.fb:SetScript('OnLeave', function(self)
+		self.sglow:Hide()
+		GameTooltip:Hide()
+	end)
+	
+	rp.fb:SetScript('OnClick', function(self)
+		ToggleCharacter("ReputationFrame")
+	end)
 end
 
 function BXR:ApplyXpRepStyling()
