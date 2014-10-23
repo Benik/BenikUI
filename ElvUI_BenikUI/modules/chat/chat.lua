@@ -29,3 +29,4 @@ function CH:UpdateAnchors()
 
 	CH:PositionChat(true)
 end
+

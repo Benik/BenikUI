@@ -250,9 +250,34 @@ end
 -- Style ElvUI default XP/Rep bars
 local SPACING = (E.PixelMode and 1 or 5)
 
+local function xp_OnFade(self)
+	ElvUI_ExperienceBar:Hide()
+end
+
+local function rep_OnFade(self)
+	ElvUI_ReputationBar:Hide()
+end
+
+local function XpRepButton_OnShow(self)
+	GameTooltip:Hide()
+	
+	if E.db[self.parent:GetName()..'Faded'] then
+		E.db[self.parent:GetName()..'Faded'] = nil
+		UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
+		UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	else
+		E.db[self.parent:GetName()..'Faded'] = true
+		UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
+		UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+		self.parent.fadeInfo.finishedFunc = self.parent.fadeFunc
+	end
+end
+
 local function StyleXpRepBars()
 	-- Xp Bar
 	local xp = ElvUI_ExperienceBar
+	xp:SetParent(LeftChatPanel)
+	xp.fadeFunc = xp_OnFade
 	-- top decor
 	xp.ft = CreateFrame('Frame', nil, xp)
 	xp.ft:SetTemplate('Default', true)
@@ -286,6 +311,8 @@ local function StyleXpRepBars()
 	
 	-- Rep bar
 	local rp = ElvUI_ReputationBar
+	rp:SetParent(RightChatPanel)
+	rp.fadeFunc = rp_OnFade
 	-- top decor
 	rp.ft = CreateFrame('Frame', nil, rp)
 	rp.ft:SetTemplate('Default', true)

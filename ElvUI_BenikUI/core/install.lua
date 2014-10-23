@@ -25,13 +25,13 @@ local function SetupBuiLayout()
 		E.db.general.experience.enable = false
 		E.db.general.experience.textFormat = 'NONE'
 		E.db.general.experience.height = 147
-		E.db.general.experience.width = 10
+		E.db.general.experience.width = 8
 		E.db.general.experience.textSize = 9
 		E.db.general.reputation.orientation = 'VERTICAL'
 		E.db.general.reputation.enable = false
 		E.db.general.reputation.textFormat = 'NONE'
 		E.db.general.reputation.height = 147
-		E.db.general.reputation.width = 10
+		E.db.general.reputation.width = 8
 		E.db.general.reputation.textSize = 9
 		E.db.general.reputation.orientation = 'VERTICAL'
 		E.private.general.namefont = 'Bui Prototype'
