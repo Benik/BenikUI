@@ -79,7 +79,7 @@ local function SetupBuiLayout()
 	if E.db.locplus == nil then E.db.locplus = {} end
 	E.db.locplus.lpfont = 'Bui Visitor1'
 	E.db.locplus.lpfontsize = 10
-	E.db.locplus.lpfontflags = 'MONOCHROMEOUTLINE'
+	E.db.locplus.lpfontflags = 'MONOCROMEOUTLINE'
 	E.db.locplus.dtheight = 16
 	E.db.locplus.lpwidth = 220
 	E.db.locplus.dtwidth = 120
@@ -93,7 +93,7 @@ local function SetupBuiLayout()
 	-- LocationLite
 	if E.db.loclite == nil then E.db.loclite = {} end
 	E.db.loclite.lpfont = 'Bui Visitor1'
-	E.db.loclite.lpfontflags = 'MONOCHROMEOUTLINE'
+	E.db.loclite.lpfontflags = 'MONOCROMEOUTLINE'
 	E.db.loclite.lpfontsize = 10
 	E.db.loclite.dtheight = 16
 	E.db.loclite.lpwidth = 220
@@ -413,13 +413,14 @@ local function SetupAddOnSkins()
 		if IsAddOnLoaded('Recount') then
 			E.private['addonskins']['EmbedMain'] = 'Recount'
 			E.private['addonskins']['EmbedSystem'] = true
+			E.private['addonskins']['EmbedSystemDual'] = false
 			E.private['addonskins']['RecountBackdrop'] = false
 			E.private['addonskins']['EmbedBelowTop'] = false
 			E.private['addonskins']['TransparentEmbed'] = true
 		elseif IsAddOnLoaded('DBM') then
 			E.private['addonskins']['DBMFont'] = 'Bui Visitor1'
 			E.private['addonskins']['DBMFontSize'] = 10
-			E.private['addonskins']['DBMFontFlag'] = 'MONOCHROMEOUTLINE'
+			E.private['addonskins']['DBMFontFlag'] = 'MONOCROMEOUTLINE'
 		end
 	end
 end
@@ -711,13 +712,6 @@ function E:SetupBui()
 				UIFrameFadeOut(self, 3.5, 1, 0)
 				E:Delay(4, function() self:Hide() end)	
 				self.message = nil
-				
-				if imsg.firstShow == false then
-					if GetCVarBool('Sound_EnableMusic') then
-						PlayMusic([[Sound\Music\ZoneMusic\DMF_L70ETC01.mp3]])
-					end					
-					imsg.firstShow = true
-				end
 			else
 				self:Hide()
 			end
