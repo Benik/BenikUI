@@ -1,3 +1,12 @@
+[b]2.02[/b] (Okt 29, 2014)
+
+*AFK mode retouch: Added BenikUI logo and style. Added text under ElvUI logo, that shows a random player stat every 5 secs, etc
+*Style Xp/rep bars when enabled & vertical. Xp/Rep bottom decor frames are buttons. Rep btn shows rep pane, xp btn shows Spellbook.
+*Added sounds when pressing BenikUI chat buttons (T, D, G, C)
+*System Dashboard rewritten. Options to show/hide system boards (requires reloadui)
+*Style Clique tab
+*BenikUI Xp/rep bars recoloring options can now also apply in ElvUI xp/rep bars
+
 [b]2.01[/b] (Okt 18, 2014)
 
 *Installer stuff
