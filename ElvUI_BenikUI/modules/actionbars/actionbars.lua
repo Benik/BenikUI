@@ -123,6 +123,11 @@ function BAB:CreateButtons()
 
 		abtn[i]:SetScript('OnEnter', function(self)
 			abtn[i]:SetAlpha(1)
+			GameTooltip:SetOwner(self, 'ANCHOR_CURSOR')
+			GameTooltip:ClearLines()
+			GameTooltip:AddLine(L['Toggle Bar'], selectioncolor)
+			GameTooltip:Show()
+			if InCombatLockdown() then GameTooltip:Hide() end
 			if i == 1 then
 				abtn[i]:SetScript('OnClick', ab3_OnClick)
 			else
@@ -132,6 +137,7 @@ function BAB:CreateButtons()
 
 		abtn[i]:SetScript('OnLeave', function(self)
 			abtn[i]:SetAlpha(0)
+			GameTooltip:Hide()
 		end)
 	end
 	self:ShowButtons()

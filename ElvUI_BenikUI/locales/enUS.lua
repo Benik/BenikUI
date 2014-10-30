@@ -63,6 +63,7 @@ L['Show in:'] = true
 L['Choose Actionbar to show to'] = true
 L['Bar 1'] = true
 L['Bar 2'] = true
+L['Toggle Bar'] = true
 
 -- Dashboards
 L['System'] = true
