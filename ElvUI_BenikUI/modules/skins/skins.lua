@@ -364,17 +364,11 @@ if IsAddOnLoaded('AddOnSkins') then
 	end
 	
 	local function AtlasLootDecor()
+		if not strfind(GetAddOnMetadata('AtlasLoot', 'Version'), 'v8') then return end -- As Azilroka did ;)
 		if not E.db.buiaddonskins.atlasloot then return end
-		if AtlasLootDefaultFrame then
-			AtlasLootDefaultFrame:Style('Outside', 'ALDecor')
-			AtlasLootDefaultFrame:HookScript('OnShow', function(self) ALDecor:Show(); end)
-			AtlasLootDefaultFrame:HookScript('OnHide', function(self) ALDecor:Hide(); end)
-		end
-		if AtlasLootTooltipTEMP then
-			AtlasLootTooltipTEMP:Style('Outside', 'ALTooltipDecor')
-			AtlasLootTooltipTEMP:HookScript('OnShow', function(self) ALTooltipDecor:Show(); end)
-			AtlasLootTooltipTEMP:HookScript('OnHide', function(self) ALTooltipDecor:Hide(); end)
-			ALTooltipDecor:SetClampedToScreen(true)
+		local AtlasLootFrame = _G["AtlasLoot_GUI-Frame"]
+		if AtlasLootFrame then
+			AtlasLootFrame:Style('Outside')
 		end
 	end
 	
