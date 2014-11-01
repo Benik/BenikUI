@@ -355,6 +355,8 @@ if IsAddOnLoaded('AddOnSkins') then
 			else
 				recountMain:Show()
 			end
+			-- Fix for blurry pixel fonts
+			Recount.db.profile.Scaling = 0.95
 		end)
 	end
 	
