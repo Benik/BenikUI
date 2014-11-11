@@ -273,6 +273,11 @@ local function XpRepButton_OnShow(self)
 	end
 end
 
+local function xprep_OnLeave(self)
+	self.sglow:Hide()
+	GameTooltip:Hide()
+end
+
 local function StyleXpRepBars()
 	-- Xp Bar
 	local xp = ElvUI_ExperienceBar
@@ -280,7 +285,7 @@ local function StyleXpRepBars()
 	xp.fadeFunc = xp_OnFade
 	-- top decor
 	xp.ft = CreateFrame('Frame', nil, xp)
-	xp.ft:SetTemplate('Default', true)
+	xp.ft:SetTemplate('Default', true)     
 	xp.ft:Point('TOPLEFT', xp, 'TOPLEFT', 0, 4)
 	xp.ft:Point('BOTTOMRIGHT', xp, 'TOPRIGHT')
 	
@@ -300,10 +305,7 @@ local function StyleXpRepBars()
 		if InCombatLockdown() then GameTooltip:Hide() end
 	end)
 	
-	xp.fb:SetScript('OnLeave', function(self)
-		self.sglow:Hide()
-		GameTooltip:Hide()
-	end)
+	xp.fb:SetScript('OnLeave', xprep_OnLeave)
 	
 	xp.fb:SetScript('OnClick', function(self)
 		if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end
@@ -336,10 +338,7 @@ local function StyleXpRepBars()
 		if InCombatLockdown() then GameTooltip:Hide() end
 	end)
 	
-	rp.fb:SetScript('OnLeave', function(self)
-		self.sglow:Hide()
-		GameTooltip:Hide()
-	end)
+	rp.fb:SetScript('OnLeave', xprep_OnLeave)
 	
 	rp.fb:SetScript('OnClick', function(self)
 		ToggleCharacter("ReputationFrame")

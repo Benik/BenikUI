@@ -84,8 +84,6 @@ function BUIC:CastbarSetPosition(unit, bar)
 		local UnitUF = BuiUnits[unit][1];
 		local Mover = BuiUnits[unit][2];
 		local EmptyBar = bar;
-		local origStata = UnitUF.Castbar:GetFrameStrata()
-		local origFrameLevel = UnitUF.Castbar:GetFrameLevel()
 		
 		if E.db.ufb.barshow and E.db.ufb.attachCastbar then
 			if E.db.ufb.castText then
@@ -94,15 +92,6 @@ function BUIC:CastbarSetPosition(unit, bar)
 			else
 				UnitUF.Castbar.Text:SetAlpha(0)
 				UnitUF.Castbar.Time:SetAlpha(0)
-			end
-
-			-- Overlay EmptyBars text
-			if not E.db.ufb.overText then
-				UnitUF.Castbar:SetFrameStrata(EmptyBar:GetFrameStrata())
-				UnitUF.Castbar:SetFrameLevel(EmptyBar:GetFrameLevel()+2)
-			else
-				UnitUF.Castbar:SetFrameStrata(origStata)
-				UnitUF.Castbar:SetFrameLevel(origFrameLevel)		
 			end
 			
 			-- Set position of castbar text according to chosen y offset
