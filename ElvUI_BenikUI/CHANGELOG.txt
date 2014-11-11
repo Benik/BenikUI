@@ -1,3 +1,14 @@
+[b]2.03[/b] (Nov 11, 2014)
+
+*Fixed the chatEditBox not positioning on chat tabs when BenikUI datatexts are disabled. Also added a position option, when enabled.
+*AFK mode revamp. Looks much better :)
+*Added Blizz new and old font changes (map, questlog, rep, achievs)
+*Recount skin fix for blurry pixel fonts
+*Styled some new blizz frames (LFG)
+*AtlasLoot v8 style fix
+*Added tooltip for the actionbar switch buttons
+*Removed the CastBar over text option. Also minor xp/rep changes.
+
 [b]2.02[/b] (Okt 29, 2014)
 
 *AFK mode retouch: Added BenikUI logo and style. Added text under ElvUI logo, that shows a random player stat every 5 secs, etc
