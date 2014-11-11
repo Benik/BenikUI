@@ -94,6 +94,7 @@ local function onUpdate(self, elapsed)
 	if total >= showTime then
 		local createdStat = createStats()
 		self:AddMessage(createdStat)
+		E:UIFrameFadeIn(self, 1, 0, 1)
 		total = 0
 	end
 end
@@ -146,9 +147,9 @@ function AFK:Initialize()
 	
 	-- WoW logo
 	self.AFKMode.top.wowlogo = self.AFKMode.top:CreateTexture(nil, 'OVERLAY')
-	self.AFKMode.top.wowlogo:SetPoint("CENTER", self.AFKMode.top, "BOTTOM", 0, -15)
+	self.AFKMode.top.wowlogo:SetPoint("TOP", self.AFKMode.top, "TOP", 0, -5)
 	self.AFKMode.top.wowlogo:SetTexture("Interface\\Glues\\Common\\GLUES-WOW-WODLOGO")
-	self.AFKMode.top.wowlogo:SetSize(256, 128)	
+	self.AFKMode.top.wowlogo:SetSize(300, 150)	
 	
 	-- Server/Local Time text
 	self.AFKMode.top.time = self.AFKMode.top:CreateFontString(nil, 'OVERLAY')
