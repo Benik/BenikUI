@@ -63,7 +63,6 @@ local function SetupBuiLayout()
 		E.db.movers.DigSiteProgressBarMover = 'BOTTOMElvUIParentBOTTOM0315'
 		E.db.movers.GMMover = 'TOPLEFTElvUIParentTOPLEFT158-38'
 		E.db.movers.LeftChatMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT222'
-		E.db.movers.LocationLiteMover = 'TOPElvUIParentTOP0-2'
 		E.db.movers.MicrobarMover = 'TOPLEFTElvUIParentTOPLEFT158-5'
 		E.db.movers.MinimapMover = 'TOPRIGHTElvUIParentTOPRIGHT-4-5'
 		E.db.movers.ReputationBarMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-41522'
@@ -71,8 +70,8 @@ local function SetupBuiLayout()
 		E.db.movers.RightChatMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-222'
 		E.db.movers.VehicleSeatMover = 'TOPLEFTElvUIParentTOPLEFT155-81'
 		E.db.movers.WatchFrameMover = 'TOPRIGHTElvUIParentTOPRIGHT-122-292'
-		E.db.movers.tokenHolderMover = 'TOPLEFTElvUIParentTOPLEFT4-119'
-		E.db.movers.ProfessionsMover = 'TOPRIGHTElvUIParentTOPRIGHT-3-185'
+		E.db.movers.tokenHolderMover = 'TOPLEFTElvUIParentTOPLEFT4-121'
+		E.db.movers.ProfessionsMover = 'TOPRIGHTElvUIParentTOPRIGHT-3-184'
 	end
 	
 	-- LocationPlus
@@ -302,6 +301,8 @@ local function SetupBuiUfs()
 		E.db.unitframe.fontOutline = 'MONOCROMEOUTLINE'
 		E.db.unitframe.colors.transparentAurabars = true
 		E.db.unitframe.colors.transparentCastbar = true
+		E.db.unitframe.colors.castClassColor = true
+		
 		E.db.unitframe.colors.healthclass = false
 		E.db.unitframe.colors.power.MANA.r = 1
 		E.db.unitframe.colors.power.MANA.g = 0.5
@@ -514,6 +515,14 @@ function E:SetupBuiDts(role)
 		E.db.datatexts.fontOutline = 'MONOCROMEOUTLINE'
 		E.db.datatexts.fontSize = 10
 		E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'BuiMail'
+		if IsAddOnLoaded('ElvUI_LocPlus') then
+			E.db.datatexts.panels.RightCoordDtPanel = 'Time'
+			if IsAddOnLoaded('AtlasLoot') then
+				E.db.datatexts.panels.LeftCoordDtPanel = 'AtlasLoot'
+			else
+				E.db.datatexts.panels.LeftCoordDtPanel = 'Talent/Loot Specialization'
+			end
+		end
 		if role == 'tank' then
 			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'Avoidance'
 			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Resolve'
