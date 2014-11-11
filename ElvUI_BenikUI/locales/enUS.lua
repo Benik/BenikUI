@@ -65,6 +65,9 @@ L['Bar 1'] = true
 L['Bar 2'] = true
 L['Toggle Bar'] = true
 
+-- afk Mode
+L["Logout Timer"] = true
+
 -- Dashboards
 L['System'] = true
 L['Dashboards'] = true
@@ -122,8 +125,6 @@ L['Attaches Player and Target Castbar on the Empty Frames.'] = true
 L['Castbar Text'] = true
 L['Show/Hide the Castbar text.'] = true
 L['Adjust text Y Offset'] = true
-L['Overlay the text'] = true
-L['The castbar overlays any text on the EmptyBars.'] = true
 L['Detach Portrait'] = true
 L['Apply transparency on the portrait backdrop.'] = true
 L['Shadow'] = true
