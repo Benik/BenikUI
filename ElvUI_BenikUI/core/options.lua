@@ -76,7 +76,7 @@ local function buiCore()
 						name = ENABLE,
 						desc = L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'],
 						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; LO:ToggleChatPanels(); end,	
+						set = function(info, value) E.db.bui[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateAnchors(); end,	
 					},
 					transparentDts = {
 						order = 2,
@@ -85,6 +85,19 @@ local function buiCore()
 						disabled = function() return not E.db.bui.buiDts end,
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiLayout'):ToggleTransparency(); end,	
+					},
+					editBoxPosition = {
+						order = 3,
+						type = 'select',
+						name = L['Chat EditBox Position'],
+						desc = L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'],
+						values = {
+							['BELOW_CHAT'] = L['Below Chat'],
+							['ABOVE_CHAT'] = L['Above Chat'],
+						},
+						disabled = function() return not E.db.bui.buiDts end,
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('Chat'):UpdateAnchors() end,
 					},
 				},
 			},

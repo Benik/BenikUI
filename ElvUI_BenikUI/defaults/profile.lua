@@ -8,7 +8,7 @@ P['bui'] = {
 	['buiFonts'] = true,
 	['transparentDts'] = false,
 	['toggleMail'] = true,
-	['mailSound'] = false,
+	['editBoxPosition'] = 'BELOW_CHAT',
 }
 
 -- Actionbars
@@ -132,7 +132,6 @@ P['ufb'] = {
 	['attachCastbar'] = true,
 	['castText'] = true,
 	['yOffsetText'] = -15,
-	['overText'] = false,
 }
 
 -- ElvUI addons Styling
