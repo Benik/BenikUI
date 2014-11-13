@@ -105,7 +105,8 @@ function AFK:UpdateTimer()
 
 	local time = GetTime() - self.startTime
 	local createdTime = createTime()
-	local countdown = GetTime() - 1800 - self.startTime
+	local minutes = floor(time/60)
+	local neg_seconds = -time % 60
 
 	-- Set the value on log off statusbar
 	self.AFKMode.top.style.Status:SetValue(floor(time))
@@ -116,8 +117,17 @@ function AFK:UpdateTimer()
 	-- Set Date
 	createDate()
 	
-	-- Set the 30 mins countdown
-	self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00-%02d:%02d|r", L["Logout Timer"], floor(-countdown/60), -countdown % 60))
+	-- Set the 30 mins countdown. 60 secs before log out will go red. 30 secs will flash
+	if (minutes -29 >= 0) and (neg_seconds >= 0) then
+		self.AFKMode.countd.text:SetText(format("|cffff8000"..CAMP_TIMER.."|r", neg_seconds, L["sec"]))
+		if neg_seconds <= 30 then
+			E:Flash(self.AFKMode.countd.text, 0.5, true)
+		else
+			E:StopFlash(self.AFKMode.countd.text)
+		end
+	else
+		self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds))
+	end
 	
 	-- Don't need the default timer
 	self.AFKMode.bottom.time:SetText(nil)
@@ -274,7 +284,7 @@ function AFK:Initialize()
 	self.AFKMode.countd.text:FontTemplate(nil, 12)
 	self.AFKMode.countd.text:SetPoint("CENTER", self.AFKMode.countd, "CENTER")
 	self.AFKMode.countd.text:SetJustifyH("CENTER")
-	self.AFKMode.countd.text:SetText(format("%s: -30:00", L["Logout Timer"]))
+	self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00-30:00|r", L["Logout Timer"]))
 	self.AFKMode.countd.text:SetTextColor(0.7, 0.7, 0.7)
 	
 	self.AFKMode.bottom.time:Hide()
