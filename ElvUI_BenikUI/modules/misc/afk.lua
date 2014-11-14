@@ -17,10 +17,13 @@ local stats = {
 	319,	-- Duels won
 	320,	-- Duels lost
 	321,	-- Total raid and dungeon deaths
+	326,	-- Gold from quest rewards
 	328,	-- Total gold acquired
 	333,	-- Gold looted
+	334,	-- Most gold ever owned
 	338,	-- Vanity pets owned
 	339,	-- Mounts owned
+	342,	-- Epic items acquired
 	349,	-- Flight paths taken
 	377,	-- Most factions at Exalted
 	588,	-- Total Honorable Kills
@@ -28,23 +31,32 @@ local stats = {
 	838,	-- Arenas played
 	839,	-- Battlegrounds played
 	840,	-- Battlegrounds won
+	919,	-- Gold earned from auctions
+	931,	-- Total factions encountered
 	932,	-- Total 5-player dungeons entered
 	933,	-- Total 10-player raids entered
 	934,	-- Total 25-player raids entered
 	1042,	-- Number of hugs
 	1045,	-- Total cheers
 	1047,	-- Total facepalms
+	1065,	-- Total waves
 	1066,	-- Total times LOL'd
+	1088,	-- Kael'thas Sunstrider kills (Tempest Keep)
+	1149,	-- Talent tree respecs
 	1197,	-- Total kills
+	1098,	-- Onyxia kills (Onyxia's Lair)
 	1198,	-- Total kills that grant experience or honor
 	1487,	-- Killing Blows
 	1491,	-- Battleground Killing Blows
 	1518,	-- Fish caught
 	1716,	-- Battleground with the most Killing Blows
+	4687,	-- Victories over the Lich King (Icecrown 25 player)
 	5692,	-- Rated battlegrounds played
 	5694,	-- Rated battlegrounds won
+	6167,	-- Deathwing kills (Dragon Soul)
 	7399,	-- Challenge mode dungeons completed
 	8278,	-- Pet Battles won at max level
+	8632,	-- Garrosh Hellscream (LFR Siege of Orgrimmar)
 }
 
 -- Remove capitals from class except first letter
@@ -177,10 +189,10 @@ function AFK:Initialize()
 	self.AFKMode.top.date:SetJustifyH("RIGHT")
 	self.AFKMode.top.date:SetTextColor(1, 0.5, 0.1)
 	
-	-- Statusbar on Top frame decor showing time to log off (30mins)
+	-- Statusbar on Top frame decor showing time to log off (35mins)
 	self.AFKMode.top.style.Status = CreateFrame('StatusBar', nil, self.AFKMode.top.style)
 	self.AFKMode.top.style.Status:SetStatusBarTexture((E["media"].normTex))
-	self.AFKMode.top.style.Status:SetMinMaxValues(0, 1800)
+	self.AFKMode.top.style.Status:SetMinMaxValues(0, 2100)
 	self.AFKMode.top.style.Status:SetStatusBarColor(1, 0.5, 0.1, 1)
 	self.AFKMode.top.style.Status:SetInside()
 	self.AFKMode.top.style.Status:SetValue(0)
@@ -279,12 +291,12 @@ function AFK:Initialize()
 	self.AFKMode.countd.lineBottom:Size(418, 7)
 	self.AFKMode.countd.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
-	-- 30 mins countdown text
+	-- 35 mins countdown text
 	self.AFKMode.countd.text = self.AFKMode.countd:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.countd.text:FontTemplate(nil, 12)
 	self.AFKMode.countd.text:SetPoint("CENTER", self.AFKMode.countd, "CENTER")
 	self.AFKMode.countd.text:SetJustifyH("CENTER")
-	self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00-30:00|r", L["Logout Timer"]))
+	self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00-35:00|r", L["Logout Timer"]))
 	self.AFKMode.countd.text:SetTextColor(0.7, 0.7, 0.7)
 	
 	self.AFKMode.bottom.time:Hide()
@@ -293,7 +305,7 @@ function AFK:Initialize()
 	self.AFKMode.statMsg.info = CreateFrame("ScrollingMessageFrame", nil, self.AFKMode.statMsg)
 	self.AFKMode.statMsg.info:FontTemplate(nil, 18)
 	self.AFKMode.statMsg.info:SetPoint("CENTER", self.AFKMode.statMsg, "CENTER", 0, 0)
-	self.AFKMode.statMsg.info:SetSize(500, 24)
+	self.AFKMode.statMsg.info:SetSize(800, 24)
 	self.AFKMode.statMsg.info:AddMessage(format("|cffb3b3b3Random Stats|r"))
 	self.AFKMode.statMsg.info:SetFading(true)
 	self.AFKMode.statMsg.info:SetFadeDuration(1)
