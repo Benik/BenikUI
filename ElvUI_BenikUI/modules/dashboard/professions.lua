@@ -136,10 +136,13 @@ function BUIP:UpdateProfessions()
 						ProFrame.Text:SetText(format('%s / %s', rank, maxRank))
 					end
 
-					ProFrame.IconBG = CreateFrame('Frame', 'ProIconBG' .. id, ProFrame)
+					ProFrame.IconBG = CreateFrame('Button', 'ProIconBG' .. id, ProFrame)
 					ProFrame.IconBG:SetTemplate('Transparent')
 					ProFrame.IconBG:Size(18)
 					ProFrame.IconBG:Point('BOTTOMRIGHT', ProFrame, 'BOTTOMRIGHT', -SPACING*2, SPACING)
+					ProFrame.IconBG:SetScript('OnClick', function(self)
+						CastSpellByName(name)
+					end)
 
 					ProFrame.Icon = ProFrame.IconBG:CreateTexture(nil, 'ARTWORK')
 					ProFrame.Icon:Point('TOPLEFT', ProFrame.IconBG, 'TOPLEFT', SPACING, -SPACING)
