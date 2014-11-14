@@ -1,3 +1,12 @@
+[b]2.04[/b] (Nov 14, 2014)
+
+*AFK mode:
+- Added fade in on Random Stats messages
+- Larger WoW logo
+- Logout timer is now correclty set to 35mins, up from 30. (5mins to sit plus 30mins to log). Also, the timer will go red on last 60secs and flash on the last 30.
+*Tokens Dashboard: Removed Justice and Valor points from the defaults.
+*Professions Dashboard: [New] By clicking the profession icon will pop the corresponding Trade Skill frame.
+
 [b]2.03[/b] (Nov 11, 2014)
 
 *Fixed the chatEditBox not positioning on chat tabs when BenikUI datatexts are disabled. Also added a position option, when enabled.
