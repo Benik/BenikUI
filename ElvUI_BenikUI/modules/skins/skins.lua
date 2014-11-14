@@ -48,6 +48,7 @@ local FreeBlizzFrames = {
 	RaidInfoFrame,
 	ReadyCheckFrame,
 	ReadyCheckListenerFrame,
+	RecruitAFriendFrame,
 	ReputationDetailFrame,
 	ReputationFrame,
 	SideDressUpFrame,

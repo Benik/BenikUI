@@ -29,6 +29,7 @@ function E:UpdateBlizzardFonts()
 	local NAMEFONT		 = LSM:Fetch('font', self.private.general.namefont)
 	local MONOCHROME = ''
 	local SHADOWCOLOR = 0, 0, 0, .4 	-- add alpha for shadows
+	local NO_OFFSET = 0, 0
 	local NORMALOFFSET = 1.25, -1.25 	-- shadow offset for small fonts
 	local BIGOFFSET = 2, -2 			-- shadow offset for large fonts
 
@@ -76,8 +77,8 @@ function E:UpdateBlizzardFonts()
 		
 		-- new fonts subs
 		SetFont(QuestFont_Shadow_Huge, 				NORMAL, 15, nil, SHADOWCOLOR, NORMALOFFSET); -- Quest Title
-		--SetFont(QuestFont_Shadow_Small, 			NORMAL, 14, nil, SHADOWCOLOR, NORMALOFFSET);
-		--SetFont(SystemFont_Outline, 				NORMAL, 13);
+		SetFont(QuestFont_Shadow_Small, 			NORMAL, 14, nil, SHADOWCOLOR, NORMALOFFSET);
+		SetFont(SystemFont_Outline, 				NORMAL, 13, MONOCHROME.."OUTLINE"); -- Pet level on World map
 		--SetFont(SystemFont_InverseShadow_Small, 	NORMAL, 10);
 		--SetFont(SystemFont_Med2, 					NORMAL, 13);
 		--SetFont(SystemFont_Huge1, 					NORMAL, 20);
@@ -92,12 +93,14 @@ function E:UpdateBlizzardFonts()
 		SetFont(MailFont_Large,						NORMAL, 15); -- mail
 		--SetFont(SpellFont_Small,					NORMAL, 10);
 		SetFont(InvoiceFont_Med,					NORMAL, 12); -- mail
-		SetFont(InvoiceFont_Small,					NORMAL, 10); -- mail
-		SetFont(AchievementFont_Small,				NORMAL, 10); -- Achiev dates
-		SetFont(ReputationDetailFont,				NORMAL, 10); -- Rep Desc when clicking a rep
+		SetFont(InvoiceFont_Small,					NORMAL, self.db.general.fontSize); -- mail
+		SetFont(AchievementFont_Small,				NORMAL, self.db.general.fontSize); -- Achiev dates
+		SetFont(ReputationDetailFont,				NORMAL, self.db.general.fontSize); -- Rep Desc when clicking a rep
 		SetFont(GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);
 		SetFont(GameFontNormalMed2,					NORMAL, self.db.general.fontSize*1.1); -- Quest tracker
-
+		--SetFont(GameFontNormal,						NORMAL, self.db.general.fontSize);
 		--SetFont(QuestTitleFont,						NORMAL, 16);
+		SetFont(GameFontHighlightSmall,					NORMAL, self.db.general.fontSize);
+		SetFont(GameFontHighlight,						NORMAL, self.db.general.fontSize);
 	end
 end

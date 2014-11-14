@@ -117,8 +117,8 @@ function AFK:UpdateTimer()
 	-- Set Date
 	createDate()
 	
-	-- Set the 30 mins countdown. 60 secs before log out will go red. 30 secs will flash
-	if (minutes -29 >= 0) and (neg_seconds >= 0) then
+	-- Set the 35 mins countdown. 60 secs before log out will go red. 30 secs will flash
+	if (minutes -34 >= 0) and (neg_seconds >= 0) then
 		self.AFKMode.countd.text:SetText(format("|cffff8000"..CAMP_TIMER.."|r", neg_seconds, L["sec"]))
 		if neg_seconds <= 30 then
 			E:Flash(self.AFKMode.countd.text, 0.5, true)
@@ -126,7 +126,7 @@ function AFK:UpdateTimer()
 			E:StopFlash(self.AFKMode.countd.text)
 		end
 	else
-		self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds))
+		self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -34, neg_seconds))
 	end
 	
 	-- Don't need the default timer
