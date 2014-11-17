@@ -78,29 +78,32 @@ function E:UpdateBlizzardFonts()
 		-- new fonts subs
 		SetFont(QuestFont_Shadow_Huge, 				NORMAL, 15, nil, SHADOWCOLOR, NORMALOFFSET); -- Quest Title
 		SetFont(QuestFont_Shadow_Small, 			NORMAL, 14, nil, SHADOWCOLOR, NORMALOFFSET);
-		SetFont(SystemFont_Outline, 				NORMAL, 13, MONOCHROME.."OUTLINE"); -- Pet level on World map
+		SetFont(SystemFont_Outline, 				NORMAL, 13, MONOCHROME.."OUTLINE");			 -- Pet level on World map
+		SetFont(SystemFont_OutlineThick_WTF,		NORMAL, 32, MONOCHROME.."OUTLINE");			 -- World Map
+		SetFont(SubZoneTextFont,					NORMAL, 24, MONOCHROME.."OUTLINE");			 -- World Map(SubZone)
+		SetFont(QuestFont_Super_Huge,				NORMAL, 22, nil, SHADOWCOLOR, BIGOFFSET);
+		SetFont(QuestFont_Huge,						NORMAL, 15, nil, SHADOWCOLOR, BIGOFFSET);	 -- Quest rewards title(Rewards)
+		SetFont(CoreAbilityFont,					NORMAL, 26);								 -- Core abilities(title)
+		SetFont(MailFont_Large,						NORMAL, 14);								 -- mail
+		SetFont(InvoiceFont_Med,					NORMAL, 12);								 -- mail
+		SetFont(InvoiceFont_Small,					NORMAL, self.db.general.fontSize);			 -- mail
+		SetFont(AchievementFont_Small,				NORMAL, self.db.general.fontSize);			 -- Achiev dates
+		SetFont(ReputationDetailFont,				NORMAL, self.db.general.fontSize);			 -- Rep Desc when clicking a rep
+		SetFont(GameFontNormalMed2,					NORMAL, self.db.general.fontSize*1.1);		 -- Quest tracker
+		SetFont(BossEmoteNormalHuge,				NORMAL, 24);								 -- Talent Title
+		SetFont(GameFontHighlightMedium,			NORMAL, 15);								 -- Fix QuestLog Title mouseover
+		SetFont(GameFontNormalLarge2,				NORMAL, 15); 								 -- Garrison Follower Names
+		SetFont(QuestFont_Enormous, 				NORMAL, 24, nil, SHADOWCOLOR, NORMALOFFSET); -- Garrison Titles
 		--SetFont(SystemFont_InverseShadow_Small, 	NORMAL, 10);
 		--SetFont(SystemFont_Med2, 					NORMAL, 13);
 		--SetFont(SystemFont_Huge1, 					NORMAL, 20);
 		--SetFont(SystemFont_OutlineThick_Huge4,		NORMAL, 26);
-		SetFont(SystemFont_OutlineThick_WTF,		NORMAL, 32, MONOCHROME.."OUTLINE"); -- World Map
-		SetFont(SubZoneTextFont,					NORMAL, 24, MONOCHROME.."OUTLINE"); -- World Map
-		--SetFont(NumberFont_Normal_Med,				NUMBER, 14);
-		SetFont(QuestFont_Super_Huge,				NORMAL, 24, nil, SHADOWCOLOR, BIGOFFSET);
-		--SetFont(DestinyFontLarge,					NORMAL, 18);
-		SetFont(CoreAbilityFont,					NORMAL, 26); -- Core abilities
-		SetFont(DestinyFontHuge,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);
-		SetFont(MailFont_Large,						NORMAL, 15); -- mail
-		--SetFont(SpellFont_Small,					NORMAL, 10);
-		SetFont(InvoiceFont_Med,					NORMAL, 12); -- mail
-		SetFont(InvoiceFont_Small,					NORMAL, self.db.general.fontSize); -- mail
-		SetFont(AchievementFont_Small,				NORMAL, self.db.general.fontSize); -- Achiev dates
-		SetFont(ReputationDetailFont,				NORMAL, self.db.general.fontSize); -- Rep Desc when clicking a rep
-		SetFont(GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);
-		SetFont(GameFontNormalMed2,					NORMAL, self.db.general.fontSize*1.1); -- Quest tracker
-		--SetFont(GameFontNormal,						NORMAL, self.db.general.fontSize);
 		--SetFont(QuestTitleFont,						NORMAL, 16);
-		SetFont(GameFontHighlightSmall,					NORMAL, self.db.general.fontSize);
-		SetFont(GameFontHighlight,						NORMAL, self.db.general.fontSize);
+		--SetFont(GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);
+		--SetFont(SpellFont_Small,					NORMAL, 10);
+		--SetFont(DestinyFontHuge,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);
+		--SetFont(NumberFont_Normal_Med,				NUMBER, 14);
+		--SetFont(NumberFontNormal,					NUMBER, self.db.general.fontSize);
+		--SetFont(DestinyFontLarge,					NORMAL, 18);
 	end
 end
