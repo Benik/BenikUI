@@ -1,3 +1,9 @@
+[b]2.06[/b] (Nov 17, 2014)
+
+*More Bliz font changes, catched almost all font style changes.
+*Avoid tooltip styling when FreebTip addon is loaded.
+*Adopted latest AddOnSkins changes.
+
 [b]2.05[/b] (Nov 14, 2014)
 
 *Minor fixes for the 35mins timer that I forgot on prev commit

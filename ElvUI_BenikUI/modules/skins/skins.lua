@@ -416,14 +416,14 @@ if IsAddOnLoaded('AddOnSkins') then
 		end
 	end
 
-	if AS:CheckAddOn('Skada') then AS:RegisterSkin('SkadaSkin', SkadaDecor, 2) end
-	if AS:CheckAddOn('Recount') then AS:RegisterSkin('RecountSkin', RecountDecor, 2) end
-	if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPSSkin', TinyDPSDecor, 2) end
-	if AS:CheckAddOn('AtlasLoot') then AS:RegisterSkin('AtlasLootSkin', AtlasLootDecor, 2) end
-	if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('AltoholicSkin', AltoholicDecor, 2) end
-	if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinatorSkin', RareCoordDecor, 2) end
-	if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('ZygorSkin', ZygorDecor, 2) end
-	if AS:CheckAddOn('Clique') then AS:RegisterSkin('CliqueSkin', CliqueDecor, 2) end
+	if AS:CheckAddOn('Skada') then AS:RegisterSkin('Skada', SkadaDecor, 2) end
+	if AS:CheckAddOn('Recount') then AS:RegisterSkin('Recount', RecountDecor, 2) end
+	if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPS', TinyDPSDecor, 2) end
+	if AS:CheckAddOn('AtlasLoot') then AS:RegisterSkin('AtlasLoot', AtlasLootDecor, 2) end
+	if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('Altoholic', AltoholicDecor, 2) end
+	if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinator', RareCoordDecor, 2) end
+	if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
+	if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
 end
 
 E:RegisterModule(BUIS:GetName())
