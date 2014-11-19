@@ -48,6 +48,7 @@ BuiGameClickMenu:Style('Outside')
 local calendar_string = gsub(SLASH_CALENDAR1, '/', '')
 calendar_string = gsub(calendar_string, '^%l', upper)
 
+-- as in ElvUI
 local menuList = {
 	{text = CHARACTER_BUTTON,
 	func = function() ToggleCharacter("PaperDollFrame") end},
@@ -89,8 +90,10 @@ local menuList = {
 	func = function() ToggleAchievementFrame() end},
 	{text = SOCIAL_BUTTON,
 	func = function() ToggleFriendsFrame() end},
-	{text = calendar_string,
+	{text = L["Calendar"],
 	func = function() GameTimeFrame:Click() end},
+	{text = GARRISON_LANDING_PAGE_TITLE,
+	func = function() GarrisonLandingPageMinimapButton_OnClick() end},
 	{text = ACHIEVEMENTS_GUILD_TAB,
 	func = function()
 		if IsInGuild() then
@@ -106,9 +109,14 @@ local menuList = {
 	func = function() PVEFrame_ToggleFrame(); end},
 	--[[{text = L["Raid Browser"],
 	func = function() ToggleFrame(RaidBrowserFrame); end},]]
-	{text = ENCOUNTER_JOURNAL, 
+	{text = ENCOUNTER_JOURNAL,
 	func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end}
 }
+
+--if(C_StorePublic.IsEnabled()) then
+	tinsert(menuList, {text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end})
+--end
+tinsert(menuList, 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end})
 
 local color = { r = 1, g = 1, b = 1 }
 local function unpackColor(color)
