@@ -40,13 +40,11 @@ P.datatexts.panels.BuiRightChatDTPanel = {
 
 local gsub = string.gsub
 local upper = string.upper
+local tinsert = table.insert
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
 BuiGameClickMenu:Style('Outside')
-
-local calendar_string = gsub(SLASH_CALENDAR1, '/', '')
-calendar_string = gsub(calendar_string, '^%l', upper)
 
 -- as in ElvUI
 local menuList = {
