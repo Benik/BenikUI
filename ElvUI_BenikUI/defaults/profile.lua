@@ -67,6 +67,7 @@ P['dashboards'] = {
 		['width'] = 150,
 		['zeroamount'] = false,
 		['flash'] = false,
+		['toggleShow'] = true,
 		['chooseTokens'] = {
 			['Conquest Points'] = true,
 			['Honor Points'] = true,
