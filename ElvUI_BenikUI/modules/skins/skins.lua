@@ -401,10 +401,11 @@ if IsAddOnLoaded('AddOnSkins') then
 	end
 	
 	local function CliqueDecor()
+		print('Clique')
 		if not E.db.buiaddonskins.clique then return end
-		CliqueConfig.backdrop:Style('Outside')
+		CliqueConfig:Style('Small')
 		local tab = CliqueSpellTab
-		tab.backdrop:Style('Inside')
+		tab:Style('Inside')
 		tab:GetNormalTexture():SetTexCoord(.08, 0.92, 0.08, 0.92)
 	end
 	
