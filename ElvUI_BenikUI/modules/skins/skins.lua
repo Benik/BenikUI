@@ -401,7 +401,6 @@ if IsAddOnLoaded('AddOnSkins') then
 	end
 	
 	local function CliqueDecor()
-		print('Clique')
 		if not E.db.buiaddonskins.clique then return end
 		CliqueConfig:Style('Small')
 		local tab = CliqueSpellTab
