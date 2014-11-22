@@ -308,19 +308,19 @@ if IsAddOnLoaded('AddOnSkins') then
 		if not E.db.buiaddonskins.skada then return end
 		hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 			local skada = win.bargroup
-			skada.backdrop:Style('Outside')
+			skada.Backdrop:Style('Outside')
 			if win.db.enabletitle then
 				skada.button:StripTextures()
 			end
-			if not skada.backdrop.ishooked then
+			if not skada.Backdrop.ishooked then
 				hooksecurefunc(AS, 'Embed_Check', function(self, message)
 					if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
-						skada.backdrop.style:Hide()
+						skada.Backdrop.style:Hide()
 					else
-						skada.backdrop.style:Show()
+						skada.Backdrop.style:Show()
 					end
 				end)
-				skada.backdrop.ishooked = true
+				skada.Backdrop.ishooked = true
 			end
 		end)
 	end
