@@ -102,8 +102,6 @@ function E:UpdateBlizzardFonts()
 		--SetFont(GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);
 		--SetFont(SpellFont_Small,					NORMAL, 10);
 		--SetFont(DestinyFontHuge,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);
-		--SetFont(NumberFont_Normal_Med,				NUMBER, 14);
-		--SetFont(NumberFontNormal,					NUMBER, self.db.general.fontSize);
 		--SetFont(DestinyFontLarge,					NORMAL, 18);
 	end
 end

@@ -1,3 +1,10 @@
+[b]2.07[/b] (Nov 22, 2014)
+
+*Fix Skada lua error (Issue #7)
+*[NEW] Added Multistrike and Versatility datatexts
+*Clique style fix
+*Game menu list update
+
 [b]2.06[/b] (Nov 17, 2014)
 
 *More Bliz font changes, catched almost all font style changes.
