@@ -94,14 +94,25 @@ function E:UpdateBlizzardFonts()
 		SetFont(GameFontHighlightMedium,			NORMAL, 15);								 -- Fix QuestLog Title mouseover
 		SetFont(GameFontNormalLarge2,				NORMAL, 15); 								 -- Garrison Follower Names
 		SetFont(QuestFont_Enormous, 				NORMAL, 24, nil, SHADOWCOLOR, NORMALOFFSET); -- Garrison Titles
+		SetFont(DestinyFontHuge,					NORMAL, 20, nil, SHADOWCOLOR, BIGOFFSET);	 -- Garrison Mission Report
+		SetFont(Game24Font, 						NORMAL, 24);								 -- Garrison Mission level (in detail frame)		
+		SetFont(SystemFont_Huge1, 					NORMAL, 20);								 -- Garrison Mission XP
+		SetFont(SystemFont_Huge1_Outline, 			NORMAL, 18, MONOCHROME.."OUTLINE");			 -- Garrison Mission Chance
+		--SetFont(GameFontNormalLarge, 				NORMAL, 14);		
+		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
+		--SetFont(GameFontHighlightSmall, 			NORMAL, 10);
+		--SetFont(GameFontHighlight, 					NORMAL, self.db.general.fontSize);
+		--SetFont(GameFontHighlightLarge,				NORMAL, 15);
+		--SetFont(GameFontNormalHuge,					NORMAL, 16);		
+		
 		--SetFont(SystemFont_InverseShadow_Small, 	NORMAL, 10);
-		--SetFont(SystemFont_Med2, 					NORMAL, 13);
-		--SetFont(SystemFont_Huge1, 					NORMAL, 20);
+
+
 		--SetFont(SystemFont_OutlineThick_Huge4,		NORMAL, 26);
 		--SetFont(QuestTitleFont,						NORMAL, 16);
 		--SetFont(GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);
-		--SetFont(SpellFont_Small,					NORMAL, 10);
-		--SetFont(DestinyFontHuge,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);
-		--SetFont(DestinyFontLarge,					NORMAL, 18);
+		--SetFont(GameFontHighlightLarge2,			NORMAL, 14);
+
+		--SetFont(DestinyFontLarge,					NORMAL, 14);
 	end
 end
