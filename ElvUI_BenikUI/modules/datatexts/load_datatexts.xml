@@ -1,6 +1,4 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<script file="datatexts.lua"/>
 	<script file="mail.lua"/>
-	<script file="multistrike.lua"/>
-	<script file="versatility.lua"/>
 </Ui>
