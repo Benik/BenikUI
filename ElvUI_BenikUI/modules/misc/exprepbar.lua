@@ -471,7 +471,7 @@ function BXR:ChangeRepColor()
 end
 
 function BXR:Initialize()
-	if E.db.ufb.barshow ~= true or E.db.xprep.enable ~= true then return end
+	if E.db.ufb.barshow ~= true or E.db.xprep.enable ~= true or E.private.unitframe.enable ~= true then return end
 	self:LoadBars()
 	StyleXpRepBars()
 	self:ApplyXpRepStyling()

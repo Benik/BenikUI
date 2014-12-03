@@ -1,7 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUI = E:GetModule('BenikUI');
 local BXR = E:GetModule('BUIExpRep');
-local UFB = E:GetModule('BuiUnits');
 
 if E.db.xprep == nil then E.db.xprep = {} end
 
@@ -11,7 +10,7 @@ local function xprepTable()
 		type = 'group',
 		name = COMBAT_XP_GAIN.."/"..REPUTATION,
 		childGroups = "tab",
-		disabled = function() return not E.db.ufb.barshow end,
+		disabled = function() return not E.db.ufb.barshow or not E.private.unitframe.enable end,
 		args = {
 			enable = {
 				order = 1,

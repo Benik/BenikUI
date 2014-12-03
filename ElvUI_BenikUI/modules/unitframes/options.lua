@@ -9,6 +9,7 @@ local function ufTable()
 		order = 10,
 		type = 'group',
 		name = L['UnitFrames'],
+		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			eframes = {
 				order = 1,

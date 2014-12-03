@@ -38,6 +38,7 @@ function UFB:UnitDefaults()
 end
 
 function UFB:Initialize()
+	if E.private.unitframe.enable ~= true then return end
 	self:UnitDefaults()
 	self:InitPlayer()
 	self:InitTarget()

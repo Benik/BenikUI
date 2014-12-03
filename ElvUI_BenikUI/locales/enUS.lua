@@ -67,6 +67,7 @@ L['Toggle Bar'] = true
 
 -- afk Mode
 L["Logout Timer"] = true
+L["Random Stats"] = true
 
 -- Dashboards
 L['System'] = true

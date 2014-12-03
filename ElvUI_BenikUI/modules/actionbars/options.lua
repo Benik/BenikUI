@@ -1,6 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUI = E:GetModule('BenikUI');
-local UFB = E:GetModule('BuiUnits');
 local BAB = E:GetModule('BuiActionbars');
 
 local function abTable()

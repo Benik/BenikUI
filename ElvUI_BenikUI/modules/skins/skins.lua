@@ -280,7 +280,7 @@ function BUIS:BenikUISkins()
 	end
 	
 	if IsAddOnLoaded('ElvUI_SLE') and E.db.elvuiaddons.sle then
-		local sleFrames = {BottomBG, LeftBG, RightBG, ActionBG, DP_1, DP_2, Top_Center, DP_3, DP_4, DP_5, Bottom_Panel, DP_6, Main_Flares, Mark_Menu}		
+		local sleFrames = {BottomBG, LeftBG, RightBG, ActionBG, DP_1, DP_2, Top_Center, DP_3, DP_4, DP_5, Bottom_Panel, DP_6, Main_Flares, Mark_Menu, SquareMinimapButtonBar}		
 		for _, frame in pairs(sleFrames) do
 			if frame then
 				frame:Style('Outside')
