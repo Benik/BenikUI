@@ -15,6 +15,7 @@ local function SetupBuiLayout()
 		E.db.general.bottomPanel = false
 		E.db.general.minimap.locationText = 'HIDE'
 		E.db.general.minimap.size = 150
+		E.global.general.smallerWorldMap = false
 		E.db.general.backdropfadecolor.r = 0.054
 		E.db.general.backdropfadecolor.g = 0.054
 		E.db.general.backdropfadecolor.b = 0.054

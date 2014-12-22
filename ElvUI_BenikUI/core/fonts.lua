@@ -98,7 +98,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(Game24Font, 						NORMAL, 24);								 -- Garrison Mission level (in detail frame)		
 		SetFont(SystemFont_Huge1, 					NORMAL, 20);								 -- Garrison Mission XP
 		SetFont(SystemFont_Huge1_Outline, 			NORMAL, 18, MONOCHROME.."OUTLINE");			 -- Garrison Mission Chance
-		--SetFont(GameFontNormalLarge, 				NORMAL, 14);		
+		--SetFont(GameFontHighlightMed2, 				NORMAL, self.db.general.fontSize*1.1);		
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
 		--SetFont(GameFontHighlightSmall, 			NORMAL, 10);
 		--SetFont(GameFontHighlight, 					NORMAL, self.db.general.fontSize);
