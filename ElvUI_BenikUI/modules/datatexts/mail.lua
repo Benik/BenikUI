@@ -30,11 +30,7 @@ local function OnEvent(self, event, ...)
 	end
 	
 	if newMail then
-		self.text:SetText(L['|cff00ff00New Mail|r'])
-		-- testing sound when new mail. Here spams
-		--[[if E.db.bui.mailSound then
-			PlaySoundFile('Interface\\AddOns\\ElvUI_BenikUI\\media\\sounds\\mail.mp3', 'Master')
-		end]]
+		self.text:SetText(format('|cff00ff00%s|r', L['New Mail'])) -- add to locales
 		Read = false;
 	else
 		self.text:SetText('No Mail')
