@@ -1,3 +1,11 @@
+[b]2.08[/b] (Dec 22, 2014)
+
+*Added my version of Garrison Datatext
+*Added styling on the new Garrison skins
+*Security for disabled ElvUI modules. Cleaned locales
+*Moar Garrison Blizz font substitutions
+*Remove multistrike and versatility datatexts since they are now included in ElvUI
+
 [b]2.07[/b] (Nov 22, 2014)
 
 *Fix Skada lua error (Issue #7)
