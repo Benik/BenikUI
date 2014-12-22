@@ -120,10 +120,11 @@ function BUI:StyleBlizzard(parent, ...)
 end
 
 function BUIS:BlizzardUI_LOD_Skins(event, addon)
+	if E.private.skins.blizzard.enable ~= true then return end
 	for i, v in ipairs(BlizzUiFrames) do
 		local blizzAddon, blizzFrame, elvoption = unpack( v )
 		if (event == 'ADDON_LOADED' and addon == blizzAddon) then
-			if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard[elvoption] ~= true then return end
+			if E.private.skins.blizzard[elvoption] ~= true then return end
 			if blizzFrame then
 				BUI:StyleBlizzard(blizzFrame)
 				
@@ -187,12 +188,26 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	end
 	
 	if addon == 'Blizzard_EncounterJournal' then
-		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true then return end
+		if E.private.skins.blizzard.encounterjournal ~= true then return end
 		if not EncounterJournal.style then
 			EncounterJournal:Style('Small')
 		end
 	end
 	
+	-- Garrison Skin styles
+	if E.private.skins.blizzard.garrison == true then
+		GarrisonBuildingFrame.backdrop:Style('Outside')
+		GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
+		GarrisonMissionFrame.backdrop:Style('Outside')
+		GarrisonLandingPage.backdrop:Style('Outside')
+		GarrisonBuildingFrame.BuildingLevelTooltip:StripTextures()
+		GarrisonBuildingFrame.BuildingLevelTooltip:SetTemplate('Transparent')
+		GarrisonBuildingFrame.BuildingLevelTooltip:Style('Outside')
+		GarrisonMissionAlertFrame:StripTextures()
+		GarrisonMissionAlertFrame:SetTemplate('Transparent')
+		GarrisonMissionAlertFrame:Style('Outside')
+	end
+
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.timemanager ~= true then return end
 	if not TimeManagerFrame.style then
 		TimeManagerFrame:Style('Outside')
@@ -248,21 +263,7 @@ local function styleCoreAbilities()
 	end)
 end
 
--- Garrison Skin styles
-local function styleGarrison()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true then return end
-	
-	GarrisonBuildingFrame.backdrop:Style('Outside')
-	GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
-	GarrisonMissionFrame.backdrop:Style('Outside')
-	GarrisonLandingPage.backdrop:Style('Outside')
-	GarrisonBuildingFrame.BuildingLevelTooltip:StripTextures()
-	GarrisonBuildingFrame.BuildingLevelTooltip:SetTemplate('Transparent')
-	GarrisonBuildingFrame.BuildingLevelTooltip:Style('Outside')
-	GarrisonMissionAlertFrame:StripTextures()
-	GarrisonMissionAlertFrame:SetTemplate('Transparent')
-	GarrisonMissionAlertFrame:Style('Outside')
-end
+
 
 function BUIS:BenikUISkins()
 	-- Blizzard Styles
@@ -273,10 +274,7 @@ function BUIS:BenikUISkins()
 	
 	-- SpellBook Core abilities tabs
 	styleCoreAbilities()
-	
-	-- Garrison Skin styles
-	styleGarrison()
-	
+
 	-- Style Changes
 	if DressUpFrame.style then
 		DressUpFrame.style:Point('TOPLEFT', DressUpFrame, 'TOPLEFT', 6, 5)
