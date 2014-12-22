@@ -1,6 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUIS = E:NewModule('BuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
+local S = E:GetModule('Skins')
 
 local SPACING = (E.PixelMode and 1 or 5)
 
@@ -105,7 +106,6 @@ local BlizzUiFrames = {
 	{'Blizzard_PVPUI', 'PVPUIFrame', 'pvp'},
 	{'Blizzard_ItemSocketingUI', 'ItemSocketingFrame', 'socket'},
 	{'Blizzard_TalentUI', 'PlayerTalentFrame', 'talent'},
-	--{'Blizzard_TimeManager', 'TimeManagerFrame', 'timemanager'},
 	{'Blizzard_TradeSkillUI', 'TradeSkillFrame', 'trade'},
 	{'Blizzard_TrainerUI', 'ClassTrainerFrame', 'trainer'},
 	{'Blizzard_VoidStorageUI', 'VoidStorageFrame', 'voidstorage'},
@@ -181,30 +181,33 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				if addon == 'Blizzard_BarbershopUI' then
 					BarberShopAltFormFrame.backdrop:Style('Outside')
 				end
-			
+				
 			end
 		end
 	end
 	
-	if E.private.skins.blizzard.enable == true or E.private.skins.blizzard.timemanager == true then
-		if not TimeManagerFrame.style then
-			TimeManagerFrame:Style('Outside')
-		end
-		if not StopwatchFrame.backdrop.style then
-			StopwatchFrame.backdrop:Style('Outside')
-		end
-	else return end
-
 	if addon == 'Blizzard_EncounterJournal' then
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true then return end
 		if not EncounterJournal.style then
 			EncounterJournal:Style('Small')
 		end
 	end
+	
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.timemanager ~= true then return end
+	if not TimeManagerFrame.style then
+		TimeManagerFrame:Style('Outside')
+	end
+	
+	if not StopwatchFrame.backdrop.style then
+		StopwatchFrame.backdrop:Style('Outside')
+	end
+
 end
 
-function BUIS:BenikUISkins()
-	-- Blizzard Styles
+-- Blizzard Styles
+local function styleFreeBlizzardFrames()
+	if E.private.skins.blizzard.enable ~= true then return end
+	
 	for _, frame in pairs(FreeBlizzFrames) do
 		if frame and not frame.style then
 			frame:Style('Outside')
@@ -216,8 +219,12 @@ function BUIS:BenikUISkins()
 			frame:Style('Small')
 		end
 	end
+end
+
+-- SpellBook tabs
+local function styleSpellbook()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true then return end
 	
-	-- SpellBook tabs
 	hooksecurefunc('SpellBookFrame_UpdateSkillLineTabs', function()
 		for i = 1, MAX_SKILLLINE_TABS do
 			local tab = _G['SpellBookSkillLineTab'..i]
@@ -227,16 +234,48 @@ function BUIS:BenikUISkins()
 			end
 		end
 	end)
-	
-	-- SpellBook Core abilities tabs
-	local function SkinCoreTabs(index)
+end
+
+-- SpellBook Core abilities tabs
+local function styleCoreAbilities()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true then return end
+	hooksecurefunc('SpellBook_GetCoreAbilitySpecTab', function(index)
 		local button = SpellBookCoreAbilitiesFrame.SpecTabs[index]
 		if not button.style then
 			button:Style('Inside')
 			button:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-		end
-	end
-	hooksecurefunc('SpellBook_GetCoreAbilitySpecTab', SkinCoreTabs)
+		end	
+	end)
+end
+
+-- Garrison Skin styles
+local function styleGarrison()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true then return end
+	
+	GarrisonBuildingFrame.backdrop:Style('Outside')
+	GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
+	GarrisonMissionFrame.backdrop:Style('Outside')
+	GarrisonLandingPage.backdrop:Style('Outside')
+	GarrisonBuildingFrame.BuildingLevelTooltip:StripTextures()
+	GarrisonBuildingFrame.BuildingLevelTooltip:SetTemplate('Transparent')
+	GarrisonBuildingFrame.BuildingLevelTooltip:Style('Outside')
+	GarrisonMissionAlertFrame:StripTextures()
+	GarrisonMissionAlertFrame:SetTemplate('Transparent')
+	GarrisonMissionAlertFrame:Style('Outside')
+end
+
+function BUIS:BenikUISkins()
+	-- Blizzard Styles
+	styleFreeBlizzardFrames()
+	
+	-- SpellBook tabs
+	styleSpellbook()
+	
+	-- SpellBook Core abilities tabs
+	styleCoreAbilities()
+	
+	-- Garrison Skin styles
+	styleGarrison()
 	
 	-- Style Changes
 	if DressUpFrame.style then
@@ -251,15 +290,25 @@ function BUIS:BenikUISkins()
 
 	-- Map styling fix
 	local function FixMapStyle()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then return end
+		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then return end
 		if not WorldMapFrame.BorderFrame.backdrop.style then
 			WorldMapFrame.BorderFrame.backdrop:Style('Outside')
 		end
+		QuestMapFrame.QuestsFrame.StoryTooltip:SetTemplate('Transparent')
+		QuestMapFrame.QuestsFrame.StoryTooltip:Style('Outside')
 	end
 	
 	WorldMapFrame:HookScript('OnShow', FixMapStyle)
 	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
-
+	
+	-- Remove textures from Objective tracker (make an option for it)
+	local otFrames = {ObjectiveTrackerBlocksFrame.QuestHeader, ObjectiveTrackerBlocksFrame.AchievementHeader, ObjectiveTrackerBlocksFrame.ScenarioHeader, BONUS_OBJECTIVE_TRACKER_MODULE.Header}
+	for _, frame in pairs(otFrames) do
+		if frame then
+			frame:StripTextures()
+		end
+	end
+	
 	-- AddOn Styles
 	if IsAddOnLoaded('ElvUI_LocLite') and E.db.elvuiaddons.loclite then
 		local framestoskin = {LocationLitePanel, XCoordsLite, YCoordsLite}
@@ -299,131 +348,6 @@ end
 function BUIS:Initialize()
 	self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
-end
-
-if IsAddOnLoaded('AddOnSkins') then
-	local AS = unpack(AddOnSkins)
-
-	local function SkadaDecor()
-		if not E.db.buiaddonskins.skada then return end
-		hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
-			local skada = win.bargroup
-			skada.Backdrop:Style('Outside')
-			if win.db.enabletitle then
-				skada.button:StripTextures()
-			end
-			if not skada.Backdrop.ishooked then
-				hooksecurefunc(AS, 'Embed_Check', function(self, message)
-					if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
-						skada.Backdrop.style:Hide()
-					else
-						skada.Backdrop.style:Show()
-					end
-				end)
-				skada.Backdrop.ishooked = true
-			end
-		end)
-	end
-	
-	local function StyleRecount(name, parent, ...)
-		local recountdecor = CreateFrame('Frame', name, E.UIParent)
-		recountdecor:SetTemplate('Default', true)
-		recountdecor:SetParent(parent)
-		recountdecor:Point('TOPLEFT', parent, 'TOPLEFT', 0, -2)
-		recountdecor:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', 0, -7)
-
-		return recountdecor
-	end
-
-	local function RecountDecor()
-		if not E.db.buiaddonskins.recount then return end
-		StyleRecount('recountMain', Recount_MainWindow)
-		Recount_MainWindow.TitleBackground:StripTextures()
-		Recount_ConfigWindow.TitleBackground:StripTextures()
-		Recount_DetailWindow.TitleBackground:StripTextures()
-		StyleRecount(nil, Recount_DetailWindow)
-		StyleRecount(nil, Recount_ConfigWindow)
-		hooksecurefunc(Recount, 'ShowReport', function(self)
-			if Recount_ReportWindow.TitleBackground then
-				Recount_ReportWindow.TitleBackground:StripTextures()
-				StyleRecount(nil, Recount_ReportWindow)
-			end
-		end)
-
-		hooksecurefunc(AS, 'Embed_Check', function(self, message)
-			if E.private.addonskins.EmbedSystem then
-				recountMain:Hide()
-			else
-				recountMain:Show()
-			end
-			-- Fix for blurry pixel fonts
-			Recount.db.profile.Scaling = 0.95
-		end)
-	end
-	
-	local function TinyDPSDecor()
-		if not E.db.buiaddonskins.tinydps then return end
-		if tdpsFrame then
-			tdpsFrame:Style('Outside')
-		end
-	end
-	
-	local function AtlasLootDecor()
-		if not strfind(GetAddOnMetadata('AtlasLoot', 'Version'), 'v8') then return end -- As Azilroka did ;)
-		if not E.db.buiaddonskins.atlasloot then return end
-		local AtlasLootFrame = _G["AtlasLoot_GUI-Frame"]
-		if AtlasLootFrame then
-			AtlasLootFrame:Style('Outside')
-		end
-	end
-	
-	local function AltoholicDecor()
-		if not E.db.buiaddonskins.altoholic then return end
-		if AltoholicFrame then
-			AltoholicFrame:Style('Outside')
-		end
-	end
-	
-	local function ZygorDecor()
-		if not E.db.buiaddonskins.zg then return end
-		local zgFrames = {ZygorGuidesViewerFrame_Border, ZygorGuidesViewer_CreatureViewer}
-		for _, frame in pairs(zgFrames) do
-			frame:Style('Outside', frame:GetName()..'Decor')
-		end
-	end
-	
-	local function RareCoordDecor()
-		if not E.db.buiaddonskins.rc then return end
-		local rcFrames = {RC, RC.opt, RCnotify, RCminimized}
-		for _, frame in pairs(rcFrames) do
-			frame:Style('Outside')
-		end	
-	end
-	
-	local function CliqueDecor()
-		if not E.db.buiaddonskins.clique then return end
-		CliqueConfig:Style('Small')
-		local tab = CliqueSpellTab
-		tab:Style('Inside')
-		tab:GetNormalTexture():SetTexCoord(.08, 0.92, 0.08, 0.92)
-	end
-	
-	local function BenikUISkins(self, event, addon)
-		if event == 'ADDON_LOADED' then
-			BUIS:BlizzardUI_LOD_Skins(event, addon)
-		else
-			BUIS:BenikUISkins()
-		end
-	end
-
-	if AS:CheckAddOn('Skada') then AS:RegisterSkin('Skada', SkadaDecor, 2) end
-	if AS:CheckAddOn('Recount') then AS:RegisterSkin('Recount', RecountDecor, 2) end
-	if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPS', TinyDPSDecor, 2) end
-	if AS:CheckAddOn('AtlasLoot') then AS:RegisterSkin('AtlasLoot', AtlasLootDecor, 2) end
-	if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('Altoholic', AltoholicDecor, 2) end
-	if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinator', RareCoordDecor, 2) end
-	if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
-	if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
 end
 
 E:RegisterModule(BUIS:GetName())
