@@ -188,9 +188,10 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	end
 	
 	if addon == 'Blizzard_EncounterJournal' then
-		if E.private.skins.blizzard.encounterjournal ~= true then return end
-		if not EncounterJournal.style then
-			EncounterJournal:Style('Small')
+		if E.private.skins.blizzard.encounterjournal == true then
+			if not EncounterJournal.style then
+				EncounterJournal:Style('Small')
+			end
 		end
 	end
 	
@@ -208,15 +209,15 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		GarrisonMissionAlertFrame:Style('Outside')
 	end
 
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.timemanager ~= true then return end
-	if not TimeManagerFrame.style then
-		TimeManagerFrame:Style('Outside')
+	if E.private.skins.blizzard.timemanager == true then
+		if not TimeManagerFrame.style then
+			TimeManagerFrame:Style('Outside')
+		end
+		
+		if not StopwatchFrame.backdrop.style then
+			StopwatchFrame.backdrop:Style('Outside')
+		end
 	end
-	
-	if not StopwatchFrame.backdrop.style then
-		StopwatchFrame.backdrop:Style('Outside')
-	end
-
 end
 
 -- Blizzard Styles
