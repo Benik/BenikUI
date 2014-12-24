@@ -35,6 +35,14 @@ local OnEvent = function(self, event)
 	lastPanel = self
 end
 
+-- Ressources
+local function Currency(id, weekly, capped)
+	local name, amount, tex, week, weekmax, maxed, discovered = GetCurrencyInfo(id)
+	if discovered then
+		DT.tooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, amount, selectioncolor)
+	end
+end
+
 local OnEnter = function(self)
 	DT:SetupTooltip(self)
 
@@ -96,6 +104,9 @@ local OnEnter = function(self)
 		
 		DT.tooltip:AddLine(" ")
 	end
+
+	DT.tooltip:AddDoubleLine(Currency(824))
+	DT.tooltip:AddLine(" ")
 	DT.tooltip:AddLine(MINIMAP_GARRISON_LANDING_PAGE_TOOLTIP, 0.7, 0.7, 1)
 	
 	DT.tooltip:Show()
