@@ -101,7 +101,7 @@ L['Show in PlayerBar'] = "Zeige in Spielerleiste"
 L['Empty Frames must be enabled \n(in UnitFrames options)'] = "Leerer Rahmen muss aktiviert sein \n(in Einheitenfenster Option)"
 L['Copy Font Style from'] = "Kopiere Schriftart von"
 L['Hide PlayerBar text values'] = "Verberge Text Werte auf der Spielerleiste"
-L['Hides health, power and custom text values when mousing over, if their yOffset is'] = "Verberge Gesundheit, Kraft und spezifische Textwerte während 
+L['Hides health, power and custom text values when mousing over, if their yOffset is'] = true
 
 -- Skins Options
 L['AddOns Decor'] = "AddOns Dekor"
