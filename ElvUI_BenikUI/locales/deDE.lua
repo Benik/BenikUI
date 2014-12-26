@@ -4,54 +4,53 @@ local L = AceLocale:NewLocale('ElvUI', 'deDE');
 if not L then return; end
 
  --core
-L[' is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598'] = true
+L[' is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598'] = " ist geladen. Für Fehler oder Vorschläge bitte besucht: http://www.tukui.org/forums/topic.php?id=30598"
 
 -- core options
-L['by Benik (EU-Emerald Dream)'] = true
-L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = true
-L['light blue color.'] = true
+L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
+L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = "BenikUI ist ein komplett externer ElvUI Mod. Weitere verfügbare Optionen findest Du in den ElvUI Optionen (z.B. Aktionsleisten, Einheitenfenster, Spieler und Ziel Portrait), markiert in "
+L['light blue color.'] = "hell blau"
 L["Credits:"] = true
-L['Force BenikUI fonts'] = true
-L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'] = true
-L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = true
+L['Force BenikUI fonts'] = "Erzwinge BenikUI Schriftart"
+L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'] = "Ermöglicht die BenikUI Schriftart, die vorhandene Kampf- und Namensschriftart zu überschreiben. |cffFF0000WARNUNG: Damit die Änderungen wirksam werden, ist ein Neustart des Spiels oder ein Re-Log erforderlich.|r"
+L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Chat Infotexte anzeigen/ausblenden. ElvUI Infotexte müssen dafür deaktiviert sein"
 L['Hide Mail Icon'] = "Verstecke das Postsymbol"
-L['Show/Hide Mail Icon on minimap'] = "Postsymbol an Minimap anzeigen/ausblenden"
+L['Show/Hide Mail Icon on minimap'] = "Postsymbol an der Minimap anzeigen/ausblenden"
 
 -- install
-L['Color Theme Set'] = true
-L['Actionbars Set'] = true
-L['Unitframes Set'] = true
-L['- Recount profile successfully created!'] = true
-L['Addons Set'] = true
-L['DataTexts Set'] = true
-L['Welcome to BenikUI version %s, for ElvUI %s.'] = true
-L["By pressing the Continue button, BenikUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = true
-L['BenikUI options are marked with light blue color, inside ElvUI options.'] = true
-L['This part of the installation changes the default ElvUI look. This is why you downloaded BenikUI :)'] = true
-L['Please click the button below to apply the new layout.'] = true
-L['Setup Layout'] = true
-L['Color Themes'] = true
-L['This part of the installation will apply a Color Theme'] = true
-L['Please click a button below to apply a color theme.'] = true
+L['Color Theme Set'] = "Farbschema setzen"
+L['Actionbars Set'] = "Aktionsleisten setzen"
+L['Unitframes Set'] = "Einheitenfenster setzen"
+L['- Recount profile successfully created!'] = "- Recount Profil erfolgreich erstellt!"
+L['Addons Set'] = "Addons setzen"
+L['DataTexts Set'] = "Infotexte setzen"
+L['Welcome to BenikUI version %s, for ElvUI %s.'] = "Willkommen zu BenikUI Version %s, für ElvUI %s."
+L["By pressing the Continue button, BenikUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = "Durch drücken der Weiter-Taste werden die BenikUI-Änderungen in der vorhandenen ElvUI Installation angewand.\r|cffff8000 TIP: Es wäre gut, wenn Du die Änderungen in einem neuen Profil erstellst. Nur für den Fall dass Du mit den Änderungen nicht zufrieden bist.|r"
+L['This part of the installation changes the default ElvUI look. This is why you downloaded BenikUI :)'] = "Dieser Teil der Installation ändert das standard Aussehen von ElvUI. Dieses ist ja auch der Grund warum Du BenikUI heruntergeladen hast :)"
+L['Please click the button below to apply the new layout.'] = "Bitte klick die Taste unten um das neue Layout anzuwenden."
+L['Setup Layout'] = "Layout einstellen"
+L['Color Themes'] = "Farbschema"
+L['This part of the installation will apply a Color Theme'] = "Dieser Teil der Installation wendet ein Farbschema an"
+L['Please click a button below to apply a color theme.'] = "Bitte klick eine der Tasten unten um ein Farbschema anzuwenden."
 L['ElvUI'] = true
 L['Diablo'] = true
 L['Mists'] = true
 L['Hearthstone'] = true
-L['This part of the installation process sets up your chat fonts and colors.'] = true
-L['Please click the button below to setup your chat windows.'] = true
-L['UnitFrames'] = true
-L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars.\r|cffff8000This doesn't touch your current raid/party layout|r"] = true
-L['Please click the button below to setup your Unitframes.'] = true
-L['Setup Unitframes'] = true
-L['This part of the installation process will reposition your Actionbars and will enable backdrops'] = true
-L['Please click the button below to setup your actionbars.'] = true
-L['Setup ActionBars'] = true
-L["This part of the installation process will fill BenikUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = true
-L['Please click the button below to setup your datatexts.'] = true
-L['This part of the installation process will apply changes to the addons like Recount, DBM and ElvUI plugins'] = true
-L['Please click the button below to setup your addons.'] = true
-L['Setup Addons'] = true
-L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = true
+L['This part of the installation process sets up your chat fonts and colors.'] = "Dieser Teil des Installationsprozesses ändert die Chatschrifart und -farbe." 
+L['Please click the button below to setup your chat windows.'] = "Bitte klick auf die Taste unten um das Chatfenster einzustellen."
+L['UnitFrames'] = "Einheitenfenster"
+L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars.\r|cffff8000This doesn't touch your current raid/party layout|r"] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren und die Leere Leiste aktivieren"
+L['Please click the button below to setup your Unitframes.'] = "Bitte klick auf die Taste unten um das Einheitenfenster einzustellen."
+L['Setup Unitframes'] = "Einheitenfenster einstellen"
+L['This part of the installation process will reposition your Actionbars and will enable backdrops'] = "Dieser Teil des Installationsprozesses wird die Aktionsleisten neu positionieren und wird den Hintergrund einschalten"
+L['Please click the button below to setup your actionbars.'] = "Bitte klick auf die Taste unten um die Aktionsleisten einzustellen."
+L['Setup ActionBars'] = "Aktionsleisten einstellen"
+L["This part of the installation process will fill BenikUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = "Dieser Teil des Installationsprozesses wird die BenikUI Infotexte einstellen.\r|cffff8000Hierbei werden die ElvUI Infotexte nicht verändert|r"
+L['Please click the button below to setup your datatexts.'] = "Bitte klick auf die Taste unten um die Infotexte einzustellen."
+L['This part of the installation process will apply changes to the addons like Recount, DBM and ElvUI plugins'] = "Dieser Teil des Installationsprozesses wird Änderungen an Addons wie Recount, DBM und andere ElvUI Plugins vornehmen"
+L['Please click the button below to setup your addons.'] = "Bitte klick auf die Taste unten um deine Addons einzustellen."
+L['Setup Addons'] = "Addons einstellen"
+L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = "Du hast den Installationsprozess jetzt abgeschlossen. Wenn du technische Unterstützung brauchst besuch uns bitte  http://www.tukui.org."
 L['Installation'] = true
 
 -- actionbar options
