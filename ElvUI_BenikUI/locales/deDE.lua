@@ -55,7 +55,7 @@ L['Installation'] = true
 
 -- actionbar options
 L['Transparent Backdrops'] = "Transparente Hintergründe"
-L['Applies transparency in all actionbar backdrops and actionbar buttons.'] = "
+L['Applies transparency in all actionbar backdrops and actionbar buttons.'] = true
 L['Switch Buttons'] = "Tasten wechseln"
 L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Zeigt kleine Tasten über Aktionsleiste 1 oder 2, um Aktionsleiste 3 oder 5 anzeigen/auszublenden."
 L['Show in:'] = "Zeige in:"
