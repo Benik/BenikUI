@@ -39,7 +39,7 @@ L['Hearthstone'] = true
 L['This part of the installation process sets up your chat fonts and colors.'] = "Dieser Teil des Installationsprozesses ändert die Chatschrifart und -farbe." 
 L['Please click the button below to setup your chat windows.'] = "Bitte klick auf die Taste unten um das Chatfenster einzustellen."
 L['UnitFrames'] = "Einheitenfenster"
-L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars.\r|cffff8000This doesn't touch your current raid/party layout|r"] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren und die Leere Leiste aktivieren"
+L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars.\r|cffff8000This doesn't touch your current raid/party layout|r"] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren und die leere Leiste aktivieren.\r|cffff8000Dies ändert nicht die Einstellungen des aktuellen Schlatzug-/Gruppenlayouts|r"
 L['Please click the button below to setup your Unitframes.'] = "Bitte klick auf die Taste unten um das Einheitenfenster einzustellen."
 L['Setup Unitframes'] = "Einheitenfenster einstellen"
 L['This part of the installation process will reposition your Actionbars and will enable backdrops'] = "Dieser Teil des Installationsprozesses wird die Aktionsleisten neu positionieren und wird den Hintergrund einschalten"
@@ -50,86 +50,86 @@ L['Please click the button below to setup your datatexts.'] = "Bitte klick auf d
 L['This part of the installation process will apply changes to the addons like Recount, DBM and ElvUI plugins'] = "Dieser Teil des Installationsprozesses wird Änderungen an Addons wie Recount, DBM und andere ElvUI Plugins vornehmen"
 L['Please click the button below to setup your addons.'] = "Bitte klick auf die Taste unten um deine Addons einzustellen."
 L['Setup Addons'] = "Addons einstellen"
-L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = "Du hast den Installationsprozess jetzt abgeschlossen. Wenn du technische Unterstützung brauchst besuch uns bitte  http://www.tukui.org."
+L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = "Du hast den Installationsprozess jetzt abgeschlossen. Wenn du technische Unterstützung brauchst besuch uns bitte http://www.tukui.org."
 L['Installation'] = true
 
 -- actionbar options
-L['Transparent Backdrops'] = true
-L['Applies transparency in all actionbar backdrops and actionbar buttons.'] = true
-L['Switch Buttons'] = true
-L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = true
-L['Show in:'] = true
-L['Choose Actionbar to show to'] = true
-L['Bar 1'] = true
-L['Bar 2'] = true
-L['Toggle Bar'] = true
+L['Transparent Backdrops'] = "Transparente Hintergründe"
+L['Applies transparency in all actionbar backdrops and actionbar buttons.'] = "
+L['Switch Buttons'] = "Tasten wechseln"
+L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Zeigt kleine Tasten über Aktionsleiste 1 oder 2, um Aktionsleiste 3 oder 5 anzeigen/auszublenden."
+L['Show in:'] = "Zeige in:"
+L['Choose Actionbar to show to'] = "Wähle Aktionsleiste zum Anzeigen"
+L['Bar 1'] = "Leiste 1"
+L['Bar 2'] = "Leiste 2"
+L['Toggle Bar'] = "Leiste umschalten"
 
 -- afk Mode
-L["Logout Timer"] = true
+L["Logout Timer"] = "Auslogzeit"
 L["Random Stats"] = "Zufällige Werte"
 
 -- Dashboards
 L['System'] = true
 L['Dashboards'] = true
-L['Enable the System Dashboard.'] = true
-L['Show/Hide System Dashboard when in combat'] = true
-L['Change the System Dashboard width.'] = true
-L['Enable the Tokens Dashboard.'] = true
-L['Show/Hide Tokens Dashboard when in combat'] = true
-L['Show zero amount tokens'] = true
-L['Show the token, even if the amount is 0'] = true
-L['Show/Hide Tooltips'] = true
-L['Flash on updates'] = true
-L['Select Tokens'] = true
-L['Use DataTexts font'] = true
-L['Choose font for all dashboards.'] = true
-L['Set the font size.'] = true
+L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
+L['Show/Hide System Dashboard when in combat'] = "Dashboard im Kampf anzeigen/ausblenden"
+L['Change the System Dashboard width.'] = "Ändert die Dashboard Breite"
+L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
+L['Show/Hide Tokens Dashboard when in combat'] = "Abzeichen Dashboard im Kampf anzeigen/ausblenden"
+L['Show zero amount tokens'] = "Zeige Abzeichen mit der Anzahl 0"
+L['Show the token, even if the amount is 0'] = "Abzeichen anzeigen, auch wenn die Anzahl 0 ist"
+L['Show/Hide Tooltips'] = "Tooltip anzeigen/ausblenden"
+L['Flash on updates'] = "Beim Updaten blinken"
+L['Select Tokens'] = "Abzeichen auswählen"
+L['Use DataTexts font'] = "Benutze Infotext Schriftart"
+L['Choose font for all dashboards.'] = "Wähle Schriftart für alle Dashboards."
+L['Set the font size.'] = "Schriftgröße auswählen."
 L['Enable/Disable '] = "Aktivieren/Deaktivieren"
-L['Click :'] = "Klick"
-L['RightClick :'] = "Rechtsklick"
-L['MouseWheel :'] = true
-L['Tip: Grayed tokens are not yet discovered'] = true
-L['Select Professions'] = true
-L['Select System Board'] = true
+L['Click :'] = "Klick :"
+L['RightClick :'] = "Rechtsklick :"
+L['MouseWheel :'] = "Mausrad :"
+L['Tip: Grayed tokens are not yet discovered'] = "Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
+L['Select Professions'] = "Berufe auswählen"
+L['Select System Board'] = "Wähle System Board"
 
 -- DataTexts
 L['|cff00ff00New Mail|r'] = "|cff00ff00Neue Post|r"
 
 -- Misc Options
-L['XP - Rep'] = true
-L['Show in PlayerBar'] = true
-L['Empty Frames must be enabled \n(in UnitFrames options)'] = true
-L['Copy Font Style from'] = true
-L['Hide PlayerBar text values'] = true
-L['Hides health, power and custom text values when mousing over, if their yOffset is'] = true
+L['XP - Rep'] = "Erfahrung - Ruf"
+L['Show in PlayerBar'] = "Zeige in Spielerleiste"
+L['Empty Frames must be enabled \n(in UnitFrames options)'] = "Leerer Rahmen muss aktiviert sein \n(in Einheitenfenster Option)"
+L['Copy Font Style from'] = "Kopiere Schriftart von"
+L['Hide PlayerBar text values'] = "Verberge Text Werte auf der Spielerleiste"
+L['Hides health, power and custom text values when mousing over, if their yOffset is'] = "Verberge Gesundheit, Kraft und spezifische Textwerte während 
 
 -- Skins Options
-L['AddOns Decor'] = true
-L['Choose which addon you wish to be decorated to fit with BenikUI style'] = true
+L['AddOns Decor'] = "AddOns Dekor"
+L['Choose which addon you wish to be decorated to fit with BenikUI style'] = "Wähle aus, welches Addon du stylen möchtest so dass es am besten zu BenikUI passt"
 L['ElvUI AddOns'] = true
-L['decor.'] = true
+L['decor.'] = "Dekor."
 L['AddOnSkins'] = true
 
 -- Castbar
 L['CONFLICT_WARNING'] = 'It would appear you have ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap loaded. BenikUI Attach Castbar feature has been disabled.'
-L['I understand'] = true
+L['I understand'] = "Ich verstehe"
 
 -- UnitFrame Options
-L['Empty Frames'] = true
-L['Enable the Empty frames (Player and Target).'] = true
-L['Change the Empty frames height (Player and Target).'] = true
-L['PowerBar Texture'] = true
-L['Power statusbar texture.'] = true
-L['Attach on Empty Frames'] = true
+L['Empty Frames'] = "Leerer Rahmen"
+L['Enable the Empty frames (Player and Target).'] = "Aktiviere die Leeren Ramen (Spieler und Ziel)."
+L['Change the Empty frames height (Player and Target).'] = "Ändere die Leere Rahmen Höhe (Spieler und Ziel)."
+L['PowerBar Texture'] = "Kraftleiste Textur"
+L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
+L['Attach on Empty Frames'] = "Anheften an Leere Rahmen"
 L['Attaches Player and Target Castbar on the Empty Frames.'] = true
 L['Castbar Text'] = "Zauberleisten Text"
 L['Show/Hide the Castbar text.'] = "Zauberleisten Text anzeigen/ausblenden"
 L['Adjust text Y Offset'] = true
-L['Detach Portrait'] = true
+L['Detach Portrait'] = "Abgetrenntes Portrait"
 L['Apply transparency on the portrait backdrop.'] = true
 L['Shadow'] = "Schatten"
-L['Apply shadow under the portrait'] = true
-L['Change the detached portrait width'] = true
-L['Change the detached portrait height'] = true
-L['Player Size'] = true
-L['Copy Player portrait width and height'] = true
+L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
+L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten Portrait"
+L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten Portrait"
+L['Player Size'] = "Spieler Größe"
+L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite und Höhe"
