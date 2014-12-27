@@ -3,7 +3,8 @@ local AceLocale = LibStub:GetLibrary('AceLocale-3.0');
 local L = AceLocale:NewLocale('ElvUI', 'deDE');
 if not L then return; end
 
- --core
+-- when to use "" and when '' ? ^^
+--core
 L[' is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598'] = " ist geladen. Für Fehler oder Vorschläge bitte besucht: http://www.tukui.org/forums/topic.php?id=30598"
 
 -- core options
