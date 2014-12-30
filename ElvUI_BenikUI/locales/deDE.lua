@@ -56,9 +56,9 @@ L['Installation'] = true
 
 -- actionbar options
 L['Transparent Backdrops'] = "Transparente Hintergründe"
-L['Applies transparency in all actionbar backdrops and actionbar buttons.'] = true
+L['Applies transparency in all actionbar backdrops and actionbar buttons.'] = "Aktiviert die Transparenz auf alle Aktionsleisten Hintergründe und Tasten."
 L['Switch Buttons'] = "Tasten wechseln"
-L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Zeigt kleine Tasten über Aktionsleiste 1 oder 2, um Aktionsleiste 3 oder 5 anzeigen/auszublenden."
+L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Zeigt kleine Tasten über Aktionsleiste 1 oder 2, um Aktionsleiste 3 oder 5 anzuzeigen/auszublenden."
 L['Show in:'] = "Zeige in:"
 L['Choose Actionbar to show to'] = "Wähle Aktionsleiste zum Anzeigen"
 L['Bar 1'] = "Leiste 1"
@@ -102,7 +102,7 @@ L['Show in PlayerBar'] = "Zeige in Spielerleiste"
 L['Empty Frames must be enabled \n(in UnitFrames options)'] = "Leerer Rahmen muss aktiviert sein \n(in Einheitenfenster Option)"
 L['Copy Font Style from'] = "Kopiere Schriftart von"
 L['Hide PlayerBar text values'] = "Verberge Text Werte auf der Spielerleiste"
-L['Hides health, power and custom text values when mousing over, if their yOffset is'] = true
+L['Hides health, power and custom text values when mousing over, if their yOffset is'] = "Blendet Gesundheit, Kraft und angepasste Text Werte aus, wenn der Y-Versatz ist" -- bad translation 
 
 -- Skins Options
 L['AddOns Decor'] = "AddOns Dekor"
@@ -122,12 +122,12 @@ L['Change the Empty frames height (Player and Target).'] = "Ändere die Leere Ra
 L['PowerBar Texture'] = "Kraftleiste Textur"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
 L['Attach on Empty Frames'] = "Anheften an Leere Rahmen"
-L['Attaches Player and Target Castbar on the Empty Frames.'] = true
+L['Attaches Player and Target Castbar on the Empty Frames.'] = "Richtet Spieler- und Zielzauberleiste an den leeren Rahmen aus."
 L['Castbar Text'] = "Zauberleisten Text"
 L['Show/Hide the Castbar text.'] = "Zauberleisten Text anzeigen/ausblenden"
-L['Adjust text Y Offset'] = true
+L['Adjust text Y Offset'] = "Passe Text Y-Versatz an"
 L['Detach Portrait'] = "Abgetrenntes Portrait"
-L['Apply transparency on the portrait backdrop.'] = true
+L['Apply transparency on the portrait backdrop.'] = "Wende Transparenz auf den Portrait Hintergrund an."
 L['Shadow'] = "Schatten"
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
 L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten Portrait"
