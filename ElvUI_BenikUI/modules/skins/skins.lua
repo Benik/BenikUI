@@ -1,7 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUIS = E:NewModule('BuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
-local S = E:GetModule('Skins')
+local S = E:GetModule('Skins');
 
 local SPACING = (E.PixelMode and 1 or 5)
 
@@ -112,6 +112,7 @@ local BlizzUiFrames = {
 }
 
 function BUI:StyleBlizzard(parent, ...)
+	--if E.db.bui.buiStyle ~= true then return end
 	local frame = CreateFrame('Frame', parent..'Decor', E.UIParent)
 	frame:CreateBackdrop('Default', true)
 	frame:SetParent(parent)
@@ -120,7 +121,7 @@ function BUI:StyleBlizzard(parent, ...)
 end
 
 function BUIS:BlizzardUI_LOD_Skins(event, addon)
-	if E.private.skins.blizzard.enable ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true then return end
 	for i, v in ipairs(BlizzUiFrames) do
 		local blizzAddon, blizzFrame, elvoption = unpack( v )
 		if (event == 'ADDON_LOADED' and addon == blizzAddon) then
@@ -208,7 +209,7 @@ end
 
 -- Blizzard Styles
 local function styleFreeBlizzardFrames()
-	if E.private.skins.blizzard.enable ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true then return end
 	
 	for _, frame in pairs(FreeBlizzFrames) do
 		if frame and not frame.style then
@@ -268,6 +269,20 @@ local function styleGarrison()
 end
 
 function BUIS:BenikUISkins()
+
+	-- Garrison Style
+	styleGarrison()
+	
+	-- Remove textures from Objective tracker (make an option for it)
+	local otFrames = {ObjectiveTrackerBlocksFrame.QuestHeader, ObjectiveTrackerBlocksFrame.AchievementHeader, ObjectiveTrackerBlocksFrame.ScenarioHeader, BONUS_OBJECTIVE_TRACKER_MODULE.Header}
+	for _, frame in pairs(otFrames) do
+		if frame then
+			frame:StripTextures()
+		end
+	end
+	
+	if E.db.bui.buiStyle ~= true then return end
+	
 	-- Blizzard Styles
 	styleFreeBlizzardFrames()
 	
@@ -276,9 +291,6 @@ function BUIS:BenikUISkins()
 	
 	-- SpellBook Core abilities tabs
 	styleCoreAbilities()
-	
-	-- Garrison Style
-	styleGarrison()
 	
 	-- Style Changes
 	if DressUpFrame.style then
@@ -303,15 +315,7 @@ function BUIS:BenikUISkins()
 	
 	WorldMapFrame:HookScript('OnShow', FixMapStyle)
 	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
-	
-	-- Remove textures from Objective tracker (make an option for it)
-	local otFrames = {ObjectiveTrackerBlocksFrame.QuestHeader, ObjectiveTrackerBlocksFrame.AchievementHeader, ObjectiveTrackerBlocksFrame.ScenarioHeader, BONUS_OBJECTIVE_TRACKER_MODULE.Header}
-	for _, frame in pairs(otFrames) do
-		if frame then
-			frame:StripTextures()
-		end
-	end
-	
+
 	-- AddOn Styles
 	if IsAddOnLoaded('ElvUI_LocLite') and E.db.elvuiaddons.loclite then
 		local framestoskin = {LocationLitePanel, XCoordsLite, YCoordsLite}

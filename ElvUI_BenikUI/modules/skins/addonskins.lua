@@ -17,10 +17,12 @@ local function SkadaDecor()
 		end
 		if not skada.Backdrop.ishooked then
 			hooksecurefunc(AS, 'Embed_Check', function(self, message)
-				if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
-					skada.Backdrop.style:Hide()
-				else
-					skada.Backdrop.style:Show()
+				if skada.Backdrop.style then
+					if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
+						skada.Backdrop.style:Hide()
+					else
+						skada.Backdrop.style:Show()
+					end
 				end
 			end)
 			skada.Backdrop.ishooked = true
@@ -29,6 +31,7 @@ local function SkadaDecor()
 end
 
 local function StyleRecount(name, parent, ...)
+	if E.db.bui.buiStyle ~= true then return end
 	local recountdecor = CreateFrame('Frame', name, E.UIParent)
 	recountdecor:SetTemplate('Default', true)
 	recountdecor:SetParent(parent)
@@ -54,13 +57,14 @@ local function RecountDecor()
 	end)
 
 	hooksecurefunc(AS, 'Embed_Check', function(self, message)
+		-- Fix for blurry pixel fonts
+		Recount.db.profile.Scaling = 0.95
+		if E.db.bui.buiStyle ~= true then return end
 		if E.private.addonskins.EmbedSystem then
 			recountMain:Hide()
 		else
 			recountMain:Show()
 		end
-		-- Fix for blurry pixel fonts
-		Recount.db.profile.Scaling = 0.95
 	end)
 end
 

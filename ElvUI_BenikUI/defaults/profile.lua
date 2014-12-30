@@ -3,6 +3,7 @@
 -- Core
 P['bui'] = {
 	['installed'] = nil,
+	['buiStyle'] = true,
 	['colorTheme'] = 'Elv',
 	['buiDts'] = true,
 	['buiFonts'] = true,

@@ -199,7 +199,9 @@ function AFK:Initialize()
 	
 	-- Style the bottom frame
 	self.AFKMode.bottom:Style('Outside')
-	self.AFKMode.bottom.style:SetFrameStrata("BACKGROUND")
+	if self.AFKMode.bottom.style then
+		self.AFKMode.bottom.style:SetFrameStrata("BACKGROUND")
+	end
 	
 	-- Move the factiongroup sign to the center
 	self.AFKMode.bottom.faction:ClearAllPoints()

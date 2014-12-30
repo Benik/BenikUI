@@ -25,6 +25,7 @@ local DecorAddons = {
 }
 
 local function SkinTable()
+	if E.db.bui.buiStyle ~= true then return end
 	E.Options.args.bui.args.config.args.buiskins = {
 		order = 40,
 		type = 'group',

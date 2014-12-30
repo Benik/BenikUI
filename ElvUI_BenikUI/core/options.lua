@@ -41,8 +41,16 @@ local function buiCore()
 				name = L['General'],
 				guiInline = true,
 				args = {
-					colorTheme = {
+					buiStyle = {
 						order = 1,
+						type = 'toggle',
+						name = L['BenikUI Style'],
+						desc = L['Show/Hide the decorative bars from UI elements'],
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, color) E.db.bui[ info[#info] ] = color; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					colorTheme = {
+						order = 2,
 						type = 'select',
 						name = L['Color Themes'],
 						values = {
@@ -55,7 +63,7 @@ local function buiCore()
 						set = function(info, color) E.db.bui[ info[#info] ] = color; BUI:BuiColorThemes(color); end,
 					},
 					buiFonts = {
-						order = 2,
+						order = 3,
 						type = 'toggle',
 						name = L['Force BenikUI fonts'],
 						desc = L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'],

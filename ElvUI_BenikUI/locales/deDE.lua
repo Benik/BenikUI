@@ -19,6 +19,8 @@ L['Hide Mail Icon'] = "Verstecke das Postsymbol"
 L['Show/Hide Mail Icon on minimap'] = "Postsymbol an der Minimap anzeigen/ausblenden"
 L['Show Garrison Currency'] = "Zeige Garnisonsresourcen"
 L['Show/Hide garrison currency on the datatext tooltip'] = "Garnisonsressourcen am Infotext Tooltip anzeigen/ausblenden"
+L['BenikUI Style'] = true
+L['Show/Hide the decorative bars from UI elements'] = true
 
 -- install
 L['Color Theme Set'] = "Farbschema setzen"
