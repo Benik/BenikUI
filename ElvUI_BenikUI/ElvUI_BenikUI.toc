@@ -16,4 +16,4 @@ modules\load_modules.xml
  
  
 ## X-Tukui-ProjectID: 228
-## X-Tukui-ProjectFolders: ElvUI_BenikUI_Fonts, ElvUI_BenikUI
+## X-Tukui-ProjectFolders: ElvUI_BenikUI
