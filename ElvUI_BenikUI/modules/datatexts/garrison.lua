@@ -5,6 +5,7 @@ local DT = E:GetModule('DataTexts')
 
 local displayModifierString = ''
 local lastPanel;
+local GARRISON_CURRENCY = 824
 local join = string.join
 local format = string.format
 
@@ -33,14 +34,6 @@ local OnEvent = function(self, event)
 	end
 	
 	lastPanel = self
-end
-
--- Ressources
-local function Currency(id, weekly, capped)
-	local name, amount, tex, week, weekmax, maxed, discovered = GetCurrencyInfo(id)
-	if discovered then
-		DT.tooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, amount, selectioncolor)
-	end
 end
 
 local OnEnter = function(self)
@@ -104,9 +97,12 @@ local OnEnter = function(self)
 		
 		DT.tooltip:AddLine(" ")
 	end
-
-	DT.tooltip:AddDoubleLine(Currency(824))
-	DT.tooltip:AddLine(" ")
+	
+	if E.db.bui.garrisonCurrency then 
+		local name, amount, tex = GetCurrencyInfo(GARRISON_CURRENCY)
+		DT.tooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, amount, 1, 1, 1, selectioncolor)
+		DT.tooltip:AddLine(" ")
+	end
 	DT.tooltip:AddLine(MINIMAP_GARRISON_LANDING_PAGE_TOOLTIP, 0.7, 0.7, 1)
 	
 	DT.tooltip:Show()

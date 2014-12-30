@@ -1,4 +1,4 @@
-﻿## Interface: 60000
+## Interface: 60000
 ## Author: Benik
 ## Version: 2.08
 ## Title: |cff1784d1ElvUI|r_BenikUI
@@ -6,8 +6,6 @@
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia
-## X-Tukui-ProjectID: 228
-## X-Tukui-ProjectFolders: ElvUI_BenikUI
 
 media\load_media.xml
 locales\load_locales.xml
@@ -15,3 +13,7 @@ defaults\load_defaults.xml
 core\load_core.xml
 layout\layout.lua
 modules\load_modules.xml
+ 
+ 
+## X-Tukui-ProjectID: 228
+## X-Tukui-ProjectFolders: ElvUI_BenikUI_Fonts, ElvUI_BenikUI

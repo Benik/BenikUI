@@ -99,33 +99,41 @@ local function buiCore()
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('Chat'):UpdateAnchors() end,
 					},
-				},
-			},
-			mail = {
-				order = 7,
-				type = 'group',
-				name = MAIL_LABEL,
-				guiInline = true,
-				args = {
-					toggleMail = {
-						order = 1,
-						type = 'toggle',
-						name = L['Hide Mail Icon'],
-						desc = L['Show/Hide Mail Icon on minimap'],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('DataTexts'):ToggleMailFrame(); E:StaticPopup_Show('PRIVATE_RL'); end,	
+					mail = {
+						order = 4,
+						type = 'group',
+						name = MAIL_LABEL,
+						guiInline = true,
+						args = {
+							toggleMail = {
+								order = 1,
+								type = 'toggle',
+								name = L['Hide Mail Icon'],
+								desc = L['Show/Hide Mail Icon on minimap'],
+								get = function(info) return E.db.bui[ info[#info] ] end,
+								set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
+							},
+						},
 					},
-					-- Enable when the sound plays with no issues
-					--[[mailSound = {
-						order = 2,
-						type = 'toggle',
-						name = L['Play Sound'],
-						desc = L['Play a sound when receiving a new mail'],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; end,	
-					},]]
+					garrison = {
+						order = 5,
+						type = 'group',
+						name = GARRISON_LOCATION_TOOLTIP,
+						guiInline = true,
+						args = {
+							garrisonCurrency = {
+								order = 1,
+								type = 'toggle',
+								name = L['Show Garrison Currency'],
+								desc = L['Show/Hide garrison currency on the datatext tooltip'],
+								get = function(info) return E.db.bui[ info[#info] ] end,
+								set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
+							},
+						},
+					},
 				},
 			},
+
 			config = {
 				order = 20,
 				type = 'group',

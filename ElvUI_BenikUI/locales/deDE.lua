@@ -17,6 +17,8 @@ L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF000
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Chat Infotexte anzeigen/ausblenden. ElvUI Infotexte müssen dafür deaktiviert sein"
 L['Hide Mail Icon'] = "Verstecke das Postsymbol"
 L['Show/Hide Mail Icon on minimap'] = "Postsymbol an der Minimap anzeigen/ausblenden"
+L['Show Garrison Currency'] = true
+L['Show/Hide garrison currency on the datatext tooltip'] = true
 
 -- install
 L['Color Theme Set'] = "Farbschema setzen"

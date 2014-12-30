@@ -7,8 +7,9 @@ P['bui'] = {
 	['buiDts'] = true,
 	['buiFonts'] = true,
 	['transparentDts'] = false,
-	['toggleMail'] = true,
 	['editBoxPosition'] = 'BELOW_CHAT',
+	['toggleMail'] = true,
+	['garrisonCurrency'] = false,
 }
 
 -- Actionbars
