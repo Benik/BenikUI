@@ -44,7 +44,7 @@ local function buiCore()
 					buiStyle = {
 						order = 1,
 						type = 'toggle',
-						name = L['BenikUI Style'],
+						name = L['BenikUI Style']..BUI.newsign,
 						desc = L['Show/Hide the decorative bars from UI elements'],
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, color) E.db.bui[ info[#info] ] = color; E:StaticPopup_Show('PRIVATE_RL'); end,
@@ -132,7 +132,7 @@ local function buiCore()
 							garrisonCurrency = {
 								order = 1,
 								type = 'toggle',
-								name = L['Show Garrison Currency'],
+								name = L['Show Garrison Currency']..BUI.newsign,
 								desc = L['Show/Hide garrison currency on the datatext tooltip'],
 								get = function(info) return E.db.bui[ info[#info] ] end,
 								set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	

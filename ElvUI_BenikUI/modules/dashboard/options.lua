@@ -154,7 +154,7 @@ local function dashboardsTable()
 	E.Options.args.bui.args.config.args.dashboards = {
 		order = 20,
 		type = 'group',
-		name = L['Dashboards']..BUI.newsign,
+		name = L['Dashboards'],
 		childGroups = "tab",
 		args = {
 			header = {
@@ -318,7 +318,7 @@ local function dashboardsTable()
 			professions = {
 				order = 4,
 				type = 'group',
-				name = TRADE_SKILLS..BUI.newsign,
+				name = TRADE_SKILLS,
 				args = {
 					enableProfessions = {
 						order = 1,

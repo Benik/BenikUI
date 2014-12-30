@@ -11,7 +11,7 @@ BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 
 local function StyleTooltip()
-	if IsAddOnLoaded('FreebTip') then return end
+	if IsAddOnLoaded('FreebTip') or E.db.bui.buiStyle ~= true then return end
 	GameTooltip:Style('Inside')
 	GameTooltipStatusBar:SetStatusBarTexture(E["media"].BuiFlat)
 end
@@ -52,6 +52,14 @@ end
 function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:InitBUI()
+	
+	-- disable BenikUI style when pixel perfect is disabled
+	if E.private.general.pixelPerfect ~= true then
+		E.db.bui.buiStyle = false
+	else
+		E.db.bui.buiStyle = true
+	end
+	
 	if E.db.utils then E.db.utils = nil end -- delete the old Dashboards db.
 	if E.private.install_complete == E.version and E.db.bui.installed == nil then E:SetupBui() end
 	-- run the setup when a profile gets deleted.

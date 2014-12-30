@@ -112,7 +112,6 @@ local BlizzUiFrames = {
 }
 
 function BUI:StyleBlizzard(parent, ...)
-	--if E.db.bui.buiStyle ~= true then return end
 	local frame = CreateFrame('Frame', parent..'Decor', E.UIParent)
 	frame:CreateBackdrop('Default', true)
 	frame:SetParent(parent)
