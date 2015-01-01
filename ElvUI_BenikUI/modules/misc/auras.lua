@@ -3,7 +3,6 @@ local A = E:GetModule('Auras');
 local BUI = E:GetModule('BenikUI');
 
 if E.private.auras.enable ~= true then return end
-if E.db.bui.buiStyle ~= true then return end
 
 A.CreateIconBui = A.CreateIcon
 function A:CreateIcon(button)
@@ -20,6 +19,8 @@ function A:UpdateAura(button, index)
 	local name = UnitAura(unit, index, filter)
 
 	if(name) then
-		button.texture:SetTexCoord(unpack(BUI.TexCoords))
+		if E.db.bui.buiStyle == true then
+			button.texture:SetTexCoord(unpack(BUI.TexCoords))
+		end
 	end
 end
