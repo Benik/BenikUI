@@ -11,9 +11,9 @@ BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 
 local function StyleTooltip()
+	GameTooltipStatusBar:SetStatusBarTexture(E["media"].BuiFlat)
 	if IsAddOnLoaded('FreebTip') or E.db.bui.buiStyle ~= true then return end
 	GameTooltip:Style('Inside')
-	GameTooltipStatusBar:SetStatusBarTexture(E["media"].BuiFlat)
 end
 
 function BUI:cOption(name)
@@ -44,25 +44,18 @@ function BUI:AddOptions()
 	end	
 end
 
-function BUI:InitBUI()
-	StyleTooltip()
-	E:GetModule('DataTexts'):ToggleMailFrame()
-end
-
 function BUI:Initialize()
 	self:RegisterBuiMedia()
-	self:InitBUI()
 	
-	-- disable BenikUI style when pixel perfect is disabled
-	if E.private.general.pixelPerfect ~= true then
-		E.db.bui.buiStyle = false
-	else
-		E.db.bui.buiStyle = true
-	end
+	StyleTooltip()
+	E:GetModule('DataTexts'):ToggleMailFrame()
 	
 	if E.db.utils then E.db.utils = nil end -- delete the old Dashboards db.
+	
+	-- run install when ElvUI install finishes
 	if E.private.install_complete == E.version and E.db.bui.installed == nil then E:SetupBui() end
-	-- run the setup when a profile gets deleted.
+	
+	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 	if ElvDB.profileKeys and profileKey == nil then E:SetupBui() end
 
