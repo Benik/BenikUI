@@ -1,9 +1,9 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local A = E:GetModule('Auras');
 local BUI = E:GetModule('BenikUI');
-local LSM = LibStub('LibSharedMedia-3.0');
 
 if E.private.auras.enable ~= true then return end
+if E.db.bui.buiStyle ~= true then return end
 
 A.CreateIconBui = A.CreateIcon
 function A:CreateIcon(button)
