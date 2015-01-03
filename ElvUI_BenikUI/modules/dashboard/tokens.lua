@@ -138,7 +138,7 @@ function BUIT:UpdateTokens()
 			
 			if db.chooseTokens[name] == true then
 				if db.zeroamount or amount > 0 then
-					tokenHolder:Height(((DASH_HEIGHT + SPACING) * (#Tokens + 1)) + SPACING)
+					tokenHolder:Height(((DASH_HEIGHT + SPACING) * (#Tokens + 1)) + SPACING +(E.PixelMode and 0 or 2))
 					tokenHolder.backdrop:Show()
 					
 					local TokensFrame = CreateFrame('Frame', 'Tokens' .. id, tokenHolder)
@@ -149,8 +149,8 @@ function BUIT:UpdateTokens()
 
 					TokensFrame.dummy = CreateFrame('Frame', 'TokensDummy' .. id, TokensFrame)
 					TokensFrame.dummy:Point('BOTTOMLEFT', TokensFrame, 'BOTTOMLEFT', 2, 2)
-					TokensFrame.dummy:Point('BOTTOMRIGHT', TokensFrame, 'BOTTOMRIGHT', -24, 0)
-					TokensFrame.dummy:Height(3)
+					TokensFrame.dummy:Point('BOTTOMRIGHT', TokensFrame, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
+					TokensFrame.dummy:Height(E.PixelMode and 3 or 5)
 
 					TokensFrame.dummy.dummyStatus = TokensFrame.dummy:CreateTexture(nil, 'OVERLAY')
 					TokensFrame.dummy.dummyStatus:SetInside()
@@ -180,7 +180,7 @@ function BUIT:UpdateTokens()
 					else
 						TokensFrame.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
 					end
-					TokensFrame.Text:Point('CENTER', TokensFrame, 'CENTER', -10, 1)
+					TokensFrame.Text:Point('CENTER', TokensFrame, 'CENTER', -10, (E.PixelMode and 1 or 3))
 					TokensFrame.Text:Width(TokensFrame:GetWidth() - 20)
 					TokensFrame.Text:SetWordWrap(false)
 					if totalMax == 0 then
@@ -191,12 +191,11 @@ function BUIT:UpdateTokens()
 
 					TokensFrame.IconBG = CreateFrame('Frame', 'TokensIconBG' .. id, TokensFrame)
 					TokensFrame.IconBG:SetTemplate('Transparent')
-					TokensFrame.IconBG:Size(18)
-					TokensFrame.IconBG:Point('BOTTOMRIGHT', TokensFrame, 'BOTTOMRIGHT', -SPACING*2, SPACING)
+					TokensFrame.IconBG:Size(E.PixelMode and 18 or 20)
+					TokensFrame.IconBG:Point('BOTTOMRIGHT', TokensFrame, 'BOTTOMRIGHT', -SPACING, SPACING)
 
-					TokensFrame.Icon = TokensFrame.IconBG:CreateTexture(nil, 'ARTWORK')
-					TokensFrame.Icon:Point('TOPLEFT', TokensFrame.IconBG, 'TOPLEFT', SPACING, -SPACING)
-					TokensFrame.Icon:Point('BOTTOMRIGHT', TokensFrame.IconBG, 'BOTTOMRIGHT', -SPACING, SPACING)
+					TokensFrame.Icon = TokensFrame.IconBG:CreateTexture(nil, 'ARTWORK', TokensFrame.IconBG)
+					TokensFrame.Icon:SetInside()
 					TokensFrame.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 					TokensFrame.Icon:SetTexture(icon)
 
@@ -231,9 +230,9 @@ function BUIT:UpdateTokens()
 	for key, frame in ipairs(Tokens) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point( 'TOPLEFT', tokenHolder, 'TOPLEFT', 0, -SPACING)
+			frame:Point('TOPLEFT', tokenHolder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', Tokens[key - 1], 'BOTTOM', 0, -SPACING)
+			frame:Point('TOP', Tokens[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
