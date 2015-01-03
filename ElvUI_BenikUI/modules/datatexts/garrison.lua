@@ -87,14 +87,14 @@ local OnEnter = function(self)
 			end
 		end
 		
-		local Available = GarrisonMissionFrame.MissionTab.MissionList.availableMissions
-		local NumAvailable = #Available
-		
-		if (NumAvailable > 0) then
-			DT.tooltip:AddLine(" ")
-			DT.tooltip:AddLine(format(GARRISON_LANDING_AVAILABLE, NumAvailable))
-		end
-		
+		DT.tooltip:AddLine(" ")
+	end
+
+	local Available = GarrisonMissionFrame.MissionTab.MissionList.availableMissions
+	local NumAvailable = #Available
+	
+	if (NumAvailable > 0) then
+		DT.tooltip:AddLine(format(GARRISON_LANDING_AVAILABLE, NumAvailable))
 		DT.tooltip:AddLine(" ")
 	end
 	
