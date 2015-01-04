@@ -82,7 +82,7 @@ function BUID:UpdateBoards()
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
 			sysHolder.backdrop:Show()
-			sysHolder:Height(((DASH_HEIGHT + SPACING) * (#loadedBoards + 1)) + SPACING)
+			sysHolder:Height(((DASH_HEIGHT + SPACING) * (#loadedBoards + 1)) + SPACING + (E.PixelMode and 0 or 4))
 
 			local sysFrame = CreateFrame('Frame', name, sysHolder)
 			sysFrame:Height(DASH_HEIGHT)
@@ -92,8 +92,8 @@ function BUID:UpdateBoards()
 			
 			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
 			sysFrame.dummy:Point('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 2)
-			sysFrame.dummy:Point('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', -4, 0)
-			sysFrame.dummy:Height(3)
+			sysFrame.dummy:Point('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
+			sysFrame.dummy:Height(E.PixelMode and 3 or 5)
 
 			sysFrame.dummy.dummyStatus = sysFrame.dummy:CreateTexture(nil, 'OVERLAY')
 			sysFrame.dummy.dummyStatus:SetInside()
@@ -123,9 +123,9 @@ function BUID:UpdateBoards()
 	for key, frame in ipairs(loadedBoards) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point( 'TOPLEFT', sysHolder, 'TOPLEFT', 0, -SPACING)
+			frame:Point( 'TOPLEFT', sysHolder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 2))
 		else
-			frame:Point('TOP', loadedBoards[key - 1], 'BOTTOM', 0, -SPACING)
+			frame:Point('TOP', loadedBoards[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 
