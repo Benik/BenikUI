@@ -108,7 +108,7 @@ local function RareCoordDecor()
 end
 
 local function CliqueDecor()
-	if not E.db.buiaddonskins.clique or E.db.bui.buiStyle ~= true or not E.Pixelmode then return end
+	if not E.db.buiaddonskins.clique or E.db.bui.buiStyle ~= true or not E.PixelMode then return end
 	CliqueConfig:Style('Small')
 	local tab = CliqueSpellTab
 	tab:Style('Inside')

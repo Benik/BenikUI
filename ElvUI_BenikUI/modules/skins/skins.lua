@@ -120,7 +120,7 @@ function BUI:StyleBlizzard(parent, ...)
 end
 
 function BUIS:BlizzardUI_LOD_Skins(event, addon)
-	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true or not E.Pixelmode then return end
+	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true or not E.PixelMode then return end
 	for i, v in ipairs(BlizzUiFrames) do
 		local blizzAddon, blizzFrame, elvoption = unpack( v )
 		if (event == 'ADDON_LOADED' and addon == blizzAddon) then
@@ -208,7 +208,7 @@ end
 
 -- Blizzard Styles
 local function styleFreeBlizzardFrames()
-	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true or not E.Pixelmode then return end
+	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true or not E.PixelMode then return end
 	
 	for _, frame in pairs(FreeBlizzFrames) do
 		if frame and not frame.style then
@@ -278,7 +278,7 @@ function BUIS:BenikUISkins()
 		end
 	end
 	
-	if E.db.bui.buiStyle ~= true or not E.Pixelmode then return end
+	if E.db.bui.buiStyle ~= true or not E.PixelMode then return end
 	
 	-- Blizzard Styles
 	styleFreeBlizzardFrames()
