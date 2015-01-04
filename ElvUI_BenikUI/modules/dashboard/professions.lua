@@ -84,7 +84,7 @@ function BUIP:UpdateProfessions()
 			if name and (rank < capRank or (not db.capped)) then
 				if db.choosePofessions[name] == true then
 					proHolder.backdrop:Show()
-					proHolder:Height(((DASH_HEIGHT + SPACING) * (#BuiProfessions + 1)) + SPACING)
+					proHolder:Height(((DASH_HEIGHT + SPACING) * (#BuiProfessions + 1)) + SPACING + (E.PixelMode and 0 or 2))
 
 					local ProFrame = CreateFrame('Frame', 'Profession' .. id, proHolder)
 					ProFrame:Height(DASH_HEIGHT)
@@ -94,8 +94,8 @@ function BUIP:UpdateProfessions()
 					
 					ProFrame.dummy = CreateFrame('Frame', 'ProDummy' .. id, ProFrame)
 					ProFrame.dummy:Point('BOTTOMLEFT', ProFrame, 'BOTTOMLEFT', 2, 2)
-					ProFrame.dummy:Point('BOTTOMRIGHT', ProFrame, 'BOTTOMRIGHT', -24, 0)
-					ProFrame.dummy:Height(3)
+					ProFrame.dummy:Point('BOTTOMRIGHT', ProFrame, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
+					ProFrame.dummy:Height(E.PixelMode and 3 or 5)
 
 					ProFrame.dummy.dummyStatus = ProFrame.dummy:CreateTexture(nil, 'OVERLAY')
 					ProFrame.dummy.dummyStatus:SetInside()
@@ -117,7 +117,7 @@ function BUIP:UpdateProfessions()
 					
 					ProFrame.spark = ProFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
 					ProFrame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-					ProFrame.spark:SetSize(12, 6);
+					ProFrame.spark:Size(12, 6);
 					ProFrame.spark:SetBlendMode('ADD');
 					ProFrame.spark:SetPoint('CENTER', ProFrame.Status:GetStatusBarTexture(), 'RIGHT')			
 					
@@ -127,7 +127,7 @@ function BUIP:UpdateProfessions()
 					else
 						ProFrame.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
 					end
-					ProFrame.Text:Point('CENTER', ProFrame, 'CENTER', -10, 1)
+					ProFrame.Text:Point('CENTER', ProFrame, 'CENTER', -10, (E.PixelMode and 1 or 3))
 					ProFrame.Text:Width(ProFrame:GetWidth() - 20)
 					ProFrame.Text:SetWordWrap(false)
 					if (rankModifier and rankModifier > 0) then
@@ -138,17 +138,16 @@ function BUIP:UpdateProfessions()
 
 					ProFrame.IconBG = CreateFrame('Button', 'ProIconBG' .. id, ProFrame)
 					ProFrame.IconBG:SetTemplate('Transparent')
-					ProFrame.IconBG:Size(18)
-					ProFrame.IconBG:Point('BOTTOMRIGHT', ProFrame, 'BOTTOMRIGHT', -SPACING*2, SPACING)
+					ProFrame.IconBG:Size(E.PixelMode and 18 or 20)
+					ProFrame.IconBG:Point('BOTTOMRIGHT', ProFrame, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 					ProFrame.IconBG:SetScript('OnClick', function(self)
 						CastSpellByName(name)
 					end)
 
-					ProFrame.Icon = ProFrame.IconBG:CreateTexture(nil, 'ARTWORK')
-					ProFrame.Icon:Point('TOPLEFT', ProFrame.IconBG, 'TOPLEFT', SPACING, -SPACING)
-					ProFrame.Icon:Point('BOTTOMRIGHT', ProFrame.IconBG, 'BOTTOMRIGHT', -SPACING, SPACING)
-					ProFrame.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-					ProFrame.Icon:SetTexture(icon)
+					ProFrame.IconBG.Icon = ProFrame.IconBG:CreateTexture(nil, 'ARTWORK')
+					ProFrame.IconBG.Icon:SetInside()
+					ProFrame.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+					ProFrame.IconBG.Icon:SetTexture(icon)
 
 					ProFrame:SetScript('OnEnter', function(self)
 						ProFrame.Text:SetText(format('%s', name))
@@ -170,9 +169,9 @@ function BUIP:UpdateProfessions()
 	for key, frame in ipairs(BuiProfessions) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point( 'TOPLEFT', proHolder, 'TOPLEFT', 0, -SPACING)
+			frame:Point( 'TOPLEFT', proHolder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', BuiProfessions[key - 1], 'BOTTOM', 0, -SPACING)
+			frame:Point('TOP', BuiProfessions[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 
