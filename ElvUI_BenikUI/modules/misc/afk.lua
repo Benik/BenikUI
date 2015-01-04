@@ -164,14 +164,17 @@ function AFK:Initialize()
 	self.AFKMode.top.style = CreateFrame('Frame', nil, self.AFKMode)
 	self.AFKMode.top.style:SetTemplate('Default', true)
 	self.AFKMode.top.style:SetFrameStrata("BACKGROUND")
-	self.AFKMode.top.style:Point('TOPLEFT', self.AFKMode.top, 'BOTTOMLEFT', 0, SPACING)
-	self.AFKMode.top.style:Point('BOTTOMRIGHT', self.AFKMode.top, 'BOTTOMRIGHT', 0, -4)
+	self.AFKMode.top.style:Point('TOPLEFT', self.AFKMode.top, 'BOTTOMLEFT', 0, 1)
+	self.AFKMode.top.style:Point('BOTTOMRIGHT', self.AFKMode.top, 'BOTTOMRIGHT', 0, (E.PixelMode and -4 or -7))
 	
 	-- WoW logo
-	self.AFKMode.top.wowlogo = self.AFKMode.top:CreateTexture(nil, 'OVERLAY')
+	self.AFKMode.top.wowlogo = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the logo layer
 	self.AFKMode.top.wowlogo:SetPoint("TOP", self.AFKMode.top, "TOP", 0, -5)
-	self.AFKMode.top.wowlogo:SetTexture("Interface\\Glues\\Common\\GLUES-WOW-WODLOGO")
-	self.AFKMode.top.wowlogo:SetSize(300, 150)	
+	self.AFKMode.top.wowlogo:SetFrameStrata("MEDIUM")
+	self.AFKMode.top.wowlogo:SetSize(300, 150)
+	self.AFKMode.top.wowlogo.tex = self.AFKMode.top.wowlogo:CreateTexture(nil, 'OVERLAY')
+	self.AFKMode.top.wowlogo.tex:SetTexture("Interface\\Glues\\Common\\GLUES-WOW-WODLOGO")
+	self.AFKMode.top.wowlogo.tex:SetInside()
 	
 	-- Server/Local Time text
 	self.AFKMode.top.time = self.AFKMode.top:CreateFontString(nil, 'OVERLAY')
@@ -204,8 +207,13 @@ function AFK:Initialize()
 	end
 	
 	-- Move the factiongroup sign to the center
+	self.AFKMode.bottom.factionb = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the faction logo layer
+	self.AFKMode.bottom.factionb:SetPoint("CENTER", self.AFKMode.bottom, "CENTER", 0, 80)
+	self.AFKMode.bottom.factionb:SetFrameStrata("MEDIUM")
+	self.AFKMode.bottom.factionb:SetSize(140, 140)
 	self.AFKMode.bottom.faction:ClearAllPoints()
-	self.AFKMode.bottom.faction:SetPoint("CENTER", self.AFKMode.bottom, "CENTER", 0, 80)
+	self.AFKMode.bottom.faction:SetParent(self.AFKMode.bottom.factionb)
+	self.AFKMode.bottom.faction:SetInside()
 	
 	-- Add more info in the name and position it to the center
 	self.AFKMode.bottom.name:ClearAllPoints()	
