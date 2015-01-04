@@ -92,7 +92,7 @@ function BUID:CreateVolume()
 	
 	local iconBG = CreateFrame('Frame', nil, boardName)
 	iconBG:Size(16,16)
-	iconBG:Point('BOTTOMRIGHT', boardName, 'BOTTOMRIGHT', 0, 4)
+	iconBG:Point('BOTTOMRIGHT', boardName, 'BOTTOMRIGHT', 0, (E.PixelMode and 4 or 6))
 	iconBG:SetFrameStrata('LOW')
 	iconBG.text = iconBG:CreateFontString(nil, 'OVERLAY')
 	iconBG.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)

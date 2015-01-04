@@ -113,7 +113,7 @@ function BUID:UpdateBoards()
 			sysFrame.spark:SetPoint('CENTER', sysFrame.Status:GetStatusBarTexture(), 'RIGHT')			
 			
 			sysFrame.Text = sysFrame.Status:CreateFontString(nil, 'OVERLAY')
-			sysFrame.Text:Point('LEFT', sysFrame, 'LEFT', 6, 2)
+			sysFrame.Text:Point('LEFT', sysFrame, 'LEFT', 6, (E.PixelMode and 2 or 3))
 			sysFrame.Text:SetJustifyH('LEFT')
 
 			tinsert(loadedBoards, sysFrame)
