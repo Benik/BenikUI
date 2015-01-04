@@ -257,8 +257,6 @@ local function styleGarrison()
 	
 	GarrisonMissionFrame.backdrop:Style('Outside')
 	GarrisonLandingPage.backdrop:Style('Outside')
-	GarrisonBuildingFrame.BuildingLevelTooltip:StripTextures()
-	GarrisonBuildingFrame.BuildingLevelTooltip:SetTemplate('Transparent')
 	GarrisonBuildingFrame.BuildingLevelTooltip:Style('Outside')
 	GarrisonBuildingFrame.backdrop:Style('Outside')
 	GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
