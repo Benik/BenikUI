@@ -77,12 +77,12 @@ local OnEnter = function(self)
 			local Mission = Missions[i]
 			local TimeLeft = Mission.timeLeft:match("%d")
 			local r, g, b = 1, 1, 1
+			if (Mission.isRare) then r, g, b = 0.09, 0.51, 0.81 end
 
 			if (Mission.inProgress and (TimeLeft ~= "0")) then
-				if (Mission.isRare) then r, g, b = 0.09, 0.51, 0.81 else r, g, b = 0.7, 0.7, 0.7 end
+				if not (Mission.isRare) then r, g, b = 0.7, 0.7, 0.7 end
 				DT.tooltip:AddDoubleLine(Mission.name, Mission.timeLeft, r, g, b, selectioncolor)
 			else
-				if (Mission.isRare) then r, g, b = 0.09, 0.51, 0.81 end
 				DT.tooltip:AddDoubleLine(Mission.name, GARRISON_MISSION_COMPLETE, r, g, b, 0, 1, 0)
 			end
 		end
