@@ -248,7 +248,7 @@ function BXR:ChangeRepXpFont()
 end
 
 -- Style ElvUI default XP/Rep bars
-local SPACING = (E.PixelMode and 1 or 5)
+local SPACING = (E.PixelMode and 1 or 3)
 
 local function xp_OnFade(self)
 	ElvUI_ExperienceBar:Hide()
@@ -283,11 +283,6 @@ local function StyleXpRepBars()
 	local xp = ElvUI_ExperienceBar
 	xp:SetParent(LeftChatPanel)
 	xp.fadeFunc = xp_OnFade
-	-- top decor
-	xp.ft = CreateFrame('Frame', nil, xp)
-	xp.ft:SetTemplate('Default', true)     
-	xp.ft:Point('TOPLEFT', xp, 'TOPLEFT', 0, 4)
-	xp.ft:Point('BOTTOMRIGHT', xp, 'TOPRIGHT')
 	
 	-- bottom decor/button
 	xp.fb = CreateFrame('Button', nil, xp)
@@ -295,7 +290,7 @@ local function StyleXpRepBars()
 	xp.fb:CreateSoftGlow()
 	xp.fb.sglow:Hide()
 	xp.fb:Point('TOPLEFT', xp, 'BOTTOMLEFT', 0, -SPACING)
-	xp.fb:Point('BOTTOMRIGHT', xp, 'BOTTOMRIGHT', 0, -20)
+	xp.fb:Point('BOTTOMRIGHT', xp, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -21))
 	xp.fb:SetScript('OnEnter', function(self)
 		self.sglow:Show()
 		GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
@@ -315,11 +310,6 @@ local function StyleXpRepBars()
 	local rp = ElvUI_ReputationBar
 	rp:SetParent(RightChatPanel)
 	rp.fadeFunc = rp_OnFade
-	-- top decor
-	rp.ft = CreateFrame('Frame', nil, rp)
-	rp.ft:SetTemplate('Default', true)
-	rp.ft:Point('TOPLEFT', rp, 'TOPLEFT', 0, 4)
-	rp.ft:Point('BOTTOMRIGHT', rp, 'TOPRIGHT')
 	
 	-- bottom decor/button	
 	rp.fb = CreateFrame('Button', nil, rp)
@@ -327,7 +317,7 @@ local function StyleXpRepBars()
 	rp.fb:CreateSoftGlow()
 	rp.fb.sglow:Hide()
 	rp.fb:Point('TOPLEFT', rp, 'BOTTOMLEFT', 0, -SPACING)
-	rp.fb:Point('BOTTOMRIGHT', rp, 'BOTTOMRIGHT', 0, -20)
+	rp.fb:Point('BOTTOMRIGHT', rp, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -21))
 
 	rp.fb:SetScript('OnEnter', function(self)
 		self.sglow:Show()
@@ -343,16 +333,32 @@ local function StyleXpRepBars()
 	rp.fb:SetScript('OnClick', function(self)
 		ToggleCharacter("ReputationFrame")
 	end)
+	
+	-- top xp decor
+	if E.db.bui.buiStyle ~= true or not E.PixelMode then return end
+	xp.ft = CreateFrame('Frame', nil, xp)
+	xp.ft:SetTemplate('Default', true)     
+	xp.ft:Point('TOPLEFT', xp, 'TOPLEFT', 0, 4)
+	xp.ft:Point('BOTTOMRIGHT', xp, 'TOPRIGHT')
+	-- top rep decor
+	rp.ft = CreateFrame('Frame', nil, rp)
+	rp.ft:SetTemplate('Default', true)
+	rp.ft:Point('TOPLEFT', rp, 'TOPLEFT', 0, 4)
+	rp.ft:Point('BOTTOMRIGHT', rp, 'TOPRIGHT')
 end
 
 function BXR:ApplyXpRepStyling()
 	local xp = ElvUI_ExperienceBar
 	if E.db.general.experience.enable == true then
 		if E.db.general.experience.orientation == 'VERTICAL' then
-			xp.ft:Show()
+			if xp.ft then
+				xp.ft:Show()
+			end
 			xp.fb:Show()
 		else
-			xp.ft:Hide()
+			if xp.ft then
+				xp.ft:Hide()
+			end
 			xp.fb:Hide()
 		end
 	end	
@@ -360,10 +366,14 @@ function BXR:ApplyXpRepStyling()
 	local rp = ElvUI_ReputationBar
 	if E.db.general.reputation.enable == true then
 		if E.db.general.reputation.orientation == 'VERTICAL' then
-			rp.ft:Show()
+			if rp.ft then
+				rp.ft:Show()
+			end
 			rp.fb:Show()
 		else
-			rp.ft:Hide()
+			if rp.ft then
+				rp.ft:Hide()
+			end
 			rp.fb:Hide()
 		end
 	end
