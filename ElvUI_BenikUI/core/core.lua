@@ -10,10 +10,18 @@ BUI.Title = string.format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 
+local SPACING = (E.PixelMode and 1 or 5)
+
 local function StyleTooltip()
 	GameTooltipStatusBar:SetStatusBarTexture(E["media"].BuiFlat)
-	if IsAddOnLoaded('FreebTip') or E.db.bui.buiStyle ~= true then return end
+	if E.db.bui.buiStyle ~= true then return end
+	
 	GameTooltip:Style('Inside')
+	if IsAddOnLoaded('FreebTip') then
+		GameTooltip.style:ClearAllPoints()
+		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', SPACING, -SPACING)
+		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', -SPACING, -6)
+	end
 end
 
 function BUI:cOption(name)
