@@ -46,7 +46,7 @@ local function CreateSoftGlow(f)
 end
 
 local function Style(f, template, name)
-	if f.style or E.db.bui.buiStyle ~= true then return end
+	if f.style or E.db.bui.buiStyle ~= true or not E.Pixelmode then return end
 
 	local style = CreateFrame('Frame', name or nil, f)
 	if not template then
