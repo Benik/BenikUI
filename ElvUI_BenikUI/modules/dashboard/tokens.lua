@@ -138,7 +138,7 @@ function BUIT:UpdateTokens()
 			
 			if db.chooseTokens[name] == true then
 				if db.zeroamount or amount > 0 then
-					tokenHolder:Height(((DASH_HEIGHT + SPACING) * (#Tokens + 1)) + SPACING +(E.PixelMode and 0 or 2))
+					tokenHolder:Height(((DASH_HEIGHT + SPACING) * (#Tokens + 1)) + SPACING + (E.PixelMode and 0 or 2))
 					tokenHolder.backdrop:Show()
 					
 					local TokensFrame = CreateFrame('Frame', 'Tokens' .. id, tokenHolder)
@@ -170,7 +170,7 @@ function BUIT:UpdateTokens()
 					
 					TokensFrame.spark = TokensFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
 					TokensFrame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-					TokensFrame.spark:SetSize(12, 6);
+					TokensFrame.spark:Size(12, 6);
 					TokensFrame.spark:SetBlendMode('ADD');
 					TokensFrame.spark:SetPoint('CENTER', TokensFrame.Status:GetStatusBarTexture(), 'RIGHT')
 
@@ -192,12 +192,12 @@ function BUIT:UpdateTokens()
 					TokensFrame.IconBG = CreateFrame('Frame', 'TokensIconBG' .. id, TokensFrame)
 					TokensFrame.IconBG:SetTemplate('Transparent')
 					TokensFrame.IconBG:Size(E.PixelMode and 18 or 20)
-					TokensFrame.IconBG:Point('BOTTOMRIGHT', TokensFrame, 'BOTTOMRIGHT', -SPACING, SPACING)
+					TokensFrame.IconBG:Point('BOTTOMRIGHT', TokensFrame, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 
-					TokensFrame.Icon = TokensFrame.IconBG:CreateTexture(nil, 'ARTWORK', TokensFrame.IconBG)
-					TokensFrame.Icon:SetInside()
-					TokensFrame.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-					TokensFrame.Icon:SetTexture(icon)
+					TokensFrame.IconBG.Icon = TokensFrame.IconBG:CreateTexture(nil, 'ARTWORK')
+					TokensFrame.IconBG.Icon:SetInside()
+					TokensFrame.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+					TokensFrame.IconBG.Icon:SetTexture(icon)
 
 					TokensFrame:SetScript('OnEnter', function(self)
 						TokensFrame.Text:SetText(format('%s', name))
