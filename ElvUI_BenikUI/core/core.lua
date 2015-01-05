@@ -38,6 +38,7 @@ function BUI:RegisterBuiMedia()
 	E['media'].BuiFlat = LSM:Fetch('statusbar', 'BuiFlat')
 	E['media'].BuiMelli = LSM:Fetch('statusbar', 'BuiMelli')
 	E['media'].BuiMelliDark = LSM:Fetch('statusbar', 'BuiMelliDark')
+	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
 end
 
 E.BuiConfig = {}
