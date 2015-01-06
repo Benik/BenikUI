@@ -1,3 +1,11 @@
+[b]2.09[/b] (Jan 06, 2015)
+[NEW] Added 24h format on the AFK mode time. This follows ElvUI Time datatext options (Local/Server time, 12/24h format)
+[NEW] Added a new statusbar texture (BuiOnePixel.tga) that could be used on Recount or Skada statusbars, so they will fit with Dashboards look. May need a bit more adjustment though.
+*When Pixel Perfect is disabled, then BenikUI style also gets disabled. This is done to avoid border glitches.
+[FIX] The ui now looks ok even with Pixel Perfect disabled. Yes, the Dashdoards too :)
+[NEW] Added option to show/hide the decorative bars (BenikUI Style)
+[NEW] Added German locale - Credits: Merathilis
+
 [b]2.08[/b] (Dec 22, 2014)
 
 *Added my version of Garrison Datatext

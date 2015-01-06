@@ -1,4 +1,4 @@
-﻿## Interface: 60000
+## Interface: 60000
 ## Author: Benik
 ## Version: 1.02
 ## Title: |cff1784d1ElvUI|r_BenikUI_Fonts
