@@ -74,7 +74,8 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset)
 	end
 
 	frame:SetHeight((#list * BUTTON_HEIGHT) + PADDING * 2)
-	frame:SetWidth(BUTTON_WIDTH + PADDING * 2)	
+	frame:SetWidth(BUTTON_WIDTH + PADDING * 2)
+	frame:Style('Outside')
 	frame:ClearAllPoints()
 	if pos == 'tLeft' then
 		frame:SetPoint('BOTTOMRIGHT', parent, 'TOPLEFT', xOffset, yOffset)

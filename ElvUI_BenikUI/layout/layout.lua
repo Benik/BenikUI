@@ -44,7 +44,6 @@ local tinsert = table.insert
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
-BuiGameClickMenu:Style('Outside')
 
 -- as in ElvUI
 local menuList = {
