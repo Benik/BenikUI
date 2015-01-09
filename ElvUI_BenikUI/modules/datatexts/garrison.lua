@@ -36,6 +36,19 @@ local OnEvent = function(self, event)
 	lastPanel = self
 end
 
+local function SortMissions(missionlist)
+    local comparison = function(mission1, mission2)
+
+        if ( mission1.timeLeft ~= mission2.timeLeft ) then
+            return mission1.timeLeft < mission2.timeLeft;
+        end		
+
+        return mission1.name < mission2.name
+    end
+ 
+    table.sort(missionlist, comparison);
+end
+
 local OnEnter = function(self)
 	DT:SetupTooltip(self)
 
@@ -72,7 +85,7 @@ local OnEnter = function(self)
 
 	if (NumMissions > 0) then
 		DT.tooltip:AddLine(format(GARRISON_MISSIONS_TITLE), selectioncolor)
-		
+		SortMissions(Missions)
 		for i = 1, NumMissions do
 			local Mission = Missions[i]
 			local TimeLeft = Mission.timeLeft:match("%d")
@@ -81,7 +94,7 @@ local OnEnter = function(self)
 
 			if (Mission.inProgress and (TimeLeft ~= "0")) then
 				if not (Mission.isRare) then r, g, b = 0.7, 0.7, 0.7 end
-				DT.tooltip:AddDoubleLine(Mission.name, Mission.timeLeft, r, g, b, selectioncolor)
+				DT.tooltip:AddDoubleLine(format('%s |cffffffff(%s)|r', Mission.name, Mission.type), Mission.timeLeft, r, g, b, selectioncolor)
 			else
 				DT.tooltip:AddDoubleLine(Mission.name, GARRISON_MISSION_COMPLETE, r, g, b, 0, 1, 0)
 			end

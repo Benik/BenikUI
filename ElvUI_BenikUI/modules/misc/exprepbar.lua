@@ -335,15 +335,15 @@ local function StyleXpRepBars()
 	end)
 	
 	-- top xp decor
-	if E.db.bui.buiStyle ~= true or not E.PixelMode then return end
+	if E.db.bui.buiStyle ~= true then return end
 	xp.ft = CreateFrame('Frame', nil, xp)
 	xp.ft:SetTemplate('Default', true)     
-	xp.ft:Point('TOPLEFT', xp, 'TOPLEFT', 0, 4)
+	xp.ft:Point('TOPLEFT', xp, 'TOPLEFT', 0, (E.PixelMode and 4 or 6))
 	xp.ft:Point('BOTTOMRIGHT', xp, 'TOPRIGHT')
 	-- top rep decor
 	rp.ft = CreateFrame('Frame', nil, rp)
 	rp.ft:SetTemplate('Default', true)
-	rp.ft:Point('TOPLEFT', rp, 'TOPLEFT', 0, 4)
+	rp.ft:Point('TOPLEFT', rp, 'TOPLEFT', 0, (E.PixelMode and 4 or 6))
 	rp.ft:Point('BOTTOMRIGHT', rp, 'TOPRIGHT')
 end
 

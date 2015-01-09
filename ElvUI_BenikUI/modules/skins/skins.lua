@@ -3,7 +3,7 @@ local BUIS = E:NewModule('BuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
 local S = E:GetModule('Skins');
 
-local SPACING = (E.PixelMode and 1 or 5)
+local SPACING = (E.PixelMode and 1 or 2)
 
 local FreeBlizzFrames = {
 	AchievementAlertFrame1, -- test
@@ -91,7 +91,7 @@ local BlizzUiFrames = {
 	{'Blizzard_BattlefieldMinimap', 'BattlefieldMinimap', 'bgmap'},
 	{'Blizzard_BindingUI', 'KeyBindingFrame', 'binding'},
 	{'Blizzard_BlackMarketUI', 'BlackMarketFrame', 'bmah'},
-	{'Blizzard_Calendar', 'CalendarFrame', 'calendar'},
+	{'Blizzard_Calendar', 'CalendarFrame', 'calendar'}, -- issues non pixel perfect
 	{'Blizzard_Calendar', 'CalendarViewEventFrame', 'calendar'},
 	{'Blizzard_Calendar', 'CalendarViewHolidayFrame', 'calendar'},
 	{'Blizzard_GuildBankUI', 'GuildBankFrame', 'gbank'},
@@ -103,7 +103,7 @@ local BlizzUiFrames = {
 	{'Blizzard_LookingForGuildUI', 'LookingForGuildFrame', 'lfguild'},
 	{'Blizzard_MacroUI', 'MacroFrame', 'macro'},
 	{'Blizzard_PetJournal', 'PetJournalParent', 'mounts'},
-	{'Blizzard_PVPUI', 'PVPUIFrame', 'pvp'},
+	--{'Blizzard_PVPUI', 'PVPUIFrame', 'pvp'},
 	{'Blizzard_ItemSocketingUI', 'ItemSocketingFrame', 'socket'},
 	{'Blizzard_TalentUI', 'PlayerTalentFrame', 'talent'},
 	{'Blizzard_TradeSkillUI', 'TradeSkillFrame', 'trade'},
@@ -115,25 +115,25 @@ function BUI:StyleBlizzard(parent, ...)
 	local frame = CreateFrame('Frame', parent..'Decor', E.UIParent)
 	frame:CreateBackdrop('Default', true)
 	frame:SetParent(parent)
-	frame:Point('TOPLEFT', parent, 'TOPLEFT', SPACING, 3)
-	frame:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', -SPACING, 0)
+	frame:Point('TOPLEFT', parent, 'TOPLEFT', SPACING, (E.PixelMode and 3 or 5))
+	frame:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', -SPACING, (E.PixelMode and 0 or 3))
 end
 
 function BUIS:BlizzardUI_LOD_Skins(event, addon)
-	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true or not E.PixelMode then return end
+	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true then return end
 	for i, v in ipairs(BlizzUiFrames) do
 		local blizzAddon, blizzFrame, elvoption = unpack( v )
 		if (event == 'ADDON_LOADED' and addon == blizzAddon) then
 			if E.private.skins.blizzard[elvoption] ~= true then return end
 			if blizzFrame then
 				BUI:StyleBlizzard(blizzFrame)
-				
+
 				-- Fixes/Style tabs, buttons, etc
 				if addon == 'Blizzard_AchievementUI' then
 					if AchievementFrameDecor then
 						AchievementFrameDecor:ClearAllPoints()
-						AchievementFrameDecor:Point('TOPLEFT', AchievementFrame, 'TOPLEFT', SPACING, 9)
-						AchievementFrameDecor:Point('BOTTOMRIGHT', AchievementFrame, 'TOPRIGHT', -SPACING, 6)			
+						AchievementFrameDecor:Point('TOPLEFT', AchievementFrame, 'TOPLEFT', (E.PixelMode and 1 or 2), (E.PixelMode and 9 or 11))
+						AchievementFrameDecor:Point('BOTTOMRIGHT', AchievementFrame, 'TOPRIGHT', -(E.PixelMode and 1 or 2), (E.PixelMode and 6 or 9))			
 					end
 				end
 				
@@ -148,7 +148,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 					end
 				end
 				
-				if addon == 'Blizzard_TalentUI' then 
+				if addon == 'Blizzard_TalentUI' then
 					for i = 1, 2 do
 						local tab = _G['PlayerSpecTab'..i]
 						if not tab.style then
@@ -208,11 +208,11 @@ end
 
 -- Blizzard Styles
 local function styleFreeBlizzardFrames()
-	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true or not E.PixelMode then return end
+	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true then return end
 	
 	for _, frame in pairs(FreeBlizzFrames) do
 		if frame and not frame.style then
-			frame:Style('Outside')
+			frame:Style('Skin')
 		end
 	end
 
@@ -259,12 +259,12 @@ local function styleGarrison()
 	GarrisonLandingPage.backdrop:Style('Outside')
 	GarrisonBuildingFrame.BuildingLevelTooltip:Style('Outside')
 	GarrisonFollowerAbilityTooltip:Style('Outside')
-	--GarrisonMissionMechanicTooltip:StripTextures()
-	GarrisonMissionMechanicTooltip:SetTemplate('Transparent', true)	
-	--GarrisonMissionMechanicTooltip:Style('Inside')
-	--GarrisonMissionMechanicFollowerCounterTooltip:StripTextures()
-	GarrisonMissionMechanicFollowerCounterTooltip:SetTemplate('Transparent', true)
-	--GarrisonMissionMechanicFollowerCounterTooltip:Style('Inside')
+	GarrisonMissionMechanicTooltip:StripTextures()
+	GarrisonMissionMechanicTooltip:CreateBackdrop('Transparent')	
+	GarrisonMissionMechanicTooltip.backdrop:Style('Inside')
+	GarrisonMissionMechanicFollowerCounterTooltip:StripTextures()
+	GarrisonMissionMechanicFollowerCounterTooltip:CreateBackdrop('Transparent')
+	GarrisonMissionMechanicFollowerCounterTooltip.backdrop:Style('Inside')
 	GarrisonBuildingFrame.backdrop:Style('Outside')
 	GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
 	GarrisonMissionAlertFrame:StripTextures()
@@ -285,7 +285,7 @@ function BUIS:BenikUISkins()
 		end
 	end
 	
-	if E.db.bui.buiStyle ~= true or not E.PixelMode then return end
+	if E.db.bui.buiStyle ~= true then return end 
 	
 	-- Blizzard Styles
 	styleFreeBlizzardFrames()

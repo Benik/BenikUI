@@ -2,7 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local LSM = LibStub('LibSharedMedia-3.0')
 
-local SPACING = (E.PixelMode and 1 or 5)
+local SPACING = (E.PixelMode and 1 or 3)
 
 local color = { r = 1, g = 0.5, b = 0 }
 local function unpackColor(color)
@@ -46,7 +46,7 @@ local function CreateSoftGlow(f)
 end
 
 local function Style(f, template, name)
-	if f.style or E.db.bui.buiStyle ~= true or not E.PixelMode then return end
+	if f.style or E.db.bui.buiStyle ~= true then return end
 
 	local style = CreateFrame('Frame', name or nil, f)
 	if not template then
@@ -56,13 +56,13 @@ local function Style(f, template, name)
 	end
 	local tlx, tly, brx, bry
 	if template == 'Inside' then
-		tlx, tly, brx, bry = 0, SPACING, 0, -4
+		tlx, tly, brx, bry = 0, SPACING, 0, (E.PixelMode and -4 or -3)
 	elseif template == 'Outside' then
-		tlx, tly, brx, bry = 0, 4, 0, -SPACING
+		tlx, tly, brx, bry = 0, (E.PixelMode and 4 or 5), 0, -1
 	elseif template == 'Skin' then
-		tlx, tly, brx, bry = SPACING, 4, -SPACING, 0
+		tlx, tly, brx, bry = 0, (E.PixelMode and 4 or 7), 0, (E.PixelMode and -1 or 1)
 	elseif template == 'Small' then
-		tlx, tly, brx, bry = -SPACING, 4, SPACING, -SPACING
+		tlx, tly, brx, bry = -(E.PixelMode and 1 or 2), (E.PixelMode and 4 or 9), (E.PixelMode and 1 or 2), (E.PixelMode and -1 or 3)
 	end
 	style:Point('TOPLEFT', f, 'TOPLEFT', tlx, tly)
 	style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
