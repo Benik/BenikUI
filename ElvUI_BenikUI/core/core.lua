@@ -12,12 +12,13 @@ BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t
 
 local function StyleTooltip()
 	GameTooltipStatusBar:SetStatusBarTexture(E["media"].BuiFlat)
+	if E.db.bui.buiStyle ~= true then return end
 	GameTooltip:Style('Inside')
 
-	if IsAddOnLoaded('FreebTip') and E.db.bui.buiStyle == true and E.PixelMode then
+	if IsAddOnLoaded('FreebTip') then
 		GameTooltip.style:ClearAllPoints()
-		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', 1, -1)
-		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', -1, -6)
+		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
+		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
 	end
 end
 
