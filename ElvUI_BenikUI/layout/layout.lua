@@ -12,18 +12,25 @@ local SPACING = (E.PixelMode and 1 or 3)
 local BUTTON_NUM = 4
 
 local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
-DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
+
 
 local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
-DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
+
+
+local function RegBuiDataTexts()
+	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
+	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
+	
+	L['BuiLeftChatDTPanel'] = BUI.Title..BUI:cOption(L['Left Chat Panel']);
+	L['BuiRightChatDTPanel'] = BUI.Title..BUI:cOption(L['Right Chat Panel']);
+end
 
 local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
 local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent)
 
 -- How to appear in datatext options
 --L['BuiMiddleDTPanel'] = L['Bui Middle Panel'];
-L['BuiLeftChatDTPanel'] = BUI.Title..BUI:cOption(L['Left Chat Panel']);
-L['BuiRightChatDTPanel'] = BUI.Title..BUI:cOption(L['Right Chat Panel']);
+
 
 -- Setting default datatexts
 P.datatexts.panels.BuiLeftChatDTPanel = {
@@ -402,15 +409,22 @@ function BUIL:ChangeLayout()
 	ElvUI_ConsolidatedBuffs:Style('Outside')
 	CopyChatFrame:Style('Inside')
 	self:ResizeMinimapPanels()
+
+end
+
+function BUIL:PLAYER_ENTERING_WORLD(...)
 	self:ToggleTransparency()
 	self:ToggleBuiDts()
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function BUIL:Initialize()
+	RegBuiDataTexts()
 	self:ChangeLayout()
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ToggleBuiDts)
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ResizeMinimapPanels)
 	hooksecurefunc(M, 'UpdateSettings', BUIL.ResizeMinimapPanels)
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 E:RegisterModule(BUIL:GetName())
