@@ -35,9 +35,9 @@ P.datatexts.panels.BuiRightChatDTPanel = {
 }
 
 P.datatexts.panels.BuiMiddleDTPanel = {
-	left = '',
-	middle = '',
-	right = '',
+	left = 'Multistrike',
+	middle = 'Garrison+ (BenikUI)',
+	right = 'Versatility',
 }
 
 -- Actionbars
