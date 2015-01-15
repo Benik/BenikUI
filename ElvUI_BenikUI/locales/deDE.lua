@@ -7,20 +7,23 @@ if not L then return; end
 --core
 L[' is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598'] = " ist geladen. Für Fehler oder Vorschläge bitte besucht: http://www.tukui.org/forums/topic.php?id=30598"
 
--- core options
+-- General options
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = "BenikUI ist ein komplett externer ElvUI Mod. Weitere verfügbare Optionen findest Du in den ElvUI Optionen (z.B. Aktionsleisten, Einheitenfenster, Spieler und Ziel Portrait), markiert in "
 L['light blue color.'] = "hell blau"
 L["Credits:"] = true
 L['Force BenikUI fonts'] = "Erzwinge BenikUI Schriftart"
 L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'] = "Ermöglicht die BenikUI Schriftart, die vorhandene Kampf- und Namensschriftart zu überschreiben. |cffFF0000WARNUNG: Damit die Änderungen wirksam werden, ist ein Neustart des Spiels oder ein Re-Log erforderlich.|r"
+L['BenikUI Style'] = true
+L['Show/Hide the decorative bars from UI elements'] = "Dekorative Leisten von den UI Elementen anzeigen/ausblenden"
+
+-- DataTexts
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Chat Infotexte anzeigen/ausblenden. ElvUI Infotexte müssen dafür deaktiviert sein"
 L['Hide Mail Icon'] = "Verstecke das Postsymbol"
 L['Show/Hide Mail Icon on minimap'] = "Postsymbol an der Minimap anzeigen/ausblenden"
 L['Show Garrison Currency'] = "Zeige Garnisonsresourcen"
 L['Show/Hide garrison currency on the datatext tooltip'] = "Garnisonsressourcen am Infotext Tooltip anzeigen/ausblenden"
-L['BenikUI Style'] = true
-L['Show/Hide the decorative bars from UI elements'] = "Dekorative Leisten von den UI Elementen anzeigen/ausblenden"
+L['BenikUI Middle DataText'] = true
 
 -- install
 L['Color Theme Set'] = "Farbschema setzen"

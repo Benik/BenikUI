@@ -9,8 +9,35 @@ P['bui'] = {
 	['buiFonts'] = true,
 	['transparentDts'] = false,
 	['editBoxPosition'] = 'BELOW_CHAT',
+	['middleDatatext'] = {
+		['enable'] = true,
+		['transparency'] = true,
+		['backdrop'] = false,
+		['width'] = 400,
+		['height'] = 19,
+		['styled'] = false,
+	},
 	['toggleMail'] = true,
 	['garrisonCurrency'] = false,
+}
+
+-- Datatexts
+P.datatexts.panels.BuiLeftChatDTPanel = {
+	left = E.db.datatexts.panels.LeftChatDataPanel.left,
+	middle = E.db.datatexts.panels.LeftChatDataPanel.middle,
+	right = E.db.datatexts.panels.LeftChatDataPanel.right,
+}
+
+P.datatexts.panels.BuiRightChatDTPanel = {
+	left = E.db.datatexts.panels.RightChatDataPanel.left,
+	middle = E.db.datatexts.panels.RightChatDataPanel.middle,
+	right = E.db.datatexts.panels.RightChatDataPanel.right,
+}
+
+P.datatexts.panels.BuiMiddleDTPanel = {
+	left = '',
+	middle = '',
+	right = '',
 }
 
 -- Actionbars

@@ -12,38 +12,21 @@ local SPACING = (E.PixelMode and 1 or 3)
 local BUTTON_NUM = 4
 
 local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
-
-
 local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
-
+local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
 
 local function RegBuiDataTexts()
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
+	DT:RegisterPanel(BuiMiddleDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	
 	L['BuiLeftChatDTPanel'] = BUI.Title..BUI:cOption(L['Left Chat Panel']);
 	L['BuiRightChatDTPanel'] = BUI.Title..BUI:cOption(L['Right Chat Panel']);
+	L['BuiMiddleDTPanel'] = BUI.Title..BUI:cOption(L['Middle Panel']);
 end
 
 local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
 local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent)
-
--- How to appear in datatext options
---L['BuiMiddleDTPanel'] = L['Bui Middle Panel'];
-
-
--- Setting default datatexts
-P.datatexts.panels.BuiLeftChatDTPanel = {
-	left = E.db.datatexts.panels.LeftChatDataPanel.left,
-	middle = E.db.datatexts.panels.LeftChatDataPanel.middle,
-	right = E.db.datatexts.panels.LeftChatDataPanel.right,
-}
-
-P.datatexts.panels.BuiRightChatDTPanel = {
-	left = E.db.datatexts.panels.RightChatDataPanel.left,
-	middle = E.db.datatexts.panels.RightChatDataPanel.middle,
-	right = E.db.datatexts.panels.RightChatDataPanel.right,
-}
 
 local gsub = string.gsub
 local upper = string.upper
@@ -207,7 +190,7 @@ end
 function BUIL:ToggleTransparency()
 	if E.db.bui.transparentDts then
 		Bui_ldtp:SetTemplate('Transparent')
-		Bui_rdtp:SetTemplate('Transparent')
+		Bui_rdtp:SetTemplate('Transparent')	
 		for i = 1, BUTTON_NUM do
 			bbuttons[i]:SetTemplate('Transparent')
 		end
@@ -218,6 +201,37 @@ function BUIL:ToggleTransparency()
 			bbuttons[i]:SetTemplate('Default', true)
 		end	
 	end
+end
+
+function BUIL:MiddleDatatextLayout()
+	local db = E.db.bui.middleDatatext
+	
+	if db.enable then
+		Bui_mdtp:Show()
+	else
+		Bui_mdtp:Hide()
+	end
+	
+	if not db.backdrop then
+		Bui_mdtp:StripTextures()
+	else
+		if db.transparency then
+			Bui_mdtp:SetTemplate('Transparent')
+		else
+			Bui_mdtp:SetTemplate('Default', true)
+		end
+	end
+	
+	if db.styled and db.backdrop then
+		Bui_mdtp.style:Show()
+	else
+		Bui_mdtp.style:Hide()
+	end
+end
+
+function BUIL:MiddleDatatextDimensions()
+	Bui_mdtp:Width(E.db.bui.middleDatatext.width)
+	Bui_mdtp:Height(E.db.bui.middleDatatext.height)
 end
 
 function BUIL:ChangeLayout()
@@ -245,6 +259,16 @@ function BUIL:ChangeLayout()
 	Bui_rdtp:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
+	
+	-- Middle dt panel
+	Bui_mdtp:SetFrameStrata('BACKGROUND')
+	Bui_mdtp:SetTemplate(E.db.bui.middleDatatext.transparency and 'Transparent' or 'Default', true)
+	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
+	Bui_mdtp:Width(E.db.bui.middleDatatext.width or 400)
+	Bui_mdtp:Height(E.db.bui.middleDatatext.height or PANEL_HEIGHT)
+	Bui_mdtp:Style('Outside')
+	Bui_mdtp.style:Hide()
+	E:CreateMover(Bui_mdtp, "BuiMiddleDtMover", L['BenikUI Middle DataText'])
 
 	-- dummy frame for chat/threat (left)
 	Bui_dchat:SetFrameStrata('LOW')
@@ -415,6 +439,8 @@ end
 function BUIL:PLAYER_ENTERING_WORLD(...)
 	self:ToggleTransparency()
 	self:ToggleBuiDts()
+	self:MiddleDatatextLayout()
+	self:MiddleDatatextDimensions()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 

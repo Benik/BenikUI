@@ -6,20 +6,23 @@ if not L then return; end
  --core
 L[' is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598'] = true
 
--- core options
+-- General options
 L['by Benik (EU-Emerald Dream)'] = true
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = true
 L['light blue color.'] = true
 L["Credits:"] = true
 L['Force BenikUI fonts'] = true
 L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'] = true
+L['BenikUI Style'] = true
+L['Show/Hide the decorative bars from UI elements'] = true
+
+-- DataTexts
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = true
 L['Hide Mail Icon'] = true
 L['Show/Hide Mail Icon on minimap'] = true
 L['Show Garrison Currency'] = true
 L['Show/Hide garrison currency on the datatext tooltip'] = true
-L['BenikUI Style'] = true
-L['Show/Hide the decorative bars from UI elements'] = true
+L['BenikUI Middle DataText'] = true
 
 -- install
 L['Color Theme Set'] = true
