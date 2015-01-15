@@ -250,6 +250,35 @@ local function styleCoreAbilities()
 	end)
 end
 
+-- Alert Frames
+local function styleAlertFrames()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alertframes ~= true then return end
+	hooksecurefunc('LootWonAlertFrame_SetUp', function(frame)
+		if frame then
+			frame.backdrop:Style('Outside')
+		end
+	end)
+	
+	hooksecurefunc('MoneyWonAlertFrame_SetUp', function(frame)
+		if frame then
+			frame.backdrop:Style('Outside')
+		end	
+	end)
+	
+	hooksecurefunc('LootUpgradeFrame_SetUp', function(frame)
+		if frame then
+			frame.backdrop:Style('Outside')
+		end	
+	end)
+
+	BonusRollMoneyWonFrame.backdrop:Style('Outside')
+	BonusRollLootWonFrame.backdrop:Style('Outside')
+	
+	GarrisonBuildingAlertFrame.backdrop:Style('Outside')
+	GarrisonMissionAlertFrame.backdrop:Style('Outside')
+	GarrisonFollowerAlertFrame.backdrop:Style('Outside')
+end
+
 -- Garrison Style
 local function styleGarrison()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true then return end
@@ -267,9 +296,6 @@ local function styleGarrison()
 	GarrisonMissionMechanicFollowerCounterTooltip.backdrop:Style('Inside')
 	GarrisonBuildingFrame.backdrop:Style('Outside')
 	GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
-	GarrisonMissionAlertFrame:StripTextures()
-	GarrisonMissionAlertFrame:SetTemplate('Transparent')
-	GarrisonMissionAlertFrame:Style('Outside')
 end
 
 function BUIS:BenikUISkins()
@@ -295,6 +321,9 @@ function BUIS:BenikUISkins()
 	
 	-- SpellBook Core abilities tabs
 	styleCoreAbilities()
+	
+	-- Alert Frames
+	styleAlertFrames()
 	
 	-- Style Changes
 	if DressUpFrame.style then
