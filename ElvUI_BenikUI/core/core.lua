@@ -53,7 +53,7 @@ end
 
 function BUI:Initialize()
 	self:RegisterBuiMedia()
-	
+
 	StyleTooltip()
 	E:GetModule('DataTexts'):ToggleMailFrame()
 	

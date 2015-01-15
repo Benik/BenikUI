@@ -419,18 +419,28 @@ local function SetupAddOnSkins()
 			E.private['addonskins']['RecountBackdrop'] = false
 			E.private['addonskins']['EmbedBelowTop'] = false
 			E.private['addonskins']['TransparentEmbed'] = true
+		elseif IsAddOnLoaded('Skada') then
+			E.private['addonskins']['EmbedMain'] = 'Skada'
+			E.private['addonskins']['EmbedSystem'] = true
+			E.private['addonskins']['EmbedSystemDual'] = false
+			E.private['addonskins']['SkadaBackdrop'] = false
+			E.private['addonskins']['EmbedBelowTop'] = false
+			E.private['addonskins']['TransparentEmbed'] = true		
 		elseif IsAddOnLoaded('DBM') then
-			E.private['addonskins']['DBMFont'] = 'Bui Visitor1'
+			E.private['addonskins']['DBMFont'] = 'Bui Prototype'
 			E.private['addonskins']['DBMFontSize'] = 10
-			E.private['addonskins']['DBMFontFlag'] = 'MONOCROMEOUTLINE'
+			E.private['addonskins']['DBMFontFlag'] = 'OUTLINE'
 		end
 	end
 end
 
+local recountName = GetAddOnMetadata('Recount', 'Title')
+local skadaName = GetAddOnMetadata('Skada', 'Title')
+
 local function SetupBuiAddons()
 	-- Recount Profile
 	if IsAddOnLoaded('Recount') then
-		print(BUI.Title..L['- Recount profile successfully created!'])
+		print(BUI.Title..format(L['- %s profile successfully created!'], recountName))
 		RecountDB['profiles']['BenikUI'] = {
 			['Colors'] = {
 				['Other Windows'] = {
@@ -464,6 +474,36 @@ local function SetupBuiAddons()
 			['CurDataSet'] = 'OverallData',
 			['ClampToScreen'] = true,
 			['Font'] = 'Bui Visitor1',	
+		}
+	-- Skada Profile
+	elseif IsAddOnLoaded('Skada') then
+		print(BUI.Title..format(L['- %s profile successfully created!'], skadaName))
+		SkadaDB['profiles']['BenikUI'] = {
+			["windows"] = {
+				{
+					["barheight"] = 14,
+					["barslocked"] = true,
+					["background"] = {
+						["height"] = 122,
+					},
+					["y"] = 5,
+					["barfont"] = "Bui Visitor1",
+					["title"] = {
+						["font"] = "Bui Visitor1",
+						["fontflags"] = "OUTLINE",
+						["height"] = 18,
+						["fontsize"] = 10,
+					},
+					["barfontflags"] = "OUTLINE",
+					["point"] = "TOPRIGHT",
+					["mode"] = "DPS",
+					["spark"] = false,
+					["bartexture"] = "BuiOnePixel",
+					["barwidth"] = 402,
+					["barfontsize"] = 10,
+					["x"] = 1507,
+				},
+			},		
 		}
 	end
 
