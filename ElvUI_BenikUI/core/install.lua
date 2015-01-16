@@ -236,7 +236,7 @@ local function SetupBuiAbs()
 		
 		E.db.actionbar.barPet.buttonspacing = 4;
 		E.db.actionbar.barPet.buttonsPerRow = 10;
-		E.db.actionbar.barPet.buttonsize = 27;
+		E.db.actionbar.barPet.buttonsize = 22;
 		E.db.actionbar.barPet.backdrop = true;
 		
 		E.db.actionbar.stanceBar.buttonspacing = 2
@@ -261,7 +261,7 @@ local function SetupBuiAbs()
 		E.db.movers.ElvAB_2 = 'BOTTOMElvUIParentBOTTOM058'
 		E.db.movers.ElvAB_3 = 'BOTTOMElvUIParentBOTTOM29558'
 		E.db.movers.ElvAB_5 = 'BOTTOMElvUIParentBOTTOM-29558'	
-		E.db.movers.PetAB = 'BOTTOMElvUIParentBOTTOM013'
+		E.db.movers.PetAB = 'BOTTOMElvUIParentBOTTOM022'
 		E.db.movers.ShiftAB = 'BOTTOMElvUIParentBOTTOM0134'
 	end
 
@@ -400,7 +400,7 @@ local function SetupBuiUfs()
 		E.db.movers.PlayerPowerBarMover = 'BOTTOMElvUIParentBOTTOM-231215'
 		E.db.movers.TargetPowerBarMover = 'BOTTOMElvUIParentBOTTOM231215'
 		E.db.movers.ClassBarMover = 'BOTTOMElvUIParentBOTTOM-1349'
-		E.db.movers.ExperienceBarMover = 'BOTTOMElvUIParentBOTTOM047'
+		E.db.movers.ExperienceBarMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT41522'
 	end
 	
 	if InstallStepComplete then
