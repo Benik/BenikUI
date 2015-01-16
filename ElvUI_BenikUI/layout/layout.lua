@@ -352,12 +352,12 @@ function BUIL:ChangeLayout()
 				GameTooltip:Hide()
 			end)
 	
-		-- Tokens Button	
+		-- AddOns Button	
 		elseif i == 3 then
 			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i].parent = LeftChatPanel
-			bbuttons[i].text:SetText('T')
+			bbuttons[i].text:SetText('A')
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				self.sglow:Show()
@@ -366,46 +366,32 @@ function BUIL:ChangeLayout()
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
 					self:SetScript('OnClick', function(self)
-						if not tokenHolder then return end
-						if tokenHolder:IsVisible() then
-							UIFrameFadeOut(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
-							tokenHolder.fadeInfo.finishedFunc = tholderOnFade
-						else
-							UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
-							tokenHolder:Show()
-						end
+						GameMenuButtonAddons:Click()
 						PlaySound("igMainMenuOptionCheckBoxOff");
 					end)
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 64, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L['Toggle Tokens'], selectioncolor)
+				GameTooltip:AddLine(ADDONS, selectioncolor)
 				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
 			
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.text:SetText('T')
+				self.text:SetText('A')
 				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
 			
-		-- Dashboard Button
+		-- LFG Button
 		elseif i == 4 then
 			bbuttons[i]:Point('TOPLEFT', Bui_ldtp, 'TOPRIGHT', SPACING, 0)
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
-			bbuttons[i].text:SetText('D')
+			bbuttons[i].text:SetText('L')
 			
 			bbuttons[i]:SetScript('OnClick', function(self)
-				if not sysHolder then return end
-				if sysHolder:IsVisible() then
-					UIFrameFadeOut(sysHolder, 0.2, sysHolder:GetAlpha(), 0)
-					sysHolder.fadeInfo.finishedFunc = DashboardOnFade
-				else
-					UIFrameFadeIn(sysHolder, 0.2, sysHolder:GetAlpha(), 1)
-					sysHolder:Show()
-				end
+				PVEFrame_ToggleFrame()
 				PlaySound("igMainMenuOptionCheckBoxOff");
 			end)
 			
@@ -413,7 +399,7 @@ function BUIL:ChangeLayout()
 				self.sglow:Show()
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L['Toggle Dashboard'], selectioncolor)
+				GameTooltip:AddLine(LFG_TITLE, selectioncolor)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)

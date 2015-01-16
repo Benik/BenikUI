@@ -79,11 +79,7 @@ function BUIT:CreateTokensHolder()
 		tholder.backdrop:Hide()
 	end
 	
-	tholder:SetScript("OnShow", function(self) db.toggleShow = true; end)
-	tholder:SetScript("OnHide", function(self) db.toggleShow = false; end)
-	
 	if db.combat then
-		if db.toggleShow == false then return end
 		tholder:SetScript('OnEvent',function(self, event)
 			if event == 'PLAYER_REGEN_DISABLED' then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
