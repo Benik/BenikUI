@@ -22,6 +22,7 @@ L['Hide Mail Icon'] = true
 L['Show/Hide Mail Icon on minimap'] = true
 L['Show Garrison Currency'] = true
 L['Show/Hide garrison currency on the datatext tooltip'] = true
+L['Middle'] = true
 L['BenikUI Middle DataText'] = true
 
 -- install
