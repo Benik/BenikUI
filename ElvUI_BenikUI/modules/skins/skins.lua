@@ -194,6 +194,12 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			end
 		end
 	end
+	
+	if addon == 'Blizzard_QuestChoice' and E.private.skins.blizzard.questChoice then
+		if not QuestChoiceFrame.style then
+			QuestChoiceFrame:Style('Small')
+		end
+	end
 
 	if E.private.skins.blizzard.timemanager == true then
 		if not TimeManagerFrame.style then
