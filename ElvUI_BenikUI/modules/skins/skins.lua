@@ -304,6 +304,30 @@ local function styleGarrison()
 	GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
 end
 
+-- Objective Tracker Button
+local function MinimizeButton_OnClick(self)
+	local text = self.Text
+	local symbol = text:GetText()
+	
+	if (symbol and symbol == '-') then
+		text:SetText('+')
+	else
+		text:SetText('-')
+	end
+end
+
+local function SkinMinimizeButton()
+	local button = ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
+	S:HandleButton(button)
+	button:Size(16, 12)
+	button.Text = button:CreateFontString(nil, 'OVERLAY')
+	button.Text:FontTemplate(nil, 11)
+	button.Text:Point('CENTER', button, 'CENTER')
+	button.Text:SetJustifyH('CENTER')
+	button.Text:SetText('-')
+	button:HookScript('OnClick', MinimizeButton_OnClick)
+end
+
 function BUIS:BenikUISkins()
 
 	-- Garrison Style
@@ -316,6 +340,9 @@ function BUIS:BenikUISkins()
 			frame:StripTextures()
 		end
 	end
+	
+	-- Objective Tracker Button
+	SkinMinimizeButton()
 	
 	if E.db.bui.buiStyle ~= true then return end 
 	
