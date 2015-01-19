@@ -1,6 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 
-if not IsAddOnLoaded('AddOnSkins') or E.db.bui.buiStyle ~= true then return end
+if not IsAddOnLoaded('AddOnSkins') then return end
 
 local AS = unpack(AddOnSkins)
 
