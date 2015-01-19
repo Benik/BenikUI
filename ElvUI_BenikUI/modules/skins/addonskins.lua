@@ -1,9 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 
-if not IsAddOnLoaded('AddOnSkins') then return end
-
-local BUIS = E:GetModule('BuiSkins');
-local BUI = E:GetModule('BenikUI');
+if not IsAddOnLoaded('AddOnSkins') or E.db.bui.buiStyle ~= true then return end
 
 local AS = unpack(AddOnSkins)
 
@@ -108,7 +105,7 @@ local function RareCoordDecor()
 end
 
 local function CliqueDecor()
-	if not E.db.buiaddonskins.clique or E.db.bui.buiStyle ~= true or not E.PixelMode then return end
+	if not E.db.buiaddonskins.clique then return end
 	CliqueConfig:Style('Small')
 	local tab = CliqueSpellTab
 	tab:Style('Inside')
