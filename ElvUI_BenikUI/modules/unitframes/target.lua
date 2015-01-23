@@ -56,7 +56,7 @@ function UFB:ArrangeTarget()
 				TargetBar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, BORDER)
 				TargetBar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)		
 			else
-				TargetBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, BORDER)
+				TargetBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, 0)
 				TargetBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			end
 		else

@@ -57,7 +57,7 @@ function UFB:ArrangePlayer()
 				PlayerBar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, BORDER)
 				PlayerBar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)		
 			else
-				PlayerBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, BORDER)
+				PlayerBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, 0)
 				PlayerBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			end
 		else
