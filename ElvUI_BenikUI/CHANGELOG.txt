@@ -1,3 +1,15 @@
+[b]2.11[/b] (Jan 25, 2015)
+*Fix Toggle Bags button #15 
+*[NEW] Decursive Skin
+*Added options for Objective Tracker and Decursive skinning
+*Added Skada: Double windows profile
+*Objective Tracker Button Skin
+*Changed the left chat buttons behaviour: Since Tokens and System Dashboards are fully configurable, the tokens button (T) is now AddOns (A) and the Dashboard button (D) is now LFG (L).
+*Quest Choice Frame styled
+*Styled some alert frames (must be enabled in ElvUI skins options)
+*[NEW] Added another DataText bar (Middle). Options: enable, move, style, change transparency, no backdrop, width, height
+*Fix Datatext not getting the correct font settings on first login
+
 [b]2.10[/b] (Jan 09, 2015)
 *Non Pixel Perfect mode now fully styled
 *Added mission types on Garrison datatext
