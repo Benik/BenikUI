@@ -180,3 +180,9 @@ P['buiaddonskins'] = {
 	['zg'] = true,
 	['clique'] = true,
 }
+
+-- Skins
+P['buiVariousSkins'] = {
+	['objectiveTracker'] = true,
+	['decursive'] = true,
+}
