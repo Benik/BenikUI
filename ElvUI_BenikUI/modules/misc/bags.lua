@@ -46,6 +46,7 @@ function BUIB:AllInOneBags()
 end
 
 function BUIB:Initialize()
+	if E.db.bui.buiStyle ~= true then return end
 	self:AllInOneBags()
 	self:SkinBlizzBags()
 end
