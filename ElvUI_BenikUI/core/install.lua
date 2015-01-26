@@ -37,6 +37,8 @@ local function SetupBuiLayout()
 		E.db.general.reputation.orientation = 'VERTICAL'
 		E.private.general.namefont = 'Bui Prototype'
 		E.private.general.dmgfont = 'Bui Prototype'
+		E.private.skins.blizzard.alertframes = true
+		E.private.skins.blizzard.questChoice = true
 		E.db.datatexts.leftChatPanel = false
 		E.db.datatexts.rightChatPanel = false
 	end
@@ -379,6 +381,8 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.raid.power.enable = false
 	-- raid 40
 		E.db.unitframe.units.raid40.power.enable = false
+	-- colors
+		E.db.unitframe.colors.castClassColor = true
 	end
 	
 	-- Movers
