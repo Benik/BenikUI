@@ -1,7 +1,92 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local S = E:GetModule('Skins');
+
+local SPACING = (E.PixelMode and 1 or 5)
+
+local function skinDecursive()
+	if not IsAddOnLoaded('Decursive') then return end
+	
+	-- Main Buttons
+	DecursiveMainBar:StripTextures()
+	DecursiveMainBar:SetTemplate('Default', true)
+	DecursiveMainBar:Height(20)
+	
+	local mainButtons = {DecursiveMainBarPriority, DecursiveMainBarSkip, DecursiveMainBarHide}
+	for i, button in pairs(mainButtons) do
+		S:HandleButton(button)
+		button:SetTemplate('Default', true)
+		button:ClearAllPoints()
+		if(i == 1) then
+			button:Point('LEFT', DecursiveMainBar, 'RIGHT', SPACING, 0)
+		else
+			button:Point('LEFT', mainButtons[i - 1], 'RIGHT', SPACING, 0)
+		end		
+	end
+	
+	-- Priority List Frame
+	DecursivePriorityListFrame:StripTextures()
+	DecursivePriorityListFrame:CreateBackdrop('Transparent')
+	DecursivePriorityListFrame.backdrop:Style('Outside')
+	
+	local priorityButton = {DecursivePriorityListFrameAdd, DecursivePriorityListFramePopulate, DecursivePriorityListFrameClear, DecursivePriorityListFrameClose}
+	for i, button in pairs(priorityButton) do
+		S:HandleButton(button)
+		button:ClearAllPoints()
+		if(i == 1) then
+			button:Point('TOP', DecursivePriorityListFrame, 'TOPLEFT', 54, -20)
+		else
+			button:Point('LEFT', priorityButton[i - 1], 'RIGHT', SPACING, 0)
+		end			
+	end
+
+	DecursivePopulateListFrame:StripTextures()
+	DecursivePopulateListFrame:CreateBackdrop('Transparent')
+	DecursivePopulateListFrame.backdrop:Style('Outside')
+	
+	for i = 1, 8 do
+		local groupButton = _G["DecursivePopulateListFrameGroup"..i]
+		S:HandleButton(groupButton)
+	end
+	
+	local classPop = {'Warrior', 'Priest', 'Mage', 'Warlock', 'Hunter', 'Rogue', 'Druid', 'Shaman', 'Monk', 'Paladin', 'Deathknight', 'Close'}
+	for _, classBtn in pairs(classPop) do
+		local btnName = _G["DecursivePopulateListFrame"..classBtn]
+		S:HandleButton(btnName)
+	end
+
+	-- Skip List Frame
+	DecursiveSkipListFrame:StripTextures()
+	DecursiveSkipListFrame:CreateBackdrop('Transparent')
+	DecursiveSkipListFrame.backdrop:Style('Outside')	
+	
+	local skipButton = {DecursiveSkipListFrameAdd, DecursiveSkipListFramePopulate, DecursiveSkipListFrameClear, DecursiveSkipListFrameClose}
+	for i, button in pairs(skipButton) do
+		S:HandleButton(button)
+		button:ClearAllPoints()
+		if(i == 1) then
+			button:Point('TOP', DecursiveSkipListFrame, 'TOPLEFT', 54, -20)
+		else
+			button:Point('LEFT', skipButton[i - 1], 'RIGHT', SPACING, 0)
+		end			
+	end
+	
+	-- Tooltip
+	DcrDisplay_Tooltip:StripTextures()
+	DcrDisplay_Tooltip:CreateBackdrop('Transparent')
+	DcrDisplay_Tooltip.backdrop:Style('Outside')
+
+end
+
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent",function(self, event)
+	if event == "PLAYER_ENTERING_WORLD" then
+		skinDecursive()
+		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	end
+end)
 
 if not IsAddOnLoaded('AddOnSkins') then return end
-
 local AS = unpack(AddOnSkins)
 
 local function SkadaDecor()
