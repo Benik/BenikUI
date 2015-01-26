@@ -4,8 +4,8 @@ local S = E:GetModule('Skins');
 local SPACING = (E.PixelMode and 1 or 5)
 
 local function skinDecursive()
-	if not IsAddOnLoaded('Decursive') then return end
-	
+	if not IsAddOnLoaded('Decursive') or not E.db.buiVariousSkins.decursive then return end
+
 	-- Main Buttons
 	DecursiveMainBar:StripTextures()
 	DecursiveMainBar:SetTemplate('Default', true)

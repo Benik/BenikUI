@@ -316,7 +316,9 @@ local function MinimizeButton_OnClick(self)
 	end
 end
 
-local function SkinMinimizeButton()
+local function SkinObjeciveTracker()
+	if not E.db.buiVariousSkins.objectiveTracker then return end
+	
 	local button = ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
 	S:HandleButton(button)
 	button:Size(16, 12)
@@ -326,12 +328,6 @@ local function SkinMinimizeButton()
 	button.Text:SetJustifyH('CENTER')
 	button.Text:SetText('-')
 	button:HookScript('OnClick', MinimizeButton_OnClick)
-end
-
-function BUIS:BenikUISkins()
-
-	-- Garrison Style
-	styleGarrison()
 	
 	-- Remove textures from Objective tracker (make an option for it)
 	local otFrames = {ObjectiveTrackerBlocksFrame.QuestHeader, ObjectiveTrackerBlocksFrame.AchievementHeader, ObjectiveTrackerBlocksFrame.ScenarioHeader, BONUS_OBJECTIVE_TRACKER_MODULE.Header}
@@ -340,9 +336,15 @@ function BUIS:BenikUISkins()
 			frame:StripTextures()
 		end
 	end
-	
+end
+
+function BUIS:BenikUISkins()
+
+	-- Garrison Style
+	styleGarrison()
+
 	-- Objective Tracker Button
-	SkinMinimizeButton()
+	SkinObjeciveTracker()
 	
 	if E.db.bui.buiStyle ~= true then return end 
 	

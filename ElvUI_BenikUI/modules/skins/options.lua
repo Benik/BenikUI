@@ -29,7 +29,7 @@ local function SkinTable()
 	E.Options.args.bui.args.config.args.buiskins = {
 		order = 40,
 		type = 'group',
-		name = L['AddOns Decor'],
+		name = L['AddOns Decor']..BUI.newsign,
 		args = {
 			header = {
 				order = 1,
@@ -83,7 +83,34 @@ local function SkinTable()
 			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
 			disabled = function() return not (IsAddOnLoaded('AddOnSkins') and IsAddOnLoaded(addonName)) end,
 		}
-	end		
+	end
+
+	E.Options.args.bui.args.config.args.buiskins.args.buiVariousSkins = {
+		order = 3,
+		type = 'group',
+		guiInline = true,
+		name = L['Skins']..BUI.newsign,
+		get = function(info) return E.db.buiVariousSkins[ info[#info] ] end,
+		set = function(info, value) E.db.buiVariousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		args = {
+			objectiveTracker = {
+				order = 1,
+				type = 'toggle',
+				name = QUEST_OBJECTIVES,
+				--get = function(info) return E.db.buiskins[ info[#info] ] end,
+				--set = function(info, value) E.db.buiskins[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL'); end,
+			},
+			decursive = {
+				order = 2,
+				type = 'toggle',
+				name = L['Decursive'],
+				disabled = function() return not IsAddOnLoaded('Decursive') end,
+				--get = function(info) return E.db.buiskins[ info[#info] ] end,
+				--set = function(info, value) E.db.buiskins[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL'); end,
+			},	
+		},
+	}
+
 end
 
 table.insert(E.BuiConfig, SkinTable)

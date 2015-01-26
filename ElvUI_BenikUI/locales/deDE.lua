@@ -118,6 +118,7 @@ L['Choose which addon you wish to be decorated to fit with BenikUI style'] = "WÃ
 L['ElvUI AddOns'] = true
 L['decor.'] = "Dekor."
 L['AddOnSkins'] = true
+L['Decursive'] = true
 
 -- Castbar
 L['CONFLICT_WARNING'] = 'It would appear you have ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap loaded. BenikUI Attach Castbar feature has been disabled.'
