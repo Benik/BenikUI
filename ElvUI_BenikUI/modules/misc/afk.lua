@@ -57,6 +57,47 @@ local stats = {
 	7399,	-- Challenge mode dungeons completed
 	8278,	-- Pet Battles won at max level
 	8632,	-- Garrosh Hellscream (LFR Siege of Orgrimmar)
+	
+	-- Draenor Raiding stats. Thanks Flodropp for the effort :)
+	--[[
+	9297,	-- Brackenspore kills (Normal Highmaul)
+	9298,	-- Brackenspore kills (Heroic Highmaul)
+	9283,	-- Kargath Bladefist defeats (Normal Highmaul)
+	9284,	-- Kargath Bladefist defeats (Heroic Highmaul)
+	9287,	-- The Butcher kills (Normal Highmaul)
+	9288,	-- The Butcher kills (Heroic Highmaul)
+	9292,	-- Tectus kills (Normal Highmaul)
+	9293,	-- Tectus kills (Heroic Highmaul)
+	9302,	-- Twin Ogron kills (Normal Highmaul)
+	9303,	-- Twin Ogron kills (Heroic Highmaul)
+	9309,	-- Ko'ragh kills (Normal Highmaul)
+	9310,	-- Ko'ragh kills (Heroic Highmaul)
+	9313,	-- Imperator Mar'gok kills (Normal Highmaul)
+	9314,	-- Imperator Mar'gok kills (Heroic Highmaul)
+	9317,	-- Gruul kills (Normal Blackrock Foundry)
+	9318,	-- Gruul kills (Heroic Blackrock Foundry)
+	9321,	-- Oregorger kills (Normal Blackrock Foundry)
+	9322,	-- Oregorger kills (Heroic Blackrock Foundry)
+	9327,	-- Hans'gar and Franzok kills (Normal Blackrock Foundry)
+	9328,	-- Hans'gar and Franzok kills (Heroic Blackrock Foundry)
+	9331,	-- Flamebender Ka'graz kills (Normal Blackrock Foundry)
+	9332,	-- Flamebender Ka'graz kills (Heroic Blackrock Foundry)
+	9336,	-- Beastlord Darmac kills (Normal Blackrock Foundry)
+	9337,	-- Beastlord Darmac kills (Heroic Blackrock Foundry)
+	9340,	-- Operator Thogar kills (Normal Blackrock Foundry)
+	9341,	-- Operator Thogar kills (Heroic Blackrock Foundry)
+	9350,	-- Blast Furnace destructions (Normal Blackrock Foundry)
+	9351,	-- Blast Furnace destructions (Heroic Blackrock Foundry)
+	9355,	-- Kromog kills (Normal Blackrock Foundry)
+	9356,	-- Kromog kills (Heroic Blackrock Foundry)
+	9359,	-- Iron Maidens kills (Normal Blackrock Foundry)
+	9360,	-- Iron Maidens kills (Heroic Blackrock Foundry)
+	9363,	-- Warlord Blackhand kills (Normal Blackrock Foundry)
+	9364,	-- Warlord Blackhand kills (Heroic Blackrock Foundry)
+	]]
+	9430,	-- Draenor dungeons completed (final boss defeated)
+	9561,	-- Draenor raid boss defeated the most
+	9558,	-- Draenor raids completed (final boss defeated)
 }
 
 -- Remove capitals from class except first letter
