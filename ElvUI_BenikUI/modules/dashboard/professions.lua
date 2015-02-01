@@ -141,7 +141,9 @@ function BUIP:UpdateProfessions()
 					ProFrame.IconBG:Size(E.PixelMode and 18 or 20)
 					ProFrame.IconBG:Point('BOTTOMRIGHT', ProFrame, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 					ProFrame.IconBG:SetScript('OnClick', function(self)
-						CastSpellByName(name)
+						if name ~= PROFESSIONS_FISHING then
+							CastSpellByName(name)
+						end
 					end)
 
 					ProFrame.IconBG.Icon = ProFrame.IconBG:CreateTexture(nil, 'ARTWORK')
