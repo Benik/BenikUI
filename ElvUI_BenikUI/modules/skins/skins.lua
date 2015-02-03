@@ -6,7 +6,6 @@ local S = E:GetModule('Skins');
 local SPACING = (E.PixelMode and 1 or 2)
 
 local FreeBlizzFrames = {
-	AchievementAlertFrame1, -- test
 	AddFriendFrame,
 	AddonList,
 	AudioOptionsFrame,
@@ -285,6 +284,17 @@ local function styleAlertFrames()
 	GarrisonFollowerAlertFrame.backdrop:Style('Outside')
 end
 
+function BUIS:AlertFrame_SetAchievementAnchors()
+	if ( AchievementAlertFrame1 ) then
+		for i = 1, MAX_ACHIEVEMENT_ALERTS do
+			local frame = _G["AchievementAlertFrame"..i];
+			if ( frame and frame:IsShown() ) then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end
+end
+
 -- Garrison Style
 local function styleGarrison()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true then return end
@@ -424,6 +434,7 @@ end
 function BUIS:Initialize()
 	self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
+	self:SecureHook('AlertFrame_SetAchievementAnchors')
 end
 
 E:RegisterModule(BUIS:GetName())
