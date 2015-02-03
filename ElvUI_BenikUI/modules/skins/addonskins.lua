@@ -205,3 +205,9 @@ if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('Altoholic', AltoholicDecor, 
 if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinator', RareCoordDecor, 2) end
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
+
+hooksecurefunc(AS, 'AcceptFrame', function(self)
+	if not AcceptFrame.style then
+		AcceptFrame:Style('Outside')
+	end
+end)
