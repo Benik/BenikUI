@@ -302,19 +302,18 @@ local function styleGarrison()
 	
 	GarrisonMissionFrame.backdrop:Style('Outside')
 	GarrisonLandingPage.backdrop:Style('Outside')
+	GarrisonBuildingFrame.backdrop:Style('Outside')
+	GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
 	GarrisonBuildingFrame.BuildingLevelTooltip:Style('Outside')
 	GarrisonFollowerAbilityTooltip:Style('Outside')
 	GarrisonMissionMechanicTooltip:StripTextures()
 	GarrisonMissionMechanicTooltip:CreateBackdrop('Transparent')	
-	GarrisonMissionMechanicTooltip.backdrop:Style('Inside')
+	GarrisonMissionMechanicTooltip.backdrop:Style('Outside')
 	GarrisonMissionMechanicFollowerCounterTooltip:StripTextures()
 	GarrisonMissionMechanicFollowerCounterTooltip:CreateBackdrop('Transparent')
-	GarrisonMissionMechanicFollowerCounterTooltip.backdrop:Style('Inside')
-	GarrisonBuildingFrame.backdrop:Style('Outside')
-	GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
+	GarrisonMissionMechanicFollowerCounterTooltip.backdrop:Style('Outside')
 	FloatingGarrisonFollowerTooltip:Style('Outside')
 	GarrisonFollowerTooltip:Style('Outside')
-
 end
 
 -- Objective Tracker Button
