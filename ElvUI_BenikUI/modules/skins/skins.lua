@@ -313,6 +313,8 @@ local function styleGarrison()
 	GarrisonBuildingFrame.backdrop:Style('Outside')
 	GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
 	FloatingGarrisonFollowerTooltip:Style('Outside')
+	GarrisonFollowerTooltip:Style('Outside')
+
 end
 
 -- Objective Tracker Button
