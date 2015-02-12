@@ -58,16 +58,21 @@ local OnEnter = function(self)
 
 	-- Work Orders
 	C_Garrison.RequestLandingPageShipmentInfo()
+
 	local buildings = C_Garrison.GetBuildings();
 	local NumBuildings = #buildings
-		
+	local hasBuilding = false
+
 	if NumBuildings > 0 then
-		DT.tooltip:AddLine(CAPACITANCE_WORK_ORDERS, selectioncolor)
 		for i = 1, NumBuildings do
 			local buildingID = buildings[i].buildingID;
 			if (buildingID) then
 				local name, _, shipmentCapacity, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison.GetLandingPageShipmentInfo(buildingID);
 				if (name) then
+					if(hasBuilding == false) then
+						DT.tooltip:AddLine(CAPACITANCE_WORK_ORDERS, selectioncolor)
+						hasBuilding = true
+					end
 					if shipmentsReady ~= shipmentsTotal then
 						DT.tooltip:AddDoubleLine(format('%s: |cffffff00%d/%d|r |cffffffff(%d)|r', name, shipmentsReady, shipmentsTotal, shipmentCapacity), timeleftString, 1, 1, 1, selectioncolor)
 					else
