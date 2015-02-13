@@ -2,6 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUIP = E:NewModule('BuiProfessionsDashboard', 'AceEvent-3.0', 'AceHook-3.0')
 local LSM = LibStub('LibSharedMedia-3.0')
+local DT = E:GetModule('DataTexts')
 
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.professions == nil then E.db.dashboards.professions = {} end
@@ -203,6 +204,7 @@ function BUIP:Initialize()
 	self:ProDefaults()
 	self:CreateProHolder()
 	self:ProEvents()
+	hooksecurefunc(DT, 'LoadDataTexts', BUIP.UpdateProfessions)
 end
 
 E:RegisterModule(BUIP:GetName())

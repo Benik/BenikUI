@@ -7,6 +7,7 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUID = E:NewModule('BuiDashboard')
 local LSM = LibStub('LibSharedMedia-3.0')
+local DT = E:GetModule('DataTexts')
 
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.system == nil then E.db.dashboards.system = {} end
@@ -149,8 +150,8 @@ function BUID:Initialize()
 	if (db.FPS ~= true and db.MS ~= true and db.Memory ~= true and db.Durability ~= true and db.Volume ~= true) then return end	
 
 	self:CreateSystemHolder()
-	self:ChangeFont()
-	
+	hooksecurefunc(DT, 'LoadDataTexts', BUID.ChangeFont)
+
 	if db.FPS then self:CreateFps() end
 	if db.MS then self:CreateMs() end
 	if db.Memory then self:CreateMemory() end

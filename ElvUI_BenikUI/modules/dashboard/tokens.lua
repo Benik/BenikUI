@@ -260,6 +260,7 @@ function BUIT:Initialize()
 	self:CreateTokensHolder()
 	self:TokenEvents()
 	self:UpdateTHolderDimensions()
+	hooksecurefunc(DT, 'LoadDataTexts', BUIT.UpdateTokens)
 end
 
 E:RegisterModule(BUIT:GetName())
