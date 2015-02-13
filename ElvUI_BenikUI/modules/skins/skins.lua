@@ -12,6 +12,7 @@ local FreeBlizzFrames = {
 	BNToastFrame,
 	ChatConfigFrame,
 	ClassTrainerFrame,
+	ColorPickerFrame,
 	ConsolidatedBuffsTooltip,
 	DressUpFrame,
 	DropDownList1,
