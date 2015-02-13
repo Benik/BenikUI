@@ -100,6 +100,8 @@ L['MouseWheel :'] = true
 L['Tip: Grayed tokens are not yet discovered'] = true
 L['Select Professions'] = true
 L['Select System Board'] = true
+L['Bar Color'] = true
+L["Change the bar color. Doesn't apply on System Dashboard"] = true
 
 -- DataTexts
 L['|cff00ff00New Mail|r'] = true
