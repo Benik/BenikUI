@@ -113,7 +113,7 @@ function BUIP:UpdateProfessions()
 						ProFrame.Status:SetMinMaxValues(1, maxRank)
 						ProFrame.Status:SetValue(rank)
 					end
-					ProFrame.Status:SetStatusBarColor(1, 180 / 255, 0, 1)
+					ProFrame.Status:SetStatusBarColor(E.db.dashboards.barcolor.r, E.db.dashboards.barcolor.g, E.db.dashboards.barcolor.b, 1)
 					ProFrame.Status:SetInside()
 					
 					ProFrame.spark = ProFrame.Status:CreateTexture(nil, 'OVERLAY', nil);

@@ -161,7 +161,7 @@ function BUIT:UpdateTokens()
 						TokensFrame.Status:SetMinMaxValues(0, totalMax)
 					end
 					TokensFrame.Status:SetValue(amount)
-					TokensFrame.Status:SetStatusBarColor(1, 180 / 255, 0, 1)
+					TokensFrame.Status:SetStatusBarColor(E.db.dashboards.barcolor.r, E.db.dashboards.barcolor.g, E.db.dashboards.barcolor.b, 1)
 					TokensFrame.Status:SetInside()
 					
 					TokensFrame.spark = TokensFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
