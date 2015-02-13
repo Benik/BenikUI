@@ -29,7 +29,7 @@ local function SkinTable()
 	E.Options.args.bui.args.config.args.buiskins = {
 		order = 40,
 		type = 'group',
-		name = L['AddOns Decor']..BUI.newsign,
+		name = L['AddOns Decor'],
 		args = {
 			header = {
 				order = 1,
@@ -89,7 +89,7 @@ local function SkinTable()
 		order = 3,
 		type = 'group',
 		guiInline = true,
-		name = L['Skins']..BUI.newsign,
+		name = L['Skins'],
 		get = function(info) return E.db.buiVariousSkins[ info[#info] ] end,
 		set = function(info, value) E.db.buiVariousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
@@ -97,16 +97,12 @@ local function SkinTable()
 				order = 1,
 				type = 'toggle',
 				name = QUEST_OBJECTIVES,
-				--get = function(info) return E.db.buiskins[ info[#info] ] end,
-				--set = function(info, value) E.db.buiskins[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
 			decursive = {
 				order = 2,
 				type = 'toggle',
 				name = L['Decursive'],
 				disabled = function() return not IsAddOnLoaded('Decursive') end,
-				--get = function(info) return E.db.buiskins[ info[#info] ] end,
-				--set = function(info, value) E.db.buiskins[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL'); end,
 			},	
 		},
 	}
