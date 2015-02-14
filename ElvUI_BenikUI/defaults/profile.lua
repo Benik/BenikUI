@@ -134,6 +134,8 @@ P['dashboards'] = {
 		['dbfontsize'] = E.db.datatexts.fontSize,
 		['dbfontflags'] = E.db.datatexts.fontOutline,
 	},
+	
+	['barcolor'] = {r = 255/255,g = 128/255,b = 0/255},
 }
 
 -- Unitframes
