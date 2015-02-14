@@ -162,6 +162,82 @@ local function dashboardsTable()
 				type = 'header',
 				name = L['Dashboards'],
 			},
+			decorGroup = {
+				order = 2,
+				type = 'group',
+				name = COLOR,
+				guiInline = true,
+				args = {
+					barcolor = {
+						type = "color",
+						order = 2,
+						name = L['Bar Color']..BUI.newsign,
+						desc = L["Change the bar color. Doesn't apply on System Dashboard"],
+						hasAlpha = false,
+						get = function(info)
+							local t = E.db.dashboards[ info[#info] ]
+							local d = P.dashboards[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+						end,
+						set = function(info, r, g, b, a)
+							E.db.dashboards[ info[#info] ] = {}
+							local t = E.db.dashboards[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
+							if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end
+							if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end
+						end,
+					},
+				},
+			},
+			dashfont = {
+				order = 3,
+				type = 'group',
+				name = L['Fonts'],
+				guiInline = true,
+				disabled = function() return not E.db.dashboards.system.enableSystem and not E.db.dashboards.tokens.enableTokens and not E.db.dashboards.professions.enableProfessions end,
+				get = function(info) return E.db.dashboards.dashfont[ info[#info] ] end,
+				set = function(info, value) E.db.dashboards.dashfont[ info[#info] ] = value;
+					if E.db.dashboards.system.enableSystem then BUID:ChangeFont() end;
+					if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end;
+					if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end;
+					end,
+				args = {
+					useDTfont = {
+						order = 1,
+						name = L['Use DataTexts font'],
+						type = 'toggle',
+						width = 'full',
+					},
+					dbfont = {
+						type = 'select', dialogControl = 'LSM30_Font',
+						order = 2,
+						name = L['Font'],
+						desc = L['Choose font for all dashboards.'],
+						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
+						values = AceGUIWidgetLSMlists.font,
+					},
+					dbfontsize = {
+						order = 3,
+						name = FONT_SIZE,
+						desc = L['Set the font size.'],
+						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
+						type = 'range',
+						min = 6, max = 22, step = 1,
+					},
+					dbfontflags = {
+						order = 4,
+						name = L['Font Outline'],
+						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
+						type = 'select',
+						values = {
+							['NONE'] = L['None'],
+							['OUTLINE'] = 'OUTLINE',
+							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
+							['THICKOUTLINE'] = 'THICKOUTLINE',
+						},
+					},
+				},
+			},
 			system = {
 				order = 2,
 				type = 'group',
@@ -356,74 +432,6 @@ local function dashboardsTable()
 						disabled = function() return not E.db.dashboards.professions.enableProfessions end,
 						get = function(info) return E.db.dashboards.professions.capped end,
 						set = function(info, value) E.db.dashboards.professions.capped = value; BUIP:UpdateProfessions(); end,					
-					},
-				},
-			},
-			barcolor = {
-				type = "color",
-				order = 4,
-				name = L['Bar Color']..BUI.newsign,
-				desc = L["Change the bar color. Doesn't apply on System Dashboard"],
-				hasAlpha = false,
-				get = function(info)
-					local t = E.db.dashboards[ info[#info] ]
-					local d = P.dashboards[info[#info]]
-					return t.r, t.g, t.b, t.a, d.r, d.g, d.b
-				end,
-				set = function(info, r, g, b, a)
-					E.db.dashboards[ info[#info] ] = {}
-					local t = E.db.dashboards[ info[#info] ]
-					t.r, t.g, t.b, t.a = r, g, b, a
-					if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end
-					if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end
-				end,
-			},
-			dashfont = {
-				order = 5,
-				type = 'group',
-				name = L['Fonts'],
-				guiInline = true,
-				disabled = function() return not E.db.dashboards.system.enableSystem and not E.db.dashboards.tokens.enableTokens and not E.db.dashboards.professions.enableProfessions end,
-				get = function(info) return E.db.dashboards.dashfont[ info[#info] ] end,
-				set = function(info, value) E.db.dashboards.dashfont[ info[#info] ] = value;
-					if E.db.dashboards.system.enableSystem then BUID:ChangeFont() end;
-					if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end;
-					if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end;
-					end,
-				args = {
-					useDTfont = {
-						order = 1,
-						name = L['Use DataTexts font'],
-						type = 'toggle',
-						width = 'full',
-					},
-					dbfont = {
-						type = 'select', dialogControl = 'LSM30_Font',
-						order = 2,
-						name = L['Font'],
-						desc = L['Choose font for all dashboards.'],
-						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
-						values = AceGUIWidgetLSMlists.font,
-					},
-					dbfontsize = {
-						order = 3,
-						name = FONT_SIZE,
-						desc = L['Set the font size.'],
-						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
-						type = 'range',
-						min = 6, max = 22, step = 1,
-					},
-					dbfontflags = {
-						order = 4,
-						name = L['Font Outline'],
-						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
-						type = 'select',
-						values = {
-							['NONE'] = L['None'],
-							['OUTLINE'] = 'OUTLINE',
-							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-							['THICKOUTLINE'] = 'THICKOUTLINE',
-						},
 					},
 				},
 			},
