@@ -100,8 +100,8 @@ L['MouseWheel :'] = "Mausrad :"
 L['Tip: Grayed tokens are not yet discovered'] = "Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
 L['Select Professions'] = "Berufe auswählen"
 L['Select System Board'] = "Wähle System Board"
-L['Bar Color'] = true
-L["Change the bar color. Doesn't apply on System Dashboard"] = true
+L['Bar Color'] = "Leistenfarbe"
+L["Change the bar color. Doesn't apply on System Dashboard"] = "Ändert die Leistenfarbe. Wird nicht auf das System Dashboard angewandt"
 
 -- DataTexts
 L['|cff00ff00New Mail|r'] = "|cff00ff00Neue Post|r"
