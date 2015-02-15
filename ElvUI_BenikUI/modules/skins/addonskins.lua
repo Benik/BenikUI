@@ -98,7 +98,7 @@ local function SkadaDecor()
 			skada.button:StripTextures()
 		end
 
-		-- add sparkle on one pixel statusbar. Inspired from Poizen's ui
+		--[[ add sparkle on one pixel statusbar. Inspired from Poizen's ui
 		if win.db.bartexture == "BuiOnePixel" then
 			local bars = win.bargroup:GetBars()
 			if bars then
@@ -112,7 +112,7 @@ local function SkadaDecor()
 					end
 				end
 			end
-		end
+		end]]
 		
 		if not skada.Backdrop.ishooked then
 			hooksecurefunc(AS, 'Embed_Check', function(self, message)
