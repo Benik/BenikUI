@@ -97,22 +97,6 @@ local function SkadaDecor()
 		if win.db.enabletitle then
 			skada.button:StripTextures()
 		end
-
-		--[[ add sparkle on one pixel statusbar. Inspired from Poizen's ui
-		if win.db.bartexture == "BuiOnePixel" then
-			local bars = win.bargroup:GetBars()
-			if bars then
-				for i, bar in pairs(bars) do
-					if not bar.spark then
-						bar.spark = bar:CreateTexture(nil, 'OVERLAY', nil);
-						bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-						bar.spark:Size(12, 5);
-						bar.spark:SetBlendMode('ADD');
-						bar.spark:SetPoint('BOTTOM', bar, 'BOTTOMRIGHT', 0, -2)
-					end
-				end
-			end
-		end]]
 		
 		if not skada.Backdrop.ishooked then
 			hooksecurefunc(AS, 'Embed_Check', function(self, message)
