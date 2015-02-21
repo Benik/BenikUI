@@ -342,7 +342,7 @@ local function SkinObjeciveTracker()
 	button.Text:SetText('-')
 	button:HookScript('OnClick', MinimizeButton_OnClick)
 	
-	-- Remove textures from Objective tracker (make an option for it)
+	-- Remove textures from Objective tracker
 	local otFrames = {ObjectiveTrackerBlocksFrame.QuestHeader, ObjectiveTrackerBlocksFrame.AchievementHeader, ObjectiveTrackerBlocksFrame.ScenarioHeader, BONUS_OBJECTIVE_TRACKER_MODULE.Header}
 	for _, frame in pairs(otFrames) do
 		if frame then
@@ -390,8 +390,15 @@ function BUIS:BenikUISkins()
 		if not WorldMapFrame.BorderFrame.backdrop.style then
 			WorldMapFrame.BorderFrame.backdrop:Style('Outside')
 		end
+		
+		if not WorldMapTooltip.style then
+			WorldMapTooltip:Style('Outside')
+		end
+
 		QuestMapFrame.QuestsFrame.StoryTooltip:SetTemplate('Transparent')
-		QuestMapFrame.QuestsFrame.StoryTooltip:Style('Outside')
+		if not QuestMapFrame.QuestsFrame.StoryTooltip.style then
+			QuestMapFrame.QuestsFrame.StoryTooltip:Style('Outside')
+		end
 	end
 	
 	WorldMapFrame:HookScript('OnShow', FixMapStyle)
