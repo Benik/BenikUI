@@ -19,8 +19,19 @@ function A:UpdateAura(button, index)
 	local name = UnitAura(unit, index, filter)
 
 	if(name) then
-		if E.db.bui.buiStyle == true and E.PixelMode then
+		if E.db.bui.buiStyle == true then
 			button.texture:SetTexCoord(unpack(BUI.TexCoords))
+		end
+
+		if filter == 'HARMFUL' then
+			local color = DebuffTypeColor[dtype or ""]
+			if button.style then
+				button.style:SetBackdropBorderColor(color.r, color.g, color.b)
+			end
+		else
+			if button.style then
+				button.style:SetBackdropBorderColor(unpack(E.media.bordercolor))
+			end
 		end
 	end
 end
