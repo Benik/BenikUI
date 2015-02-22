@@ -416,6 +416,15 @@ end
 
 local function SetupAddOnSkins()
 	if IsAddOnLoaded('AddOnSkins') then
+		-- reset the embeds in case of Skada/Recount swap
+		E.private['addonskins']['EmbedSystem'] = nil
+		E.private['addonskins']['EmbedSystemDual'] = nil
+		E.private['addonskins']['EmbedBelowTop'] = nil
+		E.private['addonskins']['TransparentEmbed'] = nil
+		E.private['addonskins']['EmbedMain'] = nil
+		E.private['addonskins']['EmbedLeft'] = nil
+		E.private['addonskins']['EmbedRight'] = nil
+		
 		if IsAddOnLoaded('Recount') then
 			E.private['addonskins']['EmbedMain'] = 'Recount'
 			E.private['addonskins']['EmbedSystem'] = true
@@ -423,15 +432,19 @@ local function SetupAddOnSkins()
 			E.private['addonskins']['RecountBackdrop'] = false
 			E.private['addonskins']['EmbedBelowTop'] = false
 			E.private['addonskins']['TransparentEmbed'] = true
-		elseif IsAddOnLoaded('Skada') then
+		end
+		
+		if IsAddOnLoaded('Skada') then
     		E.private['addonskins']['EmbedSystem'] = false
 			E.private['addonskins']['EmbedSystemDual'] = true
 			E.private['addonskins']['EmbedBelowTop'] = false
 			E.private['addonskins']['TransparentEmbed'] = true
 			E.private['addonskins']['EmbedMain'] = 'Skada'
 			E.private['addonskins']['EmbedLeft'] = 'Skada'
-			E.private['addonskins']['EmbedRight'] = 'Skada'	
-		elseif IsAddOnLoaded('DBM') then
+			E.private['addonskins']['EmbedRight'] = 'Skada'
+		end
+		
+		if IsAddOnLoaded('DBM-Core') then
 			E.private['addonskins']['DBMFont'] = 'Bui Prototype'
 			E.private['addonskins']['DBMFontSize'] = 10
 			E.private['addonskins']['DBMFontFlag'] = 'OUTLINE'
@@ -441,6 +454,7 @@ end
 
 local recountName = GetAddOnMetadata('Recount', 'Title')
 local skadaName = GetAddOnMetadata('Skada', 'Title')
+local dbmName = GetAddOnMetadata('DBM-Core', 'Title')
 
 local function SetupBuiAddons()
 	-- Recount Profile
@@ -480,9 +494,10 @@ local function SetupBuiAddons()
 			['ClampToScreen'] = true,
 			['Font'] = 'Bui Visitor1',	
 		}
+	end
 
 	-- Skada Profile
-	elseif IsAddOnLoaded('Skada') then
+	if IsAddOnLoaded('Skada') then
 		print(BUI.Title..format(L['- %s profile successfully created!'], skadaName))
 		SkadaDB['profiles']['BenikUI'] = {
 			["windows"] = {
@@ -595,6 +610,27 @@ local function SetupBuiAddons()
 				}, -- [2]
 			},		
 		}
+	end
+
+	-- DBM Profile
+	if IsAddOnLoaded('DBM-Core') then
+		print(BUI.Title..format(L['- %s profile successfully created!'], dbmName))
+		DBM:CreateProfile('BenikUI')
+		
+		-- Warnings
+		DBM_AllSavedOptions["BenikUI"]["WarningFont"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE.TTF"
+		DBM_AllSavedOptions["BenikUI"]["SpecialWarningFont"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE.TTF"
+		DBM_AllSavedOptions["BenikUI"]["SpecialWarningFontShadow"] = true
+		DBM_AllSavedOptions["BenikUI"]["SpecialWarningFontStyle"] = "NONE"
+		
+		-- Bars
+		DBT_AllPersistentOptions["BenikUI"]["DBM"]["Texture"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Flat.tga"
+		DBT_AllPersistentOptions["BenikUI"]["DBM"]["Font"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE.TTF"
+		DBT_AllPersistentOptions["BenikUI"]["DBM"]["Scale"] = 1
+		DBT_AllPersistentOptions["BenikUI"]["DBM"]["FontSize"] = 12
+		DBT_AllPersistentOptions["BenikUI"]["DBM"]["HugeScale"] = 1
+		
+		DBM:ApplyProfile('BenikUI')
 	end
 
 	do
