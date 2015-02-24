@@ -1,3 +1,14 @@
+[b]2.12[/b] (Feb 24, 2015)
+*Game menu list update
+*toc update for patch 6.1
+*Added options to change Dashboards font and bar colors (user request). This removes the System dashboard bar auto coloring. Text values will continue to auto color.
+*Dashboards font settings should now apply ElvUI datatexts font settings on the fly, when "Use DataText Fonts" option is enabled
+*Fixed taint when clicking the fishing button (Professions Dashboard)
+*Aura debuff styling color fix
+*Garrison+ DT: Show Working Orders only when buildings are present
+*Moar frames and tooltips styled
+*Moar afk mode stats (Draenor Raiding). Credits: Flodropp
+
 [b]2.11[/b] (Jan 25, 2015)
 *Fix Toggle Bags button #15 
 *[NEW] Decursive Skin
