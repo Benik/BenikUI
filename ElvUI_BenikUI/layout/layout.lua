@@ -50,29 +50,21 @@ local menuList = {
 		if not GlyphFrame then
 			GlyphFrame_LoadUI()
 		end
-		
+
 		if not PlayerTalentFrame:IsShown() then
 			ShowUIPanel(PlayerTalentFrame)
 		else
 			HideUIPanel(PlayerTalentFrame)
 		end
-	end},	
-	{text = MOUNTS,
-	func = function()
-		TogglePetJournal(1);
 	end},
-	{text = PETS,
+	{text = COLLECTIONS,
 	func = function()
-		TogglePetJournal(2)
-	end},
-	{text = TOY_BOX,
-	func = function() 
-		TogglePetJournal(3)
+		ToggleCollectionsJournal()
 	end},
 	{text = L["Farm Mode"],
 	func = FarmMode},
 	{text = TIMEMANAGER_TITLE,
-	func = function() ToggleFrame(TimeManagerFrame) end},		
+	func = function() ToggleFrame(TimeManagerFrame) end},
 	{text = ACHIEVEMENT_BUTTON,
 	func = function() ToggleAchievementFrame() end},
 	{text = SOCIAL_BUTTON,
@@ -93,9 +85,7 @@ local menuList = {
 		end
 	end},
 	{text = LFG_TITLE,
-	func = function() PVEFrame_ToggleFrame(); end},
-	--[[{text = L["Raid Browser"],
-	func = function() ToggleFrame(RaidBrowserFrame); end},]]
+	func = function() ToggleLFDParentFrame(); end},
 	{text = ENCOUNTER_JOURNAL,
 	func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end}
 }
