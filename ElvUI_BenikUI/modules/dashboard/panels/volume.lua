@@ -124,18 +124,15 @@ function BUID:CreateVolume()
 			icon = SOUND_MUTE_ICON
 		else
 			if(volumeValue * 100 / max >= 75) then
-				self:SetStatusBarColor(30 / 255, 1, 30 / 255, .8)
 				color = 3
 				icon = SOUND_MAX_ICON
 			elseif volumeValue * 100 / max < 75 and volumeValue * 100 / max > 30 then
-				self:SetStatusBarColor(1, 180 / 255, 0, .8)
 				color = 2
 				icon = SOUND_MEDIUM_ICON
 			elseif volumeValue == 0 then
 				icon = SOUND_MUTE_ICON
 				color = 1
 			else
-				self:SetStatusBarColor(1, 75 / 255, 75 / 255, 0.5, .8)
 				color = 2
 				icon = SOUND_LOW_ICON
 			end

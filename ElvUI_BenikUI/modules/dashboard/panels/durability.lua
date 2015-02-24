@@ -66,15 +66,8 @@ function BUID:CreateDurability()
 
 		self:SetMinMaxValues(0, 100)
 		self:SetValue(totalDurability)
-		
-		if( totalDurability >= 75 ) then
-			self:SetStatusBarColor(30 / 255, 1, 30 / 255, .8)
-		elseif totalDurability < 75 and totalDurability > 40 then
-			self:SetStatusBarColor(1, 180 / 255, 0, .8)
-		else
-			self:SetStatusBarColor(1, 75 / 255, 75 / 255, 0.5, .8)
-		end
 	end)
+	
 	boardName:EnableMouse(true)
 	boardName:SetScript('OnEnter', OnEnter)
 	boardName:SetScript('OnLeave', OnLeave)

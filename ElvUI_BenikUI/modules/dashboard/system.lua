@@ -17,6 +17,13 @@ local DASH_WIDTH = E.db.dashboards.system.width or 150
 local DASH_SPACING = 3
 local SPACING = (E.PixelMode and 1 or 5)
 
+local classColor = RAID_CLASS_COLORS[E.myclass]
+
+local color = { r = 1, g = 1, b = 1 }
+local function unpackColor(color)
+	return color.r, color.g, color.b
+end
+
 local boards = {"FPS", "MS", "Memory", "Durability", "Volume"}
 local loadedBoards = {}
 
@@ -104,7 +111,6 @@ function BUID:UpdateBoards()
 			sysFrame.Status = CreateFrame('StatusBar', nil, sysFrame.dummy)
 			sysFrame.Status:SetStatusBarTexture(E['media'].BuiFlat)
 			sysFrame.Status:SetMinMaxValues(0, 100)
-			sysFrame.Status:SetStatusBarColor(1, 0.5, 0.1, 1)
 			sysFrame.Status:SetInside()
 			
 			sysFrame.spark = sysFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
@@ -142,6 +148,22 @@ function BUID:ChangeFont()
 	end
 end
 
+function BUID:FontColor()
+	for _, frame in pairs(loadedBoards) do
+		if E.db.dashboards.textColor == 1 then
+			frame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+		else
+			frame.Text:SetTextColor(unpackColor(E.db.dashboards.customTextColor))
+		end
+	end
+end
+
+function BUID:BarColor()
+	for _, frame in pairs(loadedBoards) do
+		frame.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
+	end
+end
+
 function BUID:Initialize()
 	
 	if E.db.dashboards.system.enableSystem ~= true then return end
@@ -151,7 +173,9 @@ function BUID:Initialize()
 
 	self:CreateSystemHolder()
 	hooksecurefunc(DT, 'LoadDataTexts', BUID.ChangeFont)
-
+	self:FontColor()
+	self:BarColor()
+	
 	if db.FPS then self:CreateFps() end
 	if db.MS then self:CreateMs() end
 	if db.Memory then self:CreateMemory() end

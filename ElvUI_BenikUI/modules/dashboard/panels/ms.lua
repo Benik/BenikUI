@@ -27,15 +27,13 @@ function BUID:CreateMs()
 			self:SetValue(value)
 
 			if( value * 100 / max <= 35) then
-				self:SetStatusBarColor(30 / 255, 1, 30 / 255, .8)
 				mscolor = 1
 			elseif value * 100 / max > 35 and value * 100 / max < 75 then
-				self:SetStatusBarColor(1, 180 / 255, 0, .8)
 				mscolor = 2
 			else
-				self:SetStatusBarColor(1, 75 / 255, 75 / 255, 0.5, .8)
 				mscolor = 3
 			end
+
 			local displayFormat = string.join('', 'MS: ', statusColors[mscolor], '%d|r')
 			boardName.Text:SetFormattedText(displayFormat, value)
 			LastUpdate = 1

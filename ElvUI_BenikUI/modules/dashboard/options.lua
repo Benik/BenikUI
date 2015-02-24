@@ -172,7 +172,6 @@ local function dashboardsTable()
 						type = "color",
 						order = 1,
 						name = L['Bar Color']..BUI.newsign,
-						desc = L["Change the bar color. Doesn't apply on System Dashboard"],
 						hasAlpha = false,
 						get = function(info)
 							local t = E.db.dashboards[ info[#info] ]
@@ -185,6 +184,7 @@ local function dashboardsTable()
 							t.r, t.g, t.b, t.a = r, g, b, a
 							if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end
 							if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end
+							if E.db.dashboards.system.enableSystem then BUID:BarColor() end
 						end,
 					},
 					textColor = {
@@ -197,8 +197,9 @@ local function dashboardsTable()
 						},
 						get = function(info) return E.db.dashboards[ info[#info] ] end,
 						set = function(info, value) E.db.dashboards[ info[#info] ] = value; 
-						if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end
-						if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end
+							if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end
+							if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end
+							if E.db.dashboards.system.enableSystem then BUID:FontColor() end
 						end,
 					},
 					customTextColor = {
@@ -217,6 +218,7 @@ local function dashboardsTable()
 							t.r, t.g, t.b, t.a = r, g, b, a
 							if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end
 							if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end
+							if E.db.dashboards.system.enableSystem then BUID:FontColor() end
 						end,
 					},
 				},
