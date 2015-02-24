@@ -1,6 +1,6 @@
-## Interface: 60000
+## Interface: 60100
 ## Author: Benik
-## Version: 2.11
+## Version: 2.12
 ## Title: |cff1784d1ElvUI|r_BenikUI
 ## Notes: an ElvUI 7+ edit
 ## RequiredDeps: ElvUI
