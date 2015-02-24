@@ -2,6 +2,7 @@
 *Game menu list update
 *toc update for patch 6.1
 *Added options to change Dashboards font and bar colors (user request). This removes the System dashboard bar auto coloring. Text values will continue to auto color.
+*Added a DBM profile.
 *Dashboards font settings should now apply ElvUI datatexts font settings on the fly, when "Use DataText Fonts" option is enabled
 *Fixed taint when clicking the fishing button (Professions Dashboard)
 *Aura debuff styling color fix
