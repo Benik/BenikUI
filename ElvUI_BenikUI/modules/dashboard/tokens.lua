@@ -63,6 +63,13 @@ local function tholderOnFade()
 	tokenHolder:Hide()
 end
 
+local classColor = RAID_CLASS_COLORS[E.myclass]
+
+local color = { r = 1, g = 1, b = 1 }
+local function unpackColor(color)
+	return color.r, color.g, color.b
+end
+
 function BUIT:CreateTokensHolder()
 	local db = E.db.dashboards.tokens
 	local tholder
@@ -161,7 +168,7 @@ function BUIT:UpdateTokens()
 						TokensFrame.Status:SetMinMaxValues(0, totalMax)
 					end
 					TokensFrame.Status:SetValue(amount)
-					TokensFrame.Status:SetStatusBarColor(E.db.dashboards.barcolor.r, E.db.dashboards.barcolor.g, E.db.dashboards.barcolor.b, 1)
+					TokensFrame.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
 					TokensFrame.Status:SetInside()
 					
 					TokensFrame.spark = TokensFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
@@ -179,6 +186,13 @@ function BUIT:UpdateTokens()
 					TokensFrame.Text:Point('CENTER', TokensFrame, 'CENTER', -10, (E.PixelMode and 1 or 3))
 					TokensFrame.Text:Width(TokensFrame:GetWidth() - 20)
 					TokensFrame.Text:SetWordWrap(false)
+					
+					if E.db.dashboards.textColor == 1 then
+						TokensFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+					else
+						TokensFrame.Text:SetTextColor(unpackColor(E.db.dashboards.customTextColor))
+					end
+					
 					if totalMax == 0 then
 						TokensFrame.Text:SetText(format('%s', amount))
 					else

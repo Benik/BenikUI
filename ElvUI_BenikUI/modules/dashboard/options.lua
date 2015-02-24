@@ -162,15 +162,15 @@ local function dashboardsTable()
 				type = 'header',
 				name = L['Dashboards'],
 			},
-			decorGroup = {
+			dashColor = {
 				order = 2,
 				type = 'group',
 				name = COLOR,
 				guiInline = true,
 				args = {
-					barcolor = {
+					barColor = {
 						type = "color",
-						order = 2,
+						order = 1,
 						name = L['Bar Color']..BUI.newsign,
 						desc = L["Change the bar color. Doesn't apply on System Dashboard"],
 						hasAlpha = false,
@@ -180,6 +180,38 @@ local function dashboardsTable()
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 						end,
 						set = function(info, r, g, b, a)
+							E.db.dashboards[ info[#info] ] = {}
+							local t = E.db.dashboards[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
+							if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end
+							if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end
+						end,
+					},
+					textColor = {
+						order = 2,
+						type = "select",
+						name = L['Text Color']..BUI.newsign,
+						values = {
+							[1] = CLASS_COLORS,
+							[2] = CUSTOM,
+						},
+						get = function(info) return E.db.dashboards[ info[#info] ] end,
+						set = function(info, value) E.db.dashboards[ info[#info] ] = value; 
+						if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end
+						if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end
+						end,
+					},
+					customTextColor = {
+						order = 3,
+						type = "color",
+						name = COLOR_PICKER,
+						disabled = function() return E.db.dashboards.textColor == 1 end,
+						get = function(info)
+							local t = E.db.dashboards[ info[#info] ]
+							local d = P.dashboards[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+							end,
+						set = function(info, r, g, b)
 							E.db.dashboards[ info[#info] ] = {}
 							local t = E.db.dashboards[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a

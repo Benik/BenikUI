@@ -11,6 +11,13 @@ local DASH_HEIGHT = 20
 local DASH_WIDTH = E.db.dashboards.professions.width or 172
 local SPACING = (E.PixelMode and 1 or 5)
 
+local classColor = RAID_CLASS_COLORS[E.myclass]
+
+local color = { r = 1, g = 1, b = 1 }
+local function unpackColor(color)
+	return color.r, color.g, color.b
+end
+
 local BuiProfessions = {}
 
 local function pholderOnFade()
@@ -113,7 +120,7 @@ function BUIP:UpdateProfessions()
 						ProFrame.Status:SetMinMaxValues(1, maxRank)
 						ProFrame.Status:SetValue(rank)
 					end
-					ProFrame.Status:SetStatusBarColor(E.db.dashboards.barcolor.r, E.db.dashboards.barcolor.g, E.db.dashboards.barcolor.b, 1)
+					ProFrame.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
 					ProFrame.Status:SetInside()
 					
 					ProFrame.spark = ProFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
@@ -135,6 +142,12 @@ function BUIP:UpdateProfessions()
 						ProFrame.Text:SetText(format('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank))
 					else
 						ProFrame.Text:SetText(format('%s / %s', rank, maxRank))
+					end
+					
+					if E.db.dashboards.textColor == 1 then
+						ProFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+					else
+						ProFrame.Text:SetTextColor(unpackColor(E.db.dashboards.customTextColor))
 					end
 
 					ProFrame.IconBG = CreateFrame('Button', 'ProIconBG' .. id, ProFrame)
