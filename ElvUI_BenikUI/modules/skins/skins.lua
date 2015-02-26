@@ -289,8 +289,10 @@ function BUIS:AlertFrame_SetAchievementAnchors()
 	if ( AchievementAlertFrame1 ) then
 		for i = 1, MAX_ACHIEVEMENT_ALERTS do
 			local frame = _G["AchievementAlertFrame"..i];
-			if ( frame and frame:IsShown() ) and not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
+			if ( frame and frame:IsShown() ) then
+				if frame.backdrop then
+					frame.backdrop:Style('Outside')
+				end
 			end
 		end
 	end
