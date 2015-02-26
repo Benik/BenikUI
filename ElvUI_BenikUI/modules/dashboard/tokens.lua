@@ -2,6 +2,7 @@ local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Profi
 local BUI = E:GetModule('BenikUI');
 local BUIT = E:NewModule('BuiTokensDashboard', 'AceEvent-3.0', 'AceHook-3.0')
 local LSM = LibStub('LibSharedMedia-3.0')
+local DT = E:GetModule('DataTexts')
 
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.tokens == nil then E.db.dashboards.tokens = {} end
