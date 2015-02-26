@@ -1,3 +1,6 @@
+[b]2.14[/b] (Feb 26, 2015)
+*Prevent a lua error on new chars
+
 [b]2.13[/b] (Feb 26, 2015)
 *Fixed Tokens lua error
 *Styled the Collections frame
