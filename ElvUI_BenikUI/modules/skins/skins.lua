@@ -41,7 +41,7 @@ local FreeBlizzFrames = {
 	OpenMailFrame,
 	PaperDollFrame,
 	PetitionFrame, -- check
-	PetJournalParent,
+	--PetJournalParent, -- removed?
 	PetPaperDollFrame,
 	PetStableFrame,
 	QuestLogPopupDetailFrame,
@@ -63,7 +63,7 @@ local FreeBlizzFrames = {
 	TokenFrame,
 	TokenFramePopup,
 	TradeFrame,
-	TransmogrifyConfirmationPopup,
+	--TransmogrifyConfirmationPopup, -- removed?
 	VideoOptionsFrame,
 	WorldStateScoreScrollFrame, -- check
 }
