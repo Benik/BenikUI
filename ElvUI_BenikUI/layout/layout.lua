@@ -23,6 +23,7 @@ local function RegBuiDataTexts()
 	L['BuiLeftChatDTPanel'] = BUI.Title..BUI:cOption(L['Left Chat Panel']);
 	L['BuiRightChatDTPanel'] = BUI.Title..BUI:cOption(L['Right Chat Panel']);
 	L['BuiMiddleDTPanel'] = BUI.Title..BUI:cOption(L['Middle Panel']);
+	E.FrameLocks['BuiMiddleDTPanel'] = true;
 end
 
 local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
