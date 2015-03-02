@@ -73,6 +73,7 @@ local FreeBlizzFrames = {
 -------------------------------------
 local FreeBlizzSmallerFrames = {
 	ChannelFrameDaughterFrame,
+	FriendsFriendsFrame,
 	HelpFrame,
 	HelpFrameHeader,
 	PVEFrame,
