@@ -158,14 +158,25 @@ function BUIL:ToggleBuiDts()
 end
 
 function BUIL:ResizeMinimapPanels()
-	
-	LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+
 	if E.db.auras.consolidatedBuffs.enable and E.db.datatexts.minimapPanels and E.private.general.minimap.enable and E.private.auras.disableBlizzard then
+		if E.db.auras.consolidatedBuffs.position == "LEFT" then
+			LeftMiniPanel:Point('TOPLEFT', ElvUI_ConsolidatedBuffs, 'BOTTOMLEFT', 0, -SPACING)
+		else
+			LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+		end
+		
 		if E.db.bui.buiDts then
-			LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', (E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
-			RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', E.ConsolidatedBuffsWidth + SPACING, -SPACING)
+			if E.db.auras.consolidatedBuffs.position == "LEFT" then
+				LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -(E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
+				RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)			
+			else
+				LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', (E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
+				RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', E.ConsolidatedBuffsWidth + SPACING, -SPACING)
+			end
 			ElvConfigToggle:Hide()
 		else
+			LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
 			LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
 			RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
 			ElvConfigToggle:Show()
@@ -229,15 +240,22 @@ end
 
 function BUIL:ChangeLayout()
 	
-	LeftMiniPanel:SetHeight(PANEL_HEIGHT)
-	RightMiniPanel:SetHeight(PANEL_HEIGHT)
+	LeftMiniPanel:Height(PANEL_HEIGHT)
+	RightMiniPanel:Height(PANEL_HEIGHT)
 	
-	ElvUI_ConsolidatedBuffs:Point('TOPLEFT', Minimap.backdrop, 'TOPRIGHT', SPACING, 0)
-	ElvUI_ConsolidatedBuffs:Point('BOTTOMLEFT', Minimap.backdrop, 'BOTTOMRIGHT', SPACING, 0)
+	if E.db.auras.consolidatedBuffs.position == "LEFT" then
+		ElvUI_ConsolidatedBuffs:Point('TOPRIGHT', Minimap.backdrop, 'TOPLEFT', -SPACING, 0)
+		ElvUI_ConsolidatedBuffs:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOMLEFT', -SPACING, 0)
+		ElvConfigToggle:Point('TOPRIGHT', LeftMiniPanel, 'TOPLEFT', -SPACING, 0)
+		ElvConfigToggle:Point('BOTTOMRIGHT', LeftMiniPanel, 'BOTTOMLEFT', -SPACING, 0)		
+	else
+		ElvUI_ConsolidatedBuffs:Point('TOPLEFT', Minimap.backdrop, 'TOPRIGHT', SPACING, 0)
+		ElvUI_ConsolidatedBuffs:Point('BOTTOMLEFT', Minimap.backdrop, 'BOTTOMRIGHT', SPACING, 0)
+		ElvConfigToggle:Point('TOPLEFT', RightMiniPanel, 'TOPRIGHT', SPACING, 0)
+		ElvConfigToggle:Point('BOTTOMLEFT', RightMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
+	end
 
-	ElvConfigToggle:Point('TOPLEFT', RightMiniPanel, 'TOPRIGHT', SPACING, 0)
-	ElvConfigToggle:Point('BOTTOMLEFT', RightMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
-	ElvConfigToggle:SetHeight(PANEL_HEIGHT)
+	ElvConfigToggle:Height(PANEL_HEIGHT)
 	ElvConfigToggle.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 	ElvConfigToggle.text:SetTextColor(unpackColor(E.db.general.valuecolor))	
 
