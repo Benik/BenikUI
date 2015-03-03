@@ -1,3 +1,11 @@
+[b]2.15[/b] (MAr 3, 2015)
+*Hide bottom xp/rep decor buttons when hiding chat datatexts
+*Fix Minimap layout when consolidated buffs are set Left
+*Less update events on Garrison+ DT
+*Disabled styling from removed(?) frames
+*FriendsFriendsFrame styled
+*Hide the middle datatext while in pet battle
+
 [b]2.14[/b] (Feb 26, 2015)
 *Prevent a lua error on new chars
 
