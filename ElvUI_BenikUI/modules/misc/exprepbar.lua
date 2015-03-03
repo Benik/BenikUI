@@ -1,7 +1,8 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0')
-local M = E:GetModule('Misc')
-local LSM = LibStub('LibSharedMedia-3.0')
+local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0');
+local M = E:GetModule('Misc');
+local LO = E:GetModule('Layout');
+local LSM = LibStub('LibSharedMedia-3.0');
 
 local frame = _G['ElvUF_Player']
 local min_yOffset = -10
@@ -349,12 +350,16 @@ end
 
 function BXR:ApplyXpRepStyling()
 	local xp = ElvUI_ExperienceBar
-	if E.db.general.experience.enable == true then
+	if E.db.general.experience.enable then
 		if E.db.general.experience.orientation == 'VERTICAL' then
 			if xp.ft then
 				xp.ft:Show()
 			end
-			xp.fb:Show()
+			if E.db.bui.buiDts then 
+				xp.fb:Show()
+			else
+				xp.fb:Hide()
+			end
 		else
 			if xp.ft then
 				xp.ft:Hide()
@@ -364,12 +369,16 @@ function BXR:ApplyXpRepStyling()
 	end	
 	
 	local rp = ElvUI_ReputationBar
-	if E.db.general.reputation.enable == true then
+	if E.db.general.reputation.enable then
 		if E.db.general.reputation.orientation == 'VERTICAL' then
 			if rp.ft then
 				rp.ft:Show()
 			end
-			rp.fb:Show()
+			if E.db.bui.buiDts then
+				rp.fb:Show()
+			else
+				rp.fb:Hide()
+			end
 		else
 			if rp.ft then
 				rp.ft:Hide()
@@ -485,6 +494,7 @@ function BXR:Initialize()
 	self:LoadBars()
 	StyleXpRepBars()
 	self:ApplyXpRepStyling()
+	hooksecurefunc(LO, 'ToggleChatPanels', BXR.ApplyXpRepStyling)
 	hooksecurefunc(M, 'UpdateExpRepDimensions', BXR.ApplyXpRepStyling)
 end
 
