@@ -36,8 +36,6 @@ end
 
 local function SortMissions(missionlist)
     local comparison = function(mission1, mission2)
-	--local now = time()
-	--local timeLeft = missionData.duration - (now - missionData.start)
         if ( mission1.timeLeft ~= mission2.timeLeft ) then
             return mission1.timeLeft < mission2.timeLeft;
         end		
