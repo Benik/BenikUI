@@ -1,8 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local BUID = E:GetModule('BuiDashboard')
 
-local bandwidthString = '%.2f Mbps'
-local percentageString = '%.2f%%'
 local kiloByteString = '|cfff6a01a %d|r'..' kb'
 local megaByteString = '|cfff6a01a %.2f|r'..' mb'
 local format = string.format
@@ -93,6 +91,4 @@ function BUID:CreateMemory()
 	end )
 	
 	boardName.Status:SetScript( 'OnUpdate', Update )
-	
-	Update( boardName.Status, 10 )
 end
