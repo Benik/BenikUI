@@ -3,26 +3,27 @@ local BUID = E:GetModule('BuiDashboard')
 
 local bandwidthString = '%.2f Mbps'
 local percentageString = '%.2f%%'
-
 local kiloByteString = '|cfff6a01a %d|r'..' kb'
 local megaByteString = '|cfff6a01a %.2f|r'..' mb'
+local format = string.format
+local sort = table.sort
 
 local function formatMem( memory )
 	local mult = 10^1
 	if( memory > 999 ) then
 		local mem = ( ( memory / 1024 ) * mult ) / mult
-		return string.format( megaByteString, mem )
+		return format( megaByteString, mem )
 	else
 		local mem = ( memory * mult ) / mult
-		return string.format( kiloByteString, mem )
+		return format( kiloByteString, mem )
 	end
 end
 
 local memoryTable = {}
 
-local function RebuildAddonList( self )
+local function RebuildAddonList()
 	local addOnCount = GetNumAddOns()
-	if( addOnCount == #memoryTable ) or self.tooltip == true then return end
+	if( addOnCount == #memoryTable ) then return end
 
 	memoryTable = {}
 	for i = 1, addOnCount do
@@ -33,15 +34,13 @@ end
 local function UpdateMemory()
 	UpdateAddOnMemoryUsage()
 
-	local addOnMem = 0
 	local totalMemory = 0
 	for i = 1, #memoryTable do
-		addOnMem = GetAddOnMemoryUsage( memoryTable[i][1] )
-		memoryTable[i][3] = addOnMem
-		totalMemory = totalMemory + addOnMem
+		memoryTable[i][3] = GetAddOnMemoryUsage(memoryTable[i][1])
+		totalMemory = totalMemory + memoryTable[i][3]
 	end
 
-	table.sort( memoryTable, function( a, b )
+	sort( memoryTable, function( a, b )
 		if( a and b ) then
 			return a[3] > b[3]
 		end
@@ -57,9 +56,9 @@ local function Update( self, t )
 	int = int - t
 
 	if( int < 0 ) then
-		RebuildAddonList( self )
+		RebuildAddonList()
 		local total = UpdateMemory()
-		boardName.Text:SetText( 'Memory: '..formatMem( total ) )
+		boardName.Text:SetText( L['Memory: ']..formatMem( total ) )
 		boardName.Status:SetMinMaxValues( 0, 100000 )
 		boardName.Status:SetValue( total )
 		int = 10
@@ -70,20 +69,12 @@ function BUID:CreateMemory()
 	local boardName = Memory
 	boardName:SetScript( 'OnMouseDown', function ()
 		collectgarbage( 'collect' )
-		Update( memoryStatus, 10 )
 	end )
 
 	boardName:SetScript( 'OnEnter', function( self )
 		if( not InCombatLockdown() ) then
-			self.tooltip = true
-			local bandwidth = GetAvailableBandwidth()
 			GameTooltip:SetOwner( boardName, 'ANCHOR_RIGHT', 5, 0 )
 			GameTooltip:ClearLines()
-			if( bandwidth ~= 0 ) then
-				GameTooltip:AddDoubleLine( L['Bandwidth'], string.format( bandwidthString, bandwidth ), 0.69, 0.31, 0.31, 0.84, 0.75, 0.65 )
-				GameTooltip:AddDoubleLine( L['Download'], string.format( percentageString, GetDownloadedPercentage() * 100 ), 0.69, 0.31, 0.31, 0.84, 0.75, 0.65 )
-				GameTooltip:AddLine( ' ' )
-			end
 
 			local totalMemory = UpdateMemory()
 			for i = 1, #memoryTable do
@@ -98,14 +89,10 @@ function BUID:CreateMemory()
 	end )
 	
 	boardName:SetScript( 'OnLeave', function( self )
-		self.tooltip = false
 		GameTooltip:Hide()
 	end )
 	
 	boardName.Status:SetScript( 'OnUpdate', Update )
-	boardName.Status:SetScript( 'OnEvent', function( self, event )
-		collectgarbage( 'collect' )
-	end )
 	
 	Update( boardName.Status, 10 )
 end
