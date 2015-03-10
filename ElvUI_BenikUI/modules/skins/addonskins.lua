@@ -154,7 +154,9 @@ end
 local function TinyDPSDecor()
 	if not E.db.buiaddonskins.tinydps then return end
 	if tdpsFrame then
-		tdpsFrame:Style('Outside')
+		if not tdpsFrame.style then
+			tdpsFrame:Style('Outside')
+		end
 	end
 end
 
@@ -163,14 +165,18 @@ local function AtlasLootDecor()
 	if not E.db.buiaddonskins.atlasloot then return end
 	local AtlasLootFrame = _G["AtlasLoot_GUI-Frame"]
 	if AtlasLootFrame then
-		AtlasLootFrame:Style('Outside')
+		if not AtlasLootFrame.style then
+			AtlasLootFrame:Style('Outside')
+		end
 	end
 end
 
 local function AltoholicDecor()
 	if not E.db.buiaddonskins.altoholic then return end
 	if AltoholicFrame then
-		AltoholicFrame:Style('Outside')
+		if not AltoholicFrame.style then
+			AltoholicFrame:Style('Outside')
+		end
 	end
 end
 
@@ -178,7 +184,9 @@ local function ZygorDecor()
 	if not E.db.buiaddonskins.zg then return end
 	local zgFrames = {ZygorGuidesViewerFrame_Border, ZygorGuidesViewer_CreatureViewer}
 	for _, frame in pairs(zgFrames) do
-		frame:Style('Outside', frame:GetName()..'Decor')
+		if not frame.style then
+			frame:Style('Outside')
+		end
 	end
 end
 
@@ -186,7 +194,9 @@ local function RareCoordDecor()
 	if not E.db.buiaddonskins.rc then return end
 	local rcFrames = {RC, RC.opt, RCnotify, RCminimized}
 	for _, frame in pairs(rcFrames) do
-		frame:Style('Outside')
+		if not frame.style then
+			frame:Style('Outside')
+		end
 	end	
 end
 
@@ -194,7 +204,9 @@ local function CliqueDecor()
 	if not E.db.buiaddonskins.clique then return end
 	CliqueConfig:Style('Small')
 	local tab = CliqueSpellTab
-	tab:Style('Inside')
+	if not tab.style then
+		tab:Style('Inside')
+	end
 	tab:GetNormalTexture():SetTexCoord(.08, 0.92, 0.08, 0.92)
 end
 
