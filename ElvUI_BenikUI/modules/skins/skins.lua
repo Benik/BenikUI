@@ -278,6 +278,46 @@ local function styleAlertFrames()
 		end	
 	end)
 
+	hooksecurefunc("AlertFrame_SetDungeonCompletionAnchors", function(anchorFrame)
+		for i = 1, DUNGEON_COMPLETION_MAX_REWARDS do
+			local frame = _G["DungeonCompletionAlertFrame"..i]
+			if frame then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end)
+	
+	hooksecurefunc("AlertFrame_SetGuildChallengeAnchors", function(anchorFrame)
+		local frame = GuildChallengeAlertFrame
+		if frame then
+			frame.backdrop:Style('Outside')
+		end
+	end)
+
+	hooksecurefunc("AlertFrame_SetChallengeModeAnchors", function(anchorFrame)
+		local frame = ChallengeModeAlertFrame1
+		if frame then
+			frame.backdrop:Style('Outside')
+		end
+	end)
+
+	hooksecurefunc("AlertFrame_SetScenarioAnchors", function(anchorFrame)
+		local frame = ScenarioAlertFrame1
+		if frame then
+			frame.backdrop:Style('Outside')
+		end
+	end)
+
+	hooksecurefunc('AlertFrame_SetCriteriaAnchors', function()
+		for i = 1, MAX_ACHIEVEMENT_ALERTS do
+			local frame = _G['CriteriaAlertFrame'..i]
+			if frame then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end)
+
+	BonusRollFrame:Style('Outside')
 	BonusRollMoneyWonFrame.backdrop:Style('Outside')
 	BonusRollLootWonFrame.backdrop:Style('Outside')
 	
