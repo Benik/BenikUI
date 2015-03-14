@@ -101,6 +101,8 @@ L['Tip: Grayed tokens are not yet discovered'] = true
 L['Select Professions'] = true
 L['Select System Board'] = true
 L['Bar Color'] = true
+L['Memory: '] = true
+L['ZYGOR_CONFLICT_WARNING'] = "It has been reported that Zygor Guides has issues with Dashboard Memory module.\nClick "..CONTINUE.." to disable the Memory module or 'I understand' to close this popup"
 
 -- DataTexts
 L['|cff00ff00New Mail|r'] = true

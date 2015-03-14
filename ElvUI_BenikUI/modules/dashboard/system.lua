@@ -12,6 +12,11 @@ local DT = E:GetModule('DataTexts')
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.system == nil then E.db.dashboards.system = {} end
 
+-- Defaults
+V['BUID'] = {
+	['warned'] = false,
+}
+
 local DASH_HEIGHT = 20
 local DASH_WIDTH = E.db.dashboards.system.width or 150
 local DASH_SPACING = 3
@@ -181,6 +186,18 @@ function BUID:Initialize()
 	if db.Memory then self:CreateMemory() end
 	if db.Durability then self:CreateDurability() end
 	if db.Volume then self:CreateVolume() end
+	if IsAddOnLoaded('ZygorGuidesViewer') and E.private.BUID.warned == false and db.Memory == true and E.db.bui.installed == true then StaticPopup_Show('Zygor_Compatibility') end
 end
 
 E:RegisterModule(BUID:GetName())
+
+StaticPopupDialogs['Zygor_Compatibility'] = {
+	text = L['ZYGOR_CONFLICT_WARNING'],
+	button1 = CONTINUE,
+	button2 = L['I understand'],
+	OnAccept = function() E.private.BUID.warned = true; E.db.dashboards.system.chooseSystem.Memory = false; ReloadUI() end,
+	OnCancel = function() E.private.BUID.warned = true; end,
+	timeout = 0,
+	whileDead = 1,
+	preferredIndex = 3,
+}
