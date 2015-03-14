@@ -101,7 +101,7 @@ L['Select Professions'] = "Berufe auswählen"
 L['Select System Board'] = "Wähle System Board"
 L['Bar Color'] = "Leistenfarbe"
 L['Memory: '] = "Speicher"
-L['ZYGOR_CONFLICT_WARNING'] = "Es wurde berichtet, das Zygor Guides Probleme mit dem Speicher-Dashboard hat.\nKlick "..CONTINUE.." um das Speicher-Modul zu deaktivieren oder 'Ich verstehe' um dieses Popup zu schließen." -- bad translation (need review)
+L['ZYGOR_CONFLICT_WARNING'] = "Es wurde berichtet, das Zygor Guides Probleme mit dem Speicher-Dashboard hat.\nKlick "..WEITER.." um das Speicher-Modul zu deaktivieren oder 'Ich verstehe' um dieses Popup zu schließen." -- bad translation (need review)
 
 -- DataTexts
 L['|cff00ff00New Mail|r'] = "|cff00ff00Neue Post|r"
