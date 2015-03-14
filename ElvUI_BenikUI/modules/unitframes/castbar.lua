@@ -16,7 +16,7 @@ V['BUIC'] = {
 }
 
 -- Create compatibility warning popup
-E.PopupDialogs['BUICCompatibility'] = {
+StaticPopupDialogs['BUICCompatibility'] = {
 	text = L['CONFLICT_WARNING'],
 	button1 = L['I understand'],
 	OnAccept = function() E.private.BUIC.warned = true end,
