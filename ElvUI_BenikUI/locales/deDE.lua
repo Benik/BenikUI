@@ -5,7 +5,7 @@ if not L then return; end
 
 -- when to use "" and when '' ? ^^
 --core
-L[' is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598'] = " ist geladen. Für Fehler oder Vorschläge bitte besucht: http://www.tukui.org/forums/topic.php?id=30598"
+L[' is loaded. For any issues or suggestions, please visit '] = " ist geladen. Für Fehler oder Vorschläge bitte besucht: "
 
 -- General options
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"

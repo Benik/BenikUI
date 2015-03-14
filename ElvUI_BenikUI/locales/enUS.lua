@@ -4,7 +4,7 @@ local L = AceLocale:NewLocale('ElvUI', 'enUS');
 if not L then return; end
 
  --core
-L[' is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598'] = true
+L[' is loaded. For any issues or suggestions, please visit '] = true
 
 -- General options
 L['by Benik (EU-Emerald Dream)'] = true

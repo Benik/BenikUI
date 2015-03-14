@@ -27,6 +27,10 @@ function BUI:cOption(name)
 	return (BUI_COLOR):format(name)
 end
 
+function BUI:PrintURL(url) -- Credit: Azilroka
+	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
+end
+
 function BUI:RegisterBuiMedia()
 	--Fonts
 	E['media'].buiFont = LSM:Fetch('font', 'Bui Prototype')
@@ -66,7 +70,7 @@ function BUI:Initialize()
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 	if ElvDB.profileKeys and profileKey == nil then E:SetupBui() end
 
-	print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit http://www.tukui.org/forums/topic.php?id=30598'])
+	print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..BUI:PrintURL('http://www.tukui.org/forums/topic.php?id=30598'))
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
