@@ -1,11 +1,10 @@
-﻿-- German localization file for deDE
+-- German localization file for deDE
 local AceLocale = LibStub:GetLibrary('AceLocale-3.0');
 local L = AceLocale:NewLocale('ElvUI', 'deDE');
 if not L then return; end
 
--- when to use "" and when '' ? ^^
 --core
-L[' is loaded. For any issues or suggestions, please visit '] = " ist geladen. Für Fehler oder Vorschläge bitte besucht: "
+L[' is loaded. For any issues or suggestions, please visit '] = " ist geladen. Für Fehler oder Vorschläge besucht bitte: "
 
 -- General options
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
@@ -101,8 +100,8 @@ L['Tip: Grayed tokens are not yet discovered'] = "Ausgegraute Abzeichen sind bis
 L['Select Professions'] = "Berufe auswählen"
 L['Select System Board'] = "Wähle System Board"
 L['Bar Color'] = "Leistenfarbe"
-L['Memory: '] = true
-L['ZYGOR_CONFLICT_WARNING'] = "It has been reported that Zygor Guides has issues with Dashboard Memory module.\nClick "..CONTINUE.." to disable the Memory module or 'I understand' to close this popup"
+L['Memory: '] = "Speicher"
+L['ZYGOR_CONFLICT_WARNING'] = "Es wurde berichtet, das Zygor Guides Probleme mit dem Speicher-Dashboard hat.\nKlick "..CONTINUE.." um das Speicher-Modul zu deaktivieren oder 'Ich verstehe' um dieses Popup zu schließen." -- bad translation (need review)
 
 -- DataTexts
 L['|cff00ff00New Mail|r'] = "|cff00ff00Neue Post|r"
@@ -113,7 +112,7 @@ L['Show in PlayerBar'] = "Zeige in Spielerleiste"
 L['Empty Frames must be enabled \n(in UnitFrames options)'] = "Leerer Rahmen muss aktiviert sein \n(in Einheitenfenster Option)"
 L['Copy Font Style from'] = "Kopiere Schriftart von"
 L['Hide PlayerBar text values'] = "Verberge Text Werte auf der Spielerleiste"
-L['Hides health, power and custom text values when mousing over, if their yOffset is'] = "Blendet Gesundheit, Kraft und angepasste Text Werte aus, wenn der Y-Versatz ist" -- bad translation 
+L['Hides health, power and custom text values when mousing over, if their yOffset is'] = "Blendet Gesundheit, Kraft und angepasste Text Werte aus, wenn der Y-Versatz ist" -- bad translation (needs review)
 
 -- Skins Options
 L['AddOns Decor'] = "AddOns Dekor"
