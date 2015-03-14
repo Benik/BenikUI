@@ -156,7 +156,7 @@ local function buiCore()
 								order = 5,
 								type = "range",
 								name = L["Width"],
-								min = 150, max = 600, step = 1,
+								min = 300, max = 1400, step = 1,
 								disabled = function() return not E.db.bui.middleDatatext.enable end,
 								get = function(info) return E.db.bui.middleDatatext.width end,
 								set = function(info, value) E.db.bui.middleDatatext.width = value; E:GetModule('BuiLayout'):MiddleDatatextDimensions(); end,
