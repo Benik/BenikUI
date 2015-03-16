@@ -17,8 +17,8 @@ local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
 
 local function RegBuiDataTexts()
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiMiddleDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
+	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	
 	L['BuiLeftChatDTPanel'] = BUI.Title..BUI:cOption(L['Left Chat Panel']);
 	L['BuiRightChatDTPanel'] = BUI.Title..BUI:cOption(L['Right Chat Panel']);
@@ -29,19 +29,13 @@ end
 local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
 local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent)
 
-local gsub = string.gsub
-local upper = string.upper
-local tinsert = table.insert
-
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
 
 -- as in ElvUI
 local menuList = {
-	{text = CHARACTER_BUTTON,
-	func = function() ToggleCharacter("PaperDollFrame") end},
-	{text = SPELLBOOK_ABILITIES_BUTTON,
-	func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
+	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
+	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
 	{text = TALENTS_BUTTON,
 	func = function()
 		if not PlayerTalentFrame then
@@ -58,22 +52,10 @@ local menuList = {
 			HideUIPanel(PlayerTalentFrame)
 		end
 	end},
-	{text = COLLECTIONS,
-	func = function()
-		ToggleCollectionsJournal()
-	end},
-	{text = L["Farm Mode"],
-	func = FarmMode},
-	{text = TIMEMANAGER_TITLE,
-	func = function() ToggleFrame(TimeManagerFrame) end},
-	{text = ACHIEVEMENT_BUTTON,
-	func = function() ToggleAchievementFrame() end},
-	{text = SOCIAL_BUTTON,
-	func = function() ToggleFriendsFrame() end},
-	{text = L["Calendar"],
-	func = function() GameTimeFrame:Click() end},
-	{text = GARRISON_LANDING_PAGE_TITLE,
-	func = function() GarrisonLandingPageMinimapButton_OnClick() end},
+	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
+	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
+	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
+	{text = GARRISON_LANDING_PAGE_TITLE, func = function() GarrisonLandingPageMinimapButton_OnClick() end},
 	{text = ACHIEVEMENTS_GUILD_TAB,
 	func = function()
 		if IsInGuild() then
@@ -85,25 +67,28 @@ local menuList = {
 			LookingForGuildFrame_Toggle()
 		end
 	end},
-	{text = LFG_TITLE,
-	func = function() ToggleLFDParentFrame(); end},
-	{text = ENCOUNTER_JOURNAL,
-	func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end}
+	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
+	{text = MOUNTS, func = function() ToggleCollectionsJournal(1) end},
+	{text = PET_JOURNAL, func = function() ToggleCollectionsJournal(2) end},
+	{text = TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
+	{text = HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
+	{text = L["Farm Mode"], func = FarmMode},
+	{text = MACROS, func = function() GameMenuButtonMacros:Click() end},
+	{text = TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
+	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
+	{text = SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
+	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
+	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end}
 }
-
---if(C_StorePublic.IsEnabled()) then
-	tinsert(menuList, {text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end})
---end
-tinsert(menuList, 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end})
 
 local color = { r = 1, g = 1, b = 1 }
 local function unpackColor(color)
 	return color.r, color.g, color.b
 end
 
-local function BuiGameMenu_OnMouseUp()
+local function BuiGameMenu_OnMouseUp(self)
 	GameTooltip:Hide()
-	BUI:Dropmenu(menuList, menuFrame, BuiButton_2, 'tLeft', -SPACING, SPACING)
+	BUI:Dropmenu(menuList, menuFrame, self:GetName(), 'tLeft', -SPACING, SPACING)
 	PlaySound("igMainMenuOptionCheckBoxOff");
 end
 
