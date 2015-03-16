@@ -103,7 +103,7 @@ local BlizzUiFrames = {
 	{'Blizzard_ItemUpgradeUI', 'ItemUpgradeFrame', 'itemUpgrade'},
 	{'Blizzard_LookingForGuildUI', 'LookingForGuildFrame', 'lfguild'},
 	{'Blizzard_MacroUI', 'MacroFrame', 'macro'},
-	--{'Blizzard_PetJournal', 'PetJournalParent', 'mounts'},
+	{'Blizzard_DeathRecap', 'DeathRecapFrame', 'deathRecap'},
 	{'Blizzard_Collections', 'CollectionsJournal', 'mounts'},
 	{'Blizzard_ItemSocketingUI', 'ItemSocketingFrame', 'socket'},
 	{'Blizzard_TalentUI', 'PlayerTalentFrame', 'talent'},
