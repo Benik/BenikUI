@@ -10,6 +10,7 @@ L[' is loaded. For any issues or suggestions, please visit '] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = true
 L['light blue color.'] = true
+L["Credits:"] = true
 L['Force BenikUI fonts'] = true
 L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'] = true
 L['BenikUI Style'] = true
