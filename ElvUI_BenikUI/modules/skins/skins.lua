@@ -41,9 +41,9 @@ local FreeBlizzFrames = {
 	OpenMailFrame,
 	PaperDollFrame,
 	PetitionFrame, -- check
-	--PetJournalParent, -- removed?
 	PetPaperDollFrame,
 	PetStableFrame,
+	PVPReadyDialog,
 	QuestLogPopupDetailFrame,
 	QueueStatusFrame,
 	RaidInfoFrame,
@@ -63,9 +63,8 @@ local FreeBlizzFrames = {
 	TokenFrame,
 	TokenFramePopup,
 	TradeFrame,
-	--TransmogrifyConfirmationPopup, -- removed?
 	VideoOptionsFrame,
-	WorldStateScoreScrollFrame, -- check
+	WorldStateScoreFrame,
 }
 
 -------------------------------------
