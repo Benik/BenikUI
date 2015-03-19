@@ -106,6 +106,10 @@ local function ChatButton_OnClick(self)
 	if E.db[self.parent:GetName()..'Faded'] then
 		E.db[self.parent:GetName()..'Faded'] = nil
 		UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
+		if IsAddOnLoaded('AddOnSkins') then
+			local AS = unpack(AddOnSkins) or nil			
+			if E.private.addonskins.EmbedSystem or E.private.addonskins.EmbedSystemDual then AS:Embed_Show() end
+		end
 	else
 		E.db[self.parent:GetName()..'Faded'] = true
 		UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
@@ -296,21 +300,22 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i].parent = RightChatPanel
 			bbuttons[i].text:SetText('C')
-			
-			bbuttons[i]:SetScript('OnClick', function(self, btn)
-				if btn == 'LeftButton' then
-					E:ToggleConfig()
-					PlaySound("igMainMenuOptionCheckBoxOff");
-				else
-					--E:BGStats() --will enable when (and if) I could adopt the bg dataTexts
-				end
-			end)
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				self.sglow:Show()
 				if IsShiftKeyDown() then
 					self.text:SetText('>')
 					self:SetScript('OnClick', ChatButton_OnClick)
+				else
+					self.text:SetText('C')
+					self:SetScript('OnClick', function(self, btn)
+						if btn == 'LeftButton' then
+							E:ToggleConfig()
+						else
+							E:BGStats()
+						end
+						PlaySound("igMainMenuOptionCheckBoxOff");
+					end)
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
