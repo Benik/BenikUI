@@ -71,16 +71,27 @@ local function buiCore()
 						set = function(info, value) E.db.bui[ info[#info] ] = value; value, _, _, _ = GetAddOnInfo('ElvUI_BenikUI_Fonts'); BUI:EnableBuiFonts(); E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 					gameMenuColor = {
-						type = "color",
 						order = 4,
+						type = "select",
 						name = L['Game Menu Color']..BUI.newsign,
-						hasAlpha = false,
+						values = {
+							[1] = CLASS_COLORS,
+							[2] = CUSTOM,
+						},
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; end,
+					},
+					customGameMenuColor = {
+						order = 5,
+						type = "color",
+						name = COLOR_PICKER,
+						disabled = function() return E.db.bui.gameMenuColor == 1 end,
 						get = function(info)
 							local t = E.db.bui[ info[#info] ]
 							local d = P.bui[info[#info]]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
-						end,
-						set = function(info, r, g, b, a)
+							end,
+						set = function(info, r, g, b)
 							E.db.bui[ info[#info] ] = {}
 							local t = E.db.bui[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
@@ -134,7 +145,7 @@ local function buiCore()
 					middleDatatext = {
 						order = 2,
 						type = 'group',
-						name = L['Middle']..BUI.newsign,
+						name = L['Middle'],
 						guiInline = true,
 						args = {
 							enable = {

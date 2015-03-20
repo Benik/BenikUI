@@ -28,6 +28,8 @@ local function OnLeave(btn)
 	hoverVisible = false
 end
 
+local classColor = RAID_CLASS_COLORS[E.myclass]
+
 local color = { r = 1, g = 1, b = 1 }
 local function unpackColor(color)
 	return color.r, color.g, color.b
@@ -75,7 +77,11 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay)
 		frame.buttons[i]:SetHeight(BUTTON_HEIGHT)
 		frame.buttons[i]:SetWidth(BUTTON_WIDTH)
 		frame.buttons[i].text:SetText(list[i].text)
-		frame.buttons[i].text:SetTextColor(unpackColor(E.db.bui.gameMenuColor))
+		if E.db.bui.gameMenuColor == 1 then
+			frame.buttons[i].text:SetTextColor(classColor.r, classColor.g, classColor.b)
+		else
+			frame.buttons[i].text:SetTextColor(unpackColor(E.db.bui.customGameMenuColor))
+		end
 		frame.buttons[i].func = list[i].func
 		frame.buttons[i]:SetScript('OnClick', OnClick)
 
