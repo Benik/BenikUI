@@ -418,8 +418,8 @@ function BUIL:ChangeLayout()
 	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end
 	ElvUI_ConsolidatedBuffs:Style('Outside')
 	CopyChatFrame:Style('Inside')
+	if FarmModeMap then FarmModeMap.backdrop:Style('Outside') end
 	self:ResizeMinimapPanels()
-
 end
 
 function BUIL:PLAYER_ENTERING_WORLD(...)
