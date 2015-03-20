@@ -32,7 +32,6 @@ local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent)
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
 
--- as in ElvUI
 local menuList = {
 	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
 	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
@@ -88,7 +87,7 @@ end
 
 local function BuiGameMenu_OnMouseUp(self)
 	GameTooltip:Hide()
-	BUI:Dropmenu(menuList, menuFrame, self:GetName(), 'tLeft', -SPACING, SPACING)
+	BUI:Dropmenu(menuList, menuFrame, self:GetName(), 'tLeft', -SPACING, SPACING, 4)
 	PlaySound("igMainMenuOptionCheckBoxOff");
 end
 

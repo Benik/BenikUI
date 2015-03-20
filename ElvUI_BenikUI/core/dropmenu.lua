@@ -1,25 +1,31 @@
 -- BenikUI
 -- Edit ElvUI dropdown.lua to make a steady dropup menu. The menu position is not related anymore on where the mouse is clicked.
--- args: menuList, menuFrame, parentButtonName, position, xOffset, yOffset
+-- args: menuList, menuFrame, parentButtonName, position, xOffset, yOffset, delay
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local BUI = E:GetModule('BenikUI');
 
 local PADDING = 10
 local BUTTON_HEIGHT = 16
 local BUTTON_WIDTH = 135
+local counter = 0
+local hoverVisible = false
+local tinsert = table.insert
 
 local function OnClick(btn)
+	local parent = btn:GetParent()
 	btn.func()
-
-	btn:GetParent():Hide()
+	UIFrameFadeOut(parent, 0.3, parent:GetAlpha(), 0)
+	parent.fadeInfo.finishedFunc = function() parent:Hide() end
 end
 
 local function OnEnter(btn)
 	btn.hoverTex:Show()
+	hoverVisible = true
 end
 
 local function OnLeave(btn)
 	btn.hoverTex:Hide()
+	hoverVisible = false
 end
 
 local color = { r = 1, g = 1, b = 1 }
@@ -27,8 +33,9 @@ local function unpackColor(color)
 	return color.r, color.g, color.b
 end
 
--- added parent, removed the mouse x,y and set menu frame position to any parent corners
-function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset)
+-- added parent, removed the mouse x,y and set menu frame position to any parent corners.
+-- Also added delay to autohide
+function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay)
 	if not frame.buttons then
 		frame.buttons = {}
 		frame:SetParent(parent)
@@ -78,7 +85,21 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset)
 			frame.buttons[i]:SetPoint('TOPLEFT', frame.buttons[i-1], 'BOTTOMLEFT')
 		end
 	end
+	
+	frame:SetScript('OnShow', function(self)
+		UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	end)
 
+	frame:SetScript('OnUpdate', function(self, elapsed)
+		if hoverVisible then return end
+		counter = counter + elapsed
+		if counter >= delay then
+			UIFrameFadeOut(self, 0.3, self:GetAlpha(), 0)
+			self.fadeInfo.finishedFunc = function() self:Hide() end
+			counter = 0
+		end	
+	end)
+	
 	frame:SetHeight((#list * BUTTON_HEIGHT) + PADDING * 2)
 	frame:SetWidth(BUTTON_WIDTH + PADDING * 2)
 	frame:Style('Outside')
