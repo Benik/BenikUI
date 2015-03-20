@@ -70,6 +70,22 @@ local function buiCore()
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; value, _, _, _ = GetAddOnInfo('ElvUI_BenikUI_Fonts'); BUI:EnableBuiFonts(); E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
+					gameMenuColor = {
+						type = "color",
+						order = 4,
+						name = L['Game Menu Color']..BUI.newsign,
+						hasAlpha = false,
+						get = function(info)
+							local t = E.db.bui[ info[#info] ]
+							local d = P.bui[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+						end,
+						set = function(info, r, g, b, a)
+							E.db.bui[ info[#info] ] = {}
+							local t = E.db.bui[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
+						end,
+					},
 				},
 			},
 			datatexts = {

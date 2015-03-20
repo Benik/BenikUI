@@ -19,6 +19,7 @@ P['bui'] = {
 	},
 	['toggleMail'] = true,
 	['garrisonCurrency'] = false,
+	['gameMenuColor'] = {r = .9, g = .7, b = 0},
 }
 
 -- Datatexts

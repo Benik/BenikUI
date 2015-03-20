@@ -15,6 +15,7 @@ L['Force BenikUI fonts'] = true
 L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'] = true
 L['BenikUI Style'] = true
 L['Show/Hide the decorative bars from UI elements'] = true
+L['Game Menu Color'] = true
 
 -- DataTexts
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = true

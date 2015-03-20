@@ -22,6 +22,11 @@ local function OnLeave(btn)
 	btn.hoverTex:Hide()
 end
 
+local color = { r = 1, g = 1, b = 1 }
+local function unpackColor(color)
+	return color.r, color.g, color.b
+end
+
 -- added parent, removed the mouse x,y and set menu frame position to any parent corners
 function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset)
 	if not frame.buttons then
@@ -63,6 +68,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset)
 		frame.buttons[i]:SetHeight(BUTTON_HEIGHT)
 		frame.buttons[i]:SetWidth(BUTTON_WIDTH)
 		frame.buttons[i].text:SetText(list[i].text)
+		frame.buttons[i].text:SetTextColor(unpackColor(E.db.bui.gameMenuColor))
 		frame.buttons[i].func = list[i].func
 		frame.buttons[i]:SetScript('OnClick', OnClick)
 
