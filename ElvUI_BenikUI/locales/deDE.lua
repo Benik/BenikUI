@@ -17,6 +17,7 @@ L['BenikUI Style'] = true
 L['Show/Hide the decorative bars from UI elements'] = "Dekorative Leisten von den UI Elementen anzeigen/ausblenden"
 L['Game Menu'] = "Spielmenü"
 L['Game Menu Color'] = "Spielmenü Farbe"
+L['ShiftClick to toggle chat'] = "ShiftKlick um Chat umzuschalten"
 
 -- DataTexts
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Chat Infotexte anzeigen/ausblenden. ElvUI Infotexte müssen dafür deaktiviert sein"
