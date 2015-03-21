@@ -124,7 +124,7 @@ L['AddOnSkins'] = true
 L['Decursive'] = true
 
 -- Castbar
-L['CONFLICT_WARNING'] = 'It would appear you have ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap loaded. BenikUI Attach Castbar feature has been disabled.'
+L['CONFLICT_WARNING'] = 'Es sieht so aus, als würdest du ElvUI_CastBarPowerOverlay oder ElvUI_CastBarSnap aktiviert haben. BenikUI abgetrente Zauberleisten wurde deaktiviert.'
 L['I understand'] = "Ich verstehe"
 
 -- UnitFrame Options
