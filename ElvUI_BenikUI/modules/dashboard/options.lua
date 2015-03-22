@@ -91,7 +91,12 @@ local function UpdateTokenOptions()
 		for _, id in ipairs(tableName) do
 			local tname, _, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
 			if tname then
-				E.Options.args.bui.args.config.args.dashboards.args.tokens.args.chooseTokens.args[optionName].args[tname] = {
+				E.Options.args.bui.args.config.args.dashboards.args.tokens.args[optionName].args.desc = {
+					order = optionOrder + 1,
+					name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered']),
+					type = 'header',					
+				}
+				E.Options.args.bui.args.config.args.dashboards.args.tokens.args[optionName].args[tname] = {
 					order = optionOrder + 1,
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
@@ -155,7 +160,6 @@ local function dashboardsTable()
 		order = 20,
 		type = 'group',
 		name = L['Dashboards']..BUI.newsign,
-		childGroups = "tab",
 		args = {
 			header = {
 				order = 1,
@@ -375,52 +379,39 @@ local function dashboardsTable()
 						get = function(info) return E.db.dashboards.tokens.flash end,
 						set = function(info, value) E.db.dashboards.tokens.flash = value; BUIT:UpdateTokens(); end,					
 					},
-					desc = {
-						order = 7,
-						name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered']),
-						type = 'header',					
-					},
-					chooseTokens = {
+					dTokens = {
 						order = 8,
 						type = 'group',
-						name = L['Select Tokens'],
-						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+						name = format('%s & %s', CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID),
 						args = {
-							dTokens = {
-								order = 1,
-								type = 'group',
-								name = format('%s & %s', CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID),
-								args = {
-								},
-							},
-							pTokens = {
-								order = 2,
-								type = 'group',
-								name = format('%s', PLAYER_V_PLAYER),
-								args = {
-								},
-							},
-							sTokens = {
-								order = 3,
-								type = 'group',
-								name = format('%s', (SECONDARY_SKILLS:gsub(':', ''))),
-								args = {
-								},
-							},
-							mTokens = {
-								order = 4,
-								type = 'group',
-								name = format('%s', MISCELLANEOUS),
-								args = {
-								},
-							},
-							aTokens = {
-								order = 5,
-								type = 'group',
-								name = format('%s', PROFESSIONS_ARCHAEOLOGY),
-								args = {
-								},
-							},
+						},
+					},
+					pTokens = {
+						order = 9,
+						type = 'group',
+						name = format('%s', PLAYER_V_PLAYER),
+						args = {
+						},
+					},
+					sTokens = {
+						order = 10,
+						type = 'group',
+						name = format('%s', (SECONDARY_SKILLS:gsub(':', ''))),
+						args = {
+						},
+					},
+					mTokens = {
+						order = 11,
+						type = 'group',
+						name = format('%s', MISCELLANEOUS),
+						args = {
+						},
+					},
+					aTokens = {
+						order = 12,
+						type = 'group',
+						name = format('%s', PROFESSIONS_ARCHAEOLOGY),
+						args = {
 						},
 					},
 				},
