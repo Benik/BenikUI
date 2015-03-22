@@ -31,6 +31,24 @@ function BUI:PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
+local function OnShow(self)
+	self:Show()
+end
+
+local function OnHide(self)
+	self:Hide()
+end
+
+function BUI:ShowAlpha(frame)
+	frame:Run("Alpha", 0.5, 0, 1)
+	frame:OnFinished("Alpha", OnShow)
+end
+
+function BUI:HideAlpha(frame)
+	frame:Run("Alpha", 0.5, 1, 0)
+	frame:OnFinished("Alpha", OnHide)
+end
+
 function BUI:RegisterBuiMedia()
 	--Fonts
 	E['media'].buiFont = LSM:Fetch('font', 'Bui Prototype')
