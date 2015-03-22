@@ -10,23 +10,25 @@ local join = string.join
 local format = string.format
 
 local OnEvent = function(self, event)
-
-	local InProgressMissions = C_Garrison.GetInProgressMissions()
-	local numInProgressMissions = #InProgressMissions
+	
+	local Missions = C_Garrison.GetInProgressMissions()
+	local CountInProgress = 0
 	local CountCompleted = 0
-
-	for i = 1, numInProgressMissions do
-		if InProgressMissions[i].inProgress then
-			local TimeLeft = InProgressMissions[i].timeLeft:match("%d")
+	
+	for i = 1, #Missions do
+		if Missions[i].inProgress then
+			local TimeLeft = Missions[i].timeLeft:match("%d")
 			
-			if (TimeLeft == "0") then
+			if (TimeLeft ~= "0") then
+				CountInProgress = CountInProgress + 1
+			else
 				CountCompleted = CountCompleted + 1
 			end
 		end
 	end
 
-	if (numInProgressMissions > 0) then
-		self.text:SetFormattedText(displayModifierString, GARRISON_MISSIONS, CountCompleted, numInProgressMissions)
+	if (CountInProgress > 0) then
+		self.text:SetFormattedText(displayModifierString, GARRISON_MISSIONS, CountCompleted, #Missions)
 	else
 		self.text:SetFormattedText(GARRISON_LOCATION_TOOLTIP..'+')
 	end
@@ -36,6 +38,7 @@ end
 
 local function SortMissions(missionlist)
     local comparison = function(mission1, mission2)
+
         if ( mission1.timeLeft ~= mission2.timeLeft ) then
             return mission1.timeLeft < mission2.timeLeft;
         end		
@@ -48,6 +51,10 @@ end
 
 local OnEnter = function(self)
 	DT:SetupTooltip(self)
+
+	if (not GarrisonMissionFrame) then
+		LoadAddOn("Blizzard_GarrisonUI")
+	end
 
 	-- Work Orders
 	C_Garrison.RequestLandingPageShipmentInfo()
@@ -128,4 +135,4 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
-DT:RegisterDatatext('Garrison+ (BenikUI)', {'PLAYER_LOGIN', 'PLAYER_ENTERING_WORLD', 'GARRISON_MISSION_STARTED', 'GARRISON_MISSION_FINISHED', 'GARRISON_MISSION_COMPLETE_RESPONSE', 'GET_ITEM_INFO_RECEIVED', 'CURRENCY_DISPLAY_UPDATE'}, OnEvent, nil, GarrisonLandingPage_Toggle, OnEnter)
+DT:RegisterDatatext('Garrison+ (BenikUI)', {'PLAYER_ENTERING_WORLD', 'GARRISON_MISSION_STARTED', 'GARRISON_MISSION_FINISHED', 'GARRISON_MISSION_COMPLETE_RESPONSE', 'ZONE_CHANGED_NEW_AREA'}, OnEvent, nil, GarrisonLandingPage_Toggle, OnEnter)
