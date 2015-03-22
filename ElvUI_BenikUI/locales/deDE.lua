@@ -15,7 +15,9 @@ L['Force BenikUI fonts'] = "Erzwinge BenikUI Schriftart"
 L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'] = "Ermöglicht die BenikUI Schriftart, die vorhandene Kampf- und Namensschriftart zu überschreiben. |cffFF0000WARNUNG: Damit die Änderungen wirksam werden, ist ein Neustart des Spiels oder ein Re-Log erforderlich.|r"
 L['BenikUI Style'] = true
 L['Show/Hide the decorative bars from UI elements'] = "Dekorative Leisten von den UI Elementen anzeigen/ausblenden"
+L['Game Menu'] = "Spielmenü"
 L['Game Menu Color'] = "Spielmenü Farbe"
+L['ShiftClick to toggle chat'] = "ShiftKlick um Chat umzuschalten"
 
 -- DataTexts
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Chat Infotexte anzeigen/ausblenden. ElvUI Infotexte müssen dafür deaktiviert sein"
@@ -124,7 +126,7 @@ L['AddOnSkins'] = true
 L['Decursive'] = true
 
 -- Castbar
-L['CONFLICT_WARNING'] = 'It would appear you have ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap loaded. BenikUI Attach Castbar feature has been disabled.'
+L['CONFLICT_WARNING'] = 'Es sieht so aus, als würdest du ElvUI_CastBarPowerOverlay oder ElvUI_CastBarSnap aktiviert haben. BenikUI abgetrente Zauberleisten wurden deaktiviert.'
 L['I understand'] = "Ich verstehe"
 
 -- UnitFrame Options
