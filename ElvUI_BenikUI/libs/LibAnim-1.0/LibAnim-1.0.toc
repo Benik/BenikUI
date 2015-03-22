@@ -1,0 +1,7 @@
+## Interface: 60100
+## Author: Hydra
+## Version: 1.00
+## Title: LibAnim-1.0
+## Notes: Animations!
+
+LibAnim-1.0.xml

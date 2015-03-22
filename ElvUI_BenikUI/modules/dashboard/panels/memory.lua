@@ -65,7 +65,7 @@ end
 
 function BUID:CreateMemory()
 	local boardName = Memory
-	boardName:SetScript( 'OnMouseDown', function ()
+	boardName:SetScript( 'OnMouseDown', function (self)
 		collectgarbage( 'collect' )
 	end )
 
@@ -75,10 +75,11 @@ function BUID:CreateMemory()
 			GameTooltip:ClearLines()
 
 			local totalMemory = UpdateMemory()
+			local red, green
 			for i = 1, #memoryTable do
 				if( memoryTable[i][4] ) then
-					local red = memoryTable[i][3] / totalMemory
-					local green = 1 - red
+					red = memoryTable[i][3] / totalMemory
+					green = 1 - red
 					GameTooltip:AddDoubleLine( memoryTable[i][2], formatMem( memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0 )
 				end
 			end

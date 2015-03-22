@@ -97,7 +97,6 @@ local function SkadaDecor()
 		if win.db.enabletitle then
 			skada.button:StripTextures()
 		end
-		
 		if not skada.Backdrop.ishooked then
 			hooksecurefunc(AS, 'Embed_Check', function(self, message)
 				if skada.Backdrop.style then
