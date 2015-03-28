@@ -305,6 +305,7 @@ local function SetupBuiUfs()
 		E.db.unitframe.colors.transparentAurabars = true
 		E.db.unitframe.colors.transparentCastbar = true
 		E.db.unitframe.colors.castClassColor = true
+		E.db.unitframe.smoothbars = true
 		
 		E.db.unitframe.colors.healthclass = false
 		E.db.unitframe.colors.power.MANA.r = 1

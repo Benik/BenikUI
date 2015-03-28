@@ -111,14 +111,6 @@ local function BuiGameMenu_OnMouseUp(self)
 	PlaySound("igMainMenuOptionCheckBoxOff");
 end
 
-local function tholderOnFade()
-	tokenHolder:Hide()
-end
-
-local function DashboardOnFade()
-	sysHolder:Hide()
-end
-
 local function ChatButton_OnClick(self)
 	GameTooltip:Hide()
 
