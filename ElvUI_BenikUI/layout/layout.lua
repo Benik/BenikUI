@@ -244,6 +244,7 @@ end
 function BUIL:MiddleDatatextDimensions()
 	Bui_mdtp:Width(E.db.bui.middleDatatext.width)
 	Bui_mdtp:Height(E.db.bui.middleDatatext.height)
+	DT:UpdateAllDimensions()
 end
 
 function BUIL:ChangeLayout()
