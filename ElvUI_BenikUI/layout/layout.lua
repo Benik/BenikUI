@@ -76,6 +76,26 @@ local menuList = {
 	{text = TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
 	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
 	{text = SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
+	{text = MAINMENU_BUTTON,
+	func = function()
+		if ( not GameMenuFrame:IsShown() ) then
+			if ( VideoOptionsFrame:IsShown() ) then
+					VideoOptionsFrameCancel:Click();
+			elseif ( AudioOptionsFrame:IsShown() ) then
+					AudioOptionsFrameCancel:Click();
+			elseif ( InterfaceOptionsFrame:IsShown() ) then
+					InterfaceOptionsFrameCancel:Click();
+			end
+			CloseMenus();
+			CloseAllWindows()
+			PlaySound("igMainMenuOpen");
+			ShowUIPanel(GameMenuFrame);
+		else
+			PlaySound("igMainMenuQuit");
+			HideUIPanel(GameMenuFrame);
+			MainMenuMicroButton_SetNormal();
+		end
+	end},
 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
 	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end}
 }
