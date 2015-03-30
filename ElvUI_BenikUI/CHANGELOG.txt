@@ -1,3 +1,8 @@
+[b]2.17[/b] (Mar 30, 2015)
+*German locale update
+*Fixed middle datatext panel not updating correclty when resizing
+*Minor fixes
+
 [b]2.16[/b] (Mar 22, 2015)
 *Added Hydra's LibAnim-1.0. Will try something on next version
 *Rearranged Tokens options a bit
