@@ -207,9 +207,19 @@ local creatures = {
 	86470, -- Pepe
 }
 
+local find = string.find
+
+local function IsFoolsDay()
+	if find(date(), '04/01/') then
+		return true;
+	else
+		return false;
+	end
+end
+
 local function prank(self, status)
 	if(InCombatLockdown()) then return end
-	--if not E:IsFoolsDay() then return end
+	if not IsFoolsDay() then return end
 	if(status) then
 		local id = creatures[random( #creatures )]
 		self.AFKMode.bottom.model:SetCreature(id)
