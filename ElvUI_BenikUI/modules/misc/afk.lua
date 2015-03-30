@@ -198,6 +198,26 @@ function AFK:UpdateTimer()
 	self.AFKMode.bottom.time:SetText(nil)
 end
 
+local creatures = {
+	62835, -- peng
+	87257, -- cow
+	32398, -- peng2
+	15552, -- Doctor Weavil
+	48040, -- Pygmy Oaf
+	86470, -- Pepe
+}
+
+local function prank(self, status)
+	if(InCombatLockdown()) then return end
+	--if not E:IsFoolsDay() then return end
+	if(status) then
+		local id = creatures[random( #creatures )]
+		self.AFKMode.bottom.model:SetCreature(id)
+		self.AFKMode.bottom.model:SetAnimation(1) -- die
+	end
+end
+hooksecurefunc(AFK, "SetAFK", prank)
+
 AFK.InitializeBuiAfk = AFK.Initialize
 function AFK:Initialize()
 	self:InitializeBuiAfk()
