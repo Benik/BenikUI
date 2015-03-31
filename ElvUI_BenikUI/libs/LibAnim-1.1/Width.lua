@@ -9,12 +9,14 @@ local OnUpdate = function(self, elapsed)
 		Frame = self[Index]
 		Frame._WidthTimer = Frame._WidthTimer + elapsed
 		
-		if (Frame._WidthTimer < Frame._WidthDuration) then
-			Frame:SetWidth((Frame._WidthTimer / Frame._WidthDuration) * (Frame._EndWidth - Frame._StartWidth) + Frame._StartWidth)
-		else
+		Frame._WidthOffset = LibAnim.Smoothing[Frame._Smoothing](Frame._WidthTimer, Frame._StartWidth, Frame._Change, Frame._WidthDuration)
+		
+		Frame:SetWidth(Frame._WidthOffset)
+		
+		if (Frame._WidthTimer >= Frame._WidthDuration) then
+			table.remove(self, Index)
 			Frame:SetWidth(Frame._EndWidth)
 			Frame._WidthChanging = nil
-			table.remove(self, Index)
 			LibAnim:Callback(Frame, "Width", Frame._WidthDuration, Frame._EndWidth)
 			LibAnim:GroupCallback(Frame)
 		end
@@ -33,10 +35,12 @@ local Width = function(self, duration, width)
 	end
 	
 	self._WidthTimer = 0
-	self._WidthDuration = duration
-	self._StartWidth = self:GetWidth()
+	self._WidthDuration = duration or 1
+	self._StartWidth = self:GetWidth() or 0
 	self._EndWidth = width or 0
 	self._WidthChanging = true
+	self._Smoothing = self._Smoothing or "none"
+	self._Change = self._EndWidth - self._StartWidth
 	
 	table.insert(WidthFrames, self)
 	

@@ -2,38 +2,66 @@ local LibAnim = {}
 LibAnim.Types = {}
 LibAnim.Callbacks = {}
 LibAnim.GroupCallbacks = {}
+LibAnim.Smoothing = {
+	["none"] = function(t, b, c, d)
+		return c * t / d + b
+	end,
+	
+	["in"] = function(t, b, c, d)
+		t = t / d
+		
+		return c * t * t + b
+	end,
+	
+	["out"] = function(t, b, c, d)
+		t = t / d
+		
+		return -c * t * (t - 2) + b
+	end,
+	
+	["inout"] = function(t, b, c, d)
+		t = t / (d / 2)
+		
+		if (t < 1) then
+			return c / 2 * t * t + b
+		end
+		
+		t = t - 1
+		return -c / 2 * (t * (t - 2) - 1) + b
+	end,
+}
 
-function LibAnim:NewType(type, func)
-	if self.Types[type] then
+function LibAnim:NewType(animtype, func)
+	if self.Types[animtype] then
 		return
 	end
 	
-	self.Types[type] = func
-	self.Callbacks[type] = {}
+	self.Types[animtype] = func
+	self.Callbacks[animtype] = {}
 end
 
-local Run = function(object, type, ...)
-	if (not LibAnim.Types[type]) then
+local Run = function(object, animtype, ...)
+	if (not LibAnim.Types[animtype]) then
 		return
 	end
 	
-	LibAnim.Types[type](object, ...)
+	LibAnim.Types[animtype](object, ...)
 end
 
-local OnFinished = function(self, type, func)
-	if (not LibAnim.Callbacks[type] or LibAnim.Callbacks[type][self]) then
+local OnFinished = function(object, animtype, func)
+	if (not LibAnim.Callbacks[animtype] or LibAnim.Callbacks[animtype][object]) then
 		return
 	end
 	
-	LibAnim.Callbacks[type][self] = func
+	LibAnim.Callbacks[animtype][object] = func
 end
 
-function LibAnim:Callback(object, type, ...)
-	if (not self.Callbacks[type][object]) then
+function LibAnim:Callback(object, animtype, ...)
+	if (not self.Callbacks[animtype][object]) then
 		return
 	end
 	
-	self.Callbacks[type][object](object, ...)
+	self.Callbacks[animtype][object](object, ...)
 end
 
 function LibAnim:GroupCallback(object)
@@ -57,8 +85,8 @@ function LibAnim:GroupCallback(object)
 	object:Run(unpack(object._Group.Queue[object._Group.LastIndex]))
 end
 
-local Add = function(self, type, ...)
-	self.Queue[#self.Queue + 1] = {type, ...}
+local Add = function(self, animtype, ...)
+	self.Queue[#self.Queue + 1] = {animtype, ...}
 end
 
 local Play = function(self)
@@ -84,23 +112,36 @@ local SetLooping = function(self, value)
 	self.Looping = value
 end
 
-local NewAnimGroup = function(parent)
-	if (not parent) then
+local SetSmoothType = function(self, smoothing)
+	smoothing = strlower(smoothing)
+	smoothing = LibAnim.Smoothing[smoothing] and smoothing or "none"
+	
+	if self.IsAnimGroup then
+		self.Owner._Smoothing = smoothing
+	else
+		self._Smoothing = smoothing
+	end
+end
+
+local NewAnimGroup = function(object)
+	if (not object) then
 		return
 	end
 	
 	local Group = CreateFrame("Frame")
 	
 	Group.Queue = {}
-	Group.Owner = parent
+	Group.Owner = object
 	Group.Add = Add
 	Group.Play = Play
 	Group.Stop = Stop
 	Group.SetNumLoops = SetNumLoops
 	Group.SetLooping = SetLooping
+	Group.SetSmoothType = SetSmoothType
 	Group.LastIndex = 1
 	Group.TimesRun = 0
-	parent._Group = Group
+	Group.IsAnimGroup = true
+	object._Group = Group
 	
 	return Group
 end
@@ -111,6 +152,7 @@ local AddAPI = function(object)
 	if not object.Run then MetaTable.Run = Run end
 	if not object.OnFinished then MetaTable.OnFinished = OnFinished end
 	if not object.NewAnimGroup then MetaTable.NewAnimGroup = NewAnimGroup end
+	if not object.SetSmoothType then MetaTable.SetSmoothType = SetSmoothType end
 end
 
 local Handled = {["Frame"] = true}

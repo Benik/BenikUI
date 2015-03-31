@@ -9,12 +9,14 @@ local OnUpdate = function(self, elapsed)
 		Frame = self[Index]
 		Frame._HeightTimer = Frame._HeightTimer + elapsed
 		
-		if (Frame._HeightTimer < Frame._HeightDuration) then
-			Frame:SetHeight((Frame._HeightTimer / Frame._HeightDuration) * (Frame._EndHeight - Frame._StartHeight) + Frame._StartHeight)
-		else
+		Frame._HeightOffset = LibAnim.Smoothing[Frame._Smoothing](Frame._HeightTimer, Frame._StartHeight, Frame._Change, Frame._HeightDuration)
+		
+		Frame:SetHeight(Frame._HeightOffset)
+		
+		if (Frame._HeightTimer >= Frame._HeightDuration) then
+			table.remove(self, Index)
 			Frame:SetHeight(Frame._EndHeight)
 			Frame._HeightChanging = nil
-			table.remove(self, Index)
 			LibAnim:Callback(Frame, "Height", Frame._HeightDuration, Frame._EndHeight)
 			LibAnim:GroupCallback(Frame)
 		end
@@ -33,10 +35,12 @@ local Height = function(self, duration, height)
 	end
 	
 	self._HeightTimer = 0
-	self._HeightDuration = duration
-	self._StartHeight = self:GetHeight()
+	self._HeightDuration = duration or 1
+	self._StartHeight = self:GetHeight() or 0
 	self._EndHeight = height or 0
 	self._HeightChanging = true
+	self._Smoothing = self._Smoothing or "none"
+	self._Change = self._EndHeight - self._StartHeight
 	
 	table.insert(HeightFrames, self)
 	

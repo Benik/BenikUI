@@ -59,11 +59,13 @@ local OnUpdate = function(self, elapsed)
 		Frame = self[Index]
 		Frame._GradientTimer = Frame._GradientTimer + elapsed
 		
-		if (Frame._GradientTimer < Frame._GradientDuration) then
-			Set[Frame._Type](Frame, ColorGradient(Frame._GradientTimer, Frame._GradientDuration, Frame._StartR, Frame._StartG, Frame._StartB, Frame._EndR, Frame._EndG, Frame._EndB))
-		else
-			Set[Frame._Type](Frame, Frame._EndR, Frame._EndG, Frame._EndB)
+		Frame._GradientOffset = LibAnim.Smoothing[Frame._Smoothing](Frame._GradientTimer, 0, Frame._GradientDuration, Frame._GradientDuration)
+		
+		Set[Frame._Type](Frame, ColorGradient(Frame._GradientOffset, Frame._GradientDuration, Frame._StartR, Frame._StartG, Frame._StartB, Frame._EndR, Frame._EndG, Frame._EndB))
+		
+		if (Frame._GradientTimer >= Frame._GradientDuration) then
 			table.remove(self, Index)
+			Set[Frame._Type](Frame, Frame._EndR, Frame._EndG, Frame._EndB)
 			LibAnim:Callback(Frame, "Gradient", Frame._GradientDuration, Frame._EndWidth)
 			LibAnim:GroupCallback(Frame)
 		end
@@ -82,6 +84,7 @@ local Gradient = function(self, type, duration, r, g, b)
 	self._Type = string.lower(type)
 	self._StartR, self._StartG, self._StartB = Get[self._Type](self)
 	self._EndR, self._EndG, self._EndB = r, g, b
+	self._Smoothing = self._Smoothing or "none"
 	
 	table.insert(GradientFrames, self)
 	
