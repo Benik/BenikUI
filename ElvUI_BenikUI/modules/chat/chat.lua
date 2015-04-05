@@ -15,6 +15,11 @@ function CH:UpdateAnchors()
 		else
 			frame:SetAllPoints(LeftChatTab)
 		end
+		
+		frame:SetScript('OnShow', function(self)
+			self:Run('Alpha', .3, 0, 1)
+			self:SetSmoothType('InOut')
+		end)
 	end
 
 	CH:PositionChat(true)
