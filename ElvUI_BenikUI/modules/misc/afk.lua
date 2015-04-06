@@ -198,7 +198,7 @@ function AFK:UpdateTimer()
 	self.AFKMode.bottom.time:SetText(nil)
 end
 
-local creatures = {
+--[[local creatures = {
 	62835, -- peng
 	87257, -- cow
 	32398, -- peng2
@@ -207,7 +207,7 @@ local creatures = {
 	86470, -- Pepe
 }
 
---[[local find = string.find
+local find = string.find
 
 local function IsFoolsDay()
 	if find(date(), '04/01/') then
