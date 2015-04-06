@@ -207,7 +207,7 @@ local creatures = {
 	86470, -- Pepe
 }
 
-local find = string.find
+--[[local find = string.find
 
 local function IsFoolsDay()
 	if find(date(), '04/01/') then
@@ -226,7 +226,7 @@ local function prank(self, status)
 		self.AFKMode.bottom.model:SetAnimation(1) -- die
 	end
 end
-hooksecurefunc(AFK, "SetAFK", prank)
+hooksecurefunc(AFK, "SetAFK", prank)]]
 
 AFK.InitializeBuiAfk = AFK.Initialize
 function AFK:Initialize()
