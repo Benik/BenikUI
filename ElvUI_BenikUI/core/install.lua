@@ -41,6 +41,9 @@ local function SetupBuiLayout()
 		E.private.skins.blizzard.questChoice = true
 		E.db.datatexts.leftChatPanel = false
 		E.db.datatexts.rightChatPanel = false
+		E.db.bags.itemLevelFont = 'Bui Prototype'
+		E.db.bags.itemLevelFontSize = 10
+		E.db.bags.itemLevelFontOutline = 'OUTLINE'
 	end
 	
 	-- Tooltip
@@ -53,8 +56,14 @@ local function SetupBuiLayout()
 	-- Nameplates
 	do
 		E.db.nameplate.font = 'Bui Visitor1'
+		E.db.nameplate.fontSize = 7
+		E.db.nameplate.fontOutline = 'MONOCHROMEOUTLINE'
 		E.db.nameplate.debuffs.font = 'Bui Visitor1'
+		E.db.nameplate.debuffs.fontSize = 7
+		E.db.nameplate.debuffs.fontOutline = 'MONOCHROMEOUTLINE'
 		E.db.nameplate.buffs.font = 'Bui Visitor1'
+		E.db.nameplate.buffs.fontSize = 7
+		E.db.nameplate.buffs.fontOutline = 'MONOCHROMEOUTLINE'
 	end
 	
 	-- movers
