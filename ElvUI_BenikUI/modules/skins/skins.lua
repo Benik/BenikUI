@@ -357,6 +357,28 @@ local function styleGarrison()
 	GarrisonMissionMechanicFollowerCounterTooltip.backdrop:Style('Outside')
 	FloatingGarrisonFollowerTooltip:Style('Outside')
 	GarrisonFollowerTooltip:Style('Outside')
+	
+	-- Follower recruiting (available at the Inn)
+	GarrisonRecruitSelectFrame:StripTextures()
+	GarrisonRecruitSelectFrame:CreateBackdrop('Transparent')
+	GarrisonRecruitSelectFrame.backdrop:Style('Outside')
+	S:HandleCloseButton(GarrisonRecruitSelectFrame.CloseButton)
+	S:HandleEditBox(GarrisonRecruitSelectFrame.FollowerList.SearchBox)
+
+	GarrisonRecruitSelectFrame.FollowerList:StripTextures()
+	GarrisonRecruitSelectFrame.FollowerList:CreateBackdrop('Transparent')
+	GarrisonRecruitSelectFrame.FollowerList.backdrop:CreateSoftShadow()
+	S:HandleScrollBar(GarrisonRecruitSelectFrameListScrollFrameScrollBar)
+	GarrisonRecruitSelectFrame.FollowerSelection:StripTextures()
+	GarrisonRecruitSelectFrame.FollowerSelection:CreateBackdrop('Transparent')
+	GarrisonRecruitSelectFrame.FollowerSelection.backdrop:CreateSoftShadow()
+
+	GarrisonRecruitSelectFrame.FollowerSelection.Recruit1:CreateBackdrop('Default')
+	GarrisonRecruitSelectFrame.FollowerSelection.Recruit2:CreateBackdrop('Default')
+	GarrisonRecruitSelectFrame.FollowerSelection.Recruit3:CreateBackdrop('Default')
+	S:HandleButton(GarrisonRecruitSelectFrame.FollowerSelection.Recruit1.HireRecruits)
+	S:HandleButton(GarrisonRecruitSelectFrame.FollowerSelection.Recruit2.HireRecruits)
+	S:HandleButton(GarrisonRecruitSelectFrame.FollowerSelection.Recruit3.HireRecruits)
 end
 
 -- Objective Tracker Button
