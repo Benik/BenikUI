@@ -200,6 +200,10 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			QuestChoiceFrame:Style('Small')
 		end
 	end
+	
+	if addon == 'Blizzard_AuctionUI' then
+		WowTokenGameTimeTutorial.backdrop:Style('Outside')
+	end
 
 	if E.private.skins.blizzard.timemanager == true then
 		if not TimeManagerFrame.style then
@@ -339,6 +343,7 @@ function BUIS:AlertFrame_SetAchievementAnchors()
 end
 
 -- Garrison Style
+local fRecruits = {}
 local function styleGarrison()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true then return end
 	if (not GarrisonMissionFrame) then LoadAddOn("Blizzard_GarrisonUI") end
@@ -359,6 +364,13 @@ local function styleGarrison()
 	GarrisonFollowerTooltip:Style('Outside')
 	
 	-- Follower recruiting (available at the Inn)
+	GarrisonRecruiterFrame.backdrop:Style('Outside')
+	S:HandleDropDownBox(GarrisonRecruiterFramePickThreatDropDown)
+	local rBtn = GarrisonRecruiterFrame.Pick.ChooseRecruits
+	rBtn:ClearAllPoints()
+	rBtn:Point('BOTTOM', GarrisonRecruiterFrame.backdrop, 'BOTTOM', 0, 30)
+	S:HandleButton(rBtn)
+	
 	GarrisonRecruitSelectFrame:StripTextures()
 	GarrisonRecruitSelectFrame:CreateBackdrop('Transparent')
 	GarrisonRecruitSelectFrame.backdrop:Style('Outside')
@@ -366,16 +378,40 @@ local function styleGarrison()
 	S:HandleEditBox(GarrisonRecruitSelectFrame.FollowerList.SearchBox)
 
 	GarrisonRecruitSelectFrame.FollowerList:StripTextures()
-	GarrisonRecruitSelectFrame.FollowerList:CreateBackdrop('Transparent')
-	GarrisonRecruitSelectFrame.FollowerList.backdrop:CreateSoftShadow()
 	S:HandleScrollBar(GarrisonRecruitSelectFrameListScrollFrameScrollBar)
 	GarrisonRecruitSelectFrame.FollowerSelection:StripTextures()
-	GarrisonRecruitSelectFrame.FollowerSelection:CreateBackdrop('Transparent')
-	GarrisonRecruitSelectFrame.FollowerSelection.backdrop:CreateSoftShadow()
 
 	GarrisonRecruitSelectFrame.FollowerSelection.Recruit1:CreateBackdrop()
+	GarrisonRecruitSelectFrame.FollowerSelection.Recruit1:ClearAllPoints()
+	GarrisonRecruitSelectFrame.FollowerSelection.Recruit1:Point('LEFT', GarrisonRecruitSelectFrame.FollowerSelection, 'LEFT', 6, 0)
 	GarrisonRecruitSelectFrame.FollowerSelection.Recruit2:CreateBackdrop()
+	GarrisonRecruitSelectFrame.FollowerSelection.Recruit2:ClearAllPoints()
+	GarrisonRecruitSelectFrame.FollowerSelection.Recruit2:Point('LEFT', GarrisonRecruitSelectFrame.FollowerSelection.Recruit1, 'RIGHT', 6, 0)
 	GarrisonRecruitSelectFrame.FollowerSelection.Recruit3:CreateBackdrop()
+	GarrisonRecruitSelectFrame.FollowerSelection.Recruit3:ClearAllPoints()
+	GarrisonRecruitSelectFrame.FollowerSelection.Recruit3:Point('LEFT', GarrisonRecruitSelectFrame.FollowerSelection.Recruit2, 'RIGHT', 6, 0)
+
+	for i = 1, 3 do
+		fRecruits[i] = CreateFrame('Frame', nil, E.UIParent)
+		fRecruits[i]:SetTemplate('Default', true)
+		fRecruits[i]:Size(190, 60)
+		if i == 1 then
+			fRecruits[i]:SetParent(GarrisonRecruitSelectFrame.FollowerSelection.Recruit1)
+			fRecruits[i]:Point('TOP', GarrisonRecruitSelectFrame.FollowerSelection.Recruit1.backdrop, 'TOP')
+			fRecruits[i]:SetFrameLevel(GarrisonRecruitSelectFrame.FollowerSelection.Recruit1:GetFrameLevel())
+			GarrisonRecruitSelectFrame.FollowerSelection.Recruit1.Class:Size(60, 58)
+		elseif i == 2 then
+			fRecruits[i]:SetParent(GarrisonRecruitSelectFrame.FollowerSelection.Recruit2)
+			fRecruits[i]:Point('TOP', GarrisonRecruitSelectFrame.FollowerSelection.Recruit2.backdrop, 'TOP')
+			fRecruits[i]:SetFrameLevel(GarrisonRecruitSelectFrame.FollowerSelection.Recruit2:GetFrameLevel())
+			GarrisonRecruitSelectFrame.FollowerSelection.Recruit2.Class:Size(60, 58)		
+		elseif i == 3 then
+			fRecruits[i]:SetParent(GarrisonRecruitSelectFrame.FollowerSelection.Recruit3)
+			fRecruits[i]:Point('TOP', GarrisonRecruitSelectFrame.FollowerSelection.Recruit3.backdrop, 'TOP')
+			fRecruits[i]:SetFrameLevel(GarrisonRecruitSelectFrame.FollowerSelection.Recruit3:GetFrameLevel())
+			GarrisonRecruitSelectFrame.FollowerSelection.Recruit3.Class:Size(60, 58)		
+		end
+	end
 	S:HandleButton(GarrisonRecruitSelectFrame.FollowerSelection.Recruit1.HireRecruits)
 	S:HandleButton(GarrisonRecruitSelectFrame.FollowerSelection.Recruit2.HireRecruits)
 	S:HandleButton(GarrisonRecruitSelectFrame.FollowerSelection.Recruit3.HireRecruits)
