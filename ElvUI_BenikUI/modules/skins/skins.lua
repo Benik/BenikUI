@@ -202,7 +202,9 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	end
 	
 	if addon == 'Blizzard_AuctionUI' then
-		WowTokenGameTimeTutorial.backdrop:Style('Outside')
+		if not WowTokenGameTimeTutorial.style then
+			WowTokenGameTimeTutorial:Style('Small')
+		end
 	end
 
 	if E.private.skins.blizzard.timemanager == true then
