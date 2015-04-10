@@ -377,6 +377,7 @@ local function SetupBuiUfs()
 		E.db.unitframe.units.pet.height = 24
 		E.db.unitframe.units.pet.power.height = 5
 		E.db.unitframe.units.pet.power.width = 'fill'
+		E.db.unitframe.units.pet.castbar.enable = false
 	-- focus
 		E.db.unitframe.units.focus.power.height = 5
 		E.db.unitframe.units.focus.power.width = 'fill'
@@ -415,6 +416,8 @@ local function SetupBuiUfs()
 		E.db.movers.TargetPowerBarMover = 'BOTTOMElvUIParentBOTTOM231215'
 		E.db.movers.ClassBarMover = 'BOTTOMElvUIParentBOTTOM-1349'
 		E.db.movers.ExperienceBarMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT41522'
+		E.db.movers.ElvUF_BodyGuardMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT4444'
+		E.db.movers.ElvUF_PetCastbarMover = 'BOTTOMElvUIParentBOTTOM0214'
 	end
 	
 	if InstallStepComplete then
