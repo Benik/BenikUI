@@ -113,12 +113,12 @@ local function SetupBuiLayout()
 	E.db.movers.LocationLiteMover = 'TOPElvUIParentTOP0-7'
 	
 	if(UnitLevel('player') == MAX_PLAYER_LEVEL) then
-		E.db.xprep.show = 'REP'
+		E.db.buixprep.show = 'REP'
 	else
-		E.db.xprep.show = 'XP'
+		E.db.buixprep.show = 'XP'
 	end
-	E.db.xprep.textFormat = 'CURMAX'
-	E.db.xprep.textStyle = 'UNIT'
+	E.db.buixprep.textFormat = 'CURMAX'
+	E.db.buixprep.textStyle = 'UNIT'
 
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Layout Set']

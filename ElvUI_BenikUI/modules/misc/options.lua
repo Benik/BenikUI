@@ -2,10 +2,10 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local BUI = E:GetModule('BenikUI');
 local BXR = E:GetModule('BUIExpRep');
 
-if E.db.xprep == nil then E.db.xprep = {} end
+if E.db.buixprep == nil then E.db.buixprep = {} end
 
 local function xprepTable()
-	E.Options.args.bui.args.config.args.xprep = {
+	E.Options.args.bui.args.config.args.buixprep = {
 		order = 30,
 		type = 'group',
 		name = COMBAT_XP_GAIN.."/"..REPUTATION,
@@ -17,29 +17,29 @@ local function xprepTable()
 				type = 'toggle',
 				name = ENABLE,
 				width = 'full',
-				get = function(info) return E.db.xprep.enable end,
-				set = function(info, value) E.db.xprep.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
+				get = function(info) return E.db.buixprep.enable end,
+				set = function(info, value) E.db.buixprep.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
 			show = {
 				order = 2,
 				type = 'select',
 				name = L['Show in PlayerBar'],
 				desc = L['Empty Frames must be enabled \n(in UnitFrames options)'],
-				disabled = function() return not E.db.xprep.enable end,
+				disabled = function() return not E.db.buixprep.enable end,
 				values = {
 					['NONE'] = NONE,
 					['REP'] = REPUTATION,
 					['XP'] = COMBAT_XP_GAIN,
 				},
-				get = function(info) return E.db.xprep.show end,
-				set = function(info, value) E.db.xprep.show = value; BXR:EnableDisable_ReputationBar(); BXR:EnableDisable_ExperienceBar(); end,
+				get = function(info) return E.db.buixprep.show end,
+				set = function(info, value) E.db.buixprep.show = value; BXR:EnableDisable_ReputationBar(); BXR:EnableDisable_ExperienceBar(); end,
 			},
 			text = {
 				order = 3,
 				type = 'group',
 				name = L['Text'],
 				guiInline = true,
-				disabled = function() return not E.db.xprep.enable end,
+				disabled = function() return not E.db.buixprep.enable end,
 				args = {
 					tStyle = {
 						order = 1,
@@ -50,8 +50,8 @@ local function xprepTable()
 							['DTS'] = L['DataTexts'],
 							['UNIT'] = L['UnitFrames'],
 						},
-						get = function(info) return E.db.xprep.text.tStyle end,
-						set = function(info, value) E.db.xprep.text.tStyle = value; BXR:ChangeRepXpFont(); end,
+						get = function(info) return E.db.buixprep.text.tStyle end,
+						set = function(info, value) E.db.buixprep.text.tStyle = value; BXR:ChangeRepXpFont(); end,
 					},
 					tformat = {
 						order = 2,
@@ -63,16 +63,16 @@ local function xprepTable()
 							CURMAX = L['Current - Max'],
 							CURPERC = L['Current - Percent'],
 						},
-						get = function(info) return E.db.xprep.text.tformat end,
-						set = function(info, value) E.db.xprep.text.tformat = value; if E.db.xprep.show == 'XP' then BXR:UpdateExperience() elseif E.db.xprep.show == 'REP' then BXR:UpdateReputation() end; end,
+						get = function(info) return E.db.buixprep.text.tformat end,
+						set = function(info, value) E.db.buixprep.text.tformat = value; if E.db.buixprep.show == 'XP' then BXR:UpdateExperience() elseif E.db.buixprep.show == 'REP' then BXR:UpdateReputation() end; end,
 					},
 					mouseOver = {
 						order = 3,
 						type = 'toggle',
 						name = L['Hide PlayerBar text values'],
 						desc = L['Hides health, power and custom text values when mousing over, if their yOffset is']..' < -10',
-						get = function(info) return E.db.xprep.text.mouseOver end,
-						set = function(info, value) E.db.xprep.text.mouseOver = value end,
+						get = function(info) return E.db.buixprep.text.mouseOver end,
+						set = function(info, value) E.db.buixprep.text.mouseOver = value end,
 					},
 				},
 			},
@@ -81,7 +81,7 @@ local function xprepTable()
 				type = 'group',
 				name = COLOR,
 				childGroups = "tab",
-				disabled = function() return not E.db.xprep.enable end,
+				disabled = function() return not E.db.buixprep.enable end,
 				args = {
 					experience = {
 						order = 1,
@@ -93,21 +93,21 @@ local function xprepTable()
 								type = 'toggle',
 								name = DEFAULT,
 								width = 'full',
-								get = function(info) return E.db.xprep.color.experience.default end,
-								set = function(info, value) E.db.xprep.color.experience.default = value; BXR:ChangeXPcolor(); end,
+								get = function(info) return E.db.buixprep.color.experience.default end,
+								set = function(info, value) E.db.buixprep.color.experience.default = value; BXR:ChangeXPcolor(); end,
 							},
 							xp = {
 								order = 2,
 								type = 'color',
 								hasAlpha = true,
 								name = COMBAT_XP_GAIN,
-								disabled = function() return E.db.xprep.color.experience.default end,
+								disabled = function() return E.db.buixprep.color.experience.default end,
 								get = function(info)
-									local t = E.db.xprep.color.experience.xp
+									local t = E.db.buixprep.color.experience.xp
 									return t.r, t.g, t.b, t.a
 									end,
 								set = function(info, r, g, b, a)
-									local t = E.db.xprep.color.experience.xp
+									local t = E.db.buixprep.color.experience.xp
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeXPcolor()
 								end,
@@ -117,13 +117,13 @@ local function xprepTable()
 								type = 'color',
 								hasAlpha = true,
 								name = TUTORIAL_TITLE26,
-								disabled = function() return E.db.xprep.color.experience.default end,
+								disabled = function() return E.db.buixprep.color.experience.default end,
 								get = function(info)
-									local t = E.db.xprep.color.experience.rested
+									local t = E.db.buixprep.color.experience.rested
 									return t.r, t.g, t.b, t.a
 									end,
 								set = function(info, r, g, b, a)
-									local t = E.db.xprep.color.experience.rested
+									local t = E.db.buixprep.color.experience.rested
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeXPcolor()
 								end,
@@ -138,8 +138,8 @@ local function xprepTable()
 								type = 'toggle',
 								name = L['Apply in ElvUI'],
 								desc = L['Also apply these colors in ElvUI xp bar.'],
-								get = function(info) return E.db.xprep.color.experience.applyInElvUI end,
-								set = function(info, value) E.db.xprep.color.experience.applyInElvUI = value; BXR:ChangeXPcolor(); end,
+								get = function(info) return E.db.buixprep.color.experience.applyInElvUI end,
+								set = function(info, value) E.db.buixprep.color.experience.applyInElvUI = value; BXR:ChangeXPcolor(); end,
 							},
 						},
 					},
@@ -153,21 +153,21 @@ local function xprepTable()
 								type = 'toggle',
 								name = DEFAULT,
 								width = 'full',
-								get = function(info) return E.db.xprep.color.reputation.default end,
-								set = function(info, value) E.db.xprep.color.reputation.default = value; BXR:ChangeRepColor(); end,
+								get = function(info) return E.db.buixprep.color.reputation.default end,
+								set = function(info, value) E.db.buixprep.color.reputation.default = value; BXR:ChangeRepColor(); end,
 							},
 							friendly = {
 								order = 2,
 								type = 'color',
 								hasAlpha = true,
 								name = FACTION_STANDING_LABEL5.."+",
-								disabled = function() return E.db.xprep.color.reputation.default end,
+								disabled = function() return E.db.buixprep.color.reputation.default end,
 								get = function(info)
-									local t = E.db.xprep.color.reputation.friendly
+									local t = E.db.buixprep.color.reputation.friendly
 									return t.r, t.g, t.b, t.a
 									end,
 								set = function(info, r, g, b, a)
-									local t = E.db.xprep.color.reputation.friendly
+									local t = E.db.buixprep.color.reputation.friendly
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeRepColor()
 								end,
@@ -177,13 +177,13 @@ local function xprepTable()
 								type = 'color',
 								hasAlpha = true,
 								name = FACTION_STANDING_LABEL4,
-								disabled = function() return E.db.xprep.color.reputation.default end,
+								disabled = function() return E.db.buixprep.color.reputation.default end,
 								get = function(info)
-									local t = E.db.xprep.color.reputation.neutral
+									local t = E.db.buixprep.color.reputation.neutral
 									return t.r, t.g, t.b, t.a
 									end,
 								set = function(info, r, g, b, a)
-									local t = E.db.xprep.color.reputation.neutral
+									local t = E.db.buixprep.color.reputation.neutral
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeRepColor()
 								end,
@@ -193,13 +193,13 @@ local function xprepTable()
 								type = 'color',
 								hasAlpha = true,
 								name = FACTION_STANDING_LABEL3,
-								disabled = function() return E.db.xprep.color.reputation.default end,
+								disabled = function() return E.db.buixprep.color.reputation.default end,
 								get = function(info)
-									local t = E.db.xprep.color.reputation.unfriendly
+									local t = E.db.buixprep.color.reputation.unfriendly
 									return t.r, t.g, t.b, t.a
 									end,
 								set = function(info, r, g, b, a)
-									local t = E.db.xprep.color.reputation.unfriendly
+									local t = E.db.buixprep.color.reputation.unfriendly
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeRepColor()
 								end,
@@ -209,13 +209,13 @@ local function xprepTable()
 								type = 'color',
 								hasAlpha = true,
 								name = FACTION_STANDING_LABEL2.."/"..FACTION_STANDING_LABEL1,
-								disabled = function() return E.db.xprep.color.reputation.default end,
+								disabled = function() return E.db.buixprep.color.reputation.default end,
 								get = function(info)
-									local t = E.db.xprep.color.reputation.hated
+									local t = E.db.buixprep.color.reputation.hated
 									return t.r, t.g, t.b, t.a
 									end,
 								set = function(info, r, g, b, a)
-									local t = E.db.xprep.color.reputation.hated
+									local t = E.db.buixprep.color.reputation.hated
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeRepColor()
 								end,
@@ -230,8 +230,8 @@ local function xprepTable()
 								type = 'toggle',
 								name = L['Apply in ElvUI'],
 								desc = L['Also apply these colors in ElvUI rep bar.'],
-								get = function(info) return E.db.xprep.color.reputation.applyInElvUI end,
-								set = function(info, value) E.db.xprep.color.reputation.applyInElvUI = value; BXR:ChangeRepColor(); end,
+								get = function(info) return E.db.buixprep.color.reputation.applyInElvUI end,
+								set = function(info, value) E.db.buixprep.color.reputation.applyInElvUI = value; BXR:ChangeRepColor(); end,
 							},							
 						},
 					},

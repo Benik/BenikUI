@@ -50,7 +50,7 @@ P['bab'] = {
 }
 
 -- XP/Rep
-P['xprep'] = {
+P['buixprep'] = {
 	['enable'] = true,
 	['show'] = 'REP',
 	['text'] = {

@@ -33,7 +33,7 @@ end
 
 local function xp_onEnter(self)
 	if InCombatLockdown() then return end
-	if E.db.xprep.text.mouseOver then
+	if E.db.buixprep.text.mouseOver then
 		XpRepMouseOverText()
 	end
 	self:SetAlpha(0.8)
@@ -58,7 +58,7 @@ end
 
 local function rep_onEnter(self)
 	if InCombatLockdown() then return end
-	if E.db.xprep.text.mouseOver then
+	if E.db.buixprep.text.mouseOver then
 		XpRepMouseOverText()
 	end
 	self:SetAlpha(0.6)
@@ -122,7 +122,7 @@ function BXR:UpdateExperience(event)
 		
 		local rested = GetXPExhaustion()
 		local text = ''
-		local textFormat = E.db.xprep.text.tformat
+		local textFormat = E.db.buixprep.text.tformat
 		
 		if rested and rested > 0 then
 			bar.rested:SetMinMaxValues(0, max)
@@ -169,7 +169,7 @@ function BXR:UpdateReputation(event)
 		bar:Show()
 
 		local text = ''
-		local textFormat = E.db.xprep.text.tFormat		
+		local textFormat = E.db.buixprep.text.tFormat		
 
 		bar:SetMinMaxValues(min, max)
 		bar:SetValue(value)
@@ -203,7 +203,7 @@ end
 
 function BXR:EnableDisable_ExperienceBar()
 
-	if UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.ufb.barshow and E.db.xprep.show == 'XP' then
+	if UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.ufb.barshow and E.db.buixprep.show == 'XP' then
 		self:RegisterEvent('PLAYER_XP_UPDATE', 'UpdateExperience')
 		self:RegisterEvent('PLAYER_LEVEL_UP', 'UpdateExperience')
 		self:RegisterEvent('DISABLE_XP_GAIN', 'UpdateExperience')
@@ -222,7 +222,7 @@ end
 
 function BXR:EnableDisable_ReputationBar()
 
-	if E.db.ufb.barshow and E.db.xprep.show == 'REP' then
+	if E.db.ufb.barshow and E.db.buixprep.show == 'REP' then
 		self:RegisterEvent('UPDATE_FACTION', 'UpdateReputation')
 		self:UpdateReputation()
 	else
@@ -233,15 +233,15 @@ end
 
 function BXR:ChangeRepXpFont()
 	local bar
-	if E.db.xprep.show == 'REP' then
+	if E.db.buixprep.show == 'REP' then
 		bar = self.repbar
-	elseif E.db.xprep.show == 'XP' then
+	elseif E.db.buixprep.show == 'XP' then
 		bar = self.xpbar
 	else return
 	end
-	if E.db.xprep.text.tStyle == 'DTS' then
+	if E.db.buixprep.text.tStyle == 'DTS' then
 		bar.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-	elseif E.db.xprep.text.tStyle == 'UNIT' then
+	elseif E.db.buixprep.text.tStyle == 'UNIT' then
 		bar.text:FontTemplate(LSM:Fetch('font', E.db.unitframe.font), E.db.unitframe.fontSize, E.db.unitframe.fontOutline)
 	else
 		bar.text:FontTemplate(nil, E.db.general.reputation.textSize)
@@ -428,7 +428,7 @@ function BXR:LoadBars()
 end
 
 function BXR:ChangeXPcolor()
-	local db = E.db.xprep.color.experience
+	local db = E.db.buixprep.color.experience
 	local elvxpstatus = ElvUI_ExperienceBar.statusBar
 	local elvrestedstatus = ElvUI_ExperienceBar.rested
 	
@@ -453,7 +453,7 @@ function BXR:ChangeXPcolor()
 end
 
 function BXR:ChangeRepColor()
-	local db = E.db.xprep.color.reputation
+	local db = E.db.buixprep.color.reputation
 	local _, reaction = GetWatchedFactionInfo()
 	local color = FACTION_BAR_COLORS[reaction] or backupColor
 	local elvstatus = ElvUI_ReputationBar.statusBar
@@ -490,7 +490,7 @@ function BXR:ChangeRepColor()
 end
 
 function BXR:Initialize()
-	if E.db.ufb.barshow ~= true or E.db.xprep.enable ~= true or E.private.unitframe.enable ~= true then return end
+	if E.db.ufb.barshow ~= true or E.db.buixprep.enable ~= true or E.private.unitframe.enable ~= true then return end
 	self:LoadBars()
 	StyleXpRepBars()
 	self:ApplyXpRepStyling()
