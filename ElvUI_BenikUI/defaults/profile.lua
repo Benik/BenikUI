@@ -55,7 +55,8 @@ P['buixprep'] = {
 	['show'] = 'REP',
 	['text'] = {
 		['tStyle'] = 'UNIT',
-		['tFormat'] = 'CURPERC',
+		['xpTextFormat'] = 'CURPERC',
+		['repTextFormat'] = 'CURPERC',
 		['mouseOver'] = true,
 	},
 	['color'] = {

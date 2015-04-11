@@ -122,7 +122,7 @@ function BXR:UpdateExperience(event)
 		
 		local rested = GetXPExhaustion()
 		local text = ''
-		local textFormat = E.db.buixprep.text.tformat
+		local textFormat = E.db.buixprep.text.xpTextFormat
 		
 		if rested and rested > 0 then
 			bar.rested:SetMinMaxValues(0, max)
@@ -147,6 +147,8 @@ function BXR:UpdateExperience(event)
 				text = format('%s - %d%%', E:ShortValue(cur), cur / max * 100)
 			end			
 		end
+			
+		self:ChangeXPcolor()
 		self:ChangeRepXpFont()
 		bar.text:SetText(text)
 	end
@@ -169,7 +171,7 @@ function BXR:UpdateReputation(event)
 		bar:Show()
 
 		local text = ''
-		local textFormat = E.db.buixprep.text.tFormat		
+		local textFormat = E.db.buixprep.text.repTextFormat		
 
 		bar:SetMinMaxValues(min, max)
 		bar:SetValue(value)
@@ -420,8 +422,6 @@ function BXR:LoadBars()
 	self.repbar.text:SetWordWrap(false)
 	self.repbar:SetScript('OnEnter', rep_onEnter)
 	self.repbar:SetScript('OnLeave', bars_onLeave)
-	
-	self:ChangeXPcolor()
 
 	self:EnableDisable_ExperienceBar()
 	self:EnableDisable_ReputationBar()
