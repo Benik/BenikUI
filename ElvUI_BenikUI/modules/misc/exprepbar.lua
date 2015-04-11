@@ -33,6 +33,7 @@ end
 
 local function xp_onEnter(self)
 	if InCombatLockdown() then return end
+	BXR:UpdateExperience()
 	if E.db.buixprep.text.mouseOver then
 		XpRepMouseOverText()
 	end
@@ -58,6 +59,7 @@ end
 
 local function rep_onEnter(self)
 	if InCombatLockdown() then return end
+	BXR:UpdateReputation()
 	if E.db.buixprep.text.mouseOver then
 		XpRepMouseOverText()
 	end
@@ -106,7 +108,7 @@ function BXR:GetXP(unit)
 	end
 end
 
-function BXR:UpdateExperience(event)
+function BXR:UpdateExperience()
 
 	local bar = self.xpbar
 
@@ -147,7 +149,7 @@ function BXR:UpdateExperience(event)
 				text = format('%s - %d%%', E:ShortValue(cur), cur / max * 100)
 			end			
 		end
-			
+
 		self:ChangeXPcolor()
 		self:ChangeRepXpFont()
 		bar.text:SetText(text)
@@ -156,7 +158,7 @@ function BXR:UpdateExperience(event)
 end
 
 local backupColor = FACTION_BAR_COLORS[1]
-function BXR:UpdateReputation(event)
+function BXR:UpdateReputation()
 
 	local bar = self.repbar
 	
@@ -196,6 +198,7 @@ function BXR:UpdateReputation(event)
 		elseif textFormat == 'CURPERC' then
 			text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
 		end
+
 		self:ChangeRepColor()
 		self:ChangeRepXpFont()
 		bar.text:SetText(text)		
@@ -206,18 +209,8 @@ end
 function BXR:EnableDisable_ExperienceBar()
 
 	if UnitLevel('player') ~= MAX_PLAYER_LEVEL and E.db.ufb.barshow and E.db.buixprep.show == 'XP' then
-		self:RegisterEvent('PLAYER_XP_UPDATE', 'UpdateExperience')
-		self:RegisterEvent('PLAYER_LEVEL_UP', 'UpdateExperience')
-		self:RegisterEvent('DISABLE_XP_GAIN', 'UpdateExperience')
-		self:RegisterEvent('ENABLE_XP_GAIN', 'UpdateExperience')
-		self:RegisterEvent('UPDATE_EXHAUSTION', 'UpdateExperience')
 		self:UpdateExperience()	
 	else
-		self:UnregisterEvent('PLAYER_XP_UPDATE')
-		self:UnregisterEvent('PLAYER_LEVEL_UP')
-		self:UnregisterEvent('DISABLE_XP_GAIN')
-		self:UnregisterEvent('ENABLE_XP_GAIN')
-		self:UnregisterEvent('UPDATE_EXHAUSTION')
 		self.xpbar:Hide()
 	end
 end
@@ -225,10 +218,8 @@ end
 function BXR:EnableDisable_ReputationBar()
 
 	if E.db.ufb.barshow and E.db.buixprep.show == 'REP' then
-		self:RegisterEvent('UPDATE_FACTION', 'UpdateReputation')
 		self:UpdateReputation()
 	else
-		self:UnregisterEvent('UPDATE_FACTION')
 		self.repbar:Hide()
 	end
 end
