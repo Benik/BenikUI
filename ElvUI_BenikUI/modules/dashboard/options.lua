@@ -159,7 +159,7 @@ local function dashboardsTable()
 	E.Options.args.bui.args.config.args.dashboards = {
 		order = 20,
 		type = 'group',
-		name = L['Dashboards']..BUI.newsign,
+		name = L['Dashboards'],
 		args = {
 			header = {
 				order = 1,
@@ -175,7 +175,7 @@ local function dashboardsTable()
 					barColor = {
 						type = "color",
 						order = 1,
-						name = L['Bar Color']..BUI.newsign,
+						name = L['Bar Color'],
 						hasAlpha = false,
 						get = function(info)
 							local t = E.db.dashboards[ info[#info] ]
@@ -194,7 +194,7 @@ local function dashboardsTable()
 					textColor = {
 						order = 2,
 						type = "select",
-						name = L['Text Color']..BUI.newsign,
+						name = L['Text Color'],
 						values = {
 							[1] = CLASS_COLORS,
 							[2] = CUSTOM,
