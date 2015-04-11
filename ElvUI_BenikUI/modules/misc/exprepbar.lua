@@ -44,6 +44,7 @@ local function xp_onEnter(self)
 	
 	local cur, max = BXR:GetXP('player')
 	local level = UnitLevel('player')
+	local rested = GetXPExhaustion()
 	
 	GameTooltip:AddLine((LEVEL..format(' : %d', level)), 0, 1, 0)
 	GameTooltip:AddLine(' ')
