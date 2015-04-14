@@ -108,6 +108,7 @@ L['ZYGOR_CONFLICT_WARNING'] = "Es wurde berichtet, das Zygor Guides Probleme mit
 
 -- DataTexts
 L['|cff00ff00New Mail|r'] = "|cff00ff00Neue Post|r"
+L['No Mail'] = "Keine Post"
 
 -- Misc Options
 L['XP - Rep'] = "Erfahrung - Ruf"
