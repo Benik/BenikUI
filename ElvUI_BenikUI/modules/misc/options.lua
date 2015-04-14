@@ -27,7 +27,6 @@ local function xprepTable()
 				desc = L['Empty Frames must be enabled \n(in UnitFrames options)'],
 				disabled = function() return not E.db.buixprep.enable end,
 				values = {
-					['NONE'] = NONE,
 					['REP'] = REPUTATION,
 					['XP'] = COMBAT_XP_GAIN,
 				},
