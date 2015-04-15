@@ -111,7 +111,6 @@ L['|cff00ff00New Mail|r'] = "|cff00ff00Neue Post|r"
 L['No Mail'] = "Keine Post"
 
 -- Misc Options
-L['XP - Rep'] = "Erfahrung - Ruf"
 L['Show in PlayerBar'] = "Zeige in Spielerleiste"
 L['Empty Frames must be enabled \n(in UnitFrames options)'] = "Leerer Rahmen muss aktiviert sein \n(in Einheitenfenster Option)"
 L['Copy Font Style from'] = "Kopiere Schriftart von"
