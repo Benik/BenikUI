@@ -30,10 +30,10 @@ local function OnEvent(self, event, ...)
 	end
 	
 	if newMail then
-		self.text:SetText(format('|cff00ff00%s|r', L['New Mail'])) -- add to locales
+		self.text:SetText(L['|cff00ff00New Mail|r'])
 		Read = false;
 	else
-		self.text:SetText('No Mail')
+		self.text:SetText(L['No Mail'])
 		Read = true;
 	end
 
