@@ -384,12 +384,12 @@ function AFK:Initialize()
 	self.AFKMode.countd.lineBottom:Size(418, 7)
 	self.AFKMode.countd.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
-	-- 35 mins countdown text
+	-- 25 mins countdown text
 	self.AFKMode.countd.text = self.AFKMode.countd:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.countd.text:FontTemplate(nil, 12)
 	self.AFKMode.countd.text:SetPoint("CENTER", self.AFKMode.countd, "CENTER")
 	self.AFKMode.countd.text:SetJustifyH("CENTER")
-	self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00-35:00|r", L["Logout Timer"]))
+	self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00-25:00|r", L["Logout Timer"]))
 	self.AFKMode.countd.text:SetTextColor(0.7, 0.7, 0.7)
 	
 	self.AFKMode.bottom.time:Hide()
