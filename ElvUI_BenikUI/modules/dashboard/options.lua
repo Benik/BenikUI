@@ -15,6 +15,7 @@ local dungeonTokens = {
 	396,	-- Valor Points
 	823,	-- Apexis Crystal (for gear, like the valors)
 	994,	-- Seal of Tempered Fate (Raid loot roll)
+	--1129,	-- Seal of Inevitable Fate (enable on 6.2 PTR)
 }
 
 local pvpTokens = {
@@ -39,6 +40,7 @@ local miscTokens = {
 	789,	-- Bloody Coin
 	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
 	824,	-- Garrison Resources
+	--1101,	-- Oil (Shipyard - enable on 6.2 PTR)
 }
 
 local archyTokens = {
