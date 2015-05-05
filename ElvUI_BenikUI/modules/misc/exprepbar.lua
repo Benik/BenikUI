@@ -231,7 +231,6 @@ function BXR:ChangeRepXpFont()
 		bar = self.repbar
 	elseif E.db.buixprep.show == 'XP' then
 		bar = self.xpbar
-	else return
 	end
 	if E.db.buixprep.text.tStyle == 'DTS' then
 		bar.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
