@@ -131,6 +131,7 @@ L['I understand'] = true
 -- UnitFrame Options
 L['Empty Frames'] = true
 L['Enable the Empty frames (Player and Target).'] = true
+L['Toggle EmptyBars transparency'] = true
 L['Change the Empty frames height (Player and Target).'] = true
 L['PowerBar Texture'] = true
 L['Power statusbar texture.'] = true

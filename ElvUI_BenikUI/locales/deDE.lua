@@ -132,6 +132,7 @@ L['I understand'] = "Ich verstehe"
 -- UnitFrame Options
 L['Empty Frames'] = "Leerer Rahmen"
 L['Enable the Empty frames (Player and Target).'] = "Aktiviere die Leeren Ramen (Spieler und Ziel)."
+L['Toggle EmptyBars transparency'] = true
 L['Change the Empty frames height (Player and Target).'] = "Ändere die Leere Rahmen Höhe (Spieler und Ziel)."
 L['PowerBar Texture'] = "Kraftleiste Textur"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
