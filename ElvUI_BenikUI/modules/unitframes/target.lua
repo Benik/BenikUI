@@ -19,7 +19,16 @@ function UFB:ApplyTargetChanges()
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
+	self:ToggleTargetBarTransparency()
 	self:ArrangeTarget()
+end
+
+function UFB:ToggleTargetBarTransparency()
+	if E.db.ufb.toggleTransparency then
+		BUI_TargetBar:SetTemplate('Transparent')
+	else
+		BUI_TargetBar:SetTemplate('Default')
+	end
 end
 
 function UFB:ArrangeTarget()

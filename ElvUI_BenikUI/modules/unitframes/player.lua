@@ -19,7 +19,16 @@ function UFB:ApplyPlayerChanges()
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
+	self:TogglePlayerBarTransparency()
 	self:ArrangePlayer()
+end
+
+function UFB:TogglePlayerBarTransparency()
+	if E.db.ufb.toggleTransparency then
+		BUI_PlayerBar:SetTemplate('Transparent')
+	else
+		BUI_PlayerBar:SetTemplate('Default')
+	end
 end
 
 function UFB:ArrangePlayer()

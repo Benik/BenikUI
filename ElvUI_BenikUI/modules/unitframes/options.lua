@@ -34,6 +34,14 @@ local function ufTable()
 						disabled = function() return not E.db.ufb.barshow end,
 						min = 10, max = 50, step = 1,
 					},
+					toggleTransparency = {
+						order = 1,
+						type = 'toggle',
+						name = L['Transparent'],
+						desc = L['Toggle EmptyBars transparency'],
+						get = function(info) return E.db.ufb[ info[#info] ] end,
+						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarTransparency(); UFB:ToggleTargetBarTransparency(); end,
+					},
 				},
 			},
 			buibars = {
@@ -81,6 +89,13 @@ local function ufTable()
 						desc = L['Adjust text Y Offset'],
 						min = -25, max = 0, step = 1,
 					},
+					--[[overText = {
+						type = 'toggle',
+						order = 4,
+						name = L['Overlay the text'],
+						desc = L['The castbar overlays any text on the EmptyBars.'],
+						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},]]
 				},
 			},
 		},

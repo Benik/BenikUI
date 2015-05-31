@@ -148,6 +148,7 @@ P['ufb'] = {
 	-- EmptyBars
 	['barshow'] = true,
 	['barheight'] = 20,
+	['toggleTransparency'] = true,
 	-- Detach portrait
 	['detachPlayerPortrait'] = false,
 	['PlayerPortraitWidth'] = 110,
@@ -166,6 +167,7 @@ P['ufb'] = {
 	['attachCastbar'] = true,
 	['castText'] = true,
 	['yOffsetText'] = -15,
+	--['overText'] = false,
 }
 
 -- ElvUI addons Styling
