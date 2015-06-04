@@ -355,7 +355,7 @@ function BUIL:ChangeLayout()
 				self.sglow:Show()
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L['Game Menu'], selectioncolor)
+				GameTooltip:AddLine(MAINMENU_BUTTON, selectioncolor)
 				GameTooltip:Show()
 				if InCombatLockdown() or BuiGameClickMenu:IsShown() then GameTooltip:Hide() end
 			end)
