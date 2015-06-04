@@ -2,11 +2,12 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local AB = E:GetModule('ActionBars');
 local BAB = E:NewModule('BuiActionbars');
 local BUI = E:GetModule('BenikUI');
-local LSM = LibStub('LibSharedMedia-3.0')
 
 if E.private.actionbar.enable ~= true then return; end
 
 local SPACING = (E.PixelMode and 1 or 5)
+
+local classColor = RAID_CLASS_COLORS[E.myclass]
 
 local color = { r = 1, g = 1, b = 1 }
 local function unpackColor(color)
@@ -14,6 +15,8 @@ local function unpackColor(color)
 end
 
 if E.db.bab == nil then E.db.bab = {} end
+
+local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags}
 
 function BAB:StyleBackdrops()
 	-- Actionbar backdrops
@@ -23,13 +26,45 @@ function BAB:StyleBackdrops()
 			if frame.backdrop then
 				frame.backdrop:Style('Outside', frame:GetName()..'_Bui')
 			end
-		end	
+		end
 	end
+	
 	-- Other bar backdrops
-	local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags}
 	for _, frame in pairs(styleOtherBacks) do
 		if frame.backdrop then
 			frame.backdrop:Style('Outside', frame:GetName()..'_Bui')
+		end
+	end
+end
+
+function BAB:ColorBackdrops()
+	for i = 1, 10 do
+		local styleBacks = {_G['ElvUI_Bar'..i..'_Bui']}
+		for _, frame in pairs(styleBacks) do
+			frame.backdropTexture:SetTexture(E['media'].BuiFlat)
+			if E.db.bui.abStyleColor == 1 then
+				frame.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			elseif E.db.bui.abStyleColor == 2 then
+				frame.backdropTexture:SetVertexColor(unpackColor(E.db.bui.customAbStyleColor))
+			elseif E.db.bui.abStyleColor == 3 then
+				frame.backdropTexture:SetVertexColor(unpackColor(E.db.general.valuecolor))
+			else
+				frame.backdropTexture:SetVertexColor(unpackColor(E.db.general.backdropcolor))
+			end
+		end
+	end
+	
+	for _, frame in pairs(styleOtherBacks) do
+		local name = _G[frame:GetName()..'_Bui']
+		name.backdropTexture:SetTexture(E['media'].BuiFlat)
+		if E.db.bui.abStyleColor == 1 then
+			name.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		elseif E.db.bui.abStyleColor == 2 then
+			name.backdropTexture:SetVertexColor(unpackColor(E.db.bui.customAbStyleColor))
+		elseif E.db.bui.abStyleColor == 3 then
+			name.backdropTexture:SetVertexColor(unpackColor(E.db.general.valuecolor))
+		else
+			name.backdropTexture:SetVertexColor(unpackColor(E.db.general.backdropcolor))
 		end
 	end
 end
@@ -183,6 +218,7 @@ f:SetScript("OnEvent",function(self, event)
 			-- must call them again (till I find a more elegant way)
 			BAB:StyleBackdrops()
 			BAB:TransparentBackdrops()
+			BAB:ColorBackdrops()
 		end
 	end
 end)
@@ -191,6 +227,7 @@ function BAB:Initialize()
 	self:StyleBackdrops()
 	self:TransparentBackdrops()
 	self:CreateButtons()
+	self:ColorBackdrops()
 	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end
 end
 

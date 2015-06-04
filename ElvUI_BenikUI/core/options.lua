@@ -49,6 +49,22 @@ local function buiCore()
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, color) E.db.bui[ info[#info] ] = color; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
+					buiFonts = {
+						order = 2,
+						type = 'toggle',
+						name = L['Force BenikUI fonts'],
+						desc = L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'],
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; value, _, _, _ = GetAddOnInfo('ElvUI_BenikUI_Fonts'); BUI:EnableBuiFonts(); E:StaticPopup_Show('PRIVATE_RL'); end,	
+					},
+				},
+			},
+			colors = {
+				order = 6,
+				type = 'group',
+				name = COLORS,
+				guiInline = true,
+				args = {
 					colorTheme = {
 						order = 2,
 						type = 'select',
@@ -62,18 +78,10 @@ local function buiCore()
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, color) E.db.bui[ info[#info] ] = color; BUI:BuiColorThemes(color); end,
 					},
-					buiFonts = {
-						order = 3,
-						type = 'toggle',
-						name = L['Force BenikUI fonts'],
-						desc = L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; value, _, _, _ = GetAddOnInfo('ElvUI_BenikUI_Fonts'); BUI:EnableBuiFonts(); E:StaticPopup_Show('PRIVATE_RL'); end,	
-					},
 					gameMenuColor = {
-						order = 4,
+						order = 3,
 						type = "select",
-						name = L['Game Menu Color']..BUI.newsign,
+						name = L['Game Menu Color'],
 						values = {
 							[1] = CLASS_COLORS,
 							[2] = CUSTOM,
@@ -82,7 +90,7 @@ local function buiCore()
 						set = function(info, value) E.db.bui[ info[#info] ] = value; end,
 					},
 					customGameMenuColor = {
-						order = 5,
+						order = 4,
 						type = "color",
 						name = COLOR_PICKER,
 						disabled = function() return E.db.bui.gameMenuColor == 1 end,
@@ -97,10 +105,40 @@ local function buiCore()
 							t.r, t.g, t.b, t.a = r, g, b, a
 						end,
 					},
+					abStyleColor = {
+						order = 5,
+						type = "select",
+						name = L['ActionBar Style Color']..BUI.newsign,
+						values = {
+							[1] = CLASS_COLORS,
+							[2] = CUSTOM,
+							[3] = L['Value Color'],
+							[4] = DEFAULT,
+						},
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
+					},
+					customAbStyleColor = {
+						order = 6,
+						type = "color",
+						name = COLOR_PICKER,
+						disabled = function() return E.db.bui.abStyleColor ~= 2 end,
+						get = function(info)
+							local t = E.db.bui[ info[#info] ]
+							local d = P.bui[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+							end,
+						set = function(info, r, g, b)
+							E.db.bui[ info[#info] ] = {}
+							local t = E.db.bui[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
+							E:GetModule('BuiActionbars'):ColorBackdrops();
+						end,
+					},
 				},
 			},
 			datatexts = {
-				order = 6,
+				order = 7,
 				type = 'group',
 				name = L['DataTexts'],
 				guiInline = true,

@@ -21,6 +21,8 @@ P['bui'] = {
 	['garrisonCurrency'] = false,
 	['gameMenuColor'] = 2,
 	['customGameMenuColor'] = {r = .9, g = .7, b = 0},
+	['abStyleColor'] = 1,
+	['customAbStyleColor'] = {r = .9, g = .7, b = 0},
 }
 
 -- Datatexts

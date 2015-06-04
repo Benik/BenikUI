@@ -16,6 +16,8 @@ L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF000
 L['BenikUI Style'] = true
 L['Show/Hide the decorative bars from UI elements'] = true
 L['Game Menu Color'] = true
+L['ActionBar Style Color'] = true
+L['ShiftClick to toggle chat'] = true
 
 -- DataTexts
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = true
