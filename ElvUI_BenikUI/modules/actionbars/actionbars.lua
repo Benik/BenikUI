@@ -173,6 +173,20 @@ function BAB:ShowButtons()
 	end
 end
 
+ -- Support for ElvUI_ExtraActionBars
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent",function(self, event)
+	if event then
+		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		if IsAddOnLoaded("ElvUI_ExtraActionBars") then
+			-- must call them again (till I find a more elegant way)
+			BAB:StyleBackdrops()
+			BAB:TransparentBackdrops()
+		end
+	end
+end)
+
 function BAB:Initialize()
 	self:StyleBackdrops()
 	self:TransparentBackdrops()
