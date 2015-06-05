@@ -16,7 +16,7 @@ L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF000
 L['BenikUI Style'] = true
 L['Show/Hide the decorative bars from UI elements'] = "Dekorative Leisten von den UI Elementen anzeigen/ausblenden"
 L['Game Menu Color'] = "Spielmenü Farbe"
-L['ActionBar Style Color'] = true
+L['ActionBar Style Color'] = "Aktionsleiste Stil Farbe"
 L['ShiftClick to toggle chat'] = "ShiftKlick um Chat umzuschalten"
 
 -- DataTexts
