@@ -89,13 +89,13 @@ local function ufTable()
 						desc = L['Adjust text Y Offset'],
 						min = -25, max = 0, step = 1,
 					},
-					--[[overText = {
+					hideText = {
 						type = 'toggle',
 						order = 4,
-						name = L['Overlay the text'],
-						desc = L['The castbar overlays any text on the EmptyBars.'],
+						name = L['Hide Emptybar text']..BUI.newsign,
+						desc = L['Hide any text placed on the Emptybars, while casting.'],
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},]]
+					},
 				},
 			},
 		},

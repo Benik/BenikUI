@@ -76,10 +76,10 @@ function BUIC:CastbarSetSize(unit, bar)
 	end
 end
 
+local min_yOffset = -10
+
 -- Function to position castbar and position and hide text
 function BUIC:CastbarSetPosition(unit, bar)
-	local cdb = E.db.unitframe.units[unit].castbar;
-
 	if (unit == 'player' and bar == _G['BUI_PlayerBar']) or (unit == 'target' and bar == _G['BUI_TargetBar']) then
 		local UnitUF = BuiUnits[unit][1];
 		local Mover = BuiUnits[unit][2];
@@ -92,6 +92,61 @@ function BUIC:CastbarSetPosition(unit, bar)
 			else
 				UnitUF.Castbar.Text:SetAlpha(0)
 				UnitUF.Castbar.Time:SetAlpha(0)
+			end
+			
+			-- Hide Emptybar text when casting
+			if E.db.ufb.hideText then
+				UnitUF.Castbar:SetScript('OnShow', function(self)
+					if E.db.unitframe.units[unit].health.yOffset < min_yOffset then
+						UnitUF.Health.value:SetAlpha(0)
+					end
+					
+					if E.db.unitframe.units[unit].power.yOffset < min_yOffset then
+						UnitUF.Power.value:SetAlpha(0)
+					end
+
+					if E.db.unitframe.units[unit].name.yOffset < min_yOffset then
+						UnitUF.Name:SetAlpha(0)
+					end	
+					
+					if E.db.unitframe.units.player.customTexts == {} then
+						for objectName, _ in pairs(E.db.unitframe.units.player.customTexts) do
+							if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
+								UnitUF[objectName]:SetAlpha(0)
+							end
+						end
+					end
+				end)
+
+				UnitUF.Castbar:SetScript('OnHide', function(self)
+					if E.db.unitframe.units[unit].health.yOffset < min_yOffset then
+						if UnitUF.Health.value:GetAlpha() == 0 then
+							UnitUF.Health.value:SetAlpha(1)
+						end
+					end
+					
+					if E.db.unitframe.units[unit].power.yOffset < min_yOffset then
+						if UnitUF.Power.value:GetAlpha() == 0 then
+							UnitUF.Power.value:SetAlpha(1)
+						end
+					end
+
+					if E.db.unitframe.units[unit].name.yOffset < min_yOffset then
+						if UnitUF.Name:GetAlpha() == 0 then
+							UnitUF.Name:SetAlpha(1)
+						end
+					end	
+					
+					if E.db.unitframe.units.player.customTexts == {} then
+						for objectName, _ in pairs(E.db.unitframe.units.player.customTexts) do
+							if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
+								if UnitUF[objectName]:GetAlpha() == 0 then
+									UnitUF[objectName]:SetAlpha(1)
+								end
+							end
+						end
+					end
+				end)
 			end
 			
 			-- Set position of castbar text according to chosen y offset

@@ -169,7 +169,7 @@ P['ufb'] = {
 	['attachCastbar'] = true,
 	['castText'] = true,
 	['yOffsetText'] = -15,
-	--['overText'] = false,
+	['hideText'] = false,
 }
 
 -- ElvUI addons Styling

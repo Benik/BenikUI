@@ -129,6 +129,8 @@ L['Decursive'] = true
 -- Castbar
 L['CONFLICT_WARNING'] = 'It would appear you have ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap loaded. BenikUI Attach Castbar feature has been disabled.'
 L['I understand'] = true
+L['Hide Emptybar text'] = true
+L['Hide any text placed on the Emptybars, while casting.'] = true
 
 -- UnitFrame Options
 L['Empty Frames'] = true
