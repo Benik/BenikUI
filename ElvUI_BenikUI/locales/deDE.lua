@@ -128,8 +128,8 @@ L['Decursive'] = true
 -- Castbar
 L['CONFLICT_WARNING'] = 'Es sieht so aus, als würdest du ElvUI_CastBarPowerOverlay oder ElvUI_CastBarSnap aktiviert haben. BenikUI abgetrente Zauberleisten wurden deaktiviert.'
 L['I understand'] = "Ich verstehe"
-L['Hide Emptybar text'] = true
-L['Hide any text placed on the Emptybars, while casting.'] = true
+L['Hide Emptybar text'] = "Verstecke Leere Rahmen Text"
+L['Hide any text placed on the Emptybars, while casting.'] = "Verstecke jeden Text auf den Leeren Rahmen während des Zauberns."
 
 -- UnitFrame Options
 L['Empty Frames'] = "Leerer Rahmen"
