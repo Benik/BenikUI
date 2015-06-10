@@ -270,8 +270,6 @@ function BAB:TaxiButton()
 	tbtn.Text:FontTemplate()
 	tbtn.Text:SetPoint('CENTER')
 	tbtn.Text:SetJustifyH('CENTER')
-	tbtn.Text:SetText(L['Request Taxi Stop'])
-	tbtn:Width(tbtn.Text:GetStringWidth() + 48)
 	
 	tbtn.IconBG = CreateFrame('Frame', 'BuiTaxiButtonIcon', tbtn)
 	tbtn.IconBG:Size(40, 40)
