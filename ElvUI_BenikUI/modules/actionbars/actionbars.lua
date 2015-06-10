@@ -208,6 +208,94 @@ function BAB:ShowButtons()
 	end
 end
 
+local function TaxiButton_OnEvent(self, event)
+	if ( UnitOnTaxi("player") ) then
+		LeaveVehicleButton:Hide() -- Hide ElvUI minimap button
+		self:Run('Alpha', 1, 0, 1)
+		self:Show()
+		self.Text:SetText(TAXI_CANCEL)
+		self:Width(self.Text:GetStringWidth() + 48)
+		self.Text:SetTextColor(1, 1, 1)
+		self.IconBG:SetBackdropColor(unpackColor(E.db.general.backdropcolor))
+		self.IconBG.Icon:SetAlpha(0.5)
+		self:EnableMouse(true)
+	else
+		self:Hide()
+	end
+end
+
+local function TaxiButton_OnClick(self, btn)
+	if ( UnitOnTaxi("player") ) and btn == "LeftButton" then
+		TaxiRequestEarlyLanding();
+		
+		self.Text:Run('Alpha', 1, 1, 0)
+		
+		E:Delay(1, function()
+			self.Text:SetText(TAXI_CANCEL_DESCRIPTION)
+			self.Text:SetTextColor(1, 0, 0)
+			self.Text:SetAlpha(0)			
+			self:Run("Width", 0.5, (self.Text:GetStringWidth() + 48))
+		end)
+		
+		E:Delay(1.2, function()
+			self.Text:Run('Alpha', 1, 0, 1)
+		end)
+
+		self.IconBG:Run("Gradient", "backdrop", 1, .7, 0, 0)
+		self:EnableMouse(false)
+
+		E:Delay(8, function()
+			self:Run('Alpha', 1, 1, 0)
+		end)
+	else
+		self:Run('Alpha', 1, 1, 0)
+		E:Delay(1, function()
+			self:Hide()
+		end)
+	end
+end
+
+local fly_icon = "Interface\\ICONS\\ABILITY_MOUNT_GOLDENGRYPHON"
+
+-- TaxiButton
+function BAB:TaxiButton()
+	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent)
+	tbtn:Height(40)
+	tbtn:Point('CENTER', E.UIParent, 'CENTER', 0, 150)
+	tbtn:SetTemplate("Transparent")
+	tbtn:Style('Outside')
+	tbtn:RegisterForClicks("AnyUp")
+	
+	tbtn.Text = tbtn:CreateFontString(nil, 'LOW')
+	tbtn.Text:FontTemplate()
+	tbtn.Text:SetPoint('CENTER')
+	tbtn.Text:SetJustifyH('CENTER')
+	tbtn.Text:SetText(L['Request Taxi Stop'])
+	tbtn:Width(tbtn.Text:GetStringWidth() + 48)
+	
+	tbtn.IconBG = CreateFrame('Frame', 'BuiTaxiButtonIcon', tbtn)
+	tbtn.IconBG:Size(40, 40)
+	tbtn.IconBG:Point('RIGHT', tbtn, 'LEFT', E.PixelMode and -1 or -2, 0)
+	tbtn.IconBG:SetTemplate("Transparent")
+	tbtn.IconBG:Style('Outside')
+	
+	tbtn.IconBG.Icon = tbtn.IconBG:CreateTexture(nil, 'ARTWORK')
+	tbtn.IconBG.Icon:SetInside()
+	tbtn.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	tbtn.IconBG.Icon:SetTexture(fly_icon)
+	tbtn.IconBG.Icon:SetDesaturated(true)
+	
+	tbtn:SetScript("OnClick", TaxiButton_OnClick)
+	tbtn:SetScript("OnEnter", MainMenuBarVehicleLeaveButton_OnEnter)
+	tbtn:SetScript("OnLeave", GameTooltip_Hide)
+	tbtn:RegisterEvent("PLAYER_ENTERING_WORLD");
+	tbtn:RegisterEvent("UPDATE_BONUS_ACTIONBAR");
+	tbtn:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR");
+	
+	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
+	tbtn:Hide()
+end
+
  -- Support for ElvUI_ExtraActionBars
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -228,6 +316,7 @@ function BAB:Initialize()
 	self:TransparentBackdrops()
 	self:CreateButtons()
 	self:ColorBackdrops()
+	self:TaxiButton()
 	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end
 end
 
