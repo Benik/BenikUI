@@ -57,6 +57,13 @@ local function buiCore()
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; value, _, _, _ = GetAddOnInfo('ElvUI_BenikUI_Fonts'); BUI:EnableBuiFonts(); E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
+					LoginMsg = {
+						order = 3,
+						type = 'toggle',
+						name = L['Login Message'],
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; end,	
+					},
 				},
 			},
 			colors = {

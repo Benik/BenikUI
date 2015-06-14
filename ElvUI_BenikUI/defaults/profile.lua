@@ -7,6 +7,7 @@ P['bui'] = {
 	['colorTheme'] = 'Elv',
 	['buiDts'] = true,
 	['buiFonts'] = true,
+	['LoginMsg'] = true,
 	['transparentDts'] = false,
 	['editBoxPosition'] = 'BELOW_CHAT',
 	['middleDatatext'] = {
