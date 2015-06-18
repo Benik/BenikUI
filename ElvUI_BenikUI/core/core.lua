@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local BUI = E:NewModule('BenikUI');
+local BUI = E:NewModule('BenikUI', "AceConsole-3.0");
+local ACD = LibStub("AceConfigDialog-3.0")
 
 local LSM = LibStub('LibSharedMedia-3.0')
 local EP = LibStub('LibElvUIPlugin-1.0')
@@ -55,18 +56,27 @@ function BUI:AddOptions()
 	end	
 end
 
+function BUI:DasOptions()
+	E:ToggleConfig(); ACD:SelectGroup("ElvUI", "bui")
+end
+
+function BUI:LoadCommands()
+	self:RegisterChatCommand("bui", "DasOptions")
+	self:RegisterChatCommand("buisetup", "SetupBui")
+end
+
 function BUI:Initialize()
 	self:RegisterBuiMedia()
-
+	self:LoadCommands()
 	StyleTooltip()
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
 	-- run install when ElvUI install finishes
-	if E.private.install_complete == E.version and E.db.bui.installed == nil then E:SetupBui() end
+	if E.private.install_complete == E.version and E.db.bui.installed == nil then self:SetupBui() end
 	
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
-	if ElvDB.profileKeys and profileKey == nil then E:SetupBui() end
+	if ElvDB.profileKeys and profileKey == nil then self:SetupBui() end
 
 	if E.db.bui.LoginMsg then
 		print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..BUI:PrintURL('http://www.tukui.org/forums/topic.php?id=30598'))

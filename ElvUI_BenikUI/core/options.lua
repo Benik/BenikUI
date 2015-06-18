@@ -28,7 +28,7 @@ local function buiCore()
 				type = 'execute',
 				name = L['Install'],
 				desc = L['Run the installation process.'],
-				func = function() E:SetupBui(); E:ToggleConfig(); end,
+				func = function() BUI:SetupBui(); E:ToggleConfig(); end,
 			},
 			spacer2 = {
 				order = 4,

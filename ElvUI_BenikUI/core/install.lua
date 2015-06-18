@@ -171,8 +171,8 @@ function BUI:BuiColorThemes(color)
 	E:UpdateAll(true)
 end
 
-function E:SetupBuiColors()
-	BUI:BuiColorThemes()
+function BUI:SetupBuiColors()
+	self:BuiColorThemes()
 	
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Color Theme Set']
@@ -687,7 +687,7 @@ local function SetupBuiAddons()
 	E:UpdateAll(true)
 end
 
-function E:SetupBuiDts(role)
+function BUI:SetupBuiDts(role)
 	-- Data Texts
 	do
 		E.db.datatexts.panelTransparency = true
@@ -799,16 +799,16 @@ local function SetPage(PageNum)
 		f.Desc2:SetText(L['Please click a button below to apply a color theme.'])
 		f.Desc3:SetText(L['Importance: |cffD3CF00Medium|r'])
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() E:SetupBuiColors(); BUI:BuiColorThemes('Elv'); end)
+		InstallOption1Button:SetScript('OnClick', function() BUI:SetupBuiColors(); BUI:BuiColorThemes('Elv'); end)
 		InstallOption1Button:SetText(L['ElvUI'])
 		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() E:SetupBuiColors(); BUI:BuiColorThemes('Diablo'); end)
+		InstallOption2Button:SetScript('OnClick', function() BUI:SetupBuiColors(); BUI:BuiColorThemes('Diablo'); end)
 		InstallOption2Button:SetText(L['Diablo'])
 		InstallOption3Button:Show()
-		InstallOption3Button:SetScript('OnClick', function() E:SetupBuiColors(); BUI:BuiColorThemes('Mists'); end)
+		InstallOption3Button:SetScript('OnClick', function() BUI:SetupBuiColors(); BUI:BuiColorThemes('Mists'); end)
 		InstallOption3Button:SetText(L['Mists'])
 		InstallOption4Button:Show()
-		InstallOption4Button:SetScript('OnClick', function() E:SetupBuiColors(); BUI:BuiColorThemes('Hearthstone'); end)
+		InstallOption4Button:SetScript('OnClick', function() BUI:SetupBuiColors(); BUI:BuiColorThemes('Hearthstone'); end)
 		InstallOption4Button:SetText(L['Hearthstone'])	
 	elseif PageNum == 4 then
 		f.SubTitle:SetText(L['Chat'])
@@ -840,16 +840,16 @@ local function SetPage(PageNum)
 		f.Desc2:SetText(L['Please click the button below to setup your datatexts.'])
 		f.Desc3:SetText(L['Importance: |cffD3CF00Medium|r'])
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; E:SetupBuiDts('tank') end)
+		InstallOption1Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; BUI:SetupBuiDts('tank') end)
 		InstallOption1Button:SetText(TANK)
 		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; E:SetupBuiDts('healer') end)
+		InstallOption2Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; BUI:SetupBuiDts('healer') end)
 		InstallOption2Button:SetText(HEALER)
 		InstallOption3Button:Show()
-		InstallOption3Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; E:SetupBuiDts('dpsMelee') end)
+		InstallOption3Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; BUI:SetupBuiDts('dpsMelee') end)
 		InstallOption3Button:SetText(L['Physical DPS'])
 		InstallOption4Button:Show()
-		InstallOption4Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; E:SetupBuiDts('dpsCaster') end)
+		InstallOption4Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; BUI:SetupBuiDts('dpsCaster') end)
 		InstallOption4Button:SetText(L['Caster DPS'])
 	elseif PageNum == 8 then
 		f.SubTitle:SetText(ADDONS)
@@ -888,7 +888,7 @@ local function PreviousPage()
 	end
 end
 
-function E:SetupBui()	
+function BUI:SetupBui()	
 	if not InstallStepComplete then
 		local imsg = CreateFrame('Frame', 'InstallStepComplete', E.UIParent)
 		imsg:Size(418, 72)
