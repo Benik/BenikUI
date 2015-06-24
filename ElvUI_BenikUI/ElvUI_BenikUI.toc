@@ -1,8 +1,8 @@
-## Interface: 60100
+## Interface: 60200
 ## Author: Benik
-## Version: 2.18
+## Version: 2.19
 ## Title: |cff1784d1ElvUI|r_BenikUI
-## Notes: an ElvUI 7+ edit
+## Notes: an ElvUI 8+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia

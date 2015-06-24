@@ -1,3 +1,14 @@
+[b]2.19[/b] (Jun 24, 2015)
+*toc update for WoW 6.2
+*Added chat commands for options(/bui) and setup(/buisetup)
+*Added option to Show/Hide the Login Message
+*Added a new animated Request Stop button (shows while on flight path)
+*Update German Locale
+*Added Hide Emptybars text values while casting (Castbar attached on EmptyBars)
+*Added ActionBar Style coloring option, idea: V4NT0M
+*Added Support for ElvUI_ExtraActionBars
+*Added Toggle EmptyBars Transparency option
+
 [b]2.18[/b] (May 5, 2015)
 *Prevent bags lua error
 *Added 6.2 PTR tokens

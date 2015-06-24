@@ -79,6 +79,7 @@ local FreeBlizzSmallerFrames = {
 	QuestFrame,
 	QuestNPCModel,
 	RaidBrowserFrame,
+	SplashFrame,
 	TaxiFrame,
 }
 
@@ -364,6 +365,23 @@ local function styleGarrison()
 	GarrisonMissionMechanicFollowerCounterTooltip.backdrop:Style('Outside')
 	FloatingGarrisonFollowerTooltip:Style('Outside')
 	GarrisonFollowerTooltip:Style('Outside')
+	
+	-- ShipYard
+	GarrisonShipyardFrame.backdrop:Style('Outside')
+	-- Tooltips
+	GarrisonShipyardMapMissionTooltip:Style('Outside')
+	GarrisonMissionMechanicFollowerCounterTooltip:Style('Outside')
+	GarrisonMissionMechanicTooltip:Style('Outside')
+	--GarrisonBonusAreaTooltip:Style('Outside') -- check
+	GarrisonShipyardFollowerTooltip:Style('Outside')
+	--GarrisonMissionListTooltipThreatsFrame:Style('Outside') -- do not use
+	-- Alert Frames
+	GarrisonShipMissionAlertFrame:StripTextures()
+	GarrisonShipMissionAlertFrame:CreateBackdrop('Transparent')
+	GarrisonShipMissionAlertFrame.backdrop:Style('Outside')
+	GarrisonShipFollowerAlertFrame:StripTextures()
+	GarrisonShipFollowerAlertFrame:CreateBackdrop('Transparent')
+	GarrisonShipFollowerAlertFrame.backdrop:Style('Outside')
 	
 	-- Follower recruiting (available at the Inn)
 	GarrisonRecruiterFrame.backdrop:Style('Outside')

@@ -291,7 +291,6 @@ function BAB:TaxiButton()
 	tbtn:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR");
 	
 	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
-	tbtn:Hide()
 end
 
  -- Support for ElvUI_ExtraActionBars
