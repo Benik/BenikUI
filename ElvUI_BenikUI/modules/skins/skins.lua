@@ -328,6 +328,7 @@ local function styleAlertFrames()
 	BonusRollLootWonFrame.backdrop:Style('Outside')
 	
 	GarrisonBuildingAlertFrame.backdrop:Style('Outside')
+	GarrisonMissionAlertFrame:StripTextures()
 	GarrisonMissionAlertFrame.backdrop:Style('Outside')
 	GarrisonFollowerAlertFrame.backdrop:Style('Outside')
 end
@@ -372,6 +373,7 @@ local function styleGarrison()
 	GarrisonShipyardMapMissionTooltip:Style('Outside')
 	GarrisonMissionMechanicFollowerCounterTooltip:Style('Outside')
 	GarrisonMissionMechanicTooltip:Style('Outside')
+	FloatingGarrisonShipyardFollowerTooltip:Style('Outside')
 	--GarrisonBonusAreaTooltip:Style('Outside') -- check
 	GarrisonShipyardFollowerTooltip:Style('Outside')
 	--GarrisonMissionListTooltipThreatsFrame:Style('Outside') -- do not use
