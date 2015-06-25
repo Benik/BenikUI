@@ -1,6 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUI = E:NewModule('BenikUI', "AceConsole-3.0");
-local ACD = LibStub("AceConfigDialog-3.0")
 
 local LSM = LibStub('LibSharedMedia-3.0')
 local EP = LibStub('LibElvUIPlugin-1.0')
@@ -57,7 +56,7 @@ function BUI:AddOptions()
 end
 
 function BUI:DasOptions()
-	E:ToggleConfig(); ACD:SelectGroup("ElvUI", "bui")
+	E:ToggleConfig(); LibStub("AceConfigDialog-3.0"):SelectGroup("ElvUI", "bui")
 end
 
 function BUI:LoadCommands()
