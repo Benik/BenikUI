@@ -76,8 +76,8 @@ L['Bar 2'] = "Leiste 2"
 L['Toggle Bar'] = "Leiste umschalten"
 
 -- Request stop button
-L['LeftClick to Request Stop'] = true
-L['RightClick to Hide'] = true
+L['LeftClick to Request Stop'] = "Links-Klick um am nächsten Flugpunkt zu landen"
+L['RightClick to Hide'] = "Rechts-Klick zum verstecken"
 
 -- afk Mode
 L["Logout Timer"] = "Auslogzeit"
