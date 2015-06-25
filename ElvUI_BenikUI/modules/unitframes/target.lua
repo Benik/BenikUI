@@ -56,16 +56,16 @@ function UFB:ArrangeTarget()
 		if USE_EMPTY_BAR then
 			TargetBar:Show()
 			if USE_POWERBAR_OFFSET then
-				TargetBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, 0)
+				TargetBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
 				TargetBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)			
 			elseif USE_MINI_POWERBAR or USE_INSET_POWERBAR then
-				TargetBar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, 0)
+				TargetBar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
 				TargetBar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif POWERBAR_DETACHED or not USE_POWERBAR then
-				TargetBar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, BORDER)
+				TargetBar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, E.PixelMode and BORDER or -1)
 				TargetBar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)		
 			else
-				TargetBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, 0)
+				TargetBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
 				TargetBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			end
 		else

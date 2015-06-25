@@ -57,16 +57,16 @@ function UFB:ArrangePlayer()
 			PlayerBar:Show()
 			
 			if USE_POWERBAR_OFFSET then
-				PlayerBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, 0)
-				PlayerBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)		
+				PlayerBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				PlayerBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif USE_MINI_POWERBAR or USE_INSET_POWERBAR then
-				PlayerBar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, 0)
+				PlayerBar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
 				PlayerBar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif POWERBAR_DETACHED or not USE_POWERBAR then
-				PlayerBar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, BORDER)
-				PlayerBar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)		
+				PlayerBar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, E.PixelMode and BORDER or -1)
+				PlayerBar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)
 			else
-				PlayerBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, 0)
+				PlayerBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
 				PlayerBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			end
 		else
