@@ -1,3 +1,7 @@
+[b]2.20[/b] (Jun 25, 2015)
+*Fix lua error with AceConfigDialog
+*Fixed a potential lua error with Actionbars and also fix applying colors on actionbar styling
+
 [b]2.19[/b] (Jun 24, 2015)
 *toc update for WoW 6.2
 *Added chat commands for options(/bui) and setup(/buisetup)
