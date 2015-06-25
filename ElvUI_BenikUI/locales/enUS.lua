@@ -76,6 +76,10 @@ L['Bar 1'] = true
 L['Bar 2'] = true
 L['Toggle Bar'] = true
 
+-- Request stop button
+L['LeftClick to Request Stop'] = true
+L['RightClick to Hide'] = true
+
 -- afk Mode
 L["Logout Timer"] = true
 L["Random Stats"] = true

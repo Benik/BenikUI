@@ -255,6 +255,15 @@ local function TaxiButton_OnClick(self, btn)
 	end
 end
 
+local function TaxiButton_OnEnter(self)
+	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 1, 0)
+	GameTooltip:ClearLines()
+	GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, selectioncolor)
+	GameTooltip:AddLine(L['LeftClick to Request Stop'], 0.7, 0.7, 1)
+	GameTooltip:AddLine(L['RightClick to Hide'], 0.7, 0.7, 1)
+	GameTooltip:Show()
+end
+
 local fly_icon = "Interface\\ICONS\\ABILITY_MOUNT_GOLDENGRYPHON"
 
 -- TaxiButton
@@ -284,7 +293,7 @@ function BAB:TaxiButton()
 	tbtn.IconBG.Icon:SetDesaturated(true)
 	
 	tbtn:SetScript("OnClick", TaxiButton_OnClick)
-	tbtn:SetScript("OnEnter", MainMenuBarVehicleLeaveButton_OnEnter)
+	tbtn:SetScript("OnEnter", TaxiButton_OnEnter)
 	tbtn:SetScript("OnLeave", GameTooltip_Hide)
 	tbtn:RegisterEvent("PLAYER_ENTERING_WORLD");
 	tbtn:RegisterEvent("UPDATE_BONUS_ACTIONBAR");

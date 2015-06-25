@@ -75,6 +75,10 @@ L['Bar 1'] = "Leiste 1"
 L['Bar 2'] = "Leiste 2"
 L['Toggle Bar'] = "Leiste umschalten"
 
+-- Request stop button
+L['LeftClick to Request Stop'] = true
+L['RightClick to Hide'] = true
+
 -- afk Mode
 L["Logout Timer"] = "Auslogzeit"
 L["Random Stats"] = "Zufällige Werte"
