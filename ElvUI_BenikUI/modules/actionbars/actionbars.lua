@@ -16,7 +16,7 @@ end
 
 if E.db.bab == nil then E.db.bab = {} end
 
-local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags}
+local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar}
 
 function BAB:StyleBackdrops()
 	-- Actionbar backdrops
@@ -299,6 +299,7 @@ f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent",function(self, event)
 	if event then
 		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		BAB:ColorBackdrops()
 		if IsAddOnLoaded("ElvUI_ExtraActionBars") then
 			-- must call them again (till I find a more elegant way)
 			BAB:StyleBackdrops()
@@ -312,7 +313,6 @@ function BAB:Initialize()
 	self:StyleBackdrops()
 	self:TransparentBackdrops()
 	self:CreateButtons()
-	self:ColorBackdrops()
 	self:TaxiButton()
 	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end
 end
