@@ -10,6 +10,10 @@ function BUIB:StyleBags()
 		ElvUI_ContainerFrame:Style('Inside', 'playerbags')
 		ElvUI_ContainerFrameContainerHolder:Style('Outside')
 	end
+	
+	--if ElvUIBags.backdrop then
+		--ElvUIBags.backdrop:Style('Outside')
+	--end
 
 	if ElvUI_ContainerFrameContainerHolder then
 		ElvUI_ContainerFrameContainerHolder:Point('BOTTOMLEFT', playerbags, 'TOPLEFT', 0, SPACING + BORDER)
@@ -42,7 +46,7 @@ function BUIB:SkinBlizzBags()
 end
 
 function BUIB:AllInOneBags()
-	if E.private.bags.enable ~= true then return; end
+	--if E.private.bags.enable ~= true then return; end
 	self:StyleBags()
 	self:RegisterEvent('BANKFRAME_OPENED', 'OpenBankBags')
 end
