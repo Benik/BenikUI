@@ -38,6 +38,7 @@ function BAB:StyleBackdrops()
 end
 
 function BAB:ColorBackdrops()
+	if E.db.bui.buiStyle ~= true then return end
 	for i = 1, 10 do
 		local styleBacks = {_G['ElvUI_Bar'..i..'_Bui']}
 		for _, frame in pairs(styleBacks) do

@@ -122,6 +122,7 @@ local function buiCore()
 							[3] = L['Value Color'],
 							[4] = DEFAULT,
 						},
+						disabled = function() return E.db.bui.buiStyle ~= true end,
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
 					},
@@ -129,7 +130,7 @@ local function buiCore()
 						order = 6,
 						type = "color",
 						name = COLOR_PICKER,
-						disabled = function() return E.db.bui.abStyleColor ~= 2 end,
+						disabled = function() return E.db.bui.abStyleColor ~= 2 or E.db.bui.buiStyle ~= true end,
 						get = function(info)
 							local t = E.db.bui[ info[#info] ]
 							local d = P.bui[info[#info]]
