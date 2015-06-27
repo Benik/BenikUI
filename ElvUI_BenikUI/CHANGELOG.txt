@@ -1,3 +1,11 @@
+[b]2.21[/b] (Jun 27, 2015)
+*Added Request Stop button tooltip with instructions
+*Fix Player/Target EmptyBar position with PixelPerfect disabled
+*Skin mission alert frame
+*Update German locale
+*Rep bar fix. Should fix #30
+*Fix Actionbar coloring error when BenikUI style is disabled. This fixes #31
+
 [b]2.20[/b] (Jun 25, 2015)
 *Fix lua error with AceConfigDialog
 *Fixed a potential lua error with Actionbars and also fix applying colors on actionbar styling
