@@ -163,8 +163,8 @@ function BXR:UpdateReputation()
 
 	local bar = self.repbar
 	
-	local ID = 100
-	local isFriend, friendText
+	local ID
+	local isFriend, friendText, standingLabel
 	local name, reaction, min, max, value = GetWatchedFactionInfo()
 	local numFactions = GetNumFactions();
 
@@ -192,12 +192,18 @@ function BXR:UpdateReputation()
 			end
 		end
 		
+		if ID then
+			standingLabel = _G['FACTION_STANDING_LABEL'..ID]
+		else
+			standingLabel = FactionStandingLabelUnknown
+		end
+		
 		if textFormat == 'PERCENT' then
-			text = format('%s: %d%% [%s]', name, ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
+			text = format('%s: %d%% [%s]', name, ((value - min) / (max - min) * 100), isFriend and friendText or standingLabel)
 		elseif textFormat == 'CURMAX' then
-			text = format('%s: %s - %s [%s]', name, E:ShortValue(value - min), E:ShortValue(max - min), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
+			text = format('%s: %s - %s [%s]', name, E:ShortValue(value - min), E:ShortValue(max - min), isFriend and friendText or standingLabel)
 		elseif textFormat == 'CURPERC' then
-			text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
+			text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), isFriend and friendText or standingLabel)
 		end
 
 		self:ChangeRepColor()
