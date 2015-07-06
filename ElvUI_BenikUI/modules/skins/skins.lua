@@ -193,6 +193,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			if not EncounterJournal.style then
 				EncounterJournal:Style('Small')
 			end
+			EncounterJournalTooltip:Style('Outside')
 		end
 	end
 	
