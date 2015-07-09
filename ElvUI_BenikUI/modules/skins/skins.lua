@@ -329,7 +329,6 @@ local function styleAlertFrames()
 	BonusRollLootWonFrame.backdrop:Style('Outside')
 	
 	GarrisonBuildingAlertFrame.backdrop:Style('Outside')
-	GarrisonMissionAlertFrame:StripTextures()
 	GarrisonMissionAlertFrame.backdrop:Style('Outside')
 	GarrisonFollowerAlertFrame.backdrop:Style('Outside')
 end
