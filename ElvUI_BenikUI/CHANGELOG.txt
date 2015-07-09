@@ -1,3 +1,9 @@
+[b]2.22[/b] (Jul 9, 2015)
+*Added Naval Missions in Garrison Datatext
+*Added support for ElvUI_CustomTweaks CBEnhanced
+*Fix Minimap Datatexts position when Consolidated buffs are disabled
+*EncounterJournal tooltip styled
+
 [b]2.21[/b] (Jun 27, 2015)
 *Added Request Stop button tooltip with instructions
 *Fix Player/Target EmptyBar position with PixelPerfect disabled
