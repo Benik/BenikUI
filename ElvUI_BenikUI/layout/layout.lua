@@ -186,7 +186,10 @@ function BUIL:ResizeMinimapPanels()
 		RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
 		RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
 	end
-
+	
+	-- Stop here to support for ElvUI_CustomTweaks CBEnhanced
+	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] and true or false then return end
+	
 	if E.db.auras.consolidatedBuffs.position == "LEFT" then
 		ElvUI_ConsolidatedBuffs:Point('TOPRIGHT', Minimap.backdrop, 'TOPLEFT', -SPACING, 0)
 		ElvUI_ConsolidatedBuffs:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOMLEFT', -SPACING, 0)
@@ -428,9 +431,18 @@ function BUIL:ChangeLayout()
 	
 	-- Minimap elements styling
 	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end
-	ElvUI_ConsolidatedBuffs:Style('Outside')
+	
+	-- Support for ElvUI_CustomTweaks CBEnhanced
+	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] and true or false then
+		ElvUI_ConsolidatedBuffs.backdrop:Style('Outside')
+	else
+		ElvUI_ConsolidatedBuffs:Style('Outside')
+	end
+	
 	CopyChatFrame:Style('Inside')
+	
 	if FarmModeMap then FarmModeMap.backdrop:Style('Outside') end
+	
 	self:ResizeMinimapPanels()
 end
 
