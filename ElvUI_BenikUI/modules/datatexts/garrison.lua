@@ -84,12 +84,13 @@ local OnEnter = function(self)
 		DT.tooltip:AddLine(' ')
 	end
 
-	-- Missions
-	local Missions = C_Garrison.GetInProgressMissions()
+	-- Follower Missions
+	local Missions = C_Garrison.GetInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
 	local NumMissions = #Missions
+	local AvailableMissions = C_Garrison.GetAvailableMissions(LE_FOLLOWER_TYPE_GARRISON_6_0);
 
 	if (NumMissions > 0) then
-		DT.tooltip:AddLine(format(GARRISON_MISSIONS_TITLE), selectioncolor)
+		DT.tooltip:AddLine(format("%s (%s: %d)", GARRISON_MISSIONS_TITLE, AVAILABLE, #AvailableMissions), selectioncolor)
 		SortMissions(Missions)
 		for i = 1, NumMissions do
 			local Mission = Missions[i]
@@ -108,11 +109,28 @@ local OnEnter = function(self)
 		DT.tooltip:AddLine(" ")
 	end
 
-	local Available = GarrisonMissionFrame.MissionTab.MissionList.availableMissions
-	local NumAvailable = #Available
+	-- Ship Missions
+	local shipMissions = C_Garrison.GetInProgressMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2)
+	local NumShipMissions = #shipMissions
+	local AvailableShipMissions = C_Garrison.GetAvailableMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2);
 	
-	if (NumAvailable > 0) then
-		DT.tooltip:AddLine(format(GARRISON_LANDING_AVAILABLE, NumAvailable))
+	if (NumShipMissions > 0) then
+		DT.tooltip:AddLine(format("%s (%s: %d)", SPLASH_NEW_6_2_FEATURE2_TITLE, AVAILABLE, #AvailableShipMissions), selectioncolor)
+		SortMissions(shipMissions)
+		for i = 1, NumShipMissions do
+			local shipMission = shipMissions[i]
+			local TimeLeft = shipMission.timeLeft:match("%d")
+			local r, g, b = 1, 1, 1
+			if (shipMission.isRare) then r, g, b = 0.09, 0.51, 0.81 end
+
+			if (shipMission.inProgress and (TimeLeft ~= "0")) then
+				if not (shipMission.isRare) then r, g, b = 0.7, 0.7, 0.7 end
+				DT.tooltip:AddDoubleLine(format('%s |cffffffff(%s)|r', shipMission.name, shipMission.type), shipMission.timeLeft, r, g, b, selectioncolor)
+			else
+				DT.tooltip:AddDoubleLine(shipMission.name, GARRISON_MISSION_COMPLETE, r, g, b, 0, 1, 0)
+			end
+		end
+		
 		DT.tooltip:AddLine(" ")
 	end
 	
