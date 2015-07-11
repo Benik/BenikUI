@@ -188,7 +188,7 @@ function BUIL:ResizeMinimapPanels()
 	end
 	
 	-- Stop here to support for ElvUI_CustomTweaks CBEnhanced
-	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] and true or false then return end
+	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] then return end
 	
 	if E.db.auras.consolidatedBuffs.position == "LEFT" then
 		ElvUI_ConsolidatedBuffs:Point('TOPRIGHT', Minimap.backdrop, 'TOPLEFT', -SPACING, 0)
@@ -433,7 +433,7 @@ function BUIL:ChangeLayout()
 	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end
 	
 	-- Support for ElvUI_CustomTweaks CBEnhanced
-	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] and true or false then
+	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] then
 		ElvUI_ConsolidatedBuffs.backdrop:Style('Outside')
 	else
 		ElvUI_ConsolidatedBuffs:Style('Outside')
