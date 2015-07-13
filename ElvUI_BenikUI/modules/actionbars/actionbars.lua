@@ -269,6 +269,7 @@ local fly_icon = "Interface\\ICONS\\ABILITY_MOUNT_GOLDENGRYPHON"
 
 -- TaxiButton
 function BAB:TaxiButton()
+	if not E.db.bab.requestStop then return end
 	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent)
 	tbtn:Height(40)
 	tbtn:Point('CENTER', E.UIParent, 'CENTER', 0, 150)

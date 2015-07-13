@@ -50,6 +50,7 @@ P['bab'] = {
 	['transBack'] = true,
 	['enable'] = true,
 	['chooseAb'] = 'BAR2',
+	['requestStop'] = true,
 }
 
 -- XP/Rep

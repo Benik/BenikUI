@@ -17,6 +17,13 @@ local function abTable()
 				get = function(info) return E.db.bab[ info[#info] ] end,
 				set = function(info, value) E.db.bab[ info[#info] ] = value; BAB:TransparentBackdrops() end,	
 			},
+			requestStop = {
+				order = 2,
+				type = 'toggle',
+				name = L['Request Stop button'],
+				get = function(info) return E.db.bab[ info[#info] ] end,
+				set = function(info, value) E.db.bab[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
+			},
 			general = {
 				order = 2,
 				type = 'group',

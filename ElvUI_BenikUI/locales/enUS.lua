@@ -75,6 +75,7 @@ L['Choose Actionbar to show to'] = true
 L['Bar 1'] = true
 L['Bar 2'] = true
 L['Toggle Bar'] = true
+L['Request Stop button'] = true
 
 -- Request stop button
 L['LeftClick to Request Stop'] = true
