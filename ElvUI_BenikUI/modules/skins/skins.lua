@@ -374,12 +374,13 @@ local function styleGarrison()
 	GarrisonShipyardFrame.backdrop:Style('Outside')
 	-- Tooltips
 	GarrisonShipyardMapMissionTooltip:Style('Outside')
+	GarrisonBonusAreaTooltip:StripTextures()
+	GarrisonBonusAreaTooltip:CreateBackdrop('Transparent')
+	GarrisonBonusAreaTooltip.backdrop:Style('Outside')
 	GarrisonMissionMechanicFollowerCounterTooltip:Style('Outside')
 	GarrisonMissionMechanicTooltip:Style('Outside')
 	FloatingGarrisonShipyardFollowerTooltip:Style('Outside')
-	--GarrisonBonusAreaTooltip:Style('Outside') -- check
 	GarrisonShipyardFollowerTooltip:Style('Outside')
-	--GarrisonMissionListTooltipThreatsFrame:Style('Outside') -- do not use
 	-- Alert Frames
 	GarrisonShipMissionAlertFrame:StripTextures()
 	GarrisonShipMissionAlertFrame:CreateBackdrop('Transparent')
