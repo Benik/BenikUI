@@ -74,7 +74,7 @@ L['Choose Actionbar to show to'] = "Wähle Aktionsleiste zum Anzeigen"
 L['Bar 1'] = "Leiste 1"
 L['Bar 2'] = "Leiste 2"
 L['Toggle Bar'] = "Leiste umschalten"
-L['Request Stop button'] = true
+L['Request Stop button'] = "Haltewunschtaste"
 
 -- Request stop button
 L['LeftClick to Request Stop'] = "Links-Klick um am nächsten Flugpunkt zu landen"
