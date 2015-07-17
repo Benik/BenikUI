@@ -35,6 +35,7 @@ function UFB:ArrangePlayer()
 	local EMPTY_BARS_HEIGHT = E.db.ufb.barheight
 	local PlayerBar = BUI_PlayerBar
 	local db = E.db['unitframe']['units'].player
+	local stagger = frame.Stagger
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
@@ -48,6 +49,8 @@ function UFB:ArrangePlayer()
 	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
 	local PLAYER_PORTRAIT_HEIGHT = E.db.ufb.PlayerPortraitHeight
+	local USE_STAGGER = stagger and stagger:IsShown();
+	local STAGGER_WIDTH = USE_STAGGER and (db.stagger.width + (BORDER*2)) or 0;
 
 	-- Empty Bar
 	do
@@ -55,6 +58,11 @@ function UFB:ArrangePlayer()
 		local power = frame.Power
 		if USE_EMPTY_BAR then
 			PlayerBar:Show()
+			
+			if USE_STAGGER then
+				stagger:Point('BOTTOMLEFT', PlayerBar, 'BOTTOMRIGHT', BORDER*2 + (E.PixelMode and 0 or SPACING), BORDER)
+				stagger:Point('TOPRIGHT', health, 'TOPRIGHT', STAGGER_WIDTH, 0)
+			end
 			
 			if USE_POWERBAR_OFFSET then
 				PlayerBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
