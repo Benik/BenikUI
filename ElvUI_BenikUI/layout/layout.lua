@@ -187,6 +187,8 @@ function BUIL:ResizeMinimapPanels()
 		RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
 	end
 	
+	if E.db.datatexts.minimapPanels == false then ElvConfigToggle:Hide() end
+	
 	-- Stop here to support for ElvUI_CustomTweaks CBEnhanced
 	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] then return end
 	
