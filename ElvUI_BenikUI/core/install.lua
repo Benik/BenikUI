@@ -37,6 +37,8 @@ local function SetupBuiLayout()
 		E.db.general.reputation.orientation = 'VERTICAL'
 		E.private.general.namefont = 'Bui Prototype'
 		E.private.general.dmgfont = 'Bui Prototype'
+		E.private.general.normTex = 'BuiFlat'
+		E.private.general.glossTex = 'BuiFlat'
 		E.private.skins.blizzard.alertframes = true
 		E.private.skins.blizzard.questChoice = true
 		E.db.datatexts.leftChatPanel = false
@@ -434,6 +436,7 @@ local function SetupAddOnSkins()
 		E.private['addonskins']['EmbedSystemDual'] = nil
 		E.private['addonskins']['EmbedBelowTop'] = nil
 		E.private['addonskins']['TransparentEmbed'] = nil
+		E.private['addonskins']['RecountBackdrop'] = false
 		E.private['addonskins']['EmbedMain'] = nil
 		E.private['addonskins']['EmbedLeft'] = nil
 		E.private['addonskins']['EmbedRight'] = nil
@@ -452,6 +455,7 @@ local function SetupAddOnSkins()
 			E.private['addonskins']['EmbedSystemDual'] = true
 			E.private['addonskins']['EmbedBelowTop'] = false
 			E.private['addonskins']['TransparentEmbed'] = true
+			E.private['addonskins']['SkadaBackdrop'] = false
 			E.private['addonskins']['EmbedMain'] = 'Skada'
 			E.private['addonskins']['EmbedLeft'] = 'Skada'
 			E.private['addonskins']['EmbedRight'] = 'Skada'
