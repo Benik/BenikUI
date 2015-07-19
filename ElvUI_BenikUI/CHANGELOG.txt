@@ -1,3 +1,7 @@
+[b]2.24[/b] (Jul 19, 2015)
+*Fix ElvUI Config button not hiding when minimap dts are disabled
+*Move the naval alert frames in the correct function
+
 [b]2.23[/b] (Jul 19, 2015)
 *Added option to Enable/Disable Request Stop button
 *Update German Locale
