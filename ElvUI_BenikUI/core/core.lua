@@ -11,7 +11,6 @@ BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 
 local function StyleTooltip()
-	GameTooltipStatusBar:SetStatusBarTexture(E["media"].BuiFlat)
 	if E.db.bui.buiStyle ~= true then return end
 	GameTooltip:Style('Inside')
 
