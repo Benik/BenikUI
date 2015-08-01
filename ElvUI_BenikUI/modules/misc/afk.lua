@@ -228,6 +228,8 @@ local function prank(self, status)
 end
 hooksecurefunc(AFK, "SetAFK", prank)]]
 
+local classColor = RAID_CLASS_COLORS[E.myclass]
+
 AFK.InitializeBuiAfk = AFK.Initialize
 function AFK:Initialize()
 	self:InitializeBuiAfk()
@@ -279,7 +281,7 @@ function AFK:Initialize()
 	self.AFKMode.top.style.Status = CreateFrame('StatusBar', nil, self.AFKMode.top.style)
 	self.AFKMode.top.style.Status:SetStatusBarTexture((E["media"].normTex))
 	self.AFKMode.top.style.Status:SetMinMaxValues(0, 2100)
-	self.AFKMode.top.style.Status:SetStatusBarColor(1, 0.5, 0.1, 1)
+	self.AFKMode.top.style.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b, 1)
 	self.AFKMode.top.style.Status:SetInside()
 	self.AFKMode.top.style.Status:SetValue(0)
 	
@@ -316,7 +318,7 @@ function AFK:Initialize()
 	self.AFKMode.bottom.logotxt:FontTemplate(nil, 24)
 	self.AFKMode.bottom.logotxt:SetText("ElvUI")
 	self.AFKMode.bottom.logotxt:SetPoint("LEFT", self.AFKMode.bottom, "LEFT", 25, 8)
-	self.AFKMode.bottom.logotxt:SetTextColor(1, 0.5, 0.1)
+	self.AFKMode.bottom.logotxt:SetTextColor(classColor.r, classColor.g, classColor.b)
 	-- and ElvUI version
 	self.AFKMode.bottom.etext = self.AFKMode.bottom:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.bottom.etext:FontTemplate(nil, 10)
@@ -331,7 +333,7 @@ function AFK:Initialize()
 	self.AFKMode.bottom.benikui:FontTemplate(nil, 24)
 	self.AFKMode.bottom.benikui:SetText("BenikUI")
 	self.AFKMode.bottom.benikui:SetPoint("RIGHT", self.AFKMode.bottom, "RIGHT", -25, 8)
-	self.AFKMode.bottom.benikui:SetTextColor(1, 0.5, 0.1)
+	self.AFKMode.bottom.benikui:SetTextColor(classColor.r, classColor.g, classColor.b)
 	-- and version
 	self.AFKMode.bottom.btext = self.AFKMode.bottom:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.bottom.btext:FontTemplate(nil, 10)
