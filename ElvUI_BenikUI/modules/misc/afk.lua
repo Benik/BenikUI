@@ -267,7 +267,7 @@ function AFK:Initialize()
 	self.AFKMode.top.time:SetText("")
 	self.AFKMode.top.time:SetPoint("RIGHT", self.AFKMode.top, "RIGHT", -20, 0)
 	self.AFKMode.top.time:SetJustifyH("LEFT")
-	self.AFKMode.top.time:SetTextColor(1, 0.5, 0.1)
+	self.AFKMode.top.time:SetTextColor(classColor.r, classColor.g, classColor.b)
 	
 	-- Date text
 	self.AFKMode.top.date = self.AFKMode.top:CreateFontString(nil, 'OVERLAY')
@@ -275,7 +275,7 @@ function AFK:Initialize()
 	self.AFKMode.top.date:SetText(curDate)
 	self.AFKMode.top.date:SetPoint("LEFT", self.AFKMode.top, "LEFT", 20, 0)
 	self.AFKMode.top.date:SetJustifyH("RIGHT")
-	self.AFKMode.top.date:SetTextColor(1, 0.5, 0.1)
+	self.AFKMode.top.date:SetTextColor(classColor.r, classColor.g, classColor.b)
 	
 	-- Statusbar on Top frame decor showing time to log off (35mins)
 	self.AFKMode.top.style.Status = CreateFrame('StatusBar', nil, self.AFKMode.top.style)
