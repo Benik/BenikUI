@@ -159,6 +159,7 @@ function BXR:UpdateExperience()
 end
 
 local backupColor = FACTION_BAR_COLORS[1]
+local FactionStandingLabelUnknown = UNKNOWN
 function BXR:UpdateReputation()
 
 	local bar = self.repbar
