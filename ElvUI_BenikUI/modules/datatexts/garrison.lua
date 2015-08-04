@@ -8,6 +8,7 @@ local lastPanel;
 local GARRISON_CURRENCY = 824
 local join = string.join
 local format = string.format
+local tsort = table.sort
 
 local OnEvent = function(self, event)
 	
@@ -36,17 +37,8 @@ local OnEvent = function(self, event)
 	lastPanel = self
 end
 
-local function SortMissions(missionlist)
-    local comparison = function(mission1, mission2)
-
-        if ( mission1.timeLeft ~= mission2.timeLeft ) then
-            return mission1.timeLeft < mission2.timeLeft;
-        end		
-
-        return mission1.name < mission2.name
-    end
- 
-    table.sort(missionlist, comparison);
+local function sortFunction(a, b)
+	return a.missionEndTime < b.missionEndTime
 end
 
 local OnEnter = function(self)
@@ -91,7 +83,7 @@ local OnEnter = function(self)
 
 	if (NumMissions > 0) then
 		DT.tooltip:AddLine(format("%s (%s: %d)", GARRISON_MISSIONS_TITLE, AVAILABLE, #AvailableMissions), selectioncolor)
-		SortMissions(Missions)
+		tsort(Missions, sortFunction)
 		for i = 1, NumMissions do
 			local Mission = Missions[i]
 			local TimeLeft = Mission.timeLeft:match("%d")
@@ -116,7 +108,7 @@ local OnEnter = function(self)
 	
 	if (NumShipMissions > 0) then
 		DT.tooltip:AddLine(format("%s (%s: %d)", SPLASH_NEW_6_2_FEATURE2_TITLE, AVAILABLE, #AvailableShipMissions), selectioncolor)
-		SortMissions(shipMissions)
+		tsort(shipMissions, sortFunction)
 		for i = 1, NumShipMissions do
 			local shipMission = shipMissions[i]
 			local TimeLeft = shipMission.timeLeft:match("%d")
