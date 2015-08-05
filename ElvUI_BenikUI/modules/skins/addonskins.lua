@@ -77,11 +77,22 @@ local function skinDecursive()
 
 end
 
+local function skinStoryline()
+	if not IsAddOnLoaded('Storyline') then return end
+	Storyline_NPCFrame:StripTextures()
+	Storyline_NPCFrame:CreateBackdrop('Transparent')
+	Storyline_NPCFrame.backdrop:Style('Outside')
+	S:HandleCloseButton(Storyline_NPCFrameClose)
+	Storyline_NPCFrameChat:StripTextures()
+	Storyline_NPCFrameChat:CreateBackdrop('Transparent')
+end
+
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent",function(self, event)
 	if event == "PLAYER_ENTERING_WORLD" then
 		skinDecursive()
+		skinStoryline()
 		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end
 end)
