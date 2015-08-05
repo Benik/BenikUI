@@ -78,7 +78,7 @@ local function skinDecursive()
 end
 
 local function skinStoryline()
-	if not IsAddOnLoaded('Storyline') then return end
+	if not IsAddOnLoaded('Storyline') or not E.db.buiVariousSkins.storyline then return end
 	Storyline_NPCFrame:StripTextures()
 	Storyline_NPCFrame:CreateBackdrop('Transparent')
 	Storyline_NPCFrame.backdrop:Style('Outside')

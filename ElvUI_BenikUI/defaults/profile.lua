@@ -198,4 +198,5 @@ P['buiaddonskins'] = {
 P['buiVariousSkins'] = {
 	['objectiveTracker'] = true,
 	['decursive'] = true,
+	['storyline'] = true,
 }
