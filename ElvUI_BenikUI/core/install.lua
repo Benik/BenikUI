@@ -35,6 +35,11 @@ local function SetupBuiLayout()
 		E.db.general.reputation.width = 8
 		E.db.general.reputation.textSize = 9
 		E.db.general.reputation.orientation = 'VERTICAL'
+		E.db.tooltip.font = 'Bui Prototype'
+		E.db.tooltip.fontOutline = 'NONE'
+		E.db.tooltip.headerFontSize = 10
+		E.db.tooltip.textFontSize = 10
+		E.db.tooltip.smallTextFontSize = 10
 		E.private.general.namefont = 'Bui Prototype'
 		E.private.general.dmgfont = 'Bui Prototype'
 		E.private.general.normTex = 'BuiFlat'
