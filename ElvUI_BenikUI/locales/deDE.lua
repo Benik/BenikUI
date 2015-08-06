@@ -17,7 +17,7 @@ L['BenikUI Style'] = true
 L['Show/Hide the decorative bars from UI elements'] = "Dekorative Leisten von den UI Elementen anzeigen/ausblenden"
 L['Game Menu Color'] = "Spielmenü Farbe"
 L['ActionBar Style Color'] = "Aktionsleiste Stil Farbe"
-L['Style Color'] = "Stil Farbe" -- probably :P
+L['Style Color'] = "Stil Farbe"
 L['ShiftClick to toggle chat'] = "ShiftKlick um Chat umzuschalten"
 
 -- DataTexts
