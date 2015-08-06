@@ -421,17 +421,18 @@ function BXR:ChangeXPcolor()
 	local db = E.db.buixprep.color.experience
 	local elvxpstatus = ElvUI_ExperienceBar.statusBar
 	local elvrestedstatus = ElvUI_ExperienceBar.rested
+	local bar = self.xpbar
 	
 	if db.default then
-		self.xpbar:SetStatusBarColor(0, 0.4, 1, .8)
-		self.xpbar.rested:SetStatusBarColor(1, 0, 1, 0.2)
+		bar:SetStatusBarColor(0, 0.4, 1, .8)
+		bar.rested:SetStatusBarColor(1, 0, 1, 0.2)
 		if db.applyInElvUI then
 			elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
 			elvrestedstatus:SetStatusBarColor(1, 0, 1, 0.2)
 		end
 	else
-		self.xpbar:SetStatusBarColor(unpackColor(db.xp))
-		self.xpbar.rested:SetStatusBarColor(unpackColor(db.rested))
+		bar:SetStatusBarColor(unpackColor(db.xp))
+		bar.rested:SetStatusBarColor(unpackColor(db.rested))
 		if db.applyInElvUI then
 			elvxpstatus:SetStatusBarColor(unpackColor(db.xp))
 			elvrestedstatus:SetStatusBarColor(unpackColor(db.rested))
@@ -447,30 +448,31 @@ function BXR:ChangeRepColor()
 	local _, reaction = GetWatchedFactionInfo()
 	local color = FACTION_BAR_COLORS[reaction] or backupColor
 	local elvstatus = ElvUI_ReputationBar.statusBar
+	local bar = self.repbar
 	
 	if db.default then
-		self.repbar:SetStatusBarColor(color.r, color.g, color.b)
+		bar:SetStatusBarColor(color.r, color.g, color.b)
 		if db.applyInElvUI then
 			elvstatus:SetStatusBarColor(color.r, color.g, color.b)
 		end
 	else 
 		if reaction >= 5 then
-			self.repbar:SetStatusBarColor(unpackColor(db.friendly))
+			bar:SetStatusBarColor(unpackColor(db.friendly))
 			if db.applyInElvUI then
 				elvstatus:SetStatusBarColor(unpackColor(db.friendly))
 			end
 		elseif reaction == 4 then
-			self.repbar:SetStatusBarColor(unpackColor(db.neutral))
+			bar:SetStatusBarColor(unpackColor(db.neutral))
 			if db.applyInElvUI then
 				elvstatus:SetStatusBarColor(unpackColor(db.neutral))
 			end
 		elseif reaction == 3 then
-			self.repbar:SetStatusBarColor(unpackColor(db.unfriendly))
+			bar:SetStatusBarColor(unpackColor(db.unfriendly))
 			if db.applyInElvUI then
 				elvstatus:SetStatusBarColor(unpackColor(db.unfriendly))
 			end
 		elseif reaction < 3 then
-			self.repbar:SetStatusBarColor(unpackColor(db.hated))
+			bar:SetStatusBarColor(unpackColor(db.hated))
 			if db.applyInElvUI then
 				elvstatus:SetStatusBarColor(unpackColor(db.hated))
 			end
