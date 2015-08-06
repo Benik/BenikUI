@@ -17,6 +17,7 @@ L['BenikUI Style'] = true
 L['Show/Hide the decorative bars from UI elements'] = true
 L['Game Menu Color'] = true
 L['ActionBar Style Color'] = true
+L['Style Color'] = true
 L['ShiftClick to toggle chat'] = true
 
 -- DataTexts
