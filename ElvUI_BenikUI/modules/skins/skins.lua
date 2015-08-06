@@ -115,12 +115,32 @@ local BlizzUiFrames = {
 	{'Blizzard_VoidStorageUI', 'VoidStorageFrame', 'voidstorage'},
 }
 
+local classColor = RAID_CLASS_COLORS[E.myclass]
+
+local color = { r = 1, g = 0.5, b = 0 }
+local function unpackColor(color)
+	return color.r, color.g, color.b
+end
+
 function BUI:StyleBlizzard(parent, ...)
 	local frame = CreateFrame('Frame', parent..'Decor', E.UIParent)
 	frame:CreateBackdrop('Default', true)
 	frame:SetParent(parent)
 	frame:Point('TOPLEFT', parent, 'TOPLEFT', SPACING, (E.PixelMode and 3 or 5))
 	frame:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', -SPACING, (E.PixelMode and 0 or 3))
+	
+	frame.backdrop.color = frame.backdrop:CreateTexture(nil, 'OVERLAY')
+	frame.backdrop.color:SetInside()
+	frame.backdrop.color:SetTexture(E['media'].BuiFlat)
+	if E.db.bui.StyleColor == 1 then
+		frame.backdrop.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	elseif E.db.bui.StyleColor == 2 then
+		frame.backdrop.color:SetVertexColor(unpackColor(E.db.bui.customStyleColor))
+	elseif E.db.bui.StyleColor == 3 then
+		frame.backdrop.color:SetVertexColor(unpackColor(E.db.general.valuecolor))
+	else
+		frame.backdrop.color:SetVertexColor(unpackColor(E.db.general.backdropcolor))
+	end
 end
 
 function BUIS:BlizzardUI_LOD_Skins(event, addon)

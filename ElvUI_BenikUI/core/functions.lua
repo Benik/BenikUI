@@ -4,6 +4,8 @@ local LSM = LibStub('LibSharedMedia-3.0')
 
 local SPACING = (E.PixelMode and 1 or 3)
 
+local classColor = RAID_CLASS_COLORS[E.myclass]
+
 local color = { r = 1, g = 0.5, b = 0 }
 local function unpackColor(color)
 	return color.r, color.g, color.b
@@ -45,7 +47,7 @@ local function CreateSoftGlow(f)
 	f.sglow = sglow
 end
 
-local function Style(f, template, name)
+local function Style(f, template, name, colored)
 	if f.style or E.db.bui.buiStyle ~= true then return end
 
 	local style = CreateFrame('Frame', name or nil, f)
@@ -66,6 +68,21 @@ local function Style(f, template, name)
 	end
 	style:Point('TOPLEFT', f, 'TOPLEFT', tlx, tly)
 	style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
+	
+	if not colored then
+		style.color = style:CreateTexture(nil, 'OVERLAY')
+		style.color:SetInside()
+		style.color:SetTexture(E['media'].BuiFlat)
+		if E.db.bui.StyleColor == 1 then
+			style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		elseif E.db.bui.StyleColor == 2 then
+			style.color:SetVertexColor(unpackColor(E.db.bui.customStyleColor))
+		elseif E.db.bui.StyleColor == 3 then
+			style.color:SetVertexColor(unpackColor(E.db.general.valuecolor))
+		else
+			style.color:SetVertexColor(unpackColor(E.db.general.backdropcolor))
+		end
+	end
 	
 	f.style = style
 end

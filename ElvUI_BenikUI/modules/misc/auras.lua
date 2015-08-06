@@ -8,7 +8,7 @@ A.CreateIconBui = A.CreateIcon
 function A:CreateIcon(button)
 	self:CreateIconBui(button)
 	
-	button:Style('Inside')
+	button:Style('Inside', _, true)
 end
 
 A.UpdateAuraBui = A.UpdateAura

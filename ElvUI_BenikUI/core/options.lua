@@ -85,22 +85,25 @@ local function buiCore()
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, color) E.db.bui[ info[#info] ] = color; BUI:BuiColorThemes(color); end,
 					},
-					gameMenuColor = {
+					StyleColor = {
 						order = 3,
 						type = "select",
-						name = L['Game Menu Color'],
+						name = L['Style Color']..BUI.newsign,
 						values = {
 							[1] = CLASS_COLORS,
 							[2] = CUSTOM,
+							[3] = L['Value Color'],
+							[4] = DEFAULT,
 						},
+						disabled = function() return E.db.bui.buiStyle ~= true end,
 						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					customGameMenuColor = {
+					customStyleColor = {
 						order = 4,
 						type = "color",
 						name = COLOR_PICKER,
-						disabled = function() return E.db.bui.gameMenuColor == 1 end,
+						disabled = function() return E.db.bui.StyleColor ~= 2 or E.db.bui.buiStyle ~= true end,
 						get = function(info)
 							local t = E.db.bui[ info[#info] ]
 							local d = P.bui[info[#info]]
@@ -110,12 +113,13 @@ local function buiCore()
 							E.db.bui[ info[#info] ] = {}
 							local t = E.db.bui[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
+							E:StaticPopup_Show('PRIVATE_RL'); 
 						end,
 					},
 					abStyleColor = {
 						order = 5,
 						type = "select",
-						name = L['ActionBar Style Color']..BUI.newsign,
+						name = L['ActionBar Style Color'],
 						values = {
 							[1] = CLASS_COLORS,
 							[2] = CUSTOM,
@@ -130,6 +134,7 @@ local function buiCore()
 						order = 6,
 						type = "color",
 						name = COLOR_PICKER,
+						width = "half",
 						disabled = function() return E.db.bui.abStyleColor ~= 2 or E.db.bui.buiStyle ~= true end,
 						get = function(info)
 							local t = E.db.bui[ info[#info] ]
@@ -141,6 +146,33 @@ local function buiCore()
 							local t = E.db.bui[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
 							E:GetModule('BuiActionbars'):ColorBackdrops();
+						end,
+					},
+					gameMenuColor = {
+						order = 7,
+						type = "select",
+						name = L['Game Menu Color'],
+						values = {
+							[1] = CLASS_COLORS,
+							[2] = CUSTOM,
+						},
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; end,
+					},
+					customGameMenuColor = {
+						order = 8,
+						type = "color",
+						name = COLOR_PICKER,
+						disabled = function() return E.db.bui.gameMenuColor == 1 end,
+						get = function(info)
+							local t = E.db.bui[ info[#info] ]
+							local d = P.bui[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+							end,
+						set = function(info, r, g, b)
+							E.db.bui[ info[#info] ] = {}
+							local t = E.db.bui[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
 						end,
 					},
 				},
