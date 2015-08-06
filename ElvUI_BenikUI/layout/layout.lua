@@ -283,7 +283,7 @@ function BUIL:ChangeLayout()
 	Bui_mdtp:Width(E.db.bui.middleDatatext.width or 400)
 	Bui_mdtp:Height(E.db.bui.middleDatatext.height or PANEL_HEIGHT)
 	Bui_mdtp:Style('Outside')
-	if Bui_mdtp.style then Bui_mdtp.style:Hide() end
+
 	E:CreateMover(Bui_mdtp, "BuiMiddleDtMover", L['BenikUI Middle DataText'])
 
 	-- dummy frame for chat/threat (left)
