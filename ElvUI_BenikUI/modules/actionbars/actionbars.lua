@@ -151,6 +151,7 @@ function BAB:CreateButtons()
 	for i = 1, 2 do
 		abtn[i] = CreateFrame('Button', 'BuiABbutton_'..i, E.UIParent)
 		abtn[i]:Size(10, 5)
+		abtn[i]:SetTemplate('Default', true)
 		abtn[i].color = abtn[i]:CreateTexture(nil, 'OVERLAY')
 		abtn[i].color:SetInside()
 		abtn[i].color:SetTexture(E['media'].BuiFlat)
@@ -176,7 +177,7 @@ function BAB:CreateButtons()
 			GameTooltip:Hide()
 		end)
 	end
-	self:ShowButtons()
+	BAB:ShowButtons()
 end
 
 function BAB:ShowButtons()
@@ -304,26 +305,12 @@ function BAB:TaxiButton()
 	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
 end
 
- -- Support for ElvUI_ExtraActionBars
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent",function(self, event)
-	if event then
-		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		BAB:ColorBackdrops()
-		if IsAddOnLoaded("ElvUI_ExtraActionBars") then
-			-- must call them again (till I find a more elegant way)
-			BAB:StyleBackdrops()
-			BAB:TransparentBackdrops()
-			BAB:ColorBackdrops()
-		end
-	end
-end)
-
 function BAB:Initialize()
-	self:StyleBackdrops()
-	self:TransparentBackdrops()
-	self:CreateButtons()
+	-- Adding a small delay, because ElvUI_ExtraActionBars addon loads before BAB initialize
+	C_Timer.After(1, BAB.StyleBackdrops)
+	C_Timer.After(1, BAB.TransparentBackdrops)
+	C_Timer.After(2, BAB.ColorBackdrops)
+	C_Timer.After(2, BAB.CreateButtons)
 	self:TaxiButton()
 	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end
 end
