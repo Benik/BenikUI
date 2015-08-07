@@ -133,12 +133,6 @@ function BUIT:UpdateTokens()
 		local name, amount, icon, _, _, totalMax, isDiscovered = GetCurrencyInfo(id)
 		
 		if name then
-			-- max fix
-			if id == 392 or id == 395 then
-				totalMax = 4000
-			elseif id == 396 then
-				totalMax = 3000
-			end
 			
 			if isDiscovered == false then db.chooseTokens[name] = false end
 			
