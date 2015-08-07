@@ -70,17 +70,19 @@ local function Style(f, template, name, colored)
 	style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
 	
 	if not colored then
-		style.color = style:CreateTexture(nil, 'OVERLAY')
-		style.color:SetInside()
-		style.color:SetTexture(E['media'].BuiFlat)
-		if E.db.bui.StyleColor == 1 then
-			style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		elseif E.db.bui.StyleColor == 2 then
-			style.color:SetVertexColor(unpackColor(E.db.bui.customStyleColor))
-		elseif E.db.bui.StyleColor == 3 then
-			style.color:SetVertexColor(unpackColor(E.db.general.valuecolor))
-		else
-			style.color:SetVertexColor(unpackColor(E.db.general.backdropcolor))
+		if not style.color then
+			style.color = style:CreateTexture(nil, 'OVERLAY')
+			style.color:SetInside()
+			style.color:SetTexture(E['media'].BuiFlat)
+			if E.db.bui.StyleColor == 1 then
+				style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			elseif E.db.bui.StyleColor == 2 then
+				style.color:SetVertexColor(unpackColor(E.db.bui.customStyleColor))
+			elseif E.db.bui.StyleColor == 3 then
+				style.color:SetVertexColor(unpackColor(E.db.general.valuecolor))
+			else
+				style.color:SetVertexColor(unpackColor(E.db.general.backdropcolor))
+			end
 		end
 	end
 	
