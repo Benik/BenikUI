@@ -408,6 +408,16 @@ local function styleGarrison()
 	FloatingGarrisonShipyardFollowerTooltip:Style('Outside')
 	GarrisonShipyardFollowerTooltip:Style('Outside')
 	
+	-- Garrison Monument
+	GarrisonMonumentFrame:StripTextures()
+	GarrisonMonumentFrame:CreateBackdrop('Transparent')
+	GarrisonMonumentFrame:Style('Small')
+	GarrisonMonumentFrame:ClearAllPoints()
+	GarrisonMonumentFrame:Point('CENTER', E.UIParent, 'CENTER', 0, -200)
+	GarrisonMonumentFrame:Height(70)
+	GarrisonMonumentFrame.RightBtn:Size(25, 25)
+	GarrisonMonumentFrame.LeftBtn:Size(25, 25)
+	
 	-- Follower recruiting (available at the Inn)
 	GarrisonRecruiterFrame.backdrop:Style('Outside')
 	S:HandleDropDownBox(GarrisonRecruiterFramePickThreatDropDown)
