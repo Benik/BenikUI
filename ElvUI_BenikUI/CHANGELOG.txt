@@ -1,3 +1,13 @@
+[b]2.25[/b]
+*Skin Garrison Monument
+*German locale update
+*[NEW] Added Style coloring for all elements. In addition, the actionbars can have their own colors
+*Skin Storyline Addon
+*Install: Added the new tooltip font options
+*Garisson DT: Followed Blaze's solution for mission sorting
+*AFK mode: Class colors on date/time/time bar
+*Minor improovements
+
 [b]2.24[/b] (Jul 19, 2015)
 *Fix ElvUI Config button not hiding when minimap dts are disabled
 *Move the naval alert frames in the correct function
