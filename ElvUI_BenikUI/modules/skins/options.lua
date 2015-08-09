@@ -11,6 +11,7 @@ local DecorElvUIAddons = {
 	{'ElvUI_LocPlus', 'LocationPlus', 'locplus'},
 	{'ElvUI_SLE', 'Shadow & Light', 'sle'},
 	{'SquareMinimapButtons', 'Square Minimap Buttons', 'smb'},
+	{'ElvUI_Enhanced', 'ElvUI_Enhanced', 'enh'},
 }
 
 local DecorAddons = {

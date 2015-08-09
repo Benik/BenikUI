@@ -183,6 +183,7 @@ P['elvuiaddons'] = {
 	['locplus'] = true,
 	['sle'] = true,
 	['smb'] = true,
+	['enh'] = true,
 }
 
 -- Addonskins addons Styling

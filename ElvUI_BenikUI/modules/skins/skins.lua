@@ -593,6 +593,16 @@ function BUIS:BenikUISkins()
 			smbFrame:Style('Outside')
 		end
 	end
+	
+	if IsAddOnLoaded('ElvUI_Enhanced') and E.db.elvuiaddons.enh then
+		if MinimapButtonBar.backdrop then
+			MinimapButtonBar.backdrop:Style('Outside')
+		end
+		
+		if RaidMarkerBar.backdrop then
+			RaidMarkerBar.backdrop:Style('Outside')
+		end
+	end	
 end
 
 function BUIS:Initialize()
