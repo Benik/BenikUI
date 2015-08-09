@@ -249,6 +249,23 @@ function BUIL:MiddleDatatextLayout()
 	end
 end
 
+function BUIL:ChatStyles()
+	if not E.db.bui.buiStyle then return end
+	if E.db.bui.styledChatDts and E.db.chat.panelBackdrop == 'HIDEBOTH' then
+		Bui_rdtp.style:Show()
+		Bui_ldtp.style:Show()
+		for i = 1, BUTTON_NUM do
+			bbuttons[i].style:Show()
+		end	
+	else
+		Bui_rdtp.style:Hide()
+		Bui_ldtp.style:Hide()
+		for i = 1, BUTTON_NUM do
+			bbuttons[i].style:Hide()
+		end
+	end
+end
+
 function BUIL:MiddleDatatextDimensions()
 	Bui_mdtp:Width(E.db.bui.middleDatatext.width)
 	Bui_mdtp:Height(E.db.bui.middleDatatext.height)
@@ -269,12 +286,14 @@ function BUIL:ChangeLayout()
 	Bui_ldtp:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
 	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
+	Bui_ldtp:Style('Outside')
 	
 	-- Right dt panel
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
 	Bui_rdtp:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
+	Bui_rdtp:Style('Outside')
 	
 	-- Middle dt panel
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
@@ -304,6 +323,7 @@ function BUIL:ChangeLayout()
 		bbuttons[i]:SetFrameStrata('BACKGROUND')
 		bbuttons[i]:CreateSoftGlow()
 		bbuttons[i].sglow:Hide()
+		bbuttons[i]:Style('Outside')
 		bbuttons[i].text = bbuttons[i]:CreateFontString(nil, 'OVERLAY')
 		bbuttons[i].text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		bbuttons[i].text:SetPoint('CENTER', 1, 0)
@@ -318,7 +338,9 @@ function BUIL:ChangeLayout()
 			bbuttons[i].text:SetText('C')
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				self.sglow:Show()
+				if not E.db.bui.styledChatDts then
+					self.sglow:Show()
+				end
 				if IsShiftKeyDown() then
 					self.text:SetText('>')
 					self:SetScript('OnClick', ChatButton_OnClick)
@@ -356,7 +378,9 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				self.sglow:Show()
+				if not E.db.bui.styledChatDts then
+					self.sglow:Show()
+				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(MAINMENU_BUTTON, selectioncolor)
@@ -377,7 +401,9 @@ function BUIL:ChangeLayout()
 			bbuttons[i].text:SetText('A')
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				self.sglow:Show()
+				if not E.db.bui.styledChatDts then
+					self.sglow:Show()
+				end
 				if IsShiftKeyDown() then
 					self.text:SetText('<')
 					self:SetScript('OnClick', ChatButton_OnClick)
@@ -413,7 +439,9 @@ function BUIL:ChangeLayout()
 			end)
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				self.sglow:Show()
+				if not E.db.bui.styledChatDts then
+					self.sglow:Show()
+				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2 )
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(LFG_TITLE, selectioncolor)
@@ -459,8 +487,10 @@ end
 function BUIL:Initialize()
 	RegBuiDataTexts()
 	self:ChangeLayout()
+	self:ChatStyles()
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ToggleBuiDts)
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ResizeMinimapPanels)
+	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ChatStyles)
 	hooksecurefunc(M, 'UpdateSettings', BUIL.ResizeMinimapPanels)
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end

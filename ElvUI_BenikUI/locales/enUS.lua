@@ -28,6 +28,7 @@ L['Show Garrison Currency'] = true
 L['Show/Hide garrison currency on the datatext tooltip'] = true
 L['Middle'] = true
 L['BenikUI Middle DataText'] = true
+L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = true
 
 -- install
 L['Color Theme Set'] = true
