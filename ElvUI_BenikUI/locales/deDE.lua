@@ -158,3 +158,18 @@ L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten P
 L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten Portrait"
 L['Player Size'] = "Spieler Größe"
 L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite und Höhe"
+
+-- Addon real names
+L['LocationLite'] = true
+L['LocationPlus'] = true
+L['Shadow & Light'] = true
+L['Square Minimap Buttons'] = true
+L['ElvUI_Enhanced'] = true
+L['Rare Coordinator'] = true
+L['Skada'] = true
+L['Recount'] = true
+L['TinyDPS'] = true
+L['AtlasLoot'] = true
+L['Altoholic'] = true
+L['Zygor Guides'] = true
+L['Clique'] = true

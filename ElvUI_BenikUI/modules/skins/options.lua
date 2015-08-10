@@ -7,22 +7,22 @@ if E.db.elvuiaddons == nil then E.db.elvuiaddons = {} end
 if E.db.buiaddonskins == nil then E.db.buiaddonskins = {} end
 
 local DecorElvUIAddons = {
-	{'ElvUI_LocLite', 'LocationLite', 'loclite'},
-	{'ElvUI_LocPlus', 'LocationPlus', 'locplus'},
-	{'ElvUI_SLE', 'Shadow & Light', 'sle'},
-	{'SquareMinimapButtons', 'Square Minimap Buttons', 'smb'},
-	{'ElvUI_Enhanced', 'ElvUI_Enhanced', 'enh'},
+	{'ElvUI_LocLite', L['LocationLite'], 'loclite'},
+	{'ElvUI_LocPlus', L['LocationPlus'], 'locplus'},
+	{'ElvUI_SLE', L['Shadow & Light'], 'sle'},
+	{'SquareMinimapButtons', L['Square Minimap Buttons'], 'smb'},
+	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
 }
 
 local DecorAddons = {
-	{'RareCoordinator', 'Rare Coordinator', 'rc'},
-	{'Skada', 'Skada', 'skada'},
-	{'Recount', 'Recount', 'recount'},
-	{'TinyDPS', 'TinyDPS', 'tinydps'},
-	{'AtlasLoot', 'AtlasLoot', 'atlasloot'},
-	{'Altoholic', 'Altoholic', 'altoholic'},
-	{'ZygorGuidesViewer', 'Zygor Guides', 'zg'},
-	{'Clique', 'Clique', 'clique'},
+	{'RareCoordinator', L['Rare Coordinator'], 'rc'},
+	{'Skada', L['Skada'], 'skada'},
+	{'Recount', L['Recount'], 'recount'},
+	{'TinyDPS', L['TinyDPS'], 'tinydps'},
+	{'AtlasLoot', L['AtlasLoot'], 'atlasloot'},
+	{'Altoholic', L['Altoholic'], 'altoholic'},
+	{'ZygorGuidesViewer', L['Zygor Guides'], 'zg'},
+	{'Clique', L['Clique'], 'clique'},
 }
 
 local function SkinTable()
@@ -113,7 +113,21 @@ local function SkinTable()
 			},	
 		},
 	}
+		--P['dtbars'] = {}
+		--[[if not E.db.dtbars then E.db.dtbars = {} end
+		for panelname, data in pairs(E.global.dtbars) do
+			if panelname then
+				--_G[panelname]:Style('Outside')
+				E.Options.args.dtbars.args[panelname].styled = {
+					order = 8,
+					type = 'toggle',
+					name = L['BenikUI Style'],
+					get = function(info) return E.global.dtbars[panelname].styled end,
+					set = function(info, value) E.global.dtbars[panelname].styled = value; E:StaticPopup_Show("GLOBAL_RL") end,
+				}
 
+			end
+		end]]
 end
 
 table.insert(E.BuiConfig, SkinTable)

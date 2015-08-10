@@ -159,3 +159,18 @@ L['Change the detached portrait width'] = true
 L['Change the detached portrait height'] = true
 L['Player Size'] = true
 L['Copy Player portrait width and height'] = true
+
+-- Addon real names
+L['LocationLite'] = true
+L['LocationPlus'] = true
+L['Shadow & Light'] = true
+L['Square Minimap Buttons'] = true
+L['ElvUI_Enhanced'] = true
+L['Rare Coordinator'] = true
+L['Skada'] = true
+L['Recount'] = true
+L['TinyDPS'] = true
+L['AtlasLoot'] = true
+L['Altoholic'] = true
+L['Zygor Guides'] = true
+L['Clique'] = true
