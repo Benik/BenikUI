@@ -206,18 +206,31 @@ function BUIL:ResizeMinimapPanels()
 end
 
 function BUIL:ToggleTransparency()
-	if E.db.bui.transparentDts then
+	local db = E.db.bui
+	if not db.chatDtsBackdrop then
+		Bui_ldtp:StripTextures()
+		Bui_rdtp:StripTextures()
+		for i = 1, BUTTON_NUM do
+			bbuttons[i]:StripTextures()
+		end
+		ElvUI_ReputationBar.fb:StripTextures()
+		ElvUI_ExperienceBar.fb:StripTextures()
+	elseif db.transparentDts then
 		Bui_ldtp:SetTemplate('Transparent')
 		Bui_rdtp:SetTemplate('Transparent')	
 		for i = 1, BUTTON_NUM do
 			bbuttons[i]:SetTemplate('Transparent')
 		end
+		ElvUI_ReputationBar.fb:SetTemplate('Transparent')
+		ElvUI_ExperienceBar.fb:SetTemplate('Transparent')
 	else
 		Bui_ldtp:SetTemplate('Default', true)
 		Bui_rdtp:SetTemplate('Default', true)
 		for i = 1, BUTTON_NUM do
 			bbuttons[i]:SetTemplate('Default', true)
-		end	
+		end
+		ElvUI_ReputationBar.fb:SetTemplate('Default', true)
+		ElvUI_ExperienceBar.fb:SetTemplate('Default', true)
 	end
 end
 

@@ -27,6 +27,7 @@ P['bui'] = {
 	['StyleColor'] = 4,
 	['customStyleColor'] = {r = .9, g = .7, b = 0},
 	['styledChatDts'] = false,
+	['chatDtsBackdrop'] = true,
 }
 
 -- Datatexts
