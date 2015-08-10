@@ -603,7 +603,14 @@ function BUIS:BenikUISkins()
 			RaidMarkerBar.backdrop:Style('Outside')
 		end
 	end
-
+	
+	if IsAddOnLoaded('ElvUI_DTBars2') and E.db.elvuiaddons.dtb2 then
+		for panelname, data in pairs(E.global.dtbars) do
+			if panelname then
+				_G[panelname]:Style('Outside')
+			end
+		end
+	end
 end
 
 function BUIS:Initialize()

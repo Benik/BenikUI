@@ -12,6 +12,7 @@ local DecorElvUIAddons = {
 	{'ElvUI_SLE', L['Shadow & Light'], 'sle'},
 	{'SquareMinimapButtons', L['Square Minimap Buttons'], 'smb'},
 	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
+	{'ElvUI_DTBars2', L['DT Bars 2'], 'dtb2'},
 }
 
 local DecorAddons = {

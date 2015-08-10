@@ -184,6 +184,7 @@ P['elvuiaddons'] = {
 	['sle'] = true,
 	['smb'] = true,
 	['enh'] = true,
+	['dtb2'] = true,
 }
 
 -- Addonskins addons Styling
