@@ -61,6 +61,7 @@ P['bab'] = {
 P['buixprep'] = {
 	['enable'] = true,
 	['show'] = 'REP',
+	['buiStyle'] = true,
 	['text'] = {
 		['tStyle'] = 'UNIT',
 		['xpTextFormat'] = 'CURPERC',

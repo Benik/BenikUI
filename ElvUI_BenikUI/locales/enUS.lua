@@ -124,6 +124,7 @@ L['Empty Frames must be enabled \n(in UnitFrames options)'] = true
 L['Copy Font Style from'] = true
 L['Hide PlayerBar text values'] = true
 L['Hides health, power and custom text values when mousing over, if their yOffset is'] = true
+L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = true
 
 -- Skins Options
 L['AddOns Decor'] = true

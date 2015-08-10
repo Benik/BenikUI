@@ -123,6 +123,7 @@ L['Empty Frames must be enabled \n(in UnitFrames options)'] = "Leerer Rahmen mus
 L['Copy Font Style from'] = "Kopiere Schriftart von"
 L['Hide PlayerBar text values'] = "Verberge Text Werte auf der Spielerleiste"
 L['Hides health, power and custom text values when mousing over, if their yOffset is'] = "Blendet Gesundheit, Kraft und angepasste Text Werte aus, wenn der Y-Versatz ist" -- bad translation (needs review)
+L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = true
 
 -- Skins Options
 L['AddOns Decor'] = "AddOns Dekor"

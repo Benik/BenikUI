@@ -344,18 +344,12 @@ function BXR:ApplyXpRepStyling()
 	local xp = ElvUI_ExperienceBar
 	if E.db.general.experience.enable then
 		if E.db.general.experience.orientation == 'VERTICAL' then
-			if xp.ft then
-				xp.ft:Show()
-			end
 			if E.db.bui.buiDts then 
 				xp.fb:Show()
 			else
 				xp.fb:Hide()
 			end
 		else
-			if xp.ft then
-				xp.ft:Hide()
-			end
 			xp.fb:Hide()
 		end
 	end	
@@ -372,11 +366,16 @@ function BXR:ApplyXpRepStyling()
 				rp.fb:Hide()
 			end
 		else
-			if rp.ft then
-				rp.ft:Hide()
-			end
 			rp.fb:Hide()
 		end
+	end
+	
+	if E.db.buixprep.buiStyle then
+		rp.style:Show()
+		xp.style:Show()
+	else
+		rp.style:Hide()
+		xp.style:Hide()	
 	end
 end
 

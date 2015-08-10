@@ -33,8 +33,16 @@ local function xprepTable()
 				get = function(info) return E.db.buixprep.show end,
 				set = function(info, value) E.db.buixprep.show = value; BXR:EnableDisable_ReputationBar(); BXR:EnableDisable_ExperienceBar(); end,
 			},
-			text = {
+			buiStyle = {
 				order = 3,
+				type = 'toggle',
+				name = L['BenikUI Style'],
+				desc = L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'],
+				get = function(info) return E.db.buixprep.buiStyle end,
+				set = function(info, value) E.db.buixprep.buiStyle = value; BXR:ApplyXpRepStyling(); end,
+			},
+			text = {
+				order = 4,
 				type = 'group',
 				name = L['Text'],
 				guiInline = true,
@@ -91,7 +99,7 @@ local function xprepTable()
 				},
 			},
 			color = {
-				order = 4,
+				order = 5,
 				type = 'group',
 				name = COLOR,
 				childGroups = "tab",
