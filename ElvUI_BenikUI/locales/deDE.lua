@@ -28,7 +28,7 @@ L['Show Garrison Currency'] = "Zeige Garnisonsresourcen"
 L['Show/Hide garrison currency on the datatext tooltip'] = "Garnisonsressourcen am Infotext Tooltip anzeigen/ausblenden"
 L['Middle'] = "Mittlerer"
 L['BenikUI Middle DataText'] = "BenikUI mittlerer Infotext"
-L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = true
+L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = "Passt die Chatinfotexte und Tasten an, wenn der Chathintergrund auf 'Verstecke Beide' gesetzt ist."
 
 -- install
 L['Color Theme Set'] = "Farbschema setzen"
@@ -122,8 +122,8 @@ L['Show in PlayerBar'] = "Zeige in Spielerleiste"
 L['Empty Frames must be enabled \n(in UnitFrames options)'] = "Leerer Rahmen muss aktiviert sein \n(in Einheitenfenster Option)"
 L['Copy Font Style from'] = "Kopiere Schriftart von"
 L['Hide PlayerBar text values'] = "Verberge Text Werte auf der Spielerleiste"
-L['Hides health, power and custom text values when mousing over, if their yOffset is'] = "Blendet Gesundheit, Kraft und angepasste Text Werte aus, wenn der Y-Versatz ist" -- bad translation (needs review)
-L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = true
+L['Hides health, power and custom text values when mousing over, if their yOffset is'] = "Blendet Gesundheit, Kraft und angepasste Text Werte aus, wenn der Y-Versatz ist"
+L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = "Zeigt die BenikUI dekorative Leisten auf den Standard ElvUI Erfahrungs-/Rufleisten"
 
 -- Skins Options
 L['AddOns Decor'] = "AddOns Dekor"
