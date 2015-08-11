@@ -51,6 +51,9 @@ local function SetupBuiLayout()
 		E.db.bags.itemLevelFont = 'Bui Prototype'
 		E.db.bags.itemLevelFontSize = 10
 		E.db.bags.itemLevelFontOutline = 'OUTLINE'
+		E.db.bags.countFont = 'Bui Prototype'
+		E.db.bags.countFontSize = 10
+		E.db.bags.countFontOutline = 'OUTLINE'
 	end
 	
 	-- Tooltip
