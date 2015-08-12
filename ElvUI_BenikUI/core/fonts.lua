@@ -33,7 +33,6 @@ function E:UpdateBlizzardFonts()
 	local NORMALOFFSET = 1.25, -1.25 	-- shadow offset for small fonts
 	local BIGOFFSET = 2, -2 			-- shadow offset for large fonts
 
-	UIDROPDOWNMENU_DEFAULT_TEXT_HEIGHT = 10
 	CHAT_FONT_HEIGHTS = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
 	
 	if self.private.general.replaceBlizzFonts then
