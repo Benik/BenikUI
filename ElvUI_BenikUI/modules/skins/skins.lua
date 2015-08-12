@@ -354,12 +354,18 @@ local function styleAlertFrames()
 	GarrisonBuildingAlertFrame.backdrop:Style('Outside')
 	GarrisonMissionAlertFrame.backdrop:Style('Outside')
 	GarrisonFollowerAlertFrame.backdrop:Style('Outside')
+	
 	GarrisonShipMissionAlertFrame:StripTextures()
 	GarrisonShipMissionAlertFrame:CreateBackdrop('Transparent')
 	GarrisonShipMissionAlertFrame.backdrop:Style('Outside')
+	
 	GarrisonShipFollowerAlertFrame:StripTextures()
 	GarrisonShipFollowerAlertFrame:CreateBackdrop('Transparent')
 	GarrisonShipFollowerAlertFrame.backdrop:Style('Outside')
+	
+	GarrisonRandomMissionAlertFrame:StripTextures()
+	GarrisonRandomMissionAlertFrame:CreateBackdrop('Transparent')
+	GarrisonRandomMissionAlertFrame.backdrop:Style('Outside')
 end
 
 function BUIS:AlertFrame_SetAchievementAnchors()
