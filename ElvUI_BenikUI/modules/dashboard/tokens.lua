@@ -10,9 +10,9 @@ if E.db.dashboards.tokens == nil then E.db.dashboards.tokens = {} end
 local DASH_HEIGHT = 20
 local DASH_WIDTH = E.db.dashboards.tokens.width or 150
 local DASH_SPACING = 3
-local SPACING = (E.PixelMode and 1 or 5)
+local SPACING = 1
 
-local Tokens = {}
+local tokenFrames = {}
 
 local BUIcurrency = {
 	241,	-- Champion's Seal
@@ -121,11 +121,11 @@ end
 function BUIT:UpdateTokens()
 	local db = E.db.dashboards.tokens
 	
-	if( Tokens[1] ) then
-		for i = 1, getn( Tokens ) do
-			Tokens[i]:Kill()
+	if( tokenFrames[1] ) then
+		for i = 1, getn( tokenFrames ) do
+			tokenFrames[i]:Kill()
 		end
-		wipe( Tokens )
+		wipe( tokenFrames )
 		tokenHolder.backdrop:Hide()
 	end
 
@@ -138,76 +138,76 @@ function BUIT:UpdateTokens()
 			
 			if db.chooseTokens[name] == true then
 				if db.zeroamount or amount > 0 then
-					tokenHolder:Height(((DASH_HEIGHT + SPACING) * (#Tokens + 1)) + SPACING + (E.PixelMode and 0 or 2))
+					tokenHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#tokenFrames + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					tokenHolder.backdrop:Show()
 					
-					local TokensFrame = CreateFrame('Frame', 'Tokens' .. id, tokenHolder)
-					TokensFrame:Height(DASH_HEIGHT)
-					TokensFrame:Width(DASH_WIDTH)
-					TokensFrame:Point('TOPLEFT', tokenHolder, 'TOPLEFT', SPACING, -SPACING)
-					TokensFrame:EnableMouse(true)
+					local token = CreateFrame('Frame', nil, tokenHolder)
+					token:Height(DASH_HEIGHT)
+					token:Width(DASH_WIDTH)
+					token:Point('TOPLEFT', tokenHolder, 'TOPLEFT', SPACING, -SPACING)
+					token:EnableMouse(true)
 
-					TokensFrame.dummy = CreateFrame('Frame', 'TokensDummy' .. id, TokensFrame)
-					TokensFrame.dummy:Point('BOTTOMLEFT', TokensFrame, 'BOTTOMLEFT', 2, 2)
-					TokensFrame.dummy:Point('BOTTOMRIGHT', TokensFrame, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
-					TokensFrame.dummy:Height(E.PixelMode and 3 or 5)
+					token.dummy = CreateFrame('Frame', nil, token)
+					token.dummy:Point('BOTTOMLEFT', token, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
+					token.dummy:Point('BOTTOMRIGHT', token, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
+					token.dummy:Height(E.PixelMode and 3 or 5)
 
-					TokensFrame.dummy.dummyStatus = TokensFrame.dummy:CreateTexture(nil, 'OVERLAY')
-					TokensFrame.dummy.dummyStatus:SetInside()
-					TokensFrame.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
-					TokensFrame.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
+					token.dummy.dummyStatus = token.dummy:CreateTexture(nil, 'OVERLAY')
+					token.dummy.dummyStatus:SetInside()
+					token.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
+					token.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
 
-					TokensFrame.Status = CreateFrame('StatusBar', 'TokensStatus' .. id, TokensFrame.dummy)
-					TokensFrame.Status:SetStatusBarTexture(E['media'].BuiFlat)
+					token.Status = CreateFrame('StatusBar', nil, token.dummy)
+					token.Status:SetStatusBarTexture(E['media'].BuiFlat)
 					if totalMax == 0 then
-						TokensFrame.Status:SetMinMaxValues(0, amount)
+						token.Status:SetMinMaxValues(0, amount)
 					else
-						TokensFrame.Status:SetMinMaxValues(0, totalMax)
+						token.Status:SetMinMaxValues(0, totalMax)
 					end
-					TokensFrame.Status:SetValue(amount)
-					TokensFrame.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
-					TokensFrame.Status:SetInside()
+					token.Status:SetValue(amount)
+					token.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
+					token.Status:SetInside()
 					
-					TokensFrame.spark = TokensFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
-					TokensFrame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-					TokensFrame.spark:Size(12, 6);
-					TokensFrame.spark:SetBlendMode('ADD');
-					TokensFrame.spark:SetPoint('CENTER', TokensFrame.Status:GetStatusBarTexture(), 'RIGHT')
+					token.spark = token.Status:CreateTexture(nil, 'OVERLAY', nil);
+					token.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
+					token.spark:Size(12, 6);
+					token.spark:SetBlendMode('ADD');
+					token.spark:SetPoint('CENTER', token.Status:GetStatusBarTexture(), 'RIGHT')
 
-					TokensFrame.Text = TokensFrame.Status:CreateFontString(nil, 'OVERLAY')
+					token.Text = token.Status:CreateFontString(nil, 'OVERLAY')
 					if E.db.dashboards.dashfont.useDTfont then
-						TokensFrame.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+						token.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 					else
-						TokensFrame.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
+						token.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
 					end
-					TokensFrame.Text:Point('CENTER', TokensFrame, 'CENTER', -10, (E.PixelMode and 1 or 3))
-					TokensFrame.Text:Width(TokensFrame:GetWidth() - 20)
-					TokensFrame.Text:SetWordWrap(false)
+					token.Text:Point('CENTER', token, 'CENTER', -10, (E.PixelMode and 1 or 3))
+					token.Text:Width(token:GetWidth() - 20)
+					token.Text:SetWordWrap(false)
 					
 					if E.db.dashboards.textColor == 1 then
-						TokensFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+						token.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 					else
-						TokensFrame.Text:SetTextColor(unpackColor(E.db.dashboards.customTextColor))
+						token.Text:SetTextColor(unpackColor(E.db.dashboards.customTextColor))
 					end
 					
 					if totalMax == 0 then
-						TokensFrame.Text:SetText(format('%s', amount))
+						token.Text:SetText(format('%s', amount))
 					else
-						TokensFrame.Text:SetText(format('%s / %s', amount, totalMax))
+						token.Text:SetText(format('%s / %s', amount, totalMax))
 					end
 
-					TokensFrame.IconBG = CreateFrame('Frame', 'TokensIconBG' .. id, TokensFrame)
-					TokensFrame.IconBG:SetTemplate('Transparent')
-					TokensFrame.IconBG:Size(E.PixelMode and 18 or 20)
-					TokensFrame.IconBG:Point('BOTTOMRIGHT', TokensFrame, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
+					token.IconBG = CreateFrame('Frame', nil, token)
+					token.IconBG:SetTemplate('Transparent')
+					token.IconBG:Size(E.PixelMode and 18 or 20)
+					token.IconBG:Point('BOTTOMRIGHT', token, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 
-					TokensFrame.IconBG.Icon = TokensFrame.IconBG:CreateTexture(nil, 'ARTWORK')
-					TokensFrame.IconBG.Icon:SetInside()
-					TokensFrame.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-					TokensFrame.IconBG.Icon:SetTexture(icon)
+					token.IconBG.Icon = token.IconBG:CreateTexture(nil, 'ARTWORK')
+					token.IconBG.Icon:SetInside()
+					token.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+					token.IconBG.Icon:SetTexture(icon)
 
-					TokensFrame:SetScript('OnEnter', function(self)
-						TokensFrame.Text:SetText(format('%s', name))
+					token:SetScript('OnEnter', function(self)
+						token.Text:SetText(format('%s', name))
 						if db.tooltip then
 							GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 							GameTooltip:SetCurrencyByID(id)
@@ -216,30 +216,30 @@ function BUIT:UpdateTokens()
 					
 					-- Flash
 					if db.flash then
-						E:Flash(TokensFrame, 0.2)
+						E:Flash(token, 0.2)
 					end
 			
-					TokensFrame:SetScript('OnLeave', function(self)
+					token:SetScript('OnLeave', function(self)
 						if totalMax == 0 then
-							TokensFrame.Text:SetText(format('%s', amount))
+							token.Text:SetText(format('%s', amount))
 						else
-							TokensFrame.Text:SetText(format('%s / %s', amount, totalMax))
+							token.Text:SetText(format('%s / %s', amount, totalMax))
 						end				
 						GameTooltip:Hide()
 					end)
 
-					tinsert(Tokens, TokensFrame)
+					tinsert(tokenFrames, token)
 				end
 			end
 		end
 	end
 
-	for key, frame in ipairs(Tokens) do
+	for key, frame in ipairs(tokenFrames) do
 		frame:ClearAllPoints()
 		if(key == 1) then
 			frame:Point('TOPLEFT', tokenHolder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', Tokens[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			frame:Point('TOP', tokenFrames[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
@@ -256,7 +256,7 @@ function BUIT:UpdateTHolderDimensions()
 	local db = E.db.dashboards.tokens
 	tokenHolder:Width(db.width)
 
-	for _, frame in pairs(Tokens) do
+	for _, frame in pairs(tokenFrames) do
 		frame:Width(db.width)
 	end
 end
