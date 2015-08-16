@@ -35,7 +35,18 @@ local BUIcurrency = {
 	777,	-- Timeless Coin
 	789,	-- Bloody Coin
 	81,		-- Epicurean's Award
-	402,	-- Ironpaw Token
+	
+	-- WoD
+	824,	-- Garrison Resources
+	823,	-- Apexis Crystal (for gear, like the valors)
+	994,	-- Seal of Tempered Fate (Raid loot roll)
+	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
+	944,	-- Artifact Fragment (PvP)
+	1101,	-- Oil (Shipyard - 6.2 PTR)
+	1129,	-- Seal of Inevitable Fate (6.2 PTR)
+}
+
+local ArchyCurrency = {
 	384,	-- Dwarf Archaeology Fragment
 	385,	-- Troll Archaeology Fragment
 	393,	-- Fossil Archaeology Fragment
@@ -48,18 +59,9 @@ local BUIcurrency = {
 	676,	-- Pandaren Archaeology Fragment
 	677,	-- Mogu Archaeology Fragment
 	754,	-- Mantid Archaeology Fragment
-	
-	-- WoD
 	821,	-- Draenor Clans Archaeology Fragment
 	828,	-- Ogre Archaeology Fragment
 	829,	-- Arakkoa Archaeology Fragment
-	824,	-- Garrison Resources
-	823,	-- Apexis Crystal (for gear, like the valors)
-	994,	-- Seal of Tempered Fate (Raid loot roll)
-	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
-	944,	-- Artifact Fragment (PvP)
-	1101,	-- Oil (Shipyard - 6.2 PTR)
-	1129,	-- Seal of Inevitable Fate (6.2 PTR)
 }
 
 local function tholderOnFade()
@@ -118,6 +120,50 @@ function BUIT:EnableDisableCombat()
 	end
 end
 
+function BUIT:CreateBar()
+	local bar = CreateFrame('Frame', nil, tokenHolder)
+	bar:Height(DASH_HEIGHT)
+	bar:Width(DASH_WIDTH)
+	bar:Point('TOPLEFT', tokenHolder, 'TOPLEFT', SPACING, -SPACING)
+	bar:EnableMouse(true)
+	
+	bar.dummy = CreateFrame('Frame', nil, bar)
+	bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
+	bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
+	bar.dummy:Height(E.PixelMode and 3 or 5)
+
+	bar.dummy.dummyStatus = bar.dummy:CreateTexture(nil, 'OVERLAY')
+	bar.dummy.dummyStatus:SetInside()
+	bar.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
+	bar.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
+	
+	bar.Status = CreateFrame('StatusBar', nil, bar.dummy)
+	bar.Status:SetStatusBarTexture(E['media'].BuiFlat)
+	bar.Status:SetInside()
+	
+	bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);
+	bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
+	bar.spark:Size(12, 6);
+	bar.spark:SetBlendMode('ADD');
+	bar.spark:SetPoint('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
+
+	bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
+	bar.Text:Point('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
+	bar.Text:Width(bar:GetWidth() - 20)
+	bar.Text:SetWordWrap(false)
+	
+	bar.IconBG = CreateFrame('Frame', nil, bar)
+	bar.IconBG:SetTemplate('Transparent')
+	bar.IconBG:Size(E.PixelMode and 18 or 20)
+	bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
+
+	bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
+	bar.IconBG.Icon:SetInside()
+	bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	
+	return bar
+end
+
 function BUIT:UpdateTokens()
 	local db = E.db.dashboards.tokens
 	
@@ -129,7 +175,7 @@ function BUIT:UpdateTokens()
 		tokenHolder.backdrop:Hide()
 	end
 
-	for i, id in ipairs(BUIcurrency) do
+	for _, id in ipairs(BUIcurrency) do
 		local name, amount, icon, _, _, totalMax, isDiscovered = GetCurrencyInfo(id)
 		
 		if name then
@@ -140,25 +186,9 @@ function BUIT:UpdateTokens()
 				if db.zeroamount or amount > 0 then
 					tokenHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#tokenFrames + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					tokenHolder.backdrop:Show()
-					
-					local token = CreateFrame('Frame', nil, tokenHolder)
-					token:Height(DASH_HEIGHT)
-					token:Width(DASH_WIDTH)
-					token:Point('TOPLEFT', tokenHolder, 'TOPLEFT', SPACING, -SPACING)
-					token:EnableMouse(true)
 
-					token.dummy = CreateFrame('Frame', nil, token)
-					token.dummy:Point('BOTTOMLEFT', token, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
-					token.dummy:Point('BOTTOMRIGHT', token, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
-					token.dummy:Height(E.PixelMode and 3 or 5)
+					local token = BUIT:CreateBar()
 
-					token.dummy.dummyStatus = token.dummy:CreateTexture(nil, 'OVERLAY')
-					token.dummy.dummyStatus:SetInside()
-					token.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
-					token.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
-
-					token.Status = CreateFrame('StatusBar', nil, token.dummy)
-					token.Status:SetStatusBarTexture(E['media'].BuiFlat)
 					if totalMax == 0 then
 						token.Status:SetMinMaxValues(0, amount)
 					else
@@ -166,23 +196,12 @@ function BUIT:UpdateTokens()
 					end
 					token.Status:SetValue(amount)
 					token.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
-					token.Status:SetInside()
-					
-					token.spark = token.Status:CreateTexture(nil, 'OVERLAY', nil);
-					token.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-					token.spark:Size(12, 6);
-					token.spark:SetBlendMode('ADD');
-					token.spark:SetPoint('CENTER', token.Status:GetStatusBarTexture(), 'RIGHT')
 
-					token.Text = token.Status:CreateFontString(nil, 'OVERLAY')
 					if E.db.dashboards.dashfont.useDTfont then
 						token.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 					else
 						token.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
 					end
-					token.Text:Point('CENTER', token, 'CENTER', -10, (E.PixelMode and 1 or 3))
-					token.Text:Width(token:GetWidth() - 20)
-					token.Text:SetWordWrap(false)
 					
 					if E.db.dashboards.textColor == 1 then
 						token.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
@@ -196,14 +215,6 @@ function BUIT:UpdateTokens()
 						token.Text:SetText(format('%s / %s', amount, totalMax))
 					end
 
-					token.IconBG = CreateFrame('Frame', nil, token)
-					token.IconBG:SetTemplate('Transparent')
-					token.IconBG:Size(E.PixelMode and 18 or 20)
-					token.IconBG:Point('BOTTOMRIGHT', token, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
-
-					token.IconBG.Icon = token.IconBG:CreateTexture(nil, 'ARTWORK')
-					token.IconBG.Icon:SetInside()
-					token.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 					token.IconBG.Icon:SetTexture(icon)
 
 					token:SetScript('OnEnter', function(self)
@@ -233,6 +244,70 @@ function BUIT:UpdateTokens()
 			end
 		end
 	end
+	
+	-- Archaeology
+	local numRaces = GetNumArchaeologyRaces();
+	
+	for i = 1, numRaces do
+		local archyName, _, _, currencyAmount, projectAmount = GetArchaeologyRaceInfo(i)
+		
+		if archyName then
+			local currencyId = ArchyCurrency[i]
+		
+			if currencyId > 0 then
+				local name, amount, icon = GetCurrencyInfo(currencyId)			
+				
+				if db.chooseTokens[name] == true then
+					
+					if db.zeroamount or currencyAmount > 0 then
+						tokenHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#tokenFrames + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+
+						local archy = BUIT:CreateBar()
+
+						archy.Status:SetMinMaxValues(0, projectAmount)
+						archy.Status:SetValue(currencyAmount)
+						archy.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
+
+						if E.db.dashboards.dashfont.useDTfont then
+							archy.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+						else
+							archy.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
+						end
+						
+						if E.db.dashboards.textColor == 1 then
+							archy.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+						else
+							archy.Text:SetTextColor(unpackColor(E.db.dashboards.customTextColor))
+						end
+
+						archy.Text:SetText(format('%s / %s', currencyAmount, projectAmount))
+
+						archy.IconBG.Icon:SetTexture(icon)
+						
+						archy:SetScript('OnEnter', function(self)
+							archy.Text:SetText(format('%s', name))
+							if db.tooltip then
+								GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
+								GameTooltip:SetCurrencyByID(currencyId)
+							end
+						end)
+						
+						-- Flash
+						if db.flash then
+							E:Flash(archy, 0.2)
+						end
+				
+						archy:SetScript('OnLeave', function(self)
+							archy.Text:SetText(format('%s / %s', currencyAmount, projectAmount))
+							GameTooltip:Hide()
+						end)
+
+						tinsert(tokenFrames, archy)
+					end
+				end
+			end
+		end
+	end	
 
 	for key, frame in ipairs(tokenFrames) do
 		frame:ClearAllPoints()
