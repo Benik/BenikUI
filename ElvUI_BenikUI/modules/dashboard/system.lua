@@ -20,7 +20,7 @@ V['BUID'] = {
 local DASH_HEIGHT = 20
 local DASH_WIDTH = E.db.dashboards.system.width or 150
 local DASH_SPACING = 3
-local SPACING = (E.PixelMode and 1 or 5)
+local SPACING = 1
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
 
@@ -95,7 +95,7 @@ function BUID:UpdateBoards()
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
 			sysHolder.backdrop:Show()
-			sysHolder:Height(((DASH_HEIGHT + SPACING) * (#loadedBoards + 1)) + SPACING + (E.PixelMode and 0 or 4))
+			sysHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#loadedBoards + 1)) + DASH_SPACING)
 
 			local sysFrame = CreateFrame('Frame', name, sysHolder)
 			sysFrame:Height(DASH_HEIGHT)
@@ -135,7 +135,7 @@ function BUID:UpdateBoards()
 	for key, frame in ipairs(loadedBoards) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point( 'TOPLEFT', sysHolder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 2))
+			frame:Point( 'TOPLEFT', sysHolder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			frame:Point('TOP', loadedBoards[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
