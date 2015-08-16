@@ -9,7 +9,8 @@ if E.db.dashboards.professions == nil then E.db.dashboards.professions = {} end
 
 local DASH_HEIGHT = 20
 local DASH_WIDTH = E.db.dashboards.professions.width or 172
-local SPACING = (E.PixelMode and 1 or 5)
+local DASH_SPACING = 3
+local SPACING = 1
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
 
@@ -92,16 +93,16 @@ function BUIP:UpdateProfessions()
 			if name and (rank < capRank or (not db.capped)) then
 				if db.choosePofessions[name] == true then
 					proHolder.backdrop:Show()
-					proHolder:Height(((DASH_HEIGHT + SPACING) * (#BuiProfessions + 1)) + SPACING + (E.PixelMode and 0 or 2))
+					proHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BuiProfessions + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 
-					local ProFrame = CreateFrame('Frame', 'Profession' .. id, proHolder)
+					local ProFrame = CreateFrame('Frame', nil, proHolder)
 					ProFrame:Height(DASH_HEIGHT)
 					ProFrame:Width(DASH_WIDTH)
 					ProFrame:Point('TOPLEFT', proHolder, 'TOPLEFT', SPACING, -SPACING)
 					ProFrame:EnableMouse(true)
 					
-					ProFrame.dummy = CreateFrame('Frame', 'ProDummy' .. id, ProFrame)
-					ProFrame.dummy:Point('BOTTOMLEFT', ProFrame, 'BOTTOMLEFT', 2, 2)
+					ProFrame.dummy = CreateFrame('Frame', nil, ProFrame)
+					ProFrame.dummy:Point('BOTTOMLEFT', ProFrame, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
 					ProFrame.dummy:Point('BOTTOMRIGHT', ProFrame, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
 					ProFrame.dummy:Height(E.PixelMode and 3 or 5)
 
@@ -110,7 +111,7 @@ function BUIP:UpdateProfessions()
 					ProFrame.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
 					ProFrame.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
 					
-					ProFrame.Status = CreateFrame('StatusBar', 'ProStatus' .. id, ProFrame.dummy)
+					ProFrame.Status = CreateFrame('StatusBar', nil, ProFrame.dummy)
 					ProFrame.Status:SetStatusBarTexture(E['media'].BuiFlat)
 					
 					if (rankModifier and rankModifier > 0) then
@@ -150,7 +151,7 @@ function BUIP:UpdateProfessions()
 						ProFrame.Text:SetTextColor(unpackColor(E.db.dashboards.customTextColor))
 					end
 
-					ProFrame.IconBG = CreateFrame('Button', 'ProIconBG' .. id, ProFrame)
+					ProFrame.IconBG = CreateFrame('Button', nil, ProFrame)
 					ProFrame.IconBG:SetTemplate('Transparent')
 					ProFrame.IconBG:Size(E.PixelMode and 18 or 20)
 					ProFrame.IconBG:Point('BOTTOMRIGHT', ProFrame, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
