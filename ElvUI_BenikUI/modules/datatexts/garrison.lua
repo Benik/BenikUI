@@ -6,6 +6,7 @@ local DT = E:GetModule('DataTexts')
 local displayModifierString = ''
 local lastPanel;
 local GARRISON_CURRENCY = 824
+local GARRISON_CURRENCY_OIL = 1101
 local join = string.join
 local format = string.format
 local tsort = table.sort
@@ -128,6 +129,11 @@ local OnEnter = function(self)
 	
 	if E.db.bui.garrisonCurrency then 
 		local name, amount, tex = GetCurrencyInfo(GARRISON_CURRENCY)
+		DT.tooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, amount, 1, 1, 1, selectioncolor)
+	end
+	
+	if E.db.bui.garrisonCurrencyOil then
+		local name, amount, tex = GetCurrencyInfo(GARRISON_CURRENCY_OIL)
 		DT.tooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, amount, 1, 1, 1, selectioncolor)
 		DT.tooltip:AddLine(" ")
 	end
