@@ -271,9 +271,14 @@ local fly_icon = "Interface\\ICONS\\ABILITY_MOUNT_GOLDENGRYPHON"
 -- TaxiButton
 function BAB:TaxiButton()
 	if not E.db.bab.requestStop then return end
-	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent)
+	
+	local holder = CreateFrame('Frame', nil, E.UIParent)
+	holder:Point('CENTER', E.UIParent, 'CENTER', 0, 150)
+	holder:Size(200, 40)
+	
+	local tbtn = CreateFrame('Button', 'BuiTaxiButton', holder)
 	tbtn:Height(40)
-	tbtn:Point('CENTER', E.UIParent, 'CENTER', 0, 150)
+	tbtn:SetPoint('CENTER', holder, 'CENTER')
 	tbtn:SetTemplate("Transparent")
 	tbtn:Style('Outside')
 	tbtn:RegisterForClicks("AnyUp")
@@ -303,6 +308,8 @@ function BAB:TaxiButton()
 	tbtn:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR");
 	
 	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
+
+	E:CreateMover(holder, 'RequestStopButton', TAXI_CANCEL, nil, nil, nil, 'ALL,ACTIONBARS');
 end
 
 function BAB:Initialize()
