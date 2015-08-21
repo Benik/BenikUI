@@ -220,6 +220,15 @@ local function CliqueDecor()
 	tab:GetNormalTexture():SetTexCoord(.08, 0.92, 0.08, 0.92)
 end
 
+local function oRA3Decor()
+	hooksecurefunc(oRA3, "ToggleFrame", function() oRA3Frame:Style('Outside'); end)
+	
+	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")
+	if (ReadyCheckModule) then
+		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() oRA3ReadyCheck.backdrop:Style('Outside'); end)
+	end
+end
+
 if AS:CheckAddOn('Skada') then AS:RegisterSkin('Skada', SkadaDecor, 2) end
 if AS:CheckAddOn('Recount') then AS:RegisterSkin('Recount', RecountDecor, 2) end
 if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPS', TinyDPSDecor, 2) end
@@ -228,6 +237,7 @@ if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('Altoholic', AltoholicDecor, 
 if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinator', RareCoordDecor, 2) end
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
+if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
 	if not AcceptFrame.style then
