@@ -1,3 +1,19 @@
+[b]2.26[/b]
+*Styled oRA3 skin (AddOnSkins required ofc).
+*Followed lib changes made in ElvUI 8.26
+*Added mover for the Request Stop button
+*Added oil to the garrison datatext. Credit: Merathilis
+*Followed ElvUI commit: Don't try to add our API to forbidden frames
+*Professions Dashboard: Changed the non pixel perfect mode spacings and the created frames names
+*System Dashboard: Changed the non pixel perfect mode spacings
+*Tokens Dashboard: Changed the non pixel perfect mode spacings and the created frames names
+*Skinned and styled GarrisonRandomMissionAlertFrame
+*Install: Added the new bag item count font option 
+*Added option to toggle BenikUI style on ElvUI xp/rep bars 
+*Added option to Enable/Disable BenikUI chat datatexts and buttons backdrops
+*Styled ElvUI_Enhanced Raid Marker and Minimap Button Bar
+*Added Styles in the chat datatexts and buttons. The option applies only when chat backdrops are set to "Hide Both"
+
 [b]2.25[/b]
 *Skin Garrison Monument
 *German locale update
