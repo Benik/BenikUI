@@ -221,11 +221,11 @@ local function CliqueDecor()
 end
 
 local function oRA3Decor()
-	hooksecurefunc(oRA3, "ToggleFrame", function() oRA3Frame:Style('Outside'); end)
+	hooksecurefunc(oRA3, "ToggleFrame", function() oRA3Frame:Style('Small'); end)
 	
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")
 	if (ReadyCheckModule) then
-		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() oRA3ReadyCheck.backdrop:Style('Outside'); end)
+		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() oRA3ReadyCheck:Style('Small'); end)
 	end
 end
 
