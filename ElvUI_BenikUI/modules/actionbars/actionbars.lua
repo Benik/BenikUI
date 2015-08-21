@@ -309,7 +309,7 @@ function BAB:TaxiButton()
 	
 	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
 
-	E:CreateMover(holder, 'RequestStopButton', TAXI_CANCEL, nil, nil, nil, 'ALL,ACTIONBARS');
+	E:CreateMover(holder, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS');
 end
 
 function BAB:Initialize()
