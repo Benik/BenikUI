@@ -221,6 +221,7 @@ local function CliqueDecor()
 end
 
 local function oRA3Decor()
+	if not E.db.buiaddonskins.ora then return end
 	hooksecurefunc(oRA3, "ToggleFrame", function() oRA3Frame:Style('Small'); end)
 	
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")

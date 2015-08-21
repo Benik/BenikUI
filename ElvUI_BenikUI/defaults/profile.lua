@@ -158,6 +158,7 @@ P['ufb'] = {
 	['barshow'] = true,
 	['barheight'] = 20,
 	['toggleTransparency'] = true,
+	--['threat'] = true,
 	-- Detach portrait
 	['detachPlayerPortrait'] = false,
 	['PlayerPortraitWidth'] = 110,
@@ -199,6 +200,7 @@ P['buiaddonskins'] = {
 	['altoholic'] = true,
 	['zg'] = true,
 	['clique'] = true,
+	['ora'] = true,
 }
 
 -- Skins

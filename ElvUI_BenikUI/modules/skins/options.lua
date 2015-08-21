@@ -24,6 +24,7 @@ local DecorAddons = {
 	{'Altoholic', L['Altoholic'], 'altoholic'},
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zg'},
 	{'Clique', L['Clique'], 'clique'},
+	{'oRA3', L['oRA3'], 'ora'},
 }
 
 local function SkinTable()
@@ -114,21 +115,7 @@ local function SkinTable()
 			},	
 		},
 	}
-		--P['dtbars'] = {}
-		--[[if not E.db.dtbars then E.db.dtbars = {} end
-		for panelname, data in pairs(E.global.dtbars) do
-			if panelname then
-				--_G[panelname]:Style('Outside')
-				E.Options.args.dtbars.args[panelname].styled = {
-					order = 8,
-					type = 'toggle',
-					name = L['BenikUI Style'],
-					get = function(info) return E.global.dtbars[panelname].styled end,
-					set = function(info, value) E.global.dtbars[panelname].styled = value; E:StaticPopup_Show("GLOBAL_RL") end,
-				}
 
-			end
-		end]]
 end
 
 table.insert(E.BuiConfig, SkinTable)

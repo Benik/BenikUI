@@ -162,7 +162,7 @@ L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten P
 L['Player Size'] = "Spieler Größe"
 L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite und Höhe"
 
--- Addon real names
+-- Addon friendly names
 L['LocationLite'] = true
 L['LocationPlus'] = true
 L['Shadow & Light'] = true
@@ -176,3 +176,4 @@ L['AtlasLoot'] = true
 L['Altoholic'] = true
 L['Zygor Guides'] = true
 L['Clique'] = true
+L['oRA3'] = true

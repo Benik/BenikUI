@@ -163,7 +163,7 @@ L['Change the detached portrait height'] = true
 L['Player Size'] = true
 L['Copy Player portrait width and height'] = true
 
--- Addon real names
+-- Addon friendly names
 L['LocationLite'] = true
 L['LocationPlus'] = true
 L['Shadow & Light'] = true
@@ -177,3 +177,4 @@ L['AtlasLoot'] = true
 L['Altoholic'] = true
 L['Zygor Guides'] = true
 L['Clique'] = true
+L['oRA3'] = true
