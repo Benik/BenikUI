@@ -11,6 +11,7 @@
 *Install: Added the new bag item count font option 
 *Added option to toggle BenikUI style on ElvUI xp/rep bars 
 *Added option to Enable/Disable BenikUI chat datatexts and buttons backdrops
+*Added styling for ElvUI_DTBars2. All datatexts get styled with this. Can be disabled in BenikUI -> AddOns options.
 *Styled ElvUI_Enhanced Raid Marker and Minimap Button Bar
 *Added Styles in the chat datatexts and buttons. The option applies only when chat backdrops are set to "Hide Both"
 
