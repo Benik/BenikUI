@@ -8,7 +8,6 @@ local SPACING = (E.PixelMode and 1 or 2)
 local FreeBlizzFrames = {
 	AddFriendFrame,
 	AddonList,
-	AuctionProgressFrame,
 	AudioOptionsFrame,
 	BNToastFrame,
 	ChatConfigFrame,
@@ -228,11 +227,11 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	end
 	
 	if addon == 'Blizzard_AuctionUI' then
-		if not WowTokenGameTimeTutorial.style then
-			WowTokenGameTimeTutorial:Style('Small')
-		end
 		if not AuctionProgressFrame.style then
 			AuctionProgressFrame:Style('Outside')
+		end
+		if not WowTokenGameTimeTutorial.style then
+			WowTokenGameTimeTutorial:Style('Small')
 		end
 	end
 
