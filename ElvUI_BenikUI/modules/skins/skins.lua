@@ -253,7 +253,7 @@ local function styleFreeBlizzardFrames()
 	
 	for _, frame in pairs(FreeBlizzFrames) do
 		if frame and not frame.style then
-			frame:Style('Skin')
+			frame:Style('Outside')
 		end
 	end
 
