@@ -227,6 +227,9 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	end
 	
 	if addon == 'Blizzard_AuctionUI' then
+		if not AuctionProgressFrame.style then
+			AuctionProgressFrame:Style('Outside')
+		end
 		if not WowTokenGameTimeTutorial.style then
 			WowTokenGameTimeTutorial:Style('Small')
 		end
