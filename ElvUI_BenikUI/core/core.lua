@@ -12,7 +12,7 @@ BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t
 
 local function StyleTooltip()
 	if E.db.bui.buiStyle ~= true then return end
-	GameTooltip:Style('Inside')
+	GameTooltip:Style('Outside')
 
 	if IsAddOnLoaded('FreebTip') then
 		GameTooltip.style:ClearAllPoints()
@@ -77,7 +77,7 @@ function BUI:Initialize()
 	if ElvDB.profileKeys and profileKey == nil then self:SetupBui() end
 
 	if E.db.bui.LoginMsg then
-		print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..BUI:PrintURL('http://www.tukui.org/forums/topic.php?id=30598'))
+		print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..BUI:PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues'))
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
