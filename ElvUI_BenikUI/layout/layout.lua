@@ -213,24 +213,30 @@ function BUIL:ToggleTransparency()
 		for i = 1, BUTTON_NUM do
 			bbuttons[i]:StripTextures()
 		end
-		ElvUI_ReputationBar.fb:StripTextures()
-		ElvUI_ExperienceBar.fb:StripTextures()
+		if E.db.buixprep.enable then
+			ElvUI_ReputationBar.fb:StripTextures()
+			ElvUI_ExperienceBar.fb:StripTextures()
+		end
 	elseif db.transparentDts then
 		Bui_ldtp:SetTemplate('Transparent')
 		Bui_rdtp:SetTemplate('Transparent')	
 		for i = 1, BUTTON_NUM do
 			bbuttons[i]:SetTemplate('Transparent')
 		end
-		ElvUI_ReputationBar.fb:SetTemplate('Transparent')
-		ElvUI_ExperienceBar.fb:SetTemplate('Transparent')
+		if E.db.buixprep.enable then
+			ElvUI_ReputationBar.fb:SetTemplate('Transparent')
+			ElvUI_ExperienceBar.fb:SetTemplate('Transparent')
+		end
 	else
 		Bui_ldtp:SetTemplate('Default', true)
 		Bui_rdtp:SetTemplate('Default', true)
 		for i = 1, BUTTON_NUM do
 			bbuttons[i]:SetTemplate('Default', true)
 		end
-		ElvUI_ReputationBar.fb:SetTemplate('Default', true)
-		ElvUI_ExperienceBar.fb:SetTemplate('Default', true)
+		if E.db.buixprep.enable then
+			ElvUI_ReputationBar.fb:SetTemplate('Default', true)
+			ElvUI_ExperienceBar.fb:SetTemplate('Default', true)
+		end
 	end
 end
 
@@ -469,8 +475,8 @@ function BUIL:ChangeLayout()
 		end
 	end
 
-	LeftChatPanel.backdrop:Style('Inside', 'LeftChatPanel_Bui') -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
-	RightChatPanel.backdrop:Style('Inside', 'RightChatPanel_Bui')
+	LeftChatPanel.backdrop:Style('Outside', 'LeftChatPanel_Bui') -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
+	RightChatPanel.backdrop:Style('Outside', 'RightChatPanel_Bui')
 	
 	-- Minimap elements styling
 	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end
@@ -482,7 +488,7 @@ function BUIL:ChangeLayout()
 		ElvUI_ConsolidatedBuffs:Style('Outside')
 	end
 	
-	CopyChatFrame:Style('Inside')
+	CopyChatFrame:Style('Outside')
 	
 	if FarmModeMap then FarmModeMap.backdrop:Style('Outside') end
 	
