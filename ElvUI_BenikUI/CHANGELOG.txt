@@ -1,3 +1,9 @@
+[b]2.27[/b]
+*Prevent a lua error when BenikUI xp/rep bars and styles are disabled
+*Styled the AuctionProgressFrame. Credit: Merathilis
+*Added ROADWAY.ttf font
+*Changed the non pixel perfect 'Outside style' spacings
+
 [b]2.26[/b]
 *Styled oRA3 skin (AddOnSkins required ofc).
 *Followed lib changes made in ElvUI 8.26

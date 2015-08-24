@@ -1,6 +1,6 @@
 ## Interface: 60200
 ## Author: Benik
-## Version: 2.26
+## Version: 2.27
 ## Title: |cff1784d1ElvUI|r_BenikUI
 ## Notes: an ElvUI 8+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
