@@ -158,7 +158,7 @@ P['ufb'] = {
 	['barshow'] = true,
 	['barheight'] = 20,
 	['toggleTransparency'] = true,
-	--['threat'] = true,
+	['threat'] = false,
 	-- Detach portrait
 	['detachPlayerPortrait'] = false,
 	['PlayerPortraitWidth'] = 110,

@@ -25,8 +25,16 @@ local function ufTable()
 						name = ENABLE,
 						desc = L['Enable the Empty frames (Player and Target).'],
 					},
-					barheight = {
+					toggleTransparency = {
 						order = 2,
+						type = 'toggle',
+						name = L['Transparent'],
+						desc = L['Toggle EmptyBars transparency'],
+						get = function(info) return E.db.ufb[ info[#info] ] end,
+						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarTransparency(); UFB:ToggleTargetBarTransparency(); end,
+					},
+					barheight = {
+						order = 3,
 						type = 'range',
 						name = L['Height'],
 						desc = L['Change the Empty frames height (Player and Target).'],
@@ -34,13 +42,13 @@ local function ufTable()
 						disabled = function() return not E.db.ufb.barshow end,
 						min = 10, max = 50, step = 1,
 					},
-					toggleTransparency = {
-						order = 1,
+					threat = {
+						order = 4,
 						type = 'toggle',
-						name = L['Transparent'],
-						desc = L['Toggle EmptyBars transparency'],
+						name = L['Threat on EmptyBars']..BUI.newsign,
+						desc = L['Places the threat glow on PlayerBar and TargetBar'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarTransparency(); UFB:ToggleTargetBarTransparency(); end,
+						set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdatePlayer(); BUIC:UpdateTarget(); UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); end,
 					},
 				},
 			},
@@ -92,7 +100,7 @@ local function ufTable()
 					hideText = {
 						type = 'toggle',
 						order = 4,
-						name = L['Hide Emptybar text']..BUI.newsign,
+						name = L['Hide Emptybar text'],
 						desc = L['Hide any text placed on the Emptybars, while casting.'],
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},

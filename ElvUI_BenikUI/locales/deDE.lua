@@ -161,6 +161,8 @@ L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten P
 L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten Portrait"
 L['Player Size'] = "Spieler Größe"
 L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite und Höhe"
+L['Threat on EmptyBars'] = true
+L['Places the threat glow on PlayerBar and TargetBar'] = true
 
 -- Addon friendly names
 L['LocationLite'] = true

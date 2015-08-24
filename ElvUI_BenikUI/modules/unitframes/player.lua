@@ -5,6 +5,8 @@ local UF = E:GetModule('UnitFrames');
 local SPACING = E.Spacing;
 local BORDER = E.Border;
 
+local CAN_HAVE_CLASSBAR = (E.myclass == "PALADIN" or E.myclass == "DRUID" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" or E.myclass == 'MAGE' or E.myclass == 'ROGUE')
+
 local frame = _G["ElvUF_Player"]
 
 function UFB:ApplyPlayerChanges()
@@ -31,6 +33,117 @@ function UFB:TogglePlayerBarTransparency()
 	end
 end
 
+function UFB:UpdatePlayerBarAnchors(frame, isShown)
+	local db = E.db['unitframe']['units'].player
+	local threat = frame.Threat
+	local PlayerBar = BUI_PlayerBar
+	local POWERBAR_HEIGHT = db.power.height
+	local CLASSBAR_HEIGHT = db.classbar.height
+	local USE_CLASSBAR = db.classbar.enable and CAN_HAVE_CLASSBAR
+	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and USE_CLASSBAR
+	local SPACING = E.Spacing;
+	local SHADOW_SPACING = E.PixelMode and 3 or 4
+	
+	local PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
+	local PLAYER_PORTRAIT_HEIGHT = E.db.ufb.PlayerPortraitHeight
+	local USE_PORTRAIT = db.portrait.enable
+	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
+	local PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
+	
+	local mini_classbarY = 0
+	if USE_MINI_CLASSBAR then
+		mini_classbarY = -(SPACING+(CLASSBAR_HEIGHT))
+	end
+	
+	if isShown then
+		if db.threatStyle == "GLOW" then
+			if E.db.ufb.threat then
+				threat.glow:Point("TOPLEFT", PlayerBar, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
+				threat.glow:Point("TOPRIGHT", PlayerBar, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
+			else
+				threat.glow:Point("TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
+				threat.glow:Point("TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
+			end
+
+			if USE_MINI_POWERBAR then
+				threat.glow:Point("BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+				threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+			else
+				threat.glow:Point("BOTTOMLEFT", PlayerBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+				threat.glow:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+			end
+
+			if USE_POWERBAR_OFFSET then
+				threat.glow:Point("TOPRIGHT", SHADOW_SPACING-POWERBAR_OFFSET, SHADOW_SPACING+mini_classbarY)
+				threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING-POWERBAR_OFFSET, -SHADOW_SPACING)
+			end
+		end
+		
+		if db.portrait.enable and not USE_PORTRAIT_OVERLAY and frame.Portrait then
+			local portrait = frame.Portrait
+			portrait.backdrop:ClearAllPoints()
+			
+			if PORTRAIT_DETACHED then
+				frame.portraitmover:Width(PLAYER_PORTRAIT_WIDTH)
+				frame.portraitmover:Height(PLAYER_PORTRAIT_HEIGHT)
+				portrait.backdrop:SetAllPoints(frame.portraitmover)
+			else
+				if USE_MINI_CLASSBAR and USE_CLASSBAR then
+					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", 0, -(CLASSBAR_HEIGHT + SPACING))
+				else
+					portrait.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT")
+				end
+
+				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or USE_INSET_POWERBAR or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
+					portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+				else
+					portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+				end
+			end
+		end
+	else
+		if db.threatStyle == "GLOW" then
+			if E.db.ufb.threat then
+				threat.glow:Point("TOPLEFT", PlayerBar, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
+				threat.glow:Point("TOPRIGHT", PlayerBar, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
+			else
+				threat.glow:Point("TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
+				threat.glow:Point("TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
+			end			
+
+			if USE_MINI_POWERBAR then
+				threat.glow:Point("BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+				threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+			else
+				threat.glow:Point("BOTTOMLEFT", PlayerBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+				threat.glow:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+			end
+
+			if USE_POWERBAR_OFFSET then
+				threat.glow:Point("TOPRIGHT", SHADOW_SPACING-POWERBAR_OFFSET, SHADOW_SPACING)
+				threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING-POWERBAR_OFFSET, -SHADOW_SPACING)
+			end
+		end
+		
+		if db.portrait.enable and not USE_PORTRAIT_OVERLAY and frame.Portrait then
+			local portrait = frame.Portrait
+			portrait.backdrop:ClearAllPoints()
+			portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT")
+			if PORTRAIT_DETACHED then
+				frame.portraitmover:Width(PLAYER_PORTRAIT_WIDTH)
+				frame.portraitmover:Height(PLAYER_PORTRAIT_HEIGHT)
+				portrait.backdrop:SetAllPoints(frame.portraitmover)
+			else
+				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
+					portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+				else
+					portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+				end
+			end
+		end
+	end
+end
+
 function UFB:ArrangePlayer()
 	local EMPTY_BARS_HEIGHT = E.db.ufb.barheight
 	local PlayerBar = BUI_PlayerBar
@@ -39,12 +152,16 @@ function UFB:ArrangePlayer()
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
-
+	local SHADOW_SPACING = E.PixelMode and 3 or 4
 	local USE_POWERBAR = db.power.enable
+	local POWERBAR_HEIGHT = db.power.height
 	local USE_INSET_POWERBAR = db.power.width == 'inset' and USE_POWERBAR
 	local USE_MINI_POWERBAR = db.power.width == 'spaced' and USE_POWERBAR
 	local POWERBAR_DETACHED = db.power.detachFromFrame
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR and not POWERBAR_DETACHED
+	local POWERBAR_OFFSET = db.power.offset
+	local USE_CLASSBAR = db.classbar.enable and CAN_HAVE_CLASSBAR
+	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and USE_CLASSBAR and db.classbar.detachFromFrame ~= true
 	
 	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
@@ -146,10 +263,73 @@ function UFB:ArrangePlayer()
 			end
 		end
 	end
+	
+	local mini_classbarY = 0
+	if USE_MINI_CLASSBAR then
+		mini_classbarY = -(SPACING+(CLASSBAR_HEIGHT/2))
+	end
+	
+	--Threat
+	do
+		local threat = frame.Threat
+
+		if db.threatStyle ~= 'NONE' and db.threatStyle ~= nil then
+			if db.threatStyle == "GLOW" then
+				threat:SetFrameStrata('BACKGROUND')
+				threat.glow:ClearAllPoints()
+				threat.glow:SetBackdropBorderColor(0, 0, 0, 0)
+				if E.db.ufb.threat and USE_EMPTY_BAR and not USE_POWERBAR_OFFSET then
+					threat.glow:Point("TOPLEFT", PlayerBar, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
+					threat.glow:Point("TOPRIGHT", PlayerBar, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)			
+				else
+					threat.glow:Point("TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
+					threat.glow:Point("TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
+				end
+
+				if USE_MINI_POWERBAR then
+					if USE_EMPTY_BAR then
+						threat.glow:Point("BOTTOMLEFT", PlayerBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+						threat.glow:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+					else
+						threat.glow:Point("BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+						threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))					
+					end
+				else
+					if USE_EMPTY_BAR then
+						threat.glow:Point("BOTTOMLEFT", PlayerBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+					else
+						threat.glow:Point("BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)					
+					end
+				end
+
+				if USE_POWERBAR_OFFSET then
+					threat.glow:Point("TOPRIGHT", SHADOW_SPACING-POWERBAR_OFFSET, SHADOW_SPACING+mini_classbarY)
+					threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING-POWERBAR_OFFSET, -SHADOW_SPACING)
+
+					if USE_PORTRAIT == true and not USE_PORTRAIT_OVERLAY then
+						threat.glow:Point("BOTTOMLEFT", frame.Portrait.backdrop, "BOTTOMLEFT", -4, -4)
+					else
+						threat.glow:Point("BOTTOMLEFT", frame.Health, "BOTTOMLEFT", -5, -5)
+					end
+					threat.glow:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", 5, -5)
+				end
+			elseif db.threatStyle == "ICONTOPLEFT" or db.threatStyle == "ICONTOPRIGHT" or db.threatStyle == "ICONBOTTOMLEFT" or db.threatStyle == "ICONBOTTOMRIGHT" or db.threatStyle == "ICONTOP" or db.threatStyle == "ICONBOTTOM" or db.threatStyle == "ICONLEFT" or db.threatStyle == "ICONRIGHT" then
+				threat:SetFrameStrata('HIGH')
+				local point = db.threatStyle
+				point = point:gsub("ICON", "")
+
+				threat.texIcon:ClearAllPoints()
+				threat.texIcon:SetPoint(point, frame.Health, point)
+			end
+		end
+	end
 end
 
 function UFB:InitPlayer()
 	self:ApplyPlayerChanges()
-	hooksecurefunc(UF, 'UpdatePlayerFrameAnchors', UFB.ArrangePlayer) -- class portrait issue fix
+	hooksecurefunc(UF, 'UpdatePlayerFrameAnchors', UFB.UpdatePlayerBarAnchors)
+	--hooksecurefunc(UF, 'UpdatePlayerFrameAnchors', UFB.ArrangePlayer) -- class portrait issue fix
 	hooksecurefunc(UF, 'Update_PlayerFrame', UFB.ArrangePlayer)
 end

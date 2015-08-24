@@ -162,6 +162,8 @@ L['Change the detached portrait width'] = true
 L['Change the detached portrait height'] = true
 L['Player Size'] = true
 L['Copy Player portrait width and height'] = true
+L['Threat on EmptyBars'] = true
+L['Places the threat glow on PlayerBar and TargetBar'] = true
 
 -- Addon friendly names
 L['LocationLite'] = true
