@@ -44,6 +44,7 @@ function UFB:UpdatePlayerBarAnchors(frame, isShown)
 	local SPACING = E.Spacing;
 	local SHADOW_SPACING = E.PixelMode and 3 or 4
 	
+	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
 	local PLAYER_PORTRAIT_HEIGHT = E.db.ufb.PlayerPortraitHeight
 	local USE_PORTRAIT = db.portrait.enable
@@ -95,9 +96,17 @@ function UFB:UpdatePlayerBarAnchors(frame, isShown)
 				end
 
 				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or USE_INSET_POWERBAR or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
-					portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					if USE_EMPTY_BAR then
+						portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					else
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					end
 				else
-					portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					if USE_EMPTY_BAR then
+						portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					else
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					end
 				end
 			end
 		end
@@ -134,10 +143,18 @@ function UFB:UpdatePlayerBarAnchors(frame, isShown)
 				frame.portraitmover:Height(PLAYER_PORTRAIT_HEIGHT)
 				portrait.backdrop:SetAllPoints(frame.portraitmover)
 			else
-				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
-					portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or USE_INSET_POWERBAR or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
+					if USE_EMPTY_BAR then
+						portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					else
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					end
 				else
-					portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					if USE_EMPTY_BAR then
+						portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					else
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+					end
 				end
 			end
 		end
@@ -309,7 +326,12 @@ function UFB:ArrangePlayer()
 					threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING-POWERBAR_OFFSET, -SHADOW_SPACING)
 
 					if USE_PORTRAIT == true and not USE_PORTRAIT_OVERLAY then
-						threat.glow:Point("BOTTOMLEFT", frame.Portrait.backdrop, "BOTTOMLEFT", -4, -4)
+						if PORTRAIT_DETACHED then
+							threat.glow:Point("TOPRIGHT", frame.portraitmover, "TOPRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+							threat.glow:Point("BOTTOMRIGHT", frame.portraitmover, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+						else
+							threat.glow:Point("BOTTOMLEFT", frame.Portrait.backdrop, "BOTTOMLEFT", -4, -4)
+						end
 					else
 						threat.glow:Point("BOTTOMLEFT", frame.Health, "BOTTOMLEFT", -5, -5)
 					end
@@ -330,6 +352,5 @@ end
 function UFB:InitPlayer()
 	self:ApplyPlayerChanges()
 	hooksecurefunc(UF, 'UpdatePlayerFrameAnchors', UFB.UpdatePlayerBarAnchors)
-	--hooksecurefunc(UF, 'UpdatePlayerFrameAnchors', UFB.ArrangePlayer) -- class portrait issue fix
 	hooksecurefunc(UF, 'Update_PlayerFrame', UFB.ArrangePlayer)
 end
