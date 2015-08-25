@@ -214,8 +214,12 @@ function BUIL:ToggleTransparency()
 			bbuttons[i]:StripTextures()
 		end
 		if E.db.buixprep.enable then
-			ElvUI_ReputationBar.fb:StripTextures()
-			ElvUI_ExperienceBar.fb:StripTextures()
+			if ElvUI_ReputationBar.fb then
+				ElvUI_ReputationBar.fb:StripTextures()
+			end
+			if ElvUI_ExperienceBar.fb then
+				ElvUI_ExperienceBar.fb:StripTextures()
+			end
 		end
 	elseif db.transparentDts then
 		Bui_ldtp:SetTemplate('Transparent')
@@ -224,8 +228,12 @@ function BUIL:ToggleTransparency()
 			bbuttons[i]:SetTemplate('Transparent')
 		end
 		if E.db.buixprep.enable then
-			ElvUI_ReputationBar.fb:SetTemplate('Transparent')
-			ElvUI_ExperienceBar.fb:SetTemplate('Transparent')
+			if ElvUI_ReputationBar.fb then
+				ElvUI_ReputationBar.fb:SetTemplate('Transparent')
+			end
+			if ElvUI_ExperienceBar.fb then
+				ElvUI_ExperienceBar.fb:SetTemplate('Transparent')
+			end
 		end
 	else
 		Bui_ldtp:SetTemplate('Default', true)
@@ -234,8 +242,12 @@ function BUIL:ToggleTransparency()
 			bbuttons[i]:SetTemplate('Default', true)
 		end
 		if E.db.buixprep.enable then
-			ElvUI_ReputationBar.fb:SetTemplate('Default', true)
-			ElvUI_ExperienceBar.fb:SetTemplate('Default', true)
+			if ElvUI_ReputationBar.fb then
+				ElvUI_ReputationBar.fb:SetTemplate('Default', true)
+			end
+			if ElvUI_ExperienceBar.fb then
+				ElvUI_ExperienceBar.fb:SetTemplate('Default', true)
+			end
 		end
 	end
 end
@@ -493,10 +505,10 @@ function BUIL:ChangeLayout()
 	if FarmModeMap then FarmModeMap.backdrop:Style('Outside') end
 	
 	self:ResizeMinimapPanels()
+	self:ToggleTransparency()
 end
 
 function BUIL:PLAYER_ENTERING_WORLD(...)
-	self:ToggleTransparency()
 	self:ToggleBuiDts()
 	self:MiddleDatatextLayout()
 	self:MiddleDatatextDimensions()
