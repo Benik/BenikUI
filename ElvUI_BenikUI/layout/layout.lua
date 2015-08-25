@@ -500,7 +500,7 @@ function BUIL:ChangeLayout()
 		ElvUI_ConsolidatedBuffs:Style('Outside')
 	end
 	
-	CopyChatFrame:Style('Outside')
+	if CopyChatFrame then CopyChatFrame:Style('Outside') end
 	
 	if FarmModeMap then FarmModeMap.backdrop:Style('Outside') end
 	
