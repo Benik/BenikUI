@@ -221,6 +221,7 @@ local function TaxiButton_OnEvent(self, event)
 		self.IconBG:SetBackdropColor(unpackColor(E.db.general.backdropcolor))
 		self.IconBG.Icon:SetAlpha(0.5)
 		self:EnableMouse(true)
+		BuiTaxiButtonHolder:SetWidth(self:GetWidth() + 42)
 	else
 		self:Hide()
 	end
@@ -272,13 +273,13 @@ local fly_icon = "Interface\\ICONS\\ABILITY_MOUNT_GOLDENGRYPHON"
 function BAB:TaxiButton()
 	if not E.db.bab.requestStop then return end
 	
-	local holder = CreateFrame('Frame', nil, E.UIParent)
+	local holder = CreateFrame('Frame', 'BuiTaxiButtonHolder', E.UIParent)
 	holder:Point('CENTER', E.UIParent, 'CENTER', 0, 150)
 	holder:Size(200, 40)
 	
 	local tbtn = CreateFrame('Button', 'BuiTaxiButton', holder)
 	tbtn:Height(40)
-	tbtn:SetPoint('CENTER', holder, 'CENTER')
+	tbtn:SetPoint('RIGHT', holder, 'RIGHT')
 	tbtn:SetTemplate("Transparent")
 	tbtn:Style('Outside')
 	tbtn:RegisterForClicks("AnyUp")
