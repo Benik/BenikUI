@@ -274,7 +274,7 @@ function BAB:TaxiButton()
 	if not E.db.bab.requestStop then return end
 	
 	local holder = CreateFrame('Frame', 'BuiTaxiButtonHolder', E.UIParent)
-	holder:Point('CENTER', E.UIParent, 'CENTER', 0, 150)
+	holder:Point('TOP', E.UIParent, 'TOP', 0, -150)
 	holder:Size(200, 40)
 	
 	local tbtn = CreateFrame('Button', 'BuiTaxiButton', holder)
