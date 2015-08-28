@@ -9,14 +9,12 @@ local function xprepTable()
 		order = 30,
 		type = 'group',
 		name = COMBAT_XP_GAIN.."/"..REPUTATION,
-		childGroups = "tab",
 		disabled = function() return not E.db.ufb.barshow or not E.private.unitframe.enable end,
 		args = {
 			enable = {
 				order = 1,
 				type = 'toggle',
 				name = ENABLE,
-				width = 'full',
 				get = function(info) return E.db.buixprep.enable end,
 				set = function(info, value) E.db.buixprep.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
@@ -24,6 +22,7 @@ local function xprepTable()
 				order = 2,
 				type = 'toggle',
 				name = L['BenikUI Style'],
+				disabled = function() return not E.db.buixprep.enable end,
 				desc = L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'],
 				get = function(info) return E.db.buixprep.buiStyle end,
 				set = function(info, value) E.db.buixprep.buiStyle = value; BXR:ApplyXpRepStyling(); end,
@@ -32,8 +31,6 @@ local function xprepTable()
 				order = 3,
 				type = 'group',
 				name = COLOR,
-				childGroups = "tab",
-				disabled = function() return not E.db.buixprep.enable end,
 				args = {
 					experience = {
 						order = 1,
