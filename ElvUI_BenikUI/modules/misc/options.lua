@@ -56,9 +56,11 @@ local function xprepTable()
 								disabled = function() return E.db.buixprep.color.experience.default end,
 								get = function(info)
 									local t = E.db.buixprep.color.experience.xp
-									return t.r, t.g, t.b, t.a
+									local d = P.buixprep.color.experience.xp
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 									end,
 								set = function(info, r, g, b, a)
+									E.db.buixprep[ info[#info] ] = {}
 									local t = E.db.buixprep.color.experience.xp
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeXPcolor()
@@ -72,9 +74,11 @@ local function xprepTable()
 								disabled = function() return E.db.buixprep.color.experience.default end,
 								get = function(info)
 									local t = E.db.buixprep.color.experience.rested
-									return t.r, t.g, t.b, t.a
+									local d = P.buixprep.color.experience.rested
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 									end,
 								set = function(info, r, g, b, a)
+									E.db.buixprep[ info[#info] ] = {}
 									local t = E.db.buixprep.color.experience.rested
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeXPcolor()
@@ -103,9 +107,11 @@ local function xprepTable()
 								disabled = function() return E.db.buixprep.color.reputation.default end,
 								get = function(info)
 									local t = E.db.buixprep.color.reputation.friendly
-									return t.r, t.g, t.b, t.a
+									local d = P.buixprep.color.reputation.friendly
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 									end,
 								set = function(info, r, g, b, a)
+									E.db.buixprep[ info[#info] ] = {}
 									local t = E.db.buixprep.color.reputation.friendly
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeRepColor()
@@ -119,9 +125,11 @@ local function xprepTable()
 								disabled = function() return E.db.buixprep.color.reputation.default end,
 								get = function(info)
 									local t = E.db.buixprep.color.reputation.neutral
-									return t.r, t.g, t.b, t.a
+									local d = P.buixprep.color.reputation.neutral
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 									end,
 								set = function(info, r, g, b, a)
+									E.db.buixprep[ info[#info] ] = {}
 									local t = E.db.buixprep.color.reputation.neutral
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeRepColor()
@@ -135,9 +143,11 @@ local function xprepTable()
 								disabled = function() return E.db.buixprep.color.reputation.default end,
 								get = function(info)
 									local t = E.db.buixprep.color.reputation.unfriendly
-									return t.r, t.g, t.b, t.a
+									local d = P.buixprep.color.reputation.unfriendly
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 									end,
 								set = function(info, r, g, b, a)
+									E.db.buixprep[ info[#info] ] = {}
 									local t = E.db.buixprep.color.reputation.unfriendly
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeRepColor()
@@ -151,9 +161,11 @@ local function xprepTable()
 								disabled = function() return E.db.buixprep.color.reputation.default end,
 								get = function(info)
 									local t = E.db.buixprep.color.reputation.hated
-									return t.r, t.g, t.b, t.a
+									local d = P.buixprep.color.reputation.hated
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 									end,
 								set = function(info, r, g, b, a)
+									E.db.buixprep[ info[#info] ] = {}
 									local t = E.db.buixprep.color.reputation.hated
 									t.r, t.g, t.b, t.a = r, g, b, a
 									BXR:ChangeRepColor()
