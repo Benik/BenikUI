@@ -40,7 +40,7 @@ function BUIC:CastbarSetSize(unit, bar)
 			local Mover = BuiUnits[unit][2];
 			local EmptyBar = bar;
 			local ebw = EmptyBar:GetWidth();
-			local ebh = EmptyBar:GetHeight() - 2;
+			local ebh = EmptyBar:GetHeight() + (E.PixelMode and -2 or -4);
 			local origWidth, origHeight = UnitUF:GetWidth(), 18
 			
 			if E.db.ufb.barshow and E.db.ufb.attachCastbar then
@@ -190,11 +190,13 @@ function BUIC:SetSizeAndPosition()
 end
 
 function BUIC:PLAYER_ENTERING_WORLD()
-	self:ScheduleTimer('SetSizeAndPosition', 10)
+	--self:ScheduleTimer('SetSizeAndPosition', 10)
+	self:SetSizeAndPosition()
 end
 
 function BUIC:ACTIVE_TALENT_GROUP_CHANGED()
-	self:ScheduleTimer('SetSizeAndPosition', 3)
+	--self:ScheduleTimer('SetSizeAndPosition', 3)
+	self:SetSizeAndPosition()
 end
 
 function BUIC:UpdatePlayer()
@@ -227,7 +229,7 @@ function BUIC:OnInitialize()
 			end
 		end)
 	end
-	
+
 	--Register a few events we need
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED')
