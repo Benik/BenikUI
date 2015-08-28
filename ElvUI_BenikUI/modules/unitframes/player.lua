@@ -179,7 +179,8 @@ function UFB:ArrangePlayer()
 	local POWERBAR_OFFSET = db.power.offset
 	local USE_CLASSBAR = db.classbar.enable and CAN_HAVE_CLASSBAR
 	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and USE_CLASSBAR and db.classbar.detachFromFrame ~= true
-	
+	local CLASSBAR_HEIGHT = db.classbar.height
+	local CLASSBAR_WIDTH = db.width - (BORDER*2)
 	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
 	local PLAYER_PORTRAIT_HEIGHT = E.db.ufb.PlayerPortraitHeight
@@ -326,7 +327,7 @@ function UFB:ArrangePlayer()
 					threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING-POWERBAR_OFFSET, -SHADOW_SPACING)
 
 					if USE_PORTRAIT == true and not USE_PORTRAIT_OVERLAY then
-						if PORTRAIT_DETACHED then
+						if PORTRAIT_DETACHED then -- check
 							threat.glow:Point("TOPRIGHT", frame.portraitmover, "TOPRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 							threat.glow:Point("BOTTOMRIGHT", frame.portraitmover, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 						else
