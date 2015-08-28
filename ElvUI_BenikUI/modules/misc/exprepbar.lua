@@ -128,18 +128,11 @@ function BXR:ChangeXPcolor()
 	local elvrestedstatus = ElvUI_ExperienceBar.rested
 	
 	if db.default then
-		if db.applyInElvUI then
-			elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
-			elvrestedstatus:SetStatusBarColor(1, 0, 1, 0.2)
-		end
+		elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
+		elvrestedstatus:SetStatusBarColor(1, 0, 1, 0.2)
 	else
-		if db.applyInElvUI then
-			elvxpstatus:SetStatusBarColor(unpackColor(db.xp))
-			elvrestedstatus:SetStatusBarColor(unpackColor(db.rested))
-		else
-			elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
-			elvrestedstatus:SetStatusBarColor(1, 0, 1, 0.2)		
-		end
+		elvxpstatus:SetStatusBarColor(unpackColor(db.xp))
+		elvrestedstatus:SetStatusBarColor(unpackColor(db.rested))
 	end
 end
 
