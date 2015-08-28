@@ -120,12 +120,7 @@ L['ZYGOR_CONFLICT_WARNING'] = "It has been reported that Zygor Guides has issues
 L['|cff00ff00New Mail|r'] = true
 L['No Mail'] = true
 
--- Misc Options
-L['Show in PlayerBar'] = true
-L['Empty Frames must be enabled \n(in UnitFrames options)'] = true
-L['Copy Font Style from'] = true
-L['Hide PlayerBar text values'] = true
-L['Hides health, power and custom text values when mousing over, if their yOffset is'] = true
+-- XP/Rep Options
 L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = true
 
 -- Skins Options

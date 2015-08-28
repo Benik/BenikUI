@@ -119,12 +119,7 @@ L['ZYGOR_CONFLICT_WARNING'] = "Es wurde berichtet, das Zygor Guides Probleme mit
 L['|cff00ff00New Mail|r'] = "|cff00ff00Neue Post|r"
 L['No Mail'] = "Keine Post"
 
--- Misc Options
-L['Show in PlayerBar'] = "Zeige in Spielerleiste"
-L['Empty Frames must be enabled \n(in UnitFrames options)'] = "Leerer Rahmen muss aktiviert sein \n(in Einheitenfenster Option)"
-L['Copy Font Style from'] = "Kopiere Schriftart von"
-L['Hide PlayerBar text values'] = "Verberge Text Werte auf der Spielerleiste"
-L['Hides health, power and custom text values when mousing over, if their yOffset is'] = "Blendet Gesundheit, Kraft und angepasste Text Werte aus, wenn der Y-Versatz ist"
+-- XP/Rep Options
 L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = "Zeigt die BenikUI dekorative Leisten auf den Standard ElvUI Erfahrungs-/Rufleisten"
 
 -- Skins Options
