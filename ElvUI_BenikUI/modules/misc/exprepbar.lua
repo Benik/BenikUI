@@ -100,11 +100,19 @@ function BXR:ApplyXpRepStyling()
 	end
 	
 	if E.db.buixprep.buiStyle then
-		rp.style:Show()
-		xp.style:Show()
+		if rp.style then
+			rp.style:Show()
+		end
+		if xp.style then
+			xp.style:Show()
+		end
 	else
-		rp.style:Hide()
-		xp.style:Hide()	
+		if rp.style then
+			rp.style:Hide()
+		end
+		if xp.style then
+			xp.style:Hide()	
+		end
 	end
 end
 
