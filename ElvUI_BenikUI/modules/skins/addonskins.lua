@@ -1,7 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local S = E:GetModule('Skins');
 
-local SPACING = (E.PixelMode and 1 or 5)
+local SPACING = (E.PixelMode and 1 or 3)
 
 local function skinDecursive()
 	if not IsAddOnLoaded('Decursive') or not E.db.buiVariousSkins.decursive then return end
