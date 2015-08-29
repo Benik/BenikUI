@@ -31,6 +31,7 @@ local function ufTable()
 						name = L['Transparent'],
 						desc = L['Toggle EmptyBars transparency'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
+						disabled = function() return not E.db.ufb.barshow end,
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarTransparency(); UFB:ToggleTargetBarTransparency(); end,
 					},
 					barheight = {
@@ -48,6 +49,7 @@ local function ufTable()
 						name = L['Threat on EmptyBars']..BUI.newsign,
 						desc = L['Places the threat glow on PlayerBar and TargetBar'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
+						disabled = function() return not E.db.ufb.barshow end,
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdatePlayer(); BUIC:UpdateTarget(); UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); end,
 					},
 				},
