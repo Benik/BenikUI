@@ -286,10 +286,7 @@ function AFK:Initialize()
 	self.AFKMode.top.style.Status:SetValue(0)
 	
 	-- Style the bottom frame
-	self.AFKMode.bottom:Style('Outside')
-	if self.AFKMode.bottom.style then
-		self.AFKMode.bottom.style:SetFrameStrata("BACKGROUND")
-	end
+	self.AFKMode.bottom:Style('Inside')
 	
 	-- Move the factiongroup sign to the center
 	self.AFKMode.bottom.factionb = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the faction logo layer
