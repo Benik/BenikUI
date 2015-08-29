@@ -285,6 +285,8 @@ function AFK:Initialize()
 	self.AFKMode.top.style.Status:SetInside()
 	self.AFKMode.top.style.Status:SetValue(0)
 	
+	self.AFKMode.bottom:SetHeight(GetScreenHeight() * (1 / 9))
+	
 	-- Style the bottom frame
 	self.AFKMode.bottom:Style('Inside')
 	
