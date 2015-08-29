@@ -225,7 +225,7 @@ local function buiCore()
 								desc = L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'],
 								disabled = function() return E.db.bui.buiDts ~= true or E.db.bui.buiStyle ~= true end,
 								get = function(info) return E.db.bui[ info[#info] ] end,
-								set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiLayout'):ChatStyles(); end,	
+								set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiLayout'):ChatStyles(); E:GetModule('Layout'):ToggleChatPanels(); E.Chat:PositionChat(true); end,	
 							},
 							chatDtsBackdrop = {
 								order = 5,
