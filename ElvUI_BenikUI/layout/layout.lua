@@ -189,7 +189,7 @@ function BUIL:ResizeMinimapPanels()
 	
 	if E.db.datatexts.minimapPanels == false then ElvConfigToggle:Hide() end
 	
-	-- Stop here to support for ElvUI_CustomTweaks CBEnhanced
+	-- Stop here to support ElvUI_CustomTweaks CBEnhanced
 	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] then return end
 	
 	if E.db.auras.consolidatedBuffs.position == "LEFT" then
@@ -309,8 +309,6 @@ function BUIL:ChangeLayout()
 	RightMiniPanel:Height(PANEL_HEIGHT)
 	
 	ElvConfigToggle:Height(PANEL_HEIGHT)
-	ElvConfigToggle.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-	ElvConfigToggle.text:SetTextColor(unpackColor(E.db.general.valuecolor))	
 
 	-- Left dt panel
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
