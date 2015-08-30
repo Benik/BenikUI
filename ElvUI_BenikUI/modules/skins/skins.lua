@@ -356,6 +356,7 @@ local function styleAlertFrames()
 	
 	GarrisonBuildingAlertFrame.backdrop:Style('Outside')
 	GarrisonMissionAlertFrame.backdrop:Style('Outside')
+	GarrisonFollowerAlertFrame:StripTextures()
 	GarrisonFollowerAlertFrame.backdrop:Style('Outside')
 	
 	GarrisonShipMissionAlertFrame:StripTextures()
