@@ -15,6 +15,9 @@ local function SetupBuiLayout()
 		E.db.general.bottomPanel = false
 		E.db.general.minimap.locationText = 'HIDE'
 		E.db.general.minimap.size = 150
+		E.private.general.chatBubbleFont = 'Bui Prototype'
+		E.private.general.chatBubbles = 'backdrop'
+		E.private.general.chatBubbleFontSize = 14
 		E.global.general.smallerWorldMap = false
 		E.db.general.backdropfadecolor.r = 0.054
 		E.db.general.backdropfadecolor.g = 0.054
@@ -23,23 +26,18 @@ local function SetupBuiLayout()
 		E.db.general.valuecolor.r = 1
 		E.db.general.valuecolor.g = 0.5
 		E.db.general.valuecolor.b = 0
-		E.db.general.experience.enable = false
+		E.db.general.experience.enable = true
 		E.db.general.experience.textFormat = 'NONE'
 		E.db.general.experience.height = 150
 		E.db.general.experience.width = 8
 		E.db.general.experience.textSize = 9
 		E.db.general.reputation.orientation = 'VERTICAL'
-		E.db.general.reputation.enable = false
+		E.db.general.reputation.enable = true
 		E.db.general.reputation.textFormat = 'NONE'
 		E.db.general.reputation.height = 150
 		E.db.general.reputation.width = 8
 		E.db.general.reputation.textSize = 9
 		E.db.general.reputation.orientation = 'VERTICAL'
-		E.db.tooltip.font = 'Bui Prototype'
-		E.db.tooltip.fontOutline = 'NONE'
-		E.db.tooltip.headerFontSize = 10
-		E.db.tooltip.textFontSize = 10
-		E.db.tooltip.smallTextFontSize = 10
 		E.private.general.namefont = 'Bui Prototype'
 		E.private.general.dmgfont = 'Bui Prototype'
 		E.private.general.normTex = 'BuiFlat'
@@ -54,6 +52,7 @@ local function SetupBuiLayout()
 		E.db.bags.countFont = 'Bui Prototype'
 		E.db.bags.countFontSize = 10
 		E.db.bags.countFontOutline = 'OUTLINE'
+		E.db.chat.panelBackdrop = 'SHOWBOTH'
 	end
 	
 	-- Tooltip
@@ -61,6 +60,11 @@ local function SetupBuiLayout()
 		E.db.tooltip.healthBar.font = 'Bui Prototype'
 		E.db.tooltip.healthBar.fontSize = 9
 		E.db.tooltip.healthBar.fontOutline = 'OUTLINE'
+		E.db.tooltip.font = 'Bui Prototype'
+		E.db.tooltip.fontOutline = 'NONE'
+		E.db.tooltip.headerFontSize = 10
+		E.db.tooltip.textFontSize = 10
+		E.db.tooltip.smallTextFontSize = 10
 	end
 	
 	-- Nameplates
@@ -121,14 +125,6 @@ local function SetupBuiLayout()
 	E.db.loclite.trunc = true
 	E.db.loclite.lpauto = false
 	E.db.movers.LocationLiteMover = 'TOPElvUIParentTOP0-7'
-	
-	if(UnitLevel('player') == MAX_PLAYER_LEVEL) then
-		E.db.buixprep.show = 'REP'
-	else
-		E.db.buixprep.show = 'XP'
-	end
-	E.db.buixprep.textFormat = 'CURMAX'
-	E.db.buixprep.textStyle = 'UNIT'
 
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Layout Set']
@@ -227,63 +223,134 @@ local function SetupBuiChat()
 	E:UpdateAll(true)
 end
 
-local function SetupBuiAbs()
+local function SetupActionbars(layout)
 	-- Actionbars
-	do
-		E.db.actionbar.bar1.backdrop = false;
-		E.db.actionbar.bar1.buttons = 12;
-		E.db.actionbar.bar1.buttonspacing = 4;
-		E.db.actionbar.bar1.buttonsize = 30;
-		E.db.actionbar.bar2.enabled = true;
-		E.db.actionbar.bar2.backdrop = true;
-		E.db.actionbar.bar2.buttons = 12;
-		E.db.actionbar.bar2.buttonspacing = 4;
-		E.db.actionbar.bar2.heightMult = 2;
-		E.db.actionbar.bar2.buttonsize = 30;
-		E.db.actionbar.bar3.backdrop = true;
-		E.db.actionbar.bar3.buttons = 10;
-		E.db.actionbar.bar3.buttonsPerRow = 5;
-		E.db.actionbar.bar3.buttonspacing = 4;
-		E.db.actionbar.bar3.buttonsize = 30;
-		E.db.actionbar.bar4.backdrop = true;
-		E.db.actionbar.bar4.buttons = 12;
-		E.db.actionbar.bar4.buttonspacing = 4;
-		E.db.actionbar.bar4.buttonsize = 26;
-		E.db.actionbar.bar5.backdrop = true;
-		E.db.actionbar.bar5.buttons = 10;
-		E.db.actionbar.bar5.buttonsPerRow = 5;
-		E.db.actionbar.bar5.buttonspacing = 4;
-		E.db.actionbar.bar5.buttonsize = 30;
+	if layout == 'big' then
+		do
+			E.db.actionbar.font = 'Bui Visitor1'
+			E.db.actionbar.fontOutline = 'MONOCROMEOUTLINE'
+			E.db.actionbar.fontSize = 10
+			
+			E.db.actionbar.bar1.backdrop = false
+			E.db.actionbar.bar1.buttons = 12
+			E.db.actionbar.bar1.buttonspacing = 4
+			E.db.actionbar.bar1.buttonsize = 30
+			E.db.actionbar.bar2.enabled = true
+			E.db.actionbar.bar2.backdrop = true
+			E.db.actionbar.bar2.buttons = 12
+			E.db.actionbar.bar2.buttonspacing = 4
+			E.db.actionbar.bar2.heightMult = 2
+			E.db.actionbar.bar2.buttonsize = 30
+			E.db.actionbar.bar3.backdrop = true
+			E.db.actionbar.bar3.buttons = 10
+			E.db.actionbar.bar3.buttonsPerRow = 5
+			E.db.actionbar.bar3.buttonspacing = 4
+			E.db.actionbar.bar3.buttonsize = 30
+			E.db.actionbar.bar4.backdrop = true
+			E.db.actionbar.bar4.buttons = 12
+			E.db.actionbar.bar4.buttonspacing = 4
+			E.db.actionbar.bar4.buttonsize = 26
+			E.db.actionbar.bar4.mouseover = true
+			E.db.actionbar.bar5.backdrop = true
+			E.db.actionbar.bar5.buttons = 10
+			E.db.actionbar.bar5.buttonsPerRow = 5
+			E.db.actionbar.bar5.buttonspacing = 4
+			E.db.actionbar.bar5.buttonsize = 30
+			
+			E.db.actionbar.barPet.buttonspacing = 4
+			E.db.actionbar.barPet.buttonsPerRow = 10
+			E.db.actionbar.barPet.buttonsize = 22
+			E.db.actionbar.barPet.backdrop = true
+			
+			E.db.actionbar.stanceBar.buttonspacing = 2
+			E.db.actionbar.stanceBar.backdrop = false
+			E.db.actionbar.stanceBar.buttonsize = 24	
+			E.db.bab.enable = true
+			
+			E.db.bui.middleDatatext.width = 400
+			E:GetModule('BuiLayout'):MiddleDatatextDimensions()
+			E.db.bui.middleDatatext.backdrop = true
+			E:GetModule('BuiLayout'):MiddleDatatextLayout()
+		end
 		
-		E.db.actionbar.barPet.buttonspacing = 4;
-		E.db.actionbar.barPet.buttonsPerRow = 10;
-		E.db.actionbar.barPet.buttonsize = 22;
-		E.db.actionbar.barPet.backdrop = true;
+		-- movers
+		do
+			E.db.movers.ElvAB_1 = 'BOTTOMElvUIParentBOTTOM092'
+			E.db.movers.ElvAB_2 = 'BOTTOMElvUIParentBOTTOM058'	
+			E.db.movers.ElvAB_3 = 'BOTTOMElvUIParentBOTTOM29558'
+			E.db.movers.ElvAB_5 = 'BOTTOMElvUIParentBOTTOM-29558'	
+			E.db.movers.PetAB = 'BOTTOMElvUIParentBOTTOM022'
+			E.db.movers.ShiftAB = 'BOTTOMElvUIParentBOTTOM0134'
+			E.db.movers.BuiMiddleDtMover = 'BOTTOMElvUIParentBOTTOM02'
+			E.db.movers.ArenaHeaderMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-56346'
+			E.db.movers.BossButton = 'BOTTOMElvUIParentBOTTOM0283'
+			E.db.movers.BossHeaderMover = 'TOPRIGHTElvUIParentTOPRIGHT-56-397'
+			E.db.movers.BuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-3'
+			E.db.movers.DebuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-134'
+		end
 		
-		E.db.actionbar.stanceBar.buttonspacing = 2
-		E.db.actionbar.stanceBar.backdrop = false
-		E.db.actionbar.stanceBar.buttonsize = 24
-		
-		E.db.actionbar.font = 'Bui Visitor1';
-		E.db.actionbar.fontOutline = 'MONOCROMEOUTLINE';
-		E.db.actionbar.fontSize = 10;
-		
-		E.db.bab.enable = true
-	end
-	
-	-- movers
-	do
-		E.db.movers.ArenaHeaderMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-56346'
-		E.db.movers.BossButton = 'BOTTOMElvUIParentBOTTOM0283'
-		E.db.movers.BossHeaderMover = 'TOPRIGHTElvUIParentTOPRIGHT-56-397'
-		E.db.movers.BuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-3'
-		E.db.movers.DebuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-134'
-		E.db.movers.ElvAB_1 = 'BOTTOMElvUIParentBOTTOM092'
-		E.db.movers.ElvAB_2 = 'BOTTOMElvUIParentBOTTOM058'
-		E.db.movers.ElvAB_3 = 'BOTTOMElvUIParentBOTTOM29558'
-		E.db.movers.ElvAB_5 = 'BOTTOMElvUIParentBOTTOM-29558'	
-		E.db.movers.PetAB = 'BOTTOMElvUIParentBOTTOM022'
-		E.db.movers.ShiftAB = 'BOTTOMElvUIParentBOTTOM0134'
+	elseif layout == 'small' then	
+		do
+			E.db.actionbar.font = 'Bui Visitor1';
+			E.db.actionbar.fontOutline = 'MONOCROMEOUTLINE';
+			E.db.actionbar.fontSize = 10;
+			
+			E.db.actionbar.bar1.backdrop = false
+			E.db.actionbar.bar1.buttons = 12
+			E.db.actionbar.bar1.buttonspacing = 4
+			E.db.actionbar.bar1.buttonsize = 30
+			E.db.actionbar.bar2.enabled = true
+			E.db.actionbar.bar2.backdrop = true
+			E.db.actionbar.bar2.buttons = 12
+			E.db.actionbar.bar2.buttonspacing = 4
+			E.db.actionbar.bar2.heightMult = 2
+			E.db.actionbar.bar2.buttonsize = 30
+			E.db.actionbar.bar3.backdrop = false
+			E.db.actionbar.bar3.buttons = 5
+			E.db.actionbar.bar3.buttonsPerRow = 5
+			E.db.actionbar.bar3.buttonspacing = 1
+			E.db.actionbar.bar3.buttonsize = 19
+			E.db.actionbar.bar4.backdrop = true
+			E.db.actionbar.bar4.buttons = 12
+			E.db.actionbar.bar4.buttonspacing = 4
+			E.db.actionbar.bar4.buttonsize = 26
+			E.db.actionbar.bar4.mouseover = true
+			E.db.actionbar.bar5.backdrop = false
+			E.db.actionbar.bar5.buttons = 5
+			E.db.actionbar.bar5.buttonsPerRow = 5
+			E.db.actionbar.bar5.buttonspacing = 1
+			E.db.actionbar.bar5.buttonsize = 19
+
+			E.db.actionbar.barPet.buttonspacing = 4
+			E.db.actionbar.barPet.buttonsPerRow = 10
+			E.db.actionbar.barPet.buttonsize = 22
+			E.db.actionbar.barPet.backdrop = true
+			
+			E.db.actionbar.stanceBar.buttonspacing = 2
+			E.db.actionbar.stanceBar.backdrop = false
+			E.db.actionbar.stanceBar.buttonsize = 24	
+			E.db.bab.enable = true
+			
+			E.db.bui.middleDatatext.width = 412
+			E:GetModule('BuiLayout'):MiddleDatatextDimensions()
+			E.db.bui.middleDatatext.backdrop = true
+			E:GetModule('BuiLayout'):MiddleDatatextLayout()
+		end
+		-- movers
+		do	
+			E.db.movers.ElvAB_1 = 'BOTTOMElvUIParentBOTTOM056'
+			E.db.movers.ElvAB_2 = 'BOTTOMElvUIParentBOTTOM022'
+			E.db.movers.ElvAB_3 = 'BOTTOMElvUIParentBOTTOM2571'
+			E.db.movers.ElvAB_5 = 'BOTTOMElvUIParentBOTTOM-2561'
+			E.db.movers.PetAB = 'BOTTOMElvUIParentBOTTOM022'
+			E.db.movers.ShiftAB = 'BOTTOMElvUIParentBOTTOM0134'
+			E.db.movers.BuiMiddleDtMover = 'BOTTOMElvUIParentBOTTOM02'
+			E.db.movers.ArenaHeaderMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-56346'
+			E.db.movers.BossButton = 'BOTTOMElvUIParentBOTTOM0283'
+			E.db.movers.BossHeaderMover = 'TOPRIGHTElvUIParentTOPRIGHT-56-397'
+			E.db.movers.BuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-3'
+			E.db.movers.DebuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-134'
+		end
 	end
 
 	if InstallStepComplete then
@@ -293,141 +360,371 @@ local function SetupBuiAbs()
 	E:UpdateAll(true)
 end
 
-local function SetupBuiUfs()
-	-- Empty Bars
-	do
-		E.db.ufb.barheight = 15
-		E.db.ufb.barshow = true
-	end
+local function SetupUnitframes(layout)
+	
+	if layout == 'normal' then
+		-- Empty Bars
+		do
+			E.db.ufb.barheight = 15
+			E.db.ufb.barshow = true
+			E.db.ufb.detachPlayerPortrait = false
+			E.db.ufb.getPlayerPortraitSize = false
+			E.db.ufb.detachTargetPortrait = false
+			E.db.ufb.yOffsetText = -15
+		end
 
-	-- Auras
-	do
-		E.db.auras.timeXOffset = -1
-		E.db.auras.font = 'Bui Visitor1'
-		E.db.auras.fontSize = 10
-		E.db.auras.fontOutline = 'MONOCROMEOUTLINE'
-		E.db.auras.fadeThreshold = 10
-		E.db.auras.buffs.horizontalSpacing = 3
-		E.db.auras.buffs.size = 30
-		E.db.auras.consolidatedBuffs.font = 'Bui Visitor1'
-		E.db.auras.consolidatedBuffs.fontSize = 10
-		E.db.auras.consolidatedBuffs.fontOutline = 'MONOCROMEOUTLINE'
-		E.db.auras.debuffs.size = 30
-	end
-	
-	-- Units
-	do
-	-- general
-		E.db.unitframe.font = 'Bui Visitor1'
-		E.db.unitframe.fontSize = 10
-		E.db.unitframe.fontOutline = 'MONOCROMEOUTLINE'
-		E.db.unitframe.colors.transparentAurabars = true
-		E.db.unitframe.colors.transparentCastbar = true
-		E.db.unitframe.colors.castClassColor = true
-		E.db.unitframe.smoothbars = true
+		-- Auras
+		do
+			E.db.auras.timeXOffset = -1
+			E.db.auras.font = 'Bui Visitor1'
+			E.db.auras.fontSize = 10
+			E.db.auras.fontOutline = 'MONOCROMEOUTLINE'
+			E.db.auras.fadeThreshold = 10
+			E.db.auras.buffs.horizontalSpacing = 3
+			E.db.auras.buffs.size = 30
+			E.db.auras.consolidatedBuffs.font = 'Bui Visitor1'
+			E.db.auras.consolidatedBuffs.fontSize = 10
+			E.db.auras.consolidatedBuffs.fontOutline = 'MONOCROMEOUTLINE'
+			E.db.auras.debuffs.size = 30
+		end
 		
-		E.db.unitframe.colors.healthclass = false
-		E.db.unitframe.colors.power.MANA.r = 1
-		E.db.unitframe.colors.power.MANA.g = 0.5
-		E.db.unitframe.colors.power.MANA.b = 0
-		E.db.unitframe.statusbar = 'BuiFlat'
-	-- player
-		E.db.unitframe.units.player.debuffs.attachTo = 'BUFFS'
-		E.db.unitframe.units.player.debuffs.sizeOverride = 32
-		E.db.unitframe.units.player.debuffs.yOffset = 2
-		E.db.unitframe.units.player.portrait.enable = true
-		E.db.unitframe.units.player.portrait.overlay = true
-		E.db.unitframe.units.player.castbar.icon = false
-		E.db.unitframe.units.player.castbar.width = 300
-		E.db.unitframe.units.player.castbar.height = 18
-		E.db.unitframe.units.player.classbar.detachFromFrame = true
-		E.db.unitframe.units.player.classbar.detachedWidth = 140
-		E.db.unitframe.units.player.classbar.fill = 'spaced'
-		E.db.unitframe.units.player.width = 300
-		E.db.unitframe.units.player.health.xOffset = 2
-		E.db.unitframe.units.player.health.yOffset = -25
-		E.db.unitframe.units.player.height = 33
-		E.db.unitframe.units.player.buffs.enable = true
-		E.db.unitframe.units.player.buffs.sizeOverride = 30
-		E.db.unitframe.units.player.buffs.attachTo = 'FRAME'
-		E.db.unitframe.units.player.buffs.yOffset = 2
-		E.db.unitframe.units.player.threatStyle = 'ICONTOPRIGHT'
-		E.db.unitframe.units.player.power.height = 5
-		E.db.unitframe.units.player.power.width = 'fill'
-		E.db.unitframe.units.player.power.detachedWidth = 298
-		E.db.unitframe.units.player.power.detachFromFrame = false
-		E.db.unitframe.units.player.power.yOffset = -25
-	-- target
-		E.db.unitframe.units.target.health.xOffset = -40
-		E.db.unitframe.units.target.health.yOffset = -25
-		E.db.unitframe.units.target.health.text_format = ''
-		E.db.unitframe.units.target.name.xOffset = 8
-		E.db.unitframe.units.target.name.yOffset = -25
-		E.db.unitframe.units.target.name.position = 'RIGHT'
-		E.db.unitframe.units.target.name.text_format = '[healthcolor][health:current-percent] [namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]'
-		E.db.unitframe.units.target.debuffs.anchorPoint = 'TOPLEFT'
-		E.db.unitframe.units.target.portrait.enable = true
-		E.db.unitframe.units.target.portrait.overlay = true
-		E.db.unitframe.units.target.power.xOffset = 2
-		E.db.unitframe.units.target.power.detachedWidth = 298
-		E.db.unitframe.units.target.power.detachFromFrame = false
-		E.db.unitframe.units.target.power.hideonnpc = false
-		E.db.unitframe.units.target.power.height = 5
-		E.db.unitframe.units.target.power.width = 'fill'
-		E.db.unitframe.units.target.power.yOffset = -25
-		E.db.unitframe.units.target.width = 300
-		E.db.unitframe.units.target.castbar.icon = false
-		E.db.unitframe.units.target.castbar.width = 300
-		E.db.unitframe.units.target.height = 33
-		E.db.unitframe.units.target.threatStyle = 'ICONTOPLEFT'
-		E.db.unitframe.units.target.buffs.anchorPoint = 'TOPLEFT'
-		E.db.unitframe.units.target.buffs.sizeOverride = 30
-		E.db.unitframe.units.target.buffs.yOffset = 2
-	-- pet
-		E.db.unitframe.units.pet.height = 24
-		E.db.unitframe.units.pet.power.height = 5
-		E.db.unitframe.units.pet.power.width = 'fill'
-		E.db.unitframe.units.pet.castbar.enable = false
-	-- focus
-		E.db.unitframe.units.focus.power.height = 5
-		E.db.unitframe.units.focus.power.width = 'fill'
-		E.db.unitframe.units.focus.width = 122
-		E.db.unitframe.units.focus.castbar.height = 6
-		E.db.unitframe.units.focus.castbar.width = 122
-	-- targettarget
-		E.db.unitframe.units.targettarget.height = 24
-		E.db.unitframe.units.targettarget.power.height = 5
-		E.db.unitframe.units.targettarget.power.width = 'fill'
-	-- raid
-		E.db.unitframe.units.raid.power.enable = false
-	-- raid 40
-		E.db.unitframe.units.raid40.power.enable = false
-	-- colors
-		E.db.unitframe.colors.castClassColor = true
-	end
-	
-	-- Movers
-	do
-		E.db.movers.AltPowerBarMover = 'TOPElvUIParentTOP0-66'
-		E.db.movers.ElvUF_AssistMover = 'TOPLEFTElvUIParentTOPLEFT4-392'
-		E.db.movers.ElvUF_FocusMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-442178'
-		E.db.movers.ElvUF_PartyMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
-		E.db.movers.ElvUF_PetMover = 'BOTTOMElvUIParentBOTTOM0191'
-		E.db.movers.ElvUF_PlayerCastbarMover = 'BOTTOMElvUIParentBOTTOM-231147'
-		E.db.movers.ElvUF_PlayerMover = 'BOTTOMElvUIParentBOTTOM-231182'
-		E.db.movers.ElvUF_RaidMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
-		E.db.movers.ElvUF_Raid40Mover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
-		E.db.movers.ElvUF_RaidpetMover = 'TOPLEFTElvUIParentTOPLEFT4-444'
-		E.db.movers.ElvUF_TankMover = 'TOPLEFTElvUIParentTOPLEFT4-292'
-		E.db.movers.ElvUF_TargetCastbarMover = 'BOTTOMElvUIParentBOTTOM231147'
-		E.db.movers.ElvUF_TargetMover = 'BOTTOMElvUIParentBOTTOM231182'
-		E.db.movers.ElvUF_TargetTargetMover = 'BOTTOMElvUIParentBOTTOM0164'
-		E.db.movers.PlayerPowerBarMover = 'BOTTOMElvUIParentBOTTOM-231215'
-		E.db.movers.TargetPowerBarMover = 'BOTTOMElvUIParentBOTTOM231215'
-		E.db.movers.ClassBarMover = 'BOTTOMElvUIParentBOTTOM-1349'
-		E.db.movers.ExperienceBarMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT41522'
-		E.db.movers.ElvUF_BodyGuardMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT4444'
-		E.db.movers.ElvUF_PetCastbarMover = 'BOTTOMElvUIParentBOTTOM0214'
+		-- Units
+		do
+		-- general
+			E.db.unitframe.font = 'Bui Visitor1'
+			E.db.unitframe.fontSize = 10
+			E.db.unitframe.fontOutline = 'MONOCROMEOUTLINE'
+			E.db.unitframe.colors.transparentAurabars = true
+			E.db.unitframe.colors.transparentCastbar = true
+			E.db.unitframe.colors.castClassColor = true
+			E.db.unitframe.colors.transparentPower = false
+			E.db.unitframe.colors.transparentHealth = true
+			E.db.unitframe.smoothbars = true
+			
+			E.db.unitframe.colors.healthclass = false
+			E.db.unitframe.colors.power.MANA.r = 1
+			E.db.unitframe.colors.power.MANA.g = 0.5
+			E.db.unitframe.colors.power.MANA.b = 0
+			E.db.unitframe.statusbar = 'BuiFlat'
+		-- player
+			E.db.unitframe.units.player.debuffs.attachTo = 'BUFFS'
+			E.db.unitframe.units.player.debuffs.sizeOverride = 32
+			E.db.unitframe.units.player.debuffs.yOffset = 2
+			E.db.unitframe.units.player.debuffs.fontSize = 10
+			E.db.unitframe.units.player.portrait.enable = true
+			E.db.unitframe.units.player.portrait.overlay = true
+			E.db.unitframe.units.player.castbar.icon = false
+			E.db.unitframe.units.player.castbar.width = 300
+			E.db.unitframe.units.player.castbar.height = 18
+			E.db.unitframe.units.player.classbar.detachFromFrame = true
+			E.db.unitframe.units.player.classbar.detachedWidth = 140
+			E.db.unitframe.units.player.classbar.fill = 'spaced'
+			E.db.unitframe.units.player.width = 300
+			E.db.unitframe.units.player.health.xOffset = 2
+			E.db.unitframe.units.player.health.yOffset = -25
+			E.db.unitframe.units.player.health.text_format = '[healthcolor][health:current-percent]'
+			E.db.unitframe.units.player.height = 33
+			E.db.unitframe.units.player.buffs.enable = true
+			E.db.unitframe.units.player.buffs.sizeOverride = 30
+			E.db.unitframe.units.player.buffs.attachTo = 'FRAME'
+			E.db.unitframe.units.player.buffs.yOffset = 2
+			E.db.unitframe.units.player.buffs.fontSize = 10
+			E.db.unitframe.units.player.smartAuraPosition = "DEBUFFS_ON_BUFFS"
+			E.db.unitframe.units.player.threatStyle = 'GLOW'
+			E.db.unitframe.units.player.power.height = 5
+			E.db.unitframe.units.player.power.width = 'fill'
+			E.db.unitframe.units.player.power.detachedWidth = 298
+			E.db.unitframe.units.player.power.detachFromFrame = false
+			E.db.unitframe.units.player.power.yOffset = -25
+			E.db.unitframe.units.player.power.text_format = "[powercolor][power:current-percent]"
+			E.db.unitframe.units.player.power.hideonnpc = true
+			if not E.db.unitframe.units.player.customTexts then E.db.unitframe.units.player.customTexts = {} end
+			if E.db.unitframe.units.player.customTexts.PlayerName then E.db.unitframe.units.player.customTexts.PlayerName = nil end
+			if E.db.unitframe.units.player.customTexts.PlayerBigHealth then E.db.unitframe.units.player.customTexts.PlayerBigHealth = nil end
+		-- target
+			E.db.unitframe.units.target.health.xOffset = -40
+			E.db.unitframe.units.target.health.yOffset = -25
+			E.db.unitframe.units.target.health.text_format = ''
+			E.db.unitframe.units.target.name.xOffset = 8
+			E.db.unitframe.units.target.name.yOffset = -25
+			E.db.unitframe.units.target.name.position = 'RIGHT'
+			E.db.unitframe.units.target.name.text_format = '[healthcolor][health:current-percent] [namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]'
+			E.db.unitframe.units.target.debuffs.anchorPoint = 'TOPLEFT'
+			E.db.unitframe.units.target.debuffs.fontSize = 10
+			E.db.unitframe.units.target.portrait.enable = true
+			E.db.unitframe.units.target.portrait.overlay = true
+			E.db.unitframe.units.target.power.xOffset = 2
+			E.db.unitframe.units.target.power.detachedWidth = 298
+			E.db.unitframe.units.target.power.detachFromFrame = false
+			E.db.unitframe.units.target.power.hideonnpc = false
+			E.db.unitframe.units.target.power.height = 5
+			E.db.unitframe.units.target.power.width = 'fill'
+			E.db.unitframe.units.target.power.yOffset = -25
+			E.db.unitframe.units.target.power.text_format = "[powercolor][power:current-percent]"
+			E.db.unitframe.units.target.width = 300
+			E.db.unitframe.units.target.castbar.icon = false
+			E.db.unitframe.units.target.castbar.width = 300
+			E.db.unitframe.units.target.castbar.height = 18
+			E.db.unitframe.units.target.height = 33
+			E.db.unitframe.units.target.threatStyle = 'GLOW'
+			E.db.unitframe.units.target.buffs.anchorPoint = 'TOPRIGHT'
+			E.db.unitframe.units.target.buffs.sizeOverride = 30
+			E.db.unitframe.units.target.buffs.yOffset = 2
+			E.db.unitframe.units.target.buffs.fontSize = 10
+			if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
+			if E.db.unitframe.units.target.customTexts.TargetName then E.db.unitframe.units.target.customTexts.TargetName = nil end
+			if E.db.unitframe.units.target.customTexts.TargetBigHealth then E.db.unitframe.units.target.customTexts.TargetBigHealth = nil end
+		-- pet
+			E.db.unitframe.units.pet.height = 24
+			E.db.unitframe.units.pet.power.height = 5
+			E.db.unitframe.units.pet.power.width = 'fill'
+			E.db.unitframe.units.pet.castbar.enable = false
+		-- focus
+			E.db.unitframe.units.focus.power.height = 5
+			E.db.unitframe.units.focus.power.width = 'fill'
+			E.db.unitframe.units.focus.width = 122
+			E.db.unitframe.units.focus.castbar.height = 6
+			E.db.unitframe.units.focus.castbar.width = 122
+		-- targettarget
+			E.db.unitframe.units.targettarget.height = 24
+			E.db.unitframe.units.targettarget.power.height = 5
+			E.db.unitframe.units.targettarget.power.width = 'fill'
+		-- party
+			E.db.unitframe.units.party.colorOverride = 'FORCE_ON'
+		-- raid
+			E.db.unitframe.units.raid.power.enable = false
+			E.db.unitframe.units.raid.colorOverride = 'FORCE_ON'
+		-- raid 40
+			E.db.unitframe.units.raid40.power.enable = false
+			E.db.unitframe.units.raid40.colorOverride = 'FORCE_ON'
+		-- colors
+			E.db.unitframe.colors.castClassColor = true
+		end
+		
+		-- Movers
+		do
+			E.db.movers.AltPowerBarMover = 'TOPElvUIParentTOP0-66'
+			E.db.movers.ElvUF_AssistMover = 'TOPLEFTElvUIParentTOPLEFT4-392'
+			E.db.movers.ElvUF_FocusMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-442178'
+			E.db.movers.ElvUF_PartyMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
+			E.db.movers.ElvUF_PetMover = 'BOTTOMElvUIParentBOTTOM0191'
+			E.db.movers.ElvUF_PlayerCastbarMover = 'BOTTOMElvUIParentBOTTOM-231147'
+			E.db.movers.ElvUF_PlayerMover = 'BOTTOMElvUIParentBOTTOM-231182'
+			E.db.movers.ElvUF_RaidMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
+			E.db.movers.ElvUF_Raid40Mover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
+			E.db.movers.ElvUF_RaidpetMover = 'TOPLEFTElvUIParentTOPLEFT4-444'
+			E.db.movers.ElvUF_TankMover = 'TOPLEFTElvUIParentTOPLEFT4-292'
+			E.db.movers.ElvUF_TargetCastbarMover = 'BOTTOMElvUIParentBOTTOM231147'
+			E.db.movers.ElvUF_TargetMover = 'BOTTOMElvUIParentBOTTOM231182'
+			E.db.movers.ElvUF_TargetTargetMover = 'BOTTOMElvUIParentBOTTOM0164'
+			E.db.movers.PlayerPowerBarMover = 'BOTTOMElvUIParentBOTTOM-231215'
+			E.db.movers.TargetPowerBarMover = 'BOTTOMElvUIParentBOTTOM231215'
+			E.db.movers.ClassBarMover = 'BOTTOMElvUIParentBOTTOM-1349'
+			E.db.movers.ExperienceBarMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT41522'
+			E.db.movers.ElvUF_BodyGuardMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT4444'
+			E.db.movers.ElvUF_PetCastbarMover = 'BOTTOMElvUIParentBOTTOM0214'
+		end
+
+	elseif layout == 'detached' then
+		-- Empty Bars
+		do
+			E.db.ufb.barheight = 19
+			E.db.ufb.barshow = true
+			E.db.ufb.detachPlayerPortrait = true
+			E.db.ufb.getPlayerPortraitSize = false
+			E.db.ufb.detachTargetPortrait = true
+			E.db.ufb.TargetPortraitHeight = 53
+			E.db.ufb.PlayerPortraitHeight = 53
+			E.db.ufb.PlayerPortraitWidth = 110
+			E.db.ufb.TargetPortraitWidth = 110
+			E.db.ufb.yOffsetText = -20
+		end
+
+		-- Auras
+		do
+			E.db.auras.timeXOffset = -1
+			E.db.auras.font = 'Bui Visitor1'
+			E.db.auras.fontSize = 10
+			E.db.auras.fontOutline = 'MONOCROMEOUTLINE'
+			E.db.auras.fadeThreshold = 10
+			E.db.auras.buffs.horizontalSpacing = 3
+			E.db.auras.buffs.size = 30
+			E.db.auras.consolidatedBuffs.font = 'Bui Visitor1'
+			E.db.auras.consolidatedBuffs.fontSize = 10
+			E.db.auras.consolidatedBuffs.fontOutline = 'MONOCROMEOUTLINE'
+			E.db.auras.debuffs.size = 30
+		end
+		
+		-- Units
+		do
+		-- general
+			E.db.unitframe.font = "Bui Tukui"
+			E.db.unitframe.fontSize = 15
+			E.db.unitframe.fontOutline = 'OUTLINE'
+			E.db.unitframe.colors.transparentAurabars = true
+			E.db.unitframe.colors.transparentCastbar = true
+			E.db.unitframe.colors.castClassColor = true
+			E.db.unitframe.colors.transparentPower = false
+			E.db.unitframe.colors.transparentHealth = true
+			E.db.unitframe.smoothbars = true
+			
+			E.db.unitframe.colors.healthclass = false
+			E.db.unitframe.colors.power.MANA.r = 1
+			E.db.unitframe.colors.power.MANA.g = 0.5
+			E.db.unitframe.colors.power.MANA.b = 0
+			E.db.unitframe.statusbar = 'BuiFlat'
+		-- player
+			E.db.unitframe.units.player.debuffs.attachTo = 'BUFFS'
+			E.db.unitframe.units.player.debuffs.sizeOverride = 32
+			E.db.unitframe.units.player.debuffs.yOffset = 2
+			E.db.unitframe.units.player.debuffs.fontSize = 14
+			E.db.unitframe.units.player.portrait.enable = true
+			E.db.unitframe.units.player.portrait.width = 0
+			E.db.unitframe.units.player.portrait.overlay = false
+			E.db.unitframe.units.player.castbar.icon = false
+			E.db.unitframe.units.player.castbar.width = 240
+			E.db.unitframe.units.player.castbar.height = 18
+			E.db.unitframe.units.player.classbar.detachFromFrame = true
+			E.db.unitframe.units.player.classbar.detachedWidth = 140
+			E.db.unitframe.units.player.classbar.fill = 'spaced'
+			E.db.unitframe.units.player.width = 240
+			E.db.unitframe.units.player.health.xOffset = 2
+			E.db.unitframe.units.player.health.yOffset = -25
+			E.db.unitframe.units.player.health.text_format = ""
+			E.db.unitframe.units.player.height = 28
+			E.db.unitframe.units.player.buffs.enable = true
+			E.db.unitframe.units.player.buffs.sizeOverride = 26
+			E.db.unitframe.units.player.buffs.attachTo = 'FRAME'
+			E.db.unitframe.units.player.buffs.yOffset = 8
+			E.db.unitframe.units.player.buffs.anchorPoint = 'TOPLEFT'
+			E.db.unitframe.units.player.buffs.fontSize = 14
+			E.db.unitframe.units.player.smartAuraPosition = "DEBUFFS_ON_BUFFS"
+			E.db.unitframe.units.player.threatStyle = 'GLOW'
+			E.db.unitframe.units.player.power.text_format = "[powercolor][power:current-percent]"
+			E.db.unitframe.units.player.power.height = 5
+			E.db.unitframe.units.player.power.width = 'fill'
+			E.db.unitframe.units.player.power.detachedWidth = 238
+			E.db.unitframe.units.player.power.detachFromFrame = true
+			E.db.unitframe.units.player.power.yOffset = -23
+			E.db.unitframe.units.player.power.xOffset = 2
+			E.db.unitframe.units.player.power.hideonnpc = true
+			E.db.unitframe.units.player.aurabar.enable = false
+			E.db.unitframe.units.player.customTexts = {}
+			E.db.unitframe.units.player.customTexts.PlayerName = {}
+			E.db.unitframe.units.player.customTexts.PlayerName.font = "Bui Tukui"
+			E.db.unitframe.units.player.customTexts.PlayerName.justifyH = "LEFT"
+			E.db.unitframe.units.player.customTexts.PlayerName.fontOutline = "OUTLINE"
+			E.db.unitframe.units.player.customTexts.PlayerName.xOffset = 2
+			E.db.unitframe.units.player.customTexts.PlayerName.yOffset = 0
+			E.db.unitframe.units.player.customTexts.PlayerName.text_format = "[name]"
+			E.db.unitframe.units.player.customTexts.PlayerName.size = 20
+			E.db.unitframe.units.player.customTexts.PlayerBigHealth = {}
+			E.db.unitframe.units.player.customTexts.PlayerBigHealth.font = "Bui Tukui"
+			E.db.unitframe.units.player.customTexts.PlayerBigHealth.justifyH = "RIGHT"
+			E.db.unitframe.units.player.customTexts.PlayerBigHealth.fontOutline = "OUTLINE"
+			E.db.unitframe.units.player.customTexts.PlayerBigHealth.xOffset = 0
+			E.db.unitframe.units.player.customTexts.PlayerBigHealth.yOffset = 0
+			E.db.unitframe.units.player.customTexts.PlayerBigHealth.text_format = "[health:current-percent]"
+			E.db.unitframe.units.player.customTexts.PlayerBigHealth.size = 20
+		-- target
+			E.db.unitframe.units.target.health.xOffset = -40
+			E.db.unitframe.units.target.health.yOffset = -25
+			E.db.unitframe.units.target.health.text_format = ''
+			E.db.unitframe.units.target.name.xOffset = 8
+			E.db.unitframe.units.target.name.yOffset = -25
+			E.db.unitframe.units.target.name.position = 'RIGHT'
+			E.db.unitframe.units.target.name.text_format = ''
+			E.db.unitframe.units.target.debuffs.anchorPoint = 'TOPLEFT'
+			E.db.unitframe.units.target.debuffs.fontSize = 14
+			E.db.unitframe.units.target.portrait.enable = true
+			E.db.unitframe.units.target.portrait.width = 0
+			E.db.unitframe.units.target.portrait.overlay = false
+			E.db.unitframe.units.target.power.xOffset = -1
+			E.db.unitframe.units.target.power.text_format = "[powercolor][power:current-percent]"
+			E.db.unitframe.units.target.power.detachedWidth = 238
+			E.db.unitframe.units.target.power.detachFromFrame = true
+			E.db.unitframe.units.target.power.hideonnpc = false
+			E.db.unitframe.units.target.power.height = 5
+			E.db.unitframe.units.target.power.width = 'fill'
+			E.db.unitframe.units.target.power.yOffset = -23
+			E.db.unitframe.units.target.power.xOffset = 0
+			E.db.unitframe.units.target.width = 240
+			E.db.unitframe.units.target.castbar.icon = false
+			E.db.unitframe.units.target.castbar.width = 240
+			E.db.unitframe.units.player.castbar.height = 18
+			E.db.unitframe.units.target.height = 28
+			E.db.unitframe.units.target.threatStyle = 'GLOW'
+			E.db.unitframe.units.target.buffs.anchorPoint = 'TOPRIGHT'
+			E.db.unitframe.units.target.buffs.sizeOverride = 26
+			E.db.unitframe.units.target.buffs.yOffset = 8
+			E.db.unitframe.units.target.buffs.fontSize = 14
+			E.db.unitframe.units.target.smartAuraPosition = "DEBUFFS_ON_BUFFS"
+			E.db.unitframe.units.target.smartAuraDisplay = "DISABLED"
+			E.db.unitframe.units.target.aurabar.enable = false
+			E.db.unitframe.units.target.customTexts = {}
+			E.db.unitframe.units.target.customTexts.TargetName = {}
+			E.db.unitframe.units.target.customTexts.TargetName.font = "Bui Tukui"
+			E.db.unitframe.units.target.customTexts.TargetName.justifyH = "RIGHT"
+			E.db.unitframe.units.target.customTexts.TargetName.fontOutline = "OUTLINE"
+			E.db.unitframe.units.target.customTexts.TargetName.xOffset = 0
+			E.db.unitframe.units.target.customTexts.TargetName.yOffset = 0
+			E.db.unitframe.units.target.customTexts.TargetName.text_format = "[namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]"
+			E.db.unitframe.units.target.customTexts.TargetName.size = 20
+			E.db.unitframe.units.target.customTexts.TargetBigHealth = {}
+			E.db.unitframe.units.target.customTexts.TargetBigHealth.font = "Bui Tukui"
+			E.db.unitframe.units.target.customTexts.TargetBigHealth.justifyH = "LEFT"
+			E.db.unitframe.units.target.customTexts.TargetBigHealth.fontOutline = "OUTLINE"
+			E.db.unitframe.units.target.customTexts.TargetBigHealth.xOffset = 2
+			E.db.unitframe.units.target.customTexts.TargetBigHealth.yOffset = 0
+			E.db.unitframe.units.target.customTexts.TargetBigHealth.text_format = "[health:current-percent]"
+			E.db.unitframe.units.target.customTexts.TargetBigHealth.size = 20
+		-- pet
+			E.db.unitframe.units.pet.height = 24
+			E.db.unitframe.units.pet.power.height = 5
+			E.db.unitframe.units.pet.power.width = 'fill'
+			E.db.unitframe.units.pet.castbar.enable = false
+			E.db.unitframe.units.pet.castbar.height = 10
+		-- focus
+			E.db.unitframe.units.focus.power.height = 5
+			E.db.unitframe.units.focus.power.width = 'fill'
+			E.db.unitframe.units.focus.width = 110
+			E.db.unitframe.units.focus.castbar.height = 6
+			E.db.unitframe.units.focus.castbar.width = 110
+		-- targettarget
+			E.db.unitframe.units.targettarget.height = 30
+			E.db.unitframe.units.targettarget.power.height = 5
+			E.db.unitframe.units.targettarget.power.width = 'fill'
+		-- raid
+			E.db.unitframe.units.raid.power.enable = false
+		-- raid 40
+			E.db.unitframe.units.raid40.power.enable = false
+		end
+		
+		-- Movers
+		do
+			E.db.movers.AltPowerBarMover = 'TOPElvUIParentTOP0-66'
+			E.db.movers.ClassBarMover = 'BOTTOMElvUIParentBOTTOM-1349'
+			E.db.movers.ElvUF_AssistMover = 'TOPLEFTElvUIParentTOPLEFT4-392'
+			E.db.movers.ElvUF_BodyGuardMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT4444'
+			E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM0242"
+			E.db.movers.ElvUF_PartyMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
+			E.db.movers.ElvUF_PetCastbarMover = 'BOTTOMElvUIParentBOTTOM0214'
+			E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0191"
+			E.db.movers.ElvUF_PlayerCastbarMover = 'BOTTOMElvUIParentBOTTOM-231147'
+			E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-216182"
+			E.db.movers.ElvUF_Raid40Mover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
+			E.db.movers.ElvUF_RaidMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
+			E.db.movers.ElvUF_RaidpetMover = 'TOPLEFTElvUIParentTOPLEFT4-444'
+			E.db.movers.ElvUF_TankMover = 'TOPLEFTElvUIParentTOPLEFT4-292'
+			E.db.movers.ElvUF_TargetCastbarMover = 'BOTTOMElvUIParentBOTTOM231147'
+			E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM216182"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0160"
+			E.db.movers.ExperienceBarMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT41522'
+			E.db.movers.PlayerPowerBarMover = "BOTTOMElvUIParentBOTTOM-216210"
+			E.db.movers.TargetPowerBarMover = "BOTTOMElvUIParentBOTTOM216210"
+			E.db.movers.TargetPortraitMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-513163"
+			E.db.movers.PlayerPortraitMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT513163"
+		end	
 	end
 	
 	if InstallStepComplete then
@@ -542,7 +839,7 @@ local function SetupBuiAddons()
 						["g"] = 0.5,
 						["b"] = 0,
 					},
-					["mode"] = "DPS",
+					["mode"] = "Damage",
 					["spark"] = false,
 					["barwidth"] = 196.000061035156,
 					["barfontsize"] = 10,
@@ -836,16 +1133,22 @@ local function SetPage(PageNum)
 		f.Desc2:SetText(L['Please click the button below to setup your Unitframes.'])
 		f.Desc3:SetText(L['Importance: |cff07D400High|r'])
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', SetupBuiUfs)
-		InstallOption1Button:SetText(L['Setup Unitframes'])		
+		InstallOption1Button:SetScript('OnClick', function() SetupUnitframes('normal') end)
+		InstallOption1Button:SetText(L['Setup Unitframes'].." - 1")
+		InstallOption2Button:Show()
+		InstallOption2Button:SetScript('OnClick', function() SetupUnitframes('detached') end)
+		InstallOption2Button:SetText(L['Setup Unitframes'].." - 2")		
 	elseif PageNum == 6 then
 		f.SubTitle:SetText(L['ActionBars'])
 		f.Desc1:SetText(L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
 		f.Desc2:SetText(L['Please click the button below to setup your actionbars.'])
 		f.Desc3:SetText(L['Importance: |cff07D400High|r'])
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', SetupBuiAbs)
-		InstallOption1Button:SetText(L['Setup ActionBars'])
+		InstallOption1Button:SetScript('OnClick', function() SetupActionbars('big') end)
+		InstallOption1Button:SetText(L['Setup ActionBars'].." - 1")
+		InstallOption2Button:Show()
+		InstallOption2Button:SetScript('OnClick', function() SetupActionbars('small') end)
+		InstallOption2Button:SetText(L['Setup ActionBars'].." - 2")
 	elseif PageNum == 7 then
 		f.SubTitle:SetText(L['DataTexts'])
 		f.Desc1:SetText(L["This part of the installation process will fill BenikUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
