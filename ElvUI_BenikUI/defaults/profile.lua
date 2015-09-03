@@ -75,6 +75,16 @@ P['buixprep'] = {
 			['hated'] = {r = 1, g = 0, b = 0, a = .8 },
 		},
 	},
+	['notifiers'] = {
+		['experience'] = {
+			['enable'] = true,
+			['position'] = 'RIGHT',
+		},
+		['reputation'] = {
+			['enable'] = true,
+			['position'] = 'LEFT',
+		},
+	},
 }
 
 -- Dashboards

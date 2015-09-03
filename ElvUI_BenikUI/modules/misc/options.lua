@@ -8,7 +8,7 @@ local function xprepTable()
 	E.Options.args.bui.args.config.args.buixprep = {
 		order = 30,
 		type = 'group',
-		name = COMBAT_XP_GAIN.."/"..REPUTATION,
+		name = COMBAT_XP_GAIN.."/"..REPUTATION..BUI.newsign,
 		disabled = function() return not E.db.ufb.barshow or not E.private.unitframe.enable end,
 		args = {
 			enable = {
@@ -31,6 +31,7 @@ local function xprepTable()
 				order = 3,
 				type = 'group',
 				name = COLOR,
+				guiInline = true,
 				args = {
 					experience = {
 						order = 1,
@@ -168,6 +169,72 @@ local function xprepTable()
 									BXR:ChangeRepColor()
 								end,
 							},			
+						},
+					},
+				},
+			},
+			notifiers = {
+				order = 4,
+				type = 'group',
+				name = L['Notifiers']..BUI.newsign,
+				guiInline = true,
+				args = {
+					desc = {
+						order = 1,
+						type = 'description',
+						name = L['Show a small arrow and percentage, near the xp/rep vertical statusbars.'],
+						fontSize = 'medium',
+					},
+					experience = {
+						order = 2,
+						type = 'group',
+						name = COMBAT_XP_GAIN,
+						args = {
+							enable = {
+								order = 1,
+								type = 'toggle',
+								name = ENABLE,
+								get = function(info) return E.db.buixprep.notifiers.experience.enable end,
+								set = function(info, value) E.db.buixprep.notifiers.experience.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+							},	
+							position = {
+								order = 2,
+								type = 'select',
+								name = L['Position'],
+								disabled = function() return not E.db.buixprep.notifiers.experience.enable end,
+								values = {
+									['LEFT'] = L['Left'],
+									['RIGHT'] = L['Right'],
+								},
+								get = function(info) return E.db.buixprep.notifiers.experience.position end,
+								set = function(info, value) E.db.buixprep.notifiers.experience.position = value; BXR:UpdateXpNotifier(); end,
+							},
+						},
+					},
+					reputation = {
+						order = 3,
+						type = 'group',
+						name = REPUTATION,
+						args = {
+							enable = {
+								order = 1,
+								type = 'toggle',
+								name = ENABLE,
+								get = function(info) return E.db.buixprep.notifiers.reputation.enable end,
+								set = function(info, value) E.db.buixprep.notifiers.reputation.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+							},	
+							position = {
+								order = 2,
+								type = 'select',
+								name = L['Position'],
+								disabled = function() return not E.db.buixprep.notifiers.reputation.enable end,
+								values = {
+									['LEFT'] = L['Left'],
+									['RIGHT'] = L['Right'],
+								},
+								get = function(info) return E.db.buixprep.notifiers.reputation.position end,
+								set = function(info, value) E.db.buixprep.notifiers.reputation.position = value; BXR:UpdateRepNotifier(); end,
+							},
 						},
 					},
 				},

@@ -122,6 +122,8 @@ L['No Mail'] = true
 
 -- XP/Rep Options
 L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = true
+L['Notifiers'] = true
+L['Show a small arrow and percentage, near the xp/rep vertical statusbars.'] = true
 
 -- Skins Options
 L['AddOns Decor'] = true

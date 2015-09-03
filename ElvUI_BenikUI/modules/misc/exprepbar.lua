@@ -2,6 +2,8 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0');
 local M = E:GetModule('Misc');
 local LO = E:GetModule('Layout');
+local LSM = LibStub('LibSharedMedia-3.0');
+local DT = E:GetModule('DataTexts');
 
 -- Style ElvUI default XP/Rep bars
 local SPACING = (E.PixelMode and 1 or 3)
@@ -157,6 +159,101 @@ function BXR:ChangeRepColor()
 	end
 end
 
+function BXR:CreateNotifier(bar)
+	bar.f = CreateFrame('Frame', nil, bar)
+	bar.f:Size(2, 10)
+	bar.f.txt = bar.f:CreateFontString(nil, 'OVERLAY')
+	bar.f.arrow = bar.f:CreateFontString(nil, 'OVERLAY')
+	bar.f.arrow:SetFont(LSM:Fetch("font", 'Bui Visitor1'), 10, 'MONOCHROMEOUTLINE')
+	bar.f:RegisterEvent("PLAYER_REGEN_DISABLED")
+	bar.f:RegisterEvent("PLAYER_REGEN_ENABLED")
+	
+	bar.f:SetScript("OnEvent",function(self, event)
+		if event == "PLAYER_REGEN_DISABLED" then
+			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+			self:Hide()
+		elseif event == "PLAYER_REGEN_ENABLED" then
+			UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+			self:Show()
+		end	
+	end)
+end
+
+function BXR:UpdateRepNotifier()
+	local bar = ElvUI_ReputationBar.statusBar
+	local db = E.db.buixprep.notifiers.reputation
+	local arrow = ""
+	
+	bar.f:ClearAllPoints()
+	bar.f.arrow:ClearAllPoints()
+	bar.f.txt:ClearAllPoints()
+
+	if db.position == 'LEFT' then
+		bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
+		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
+		arrow = ">"
+	else
+		bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
+		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
+		arrow = "<"
+	end
+	
+	bar.f.arrow:SetText(arrow)
+	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+	
+	local name, _, min, max, value = GetWatchedFactionInfo()
+	
+	if not name then
+		bar.f:Hide()
+	else
+		bar.f:Show()
+		bar.f.txt:SetText(format('%d%%', ((value - min) / (max - min) * 100)))
+	end
+end
+
+function BXR:GetXP(unit)
+	if(unit == 'pet') then
+		return GetPetExperience()
+	else
+		return UnitXP(unit), UnitXPMax(unit)
+	end
+end
+
+function BXR:UpdateXpNotifier()
+	local bar = ElvUI_ExperienceBar.statusBar
+	local db = E.db.buixprep.notifiers.experience
+	local arrow = ""
+	
+	bar.f:ClearAllPoints()
+	bar.f.arrow:ClearAllPoints()
+	bar.f.txt:ClearAllPoints()
+
+	if db.position == 'LEFT' then
+		bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
+		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
+		arrow = ">"
+	else
+		bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
+		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
+		arrow = "<"
+	end
+	
+	bar.f.arrow:SetText(arrow)
+	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+
+	if(UnitLevel('player') == MAX_PLAYER_LEVEL) or IsXPUserDisabled() then
+		bar.f:Hide()
+	else
+		bar.f:Show()
+		local cur, max = BXR:GetXP('player')
+		bar.f.txt:SetText(format('%d%%', cur / max * 100))
+	end
+end
+
 -- Clear ElvUI database from deleted options
 local function ClearDb()
 	if E.db.buixprep.show then E.db.buixprep.show = nil end
@@ -170,10 +267,27 @@ local function ClearDb()
 end
 
 function BXR:Initialize()
+	ClearDb()
+	self:ChangeXPcolor()
+	self:ChangeRepColor()
+	
+	if E.db.buixprep.notifiers.experience.enable then
+		self:CreateNotifier(ElvUI_ExperienceBar.statusBar)
+		hooksecurefunc(DT, 'LoadDataTexts', BXR.UpdateXpNotifier)
+		hooksecurefunc(M, 'UpdateExperience', BXR.UpdateXpNotifier)
+	end
+	
+	if E.db.buixprep.notifiers.reputation.enable then
+		self:CreateNotifier(ElvUI_ReputationBar.statusBar)
+		hooksecurefunc(M, 'UpdateReputation', BXR.UpdateRepNotifier)
+		hooksecurefunc(DT, 'LoadDataTexts', BXR.UpdateRepNotifier)
+	end
+
 	if E.db.buixprep.enable ~= true then return end
+	
 	StyleXpRepBars()
 	self:ApplyXpRepStyling()
-	ClearDb()
+	
 	hooksecurefunc(LO, 'ToggleChatPanels', BXR.ApplyXpRepStyling)
 	hooksecurefunc(M, 'UpdateExpRepDimensions', BXR.ApplyXpRepStyling)
 end
