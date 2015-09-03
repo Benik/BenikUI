@@ -121,8 +121,8 @@ L['No Mail'] = "Keine Post"
 
 -- XP/Rep Options
 L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = "Zeigt die BenikUI dekorative Leisten auf den Standard ElvUI Erfahrungs-/Rufleisten"
-L['Notifiers'] = true
-L['Show a small arrow and percentage, near the xp/rep vertical statusbars.'] = true
+L['Notifiers'] = "Benachrichtigungen"
+L['Show a small arrow and percentage, near the xp/rep vertical statusbars.'] = "Zeigt einen kleinen Pfeil und Prozent, in der Nähe der vertikalen Erfahrungs-/Rufleiste."
 
 -- Skins Options
 L['AddOns Decor'] = "AddOns Dekor"
