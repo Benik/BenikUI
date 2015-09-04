@@ -165,6 +165,7 @@ function BXR:CreateNotifier(bar)
 	bar.f.txt = bar.f:CreateFontString(nil, 'OVERLAY')
 	bar.f.arrow = bar.f:CreateFontString(nil, 'OVERLAY')
 	bar.f.arrow:SetFont(LSM:Fetch("font", 'Bui Visitor1'), 10, 'MONOCHROMEOUTLINE')
+	
 	if E.db.buixprep.notifiers.combat then
 		bar.f:RegisterEvent("PLAYER_REGEN_DISABLED")
 		bar.f:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -179,44 +180,65 @@ function BXR:CreateNotifier(bar)
 			end	
 		end)
 	end
+
 end
 
-local bars = {
-	{'ElvUI_ReputationBar', 'reputation'},
-	{'ElvUI_ExperienceBar', 'experience'},
-}
+function BXR:UpdateXpNotifierPositions()
+	if E.db.general.experience.orientation ~= 'VERTICAL' then return end
+	local bar = ElvUI_ExperienceBar.statusBar
+	
+	local db = E.db.buixprep.notifiers.experience
+	local arrow = ""
+	
+	bar.f:ClearAllPoints()
+	bar.f.arrow:ClearAllPoints()
+	bar.f.txt:ClearAllPoints()
 
-function BXR:UpdateXpRepPositions()
-	for i, v in pairs(bars) do
-		local bar, option = unpack(v)
-		bar = _G[bar]
-		if bar then
-			local db = E.db.buixprep.notifiers[option]
-			local arrow = ""
-			
-			bar.statusBar.f:ClearAllPoints()
-			bar.statusBar.f.arrow:ClearAllPoints()
-			bar.statusBar.f.txt:ClearAllPoints()
-
-			if db.position == 'LEFT' then
-				bar.statusBar.f.arrow:Point('RIGHT', bar.statusBar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
-				bar.statusBar.f:Point('RIGHT', bar.statusBar.f.arrow, 'LEFT')
-				bar.statusBar.f.txt:Point('RIGHT', bar.statusBar.f, 'LEFT')
-				arrow = ">"
-			else
-				bar.statusBar.f.arrow:Point('LEFT', bar.statusBar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
-				bar.statusBar.f:Point('LEFT', bar.statusBar.f.arrow, 'RIGHT')
-				bar.statusBar.f.txt:Point('LEFT', bar.statusBar.f, 'RIGHT')
-				arrow = "<"
-			end
-			
-			bar.statusBar.f.arrow:SetText(arrow)
-			bar.statusBar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-		end
+	if db.position == 'LEFT' then
+		bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
+		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
+		arrow = ">"
+	else
+		bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
+		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
+		arrow = "<"
 	end
+	
+	bar.f.arrow:SetText(arrow)
+	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+end
+
+function BXR:UpdateRepNotifierPositions()
+	if E.db.general.reputation.orientation ~= 'VERTICAL' then return end
+	local bar = ElvUI_ReputationBar.statusBar
+	
+	local db = E.db.buixprep.notifiers.reputation
+	local arrow = ""
+	
+	bar.f:ClearAllPoints()
+	bar.f.arrow:ClearAllPoints()
+	bar.f.txt:ClearAllPoints()
+
+	if db.position == 'LEFT' then
+		bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
+		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
+		arrow = ">"
+	else
+		bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
+		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
+		arrow = "<"
+	end
+	
+	bar.f.arrow:SetText(arrow)
+	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 end
 
 function BXR:UpdateRepNotifier()
+	if E.db.general.reputation.orientation ~= 'VERTICAL' then return end
 	local bar = ElvUI_ReputationBar.statusBar
 	
 	local name, _, min, max, value = GetWatchedFactionInfo()
@@ -238,6 +260,7 @@ function BXR:GetXP(unit)
 end
 
 function BXR:UpdateXpNotifier()
+	if E.db.general.experience.orientation ~= 'VERTICAL' then return end
 	local bar = ElvUI_ExperienceBar.statusBar
 
 	if(UnitLevel('player') == MAX_PLAYER_LEVEL) or IsXPUserDisabled() then
@@ -268,22 +291,20 @@ function BXR:Initialize()
 	
 	local db = E.db.buixprep.notifiers
 	
-	if db.experience.enable then
+	if db.experience.enable and E.db.general.experience.orientation == 'VERTICAL' then
 		self:CreateNotifier(ElvUI_ExperienceBar.statusBar)
-		hooksecurefunc(M, 'UpdateExperience', BXR.UpdateXpNotifier)
-		hooksecurefunc(DT, 'LoadDataTexts', BXR.UpdateXpRepPositions)
-	end
-	
-	if db.reputation.enable then
-		self:CreateNotifier(ElvUI_ReputationBar.statusBar)
-		hooksecurefunc(M, 'UpdateReputation', BXR.UpdateRepNotifier)
-		hooksecurefunc(DT, 'LoadDataTexts', BXR.UpdateXpRepPositions)
-	end
-	
-	if db.experience.enable or db.reputation.enable then
-		self:UpdateXpRepPositions()
+		self:UpdateXpNotifierPositions()
 		self:UpdateXpNotifier()
+		hooksecurefunc(M, 'UpdateExperience', BXR.UpdateXpNotifier)
+		hooksecurefunc(DT, 'LoadDataTexts', BXR.UpdateXpNotifierPositions)
+	end
+	
+	if db.reputation.enable and E.db.general.reputation.orientation == 'VERTICAL' then
+		self:CreateNotifier(ElvUI_ReputationBar.statusBar)
+		self:UpdateRepNotifierPositions()
 		self:UpdateRepNotifier()
+		hooksecurefunc(M, 'UpdateReputation', BXR.UpdateRepNotifier)
+		hooksecurefunc(DT, 'LoadDataTexts', BXR.UpdateRepNotifierPositions)
 	end
 	
 	if E.db.buixprep.enable ~= true then return end
