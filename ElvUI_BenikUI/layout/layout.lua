@@ -303,6 +303,14 @@ function BUIL:MiddleDatatextDimensions()
 	DT:UpdateAllDimensions()
 end
 
+local function updateButtonFont()
+	for i = 1, BUTTON_NUM do
+		if bbuttons[i].text then
+			bbuttons[i].text:SetFont(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+		end
+	end
+end
+
 function BUIL:ChangeLayout()
 	
 	LeftMiniPanel:Height(PANEL_HEIGHT)
@@ -521,6 +529,7 @@ function BUIL:Initialize()
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ResizeMinimapPanels)
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ChatStyles)
 	hooksecurefunc(M, 'UpdateSettings', BUIL.ResizeMinimapPanels)
+	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
