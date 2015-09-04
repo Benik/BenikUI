@@ -76,6 +76,7 @@ P['buixprep'] = {
 		},
 	},
 	['notifiers'] = {
+		['combat'] = false,
 		['experience'] = {
 			['enable'] = true,
 			['position'] = 'RIGHT',

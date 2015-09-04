@@ -185,8 +185,21 @@ local function xprepTable()
 						name = L['Show a small arrow and percentage, near the xp/rep vertical statusbars.'],
 						fontSize = 'medium',
 					},
-					experience = {
+					spacer = {
 						order = 2,
+						type = 'description',
+						name = '',
+						fontSize = 'medium',
+					},
+					combat = {
+						order = 3,
+						type = 'toggle',
+						name = L["Combat Fade"],
+						get = function(info) return E.db.buixprep.notifiers.combat end,
+						set = function(info, value) E.db.buixprep.notifiers.combat = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					experience = {
+						order = 4,
 						type = 'group',
 						name = COMBAT_XP_GAIN,
 						args = {
@@ -207,12 +220,12 @@ local function xprepTable()
 									['RIGHT'] = L['Right'],
 								},
 								get = function(info) return E.db.buixprep.notifiers.experience.position end,
-								set = function(info, value) E.db.buixprep.notifiers.experience.position = value; BXR:UpdateXpNotifier(); end,
+								set = function(info, value) E.db.buixprep.notifiers.experience.position = value; BXR:UpdateXpRepPositions(); end,
 							},
 						},
 					},
 					reputation = {
-						order = 3,
+						order = 5,
 						type = 'group',
 						name = REPUTATION,
 						args = {
@@ -233,7 +246,7 @@ local function xprepTable()
 									['RIGHT'] = L['Right'],
 								},
 								get = function(info) return E.db.buixprep.notifiers.reputation.position end,
-								set = function(info, value) E.db.buixprep.notifiers.reputation.position = value; BXR:UpdateRepNotifier(); end,
+								set = function(info, value) E.db.buixprep.notifiers.reputation.position = value; BXR:UpdateXpRepPositions(); end,
 							},
 						},
 					},

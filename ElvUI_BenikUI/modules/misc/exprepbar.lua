@@ -165,18 +165,20 @@ function BXR:CreateNotifier(bar)
 	bar.f.txt = bar.f:CreateFontString(nil, 'OVERLAY')
 	bar.f.arrow = bar.f:CreateFontString(nil, 'OVERLAY')
 	bar.f.arrow:SetFont(LSM:Fetch("font", 'Bui Visitor1'), 10, 'MONOCHROMEOUTLINE')
-	bar.f:RegisterEvent("PLAYER_REGEN_DISABLED")
-	bar.f:RegisterEvent("PLAYER_REGEN_ENABLED")
-	
-	bar.f:SetScript("OnEvent",function(self, event)
-		if event == "PLAYER_REGEN_DISABLED" then
-			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			self:Hide()
-		elseif event == "PLAYER_REGEN_ENABLED" then
-			UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-			self:Show()
-		end	
-	end)
+	if E.db.buixprep.notifiers.combat then
+		bar.f:RegisterEvent("PLAYER_REGEN_DISABLED")
+		bar.f:RegisterEvent("PLAYER_REGEN_ENABLED")
+		
+		bar.f:SetScript("OnEvent",function(self, event)
+			if event == "PLAYER_REGEN_DISABLED" then
+				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+				self:Hide()
+			elseif event == "PLAYER_REGEN_ENABLED" then
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+				self:Show()
+			end	
+		end)
+	end
 end
 
 local bars = {
