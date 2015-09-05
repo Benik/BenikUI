@@ -193,12 +193,20 @@ function BXR:UpdateRepNotifierPositions()
 	bar.f.txt:ClearAllPoints()
 
 	if db.position == 'LEFT' then
-		bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+		if not E.db.general.reputation.reverseFill then
+			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+		else
+			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
+		end
 		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
 		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
 		arrow = ">"
 	else
-		bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+		if not E.db.general.reputation.reverseFill then
+			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+		else
+			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
+		end
 		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
 		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
 		arrow = "<"
@@ -238,12 +246,20 @@ function BXR:UpdateXpNotifierPositions()
 	bar.f.txt:ClearAllPoints()
 
 	if db.position == 'LEFT' then
-		bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+		if not E.db.general.experience.reverseFill then
+			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+		else
+			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
+		end
 		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
 		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
 		arrow = ">"
 	else
-		bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+		if not E.db.general.experience.reverseFill then
+			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+		else
+			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
+		end
 		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
 		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
 		arrow = "<"
