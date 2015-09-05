@@ -1,3 +1,15 @@
+[b]2.28[/b]
+*Fixed Chat buttons font style not updating, when datatexts font style gets updated.
+*[New]: Added 'Notifiers' on xp/rep bars that add a small arrow and percentage beside the bars. Bars should be set to Vertical in ElvUI options.
+*Fixed GarrisonFollowerAlertFrame styling/skinning.
+*[New]: Now there are 2 unitframe and 2 actionbar layouts. Can be applied and combined during install.
+*Added the new Token "Timewarped Badge" in Tokens Dashboard.
+*Removed xp/rep bars from Player EmptyBar. Too much info on it.
+*deDE Update
+*[New]: Added option to show threat on Player/Target EmptyBars. Threat must be set to "Glow" in ElvUI options.
+*Changed the link in the login message. It now shows git.
+*Tons of adjusments
+
 [b]2.27[/b]
 *Prevent a lua error when BenikUI xp/rep bars and styles are disabled
 *Styled the AuctionProgressFrame. Credit: Merathilis

@@ -276,7 +276,7 @@ local function SetupActionbars(layout)
 			E.db.actionbar.stanceBar.buttonsize = 24	
 			E.db.bab.enable = true
 			
-			E.db.bui.middleDatatext.width = 400
+			E.db.bui.middleDatatext.width = 412
 			E:GetModule('BuiLayout'):MiddleDatatextDimensions()
 			E.db.bui.middleDatatext.backdrop = true
 			E:GetModule('BuiLayout'):MiddleDatatextLayout()
