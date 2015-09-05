@@ -4,6 +4,15 @@ local BUI = E:GetModule('BenikUI');
 local CURRENT_PAGE = 0
 local MAX_PAGE = 9
 
+local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
+	if not _G[mover] then return end
+	local frame = _G[mover]
+
+	frame:ClearAllPoints()
+	frame:SetPoint(point, anchor, secondaryPoint, x, y)
+	E:SaveMoverPosition(mover)
+end
+
 local function SetupBuiLayout()
 	
 	-- General
@@ -83,21 +92,21 @@ local function SetupBuiLayout()
 	-- movers
 	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 	do
-		E.db.movers.AlertFrameMover = 'TOPElvUIParentTOP0-140'
-		E.db.movers.BNETMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-182'
-		E.db.movers.BuiDashboardMover = 'TOPLEFTElvUIParentTOPLEFT4-8'
-		E.db.movers.DigSiteProgressBarMover = 'BOTTOMElvUIParentBOTTOM0315'
-		E.db.movers.GMMover = 'TOPLEFTElvUIParentTOPLEFT158-38'
-		E.db.movers.LeftChatMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT222'
-		E.db.movers.MicrobarMover = 'TOPLEFTElvUIParentTOPLEFT158-5'
-		E.db.movers.MinimapMover = 'TOPRIGHTElvUIParentTOPRIGHT-4-5'
-		E.db.movers.ReputationBarMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-41522'
-		E.db.movers.ExperienceBarMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT41522'
-		E.db.movers.RightChatMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-222'
-		E.db.movers.VehicleSeatMover = 'TOPLEFTElvUIParentTOPLEFT155-81'
-		E.db.movers.WatchFrameMover = 'TOPRIGHTElvUIParentTOPRIGHT-122-292'
-		E.db.movers.tokenHolderMover = 'TOPLEFTElvUIParentTOPLEFT4-121'
-		E.db.movers.ProfessionsMover = 'TOPRIGHTElvUIParentTOPRIGHT-3-184'
+		SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
+		SetMoverPosition('BNETMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -182)
+		SetMoverPosition('BuiDashboardMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
+		SetMoverPosition('DigSiteProgressBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 315)
+		SetMoverPosition('GMMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 158, -38)
+		SetMoverPosition('LeftChatMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 22)
+		SetMoverPosition('MicrobarMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 158, -5)
+		SetMoverPosition('MinimapMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -4, -5)
+		SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -415, 22)
+		SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 415, 22)
+		SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -2, 22)
+		SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 155, -81)
+		SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
+		SetMoverPosition('tokenHolderMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -121)
+		SetMoverPosition('ProfessionsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -3, -184)
 	end
 	
 	-- LocationPlus
@@ -113,7 +122,7 @@ local function SetupBuiLayout()
 	E.db.locplus.both = false
 	E.db.locplus.hidecoords = false
 	E.db.locplus.displayOther = 'NONE'
-	E.db.movers.LocationMover = 'TOPElvUIParentTOP0-7'
+	SetMoverPosition('LocationMover', 'TOP', E.UIParent, 'TOP', 0, -7)
 
 	-- LocationLite
 	if E.db.loclite == nil then E.db.loclite = {} end
@@ -124,7 +133,7 @@ local function SetupBuiLayout()
 	E.db.loclite.lpwidth = 220
 	E.db.loclite.trunc = true
 	E.db.loclite.lpauto = false
-	E.db.movers.LocationLiteMover = 'TOPElvUIParentTOP0-7'
+	SetMoverPosition('LocationLiteMover', 'TOP', E.UIParent, 'TOP', 0, -7)
 
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Layout Set']
@@ -275,18 +284,18 @@ local function SetupActionbars(layout)
 		
 		-- movers
 		do
-			E.db.movers.ElvAB_1 = 'BOTTOMElvUIParentBOTTOM092'
-			E.db.movers.ElvAB_2 = 'BOTTOMElvUIParentBOTTOM058'	
-			E.db.movers.ElvAB_3 = 'BOTTOMElvUIParentBOTTOM29558'
-			E.db.movers.ElvAB_5 = 'BOTTOMElvUIParentBOTTOM-29558'	
-			E.db.movers.PetAB = 'BOTTOMElvUIParentBOTTOM022'
-			E.db.movers.ShiftAB = 'BOTTOMElvUIParentBOTTOM0134'
-			E.db.movers.BuiMiddleDtMover = 'BOTTOMElvUIParentBOTTOM02'
-			E.db.movers.ArenaHeaderMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-56346'
-			E.db.movers.BossButton = 'BOTTOMElvUIParentBOTTOM0283'
-			E.db.movers.BossHeaderMover = 'TOPRIGHTElvUIParentTOPRIGHT-56-397'
-			E.db.movers.BuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-3'
-			E.db.movers.DebuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-134'
+			SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 92)
+			SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 58)
+			SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 295, 58)	
+			SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -295, 58)
+			SetMoverPosition('PetAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 22)
+			SetMoverPosition('ShiftAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 134)
+			SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
+			SetMoverPosition('ArenaHeaderMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -56, 346)
+			SetMoverPosition('BossButton', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 283)
+			SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -56, -397)
+			SetMoverPosition('BuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -3)
+			SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -128)			
 		end
 		
 	elseif layout == 'small' then	
@@ -336,20 +345,21 @@ local function SetupActionbars(layout)
 			E.db.bui.middleDatatext.backdrop = true
 			E:GetModule('BuiLayout'):MiddleDatatextLayout()
 		end
+		
 		-- movers
-		do	
-			E.db.movers.ElvAB_1 = 'BOTTOMElvUIParentBOTTOM056'
-			E.db.movers.ElvAB_2 = 'BOTTOMElvUIParentBOTTOM022'
-			E.db.movers.ElvAB_3 = 'BOTTOMElvUIParentBOTTOM2571'
-			E.db.movers.ElvAB_5 = 'BOTTOMElvUIParentBOTTOM-2561'
-			E.db.movers.PetAB = 'BOTTOMElvUIParentBOTTOM022'
-			E.db.movers.ShiftAB = 'BOTTOMElvUIParentBOTTOM0134'
-			E.db.movers.BuiMiddleDtMover = 'BOTTOMElvUIParentBOTTOM02'
-			E.db.movers.ArenaHeaderMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-56346'
-			E.db.movers.BossButton = 'BOTTOMElvUIParentBOTTOM0283'
-			E.db.movers.BossHeaderMover = 'TOPRIGHTElvUIParentTOPRIGHT-56-397'
-			E.db.movers.BuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-3'
-			E.db.movers.DebuffsMover = 'TOPRIGHTElvUIParentTOPRIGHT-181-134'
+		do
+			SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 56)
+			SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 22)
+			SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 257, 1)	
+			SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -256, 1)
+			SetMoverPosition('PetAB', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -150, 177)
+			SetMoverPosition('ShiftAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 134)
+			SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
+			SetMoverPosition('ArenaHeaderMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -56, 346)
+			SetMoverPosition('BossButton', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 290)
+			SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -56, -397)
+			SetMoverPosition('BuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -3)
+			SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -128)	
 		end
 	end
 
@@ -503,26 +513,26 @@ local function SetupUnitframes(layout)
 		
 		-- Movers
 		do
-			E.db.movers.AltPowerBarMover = 'TOPElvUIParentTOP0-66'
-			E.db.movers.ElvUF_AssistMover = 'TOPLEFTElvUIParentTOPLEFT4-392'
-			E.db.movers.ElvUF_FocusMover = 'BOTTOMRIGHTElvUIParentBOTTOMRIGHT-442178'
-			E.db.movers.ElvUF_PartyMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
-			E.db.movers.ElvUF_PetMover = 'BOTTOMElvUIParentBOTTOM0191'
-			E.db.movers.ElvUF_PlayerCastbarMover = 'BOTTOMElvUIParentBOTTOM-231147'
-			E.db.movers.ElvUF_PlayerMover = 'BOTTOMElvUIParentBOTTOM-231182'
-			E.db.movers.ElvUF_RaidMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
-			E.db.movers.ElvUF_Raid40Mover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
-			E.db.movers.ElvUF_RaidpetMover = 'TOPLEFTElvUIParentTOPLEFT4-444'
-			E.db.movers.ElvUF_TankMover = 'TOPLEFTElvUIParentTOPLEFT4-292'
-			E.db.movers.ElvUF_TargetCastbarMover = 'BOTTOMElvUIParentBOTTOM231147'
-			E.db.movers.ElvUF_TargetMover = 'BOTTOMElvUIParentBOTTOM231182'
-			E.db.movers.ElvUF_TargetTargetMover = 'BOTTOMElvUIParentBOTTOM0164'
-			E.db.movers.PlayerPowerBarMover = 'BOTTOMElvUIParentBOTTOM-231215'
-			E.db.movers.TargetPowerBarMover = 'BOTTOMElvUIParentBOTTOM231215'
-			E.db.movers.ClassBarMover = 'BOTTOMElvUIParentBOTTOM-1349'
-			E.db.movers.ExperienceBarMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT41522'
-			E.db.movers.ElvUF_BodyGuardMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT4444'
-			E.db.movers.ElvUF_PetCastbarMover = 'BOTTOMElvUIParentBOTTOM0214'
+			SetMoverPosition('AltPowerBarMover', 'TOP', E.UIParent, 'TOP', 0, -66)
+			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -392)
+			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -442, 178)
+			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
+			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 191)
+			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -231, 147)
+			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -231, 182)
+			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
+			SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
+			SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -444)
+			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -300)
+			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 231, -147)
+			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 231, 182)
+			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 164)
+			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 231, 147)
+			SetMoverPosition('PlayerPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -231, 215)
+			SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 231, 215)
+			SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 349)
+			SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 4, 444)
+			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 214)
 		end
 
 	elseif layout == 'detached' then
@@ -591,11 +601,11 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.player.health.xOffset = 2
 			E.db.unitframe.units.player.health.yOffset = -25
 			E.db.unitframe.units.player.health.text_format = ""
-			E.db.unitframe.units.player.height = 28
+			E.db.unitframe.units.player.height = 34
 			E.db.unitframe.units.player.buffs.enable = true
 			E.db.unitframe.units.player.buffs.sizeOverride = 26
 			E.db.unitframe.units.player.buffs.attachTo = 'FRAME'
-			E.db.unitframe.units.player.buffs.yOffset = 8
+			E.db.unitframe.units.player.buffs.yOffset = 2
 			E.db.unitframe.units.player.buffs.anchorPoint = 'TOPLEFT'
 			E.db.unitframe.units.player.buffs.fontSize = 14
 			E.db.unitframe.units.player.smartAuraPosition = "DEBUFFS_ON_BUFFS"
@@ -605,7 +615,7 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.player.power.width = 'fill'
 			E.db.unitframe.units.player.power.detachedWidth = 238
 			E.db.unitframe.units.player.power.detachFromFrame = true
-			E.db.unitframe.units.player.power.yOffset = -23
+			E.db.unitframe.units.player.power.yOffset = -26
 			E.db.unitframe.units.player.power.xOffset = 2
 			E.db.unitframe.units.player.power.hideonnpc = true
 			E.db.unitframe.units.player.aurabar.enable = false
@@ -615,7 +625,7 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.player.customTexts.PlayerName.justifyH = "LEFT"
 			E.db.unitframe.units.player.customTexts.PlayerName.fontOutline = "OUTLINE"
 			E.db.unitframe.units.player.customTexts.PlayerName.xOffset = 2
-			E.db.unitframe.units.player.customTexts.PlayerName.yOffset = 0
+			E.db.unitframe.units.player.customTexts.PlayerName.yOffset = -3
 			E.db.unitframe.units.player.customTexts.PlayerName.text_format = "[name]"
 			E.db.unitframe.units.player.customTexts.PlayerName.size = 20
 			E.db.unitframe.units.player.customTexts.PlayerBigHealth = {}
@@ -623,7 +633,7 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.player.customTexts.PlayerBigHealth.justifyH = "RIGHT"
 			E.db.unitframe.units.player.customTexts.PlayerBigHealth.fontOutline = "OUTLINE"
 			E.db.unitframe.units.player.customTexts.PlayerBigHealth.xOffset = 0
-			E.db.unitframe.units.player.customTexts.PlayerBigHealth.yOffset = 0
+			E.db.unitframe.units.player.customTexts.PlayerBigHealth.yOffset = -3
 			E.db.unitframe.units.player.customTexts.PlayerBigHealth.text_format = "[health:current-percent]"
 			E.db.unitframe.units.player.customTexts.PlayerBigHealth.size = 20
 		-- target
@@ -646,17 +656,17 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.target.power.hideonnpc = false
 			E.db.unitframe.units.target.power.height = 5
 			E.db.unitframe.units.target.power.width = 'fill'
-			E.db.unitframe.units.target.power.yOffset = -23
+			E.db.unitframe.units.target.power.yOffset = -26
 			E.db.unitframe.units.target.power.xOffset = 0
 			E.db.unitframe.units.target.width = 240
 			E.db.unitframe.units.target.castbar.icon = false
 			E.db.unitframe.units.target.castbar.width = 240
 			E.db.unitframe.units.player.castbar.height = 18
-			E.db.unitframe.units.target.height = 28
+			E.db.unitframe.units.target.height = 34
 			E.db.unitframe.units.target.threatStyle = 'GLOW'
 			E.db.unitframe.units.target.buffs.anchorPoint = 'TOPRIGHT'
 			E.db.unitframe.units.target.buffs.sizeOverride = 26
-			E.db.unitframe.units.target.buffs.yOffset = 8
+			E.db.unitframe.units.target.buffs.yOffset = 2
 			E.db.unitframe.units.target.buffs.fontSize = 14
 			E.db.unitframe.units.target.smartAuraPosition = "DEBUFFS_ON_BUFFS"
 			E.db.unitframe.units.target.smartAuraDisplay = "DISABLED"
@@ -667,7 +677,7 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.target.customTexts.TargetName.justifyH = "RIGHT"
 			E.db.unitframe.units.target.customTexts.TargetName.fontOutline = "OUTLINE"
 			E.db.unitframe.units.target.customTexts.TargetName.xOffset = 0
-			E.db.unitframe.units.target.customTexts.TargetName.yOffset = 0
+			E.db.unitframe.units.target.customTexts.TargetName.yOffset = -3
 			E.db.unitframe.units.target.customTexts.TargetName.text_format = "[namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]"
 			E.db.unitframe.units.target.customTexts.TargetName.size = 20
 			E.db.unitframe.units.target.customTexts.TargetBigHealth = {}
@@ -675,7 +685,7 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.target.customTexts.TargetBigHealth.justifyH = "LEFT"
 			E.db.unitframe.units.target.customTexts.TargetBigHealth.fontOutline = "OUTLINE"
 			E.db.unitframe.units.target.customTexts.TargetBigHealth.xOffset = 2
-			E.db.unitframe.units.target.customTexts.TargetBigHealth.yOffset = 0
+			E.db.unitframe.units.target.customTexts.TargetBigHealth.yOffset = -3
 			E.db.unitframe.units.target.customTexts.TargetBigHealth.text_format = "[health:current-percent]"
 			E.db.unitframe.units.target.customTexts.TargetBigHealth.size = 20
 		-- pet
@@ -702,28 +712,28 @@ local function SetupUnitframes(layout)
 		
 		-- Movers
 		do
-			E.db.movers.AltPowerBarMover = 'TOPElvUIParentTOP0-66'
-			E.db.movers.ClassBarMover = 'BOTTOMElvUIParentBOTTOM-1349'
-			E.db.movers.ElvUF_AssistMover = 'TOPLEFTElvUIParentTOPLEFT4-392'
-			E.db.movers.ElvUF_BodyGuardMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT4444'
-			E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM0242"
-			E.db.movers.ElvUF_PartyMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
-			E.db.movers.ElvUF_PetCastbarMover = 'BOTTOMElvUIParentBOTTOM0214'
-			E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0191"
-			E.db.movers.ElvUF_PlayerCastbarMover = 'BOTTOMElvUIParentBOTTOM-231147'
-			E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-216182"
-			E.db.movers.ElvUF_Raid40Mover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
-			E.db.movers.ElvUF_RaidMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT2178'
-			E.db.movers.ElvUF_RaidpetMover = 'TOPLEFTElvUIParentTOPLEFT4-444'
-			E.db.movers.ElvUF_TankMover = 'TOPLEFTElvUIParentTOPLEFT4-292'
-			E.db.movers.ElvUF_TargetCastbarMover = 'BOTTOMElvUIParentBOTTOM231147'
-			E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM216182"
-			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0160"
-			E.db.movers.ExperienceBarMover = 'BOTTOMLEFTElvUIParentBOTTOMLEFT41522'
-			E.db.movers.PlayerPowerBarMover = "BOTTOMElvUIParentBOTTOM-216210"
-			E.db.movers.TargetPowerBarMover = "BOTTOMElvUIParentBOTTOM216210"
-			E.db.movers.TargetPortraitMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-513163"
-			E.db.movers.PlayerPortraitMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT513163"
+			SetMoverPosition('AltPowerBarMover', 'TOP', E.UIParent, 'TOP', 0, -66)
+			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -392)
+			SetMoverPosition('ElvUF_FocusMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 242)
+			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
+			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 155)
+			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 144)
+			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -217, 140)
+			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -216, 182)
+			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
+			SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
+			SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -444)
+			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -300)
+			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 217, 140)
+			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 216, 182)
+			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 182)
+			SetMoverPosition('PlayerPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -216, 210)
+			SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 216, 210)
+			SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 349)
+			SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 4, 444)
+			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 214)
+			SetMoverPosition('TargetPortraitMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -513, 163)
+			SetMoverPosition('PlayerPortraitMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 513, 163)
 		end	
 	end
 	
