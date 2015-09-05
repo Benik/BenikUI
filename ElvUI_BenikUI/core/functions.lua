@@ -56,16 +56,19 @@ local function Style(f, template, name, colored)
 	else
 		style:SetTemplate('Default', true)
 	end
+	
+	style:SetClampedToScreen(true)
+	
 	local tlx, tly, brx, bry
+	
 	if template == 'Inside' then
 		tlx, tly, brx, bry = 0, SPACING, 0, (E.PixelMode and -4 or -3)
 	elseif template == 'Outside' then
 		tlx, tly, brx, bry = 0, (E.PixelMode and 4 or 7), 0, (E.PixelMode and -1 or 1)
-	--elseif template == 'Skin' then
-		--tlx, tly, brx, bry = 0, (E.PixelMode and 4 or 7), 0, (E.PixelMode and -1 or 1)
 	elseif template == 'Small' then
 		tlx, tly, brx, bry = -(E.PixelMode and 1 or 2), (E.PixelMode and 4 or 9), (E.PixelMode and 1 or 2), (E.PixelMode and -1 or 3)
 	end
+	
 	style:Point('TOPLEFT', f, 'TOPLEFT', tlx, tly)
 	style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
 	
