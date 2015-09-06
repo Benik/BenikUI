@@ -67,7 +67,7 @@ L['Please click the button below to setup your addons.'] = "Bitte klick auf die 
 L['Setup Addons'] = "Addons einstellen"
 L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = "Du hast den Installationsprozess jetzt abgeschlossen. Wenn du technische Unterstützung brauchst besuch uns bitte http://www.tukui.org."
 L['Installation'] = true
-L['Buttons must be clicked twice'] = true
+L['Buttons must be clicked twice'] = "Bitte zweimal anklicken"
 
 -- actionbar options
 L['Transparent Backdrops'] = "Transparente Hintergründe"
