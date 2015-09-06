@@ -1,3 +1,9 @@
+[b]2.29[/b]
+*Prevent an error with the rep bar.
+*Conflict warning should now correclty show when ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap addons are loaded.
+*Install: Added a warning on unitframe step, so that the detached power bars position are set correctly.
+*Fix so that styled frames won't go off screen
+
 [b]2.28[/b]
 *Fixed Chat buttons font style not updating, when datatexts font style gets updated.
 *[New]: Added 'Notifiers' on xp/rep bars that add a small arrow and percentage beside the bars. Bars should be set to Vertical in ElvUI options.
