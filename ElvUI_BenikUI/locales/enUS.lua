@@ -68,6 +68,7 @@ L['Please click the button below to setup your addons.'] = true
 L['Setup Addons'] = true
 L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = true
 L['Installation'] = true
+L['Buttons must be clicked twice'] = true
 
 -- actionbar options
 L['Transparent Backdrops'] = true
