@@ -179,7 +179,7 @@ function BUIC:SetSizeAndPosition()
 	if IsAddOnLoaded('ElvUI_CastBarPowerOverlay') or IsAddOnLoaded('ElvUI_CastBarSnap') then
 		if E.private.BUIC.warned ~= true then
 			-- Warn user about Blaze's CastBarPowerOverlay and CastBarSnap
-			E:StaticPopup_Show('BUICCompatibility')
+			StaticPopup_Show('BUICCompatibility')
 		end
 		E.db.ufb.attachCastbar = false
 	elseif E.db.ufb.barshow and E.db.ufb.attachCastbar then
@@ -190,13 +190,13 @@ function BUIC:SetSizeAndPosition()
 end
 
 function BUIC:PLAYER_ENTERING_WORLD()
-	--self:ScheduleTimer('SetSizeAndPosition', 10)
-	self:SetSizeAndPosition()
+	self:ScheduleTimer('SetSizeAndPosition', 10)
+	--self:SetSizeAndPosition()
 end
 
 function BUIC:ACTIVE_TALENT_GROUP_CHANGED()
-	--self:ScheduleTimer('SetSizeAndPosition', 3)
-	self:SetSizeAndPosition()
+	self:ScheduleTimer('SetSizeAndPosition', 3)
+	--self:SetSizeAndPosition()
 end
 
 function BUIC:UpdatePlayer()
