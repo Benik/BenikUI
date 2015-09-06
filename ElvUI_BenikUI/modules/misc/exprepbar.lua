@@ -138,6 +138,7 @@ function BXR:ChangeXPcolor()
 	end
 end
 
+local backupColor = FACTION_BAR_COLORS[1]
 function BXR:ChangeRepColor()
 	local db = E.db.buixprep.color.reputation
 	local _, reaction = GetWatchedFactionInfo()
