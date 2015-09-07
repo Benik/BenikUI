@@ -184,7 +184,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				end
 				
 				if addon == 'Blizzard_GuildUI' then
-					local GuildFrames = {GuildMemberDetailFrame, GuildTextEditFrame, GuildLogFrame}
+					local GuildFrames = {GuildMemberDetailFrame, GuildTextEditFrame, GuildLogFrame, GuildNewsFiltersFrame}
 					for _, frame in pairs(GuildFrames) do
 						if frame and not frame.style then
 							frame:Style('Outside')
