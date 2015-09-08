@@ -240,6 +240,7 @@ local function SetupActionbars(layout)
 			E.db.actionbar.font = 'Bui Visitor1'
 			E.db.actionbar.fontOutline = 'MONOCROMEOUTLINE'
 			E.db.actionbar.fontSize = 10
+			E.db.bui.middleDatatext.styled = true
 			
 			E.db.actionbar.bar1.backdrop = false
 			E.db.actionbar.bar1.buttons = 12
@@ -304,6 +305,7 @@ local function SetupActionbars(layout)
 			E.db.actionbar.font = 'Bui Visitor1';
 			E.db.actionbar.fontOutline = 'MONOCROMEOUTLINE';
 			E.db.actionbar.fontSize = 10;
+			E.db.bui.middleDatatext.styled = false
 			
 			E.db.actionbar.bar1.backdrop = false
 			E.db.actionbar.bar1.buttons = 12
