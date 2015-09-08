@@ -223,6 +223,7 @@ local function SetupBuiChat()
 		E.db.chat.tabFontOutline = 'MONOCROMEOUTLINE'
 		E.db.chat.font = 'Bui Prototype'
 		E.db.chat.panelHeight = 150
+		E.db.chat.panelWidth = 412
 	end
 	
 	if InstallStepComplete then
@@ -410,6 +411,7 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.colors.transparentPower = false
 			E.db.unitframe.colors.transparentHealth = true
 			E.db.unitframe.smoothbars = true
+			E.db.unitframe.colors.health = E:GetColor(.1, .1, .1)
 			
 			E.db.unitframe.colors.healthclass = false
 			E.db.unitframe.colors.power.MANA.r = 1
@@ -577,6 +579,7 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.colors.transparentPower = false
 			E.db.unitframe.colors.transparentHealth = true
 			E.db.unitframe.smoothbars = true
+			E.db.unitframe.colors.health = E:GetColor(.1, .1, .1)
 			
 			E.db.unitframe.colors.healthclass = false
 			E.db.unitframe.colors.power.MANA.r = 1
