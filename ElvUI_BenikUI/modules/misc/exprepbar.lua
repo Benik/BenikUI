@@ -19,7 +19,7 @@ local function StyleXpRepBars()
 	
 	-- bottom decor/button
 	xp.fb = CreateFrame('Button', nil, xp)
-	xp.fb:SetTemplate('Default', true)
+	xp.fb:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	xp.fb:CreateSoftGlow()
 	xp.fb.sglow:Hide()
 	xp.fb:Point('TOPLEFT', xp, 'BOTTOMLEFT', 0, -SPACING)
@@ -45,7 +45,7 @@ local function StyleXpRepBars()
 	
 	-- bottom decor/button	
 	rp.fb = CreateFrame('Button', nil, rp)
-	rp.fb:SetTemplate('Default', true)
+	rp.fb:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	rp.fb:CreateSoftGlow()
 	rp.fb.sglow:Hide()
 	rp.fb:Point('TOPLEFT', rp, 'BOTTOMLEFT', 0, -SPACING)
