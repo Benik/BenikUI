@@ -252,6 +252,9 @@ function AFK:Initialize()
 	self.AFKMode.top.style:Point('TOPLEFT', self.AFKMode.top, 'BOTTOMLEFT', 0, 1)
 	self.AFKMode.top.style:Point('BOTTOMRIGHT', self.AFKMode.top, 'BOTTOMRIGHT', 0, (E.PixelMode and -4 or -7))
 	
+	-- move the chat lower
+	self.AFKMode.chat:SetPoint("TOPLEFT", self.AFKMode.top.style, "TOPLEFT", 4, -4)
+	
 	-- WoW logo
 	self.AFKMode.top.wowlogo = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the logo layer
 	self.AFKMode.top.wowlogo:SetPoint("TOP", self.AFKMode.top, "TOP", 0, -5)
