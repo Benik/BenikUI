@@ -162,6 +162,28 @@ L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite un
 L['Threat on EmptyBars'] = "Bedrohung auf den leeren Leisten"
 L['Places the threat glow on PlayerBar and TargetBar'] = "Platziert das Bedrohungsleuchten auf die Spieler- und Zielleiste"
 
+-- afk
+L["Jan"] = true
+L["Feb"] = true
+L["Mar"] = true
+L["Apr"] = true
+L["May"] = true
+L["Jun"] = true
+L["Jul"] = true
+L["Aug"] = true
+L["Sep"] = true
+L["Oct"] = true
+L["Nov"] = true
+L["Dec"] = true
+
+L["Sun"] = true
+L["Mon"] = true
+L["Tue"] = true
+L["Wed"] = true
+L["Thu"] = true
+L["Fri"] = true
+L["Sat"] = true
+
 -- Addon friendly names
 L['LocationLite'] = true
 L['LocationPlus'] = true

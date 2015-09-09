@@ -141,14 +141,40 @@ local function createTime()
 	end
 end
 
+local monthAbr = {
+	[1] = L["Jan"],
+	[2] = L["Feb"],
+	[3] = L["Mar"],
+	[4] = L["Apr"],
+	[5] = L["May"],
+	[6] = L["Jun"],
+	[7] = L["Jul"],
+	[8] = L["Aug"],
+	[9] = L["Sep"],
+	[10] = L["Oct"],
+	[11] = L["Nov"],
+	[12] = L["Dec"],
+}
+
+local daysAbr = {
+	[1] = L["Sun"],
+	[2] = L["Mon"],
+	[3] = L["Tue"],
+	[4] = L["Wed"],
+	[5] = L["Thu"],
+	[6] = L["Fri"],
+	[7] = L["Sat"],
+}
+
 -- Create Date
-local curDate = date("%a, %b %d, %Y")
+local curDate = date("%x")
 local function createDate()
-	local today = date("%a, %b %d, %Y")
+	local today = date("%x")
 	-- stop if the date is the same
 	if today == curDate then return end
 	-- update if not
-	AFK.AFKMode.top.date:SetText(today)
+	local curDayName, curMonth, curDay, curYear = CalendarGetDate()
+	AFK.AFKMode.top.date:SetText(format("%s, %s %d, %d", daysAbr[curDayName], curDay, monthAbr[curMonth], curYear))
 end
 
 -- simple timer
