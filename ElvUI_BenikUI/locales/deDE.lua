@@ -167,22 +167,22 @@ L["Jan"] = true
 L["Feb"] = true
 L["Mar"] = true
 L["Apr"] = true
-L["May"] = true
+L["May"] = "Mai"
 L["Jun"] = true
 L["Jul"] = true
 L["Aug"] = true
 L["Sep"] = true
-L["Oct"] = true
+L["Oct"] = "Okt"
 L["Nov"] = true
-L["Dec"] = true
+L["Dec"] = "Dez"
 
-L["Sun"] = true
+L["Sun"] = "So"
 L["Mon"] = true
-L["Tue"] = true
-L["Wed"] = true
-L["Thu"] = true
-L["Fri"] = true
-L["Sat"] = true
+L["Tue"] = "Di"
+L["Wed"] = "Mi"
+L["Thu"] = "Do"
+L["Fri"] = "Fr"
+L["Sat"] = "Sa"
 
 -- Addon friendly names
 L['LocationLite'] = true
