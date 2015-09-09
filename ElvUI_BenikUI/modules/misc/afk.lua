@@ -167,14 +167,9 @@ local daysAbr = {
 }
 
 -- Create Date
-local curDate = date("%x")
 local function createDate()
-	local today = date("%x")
-	-- stop if the date is the same
-	if today == curDate then return end
-	-- update if not
 	local curDayName, curMonth, curDay, curYear = CalendarGetDate()
-	AFK.AFKMode.top.date:SetText(format("%s, %s %d, %d", daysAbr[curDayName], curDay, monthAbr[curMonth], curYear))
+	AFK.AFKMode.top.date:SetText(format("%s, %d %s, %d", daysAbr[curDayName], curDay, monthAbr[curMonth], curYear))
 end
 
 -- simple timer
@@ -301,7 +296,7 @@ function AFK:Initialize()
 	-- Date text
 	self.AFKMode.top.date = self.AFKMode.top:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.top.date:FontTemplate(nil, 16)
-	self.AFKMode.top.date:SetText(curDate)
+	self.AFKMode.top.date:SetText("")
 	self.AFKMode.top.date:SetPoint("LEFT", self.AFKMode.top, "LEFT", 20, 0)
 	self.AFKMode.top.date:SetJustifyH("RIGHT")
 	self.AFKMode.top.date:SetTextColor(classColor.r, classColor.g, classColor.b)
