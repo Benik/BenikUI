@@ -192,12 +192,18 @@ end
 
 local function ZygorDecor()
 	if not E.db.buiaddonskins.zg then return end
-	local zgFrames = {ZygorGuidesViewerFrame_Border, ZygorGuidesViewer_CreatureViewer}
-	for _, frame in pairs(zgFrames) do
-		if not frame.style then
-			frame:Style('Outside')
+
+		if not ZygorGuidesViewerFrame_Border.style then
+			ZygorGuidesViewerFrame_Border:Style('Outside')
 		end
-	end
+
+	hooksecurefunc(ZygorGuidesViewer.CreatureViewer, 'CreateFrame', function(self)
+		if self.Frame then
+			if not ZygorGuidesViewer_CreatureViewer.style then
+				ZygorGuidesViewer_CreatureViewer:Style('Outside')
+			end
+		end
+	end)
 end
 
 local function RareCoordDecor()
