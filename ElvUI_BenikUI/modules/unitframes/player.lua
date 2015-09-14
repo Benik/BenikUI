@@ -40,7 +40,7 @@ function UFB:UpdatePlayerBarAnchors(frame, isShown)
 	local POWERBAR_HEIGHT = db.power.height
 	local CLASSBAR_HEIGHT = db.classbar.height
 	local USE_CLASSBAR = db.classbar.enable and CAN_HAVE_CLASSBAR
-	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and USE_CLASSBAR
+	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and USE_CLASSBAR and db.classbar.detachFromFrame ~= true
 	local SPACING = E.Spacing;
 	local SHADOW_SPACING = E.PixelMode and 3 or 4
 	
@@ -160,6 +160,8 @@ function UFB:UpdatePlayerBarAnchors(frame, isShown)
 		end
 	end
 end
+
+local min_yOffset = -10
 
 function UFB:ArrangePlayer()
 	local EMPTY_BARS_HEIGHT = E.db.ufb.barheight
