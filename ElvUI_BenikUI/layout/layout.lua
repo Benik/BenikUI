@@ -531,6 +531,7 @@ function BUIL:Initialize()
 	hooksecurefunc(M, 'UpdateSettings', BUIL.ResizeMinimapPanels)
 	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
+	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'MiddleDatatextDimensions')
 end
 
 E:RegisterModule(BUIL:GetName())
