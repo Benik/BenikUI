@@ -1,6 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local AB = E:GetModule('ActionBars');
-local BAB = E:NewModule('BuiActionbars');
+local BAB = E:NewModule('BuiActionbars', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
 
 if E.private.actionbar.enable ~= true then return; end
@@ -320,6 +320,7 @@ function BAB:Initialize()
 	C_Timer.After(2, BAB.ColorBackdrops)
 	C_Timer.After(2, BAB.CreateButtons)
 	self:TaxiButton()
+	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
 	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end
 end
 
