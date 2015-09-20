@@ -4,10 +4,10 @@ local BUID = E:GetModule('BuiDashboard')
 local LastUpdate = 1
 
 local statusColors = {
-	'|cff0CD809',
-	'|cffE8DA0F',
-	'|cffFF9000',
-	'|cffD80909'
+	'|cff0CD809',	-- green
+	'|cffE8DA0F',	-- yellow
+	'|cffFF9000',	-- orange
+	'|cffD80909'	-- red
 }
 
 function BUID:CreateFps()
@@ -22,9 +22,9 @@ function BUID:CreateFps()
 			local fpscolor = 4
 			self:SetValue(value)
 
-			if(value * 100 / max >= 75) then
+			if(value * 100 / max >= 45) then
 				fpscolor = 1
-			elseif value * 100 / max < 75 and value * 100 / max > 40 then
+			elseif value * 100 / max < 45 and value * 100 / max > 30 then
 				fpscolor = 2
 			else
 				fpscolor = 3
