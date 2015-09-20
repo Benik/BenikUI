@@ -540,7 +540,7 @@ function BUIS:BenikUISkins()
 	
 	-- Style Changes
 	if DressUpFrame.style then
-		DressUpFrame.style:Point('TOPLEFT', DressUpFrame, 'TOPLEFT', 6, 5)
+		DressUpFrame.style:Point('TOPLEFT', DressUpFrame, 'TOPLEFT', 6, 4)
 		DressUpFrame.style:Point('BOTTOMRIGHT', DressUpFrame, 'TOPRIGHT', -32, -1)
 	end
 
