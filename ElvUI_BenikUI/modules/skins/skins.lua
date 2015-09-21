@@ -545,7 +545,7 @@ function BUIS:BenikUISkins()
 	end
 
 	if MerchantFrame.style then
-		MerchantFrame.style:Point('TOPLEFT', MerchantFrame, 'TOPLEFT', 6, 5)
+		MerchantFrame.style:Point('TOPLEFT', MerchantFrame, 'TOPLEFT', 6, 4)
 		MerchantFrame.style:Point('BOTTOMRIGHT', MerchantFrame, 'TOPRIGHT', 2, -1)
 	end
 
