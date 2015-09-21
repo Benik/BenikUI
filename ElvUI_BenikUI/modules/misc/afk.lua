@@ -169,7 +169,7 @@ local daysAbr = {
 -- Create Date
 local function createDate()
 	local curDayName, curMonth, curDay, curYear = CalendarGetDate()
-	AFK.AFKMode.top.date:SetText(format("%s, %d %s, %d", daysAbr[curDayName], curDay, monthAbr[curMonth], curYear))
+	AFK.AFKMode.top.date:SetText(format("%s, %s %d, %d", daysAbr[curDayName], monthAbr[curMonth], curDay, curYear))
 end
 
 -- simple timer
