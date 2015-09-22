@@ -1,5 +1,17 @@
 ﻿local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
+-- Add Party portraits to ElvUI defaults
+P['unitframe']['units']['party']['portrait'] = {
+	['enable'] = true,
+	['width'] = 45,
+	['overlay'] = true,
+	['camDistanceScale'] = 1,
+	['rotation'] = 0,
+	['style'] = '3D',
+	['xOffset'] = 0,
+	['yOffset'] = 0,
+}
+
 -- Core
 P['bui'] = {
 	['installed'] = nil,
@@ -180,6 +192,7 @@ P['ufb'] = {
 	['castText'] = true,
 	['yOffsetText'] = -15,
 	['hideText'] = false,
+	['castbarWarned'] = nil,
 }
 
 -- ElvUI addons Styling

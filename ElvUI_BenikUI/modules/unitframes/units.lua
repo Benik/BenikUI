@@ -42,6 +42,8 @@ function UFB:Initialize()
 	self:UnitDefaults()
 	self:InitPlayer()
 	self:InitTarget()
+	self:ConstructPartyPortraits()
+	hooksecurefunc(UF, 'Update_PartyFrames', UFB.Update_PartyFrames)
 	hooksecurefunc(UF, 'Update_AllFrames', UFB.Update_PowerStatusBar)
 	hooksecurefunc(UF, 'Update_StatusBars', UFB.Update_PowerStatusBar)
 end

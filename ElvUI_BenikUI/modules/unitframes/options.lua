@@ -108,6 +108,88 @@ local function ufTable()
 					},
 				},
 			},
+			partyPortraits = {
+				order = 4,
+				type = 'group',
+				name = L["Party Frames"],
+				guiInline = true,
+				disabled = function() return not E.private.unitframe.enable end,
+				get = function(info) return E.db.unitframe.units['party'][ info[#info] ] end,
+				set = function(info, value) E.db.unitframe.units['party'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('party') end,
+				args = {
+					configureToggle = {
+						order = 1,
+						type = 'execute',
+						name = L["Display Frames"],
+						func = function()
+							UF:HeaderConfig(ElvUF_Party, ElvUF_Party.forceShow ~= true or nil)
+						end,
+					},
+					portrait = {
+						order = 2,
+						type = 'group',
+						name = L["Portrait"],
+						get = function(info) return E.db.unitframe.units['party']['portrait'][ info[#info] ] end,
+						set = function(info, value) E.db.unitframe.units['party']['portrait'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('party') end,
+						args = {
+							enable = {
+								type = 'toggle',
+								order = 1,
+								name = L["Enable"],
+							},
+							width = {
+								type = 'range',
+								order = 2,
+								name = L["Width"],
+								min = 15, max = 150, step = 1,
+							},
+							overlay = {
+								type = 'toggle',
+								name = L["Overlay"],
+								desc = L["Overlay the healthbar"],
+								order = 3,
+							},
+							rotation = {
+								type = 'range',
+								name = L["Model Rotation"],
+								order = 4,
+								min = 0, max = 360, step = 1,
+							},
+							camDistanceScale = {
+								type = 'range',
+								name = L["Camera Distance Scale"],
+								desc = L["How far away the portrait is from the camera."],
+								order = 5,
+								min = 0.01, max = 4, step = 0.01,
+							},
+							style = {
+								type = 'select',
+								name = L["Style"],
+								desc = L["Select the display method of the portrait."],
+								order = 6,
+								values = {
+									['2D'] = L["2D"],
+									['3D'] = L["3D"],
+								},
+							},
+							xOffset = {
+								order = 7,
+								type = "range",
+								name = L["xOffset"],
+								desc = L["Position the Model horizontally."],
+								min = -1, max = 1, step = 0.01,
+							},
+							yOffset = {
+								order = 8,
+								type = "range",
+								name = L["yOffset"],
+								desc = L["Position the Model vertically."],
+								min = -1, max = 1, step = 0.01,
+							},
+						},
+					},
+				},
+			},
 		},
 	}
 end
@@ -244,3 +326,5 @@ local function ufTargetTable()
 	}
 end
 table.insert(E.BuiConfig, ufTargetTable)
+
+

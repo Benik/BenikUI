@@ -2,6 +2,7 @@
 	<Script file="units.lua"/>
 	<Script file="player.lua"/>
 	<Script file="target.lua"/>
+	<Script file="party.lua"/>
 	<Script file="tags.lua"/>
 	<Script file="castbar.lua"/>
 	<Script file="options.lua"/>
