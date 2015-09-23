@@ -131,6 +131,12 @@ function UFB:Update_PartyFrames(frame, db)
 					if db.portrait.style == '3D' then
 						portrait:SetFrameLevel(frame:GetFrameLevel() + 5)
 					end
+					
+					if db.portrait.transparent then
+						portrait.backdrop:SetTemplate('Transparent')
+					else
+						portrait.backdrop:SetTemplate('Default', true)
+					end
 
 					if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR then
 						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and -1 or SPACING, 0)

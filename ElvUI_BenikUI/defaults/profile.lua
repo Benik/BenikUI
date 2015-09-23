@@ -11,6 +11,7 @@ P['unitframe']['units']['party']['portrait'] = {
 	['style'] = '3D',
 	['xOffset'] = 0,
 	['yOffset'] = 0,
+	['transparent'] = false,
 }
 
 P['unitframe']['units']['party']['roleIcon'] = {

@@ -257,6 +257,7 @@ local function injectPartyOptions()
 				type = 'toggle',
 				order = 1,
 				name = L["Enable"],
+				width = "full",
 			},
 			width = {
 				type = 'range',
@@ -312,6 +313,13 @@ local function injectPartyOptions()
 				name = L["yOffset"],
 				desc = L["Position the Model vertically."],
 				min = -1, max = 1, step = 0.01,
+			},
+			transparent = {
+				order = 10,
+				type = "toggle",
+				name = BUI:cOption(L['Transparent']),
+				desc = L['Makes the portrait backdrop transparent'],
+				disabled = function() return E.db.unitframe.units.party.portrait.overlay end,
 			},
 		},
 	}
