@@ -39,6 +39,9 @@ function UFB:Update_PartyFrames(frame, db)
 	local USE_INSET_POWERBAR = db.power.width == 'inset' and USE_POWERBAR
 	local USE_MINI_POWERBAR = db.power.width == 'spaced' and USE_POWERBAR
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR
+	local POWERBAR_OFFSET = db.power.offset
+	local POWERBAR_HEIGHT = db.power.height
+	local POWERBAR_WIDTH = db.width - (BORDER*2)
 
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
@@ -66,6 +69,37 @@ function UFB:Update_PartyFrames(frame, db)
 				health.bg:Point('BOTTOMLEFT', health:GetStatusBarTexture(), 'BOTTOMRIGHT')
 				health.bg:Point('TOPRIGHT', health)
 				health.bg:SetParent(frame.Portrait.overlay)
+			end
+		end
+		
+		--Power
+		do
+			local power = frame.Power
+
+			if USE_POWERBAR and USE_PORTRAIT and not USE_PORTRAIT_OVERLAY then
+				--Position
+				power:ClearAllPoints()
+				if USE_POWERBAR_OFFSET then
+					power:Point("TOPLEFT", frame.Health, "TOPLEFT", -POWERBAR_OFFSET, -POWERBAR_OFFSET)
+					power:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", -POWERBAR_OFFSET, -POWERBAR_OFFSET)
+					power:SetFrameStrata("LOW")
+					power:SetFrameLevel(2)
+				elseif USE_MINI_POWERBAR then
+					power:Width((POWERBAR_WIDTH/2) - BORDER*2)
+					power:Height(POWERBAR_HEIGHT)
+					power:Point("LEFT", frame, "BOTTOMLEFT", (BORDER*2 + 4)+PORTRAIT_WIDTH, BORDER + (POWERBAR_HEIGHT/2))
+					power:SetFrameStrata("MEDIUM")
+					power:SetFrameLevel(frame:GetFrameLevel() + 3)
+				elseif USE_INSET_POWERBAR then
+					power:Height(POWERBAR_HEIGHT)
+					power:Point("BOTTOMLEFT", frame.Health, "BOTTOMLEFT", BORDER + (BORDER*2), BORDER + (BORDER*2))
+					power:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", -(BORDER + (BORDER*2)), BORDER + (BORDER*2))
+					power:SetFrameStrata("MEDIUM")
+					power:SetFrameLevel(frame:GetFrameLevel() + 3)
+				else
+					power:Point("TOPLEFT", frame.Health.backdrop, "BOTTOMLEFT", BORDER, -(E.PixelMode and 0 or (BORDER + SPACING)))
+					power:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -(BORDER), BORDER)
+				end
 			end
 		end
 		
