@@ -267,7 +267,7 @@ local function injectPartyOptions()
 			height = {
 				type = 'range',
 				order = 3,
-				name = "+"..L["Height"],
+				name = BUI:cOption("+ "..L["Height"]),
 				min = 0, max = 150, step = 1,
 			},							
 			overlay = {
@@ -319,14 +319,14 @@ local function injectPartyOptions()
 	E.Options.args.unitframe.args.party.args.roleIcon.args.xOffset = {
 		type = 'range',
 		order = 7,
-		name = L["xOffset"],
+		name = BUI:cOption(L["xOffset"]),
 		min = -150, max = 150, step = 1,
 	}
 
 	E.Options.args.unitframe.args.party.args.roleIcon.args.yOffset = {
 		type = 'range',
 		order = 8,
-		name = L["yOffset"],
+		name = BUI:cOption(L["yOffset"]),
 		min = -150, max = 150, step = 1,
 	}
 end
