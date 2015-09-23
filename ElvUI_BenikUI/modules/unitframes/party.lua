@@ -150,6 +150,22 @@ function UFB:Update_PartyFrames(frame, db)
 			end
 		end
 		
+		--Role Icon
+		do
+			local role = frame.LFDRole
+			if db.roleIcon.enable then
+				--frame:EnableElement('LFDRole')
+
+				local x, y = self:GetPositionOffset(db.roleIcon.position, 1)
+				role:ClearAllPoints()
+				role:Point(db.roleIcon.position, frame.Health, db.roleIcon.position, x + db.roleIcon.xOffset, y + db.roleIcon.yOffset)
+				role:Size(db.roleIcon.size)
+			else
+				--frame:DisableElement('LFDRole')
+				--role:Hide()
+			end
+		end
+		
 		--OverHealing
 		do
 			local healPrediction = frame.HealPrediction

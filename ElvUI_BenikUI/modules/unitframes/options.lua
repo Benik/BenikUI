@@ -333,4 +333,19 @@ local function ufTargetTable()
 end
 table.insert(E.BuiConfig, ufTargetTable)
 
+local function injectPartyOptions()
+	E.Options.args.unitframe.args.party.args.roleIcon.args.xOffset = {
+		type = 'range',
+		order = 7,
+		name = L["xOffset"],
+		min = -150, max = 150, step = 1,
+	}
 
+	E.Options.args.unitframe.args.party.args.roleIcon.args.yOffset = {
+		type = 'range',
+		order = 8,
+		name = L["yOffset"],
+		min = -150, max = 150, step = 1,
+	}
+end
+table.insert(E.BuiConfig, injectPartyOptions)

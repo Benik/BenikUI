@@ -13,6 +13,11 @@ P['unitframe']['units']['party']['portrait'] = {
 	['yOffset'] = 0,
 }
 
+P['unitframe']['units']['party']['roleIcon'] = {
+	['xOffset'] = 0,
+	['yOffset'] = 0,
+}
+
 -- Core
 P['bui'] = {
 	['installed'] = nil,
