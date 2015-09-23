@@ -114,6 +114,24 @@ function UFB:Update_PartyFrames(frame, db)
 				end
 			end
 		end
+		
+		--OverHealing
+		do
+			local healPrediction = frame.HealPrediction
+
+			if db.healPrediction then
+				if not USE_PORTRAIT_OVERLAY then
+					healPrediction.myBar:SetParent(frame)
+					healPrediction.otherBar:SetParent(frame)
+					healPrediction.absorbBar:SetParent(frame)
+				else
+					healPrediction.myBar:SetParent(frame.Portrait.overlay)
+					healPrediction.otherBar:SetParent(frame.Portrait.overlay)
+					healPrediction.absorbBar:SetParent(frame.Portrait.overlay)
+				end
+			end
+		end
 	end
+	
 	frame:UpdateAllElements()
 end
