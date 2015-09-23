@@ -23,8 +23,9 @@ function UFB:ConstructPartyPortraits()
 	UF:UpdateAllHeaders()
 end
 
-function UFB:Update_PartyFrames(frame)
-	local db = E.db['unitframe']['units'].party
+function UFB:Update_PartyFrames(frame, db)
+	--local db = E.db['unitframe']['units'].party
+	frame.db = db
 	if frame.Portrait then
 		frame.Portrait:Hide()
 		frame.Portrait:ClearAllPoints()
@@ -43,7 +44,32 @@ function UFB:Update_PartyFrames(frame)
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_WIDTH = db.portrait.width
 	
+	--Adjust some variables
+	do
+		if USE_PORTRAIT_OVERLAY or not USE_PORTRAIT then
+			PORTRAIT_WIDTH = 0
+		end
+	end
+	
 	if not frame.isChild then
+		
+		-- Health
+		do
+			local health = frame.Health
+			
+			health.bg:ClearAllPoints()
+			if not USE_PORTRAIT_OVERLAY then
+				health:Point("TOPLEFT", PORTRAIT_WIDTH+BORDER, -BORDER)
+				health.bg:SetParent(health)
+				health.bg:SetAllPoints()
+			else
+				health.bg:Point('BOTTOMLEFT', health:GetStatusBarTexture(), 'BOTTOMRIGHT')
+				health.bg:Point('TOPRIGHT', health)
+				health.bg:SetParent(frame.Portrait.overlay)
+			end
+		end
+		
+		-- Portrait
 		do
 			local portrait = frame.Portrait
 
@@ -66,7 +92,7 @@ function UFB:Update_PartyFrames(frame)
 					portrait:Show()
 					portrait.backdrop:Show()
 					portrait.backdrop:ClearAllPoints()
-					portrait.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT")
+					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT")
 					if db.portrait.style == '3D' then
 						portrait:SetFrameLevel(frame:GetFrameLevel() + 5)
 					end
