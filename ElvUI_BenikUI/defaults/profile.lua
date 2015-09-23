@@ -4,6 +4,7 @@
 P['unitframe']['units']['party']['portrait'] = {
 	['enable'] = true,
 	['width'] = 45,
+	['height'] = 0,
 	['overlay'] = true,
 	['camDistanceScale'] = 1,
 	['rotation'] = 0,

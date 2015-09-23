@@ -46,6 +46,7 @@ function UFB:Update_PartyFrames(frame, db)
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_WIDTH = db.portrait.width
+	local PORTRAIT_HEIGHT = db.portrait.height
 	
 	--Adjust some variables
 	do
@@ -126,7 +127,7 @@ function UFB:Update_PartyFrames(frame, db)
 					portrait:Show()
 					portrait.backdrop:Show()
 					portrait.backdrop:ClearAllPoints()
-					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT")
+					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", 0, PORTRAIT_HEIGHT)
 					if db.portrait.style == '3D' then
 						portrait:SetFrameLevel(frame:GetFrameLevel() + 5)
 					end
