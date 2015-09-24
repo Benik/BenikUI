@@ -162,7 +162,7 @@ function UFB:Update_PartyFrames(frame, db)
 			if db.roleIcon.enable then
 				--frame:EnableElement('LFDRole')
 
-				local x, y = self:GetPositionOffset(db.roleIcon.position, 1)
+				local x, y = UF:GetPositionOffset(db.roleIcon.position)
 				role:ClearAllPoints()
 				role:Point(db.roleIcon.position, frame.Health, db.roleIcon.position, x + db.roleIcon.xOffset, y + db.roleIcon.yOffset)
 				role:Size(db.roleIcon.size)
