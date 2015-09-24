@@ -89,12 +89,10 @@ end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent",function(self, event)
-	if event == "PLAYER_ENTERING_WORLD" then
-		skinDecursive()
-		skinStoryline()
-		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
-	end
+f:SetScript("OnEvent", function(self)
+	skinDecursive()
+	skinStoryline()
+	f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end)
 
 if not IsAddOnLoaded('AddOnSkins') then return end
