@@ -57,8 +57,6 @@ local function Style(f, template, name, colored)
 		style:SetTemplate('Default', true)
 	end
 	
-	style:SetClampedToScreen(true)
-	
 	local tlx, tly, brx, bry
 	
 	if template == 'Inside' then
