@@ -209,6 +209,25 @@ function UFB:Update_PartyFrames(frame, db)
 			end
 		end
 		
+		--Raid Icon
+		do
+			local RI = frame.RaidIcon
+			if db.raidicon.enable then
+				RI:Show()
+				RI:Size(db.raidicon.size)
+
+				local x, y = self:GetPositionOffset(db.raidicon.attachTo)
+				RI:ClearAllPoints()
+				if USE_PORTRAIT and not USE_PORTRAIT_OVERLAY then
+					RI:Point(db.raidicon.attachTo, frame.Health, db.raidicon.attachTo, x + db.raidicon.xOffset, y + db.raidicon.yOffset)
+				else
+					RI:Point(db.raidicon.attachTo, frame, db.raidicon.attachTo, x + db.raidicon.xOffset, y + db.raidicon.yOffset)				
+				end
+			else
+				RI:Hide()
+			end
+		end
+		
 		--OverHealing
 		do
 			local healPrediction = frame.HealPrediction
