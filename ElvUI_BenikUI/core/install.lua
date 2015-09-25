@@ -792,6 +792,7 @@ end
 local recountName = GetAddOnMetadata('Recount', 'Title')
 local skadaName = GetAddOnMetadata('Skada', 'Title')
 local dbmName = GetAddOnMetadata('DBM-Core', 'Title')
+local mikName = GetAddOnMetadata('MikScrollingBattleText', 'Title')
 
 local function SetupBuiAddons()
 	-- Recount Profile
@@ -968,6 +969,36 @@ local function SetupBuiAddons()
 		DBT_AllPersistentOptions["BenikUI"]["DBM"]["HugeScale"] = 1
 		
 		DBM:ApplyProfile('BenikUI')
+	end
+	
+	-- MikScrollingBattleText
+	if IsAddOnLoaded('MikScrollingBattleText') then
+		print(BUI.Title..format(L['- %s profile successfully created!'], mikName))
+		
+		MSBTProfiles_SavedVars['profiles']['BenikUI'] = {
+			["scrollAreas"] = {
+				["Incoming"] = {
+					["behavior"] = "MSBT_NORMAL",
+					["offsetY"] = -161,
+					["offsetX"] = -330,
+					["animationStyle"] = "Straight",
+				},
+				["Outgoing"] = {
+					["direction"] = "Up",
+					["offsetX"] = 287,
+					["behavior"] = "MSBT_NORMAL",
+					["offsetY"] = -161,
+					["animationStyle"] = "Straight",
+				},
+				["Static"] = {
+					["offsetX"] = -21,
+					["offsetY"] = -231,
+				},
+			},
+			["normalFontName"] = "Bui Prototype",
+			["critFontName"] = "Bui Prototype",
+			["creationVersion"] = MikSBT.VERSION.."."..MikSBT.SVN_REVISION,		
+		}
 	end
 
 	do
