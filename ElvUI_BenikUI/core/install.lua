@@ -24,6 +24,7 @@ local function SetupBuiLayout()
 		E.db.general.bottomPanel = false
 		E.db.general.minimap.locationText = 'HIDE'
 		E.db.general.minimap.size = 150
+		E.db.general.hideTutorial = true
 		E.private.general.chatBubbleFont = 'Bui Prototype'
 		E.private.general.chatBubbles = 'backdrop'
 		E.private.general.chatBubbleFontSize = 14
@@ -505,6 +506,40 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.targettarget.power.width = 'fill'
 		-- party
 			E.db.unitframe.units.party.colorOverride = 'FORCE_ON'
+			E.db.unitframe.units.party.width = 180
+			E.db.unitframe.units.party.height = 44
+			E.db.unitframe.units.party.name.yOffset = 0
+			E.db.unitframe.units.party.health.position = "TOPRIGHT"
+			E.db.unitframe.units.party.health.text_format = "[health:current-percent]"
+			E.db.unitframe.units.party.power.position = "BOTTOMRIGHT"
+			E.db.unitframe.units.party.verticalSpacing = 29
+			E.db.unitframe.units.party.buffs.anchorPoint = "BOTTOMRIGHT"
+			E.db.unitframe.units.party.buffs.sizeOverride = 18
+			E.db.unitframe.units.party.debuffs.sizeOverride = 25
+			E.db.unitframe.units.party.debuffs.countFontSize = 10
+			E.db.unitframe.units.party.debuffs.fontSize = 10
+			E.db.unitframe.units.party.debuffs.yOffset = 9
+			E.db.unitframe.units.party.debuffs.xOffset = 1
+			E.db.unitframe.units.party.portrait.enable = true
+			E.db.unitframe.units.party.portrait.camDistanceScale = 1.05
+			E.db.unitframe.units.party.portrait.overlay = true
+			E.db.unitframe.units.party.roleIcon.enable = true
+			E.db.unitframe.units.party.roleIcon.tank = true
+			E.db.unitframe.units.party.roleIcon.healer = true
+			E.db.unitframe.units.party.roleIcon.damager = true
+			E.db.unitframe.units.party.roleIcon.size = 16
+			E.db.unitframe.units.party.roleIcon.position = "TOPLEFT"
+			E.db.unitframe.units.party.roleIcon.yOffset = 11
+			E.db.unitframe.units.party.petsGroup.name.position = "LEFT"
+			E.db.unitframe.units.party.petsGroup.height = 16
+			E.db.unitframe.units.party.petsGroup.width = 60
+			E.db.unitframe.units.party.petsGroup.xOffset = 0
+			E.db.unitframe.units.party.petsGroup.yOffset = -1
+			E.db.unitframe.units.party.targetsGroup.anchorPoint = "RIGHT"
+			E.db.unitframe.units.party.targetsGroup.height = 16
+			E.db.unitframe.units.party.targetsGroup.yOffset = -14
+			E.db.unitframe.units.party.targetsGroup.xOffset = 1
+			E.db.unitframe.units.party.targetsGroup.width = 70
 		-- raid
 			E.db.unitframe.units.raid.power.enable = false
 			E.db.unitframe.units.raid.colorOverride = 'FORCE_ON'
@@ -520,7 +555,7 @@ local function SetupUnitframes(layout)
 			SetMoverPosition('AltPowerBarMover', 'TOP', E.UIParent, 'TOP', 0, -66)
 			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -392)
 			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -442, 178)
-			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
+			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 4, 202)
 			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 191)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -231, 147)
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -231, 182)
@@ -709,6 +744,44 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.targettarget.height = 30
 			E.db.unitframe.units.targettarget.power.height = 5
 			E.db.unitframe.units.targettarget.power.width = 'fill'
+		-- Party
+			E.db.unitframe.units.party.width = 220
+			E.db.unitframe.units.party.height = 40
+			E.db.unitframe.units.party.colorOverride = 'FORCE_ON'
+			E.db.unitframe.units.party.name.yOffset = 25
+			E.db.unitframe.units.party.health.text_format = "[health:current-percent]"
+			E.db.unitframe.units.party.health.position = "RIGHT"
+			E.db.unitframe.units.party.power.position = "LEFT"
+			E.db.unitframe.units.party.verticalSpacing = 36
+			E.db.unitframe.units.party.buffs.sizeOverride = 18
+			E.db.unitframe.units.party.buffs.anchorPoint = "BOTTOMRIGHT"
+			E.db.unitframe.units.party.debuffs.sizeOverride = 23
+			E.db.unitframe.units.party.debuffs.countFontSize = 14
+			E.db.unitframe.units.party.debuffs.fontSize = 14
+			E.db.unitframe.units.party.debuffs.yOffset = 8
+			E.db.unitframe.units.party.debuffs.xOffset = 1
+			E.db.unitframe.units.party.portrait.enable = true
+			E.db.unitframe.units.party.portrait.camDistanceScale = 1.05
+			E.db.unitframe.units.party.portrait.overlay = false
+			E.db.unitframe.units.party.portrait.transparent = true
+			E.db.unitframe.units.party.portrait.height = 15
+			E.db.unitframe.units.party.portrait.width = 60
+			E.db.unitframe.units.party.roleIcon.enable = true
+			E.db.unitframe.units.party.roleIcon.tank = true
+			E.db.unitframe.units.party.roleIcon.healer = true
+			E.db.unitframe.units.party.roleIcon.damager = true
+			E.db.unitframe.units.party.roleIcon.size = 16
+			E.db.unitframe.units.party.roleIcon.position = "TOPRIGHT"
+			E.db.unitframe.units.party.roleIcon.yOffset = 20
+			E.db.unitframe.units.party.petsGroup.width = 60
+			E.db.unitframe.units.party.petsGroup.height = 18
+			E.db.unitframe.units.party.petsGroup.xOffset = 0
+			E.db.unitframe.units.party.petsGroup.yOffset = -1
+			E.db.unitframe.units.party.targetsGroup.anchorPoint = "RIGHT"
+			E.db.unitframe.units.party.targetsGroup.height = 16
+			E.db.unitframe.units.party.targetsGroup.yOffset = -12
+			E.db.unitframe.units.party.targetsGroup.xOffset = 1
+			E.db.unitframe.units.party.targetsGroup.width = 70
 		-- raid
 			E.db.unitframe.units.raid.power.enable = false
 		-- raid 40
@@ -720,7 +793,7 @@ local function SetupUnitframes(layout)
 			SetMoverPosition('AltPowerBarMover', 'TOP', E.UIParent, 'TOP', 0, -66)
 			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -392)
 			SetMoverPosition('ElvUF_FocusMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 242)
-			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
+			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 4, 200)
 			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 155)
 			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 144)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -217, 140)
