@@ -1,3 +1,21 @@
+[b]2.30[/b]
+*[NEW]: Install: Added Party profiles for both layouts
+*[NEW]: Added MSBT Profile (user request) 
+*[NEW]: Added x and y offset options for the party role icons
+*[NEW]: Party Portraits. Options in ElvUI Party Frames
+*AFK mode: eu date type
+*Fixed Request Stop Button growth direction when it's right-clicked
+*FPS Dashboard: Changed the color values a bit
+*Fix Middle Datatext size on Talent change
+*Fix ActionBar coloring on Talent change 
+*Fix player threat with detached classbar
+*Followed ElvUI datatext Word Wrap addition
+*Fixed Zygor Guides model frame styling
+*AFK mode: Localized dates. 
+*Xp/Rep bottom buttons follow chat datatexts transparency option
+*AFK mode: Moved the chat window under the top panel
+*Guild News Filters Frame styled 
+
 [b]2.29[/b]
 *Prevent an error with the rep bar.
 *Conflict warning should now correclty show when ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap addons are loaded.
