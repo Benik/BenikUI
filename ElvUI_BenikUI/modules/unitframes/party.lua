@@ -24,8 +24,8 @@ function UFB:ConstructPartyPortraits()
 end
 
 function UFB:Update_PartyFrames(frame, db)
-	--local db = E.db['unitframe']['units'].party
 	frame.db = db
+	
 	if frame.Portrait then
 		frame.Portrait:Hide()
 		frame.Portrait:ClearAllPoints()
@@ -197,15 +197,10 @@ function UFB:Update_PartyFrames(frame, db)
 		do
 			local role = frame.LFDRole
 			if db.roleIcon.enable then
-				--frame:EnableElement('LFDRole')
-
 				local x, y = UF:GetPositionOffset(db.roleIcon.position)
 				role:ClearAllPoints()
 				role:Point(db.roleIcon.position, frame.Health, db.roleIcon.position, x + db.roleIcon.xOffset, y + db.roleIcon.yOffset)
 				role:Size(db.roleIcon.size)
-			else
-				--frame:DisableElement('LFDRole')
-				--role:Hide()
 			end
 		end
 		
