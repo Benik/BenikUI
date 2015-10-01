@@ -19,12 +19,12 @@ local function OnClick(btn)
 end
 
 local function OnEnter(btn)
-	btn.hoverTex:Show()
+	btn.hoverTex:Run("Alpha", .3, 0, 1)
 	hoverVisible = true
 end
 
 local function OnLeave(btn)
-	btn.hoverTex:Hide()
+	btn.hoverTex:Run("Alpha", .3, 1, 0)
 	hoverVisible = false
 end
 
@@ -62,7 +62,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay)
 			frame.buttons[i].hoverTex:SetAllPoints()
 			frame.buttons[i].hoverTex:SetTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]])
 			frame.buttons[i].hoverTex:SetBlendMode('ADD')
-			frame.buttons[i].hoverTex:Hide()
+			frame.buttons[i].hoverTex:SetAlpha(0)
 
 			frame.buttons[i].text = frame.buttons[i]:CreateFontString(nil, 'BORDER')
 			frame.buttons[i].text:SetAllPoints()
