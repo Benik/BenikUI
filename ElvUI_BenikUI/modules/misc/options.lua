@@ -8,8 +8,7 @@ local function xprepTable()
 	E.Options.args.bui.args.config.args.buixprep = {
 		order = 30,
 		type = 'group',
-		name = COMBAT_XP_GAIN.."/"..REPUTATION..BUI.newsign,
-		disabled = function() return not E.db.ufb.barshow or not E.private.unitframe.enable end,
+		name = COMBAT_XP_GAIN.."/"..REPUTATION,
 		args = {
 			enable = {
 				order = 1,
