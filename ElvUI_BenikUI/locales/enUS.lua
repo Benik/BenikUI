@@ -138,18 +138,18 @@ L['Decursive'] = true
 -- Castbar
 L['CONFLICT_WARNING'] = 'It would appear you have ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap loaded. BenikUI Attach Castbar feature has been disabled.'
 L['I understand'] = true
-L['Hide Emptybar text'] = true
-L['Hide any text placed on the Emptybars, while casting.'] = true
+L['Hide EmptyBar text'] = true
+L['Hide any text placed on the EmptyBars, while casting.'] = true
 
 -- UnitFrame Options
-L['Empty Frames'] = true
-L['Enable the Empty frames (Player and Target).'] = true
+L['EmptyBars'] = true
+L['Enable the EmptyBars (Player and Target).'] = true
 L['Toggle EmptyBars transparency'] = true
-L['Change the Empty frames height (Player and Target).'] = true
+L['Change the EmptyBars height (Player and Target).'] = true
 L['PowerBar Texture'] = true
 L['Power statusbar texture.'] = true
-L['Attach on Empty Frames'] = true
-L['Attaches Player and Target Castbar on the Empty Frames.'] = true
+L['Attach on EmptyBars'] = true
+L['Attaches Player and Target Castbar on the EmptyBars.'] = true
 L['Castbar Text'] = true
 L['Show/Hide the Castbar text.'] = true
 L['Adjust text Y Offset'] = true

@@ -137,18 +137,18 @@ L['Decursive'] = true
 -- Castbar
 L['CONFLICT_WARNING'] = 'Es sieht so aus, als würdest du ElvUI_CastBarPowerOverlay oder ElvUI_CastBarSnap aktiviert haben. BenikUI abgetrente Zauberleisten wurden deaktiviert.'
 L['I understand'] = "Ich verstehe"
-L['Hide Emptybar text'] = "Verstecke Leere Rahmen Text"
-L['Hide any text placed on the Emptybars, while casting.'] = "Verstecke jeden Text auf den Leeren Rahmen während des Zauberns."
+L['Hide EmptyBar text'] = "Verstecke Leere Rahmen Text"
+L['Hide any text placed on the EmptyBars, while casting.'] = "Verstecke jeden Text auf den Leeren Rahmen während des Zauberns."
 
 -- UnitFrame Options
-L['Empty Frames'] = "Leerer Rahmen"
-L['Enable the Empty frames (Player and Target).'] = "Aktiviere die Leeren Rahmen (Spieler und Ziel)."
+L['EmptyBars'] = "Leerer Rahmen"
+L['Enable the EmptyBars (Player and Target).'] = "Aktiviere die Leeren Rahmen (Spieler und Ziel)."
 L['Toggle EmptyBars transparency'] = "Leere Rahmen Transparenz umschalten"
-L['Change the Empty frames height (Player and Target).'] = "Ändere die Leere Rahmen Höhe (Spieler und Ziel)."
+L['Change the EmptyBars height (Player and Target).'] = "Ändere die Leere Rahmen Höhe (Spieler und Ziel)."
 L['PowerBar Texture'] = "Kraftleiste Textur"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
-L['Attach on Empty Frames'] = "Anheften an Leere Rahmen"
-L['Attaches Player and Target Castbar on the Empty Frames.'] = "Richtet Spieler- und Zielzauberleiste an den leeren Rahmen aus."
+L['Attach on EmptyBars'] = "Anheften an Leere Rahmen"
+L['Attaches Player and Target Castbar on the EmptyBars.'] = "Richtet Spieler- und Zielzauberleiste an den leeren Rahmen aus."
 L['Castbar Text'] = "Zauberleisten Text"
 L['Show/Hide the Castbar text.'] = "Zauberleisten Text anzeigen/ausblenden"
 L['Adjust text Y Offset'] = "Passe Text Y-Versatz an"

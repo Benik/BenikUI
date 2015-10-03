@@ -14,7 +14,7 @@ local function ufTable()
 			eframes = {
 				order = 1,
 				type = 'group',
-				name = L['Empty Frames'],
+				name = L['EmptyBars'],
 				guiInline = true,
 				get = function(info) return E.db.ufb[ info[#info] ] end,
 				set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:ArrangePlayer(); UFB:ArrangeTarget(); end,
@@ -23,7 +23,7 @@ local function ufTable()
 						order = 1,
 						type = 'toggle',
 						name = ENABLE,
-						desc = L['Enable the Empty frames (Player and Target).'],
+						desc = L['Enable the EmptyBars (Player and Target).'],
 					},
 					toggleTransparency = {
 						order = 2,
@@ -38,7 +38,7 @@ local function ufTable()
 						order = 3,
 						type = 'range',
 						name = L['Height'],
-						desc = L['Change the Empty frames height (Player and Target).'],
+						desc = L['Change the EmptyBars height (Player and Target).'],
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdatePlayer(); BUIC:UpdateTarget(); UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); end,
 						disabled = function() return not E.db.ufb.barshow end,
 						min = 10, max = 50, step = 1,
@@ -83,8 +83,8 @@ local function ufTable()
 					attachCastbar = {
 						order = 1,
 						type = 'toggle',
-						name = L['Attach on Empty Frames'],
-						desc = L['Attaches Player and Target Castbar on the Empty Frames.'],
+						name = L['Attach on EmptyBars'],
+						desc = L['Attaches Player and Target Castbar on the EmptyBars.'],
 					},
 					castText = {
 						order = 2,
@@ -102,8 +102,8 @@ local function ufTable()
 					hideText = {
 						type = 'toggle',
 						order = 4,
-						name = L['Hide Emptybar text'],
-						desc = L['Hide any text placed on the Emptybars, while casting.'],
+						name = L['Hide EmptyBar text'],
+						desc = L['Hide any text placed on the EmptyBars, while casting.'],
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 				},
