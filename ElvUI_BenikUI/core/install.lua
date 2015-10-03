@@ -3,6 +3,7 @@ local BUI = E:GetModule('BenikUI');
 
 local CURRENT_PAGE = 0
 local MAX_PAGE = 9
+local titleText = {}
 
 local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
 	if not _G[mover] then return end
@@ -138,7 +139,8 @@ local function SetupBuiLayout()
 
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Layout Set']
-		InstallStepComplete:Show()		
+		InstallStepComplete:Show()
+		titleText[2].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -192,7 +194,8 @@ function BUI:SetupBuiColors()
 	
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Color Theme Set']
-		InstallStepComplete:Show()		
+		InstallStepComplete:Show()
+		titleText[3].check:Show()		
 	end
 end
 
@@ -229,7 +232,8 @@ local function SetupBuiChat()
 	
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Chat Set']
-		InstallStepComplete:Show()		
+		InstallStepComplete:Show()
+		titleText[4].check:Show()		
 	end
 	E:UpdateAll(true)
 end
@@ -369,7 +373,8 @@ local function SetupActionbars(layout)
 
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Actionbars Set']
-		InstallStepComplete:Show()		
+		InstallStepComplete:Show()
+		titleText[6].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -817,7 +822,8 @@ local function SetupUnitframes(layout)
 	
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Unitframes Set']
-		InstallStepComplete:Show()		
+		InstallStepComplete:Show()
+		titleText[5].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -1110,7 +1116,8 @@ local function SetupBuiAddons()
 
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Addons Set']
-		InstallStepComplete:Show()		
+		InstallStepComplete:Show()
+		titleText[8].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -1148,7 +1155,8 @@ function BUI:SetupBuiDts(role)
 	
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['DataTexts Set']
-		InstallStepComplete:Show()		
+		InstallStepComplete:Show()
+		titleText[7].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -1173,7 +1181,8 @@ local function ResetAll()
 	BUIInstallFrame.Desc2:SetText('')
 	BUIInstallFrame.Desc3:SetText('')
 	BUIInstallFrame.Desc4:SetText('')
-	BUIInstallFrame:Size(550, 400)
+	BUIInstallFrame:Size(500, 400)
+	BUITitleFrame:Size(140, 400)
 end
 
 local function InstallComplete()
@@ -1208,15 +1217,16 @@ local function SetPage(PageNum)
 
 	if PageNum == 1 then
 		f.SubTitle:SetText(format(L['Welcome to BenikUI version %s, for ElvUI %s.'], BUI.Version, E.version))
-		f.Desc1:SetText(L["By pressing the Continue button, BenikUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
+		f.Desc1:SetText(L["By pressing the Continue button, BenikUI will be applied in your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
 		f.Desc2:SetText(BUI:cOption(L['BenikUI options are marked with light blue color, inside ElvUI options.']))
 		f.Desc3:SetText(L['Please press the continue button to go onto the next step.'])
+		titleText[1].text:SetText(titleText[1].text:GetText())		
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', InstallComplete)
 		InstallOption1Button:SetText(L['Skip Process'])			
 	elseif PageNum == 2 then
 		f.SubTitle:SetText(L['Layout'])
-		f.Desc1:SetText(L['This part of the installation changes the default ElvUI look. This is why you downloaded BenikUI :)'])
+		f.Desc1:SetText(L['This part of the installation will change the default ElvUI look.'])
 		f.Desc2:SetText(L['Please click the button below to apply the new layout.'])
 		f.Desc3:SetText(L['Importance: |cff07D400High|r'])
 		InstallOption1Button:Show()
@@ -1249,7 +1259,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetText(L['Setup Chat'])
 	elseif PageNum == 5 then
 		f.SubTitle:SetText(L['UnitFrames'])
-		f.Desc1:SetText(L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars.\r|cffff8000This doesn't touch your current raid/party layout|r"])
+		f.Desc1:SetText(L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars."])
 		f.Desc2:SetText(L['Please click the button below to setup your Unitframes.'])
 		f.Desc3:SetText(L['Importance: |cff07D400High|r'])
 		f.Desc4:SetText(L['Buttons must be clicked twice'])
@@ -1272,7 +1282,7 @@ local function SetPage(PageNum)
 		InstallOption2Button:SetText(L['Setup ActionBars'].." - 2")
 	elseif PageNum == 7 then
 		f.SubTitle:SetText(L['DataTexts'])
-		f.Desc1:SetText(L["This part of the installation process will fill BenikUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
+		f.Desc1:SetText(L["This part of the installation process will fill BenikUI datatexts.\n\n|cffff8000This doesn't touch ElvUI datatexts|r"])
 		f.Desc2:SetText(L['Please click the button below to setup your datatexts.'])
 		f.Desc3:SetText(L['Importance: |cffD3CF00Medium|r'])
 		InstallOption1Button:Show()
@@ -1302,7 +1312,8 @@ local function SetPage(PageNum)
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', InstallComplete)
 		InstallOption1Button:SetText(L['Finished'])				
-		BUIInstallFrame:Size(550, 350)
+		BUIInstallFrame:Size(500, 400)
+		BUITitleFrame:Size(140, 400)
 		if InstallStepComplete then
 			InstallStepComplete.message = BUI.Title..L['Installed']
 			InstallStepComplete:Show()		
@@ -1314,13 +1325,23 @@ local function NextPage()
 	if CURRENT_PAGE ~= MAX_PAGE then
 		CURRENT_PAGE = CURRENT_PAGE + 1
 		SetPage(CURRENT_PAGE)
+		titleText[CURRENT_PAGE].text:Run("Gradient", "text", .5, 1, 1, 0)
+		titleText[CURRENT_PAGE].hoverTex:Run("Alpha", .3, 0, 1)
+		if CURRENT_PAGE > 1 then
+			titleText[CURRENT_PAGE - 1].hoverTex:Run("Alpha", .3, 1, 0)
+			titleText[CURRENT_PAGE - 1].text:Run("Gradient", "text", .5, 0, 0.68, 0.93)
+		end
 	end
 end
 
 local function PreviousPage()
 	if CURRENT_PAGE ~= 1 then
+		titleText[CURRENT_PAGE].hoverTex:Run("Alpha", .3, 1, 0)
+		titleText[CURRENT_PAGE].text:Run("Gradient", "text", .5, 0, 0.68, 0.93)
 		CURRENT_PAGE = CURRENT_PAGE - 1
 		SetPage(CURRENT_PAGE)
+		titleText[CURRENT_PAGE].hoverTex:Run("Alpha", .3, 0, 1)
+		titleText[CURRENT_PAGE].text:Run("Gradient", "text", .5, 1, 1, 0)
 	end
 end
 
@@ -1376,7 +1397,7 @@ function BUI:SetupBui()
 	if not BUIInstallFrame then
 		local f = CreateFrame('Button', 'BUIInstallFrame', E.UIParent)
 		f.SetPage = SetPage
-		f:Size(550, 400)
+		f:Size(500, 400)
 		f:SetTemplate('Transparent')
 		f:SetPoint('CENTER')
 		f:SetFrameStrata('TOOLTIP')
@@ -1411,7 +1432,7 @@ function BUI:SetupBui()
 		f.Status:SetFrameLevel(f.Status:GetFrameLevel() + 2)
 		f.Status:CreateBackdrop('Default')
 		f.Status:SetStatusBarTexture(E['media'].normTex)
-		f.Status:SetStatusBarColor(unpack(E['media'].rgbvaluecolor))
+		f.Status:SetStatusBarColor(0, 0.68, 0.93)
 		f.Status:SetMinMaxValues(0, MAX_PAGE)
 		f.Status:Point('TOPLEFT', f.Prev, 'TOPRIGHT', 6, -2)
 		f.Status:Point('BOTTOMRIGHT', f.Next, 'BOTTOMLEFT', -6, 2)
@@ -1475,22 +1496,22 @@ function BUI:SetupBui()
 		
 		f.Desc1 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc1:FontTemplate()	
-		f.Desc1:Point('TOPLEFT', 20, -75)	
+		f.Desc1:Point('TOP', 0, -75)	
 		f.Desc1:Width(f:GetWidth() - 40)
 		
 		f.Desc2 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc2:FontTemplate()	
-		f.Desc2:Point('TOPLEFT', 20, -125)		
+		f.Desc2:Point('TOP', 0, -125)		
 		f.Desc2:Width(f:GetWidth() - 40)
 		
 		f.Desc3 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc3:FontTemplate()	
-		f.Desc3:Point('TOPLEFT', 20, -175)	
+		f.Desc3:Point('TOP', 0, -175)	
 		f.Desc3:Width(f:GetWidth() - 40)
 		
 		f.Desc4 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc4:FontTemplate()	
-		f.Desc4:Point('BOTTOMLEFT', 20, 75)	
+		f.Desc4:Point('BOTTOM', 0, 75)	
 		f.Desc4:Width(f:GetWidth() - 40)
 	
 		local close = CreateFrame('Button', 'InstallCloseButton', f, 'UIPanelCloseButton')
@@ -1499,12 +1520,53 @@ function BUI:SetupBui()
 			f:Hide()
 		end)		
 		E.Skins:HandleCloseButton(close)
-		
+
 		f.tutorialImage = f:CreateTexture('InstallTutorialImage', 'OVERLAY')
 		f.tutorialImage:Size(256, 128)
 		f.tutorialImage:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga')
-		f.tutorialImage:Point('BOTTOM', 0, 70)
+		f.tutorialImage:Point('BOTTOM', 0, 75)
 
+		f.side = CreateFrame('Frame', 'BUITitleFrame', f)
+		f.side:SetTemplate('Transparent')
+		f.side:Style('Outside')
+		f.side:Point('RIGHT', f, 'LEFT', E.PixelMode and -1 or -3, 0)
+		f.side:Size(140, 400)
+		
+		for i = 1, MAX_PAGE do
+			titleText[i] = CreateFrame('Frame', nil, f.side)
+			titleText[i]:Size(140, 20)
+			titleText[i].text = titleText[i]:CreateFontString(nil, 'OVERLAY')
+			titleText[i].text:SetPoint('LEFT', 27, 0)
+			titleText[i].text:FontTemplate(nil, 12)
+			titleText[i].text:SetTextColor(0, 0.68, 0.93)
+			titleText[i].hoverTex = titleText[i]:CreateTexture(nil, 'OVERLAY')
+			titleText[i].hoverTex:SetTexture([[Interface\MONEYFRAME\Arrow-Right-Up]])
+			titleText[i].hoverTex:Size(14)
+			titleText[i].hoverTex:Point('RIGHT', titleText[i].text, 'LEFT', 4, -2)
+			titleText[i].hoverTex:SetAlpha(0)
+			titleText[i].check = titleText[i]:CreateTexture(nil, 'OVERLAY')
+			titleText[i].check:Size(20)
+			titleText[i].check:Point('LEFT', titleText[i].text, 'RIGHT', 0, -2)
+			titleText[i].check:SetTexture([[Interface\BUTTONS\UI-CheckBox-Check]])
+			titleText[i].check:Hide()
+
+			if i == 1 then titleText[i].text:SetText(L['Welcome'])
+				elseif i == 2 then titleText[i].text:SetText(L['Layout'])
+				elseif i == 3 then titleText[i].text:SetText(L['Color Themes'])
+				elseif i == 4 then titleText[i].text:SetText(L['Chat'])
+				elseif i == 5 then titleText[i].text:SetText(L['UnitFrames'])
+				elseif i == 6 then titleText[i].text:SetText(L['ActionBars'])
+				elseif i == 7 then titleText[i].text:SetText(L['DataTexts'])
+				elseif i == 8 then titleText[i].text:SetText(ADDONS)
+				elseif i == 9 then titleText[i].text:SetText(L['Finish'])
+			end
+
+			if(i == 1) then
+				titleText[i]:Point('TOP', f.side, 'TOP', 0, -40)
+			else
+				titleText[i]:Point('TOP', titleText[i - 1], 'BOTTOM')
+			end
+		end
 	end
 	
 	BUIInstallFrame:Show()
