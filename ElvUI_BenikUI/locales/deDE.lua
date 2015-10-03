@@ -39,7 +39,7 @@ L["This part of the installation process will reposition your Unitframes and wil
 L['- %s profile successfully created!'] = "- %s Profil erfolgreich erstellt!"
 L['Actionbars Set'] = "Aktionsleisten setzen"
 L['Addons Set'] = "Addons setzen"
-L['BenikUI options are marked with light blue color, inside ElvUI options.'] = true
+L['BenikUI options are marked with light blue color, inside ElvUI options.'] = "BenikUI Optionen sind in hellblau hervorgehoben in den ElvUI Optionen."
 L['Buttons must be clicked twice'] = "Bitte zweimal anklicken"
 L['Color Theme Set'] = "Farbschema setzen"
 L['Color Themes'] = "Farbschema"
