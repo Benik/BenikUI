@@ -161,7 +161,7 @@ L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten P
 L['Player Size'] = "Spieler Größe"
 L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite und Höhe"
 L['Threat on EmptyBars'] = "Bedrohung auf den leeren Leisten"
-L['Places the threat glow on PlayerBar and TargetBar'] = "Platziert das Bedrohungsleuchten auf die Spieler- und Zielleiste"
+L['Places the threat glow on Player and Target EmptyBar'] = "Platziert das Bedrohungsleuchten auf die Spieler- und Zielleiste"
 
 -- afk
 L["Jan"] = true

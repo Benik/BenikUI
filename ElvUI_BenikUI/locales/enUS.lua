@@ -162,7 +162,7 @@ L['Change the detached portrait height'] = true
 L['Player Size'] = true
 L['Copy Player portrait width and height'] = true
 L['Threat on EmptyBars'] = true
-L['Places the threat glow on PlayerBar and TargetBar'] = true
+L['Places the threat glow on Player and Target EmptyBar'] = true
 
 -- afk
 L["Jan"] = true

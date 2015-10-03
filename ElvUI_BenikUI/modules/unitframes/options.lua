@@ -46,8 +46,8 @@ local function ufTable()
 					threat = {
 						order = 4,
 						type = 'toggle',
-						name = L['Threat on EmptyBars']..BUI.newsign,
-						desc = L['Places the threat glow on PlayerBar and TargetBar'],
+						name = L['Threat on EmptyBars'],
+						desc = L['Places the threat glow on Player and Target EmptyBar'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdatePlayer(); BUIC:UpdateTarget(); UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); end,
