@@ -46,6 +46,7 @@ local stats = {
 	1197,	-- Total kills
 	1098,	-- Onyxia kills (Onyxia's Lair)
 	1198,	-- Total kills that grant experience or honor
+	1339,	-- Mage portal taken most
 	1487,	-- Killing Blows
 	1491,	-- Battleground Killing Blows
 	1518,	-- Fish caught
@@ -98,6 +99,9 @@ local stats = {
 	9430,	-- Draenor dungeons completed (final boss defeated)
 	9561,	-- Draenor raid boss defeated the most
 	9558,	-- Draenor raids completed (final boss defeated)
+	10060,	-- Garrison Followers recruited
+	10181,	-- Garrision Missions completed
+	10184,	-- Garrision Rare Missions completed
 }
 
 -- Remove capitals from class except first letter
