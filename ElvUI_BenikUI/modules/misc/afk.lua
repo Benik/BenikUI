@@ -6,6 +6,9 @@ local BUI = E:GetModule('BenikUI');
 local format, random, lower, upper = string.format, random, lower, string.upper
 local SPACING = (E.PixelMode and 1 or 5)
 
+-- Credit for the Class logos: ADDOriN @DevianArt
+-- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
+
 -- Source wowhead.com
 local stats = {
 	60,		-- Total deaths
@@ -290,6 +293,7 @@ function AFK:Initialize()
 
 	local level = UnitLevel('player')
 	local nonCapClass = handleClass()
+	local className = E.myclass
 	
 	-- Create Top frame
 	self.AFKMode.top = CreateFrame('Frame', nil, self.AFKMode)
@@ -349,24 +353,18 @@ function AFK:Initialize()
 	
 	-- Move the factiongroup sign to the center
 	self.AFKMode.bottom.factionb = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the faction logo layer
-	self.AFKMode.bottom.factionb:SetPoint("CENTER", self.AFKMode.bottom, "CENTER", 0, 80)
+	self.AFKMode.bottom.factionb:SetPoint("BOTTOM", self.AFKMode.bottom, "TOP", 0, -40)
 	self.AFKMode.bottom.factionb:SetFrameStrata("MEDIUM")
-	self.AFKMode.bottom.factionb:SetSize(140, 140)
+	self.AFKMode.bottom.factionb:SetSize(220, 220)
 	self.AFKMode.bottom.faction:ClearAllPoints()
 	self.AFKMode.bottom.faction:SetParent(self.AFKMode.bottom.factionb)
 	self.AFKMode.bottom.faction:SetInside()
-	
-	-- Fix low level monk with no faction chosen
-	local factionGroup = UnitFactionGroup("player");
-	if factionGroup == "Neutral" then
-		self.AFKMode.bottom.factionb:SetAlpha(0)
-	else
-		self.AFKMode.bottom.factionb:SetAlpha(1)
-	end	
+	-- Apply class texture rather than the faction
+	self.AFKMode.bottom.faction:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\classIcons\\CLASS-'..className)
 	
 	-- Add more info in the name and position it to the center
 	self.AFKMode.bottom.name:ClearAllPoints()	
-	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.faction, "BOTTOM", 0, 15)
+	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.faction, "BOTTOM", 0, 5)
 	self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, nonCapClass)
 	self.AFKMode.bottom.name:SetJustifyH("CENTER")
 	self.AFKMode.bottom.name:FontTemplate(nil, 18)	
