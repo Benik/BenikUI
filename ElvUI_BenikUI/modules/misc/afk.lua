@@ -356,6 +356,14 @@ function AFK:Initialize()
 	self.AFKMode.bottom.faction:SetParent(self.AFKMode.bottom.factionb)
 	self.AFKMode.bottom.faction:SetInside()
 	
+	-- Fix low level monk with no faction chosen
+	local factionGroup = UnitFactionGroup("player");
+	if factionGroup == "Neutral" then
+		self.AFKMode.bottom.factionb:SetAlpha(0)
+	else
+		self.AFKMode.bottom.factionb:SetAlpha(1)
+	end	
+	
 	-- Add more info in the name and position it to the center
 	self.AFKMode.bottom.name:ClearAllPoints()	
 	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.faction, "BOTTOM", 0, 15)
@@ -368,15 +376,7 @@ function AFK:Initialize()
 	self.AFKMode.bottom.guild:SetPoint("TOP", self.AFKMode.bottom.name, "BOTTOM", 0, -6)
 	self.AFKMode.bottom.guild:FontTemplate(nil, 12)
 	self.AFKMode.bottom.guild:SetJustifyH("CENTER")
-	
-	-- Fix low level monk with no faction chosen
-	local factionGroup = UnitFactionGroup("player");
-	if not factionGroup == NEUTRAL then
-		self.AFKMode.bottom.faction:SetTexture("Interface\\Timer\\"..factionGroup.."-Logo")
-	else
-		self.AFKMode.bottom.faction:SetTexture(nil)
-	end
-	
+
 	-- Add ElvUI name
 	self.AFKMode.bottom.logotxt = self.AFKMode.bottom:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.bottom.logotxt:FontTemplate(nil, 24)
