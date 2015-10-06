@@ -37,6 +37,7 @@ L["By pressing the Continue button, BenikUI will be applied in your current ElvU
 L["This part of the installation process will fill BenikUI datatexts.\n\n|cffff8000This doesn't touch ElvUI datatexts|r"] = "Dieser Teil des Installationsprozesses wird die BenikUI Infotexte einstellen.\n\n|cffff8000Hierbei werden die ElvUI Infotexte nicht verändert|r"
 L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars."] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren und die leere Leiste aktivieren."
 L['- %s profile successfully created!'] = "- %s Profil erfolgreich erstellt!"
+L['ActionBars'] = "Aktionsleisten"
 L['Actionbars Set'] = "Aktionsleisten setzen"
 L['Addons Set'] = "Addons setzen"
 L['BenikUI options are marked with light blue color, inside ElvUI options.'] = "BenikUI Optionen sind in hellblau hervorgehoben in den ElvUI Optionen."
@@ -68,7 +69,7 @@ L['This part of the installation will change the default ElvUI look.'] = "Dieser
 L['UnitFrames'] = "Einheitenfenster"
 L['Unitframes Set'] = "Einheitenfenster setzen"
 L['Welcome to BenikUI version %s, for ElvUI %s.'] = "Willkommen zu BenikUI Version %s, für ElvUI %s."
-L['Welcome'] = true
+L['Welcome'] = "Willkommen"
 L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = "Du hast den Installationsprozess jetzt abgeschlossen. Wenn du technische Unterstützung brauchst besuch uns bitte http://www.tukui.org."
 
 -- actionbar options
@@ -88,7 +89,7 @@ L['LeftClick to Request Stop'] = "Links-Klick um am nächsten Flugpunkt zu lande
 L['RightClick to Hide'] = "Rechts-Klick zum verstecken"
 
 -- afk Mode
-L["Cursor moved. Timer reset."] = true
+L["Cursor moved. Timer reset."] = "Cursor bewegt. Timer zurückgesetzt."
 L["Logout Timer"] = "Auslogzeit"
 L["Random Stats"] = "Zufällige Werte"
 

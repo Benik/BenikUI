@@ -37,6 +37,7 @@ L["By pressing the Continue button, BenikUI will be applied in your current ElvU
 L["This part of the installation process will fill BenikUI datatexts.\n\n|cffff8000This doesn't touch ElvUI datatexts|r"] = true
 L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars."] = true
 L['- %s profile successfully created!'] = true
+L['ActionBars'] = true
 L['Actionbars Set'] = true
 L['Addons Set'] = true
 L['BenikUI options are marked with light blue color, inside ElvUI options.'] = true
