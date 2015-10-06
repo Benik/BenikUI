@@ -107,15 +107,6 @@ local function handleClass()
 	return firstclass
 end
 
--- Create random stats
-local function createStats()
-	local id = stats[random( #stats )]
-	local _, name = GetAchievementInfo(id)
-	local result = GetStatistic(id)
-	if result == "--" then result = NONE end
-	return format("%s: |cfff0ff00%s|r", name, result)
-end
-
 -- Create Time
 local function createTime()
 	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
@@ -169,54 +160,92 @@ local daysAbr = {
 -- Create Date
 local function createDate()
 	local curDayName, curMonth, curDay, curYear = CalendarGetDate()
-	AFK.AFKMode.top.date:SetText(format("%s, %s %d, %d", daysAbr[curDayName], monthAbr[curMonth], curDay, curYear))
+	AFK.AFKMode.top.date:SetFormattedText("%s, %s %d, %d", daysAbr[curDayName], monthAbr[curMonth], curDay, curYear)
 end
 
--- simple timer
+-- Create random stats
+local function createStats()
+	local id = stats[random( #stats )]
+	local _, name = GetAchievementInfo(id)
+	local result = GetStatistic(id)
+	if result == "--" then result = NONE end
+	return format("%s: |cfff0ff00%s|r", name, result)
+end
+
+local x, y
+local timer = 0
 local showTime = 5
 local total = 0
-local function onUpdate(self, elapsed)
-	total = total + elapsed
-	if total >= showTime then
-		local createdStat = createStats()
-		self:AddMessage(createdStat)
-		E:UIFrameFadeIn(self, 1, 0, 1)
-		total = 0
-	end
+
+local function GetMousePosition()
+	x, y = GetCursorPosition();
 end
 
 AFK.UpdateTimerBui = AFK.UpdateTimer
 function AFK:UpdateTimer()
 	self:UpdateTimerBui()
 
-	local time = GetTime() - self.startTime
 	local createdTime = createTime()
-	local minutes = floor(time/60)
-	local neg_seconds = -time % 60
+	local minutes = floor(timer/60)
+	local neg_seconds = -timer % 60
+	
+	-- Accurate AFK Timer by catching mouse movements. Credit: Nikita S. Doroshenko,
+	-- http://www.wowinterface.com/forums/showthread.php?t=52742
+	local nx, ny = GetCursorPosition();
+	if x ~= nx and y ~= ny then
+		x, y = GetCursorPosition();
+		if timer > 0 then
+			self.AFKMode.countd.text:SetFormattedText("|cffff8000%s|r", L["Cursor moved. Timer reset."])
+			timer = 0
+		end
+	else
+		timer = timer + 1
+		if timer > 1 then
+			if (minutes -29 >= 0) and (neg_seconds >= 0) then
+				self.AFKMode.countd.text:SetFormattedText("|cffff8000"..CAMP_TIMER.."|r", neg_seconds, L["sec"])
+				if neg_seconds <= 30 then
+					E:Flash(self.AFKMode.countd.text, 0.5, true)
+				else
+					E:StopFlash(self.AFKMode.countd.text)
+				end
+			else
+				self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
+			end
+		end
+	end
+	GetMousePosition()
+
+	total = total + 1
+	if total >= showTime then
+		local createdStat = createStats()
+		self.AFKMode.statMsg.info:AddMessage(createdStat)
+		E:UIFrameFadeIn(self.AFKMode.statMsg.info, 1, 0, 1)
+		total = 0
+	end
 
 	-- Set the value on log off statusbar
-	self.AFKMode.top.style.Status:SetValue(floor(time))
+	self.AFKMode.top.style.Status:SetValue(floor(timer))
 	
 	-- Set time
-	self.AFKMode.top.time:SetText(createdTime)
+	self.AFKMode.top.time:SetFormattedText(createdTime)
 	
 	-- Set Date
 	createDate()
 	
-	-- Set the 25 mins countdown. 60 secs before log out will go red. 30 secs will flash
-	if (minutes -24 >= 0) and (neg_seconds >= 0) then
-		self.AFKMode.countd.text:SetText(format("|cffff8000"..CAMP_TIMER.."|r", neg_seconds, L["sec"]))
-		if neg_seconds <= 30 then
-			E:Flash(self.AFKMode.countd.text, 0.5, true)
-		else
-			E:StopFlash(self.AFKMode.countd.text)
-		end
-	else
-		self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -24, neg_seconds))
-	end
-	
 	-- Don't need the default timer
 	self.AFKMode.bottom.time:SetText(nil)
+end
+
+AFK.SetAFKBui = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:SetAFKBui(status)
+	
+	if (self.isAFK) then
+		total = 0
+		timer = 0
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+		self.AFKMode.statMsg.info:AddMessage(format("|cffb3b3b3%s|r", L["Random Stats"]))
+	end
 end
 
 --[[local creatures = {
@@ -301,10 +330,10 @@ function AFK:Initialize()
 	self.AFKMode.top.date:SetJustifyH("RIGHT")
 	self.AFKMode.top.date:SetTextColor(classColor.r, classColor.g, classColor.b)
 	
-	-- Statusbar on Top frame decor showing time to log off (35mins)
+	-- Statusbar on Top frame decor showing time to log off (30mins)
 	self.AFKMode.top.style.Status = CreateFrame('StatusBar', nil, self.AFKMode.top.style)
 	self.AFKMode.top.style.Status:SetStatusBarTexture((E["media"].normTex))
-	self.AFKMode.top.style.Status:SetMinMaxValues(0, 2100)
+	self.AFKMode.top.style.Status:SetMinMaxValues(0, 1800)
 	self.AFKMode.top.style.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b, 1)
 	self.AFKMode.top.style.Status:SetInside()
 	self.AFKMode.top.style.Status:SetValue(0)
@@ -326,7 +355,7 @@ function AFK:Initialize()
 	-- Add more info in the name and position it to the center
 	self.AFKMode.bottom.name:ClearAllPoints()	
 	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.faction, "BOTTOM", 0, 15)
-	self.AFKMode.bottom.name:SetText(E.myname.." - "..E.myrealm.."\n"..LEVEL.." "..level.." "..E.myrace.." "..nonCapClass)
+	self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, nonCapClass)
 	self.AFKMode.bottom.name:SetJustifyH("CENTER")
 	self.AFKMode.bottom.name:FontTemplate(nil, 18)	
 
@@ -335,6 +364,14 @@ function AFK:Initialize()
 	self.AFKMode.bottom.guild:SetPoint("TOP", self.AFKMode.bottom.name, "BOTTOM", 0, -6)
 	self.AFKMode.bottom.guild:FontTemplate(nil, 12)
 	self.AFKMode.bottom.guild:SetJustifyH("CENTER")
+	
+	-- Fix low level monk with no faction chosen
+	local factionGroup = UnitFactionGroup("player");
+	if not factionGroup == NEUTRAL then
+		self.AFKMode.bottom.faction:SetTexture("Interface\\Timer\\"..factionGroup.."-Logo")
+	else
+		self.AFKMode.bottom.faction:SetTexture(nil)
+	end
 	
 	-- Add ElvUI name
 	self.AFKMode.bottom.logotxt = self.AFKMode.bottom:CreateFontString(nil, 'OVERLAY')
@@ -345,7 +382,7 @@ function AFK:Initialize()
 	-- and ElvUI version
 	self.AFKMode.bottom.etext = self.AFKMode.bottom:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.bottom.etext:FontTemplate(nil, 10)
-	self.AFKMode.bottom.etext:SetText(format("v%s", E.version))
+	self.AFKMode.bottom.etext:SetFormattedText("v%s", E.version)
 	self.AFKMode.bottom.etext:SetPoint("TOP", self.AFKMode.bottom.logotxt, "BOTTOM")
 	self.AFKMode.bottom.etext:SetTextColor(0.7, 0.7, 0.7)
 	-- Hide ElvUI logo
@@ -360,7 +397,7 @@ function AFK:Initialize()
 	-- and version
 	self.AFKMode.bottom.btext = self.AFKMode.bottom:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.bottom.btext:FontTemplate(nil, 10)
-	self.AFKMode.bottom.btext:SetText(format("v%s", BUI.Version))
+	self.AFKMode.bottom.btext:SetFormattedText("v%s", BUI.Version)
 	self.AFKMode.bottom.btext:SetPoint("TOP", self.AFKMode.bottom.benikui, "BOTTOM")
 	self.AFKMode.bottom.btext:SetTextColor(0.7, 0.7, 0.7)
 	
@@ -409,12 +446,12 @@ function AFK:Initialize()
 	self.AFKMode.countd.lineBottom:Size(418, 7)
 	self.AFKMode.countd.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
-	-- 25 mins countdown text
+	-- 30 mins countdown text
 	self.AFKMode.countd.text = self.AFKMode.countd:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.countd.text:FontTemplate(nil, 12)
 	self.AFKMode.countd.text:SetPoint("CENTER", self.AFKMode.countd, "CENTER")
 	self.AFKMode.countd.text:SetJustifyH("CENTER")
-	self.AFKMode.countd.text:SetText(format("%s: |cfff0ff00-25:00|r", L["Logout Timer"]))
+	self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
 	self.AFKMode.countd.text:SetTextColor(0.7, 0.7, 0.7)
 	
 	self.AFKMode.bottom.time:Hide()
@@ -430,6 +467,4 @@ function AFK:Initialize()
 	self.AFKMode.statMsg.info:SetTimeVisible(4)
 	self.AFKMode.statMsg.info:SetJustifyH("CENTER")
 	self.AFKMode.statMsg.info:SetTextColor(0.7, 0.7, 0.7)
-	self.AFKMode.statMsg.info:SetScript("OnUpdate", onUpdate)
-
 end

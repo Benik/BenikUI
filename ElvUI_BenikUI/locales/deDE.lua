@@ -88,6 +88,7 @@ L['LeftClick to Request Stop'] = "Links-Klick um am nächsten Flugpunkt zu lande
 L['RightClick to Hide'] = "Rechts-Klick zum verstecken"
 
 -- afk Mode
+L["Cursor moved. Timer reset."] = true
 L["Logout Timer"] = "Auslogzeit"
 L["Random Stats"] = "Zufällige Werte"
 
@@ -155,7 +156,8 @@ L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite un
 L['Detach Portrait'] = "Abgetrenntes Portrait"
 L['EmptyBars'] = "Leerer Rahmen"
 L['Enable the EmptyBars (Player and Target).'] = "Aktiviere die Leeren Rahmen (Spieler und Ziel)."
-L['Places the threat glow on Player and Target EmptyBar'] = "Platziert das Bedrohungsleuchten auf die Spieler- und Zielleiste"
+L['Places the threat glow on Player and Target EmptyBars'] = "Platziert das Bedrohungsleuchten auf die Spieler- und Zielleiste"
+L['Places the threat glow on Party EmptyBars'] = true
 L['Player Size'] = "Spieler Größe"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
 L['PowerBar Texture'] = "Kraftleiste Textur"

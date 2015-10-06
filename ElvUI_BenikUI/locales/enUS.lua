@@ -88,6 +88,7 @@ L['LeftClick to Request Stop'] = true
 L['RightClick to Hide'] = true
 
 -- afk Mode
+L["Cursor moved. Timer reset."] = true
 L["Logout Timer"] = true
 L["Random Stats"] = true
 
@@ -155,7 +156,8 @@ L['Copy Player portrait width and height'] = true
 L['Detach Portrait'] = true
 L['EmptyBars'] = true
 L['Enable the EmptyBars (Player and Target).'] = true
-L['Places the threat glow on Player and Target EmptyBar'] = true
+L['Places the threat glow on Player and Target EmptyBars'] = true
+L['Places the threat glow on Party EmptyBars'] = true
 L['Player Size'] = true
 L['Power statusbar texture.'] = true
 L['PowerBar Texture'] = true
