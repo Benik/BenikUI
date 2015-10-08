@@ -245,7 +245,7 @@ local function SetupActionbars(layout)
 			E.db.actionbar.font = 'Bui Visitor1'
 			E.db.actionbar.fontOutline = 'MONOCROMEOUTLINE'
 			E.db.actionbar.fontSize = 10
-			E.db.bui.middleDatatext.styled = true
+			E.db.bui.middleDatatext.styled = false
 			
 			E.db.actionbar.bar1.backdrop = false
 			E.db.actionbar.bar1.buttons = 12
@@ -276,7 +276,7 @@ local function SetupActionbars(layout)
 			E.db.actionbar.barPet.buttonspacing = 4
 			E.db.actionbar.barPet.buttonsPerRow = 10
 			E.db.actionbar.barPet.buttonsize = 22
-			E.db.actionbar.barPet.backdrop = true
+			E.db.actionbar.barPet.backdrop = false
 			
 			E.db.actionbar.stanceBar.buttonspacing = 2
 			E.db.actionbar.stanceBar.backdrop = false
@@ -341,7 +341,7 @@ local function SetupActionbars(layout)
 			E.db.actionbar.barPet.buttonspacing = 4
 			E.db.actionbar.barPet.buttonsPerRow = 10
 			E.db.actionbar.barPet.buttonsize = 22
-			E.db.actionbar.barPet.backdrop = true
+			E.db.actionbar.barPet.backdrop = false
 			
 			E.db.actionbar.stanceBar.buttonspacing = 2
 			E.db.actionbar.stanceBar.backdrop = false
