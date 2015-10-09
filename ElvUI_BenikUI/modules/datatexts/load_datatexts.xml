@@ -2,4 +2,5 @@
 	<script file="datatexts.lua"/>
 	<script file="mail.lua"/>
 	<script file="garrison.lua"/>
+	<script file="specswitch.lua"/>
 </Ui>
