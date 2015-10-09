@@ -20,6 +20,10 @@ L['Style Color'] = "Stil Farbe"
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
 L['light blue color.'] = "hell blau"
 
+-- Misc
+L['iLevel'] = true
+L['Show item level per slot, on the character info frame'] = true
+
 -- DataTexts
 L['BenikUI Middle DataText'] = "BenikUI mittlerer Infotext"
 L['Hide Mail Icon'] = "Verstecke das Postsymbol"

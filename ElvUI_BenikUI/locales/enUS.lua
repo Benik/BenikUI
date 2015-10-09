@@ -20,6 +20,10 @@ L['Style Color'] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = true
 
+-- Misc
+L['iLevel'] = true
+L['Show item level per slot, on the character info frame'] = true
+
 -- DataTexts
 L['BenikUI Middle DataText'] = true
 L['Hide Mail Icon'] = true

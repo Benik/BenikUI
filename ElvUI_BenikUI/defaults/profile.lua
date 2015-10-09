@@ -47,6 +47,7 @@ P['bui'] = {
 	['customStyleColor'] = {r = .9, g = .7, b = 0},
 	['styledChatDts'] = false,
 	['chatDtsBackdrop'] = true,
+	['ilvl'] = true,
 }
 
 -- Datatexts
