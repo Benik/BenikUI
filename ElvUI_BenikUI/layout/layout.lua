@@ -213,40 +213,18 @@ function BUIL:ToggleTransparency()
 		for i = 1, BUTTON_NUM do
 			bbuttons[i]:StripTextures()
 		end
-		if E.db.buixprep.enable then
-			if ElvUI_ReputationBar.fb then
-				ElvUI_ReputationBar.fb:StripTextures()
-			end
-			if ElvUI_ExperienceBar.fb then
-				ElvUI_ExperienceBar.fb:StripTextures()
-			end
-		end
-	elseif db.transparentDts then
-		Bui_ldtp:SetTemplate('Transparent')
-		Bui_rdtp:SetTemplate('Transparent')	
-		for i = 1, BUTTON_NUM do
-			bbuttons[i]:SetTemplate('Transparent')
-		end
-		if E.db.buixprep.enable then
-			if ElvUI_ReputationBar.fb then
-				ElvUI_ReputationBar.fb:SetTemplate('Transparent')
-			end
-			if ElvUI_ExperienceBar.fb then
-				ElvUI_ExperienceBar.fb:SetTemplate('Transparent')
-			end
-		end
 	else
-		Bui_ldtp:SetTemplate('Default', true)
-		Bui_rdtp:SetTemplate('Default', true)
-		for i = 1, BUTTON_NUM do
-			bbuttons[i]:SetTemplate('Default', true)
-		end
-		if E.db.buixprep.enable then
-			if ElvUI_ReputationBar.fb then
-				ElvUI_ReputationBar.fb:SetTemplate('Default', true)
+		if db.transparentDts then
+			Bui_ldtp:SetTemplate('Transparent')
+			Bui_rdtp:SetTemplate('Transparent')	
+			for i = 1, BUTTON_NUM do
+				bbuttons[i]:SetTemplate('Transparent')
 			end
-			if ElvUI_ExperienceBar.fb then
-				ElvUI_ExperienceBar.fb:SetTemplate('Default', true)
+		else
+			Bui_ldtp:SetTemplate('Default', true)
+			Bui_rdtp:SetTemplate('Default', true)
+			for i = 1, BUTTON_NUM do
+				bbuttons[i]:SetTemplate('Default', true)
 			end
 		end
 	end
@@ -320,21 +298,18 @@ function BUIL:ChangeLayout()
 
 	-- Left dt panel
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
-	Bui_ldtp:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
 	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
 	Bui_ldtp:Style('Outside')
 	
 	-- Right dt panel
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
-	Bui_rdtp:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
 	Bui_rdtp:Style('Outside')
 	
 	-- Middle dt panel
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
-	Bui_mdtp:SetTemplate(E.db.bui.middleDatatext.transparency and 'Transparent' or 'Default', true)
 	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
 	Bui_mdtp:Width(E.db.bui.middleDatatext.width or 400)
 	Bui_mdtp:Height(E.db.bui.middleDatatext.height or PANEL_HEIGHT)
@@ -355,7 +330,6 @@ function BUIL:ChangeLayout()
 	-- Buttons
 	for i = 1, BUTTON_NUM do
 		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i, E.UIParent)
-		bbuttons[i]:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 		bbuttons[i]:RegisterForClicks('AnyUp')
 		bbuttons[i]:SetFrameStrata('BACKGROUND')
 		bbuttons[i]:CreateSoftGlow()

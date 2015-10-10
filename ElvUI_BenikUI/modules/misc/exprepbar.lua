@@ -4,6 +4,7 @@ local M = E:GetModule('Misc');
 local LO = E:GetModule('Layout');
 local LSM = LibStub('LibSharedMedia-3.0');
 local DT = E:GetModule('DataTexts');
+local BUIL = E:GetModule('BuiLayout');
 
 -- Style ElvUI default XP/Rep bars
 local SPACING = (E.PixelMode and 1 or 3)
@@ -13,13 +14,41 @@ local function xprep_OnLeave(self)
 	GameTooltip:Hide()
 end
 
+local function ToggleXpRepBackdrop()
+	if E.db.buixprep.enable then
+		if not E.db.bui.chatDtsBackdrop then
+			if ElvUI_ReputationBar.fb then
+				ElvUI_ReputationBar.fb:StripTextures()
+			end
+			if ElvUI_ExperienceBar.fb then
+				ElvUI_ExperienceBar.fb:StripTextures()
+			end
+		else
+			if E.db.bui.transparentDts then
+				if ElvUI_ReputationBar.fb then
+					ElvUI_ReputationBar.fb:SetTemplate('Transparent')
+				end
+				if ElvUI_ExperienceBar.fb then
+					ElvUI_ExperienceBar.fb:SetTemplate('Transparent')
+				end
+			else
+				if ElvUI_ReputationBar.fb then
+					ElvUI_ReputationBar.fb:SetTemplate('Default', true)
+				end
+				if ElvUI_ExperienceBar.fb then
+					ElvUI_ExperienceBar.fb:SetTemplate('Default', true)
+				end
+			end
+		end
+	end
+end
+
 local function StyleXpRepBars()
 	-- Xp Bar
 	local xp = ElvUI_ExperienceBar
 	
 	-- bottom decor/button
 	xp.fb = CreateFrame('Button', nil, xp)
-	xp.fb:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	xp.fb:CreateSoftGlow()
 	xp.fb.sglow:Hide()
 	xp.fb:Point('TOPLEFT', xp, 'BOTTOMLEFT', 0, -SPACING)
@@ -45,7 +74,6 @@ local function StyleXpRepBars()
 	
 	-- bottom decor/button	
 	rp.fb = CreateFrame('Button', nil, rp)
-	rp.fb:SetTemplate(E.db.bui.transparentDts and 'Transparent' or 'Default', true)
 	rp.fb:CreateSoftGlow()
 	rp.fb.sglow:Hide()
 	rp.fb:Point('TOPLEFT', rp, 'BOTTOMLEFT', 0, -SPACING)
@@ -65,6 +93,8 @@ local function StyleXpRepBars()
 	rp.fb:SetScript('OnClick', function(self)
 		ToggleCharacter("ReputationFrame")
 	end)
+	
+	ToggleXpRepBackdrop()
 	
 	if E.db.bui.buiStyle ~= true then return end
 	xp:Style('Outside')
@@ -338,6 +368,7 @@ function BXR:Initialize()
 	StyleXpRepBars()
 	self:ApplyXpRepStyling()
 	
+	hooksecurefunc(BUIL, 'ToggleTransparency', ToggleXpRepBackdrop)
 	hooksecurefunc(LO, 'ToggleChatPanels', BXR.ApplyXpRepStyling)
 	hooksecurefunc(M, 'UpdateExpRepDimensions', BXR.ApplyXpRepStyling)
 end
