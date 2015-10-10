@@ -22,7 +22,7 @@ L['light blue color.'] = "hell blau"
 
 -- Misc
 L['iLevel'] = true
-L['Show item level per slot, on the character info frame'] = true
+L['Show item level per slot, on the character info frame'] = "Zeigt das Itemlevel pro Slot, im Spielerfenster"
 
 -- DataTexts
 L['BenikUI Middle DataText'] = "BenikUI mittlerer Infotext"
@@ -162,7 +162,7 @@ L['Detach Portrait'] = "Abgetrenntes Portrait"
 L['EmptyBars'] = "Leerer Rahmen"
 L['Enable the EmptyBars (Player and Target).'] = "Aktiviere die Leeren Rahmen (Spieler und Ziel)."
 L['Places the threat glow on Player and Target EmptyBars'] = "Platziert das Bedrohungsleuchten auf die Spieler- und Zielleiste"
-L['Places the threat glow on Party EmptyBars'] = true
+L['Places the threat glow on Party EmptyBars'] = "Platziert das Bedrohungsleuchten auf den Gruppen Leeren Rahmen"
 L['Player Size'] = "Spieler Größe"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
 L['PowerBar Texture'] = "Kraftleiste Textur"
