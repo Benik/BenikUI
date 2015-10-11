@@ -1,16 +1,13 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
-if E.db.bui.ilvl == false then return end
+local BiL = E:NewModule('BUIiLevel', 'AceEvent-3.0')
 
 local xo, yo = 0, 1
 local equipped = {}
 local strmatch = strmatch
 
-local f = CreateFrame("Frame", nil, PaperDollFrame)
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-
--- Tooltip and scanning by Phanx @ http://www.wowinterface.com/forums/showthread.php?p=271406
 local S_ITEM_LEVEL = "^" .. gsub(ITEM_LEVEL, "%%d", "(%%d+)")
 
 local scantip = CreateFrame("GameTooltip", "iLvlScanningTooltip", nil, "GameTooltipTemplate")
@@ -34,75 +31,96 @@ end
 local function updateItems()
 	for i = 1, 17 do
 		local itemLink = GetInventoryItemLink("player", i)
-		if i ~= 4 and (equipped[i] ~= itemLink or f[i]:GetText() ~= nil) then
+		if i ~= 4 and (equipped[i] ~= itemLink or BuiSlot[i]:GetText() ~= nil) then
 			equipped[i] = itemLink
 			if (itemLink ~= nil) then
-				f[i]:SetText(getItemLevel(i))
+				BuiSlot[i]:SetText(getItemLevel(i))
 				local _, _, ItemRarity = GetItemInfo(itemLink)
 				if ItemRarity then
 					local r, g, b = GetItemQualityColor(ItemRarity)
-					f[i]:SetTextColor(r, g, b)
+					BuiSlot[i]:SetTextColor(r, g, b)
 				else
-					f[i]:SetTextColor(1, 1, 0)
+					BuiSlot[i]:SetTextColor(1, 1, 0)
 				end
 			else
-				f[i]:SetText("")
+				BuiSlot[i]:SetText("")
 			end
 		end
 	end
 end
 
-local function createString(parent, myPoint, parentPoint, x, y)
-	local s = f:CreateFontString(nil, "OVERLAY")
+function createString(parent, myPoint, parentPoint, x, y)
+	local s = BuiSlot:CreateFontString(nil, "OVERLAY")
 	s:FontTemplate(nil, 9, 'OUTLINE')
 	s:SetPoint(myPoint, parent, parentPoint, x or 0, y or 0)
 	return s
 end
 
 local function applyStrings()
-	f:SetFrameLevel(CharacterHeadSlot:GetFrameLevel())
-	--f:SetTemplate('Default')
+	BuiSlot:SetFrameLevel(CharacterHeadSlot:GetFrameLevel())
 
-	f[1] = createString(CharacterHeadSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
-	f[2] = createString(CharacterNeckSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
-	f[3] = createString(CharacterShoulderSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
-	f[15] = createString(CharacterBackSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
-	f[5] = createString(CharacterChestSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
-	f[9] = createString(CharacterWristSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
+	BuiSlot[1] = createString(CharacterHeadSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
+	BuiSlot[2] = createString(CharacterNeckSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
+	BuiSlot[3] = createString(CharacterShoulderSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
+	BuiSlot[15] = createString(CharacterBackSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
+	BuiSlot[5] = createString(CharacterChestSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
+	BuiSlot[9] = createString(CharacterWristSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
 
-	f[10] = createString(CharacterHandsSlot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
-	f[6] = createString(CharacterWaistSlot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
-	f[7] = createString(CharacterLegsSlot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
-	f[8] = createString(CharacterFeetSlot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
-	f[11] = createString(CharacterFinger0Slot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
-	f[12] = createString(CharacterFinger1Slot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
-	f[13] = createString(CharacterTrinket0Slot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
-	f[14] = createString(CharacterTrinket1Slot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
+	BuiSlot[10] = createString(CharacterHandsSlot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
+	BuiSlot[6] = createString(CharacterWaistSlot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
+	BuiSlot[7] = createString(CharacterLegsSlot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
+	BuiSlot[8] = createString(CharacterFeetSlot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
+	BuiSlot[11] = createString(CharacterFinger0Slot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
+	BuiSlot[12] = createString(CharacterFinger1Slot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
+	BuiSlot[13] = createString(CharacterTrinket0Slot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
+	BuiSlot[14] = createString(CharacterTrinket1Slot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
 
-	f[16] = createString(CharacterMainHandSlot, "BOTTOMLEFT", "BOTTOMLEFT", 0, yo)
-	f[17] = createString(CharacterSecondaryHandSlot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
+	BuiSlot[16] = createString(CharacterMainHandSlot, "BOTTOMLEFT", "BOTTOMLEFT", 0, yo)
+	BuiSlot[17] = createString(CharacterSecondaryHandSlot, "BOTTOMRIGHT", "BOTTOMRIGHT", 3, yo)
 
-	f:Hide()
+	BuiSlot:Hide()
 end
 
-local function OnEvent(self, event) -- Event handler
-	if event == "PLAYER_ENTERING_WORLD" then
-		self:UnregisterEvent(event)
+function BiL:EventHandler()
 
-		applyStrings()
-
-		PaperDollFrame:HookScript("OnShow", function(self)
-			f:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+	applyStrings()
+	
+	PaperDollFrame:HookScript("OnShow", function(self)
+		BuiSlot:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+		if E.db.bui.ilvl then
 			updateItems()
-			f:Show()
-		end)
+			BuiSlot:Show()
+		else
+			BuiSlot:Hide()
+		end
+	end)
 
-		PaperDollFrame:HookScript("OnHide", function(self)
-			f:UnregisterEvent("PLAYER_EQUIPMENT_CHANGED")
-			f:Hide()
-		end)
-	elseif event == "PLAYER_EQUIPMENT_CHANGED" then
-		updateItems()
-	end
+	PaperDollFrame:HookScript("OnHide", function(self)
+		BuiSlot:UnregisterEvent("PLAYER_EQUIPMENT_CHANGED")
+		BuiSlot:Hide()
+	end)
+	
+	BuiSlot:SetScript("OnEvent", function(self, event)
+		if event == "PLAYER_EQUIPMENT_CHANGED" and E.db.bui.ilvl then
+			updateItems()
+		end		
+	end)
+	
+	BuiSlot:SetScript("OnEvent", function(self, event)
+		if event == "ACTIVE_TALENT_GROUP_CHANGED" and E.db.bui.ilvl then
+			updateItems()
+		end		
+	end)
 end
-f:SetScript("OnEvent", OnEvent)
+
+function BiL:PLAYER_ENTERING_WORLD(...)
+	local f = CreateFrame("Frame", 'BuiSlot', PaperDollFrame)
+	self:EventHandler()
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+end
+
+function BiL:Initialize()
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
+end
+
+E:RegisterModule(BiL:GetName())
