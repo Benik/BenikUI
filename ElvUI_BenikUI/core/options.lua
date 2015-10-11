@@ -189,7 +189,7 @@ local function buiCore()
 						name = L['iLevel'],
 						desc = L['Show item level per slot, on the character info frame'],
 						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,	
+						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BUIiLevel'):EventHandler(); end,	
 					},				
 				},
 			},
