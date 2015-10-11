@@ -98,6 +98,7 @@ local BlizzUiFrames = {
 	{'Blizzard_Calendar', 'CalendarFrame', 'calendar'}, -- issues non pixel perfect
 	{'Blizzard_Calendar', 'CalendarViewEventFrame', 'calendar'},
 	{'Blizzard_Calendar', 'CalendarViewHolidayFrame', 'calendar'},
+	{'Blizzard_Calendar', 'CalendarCreateEventFrame', 'calendar'},
 	{'Blizzard_GuildBankUI', 'GuildBankFrame', 'gbank'},
 	{'Blizzard_GuildUI', 'GuildFrame', 'guild'},
 	{'Blizzard_GuildControlUI', 'GuildControlUI', 'guildcontrol'},
