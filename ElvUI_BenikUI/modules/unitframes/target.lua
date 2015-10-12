@@ -44,6 +44,7 @@ function UFB:ArrangeTarget()
 	local USE_MINI_POWERBAR = db.power.width == 'spaced' and USE_POWERBAR
 	local POWERBAR_DETACHED = db.power.detachFromFrame
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR and not POWERBAR_DETACHED
+	local POWERBAR_OFFSET = db.power.offset
 	
 	local SHADOW_SPACING = E.PixelMode and 3 or 4
 	local USE_EMPTY_BAR = E.db.ufb.barshow
@@ -154,10 +155,6 @@ function UFB:ArrangeTarget()
 		local threat = frame.Threat
 
 		if db.threatStyle ~= 'NONE' and db.threatStyle ~= nil then
-			if not frame:IsElementEnabled('Threat') then
-				frame:EnableElement('Threat')
-			end
-
 			if db.threatStyle == "GLOW" then
 				threat:SetFrameStrata('BACKGROUND')
 				threat.glow:ClearAllPoints()
@@ -165,10 +162,7 @@ function UFB:ArrangeTarget()
 				
 				if USE_EMPTY_BAR then
 					if E.db.ufb.threat then
-						threat.glow:Point("TOPLEFT", TargetBar, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
-						threat.glow:Point("TOPRIGHT", TargetBar, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
-						threat.glow:Point("BOTTOMLEFT", TargetBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
-						threat.glow:Point("BOTTOMRIGHT", TargetBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:SetOutside(TargetBar)
 					else
 						threat.glow:Point("TOPLEFT", frame.Health.backdrop, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
 						threat.glow:Point("TOPRIGHT", frame.Health.backdrop, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
@@ -182,7 +176,7 @@ function UFB:ArrangeTarget()
 					threat.glow:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 				end
 
-				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or USE_INSET_POWERBAR or POWERBAR_DETACHED then
+				if USE_MINI_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
 					if USE_EMPTY_BAR then
 						threat.glow:Point("BOTTOMLEFT", TargetBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
 						threat.glow:Point("BOTTOMRIGHT", TargetBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
@@ -191,12 +185,30 @@ function UFB:ArrangeTarget()
 						threat.glow:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 					end
 				end
+				
+				if USE_POWERBAR_OFFSET then
+					if USE_PORTRAIT and not USE_PORTRAIT_OVERLAY then
+						threat.glow:Point("TOPLEFT", frame.Health.backdrop, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
+						threat.glow:Point("TOPRIGHT", frame.Health.backdrop,"TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)				
+						threat.glow:Point("BOTTOMLEFT", frame.Health.backdrop,"BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING+POWERBAR_OFFSET)
+					else
+						threat.glow:Point("TOPLEFT", -SHADOW_SPACING+POWERBAR_OFFSET, SHADOW_SPACING)
+						threat.glow:Point("TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
+						threat.glow:Point("BOTTOMLEFT", -SHADOW_SPACING+POWERBAR_OFFSET, -SHADOW_SPACING+POWERBAR_OFFSET)
+						threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING+POWERBAR_OFFSET)
+					end
+				end
 
 				if USE_PORTRAIT and not USE_PORTRAIT_OVERLAY then
 					if PORTRAIT_DETACHED then
 						if USE_EMPTY_BAR then
-							threat.glow:Point("TOPRIGHT", frame.Health.backdrop, "TOPRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
-							threat.glow:Point("BOTTOMRIGHT", TargetBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+							if E.db.ufb.threat and USE_POWERBAR_OFFSET then
+								threat.glow:SetOutside(TargetBar)
+							else
+								threat.glow:Point("TOPRIGHT", frame.Health.backdrop, "TOPRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+								threat.glow:Point("BOTTOMRIGHT", TargetBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+							end
 						else
 							threat.glow:Point("TOPRIGHT", frame.Portrait.backdrop, "TOPRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 							threat.glow:Point("BOTTOMRIGHT", frame.Portrait.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)					
@@ -214,8 +226,6 @@ function UFB:ArrangeTarget()
 				threat.texIcon:ClearAllPoints()
 				threat.texIcon:SetPoint(point, frame.Health, point)
 			end
-		elseif frame:IsElementEnabled('Threat') then
-			frame:DisableElement('Threat')
 		end
 	end
 	
