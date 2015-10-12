@@ -510,41 +510,46 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.targettarget.power.height = 5
 			E.db.unitframe.units.targettarget.power.width = 'fill'
 		-- party
-			E.db.unitframe.units.party.colorOverride = 'FORCE_ON'
-			E.db.unitframe.units.party.width = 180
-			E.db.unitframe.units.party.height = 44
-			E.db.unitframe.units.party.name.yOffset = 0
-			E.db.unitframe.units.party.health.position = "TOPRIGHT"
-			E.db.unitframe.units.party.health.text_format = "[health:current-percent]"
-			E.db.unitframe.units.party.power.position = "BOTTOMRIGHT"
-			E.db.unitframe.units.party.verticalSpacing = 29
 			E.db.unitframe.units.party.buffs.anchorPoint = "BOTTOMRIGHT"
 			E.db.unitframe.units.party.buffs.sizeOverride = 18
-			E.db.unitframe.units.party.debuffs.sizeOverride = 25
+			E.db.unitframe.units.party.colorOverride = 'FORCE_ON'
 			E.db.unitframe.units.party.debuffs.countFontSize = 10
 			E.db.unitframe.units.party.debuffs.fontSize = 10
+			E.db.unitframe.units.party.debuffs.sizeOverride = 25
+			E.db.unitframe.units.party.debuffs.xOffset = 0
 			E.db.unitframe.units.party.debuffs.yOffset = 9
-			E.db.unitframe.units.party.debuffs.xOffset = 1
-			E.db.unitframe.units.party.portrait.enable = true
-			E.db.unitframe.units.party.portrait.camDistanceScale = 1.05
-			E.db.unitframe.units.party.portrait.overlay = true
-			E.db.unitframe.units.party.roleIcon.enable = true
-			E.db.unitframe.units.party.roleIcon.tank = true
-			E.db.unitframe.units.party.roleIcon.healer = true
-			E.db.unitframe.units.party.roleIcon.damager = true
-			E.db.unitframe.units.party.roleIcon.size = 16
-			E.db.unitframe.units.party.roleIcon.position = "TOPLEFT"
-			E.db.unitframe.units.party.roleIcon.yOffset = 11
-			E.db.unitframe.units.party.petsGroup.name.position = "LEFT"
+			E.db.unitframe.units.party.emptybar.enable = true
+			E.db.unitframe.units.party.emptybar.height = 18
+			E.db.unitframe.units.party.emptybar.threat = false
+			E.db.unitframe.units.party.health.position = "TOPRIGHT"
+			E.db.unitframe.units.party.health.text_format = "[health:current-percent]"
+			E.db.unitframe.units.party.height = 44
+			E.db.unitframe.units.party.name.position = "BOTTOM"
+			E.db.unitframe.units.party.name.yOffset = -22
 			E.db.unitframe.units.party.petsGroup.height = 16
+			E.db.unitframe.units.party.petsGroup.name.position = "LEFT"
 			E.db.unitframe.units.party.petsGroup.width = 60
 			E.db.unitframe.units.party.petsGroup.xOffset = 0
 			E.db.unitframe.units.party.petsGroup.yOffset = -1
+			E.db.unitframe.units.party.portrait.camDistanceScale = 1.05
+			E.db.unitframe.units.party.portrait.enable = true
+			E.db.unitframe.units.party.portrait.overlay = true
+			E.db.unitframe.units.party.power.height = 5
+			E.db.unitframe.units.party.power.position = "BOTTOMRIGHT"
+			E.db.unitframe.units.party.roleIcon.damager = true
+			E.db.unitframe.units.party.roleIcon.enable = true
+			E.db.unitframe.units.party.roleIcon.healer = true
+			E.db.unitframe.units.party.roleIcon.position = "BOTTOMRIGHT"
+			E.db.unitframe.units.party.roleIcon.size = 16
+			E.db.unitframe.units.party.roleIcon.tank = true
+			E.db.unitframe.units.party.roleIcon.yOffset = -25
 			E.db.unitframe.units.party.targetsGroup.anchorPoint = "RIGHT"
 			E.db.unitframe.units.party.targetsGroup.height = 16
-			E.db.unitframe.units.party.targetsGroup.yOffset = -14
-			E.db.unitframe.units.party.targetsGroup.xOffset = 1
 			E.db.unitframe.units.party.targetsGroup.width = 70
+			E.db.unitframe.units.party.targetsGroup.xOffset = 1
+			E.db.unitframe.units.party.targetsGroup.yOffset = -14
+			E.db.unitframe.units.party.verticalSpacing = 23
+			E.db.unitframe.units.party.width = 120
 		-- raid
 			E.db.unitframe.units.raid.power.enable = false
 			E.db.unitframe.units.raid.colorOverride = 'FORCE_ON'
@@ -787,6 +792,9 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.party.targetsGroup.yOffset = -12
 			E.db.unitframe.units.party.targetsGroup.xOffset = 1
 			E.db.unitframe.units.party.targetsGroup.width = 70
+			E.db.unitframe.units.party.emptybar.enable = false
+			E.db.unitframe.units.party.emptybar.height = 18
+			E.db.unitframe.units.party.emptybar.threat = false
 		-- raid
 			E.db.unitframe.units.raid.power.enable = false
 		-- raid 40
@@ -1539,6 +1547,7 @@ function BUI:SetupBui()
 			titleText[i].text:SetPoint('LEFT', 27, 0)
 			titleText[i].text:FontTemplate(nil, 12)
 			titleText[i].text:SetTextColor(0, 0.68, 0.93)
+			titleText[i].text:SetJustifyV("MIDDLE")
 			titleText[i].hoverTex = titleText[i]:CreateTexture(nil, 'OVERLAY')
 			titleText[i].hoverTex:SetTexture([[Interface\MONEYFRAME\Arrow-Right-Up]])
 			titleText[i].hoverTex:Size(14)
