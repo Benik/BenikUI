@@ -61,7 +61,6 @@ end
 
 local function applyStrings()
 	f:SetFrameLevel(CharacterHeadSlot:GetFrameLevel())
-	--f:SetTemplate('Default')
 
 	f[1] = createString(CharacterHeadSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
 	f[2] = createString(CharacterNeckSlot, "BOTTOMLEFT", "BOTTOMLEFT", xo, yo)
@@ -85,7 +84,7 @@ local function applyStrings()
 	f:Hide()
 end
 
-local function OnEvent(self, event) -- Event handler
+local function OnEvent(self, event)
 	if event == "PLAYER_ENTERING_WORLD" then
 		self:UnregisterEvent(event)
 
