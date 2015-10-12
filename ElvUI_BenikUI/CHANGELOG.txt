@@ -1,3 +1,21 @@
+[b]2.31[/b]
+*Added a new party profile for the default layout, with EmptyBars
+*Target threat visual fixes. That was a bitch 
+*[NEW] EmptyBars on Party Frames. Disabled by default. Options in ElvUI Party Frames
+*Fixed chat datatexts visibility on spec change
+*Skins: The CalendarCreateEventFrame now fits the BenikUI Style. Credit: Merathilis
+*[NEW] Added iLvl in character frame item slots
+*Fixed chat datatexts backdrop toggle 
+*[NEW] Added a new spec switch datatext that only shows current spec. LeftClick to respec RightClick for info and loot spec (as in ElvUI)
+*Moved Datatext options to their own tab
+*[NEW] AFK mode: Replaced the faction logo with Class logos. Credit: ADDOriN @DevianArt
+*AFK mode: added garrison stats
+*[NEW] AFK mode: Changed the logoff timer. Now it tracks any mouse movements and resets. Many improovements
+*[NEW] Install: Added a new frame that shows the install steps. If a step is applied, a checkbox will show.
+*[NEW] Added hover animation effect in the Game menu (G button)
+*deDE locale updates
+*Minor changes
+
 [b]2.30[/b]
 *[NEW]: Install: Added Party profiles for both layouts
 *[NEW]: Added MSBT Profile (user request) 
