@@ -4,7 +4,15 @@ local UF = E:GetModule('UnitFrames');
 
 local ElvUF = ElvUI.oUF
 
-function UFB:ConstructPartyPortraits()
+function UFB:CreateEmptyBar(frame)
+	local emptybar = CreateFrame('Frame', nil, frame)
+	emptybar:SetTemplate('Transparent')
+	emptybar:SetFrameStrata('BACKGROUND')
+	
+	return emptybar
+end
+
+function UFB:ConstructPartyElements()
 	for _, header in pairs(UF.headers) do
 		local headername = header:GetName()
 		if headername == 'ElvUF_Party' then
@@ -15,6 +23,7 @@ function UFB:ConstructPartyPortraits()
 					local unitbuttonname = unitbutton:GetName()
 					unitbutton.Portrait3D = UF:Construct_Portrait(unitbutton, 'model')
 					unitbutton.Portrait2D = UF:Construct_Portrait(unitbutton, 'texture')
+					unitbutton.EmptyBar = UFB:CreateEmptyBar(unitbutton)
 				end
 			end
 		end
@@ -24,8 +33,7 @@ function UFB:ConstructPartyPortraits()
 end
 
 function UFB:Update_PartyFrames(frame, db)
-	frame.db = db
-	
+
 	if frame.Portrait then
 		frame.Portrait:Hide()
 		frame.Portrait:ClearAllPoints()
@@ -40,6 +48,7 @@ function UFB:Update_PartyFrames(frame, db)
 	local USE_MINI_POWERBAR = db.power.width == 'spaced' and USE_POWERBAR
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR
 	local POWERBAR_OFFSET = db.power.offset
+	local POWERBAR_DETACHED = db.power.detachFromFrame
 	local POWERBAR_HEIGHT = db.power.height
 	local POWERBAR_WIDTH = db.width - (BORDER*2)
 	local SHADOW_SPACING = E.PixelMode and 3 or 4
@@ -48,6 +57,9 @@ function UFB:Update_PartyFrames(frame, db)
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_WIDTH = db.portrait.width
 	local PORTRAIT_HEIGHT = db.portrait.height
+	
+	local USE_EMPTY_BAR = db.emptybar.enable
+	local EMPTY_BARS_HEIGHT = db.emptybar.height
 	
 	--Adjust some variables
 	do
@@ -74,7 +86,7 @@ function UFB:Update_PartyFrames(frame, db)
 			end
 		end
 		
-		--Power
+		-- Power
 		do
 			local power = frame.Power
 
@@ -102,6 +114,36 @@ function UFB:Update_PartyFrames(frame, db)
 					power:Point("TOPLEFT", frame.Health.backdrop, "BOTTOMLEFT", BORDER, -(E.PixelMode and 0 or (BORDER + SPACING)))
 					power:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -(BORDER), BORDER)
 				end
+			end
+		end
+
+		-- EmptyBar
+		do
+			local emptybar = frame.EmptyBar
+			if USE_EMPTY_BAR then
+				emptybar:Show()
+				
+				if db.emptybar.transparent then
+					emptybar:SetTemplate('Transparent')
+				else
+					emptybar:SetTemplate('Default')
+				end
+				
+				if USE_POWERBAR_OFFSET then
+					emptybar:Point('TOPLEFT', frame.Power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+					emptybar:Point('BOTTOMRIGHT', frame.Power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
+				elseif USE_MINI_POWERBAR or USE_INSET_POWERBAR then
+					emptybar:Point('TOPLEFT', frame.Health, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+					emptybar:Point('BOTTOMRIGHT', frame.Health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
+				elseif POWERBAR_DETACHED or not USE_POWERBAR then
+					emptybar:Point('TOPLEFT', frame.Health.backdrop, 'BOTTOMLEFT', 0, E.PixelMode and BORDER or -1)
+					emptybar:Point('BOTTOMRIGHT', frame.Health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)
+				else
+					emptybar:Point('TOPLEFT', frame.Power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+					emptybar:Point('BOTTOMRIGHT', frame.Power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
+				end
+			else
+				emptybar:Hide()
 			end
 		end
 		
@@ -138,8 +180,10 @@ function UFB:Update_PartyFrames(frame, db)
 					else
 						portrait.backdrop:SetTemplate('Default', true)
 					end
-
-					if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR then
+					
+					if USE_EMPTY_BAR then
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", E.PixelMode and -1 or -SPACING, 0)
+					elseif USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR then
 						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and -1 or SPACING, 0)
 					else
 						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and -1 or SPACING, 0)
@@ -153,6 +197,63 @@ function UFB:Update_PartyFrames(frame, db)
 					frame:DisableElement('Portrait')
 					portrait:Hide()
 					portrait.backdrop:Hide()
+				end
+			end
+		end
+
+		--Threat
+		do
+			local threat = frame.Threat
+
+			if db.threatStyle ~= 'NONE' and db.threatStyle ~= nil then
+				if db.threatStyle == "GLOW" then
+					threat:SetFrameStrata('BACKGROUND')
+					threat.glow:ClearAllPoints()
+					threat.glow:SetBackdropBorderColor(0, 0, 0, 0)
+					
+					if USE_EMPTY_BAR then
+						if db.emptybar.threat then
+							threat.glow:SetOutside(frame.EmptyBar)
+						else
+							threat.glow:Point("TOPLEFT", frame.Health.backdrop, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
+							threat.glow:Point("TOPRIGHT", frame.Health.backdrop, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
+							threat.glow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+							threat.glow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+						end
+					else
+						threat.glow:Point("TOPLEFT", frame.Health.backdrop, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
+						threat.glow:Point("TOPRIGHT", frame.Health.backdrop, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
+						threat.glow:Point("BOTTOMLEFT", frame.Power.backdrop, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+					end
+					
+					if USE_MINI_POWERBAR or USE_INSET_POWERBAR then
+						if USE_EMPTY_BAR then
+							threat.glow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+							threat.glow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+						else
+							threat.glow:Point("BOTTOMLEFT", frame.Health.backdrop, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+							threat.glow:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+						end
+					end
+					
+					if USE_POWERBAR_OFFSET then
+						if USE_EMPTY_BAR and db.emptybar.threat then
+							threat.glow:SetOutside(frame.EmptyBar)
+						else
+							if USE_PORTRAIT and not USE_PORTRAIT_OVERLAY then
+								threat.glow:Point("TOPLEFT", frame.Health.backdrop, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
+								threat.glow:Point("TOPRIGHT", frame.Health.backdrop,"TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)				
+								threat.glow:Point("BOTTOMLEFT", frame.Health.backdrop,"BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+								threat.glow:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+							else
+								threat.glow:Point("TOPLEFT", -SHADOW_SPACING+POWERBAR_OFFSET, SHADOW_SPACING)
+								threat.glow:Point("TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
+								threat.glow:Point("BOTTOMLEFT", -SHADOW_SPACING+POWERBAR_OFFSET, -SHADOW_SPACING+POWERBAR_OFFSET)
+								threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING+POWERBAR_OFFSET)
+							end
+						end
+					end
 				end
 			end
 		end
@@ -171,17 +272,27 @@ function UFB:Update_PartyFrames(frame, db)
 			end
 
 			if USE_MINI_POWERBAR then
-				tGlow:Point("BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
-				tGlow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+				if USE_EMPTY_BAR then
+					tGlow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+					tGlow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)					
+				else
+					tGlow:Point("BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+					tGlow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+				end
 			else
-				tGlow:Point("BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
-				tGlow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+				if USE_EMPTY_BAR then
+					tGlow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+					tGlow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)					
+				else
+					tGlow:Point("BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+					tGlow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+				end
 			end
 
 			if USE_POWERBAR_OFFSET then
 				if USE_PORTRAIT and not USE_PORTRAIT_OVERLAY then
 					tGlow:Point("TOPLEFT", frame.Health.backdrop, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
-					tGlow:Point("TOPRIGHT", frame.Health.backdrop,"TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
+					tGlow:Point("TOPRIGHT", frame.Health.backdrop,"TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)				
 					tGlow:Point("BOTTOMLEFT", frame.Health.backdrop,"BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
 					tGlow:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 				else

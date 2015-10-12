@@ -14,6 +14,14 @@ P['unitframe']['units']['party']['portrait'] = {
 	['transparent'] = false,
 }
 
+-- Add Party EmptyBars to ElvUI defaults
+P['unitframe']['units']['party']['emptybar'] = {
+	['enable'] = false,
+	['height'] = 20,
+	['transparent'] = true,
+	['threat'] = false,
+}
+
 P['unitframe']['units']['party']['roleIcon'] = {
 	['xOffset'] = 0,
 	['yOffset'] = 0,

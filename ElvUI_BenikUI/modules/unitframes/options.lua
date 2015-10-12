@@ -247,7 +247,7 @@ table.insert(E.BuiConfig, ufTargetTable)
 
 local function injectPartyOptions()
 	E.Options.args.unitframe.args.party.args.portrait = {
-		order = 5,
+		order = 400,
 		type = 'group',
 		name = BUI:cOption(L["Portrait"]),
 		get = function(info) return E.db.unitframe.units['party']['portrait'][ info[#info] ] end,
@@ -336,6 +336,40 @@ local function injectPartyOptions()
 		order = 8,
 		name = BUI:cOption(L["yOffset"]),
 		min = -150, max = 150, step = 1,
+	}
+	
+	E.Options.args.unitframe.args.party.args.emptybar = {
+		order = 900,
+		type = 'group',
+		name = BUI:cOption(L["EmptyBars"]),
+		get = function(info) return E.db.unitframe.units['party']['emptybar'][ info[#info] ] end,
+		set = function(info, value) E.db.unitframe.units['party']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('party') end,
+		args = {
+			enable = {
+				type = 'toggle',
+				order = 1,
+				name = L["Enable"],
+				width = "full",
+			},
+			height = {
+				type = 'range',
+				order = 2,
+				name = L["Height"],
+				min = 10, max = 50, step = 1,
+			},							
+			transparent = {
+				type = 'toggle',
+				name = L["Transparent"],
+				desc = L["Toggle EmptyBars transparency"],
+				order = 3,
+			},
+			threat = {
+				type = 'toggle',
+				name = L['Threat on EmptyBars'],
+				desc = L['Places the threat glow on Party EmptyBar'],
+				order = 4,
+			},
+		},
 	}
 end
 table.insert(E.BuiConfig, injectPartyOptions)
