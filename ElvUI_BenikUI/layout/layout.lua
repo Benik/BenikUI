@@ -488,10 +488,15 @@ function BUIL:ChangeLayout()
 	self:ToggleTransparency()
 end
 
-function BUIL:PLAYER_ENTERING_WORLD(...)
-	self:ToggleBuiDts()
+function BUIL:regEvents()
 	self:MiddleDatatextLayout()
 	self:MiddleDatatextDimensions()
+	self:ToggleTransparency()
+end
+
+function BUIL:PLAYER_ENTERING_WORLD(...)
+	self:ToggleBuiDts()
+	self:regEvents()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
@@ -505,7 +510,7 @@ function BUIL:Initialize()
 	hooksecurefunc(M, 'UpdateSettings', BUIL.ResizeMinimapPanels)
 	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
-	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'MiddleDatatextDimensions')
+	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
 end
 
 E:RegisterModule(BUIL:GetName())
