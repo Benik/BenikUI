@@ -21,6 +21,7 @@ local function buiCore()
 				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.']..'\n\n'..BUI:cOption(L['Credits:'])..L[' Elv, Tukz, Blazeflack, Azilroka, Sinaris, Repooc, Darth Predator, Dandruff, Hydra, Merathilis, ElvUI community']),
 				fontSize = 'medium',
 				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 192, 96 end,
+				imageCoords = {0.09, 0.99, 0.01, 0.99}
 			},			
 			install = {
 				order = 3,
