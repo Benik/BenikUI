@@ -166,11 +166,6 @@ local function dashboardsTable()
 		type = 'group',
 		name = L['Dashboards'],
 		args = {
-			header = {
-				order = 1,
-				type = 'header',
-				name = L['Dashboards'],
-			},
 			dashColor = {
 				order = 2,
 				type = 'group',
