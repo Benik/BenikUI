@@ -304,11 +304,7 @@ function AFK:Initialize()
 	self.AFKMode.top:SetHeight(GetScreenHeight() * (1 / 20))
 
 	--Style the top frame
-	self.AFKMode.top.style = CreateFrame('Frame', nil, self.AFKMode)
-	self.AFKMode.top.style:SetTemplate('Default', true)
-	self.AFKMode.top.style:SetFrameStrata("BACKGROUND")
-	self.AFKMode.top.style:Point('TOPLEFT', self.AFKMode.top, 'BOTTOMLEFT', 0, 1)
-	self.AFKMode.top.style:Point('BOTTOMRIGHT', self.AFKMode.top, 'BOTTOMRIGHT', 0, (E.PixelMode and -4 or -7))
+	self.AFKMode.top:Style('Under')
 	
 	-- move the chat lower
 	self.AFKMode.chat:SetPoint("TOPLEFT", self.AFKMode.top.style, "TOPLEFT", 4, -4)
