@@ -2,6 +2,8 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local BUI = E:GetModule('BenikUI');
 local BXR = E:GetModule('BUIExpRep');
 
+local tinsert = table.insert
+
 if E.db.buixprep == nil then E.db.buixprep = {} end
 
 local function xprepTable()
@@ -255,4 +257,4 @@ local function xprepTable()
 	}
 end
 
-table.insert(E.BuiConfig, xprepTable)
+tinsert(E.BuiConfig, xprepTable)

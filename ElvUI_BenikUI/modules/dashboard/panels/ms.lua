@@ -3,6 +3,7 @@ local BUID = E:GetModule('BuiDashboard')
 
 local LastUpdate = 1
 local format = string.format
+local join = string.join
 
 local statusColors = {
 	'|cff0CD809',
@@ -34,7 +35,7 @@ function BUID:CreateMs()
 				mscolor = 3
 			end
 
-			local displayFormat = string.join('', 'MS: ', statusColors[mscolor], '%d|r')
+			local displayFormat = join('', 'MS: ', statusColors[mscolor], '%d|r')
 			boardName.Text:SetFormattedText(displayFormat, value)
 			LastUpdate = 1
 		end

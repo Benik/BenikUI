@@ -2,6 +2,8 @@ local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Profi
 local LSM = LibStub('LibSharedMedia-3.0')
 local BUID = E:GetModule('BuiDashboard')
 
+local join = string.join
+
 local SPACING = (E.PixelMode and 1 or 5)
 
 local function GetVolumePercent(cat)
@@ -139,7 +141,7 @@ function BUID:CreateVolume()
 		end
 		
 		iconBG.text:SetText(icon)
-		local displayFormat = string.join('', VOLUME..':', statusColors[color], ' %d%%|r')
+		local displayFormat = join('', VOLUME..':', statusColors[color], ' %d%%|r')
 		boardName.Text:SetFormattedText(displayFormat, volumeValue)
 	end)
 	boardName.Status:RegisterEvent('VARIABLES_LOADED')

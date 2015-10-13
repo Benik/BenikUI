@@ -6,6 +6,7 @@ local tooltipString = '%d%%'
 local totalDurability = 0
 local current, max, lastPanel
 local invDurability = {}
+local join = string.join
 
 local function OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
@@ -79,7 +80,7 @@ function BUID:CreateDurability()
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = string.join('', DURABILITY, ': ', hex, '%d%%|r')
+	displayString = join('', DURABILITY, ': ', hex, '%d%%|r')
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 

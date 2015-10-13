@@ -3,6 +3,7 @@ local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 
 if E.db.bui == nil then E.db.bui = {} end
+local tinsert = table.insert
 
 local function buiCore()
 	E.Options.args.bui = {
@@ -203,7 +204,7 @@ local function buiCore()
 		},
 	}
 end
-table.insert(E.BuiConfig, buiCore)
+tinsert(E.BuiConfig, buiCore)
 
 local function buiDatatexts()
 	E.Options.args.bui.args.config.args.datatexts = {
@@ -365,4 +366,4 @@ local function buiDatatexts()
 		},
 	}
 end
-table.insert(E.BuiConfig, buiDatatexts)
+tinsert(E.BuiConfig, buiDatatexts)

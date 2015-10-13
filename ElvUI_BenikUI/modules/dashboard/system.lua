@@ -9,6 +9,8 @@ local BUID = E:NewModule('BuiDashboard')
 local LSM = LibStub('LibSharedMedia-3.0')
 local DT = E:GetModule('DataTexts')
 
+local tinsert, twipe = table.insert, table.wipe
+
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.system == nil then E.db.dashboards.system = {} end
 
@@ -88,7 +90,7 @@ function BUID:UpdateBoards()
 		for i = 1, getn( loadedBoards ) do
 			loadedBoards[i]:Kill()
 		end
-		wipe( loadedBoards )
+		twipe( loadedBoards )
 		sysHolder.backdrop:Hide()
 	end
 

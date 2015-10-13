@@ -3,9 +3,10 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Pr
 
 if E.db.bui.ilvl == false then return end
 
+local match = string.match
+
 local xo, yo = 0, 1
 local equipped = {}
-local strmatch = strmatch
 
 local f = CreateFrame("Frame", nil, PaperDollFrame)
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -23,7 +24,7 @@ local function getItemLevel(slotId)
 	for i = 2, scantip:NumLines() do
 		local text = _G["iLvlScanningTooltipTextLeft"..i]:GetText()
 		if text and text ~= "" then
-			local realItemLevel = strmatch(text, S_ITEM_LEVEL)
+			local realItemLevel = match(text, S_ITEM_LEVEL)
 			if realItemLevel then
 				return realItemLevel
 			end

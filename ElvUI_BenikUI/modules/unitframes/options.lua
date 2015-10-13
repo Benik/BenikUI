@@ -4,6 +4,8 @@ local UFB = E:GetModule('BuiUnits');
 local BUIC = E:GetModule('BuiCastbar');
 local UF = E:GetModule('UnitFrames');
 
+local tinsert = table.insert
+
 local function ufTable()
 	E.Options.args.bui.args.config.args.ufb = {
 		order = 10,
@@ -111,7 +113,7 @@ local function ufTable()
 		},
 	}
 end
-table.insert(E.BuiConfig, ufTable)
+tinsert(E.BuiConfig, ufTable)
 
 local function ufPlayerTable()
 	E.Options.args.unitframe.args.player.args.portrait.args.ufb = {
@@ -172,7 +174,7 @@ local function ufPlayerTable()
 		},
 	}
 end
-table.insert(E.BuiConfig, ufPlayerTable)
+tinsert(E.BuiConfig, ufPlayerTable)
 
 local function ufTargetTable()
 	E.Options.args.unitframe.args.target.args.portrait.args.ufb = {
@@ -243,7 +245,7 @@ local function ufTargetTable()
 		},
 	}
 end
-table.insert(E.BuiConfig, ufTargetTable)
+tinsert(E.BuiConfig, ufTargetTable)
 
 local function injectPartyOptions()
 	E.Options.args.unitframe.args.party.args.portrait = {
@@ -372,4 +374,4 @@ local function injectPartyOptions()
 		},
 	}
 end
-table.insert(E.BuiConfig, injectPartyOptions)
+tinsert(E.BuiConfig, injectPartyOptions)

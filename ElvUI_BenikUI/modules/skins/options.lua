@@ -6,6 +6,8 @@ if E.db.buiskins == nil then E.db.buiskins = {} end
 if E.db.elvuiaddons == nil then E.db.elvuiaddons = {} end
 if E.db.buiaddonskins == nil then E.db.buiaddonskins = {} end
 
+local tinsert = table.insert
+
 local DecorElvUIAddons = {
 	{'ElvUI_LocLite', L['LocationLite'], 'loclite'},
 	{'ElvUI_LocPlus', L['LocationPlus'], 'locplus'},
@@ -118,4 +120,4 @@ local function SkinTable()
 
 end
 
-table.insert(E.BuiConfig, SkinTable)
+tinsert(E.BuiConfig, SkinTable)

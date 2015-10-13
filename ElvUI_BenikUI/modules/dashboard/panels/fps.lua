@@ -1,6 +1,8 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local BUID = E:GetModule('BuiDashboard')
 
+local join = string.join
+
 local LastUpdate = 1
 
 local statusColors = {
@@ -30,7 +32,7 @@ function BUID:CreateFps()
 				fpscolor = 3
 			end
 
-			local displayFormat = string.join('', 'FPS: ', statusColors[fpscolor], '%d|r')
+			local displayFormat = join('', 'FPS: ', statusColors[fpscolor], '%d|r')
 			boardName.Text:SetFormattedText(displayFormat, value)
 			LastUpdate = 1
 		end

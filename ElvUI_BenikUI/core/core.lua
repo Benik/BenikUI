@@ -4,9 +4,10 @@ local BUI = E:NewModule('BenikUI', "AceConsole-3.0");
 local LSM = LibStub('LibSharedMedia-3.0')
 local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, ns = ...
+local format = string.format
 
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
-BUI.Title = string.format('|cff00c0fa%s |r', 'BenikUI')
+BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 

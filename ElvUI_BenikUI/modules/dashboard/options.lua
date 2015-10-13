@@ -4,6 +4,8 @@ local BUID = E:GetModule('BuiDashboard');
 local BUIT = E:GetModule('BuiTokensDashboard');
 local BUIP = E:GetModule('BuiProfessionsDashboard')
 
+local tinsert = table.insert
+
 local dungeonTokens = {
 	776,	-- Warforged Seal
 	752,	-- Mogu Rune of Fate
@@ -470,9 +472,9 @@ local function dashboardsTable()
 	hooksecurefunc(E, "ToggleConfig", UpdateProfessionOptions)
 end
 
-table.insert(E.BuiConfig, dashboardsTable)
-table.insert(E.BuiConfig, UpdateSystemOptions)
-table.insert(E.BuiConfig, UpdateTokenOptions)
-table.insert(E.BuiConfig, UpdateProfessionOptions)
+tinsert(E.BuiConfig, dashboardsTable)
+tinsert(E.BuiConfig, UpdateSystemOptions)
+tinsert(E.BuiConfig, UpdateTokenOptions)
+tinsert(E.BuiConfig, UpdateProfessionOptions)
 
 

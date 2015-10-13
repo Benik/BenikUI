@@ -7,6 +7,8 @@ local DT = E:GetModule('DataTexts')
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.tokens == nil then E.db.dashboards.tokens = {} end
 
+local tinsert, twipe = table.insert, table.wipe
+
 local DASH_HEIGHT = 20
 local DASH_WIDTH = E.db.dashboards.tokens.width or 150
 local DASH_SPACING = 3
@@ -126,7 +128,7 @@ function BUIT:UpdateTokens()
 		for i = 1, getn( tokenFrames ) do
 			tokenFrames[i]:Kill()
 		end
-		wipe( tokenFrames )
+		twipe( tokenFrames )
 		tokenHolder.backdrop:Hide()
 	end
 

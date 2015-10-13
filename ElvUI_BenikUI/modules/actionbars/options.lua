@@ -1,6 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BUI = E:GetModule('BenikUI');
 local BAB = E:GetModule('BuiActionbars');
+local tinsert = table.insert
 
 local function abTable()
 	E.Options.args.actionbar.args.bab = {
@@ -57,4 +58,4 @@ local function abTable()
 	}
 end
 
-table.insert(E.BuiConfig, abTable)
+tinsert(E.BuiConfig, abTable)
