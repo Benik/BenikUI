@@ -3,7 +3,7 @@ local AFK = E:GetModule('AFK')
 local LSM = LibStub('LibSharedMedia-3.0')
 local BUI = E:GetModule('BenikUI');
 
-local format, random, lower, upper = string.format, random, lower, string.upper
+local format, random, lower, upper = string.format, random, string.lower, string.upper
 local SPACING = (E.PixelMode and 1 or 5)
 
 -- Credit for the Class logos: ADDOriN @DevianArt
