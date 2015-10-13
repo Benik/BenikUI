@@ -364,7 +364,7 @@ function AFK:Initialize()
 	
 	-- Add more info in the name and position it to the center
 	self.AFKMode.bottom.name:ClearAllPoints()	
-	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.faction, "BOTTOM", 0, 5)
+	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.factionb, "BOTTOM")
 	self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, nonCapClass)
 	self.AFKMode.bottom.name:SetJustifyH("CENTER")
 	self.AFKMode.bottom.name:FontTemplate(nil, 18)	
