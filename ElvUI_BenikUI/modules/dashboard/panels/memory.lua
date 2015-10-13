@@ -56,7 +56,7 @@ local function Update( self, t )
 	if( int < 0 ) then
 		RebuildAddonList()
 		local total = UpdateMemory()
-		boardName.Text:SetText( L['Memory: ']..formatMem( total ) )
+		boardName.Text:SetFormattedText("%s", (L['Memory: ']..formatMem(total)))
 		boardName.Status:SetMinMaxValues( 0, 100000 )
 		boardName.Status:SetValue( total )
 		int = 10

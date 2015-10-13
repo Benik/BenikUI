@@ -37,7 +37,7 @@ local function updateItems()
 		if i ~= 4 and (equipped[i] ~= itemLink or f[i]:GetText() ~= nil) then
 			equipped[i] = itemLink
 			if (itemLink ~= nil) then
-				f[i]:SetText(getItemLevel(i))
+				f[i]:SetFormattedText("%s", getItemLevel(i))
 				local _, _, ItemRarity = GetItemInfo(itemLink)
 				if ItemRarity then
 					local r, g, b = GetItemQualityColor(ItemRarity)

@@ -125,7 +125,7 @@ L['Use DataTexts font'] = "Benutze Infotext Schriftart"
 L['ZYGOR_CONFLICT_WARNING'] = "Es wurde berichtet, das Zygor Guides Probleme mit dem Speicher-Dashboard hat.\nKlick "..CONTINUE.." um das Speicher-Modul zu deaktivieren oder 'Ich verstehe' um dieses Popup zu schließen." -- bad translation (need review)
 
 -- DataTexts
-L['|cff00ff00New Mail|r'] = "|cff00ff00Neue Post|r"
+L['New Mail'] = "Neue Post"
 L['No Mail'] = "Keine Post"
 
 -- XP/Rep Options

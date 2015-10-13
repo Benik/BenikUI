@@ -262,7 +262,7 @@ function BXR:UpdateRepNotifier()
 		bar.f:Hide()
 	else
 		bar.f:Show()
-		bar.f.txt:SetText(format('%d%%', ((value - min) / (max - min) * 100)))
+		bar.f.txt:SetFormattedText('%d%%', ((value - min) / (max - min) * 100))
 	end
 end
 
@@ -322,7 +322,7 @@ function BXR:UpdateXpNotifier()
 	else
 		bar.f:Show()
 		local cur, max = BXR:GetXP('player')
-		bar.f.txt:SetText(format('%d%%', cur / max * 100))
+		bar.f.txt:SetFormattedText('%d%%', cur / max * 100)
 	end
 end
 

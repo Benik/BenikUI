@@ -125,7 +125,7 @@ L['Use DataTexts font'] = true
 L['ZYGOR_CONFLICT_WARNING'] = "It has been reported that Zygor Guides has issues with Dashboard Memory module.\nClick "..CONTINUE.." to disable the Memory module or 'I understand' to close this popup"
 
 -- DataTexts
-L['|cff00ff00New Mail|r'] = true
+L['New Mail'] = true
 L['No Mail'] = true
 
 -- XP/Rep Options

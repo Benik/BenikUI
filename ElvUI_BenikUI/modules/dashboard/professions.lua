@@ -140,9 +140,9 @@ function BUIP:UpdateProfessions()
 					ProFrame.Text:Width(ProFrame:GetWidth() - 20)
 					ProFrame.Text:SetWordWrap(false)
 					if (rankModifier and rankModifier > 0) then
-						ProFrame.Text:SetText(format('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank))
+						ProFrame.Text:SetFormattedText('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
 					else
-						ProFrame.Text:SetText(format('%s / %s', rank, maxRank))
+						ProFrame.Text:SetFormattedText('%s / %s', rank, maxRank)
 					end
 					
 					if E.db.dashboards.textColor == 1 then
@@ -167,14 +167,14 @@ function BUIP:UpdateProfessions()
 					ProFrame.IconBG.Icon:SetTexture(icon)
 
 					ProFrame:SetScript('OnEnter', function(self)
-						ProFrame.Text:SetText(format('%s', name))
+						ProFrame.Text:SetFormattedText('%s', name)
 					end)
 			
 					ProFrame:SetScript('OnLeave', function(self)
 						if (rankModifier and rankModifier > 0) then
-							ProFrame.Text:SetText(format('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank))
+							ProFrame.Text:SetFormattedText('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
 						else
-							ProFrame.Text:SetText(format('%s / %s', rank, maxRank))
+							ProFrame.Text:SetFormattedText('%s / %s', rank, maxRank)
 						end			
 					end)
 					tinsert(BuiProfessions, ProFrame)

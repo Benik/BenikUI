@@ -192,9 +192,9 @@ function BUIT:UpdateTokens()
 					end
 					
 					if totalMax == 0 then
-						token.Text:SetText(format('%s', amount))
+						token.Text:SetFormattedText('%s', amount)
 					else
-						token.Text:SetText(format('%s / %s', amount, totalMax))
+						token.Text:SetFormattedText('%s / %s', amount, totalMax)
 					end
 
 					token.IconBG = CreateFrame('Frame', nil, token)
@@ -208,7 +208,7 @@ function BUIT:UpdateTokens()
 					token.IconBG.Icon:SetTexture(icon)
 
 					token:SetScript('OnEnter', function(self)
-						token.Text:SetText(format('%s', name))
+						token.Text:SetFormattedText('%s', name)
 						if db.tooltip then
 							GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 							GameTooltip:SetCurrencyByID(id)
@@ -222,9 +222,9 @@ function BUIT:UpdateTokens()
 			
 					token:SetScript('OnLeave', function(self)
 						if totalMax == 0 then
-							token.Text:SetText(format('%s', amount))
+							token.Text:SetFormattedText('%s', amount)
 						else
-							token.Text:SetText(format('%s / %s', amount, totalMax))
+							token.Text:SetFormattedText('%s / %s', amount, totalMax)
 						end				
 						GameTooltip:Hide()
 					end)
