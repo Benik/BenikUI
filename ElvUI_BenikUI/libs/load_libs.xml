@@ -1,3 +1,3 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">		
-	<script file="LibAnim\LibAnim.lua"/>
+	<Include file="LibAnim-1.1\LibAnim-1.1.xml"/>
 </Ui>
