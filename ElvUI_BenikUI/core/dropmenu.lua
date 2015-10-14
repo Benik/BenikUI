@@ -19,12 +19,12 @@ local function OnClick(btn)
 end
 
 local function OnEnter(btn)
-	btn.hoverTex:Run("Alpha", .3, 0, 1)
+	UIFrameFadeIn(btn.hoverTex, 0.3, 0, 1)
 	hoverVisible = true
 end
 
 local function OnLeave(btn)
-	btn.hoverTex:Run("Alpha", .3, 1, 0)
+	UIFrameFadeOut(btn.hoverTex, 0.3, 1, 0)
 	hoverVisible = false
 end
 
