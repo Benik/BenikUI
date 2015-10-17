@@ -42,6 +42,7 @@ function UFB:Initialize()
 	self:UnitDefaults()
 	self:InitPlayer()
 	self:InitTarget()
+	E.db.unitframe.units.party.portrait.rotation = 0 -- temp
 	self:ConstructPartyElements()
 	hooksecurefunc(UF, 'Update_PartyFrames', UFB.Update_PartyFrames)
 	hooksecurefunc(UF, 'Update_AllFrames', UFB.Update_PowerStatusBar)

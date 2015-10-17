@@ -248,82 +248,19 @@ end
 tinsert(E.BuiConfig, ufTargetTable)
 
 local function injectPartyOptions()
-	E.Options.args.unitframe.args.party.args.portrait = {
-		order = 400,
-		type = 'group',
-		name = BUI:cOption(L["Portrait"]),
-		get = function(info) return E.db.unitframe.units['party']['portrait'][ info[#info] ] end,
-		set = function(info, value) E.db.unitframe.units['party']['portrait'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('party') end,
-		args = {
-			enable = {
-				type = 'toggle',
-				order = 1,
-				name = L["Enable"],
-				width = "full",
-			},
-			width = {
-				type = 'range',
-				order = 2,
-				name = L["Width"],
-				min = 15, max = 150, step = 1,
-			},
-			height = {
-				type = 'range',
-				order = 3,
-				name = BUI:cOption("+ "..L["Height"]),
-				min = 0, max = 150, step = 1,
-			},							
-			overlay = {
-				type = 'toggle',
-				name = L["Overlay"],
-				desc = L["Overlay the healthbar"],
-				order = 4,
-			},
-			rotation = {
-				type = 'range',
-				name = L["Model Rotation"],
-				order = 5,
-				min = 0, max = 360, step = 1,
-			},
-			camDistanceScale = {
-				type = 'range',
-				name = L["Camera Distance Scale"],
-				desc = L["How far away the portrait is from the camera."],
-				order = 6,
-				min = 0.01, max = 4, step = 0.01,
-			},
-			style = {
-				type = 'select',
-				name = L["Style"],
-				desc = L["Select the display method of the portrait."],
-				order = 7,
-				values = {
-					['2D'] = L["2D"],
-					['3D'] = L["3D"],
-				},
-			},
-			xOffset = {
-				order = 8,
-				type = "range",
-				name = L["xOffset"],
-				desc = L["Position the Model horizontally."],
-				min = -1, max = 1, step = 0.01,
-			},
-			yOffset = {
-				order = 9,
-				type = "range",
-				name = L["yOffset"],
-				desc = L["Position the Model vertically."],
-				min = -1, max = 1, step = 0.01,
-			},
-			transparent = {
-				order = 10,
-				type = "toggle",
-				name = BUI:cOption(L['Transparent']),
-				desc = L['Makes the portrait backdrop transparent'],
-				disabled = function() return E.db.unitframe.units.party.portrait.overlay end,
-			},
-		},
+	E.Options.args.unitframe.args.party.args.portrait.args.height = {
+		type = 'range',
+		order = 15,
+		name = BUI:cOption("+ "..L["Height"]),
+		min = 0, max = 150, step = 1,
+	}
+	
+	E.Options.args.unitframe.args.party.args.portrait.args.transparent = {	
+		order = 16,
+		type = "toggle",
+		name = BUI:cOption(L['Transparent']),
+		desc = L['Makes the portrait backdrop transparent'],
+		disabled = function() return E.db.unitframe.units.party.portrait.overlay end,
 	}
 			
 	E.Options.args.unitframe.args.party.args.roleIcon.args.xOffset = {

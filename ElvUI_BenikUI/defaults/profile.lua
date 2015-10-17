@@ -2,15 +2,7 @@
 
 -- Add Party portraits to ElvUI defaults
 P['unitframe']['units']['party']['portrait'] = {
-	['enable'] = true,
-	['width'] = 45,
 	['height'] = 0,
-	['overlay'] = true,
-	['camDistanceScale'] = 1,
-	['rotation'] = 0,
-	['style'] = '3D',
-	['xOffset'] = 0,
-	['yOffset'] = 0,
 	['transparent'] = false,
 }
 
