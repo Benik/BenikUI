@@ -99,7 +99,7 @@ function UFB:Update_PartyFrames(frame, db)
 					portrait:Show()
 					portrait.backdrop:Show()
 					portrait.backdrop:ClearAllPoints()
-					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", 0, PORTRAIT_HEIGHT)
+					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", POWERBAR_OFFSET, PORTRAIT_HEIGHT)
 					
 					if db.portrait.transparent then
 						portrait.backdrop:SetTemplate('Transparent')
@@ -108,7 +108,11 @@ function UFB:Update_PartyFrames(frame, db)
 					end
 					
 					if USE_EMPTY_BAR then
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", E.PixelMode and -1 or -SPACING, 0)
+						if USE_POWERBAR_OFFSET then
+							portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and -1 or SPACING, 0)
+						else
+							portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", E.PixelMode and -1 or -SPACING, 0)
+						end
 					elseif USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR then
 						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and -1 or SPACING, 0)
 					else
