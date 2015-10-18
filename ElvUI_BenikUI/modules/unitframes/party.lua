@@ -48,7 +48,7 @@ function UFB:Update_PartyFrames(frame, db)
 
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
-	--local PORTRAIT_WIDTH = db.portrait.width
+	local PORTRAIT_WIDTH = db.portrait.width
 	local PORTRAIT_HEIGHT = db.portrait.height
 	
 	local USE_EMPTY_BAR = db.emptybar.enable

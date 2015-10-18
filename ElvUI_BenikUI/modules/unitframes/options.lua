@@ -174,7 +174,8 @@ local function ufPlayerTable()
 		},
 	}
 end
-tinsert(E.BuiConfig, ufPlayerTable)
+--tinsert(E.BuiConfig, ufPlayerTable)
+C_Timer.After(2, function() tinsert(E.BuiConfig, ufPlayerTable) end)
 
 local function ufTargetTable()
 	E.Options.args.unitframe.args.target.args.portrait.args.ufb = {
@@ -245,7 +246,8 @@ local function ufTargetTable()
 		},
 	}
 end
-tinsert(E.BuiConfig, ufTargetTable)
+--tinsert(E.BuiConfig, ufTargetTable)
+C_Timer.After(2, function() tinsert(E.BuiConfig, ufTargetTable) end)
 
 local function injectPartyOptions()
 	E.Options.args.unitframe.args.party.args.portrait.args.height = {
@@ -311,4 +313,4 @@ local function injectPartyOptions()
 		},
 	}
 end
-tinsert(E.BuiConfig, injectPartyOptions)
+C_Timer.After(2, function() tinsert(E.BuiConfig, injectPartyOptions) end)
