@@ -171,6 +171,10 @@ L['Show/Hide the Castbar text.'] = true
 L['Threat on EmptyBars'] = true
 L['Toggle EmptyBars transparency'] = true
 
+-- Raid
+L['Class Hover'] = true
+L['Enable Class color on health border, when mouse over'] = true
+
 -- afk
 L["Jan"] = true
 L["Feb"] = true

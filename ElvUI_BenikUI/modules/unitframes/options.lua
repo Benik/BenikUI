@@ -174,8 +174,7 @@ local function ufPlayerTable()
 		},
 	}
 end
---tinsert(E.BuiConfig, ufPlayerTable)
-C_Timer.After(2, function() tinsert(E.BuiConfig, ufPlayerTable) end)
+tinsert(E.BuiConfig, ufPlayerTable)
 
 local function ufTargetTable()
 	E.Options.args.unitframe.args.target.args.portrait.args.ufb = {
@@ -246,8 +245,7 @@ local function ufTargetTable()
 		},
 	}
 end
---tinsert(E.BuiConfig, ufTargetTable)
-C_Timer.After(2, function() tinsert(E.BuiConfig, ufTargetTable) end)
+tinsert(E.BuiConfig, ufTargetTable)
 
 local function injectPartyOptions()
 	E.Options.args.unitframe.args.party.args.portrait.args.height = {
@@ -264,7 +262,7 @@ local function injectPartyOptions()
 		desc = L['Makes the portrait backdrop transparent'],
 		disabled = function() return E.db.unitframe.units.party.portrait.overlay end,
 	}
-			
+
 	E.Options.args.unitframe.args.party.args.roleIcon.args.xOffset = {
 		type = 'range',
 		order = 7,
@@ -313,4 +311,26 @@ local function injectPartyOptions()
 		},
 	}
 end
-C_Timer.After(2, function() tinsert(E.BuiConfig, injectPartyOptions) end)
+tinsert(E.BuiConfig, injectPartyOptions)
+
+local function injectRaidOptions()
+	E.Options.args.unitframe.args.raid.args.general.args.classHover = {	
+		order = 7,
+		type = "toggle",
+		name = BUI:cOption(L['Class Hover']),
+		desc = L['Enable Class color on health border, when mouse over'],
+		set = function(info, value) E.db.unitframe.units['raid'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+	}
+end
+tinsert(E.BuiConfig, injectRaidOptions)
+
+local function injectRaid40Options()
+	E.Options.args.unitframe.args.raid40.args.general.args.classHover = {	
+		order = 7,
+		type = "toggle",
+		name = BUI:cOption(L['Class Hover']),
+		desc = L['Enable Class color on health border, when mouse over'],
+		set = function(info, value) E.db.unitframe.units['raid40'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+	}
+end
+tinsert(E.BuiConfig, injectRaid40Options)

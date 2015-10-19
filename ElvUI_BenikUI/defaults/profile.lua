@@ -14,10 +14,17 @@ P['unitframe']['units']['party']['emptybar'] = {
 	['threat'] = false,
 }
 
+-- Add roleIcon X, Y options to ElvUI defaults
 P['unitframe']['units']['party']['roleIcon'] = {
 	['xOffset'] = 0,
 	['yOffset'] = 0,
 }
+
+-- Add raid classHover to ElvUI defaults
+P['unitframe']['units']['raid']['classHover'] = false
+
+-- Add raid40 classHover to ElvUI defaults
+P['unitframe']['units']['raid40']['classHover'] = false
 
 -- Core
 P['bui'] = {
