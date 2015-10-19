@@ -19,6 +19,14 @@ function UFB:Update_PowerStatusBar(unit)
 	end
 end
 
+-- EmptyBar creation
+function UFB:CreateEmptyBar(frame)
+	local emptybar = CreateFrame('Frame', nil, frame)
+	emptybar:SetFrameStrata('BACKGROUND')
+	
+	return emptybar
+end
+
 function UFB:UnitDefaults()
 	if E.db.ufb.barheight == nil then
 		E.db.ufb.barheight = 20

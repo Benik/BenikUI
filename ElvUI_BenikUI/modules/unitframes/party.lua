@@ -4,14 +4,6 @@ local UF = E:GetModule('UnitFrames');
 
 local ElvUF = ElvUI.oUF
 
-function UFB:CreateEmptyBar(frame)
-	local emptybar = CreateFrame('Frame', nil, frame)
-	emptybar:SetTemplate('Transparent')
-	emptybar:SetFrameStrata('BACKGROUND')
-	
-	return emptybar
-end
-
 function UFB:ConstructPartyElements()
 	for _, header in pairs(UF.headers) do
 		local headername = header:GetName()
@@ -21,8 +13,6 @@ function UFB:ConstructPartyElements()
 				for j = 1, group:GetNumChildren() do
 					local unitbutton = select(j, group:GetChildren())
 					local unitbuttonname = unitbutton:GetName()
-					--unitbutton.Portrait3D = UF:Construct_Portrait(unitbutton, 'model')
-					--unitbutton.Portrait2D = UF:Construct_Portrait(unitbutton, 'texture')
 					unitbutton.EmptyBar = UFB:CreateEmptyBar(unitbutton)
 				end
 			end
