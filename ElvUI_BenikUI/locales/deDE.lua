@@ -172,8 +172,8 @@ L['Threat on EmptyBars'] = "Bedrohung auf den leeren Leisten"
 L['Toggle EmptyBars transparency'] = "Leere Rahmen Transparenz umschalten"
 
 -- Raid
-L['Class Hover'] = true
-L['Enable Class color on health border, when mouse over'] = true
+L['Class Hover'] = "Klassenfarben Effekt"
+L['Enable Class color on health border, when mouse over'] = "Aktiviert Klassenfarben auf dem Einheitenfensterrand, während MouseOver"
 
 -- afk
 L["Jan"] = true
