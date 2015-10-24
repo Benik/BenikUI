@@ -51,9 +51,6 @@ function UFB:Initialize()
 	self:InitPlayer()
 	self:InitTarget()
 	self:InitParty()
-	--if E.db.unitframe.units.party.portrait.rotation == nil then
-		--E.db.unitframe.units.party.portrait.rotation = 0 -- temp
-	--end
 
 	hooksecurefunc(UF, 'Update_AllFrames', UFB.Update_PowerStatusBar)
 	hooksecurefunc(UF, 'Update_StatusBars', UFB.Update_PowerStatusBar)
