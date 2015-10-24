@@ -70,7 +70,6 @@ local function StyleXpRepBars()
 	
 	-- Rep bar
 	local rp = ElvUI_ReputationBar
-	rp:SetParent(RightChatPanel)
 	
 	-- bottom decor/button	
 	rp.fb = CreateFrame('Button', nil, rp)
