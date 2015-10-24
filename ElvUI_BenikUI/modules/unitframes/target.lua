@@ -5,35 +5,35 @@ local UF = E:GetModule('UnitFrames');
 local SPACING = E.Spacing;
 local BORDER = E.Border;
 
-local frame = _G["ElvUF_Target"]
-
-function UFB:ApplyTargetChanges()
-
-	local targetbar = _G["BUI_TargetBar"] or CreateFrame('Frame', 'BUI_TargetBar', E.UIParent)
-	targetbar:SetTemplate('Transparent')
-	targetbar:SetParent(frame)
-	targetbar:SetFrameStrata('BACKGROUND')
+function UFB:Construct_TargetFrame()
+	local frame = _G["ElvUF_Target"]
+	frame.EmptyBar = self:CreateEmptyBar(frame)
 	
-	--Create a frame we can anchor portrait.backdrop to.
-	--This frame is persistent regardless of portrait style and will fix the issue of portrait not following mover when changing style.
+	if not frame.Portrait.backdrop.shadow then
+		frame.Portrait.backdrop:CreateSoftShadow()
+		frame.Portrait.backdrop.shadow:Hide()
+	end
+	
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
-
-	self:ToggleTargetBarTransparency()
+	
 	self:ArrangeTarget()
+	self:ToggleTargetBarTransparency()
 end
 
 function UFB:ToggleTargetBarTransparency()
+	local frame = _G["ElvUF_Target"]
 	if E.db.ufb.toggleTransparency then
-		BUI_TargetBar:SetTemplate('Transparent')
+		frame.EmptyBar:SetTemplate('Transparent')
 	else
-		BUI_TargetBar:SetTemplate('Default')
+		frame.EmptyBar:SetTemplate('Default')
 	end
 end
 
 function UFB:ArrangeTarget()
+	local frame = _G["ElvUF_Target"]
 	local EMPTY_BARS_HEIGHT = E.db.ufb.barheight
-	local TargetBar = BUI_TargetBar
+	local TargetBar = frame.EmptyBar
 	local db = E.db['unitframe']['units'].target
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
@@ -55,23 +55,25 @@ function UFB:ArrangeTarget()
 	do
 		local health = frame.Health
 		local power = frame.Power
+		local emptybar = frame.EmptyBar
+		
 		if USE_EMPTY_BAR then
-			TargetBar:Show()
+			emptybar:Show()
 			if USE_POWERBAR_OFFSET then
-				TargetBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
-				TargetBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)			
+				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)			
 			elseif USE_MINI_POWERBAR or USE_INSET_POWERBAR then
-				TargetBar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
-				TargetBar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
+				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif POWERBAR_DETACHED or not USE_POWERBAR then
-				TargetBar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, E.PixelMode and BORDER or -1)
-				TargetBar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)		
+				emptybar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, E.PixelMode and BORDER or -1)
+				emptybar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)		
 			else
-				TargetBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
-				TargetBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
+				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			end
 		else
-			TargetBar:Hide()
+			emptybar:Hide()
 		end
 	end
 	
@@ -80,11 +82,8 @@ function UFB:ArrangeTarget()
 		local portrait = frame.Portrait
 		
 		if USE_PORTRAIT then
+
 			if not USE_PORTRAIT_OVERLAY then
-				if not portrait.backdrop.shadow then
-					portrait.backdrop:CreateSoftShadow()
-					portrait.backdrop.shadow:SetAlpha(0)
-				end
 
 				if E.db.ufb.TargetPortraitTransparent then
 					portrait.backdrop:SetTemplate('Transparent')
@@ -93,9 +92,9 @@ function UFB:ArrangeTarget()
 				end
 
 				if E.db.ufb.TargetPortraitShadow and PORTRAIT_DETACHED then
-					portrait.backdrop.shadow:SetAlpha(1)
+					portrait.backdrop.shadow:Show()
 				else
-					portrait.backdrop.shadow:SetAlpha(0)
+					portrait.backdrop.shadow:Hide()
 				end
 
 				if PORTRAIT_DETACHED then
@@ -127,7 +126,7 @@ function UFB:ArrangeTarget()
 
 					if USE_EMPTY_BAR then
 						portrait.backdrop.SetPoint = nil
-						portrait.backdrop:Point("BOTTOMLEFT", TargetBar, "BOTTOMRIGHT", E.PixelMode and -1 or SPACING, 0)
+						portrait.backdrop:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMRIGHT", E.PixelMode and -1 or SPACING, 0)
 						portrait.backdrop.SetPoint = E.noop
 					elseif USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
 						portrait.backdrop.SetPoint = nil
@@ -162,12 +161,12 @@ function UFB:ArrangeTarget()
 				
 				if USE_EMPTY_BAR then
 					if E.db.ufb.threat then
-						threat.glow:SetOutside(TargetBar)
+						threat.glow:SetOutside(frame.EmptyBar)
 					else
 						threat.glow:Point("TOPLEFT", frame.Health.backdrop, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
 						threat.glow:Point("TOPRIGHT", frame.Health.backdrop, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
-						threat.glow:Point("BOTTOMLEFT", TargetBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
-						threat.glow:Point("BOTTOMRIGHT", TargetBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 					end
 				else
 					threat.glow:Point("TOPLEFT", frame.Health.backdrop, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
@@ -178,8 +177,8 @@ function UFB:ArrangeTarget()
 
 				if USE_MINI_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
 					if USE_EMPTY_BAR then
-						threat.glow:Point("BOTTOMLEFT", TargetBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
-						threat.glow:Point("BOTTOMRIGHT", TargetBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 					else
 						threat.glow:Point("BOTTOMLEFT", frame.Health.backdrop, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
 						threat.glow:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
@@ -204,10 +203,10 @@ function UFB:ArrangeTarget()
 					if PORTRAIT_DETACHED then
 						if USE_EMPTY_BAR then
 							if E.db.ufb.threat and USE_POWERBAR_OFFSET then
-								threat.glow:SetOutside(TargetBar)
+								threat.glow:SetOutside(frame.EmptyBar)
 							else
 								threat.glow:Point("TOPRIGHT", frame.Health.backdrop, "TOPRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
-								threat.glow:Point("BOTTOMRIGHT", TargetBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+								threat.glow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 							end
 						else
 							threat.glow:Point("TOPRIGHT", frame.Portrait.backdrop, "TOPRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
@@ -233,6 +232,6 @@ function UFB:ArrangeTarget()
 end
 
 function UFB:InitTarget()
-	self:ApplyTargetChanges()
+	self:Construct_TargetFrame()
 	hooksecurefunc(UF, 'Update_TargetFrame', UFB.ArrangeTarget)
 end

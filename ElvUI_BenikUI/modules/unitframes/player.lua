@@ -7,36 +7,36 @@ local BORDER = E.Border;
 
 local CAN_HAVE_CLASSBAR = (E.myclass == "PALADIN" or E.myclass == "DRUID" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" or E.myclass == 'MAGE' or E.myclass == 'ROGUE')
 
-local frame = _G["ElvUF_Player"]
-
-function UFB:ApplyPlayerChanges()
-
-	local playerbar = _G["BUI_PlayerBar"] or CreateFrame('Frame', 'BUI_PlayerBar', E.UIParent)
-	playerbar:SetTemplate('Transparent')
-	playerbar:SetParent(frame)
-	playerbar:SetFrameStrata('BACKGROUND')
-
-	--Create a frame we can anchor portrait.backdrop to.
-	--This frame is persistent regardless of portrait style and will fix the issue of portrait not following mover when changing style.
+function UFB:Construct_PlayerFrame()
+	local frame = _G["ElvUF_Player"]
+	frame.EmptyBar = self:CreateEmptyBar(frame)
+	
+	if not frame.Portrait.backdrop.shadow then
+		frame.Portrait.backdrop:CreateSoftShadow()
+		frame.Portrait.backdrop.shadow:Hide()
+	end
+	
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
-
-	self:TogglePlayerBarTransparency()
+	
 	self:ArrangePlayer()
+	self:TogglePlayerBarTransparency()
 end
 
 function UFB:TogglePlayerBarTransparency()
+	local frame = _G["ElvUF_Player"]
 	if E.db.ufb.toggleTransparency then
-		BUI_PlayerBar:SetTemplate('Transparent')
+		frame.EmptyBar:SetTemplate('Transparent')
 	else
-		BUI_PlayerBar:SetTemplate('Default')
+		frame.EmptyBar:SetTemplate('Default')
 	end
 end
 
 function UFB:UpdatePlayerBarAnchors(frame, isShown)
+	local frame = _G["ElvUF_Player"]
 	local db = E.db['unitframe']['units'].player
 	local threat = frame.Threat
-	local PlayerBar = BUI_PlayerBar
+	local PlayerBar = frame.EmptyBar
 	local POWERBAR_HEIGHT = db.power.height
 	local CLASSBAR_HEIGHT = db.classbar.height
 	local USE_CLASSBAR = db.classbar.enable and CAN_HAVE_CLASSBAR
@@ -161,11 +161,10 @@ function UFB:UpdatePlayerBarAnchors(frame, isShown)
 	end
 end
 
-local min_yOffset = -10
-
 function UFB:ArrangePlayer()
+	local frame = _G["ElvUF_Player"]
 	local EMPTY_BARS_HEIGHT = E.db.ufb.barheight
-	local PlayerBar = BUI_PlayerBar
+	
 	local db = E.db['unitframe']['units'].player
 	local stagger = frame.Stagger
 	local USE_PORTRAIT = db.portrait.enable
@@ -193,29 +192,31 @@ function UFB:ArrangePlayer()
 	do
 		local health = frame.Health
 		local power = frame.Power
+		local emptybar = frame.EmptyBar
+		
 		if USE_EMPTY_BAR then
-			PlayerBar:Show()
+			emptybar:Show()
 			
 			if USE_STAGGER then
-				stagger:Point('BOTTOMLEFT', PlayerBar, 'BOTTOMRIGHT', BORDER*2 + (E.PixelMode and 0 or SPACING), BORDER)
+				stagger:Point('BOTTOMLEFT', emptybar, 'BOTTOMRIGHT', BORDER*2 + (E.PixelMode and 0 or SPACING), BORDER)
 				stagger:Point('TOPRIGHT', health, 'TOPRIGHT', STAGGER_WIDTH, 0)
 			end
 			
 			if USE_POWERBAR_OFFSET then
-				PlayerBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
-				PlayerBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
+				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif USE_MINI_POWERBAR or USE_INSET_POWERBAR then
-				PlayerBar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
-				PlayerBar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
+				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif POWERBAR_DETACHED or not USE_POWERBAR then
-				PlayerBar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, E.PixelMode and BORDER or -1)
-				PlayerBar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)
+				emptybar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, E.PixelMode and BORDER or -1)
+				emptybar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)
 			else
-				PlayerBar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
-				PlayerBar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
+				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			end
 		else
-			PlayerBar:Hide()
+			emptybar:Hide()
 		end
 	end
 	
@@ -226,10 +227,6 @@ function UFB:ArrangePlayer()
 		if USE_PORTRAIT then
 
 			if not USE_PORTRAIT_OVERLAY then
-				if not portrait.backdrop.shadow then
-					portrait.backdrop:CreateSoftShadow()
-					portrait.backdrop.shadow:SetAlpha(0)
-				end
 				
 				if E.db.ufb.PlayerPortraitTransparent then
 					portrait.backdrop:SetTemplate('Transparent')
@@ -238,9 +235,9 @@ function UFB:ArrangePlayer()
 				end
 
 				if E.db.ufb.PlayerPortraitShadow and PORTRAIT_DETACHED then
-					portrait.backdrop.shadow:SetAlpha(1)
+					portrait.backdrop.shadow:Show()
 				else
-					portrait.backdrop.shadow:SetAlpha(0)
+					portrait.backdrop.shadow:Hide()
 				end
 
 				if PORTRAIT_DETACHED then
@@ -266,7 +263,7 @@ function UFB:ArrangePlayer()
 					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", BORDER, 0)
 
 					if USE_EMPTY_BAR then
-						portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
 					elseif USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
 						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
 					else
@@ -299,8 +296,8 @@ function UFB:ArrangePlayer()
 				threat.glow:ClearAllPoints()
 				threat.glow:SetBackdropBorderColor(0, 0, 0, 0)
 				if E.db.ufb.threat and USE_EMPTY_BAR and not USE_POWERBAR_OFFSET then
-					threat.glow:Point("TOPLEFT", PlayerBar, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
-					threat.glow:Point("TOPRIGHT", PlayerBar, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)			
+					threat.glow:Point("TOPLEFT", frame.EmptyBar, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
+					threat.glow:Point("TOPRIGHT", frame.EmptyBar, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)			
 				else
 					threat.glow:Point("TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
 					threat.glow:Point("TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING+mini_classbarY)
@@ -308,16 +305,16 @@ function UFB:ArrangePlayer()
 
 				if USE_MINI_POWERBAR then
 					if USE_EMPTY_BAR then
-						threat.glow:Point("BOTTOMLEFT", PlayerBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
-						threat.glow:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+						threat.glow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
+						threat.glow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
 					else
 						threat.glow:Point("BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))
 						threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING + (POWERBAR_HEIGHT/2))					
 					end
 				else
 					if USE_EMPTY_BAR then
-						threat.glow:Point("BOTTOMLEFT", PlayerBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
-						threat.glow:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 					else
 						threat.glow:Point("BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
 						threat.glow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)					
@@ -353,7 +350,7 @@ function UFB:ArrangePlayer()
 end
 
 function UFB:InitPlayer()
-	self:ApplyPlayerChanges()
+	self:Construct_PlayerFrame()
 	hooksecurefunc(UF, 'UpdatePlayerFrameAnchors', UFB.UpdatePlayerBarAnchors)
 	hooksecurefunc(UF, 'Update_PlayerFrame', UFB.ArrangePlayer)
 end

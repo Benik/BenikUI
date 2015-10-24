@@ -23,7 +23,7 @@ function UFB:ConstructPartyElements()
 end
 
 function UFB:Update_PartyFrames(frame, db)
-
+	frame.db = db
 	local BORDER = E.Border;
 	local SPACING = E.Spacing;
 	local USE_POWERBAR = db.power.enable
@@ -84,7 +84,12 @@ function UFB:Update_PartyFrames(frame, db)
 			if USE_PORTRAIT then
 				portrait:ClearAllPoints()
 
-				if not USE_PORTRAIT_OVERLAY then
+				if USE_PORTRAIT_OVERLAY then
+					portrait:SetAllPoints(frame.Health)
+					portrait:SetAlpha(0.3)
+					portrait:Show()
+					portrait.backdrop:Hide()				
+				else
 					portrait:SetAlpha(1)
 					portrait:Show()
 					portrait.backdrop:Show()
@@ -103,7 +108,7 @@ function UFB:Update_PartyFrames(frame, db)
 						else
 							portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", E.PixelMode and -1 or -SPACING, 0)
 						end
-					elseif USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR then
+					elseif USE_MINI_POWERBAR or not USE_POWERBAR or USE_INSET_POWERBAR then
 						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and -1 or SPACING, 0)
 					else
 						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and -1 or SPACING, 0)
@@ -210,3 +215,9 @@ function UFB:Update_PartyFrames(frame, db)
 	
 	frame:UpdateAllElements()
 end
+
+function UFB:InitParty()
+	self:ConstructPartyElements()
+	hooksecurefunc(UF, 'Update_PartyFrames', UFB.Update_PartyFrames)
+end
+
