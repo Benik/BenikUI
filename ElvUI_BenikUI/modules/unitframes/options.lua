@@ -176,43 +176,6 @@ local function ufPlayerTable()
 end
 tinsert(E.BuiConfig, ufPlayerTable)
 
-local function injectPlayerEmptyBarOptions()
-	E.Options.args.unitframe.args.player.args.emptybar = {
-		order = 900,
-		type = 'group',
-		name = BUI:cOption(L["EmptyBars"]),
-		get = function(info) return E.db.unitframe.units['player']['emptybar'][ info[#info] ] end,
-		set = function(info, value) E.db.unitframe.units['player']['emptybar'][ info[#info] ] = value; UFB:ArrangePlayer() end,
-		args = {
-			enable = {
-				type = 'toggle',
-				order = 1,
-				name = L["Enable"],
-				width = "full",
-			},
-			height = {
-				type = 'range',
-				order = 2,
-				name = L["Height"],
-				min = 10, max = 50, step = 1,
-			},							
-			transparent = {
-				type = 'toggle',
-				name = L["Transparent"],
-				desc = L["Toggle EmptyBars transparency"],
-				order = 3,
-			},
-			threat = {
-				type = 'toggle',
-				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Party EmptyBar'],
-				order = 4,
-			},
-		},
-	}
-end
-tinsert(E.BuiConfig, injectPlayerEmptyBarOptions)
-
 local function ufTargetTable()
 	E.Options.args.unitframe.args.target.args.portrait.args.ufb = {
 		order = 10,
