@@ -30,64 +30,60 @@ local BuiUnits = {
 	['target'] = {ElvUF_Target, ElvUF_TargetCastbarMover},
 }
 
-local min_yOffset = -10
+local min_yOffset = -15
 
 -- Hide Emptybar text when casting
-function BUIC:ToggleCastbarText()
+function BUIC:ToggleCastbarText(unit, bar)
 
 	if E.db.ufb.hideText ~= true then return; end
-	
-	UnitUF.Castbar:SetScript('OnShow', function(self)
-		if E.db.unitframe.units[unit].health.yOffset < min_yOffset then
-			UnitUF.Health.value:SetAlpha(0)
-		end
-		
-		if E.db.unitframe.units[unit].power.yOffset < min_yOffset then
-			UnitUF.Power.value:SetAlpha(0)
-		end
-
-		if E.db.unitframe.units[unit].name.yOffset < min_yOffset then
-			UnitUF.Name:SetAlpha(0)
-		end	
-		
-		if E.db.unitframe.units.player.customTexts == {} then
-			for objectName, _ in pairs(E.db.unitframe.units.player.customTexts) do
-				if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
-					UnitUF[objectName]:SetAlpha(0)
+	if unit == 'player' or unit == 'target' then
+		if bar == _G['ElvUF_Player'].EmptyBar or bar == _G['ElvUF_Target'].EmptyBar then
+		local UnitUF = BuiUnits[unit][1];
+			UnitUF.Castbar:SetScript('OnShow', function(self)
+				if E.db.unitframe.units[unit].health.yOffset < min_yOffset then
+					UnitUF.Health.value:Hide()
 				end
-			end
-		end
-	end)
+				
+				if E.db.unitframe.units[unit].power.yOffset < min_yOffset then
+					UnitUF.Power.value:Hide()
+				end
 
-	UnitUF.Castbar:SetScript('OnHide', function(self)
-		if E.db.unitframe.units[unit].health.yOffset < min_yOffset then
-			if UnitUF.Health.value:GetAlpha() == 0 then
-				UnitUF.Health.value:SetAlpha(1)
-			end
-		end
-		
-		if E.db.unitframe.units[unit].power.yOffset < min_yOffset then
-			if UnitUF.Power.value:GetAlpha() == 0 then
-				UnitUF.Power.value:SetAlpha(1)
-			end
-		end
-
-		if E.db.unitframe.units[unit].name.yOffset < min_yOffset then
-			if UnitUF.Name:GetAlpha() == 0 then
-				UnitUF.Name:SetAlpha(1)
-			end
-		end	
-		
-		if E.db.unitframe.units.player.customTexts == {} then
-			for objectName, _ in pairs(E.db.unitframe.units.player.customTexts) do
-				if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
-					if UnitUF[objectName]:GetAlpha() == 0 then
-						UnitUF[objectName]:SetAlpha(1)
+				if E.db.unitframe.units[unit].name.yOffset < min_yOffset then
+					UnitUF.Name:Hide()
+				end	
+				
+				if  type(E.db.unitframe.units[unit].customTexts) == 'table' then
+					for objectName, _ in pairs(E.db.unitframe.units[unit].customTexts) do
+						if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
+							UnitUF.customTexts[objectName]:Hide()
+						end
 					end
 				end
-			end
+			end)
+
+			UnitUF.Castbar:SetScript('OnHide', function(self)
+				if E.db.unitframe.units[unit].health.yOffset < min_yOffset then
+					UnitUF.Health.value:Show()
+				end
+				
+				if E.db.unitframe.units[unit].power.yOffset < min_yOffset then
+					UnitUF.Power.value:Show()
+				end
+
+				if E.db.unitframe.units[unit].name.yOffset < min_yOffset then
+					UnitUF.Name:Show()
+				end	
+				
+				if type(E.db.unitframe.units[unit].customTexts) == 'table' then
+					for objectName, _ in pairs(E.db.unitframe.units[unit].customTexts) do
+						if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
+							UnitUF.customTexts[objectName]:Show()
+						end
+					end
+				end
+			end)
 		end
-	end)
+	end
 end
 
 -- Function to set the size of the castbar depending on various options
@@ -97,18 +93,17 @@ function BUIC:CastbarSetSize(unit, bar)
 	if unit == 'player' or unit == 'target' then
 		if bar == _G['ElvUF_Player'].EmptyBar or bar == _G['ElvUF_Target'].EmptyBar then
 			local UnitUF = BuiUnits[unit][1];
-			--local Mover = BuiUnits[unit][2];
 			local emptybar = UnitUF.EmptyBar;
 			
 			if E.db.ufb.barshow and E.db.ufb.attachCastbar then
 				-- Set castbar height and width according to EmptyBars
 				local ebw = emptybar:GetWidth();
-				local ebh = E.db.ufb.barheight +(E.PixelMode and -2 or -4);
+				local ebh = emptybar:GetHeight();--E.db.ufb.barheight +(E.PixelMode and -2 or -4);
 				cdb.width, cdb.height = ebw, ebh
 
 				if cdb.icon == true then
-					UnitUF.Castbar.ButtonIcon.bg:Width(cdb.height + (E.PixelMode and E:Scale(2) or E:Scale(4)))
-					UnitUF.Castbar.ButtonIcon.bg:Height(cdb.height + (E.PixelMode and E:Scale(2) or E:Scale(4)))
+					UnitUF.Castbar.ButtonIcon.bg:Width(cdb.height)--(cdb.height + (E.PixelMode and E:Scale(2) or E:Scale(4)))
+					UnitUF.Castbar.ButtonIcon.bg:Height(cdb.height)--(cdb.height + (E.PixelMode and E:Scale(2) or E:Scale(4)))
 					UnitUF.Castbar.ButtonIcon.bg:Show()
 					UnitUF.Castbar:Width(cdb.width - UnitUF.Castbar.ButtonIcon.bg:GetWidth() - (E.PixelMode and E:Scale(1) or E:Scale(5)))
 				else
@@ -121,8 +116,8 @@ function BUIC:CastbarSetSize(unit, bar)
 				cdb.width, cdb.height = UnitUF:GetWidth(), 18
 				
 				if cdb.icon == true then
-					UnitUF.Castbar.ButtonIcon.bg:Width(cdb.height + (E.PixelMode and E:Scale(2) or E:Scale(4)))
-					UnitUF.Castbar.ButtonIcon.bg:Height(cdb.height + (E.PixelMode and E:Scale(2) or E:Scale(4)))
+					UnitUF.Castbar.ButtonIcon.bg:Width(cdb.height + (E.Border * 2))
+					UnitUF.Castbar.ButtonIcon.bg:Height(cdb.height + (E.Border * 2))
 					UnitUF.Castbar.ButtonIcon.bg:Show()
 					UnitUF.Castbar:Width(cdb.width - UnitUF.Castbar.ButtonIcon.bg:GetWidth() - (E.PixelMode and E:Scale(1) or E:Scale(5)))
 				else
@@ -163,7 +158,8 @@ function BUIC:CastbarSetPosition(unit, bar)
 
 			-- Position the castbar on top of the EmptyBar
 			Mover:ClearAllPoints()
-			Mover:SetAllPoints(emptybar)
+			--Mover:SetAllPoints(emptybar)
+			Mover:Point("TOPLEFT", emptybar, "TOPLEFT", 0, 0)
 		else
 			-- Reset text
 			UnitUF.Castbar.Text:ClearAllPoints()
@@ -202,12 +198,12 @@ end
 
 function BUIC:PLAYER_ENTERING_WORLD()
 	self:ScheduleTimer('SetSizeAndPosition', 10)
-	--self:SetSizeAndPosition()
+	self:ToggleCastbarText('player', ElvUF_Player.EmptyBar)
+	self:ToggleCastbarText('target', ElvUF_Target.EmptyBar)
 end
 
 function BUIC:ACTIVE_TALENT_GROUP_CHANGED()
 	self:ScheduleTimer('SetSizeAndPosition', 3)
-	--self:SetSizeAndPosition()
 end
 
 function BUIC:UpdatePlayer()
@@ -218,6 +214,7 @@ end
 function BUIC:UpdateTarget()
 	self:CastbarSetSize('target', ElvUF_Target.EmptyBar)
 	self:CastbarSetPosition('target', ElvUF_Target.EmptyBar)
+
 end
 
 function BUIC:OnInitialize()
@@ -240,7 +237,7 @@ function BUIC:OnInitialize()
 			end
 		end)
 	end
-	BUIC:ToggleCastbarText()
+
 	--Register a few events we need
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED')
