@@ -3,9 +3,10 @@ local LSM = LibStub('LibSharedMedia-3.0')
 if LSM == nil then return end
 
 LSM:Register('font','Bui Prototype', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\PROTOTYPE.TTF]])
-LSM:Register('font','Bui Visitor1', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\visitor1.ttf]])
+LSM:Register('font','Bui PrototypeRU', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\PROTOTYPE_RU.TTF]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register('font','Bui Visitor1', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\visitor1.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register('font','Bui Visitor2', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\visitor2.ttf]])
-LSM:Register('font','Bui Tukui', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\uf_font.ttf]])
+LSM:Register('font','Bui Tukui', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\uf_font.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register('font','Bui Kait', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\heavy_dock_kait.ttf]])
 LSM:Register('font','Bui ArialN', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\ARIALN.ttf]])
 LSM:Register('font','Bui Roadway', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\ROADWAY.ttf]])
