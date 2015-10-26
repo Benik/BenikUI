@@ -1,5 +1,11 @@
 
-local benikUIfont = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE.TTF"
+local Locale = GetLocale()
+local benikUIfont
+if Locale == "ruRU" then
+	benikUIfont = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE_RU.TTF"
+else
+	benikUIfont = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE.TTF"
+end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")

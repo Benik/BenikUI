@@ -1,6 +1,6 @@
 ## Interface: 60200
 ## Author: Benik
-## Version: 1.04
+## Version: 1.05
 ## Title: |cff1784d1ElvUI|r_BenikUI_Fonts
 ## Notes: Override ElvUI nameplates and damage font, to fit with BenikUI
 ## RequiredDeps: ElvUI_BenikUI
