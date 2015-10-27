@@ -110,6 +110,42 @@ local function ufTable()
 					},
 				},
 			},
+			buttons = {
+				order = 4,
+				type = 'group',
+				name = L['Shortcuts to EmptyBar Options for:'],
+				guiInline = true,
+				args = {
+					party = {
+						order = 1,
+						name = L['Party Frames'],
+						desc = L['This opens the Party Frames EmptyBars settings.'],
+						type = 'execute',
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "party", "emptybar") end,
+					},
+					raid = {
+						order = 2,
+						name = L['Raid Frames'],
+						desc = L['This opens the Raid Frames EmptyBars settings.'],
+						type = 'execute',
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid", "emptybar") end,
+					},
+					--[[tot = {
+						order = 3,
+						name = L['TargetTarget Frame'],
+						desc = L['This opens the TargetTarget Frame EmptyBar settings.'],
+						type = 'execute',
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "targettarget", "emptybar") end,
+					},
+					pet = {
+						order = 4,
+						name = L['Pet Frame'],
+						desc = L['This opens the Pet Frame EmptyBar settings.'],
+						type = 'execute',
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "pet", "emptybar") end,
+					},]]
+				},
+			},			
 		},
 	}
 end

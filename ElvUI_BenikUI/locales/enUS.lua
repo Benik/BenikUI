@@ -168,7 +168,12 @@ L['Player Size'] = true
 L['Power statusbar texture.'] = true
 L['PowerBar Texture'] = true
 L['Shadow'] = true
+L['Shortcuts to EmptyBar Options for:'] = true
 L['Show/Hide the Castbar text.'] = true
+L['This opens the Party Frames EmptyBars settings.'] = true
+L['This opens the Raid Frames EmptyBars settings.'] = true
+L['This opens the TargetTarget Frame EmptyBar settings.'] = true
+L['This opens the Pet Frame EmptyBar settings.'] = true
 L['Threat on EmptyBars'] = true
 L['Toggle EmptyBars transparency'] = true
 
