@@ -6,6 +6,8 @@ UF.LSM = LSM
 
 if E.db.ufb == nil then E.db.ufb = {} end
 
+local ElvUF = ElvUI.oUF
+
 local unitfs = {"Player", "Target", "TargetTarget", "Pet", "Focus", "FocusTarget"}
 
 function UFB:Update_PowerStatusBar(unit)
@@ -25,6 +27,25 @@ function UFB:CreateEmptyBar(frame)
 	emptybar:SetFrameStrata('BACKGROUND')
 	
 	return emptybar
+end
+
+-- EmptyBars in Party/Raid
+function UFB:ConstructGroupBars()
+	for _, header in pairs(UF.headers) do
+		local headername = header:GetName()
+		if headername == 'ElvUF_Party' or headername == 'ElvUF_Raid' then
+			for i = 1, header:GetNumChildren() do
+				local group = select(i, header:GetChildren())
+				for j = 1, group:GetNumChildren() do
+					local unitbutton = select(j, group:GetChildren())
+					local unitbuttonname = unitbutton:GetName()
+					unitbutton.EmptyBar = UFB:CreateEmptyBar(unitbutton)
+				end
+			end
+		end
+	end
+	
+	UF:UpdateAllHeaders()
 end
 
 function UFB:UnitDefaults()
@@ -50,7 +71,10 @@ function UFB:Initialize()
 	self:UnitDefaults()
 	self:InitPlayer()
 	self:InitTarget()
+	
+	self:ConstructGroupBars()
 	self:InitParty()
+	self:InitRaid()
 
 	hooksecurefunc(UF, 'Update_AllFrames', UFB.Update_PowerStatusBar)
 	hooksecurefunc(UF, 'Update_StatusBars', UFB.Update_PowerStatusBar)

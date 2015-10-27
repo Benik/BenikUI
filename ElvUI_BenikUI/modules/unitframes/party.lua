@@ -2,26 +2,6 @@
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
-local ElvUF = ElvUI.oUF
-
-function UFB:ConstructPartyElements()
-	for _, header in pairs(UF.headers) do
-		local headername = header:GetName()
-		if headername == 'ElvUF_Party' then
-			for i = 1, header:GetNumChildren() do
-				local group = select(i, header:GetChildren())
-				for j = 1, group:GetNumChildren() do
-					local unitbutton = select(j, group:GetChildren())
-					local unitbuttonname = unitbutton:GetName()
-					unitbutton.EmptyBar = UFB:CreateEmptyBar(unitbutton)
-				end
-			end
-		end
-	end
-	
-	UF:UpdateAllHeaders()
-end
-
 function UFB:Update_PartyFrames(frame, db)
 	frame.db = db
 	local BORDER = E.Border;
@@ -216,7 +196,6 @@ function UFB:Update_PartyFrames(frame, db)
 end
 
 function UFB:InitParty()
-	self:ConstructPartyElements()
 	hooksecurefunc(UF, 'Update_PartyFrames', UFB.Update_PartyFrames)
 end
 

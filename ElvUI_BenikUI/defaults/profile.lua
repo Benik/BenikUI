@@ -1,18 +1,32 @@
 ﻿local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
--- Add Party portraits to ElvUI defaults
+-- Add Party portraits additions to ElvUI defaults
 P['unitframe']['units']['party']['portrait']['height'] = 0
 P['unitframe']['units']['party']['portrait']['transparent'] = false
 
+-- Add Party role icon offsets to ElvUI defaults
 P['unitframe']['units']['party']['roleIcon']['xOffset'] = 0
 P['unitframe']['units']['party']['roleIcon']['yOffset'] = 0
 
+-- Add Party EmptyBars to ElvUI defaults
 P['unitframe']['units']['party']['emptybar'] = {
 	['enable'] = false,
 	['height'] = 20,
 	['transparent'] = true,
 	['threat'] = false,
 }
+
+-- Add Raid EmptyBars to ElvUI defaults
+P['unitframe']['units']['raid']['emptybar'] = {
+	['enable'] = false,
+	['height'] = 20,
+	['transparent'] = true,
+	['threat'] = false,
+}
+
+-- Add Raid role icon offsets to ElvUI defaults
+P['unitframe']['units']['raid']['roleIcon']['xOffset'] = 0
+P['unitframe']['units']['raid']['roleIcon']['yOffset'] = 0
 
 -- Add raid classHover to ElvUI defaults
 P['unitframe']['units']['raid']['classHover'] = false

@@ -305,7 +305,7 @@ local function injectPartyOptions()
 			threat = {
 				type = 'toggle',
 				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Party EmptyBar'],
+				desc = L['Places the threat glow on Party EmptyBars'],
 				order = 4,
 			},
 		},
@@ -314,6 +314,54 @@ end
 tinsert(E.BuiConfig, injectPartyOptions)
 
 local function injectRaidOptions()
+	E.Options.args.unitframe.args.raid.args.emptybar = {
+		order = 900,
+		type = 'group',
+		name = BUI:cOption(L["EmptyBars"]),
+		get = function(info) return E.db.unitframe.units['raid']['emptybar'][ info[#info] ] end,
+		set = function(info, value) E.db.unitframe.units['raid']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raid') end,
+		args = {
+			enable = {
+				type = 'toggle',
+				order = 1,
+				name = L["Enable"],
+				width = "full",
+			},
+			height = {
+				type = 'range',
+				order = 2,
+				name = L["Height"],
+				min = 10, max = 50, step = 1,
+			},							
+			transparent = {
+				type = 'toggle',
+				name = L["Transparent"],
+				desc = L["Toggle EmptyBars transparency"],
+				order = 3,
+			},
+			threat = {
+				type = 'toggle',
+				name = L['Threat on EmptyBars'],
+				desc = L['Places the threat glow on Raid EmptyBars'],
+				order = 4,
+			},
+		},
+	}
+	
+	E.Options.args.unitframe.args.raid.args.roleIcon.args.xOffset = {
+		type = 'range',
+		order = 7,
+		name = BUI:cOption(L["xOffset"]),
+		min = -150, max = 150, step = 1,
+	}
+
+	E.Options.args.unitframe.args.raid.args.roleIcon.args.yOffset = {
+		type = 'range',
+		order = 8,
+		name = BUI:cOption(L["yOffset"]),
+		min = -150, max = 150, step = 1,
+	}
+	
 	E.Options.args.unitframe.args.raid.args.general.args.classHover = {	
 		order = 7,
 		type = "toggle",
