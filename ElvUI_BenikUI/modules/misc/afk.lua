@@ -231,7 +231,7 @@ function AFK:UpdateTimer()
 	end
 
 	-- Set the value on log off statusbar
-	self.AFKMode.top.style.Status:SetValue(floor(timer))
+	self.AFKMode.top.Status:SetValue(floor(timer))
 	
 	-- Set time
 	self.AFKMode.top.time:SetFormattedText(createdTime)
@@ -335,12 +335,17 @@ function AFK:Initialize()
 	self.AFKMode.top.date:SetTextColor(classColor.r, classColor.g, classColor.b)
 	
 	-- Statusbar on Top frame decor showing time to log off (30mins)
-	self.AFKMode.top.style.Status = CreateFrame('StatusBar', nil, self.AFKMode.top.style)
-	self.AFKMode.top.style.Status:SetStatusBarTexture((E["media"].normTex))
-	self.AFKMode.top.style.Status:SetMinMaxValues(0, 1800)
-	self.AFKMode.top.style.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b, 1)
-	self.AFKMode.top.style.Status:SetInside()
-	self.AFKMode.top.style.Status:SetValue(0)
+	self.AFKMode.top.Status = CreateFrame('StatusBar', nil, self.AFKMode.top)
+	self.AFKMode.top.Status:SetStatusBarTexture((E["media"].normTex))
+	self.AFKMode.top.Status:SetMinMaxValues(0, 1800)
+	self.AFKMode.top.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b, 1)
+	if E.db.bui.buiStyle and self.AFKMode.top.style then
+		self.AFKMode.top.Status:SetInside(self.AFKMode.top.style)
+	else
+		self.AFKMode.top.Status:Point('TOPRIGHT', self.AFKMode.top, 'BOTTOMRIGHT', 0, E.PixelMode and 5 or 7)
+		self.AFKMode.top.Status:Point('BOTTOMLEFT', self.AFKMode.top, 'BOTTOMLEFT', 0, E.PixelMode and 1 or 2)
+	end
+	self.AFKMode.top.Status:SetValue(0)
 	
 	self.AFKMode.bottom:SetHeight(GetScreenHeight() * (1 / 9))
 	
