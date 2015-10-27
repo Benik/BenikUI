@@ -19,7 +19,7 @@ P['unitframe']['units']['party']['emptybar'] = {
 -- Add Raid EmptyBars to ElvUI defaults
 P['unitframe']['units']['raid']['emptybar'] = {
 	['enable'] = false,
-	['height'] = 20,
+	['height'] = 14,
 	['transparent'] = true,
 	['threat'] = false,
 }
