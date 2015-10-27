@@ -168,12 +168,12 @@ L['Player Size'] = "Spieler Größe"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
 L['PowerBar Texture'] = "Kraftleiste Textur"
 L['Shadow'] = "Schatten"
-L['Shortcuts to EmptyBar Options for:'] = true
+L['Shortcuts to EmptyBar Options for:'] = "Verknüpfung zu den Leeren-Rahmen Optionen für:"
 L['Show/Hide the Castbar text.'] = "Zauberleisten Text anzeigen/ausblenden"
-L['This opens the Party Frames EmptyBars settings.'] = true
-L['This opens the Raid Frames EmptyBars settings.'] = true
-L['This opens the TargetTarget Frame EmptyBar settings.'] = true
-L['This opens the Pet Frame EmptyBar settings.'] = true
+L['This opens the Party Frames EmptyBars settings.'] = "Dieses öffnet die Einstellungen für die Leeren-Rahmen in das Gruppenfenster."
+L['This opens the Raid Frames EmptyBars settings.'] = "Dieses öffnet die Einstellungen für die Leeren-Rahmen im Schlachtzugsfenster."
+L['This opens the TargetTarget Frame EmptyBar settings.'] = "Dieses öffnet die Einstellungen für die Leeren-Rahmen im Ziel des Ziels Fenster."
+L['This opens the Pet Frame EmptyBar settings.'] = "Dieses öffnet die Einstellungen für die Leeren-Rahmen im Begleiterfenster."
 L['Threat on EmptyBars'] = "Bedrohung auf den leeren Leisten"
 L['Toggle EmptyBars transparency'] = "Leere Rahmen Transparenz umschalten"
 
