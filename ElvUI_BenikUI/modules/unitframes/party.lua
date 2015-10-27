@@ -26,15 +26,14 @@ function UFB:Update_PartyFrames(frame, db)
 	frame.db = db
 	local BORDER = E.Border;
 	local SPACING = E.Spacing;
+	local SHADOW_SPACING = E.PixelMode and 3 or 4
+	
 	local USE_POWERBAR = db.power.enable
 	local USE_INSET_POWERBAR = db.power.width == 'inset' and USE_POWERBAR
 	local USE_MINI_POWERBAR = db.power.width == 'spaced' and USE_POWERBAR
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR
 	local POWERBAR_OFFSET = db.power.offset
-	local POWERBAR_DETACHED = db.power.detachFromFrame
 	local POWERBAR_HEIGHT = db.power.height
-	local POWERBAR_WIDTH = db.width - (BORDER*2)
-	local SHADOW_SPACING = E.PixelMode and 3 or 4
 
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
@@ -65,7 +64,7 @@ function UFB:Update_PartyFrames(frame, db)
 				elseif USE_MINI_POWERBAR or USE_INSET_POWERBAR then
 					emptybar:Point('TOPLEFT', frame.Health, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
 					emptybar:Point('BOTTOMRIGHT', frame.Health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
-				elseif POWERBAR_DETACHED or not USE_POWERBAR then
+				elseif not USE_POWERBAR then
 					emptybar:Point('TOPLEFT', frame.Health.backdrop, 'BOTTOMLEFT', 0, E.PixelMode and BORDER or -1)
 					emptybar:Point('BOTTOMRIGHT', frame.Health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)
 				else
