@@ -98,12 +98,12 @@ function BUIC:CastbarSetSize(unit, bar)
 			if E.db.ufb.barshow and E.db.ufb.attachCastbar then
 				-- Set castbar height and width according to EmptyBars
 				local ebw = emptybar:GetWidth();
-				local ebh = emptybar:GetHeight();--E.db.ufb.barheight +(E.PixelMode and -2 or -4);
+				local ebh = emptybar:GetHeight() +(E.PixelMode and -2 or -4);
 				cdb.width, cdb.height = ebw, ebh
 
 				if cdb.icon == true then
-					UnitUF.Castbar.ButtonIcon.bg:Width(cdb.height)--(cdb.height + (E.PixelMode and E:Scale(2) or E:Scale(4)))
-					UnitUF.Castbar.ButtonIcon.bg:Height(cdb.height)--(cdb.height + (E.PixelMode and E:Scale(2) or E:Scale(4)))
+					UnitUF.Castbar.ButtonIcon.bg:Width(cdb.height)
+					UnitUF.Castbar.ButtonIcon.bg:Height(cdb.height)
 					UnitUF.Castbar.ButtonIcon.bg:Show()
 					UnitUF.Castbar:Width(cdb.width - UnitUF.Castbar.ButtonIcon.bg:GetWidth() - (E.PixelMode and E:Scale(1) or E:Scale(5)))
 				else
@@ -158,7 +158,6 @@ function BUIC:CastbarSetPosition(unit, bar)
 
 			-- Position the castbar on top of the EmptyBar
 			Mover:ClearAllPoints()
-			--Mover:SetAllPoints(emptybar)
 			Mover:Point("TOPLEFT", emptybar, "TOPLEFT", 0, 0)
 		else
 			-- Reset text
