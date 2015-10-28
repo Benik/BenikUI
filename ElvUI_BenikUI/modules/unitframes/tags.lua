@@ -1,13 +1,32 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local upper = string.upper
 
-ElvUF.Tags.Events['playergroup'] = 'GROUP_ROSTER_UPDATE'
-ElvUF.Tags.Methods['playergroup'] = function(unit)
-	if IsInRaid() then
-		for i = 1, GetNumGroupMembers() do
-			local name, _, subgroup = GetRaidRosterInfo(i)
-			if name == UnitName('player') then
-				return format('G%d', subgroup)
-			end
-		end
-	end
+ElvUF.Tags.Events['name:cap'] = 'UNIT_NAME_UPDATE'
+ElvUF.Tags.Methods['name:cap'] = function(unit)
+	local name = UnitName(unit)
+	return name ~= nil and upper(name) or ''
+end
+
+ElvUF.Tags.Events['name:veryshort:cap'] = 'UNIT_NAME_UPDATE'
+ElvUF.Tags.Methods['name:veryshort:cap'] = function(unit)
+	local name = UnitName(unit)
+	return name ~= nil and upper(E:ShortenString(name, 5)) or ''
+end
+
+ElvUF.Tags.Events['name:short:cap'] = 'UNIT_NAME_UPDATE'
+ElvUF.Tags.Methods['name:short:cap'] = function(unit)
+	local name = UnitName(unit)
+	return name ~= nil and upper(E:ShortenString(name, 10)) or ''
+end
+
+ElvUF.Tags.Events['name:medium:cap'] = 'UNIT_NAME_UPDATE'
+ElvUF.Tags.Methods['name:medium:cap'] = function(unit)
+	local name = UnitName(unit)
+	return name ~= nil and upper(E:ShortenString(name, 15)) or ''
+end
+
+ElvUF.Tags.Events['name:long:cap'] = 'UNIT_NAME_UPDATE'
+ElvUF.Tags.Methods['name:long:cap'] = function(unit)
+	local name = UnitName(unit)
+	return name ~= nil and upper(E:ShortenString(name, 20)) or ''
 end
