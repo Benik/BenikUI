@@ -388,14 +388,14 @@ local function injectRaidOptions()
 		type = 'range',
 		order = 7,
 		name = BUI:cOption(L["xOffset"]),
-		min = -150, max = 150, step = 1,
+		min = -50, max = 50, step = 1,
 	}
 
 	E.Options.args.unitframe.args.raid.args.roleIcon.args.yOffset = {
 		type = 'range',
 		order = 8,
 		name = BUI:cOption(L["yOffset"]),
-		min = -150, max = 150, step = 1,
+		min = -50, max = 50, step = 1,
 	}
 	
 	E.Options.args.unitframe.args.raid.args.general.args.classHover = {	
