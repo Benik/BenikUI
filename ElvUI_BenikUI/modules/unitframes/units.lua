@@ -6,7 +6,7 @@ UF.LSM = LSM
 
 if E.db.ufb == nil then E.db.ufb = {} end
 
-local ElvUF = ElvUI.oUF
+local select, pairs, lower = select, pairs, string.lower
 
 local unitfs = {"Player", "Target", "TargetTarget", "Pet", "Focus", "FocusTarget"}
 
@@ -14,7 +14,7 @@ function UFB:Update_PowerStatusBar(unit)
 	-- Units
 	for _, frame in pairs(unitfs) do 
 		local self = _G["ElvUF_"..frame]
-		local unit = string.lower(frame)
+		local unit = lower(frame)
 		local power = self.Power
 		
 		power:SetStatusBarTexture(LSM:Fetch("statusbar", E.db.ufb.powerstatusbar))
@@ -29,23 +29,34 @@ function UFB:CreateEmptyBar(frame)
 	return emptybar
 end
 
--- EmptyBars in Party/Raid
-function UFB:ConstructGroupBars()
-	for _, header in pairs(UF.headers) do
-		local headername = header:GetName()
-		if headername == 'ElvUF_Party' or headername == 'ElvUF_Raid' then
-			for i = 1, header:GetNumChildren() do
-				local group = select(i, header:GetChildren())
-				for j = 1, group:GetNumChildren() do
-					local unitbutton = select(j, group:GetChildren())
-					local unitbuttonname = unitbutton:GetName()
-					unitbutton.EmptyBar = UFB:CreateEmptyBar(unitbutton)
-				end
+-- EmptyBars in Raid frames
+function UFB:ConstructRaidBars()
+	local header = _G['ElvUF_Raid']
+	for i = 1, header:GetNumChildren() do
+		local group = select(i, header:GetChildren())
+
+		for j = 1, group:GetNumChildren() do
+			local unitbutton = select(j, group:GetChildren())
+			if not unitbutton.EmptyBar then
+				unitbutton.EmptyBar = UFB:CreateEmptyBar(unitbutton)
 			end
 		end
 	end
-	
-	UF:UpdateAllHeaders()
+end
+
+-- EmptyBars in Party frames
+function UFB:ConstructPartyBars()
+	local header = _G['ElvUF_Party']
+	for i = 1, header:GetNumChildren() do
+		local group = select(i, header:GetChildren())
+
+		for j = 1, group:GetNumChildren() do
+			local unitbutton = select(j, group:GetChildren())
+			if not unitbutton.EmptyBar then
+				unitbutton.EmptyBar = UFB:CreateEmptyBar(unitbutton)
+			end
+		end
+	end
 end
 
 function UFB:UnitDefaults()
@@ -71,11 +82,12 @@ function UFB:Initialize()
 	self:UnitDefaults()
 	self:InitPlayer()
 	self:InitTarget()
-	
-	self:ConstructGroupBars()
+
 	self:InitParty()
 	self:InitRaid()
-
+	
+	hooksecurefunc(UF, 'Update_RaidHeader', UFB.ConstructRaidBars)
+	hooksecurefunc(UF, 'Update_PartyHeader', UFB.ConstructPartyBars)
 	hooksecurefunc(UF, 'Update_AllFrames', UFB.Update_PowerStatusBar)
 	hooksecurefunc(UF, 'Update_StatusBars', UFB.Update_PowerStatusBar)
 end
