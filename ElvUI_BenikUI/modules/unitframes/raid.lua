@@ -158,6 +158,8 @@ function UFB:Update_RaidFrames(frame, db)
 	do
 		local tGlow = frame.TargetGlow
 		tGlow:ClearAllPoints()
+		tGlow:Point("TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
+		tGlow:Point("TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
 
 		if USE_MINI_POWERBAR then
 			if USE_EMPTY_BAR then

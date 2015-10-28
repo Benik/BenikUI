@@ -160,6 +160,8 @@ function UFB:Update_PartyFrames(frame, db)
 		do
 			local tGlow = frame.TargetGlow
 			tGlow:ClearAllPoints()
+			tGlow:Point("TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
+			tGlow:Point("TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
 
 			if USE_MINI_POWERBAR then
 				if USE_EMPTY_BAR then
