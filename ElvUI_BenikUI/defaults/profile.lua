@@ -32,6 +32,14 @@ P['unitframe']['units']['pet']['emptybar'] = {
 	['threat'] = false,
 }
 
+-- Add TargetTarget EmptyBars to ElvUI defaults
+P['unitframe']['units']['targettarget']['emptybar'] = {
+	['enable'] = false,
+	['height'] = 14,
+	['transparent'] = true,
+	['threat'] = false,
+}
+
 -- Add Raid role icon offsets to ElvUI defaults
 P['unitframe']['units']['raid']['roleIcon']['xOffset'] = 0
 P['unitframe']['units']['raid']['roleIcon']['yOffset'] = 0

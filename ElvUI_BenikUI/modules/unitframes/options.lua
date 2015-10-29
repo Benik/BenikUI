@@ -130,13 +130,13 @@ local function ufTable()
 						type = 'execute',
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid", "emptybar") end,
 					},
-					--[[tot = {
+					tot = {
 						order = 3,
 						name = L['TargetTarget Frame'],
 						desc = L['This opens the TargetTarget Frame EmptyBar settings.'],
 						type = 'execute',
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "targettarget", "emptybar") end,
-					},]]
+					},
 					pet = {
 						order = 4,
 						name = L['Pet Frame'],
@@ -289,7 +289,7 @@ local function injectPetOptions()
 		type = 'group',
 		name = BUI:cOption(L["EmptyBars"]),
 		get = function(info) return E.db.unitframe.units['pet']['emptybar'][ info[#info] ] end,
-		set = function(info, value) E.db.unitframe.units['pet']['emptybar'][ info[#info] ] = value; UFB:ArrangePet(); end,
+		set = function(info, value) E.db.unitframe.units['pet']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateUF('pet') end,
 		args = {
 			enable = {
 				type = 'toggle',
@@ -319,6 +319,43 @@ local function injectPetOptions()
 	}
 end
 tinsert(E.BuiConfig, injectPetOptions)
+
+local function injectTargetTargetOptions()
+	E.Options.args.unitframe.args.targettarget.args.emptybar = {
+		order = 900,
+		type = 'group',
+		name = BUI:cOption(L["EmptyBars"]),
+		get = function(info) return E.db.unitframe.units['targettarget']['emptybar'][ info[#info] ] end,
+		set = function(info, value) E.db.unitframe.units['targettarget']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateUF('targettarget'); end,
+		args = {
+			enable = {
+				type = 'toggle',
+				order = 1,
+				name = L["Enable"],
+				width = "full",
+			},
+			height = {
+				type = 'range',
+				order = 2,
+				name = L["Height"],
+				min = 10, max = 50, step = 1,
+			},							
+			transparent = {
+				type = 'toggle',
+				name = L["Transparent"],
+				desc = L["Toggle EmptyBars transparency"],
+				order = 3,
+			},
+			threat = {
+				type = 'toggle',
+				name = L['Threat on EmptyBars'],
+				desc = L['Places the threat glow on TargetTarget EmptyBar'],
+				order = 4,
+			},
+		},
+	}
+end
+tinsert(E.BuiConfig, injectTargetTargetOptions)
 
 local function injectPartyOptions()
 	E.Options.args.unitframe.args.party.args.portrait.args.height = {
