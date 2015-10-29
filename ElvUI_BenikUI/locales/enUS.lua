@@ -162,6 +162,7 @@ L['Detach Portrait'] = true
 L['EmptyBars'] = true
 L['Enable the EmptyBars (Player and Target).'] = true
 L['Places the threat glow on Player and Target EmptyBars'] = true
+L['Places the threat glow on Pet EmptyBar'] = true
 L['Places the threat glow on Party EmptyBars'] = true
 L['Places the threat glow on Raid EmptyBars'] = true
 L['Player Size'] = true

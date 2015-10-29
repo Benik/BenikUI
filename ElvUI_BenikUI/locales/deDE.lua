@@ -162,6 +162,7 @@ L['Detach Portrait'] = "Abgetrenntes Portrait"
 L['EmptyBars'] = "Leerer Rahmen"
 L['Enable the EmptyBars (Player and Target).'] = "Aktiviere die Leeren Rahmen (Spieler und Ziel)."
 L['Places the threat glow on Player and Target EmptyBars'] = "Platziert das Bedrohungsleuchten auf die Spieler- und Zielleiste"
+L['Places the threat glow on Pet EmptyBar'] = true
 L['Places the threat glow on Party EmptyBars'] = "Platziert das Bedrohungsleuchten auf den Gruppen-Leeren-Rahmen"
 L['Places the threat glow on Raid EmptyBars'] = "Platziert das Bedrohungsleuchten auf den Schlachtzugs-Leeren-Rahmen"
 L['Player Size'] = "Spieler Größe"

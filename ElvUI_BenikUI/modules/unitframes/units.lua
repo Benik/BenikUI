@@ -82,6 +82,7 @@ function UFB:Initialize()
 	self:UnitDefaults()
 	self:InitPlayer()
 	self:InitTarget()
+	self:InitPet()
 
 	self:InitParty()
 	self:InitRaid()

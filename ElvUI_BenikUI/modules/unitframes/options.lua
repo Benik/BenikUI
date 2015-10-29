@@ -136,14 +136,14 @@ local function ufTable()
 						desc = L['This opens the TargetTarget Frame EmptyBar settings.'],
 						type = 'execute',
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "targettarget", "emptybar") end,
-					},
+					},]]
 					pet = {
 						order = 4,
 						name = L['Pet Frame'],
 						desc = L['This opens the Pet Frame EmptyBar settings.'],
 						type = 'execute',
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "pet", "emptybar") end,
-					},]]
+					},
 				},
 			},			
 		},
@@ -282,6 +282,43 @@ local function ufTargetTable()
 	}
 end
 tinsert(E.BuiConfig, ufTargetTable)
+
+local function injectPetOptions()
+	E.Options.args.unitframe.args.pet.args.emptybar = {
+		order = 900,
+		type = 'group',
+		name = BUI:cOption(L["EmptyBars"]),
+		get = function(info) return E.db.unitframe.units['pet']['emptybar'][ info[#info] ] end,
+		set = function(info, value) E.db.unitframe.units['pet']['emptybar'][ info[#info] ] = value; UFB:ArrangePet(); end,
+		args = {
+			enable = {
+				type = 'toggle',
+				order = 1,
+				name = L["Enable"],
+				width = "full",
+			},
+			height = {
+				type = 'range',
+				order = 2,
+				name = L["Height"],
+				min = 10, max = 50, step = 1,
+			},							
+			transparent = {
+				type = 'toggle',
+				name = L["Transparent"],
+				desc = L["Toggle EmptyBars transparency"],
+				order = 3,
+			},
+			threat = {
+				type = 'toggle',
+				name = L['Threat on EmptyBars'],
+				desc = L['Places the threat glow on Pet EmptyBar'],
+				order = 4,
+			},
+		},
+	}
+end
+tinsert(E.BuiConfig, injectPetOptions)
 
 local function injectPartyOptions()
 	E.Options.args.unitframe.args.party.args.portrait.args.height = {
