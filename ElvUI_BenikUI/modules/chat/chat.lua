@@ -15,10 +15,9 @@ function CH:UpdateAnchors()
 		else
 			frame:SetAllPoints(LeftChatTab)
 		end
-		
+	
 		frame:SetScript('OnShow', function(self)
-			self:Run('Alpha', .3, 0, 1)
-			self:SetSmoothType('InOut')
+			E:UIFrameFadeIn(self, .5, 0, 1)
 		end)
 	end
 
