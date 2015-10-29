@@ -42,7 +42,7 @@ function UFB:UpdatePlayerBarAnchors(frame, isShown)
 	local USE_CLASSBAR = db.classbar.enable and CAN_HAVE_CLASSBAR
 	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and USE_CLASSBAR and db.classbar.detachFromFrame ~= true
 	local SPACING = E.Spacing;
-	local SHADOW_SPACING = E.PixelMode and 3 or 4
+	local SHADOW_SPACING = E.PixelMode and 3 or 1
 	
 	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth

@@ -46,7 +46,7 @@ function UFB:ArrangeTarget()
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR and not POWERBAR_DETACHED
 	local POWERBAR_OFFSET = db.power.offset
 	
-	local SHADOW_SPACING = E.PixelMode and 3 or 4
+	local SHADOW_SPACING = E.PixelMode and 3 or 1
 	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PORTRAIT_WIDTH = E.db.ufb.getPlayerPortraitSize and E.db.ufb.PlayerPortraitWidth or E.db.ufb.TargetPortraitWidth
 	local PORTRAIT_HEIGHT = E.db.ufb.getPlayerPortraitSize and E.db.ufb.PlayerPortraitHeight or E.db.ufb.TargetPortraitHeight

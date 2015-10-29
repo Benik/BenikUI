@@ -17,7 +17,7 @@ function UFB:ArrangePet()
 	local db = E.db.unitframe.units.pet;
 	local BORDER = E.Border;
 	local SPACING = E.Spacing;
-	local SHADOW_SPACING = E.PixelMode and 3 or 4
+	local SHADOW_SPACING = E.PixelMode and 3 or 1
 	
 	local USE_POWERBAR = db.power.enable
 	local USE_INSET_POWERBAR = db.power.width == 'inset' and USE_POWERBAR
