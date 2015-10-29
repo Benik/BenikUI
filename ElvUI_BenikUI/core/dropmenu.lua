@@ -20,13 +20,11 @@ end
 
 local function OnEnter(btn)
 	E:UIFrameFadeIn(btn.hoverTex, .3, 0, 1)
-	--btn.hoverTex:Run("Alpha", .3, 0, 1)
 	hoverVisible = true
 end
 
 local function OnLeave(btn)
 	E:UIFrameFadeOut(btn.hoverTex, .3, 1, 0)
-	--btn.hoverTex:Run("Alpha", .3, 1, 0)
 	hoverVisible = false
 end
 
