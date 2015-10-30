@@ -170,7 +170,7 @@ function UFB:ArrangePlayer()
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
-	local SHADOW_SPACING = E.PixelMode and 3 or 4
+	local SHADOW_SPACING = E.PixelMode and 3 or 2
 	local USE_POWERBAR = db.power.enable
 	local POWERBAR_HEIGHT = db.power.height
 	local USE_INSET_POWERBAR = db.power.width == 'inset' and USE_POWERBAR
