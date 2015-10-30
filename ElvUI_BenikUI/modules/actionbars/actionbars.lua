@@ -213,7 +213,7 @@ end
 local function TaxiButton_OnEvent(self, event)
 	if ( UnitOnTaxi("player") ) then
 		LeaveVehicleButton:Hide() -- Hide ElvUI minimap button
-		self:Run('Alpha', 1, 0, 1)
+		E:UIFrameFadeIn(self, 1, 0, 1)
 		self:Show()
 		self.Text:SetFormattedText("%s", TAXI_CANCEL)
 		self:Width(self.Text:GetStringWidth() + 48)
@@ -231,27 +231,30 @@ local function TaxiButton_OnClick(self, btn)
 	if ( UnitOnTaxi("player") ) and btn == "LeftButton" then
 		TaxiRequestEarlyLanding();
 		
-		self.Text:Run('Alpha', 1, 1, 0)
+		E:UIFrameFadeOut(self.Text, 1, 1, 0)
 		
 		E:Delay(1, function()
 			self.Text:SetFormattedText("%s", TAXI_CANCEL_DESCRIPTION)
 			self.Text:SetTextColor(1, 0, 0)
 			self.Text:SetAlpha(0)			
-			self:Run("Width", 0.5, (self.Text:GetStringWidth() + 24))
+			
+			self.anim.sizing:SetChange(self.Text:GetStringWidth() + 24)
+			self.anim:Play()
 		end)
 		
 		E:Delay(1.2, function()
-			self.Text:Run('Alpha', 1, 0, 1)
+			E:UIFrameFadeIn(self.Text, 1, 0, 1)
 		end)
 
-		self.IconBG:Run("Gradient", "backdrop", 1, .7, 0, 0)
+		self.IconBG.anim.grad:SetChange(0.7, 0, 0)
+		self.IconBG.anim:Play()
 		self:EnableMouse(false)
 
 		E:Delay(8, function()
-			self:Run('Alpha', 1, 1, 0)
+			E:UIFrameFadeOut(self, 1, 1, 0)
 		end)
 	else
-		self:Run('Alpha', 1, 1, 0)
+		E:UIFrameFadeOut(self, 1, 1, 0)
 		E:Delay(1, function()
 			self:Hide()
 		end)
@@ -284,6 +287,9 @@ function BAB:TaxiButton()
 	tbtn:Style('Outside')
 	tbtn:RegisterForClicks("AnyUp")
 	
+	tbtn.anim = CreateAnimationGroup(tbtn)
+	tbtn.anim.sizing = tbtn.anim:CreateAnimation("Width")
+	
 	tbtn.Text = tbtn:CreateFontString(nil, 'LOW')
 	tbtn.Text:FontTemplate()
 	tbtn.Text:SetPoint('CENTER')
@@ -294,6 +300,9 @@ function BAB:TaxiButton()
 	tbtn.IconBG:Point('RIGHT', tbtn, 'LEFT', E.PixelMode and -1 or -2, 0)
 	tbtn.IconBG:SetTemplate("Transparent")
 	tbtn.IconBG:Style('Outside')
+	
+	tbtn.IconBG.anim = CreateAnimationGroup(tbtn.IconBG)
+	tbtn.IconBG.anim.grad = tbtn.IconBG.anim:CreateAnimation("Color")
 	
 	tbtn.IconBG.Icon = tbtn.IconBG:CreateTexture(nil, 'ARTWORK')
 	tbtn.IconBG.Icon:SetInside()
