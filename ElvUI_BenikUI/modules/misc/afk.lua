@@ -243,17 +243,26 @@ function AFK:UpdateTimer()
 	self.AFKMode.bottom.time:SetText(nil)
 end
 
-AFK.SetAFKBui = AFK.SetAFK
-function AFK:SetAFK(status)
-	self:SetAFKBui(status)
-	
-	if (self.isAFK) then
+
+function BUI:SetAFK(status)
+	if(status) then
+		self.AFKMode.top:SetHeight(0)
+		self.AFKMode.top.anim.height:SetChange(GetScreenHeight() * (1 / 20))
+		self.AFKMode.top.anim.height:SetDuration(.7)
+		self.AFKMode.top.anim.height:Play()
+		
+		self.AFKMode.bottom:SetHeight(0)
+		self.AFKMode.bottom.anim.height:SetChange(GetScreenHeight() * (1 / 9))
+		self.AFKMode.bottom.anim.height:SetDuration(.7)
+		self.AFKMode.bottom.anim.height:Play()
+	elseif (self.isAFK) then
 		total = 0
 		timer = 0
 		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
 		self.AFKMode.statMsg.info:AddMessage(format("|cffb3b3b3%s|r", L["Random Stats"]))
 	end
 end
+hooksecurefunc(AFK, 'SetAFK', BUI.SetAFK)
 
 --[[local creatures = {
 	62835, -- peng
@@ -299,12 +308,17 @@ function AFK:Initialize()
 	self.AFKMode.top = CreateFrame('Frame', nil, self.AFKMode)
 	self.AFKMode.top:SetFrameLevel(0)
 	self.AFKMode.top:SetTemplate('Transparent')
+	self.AFKMode.top:ClearAllPoints()
 	self.AFKMode.top:SetPoint("TOP", self.AFKMode, "TOP", 0, E.Border)
 	self.AFKMode.top:SetWidth(GetScreenWidth() + (E.Border*2))
-	self.AFKMode.top:SetHeight(GetScreenHeight() * (1 / 20))
+	--self.AFKMode.top:SetHeight(GetScreenHeight() * (1 / 20))
 
 	--Style the top frame
 	self.AFKMode.top:Style('Under')
+	
+	--Top Animation
+	self.AFKMode.top.anim = CreateAnimationGroup(self.AFKMode.top)
+	self.AFKMode.top.anim.height = self.AFKMode.top.anim:CreateAnimation("Height")
 	
 	-- move the chat lower
 	self.AFKMode.chat:SetPoint("TOPLEFT", self.AFKMode.top.style, "TOPLEFT", 4, -4)
@@ -347,10 +361,14 @@ function AFK:Initialize()
 	end
 	self.AFKMode.top.Status:SetValue(0)
 	
-	self.AFKMode.bottom:SetHeight(GetScreenHeight() * (1 / 9))
+	--self.AFKMode.bottom:SetHeight(GetScreenHeight() * (1 / 9))
 	
 	-- Style the bottom frame
 	self.AFKMode.bottom:Style('Inside')
+	
+	-- Bottom Frame Animation
+	self.AFKMode.bottom.anim = CreateAnimationGroup(self.AFKMode.bottom)
+	self.AFKMode.bottom.anim.height = self.AFKMode.bottom.anim:CreateAnimation("Height")	
 	
 	-- Move the factiongroup sign to the center
 	self.AFKMode.bottom.factionb = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the faction logo layer
