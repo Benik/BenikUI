@@ -3,6 +3,7 @@ local BUI = E:GetModule('BenikUI');
 
 local CURRENT_PAGE = 0
 local MAX_PAGE = 9
+local ceil = ceil
 local titleText = {}
 
 local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
@@ -1218,7 +1219,9 @@ end
 local function SetPage(PageNum)
 	CURRENT_PAGE = PageNum
 	ResetAll()
-	InstallStatus:SetValue(PageNum)
+
+	InstallStatus.anim.progress:SetChange(PageNum)
+	InstallStatus.anim.progress:Play()
 	
 	local f = BUIInstallFrame
 	
@@ -1459,12 +1462,18 @@ function BUI:SetupBui()
 		f.Status:SetMinMaxValues(0, MAX_PAGE)
 		f.Status:Point('TOPLEFT', f.Prev, 'TOPRIGHT', 6, -2)
 		f.Status:Point('BOTTOMRIGHT', f.Next, 'BOTTOMLEFT', -6, 2)
+		-- Setup StatusBar Animation
+		f.Status.anim = CreateAnimationGroup(f.Status)
+		f.Status.anim.progress = f.Status.anim:CreateAnimation("Progress")
+		f.Status.anim.progress:SetSmoothing("Out")
+		f.Status.anim.progress:SetDuration(.3)
+		
 		f.Status.text = f.Status:CreateFontString(nil, 'OVERLAY')
 		f.Status.text:FontTemplate()
 		f.Status.text:SetPoint('CENTER')
 		f.Status.text:SetFormattedText("%s / %s", CURRENT_PAGE, MAX_PAGE)
 		f.Status:SetScript('OnValueChanged', function(self)
-			self.text:SetText(self:GetValue()..' / '..MAX_PAGE)
+			self.text:SetText(ceil(self:GetValue())..' / '..MAX_PAGE)
 		end)
 		
 		f.Option1 = CreateFrame('Button', 'InstallOption1Button', f, 'UIPanelButtonTemplate')
@@ -1537,14 +1546,14 @@ function BUI:SetupBui()
 		f.Desc4:Point('BOTTOM', 0, 75)	
 		f.Desc4:Width(f:GetWidth() - 40)
 	
-		local close = CreateFrame('Button', 'InstallCloseButton', f, 'UIPanelCloseButton')
+		local close = CreateFrame('Button', nil, f, 'UIPanelCloseButton')
 		close:SetPoint('TOPRIGHT', f, 'TOPRIGHT')
 		close:SetScript('OnClick', function()
 			f:Hide()
 		end)		
 		E.Skins:HandleCloseButton(close)
 
-		f.tutorialImage = f:CreateTexture('InstallTutorialImage', 'OVERLAY')
+		f.tutorialImage = f:CreateTexture(nil, 'OVERLAY')
 		f.tutorialImage:Size(256, 128)
 		f.tutorialImage:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga')
 		f.tutorialImage:Point('BOTTOM', 0, 75)
@@ -1552,7 +1561,7 @@ function BUI:SetupBui()
 		f.side = CreateFrame('Frame', 'BUITitleFrame', f)
 		f.side:SetTemplate('Transparent')
 		f.side:Style('Outside')
-		f.side:Point('RIGHT', f, 'LEFT', E.PixelMode and -1 or -3, 0)
+		--f.side:Point('LEFT', f, 'LEFT', E.PixelMode and -1 or -3, 0)
 		f.side:Size(140, 400)
 		
 		for i = 1, MAX_PAGE do
@@ -1598,6 +1607,15 @@ function BUI:SetupBui()
 			end
 		end
 	end
+	
+	-- Animations
+	BUITitleFrame:Point('LEFT', 'BUIInstallFrame', 'LEFT', E.PixelMode and -1 or -3, 0)
+	local animGroup = CreateAnimationGroup(BUITitleFrame)
+	local anim = animGroup:CreateAnimation("Move")
+	anim:SetOffset(-140, 0)
+	anim:SetDuration(1)
+	anim:SetSmoothing("Bounce")
+	anim:Play()
 	
 	BUIInstallFrame:Show()
 	NextPage()
