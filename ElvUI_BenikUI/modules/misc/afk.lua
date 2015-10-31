@@ -249,11 +249,13 @@ function BUI:SetAFK(status)
 		self.AFKMode.top:SetHeight(0)
 		self.AFKMode.top.anim.height:SetChange(GetScreenHeight() * (1 / 20))
 		self.AFKMode.top.anim.height:SetDuration(.7)
+		self.AFKMode.top.anim.height:SetSmoothing("Bounce")
 		self.AFKMode.top.anim.height:Play()
 		
 		self.AFKMode.bottom:SetHeight(0)
 		self.AFKMode.bottom.anim.height:SetChange(GetScreenHeight() * (1 / 9))
 		self.AFKMode.bottom.anim.height:SetDuration(.7)
+		self.AFKMode.bottom.anim.height:SetSmoothing("Bounce")
 		self.AFKMode.bottom.anim.height:Play()
 	elseif (self.isAFK) then
 		total = 0
