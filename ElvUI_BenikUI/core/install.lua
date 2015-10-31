@@ -1425,7 +1425,7 @@ function BUI:SetupBui()
 		f.SetPage = SetPage
 		f:Size(500, 400)
 		f:SetTemplate('Transparent')
-		f:SetPoint('CENTER')
+		f:SetPoint('CENTER', 70, 0)
 		f:SetFrameStrata('TOOLTIP')
 		f:Style('Outside')
 		
