@@ -232,7 +232,7 @@ function AFK:UpdateTimer()
 
 	-- Set the value on log off statusbar
 	self.AFKMode.top.Status:SetValue(floor(timer))
-	
+
 	-- Set time
 	self.AFKMode.top.time:SetFormattedText(createdTime)
 	
@@ -306,7 +306,6 @@ function AFK:Initialize()
 	self.AFKMode.top:ClearAllPoints()
 	self.AFKMode.top:SetPoint("TOP", self.AFKMode, "TOP", 0, E.Border)
 	self.AFKMode.top:SetWidth(GetScreenWidth() + (E.Border*2))
-	--self.AFKMode.top:SetHeight(GetScreenHeight() * (1 / 20))
 
 	--Style the top frame
 	self.AFKMode.top:Style('Under')
@@ -315,7 +314,7 @@ function AFK:Initialize()
 	self.AFKMode.top.anim = CreateAnimationGroup(self.AFKMode.top)
 	self.AFKMode.top.anim.height = self.AFKMode.top.anim:CreateAnimation("Height")
 	self.AFKMode.top.anim.height:SetChange(GetScreenHeight() * (1 / 20))
-	self.AFKMode.top.anim.height:SetDuration(.7)
+	self.AFKMode.top.anim.height:SetDuration(1)
 	self.AFKMode.top.anim.height:SetSmoothing("Bounce")
 	
 	-- move the chat lower
@@ -358,9 +357,7 @@ function AFK:Initialize()
 		self.AFKMode.top.Status:Point('BOTTOMLEFT', self.AFKMode.top, 'BOTTOMLEFT', 0, E.PixelMode and 1 or 2)
 	end
 	self.AFKMode.top.Status:SetValue(0)
-	
-	--self.AFKMode.bottom:SetHeight(GetScreenHeight() * (1 / 9))
-	
+
 	-- Style the bottom frame
 	self.AFKMode.bottom:Style('Inside')
 	
@@ -368,7 +365,7 @@ function AFK:Initialize()
 	self.AFKMode.bottom.anim = CreateAnimationGroup(self.AFKMode.bottom)
 	self.AFKMode.bottom.anim.height = self.AFKMode.bottom.anim:CreateAnimation("Height")
 	self.AFKMode.bottom.anim.height:SetChange(GetScreenHeight() * (1 / 9))
-	self.AFKMode.bottom.anim.height:SetDuration(.7)
+	self.AFKMode.bottom.anim.height:SetDuration(1)
 	self.AFKMode.bottom.anim.height:SetSmoothing("Bounce")	
 	
 	-- Move the factiongroup sign to the center
