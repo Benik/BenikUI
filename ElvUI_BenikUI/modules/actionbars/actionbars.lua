@@ -129,7 +129,6 @@ function BAB:Initialize()
 	C_Timer.After(1, BAB.StyleBackdrops)
 	C_Timer.After(1, BAB.TransparentBackdrops)
 	C_Timer.After(2, BAB.ColorBackdrops)
-	--self:LoadToggleButtons()
 	C_Timer.After(2, BAB.LoadToggleButtons)
 	self:LoadRequestButton()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
