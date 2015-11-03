@@ -13,7 +13,7 @@ end
 
 if E.db.bab == nil then E.db.bab = {} end
 
-local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, BuiABbutton_1, BuiABbutton_2}
+local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar}
 
 function BAB:StyleBackdrops()
 	-- Actionbar backdrops
