@@ -85,7 +85,6 @@ L['Request Stop button'] = "Haltewunschtaste"
 L['Show in:'] = "Zeige in:"
 L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Zeigt kleine Tasten über Aktionsleiste 1 oder 2, um Aktionsleiste 3 oder 5 anzuzeigen/auszublenden."
 L['Switch Buttons'] = "Tasten wechseln"
-L['Toggle Bar'] = "Leiste umschalten"
 L['Transparent Backdrops'] = "Transparente Hintergründe"
 
 -- Request stop button

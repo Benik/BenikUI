@@ -1,4 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file='actionbars.lua'/>
+	<Script file='toggleButtons.lua'/>
+	<Script file='requestStop.lua'/>
 	<Script file='options.lua'/>
 </Ui>
