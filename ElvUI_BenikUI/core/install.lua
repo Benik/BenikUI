@@ -108,7 +108,7 @@ local function SetupBuiLayout()
 		SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -2, 22)
 		SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 155, -81)
 		SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
-		SetMoverPosition('tokenHolderMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -121)
+		SetMoverPosition('tokenHolderMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
 		SetMoverPosition('ProfessionsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -3, -184)
 	end
 	
