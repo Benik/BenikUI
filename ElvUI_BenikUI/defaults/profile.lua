@@ -24,6 +24,14 @@ P['unitframe']['units']['raid']['emptybar'] = {
 	['threat'] = false,
 }
 
+-- Add Raid40 EmptyBars to ElvUI defaults
+P['unitframe']['units']['raid40']['emptybar'] = {
+	['enable'] = false,
+	['height'] = 14,
+	['transparent'] = true,
+	['threat'] = false,
+}
+
 -- Add Pet EmptyBars to ElvUI defaults
 P['unitframe']['units']['pet']['emptybar'] = {
 	['enable'] = false,
@@ -43,6 +51,10 @@ P['unitframe']['units']['targettarget']['emptybar'] = {
 -- Add Raid role icon offsets to ElvUI defaults
 P['unitframe']['units']['raid']['roleIcon']['xOffset'] = 0
 P['unitframe']['units']['raid']['roleIcon']['yOffset'] = 0
+
+-- Add Raid40 role icon offsets to ElvUI defaults
+P['unitframe']['units']['raid40']['roleIcon']['xOffset'] = 0
+P['unitframe']['units']['raid40']['roleIcon']['yOffset'] = 0
 
 -- Add raid classHover to ElvUI defaults
 P['unitframe']['units']['raid']['classHover'] = false

@@ -44,6 +44,21 @@ function UFB:ConstructRaidBars()
 	end
 end
 
+-- EmptyBars in Raid40 frames
+function UFB:ConstructRaid40Bars()
+	local header = _G['ElvUF_Raid40']
+	for i = 1, header:GetNumChildren() do
+		local group = select(i, header:GetChildren())
+
+		for j = 1, group:GetNumChildren() do
+			local unitbutton = select(j, group:GetChildren())
+			if not unitbutton.EmptyBar then
+				unitbutton.EmptyBar = UFB:CreateEmptyBar(unitbutton)
+			end
+		end
+	end
+end
+
 -- EmptyBars in Party frames
 function UFB:ConstructPartyBars()
 	local header = _G['ElvUF_Party']
@@ -87,8 +102,10 @@ function UFB:Initialize()
 
 	self:InitParty()
 	self:InitRaid()
+	self:InitRaid40()
 	
 	hooksecurefunc(UF, 'Update_RaidHeader', UFB.ConstructRaidBars)
+	hooksecurefunc(UF, 'Update_Raid40Header', UFB.ConstructRaid40Bars)
 	hooksecurefunc(UF, 'Update_PartyHeader', UFB.ConstructPartyBars)
 	hooksecurefunc(UF, 'Update_AllFrames', UFB.Update_PowerStatusBar)
 	hooksecurefunc(UF, 'Update_StatusBars', UFB.Update_PowerStatusBar)

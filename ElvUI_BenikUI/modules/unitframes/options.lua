@@ -130,15 +130,22 @@ local function ufTable()
 						type = 'execute',
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid", "emptybar") end,
 					},
-					tot = {
+					raid40 = {
 						order = 3,
+						name = L['Raid-40 Frames'],
+						desc = L['This opens the Raid-40 Frames EmptyBars settings.'],
+						type = 'execute',
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid40", "emptybar") end,
+					},
+					tot = {
+						order = 4,
 						name = L['TargetTarget Frame'],
 						desc = L['This opens the TargetTarget Frame EmptyBar settings.'],
 						type = 'execute',
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "targettarget", "emptybar") end,
 					},
 					pet = {
-						order = 4,
+						order = 5,
 						name = L['Pet Frame'],
 						desc = L['This opens the Pet Frame EmptyBar settings.'],
 						type = 'execute',
@@ -483,6 +490,54 @@ end
 tinsert(E.BuiConfig, injectRaidOptions)
 
 local function injectRaid40Options()
+	E.Options.args.unitframe.args.raid40.args.emptybar = {
+		order = 900,
+		type = 'group',
+		name = BUI:cOption(L["EmptyBars"]),
+		get = function(info) return E.db.unitframe.units['raid40']['emptybar'][ info[#info] ] end,
+		set = function(info, value) E.db.unitframe.units['raid40']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raid40') end,
+		args = {
+			enable = {
+				type = 'toggle',
+				order = 1,
+				name = L["Enable"],
+				width = "full",
+			},
+			height = {
+				type = 'range',
+				order = 2,
+				name = L["Height"],
+				min = 10, max = 50, step = 1,
+			},							
+			transparent = {
+				type = 'toggle',
+				name = L["Transparent"],
+				desc = L["Toggle EmptyBars transparency"],
+				order = 3,
+			},
+			threat = {
+				type = 'toggle',
+				name = L['Threat on EmptyBars'],
+				desc = L['Places the threat glow on Raid-40 EmptyBars'],
+				order = 4,
+			},
+		},
+	}
+	
+	E.Options.args.unitframe.args.raid40.args.roleIcon.args.xOffset = {
+		type = 'range',
+		order = 7,
+		name = BUI:cOption(L["xOffset"]),
+		min = -50, max = 50, step = 1,
+	}
+
+	E.Options.args.unitframe.args.raid40.args.roleIcon.args.yOffset = {
+		type = 'range',
+		order = 8,
+		name = BUI:cOption(L["yOffset"]),
+		min = -50, max = 50, step = 1,
+	}
+	
 	E.Options.args.unitframe.args.raid40.args.general.args.classHover = {	
 		order = 7,
 		type = "toggle",
