@@ -97,6 +97,7 @@ function UFB:Initialize()
 	self:UnitDefaults()
 	self:InitPlayer()
 	self:InitTarget()
+	self:InitFocus()
 	self:InitPet()
 	self:InitTargetTarget()
 

@@ -116,40 +116,47 @@ local function ufTable()
 				name = L['Shortcuts to EmptyBar Options for:'],
 				guiInline = true,
 				args = {
-					party = {
+					focus = {
 						order = 1,
-						name = L['Party Frames'],
-						desc = L['This opens the Party Frames EmptyBars settings.'],
+						name = L['Focus Frame'],
+						desc = L['This opens the Focus Frame EmptyBar settings.'],
 						type = 'execute',
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "party", "emptybar") end,
-					},
-					raid = {
-						order = 2,
-						name = L['Raid Frames'],
-						desc = L['This opens the Raid Frames EmptyBars settings.'],
-						type = 'execute',
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid", "emptybar") end,
-					},
-					raid40 = {
-						order = 3,
-						name = L['Raid-40 Frames'],
-						desc = L['This opens the Raid-40 Frames EmptyBars settings.'],
-						type = 'execute',
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid40", "emptybar") end,
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "focus", "emptybar") end,
 					},
 					tot = {
-						order = 4,
+						order = 2,
 						name = L['TargetTarget Frame'],
 						desc = L['This opens the TargetTarget Frame EmptyBar settings.'],
 						type = 'execute',
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "targettarget", "emptybar") end,
 					},
 					pet = {
-						order = 5,
+						order = 3,
 						name = L['Pet Frame'],
 						desc = L['This opens the Pet Frame EmptyBar settings.'],
 						type = 'execute',
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "pet", "emptybar") end,
+					},
+					party = {
+						order = 4,
+						name = L['Party Frames'],
+						desc = L['This opens the Party Frames EmptyBars settings.'],
+						type = 'execute',
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "party", "emptybar") end,
+					},
+					raid = {
+						order = 5,
+						name = L['Raid Frames'],
+						desc = L['This opens the Raid Frames EmptyBars settings.'],
+						type = 'execute',
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid", "emptybar") end,
+					},
+					raid40 = {
+						order = 6,
+						name = L['Raid-40 Frames'],
+						desc = L['This opens the Raid-40 Frames EmptyBars settings.'],
+						type = 'execute',
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid40", "emptybar") end,
 					},
 				},
 			},			
@@ -326,6 +333,43 @@ local function injectPetOptions()
 	}
 end
 tinsert(E.BuiConfig, injectPetOptions)
+
+local function injectFocusOptions()
+	E.Options.args.unitframe.args.focus.args.emptybar = {
+		order = 900,
+		type = 'group',
+		name = BUI:cOption(L["EmptyBars"]),
+		get = function(info) return E.db.unitframe.units['focus']['emptybar'][ info[#info] ] end,
+		set = function(info, value) E.db.unitframe.units['focus']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateUF('focus'); end,
+		args = {
+			enable = {
+				type = 'toggle',
+				order = 1,
+				name = L["Enable"],
+				width = "full",
+			},
+			height = {
+				type = 'range',
+				order = 2,
+				name = L["Height"],
+				min = 10, max = 50, step = 1,
+			},							
+			transparent = {
+				type = 'toggle',
+				name = L["Transparent"],
+				desc = L["Toggle EmptyBars transparency"],
+				order = 3,
+			},
+			threat = {
+				type = 'toggle',
+				name = L['Threat on EmptyBars'],
+				desc = L['Places the threat glow on Focus EmptyBar'],
+				order = 4,
+			},
+		},
+	}
+end
+tinsert(E.BuiConfig, injectFocusOptions)
 
 local function injectTargetTargetOptions()
 	E.Options.args.unitframe.args.targettarget.args.emptybar = {
