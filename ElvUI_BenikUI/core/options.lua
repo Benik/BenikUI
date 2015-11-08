@@ -89,7 +89,7 @@ local function buiCore()
 					StyleColor = {
 						order = 3,
 						type = "select",
-						name = L['Style Color']..BUI.newsign,
+						name = L['Style Color'],
 						values = {
 							[1] = CLASS_COLORS,
 							[2] = CUSTOM,

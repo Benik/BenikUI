@@ -423,9 +423,9 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.colors.health = E:GetColor(.1, .1, .1)
 			
 			E.db.unitframe.colors.healthclass = false
-			E.db.unitframe.colors.power.MANA.r = 1
-			E.db.unitframe.colors.power.MANA.g = 0.5
-			E.db.unitframe.colors.power.MANA.b = 0
+			E.db.unitframe.colors.power.MANA.r = 0.31
+			E.db.unitframe.colors.power.MANA.g = 0.45
+			E.db.unitframe.colors.power.MANA.b = 0.63
 			E.db.unitframe.statusbar = 'BuiFlat'
 		-- player
 			E.db.unitframe.units.player.debuffs.attachTo = 'BUFFS'
@@ -500,6 +500,8 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.pet.power.height = 5
 			E.db.unitframe.units.pet.power.width = 'fill'
 			E.db.unitframe.units.pet.castbar.enable = false
+			E.db.unitframe.units.pet.portrait.enable = true
+			E.db.unitframe.units.pet.portrait.overlay = true
 		-- focus
 			E.db.unitframe.units.focus.power.height = 5
 			E.db.unitframe.units.focus.power.width = 'fill'
@@ -510,6 +512,8 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.targettarget.height = 24
 			E.db.unitframe.units.targettarget.power.height = 5
 			E.db.unitframe.units.targettarget.power.width = 'fill'
+			E.db.unitframe.units.targettarget.portrait.enable = true
+			E.db.unitframe.units.targettarget.portrait.overlay = true
 		-- party
 			E.db.unitframe.units.party.buffs.anchorPoint = "BOTTOMRIGHT"
 			E.db.unitframe.units.party.buffs.sizeOverride = 18
@@ -557,8 +561,20 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.party.verticalSpacing = 23
 			E.db.unitframe.units.party.width = 120
 		-- raid
-			E.db.unitframe.units.raid.power.enable = false
+			E.db.unitframe.units.raid.height = 40
+			E.db.unitframe.units.raid.verticalSpacing = 18
+			E.db.unitframe.units.raid.power.enable = true
+			E.db.unitframe.units.raid.power.height = 2
+			E.db.unitframe.units.raid.name.position = "BOTTOM"
+			E.db.unitframe.units.raid.name.yOffset = -16
 			E.db.unitframe.units.raid.colorOverride = 'FORCE_ON'
+			E.db.unitframe.units.raid.portrait.enable = true
+			E.db.unitframe.units.raid.portrait.overlay = true
+			E.db.unitframe.units.raid.emptybar.enable = true
+			E.db.unitframe.units.raid.emptybar.height = 14
+			E.db.unitframe.units.raid.emptybar.transparent = true
+			E.db.unitframe.units.raid.roleIcon.position = "TOPRIGHT"
+			E.db.unitframe.units.raid.roleIcon.damager = false
 		-- raid 40
 			E.db.unitframe.units.raid40.power.enable = false
 			E.db.unitframe.units.raid40.colorOverride = 'FORCE_ON'
@@ -575,7 +591,7 @@ local function SetupUnitframes(layout)
 			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 191)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -231, 147)
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -231, 182)
-			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
+			SetMoverPosition('ElvUF_RaidMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 467)
 			SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
 			SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -444)
 			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -300)
@@ -808,7 +824,20 @@ local function SetupUnitframes(layout)
 			E.db.unitframe.units.party.emptybar.height = 18
 			E.db.unitframe.units.party.emptybar.threat = false
 		-- raid
-			E.db.unitframe.units.raid.power.enable = false
+			E.db.unitframe.units.raid.height = 40
+			E.db.unitframe.units.raid.verticalSpacing = 18
+			E.db.unitframe.units.raid.power.enable = true
+			E.db.unitframe.units.raid.power.height = 2
+			E.db.unitframe.units.raid.name.position = "BOTTOM"
+			E.db.unitframe.units.raid.name.yOffset = -16
+			E.db.unitframe.units.raid.colorOverride = 'FORCE_ON'
+			E.db.unitframe.units.raid.portrait.enable = true
+			E.db.unitframe.units.raid.portrait.overlay = true
+			E.db.unitframe.units.raid.emptybar.enable = true
+			E.db.unitframe.units.raid.emptybar.height = 14
+			E.db.unitframe.units.raid.emptybar.transparent = true
+			E.db.unitframe.units.raid.roleIcon.position = "TOPRIGHT"
+			E.db.unitframe.units.raid.roleIcon.damager = false
 		-- raid 40
 			E.db.unitframe.units.raid40.power.enable = false
 		end
@@ -823,7 +852,7 @@ local function SetupUnitframes(layout)
 			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 144)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -217, 140)
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -216, 182)
-			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
+			SetMoverPosition('ElvUF_RaidMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 467)
 			SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
 			SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -444)
 			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -300)

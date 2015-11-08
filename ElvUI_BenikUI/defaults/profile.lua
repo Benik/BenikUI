@@ -94,7 +94,7 @@ P['bui'] = {
 	['customGameMenuColor'] = {r = .9, g = .7, b = 0},
 	['abStyleColor'] = 1,
 	['customAbStyleColor'] = {r = .9, g = .7, b = 0},
-	['StyleColor'] = 4,
+	['StyleColor'] = 1,
 	['customStyleColor'] = {r = .9, g = .7, b = 0},
 	['styledChatDts'] = false,
 	['chatDtsBackdrop'] = true,
