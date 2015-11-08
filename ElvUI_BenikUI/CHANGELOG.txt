@@ -1,3 +1,19 @@
+[b]2.32[/b]
+*Added the new portraits in the Install
+*Removed Party Portraits. Included in default ElvUI now
+*Added EmptyBars on Focus, TargetTarget, Pet, Raid, Raid-40
+*Added Animations in AFK mode and the Install routine
+*Updated LibAnim to v2.01
+*Added tags to capitalize names: [name:cap], [name:veryshort:cap], [name:short:cap], [name:medium:cap], [name:long:cap].
+*Added shortcut buttons in BenikUI Unitframes options, to Party, Focus, TargetTarget, Pet, Raid, Raid-40 EmptyBar settings.
+*Replaced the Visitor1 font with the one that contains Cyrillic
+*Fixed rep bar hiding with chat fade
+*Added class hover on raid and raid40 health frames border (user request)
+*SetFormattedText tsounami
+*Compressed benikUI logo
+*Converted AFK mode Class logos to blp for even smaller size
+*Tons of minor adjustments.
+
 [b]2.31[/b]
 *Added a new party profile for the default layout, with EmptyBars
 *Target threat visual fixes. That was a bitch 
