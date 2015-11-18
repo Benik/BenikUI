@@ -1,3 +1,7 @@
+[b]2.33[/b]
+*Injected the missing chars in visitor1 font.
+*Tokens Dashboard: Added option to show weekly max tokens, rather than total max (enabled by default) 
+
 [b]2.32[/b]
 *Added the new portraits in the Install
 *Removed Party Portraits. Included in default ElvUI now
