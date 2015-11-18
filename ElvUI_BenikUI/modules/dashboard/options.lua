@@ -14,10 +14,11 @@ local dungeonTokens = {
 	614,	-- Mote of Darkness
 	615,	-- Essence of Corrupted Deathwing
 	395,	-- Justice Points
-	396,	-- Valor Points
+	--396,	-- Valor Points
 	823,	-- Apexis Crystal (for gear, like the valors)
 	994,	-- Seal of Tempered Fate (Raid loot roll)
 	1129,	-- Seal of Inevitable Fate
+	1191, 	-- Valor Points (6.23)
 }
 
 local pvpTokens = {
