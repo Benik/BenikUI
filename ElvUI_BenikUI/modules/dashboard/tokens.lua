@@ -23,7 +23,7 @@ local BUIcurrency = {
 	391,	-- Tol Barad Commendation
 	392,	-- Honor Points
 	395,	-- Justice Points
-	396,	-- Valor Points
+	--396,	-- Valor Points (old)
 	402,	-- Ironpaw Token
 	416,	-- Mark of the World Tree
 	515,	-- Darkmoon Prize Ticket
@@ -63,6 +63,7 @@ local BUIcurrency = {
 	1101,	-- Oil
 	1129,	-- Seal of Inevitable Fate
 	1166, 	-- Timewarped Badge (6.22)
+	1191, 	-- Valor Points (6.23)
 }
 
 local function tholderOnFade()
