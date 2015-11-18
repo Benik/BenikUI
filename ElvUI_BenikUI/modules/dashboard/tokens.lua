@@ -133,7 +133,7 @@ function BUIT:UpdateTokens()
 	end
 
 	for i, id in ipairs(BUIcurrency) do
-		local name, amount, icon, _, _, totalMax, isDiscovered = GetCurrencyInfo(id)
+		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
 		
 		if name then
 			
@@ -165,7 +165,11 @@ function BUIT:UpdateTokens()
 					if totalMax == 0 then
 						token.Status:SetMinMaxValues(0, amount)
 					else
-						token.Status:SetMinMaxValues(0, totalMax)
+						if db.weekly and weeklyMax > 0 then
+							token.Status:SetMinMaxValues(0, weeklyMax)
+						else
+							token.Status:SetMinMaxValues(0, totalMax)
+						end
 					end
 					token.Status:SetValue(amount)
 					token.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
@@ -196,7 +200,11 @@ function BUIT:UpdateTokens()
 					if totalMax == 0 then
 						token.Text:SetFormattedText('%s', amount)
 					else
-						token.Text:SetFormattedText('%s / %s', amount, totalMax)
+						if db.weekly and weeklyMax > 0 then
+							token.Text:SetFormattedText('%s / %s', amount, weeklyMax)
+						else
+							token.Text:SetFormattedText('%s / %s', amount, totalMax)
+						end
 					end
 
 					token.IconBG = CreateFrame('Frame', nil, token)
@@ -226,7 +234,11 @@ function BUIT:UpdateTokens()
 						if totalMax == 0 then
 							token.Text:SetFormattedText('%s', amount)
 						else
-							token.Text:SetFormattedText('%s / %s', amount, totalMax)
+							if db.weekly and weeklyMax > 0 then
+								token.Text:SetFormattedText('%s / %s', amount, weeklyMax)
+							else
+								token.Text:SetFormattedText('%s / %s', amount, totalMax)
+							end
 						end				
 						GameTooltip:Hide()
 					end)

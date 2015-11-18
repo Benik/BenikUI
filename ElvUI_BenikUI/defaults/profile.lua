@@ -180,6 +180,7 @@ P['dashboards'] = {
 		['tooltip'] = true,
 		['width'] = 150,
 		['zeroamount'] = false,
+		['weekly'] = true,
 		['flash'] = false,
 		['chooseTokens'] = {
 			['Conquest Points'] = true,
