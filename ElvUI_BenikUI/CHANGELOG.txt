@@ -1,3 +1,6 @@
+[b]2.34[/b]
+*Updated Valor Points ID, to work with patch 6.2.3 (Credit Merathilis)
+
 [b]2.33[/b]
 *Injected the missing chars in visitor1 font.
 *Tokens Dashboard: Added option to show weekly max tokens, rather than total max (enabled by default) 
