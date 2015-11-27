@@ -375,7 +375,7 @@ local function dashboardsTable()
 					weekly = {
 						order = 6,
 						name = L['Show Weekly max'],
-						desc = L['Show  Weekly max tokens instead of total max'],
+						desc = L['Show Weekly max tokens instead of total max'],
 						type = 'toggle',
 						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
 						get = function(info) return E.db.dashboards.tokens.weekly end,
