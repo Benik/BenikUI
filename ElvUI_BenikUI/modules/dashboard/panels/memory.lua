@@ -1,19 +1,36 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local BUID = E:GetModule('BuiDashboard')
 
+local select, collectgarbage = select, collectgarbage
+local sort, wipe = table.sort, wipe
+local format = string.format
+
+local GetNumAddOns = GetNumAddOns
+local GetAddOnInfo = GetAddOnInfo
+local IsAddOnLoaded = IsAddOnLoaded
+local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
+local GetAddOnMemoryUsage = GetAddOnMemoryUsage
+
 local kiloByteString = '|cfff6a01a %d|r'..' kb'
 local megaByteString = '|cfff6a01a %.2f|r'..' mb'
-local format = string.format
-local sort = table.sort
+
+local totalMemory = 0
 
 local function formatMem( memory )
+	local mem
 	local mult = 10^1
 	if( memory > 999 ) then
-		local mem = ( ( memory / 1024 ) * mult ) / mult
+		mem = ( ( memory / 1024 ) * mult ) / mult
 		return format( megaByteString, mem )
 	else
-		local mem = ( memory * mult ) / mult
+		mem = ( memory * mult ) / mult
 		return format( kiloByteString, mem )
+	end
+end
+
+local function sortByMemory(a, b)
+	if a and b then
+		return a[3] > b[3]
 	end
 end
 
@@ -23,7 +40,7 @@ local function RebuildAddonList()
 	local addOnCount = GetNumAddOns()
 	if( addOnCount == #memoryTable ) then return end
 
-	memoryTable = {}
+	wipe( memoryTable )
 	for i = 1, addOnCount do
 		memoryTable[i] = { i, select( 2, GetAddOnInfo( i ) ), 0, IsAddOnLoaded( i ) }
 	end
@@ -32,17 +49,15 @@ end
 local function UpdateMemory()
 	UpdateAddOnMemoryUsage()
 
-	local totalMemory = 0
+	local addOnMemory = 0
+	totalMemory = 0
 	for i = 1, #memoryTable do
-		memoryTable[i][3] = GetAddOnMemoryUsage(memoryTable[i][1])
-		totalMemory = totalMemory + memoryTable[i][3]
+		addOnMemory = GetAddOnMemoryUsage(memoryTable[i][1])
+		memoryTable[i][3] = addOnMemory
+		totalMemory = totalMemory + addOnMemory
 	end
 
-	sort( memoryTable, function( a, b )
-		if( a and b ) then
-			return a[3] > b[3]
-		end
-	end )
+	sort( memoryTable, sortByMemory )
 
 	return totalMemory
 end
@@ -54,7 +69,7 @@ local function Update( self, t )
 	int = int - t
 
 	if( int < 0 ) then
-		RebuildAddonList()
+		RebuildAddonList(self)
 		local total = UpdateMemory()
 		boardName.Text:SetFormattedText("%s", (L['Memory: ']..formatMem(total)))
 		boardName.Status:SetMinMaxValues( 0, 100000 )
