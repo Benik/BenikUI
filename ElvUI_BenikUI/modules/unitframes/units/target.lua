@@ -161,7 +161,10 @@ function UFB:ArrangeTarget()
 				
 				if USE_EMPTY_BAR then
 					if E.db.ufb.threat then
-						threat.glow:SetOutside(frame.EmptyBar)
+						threat.glow:Point("TOPLEFT", frame.EmptyBar, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
+						threat.glow:Point("TOPRIGHT", frame.EmptyBar, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
+						threat.glow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
+						threat.glow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 					else
 						threat.glow:Point("TOPLEFT", frame.Health.backdrop, "TOPLEFT", -SHADOW_SPACING, SHADOW_SPACING)
 						threat.glow:Point("TOPRIGHT", frame.Health.backdrop, "TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
