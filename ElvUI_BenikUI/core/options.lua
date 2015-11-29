@@ -1,9 +1,13 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 
 if E.db.bui == nil then E.db.bui = {} end
 local tinsert = table.insert
+
+local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
+local COLOR_PICKER, MISCELLANEOUS = COLOR_PICKER, MISCELLANEOUS
+local CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP = CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP
 
 local function buiCore()
 	E.Options.args.bui = {

@@ -1,9 +1,26 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
+
+local ceil = ceil
+local format = format
+
+local IsAddOnLoaded = IsAddOnLoaded
+local PlaySoundFile = PlaySoundFile
+local ReloadUI = ReloadUI
+local UIFrameFadeOut = UIFrameFadeOut
+local FCF_SetLocked = FCF_SetLocked
+local FCF_DockFrame, FCF_UnDockFrame = FCF_DockFrame, FCF_UnDockFrame
+local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
+local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
+local FCF_StopDragging = FCF_StopDragging
+local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
+local CONTINUE, PREVIOUS, ADDONS = CONTINUE, PREVIOUS, ADDONS
+local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
+local LOOT, TRADE = LOOT, TRADE
 
 local CURRENT_PAGE = 0
 local MAX_PAGE = 9
-local ceil = ceil
+
 local titleText = {}
 
 local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
@@ -151,39 +168,39 @@ function BUI:BuiColorThemes(color)
 	do
 		if color == 'Diablo' then
 			E.db.general.backdropfadecolor.a = 0.80
-			E.db.general.backdropfadecolor.r = 0.1254901960784314
-			E.db.general.backdropfadecolor.g = 0.05490196078431373
-			E.db.general.backdropfadecolor.b = 0.05098039215686274
-			E.db.general.backdropcolor.r = 0.1058823529411765
-			E.db.general.backdropcolor.g = 0.05490196078431373
-			E.db.general.backdropcolor.b = 0.0392156862745098
+			E.db.general.backdropfadecolor.r = 0.125
+			E.db.general.backdropfadecolor.g = 0.054
+			E.db.general.backdropfadecolor.b = 0.050
+			E.db.general.backdropcolor.r = 0.105
+			E.db.general.backdropcolor.g = 0.054
+			E.db.general.backdropcolor.b = 0.039
 			E.db.bui.colorTheme = 'Diablo'
 		elseif color == 'Hearthstone' then
 			E.db.general.backdropfadecolor.a = 0.80
-			E.db.general.backdropfadecolor.r = 0.08627450980392157
-			E.db.general.backdropfadecolor.g = 0.1098039215686275
-			E.db.general.backdropfadecolor.b = 0.1490196078431373
-			E.db.general.backdropcolor.r = 0.07058823529411765
-			E.db.general.backdropcolor.g = 0.08627450980392157
-			E.db.general.backdropcolor.b = 0.1176470588235294
+			E.db.general.backdropfadecolor.r = 0.086
+			E.db.general.backdropfadecolor.g = 0.109
+			E.db.general.backdropfadecolor.b = 0.149
+			E.db.general.backdropcolor.r = 0.070
+			E.db.general.backdropcolor.g = 0.086
+			E.db.general.backdropcolor.b = 0.117
 			E.db.bui.colorTheme = 'Hearthstone'
 		elseif color == 'Mists' then
 			E.db.general.backdropfadecolor.a = 0.80
-			E.db.general.backdropfadecolor.r = 0.04313725490196078
-			E.db.general.backdropfadecolor.g = 0.1019607843137255
-			E.db.general.backdropfadecolor.b = 0.1019607843137255
-			E.db.general.backdropcolor.r = 0.02745098039215686
-			E.db.general.backdropcolor.g = 0.06274509803921569
-			E.db.general.backdropcolor.b = 0.06274509803921569
+			E.db.general.backdropfadecolor.r = 0.043
+			E.db.general.backdropfadecolor.g = 0.101
+			E.db.general.backdropfadecolor.b = 0.101
+			E.db.general.backdropcolor.r = 0.027
+			E.db.general.backdropcolor.g = 0.062
+			E.db.general.backdropcolor.b = 0.062
 			E.db.bui.colorTheme = 'Mists'
 		elseif color == 'Elv' then
 			E.db.general.backdropfadecolor.a = 0.80
-			E.db.general.backdropfadecolor.r = 0.05490196078431373
-			E.db.general.backdropfadecolor.g = 0.05490196078431373
-			E.db.general.backdropfadecolor.b = 0.05490196078431373
-			E.db.general.backdropcolor.r = 0.1019607843137255
-			E.db.general.backdropcolor.g = 0.1019607843137255
-			E.db.general.backdropcolor.b = 0.1019607843137255
+			E.db.general.backdropfadecolor.r = 0.054
+			E.db.general.backdropfadecolor.g = 0.054
+			E.db.general.backdropfadecolor.b = 0.054
+			E.db.general.backdropcolor.r = 0.025
+			E.db.general.backdropcolor.g = 0.025
+			E.db.general.backdropcolor.b = 0.025
 			E.db.bui.colorTheme = 'Elv'
 		end
 	end

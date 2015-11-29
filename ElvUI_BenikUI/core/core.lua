@@ -1,10 +1,14 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:NewModule('BenikUI', "AceConsole-3.0");
 
 local LSM = LibStub('LibSharedMedia-3.0')
 local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, ns = ...
+
+local pairs = pairs
 local format = string.format
+local IsAddOnLoaded = IsAddOnLoaded
+
 
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')

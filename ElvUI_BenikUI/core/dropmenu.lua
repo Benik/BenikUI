@@ -1,7 +1,7 @@
 -- BenikUI
 -- Edit ElvUI dropdown.lua to make a steady dropup menu. The menu position is not related anymore on where the mouse is clicked.
 -- args: menuList, menuFrame, parentButtonName, position, xOffset, yOffset, delay
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 
 local PADDING = 10
