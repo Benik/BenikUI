@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local UFB = E:GetModule('BuiUnits');
 local BUIC = E:GetModule('BuiCastbar');
@@ -211,7 +211,7 @@ local function ufPlayerTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.ufb.detachPlayerPortrait end,
-				min = 10, max = 250, step = 1,
+				min = 10, max = 500, step = 1,
 			},	
 			PlayerPortraitHeight = {
 				order = 5,
@@ -282,7 +282,7 @@ local function ufTargetTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return E.db.ufb.getPlayerPortraitSize or not E.db.ufb.detachTargetPortrait end,
-				min = 10, max = 250, step = 1,
+				min = 10, max = 500, step = 1,
 			},	
 			TargetPortraitHeight = {
 				order = 6,
