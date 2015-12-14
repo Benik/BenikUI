@@ -1,7 +1,8 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local BUIB = E:NewModule('BuiBags', 'AceHook-3.0', 'AceEvent-3.0');
-local BUI = E:GetModule('BenikUI');
-local B = E:GetModule('Bags')
+
+local _G = _G
+
 local SPACING = (E.PixelMode and 1 or 5)
 local BORDER = E.Border;
 
@@ -10,10 +11,6 @@ function BUIB:StyleBags()
 		ElvUI_ContainerFrame:Style('Outside', 'playerbags')
 		ElvUI_ContainerFrameContainerHolder:Style('Outside')
 	end
-	
-	--if ElvUIBags.backdrop then
-		--ElvUIBags.backdrop:Style('Outside')
-	--end
 
 	if ElvUI_ContainerFrameContainerHolder then
 		ElvUI_ContainerFrameContainerHolder:Point('BOTTOMLEFT', playerbags, 'TOPLEFT', 0, SPACING + BORDER)
@@ -46,7 +43,6 @@ function BUIB:SkinBlizzBags()
 end
 
 function BUIB:AllInOneBags()
-	--if E.private.bags.enable ~= true then return; end
 	self:StyleBags()
 	self:RegisterEvent('BANKFRAME_OPENED', 'OpenBankBags')
 end

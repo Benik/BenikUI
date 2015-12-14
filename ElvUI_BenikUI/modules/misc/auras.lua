@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local A = E:GetModule('Auras');
 local BUI = E:GetModule('BenikUI');
 

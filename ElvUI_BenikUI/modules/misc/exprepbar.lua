@@ -1,10 +1,15 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0');
 local M = E:GetModule('Misc');
 local LO = E:GetModule('Layout');
 local LSM = LibStub('LibSharedMedia-3.0');
 local DT = E:GetModule('DataTexts');
 local BUIL = E:GetModule('BuiLayout');
+
+local CreateFrame = CreateFrame
+local GetWatchedFactionInfo = GetWatchedFactionInfo
+local GetPetExperience = GetPetExperience
+local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 
 -- Style ElvUI default XP/Rep bars
 local SPACING = (E.PixelMode and 1 or 3)

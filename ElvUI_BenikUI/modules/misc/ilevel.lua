@@ -1,9 +1,15 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
 if E.db.bui.ilvl == false then return end
 
-local match = string.match
+local match, gsub = string.match, gsub
+
+local CreateFrame = CreateFrame
+local SetInventoryItem = SetInventoryItem
+local GetInventoryItemLink = GetInventoryItemLink
+local GetItemInfo = GetItemInfo
+local GetItemQualityColor = GetItemQualityColor
 
 local xo, yo = 0, 1
 local equipped = {}

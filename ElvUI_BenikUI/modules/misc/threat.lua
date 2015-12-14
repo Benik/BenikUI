@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local BTH = E:NewModule('BuiThreat', 'AceHook-3.0');
 local THREAT = E:GetModule('Threat');
 local LO = E:GetModule('Layout');
