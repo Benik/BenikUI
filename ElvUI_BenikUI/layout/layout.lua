@@ -6,6 +6,12 @@ local DT = E:GetModule('DataTexts')
 local M = E:GetModule('Minimap');
 local LSM = LibStub('LibSharedMedia-3.0')
 
+local CreateFrame = CreateFrame
+local ToggleCharacter = ToggleCharacter
+local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
+local PlaySound = PlaySound
+local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
+
 local PANEL_HEIGHT = 19;
 local SIDE_BUTTON_WIDTH = 16;
 local SPACING = (E.PixelMode and 1 or 3)
