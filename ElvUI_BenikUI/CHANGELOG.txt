@@ -1,3 +1,9 @@
+[b]2.35[/b]
+*Added a sleek Splash Screen. Can be disabled
+*Cached Blizzard functions
+*Raised Player/Target detached portrait width to 500
+*Fixed the target threat glow to look as player glow
+
 [b]2.34[/b]
 *Updated Valor Points ID, to work with patch 6.2.3 (Credit Merathilis)
 
