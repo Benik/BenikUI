@@ -1,5 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
-local UFB = E:NewModule('BuiUnits', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
+local UFB = E:NewModule('BuiUnits', 'AceHook-3.0', 'AceEvent-3.0');
 local UF = E:GetModule('UnitFrames');
 local LSM = LibStub("LibSharedMedia-3.0");
 UF.LSM = LSM
@@ -7,6 +7,8 @@ UF.LSM = LSM
 if E.db.ufb == nil then E.db.ufb = {} end
 
 local select, pairs, lower = select, pairs, string.lower
+local _G = _G
+local CreateFrame = CreateFrame
 
 local unitfs = {"Player", "Target", "TargetTarget", "Pet", "Focus", "FocusTarget"}
 

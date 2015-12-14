@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local BUIC = E:NewModule('BuiCastbar', 'AceTimer-3.0', 'AceEvent-3.0')
 local UF = E:GetModule('UnitFrames');
 
@@ -9,6 +9,10 @@ local UF = E:GetModule('UnitFrames');
 	Edited for BenikUI under Blaze's permission. Many thanks :)
 
 ]]
+
+local pairs = pairs
+local _G = _G
+local IsAddOnLoaded = IsAddOnLoaded
 
 -- Defaults
 V['BUIC'] = {

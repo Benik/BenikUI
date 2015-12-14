@@ -2,6 +2,8 @@
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
+local _G = _G
+
 local SPACING = E.Spacing;
 local BORDER = E.Border;
 

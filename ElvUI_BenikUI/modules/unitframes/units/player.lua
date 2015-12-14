@@ -2,6 +2,9 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
+local _G = _G
+local CreateFrame = CreateFrame
+
 local SPACING = E.Spacing;
 local BORDER = E.Border;
 
