@@ -1,7 +1,12 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local BUIS = E:NewModule('BuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
 local S = E:GetModule('Skins');
+
+local ipairs, pairs, unpack = ipairs, pairs, unpack
+local _G = _G
+local CreateFrame = CreateFrame
+local IsAddOnLoaded = IsAddOnLoaded
 
 local SPACING = (E.PixelMode and 1 or 2)
 

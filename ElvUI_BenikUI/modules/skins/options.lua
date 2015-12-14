@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUIS = E:GetModule('BuiSkins');
 
@@ -6,7 +6,7 @@ if E.db.buiskins == nil then E.db.buiskins = {} end
 if E.db.elvuiaddons == nil then E.db.elvuiaddons = {} end
 if E.db.buiaddonskins == nil then E.db.buiaddonskins = {} end
 
-local tinsert = table.insert
+local tinsert, format, ipairs = table.insert, string.format, ipairs
 
 local DecorElvUIAddons = {
 	{'ElvUI_LocLite', L['LocationLite'], 'loclite'},

@@ -1,5 +1,10 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local S = E:GetModule('Skins');
+
+local pairs = pairs
+
+local _G = _G
+local IsAddOnLoaded = IsAddOnLoaded
 
 local SPACING = (E.PixelMode and 1 or 3)
 
