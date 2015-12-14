@@ -1,8 +1,12 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 local BDT = E:NewModule('BuiDataTexts', 'AceEvent-3.0');
 local LSM = LibStub("LibSharedMedia-3.0");
 local LDB = LibStub:GetLibrary("LibDataBroker-1.1");
+
+local pairs, type, join = pairs, type, string.join
+
+local IsInInstance = IsInInstance
 
 DT.SetupTooltipBui = DT.SetupTooltip
 function DT:SetupTooltip(panel)
@@ -13,6 +17,7 @@ end
 local lastPanel
 local displayString = ''
 local classColor = RAID_CLASS_COLORS[E.myclass]
+
 local dataLayout = {
 	['LeftChatDataPanel'] = {
 		['left'] = 10,
@@ -117,7 +122,7 @@ function DT:LoadDataTexts()
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = string.join("", "%s: ", hex, "%s|r")
+	displayString = join("", "%s: ", hex, "%s|r")
 
 	if lastPanel ~= nil then
 		BDT.UPDATE_BATTLEFIELD_SCORE(lastPanel)

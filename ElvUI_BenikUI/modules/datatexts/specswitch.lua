@@ -1,8 +1,19 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
 local format = string.format
 local join = string.join
+
+local CreateFrame = CreateFrame
+local GetSpecialization = GetSpecialization
+local GetActiveSpecGroup = GetActiveSpecGroup
+local GetSpecializationInfo = GetSpecializationInfo
+local GetNumSpecGroups = GetNumSpecGroups
+local GetLootSpecialization = GetLootSpecialization
+local GetSpecializationInfoByID = GetSpecializationInfoByID
+local SetActiveSpecGroup = SetActiveSpecGroup
+local SetLootSpecialization = SetLootSpecialization
+
 local lastPanel, active
 local displayString = '';
 local talent = {}
@@ -20,7 +31,6 @@ local menuList = {
 	{ notCheckable = true },
 	{ notCheckable = true }
 }
-
 
 local function OnEvent(self, event)
 	lastPanel = self
@@ -103,14 +113,4 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
---[[
-	DT:RegisterDatatext(name, events, eventFunc, updateFunc, clickFunc, onEnterFunc)
-
-	name - name of the datatext (required)
-	events - must be a table with string values of event names to register
-	eventFunc - function that gets fired when an event gets triggered
-	updateFunc - onUpdate script target function
-	click - function to fire when clicking the datatext
-	onEnterFunc - function to fire OnEnter
-]]
 DT:RegisterDatatext('Spec Switch (BenikUI)',{"PLAYER_ENTERING_WORLD", "CHARACTER_POINTS_CHANGED", "PLAYER_TALENT_UPDATE", "ACTIVE_TALENT_GROUP_CHANGED"}, OnEvent, nil, OnClick, OnEnter)

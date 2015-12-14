@@ -11,9 +11,18 @@ local join = string.join
 local format = string.format
 local tsort = table.sort
 
+local GetCurrencyInfo = GetCurrencyInfo
+local C_GarrisonRequestLandingPageShipmentInfo = C_Garrison.RequestLandingPageShipmentInfo
+local C_GarrisonGetBuildings = C_Garrison.GetBuildings
+local C_GarrisonGetInProgressMissions = C_Garrison.GetInProgressMissions
+local C_GarrisonGetLandingPageShipmentInfo = C_Garrison.GetLandingPageShipmentInfo
+local C_GarrisonGetAvailableMissions = C_Garrison.GetAvailableMissions
+local LE_FOLLOWER_TYPE_GARRISON_6_0 = LE_FOLLOWER_TYPE_GARRISON_6_0
+local LE_FOLLOWER_TYPE_SHIPYARD_6_2 = LE_FOLLOWER_TYPE_SHIPYARD_6_2
+
 local OnEvent = function(self, event)
 	
-	local Missions = C_Garrison.GetInProgressMissions()
+	local Missions = C_GarrisonGetInProgressMissions()
 	local CountInProgress = 0
 	local CountCompleted = 0
 	
@@ -50,9 +59,9 @@ local OnEnter = function(self)
 	end
 
 	-- Work Orders
-	C_Garrison.RequestLandingPageShipmentInfo()
+	C_GarrisonRequestLandingPageShipmentInfo()
 
-	local buildings = C_Garrison.GetBuildings();
+	local buildings = C_GarrisonGetBuildings();
 	local NumBuildings = #buildings
 	local hasBuilding = false
 
@@ -60,7 +69,7 @@ local OnEnter = function(self)
 		for i = 1, NumBuildings do
 			local buildingID = buildings[i].buildingID;
 			if (buildingID) then
-				local name, _, shipmentCapacity, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison.GetLandingPageShipmentInfo(buildingID);
+				local name, _, shipmentCapacity, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_GarrisonGetLandingPageShipmentInfo(buildingID);
 				if (name) then
 					if(hasBuilding == false) then
 						DT.tooltip:AddLine(CAPACITANCE_WORK_ORDERS, selectioncolor)
@@ -78,9 +87,9 @@ local OnEnter = function(self)
 	end
 
 	-- Follower Missions
-	local Missions = C_Garrison.GetInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
+	local Missions = C_GarrisonGetInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
 	local NumMissions = #Missions
-	local AvailableMissions = C_Garrison.GetAvailableMissions(LE_FOLLOWER_TYPE_GARRISON_6_0);
+	local AvailableMissions = C_GarrisonGetAvailableMissions(LE_FOLLOWER_TYPE_GARRISON_6_0);
 
 	if (NumMissions > 0) then
 		DT.tooltip:AddLine(format("%s (%s: %d)", GARRISON_MISSIONS_TITLE, AVAILABLE, #AvailableMissions), selectioncolor)
@@ -103,9 +112,9 @@ local OnEnter = function(self)
 	end
 
 	-- Ship Missions
-	local shipMissions = C_Garrison.GetInProgressMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2)
+	local shipMissions = C_GarrisonGetInProgressMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2)
 	local NumShipMissions = #shipMissions
-	local AvailableShipMissions = C_Garrison.GetAvailableMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2);
+	local AvailableShipMissions = C_GarrisonGetAvailableMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2);
 	
 	if (NumShipMissions > 0) then
 		DT.tooltip:AddLine(format("%s (%s: %d)", SPLASH_NEW_6_2_FEATURE2_TITLE, AVAILABLE, #AvailableShipMissions), selectioncolor)
