@@ -1,10 +1,13 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUID = E:GetModule('BuiDashboard');
 local BUIT = E:GetModule('BuiTokensDashboard');
 local BUIP = E:GetModule('BuiProfessionsDashboard')
 
-local tinsert = table.insert
+local tinsert, pairs, ipairs, gsub = table.insert, pairs, ipairs, gsub
+local GetCurrencyInfo = GetCurrencyInfo
+local GetProfessions = GetProfessions
+local GetProfessionInfo = GetProfessionInfo
 
 local dungeonTokens = {
 	776,	-- Warforged Seal

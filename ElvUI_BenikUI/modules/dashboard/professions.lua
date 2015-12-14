@@ -4,6 +4,14 @@ local BUIP = E:NewModule('BuiProfessionsDashboard', 'AceEvent-3.0', 'AceHook-3.0
 local LSM = LibStub('LibSharedMedia-3.0')
 local DT = E:GetModule('DataTexts')
 
+local getn, wipe, pairs, ipairs = getn, table.wipe, pairs, ipairs
+
+local CreateFrame = CreateFrame
+local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
+local GetProfessions = GetProfessions
+local GetProfessionInfo = GetProfessionInfo
+local CastSpellByName = CastSpellByName
+
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.professions == nil then E.db.dashboards.professions = {} end
 

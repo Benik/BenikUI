@@ -1,9 +1,11 @@
-local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(ElvUI);
 local BUID = E:GetModule('BuiDashboard')
 
 local LastUpdate = 1
-local format = string.format
+local format, select = string.format, select
 local join = string.join
+
+local GetNetStats = GetNetStats
 
 local statusColors = {
 	'|cff0CD809',
@@ -11,9 +13,6 @@ local statusColors = {
 	'|cffFF9000',
 	'|cffD80909'
 }
-
-local homeLatencyString = "%d ms"
-local worldLatencyString = "%d ms"
 
 function BUID:CreateMs()
 	local boardName = MS

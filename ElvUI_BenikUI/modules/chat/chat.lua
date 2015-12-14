@@ -1,5 +1,7 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local CH = E:GetModule('Chat')
+
+local pairs = pairs
 
 -- Place the new chat frame
 CH.BUIUpdateAnchors = CH.UpdateAnchors

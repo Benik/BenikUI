@@ -1,7 +1,8 @@
-local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(ElvUI);
 local BUID = E:GetModule('BuiDashboard')
 
-local join = string.join
+local join, floor = string.join, floor
+local GetFramerate = GetFramerate
 
 local LastUpdate = 1
 

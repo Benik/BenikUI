@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUIT = E:NewModule('BuiTokensDashboard', 'AceEvent-3.0', 'AceHook-3.0')
 local LSM = LibStub('LibSharedMedia-3.0')
@@ -7,7 +7,11 @@ local DT = E:GetModule('DataTexts')
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.tokens == nil then E.db.dashboards.tokens = {} end
 
-local tinsert, twipe = table.insert, table.wipe
+local tinsert, twipe, ipairs = table.insert, table.wipe, ipairs
+
+local CreateFrame = CreateFrame
+local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
+local GetCurrencyInfo = GetCurrencyInfo
 
 local DASH_HEIGHT = 20
 local DASH_WIDTH = E.db.dashboards.tokens.width or 150

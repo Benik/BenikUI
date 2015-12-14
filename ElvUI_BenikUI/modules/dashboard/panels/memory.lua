@@ -1,8 +1,8 @@
-local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(ElvUI);
 local BUID = E:GetModule('BuiDashboard')
 
 local select, collectgarbage = select, collectgarbage
-local sort, wipe = table.sort, wipe
+local sort, wipe = table.sort, table.wipe
 local format = string.format
 
 local GetNumAddOns = GetNumAddOns

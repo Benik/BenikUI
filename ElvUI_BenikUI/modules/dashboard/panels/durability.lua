@@ -1,12 +1,15 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(ElvUI);
 local BUID = E:GetModule('BuiDashboard')
+
+local pairs, format, join = pairs, string.format, string.join
+local GetInventorySlotInfo = GetInventorySlotInfo
+local GetInventoryItemDurability = GetInventoryItemDurability
 
 local displayString = ''
 local tooltipString = '%d%%'
 local totalDurability = 0
 local current, max, lastPanel
 local invDurability = {}
-local join = string.join
 
 local function OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
