@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local BUIL = E:NewModule('BuiLayout', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');

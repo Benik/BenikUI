@@ -1,8 +1,11 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local AB = E:GetModule('ActionBars');
 local BAB = E:NewModule('BuiActionbars', 'AceEvent-3.0');
 
 if E.private.actionbar.enable ~= true then return; end
+
+local pairs = pairs
+local IsAddOnLoaded = IsAddOnLoaded
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
 

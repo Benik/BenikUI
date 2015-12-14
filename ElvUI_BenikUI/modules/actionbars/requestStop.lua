@@ -1,4 +1,8 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
+
+local CreateFrame = CreateFrame
+local UnitOnTaxi = UnitOnTaxi
+local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 
 local BAB = E:GetModule('BuiActionbars');
 

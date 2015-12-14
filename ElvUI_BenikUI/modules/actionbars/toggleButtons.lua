@@ -1,6 +1,8 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local AB = E:GetModule('ActionBars');
 local BAB = E:GetModule('BuiActionbars');
+
+local CreateFrame = CreateFrame
 
 local function ab3_OnClick()
 	if E.db.actionbar.bar3.enabled == true then
