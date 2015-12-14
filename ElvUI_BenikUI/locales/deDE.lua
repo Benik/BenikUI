@@ -19,6 +19,7 @@ L['Show/Hide the decorative bars from UI elements'] = "Dekorative Leisten von de
 L['Style Color'] = "Stil Farbe"
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
 L['light blue color.'] = "hell blau"
+L['Splash Screen'] = true
 
 -- Misc
 L['iLevel'] = true

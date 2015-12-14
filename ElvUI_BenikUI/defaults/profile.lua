@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+﻿local E, L, V, P, G = unpack(ElvUI);
 
 -- Add Party portraits additions to ElvUI defaults
 P['unitframe']['units']['party']['portrait']['height'] = 0
@@ -78,6 +78,7 @@ P['bui'] = {
 	['buiDts'] = true,
 	['buiFonts'] = true,
 	['LoginMsg'] = true,
+	['SplashScreen'] = true,
 	['transparentDts'] = false,
 	['editBoxPosition'] = 'BELOW_CHAT',
 	['middleDatatext'] = {

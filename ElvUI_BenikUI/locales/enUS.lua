@@ -19,6 +19,7 @@ L['Show/Hide the decorative bars from UI elements'] = true
 L['Style Color'] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = true
+L['Splash Screen'] = true
 
 -- Misc
 L['iLevel'] = true

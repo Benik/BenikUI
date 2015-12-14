@@ -3,6 +3,7 @@ local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 
 if E.db.bui == nil then E.db.bui = {} end
+local GetAddOnInfo = GetAddOnInfo
 local tinsert = table.insert
 
 local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
@@ -51,6 +52,7 @@ local function buiCore()
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						desc = L['Show/Hide the decorative bars from UI elements'],
+						width = 'full',
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, color) E.db.bui[ info[#info] ] = color; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
@@ -66,6 +68,13 @@ local function buiCore()
 						order = 3,
 						type = 'toggle',
 						name = L['Login Message'],
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; end,	
+					},
+					SplashScreen = {
+						order = 4,
+						type = 'toggle',
+						name = L['Splash Screen'],
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; end,	
 					},
