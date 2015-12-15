@@ -127,7 +127,9 @@ function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:LoadCommands()
 	StyleTooltip()
-	CreateSplashScreen()
+	if E.db.bui.SplashScreen then
+		CreateSplashScreen()
+	end
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
 	-- run install when ElvUI install finishes
