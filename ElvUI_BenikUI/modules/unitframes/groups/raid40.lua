@@ -36,6 +36,12 @@ function UFB:Update_Raid40Frames(frame, db)
 				emptybar:SetTemplate('Default')
 			end
 			
+			if db.emptybar.shadow then
+				emptybar.shadow:Show()
+			else
+				emptybar.shadow:Hide()
+			end
+			
 			if USE_POWERBAR_OFFSET then
 				emptybar:Point('TOPLEFT', frame.Power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
 				emptybar:Point('BOTTOMRIGHT', frame.Power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)

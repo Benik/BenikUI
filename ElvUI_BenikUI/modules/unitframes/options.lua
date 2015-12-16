@@ -482,15 +482,20 @@ local function injectPartyOptions()
 			},							
 			transparent = {
 				type = 'toggle',
+				order = 3,
 				name = L["Transparent"],
 				desc = L["Toggle EmptyBars transparency"],
-				order = 3,
+			},
+			shadow = {
+				type = 'toggle',
+				order = 4,
+				name = L["Shadow"],
 			},
 			threat = {
 				type = 'toggle',
+				order = 5,
 				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Party EmptyBars'],
-				order = 4,
+				desc = L['Places the threat glow on Pet EmptyBar'],
 			},
 		},
 	}
@@ -519,15 +524,20 @@ local function injectRaidOptions()
 			},							
 			transparent = {
 				type = 'toggle',
+				order = 3,
 				name = L["Transparent"],
 				desc = L["Toggle EmptyBars transparency"],
-				order = 3,
+			},
+			shadow = {
+				type = 'toggle',
+				order = 4,
+				name = L["Shadow"],
 			},
 			threat = {
 				type = 'toggle',
+				order = 5,
 				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Raid EmptyBars'],
-				order = 4,
+				desc = L['Places the threat glow on Pet EmptyBar'],
 			},
 		},
 	}
@@ -578,15 +588,20 @@ local function injectRaid40Options()
 			},							
 			transparent = {
 				type = 'toggle',
+				order = 3,
 				name = L["Transparent"],
 				desc = L["Toggle EmptyBars transparency"],
-				order = 3,
+			},
+			shadow = {
+				type = 'toggle',
+				order = 4,
+				name = L["Shadow"],
 			},
 			threat = {
 				type = 'toggle',
+				order = 5,
 				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Raid-40 EmptyBars'],
-				order = 4,
+				desc = L['Places the threat glow on Pet EmptyBar'],
 			},
 		},
 	}

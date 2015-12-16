@@ -13,6 +13,7 @@ P['unitframe']['units']['party']['emptybar'] = {
 	['enable'] = false,
 	['height'] = 20,
 	['transparent'] = true,
+	['shadow'] = false,
 	['threat'] = false,
 }
 
@@ -21,6 +22,7 @@ P['unitframe']['units']['raid']['emptybar'] = {
 	['enable'] = false,
 	['height'] = 14,
 	['transparent'] = true,
+	['shadow'] = false,
 	['threat'] = false,
 }
 
@@ -29,6 +31,7 @@ P['unitframe']['units']['raid40']['emptybar'] = {
 	['enable'] = false,
 	['height'] = 14,
 	['transparent'] = true,
+	['shadow'] = false,
 	['threat'] = false,
 }
 
