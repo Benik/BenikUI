@@ -96,8 +96,6 @@ local function SetRoleIcons()
 			end
 		end
 	end
-
-	UF:UpdateAllHeaders()
 end
 
 local f = CreateFrame("Frame")
