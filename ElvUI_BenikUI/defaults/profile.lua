@@ -37,6 +37,7 @@ P['unitframe']['units']['pet']['emptybar'] = {
 	['enable'] = false,
 	['height'] = 14,
 	['transparent'] = true,
+	['shadow'] = false,
 	['threat'] = false,
 }
 
@@ -45,6 +46,7 @@ P['unitframe']['units']['targettarget']['emptybar'] = {
 	['enable'] = false,
 	['height'] = 14,
 	['transparent'] = true,
+	['shadow'] = false,
 	['threat'] = false,
 }
 
@@ -53,6 +55,7 @@ P['unitframe']['units']['focus']['emptybar'] = {
 	['enable'] = false,
 	['height'] = 14,
 	['transparent'] = true,
+	['shadow'] = false,
 	['threat'] = false,
 }
 

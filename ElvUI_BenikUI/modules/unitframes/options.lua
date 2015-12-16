@@ -40,7 +40,6 @@ local function ufTable()
 						order = 3,
 						type = 'toggle',
 						name = L['Shadow'],
-						desc = L['Toggle EmptyBars shadow'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarShadow(); UFB:ToggleTargetBarShadow(); end,
@@ -328,15 +327,20 @@ local function injectPetOptions()
 			},							
 			transparent = {
 				type = 'toggle',
+				order = 3,
 				name = L["Transparent"],
 				desc = L["Toggle EmptyBars transparency"],
-				order = 3,
+			},
+			shadow = {
+				type = 'toggle',
+				order = 4,
+				name = L["Shadow"],
 			},
 			threat = {
 				type = 'toggle',
+				order = 5,
 				name = L['Threat on EmptyBars'],
 				desc = L['Places the threat glow on Pet EmptyBar'],
-				order = 4,
 			},
 		},
 	}
@@ -365,15 +369,20 @@ local function injectFocusOptions()
 			},							
 			transparent = {
 				type = 'toggle',
+				order = 3,
 				name = L["Transparent"],
 				desc = L["Toggle EmptyBars transparency"],
-				order = 3,
+			},
+			shadow = {
+				type = 'toggle',
+				order = 4,
+				name = L["Shadow"],
 			},
 			threat = {
 				type = 'toggle',
+				order = 5,
 				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Focus EmptyBar'],
-				order = 4,
+				desc = L['Places the threat glow on Pet EmptyBar'],
 			},
 		},
 	}
@@ -402,15 +411,20 @@ local function injectTargetTargetOptions()
 			},							
 			transparent = {
 				type = 'toggle',
+				order = 3,
 				name = L["Transparent"],
 				desc = L["Toggle EmptyBars transparency"],
-				order = 3,
+			},
+			shadow = {
+				type = 'toggle',
+				order = 4,
+				name = L["Shadow"],
 			},
 			threat = {
 				type = 'toggle',
+				order = 5,
 				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on TargetTarget EmptyBar'],
-				order = 4,
+				desc = L['Places the threat glow on Pet EmptyBar'],
 			},
 		},
 	}
