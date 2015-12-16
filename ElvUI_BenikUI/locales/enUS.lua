@@ -183,7 +183,8 @@ L['This opens the Raid-40 Frames EmptyBars settings.'] = true
 L['This opens the TargetTarget Frame EmptyBar settings.'] = true
 L['This opens the Pet Frame EmptyBar settings.'] = true
 L['Threat on EmptyBars'] = true
-L['Toggle EmptyBars transparency'] = true
+L['Toggle EmptyBar shadow'] = false
+L['Toggle EmptyBar transparency'] = true
 
 -- Raid
 L['Class Hover'] = true

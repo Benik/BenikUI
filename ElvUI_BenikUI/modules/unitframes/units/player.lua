@@ -35,6 +35,15 @@ function UFB:TogglePlayerBarTransparency()
 	end
 end
 
+function UFB:TogglePlayerBarShadow()
+	local frame = _G["ElvUF_Player"]
+	if E.db.ufb.toggleShadow then
+		frame.EmptyBar.shadow:Show()
+	else
+		frame.EmptyBar.shadow:Hide()
+	end
+end
+
 function UFB:UpdatePlayerBarAnchors(frame, isShown)
 	local frame = _G["ElvUF_Player"]
 	local db = E.db['unitframe']['units'].player

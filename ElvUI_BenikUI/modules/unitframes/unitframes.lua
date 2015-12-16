@@ -27,6 +27,8 @@ end
 function UFB:CreateEmptyBar(frame)
 	local emptybar = CreateFrame('Frame', nil, frame)
 	emptybar:SetFrameStrata('BACKGROUND')
+	emptybar:CreateShadow()
+	emptybar.shadow:Hide()
 	
 	return emptybar
 end

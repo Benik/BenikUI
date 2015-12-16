@@ -33,6 +33,15 @@ function UFB:ToggleTargetBarTransparency()
 	end
 end
 
+function UFB:ToggleTargetBarShadow()
+	local frame = _G["ElvUF_Target"]
+	if E.db.ufb.toggleShadow then
+		frame.EmptyBar.shadow:Show()
+	else
+		frame.EmptyBar.shadow:Hide()
+	end
+end
+
 function UFB:ArrangeTarget()
 	local frame = _G["ElvUF_Target"]
 	local EMPTY_BARS_HEIGHT = E.db.ufb.barheight

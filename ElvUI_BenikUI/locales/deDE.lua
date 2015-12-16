@@ -183,7 +183,8 @@ L['This opens the Raid-40 Frames EmptyBars settings.'] = "Dieses öffnet die Ein
 L['This opens the TargetTarget Frame EmptyBar settings.'] = "Dieses öffnet die Einstellungen für die Leeren-Rahmen im Ziel des Ziels Fenster."
 L['This opens the Pet Frame EmptyBar settings.'] = "Dieses öffnet die Einstellungen für die Leeren-Rahmen im Begleiterfenster."
 L['Threat on EmptyBars'] = "Bedrohung auf den leeren Leisten"
-L['Toggle EmptyBars transparency'] = "Leere Rahmen Transparenz umschalten"
+L['Toggle EmptyBar shadow'] = false
+L['Toggle EmptyBar transparency'] = "Leere Rahmen Transparenz umschalten"
 
 -- Raid
 L['Class Hover'] = "Klassenfarbeneffekt"

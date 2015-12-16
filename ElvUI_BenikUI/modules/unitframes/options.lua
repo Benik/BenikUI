@@ -31,13 +31,22 @@ local function ufTable()
 						order = 2,
 						type = 'toggle',
 						name = L['Transparent'],
-						desc = L['Toggle EmptyBars transparency'],
+						desc = L['Toggle EmptyBar transparency'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarTransparency(); UFB:ToggleTargetBarTransparency(); end,
 					},
-					barheight = {
+					toggleShadow = {
 						order = 3,
+						type = 'toggle',
+						name = L['Shadow'],
+						desc = L['Toggle EmptyBars shadow'],
+						get = function(info) return E.db.ufb[ info[#info] ] end,
+						disabled = function() return not E.db.ufb.barshow end,
+						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarShadow(); UFB:ToggleTargetBarShadow(); end,
+					},
+					barheight = {
+						order = 4,
 						type = 'range',
 						name = L['Height'],
 						desc = L['Change the EmptyBars height (Player and Target).'],
@@ -46,7 +55,7 @@ local function ufTable()
 						min = 10, max = 50, step = 1,
 					},
 					threat = {
-						order = 4,
+						order = 5,
 						type = 'toggle',
 						name = L['Threat on EmptyBars'],
 						desc = L['Places the threat glow on Player and Target EmptyBar'],
