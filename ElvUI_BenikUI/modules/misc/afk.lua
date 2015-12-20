@@ -251,6 +251,16 @@ function AFK:UpdateTimer()
 	self.AFKMode.bottom.time:SetText(nil)
 end
 
+-- XP string
+local M = E:GetModule('Misc');
+local function GetXPinfo()
+	if(UnitLevel('player') == MAX_PLAYER_LEVEL) or IsXPUserDisabled() then return end
+	
+	local cur, max = M:GetXP('player')
+	local curlvl = UnitLevel('player')
+
+	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
+end
 
 function BUI:SetAFK(status)
 	if(status) then
@@ -482,6 +492,18 @@ function AFK:Initialize()
 	self.AFKMode.countd.text:SetTextColor(0.7, 0.7, 0.7)
 	
 	self.AFKMode.bottom.time:Hide()
+	
+	local xptxt = GetXPinfo()
+	-- XP info
+	self.AFKMode.xp = CreateFrame("Frame", nil, self.AFKMode)
+	self.AFKMode.xp:Size(418, 36)
+	self.AFKMode.xp:Point("TOP", self.AFKMode.countd.lineBottom, "BOTTOM")
+	self.AFKMode.xp.text = self.AFKMode.xp:CreateFontString(nil, 'OVERLAY')
+	self.AFKMode.xp.text:FontTemplate(nil, 12)
+	self.AFKMode.xp.text:SetPoint("CENTER", self.AFKMode.xp, "CENTER")
+	self.AFKMode.xp.text:SetJustifyH("CENTER")
+	self.AFKMode.xp.text:SetText(xptxt)
+	self.AFKMode.xp.text:SetTextColor(0.7, 0.7, 0.7)
 	
 	-- Random stats frame
 	self.AFKMode.statMsg.info = CreateFrame("ScrollingMessageFrame", nil, self.AFKMode.statMsg)

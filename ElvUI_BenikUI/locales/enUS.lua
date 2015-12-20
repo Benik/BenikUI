@@ -96,6 +96,7 @@ L['RightClick to Hide'] = true
 L["Cursor moved. Timer reset."] = true
 L["Logout Timer"] = true
 L["Random Stats"] = true
+L["remaining till level"] = true
 
 -- Dashboards
 L['Bar Color'] = true

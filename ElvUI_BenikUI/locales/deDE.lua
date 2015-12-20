@@ -96,6 +96,7 @@ L['RightClick to Hide'] = "Rechts-Klick zum verstecken"
 L["Cursor moved. Timer reset."] = "Cursor bewegt. Timer zurückgesetzt."
 L["Logout Timer"] = "Auslogzeit"
 L["Random Stats"] = "Zufällige Werte"
+L["remaining till level"] = true
 
 -- Dashboards
 L['Bar Color'] = "Leistenfarbe"
