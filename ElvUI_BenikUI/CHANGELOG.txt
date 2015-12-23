@@ -1,3 +1,10 @@
+[b]2.36[/b]
+Added options to change the ilvl font/size/flag (user request - reload required)
+AFK mode: Added a string under the log off timer, that shows xp remaining till next level
+Added shadow option on all EmptyBars (user request - disabled by default)
+Added SVUI role icons
+deDE updates
+
 [b]2.35[/b]
 *Added a sleek Splash Screen. Can be disabled
 *Cached Blizzard functions
