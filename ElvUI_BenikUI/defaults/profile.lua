@@ -106,6 +106,9 @@ P['bui'] = {
 	['styledChatDts'] = false,
 	['chatDtsBackdrop'] = true,
 	['ilvl'] = true,
+	['ilvlfont'] = 'Bui Prototype',
+	['ilvlfontsize'] = 9,
+	['ilvlfontflags'] = 'OUTLINE',
 }
 
 -- Datatexts

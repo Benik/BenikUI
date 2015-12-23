@@ -5,6 +5,8 @@ if E.db.bui.ilvl == false then return end
 
 local match, gsub = string.match, gsub
 
+local LSM = LibStub('LibSharedMedia-3.0')
+
 local CreateFrame = CreateFrame
 local SetInventoryItem = SetInventoryItem
 local GetInventoryItemLink = GetInventoryItemLink
@@ -59,9 +61,9 @@ local function updateItems()
 	end
 end
 
-local function createString(parent, myPoint, parentPoint, x, y)
+function createString(parent, myPoint, parentPoint, x, y)
 	local s = f:CreateFontString(nil, "OVERLAY")
-	s:FontTemplate(nil, 9, 'OUTLINE')
+	s:FontTemplate(LSM:Fetch('font', E.db.bui.ilvlfont), E.db.bui.ilvlfontsize, E.db.bui.ilvlfontflags)
 	s:SetPoint(myPoint, parent, parentPoint, x or 0, y or 0)
 	return s
 end
