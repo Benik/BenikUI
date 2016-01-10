@@ -167,7 +167,23 @@ local function ufTable()
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid40", "emptybar") end,
 					},
 				},
-			},			
+			},
+			misc = {
+				order = 5,
+				type = 'group',
+				name = MISCELLANEOUS,
+				guiInline = true,
+				args = {
+					svui = {
+						order = 1,
+						type = 'toggle',
+						name = L['SVUI Icons'],
+						desc = L['Replaces the default role icons with SVUI ones.'],
+						get = function(info) return E.db.ufb[ info[#info] ] end,
+						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+				},
+			},
 		},
 	}
 end

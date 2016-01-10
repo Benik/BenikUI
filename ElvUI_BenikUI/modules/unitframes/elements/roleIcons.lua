@@ -1,6 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local UF = E:GetModule('UnitFrames');
-local CH = E:GetModule('Chat');
 
 local twipe, pairs, select = table.wipe, pairs, select
 
@@ -103,7 +102,7 @@ f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent(event)
 
-	if IsAddOnLoaded("ElvUI_SLE") then return end
+	if IsAddOnLoaded("ElvUI_SLE") or E.db.ufb.svui == false then return end
 	SetRoleIcons()
 
 	hooksecurefunc(UF, 'Update_PartyFrames', SetRoleIcons)

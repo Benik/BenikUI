@@ -264,6 +264,8 @@ P['ufb'] = {
 	['yOffsetText'] = -15,
 	['hideText'] = false,
 	['castbarWarned'] = nil,
+	-- Misc
+	['svui'] = true
 }
 
 -- ElvUI addons Styling
