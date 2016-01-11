@@ -76,6 +76,8 @@ P['unitframe']['units']['raid']['classHover'] = false
 -- Add raid40 classHover to ElvUI defaults
 P['unitframe']['units']['raid40']['classHover'] = false
 
+P['bags']['countPosition'] = 'TOPRIGHT'
+
 -- Core
 P['bui'] = {
 	['installed'] = nil,

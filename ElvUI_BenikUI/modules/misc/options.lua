@@ -1,6 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BXR = E:GetModule('BUIExpRep');
+local B = E:GetModule('Bags')
 
 local tinsert = table.insert
 
@@ -256,5 +257,27 @@ local function xprepTable()
 		},
 	}
 end
-
 tinsert(E.BuiConfig, xprepTable)
+
+local positionValues = {
+	TOPLEFT = 'TOPLEFT',
+	LEFT = 'LEFT',
+	BOTTOMLEFT = 'BOTTOMLEFT',
+	RIGHT = 'RIGHT',
+	TOPRIGHT = 'TOPRIGHT',
+	BOTTOMRIGHT = 'BOTTOMRIGHT',
+	CENTER = 'CENTER',
+	TOP = 'TOP',
+	BOTTOM = 'BOTTOM',
+}
+
+local function injectBagOptions()
+	E.Options.args.bags.args.general.args.countGroup.args.countPosition = {
+		type = 'select',
+		order = 5,
+		name = BUI:cOption(L["Position"]),
+		values = positionValues,
+		set = function(info, value) E.db.bags.countPosition = value; B:UpdateCountDisplay() end,
+	}
+end
+tinsert(E.BuiConfig, injectBagOptions)

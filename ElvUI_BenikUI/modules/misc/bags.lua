@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local BUIB = E:NewModule('BuiBags', 'AceHook-3.0', 'AceEvent-3.0');
+local B = E:GetModule('Bags')
 
 local _G = _G
 
@@ -47,10 +48,32 @@ function BUIB:AllInOneBags()
 	self:RegisterEvent('BANKFRAME_OPENED', 'OpenBankBags')
 end
 
+function BUIB:UpdateCountPosition()
+	if E.private.bags.enable ~= true then return; end
+
+	for _, bagFrame in pairs(B.BagFrames) do
+		for _, bagID in ipairs(bagFrame.BagIDs) do
+			for slotID = 1, GetContainerNumSlots(bagID) do
+				local slot = bagFrame.Bags[bagID][slotID]
+				if slot and slot.Count then
+					slot.Count:ClearAllPoints()
+					slot.Count:Point(E.db.bags.countPosition, 0, 0);
+				end
+			end
+		end
+		if bagFrame.UpdateAllSlots then
+			bagFrame:UpdateAllSlots()
+		end
+	end
+end
+
 function BUIB:Initialize()
 	if E.db.bui.buiStyle ~= true then return end
 	self:AllInOneBags()
 	self:SkinBlizzBags()
+	self:UpdateCountPosition()
+	
+	hooksecurefunc(B, 'UpdateCountDisplay', BUIB.UpdateCountPosition)
 end
 
 E:RegisterModule(BUIB:GetName())
