@@ -76,7 +76,8 @@ P['unitframe']['units']['raid']['classHover'] = false
 -- Add raid40 classHover to ElvUI defaults
 P['unitframe']['units']['raid40']['classHover'] = false
 
-P['bags']['countPosition'] = 'TOPRIGHT'
+-- Add Bag stack count to ElvUI defaults
+P['bags']['countPosition'] = 'BOTTOMRIGHT'
 
 -- Core
 P['bui'] = {
