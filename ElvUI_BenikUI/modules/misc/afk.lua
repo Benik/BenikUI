@@ -258,16 +258,20 @@ local function GetXPinfo()
 	
 	local cur, max = M:GetXP('player')
 	local curlvl = UnitLevel('player')
-
 	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
 end
 
 function BUI:SetAFK(status)
 	if(status) then
+		local xptxt = GetXPinfo()
+		local level = UnitLevel('player')
+		local nonCapClass = handleClass()
 		self.AFKMode.top:SetHeight(0)
 		self.AFKMode.top.anim.height:Play()
 		self.AFKMode.bottom:SetHeight(0)
 		self.AFKMode.bottom.anim.height:Play()
+		self.AFKMode.xp.text:SetText(xptxt)
+		self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, nonCapClass)
 	elseif (self.isAFK) then
 		total = 0
 		timer = 0
