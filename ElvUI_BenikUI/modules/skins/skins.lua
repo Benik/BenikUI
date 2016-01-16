@@ -223,6 +223,16 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				EncounterJournal:Style('Small')
 			end
 			EncounterJournalTooltip:Style('Outside')
+			local Tabs = {
+				_G["EncounterJournalEncounterFrameInfoBossTab"],
+				_G["EncounterJournalEncounterFrameInfoLootTab"],
+				_G["EncounterJournalEncounterFrameInfoModelTab"],
+				_G["EncounterJournalEncounterFrameInfoOverviewTab"]
+			}
+			
+			for _, Tab in pairs(Tabs) do
+				Tab.backdrop:Style('Outside')
+			end
 		end
 	end
 	
