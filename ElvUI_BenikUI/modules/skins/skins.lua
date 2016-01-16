@@ -224,14 +224,16 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			end
 			EncounterJournalTooltip:Style('Outside')
 			local Tabs = {
-				_G["EncounterJournalEncounterFrameInfoBossTab"],
-				_G["EncounterJournalEncounterFrameInfoLootTab"],
-				_G["EncounterJournalEncounterFrameInfoModelTab"],
-				_G["EncounterJournalEncounterFrameInfoOverviewTab"]
+				EncounterJournalEncounterFrameInfoBossTab,
+				EncounterJournalEncounterFrameInfoLootTab,
+				EncounterJournalEncounterFrameInfoModelTab,
+				EncounterJournalEncounterFrameInfoOverviewTab
 			}
 			
 			for _, Tab in pairs(Tabs) do
-				Tab.backdrop:Style('Outside')
+				if Tab.backdrop then
+					Tab.backdrop:Style('Outside')
+				end
 			end
 		end
 	end
@@ -260,6 +262,8 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			StopwatchFrame.backdrop:Style('Outside')
 		end
 	end
+	
+	QuestMapFrame:StripTextures()
 end
 
 -- Blizzard Styles
