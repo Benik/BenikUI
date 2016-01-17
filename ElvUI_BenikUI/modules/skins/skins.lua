@@ -262,8 +262,6 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			StopwatchFrame.backdrop:Style('Outside')
 		end
 	end
-	
-	QuestMapFrame:StripTextures()
 end
 
 -- Blizzard Styles
