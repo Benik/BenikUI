@@ -56,11 +56,9 @@ function BUIC:ToggleCastbarText(unit, bar)
 					UnitUF.Name:Hide()
 				end	
 				
-				if  E.db.unitframe.units[unit].customTexts == {} then
-					for objectName, _ in pairs(E.db.unitframe.units[unit].customTexts) do
-						if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
-							UnitUF.customTexts[objectName]:Hide()
-						end
+				for objectName, _ in pairs(E.db.unitframe.units[unit].customTexts) do
+					if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
+						UnitUF.customTexts[objectName]:Hide()
 					end
 				end
 			end)
@@ -78,11 +76,9 @@ function BUIC:ToggleCastbarText(unit, bar)
 					UnitUF.Name:Show()
 				end	
 				
-				if E.db.unitframe.units[unit].customTexts == {} then
-					for objectName, _ in pairs(E.db.unitframe.units[unit].customTexts) do
-						if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
-							UnitUF.customTexts[objectName]:Show()
-						end
+				for objectName, _ in pairs(E.db.unitframe.units[unit].customTexts) do
+					if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
+						UnitUF.customTexts[objectName]:Show()
 					end
 				end
 			end)
