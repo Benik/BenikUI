@@ -5,10 +5,14 @@ local LSM = LibStub('LibSharedMedia-3.0')
 local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, ns = ...
 
-local pairs = pairs
+local pairs, print = pairs, print
 local format = string.format
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
+local C_TimerAfter = C_Timer.After
+local GameTooltip = _G["GameTooltip"]
+
+-- GLOBALS: LibStub, BenikUISplashScreen, ElvDB
 
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
@@ -69,7 +73,7 @@ function BUI:LoadCommands()
 end
 
 local function CreateSplashScreen()
-	local f = CreateFrame('Frame', 'SplashScreen', E.UIParent)
+	local f = CreateFrame('Frame', 'BenikUISplashScreen', E.UIParent)
 	f:Size(300, 150)
 	f:SetPoint('CENTER', 0, 100)
 	f:SetFrameStrata('TOOLTIP')
@@ -108,19 +112,19 @@ local function CreateSplashScreen()
 end
 
 local function HideSplashScreen()
-	SplashScreen:Hide()
+	BenikUISplashScreen:Hide()
 end
 
 local function FadeSplashScreen()
 	E:Delay(2, function()
-		E:UIFrameFadeOut(SplashScreen, 2, 1, 0)
-		SplashScreen.fadeInfo.finishedFunc = HideSplashScreen
+		E:UIFrameFadeOut(BenikUISplashScreen, 2, 1, 0)
+		BenikUISplashScreen.fadeInfo.finishedFunc = HideSplashScreen
 	end)
 end
 
 local function ShowSplashScreen()
-	E:UIFrameFadeIn(SplashScreen, 4, 0, 1)
-	SplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
+	E:UIFrameFadeIn(BenikUISplashScreen, 4, 0, 1)
+	BenikUISplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
 end
 
 function BUI:Initialize()
@@ -136,7 +140,7 @@ function BUI:Initialize()
 	if E.private.install_complete == E.version and E.db.bui.installed == nil then self:SetupBui() end
 	
 	-- Show Splash Screen only if the install is completed
-	if (E.db.bui.installed == true and E.db.bui.SplashScreen) then C_Timer.After(6, ShowSplashScreen) end
+	if (E.db.bui.installed == true and E.db.bui.SplashScreen) then C_TimerAfter(6, ShowSplashScreen) end
 	
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]

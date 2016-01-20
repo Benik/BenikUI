@@ -2,6 +2,8 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local LSM = LibStub('LibSharedMedia-3.0')
 
+local EnableAddOn, DisableAddOn = EnableAddOn, DisableAddOn
+
 function BUI:EnableBuiFonts()
 	if E.db.bui.buiFonts then
 		EnableAddOn('ElvUI_BenikUI_Fonts')

@@ -9,7 +9,10 @@ local BUTTON_HEIGHT = 16
 local BUTTON_WIDTH = 135
 local counter = 0
 local hoverVisible = false
+
 local tinsert = table.insert
+local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
+local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
 
 local function OnClick(btn)
 	local parent = btn:GetParent()

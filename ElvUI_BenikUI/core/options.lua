@@ -7,8 +7,8 @@ local GetAddOnInfo = GetAddOnInfo
 local tinsert = table.insert
 
 local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
-local COLOR_PICKER, MISCELLANEOUS = COLOR_PICKER, MISCELLANEOUS
-local CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP = CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP
+local COLORS, COLOR_PICKER, MISCELLANEOUS = COLORS, COLOR_PICKER, MISCELLANEOUS
+local CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP, FONT_SIZE = CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP, FONT_SIZE
 
 local function buiCore()
 	E.Options.args.bui = {
@@ -62,7 +62,7 @@ local function buiCore()
 						name = L['Force BenikUI fonts'],
 						desc = L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'],
 						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; value, _, _, _ = GetAddOnInfo('ElvUI_BenikUI_Fonts'); BUI:EnableBuiFonts(); E:StaticPopup_Show('PRIVATE_RL'); end,	
+						set = function(info, value) E.db.bui[ info[#info] ] = value; value = GetAddOnInfo('ElvUI_BenikUI_Fonts'); E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 					LoginMsg = {
 						order = 3,

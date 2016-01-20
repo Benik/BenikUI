@@ -1,9 +1,10 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 
-local ceil = ceil
-local format = format
+local ceil, format, print = ceil, format, print
+local _G = _G
 
+local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local PlaySoundFile = PlaySoundFile
 local ReloadUI = ReloadUI
@@ -17,6 +18,12 @@ local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
 local CONTINUE, PREVIOUS, ADDONS = CONTINUE, PREVIOUS, ADDONS
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 local LOOT, TRADE = LOOT, TRADE
+local TANK, HEALER = TANK, HEALER
+
+local CreateAnimationGroup = CreateAnimationGroup
+
+-- GLOBALS: BUIInstallFrame, BUITitleFrame, InstallStepComplete, InstallStatus, InstallNextButton, InstallPrevButton
+-- GLOBALS: InstallOption1Button, InstallOption2Button, InstallOption3Button, InstallOption4Button, LeftChatToggleButton
 
 local CURRENT_PAGE = 0
 local MAX_PAGE = 9
@@ -1254,10 +1261,6 @@ end
 local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.bui.installed = true
-	
-	if GetCVarBool('Sound_EnableMusic') then
-		StopMusic()
-	end
 	
 	ReloadUI()
 end

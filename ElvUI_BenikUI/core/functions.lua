@@ -2,6 +2,9 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local LSM = LibStub('LibSharedMedia-3.0')
 
+local CreateFrame = CreateFrame
+local getmetatable = getmetatable
+
 local SPACING = (E.PixelMode and 1 or 3)
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
