@@ -9,11 +9,10 @@ local BUID = E:NewModule('BuiDashboard')
 local LSM = LibStub('LibSharedMedia-3.0')
 local DT = E:GetModule('DataTexts')
 
-local tinsert, twipe, getn, pairs = table.insert, table.wipe, getn, pairs
+local tinsert, twipe, getn, pairs, ipairs = table.insert, table.wipe, getn, pairs, ipairs
 
 local CreateFrame = CreateFrame
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
-local IsAddOnLoaded = IsAddOnLoaded
 
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.system == nil then E.db.dashboards.system = {} end
@@ -192,18 +191,7 @@ function BUID:Initialize()
 	if db.Memory then self:CreateMemory() end
 	if db.Durability then self:CreateDurability() end
 	if db.Volume then self:CreateVolume() end
-	if IsAddOnLoaded('ZygorGuidesViewer') and E.private.BUID.warned == false and db.Memory == true and E.db.bui.installed == true then StaticPopup_Show('Zygor_Compatibility') end
+	if E.private.BUID.warned then E.private.BUID.warned = nil end -- delete the Zygor warn setting
 end
 
 E:RegisterModule(BUID:GetName())
-
-StaticPopupDialogs['Zygor_Compatibility'] = {
-	text = L['ZYGOR_CONFLICT_WARNING'],
-	button1 = CONTINUE,
-	button2 = L['I understand'],
-	OnAccept = function() E.private.BUID.warned = true; E.db.dashboards.system.chooseSystem.Memory = false; ReloadUI() end,
-	OnCancel = function() E.private.BUID.warned = true; end,
-	timeout = 0,
-	whileDead = 1,
-	preferredIndex = 3,
-}

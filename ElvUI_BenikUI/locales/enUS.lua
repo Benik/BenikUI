@@ -124,8 +124,8 @@ L['Show/Hide Tokens Dashboard when in combat'] = true
 L['Show/Hide Tooltips'] = true
 L['System'] = true
 L['Tip: Grayed tokens are not yet discovered'] = true
+L['Tip: Click to free memory'] = true
 L['Use DataTexts font'] = true
-L['ZYGOR_CONFLICT_WARNING'] = "It has been reported that Zygor Guides has issues with Dashboard Memory module.\nClick "..CONTINUE.." to disable the Memory module or 'I understand' to close this popup"
 
 -- DataTexts
 L['New Mail'] = true

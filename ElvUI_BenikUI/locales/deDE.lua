@@ -124,8 +124,8 @@ L['Show/Hide Tokens Dashboard when in combat'] = "Abzeichen Dashboard im Kampf a
 L['Show/Hide Tooltips'] = "Tooltip anzeigen/ausblenden"
 L['System'] = true
 L['Tip: Grayed tokens are not yet discovered'] = "Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
+L['Tip: Click to free memory'] = true
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
-L['ZYGOR_CONFLICT_WARNING'] = "Es wurde berichtet, das Zygor Guides Probleme mit dem Speicher-Dashboard hat.\nKlick "..CONTINUE.." um das Speicher-Modul zu deaktivieren oder 'Ich verstehe' um dieses Popup zu schließen." -- bad translation (need review)
 
 -- DataTexts
 L['New Mail'] = "Neue Post"

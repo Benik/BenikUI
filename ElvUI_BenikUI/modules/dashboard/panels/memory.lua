@@ -10,6 +10,8 @@ local GetAddOnInfo = GetAddOnInfo
 local IsAddOnLoaded = IsAddOnLoaded
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local GetAddOnMemoryUsage = GetAddOnMemoryUsage
+local InCombatLockdown = InCombatLockdown
+local GameTooltip = _G["GameTooltip"]
 
 local kiloByteString = '|cfff6a01a %d|r'..' kb'
 local megaByteString = '|cfff6a01a %.2f|r'..' mb'
@@ -67,7 +69,7 @@ local int = 10
 local function Update( self, t )
 	local boardName = Memory
 	int = int - t
-
+	if InCombatLockdown() then return end
 	if( int < 0 ) then
 		RebuildAddonList(self)
 		local total = UpdateMemory()
@@ -82,6 +84,7 @@ function BUID:CreateMemory()
 	local boardName = Memory
 	boardName:SetScript( 'OnMouseDown', function (self)
 		collectgarbage( 'collect' )
+		Update(boardName, 10)
 	end )
 
 	boardName:SetScript( 'OnEnter', function( self )
@@ -98,6 +101,8 @@ function BUID:CreateMemory()
 					GameTooltip:AddDoubleLine( memoryTable[i][2], formatMem( memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0 )
 				end
 			end
+			GameTooltip:AddLine(' ')
+			GameTooltip:AddLine(L['Tip: Click to free memory'], 0.7, 0.7, 1)
 			GameTooltip:Show()
 		end
 	end )
