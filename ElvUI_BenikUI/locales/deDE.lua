@@ -123,8 +123,8 @@ L['Show/Hide System Dashboard when in combat'] = "Dashboard im Kampf anzeigen/au
 L['Show/Hide Tokens Dashboard when in combat'] = "Abzeichen Dashboard im Kampf anzeigen/ausblenden"
 L['Show/Hide Tooltips'] = "Tooltip anzeigen/ausblenden"
 L['System'] = true
-L['Tip: Grayed tokens are not yet discovered'] = "Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
-L['Tip: Click to free memory'] = true
+L['Tip: Grayed tokens are not yet discovered'] = "Tip: Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
+L['Tip: Click to free memory'] = "Tip: Klicken um den Speicher zu bereinigen"
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
 
 -- DataTexts
