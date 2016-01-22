@@ -58,8 +58,10 @@ local function UpdateMemory()
 		memoryTable[i][3] = addOnMemory
 		totalMemory = totalMemory + addOnMemory
 	end
-
-	sort( memoryTable, sortByMemory )
+	
+	if not InCombatLockdown() then
+		sort( memoryTable, sortByMemory )
+	end
 
 	return totalMemory
 end
@@ -69,7 +71,7 @@ local int = 10
 local function Update( self, t )
 	local boardName = Memory
 	int = int - t
-	if InCombatLockdown() then return end
+
 	if( int < 0 ) then
 		RebuildAddonList(self)
 		local total = UpdateMemory()
