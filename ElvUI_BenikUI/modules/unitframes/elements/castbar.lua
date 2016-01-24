@@ -57,6 +57,7 @@ function BUIC:ToggleCastbarText(unit, bar)
 				end	
 				
 				for objectName, _ in pairs(E.db.unitframe.units[unit].customTexts) do
+					E.db.unitframe.units[unit].customTexts[objectName].yOffset = E.db.unitframe.units[unit].customTexts[objectName].yOffset or 0
 					if E.db.unitframe.units[unit].customTexts[objectName].yOffset < min_yOffset then
 						UnitUF.customTexts[objectName]:Hide()
 					end
