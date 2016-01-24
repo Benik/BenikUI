@@ -251,7 +251,7 @@ function UFB:ArrangePlayer()
 				else
 					portrait.backdrop.shadow:Hide()
 				end
-
+				local rIcon = frame.Resting
 				if PORTRAIT_DETACHED then
 					frame.portraitmover:Width(PLAYER_PORTRAIT_WIDTH)
 					frame.portraitmover:Height(PLAYER_PORTRAIT_HEIGHT)
@@ -270,6 +270,12 @@ function UFB:ArrangePlayer()
 						frame.portraitmover:ClearAllPoints()
 						frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")		
 					end
+					
+					if db.restIcon then
+						rIcon:ClearAllPoints()
+						rIcon:SetParent(portrait)
+						rIcon:Point('CENTER', portrait, 'TOPLEFT')
+					end
 				else
 					portrait.backdrop:ClearAllPoints()
 					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", BORDER, 0)
@@ -284,6 +290,12 @@ function UFB:ArrangePlayer()
 					
 					if db.portrait.style == '3D' then
 						portrait.backdrop:SetFrameLevel(frame.Power:GetFrameLevel() + 1)
+					end
+					
+					if db.restIcon then
+						rIcon:ClearAllPoints()
+						rIcon:SetParent(frame)
+						rIcon:Point('CENTER', frame, 'TOPLEFT')
 					end
 				end
 				portrait:ClearAllPoints()
