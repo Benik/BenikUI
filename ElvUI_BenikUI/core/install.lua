@@ -1289,7 +1289,7 @@ local function SetPage(PageNum)
 	if PageNum == 1 then
 		f.SubTitle:SetFormattedText(L['Welcome to BenikUI version %s, for ElvUI %s.'], BUI.Version, E.version)
 		f.Desc1:SetFormattedText("%s", L["By pressing the Continue button, BenikUI will be applied in your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
-		f.Desc2:SetFormattedText("%s", BUI:cOption(L['BenikUI options are marked with light blue color, inside ElvUI options.']))
+		f.Desc2:SetFormattedText("%s", BUI:cOption(L['\nBenikUI options are marked with light blue color, inside ElvUI options.']))
 		f.Desc3:SetFormattedText("%s", L['Please press the continue button to go onto the next step.'])
 		titleText[1].text:SetText(titleText[1].text:GetText())		
 		InstallOption1Button:Show()
