@@ -57,7 +57,7 @@ local function ufTable()
 						order = 5,
 						type = 'toggle',
 						name = L['Threat on EmptyBars'],
-						desc = L['Places the threat glow on Player and Target EmptyBar'],
+						desc = L['Places the threat glow on Player and Target EmptyBars'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); end,
