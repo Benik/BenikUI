@@ -179,6 +179,7 @@ L['Replaces the default role icons with SVUI ones.'] = true
 L['Shadow'] = true
 L['Shortcuts to EmptyBar Options for:'] = true
 L['Show/Hide the Castbar text.'] = true
+L['Style Height'] = true
 L['SVUI Icons'] = true
 L['This opens the Focus Frame EmptyBar settings.'] = true
 L['This opens the Party Frames EmptyBars settings.'] = true
