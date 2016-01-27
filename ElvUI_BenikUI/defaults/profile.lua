@@ -253,7 +253,7 @@ P['ufb'] = {
 	['PlayerPortraitHeight'] = 85,
 	['PlayerPortraitShadow'] = false,
 	['PlayerPortraitTransparent'] = true,
-	['PlayerPortraitStyle'] = false,
+	['PlayerPortraitStyle'] = true,
 	['PlayerPortraitStyleHeight'] = 6,
 	['detachTargetPortrait'] = false,
 	['getPlayerPortraitSize'] = true,
@@ -261,7 +261,7 @@ P['ufb'] = {
 	['TargetPortraitHeight'] = 85,
 	['TargetPortraitShadow'] = false,
 	['TargetPortraitTransparent'] = true,
-	['TargetPortraitStyle'] = false,
+	['TargetPortraitStyle'] = true,
 	['TargetPortraitStyleHeight'] = 6,
 	-- Powerbar texture
 	['powerstatusbar'] = 'BuiFlat',
