@@ -161,7 +161,7 @@ function BUIC:CastbarSetPosition(unit, bar)
 
 			-- Position the castbar on top of the EmptyBar
 			Mover:ClearAllPoints()
-			Mover:Point("TOPLEFT", emptybar, "TOPLEFT", 0, 0)
+			Mover:Point("TOPLEFT", emptybar, "TOPLEFT", 0, -1) -- Have to use new ElvUI spacings here ****************
 		else
 			-- Reset text
 			UnitUF.Castbar.Text:ClearAllPoints()
@@ -195,13 +195,10 @@ function BUIC:SetSizeAndPosition()
 		self:UpdatePlayer()
 		self:UpdateTarget()
 	end
-
 end
 
 function BUIC:PLAYER_ENTERING_WORLD()
-	self:ScheduleTimer('SetSizeAndPosition', 10)
-	self:ToggleCastbarText('player', ElvUF_Player.EmptyBar)
-	self:ToggleCastbarText('target', ElvUF_Target.EmptyBar)
+	self:ScheduleTimer('SetSizeAndPosition', 3)
 end
 
 function BUIC:ACTIVE_TALENT_GROUP_CHANGED()
@@ -216,7 +213,6 @@ end
 function BUIC:UpdateTarget()
 	self:CastbarSetSize('target', ElvUF_Target.EmptyBar)
 	self:CastbarSetPosition('target', ElvUF_Target.EmptyBar)
-
 end
 
 function BUIC:OnInitialize()
@@ -238,6 +234,8 @@ function BUIC:OnInitialize()
 				BUIC:ScheduleTimer('UpdateTarget', 0.01)
 			end
 		end)
+		self:ToggleCastbarText('player', ElvUF_Player.EmptyBar)
+		self:ToggleCastbarText('target', ElvUF_Target.EmptyBar)
 	end
 
 	--Register a few events we need

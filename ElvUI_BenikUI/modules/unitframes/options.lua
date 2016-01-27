@@ -95,6 +95,7 @@ local function ufTable()
 						type = 'toggle',
 						name = L['Attach on EmptyBars'],
 						desc = L['Attaches Player and Target Castbar on the EmptyBars.'],
+						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					castText = {
 						order = 2,
