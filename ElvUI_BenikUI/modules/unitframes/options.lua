@@ -246,6 +246,12 @@ local function ufPlayerTable()
 				disabled = function() return not E.db.ufb.detachPlayerPortrait end,
 				min = 10, max = 250, step = 1,
 			},
+			PlayerPortraitStyle = {
+				order = 6,
+				type = 'toggle',
+				name = L['BenikUI Style on Portrait'],
+				disabled = function() return not E.db.ufb.detachPlayerPortrait or not E.db.bui.buiStyle end,
+			},
 		},
 	}
 end
@@ -316,6 +322,12 @@ local function ufTargetTable()
 				desc = L['Change the detached portrait height'],
 				disabled = function() return E.db.ufb.getPlayerPortraitSize or not E.db.ufb.detachTargetPortrait end,
 				min = 10, max = 250, step = 1,
+			},
+			TargetPortraitStyle = {
+				order = 7,
+				type = 'toggle',
+				name = L['BenikUI Style on Portrait'],
+				disabled = function() return not E.db.ufb.detachTargetPortrait or not E.db.bui.buiStyle end,
 			},
 		},
 	}

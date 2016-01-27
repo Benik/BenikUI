@@ -251,11 +251,23 @@ function UFB:ArrangePlayer()
 				else
 					portrait.backdrop.shadow:Hide()
 				end
+				
 				local rIcon = frame.Resting
+				
 				if PORTRAIT_DETACHED then
 					frame.portraitmover:Width(PLAYER_PORTRAIT_WIDTH)
 					frame.portraitmover:Height(PLAYER_PORTRAIT_HEIGHT)
 					portrait.backdrop:SetAllPoints(frame.portraitmover)
+					
+					portrait.backdrop:Style('Outside')
+					if portrait.backdrop.style then
+						if E.db.ufb.PlayerPortraitStyle then
+							portrait.backdrop.style:Show()
+						else
+							portrait.backdrop.style:Hide()
+						end
+					end
+					
 					if db.portrait.style == '3D' then
 						portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
 						portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
@@ -273,8 +285,13 @@ function UFB:ArrangePlayer()
 					
 					if db.restIcon then
 						rIcon:ClearAllPoints()
-						rIcon:SetParent(portrait)
-						rIcon:Point('CENTER', portrait, 'TOPLEFT')
+						if E.db.ufb.PlayerPortraitStyle and portrait.backdrop.style then
+							rIcon:SetParent(portrait.backdrop.style)
+							rIcon:Point('CENTER', portrait.backdrop.style, 'TOPLEFT')					
+						else
+							rIcon:SetParent(portrait)
+							rIcon:Point('CENTER', portrait, 'TOPLEFT')
+						end
 					end
 				else
 					portrait.backdrop:ClearAllPoints()

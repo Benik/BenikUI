@@ -156,6 +156,7 @@ L['Apply shadow under the portrait'] = true
 L['Apply transparency on the portrait backdrop.'] = true
 L['Attach on EmptyBars'] = true
 L['Attaches Player and Target Castbar on the EmptyBars.'] = true
+L['BenikUI Style on Portrait'] = true
 L['Castbar Text'] = true
 L['Change the EmptyBars height (Player and Target).'] = true
 L['Change the detached portrait height'] = true

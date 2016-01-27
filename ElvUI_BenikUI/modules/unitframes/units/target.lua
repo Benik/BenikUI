@@ -115,6 +115,16 @@ function UFB:ArrangeTarget()
 					portrait.backdrop.SetPoint = nil
 					portrait.backdrop:SetAllPoints(frame.portraitmover)
 					portrait.backdrop.SetPoint = E.noop
+					
+					portrait.backdrop:Style('Outside')
+					if portrait.backdrop.style then
+						if E.db.ufb.TargetPortraitStyle then
+							portrait.backdrop.style:Show()
+						else
+							portrait.backdrop.style:Hide()
+						end
+					end
+					
 					if db.portrait.style == '3D' then
 						portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
 						portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())

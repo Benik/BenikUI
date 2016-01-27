@@ -156,6 +156,7 @@ L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrai
 L['Apply transparency on the portrait backdrop.'] = "Wende Transparenz auf den Portrait Hintergrund an."
 L['Attach on EmptyBars'] = "Anheften an Leere Rahmen"
 L['Attaches Player and Target Castbar on the EmptyBars.'] = "Richtet Spieler- und Zielzauberleiste an den leeren Rahmen aus."
+L['BenikUI Style on Portrait'] = true
 L['Castbar Text'] = "Zauberleisten Text"
 L['Change the EmptyBars height (Player and Target).'] = "Ändere die Leere Rahmen Höhe (Spieler und Ziel)."
 L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten Portrait"

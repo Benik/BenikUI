@@ -253,12 +253,14 @@ P['ufb'] = {
 	['PlayerPortraitHeight'] = 85,
 	['PlayerPortraitShadow'] = false,
 	['PlayerPortraitTransparent'] = true,
+	['PlayerPortraitStyle'] = false,
 	['detachTargetPortrait'] = false,
 	['getPlayerPortraitSize'] = true,
 	['TargetPortraitWidth'] = 110,
 	['TargetPortraitHeight'] = 85,
 	['TargetPortraitShadow'] = false,
 	['TargetPortraitTransparent'] = true,
+	['TargetPortraitStyle'] = false,
 	-- Powerbar texture
 	['powerstatusbar'] = 'BuiFlat',
 	-- Castbar attach
