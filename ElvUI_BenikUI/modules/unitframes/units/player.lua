@@ -18,6 +18,11 @@ function UFB:Construct_PlayerFrame()
 		frame.Portrait.backdrop:CreateSoftShadow()
 		frame.Portrait.backdrop.shadow:Hide()
 	end
+
+	if not frame.Portrait.backdrop.style then
+		frame.Portrait.backdrop:Style('Outside')
+		frame.Portrait.backdrop.style:Hide()
+	end
 	
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
@@ -258,8 +263,7 @@ function UFB:ArrangePlayer()
 					frame.portraitmover:Width(PLAYER_PORTRAIT_WIDTH)
 					frame.portraitmover:Height(PLAYER_PORTRAIT_HEIGHT)
 					portrait.backdrop:SetAllPoints(frame.portraitmover)
-					
-					portrait.backdrop:Style('Outside')
+
 					if portrait.backdrop.style then
 						if E.db.ufb.PlayerPortraitStyle then
 							portrait.backdrop.style:Show()

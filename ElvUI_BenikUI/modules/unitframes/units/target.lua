@@ -16,6 +16,11 @@ function UFB:Construct_TargetFrame()
 		frame.Portrait.backdrop:CreateSoftShadow()
 		frame.Portrait.backdrop.shadow:Hide()
 	end
+
+	if not frame.Portrait.backdrop.style then
+		frame.Portrait.backdrop:Style('Outside')
+		frame.Portrait.backdrop.style:Hide()
+	end
 	
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
@@ -115,8 +120,7 @@ function UFB:ArrangeTarget()
 					portrait.backdrop.SetPoint = nil
 					portrait.backdrop:SetAllPoints(frame.portraitmover)
 					portrait.backdrop.SetPoint = E.noop
-					
-					portrait.backdrop:Style('Outside')
+
 					if portrait.backdrop.style then
 						if E.db.ufb.TargetPortraitStyle then
 							portrait.backdrop.style:Show()
