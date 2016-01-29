@@ -77,16 +77,16 @@ function UFB:ArrangeTarget()
 		if USE_EMPTY_BAR then
 			emptybar:Show()
 			if USE_POWERBAR_OFFSET then
-				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, BORDER - SPACING*3)
 				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)			
 			elseif USE_MINI_POWERBAR or USE_INSET_POWERBAR then
-				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, BORDER - SPACING*3)
 				emptybar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif POWERBAR_DETACHED or not USE_POWERBAR then
-				emptybar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, E.PixelMode and BORDER or -1)
+				emptybar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, BORDER - SPACING*3)
 				emptybar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)		
 			else
-				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, BORDER - SPACING*3)
 				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			end
 		else
@@ -155,15 +155,15 @@ function UFB:ArrangeTarget()
 
 					if USE_EMPTY_BAR then
 						portrait.backdrop.SetPoint = nil
-						portrait.backdrop:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMRIGHT", E.PixelMode and -1 or SPACING, 0)
+						portrait.backdrop:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMRIGHT", BORDER - SPACING*3, 0)
 						portrait.backdrop.SetPoint = E.noop
 					elseif USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
 						portrait.backdrop.SetPoint = nil
-						portrait.backdrop:Point("BOTTOMLEFT", frame.Health.backdrop, "BOTTOMRIGHT", E.PixelMode and -1 or SPACING, 0)
+						portrait.backdrop:Point("BOTTOMLEFT", frame.Health.backdrop, "BOTTOMRIGHT", BORDER - SPACING*3, 0)
 						portrait.backdrop.SetPoint = E.noop
 					else
 						portrait.backdrop.SetPoint = nil
-						portrait.backdrop:Point("BOTTOMLEFT", frame.Power.backdrop, "BOTTOMRIGHT", E.PixelMode and -1 or SPACING, 0)
+						portrait.backdrop:Point("BOTTOMLEFT", frame.Power.backdrop, "BOTTOMRIGHT", BORDER - SPACING*3, 0)
 						portrait.backdrop.SetPoint = E.noop
 					end
 

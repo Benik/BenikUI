@@ -162,15 +162,15 @@ function UFB:UpdatePlayerBarAnchors(frame, isShown)
 			else
 				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or USE_INSET_POWERBAR or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
 					if USE_EMPTY_BAR then
-						portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+						portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", BORDER - SPACING*3, 0)
 					else
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", BORDER - SPACING*3, 0)
 					end
 				else
 					if USE_EMPTY_BAR then
-						portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+						portrait.backdrop:Point("BOTTOMRIGHT", PlayerBar, "BOTTOMLEFT", BORDER - SPACING*3, 0)
 					else
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", BORDER - SPACING*3, 0)
 					end
 				end
 			end
@@ -187,7 +187,8 @@ function UFB:ArrangePlayer()
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
-	local SHADOW_SPACING = E.PixelMode and 3 or 1
+	local BORDER = E.Border;
+	local SHADOW_SPACING = BORDER*4
 	local USE_POWERBAR = db.power.enable
 	local POWERBAR_HEIGHT = db.power.height
 	local USE_INSET_POWERBAR = db.power.width == 'inset' and USE_POWERBAR
@@ -220,16 +221,16 @@ function UFB:ArrangePlayer()
 			end
 			
 			if USE_POWERBAR_OFFSET then
-				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, BORDER - SPACING*3)
 				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif USE_MINI_POWERBAR or USE_INSET_POWERBAR then
-				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, BORDER - SPACING*3)
 				emptybar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif POWERBAR_DETACHED or not USE_POWERBAR then
-				emptybar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, E.PixelMode and BORDER or -1)
+				emptybar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, BORDER - SPACING*3)
 				emptybar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)
 			else
-				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, E.PixelMode and 0 or -3)
+				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, BORDER - SPACING*3)
 				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			end
 		else
@@ -240,11 +241,8 @@ function UFB:ArrangePlayer()
 	-- Portrait
 	do	
 		local portrait = frame.Portrait
-		
 		if USE_PORTRAIT then
-
 			if not USE_PORTRAIT_OVERLAY then
-				
 				if E.db.ufb.PlayerPortraitTransparent then
 					portrait.backdrop:SetTemplate('Transparent')
 				else
@@ -274,7 +272,7 @@ function UFB:ArrangePlayer()
 						portrait.backdrop.style:Point('TOPLEFT', portrait.backdrop, 'TOPLEFT', 0, E.db.ufb.PlayerPortraitStyleHeight)
 						portrait.backdrop.style:Point('BOTTOMRIGHT', portrait.backdrop, 'TOPRIGHT', 0, (E.PixelMode and -1 or 1))
 					end
-					
+
 					if db.portrait.style == '3D' then
 						portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
 						portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
@@ -305,11 +303,11 @@ function UFB:ArrangePlayer()
 					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", BORDER, 0)
 
 					if USE_EMPTY_BAR then
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", BORDER - SPACING*3, 0)
 					elseif USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR or USE_INSET_POWERBAR or POWERBAR_DETACHED then
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", BORDER - SPACING*3, 0)
 					else
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", E.PixelMode and 1 or -SPACING, 0)
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", BORDER - SPACING*3, 0)
 					end
 					
 					if db.portrait.style == '3D' then
