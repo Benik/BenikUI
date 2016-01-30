@@ -76,16 +76,16 @@ function UFB:ArrangeTarget()
 		if USE_EMPTY_BAR then
 			emptybar:Show()
 			if USE_POWERBAR_OFFSET then
-				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, BORDER - SPACING*3)
-				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)			
+				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, 0)
+				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif USE_MINI_POWERBAR or USE_INSET_POWERBAR then
-				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, BORDER - SPACING*3)
+				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, 0)
 				emptybar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			elseif POWERBAR_DETACHED or not USE_POWERBAR then
-				emptybar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, BORDER - SPACING*3)
-				emptybar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)		
+				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -BORDER, 0)
+				emptybar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			else
-				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, BORDER - SPACING*3)
+				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, 0)
 				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 			end
 		else
