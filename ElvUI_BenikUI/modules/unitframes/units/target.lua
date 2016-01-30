@@ -17,7 +17,7 @@ function UFB:Construct_TargetFrame()
 		frame.Portrait.backdrop.shadow:Hide()
 	end
 
-	if not frame.Portrait.backdrop.style then
+	if E.db.bui.buiStyle == true then
 		frame.Portrait.backdrop:Style('Outside')
 		frame.Portrait.backdrop.style:Hide()
 	end
