@@ -10,7 +10,6 @@ local format = string.format
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
-local GameTooltip = _G["GameTooltip"]
 
 -- GLOBALS: LibStub, BenikUISplashScreen, ElvDB
 
@@ -18,17 +17,6 @@ BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
-
-local function StyleTooltip()
-	if E.db.bui.buiStyle ~= true then return end
-	GameTooltip:Style('Outside')
-
-	if IsAddOnLoaded('FreebTip') then
-		GameTooltip.style:ClearAllPoints()
-		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
-		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
-	end
-end
 
 function BUI:cOption(name)
 	local BUI_COLOR = '|cff00c0fa%s |r'
@@ -130,7 +118,7 @@ end
 function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:LoadCommands()
-	StyleTooltip()
+
 	if E.db.bui.SplashScreen then
 		CreateSplashScreen()
 	end
