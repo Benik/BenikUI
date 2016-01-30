@@ -5,9 +5,6 @@ local UF = E:GetModule('UnitFrames');
 local _G = _G
 local CreateFrame = CreateFrame
 
-local SPACING = E.Spacing;
-local BORDER = E.Border;
-
 local CAN_HAVE_CLASSBAR = (E.myclass == "PALADIN" or E.myclass == "DRUID" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" or E.myclass == 'MAGE' or E.myclass == 'ROGUE')
 
 function UFB:Construct_PlayerFrame()
@@ -59,7 +56,8 @@ function UFB:UpdatePlayerBarAnchors(frame, isShown)
 	local USE_CLASSBAR = db.classbar.enable and CAN_HAVE_CLASSBAR
 	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and USE_CLASSBAR and db.classbar.detachFromFrame ~= true
 	local SPACING = E.Spacing;
-	local SHADOW_SPACING = E.PixelMode and 3 or 1
+	local BORDER = E.Border;
+	local SHADOW_SPACING = BORDER*4
 	
 	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
@@ -187,6 +185,7 @@ function UFB:ArrangePlayer()
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
+	local SPACING = E.Spacing;
 	local BORDER = E.Border;
 	local SHADOW_SPACING = BORDER*4
 	local USE_POWERBAR = db.power.enable

@@ -5,9 +5,6 @@ local UF = E:GetModule('UnitFrames');
 local _G = _G
 local CreateFrame = CreateFrame
 
-local SPACING = E.Spacing;
-local BORDER = E.Border;
-
 function UFB:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
 	frame.EmptyBar = self:CreateEmptyBar(frame)
@@ -63,6 +60,7 @@ function UFB:ArrangeTarget()
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR and not POWERBAR_DETACHED
 	local POWERBAR_OFFSET = db.power.offset
 	
+	local SPACING = E.Spacing;
 	local BORDER = E.Border;
 	local SHADOW_SPACING = BORDER*4
 	local USE_EMPTY_BAR = E.db.ufb.barshow
