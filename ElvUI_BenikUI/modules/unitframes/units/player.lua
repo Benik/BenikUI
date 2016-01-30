@@ -263,13 +263,13 @@ function UFB:ArrangePlayer()
 
 					if portrait.backdrop.style then
 						if E.db.ufb.PlayerPortraitStyle then
+							portrait.backdrop.style:ClearAllPoints()
+							portrait.backdrop.style:Point('TOPLEFT', portrait.backdrop, 'TOPLEFT', 0, E.db.ufb.PlayerPortraitStyleHeight)
+							portrait.backdrop.style:Point('BOTTOMRIGHT', portrait.backdrop, 'TOPRIGHT', 0, (E.PixelMode and -1 or 1))
 							portrait.backdrop.style:Show()
 						else
 							portrait.backdrop.style:Hide()
 						end
-						portrait.backdrop.style:ClearAllPoints()
-						portrait.backdrop.style:Point('TOPLEFT', portrait.backdrop, 'TOPLEFT', 0, E.db.ufb.PlayerPortraitStyleHeight)
-						portrait.backdrop.style:Point('BOTTOMRIGHT', portrait.backdrop, 'TOPRIGHT', 0, (E.PixelMode and -1 or 1))
 					end
 
 					if db.portrait.style == '3D' then
