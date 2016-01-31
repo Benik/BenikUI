@@ -62,7 +62,11 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 				local r, g, b = power:GetStatusBarColor()
 				portrait.backdrop.style.color:SetVertexColor(r, g, b)
 			else
-				portrait.backdrop.style.color:SetVertexColor(0.196, 0.062, 0.062)
+				local reaction = UnitReaction('target', 'player')
+				if reaction then
+					local t = ElvUF.colors.reaction[reaction]
+					portrait.backdrop.style.color:SetVertexColor(t[1], t[2], t[3])
+				end
 			end
 		end
 	end
