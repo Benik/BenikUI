@@ -255,6 +255,7 @@ function UFB:ArrangePlayer()
 				end
 				
 				local rIcon = frame.Resting
+				local power = frame.Power
 				
 				if PORTRAIT_DETACHED then
 					frame.portraitmover:Width(PLAYER_PORTRAIT_WIDTH)
@@ -267,6 +268,10 @@ function UFB:ArrangePlayer()
 							portrait.backdrop.style:Point('TOPLEFT', portrait.backdrop, 'TOPLEFT', 0, E.db.ufb.PlayerPortraitStyleHeight)
 							portrait.backdrop.style:Point('BOTTOMRIGHT', portrait.backdrop, 'TOPRIGHT', 0, (E.PixelMode and -1 or 1))
 							portrait.backdrop.style:Show()
+							if USE_POWERBAR then
+								local r, g, b = power:GetStatusBarColor()
+								portrait.backdrop.style.color:SetVertexColor(r, g, b)
+							end
 						else
 							portrait.backdrop.style:Hide()
 						end

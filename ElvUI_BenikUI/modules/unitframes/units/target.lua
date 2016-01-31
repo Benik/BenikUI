@@ -44,6 +44,30 @@ function UFB:ToggleTargetBarShadow()
 	end
 end
 
+function UFB:RecolorTargetDetachedPortraitStyle()
+	local frame = _G["ElvUF_Target"]
+	local db = E.db['unitframe']['units'].target
+	local USE_PORTRAIT = db.portrait.enable
+	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
+	local PORTRAIT_DETACHED = E.db.ufb.detachTargetPortrait and USE_PORTRAIT
+	local USE_POWERBAR = db.power.enable
+
+	do
+		local portrait = frame.Portrait
+		local power = frame.Power
+
+		if USE_POWERBAR and USE_PORTRAIT and portrait.backdrop.style and E.db.ufb.TargetPortraitStyle then
+			local maxValue = UnitPowerMax("target")
+			if maxValue > 0 then
+				local r, g, b = power:GetStatusBarColor()
+				portrait.backdrop.style.color:SetVertexColor(r, g, b)
+			else
+				portrait.backdrop.style.color:SetVertexColor(0.196, 0.062, 0.062)
+			end
+		end
+	end
+end
+
 function UFB:ArrangeTarget()
 	local frame = _G["ElvUF_Target"]
 	local EMPTY_BARS_HEIGHT = E.db.ufb.barheight
@@ -258,11 +282,15 @@ function UFB:ArrangeTarget()
 			end
 		end
 	end
-	
 	frame:UpdateAllElements()
+end
+
+function UFB:PLAYER_TARGET_CHANGED()
+	self:ScheduleTimer('RecolorTargetDetachedPortraitStyle', 0.02)
 end
 
 function UFB:InitTarget()
 	self:Construct_TargetFrame()
 	hooksecurefunc(UF, 'Update_TargetFrame', UFB.ArrangeTarget)
+	self:RegisterEvent('PLAYER_TARGET_CHANGED')
 end
