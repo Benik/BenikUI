@@ -120,7 +120,7 @@ function UFB:ArrangeTarget()
 	
 	local SPACING = E.Spacing;
 	local BORDER = E.Border;
-	local SHADOW_SPACING = BORDER*4
+	local SHADOW_SPACING = BORDER*3
 	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PORTRAIT_WIDTH = E.db.ufb.getPlayerPortraitSize and E.db.ufb.PlayerPortraitWidth or E.db.ufb.TargetPortraitWidth
 	local PORTRAIT_HEIGHT = E.db.ufb.getPlayerPortraitSize and E.db.ufb.PlayerPortraitHeight or E.db.ufb.TargetPortraitHeight

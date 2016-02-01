@@ -57,7 +57,7 @@ function UFB:UpdatePlayerBarAnchors(frame, isShown)
 	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and USE_CLASSBAR and db.classbar.detachFromFrame ~= true
 	local SPACING = E.Spacing;
 	local BORDER = E.Border;
-	local SHADOW_SPACING = BORDER*4
+	local SHADOW_SPACING = BORDER*3
 	
 	local USE_EMPTY_BAR = E.db.ufb.barshow
 	local PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
@@ -187,7 +187,7 @@ function UFB:ArrangePlayer()
 	local PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
 	local SPACING = E.Spacing;
 	local BORDER = E.Border;
-	local SHADOW_SPACING = BORDER*4
+	local SHADOW_SPACING = BORDER*3
 	local USE_POWERBAR = db.power.enable
 	local POWERBAR_HEIGHT = db.power.height
 	local USE_INSET_POWERBAR = db.power.width == 'inset' and USE_POWERBAR
