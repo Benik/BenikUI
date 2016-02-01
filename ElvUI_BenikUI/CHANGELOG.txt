@@ -1,9 +1,20 @@
+[b]2.37[/b]
+[NEW]Tooltip style color has now the tooltip statusbar color
+[NEW]Added BenikUI style on player/target detached portraits. The style always has the player/target power color. Thera is also an option to alter style height.
+*If detached portraits are enabled then the rest icon will move at the topleft of the portrait
+*Permanently fixed the Dashboard Memory module (with a hand from Blazeflack) and removed the ZygorGuides warn message. Also when clicking the memory module will collect memory garbage and will free mem. It was there but wasn't working as intended.
+*Fixed player/target custom text auto hide when casting
+*Styled Dungeon Journal tabs (Credit Merathilis, almost :)
+*[NEW]Added option to re position bag count stacks
+*[NEW]Added option to disable SVUI role icons
+*Various fixes and adjustmens
+
 [b]2.36[/b]
-Added options to change the ilvl font/size/flag (user request - reload required)
-AFK mode: Added a string under the log off timer, that shows xp remaining till next level
-Added shadow option on all EmptyBars (user request - disabled by default)
-Added SVUI role icons
-deDE updates
+*Added options to change the ilvl font/size/flag (user request - reload required)
+*AFK mode: Added a string under the log off timer, that shows xp remaining till next level
+*Added shadow option for all EmptyBars (user request - disabled by default)
+*Added SVUI role icons on unitframes. Chat will still show the default ElvUI ones though.
+*deDE updates
 
 [b]2.35[/b]
 *Added a sleek Splash Screen. Can be disabled
