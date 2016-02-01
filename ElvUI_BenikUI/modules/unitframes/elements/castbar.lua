@@ -161,7 +161,7 @@ function BUIC:CastbarSetPosition(unit, bar)
 
 			-- Position the castbar on top of the EmptyBar
 			Mover:ClearAllPoints()
-			Mover:Point("TOPLEFT", emptybar, "TOPLEFT", 0, -E.Border)
+			Mover:Point("TOPLEFT", emptybar, "TOPLEFT", 0, -E.Border*2)
 		else
 			-- Reset text
 			UnitUF.Castbar.Text:ClearAllPoints()
