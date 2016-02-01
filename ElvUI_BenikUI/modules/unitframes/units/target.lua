@@ -3,7 +3,10 @@ local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
+local select = select
 local CreateFrame = CreateFrame
+local UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction = UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 function UFB:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
@@ -47,27 +50,54 @@ end
 function UFB:RecolorTargetDetachedPortraitStyle()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
+	
+	if E.db.ufb.TargetPortraitStyle ~= true or db.portrait.overlay == true then return end
+	
 	local USE_PORTRAIT = db.portrait.enable
-	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
-	local PORTRAIT_DETACHED = E.db.ufb.detachTargetPortrait and USE_PORTRAIT
-	local USE_POWERBAR = db.power.enable
+	local targetClass = select(2, UnitClass("target"));
 
 	do
 		local portrait = frame.Portrait
 		local power = frame.Power
 
-		if USE_POWERBAR and USE_PORTRAIT and portrait.backdrop.style and E.db.ufb.TargetPortraitStyle then
+		if USE_PORTRAIT and portrait.backdrop.style and E.db.ufb.TargetPortraitStyle then
 			local maxValue = UnitPowerMax("target")
-			if maxValue > 0 then
-				local r, g, b = power:GetStatusBarColor()
-				portrait.backdrop.style.color:SetVertexColor(r, g, b)
+			local pType, pToken, altR, altG, altB = UnitPowerType("target")
+			local mu = power.bg.multiplier or 1
+			local color = ElvUF['colors'].power[pToken]
+			local isPlayer = UnitIsPlayer("target")
+			local classColor = RAID_CLASS_COLORS[targetClass]
+
+			if not power.colorClass then
+				if maxValue > 0 then
+					if color then
+						portrait.backdrop.style.color:SetVertexColor(color[1], color[2], color[3])
+					else
+						portrait.backdrop.style.color:SetVertexColor(altR, altG, altB)
+					end
+				else
+					if color then
+						portrait.backdrop.style.color:SetVertexColor(color[1] * mu, color[2] * mu, color[3] * mu)
+					end
+				end
 			else
 				local reaction = UnitReaction('target', 'player')
-				if reaction then
-					local t = ElvUF.colors.reaction[reaction]
-					portrait.backdrop.style.color:SetVertexColor(t[1], t[2], t[3])
+				if maxValue > 0 then
+					if isPlayer then
+						portrait.backdrop.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
+					else
+						if reaction then
+							local tpet = ElvUF.colors.reaction[reaction]
+							portrait.backdrop.style.color:SetVertexColor(tpet[1], tpet[2], tpet[3])
+						end
+					end
+				else
+					if reaction then
+						local t = ElvUF.colors.reaction[reaction]
+						portrait.backdrop.style.color:SetVertexColor(t[1] * mu, t[2] * mu, t[3] * mu)
+					end
 				end
-			end
+			end	
 		end
 	end
 end
@@ -297,4 +327,5 @@ function UFB:InitTarget()
 	self:Construct_TargetFrame()
 	hooksecurefunc(UF, 'Update_TargetFrame', UFB.ArrangeTarget)
 	self:RegisterEvent('PLAYER_TARGET_CHANGED')
+	hooksecurefunc(UF, 'Update_TargetFrame', UFB.RecolorTargetDetachedPortraitStyle)
 end
