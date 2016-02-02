@@ -163,7 +163,8 @@ function BUIC:CastbarSetPosition(unit, bar)
 
 			-- Position the castbar on top of the EmptyBar
 			Mover:ClearAllPoints()
-			Mover:Point("TOPLEFT", emptybar, "TOPLEFT", 0, -E.Border*2) -- this is for the latest ElvUI commits
+			Mover:Point("TOPLEFT", emptybar, "TOPLEFT", 0, -E.Border) -- this is for ElvUI Live version
+			--Mover:Point("TOPLEFT", emptybar, "TOPLEFT", 0, -E.Border*2) -- this is for the latest ElvUI commits
 		else
 			-- Reset text
 			UnitUF.Castbar.Text:ClearAllPoints()
