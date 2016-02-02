@@ -43,9 +43,9 @@ function BUIC:ToggleCastbarText(unit, bar)
 	if unit == 'player' or unit == 'target' then
 		if bar == _G['ElvUF_Player'].EmptyBar or bar == _G['ElvUF_Target'].EmptyBar then
 			local UnitUF = BuiUnits[unit][1];
-			if E.db.unitframe.units[unit].customTexts == nil then E.db.unitframe.units[unit].customTexts = {} end
 			
 			UnitUF.Castbar:SetScript('OnShow', function(self)
+				if E.db.unitframe.units[unit].customTexts == nil then E.db.unitframe.units[unit].customTexts = {} end
 				if E.db.unitframe.units[unit].health.yOffset < min_yOffset then
 					UnitUF.Health.value:Hide()
 				end
@@ -67,6 +67,7 @@ function BUIC:ToggleCastbarText(unit, bar)
 			end)
 
 			UnitUF.Castbar:SetScript('OnHide', function(self)
+				if E.db.unitframe.units[unit].customTexts == nil then E.db.unitframe.units[unit].customTexts = {} end
 				if E.db.unitframe.units[unit].health.yOffset < min_yOffset then
 					UnitUF.Health.value:Show()
 				end
