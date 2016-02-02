@@ -146,7 +146,7 @@ L['decor.'] = "Dekor."
 
 -- Castbar
 L['CONFLICT_WARNING'] = "Es sieht so aus, als würdest du ElvUI_CastBarPowerOverlay oder ElvUI_CastBarSnap aktiviert haben. BenikUI abgetrente Zauberleisten wurden deaktiviert."
-L['Detach Castbar Icon'] = "Abgetrennte Zauberleisten Symbol"
+L['Detach Castbar Icon'] = "Abgetrenntes Zauberleisten Symbol"
 L['Icon Size'] = "Symbol Größe"
 L['I understand'] = "Ich verstehe"
 L['Hide EmptyBar text'] = "Verstecke Leere Rahmen Text"
