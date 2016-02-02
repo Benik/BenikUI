@@ -261,6 +261,45 @@ local function ufPlayerTable()
 			},			
 		},
 	}
+	
+	-- Detach Castbar Icon
+	E.Options.args.unitframe.args.player.args.castbar.args.benikuiSpacer = {
+		type = 'header',
+		order = 15,
+		name = '',
+	}
+
+	E.Options.args.unitframe.args.player.args.castbar.args.detachCastbarIcon = {
+		type = 'toggle',
+		order = 16,
+		name = BUI:cOption(L['Detach Castbar Icon']),
+		width = 'full',
+		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
+	}
+	
+	E.Options.args.unitframe.args.player.args.castbar.args.iconSize = {
+		type = 'range',
+		order = 17,
+		name = BUI:cOption(L['Icon Size']),
+		min = 16, max = 64, step = 1,
+		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
+	}
+	
+	E.Options.args.unitframe.args.player.args.castbar.args.xOffset = {
+		type = 'range',
+		order = 18,
+		name = BUI:cOption(L['xOffset']),
+		min = -1000, max = 1000, step = 1,
+		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
+	}
+	
+	E.Options.args.unitframe.args.player.args.castbar.args.yOffset = {
+		type = 'range',
+		order = 19,
+		name = BUI:cOption(L['yOffset']),
+		min = -1000, max = 1000, step = 1,
+		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
+	}
 end
 tinsert(E.BuiConfig, ufPlayerTable)
 
@@ -344,6 +383,45 @@ local function ufTargetTable()
 				min = 4, max = 20, step = 1,
 			},
 		},
+	}
+
+	-- Detach Castbar Icon
+	E.Options.args.unitframe.args.target.args.castbar.args.benikuiSpacer = {
+		type = 'header',
+		order = 15,
+		name = '',
+	}
+
+	E.Options.args.unitframe.args.target.args.castbar.args.detachCastbarIcon = {
+		type = 'toggle',
+		order = 16,
+		name = BUI:cOption(L['Detach Castbar Icon']),
+		width = 'full',
+		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
+	}
+	
+	E.Options.args.unitframe.args.target.args.castbar.args.iconSize = {
+		type = 'range',
+		order = 17,
+		name = BUI:cOption(L['Icon Size']),
+		min = 16, max = 64, step = 1,
+		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
+	}
+	
+	E.Options.args.unitframe.args.target.args.castbar.args.xOffset = {
+		type = 'range',
+		order = 18,
+		name = BUI:cOption(L['xOffset']),
+		min = -1000, max = 1000, step = 1,
+		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
+	}
+	
+	E.Options.args.unitframe.args.target.args.castbar.args.yOffset = {
+		type = 'range',
+		order = 19,
+		name = BUI:cOption(L['yOffset']),
+		min = -1000, max = 1000, step = 1,
+		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
 	}
 end
 tinsert(E.BuiConfig, ufTargetTable)

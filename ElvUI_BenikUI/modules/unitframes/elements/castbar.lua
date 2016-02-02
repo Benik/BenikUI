@@ -140,6 +140,7 @@ end
 
 -- Function to position castbar and position
 function BUIC:CastbarSetPosition(unit, bar)
+	local cdb = E.db.unitframe.units[unit].castbar;
 	if (unit == 'player' and bar == _G['ElvUF_Player'].EmptyBar) or (unit == 'target' and bar == _G['ElvUF_Target'].EmptyBar) then
 		local UnitUF = BuiUnits[unit][1];
 		local Mover = BuiUnits[unit][2];
@@ -180,6 +181,29 @@ function BUIC:CastbarSetPosition(unit, bar)
 				Mover:ClearAllPoints()
 				Mover:SetPoint("TOPLEFT", UnitUF, "BOTTOMLEFT", 0, -(E.PixelMode and E:Scale(1) or E:Scale(3)))
 			end
+		end
+		
+		-- Detach Castbar Icon
+		if cdb.icon == true then
+			UnitUF.Castbar.ButtonIcon.bg:ClearAllPoints()
+			if cdb.detachCastbarIcon then
+				UnitUF.Castbar.ButtonIcon.bg:Point("BOTTOM", UnitUF.Castbar, "TOP", cdb.xOffset, cdb.yOffset)
+				UnitUF.Castbar.ButtonIcon.bg:Size(cdb.iconSize)
+				UnitUF.Castbar:Width(cdb.width - (E.PixelMode and E:Scale(2) or E:Scale(4)))
+			else
+				UnitUF.Castbar.ButtonIcon.bg:Width(cdb.height)
+				UnitUF.Castbar.ButtonIcon.bg:Height(cdb.height)
+				if unit == 'player' then
+					UnitUF.Castbar.ButtonIcon.bg:Point("RIGHT", UnitUF.Castbar, "LEFT", -E.Spacing*3, 0)
+				elseif unit == 'target' then
+					UnitUF.Castbar.ButtonIcon.bg:Point("LEFT", UnitUF.Castbar, "RIGHT", E.Spacing*3, 0)
+				end
+				UnitUF.Castbar:Width(cdb.width - UnitUF.Castbar.ButtonIcon.bg:GetWidth() - (E.PixelMode and E:Scale(1) or E:Scale(5)))
+			end
+			--UnitUF.Castbar.ButtonIcon.bg:Show()
+		else
+			UnitUF.Castbar:Width(cdb.width - (E.PixelMode and E:Scale(2) or E:Scale(4)))
+			--UnitUF.Castbar.ButtonIcon.bg:Hide()
 		end
 	end
 end

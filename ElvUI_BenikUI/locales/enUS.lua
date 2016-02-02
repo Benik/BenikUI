@@ -146,6 +146,8 @@ L['decor.'] = true
 
 -- Castbar
 L['CONFLICT_WARNING'] = 'It would appear you have ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap loaded. BenikUI Attach Castbar feature has been disabled.'
+L['Detach Castbar Icon'] = true
+L['Icon Size'] = true
 L['Hide EmptyBar text'] = true
 L['Hide any text placed on the EmptyBars, while casting.'] = true
 L['I understand'] = true
