@@ -1,3 +1,7 @@
+[b]2.38[/b]
+*Added Detached Castbar Icon option (player/target) along with the ability to change the Icon size. Disabled by default, options in player/target Castbar. Currently works only when Castbar is attached on EmptyBars.
+*Prevent a castbar lua error.
+
 [b]2.37[/b]
 [NEW]Tooltip style color has now the tooltip statusbar color
 [NEW]Added BenikUI style on player/target detached portraits. The style always has the player/target power color. Thera is also an option to alter style height.
