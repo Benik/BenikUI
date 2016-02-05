@@ -57,7 +57,7 @@ function UFB:ToggleEmptyBarShadow(frame)
 	end
 end
 
--- EmptyBars in Raid frames
+-- EmptyBars in Raid frames *** Add transparency and shadow options
 function UFB:ConstructRaidBars()
 	local header = _G['ElvUF_Raid']
 	for i = 1, header:GetNumChildren() do
@@ -72,7 +72,7 @@ function UFB:ConstructRaidBars()
 	end
 end
 
--- EmptyBars in Raid40 frames
+-- EmptyBars in Raid40 frames *** Add transparency and shadow options
 function UFB:ConstructRaid40Bars()
 	local header = _G['ElvUF_Raid40']
 	for i = 1, header:GetNumChildren() do
@@ -87,7 +87,7 @@ function UFB:ConstructRaid40Bars()
 	end
 end
 
--- EmptyBars in Party frames
+-- EmptyBars in Party frames *** Add transparency and shadow options
 function UFB:ConstructPartyBars()
 	local header = _G['ElvUF_Party']
 	for i = 1, header:GetNumChildren() do
