@@ -5,8 +5,6 @@ local UF = E:GetModule('UnitFrames');
 local _G = _G
 local CreateFrame = CreateFrame
 
-local CAN_HAVE_CLASSBAR = (E.myclass == "PALADIN" or E.myclass == "DRUID" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" or E.myclass == 'MAGE' or E.myclass == 'ROGUE')
-
 function UFB:Construct_PlayerFrame()
 	local frame = _G["ElvUF_Player"]
 	frame.EmptyBar = self:CreateEmptyBar(frame)
@@ -23,7 +21,7 @@ function UFB:Construct_PlayerFrame()
 	
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
-	
+
 	self:ArrangePlayer()
 	self:ToggleEmptyBarTransparency(frame)
 	self:ToggleEmptyBarShadow(frame)
@@ -34,42 +32,7 @@ function UFB:ArrangePlayer()
 	local db = E.db['unitframe']['units'].player
 
 	do
-		frame.ORIENTATION = db.orientation --allow this value to change when unitframes position changes on screen?
-		frame.BORDER = E.Border
-		frame.SPACING = E.Spacing
-		frame.SHADOW_SPACING = (frame.BORDER*3 - frame.SPACING*3)
-		frame.UNIT_WIDTH = db.width
-		frame.UNIT_HEIGHT = db.height
-
-		frame.USE_POWERBAR = db.power.enable
-		frame.POWERBAR_DETACHED = db.power.detachFromFrame
-		frame.USE_INSET_POWERBAR = not frame.POWERBAR_DETACHED and db.power.width == 'inset' and frame.USE_POWERBAR
-		frame.USE_MINI_POWERBAR = (not frame.POWERBAR_DETACHED and db.power.width == 'spaced' and frame.USE_POWERBAR)
-		frame.USE_POWERBAR_OFFSET = db.power.offset ~= 0 and frame.USE_POWERBAR and not frame.POWERBAR_DETACHED
-		frame.POWERBAR_OFFSET_DIRECTION = db.power.offsetDirection
-		frame.POWERBAR_OFFSET = frame.USE_POWERBAR_OFFSET and db.power.offset or 0
-
-		frame.POWERBAR_HEIGHT = not frame.USE_POWERBAR and 0 or db.power.height
-		frame.POWERBAR_WIDTH = frame.USE_MINI_POWERBAR and (frame.UNIT_WIDTH - (frame.BORDER*2))/2 or (frame.POWERBAR_DETACHED and db.power.detachedWidth or (frame.UNIT_WIDTH - ((frame.BORDER+frame.SPACING)*2)))
-
-		frame.USE_PORTRAIT = db.portrait and db.portrait.enable
-		frame.USE_PORTRAIT_OVERLAY = frame.USE_PORTRAIT and (db.portrait.overlay or frame.ORIENTATION == "MIDDLE")
-		frame.PORTRAIT_WIDTH = (frame.USE_PORTRAIT_OVERLAY or not frame.USE_PORTRAIT) and 0 or db.portrait.width
 		frame.PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
-		
-		frame.CAN_HAVE_CLASSBAR = CAN_HAVE_CLASSBAR
-		frame.MAX_CLASS_BAR = frame.MAX_CLASS_BAR or UF.classMaxResourceBar[E.myclass] or 0 --only set this initially
-		frame.USE_CLASSBAR = db.classbar.enable and frame.CAN_HAVE_CLASSBAR
-		frame.CLASSBAR_SHOWN = frame.CAN_HAVE_CLASSBAR and frame[frame.ClassBar]:IsShown()
-		frame.CLASSBAR_DETACHED = db.classbar.detachFromFrame
-		frame.USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and frame.USE_CLASSBAR
-		frame.CLASSBAR_HEIGHT = frame.USE_CLASSBAR and db.classbar.height or 0
-		frame.CLASSBAR_WIDTH = frame.UNIT_WIDTH - ((frame.BORDER+frame.SPACING)*2) - frame.PORTRAIT_WIDTH  - frame.POWERBAR_OFFSET
-		frame.CLASSBAR_YOFFSET = (not frame.USE_CLASSBAR or not frame.CLASSBAR_SHOWN or frame.CLASSBAR_DETACHED) and 0 or (frame.USE_MINI_CLASSBAR and (frame.SPACING+(frame.CLASSBAR_HEIGHT/2)) or (frame.CLASSBAR_HEIGHT + frame.SPACING))
-
-		frame.STAGGER_SHOWN = frame.Stagger and frame.Stagger:IsShown()
-		frame.STAGGER_WIDTH = frame.STAGGER_SHOWN and (db.stagger.width + (frame.BORDER*2)) or 0;
-		
 		frame.USE_EMPTY_BAR = E.db.ufb.barshow
 		frame.EMPTY_BARS_HEIGHT = E.db.ufb.barheight
 		frame.PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
@@ -149,7 +112,7 @@ function UFB:ArrangePlayer()
 				else
 					portrait.backdrop:ClearAllPoints()
 					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", frame.BORDER, 0)
-
+					
 					if frame.USE_EMPTY_BAR then
 						portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)
 					elseif frame.USE_MINI_POWERBAR or frame.USE_POWERBAR_OFFSET or not frame.USE_POWERBAR or frame.USE_INSET_POWERBAR or frame.POWERBAR_DETACHED then
@@ -170,7 +133,7 @@ function UFB:ArrangePlayer()
 				end
 				portrait:ClearAllPoints()
 				portrait:Point('BOTTOMLEFT', portrait.backdrop, 'BOTTOMLEFT', frame.BORDER, frame.BORDER)		
-				portrait:Point('TOPRIGHT', portrait.backdrop, 'TOPRIGHT', -(E.PixelMode and db.portrait.style == '3D' and frame.BORDER*2 or frame.BORDER), -frame.BORDER) --Fix portrait overlapping border when pixel mode and 3D style is enabled
+				portrait:Point('TOPRIGHT', portrait.backdrop, 'TOPRIGHT', -(E.PixelMode and db.portrait.style == '3D' and frame.BORDER*2 or frame.BORDER), -frame.BORDER)
 			end
 		end
 	end
