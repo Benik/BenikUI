@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<Script file='emptybar.lua'/>
 	<Script file='castbar.lua'/>
 	<Script file='tags.lua'/>
 	<Script file='roleIcons.lua'/>
