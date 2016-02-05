@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
@@ -25,25 +25,8 @@ function UFB:Construct_PlayerFrame()
 	frame.portraitmover = f
 	
 	self:ArrangePlayer()
-	self:TogglePlayerBarTransparency()
-end
-
-function UFB:TogglePlayerBarTransparency()
-	local frame = _G["ElvUF_Player"]
-	if E.db.ufb.toggleTransparency then
-		frame.EmptyBar:SetTemplate('Transparent')
-	else
-		frame.EmptyBar:SetTemplate('Default')
-	end
-end
-
-function UFB:TogglePlayerBarShadow()
-	local frame = _G["ElvUF_Player"]
-	if E.db.ufb.toggleShadow then
-		frame.EmptyBar.shadow:Show()
-	else
-		frame.EmptyBar.shadow:Hide()
-	end
+	self:ToggleEmptyBarTransparency(frame)
+	self:ToggleEmptyBarShadow(frame)
 end
 
 function UFB:ArrangePlayer()

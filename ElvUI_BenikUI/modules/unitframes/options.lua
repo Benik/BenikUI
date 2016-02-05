@@ -5,6 +5,7 @@ local BUIC = E:GetModule('BuiCastbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
+local player = _G["ElvUF_Player"]
 
 local function ufTable()
 	E.Options.args.bui.args.config.args.ufb = {
@@ -34,7 +35,7 @@ local function ufTable()
 						desc = L['Toggle EmptyBar transparency'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarTransparency(); UFB:ToggleTargetBarTransparency(); end,
+						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:ToggleEmptyBarTransparency(player); UFB:ToggleTargetBarTransparency(); end,
 					},
 					toggleShadow = {
 						order = 3,
@@ -42,7 +43,7 @@ local function ufTable()
 						name = L['Shadow'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarShadow(); UFB:ToggleTargetBarShadow(); end,
+						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:ToggleEmptyBarShadow(player); UFB:ToggleTargetBarShadow(); end,
 					},
 					barheight = {
 						order = 4,

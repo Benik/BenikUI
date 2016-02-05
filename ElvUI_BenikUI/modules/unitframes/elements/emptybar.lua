@@ -41,6 +41,22 @@ function UFB:Configure_EmptyBar(frame)
 	end
 end
 
+function UFB:ToggleEmptyBarTransparency(frame)
+	if E.db.ufb.toggleTransparency then
+		frame.EmptyBar:SetTemplate('Transparent')
+	else
+		frame.EmptyBar:SetTemplate('Default')
+	end
+end
+
+function UFB:ToggleEmptyBarShadow(frame)
+	if E.db.ufb.toggleShadow then
+		frame.EmptyBar.shadow:Show()
+	else
+		frame.EmptyBar.shadow:Hide()
+	end
+end
+
 -- EmptyBars in Raid frames
 function UFB:ConstructRaidBars()
 	local header = _G['ElvUF_Raid']
