@@ -95,34 +95,7 @@ function UFB:ArrangePlayer()
 
 	-- Empty Bar
 	do
-		local health = frame.Health
-		local power = frame.Power
-		local emptybar = frame.EmptyBar
-		
-		if frame.USE_EMPTY_BAR then
-			emptybar:Show()
-			
-			if frame.USE_STAGGER then
-				stagger:Point('BOTTOMLEFT', emptybar, 'BOTTOMRIGHT', frame.BORDER*2 + (E.PixelMode and 0 or frame.SPACING), frame.BORDER)
-				stagger:Point('TOPRIGHT', health, 'TOPRIGHT', frame.STAGGER_WIDTH, 0)
-			end
-			
-			if frame.USE_POWERBAR_OFFSET then
-				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -frame.BORDER, 0)
-				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
-			elseif frame.USE_MINI_POWERBAR or frame.USE_INSET_POWERBAR then
-				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -frame.BORDER, 0)
-				emptybar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
-			elseif frame.POWERBAR_DETACHED or not frame.USE_POWERBAR then
-				emptybar:Point('TOPLEFT', health, 'BOTTOMLEFT', -frame.BORDER, 0)
-				emptybar:Point('BOTTOMRIGHT', health, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
-			else
-				emptybar:Point('TOPLEFT', power, 'BOTTOMLEFT', -frame.BORDER, 0)
-				emptybar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
-			end
-		else
-			emptybar:Hide()
-		end
+		UFB:Configure_EmptyBar(frame)
 	end
 	
 	-- Portrait
