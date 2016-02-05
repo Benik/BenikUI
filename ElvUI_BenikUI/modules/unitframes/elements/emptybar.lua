@@ -24,17 +24,13 @@ function UFB:Configure_EmptyBar(frame)
 		end
 		
 		if frame.USE_POWERBAR_OFFSET then
-			emptybar:Point('TOPLEFT', frame.Power, 'BOTTOMLEFT', -frame.BORDER, 0)
+			emptybar:Hide()
+		elseif frame.USE_POWERBAR and not (frame.POWERBAR_DETACHED or frame.USE_INSET_POWERBAR or frame.USE_MINI_POWERBAR) then
+			emptybar:Point('TOPLEFT', frame.Power, 'BOTTOMLEFT', -frame.BORDER, -frame.SPACING)
 			emptybar:Point('BOTTOMRIGHT', frame.Power, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
-		elseif frame.USE_MINI_POWERBAR or frame.USE_INSET_POWERBAR then
-			emptybar:Point('TOPLEFT', frame.Health, 'BOTTOMLEFT', -frame.BORDER, 0)
-			emptybar:Point('BOTTOMRIGHT', frame.Health, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
-		elseif frame.POWERBAR_DETACHED or not frame.USE_POWERBAR then
-			emptybar:Point('TOPLEFT', frame.Health, 'BOTTOMLEFT', -frame.BORDER, 0)
-			emptybar:Point('BOTTOMRIGHT', frame.Health, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
 		else
-			emptybar:Point('TOPLEFT', frame.Power, 'BOTTOMLEFT', -frame.BORDER, 0)
-			emptybar:Point('BOTTOMRIGHT', frame.Power, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
+			emptybar:Point('TOPLEFT', frame.Health, 'BOTTOMLEFT', -frame.BORDER, -frame.SPACING)
+			emptybar:Point('BOTTOMRIGHT', frame.Health, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
 		end
 	else
 		emptybar:Hide()
