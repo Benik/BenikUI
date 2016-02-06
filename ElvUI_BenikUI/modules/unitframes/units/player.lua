@@ -48,7 +48,18 @@ function UFB:ArrangePlayer()
 	do	
 		local portrait = frame.Portrait
 		if frame.USE_PORTRAIT then
-			if not frame.USE_PORTRAIT_OVERLAY then
+			if frame.USE_PORTRAIT_OVERLAY then
+				if db.portrait.style == '3D' then
+					portrait:SetFrameLevel(frame.Health:GetFrameLevel() + 1)
+				end
+
+				portrait:SetAllPoints(frame.Health)
+				portrait:SetAlpha(0.3)
+				if not dontHide then
+					portrait:Show()
+				end
+				portrait.backdrop:Hide()			
+			else
 				if E.db.ufb.PlayerPortraitTransparent then
 					portrait.backdrop:SetTemplate('Transparent')
 				else
@@ -110,30 +121,49 @@ function UFB:ArrangePlayer()
 						end
 					end
 				else
+					portrait:SetAlpha(1)
+					if not dontHide then
+						portrait:Show()
+					end
+
 					portrait.backdrop:ClearAllPoints()
-					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", frame.BORDER, 0)
-					
-					if frame.USE_EMPTY_BAR then
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)
-					elseif frame.USE_MINI_POWERBAR or frame.USE_POWERBAR_OFFSET or not frame.USE_POWERBAR or frame.USE_INSET_POWERBAR or frame.POWERBAR_DETACHED then
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)
-					else
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)
-					end
-					
+
+					portrait.backdrop:Show()
 					if db.portrait.style == '3D' then
-						portrait.backdrop:SetFrameLevel(frame.Power:GetFrameLevel() + 1)
+						portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
 					end
 					
-					if db.restIcon then
-						rIcon:ClearAllPoints()
-						rIcon:SetParent(frame)
-						rIcon:Point('CENTER', frame, 'TOPLEFT')
-					end
+					if frame.ORIENTATION == "LEFT" then
+						portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", frame.SPACING, frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+frame.SPACING) or -frame.SPACING)
+						if frame.USE_EMPTY_BAR and not frame.USE_POWERBAR_OFFSET then
+							portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)						
+						else
+							if frame.USE_MINI_POWERBAR or frame.USE_POWERBAR_OFFSET or not frame.USE_POWERBAR or frame.USE_INSET_POWERBAR or frame.POWERBAR_DETACHED then
+								portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)
+							else
+								portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)
+							end
+						end
+					elseif frame.ORIENTATION == "RIGHT" then
+						portrait.backdrop:Point("TOPRIGHT", frame, "TOPRIGHT", -frame.SPACING, frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+frame.SPACING) or -frame.SPACING)
+						if frame.USE_EMPTY_BAR and not frame.USE_POWERBAR_OFFSET then
+							portrait.backdrop:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMRIGHT", -frame.BORDER + frame.SPACING*3, 0)						
+						else
+							if frame.USE_MINI_POWERBAR or frame.USE_POWERBAR_OFFSET or not frame.USE_POWERBAR or frame.USE_INSET_POWERBAR or frame.POWERBAR_DETACHED then
+								portrait.backdrop:Point("BOTTOMLEFT", frame.Health.backdrop, "BOTTOMRIGHT", -frame.BORDER + frame.SPACING*3, 0)
+							else
+								portrait.backdrop:Point("BOTTOMLEFT", frame.Power.backdrop, "BOTTOMRIGHT", -frame.BORDER + frame.SPACING*3, 0)
+							end
+						end
+					end	
 				end
-				portrait:ClearAllPoints()
-				portrait:Point('BOTTOMLEFT', portrait.backdrop, 'BOTTOMLEFT', frame.BORDER, frame.BORDER)		
-				portrait:Point('TOPRIGHT', portrait.backdrop, 'TOPRIGHT', -(E.PixelMode and db.portrait.style == '3D' and frame.BORDER*2 or frame.BORDER), -frame.BORDER)
+				-- ElvUI setting
+				portrait:SetInside(portrait.backdrop, frame.BORDER)
+				
+				-- Keeping BenikUI setting in case of impelementation
+				--portrait:ClearAllPoints()
+				--portrait:Point('BOTTOMLEFT', portrait.backdrop, 'BOTTOMLEFT', frame.BORDER, frame.BORDER)		
+				--portrait:Point('TOPRIGHT', portrait.backdrop, 'TOPRIGHT', -(E.PixelMode and db.portrait.style == '3D' and frame.BORDER*2 or frame.BORDER), -frame.BORDER)
 			end
 		end
 	end
