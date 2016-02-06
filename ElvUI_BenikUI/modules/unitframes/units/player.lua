@@ -71,29 +71,29 @@ function UFB:ArrangePlayer()
 				else
 					portrait.backdrop.shadow:Hide()
 				end
-				
+			
 				local rIcon = frame.Resting
 				local power = frame.Power
+				
+				if portrait.backdrop.style then
+					if E.db.ufb.PlayerPortraitStyle then
+						portrait.backdrop.style:ClearAllPoints()
+						portrait.backdrop.style:Point('TOPLEFT', portrait.backdrop, 'TOPLEFT', 0, E.db.ufb.PlayerPortraitStyleHeight)
+						portrait.backdrop.style:Point('BOTTOMRIGHT', portrait.backdrop, 'TOPRIGHT', 0, (E.PixelMode and -1 or 1))
+						portrait.backdrop.style:Show()
+						if frame.USE_POWERBAR then
+							local r, g, b = power:GetStatusBarColor()
+							portrait.backdrop.style.color:SetVertexColor(r, g, b)
+						end
+					else
+						portrait.backdrop.style:Hide()
+					end
+				end
 				
 				if frame.PORTRAIT_DETACHED then
 					frame.portraitmover:Width(frame.PLAYER_PORTRAIT_WIDTH)
 					frame.portraitmover:Height(frame.PLAYER_PORTRAIT_HEIGHT)
 					portrait.backdrop:SetAllPoints(frame.portraitmover)
-
-					if portrait.backdrop.style then
-						if E.db.ufb.PlayerPortraitStyle then
-							portrait.backdrop.style:ClearAllPoints()
-							portrait.backdrop.style:Point('TOPLEFT', portrait.backdrop, 'TOPLEFT', 0, E.db.ufb.PlayerPortraitStyleHeight)
-							portrait.backdrop.style:Point('BOTTOMRIGHT', portrait.backdrop, 'TOPRIGHT', 0, (E.PixelMode and -1 or 1))
-							portrait.backdrop.style:Show()
-							if frame.USE_POWERBAR then
-								local r, g, b = power:GetStatusBarColor()
-								portrait.backdrop.style.color:SetVertexColor(r, g, b)
-							end
-						else
-							portrait.backdrop.style:Hide()
-						end
-					end
 
 					if db.portrait.style == '3D' then
 						portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
