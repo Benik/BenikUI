@@ -19,10 +19,14 @@ function UFB:Configure_Threat(frame)
 				else
 					threat.glow:Point("TOPLEFT", -frame.SHADOW_SPACING, frame.SHADOW_SPACING-(frame.USE_MINI_CLASSBAR and frame.CLASSBAR_YOFFSET or 0))						
 				end
-				
-				threat.glow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -frame.SHADOW_SPACING, -frame.SHADOW_SPACING)
-				threat.glow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", frame.SHADOW_SPACING, -frame.SHADOW_SPACING)
-			else -- ElvUI settings
+				if frame.ORIENTATION == "RIGHT" and frame.USE_PORTRAIT and not frame.USE_PORTRAIT_OVERLAY and not frame.PORTRAIT_DETACHED then
+					threat.glow:Point("BOTTOMLEFT", frame.Portrait.backdrop, "BOTTOMLEFT", -frame.SHADOW_SPACING, -frame.SHADOW_SPACING)
+					threat.glow:Point("BOTTOMRIGHT", frame.Portrait.backdrop, "BOTTOMRIGHT", frame.SHADOW_SPACING, -frame.SHADOW_SPACING)				
+				else
+					threat.glow:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMLEFT", -frame.SHADOW_SPACING, -frame.SHADOW_SPACING)
+					threat.glow:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMRIGHT", frame.SHADOW_SPACING, -frame.SHADOW_SPACING)
+				end
+			else
 				if frame.USE_POWERBAR_OFFSET then
 					if frame.ORIENTATION == "LEFT" then
 						threat.glow:Point("TOPLEFT", -frame.SHADOW_SPACING, frame.SHADOW_SPACING-(frame.USE_MINI_CLASSBAR and frame.CLASSBAR_YOFFSET or 0))
