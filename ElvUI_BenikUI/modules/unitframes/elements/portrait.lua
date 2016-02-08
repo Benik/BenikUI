@@ -25,8 +25,14 @@ function UFB:Configure_SimplePortrait(frame)
 				portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
 			end
 			
+			if db.portrait.transparent then
+				portrait.backdrop:SetTemplate('Transparent')
+			else
+				portrait.backdrop:SetTemplate('Default', true)
+			end
+			
 			if frame.ORIENTATION == "LEFT" then
-				portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", frame.SPACING, frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+frame.SPACING) or -frame.SPACING)
+				portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", frame.SPACING, frame.PORTRAIT_HEIGHT or frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+frame.SPACING) or -frame.SPACING)
 				if frame.USE_EMPTY_BAR and not frame.USE_POWERBAR_OFFSET then
 					portrait.backdrop:Point("BOTTOMRIGHT", frame.EmptyBar, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)						
 				else
@@ -37,7 +43,7 @@ function UFB:Configure_SimplePortrait(frame)
 					end
 				end
 			elseif frame.ORIENTATION == "RIGHT" then
-				portrait.backdrop:Point("TOPRIGHT", frame, "TOPRIGHT", -frame.SPACING, frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+frame.SPACING) or -frame.SPACING)
+				portrait.backdrop:Point("TOPRIGHT", frame, "TOPRIGHT", -frame.SPACING, frame.PORTRAIT_HEIGHT or frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+frame.SPACING) or -frame.SPACING)
 				if frame.USE_EMPTY_BAR and not frame.USE_POWERBAR_OFFSET then
 					portrait.backdrop:Point("BOTTOMLEFT", frame.EmptyBar, "BOTTOMRIGHT", -frame.BORDER + frame.SPACING*3, 0)						
 				else
