@@ -113,9 +113,6 @@ function UFB:ArrangeTarget()
 
 				portrait:SetAllPoints(frame.Health)
 				portrait:SetAlpha(0.3)
-				if not dontHide then
-					portrait:Show()
-				end
 				portrait.backdrop:Hide()			
 			else
 				if E.db.ufb.TargetPortraitTransparent then
@@ -139,10 +136,6 @@ function UFB:ArrangeTarget()
 						portrait.backdrop.style:Point('TOPLEFT', portrait.backdrop, 'TOPLEFT', 0, E.db.ufb.TargetPortraitStyleHeight)
 						portrait.backdrop.style:Point('BOTTOMRIGHT', portrait.backdrop, 'TOPRIGHT', 0, (E.PixelMode and -1 or 1))
 						portrait.backdrop.style:Show()
-						if frame.USE_POWERBAR then
-							local r, g, b = power:GetStatusBarColor()
-							portrait.backdrop.style.color:SetVertexColor(r, g, b)
-						end
 					else
 						portrait.backdrop.style:Hide()
 					end
@@ -160,7 +153,7 @@ function UFB:ArrangeTarget()
 
 					if not frame.portraitmover.mover then
 						frame.portraitmover:ClearAllPoints()
-						frame.portraitmover:Point('TOPRIGHT', frame, 'TOPLEFT', -frame.BORDER, 0)
+						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'TargetPortraitMover', 'Target Portrait', nil, nil, nil, 'ALL,SOLO')
 						frame.portraitmover:ClearAllPoints()
 						frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")
@@ -170,13 +163,9 @@ function UFB:ArrangeTarget()
 					end				
 				else
 					portrait:SetAlpha(1)
-					if not dontHide then
-						portrait:Show()
-					end
-
 					portrait.backdrop:ClearAllPoints()
-
 					portrait.backdrop:Show()
+
 					if db.portrait.style == '3D' then
 						portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
 					end
