@@ -14,7 +14,7 @@ function UFB:Configure_Threat(frame)
 
 			if frame.USE_EMPTY_BAR then
 				threat.glow:SetBackdropBorderColor(0, 0, 0, 0)
-				if E.db.ufb.threat then
+				if E.db.ufb.threat or frame.EMPTY_BAR_THREAT then
 					threat.glow:Point("TOPLEFT", frame.EmptyBar, "TOPLEFT", -frame.SHADOW_SPACING, frame.SHADOW_SPACING)
 				else
 					threat.glow:Point("TOPLEFT", -frame.SHADOW_SPACING, frame.SHADOW_SPACING-(frame.USE_MINI_CLASSBAR and frame.CLASSBAR_YOFFSET or 0))						
