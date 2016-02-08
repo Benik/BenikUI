@@ -18,6 +18,18 @@ function UFB:Configure_EmptyBar(frame)
 	if frame.USE_EMPTY_BAR then
 		emptybar:Show()
 		
+		if frame.EMPTY_BARS_TRANSPARENCY then
+			emptybar:SetTemplate('Transparent')
+		else
+			emptybar:SetTemplate('Default')
+		end
+		
+		if frame.EMPTY_BARS_SHADOW then
+			emptybar.shadow:Show()
+		else
+			emptybar.shadow:Hide()
+		end
+		
 		if frame.USE_STAGGER then
 			stagger:Point('BOTTOMLEFT', emptybar, 'BOTTOMRIGHT', frame.BORDER*2 + (frame.BORDER and 0 or frame.SPACING), frame.BORDER)
 			stagger:Point('TOPRIGHT', frame.Health, 'TOPRIGHT', frame.STAGGER_WIDTH, 0)
@@ -34,22 +46,6 @@ function UFB:Configure_EmptyBar(frame)
 		end
 	else
 		emptybar:Hide()
-	end
-end
-
-function UFB:ToggleEmptyBarTransparency(frame)
-	if E.db.ufb.toggleTransparency then
-		frame.EmptyBar:SetTemplate('Transparent')
-	else
-		frame.EmptyBar:SetTemplate('Default')
-	end
-end
-
-function UFB:ToggleEmptyBarShadow(frame)
-	if E.db.ufb.toggleShadow then
-		frame.EmptyBar.shadow:Show()
-	else
-		frame.EmptyBar.shadow:Hide()
 	end
 end
 

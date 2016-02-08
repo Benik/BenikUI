@@ -23,8 +23,6 @@ function UFB:Construct_PlayerFrame()
 	frame.portraitmover = f
 
 	self:ArrangePlayer()
-	self:ToggleEmptyBarTransparency(frame)
-	self:ToggleEmptyBarShadow(frame)
 end
 
 function UFB:ArrangePlayer()
@@ -35,6 +33,8 @@ function UFB:ArrangePlayer()
 		frame.PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
 		frame.USE_EMPTY_BAR = E.db.ufb.barshow
 		frame.EMPTY_BARS_HEIGHT = E.db.ufb.barheight
+		frame.EMPTY_BARS_TRANSPARENCY = E.db.ufb.toggleTransparency
+		frame.EMPTY_BARS_SHADOW = E.db.ufb.toggleShadow
 		frame.PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
 		frame.PLAYER_PORTRAIT_HEIGHT = E.db.ufb.PlayerPortraitHeight
 	end
@@ -165,6 +165,8 @@ function UFB:ArrangePlayer()
 	do
 		UFB:Configure_Threat(frame)
 	end
+
+	frame:UpdateAllElements()
 end
 
 function UFB:InitPlayer()

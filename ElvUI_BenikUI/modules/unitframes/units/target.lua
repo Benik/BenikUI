@@ -26,8 +26,6 @@ function UFB:Construct_TargetFrame()
 	frame.portraitmover = f
 	
 	self:ArrangeTarget()
-	self:ToggleEmptyBarTransparency(frame)
-	self:ToggleEmptyBarShadow(frame)
 end
 
 function UFB:RecolorTargetDetachedPortraitStyle()
@@ -93,6 +91,8 @@ function UFB:ArrangeTarget()
 		frame.PORTRAIT_DETACHED = E.db.ufb.detachTargetPortrait
 		frame.USE_EMPTY_BAR = E.db.ufb.barshow
 		frame.EMPTY_BARS_HEIGHT = E.db.ufb.barheight
+		frame.EMPTY_BARS_TRANSPARENCY = E.db.ufb.toggleTransparency
+		frame.EMPTY_BARS_SHADOW = E.db.ufb.toggleShadow
 		frame.TARGET_PORTRAIT_WIDTH = E.db.ufb.getPlayerPortraitSize and E.db.ufb.PlayerPortraitWidth or E.db.ufb.TargetPortraitWidth
 		frame.TARGET_PORTRAIT_HEIGHT = E.db.ufb.getPlayerPortraitSize and E.db.ufb.PlayerPortraitHeight or E.db.ufb.TargetPortraitHeight
 	end
@@ -209,6 +209,8 @@ function UFB:ArrangeTarget()
 	do
 		UFB:Configure_Threat(frame)
 	end
+
+	frame:UpdateAllElements()
 end
 
 function UFB:PLAYER_TARGET_CHANGED()

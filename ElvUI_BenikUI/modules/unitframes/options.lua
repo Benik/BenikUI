@@ -5,7 +5,6 @@ local BUIC = E:GetModule('BuiCastbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
-local player = _G["ElvUF_Player"]
 
 local function ufTable()
 	E.Options.args.bui.args.config.args.ufb = {
@@ -20,7 +19,7 @@ local function ufTable()
 				name = L['EmptyBars'],
 				guiInline = true,
 				get = function(info) return E.db.ufb[ info[#info] ] end,
-				set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:ArrangePlayer(); UFB:ArrangeTarget(); end,
+				set = function(info, value) E.db.ufb[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); BUIC:UpdatePlayer(); BUIC:UpdateTarget(); end,
 				args = {
 					barshow = {
 						order = 1,
@@ -35,7 +34,6 @@ local function ufTable()
 						desc = L['Toggle EmptyBar transparency'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:ToggleEmptyBarTransparency(player); UFB:ToggleTargetBarTransparency(); end,
 					},
 					toggleShadow = {
 						order = 3,
@@ -43,14 +41,12 @@ local function ufTable()
 						name = L['Shadow'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:ToggleEmptyBarShadow(player); UFB:ToggleTargetBarShadow(); end,
 					},
 					barheight = {
 						order = 4,
 						type = 'range',
 						name = L['Height'],
 						desc = L['Change the EmptyBars height (Player and Target).'],
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); BUIC:UpdatePlayer(); BUIC:UpdateTarget(); end,
 						disabled = function() return not E.db.ufb.barshow end,
 						min = 10, max = 50, step = 1,
 					},
@@ -61,7 +57,6 @@ local function ufTable()
 						desc = L['Places the threat glow on Player and Target EmptyBars'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); end,
 					},
 				},
 			},
