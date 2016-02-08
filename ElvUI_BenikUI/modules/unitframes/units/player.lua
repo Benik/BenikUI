@@ -55,9 +55,6 @@ function UFB:ArrangePlayer()
 
 				portrait:SetAllPoints(frame.Health)
 				portrait:SetAlpha(0.3)
-				if not dontHide then
-					portrait:Show()
-				end
 				portrait.backdrop:Hide()			
 			else
 				if E.db.ufb.PlayerPortraitTransparent then
@@ -122,13 +119,9 @@ function UFB:ArrangePlayer()
 					end
 				else
 					portrait:SetAlpha(1)
-					if not dontHide then
-						portrait:Show()
-					end
-
 					portrait.backdrop:ClearAllPoints()
-
 					portrait.backdrop:Show()
+
 					if db.portrait.style == '3D' then
 						portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
 					end
