@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI);
+﻿local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
