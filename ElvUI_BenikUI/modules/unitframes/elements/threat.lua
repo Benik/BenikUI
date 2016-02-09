@@ -17,7 +17,11 @@ function UFB:Configure_Threat(frame)
 				if E.db.ufb.threat or frame.EMPTY_BAR_THREAT then
 					threat.glow:Point("TOPLEFT", frame.EmptyBar, "TOPLEFT", -frame.SHADOW_SPACING, frame.SHADOW_SPACING)
 				else
-					threat.glow:Point("TOPLEFT", -frame.SHADOW_SPACING, frame.SHADOW_SPACING-(frame.USE_MINI_CLASSBAR and frame.CLASSBAR_YOFFSET or 0))						
+					if frame.PORTRAIT_HEIGHT and frame.PORTRAIT_HEIGHT > 0 then
+						threat.glow:Point("TOPLEFT", frame.Health.backdrop, "TOPLEFT", -frame.SHADOW_SPACING, frame.SHADOW_SPACING-(frame.USE_MINI_CLASSBAR and frame.CLASSBAR_YOFFSET or 0))
+					else
+						threat.glow:Point("TOPLEFT", -frame.SHADOW_SPACING, frame.SHADOW_SPACING-(frame.USE_MINI_CLASSBAR and frame.CLASSBAR_YOFFSET or 0))
+					end
 				end
 				if frame.ORIENTATION == "RIGHT" and frame.USE_PORTRAIT and not frame.USE_PORTRAIT_OVERLAY and not frame.PORTRAIT_DETACHED then
 					threat.glow:Point("BOTTOMLEFT", frame.Portrait.backdrop, "BOTTOMLEFT", -frame.SHADOW_SPACING, -frame.SHADOW_SPACING)
