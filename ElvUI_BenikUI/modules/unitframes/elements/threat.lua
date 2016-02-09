@@ -12,7 +12,7 @@ function UFB:Configure_Threat(frame)
 			threat.glow:SetFrameStrata('MEDIUM')
 			threat.glow:ClearAllPoints()
 
-			if frame.USE_EMPTY_BAR then
+			if frame.USE_EMPTY_BAR and not frame.USE_POWERBAR_OFFSET then
 				threat.glow:SetBackdropBorderColor(0, 0, 0, 0)
 				if E.db.ufb.threat or frame.EMPTY_BAR_THREAT then
 					threat.glow:Point("TOPLEFT", frame.EmptyBar, "TOPLEFT", -frame.SHADOW_SPACING, frame.SHADOW_SPACING)
