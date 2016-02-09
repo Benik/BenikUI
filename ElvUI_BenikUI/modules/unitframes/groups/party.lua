@@ -13,6 +13,7 @@ function UFB:Update_PartyFrames(frame, db)
 		frame.EMPTY_BAR_THREAT = db.emptybar.threat
 
 		frame.PORTRAIT_HEIGHT = db.portrait.height
+		frame.PORTRAIT_TRANSPARENCY = db.portrait.transparent
 	end
 	
 	if not frame.isChild then
