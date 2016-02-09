@@ -30,13 +30,19 @@ function UFB:ArrangePlayer()
 	local db = E.db['unitframe']['units'].player
 
 	do
-		frame.PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
 		frame.USE_EMPTY_BAR = E.db.ufb.barshow
 		frame.EMPTY_BARS_HEIGHT = E.db.ufb.barheight
 		frame.EMPTY_BARS_TRANSPARENCY = E.db.ufb.toggleTransparency
 		frame.EMPTY_BARS_SHADOW = E.db.ufb.toggleShadow
-		frame.PLAYER_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
-		frame.PLAYER_PORTRAIT_HEIGHT = E.db.ufb.PlayerPortraitHeight
+		
+		frame.PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
+		frame.PORTRAIT_TRANSPARENCY = E.db.ufb.PlayerPortraitTransparent
+		frame.PORTRAIT_SHADOW = E.db.ufb.PlayerPortraitShadow
+		
+		frame.PORTRAIT_STYLING = E.db.ufb.PlayerPortraitStyle
+		frame.PORTRAIT_STYLING_HEIGHT = E.db.ufb.PlayerPortraitStyleHeight
+		frame.DETACHED_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
+		frame.DETACHED_PORTRAIT_HEIGHT = E.db.ufb.PlayerPortraitHeight
 	end
 
 	-- Empty Bar
@@ -46,7 +52,8 @@ function UFB:ArrangePlayer()
 	
 	-- Portrait
 	do	
-		local portrait = frame.Portrait
+		UFB:Configure_SimplePortrait(frame, true)
+		--[[local portrait = frame.Portrait
 		if frame.USE_PORTRAIT then
 			if frame.USE_PORTRAIT_OVERLAY then
 				if db.portrait.style == '3D' then
@@ -158,7 +165,7 @@ function UFB:ArrangePlayer()
 				--portrait:Point('BOTTOMLEFT', portrait.backdrop, 'BOTTOMLEFT', frame.BORDER, frame.BORDER)		
 				--portrait:Point('TOPRIGHT', portrait.backdrop, 'TOPRIGHT', -(E.PixelMode and db.portrait.style == '3D' and frame.BORDER*2 or frame.BORDER), -frame.BORDER)
 			end
-		end
+		end]]
 	end
 	
 	--Threat
