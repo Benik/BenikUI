@@ -4,7 +4,7 @@ local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 
-function UFB:Construct_FocusFrame(frame)
+function UFB:Construct_FocusFrame()
 	local frame = _G["ElvUF_Focus"]
 	frame.EmptyBar = self:CreateEmptyBar(frame)
 	
@@ -13,7 +13,7 @@ end
 
 function UFB:ArrangeFocus()
 	local frame = _G["ElvUF_Focus"]
-	local db = E.db.unitframe.units.focus
+	local db = E.db['unitframe']['units'].focus
 
 	do
 		frame.USE_EMPTY_BAR = db.emptybar.enable
@@ -30,7 +30,7 @@ function UFB:ArrangeFocus()
 	
 	-- Portrait
 	do
-		UFB:Configure_SimplePortrait(frame)
+		UFB:Configure_Portrait(frame)
 	end
 
 	--Threat

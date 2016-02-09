@@ -13,7 +13,7 @@ end
 
 function UFB:ArrangePet()
 	local frame = _G["ElvUF_Pet"]
-	local db = E.db.unitframe.units.pet
+	local db = E.db['unitframe']['units'].pet
 	
 	do
 		frame.USE_EMPTY_BAR = db.emptybar.enable
@@ -30,7 +30,7 @@ function UFB:ArrangePet()
 	
 	-- Portrait
 	do
-		UFB:Configure_SimplePortrait(frame)
+		UFB:Configure_Portrait(frame)
 	end
 
 	--Threat

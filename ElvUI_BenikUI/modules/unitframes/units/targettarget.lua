@@ -13,7 +13,7 @@ end
 
 function UFB:ArrangeTargetTarget()
 	local frame = _G["ElvUF_TargetTarget"]
-	local db = E.db.unitframe.units.targettarget;
+	local db = E.db['unitframe']['units'].targettarget;
 
 	do
 		frame.USE_EMPTY_BAR = db.emptybar.enable
@@ -30,7 +30,7 @@ function UFB:ArrangeTargetTarget()
 	
 	-- Portrait
 	do
-		UFB:Configure_SimplePortrait(frame)
+		UFB:Configure_Portrait(frame)
 	end
 
 	--Threat

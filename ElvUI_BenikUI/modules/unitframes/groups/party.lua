@@ -25,7 +25,7 @@ function UFB:Update_PartyFrames(frame, db)
 		
 		-- Portrait
 		do
-			UFB:Configure_SimplePortrait(frame)
+			UFB:Configure_Portrait(frame)
 		end
 
 		--Threat

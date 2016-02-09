@@ -2,7 +2,7 @@
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
-function UFB:Configure_SimplePortrait(frame, isPlayer)
+function UFB:Configure_Portrait(frame, isPlayer)
 	local portrait = frame.Portrait
 	local db = frame.db
 	

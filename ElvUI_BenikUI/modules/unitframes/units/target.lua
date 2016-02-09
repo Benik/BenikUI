@@ -83,7 +83,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 	end
 end
 
-function UFB:ArrangeTarget(frame)
+function UFB:ArrangeTarget()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
 
@@ -110,7 +110,7 @@ function UFB:ArrangeTarget(frame)
 	
 	-- Portrait
 	do
-		UFB:Configure_SimplePortrait(frame, false)
+		UFB:Configure_Portrait(frame, false)
 	end
 	
 	--Threat

@@ -20,7 +20,7 @@ function UFB:Update_RaidFrames(frame, db)
 	
 	-- Portrait
 	do
-		UFB:Configure_SimplePortrait(frame)
+		UFB:Configure_Portrait(frame)
 	end
 
 	--Threat
