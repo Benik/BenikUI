@@ -17,31 +17,20 @@ function UFB:Update_PartyFrames(frame, db)
 	end
 	
 	if not frame.isChild then
-
 		-- EmptyBar
-		do
-			UFB:Configure_EmptyBar(frame)
-		end
-		
+		UFB:Configure_EmptyBar(frame)
+	
 		-- Portrait
-		do
-			UFB:Configure_Portrait(frame)
-		end
+		UFB:Configure_Portrait(frame)
 
 		--Threat
-		do
-			UFB:Configure_Threat(frame)
-		end
-		
+		UFB:Configure_Threat(frame)
+	
 		-- Target Glow
-		do
-			UFB:Configure_TargetGlow(frame)
-		end
-		
+		UFB:Configure_TargetGlow(frame)
+	
 		-- Role Icon
-		do
-			UFB:Configure_RoleIcons(frame)
-		end
+		UFB:Configure_RoleIcons(frame)
 	end
 	
 	frame:UpdateAllElements()
