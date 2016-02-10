@@ -78,6 +78,13 @@ local function buiCore()
 						get = function(info) return E.db.bui[ info[#info] ] end,
 						set = function(info, value) E.db.bui[ info[#info] ] = value; end,	
 					},
+					GameMenuButton = {
+						order = 5,
+						type = 'toggle',
+						name = L['GameMenu Button'],
+						get = function(info) return E.db.bui[ info[#info] ] end,
+						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
+					},
 				},
 			},
 			colors = {

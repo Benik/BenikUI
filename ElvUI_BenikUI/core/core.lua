@@ -115,12 +115,28 @@ local function ShowSplashScreen()
 	BenikUISplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
 end
 
+function BUI:GameMenuButton()
+	local lib = LibStub("LibElv-GameMenu-1.0")
+	local button = {
+		["name"] = "BUIConfigButton",
+		["text"] = "|cff00c0faBenikUI|r",
+		["func"] = function() BUI:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(_G["GameMenuFrame"]) end,
+	}
+	lib:AddMenuButton(button)
+	
+	lib:UpdateHolder()
+end
+
 function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:LoadCommands()
 
 	if E.db.bui.SplashScreen then
 		CreateSplashScreen()
+	end
+
+	if E.db.bui.GameMenuButton then
+		self:GameMenuButton()
 	end
 	E:GetModule('DataTexts'):ToggleMailFrame()
 

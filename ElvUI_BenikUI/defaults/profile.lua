@@ -100,6 +100,7 @@ P['bui'] = {
 	['buiFonts'] = true,
 	['LoginMsg'] = true,
 	['SplashScreen'] = true,
+	['GameMenuButton'] = true,
 	['transparentDts'] = false,
 	['editBoxPosition'] = 'BELOW_CHAT',
 	['middleDatatext'] = {
