@@ -30,21 +30,21 @@ function UFB:Configure_EmptyBar(frame)
 			emptybar.shadow:Hide()
 		end
 		
-		if frame.USE_POWERBAR_OFFSET then
-			emptybar:Hide()
-		elseif frame.USE_POWERBAR and not (frame.POWERBAR_DETACHED or frame.USE_INSET_POWERBAR or frame.USE_MINI_POWERBAR) then
-			emptybar:Point('TOPLEFT', frame.Power, 'BOTTOMLEFT', -frame.BORDER, -frame.SPACING)
-			emptybar:Point('BOTTOMRIGHT', frame.Power, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
-		else
-			emptybar:Point('TOPLEFT', frame.Health, 'BOTTOMLEFT', -frame.BORDER, -frame.SPACING)
-			emptybar:Point('BOTTOMRIGHT', frame.Health, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
+		if frame.USE_POWERBAR then
+			if frame.USE_POWERBAR_OFFSET or not (frame.POWERBAR_DETACHED or frame.USE_INSET_POWERBAR or frame.USE_MINI_POWERBAR) then
+				emptybar:Point('TOPLEFT', frame.Power, 'BOTTOMLEFT', -frame.BORDER, -frame.SPACING)
+				emptybar:Point('BOTTOMRIGHT', frame.Power, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
+			else
+				emptybar:Point('TOPLEFT', frame.Health, 'BOTTOMLEFT', -frame.BORDER, -frame.SPACING)
+				emptybar:Point('BOTTOMRIGHT', frame.Health, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
+			end
 		end
 	else
 		emptybar:Hide()
 	end
 end
 
--- EmptyBars in Raid frames *** Add transparency and shadow options
+-- EmptyBars in Raid frames
 function UFB:ConstructRaidBars()
 	local header = _G['ElvUF_Raid']
 	for i = 1, header:GetNumChildren() do
@@ -59,7 +59,7 @@ function UFB:ConstructRaidBars()
 	end
 end
 
--- EmptyBars in Raid40 frames *** Add transparency and shadow options
+-- EmptyBars in Raid40 frames
 function UFB:ConstructRaid40Bars()
 	local header = _G['ElvUF_Raid40']
 	for i = 1, header:GetNumChildren() do
@@ -74,7 +74,7 @@ function UFB:ConstructRaid40Bars()
 	end
 end
 
--- EmptyBars in Party frames *** Add transparency and shadow options
+-- EmptyBars in Party frames
 function UFB:ConstructPartyBars()
 	local header = _G['ElvUF_Party']
 	for i = 1, header:GetNumChildren() do
