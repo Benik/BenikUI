@@ -30,11 +30,6 @@ function UFB:Configure_EmptyBar(frame)
 			emptybar.shadow:Hide()
 		end
 		
-		if frame.USE_STAGGER then
-			stagger:Point('BOTTOMLEFT', emptybar, 'BOTTOMRIGHT', frame.BORDER*2 + (frame.BORDER and 0 or frame.SPACING), frame.BORDER)
-			stagger:Point('TOPRIGHT', frame.Health, 'TOPRIGHT', frame.STAGGER_WIDTH, 0)
-		end
-		
 		if frame.USE_POWERBAR_OFFSET then
 			emptybar:Hide()
 		elseif frame.USE_POWERBAR and not (frame.POWERBAR_DETACHED or frame.USE_INSET_POWERBAR or frame.USE_MINI_POWERBAR) then

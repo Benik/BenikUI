@@ -6,4 +6,5 @@
 	<Script file='targetglow.lua'/>
 	<Script file='tags.lua'/>
 	<Script file='roleIcons.lua'/>
+	<Script file='stagger.lua'/>
 </Ui>

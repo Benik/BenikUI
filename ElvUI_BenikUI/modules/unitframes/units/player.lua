@@ -59,6 +59,11 @@ function UFB:ArrangePlayer()
 	do
 		UFB:Configure_Threat(frame)
 	end
+	
+	-- Stagger
+	do
+		UFB:Configure_Stagger(frame)
+	end
 
 	frame:UpdateAllElements()
 end
