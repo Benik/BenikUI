@@ -104,19 +104,13 @@ function UFB:ArrangeTarget()
 	end
 	
 	-- Empty Bar
-	do
-		UFB:Configure_EmptyBar(frame)
-	end
+	UFB:Configure_EmptyBar(frame)
 	
 	-- Portrait
-	do
-		UFB:Configure_Portrait(frame, false)
-	end
+	UFB:Configure_Portrait(frame, false)
 	
 	--Threat
-	do
-		UFB:Configure_Threat(frame)
-	end
+	UFB:Configure_Threat(frame)
 
 	frame:UpdateAllElements()
 end
