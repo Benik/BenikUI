@@ -46,22 +46,16 @@ function UFB:ArrangePlayer()
 	end
 
 	-- Empty Bar
-	do
-		UFB:Configure_EmptyBar(frame)
-	end
+	UFB:Configure_EmptyBar(frame)
 	
 	-- Portrait
-	do	
-		UFB:Configure_Portrait(frame, true)
-	end
+	UFB:Configure_Portrait(frame, true)
 	
 	--Threat
-	do
-		UFB:Configure_Threat(frame)
-	end
+	UFB:Configure_Threat(frame)
 	
 	-- Stagger
-	do
+	if E.myclass == "MONK" then
 		UFB:Configure_Stagger(frame)
 	end
 
