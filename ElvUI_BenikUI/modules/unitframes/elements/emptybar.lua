@@ -36,8 +36,11 @@ function UFB:Configure_EmptyBar(frame)
 				emptybar:Point('BOTTOMRIGHT', frame.Power, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
 			else
 				emptybar:Point('TOPLEFT', frame.Health, 'BOTTOMLEFT', -frame.BORDER, -frame.SPACING)
-				emptybar:Point('BOTTOMRIGHT', frame.Health, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)
+				emptybar:Point('BOTTOMRIGHT', frame.Health, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)			
 			end
+		else
+			emptybar:Point('TOPLEFT', frame.Health, 'BOTTOMLEFT', -frame.BORDER, -frame.SPACING)
+			emptybar:Point('BOTTOMRIGHT', frame.Health, 'BOTTOMRIGHT', frame.BORDER, -frame.EMPTY_BARS_HEIGHT)	
 		end
 	else
 		emptybar:Hide()
