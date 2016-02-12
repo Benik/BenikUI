@@ -21,7 +21,11 @@ function UFB:Construct_PlayerFrame()
 	
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
-
+	
+	if E.myclass == "MONK" then
+		frame.Stagger.PostUpdate = UFB.PostUpdateStagger
+	end
+	
 	self:ArrangePlayer()
 end
 
@@ -60,6 +64,39 @@ function UFB:ArrangePlayer()
 	end
 
 	frame:UpdateAllElements()
+end
+
+function UFB:PostUpdateStagger()
+	local frame = self:GetParent()
+	local db = frame.db
+
+	local stateChanged = false
+	local isShown = self:IsShown()
+
+	--Check if Stagger has changed to be either shown or hidden
+	if (frame.STAGGER_SHOWN and not isShown) or (not frame.STAGGER_SHOWN and isShown) then
+		stateChanged = true
+	end
+
+	frame.STAGGER_SHOWN = isShown
+
+	--[[
+		--Use this to force it to show for testing purposes
+		self.Hide = self.Show
+		self:SetMinMaxValues(0, 100)
+		self:SetValue(50)
+		self.SetValue = function() end
+		self:Show()
+		frame.STAGGER_SHOWN = true
+	--]]
+
+	--Only update when necessary
+	if stateChanged then
+		UF:Configure_Stagger(frame)
+		UF:Configure_HealthBar(frame)
+		UF:Configure_Power(frame)
+		UFB:Configure_Stagger(frame)
+	end
 end
 
 function UFB:InitPlayer()
