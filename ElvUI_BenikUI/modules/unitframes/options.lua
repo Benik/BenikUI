@@ -19,7 +19,7 @@ local function ufTable()
 				name = L['EmptyBars'],
 				guiInline = true,
 				get = function(info) return E.db.ufb[ info[#info] ] end,
-				set = function(info, value) E.db.ufb[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); BUIC:UpdatePlayer(); BUIC:UpdateTarget(); end,
+				set = function(info, value) E.db.ufb[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
 				args = {
 					barshow = {
 						order = 1,
@@ -84,7 +84,7 @@ local function ufTable()
 				guiInline = true,
 				disabled = function() return not E.db.ufb.barshow end,
 				get = function(info) return E.db.ufb[ info[#info] ] end,
-				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdatePlayer(); BUIC:UpdateTarget(); end,
+				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
 				args = {
 					attachCastbar = {
 						order = 1,
