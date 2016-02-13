@@ -11,8 +11,6 @@ L["BenikUI is a completely external ElvUI mod. More available options can be fou
 L["Credits:"] = true
 L['ActionBar Style Color'] = true
 L['BenikUI Style'] = true
-L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'] = true
-L['Force BenikUI fonts'] = true
 L['Game Menu Color'] = true
 L['ShiftClick to toggle chat'] = true
 L['Show/Hide the decorative bars from UI elements'] = true
