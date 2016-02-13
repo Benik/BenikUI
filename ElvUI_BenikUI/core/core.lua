@@ -20,8 +20,8 @@ BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 
 function BUI:cOption(name)
-	local BUI_COLOR = '|cff00c0fa%s |r'
-	return (BUI_COLOR):format(name)
+	local color = '|cff00c0fa%s |r'
+	return (color):format(name)
 end
 
 function BUI:PrintURL(url) -- Credit: Azilroka
