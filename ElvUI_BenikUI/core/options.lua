@@ -246,7 +246,7 @@ local function buiCore()
 		},
 	}
 end
-tinsert(E.BuiConfig, buiCore)
+tinsert(BUI.Config, buiCore)
 
 local function buiDatatexts()
 	E.Options.args.bui.args.config.args.datatexts = {
@@ -408,4 +408,4 @@ local function buiDatatexts()
 		},
 	}
 end
-tinsert(E.BuiConfig, buiDatatexts)
+tinsert(BUI.Config, buiDatatexts)

@@ -58,4 +58,4 @@ local function abTable()
 	}
 end
 
-tinsert(E.BuiConfig, abTable)
+tinsert(BUI.Config, abTable)

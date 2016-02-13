@@ -13,6 +13,7 @@ local C_TimerAfter = C_Timer.After
 
 -- GLOBALS: LibStub, BenikUISplashScreen, ElvDB
 
+BUI.Config = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
@@ -42,11 +43,9 @@ function BUI:RegisterBuiMedia()
 	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
 end
 
-E.BuiConfig = {}
-
 -- Like S&L did ;)
 function BUI:AddOptions()
-	for _, func in pairs(E.BuiConfig) do
+	for _, func in pairs(BUI.Config) do
 		func()
 	end	
 end

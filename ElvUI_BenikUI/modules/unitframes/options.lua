@@ -167,7 +167,7 @@ local function ufTable()
 		},
 	}
 end
-tinsert(E.BuiConfig, ufTable)
+tinsert(BUI.Config, ufTable)
 
 local function ufPlayerTable()
 	E.Options.args.unitframe.args.player.args.portrait.args.ufb = {
@@ -280,7 +280,7 @@ local function ufPlayerTable()
 		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
 	}
 end
-tinsert(E.BuiConfig, ufPlayerTable)
+tinsert(BUI.Config, ufPlayerTable)
 
 local function ufTargetTable()
 	E.Options.args.unitframe.args.target.args.portrait.args.ufb = {
@@ -403,7 +403,7 @@ local function ufTargetTable()
 		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
 	}
 end
-tinsert(E.BuiConfig, ufTargetTable)
+tinsert(BUI.Config, ufTargetTable)
 
 local function injectPetOptions()
 	E.Options.args.unitframe.args.pet.args.emptybar = {
@@ -445,7 +445,7 @@ local function injectPetOptions()
 		},
 	}
 end
-tinsert(E.BuiConfig, injectPetOptions)
+tinsert(BUI.Config, injectPetOptions)
 
 local function injectFocusOptions()
 	E.Options.args.unitframe.args.focus.args.emptybar = {
@@ -487,7 +487,7 @@ local function injectFocusOptions()
 		},
 	}
 end
-tinsert(E.BuiConfig, injectFocusOptions)
+tinsert(BUI.Config, injectFocusOptions)
 
 local function injectTargetTargetOptions()
 	E.Options.args.unitframe.args.targettarget.args.emptybar = {
@@ -529,7 +529,7 @@ local function injectTargetTargetOptions()
 		},
 	}
 end
-tinsert(E.BuiConfig, injectTargetTargetOptions)
+tinsert(BUI.Config, injectTargetTargetOptions)
 
 local function injectPartyOptions()
 	E.Options.args.unitframe.args.party.args.portrait.args.height = {
@@ -600,7 +600,7 @@ local function injectPartyOptions()
 		},
 	}
 end
-tinsert(E.BuiConfig, injectPartyOptions)
+tinsert(BUI.Config, injectPartyOptions)
 
 local function injectRaidOptions()
 	E.Options.args.unitframe.args.raid.args.emptybar = {
@@ -664,7 +664,7 @@ local function injectRaidOptions()
 		set = function(info, value) E.db.unitframe.units['raid'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 	}
 end
-tinsert(E.BuiConfig, injectRaidOptions)
+tinsert(BUI.Config, injectRaidOptions)
 
 local function injectRaid40Options()
 	E.Options.args.unitframe.args.raid40.args.emptybar = {
@@ -728,4 +728,4 @@ local function injectRaid40Options()
 		set = function(info, value) E.db.unitframe.units['raid40'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 	}
 end
-tinsert(E.BuiConfig, injectRaid40Options)
+tinsert(BUI.Config, injectRaid40Options)

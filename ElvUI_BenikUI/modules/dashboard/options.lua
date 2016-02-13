@@ -480,9 +480,9 @@ local function dashboardsTable()
 	hooksecurefunc(E, "ToggleConfig", UpdateProfessionOptions)
 end
 
-tinsert(E.BuiConfig, dashboardsTable)
-tinsert(E.BuiConfig, UpdateSystemOptions)
-tinsert(E.BuiConfig, UpdateTokenOptions)
-tinsert(E.BuiConfig, UpdateProfessionOptions)
+tinsert(BUI.Config, dashboardsTable)
+tinsert(BUI.Config, UpdateSystemOptions)
+tinsert(BUI.Config, UpdateTokenOptions)
+tinsert(BUI.Config, UpdateProfessionOptions)
 
 
