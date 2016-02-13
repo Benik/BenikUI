@@ -60,25 +60,8 @@ local function ufTable()
 					},
 				},
 			},
-			buibars = {
-				order = 2,
-				type = 'group',
-				name = L['Bars'],
-				guiInline = true,
-				args = {
-					powerstatusbar = {
-						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 1,
-						name = L['PowerBar Texture'],
-						desc = L['Power statusbar texture.'],
-						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.ufb[ info[#info] ] end,				
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:Update_PowerStatusBar() end,
-					},
-				},
-			},
 			buicastbar = {
-				order = 3,
+				order = 2,
 				type = 'group',
 				name = L['Castbar'],
 				guiInline = true,
@@ -116,7 +99,7 @@ local function ufTable()
 				},
 			},
 			buttons = {
-				order = 4,
+				order = 3,
 				type = 'group',
 				name = L['Shortcuts to EmptyBar Options for:'],
 				guiInline = true,
@@ -166,7 +149,7 @@ local function ufTable()
 				},
 			},
 			misc = {
-				order = 5,
+				order = 4,
 				type = 'group',
 				name = MISCELLANEOUS,
 				guiInline = true,

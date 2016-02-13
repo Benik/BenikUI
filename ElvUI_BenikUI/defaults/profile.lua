@@ -275,8 +275,6 @@ P['ufb'] = {
 	['TargetPortraitTransparent'] = true,
 	['TargetPortraitStyle'] = false,
 	['TargetPortraitStyleHeight'] = 6,
-	-- Powerbar texture
-	['powerstatusbar'] = 'BuiFlat',
 	-- Castbar attach
 	['attachCastbar'] = true,
 	['castText'] = true,
