@@ -3,12 +3,51 @@ local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 
 if E.db.bui == nil then E.db.bui = {} end
-local GetAddOnInfo = GetAddOnInfo
 local tinsert = table.insert
 
 local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
 local COLORS, COLOR_PICKER, MISCELLANEOUS = COLORS, COLOR_PICKER, MISCELLANEOUS
 local CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP, FONT_SIZE = CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP, FONT_SIZE
+local StaticPopup_Show = StaticPopup_Show
+
+	StaticPopupDialogs["BENIKUI_CREDITS"] = {
+		text = BUI.Title,
+		button1 = OKAY,
+		hasEditBox = 1,
+		OnShow = function(self, data)
+			self.editBox:SetAutoFocus(false)
+			self.editBox.width = self.editBox:GetWidth()
+			self.editBox:Width(280)
+			self.editBox:AddHistoryLine("text")
+			self.editBox.temptxt = data
+			self.editBox:SetText(data)
+			self.editBox:HighlightText()
+			self.editBox:SetJustifyH("CENTER")
+		end,
+		OnHide = function(self)
+			self.editBox:Width(self.editBox.width or 50)
+			self.editBox.width = nil
+			self.temptxt = nil
+		end,		
+		EditBoxOnEnterPressed = function(self)
+			self:GetParent():Hide();
+		end,
+		EditBoxOnEscapePressed = function(self)
+			self:GetParent():Hide();
+		end,
+		EditBoxOnTextChanged = function(self)
+			if(self:GetText() ~= self.temptxt) then
+				self:SetText(self.temptxt)
+			end
+			self:HighlightText()
+			self:ClearFocus()
+		end,
+		OnAccept = E.noop,
+		timeout = 0,
+		whileDead = 1,
+		preferredIndex = 3,
+		hideOnEscape = 1,
+	}
 
 local function buiCore()
 	E.Options.args.bui = {
@@ -24,7 +63,7 @@ local function buiCore()
 			logo = {
 				order = 2,
 				type = 'description',
-				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.']..'\n\n'..BUI:cOption(L['Credits:'])..L[' Elv, Tukz, Blazeflack, Azilroka, Sinaris, Repooc, Darth Predator, Dandruff, Hydra, Merathilis, Rockxana, ElvUI community']),
+				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.']),
 				fontSize = 'medium',
 				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 192, 96 end,
 				imageCoords = {0.09, 0.99, 0.01, 0.99}
@@ -242,6 +281,148 @@ local function buiCore()
 				name = L['Options'],
 				childGroups = 'tab',
 				args = {},
+			},
+			info = {
+				order = 21,
+				type = 'group',
+				name = L['Information'],
+				args = {
+					name = {
+						order = 1,
+						type = 'header',
+						name = BUI.Title,
+					},
+					support = {
+						order = 2,
+						type = 'group',
+						name = BUI:cOption(L['Support']),
+						guiInline = true,
+						args = {
+							tukui = {
+								order = 1,
+								type = 'execute',
+								name = L['Tukui.org'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=228") end,
+								},
+							git = {
+								order = 2,
+								type = 'execute',
+								name = L['Git Ticket tracker'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://git.tukui.org/Benik/ElvUI_BenikUI/issues") end,
+							},
+							beta = {
+								order = 3,
+								type = 'execute',
+								name = L['Beta versions'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://git.tukui.org/Benik/ElvUI_BenikUI/commits/master") end,
+							},
+						},
+					},
+					download = {
+						order = 3,
+						type = 'group',
+						name = BUI:cOption(L['Download']),
+						guiInline = true,
+						args = {
+							tukui = {
+								order = 1,
+								type = 'execute',
+								name = L['Tukui.org'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=228") end,
+							},
+							curse = {
+								order = 2,
+								type = 'execute',
+								name = L['Curse.com'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.curse.com/addons/wow/benikui-v2") end,
+							},
+							wowint = {
+								order = 3,
+								type = 'execute',
+								name = L['WoW Interface'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.wowinterface.com/downloads/info23675-BenikUIv2.html") end,
+							},
+						},
+					},
+					coding = {
+						order = 4,
+						type = 'group',
+						name = BUI:cOption(L['Coding']),
+						guiInline = true,
+						args = {
+							tukui = {
+								order = 1,
+								type = 'description',
+								fontSize = 'medium',
+								name = format('|cffffd200%s|r', 'Elv, Tukz, Blazeflack, Azilroka, Sinaris, Repooc, Darth Predator, Hydra, Merathilis'),
+							},
+						},
+					},
+					testing = {
+						order = 5,
+						type = 'group',
+						name = BUI:cOption(L['Testing & Inspiration']),
+						guiInline = true,
+						args = {
+							tukui = {
+								order = 1,
+								type = 'description',
+								fontSize = 'medium',
+								name = format('|cffffd200%s|r', 'Merathilis, Rockxana, BuG, Vxt, V4NT0M, ElvUI community'),
+							},
+						},
+					},
+					donators = {
+						order = 6,
+						type = 'group',
+						name = BUI:cOption(L['Donations']),
+						guiInline = true,
+						args = {
+							tukui = {
+								order = 1,
+								type = 'description',
+								fontSize = 'medium',
+								name = format('|cffffd200%s|r', 'Chilou, Merathilis'),
+							},
+						},
+					},
+					addons = {
+						order = 7,
+						type = 'group',
+						name = BUI:cOption(L['My other Addons']),
+						guiInline = true,
+						args = {
+							locplus = {
+								order = 1,
+								type = 'execute',
+								name = L['LocationPlus for ElvUI'],
+								desc = L['Adds player location, coords + 2 Datatexts and a tooltip with info based on player location/level.'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.curse.com/addons/wow/elvui-location-plus") end,
+							},
+							loclite = {
+								order = 2,
+								type = 'execute',
+								name = L['LocationLite for ElvUI'],
+								desc = L['Adds a location panel with coords. A LocationPlus alternative.'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.curse.com/addons/wow/elvui-locationlite") end,
+							},
+							dtText = {
+								order = 3,
+								type = 'execute',
+								name = L['ElvUI DT Text Color'],
+								desc = L['a plugin for ElvUI, that changes the DT text color to class color, value color or any user defined'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=213") end,
+							},
+							trAb = {
+								order = 5,
+								type = 'execute',
+								name = L['ElvUI Transparent Actionbar Backdrops'],
+								desc = L['A small plugin that makes the actionbar backdrops and the unused buttons transparent'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=173") end,
+							},
+						},
+					},
+				},
 			},
 		},
 	}
