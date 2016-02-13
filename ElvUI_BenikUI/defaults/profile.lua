@@ -97,7 +97,6 @@ P['bui'] = {
 	['buiStyle'] = true,
 	['colorTheme'] = 'Elv',
 	['buiDts'] = true,
-	['buiFonts'] = true,
 	['LoginMsg'] = true,
 	['SplashScreen'] = true,
 	['GameMenuButton'] = true,

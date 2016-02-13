@@ -2,16 +2,6 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local LSM = LibStub('LibSharedMedia-3.0')
 
-local EnableAddOn, DisableAddOn = EnableAddOn, DisableAddOn
-
-function BUI:EnableBuiFonts()
-	if E.db.bui.buiFonts then
-		EnableAddOn('ElvUI_BenikUI_Fonts')
-	else
-		DisableAddOn('ElvUI_BenikUI_Fonts')
-	end
-end
-
 -- add alpha in shadow color (sa) and moved the r, g, b to the end cause of Blizz auto coloring
 local function SetFont(obj, font, size, style, sr, sg, sb, sa, sox, soy, r, g, b)
 	obj:SetFont(font, size, style)
