@@ -188,7 +188,7 @@ local function DetachIcon(unit, unitframe)
 		castbar.ButtonIcon.bg:ClearAllPoints()
 		if cdb.detachCastbarIcon then
 			castbar.ButtonIcon.bg:Point("TOP", castbar, "BOTTOM", cdb.xOffset, cdb.yOffset)
-			castbar.ButtonIcon.bg:Size(cdb.iconSize)
+			castbar.ButtonIcon.bg:Size(cdb.detachedIconSize)
 			castbar:Width(cdb.width - ((unitframe.BORDER + unitframe.SPACING)*2))
 		else
 			castbar.ButtonIcon.bg:Width(cdb.height)
