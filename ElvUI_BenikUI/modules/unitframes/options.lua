@@ -256,7 +256,7 @@ local function ufPlayerTable()
 		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
 	}
 	
-	E.Options.args.unitframe.args.player.args.castbar.args.iconSize = {
+	E.Options.args.unitframe.args.player.args.castbar.args.detachediconSize = {
 		type = 'range',
 		order = 17,
 		name = BUI:cOption(L['Icon Size']),
@@ -379,7 +379,7 @@ local function ufTargetTable()
 		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
 	}
 	
-	E.Options.args.unitframe.args.target.args.castbar.args.iconSize = {
+	E.Options.args.unitframe.args.target.args.castbar.args.detachediconSize = {
 		type = 'range',
 		order = 17,
 		name = BUI:cOption(L['Icon Size']),
