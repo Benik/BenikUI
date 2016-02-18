@@ -126,10 +126,37 @@ function BUI:GameMenuButton()
 	lib:UpdateHolder()
 end
 
+-- Clean ElvUI.lua in WTF folder from outdated settings
+local function dbCleaning()
+	-- Player/Target Emptybars rip
+	if E.db.ufb.barshow then E.db.ufb.barshow = nil end
+	if E.db.ufb.toggleTransparency then E.db.ufb.toggleTransparency = nil end
+	if E.db.ufb.toggleShadow then E.db.ufb.toggleShadow = nil end
+	if E.db.ufb.barheight then E.db.ufb.barheight = nil end
+	if E.db.ufb.threat then E.db.ufb.threat = nil end
+	
+	-- Castbar on Emptybars
+	if E.db.ufb.attachCastbar then E.db.ufb.attachCastbar = nil end
+	if E.db.ufb.castText then E.db.ufb.castText = nil end
+	
+	-- Player Castbar icon detach
+	if E.db.unitframe.units.player.castbar.detachCastbarIcon then E.db.unitframe.units.player.castbar.detachCastbarIcon = nil end
+	if E.db.unitframe.units.player.castbar.detachediconSize then E.db.unitframe.units.player.castbar.detachediconSize = nil end
+	if E.db.unitframe.units.player.castbar.xOffset then E.db.unitframe.units.player.castbar.xOffset = nil end
+	if E.db.unitframe.units.player.castbar.yOffset then E.db.unitframe.units.player.castbar.yOffset = nil end
+	
+	-- Target Castbar icon detach
+	if E.db.unitframe.units.target.castbar.detachCastbarIcon then E.db.unitframe.units.target.castbar.detachCastbarIcon = nil end
+	if E.db.unitframe.units.target.castbar.detachediconSize then E.db.unitframe.units.target.castbar.detachediconSize = nil end
+	if E.db.unitframe.units.target.castbar.xOffset then E.db.unitframe.units.target.castbar.xOffset = nil end
+	if E.db.unitframe.units.target.castbar.yOffset then E.db.unitframe.units.target.castbar.yOffset = nil end
+end
+
 function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:LoadCommands()
-
+	dbCleaning()
+	
 	if E.db.bui.SplashScreen then
 		CreateSplashScreen()
 	end
