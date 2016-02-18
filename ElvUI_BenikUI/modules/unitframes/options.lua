@@ -13,53 +13,6 @@ local function ufTable()
 		name = L['UnitFrames'],
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
-			--[[eframes = {
-				order = 1,
-				type = 'group',
-				name = L['EmptyBars'],
-				guiInline = true,
-				get = function(info) return E.db.ufb[ info[#info] ] end,
-				set = function(info, value) E.db.ufb[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
-				args = {
-					barshow = {
-						order = 1,
-						type = 'toggle',
-						name = ENABLE,
-						desc = L['Enable the EmptyBars (Player and Target).'],
-					},
-					toggleTransparency = {
-						order = 2,
-						type = 'toggle',
-						name = L['Transparent'],
-						desc = L['Toggle EmptyBar transparency'],
-						get = function(info) return E.db.ufb[ info[#info] ] end,
-						disabled = function() return not E.db.ufb.barshow end,
-					},
-					toggleShadow = {
-						order = 3,
-						type = 'toggle',
-						name = L['Shadow'],
-						get = function(info) return E.db.ufb[ info[#info] ] end,
-						disabled = function() return not E.db.ufb.barshow end,
-					},
-					barheight = {
-						order = 4,
-						type = 'range',
-						name = L['Height'],
-						desc = L['Change the EmptyBars height (Player and Target).'],
-						disabled = function() return not E.db.ufb.barshow end,
-						min = 10, max = 50, step = 1,
-					},
-					threat = {
-						order = 5,
-						type = 'toggle',
-						name = L['Threat on EmptyBars'],
-						desc = L['Places the threat glow on Player and Target EmptyBars'],
-						get = function(info) return E.db.ufb[ info[#info] ] end,
-						disabled = function() return not E.db.ufb.barshow end,
-					},
-				},
-			},]]
 			buicastbar = {
 				order = 2,
 				type = 'group',
@@ -69,20 +22,7 @@ local function ufTable()
 				get = function(info) return E.db.ufb[ info[#info] ] end,
 				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
 				args = {
-					--[[attachCastbar = {
-						order = 1,
-						type = 'toggle',
-						name = L['Attach on EmptyBars'],
-						desc = L['Attaches Player and Target Castbar on the EmptyBars.'],
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
-					castText = {
-						order = 2,
-						type = 'toggle',
-						name = L['Castbar Text'],
-						desc = L['Show/Hide the Castbar text.'],
-					},]]
-					yOffsetText = {
+					--[[yOffsetText = {
 						order = 3,
 						type = 'range',
 						name = L['Y Offset'],
@@ -95,59 +35,9 @@ local function ufTable()
 						name = L['Hide EmptyBar text'],
 						desc = L['Hide any text placed on the EmptyBars, while casting.'],
 						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
+					},]]
 				},
 			},
-			--[[buttons = {
-				order = 3,
-				type = 'group',
-				name = L['Shortcuts to EmptyBar Options for:'],
-				guiInline = true,
-				args = {
-					focus = {
-						order = 1,
-						name = L['Focus Frame'],
-						desc = L['This opens the Focus Frame EmptyBar settings.'],
-						type = 'execute',
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "focus", "emptybar") end,
-					},
-					tot = {
-						order = 2,
-						name = L['TargetTarget Frame'],
-						desc = L['This opens the TargetTarget Frame EmptyBar settings.'],
-						type = 'execute',
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "targettarget", "emptybar") end,
-					},
-					pet = {
-						order = 3,
-						name = L['Pet Frame'],
-						desc = L['This opens the Pet Frame EmptyBar settings.'],
-						type = 'execute',
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "pet", "emptybar") end,
-					},
-					party = {
-						order = 4,
-						name = L['Party Frames'],
-						desc = L['This opens the Party Frames EmptyBars settings.'],
-						type = 'execute',
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "party", "emptybar") end,
-					},
-					raid = {
-						order = 5,
-						name = L['Raid Frames'],
-						desc = L['This opens the Raid Frames EmptyBars settings.'],
-						type = 'execute',
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid", "emptybar") end,
-					},
-					raid40 = {
-						order = 6,
-						name = L['Raid-40 Frames'],
-						desc = L['This opens the Raid-40 Frames EmptyBars settings.'],
-						type = 'execute',
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid40", "emptybar") end,
-					},
-				},
-			},]]
 			misc = {
 				order = 4,
 				type = 'group',
@@ -240,45 +130,6 @@ local function ufPlayerTable()
 			},			
 		},
 	}
-	
-	--[[ Detach Castbar Icon
-	E.Options.args.unitframe.args.player.args.castbar.args.benikuiSpacer = {
-		type = 'header',
-		order = 15,
-		name = '',
-	}
-
-	E.Options.args.unitframe.args.player.args.castbar.args.detachCastbarIcon = {
-		type = 'toggle',
-		order = 16,
-		name = BUI:cOption(L['Detach Castbar Icon']),
-		width = 'full',
-		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
-	}
-	
-	E.Options.args.unitframe.args.player.args.castbar.args.detachediconSize = {
-		type = 'range',
-		order = 17,
-		name = BUI:cOption(L['Icon Size']),
-		min = 16, max = 64, step = 1,
-		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
-	}
-	
-	E.Options.args.unitframe.args.player.args.castbar.args.xOffset = {
-		type = 'range',
-		order = 18,
-		name = BUI:cOption(L['xOffset']),
-		min = -1000, max = 1000, step = 1,
-		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
-	}
-	
-	E.Options.args.unitframe.args.player.args.castbar.args.yOffset = {
-		type = 'range',
-		order = 19,
-		name = BUI:cOption(L['yOffset']),
-		min = -1000, max = 1000, step = 1,
-		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
-	}]]
 end
 tinsert(BUI.Config, ufPlayerTable)
 
@@ -363,175 +214,11 @@ local function ufTargetTable()
 			},
 		},
 	}
-
-	--[[ Detach Castbar Icon
-	E.Options.args.unitframe.args.target.args.castbar.args.benikuiSpacer = {
-		type = 'header',
-		order = 15,
-		name = '',
-	}
-
-	E.Options.args.unitframe.args.target.args.castbar.args.detachCastbarIcon = {
-		type = 'toggle',
-		order = 16,
-		name = BUI:cOption(L['Detach Castbar Icon']),
-		width = 'full',
-		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
-	}
-	
-	E.Options.args.unitframe.args.target.args.castbar.args.detachediconSize = {
-		type = 'range',
-		order = 17,
-		name = BUI:cOption(L['Icon Size']),
-		min = 16, max = 64, step = 1,
-		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
-	}
-	
-	E.Options.args.unitframe.args.target.args.castbar.args.xOffset = {
-		type = 'range',
-		order = 18,
-		name = BUI:cOption(L['xOffset']),
-		min = -1000, max = 1000, step = 1,
-		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
-	}
-	
-	E.Options.args.unitframe.args.target.args.castbar.args.yOffset = {
-		type = 'range',
-		order = 19,
-		name = BUI:cOption(L['yOffset']),
-		min = -1000, max = 1000, step = 1,
-		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
-	}]]
 end
 tinsert(BUI.Config, ufTargetTable)
 
---[[local function injectPetOptions()
-	E.Options.args.unitframe.args.pet.args.emptybar = {
-		order = 900,
-		type = 'group',
-		name = BUI:cOption(L["EmptyBars"]),
-		get = function(info) return E.db.unitframe.units['pet']['emptybar'][ info[#info] ] end,
-		set = function(info, value) E.db.unitframe.units['pet']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateUF('pet') end,
-		args = {
-			enable = {
-				type = 'toggle',
-				order = 1,
-				name = L["Enable"],
-				width = "full",
-			},
-			height = {
-				type = 'range',
-				order = 2,
-				name = L["Height"],
-				min = 10, max = 50, step = 1,
-			},							
-			transparent = {
-				type = 'toggle',
-				order = 3,
-				name = L["Transparent"],
-				desc = L["Toggle EmptyBars transparency"],
-			},
-			shadow = {
-				type = 'toggle',
-				order = 4,
-				name = L["Shadow"],
-			},
-			threat = {
-				type = 'toggle',
-				order = 5,
-				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Pet EmptyBar'],
-			},
-		},
-	}
-end
-tinsert(BUI.Config, injectPetOptions)]]
-
---[[local function injectFocusOptions()
-	E.Options.args.unitframe.args.focus.args.emptybar = {
-		order = 900,
-		type = 'group',
-		name = BUI:cOption(L["EmptyBars"]),
-		get = function(info) return E.db.unitframe.units['focus']['emptybar'][ info[#info] ] end,
-		set = function(info, value) E.db.unitframe.units['focus']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateUF('focus'); end,
-		args = {
-			enable = {
-				type = 'toggle',
-				order = 1,
-				name = L["Enable"],
-				width = "full",
-			},
-			height = {
-				type = 'range',
-				order = 2,
-				name = L["Height"],
-				min = 10, max = 50, step = 1,
-			},							
-			transparent = {
-				type = 'toggle',
-				order = 3,
-				name = L["Transparent"],
-				desc = L["Toggle EmptyBars transparency"],
-			},
-			shadow = {
-				type = 'toggle',
-				order = 4,
-				name = L["Shadow"],
-			},
-			threat = {
-				type = 'toggle',
-				order = 5,
-				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Pet EmptyBar'],
-			},
-		},
-	}
-end
-tinsert(BUI.Config, injectFocusOptions)]]
-
---[[local function injectTargetTargetOptions()
-	E.Options.args.unitframe.args.targettarget.args.emptybar = {
-		order = 900,
-		type = 'group',
-		name = BUI:cOption(L["EmptyBars"]),
-		get = function(info) return E.db.unitframe.units['targettarget']['emptybar'][ info[#info] ] end,
-		set = function(info, value) E.db.unitframe.units['targettarget']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateUF('targettarget'); end,
-		args = {
-			enable = {
-				type = 'toggle',
-				order = 1,
-				name = L["Enable"],
-				width = "full",
-			},
-			height = {
-				type = 'range',
-				order = 2,
-				name = L["Height"],
-				min = 10, max = 50, step = 1,
-			},							
-			transparent = {
-				type = 'toggle',
-				order = 3,
-				name = L["Transparent"],
-				desc = L["Toggle EmptyBars transparency"],
-			},
-			shadow = {
-				type = 'toggle',
-				order = 4,
-				name = L["Shadow"],
-			},
-			threat = {
-				type = 'toggle',
-				order = 5,
-				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Pet EmptyBar'],
-			},
-		},
-	}
-end
-tinsert(BUI.Config, injectTargetTargetOptions)]]
-
 local function injectPartyOptions()
+
 	E.Options.args.unitframe.args.party.args.portrait.args.height = {
 		type = 'range',
 		order = 15,
@@ -560,88 +247,11 @@ local function injectPartyOptions()
 		name = BUI:cOption(L["yOffset"]),
 		min = -150, max = 150, step = 1,
 	}
-	
-	--[[E.Options.args.unitframe.args.party.args.emptybar = {
-		order = 900,
-		type = 'group',
-		name = BUI:cOption(L["EmptyBars"]),
-		get = function(info) return E.db.unitframe.units['party']['emptybar'][ info[#info] ] end,
-		set = function(info, value) E.db.unitframe.units['party']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('party') end,
-		args = {
-			enable = {
-				type = 'toggle',
-				order = 1,
-				name = L["Enable"],
-				width = "full",
-			},
-			height = {
-				type = 'range',
-				order = 2,
-				name = L["Height"],
-				min = 10, max = 50, step = 1,
-			},							
-			transparent = {
-				type = 'toggle',
-				order = 3,
-				name = L["Transparent"],
-				desc = L["Toggle EmptyBars transparency"],
-			},
-			shadow = {
-				type = 'toggle',
-				order = 4,
-				name = L["Shadow"],
-			},
-			threat = {
-				type = 'toggle',
-				order = 5,
-				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Pet EmptyBar'],
-			},
-		},
-	}]]
 end
 tinsert(BUI.Config, injectPartyOptions)
 
 local function injectRaidOptions()
-	--[[E.Options.args.unitframe.args.raid.args.emptybar = {
-		order = 900,
-		type = 'group',
-		name = BUI:cOption(L["EmptyBars"]),
-		get = function(info) return E.db.unitframe.units['raid']['emptybar'][ info[#info] ] end,
-		set = function(info, value) E.db.unitframe.units['raid']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raid') end,
-		args = {
-			enable = {
-				type = 'toggle',
-				order = 1,
-				name = L["Enable"],
-				width = "full",
-			},
-			height = {
-				type = 'range',
-				order = 2,
-				name = L["Height"],
-				min = 10, max = 50, step = 1,
-			},							
-			transparent = {
-				type = 'toggle',
-				order = 3,
-				name = L["Transparent"],
-				desc = L["Toggle EmptyBars transparency"],
-			},
-			shadow = {
-				type = 'toggle',
-				order = 4,
-				name = L["Shadow"],
-			},
-			threat = {
-				type = 'toggle',
-				order = 5,
-				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Pet EmptyBar'],
-			},
-		},
-	}]]
-	
+
 	E.Options.args.unitframe.args.raid.args.roleIcon.args.xOffset = {
 		type = 'range',
 		order = 7,
@@ -667,44 +277,6 @@ end
 tinsert(BUI.Config, injectRaidOptions)
 
 local function injectRaid40Options()
-	--[[E.Options.args.unitframe.args.raid40.args.emptybar = {
-		order = 900,
-		type = 'group',
-		name = BUI:cOption(L["EmptyBars"]),
-		get = function(info) return E.db.unitframe.units['raid40']['emptybar'][ info[#info] ] end,
-		set = function(info, value) E.db.unitframe.units['raid40']['emptybar'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raid40') end,
-		args = {
-			enable = {
-				type = 'toggle',
-				order = 1,
-				name = L["Enable"],
-				width = "full",
-			},
-			height = {
-				type = 'range',
-				order = 2,
-				name = L["Height"],
-				min = 10, max = 50, step = 1,
-			},							
-			transparent = {
-				type = 'toggle',
-				order = 3,
-				name = L["Transparent"],
-				desc = L["Toggle EmptyBars transparency"],
-			},
-			shadow = {
-				type = 'toggle',
-				order = 4,
-				name = L["Shadow"],
-			},
-			threat = {
-				type = 'toggle',
-				order = 5,
-				name = L['Threat on EmptyBars'],
-				desc = L['Places the threat glow on Pet EmptyBar'],
-			},
-		},
-	}]]
 	
 	E.Options.args.unitframe.args.raid40.args.roleIcon.args.xOffset = {
 		type = 'range',
