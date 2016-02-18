@@ -257,7 +257,7 @@ local function xprepTable()
 		},
 	}
 end
-tinsert(E.BuiConfig, xprepTable)
+tinsert(BUI.Config, xprepTable)
 
 local positionValues = {
 	TOPLEFT = 'TOPLEFT',
@@ -280,4 +280,4 @@ local function injectBagOptions()
 		set = function(info, value) E.db.bags.countPosition = value; B:UpdateCountDisplay() end,
 	}
 end
-tinsert(E.BuiConfig, injectBagOptions)
+tinsert(BUI.Config, injectBagOptions)

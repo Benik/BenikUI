@@ -19,7 +19,7 @@ local function ufTable()
 				name = L['EmptyBars'],
 				guiInline = true,
 				get = function(info) return E.db.ufb[ info[#info] ] end,
-				set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:ArrangePlayer(); UFB:ArrangeTarget(); end,
+				set = function(info, value) E.db.ufb[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
 				args = {
 					barshow = {
 						order = 1,
@@ -34,7 +34,6 @@ local function ufTable()
 						desc = L['Toggle EmptyBar transparency'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarTransparency(); UFB:ToggleTargetBarTransparency(); end,
 					},
 					toggleShadow = {
 						order = 3,
@@ -42,14 +41,12 @@ local function ufTable()
 						name = L['Shadow'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:TogglePlayerBarShadow(); UFB:ToggleTargetBarShadow(); end,
 					},
 					barheight = {
 						order = 4,
 						type = 'range',
 						name = L['Height'],
 						desc = L['Change the EmptyBars height (Player and Target).'],
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); BUIC:UpdatePlayer(); BUIC:UpdateTarget(); end,
 						disabled = function() return not E.db.ufb.barshow end,
 						min = 10, max = 50, step = 1,
 					},
@@ -60,35 +57,17 @@ local function ufTable()
 						desc = L['Places the threat glow on Player and Target EmptyBars'],
 						get = function(info) return E.db.ufb[ info[#info] ] end,
 						disabled = function() return not E.db.ufb.barshow end,
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); UF:CreateAndUpdateUF('target'); end,
-					},
-				},
-			},
-			buibars = {
-				order = 2,
-				type = 'group',
-				name = L['Bars'],
-				guiInline = true,
-				args = {
-					powerstatusbar = {
-						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 1,
-						name = L['PowerBar Texture'],
-						desc = L['Power statusbar texture.'],
-						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.ufb[ info[#info] ] end,				
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; UFB:Update_PowerStatusBar() end,
 					},
 				},
 			},
 			buicastbar = {
-				order = 3,
+				order = 2,
 				type = 'group',
 				name = L['Castbar'],
 				guiInline = true,
 				disabled = function() return not E.db.ufb.barshow end,
 				get = function(info) return E.db.ufb[ info[#info] ] end,
-				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdatePlayer(); BUIC:UpdateTarget(); end,
+				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
 				args = {
 					attachCastbar = {
 						order = 1,
@@ -120,7 +99,7 @@ local function ufTable()
 				},
 			},
 			buttons = {
-				order = 4,
+				order = 3,
 				type = 'group',
 				name = L['Shortcuts to EmptyBar Options for:'],
 				guiInline = true,
@@ -170,7 +149,7 @@ local function ufTable()
 				},
 			},
 			misc = {
-				order = 5,
+				order = 4,
 				type = 'group',
 				name = MISCELLANEOUS,
 				guiInline = true,
@@ -188,7 +167,7 @@ local function ufTable()
 		},
 	}
 end
-tinsert(E.BuiConfig, ufTable)
+tinsert(BUI.Config, ufTable)
 
 local function ufPlayerTable()
 	E.Options.args.unitframe.args.player.args.portrait.args.ufb = {
@@ -250,13 +229,13 @@ local function ufPlayerTable()
 				order = 6,
 				type = 'toggle',
 				name = L['BenikUI Style on Portrait'],
-				disabled = function() return not E.db.ufb.detachPlayerPortrait or not E.db.bui.buiStyle end,
+				disabled = function() return not E.db.bui.buiStyle end,
 			},
 			PlayerPortraitStyleHeight = {
 				order = 7,
 				type = 'range',
 				name = L['Style Height'],
-				disabled = function() return not E.db.ufb.detachPlayerPortrait or not E.db.bui.buiStyle or not E.db.ufb.PlayerPortraitStyle end,
+				disabled = function() return not E.db.bui.buiStyle or not E.db.ufb.PlayerPortraitStyle end,
 				min = 4, max = 20, step = 1,
 			},			
 		},
@@ -277,7 +256,7 @@ local function ufPlayerTable()
 		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
 	}
 	
-	E.Options.args.unitframe.args.player.args.castbar.args.iconSize = {
+	E.Options.args.unitframe.args.player.args.castbar.args.detachediconSize = {
 		type = 'range',
 		order = 17,
 		name = BUI:cOption(L['Icon Size']),
@@ -301,7 +280,7 @@ local function ufPlayerTable()
 		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
 	}
 end
-tinsert(E.BuiConfig, ufPlayerTable)
+tinsert(BUI.Config, ufPlayerTable)
 
 local function ufTargetTable()
 	E.Options.args.unitframe.args.target.args.portrait.args.ufb = {
@@ -373,13 +352,13 @@ local function ufTargetTable()
 				order = 7,
 				type = 'toggle',
 				name = L['BenikUI Style on Portrait'],
-				disabled = function() return not E.db.ufb.detachTargetPortrait or not E.db.bui.buiStyle end,
+				disabled = function() return not E.db.bui.buiStyle end,
 			},
 			TargetPortraitStyleHeight = {
 				order = 8,
 				type = 'range',
 				name = L['Style Height'],
-				disabled = function() return not E.db.ufb.detachTargetPortrait or not E.db.bui.buiStyle or not E.db.ufb.TargetPortraitStyle end,
+				disabled = function() return not E.db.bui.buiStyle or not E.db.ufb.TargetPortraitStyle end,
 				min = 4, max = 20, step = 1,
 			},
 		},
@@ -400,7 +379,7 @@ local function ufTargetTable()
 		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
 	}
 	
-	E.Options.args.unitframe.args.target.args.castbar.args.iconSize = {
+	E.Options.args.unitframe.args.target.args.castbar.args.detachediconSize = {
 		type = 'range',
 		order = 17,
 		name = BUI:cOption(L['Icon Size']),
@@ -424,7 +403,7 @@ local function ufTargetTable()
 		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
 	}
 end
-tinsert(E.BuiConfig, ufTargetTable)
+tinsert(BUI.Config, ufTargetTable)
 
 local function injectPetOptions()
 	E.Options.args.unitframe.args.pet.args.emptybar = {
@@ -466,7 +445,7 @@ local function injectPetOptions()
 		},
 	}
 end
-tinsert(E.BuiConfig, injectPetOptions)
+tinsert(BUI.Config, injectPetOptions)
 
 local function injectFocusOptions()
 	E.Options.args.unitframe.args.focus.args.emptybar = {
@@ -508,7 +487,7 @@ local function injectFocusOptions()
 		},
 	}
 end
-tinsert(E.BuiConfig, injectFocusOptions)
+tinsert(BUI.Config, injectFocusOptions)
 
 local function injectTargetTargetOptions()
 	E.Options.args.unitframe.args.targettarget.args.emptybar = {
@@ -550,7 +529,7 @@ local function injectTargetTargetOptions()
 		},
 	}
 end
-tinsert(E.BuiConfig, injectTargetTargetOptions)
+tinsert(BUI.Config, injectTargetTargetOptions)
 
 local function injectPartyOptions()
 	E.Options.args.unitframe.args.party.args.portrait.args.height = {
@@ -621,7 +600,7 @@ local function injectPartyOptions()
 		},
 	}
 end
-tinsert(E.BuiConfig, injectPartyOptions)
+tinsert(BUI.Config, injectPartyOptions)
 
 local function injectRaidOptions()
 	E.Options.args.unitframe.args.raid.args.emptybar = {
@@ -685,7 +664,7 @@ local function injectRaidOptions()
 		set = function(info, value) E.db.unitframe.units['raid'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 	}
 end
-tinsert(E.BuiConfig, injectRaidOptions)
+tinsert(BUI.Config, injectRaidOptions)
 
 local function injectRaid40Options()
 	E.Options.args.unitframe.args.raid40.args.emptybar = {
@@ -749,4 +728,4 @@ local function injectRaid40Options()
 		set = function(info, value) E.db.unitframe.units['raid40'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 	}
 end
-tinsert(E.BuiConfig, injectRaid40Options)
+tinsert(BUI.Config, injectRaid40Options)

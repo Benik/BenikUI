@@ -13,14 +13,15 @@ local C_TimerAfter = C_Timer.After
 
 -- GLOBALS: LibStub, BenikUISplashScreen, ElvDB
 
+BUI.Config = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.newsign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 
 function BUI:cOption(name)
-	local BUI_COLOR = '|cff00c0fa%s |r'
-	return (BUI_COLOR):format(name)
+	local color = '|cff00c0fa%s |r'
+	return (color):format(name)
 end
 
 function BUI:PrintURL(url) -- Credit: Azilroka
@@ -42,11 +43,9 @@ function BUI:RegisterBuiMedia()
 	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
 end
 
-E.BuiConfig = {}
-
 -- Like S&L did ;)
 function BUI:AddOptions()
-	for _, func in pairs(E.BuiConfig) do
+	for _, func in pairs(BUI.Config) do
 		func()
 	end	
 end
@@ -115,12 +114,28 @@ local function ShowSplashScreen()
 	BenikUISplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
 end
 
+function BUI:GameMenuButton()
+	local lib = LibStub("LibElv-GameMenu-1.0")
+	local button = {
+		["name"] = "BUIConfigButton",
+		["text"] = "|cff00c0faBenikUI|r",
+		["func"] = function() BUI:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(_G["GameMenuFrame"]) end,
+	}
+	lib:AddMenuButton(button)
+	
+	lib:UpdateHolder()
+end
+
 function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:LoadCommands()
 
 	if E.db.bui.SplashScreen then
 		CreateSplashScreen()
+	end
+
+	if E.db.bui.GameMenuButton then
+		self:GameMenuButton()
 	end
 	E:GetModule('DataTexts'):ToggleMailFrame()
 

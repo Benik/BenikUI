@@ -11,8 +11,6 @@ L["BenikUI is a completely external ElvUI mod. More available options can be fou
 L["Credits:"] = true
 L['ActionBar Style Color'] = true
 L['BenikUI Style'] = true
-L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'] = true
-L['Force BenikUI fonts'] = true
 L['Game Menu Color'] = true
 L['ShiftClick to toggle chat'] = true
 L['Show/Hide the decorative bars from UI elements'] = true
@@ -20,6 +18,7 @@ L['Style Color'] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = true
 L['Splash Screen'] = true
+L['GameMenu Button'] = true
 
 -- Misc
 L['iLevel'] = true
@@ -175,8 +174,6 @@ L['Places the threat glow on Party EmptyBars'] = true
 L['Places the threat glow on Raid EmptyBars'] = true
 L['Places the threat glow on Raid-40 EmptyBars'] = true
 L['Player Size'] = true
-L['Power statusbar texture.'] = true
-L['PowerBar Texture'] = true
 L['Replaces the default role icons with SVUI ones.'] = true
 L['Shadow'] = true
 L['Shortcuts to EmptyBar Options for:'] = true

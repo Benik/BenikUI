@@ -11,8 +11,6 @@ L["BenikUI is a completely external ElvUI mod. More available options can be fou
 L["Credits:"] = "Danksagung:"
 L['ActionBar Style Color'] = "Aktionsleiste Stil Farbe"
 L['BenikUI Style'] = "BenikUI Stil"
-L['Enables BenikUI fonts overriding the default combat and name fonts. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r'] = "Ermöglicht die BenikUI Schriftart, die vorhandene Kampf- und Namensschriftart zu überschreiben. |cffFF0000WARNUNG: Damit die Änderungen wirksam werden, ist ein Neustart des Spiels oder ein Re-Log erforderlich.|r"
-L['Force BenikUI fonts'] = "Erzwinge BenikUI Schriftart"
 L['Game Menu Color'] = "Spielmenü Farbe"
 L['ShiftClick to toggle chat'] = "ShiftKlick um Chat umzuschalten"
 L['Show/Hide the decorative bars from UI elements'] = "Dekorative Leisten von den UI Elementen anzeigen/ausblenden"
@@ -20,6 +18,7 @@ L['Style Color'] = "Stil Farbe"
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
 L['light blue color.'] = "hell blau"
 L['Splash Screen'] = "Startbildschirm"
+L['GameMenu Button'] = "Spielmenü Knopf"
 
 -- Misc
 L['iLevel'] = true
@@ -175,8 +174,6 @@ L['Places the threat glow on Party EmptyBars'] = "Platziert das Bedrohungsleucht
 L['Places the threat glow on Raid EmptyBars'] = "Platziert das Bedrohungsleuchten auf den Schlachtzugs-Leeren-Rahmen"
 L['Places the threat glow on Raid-40 EmptyBars'] = "Platziert das Bedrohungsleuchten auf den 40er Schlachtzugs-Leeren-Rahmen"
 L['Player Size'] = "Spieler Größe"
-L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
-L['PowerBar Texture'] = "Kraftleiste Textur"
 L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rollen Symbole mit denen von SVUI."
 L['Shadow'] = "Schatten"
 L['Shortcuts to EmptyBar Options for:'] = "Verknüpfung zu den Leeren-Rahmen Optionen für:"

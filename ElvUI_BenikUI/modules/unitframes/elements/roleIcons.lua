@@ -1,4 +1,5 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI);
+﻿local E, L, V, P, G = unpack(ElvUI);
+local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
 local twipe, pairs, select = table.wipe, pairs, select
@@ -40,6 +41,17 @@ local function GetBattleFieldIndexFromUnitName(name)
 		end
 	end
 	return nil
+end
+
+function UFB:Configure_RoleIcons(frame)
+	local role = frame.LFDRole
+
+	if frame.db.roleIcon.enable then
+		local x, y = UF:GetPositionOffset(frame.db.roleIcon.position)
+		role:ClearAllPoints()
+		role:Point(frame.db.roleIcon.position, frame.Health, frame.db.roleIcon.position, x + frame.db.roleIcon.xOffset, y + frame.db.roleIcon.yOffset)
+		role:Size(frame.db.roleIcon.size)
+	end
 end
 
 function UF:UpdateRoleIcon()

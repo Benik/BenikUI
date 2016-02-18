@@ -81,13 +81,13 @@ P['bags']['countPosition'] = 'BOTTOMRIGHT'
 
 -- Add Player Castbar Icon Detach to ElvUI defaults
 P['unitframe']['units']['player']['castbar']['detachCastbarIcon'] = false
-P['unitframe']['units']['player']['castbar']['iconSize'] = 32
+P['unitframe']['units']['player']['castbar']['detachediconSize'] = 32
 P['unitframe']['units']['player']['castbar']['yOffset'] = 0
 P['unitframe']['units']['player']['castbar']['xOffset'] = 0
 
 -- Add Target Castbar Icon Detach to ElvUI defaults
 P['unitframe']['units']['target']['castbar']['detachCastbarIcon'] = false
-P['unitframe']['units']['target']['castbar']['iconSize'] = 32
+P['unitframe']['units']['target']['castbar']['detachediconSize'] = 32
 P['unitframe']['units']['target']['castbar']['yOffset'] = 0
 P['unitframe']['units']['target']['castbar']['xOffset'] = 0
 
@@ -97,9 +97,9 @@ P['bui'] = {
 	['buiStyle'] = true,
 	['colorTheme'] = 'Elv',
 	['buiDts'] = true,
-	['buiFonts'] = true,
 	['LoginMsg'] = true,
 	['SplashScreen'] = true,
+	['GameMenuButton'] = true,
 	['transparentDts'] = false,
 	['editBoxPosition'] = 'BELOW_CHAT',
 	['middleDatatext'] = {
@@ -275,8 +275,6 @@ P['ufb'] = {
 	['TargetPortraitTransparent'] = true,
 	['TargetPortraitStyle'] = false,
 	['TargetPortraitStyleHeight'] = 6,
-	-- Powerbar texture
-	['powerstatusbar'] = 'BuiFlat',
 	-- Castbar attach
 	['attachCastbar'] = true,
 	['castText'] = true,

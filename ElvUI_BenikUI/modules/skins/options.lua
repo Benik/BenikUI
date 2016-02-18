@@ -120,4 +120,4 @@ local function SkinTable()
 
 end
 
-tinsert(E.BuiConfig, SkinTable)
+tinsert(BUI.Config, SkinTable)
