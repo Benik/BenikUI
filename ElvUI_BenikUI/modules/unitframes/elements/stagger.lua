@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
+--[[local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
@@ -48,4 +48,4 @@ function UFB:Configure_Stagger(frame)
 			end
 		end
 	end
-end
+end]]

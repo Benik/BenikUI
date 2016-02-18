@@ -7,7 +7,7 @@ local CreateFrame = CreateFrame
 
 function UFB:Construct_PlayerFrame()
 	local frame = _G["ElvUF_Player"]
-	frame.EmptyBar = self:CreateEmptyBar(frame)
+	--frame.EmptyBar = self:CreateEmptyBar(frame)
 	
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateSoftShadow()
@@ -22,9 +22,9 @@ function UFB:Construct_PlayerFrame()
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 	
-	if E.myclass == "MONK" then
-		frame.Stagger.PostUpdate = UFB.PostUpdateStagger
-	end
+	--if E.myclass == "MONK" then
+		--frame.Stagger.PostUpdate = UFB.PostUpdateStagger
+	--end
 	
 	self:ArrangePlayer()
 end
@@ -34,10 +34,10 @@ function UFB:ArrangePlayer()
 	local db = E.db['unitframe']['units'].player
 
 	do
-		frame.USE_EMPTY_BAR = E.db.ufb.barshow
-		frame.EMPTY_BARS_HEIGHT = E.db.ufb.barheight
-		frame.EMPTY_BARS_TRANSPARENCY = E.db.ufb.toggleTransparency
-		frame.EMPTY_BARS_SHADOW = E.db.ufb.toggleShadow
+		--frame.USE_EMPTY_BAR = E.db.ufb.barshow
+		--frame.EMPTY_BARS_HEIGHT = E.db.ufb.barheight
+		--frame.EMPTY_BARS_TRANSPARENCY = E.db.ufb.toggleTransparency
+		--frame.EMPTY_BARS_SHADOW = E.db.ufb.toggleShadow
 		
 		frame.PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.ufb.PlayerPortraitTransparent
@@ -50,23 +50,23 @@ function UFB:ArrangePlayer()
 	end
 
 	-- Empty Bar
-	UFB:Configure_EmptyBar(frame)
+	--UFB:Configure_EmptyBar(frame)
 	
 	-- Portrait
 	UFB:Configure_Portrait(frame, true)
 	
 	--Threat
-	UFB:Configure_Threat(frame)
+	--UFB:Configure_Threat(frame)
 	
 	-- Stagger
-	if E.myclass == "MONK" then
-		UFB:Configure_Stagger(frame)
-	end
+	--if E.myclass == "MONK" then
+		--UFB:Configure_Stagger(frame)
+	--end
 
 	frame:UpdateAllElements()
 end
 
-function UFB:PostUpdateStagger()
+--[[function UFB:PostUpdateStagger()
 	local frame = self:GetParent()
 	local db = frame.db
 
@@ -80,7 +80,7 @@ function UFB:PostUpdateStagger()
 
 	frame.STAGGER_SHOWN = isShown
 
-	--[[
+	--
 		--Use this to force it to show for testing purposes
 		self.Hide = self.Show
 		self:SetMinMaxValues(0, 100)
@@ -88,7 +88,7 @@ function UFB:PostUpdateStagger()
 		self.SetValue = function() end
 		self:Show()
 		frame.STAGGER_SHOWN = true
-	--]]
+	--
 
 	--Only update when necessary
 	if stateChanged then
@@ -97,7 +97,7 @@ function UFB:PostUpdateStagger()
 		UF:Configure_Power(frame)
 		UFB:Configure_Stagger(frame)
 	end
-end
+end]]
 
 function UFB:InitPlayer()
 	self:Construct_PlayerFrame()

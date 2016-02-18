@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
+--[[local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
@@ -96,4 +96,4 @@ function UFB:InitEmptyBars()
 	hooksecurefunc(UF, 'Update_RaidHeader', UFB.ConstructRaidBars)
 	hooksecurefunc(UF, 'Update_Raid40Header', UFB.ConstructRaid40Bars)
 	hooksecurefunc(UF, 'Update_PartyHeader', UFB.ConstructPartyBars)
-end
+end]]

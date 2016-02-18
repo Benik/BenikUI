@@ -1,15 +1,15 @@
-local E, L, V, P, G = unpack(ElvUI);
+--[[local E, L, V, P, G = unpack(ElvUI);
 local BUIC = E:NewModule('BuiCastbar', 'AceTimer-3.0', 'AceEvent-3.0')
 local UF = E:GetModule('UnitFrames');
 local UFB = E:GetModule('BuiUnits');
 
---[[
+--
 
 	CREDIT:
 	This module is based on Blazeflack's ElvUI_CastBarPowerOverlay ==> http://www.tukui.org/addons/index.php?act=view&id=62
 	Edited for BenikUI under Blaze's permission. Many thanks :)
 
-]]
+
 
 local pairs = pairs
 local _G = _G
@@ -276,4 +276,4 @@ function BUIC:Initialize()
 	end)
 end
 
-E:RegisterModule(BUIC:GetName())
+E:RegisterModule(BUIC:GetName())]]

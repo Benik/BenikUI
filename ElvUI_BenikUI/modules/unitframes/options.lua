@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local UFB = E:GetModule('BuiUnits');
-local BUIC = E:GetModule('BuiCastbar');
+--local BUIC = E:GetModule('BuiCastbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
@@ -13,7 +13,7 @@ local function ufTable()
 		name = L['UnitFrames'],
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
-			eframes = {
+			--[[eframes = {
 				order = 1,
 				type = 'group',
 				name = L['EmptyBars'],
@@ -59,7 +59,7 @@ local function ufTable()
 						disabled = function() return not E.db.ufb.barshow end,
 					},
 				},
-			},
+			},]]
 			buicastbar = {
 				order = 2,
 				type = 'group',
@@ -69,7 +69,7 @@ local function ufTable()
 				get = function(info) return E.db.ufb[ info[#info] ] end,
 				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
 				args = {
-					attachCastbar = {
+					--[[attachCastbar = {
 						order = 1,
 						type = 'toggle',
 						name = L['Attach on EmptyBars'],
@@ -81,7 +81,7 @@ local function ufTable()
 						type = 'toggle',
 						name = L['Castbar Text'],
 						desc = L['Show/Hide the Castbar text.'],
-					},
+					},]]
 					yOffsetText = {
 						order = 3,
 						type = 'range',
@@ -98,7 +98,7 @@ local function ufTable()
 					},
 				},
 			},
-			buttons = {
+			--[[buttons = {
 				order = 3,
 				type = 'group',
 				name = L['Shortcuts to EmptyBar Options for:'],
@@ -147,7 +147,7 @@ local function ufTable()
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "raid40", "emptybar") end,
 					},
 				},
-			},
+			},]]
 			misc = {
 				order = 4,
 				type = 'group',
@@ -241,7 +241,7 @@ local function ufPlayerTable()
 		},
 	}
 	
-	-- Detach Castbar Icon
+	--[[ Detach Castbar Icon
 	E.Options.args.unitframe.args.player.args.castbar.args.benikuiSpacer = {
 		type = 'header',
 		order = 15,
@@ -278,7 +278,7 @@ local function ufPlayerTable()
 		name = BUI:cOption(L['yOffset']),
 		min = -1000, max = 1000, step = 1,
 		disabled = function() return not E.db.unitframe.units.player.castbar.icon end,
-	}
+	}]]
 end
 tinsert(BUI.Config, ufPlayerTable)
 
@@ -364,7 +364,7 @@ local function ufTargetTable()
 		},
 	}
 
-	-- Detach Castbar Icon
+	--[[ Detach Castbar Icon
 	E.Options.args.unitframe.args.target.args.castbar.args.benikuiSpacer = {
 		type = 'header',
 		order = 15,
@@ -401,11 +401,11 @@ local function ufTargetTable()
 		name = BUI:cOption(L['yOffset']),
 		min = -1000, max = 1000, step = 1,
 		disabled = function() return not E.db.unitframe.units.target.castbar.icon end,
-	}
+	}]]
 end
 tinsert(BUI.Config, ufTargetTable)
 
-local function injectPetOptions()
+--[[local function injectPetOptions()
 	E.Options.args.unitframe.args.pet.args.emptybar = {
 		order = 900,
 		type = 'group',
@@ -445,9 +445,9 @@ local function injectPetOptions()
 		},
 	}
 end
-tinsert(BUI.Config, injectPetOptions)
+tinsert(BUI.Config, injectPetOptions)]]
 
-local function injectFocusOptions()
+--[[local function injectFocusOptions()
 	E.Options.args.unitframe.args.focus.args.emptybar = {
 		order = 900,
 		type = 'group',
@@ -487,9 +487,9 @@ local function injectFocusOptions()
 		},
 	}
 end
-tinsert(BUI.Config, injectFocusOptions)
+tinsert(BUI.Config, injectFocusOptions)]]
 
-local function injectTargetTargetOptions()
+--[[local function injectTargetTargetOptions()
 	E.Options.args.unitframe.args.targettarget.args.emptybar = {
 		order = 900,
 		type = 'group',
@@ -529,7 +529,7 @@ local function injectTargetTargetOptions()
 		},
 	}
 end
-tinsert(BUI.Config, injectTargetTargetOptions)
+tinsert(BUI.Config, injectTargetTargetOptions)]]
 
 local function injectPartyOptions()
 	E.Options.args.unitframe.args.party.args.portrait.args.height = {
@@ -561,7 +561,7 @@ local function injectPartyOptions()
 		min = -150, max = 150, step = 1,
 	}
 	
-	E.Options.args.unitframe.args.party.args.emptybar = {
+	--[[E.Options.args.unitframe.args.party.args.emptybar = {
 		order = 900,
 		type = 'group',
 		name = BUI:cOption(L["EmptyBars"]),
@@ -598,12 +598,12 @@ local function injectPartyOptions()
 				desc = L['Places the threat glow on Pet EmptyBar'],
 			},
 		},
-	}
+	}]]
 end
 tinsert(BUI.Config, injectPartyOptions)
 
 local function injectRaidOptions()
-	E.Options.args.unitframe.args.raid.args.emptybar = {
+	--[[E.Options.args.unitframe.args.raid.args.emptybar = {
 		order = 900,
 		type = 'group',
 		name = BUI:cOption(L["EmptyBars"]),
@@ -640,7 +640,7 @@ local function injectRaidOptions()
 				desc = L['Places the threat glow on Pet EmptyBar'],
 			},
 		},
-	}
+	}]]
 	
 	E.Options.args.unitframe.args.raid.args.roleIcon.args.xOffset = {
 		type = 'range',
@@ -667,7 +667,7 @@ end
 tinsert(BUI.Config, injectRaidOptions)
 
 local function injectRaid40Options()
-	E.Options.args.unitframe.args.raid40.args.emptybar = {
+	--[[E.Options.args.unitframe.args.raid40.args.emptybar = {
 		order = 900,
 		type = 'group',
 		name = BUI:cOption(L["EmptyBars"]),
@@ -704,7 +704,7 @@ local function injectRaid40Options()
 				desc = L['Places the threat glow on Pet EmptyBar'],
 			},
 		},
-	}
+	}]]
 	
 	E.Options.args.unitframe.args.raid40.args.roleIcon.args.xOffset = {
 		type = 'range',

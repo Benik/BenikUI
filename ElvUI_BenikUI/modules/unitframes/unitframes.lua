@@ -31,7 +31,7 @@ function UFB:Initialize()
 	self:InitPet()
 	self:InitTargetTarget()
 	
-	self:InitEmptyBars()
+	--self:InitEmptyBars()
 
 	self:InitParty()
 	self:InitRaid()

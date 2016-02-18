@@ -94,7 +94,7 @@ function UFB:Configure_Portrait(frame, isPlayer)
 						end
 					end
 				end
-			else
+			--[[else
 				portrait:SetAlpha(1)
 				portrait.backdrop:ClearAllPoints()
 				portrait.backdrop:Show()
@@ -125,10 +125,10 @@ function UFB:Configure_Portrait(frame, isPlayer)
 							portrait.backdrop:Point("BOTTOMLEFT", frame.Power.backdrop, "BOTTOMRIGHT", -frame.BORDER + frame.SPACING*3, 0)
 						end
 					end
-				end	
+				end	]]
 			end
 			-- ElvUI setting
-			portrait:SetInside(portrait.backdrop, frame.BORDER)
+			--portrait:SetInside(portrait.backdrop, frame.BORDER)
 			
 			-- Keeping BenikUI setting in case of impelementation
 			--portrait:ClearAllPoints()

@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
+--[[local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
@@ -32,4 +32,4 @@ function UFB:Configure_TargetGlow(frame)
 			tGlow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 		end
 	end
-end
+end]]

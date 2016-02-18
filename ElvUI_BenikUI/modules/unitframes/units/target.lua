@@ -10,7 +10,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 function UFB:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
-	frame.EmptyBar = self:CreateEmptyBar(frame)
+	--frame.EmptyBar = self:CreateEmptyBar(frame)
 	
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateSoftShadow()
@@ -88,10 +88,10 @@ function UFB:ArrangeTarget()
 	local db = E.db['unitframe']['units'].target
 
 	do
-		frame.USE_EMPTY_BAR = E.db.ufb.barshow
-		frame.EMPTY_BARS_HEIGHT = E.db.ufb.barheight
-		frame.EMPTY_BARS_TRANSPARENCY = E.db.ufb.toggleTransparency
-		frame.EMPTY_BARS_SHADOW = E.db.ufb.toggleShadow
+		--frame.USE_EMPTY_BAR = E.db.ufb.barshow
+		--frame.EMPTY_BARS_HEIGHT = E.db.ufb.barheight
+		--frame.EMPTY_BARS_TRANSPARENCY = E.db.ufb.toggleTransparency
+		--frame.EMPTY_BARS_SHADOW = E.db.ufb.toggleShadow
 		
 		frame.PORTRAIT_DETACHED = E.db.ufb.detachTargetPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.ufb.TargetPortraitTransparent
@@ -104,13 +104,13 @@ function UFB:ArrangeTarget()
 	end
 	
 	-- Empty Bar
-	UFB:Configure_EmptyBar(frame)
+	--UFB:Configure_EmptyBar(frame)
 	
 	-- Portrait
 	UFB:Configure_Portrait(frame, false)
 	
 	--Threat
-	UFB:Configure_Threat(frame)
+	--UFB:Configure_Threat(frame)
 
 	frame:UpdateAllElements()
 end
