@@ -328,65 +328,65 @@ local function SetupActionbars(layout)
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-128"
 		
 	elseif layout == 'small' then	
-		E.db.actionbar.font = 'Bui Visitor1';
-		E.db.actionbar.fontOutline = 'MONOCROMEOUTLINE';
-		E.db.actionbar.fontSize = 10;
-		E.db.bui.middleDatatext.styled = false
+		E.db["actionbar"]["font"] = "Bui Visitor1"
+		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
+		E.db["actionbar"]["fontSize"] = 10;
+		E.db["bui"]["middleDatatext"]["styled"] = false
 		
-		E.db.actionbar.bar1.backdrop = false
-		E.db.actionbar.bar1.buttons = 12
-		E.db.actionbar.bar1.buttonspacing = 4
-		E.db.actionbar.bar1.buttonsize = 30
-		E.db.actionbar.bar2.enabled = true
-		E.db.actionbar.bar2.backdrop = true
-		E.db.actionbar.bar2.buttons = 12
-		E.db.actionbar.bar2.buttonspacing = 4
-		E.db.actionbar.bar2.heightMult = 2
-		E.db.actionbar.bar2.buttonsize = 30
-		E.db.actionbar.bar3.backdrop = false
-		E.db.actionbar.bar3.buttons = 5
-		E.db.actionbar.bar3.buttonsPerRow = 5
-		E.db.actionbar.bar3.buttonspacing = 1
-		E.db.actionbar.bar3.buttonsize = 19
-		E.db.actionbar.bar4.backdrop = true
-		E.db.actionbar.bar4.buttons = 12
-		E.db.actionbar.bar4.buttonspacing = 4
-		E.db.actionbar.bar4.buttonsize = 26
-		E.db.actionbar.bar4.mouseover = true
-		E.db.actionbar.bar5.backdrop = false
-		E.db.actionbar.bar5.buttons = 5
-		E.db.actionbar.bar5.buttonsPerRow = 5
-		E.db.actionbar.bar5.buttonspacing = 1
-		E.db.actionbar.bar5.buttonsize = 19
+		E.db["actionbar"]["bar1"]["backdrop"] = false
+		E.db["actionbar"]["bar1"]["buttons"] = 12
+		E.db["actionbar"]["bar1"]["buttonsize"] = 30
+		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar2"]["buttons"] = 12
+		E.db["actionbar"]["bar2"]["backdrop"] = true
+		E.db["actionbar"]["bar2"]["buttonsize"] = 30
+		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar2"]["enabled"] = true
+		E.db["actionbar"]["bar2"]["heightMult"] = 2
+		E.db["actionbar"]["bar3"]["backdrop"] = false
+		E.db["actionbar"]["bar3"]["buttons"] = 5
+		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 5
+		E.db["actionbar"]["bar3"]["buttonsize"] = 19
+		E.db["actionbar"]["bar3"]["buttonspacing"] = 1
+		E.db["actionbar"]["bar4"]["backdrop"] = true
+		E.db["actionbar"]["bar4"]["buttons"] = 12
+		E.db["actionbar"]["bar4"]["buttonsize"] = 26
+		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar4"]["mouseover"] = true
+		E.db["actionbar"]["bar5"]["backdrop"] = false
+		E.db["actionbar"]["bar5"]["buttons"] = 5
+		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 5
+		E.db["actionbar"]["bar5"]["buttonsize"] = 19
+		E.db["actionbar"]["bar5"]["buttonspacing"] = 1
 
-		E.db.actionbar.barPet.buttonspacing = 4
-		E.db.actionbar.barPet.buttonsPerRow = 10
-		E.db.actionbar.barPet.buttonsize = 22
-		E.db.actionbar.barPet.backdrop = false
+		E.db["actionbar"]["barPet"]["buttonspacing"] = 4
+		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
+		E.db["actionbar"]["barPet"]["backdrop"] = false
+		E.db["actionbar"]["barPet"]["buttonsize"] = 22
+				
+		E.db["actionbar"]["stanceBar"]["buttonspacing"] = 2
+		E.db["actionbar"]["stanceBar"]["backdrop"] = false
+		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24	
+		E.db["bab"]["enable"] = true
 		
-		E.db.actionbar.stanceBar.buttonspacing = 2
-		E.db.actionbar.stanceBar.backdrop = false
-		E.db.actionbar.stanceBar.buttonsize = 24	
-		E.db.bab.enable = true
-		
-		E.db.bui.middleDatatext.width = 412
+		E.db["bui"]["middleDatatext"]["width"] = 412
 		E:GetModule('BuiLayout'):MiddleDatatextDimensions()
-		E.db.bui.middleDatatext.backdrop = true
+		E.db["bui"]["middleDatatext"]["backdrop"] = true
 		E:GetModule('BuiLayout'):MiddleDatatextLayout()
 		
 		-- movers
-		SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 56)
-		SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 22)
-		SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 257, 1)	
-		SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -256, 1)
-		SetMoverPosition('PetAB', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -150, 177)
-		SetMoverPosition('ShiftAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 134)
-		SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
-		SetMoverPosition('ArenaHeaderMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -56, 346)
-		SetMoverPosition('BossButton', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 290)
-		SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -56, -397)
-		SetMoverPosition('BuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -3)
-		SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -128)
+		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
+		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,290"
+		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-56,-397"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-3"
+		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-128"
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,56"
+		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,22"
+		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,257,1"
+		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-256,1"
+		E.db["movers"]["PetAB"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-150,177"
+		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,959,136"
 	end
 
 	if InstallStepComplete then
@@ -679,281 +679,318 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,231,147"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,232,182"
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,211"
-		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM, E.UIParent, BOTTOM, -231, 215"
-		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM, E.UIParent, BOTTOM, 231, 215"
+		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-231,215"
+		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,231,215"
 
 	elseif layout == 'detached' then
-		-- Empty Bars
-		E.db.ufb.barheight = 19
-		E.db.ufb.barshow = true
-		E.db.ufb.detachPlayerPortrait = true
-		E.db.ufb.getPlayerPortraitSize = false
-		E.db.ufb.detachTargetPortrait = true
-		E.db.ufb.PlayerPortraitStyle = true
-		E.db.ufb.TargetPortraitStyle = true
-		E.db.ufb.TargetPortraitHeight = 47
-		E.db.ufb.PlayerPortraitHeight = 47
-		E.db.ufb.PlayerPortraitWidth = 110
-		E.db.ufb.TargetPortraitWidth = 110
-		E.db.ufb.yOffsetText = -20
+		E.db["ufb"]["PlayerPortraitHeight"] = 47
+		E.db["ufb"]["PlayerPortraitStyle"] = true
+		E.db["ufb"]["PlayerPortraitStyleHeight"] = 5
+		E.db["ufb"]["PlayerPortraitWidth"] = 110
+		E.db["ufb"]["TargetPortraitHeight"] = 47
+		E.db["ufb"]["TargetPortraitStyle"] = true
+		E.db["ufb"]["TargetPortraitStyleHeight"] = 5
+		E.db["ufb"]["TargetPortraitWidth"] = 110
+		E.db["ufb"]["detachPlayerPortrait"] = true
+		E.db["ufb"]["detachTargetPortrait"] = true
+		E.db["ufb"]["getPlayerPortraitSize"] = false
+		--E.db["ufb"]["yOffsetText"] = -20
 
 		-- Auras
-		E.db.auras.timeXOffset = -1
-		E.db.auras.font = 'Bui Visitor1'
-		E.db.auras.fontSize = 10
-		E.db.auras.fontOutline = 'MONOCROMEOUTLINE'
-		E.db.auras.fadeThreshold = 10
-		E.db.auras.buffs.horizontalSpacing = 3
-		E.db.auras.buffs.size = 30
-		E.db.auras.consolidatedBuffs.font = 'Bui Visitor1'
-		E.db.auras.consolidatedBuffs.fontSize = 10
-		E.db.auras.consolidatedBuffs.fontOutline = 'MONOCROMEOUTLINE'
-		E.db.auras.debuffs.size = 30
+		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
+		E.db["auras"]["buffs"]["size"] = 30
+		E.db["auras"]["consolidatedBuffs"]["font"] = "Bui Visitor1"
+		E.db["auras"]["consolidatedBuffs"]["fontOutline"] = "MONOCROMEOUTLINE"
+		E.db["auras"]["consolidatedBuffs"]["fontSize"] = 10
+		E.db["auras"]["debuffs"]["size"] = 30
+		E.db["auras"]["fadeThreshold"] = 10
+		E.db["auras"]["font"] = "Bui Visitor1"
+		E.db["auras"]["fontOutline"] = "MONOCROMEOUTLINE"
+		E.db["auras"]["fontSize"] = 10
+		E.db["auras"]["timeXOffset"] = -1
 		
 		-- Units
 		-- general
-		E.db.unitframe.font = "Bui Tukui"
-		E.db.unitframe.fontSize = 15
-		E.db.unitframe.fontOutline = 'OUTLINE'
-		E.db.unitframe.colors.transparentAurabars = true
-		E.db.unitframe.colors.transparentCastbar = true
-		E.db.unitframe.colors.castClassColor = true
-		E.db.unitframe.colors.transparentPower = false
-		E.db.unitframe.colors.transparentHealth = true
-		E.db.unitframe.smoothbars = true
-		E.db.unitframe.colors.health = E:GetColor(.1, .1, .1)
-		E.db.unitframe.colors.healthclass = false
-		E.db.unitframe.colors.power.MANA.r = 1
-		E.db.unitframe.colors.power.MANA.g = 0.5
-		E.db.unitframe.colors.power.MANA.b = 0
-		E.db.unitframe.statusbar = 'BuiFlat'
+		E.db["unitframe"]["font"] = "Bui Tukui"
+		E.db["unitframe"]["fontSize"] = 15
+		E.db["unitframe"]["fontOutline"] = "OUTLINE"
+		E.db["unitframe"]["colors"]["auraBarBuff"]["r"] = 0.1
+		E.db["unitframe"]["colors"]["auraBarBuff"]["g"] = 0.1
+		E.db["unitframe"]["colors"]["auraBarBuff"]["b"] = 0.1
+		E.db["unitframe"]["colors"]["castClassColor"] = true
+		E.db["unitframe"]["colors"]["castReactionColor"] = true
+		E.db["unitframe"]["colors"]["powerclass"] = true
+		E.db["unitframe"]["colors"]["power"]["MANA"]["r"] = 1
+		E.db["unitframe"]["colors"]["power"]["MANA"]["g"] = 0.5
+		E.db["unitframe"]["colors"]["power"]["MANA"]["b"] = 0
+		E.db["unitframe"]["colors"]["castColor"]["r"] = 0.1
+		E.db["unitframe"]["colors"]["castColor"]["g"] = 0.1
+		E.db["unitframe"]["colors"]["castColor"]["b"] = 0.1
+		E.db["unitframe"]["colors"]["transparentCastbar"] = true
+		E.db["unitframe"]["colors"]["health"]["r"] = 0.1
+		E.db["unitframe"]["colors"]["health"]["g"] = 0.1
+		E.db["unitframe"]["colors"]["health"]["b"] = 0.1
+		E.db["unitframe"]["colors"]["transparentHealth"] = true
+		E.db["unitframe"]["colors"]["transparentAurabars"] = true
+		E.db["unitframe"]["smoothbars"] = true
+		E.db["unitframe"]["statusbar"] = "BuiFlat"
+		
 		-- player
-		E.db.unitframe.units.player.debuffs.attachTo = 'BUFFS'
-		E.db.unitframe.units.player.debuffs.sizeOverride = 32
-		E.db.unitframe.units.player.debuffs.yOffset = 2
-		E.db.unitframe.units.player.debuffs.fontSize = 14
-		E.db.unitframe.units.player.portrait.enable = true
-		E.db.unitframe.units.player.portrait.width = 0
-		E.db.unitframe.units.player.portrait.overlay = false
-		E.db.unitframe.units.player.castbar.icon = false
-		E.db.unitframe.units.player.castbar.width = 240
-		E.db.unitframe.units.player.castbar.height = 18
-		E.db.unitframe.units.player.classbar.detachFromFrame = true
-		E.db.unitframe.units.player.classbar.detachedWidth = 140
-		E.db.unitframe.units.player.classbar.fill = 'spaced'
-		E.db.unitframe.units.player.width = 240
-		E.db.unitframe.units.player.health.xOffset = 2
-		E.db.unitframe.units.player.health.yOffset = -25
-		E.db.unitframe.units.player.health.text_format = ""
-		E.db.unitframe.units.player.height = 34
-		E.db.unitframe.units.player.buffs.enable = true
-		E.db.unitframe.units.player.buffs.sizeOverride = 26
-		E.db.unitframe.units.player.buffs.attachTo = 'FRAME'
-		E.db.unitframe.units.player.buffs.yOffset = 2
-		E.db.unitframe.units.player.buffs.anchorPoint = 'TOPLEFT'
-		E.db.unitframe.units.player.buffs.fontSize = 14
-		E.db.unitframe.units.player.smartAuraPosition = "DEBUFFS_ON_BUFFS"
-		E.db.unitframe.units.player.threatStyle = 'GLOW'
-		E.db.unitframe.units.player.power.text_format = "[powercolor][power:current-percent]"
-		E.db.unitframe.units.player.power.height = 5
-		E.db.unitframe.units.player.power.width = 'fill'
-		E.db.unitframe.units.player.power.detachedWidth = 238
-		E.db.unitframe.units.player.power.detachFromFrame = true
-		E.db.unitframe.units.player.power.yOffset = -26
-		E.db.unitframe.units.player.power.xOffset = 2
-		E.db.unitframe.units.player.power.hideonnpc = true
-		E.db.unitframe.units.player.aurabar.enable = false
-		E.db.unitframe.units.player.customTexts = {}
-		E.db.unitframe.units.player.customTexts.PlayerName = {}
-		E.db.unitframe.units.player.customTexts.PlayerName.font = "Bui Tukui"
-		E.db.unitframe.units.player.customTexts.PlayerName.justifyH = "LEFT"
-		E.db.unitframe.units.player.customTexts.PlayerName.fontOutline = "OUTLINE"
-		E.db.unitframe.units.player.customTexts.PlayerName.xOffset = 2
-		E.db.unitframe.units.player.customTexts.PlayerName.yOffset = -3
-		E.db.unitframe.units.player.customTexts.PlayerName.text_format = "[name]"
-		E.db.unitframe.units.player.customTexts.PlayerName.size = 20
-		E.db.unitframe.units.player.customTexts.PlayerBigHealth = {}
-		E.db.unitframe.units.player.customTexts.PlayerBigHealth.font = "Bui Tukui"
-		E.db.unitframe.units.player.customTexts.PlayerBigHealth.justifyH = "RIGHT"
-		E.db.unitframe.units.player.customTexts.PlayerBigHealth.fontOutline = "OUTLINE"
-		E.db.unitframe.units.player.customTexts.PlayerBigHealth.xOffset = 0
-		E.db.unitframe.units.player.customTexts.PlayerBigHealth.yOffset = -3
-		E.db.unitframe.units.player.customTexts.PlayerBigHealth.text_format = "[health:current-percent]"
-		E.db.unitframe.units.player.customTexts.PlayerBigHealth.size = 20
+		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
+		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 14
+		E.db["unitframe"]["units"]["player"]["buffs"]["noDuration"] = false
+		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 26
+		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 2
+		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false
+		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 240
+		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
+		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 140
+		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "spaced"
+		if not E.db.unitframe.units.player.customTexts then E.db.unitframe.units.player.customTexts = {} end
+		if E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"] == nil then E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"] = {} end
+		if E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"] == nil then E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"] = {} end
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["attachTextTo"] = "Health"
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["font"] = "Bui Tukui"
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["fontOutline"] = "OUTLINE"
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["justifyH"] = "RIGHT"
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["size"] = 20
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["text_format"] = "[health:current-percent]"
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["yOffset"] = -3
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["attachTextTo"] = "Health"
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["font"] = "Bui Tukui"
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["fontOutline"] = "OUTLINE"
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["justifyH"] = "LEFT"
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["size"] = 20
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["text_format"] = "[name]"
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["yOffset"] = -3
+		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "BUFFS"
+		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 14
+		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 32
+		E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 2
+		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = ""
+		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = -25
+		E.db["unitframe"]["units"]["player"]["height"] = 52
+		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 18
+		E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
+		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
+		E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 0
+		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 240
+		E.db["unitframe"]["units"]["player"]["power"]["height"] = 6
+		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
+		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[powercolor][power:current-percent]"
+		E.db["unitframe"]["units"]["player"]["width"] = 'fill'
+		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
+		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
+		E.db["unitframe"]["units"]["player"]["width"] = 240
+		
 		-- target
-		E.db.unitframe.units.target.health.xOffset = -40
-		E.db.unitframe.units.target.health.yOffset = -25
-		E.db.unitframe.units.target.health.text_format = ''
-		E.db.unitframe.units.target.name.xOffset = 8
-		E.db.unitframe.units.target.name.yOffset = -25
-		E.db.unitframe.units.target.name.position = 'RIGHT'
-		E.db.unitframe.units.target.name.text_format = ''
-		E.db.unitframe.units.target.debuffs.anchorPoint = 'TOPLEFT'
-		E.db.unitframe.units.target.debuffs.fontSize = 14
-		E.db.unitframe.units.target.portrait.enable = true
-		E.db.unitframe.units.target.portrait.width = 0
-		E.db.unitframe.units.target.portrait.overlay = false
-		E.db.unitframe.units.target.power.xOffset = -1
-		E.db.unitframe.units.target.power.text_format = "[powercolor][power:current-percent]"
-		E.db.unitframe.units.target.power.detachedWidth = 238
-		E.db.unitframe.units.target.power.detachFromFrame = true
-		E.db.unitframe.units.target.power.hideonnpc = false
-		E.db.unitframe.units.target.power.height = 5
-		E.db.unitframe.units.target.power.width = 'fill'
-		E.db.unitframe.units.target.power.yOffset = -26
-		E.db.unitframe.units.target.power.xOffset = 0
-		E.db.unitframe.units.target.width = 240
-		E.db.unitframe.units.target.castbar.icon = false
-		E.db.unitframe.units.target.castbar.width = 240
-		E.db.unitframe.units.player.castbar.height = 18
-		E.db.unitframe.units.target.height = 34
-		E.db.unitframe.units.target.threatStyle = 'GLOW'
-		E.db.unitframe.units.target.buffs.anchorPoint = 'TOPRIGHT'
-		E.db.unitframe.units.target.buffs.sizeOverride = 26
-		E.db.unitframe.units.target.buffs.yOffset = 2
-		E.db.unitframe.units.target.buffs.fontSize = 14
-		E.db.unitframe.units.target.smartAuraPosition = "DEBUFFS_ON_BUFFS"
-		E.db.unitframe.units.target.smartAuraDisplay = "DISABLED"
-		E.db.unitframe.units.target.aurabar.enable = false
-		E.db.unitframe.units.target.customTexts = {}
-		E.db.unitframe.units.target.customTexts.TargetName = {}
-		E.db.unitframe.units.target.customTexts.TargetName.font = "Bui Tukui"
-		E.db.unitframe.units.target.customTexts.TargetName.justifyH = "RIGHT"
-		E.db.unitframe.units.target.customTexts.TargetName.fontOutline = "OUTLINE"
-		E.db.unitframe.units.target.customTexts.TargetName.xOffset = 0
-		E.db.unitframe.units.target.customTexts.TargetName.yOffset = -3
-		E.db.unitframe.units.target.customTexts.TargetName.text_format = "[namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]"
-		E.db.unitframe.units.target.customTexts.TargetName.size = 20
-		E.db.unitframe.units.target.customTexts.TargetBigHealth = {}
-		E.db.unitframe.units.target.customTexts.TargetBigHealth.font = "Bui Tukui"
-		E.db.unitframe.units.target.customTexts.TargetBigHealth.justifyH = "LEFT"
-		E.db.unitframe.units.target.customTexts.TargetBigHealth.fontOutline = "OUTLINE"
-		E.db.unitframe.units.target.customTexts.TargetBigHealth.xOffset = 2
-		E.db.unitframe.units.target.customTexts.TargetBigHealth.yOffset = -3
-		E.db.unitframe.units.target.customTexts.TargetBigHealth.text_format = "[health:current-percent]"
-		E.db.unitframe.units.target.customTexts.TargetBigHealth.size = 20
+		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 14
+		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 26
+		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 2
+		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = false
+		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 240
+		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
+		if E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"] == nil then E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"] = {} end
+		if E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"] == nil then E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"] = {} end
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["attachTextTo"] = "Health"
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["font"] = "Bui Tukui"
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["fontOutline"] = "OUTLINE"
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["justifyH"] = "LEFT"
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["size"] = 20
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["text_format"] = "[health:current-percent]"
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["yOffset"] = -3
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["attachTextTo"] = "Health"
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["font"] = "Bui Tukui"
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["fontOutline"] = "OUTLINE"
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["justifyH"] = "RIGHT"
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["size"] = 20
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["text_format"] = "[namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]"
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["yOffset"] = -3
+		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 14
+		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = ""
+		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = -40
+		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = -25
+		E.db["unitframe"]["units"]["target"]["height"] = 52
+		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 18
+		E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["target"]["name"]["position"] = "RIGHT"
+		E.db["unitframe"]["units"]["target"]["name"]["text_format"] = ""
+		E.db["unitframe"]["units"]["target"]["name"]["xOffset"] = 8
+		E.db["unitframe"]["units"]["target"]["name"]["yOffset"] = -25
+		E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 1
+		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
+		E.db["unitframe"]["units"]["target"]["portrait"]["overlay"] = false
+		E.db["unitframe"]["units"]["target"]["portrait"]["width"] = 0
+		E.db["unitframe"]["units"]["target"]["power"]["detachFromFrame"] = true
+		E.db["unitframe"]["units"]["target"]["power"]["detachedWidth"] = 240
+		E.db["unitframe"]["units"]["target"]["power"]["height"] = 6
+		E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
+		E.db["unitframe"]["units"]["target"]["power"]["text_format"] = "[powercolor][power:current-percent]"
+		E.db["unitframe"]["units"]["target"]["power"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["target"]["power"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
+		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
+		E.db["unitframe"]["units"]["target"]["width"] = 240
+		E.db["unitframe"]["units"]["target"]["threatStyle"] = 'GLOW'
+
 		-- pet
-		E.db.unitframe.units.pet.height = 24
-		E.db.unitframe.units.pet.power.height = 5
-		E.db.unitframe.units.pet.power.width = 'fill'
-		E.db.unitframe.units.pet.castbar.enable = false
-		E.db.unitframe.units.pet.castbar.height = 10
+		E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = false
+		E.db["unitframe"]["units"]["pet"]["castbar"]["height"] = 10
+		E.db["unitframe"]["units"]["pet"]["height"] = 24
+		E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = false
+		E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["pet"]["portrait"]["overlay"] = true
+		E.db["unitframe"]["units"]["pet"]["power"]["height"] = 5
+		E.db["unitframe"]["units"]["pet"]["power"]["width"] = 'fill'
+		
 		-- focus
-		E.db.unitframe.units.focus.power.height = 5
-		E.db.unitframe.units.focus.power.width = 'fill'
-		E.db.unitframe.units.focus.width = 110
-		E.db.unitframe.units.focus.castbar.height = 6
-		E.db.unitframe.units.focus.castbar.width = 110
+		E.db["unitframe"]["units"]["focus"]["castbar"]["height"] = 16
+		E.db["unitframe"]["units"]["focus"]["castbar"]["icon"] = false
+		E.db["unitframe"]["units"]["focus"]["castbar"]["width"] = 110
+		E.db["unitframe"]["units"]["focus"]["height"] = 36
+		E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
+		E.db["unitframe"]["units"]["focus"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["focus"]["name"]["attachTextTo"] = "Health"
+		E.db["unitframe"]["units"]["focus"]["power"]["height"] = 5
+		E.db["unitframe"]["units"]["focus"]["width"] = 110
+		
 		-- targettarget
-		E.db.unitframe.units.targettarget.height = 30
-		E.db.unitframe.units.targettarget.power.height = 5
-		E.db.unitframe.units.targettarget.power.width = 'fill'
+		E.db["unitframe"]["units"]["targettarget"]["height"] = 30
+		E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["enable"] = false
+		E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["targettarget"]["power"]["enable"] = true
+		E.db["unitframe"]["units"]["targettarget"]["power"]["height"] = 5
+		E.db["unitframe"]["units"]["targettarget"]["width"] = 130
+		
 		-- Party
-		E.db.unitframe.units.party.width = 220
-		E.db.unitframe.units.party.height = 40
-		E.db.unitframe.units.party.colorOverride = 'FORCE_ON'
-		E.db.unitframe.units.party.name.yOffset = 18
-		E.db.unitframe.units.party.name.xOffset = 0
-		E.db.unitframe.units.party.name.position = 'TOPLEFT'
-		E.db.unitframe.units.party.health.text_format = "[health:current-percent]"
-		E.db.unitframe.units.party.health.position = "RIGHT"
-		E.db.unitframe.units.party.power.position = "LEFT"
-		E.db.unitframe.units.party.verticalSpacing = 36
-		E.db.unitframe.units.party.buffs.sizeOverride = 18
-		E.db.unitframe.units.party.buffs.anchorPoint = "BOTTOMRIGHT"
-		E.db.unitframe.units.party.debuffs.sizeOverride = 23
-		E.db.unitframe.units.party.debuffs.countFontSize = 14
-		E.db.unitframe.units.party.debuffs.fontSize = 14
-		E.db.unitframe.units.party.debuffs.yOffset = 8
-		E.db.unitframe.units.party.debuffs.xOffset = 1
-		E.db.unitframe.units.party.portrait.enable = true
-		E.db.unitframe.units.party.portrait.overlay = false
-		E.db.unitframe.units.party.portrait.transparent = true
-		E.db.unitframe.units.party.portrait.height = 15
-		E.db.unitframe.units.party.portrait.width = 60
-		E.db.unitframe.units.party.portrait.camDistanceScale = 1
-		E.db.unitframe.units.party.portrait.rotation = 0
-		E.db.unitframe.units.party.portrait.style = '3D'
-		E.db.unitframe.units.party.portrait.xOffset = 0
-		E.db.unitframe.units.party.portrait.yOffset = 0
-		E.db.unitframe.units.party.roleIcon.enable = true
-		E.db.unitframe.units.party.roleIcon.tank = true
-		E.db.unitframe.units.party.roleIcon.healer = true
-		E.db.unitframe.units.party.roleIcon.damager = true
-		E.db.unitframe.units.party.roleIcon.size = 16
-		E.db.unitframe.units.party.roleIcon.position = "TOPRIGHT"
-		E.db.unitframe.units.party.roleIcon.yOffset = 20
-		E.db.unitframe.units.party.petsGroup.width = 60
-		E.db.unitframe.units.party.petsGroup.height = 18
-		E.db.unitframe.units.party.petsGroup.xOffset = 0
-		E.db.unitframe.units.party.petsGroup.yOffset = -1
-		E.db.unitframe.units.party.targetsGroup.anchorPoint = "RIGHT"
-		E.db.unitframe.units.party.targetsGroup.height = 16
-		E.db.unitframe.units.party.targetsGroup.yOffset = -12
-		E.db.unitframe.units.party.targetsGroup.xOffset = 1
-		E.db.unitframe.units.party.targetsGroup.width = 70
-		E.db.unitframe.units.party.emptybar.enable = false
-		E.db.unitframe.units.party.emptybar.height = 18
-		E.db.unitframe.units.party.emptybar.threat = false
+		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "BOTTOMRIGHT"
+		E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 18
+		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 14
+		E.db["unitframe"]["units"]["party"]["debuffs"]["fontSize"] = 14
+		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 23
+		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 1
+		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 8
+		E.db["unitframe"]["units"]["party"]["health"]["attachTextTo"] = "Health"
+		E.db["unitframe"]["units"]["party"]["health"]["position"] = "RIGHT"
+		E.db["unitframe"]["units"]["party"]["health"]["text_format"] = "[health:current-percent]"
+		E.db["unitframe"]["units"]["party"]["height"] = 40
+		E.db["unitframe"]["units"]["party"]["infoPanel"]["enable"] = false
+		E.db["unitframe"]["units"]["party"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "Health"
+		E.db["unitframe"]["units"]["party"]["name"]["position"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 18
+		E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 18
+		E.db["unitframe"]["units"]["party"]["petsGroup"]["width"] = 60
+		E.db["unitframe"]["units"]["party"]["petsGroup"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["party"]["petsGroup"]["yOffset"] = -1
+		E.db["unitframe"]["units"]["party"]["portrait"]["camDistanceScale"] = 1
+		E.db["unitframe"]["units"]["party"]["portrait"]["enable"] = true
+		E.db["unitframe"]["units"]["party"]["portrait"]["height"] = 15
+		E.db["unitframe"]["units"]["party"]["portrait"]["overlay"] = false
+		E.db["unitframe"]["units"]["party"]["portrait"]["style"] = '3D'
+		E.db["unitframe"]["units"]["party"]["portrait"]["transparent"] = true
+		E.db["unitframe"]["units"]["party"]["portrait"]["width"] = 60
+		E.db["unitframe"]["units"]["party"]["power"]["attachTextTo"] = "Health"
+		E.db["unitframe"]["units"]["party"]["power"]["height"] = 8
+		E.db["unitframe"]["units"]["party"]["power"]["position"] = "LEFT"
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["size"] = 12
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["damager"] = true
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["enable"] = true
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["healer"] = true
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["tank"] = true
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = 18
+		E.db["unitframe"]["units"]["party"]["targetsGroup"]["anchorPoint"] = "RIGHT"
+		E.db["unitframe"]["units"]["party"]["targetsGroup"]["height"] = 16
+		E.db["unitframe"]["units"]["party"]["targetsGroup"]["width"] = 70
+		E.db["unitframe"]["units"]["party"]["targetsGroup"]["xOffset"] = 1
+		E.db["unitframe"]["units"]["party"]["targetsGroup"]["yOffset"] = -12
+		E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 30
+		E.db["unitframe"]["units"]["party"]["width"] = 220
+
 		-- raid
-		E.db.unitframe.units.raid.height = 40
-		E.db.unitframe.units.raid.verticalSpacing = 18
-		E.db.unitframe.units.raid.power.enable = true
-		E.db.unitframe.units.raid.power.height = 2
-		E.db.unitframe.units.raid.name.position = "BOTTOM"
-		E.db.unitframe.units.raid.name.yOffset = -20
-		E.db.unitframe.units.raid.colorOverride = 'FORCE_ON'
-		E.db.unitframe.units.raid.portrait.enable = true
-		E.db.unitframe.units.raid.portrait.overlay = true
-		E.db.unitframe.units.raid.emptybar.enable = true
-		E.db.unitframe.units.raid.emptybar.height = 14
-		E.db.unitframe.units.raid.emptybar.transparent = true
-		E.db.unitframe.units.raid.roleIcon.enable = true
-		E.db.unitframe.units.raid.roleIcon.tank = true
-		E.db.unitframe.units.raid.roleIcon.healer = true
-		E.db.unitframe.units.raid.roleIcon.damager = true
-		E.db.unitframe.units.raid.roleIcon.size = 12
-		E.db.unitframe.units.raid.roleIcon.position = "TOPRIGHT"
-		E.db.unitframe.units.raid.roleIcon.yOffset = 0
-		E.db.unitframe.units.raid.rdebuffs.enable = true
-		E.db.unitframe.units.raid.rdebuffs.size = 24
-		E.db.unitframe.units.raid.rdebuffs.yOffset = 10
-		E.db.unitframe.units.raid.rdebuffs.font = "Bui Visitor1"
-		E.db.unitframe.units.raid.rdebuffs.fontSize = 10
-		E.db.unitframe.units.raid.rdebuffs.fontOutline = "OUTLINE"
+		E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_ON"
+		E.db["unitframe"]["units"]["raid"]["height"] = 50
+		E.db["unitframe"]["units"]["raid"]["infoPanel"]["height"] = 16
+		E.db["unitframe"]["units"]["raid"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["raid"]["name"]["position"] = "CENTER"
+		E.db["unitframe"]["units"]["raid"]["name"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["raid"]["portrait"]["enable"] = true
+		E.db["unitframe"]["units"]["raid"]["portrait"]["overlay"] = true
+		E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
+		E.db["unitframe"]["units"]["raid"]["power"]["height"] = 4
+		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["enable"] = true
+		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = "Bui Visitor1"
+		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["fontOutline"] = "OUTLINE"
+		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["fontSize"] = 10
+		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["size"] = 24
+		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["yOffset"] = 10
+		E.db["unitframe"]["units"]["raid"]["roleIcon"]["enable"] = true
+		E.db["unitframe"]["units"]["raid"]["roleIcon"]["position"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["raid"]["roleIcon"]["size"] = 12
+		E.db["unitframe"]["units"]["raid"]["roleIcon"]["tank"] = true
+		E.db["unitframe"]["units"]["raid"]["roleIcon"]["healer"] = true
+		E.db["unitframe"]["units"]["raid"]["roleIcon"]["damager"] = true
+		E.db["unitframe"]["units"]["raid"]["roleIcon"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["raid"]["roleIcon"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 18
+		
 		-- raid 40
-		E.db.unitframe.units.raid40.power.enable = false
-		E.db.unitframe.units.raid40.roleIcon.enable = true
-		E.db.unitframe.units.raid40.roleIcon.tank = true
-		E.db.unitframe.units.raid40.roleIcon.healer = true
-		E.db.unitframe.units.raid40.roleIcon.damager = false
-		E.db.unitframe.units.raid40.roleIcon.size = 12
-		E.db.unitframe.units.raid40.roleIcon.position = "TOPRIGHT"
-		E.db.unitframe.units.raid40.roleIcon.yOffset = 4
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["enable"] = false
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["enable"] = true
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["tank"] = true
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["healer"] = true
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["damager"] = false
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["enable"] = true
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["position"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["size"] = 10
+		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = false
+		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["raid40"]["name"]["attachTextTo"] = "Health"		
 		
 		-- Movers
-		SetMoverPosition('AltPowerBarMover', 'TOP', E.UIParent, 'TOP', 0, -66)
-		SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -392)
-		SetMoverPosition('ElvUF_FocusMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 242)
-		SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 4, 200)
-		SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 155)
-		SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 144)
-		SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -217, 140)
-		SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -216, 182)
-		SetMoverPosition('ElvUF_RaidMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 467)
-		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 178)
-		SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -444)
-		SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -300)
-		SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 217, 140)
-		SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 216, 182)
-		SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 182)
-		SetMoverPosition('PlayerPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -216, 209)
-		SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 216, 209)
-		SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 349)
-		SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 4, 444)
-		SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 214)
-		SetMoverPosition('TargetPortraitMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -513, 163)
-		SetMoverPosition('PlayerPortraitMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 513, 163)
+		E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-66"
+		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,349"
+		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,722"
+		E.db["movers"]["ElvUF_BodyGuardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-526"
+		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,226"
+		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,242"
+		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,200"
+		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,148"
+		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,159"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-217,140"
+		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-216,163"
+		E.db["movers"]["ElvUF_Raid40Mover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,417"
+		E.db["movers"]["ElvUF_RaidMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,442"
+		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,664"
+		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-300"
+		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,217,140"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,216,163"
+		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,185"
+		E.db["movers"]["PlayerPortraitMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,513,163"
+		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-216,209"
+		E.db["movers"]["TargetPortraitMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-513,163"
+		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,216,209"
 	end
 	
 	if InstallStepComplete then
