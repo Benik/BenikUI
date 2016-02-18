@@ -462,7 +462,8 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = '[healthcolor][health:current-percent]'
-		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 15
+		E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = 'InfoPanel'
+		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 14
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["player"]["height"] = 53
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
@@ -480,6 +481,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[powercolor][power:current-percent]"
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
+		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
 
 		if not E.db.unitframe.units.player.customTexts then E.db.unitframe.units.player.customTexts = {} end
@@ -503,11 +505,13 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = '[healthcolor][health:current-percent]'
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["target"]["health"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["target"]["height"] = 53
 		E.db["unitframe"]["units"]["target"]["name"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["name"]["text_format"] = '[namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]'
 		E.db["unitframe"]["units"]["target"]["name"]["xOffset"] = 8
 		E.db["unitframe"]["units"]["target"]["name"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["target"]["name"]["attachTextTo"] = 'Health'
 		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 1
 		E.db["unitframe"]["units"]["target"]["portrait"]["overlay"] = true
@@ -520,8 +524,9 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["power"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["power"]["threatStyle"] = 'GLOW'
+		E.db["unitframe"]["units"]["target"]["power"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["target"]["width"] = 300
-		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 15
+		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 14
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
