@@ -781,7 +781,6 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
-		E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 240
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 6
@@ -793,7 +792,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["player"]["width"] = 240
-		
+	
 		-- target
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 14
@@ -836,7 +835,6 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 1
 		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["portrait"]["overlay"] = false
-		E.db["unitframe"]["units"]["target"]["portrait"]["width"] = 0
 		E.db["unitframe"]["units"]["target"]["power"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["target"]["power"]["detachedWidth"] = 240
 		E.db["unitframe"]["units"]["target"]["power"]["height"] = 6
@@ -992,7 +990,19 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["TargetPortraitMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-513,163"
 		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,216,209"
 	end
-	
+
+	if E.db.ufb.detachPlayerPortrait == true then
+		E.Options.args.unitframe.args.player.args.portrait.args.width.min = 0
+		E.Options.args.unitframe.args.target.args.portrait.args.width.min = 0
+		E.db.unitframe.units.player.portrait.width = 0
+		E.db.unitframe.units.target.portrait.width = 0
+	else
+		E.Options.args.unitframe.args.player.args.portrait.args.width.min = 15
+		E.Options.args.unitframe.args.target.args.portrait.args.width.min = 15
+		E.db.unitframe.units.player.portrait.width = 45
+		E.db.unitframe.units.target.portrait.width = 45
+	end
+
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Unitframes Set']
 		InstallStepComplete:Show()
