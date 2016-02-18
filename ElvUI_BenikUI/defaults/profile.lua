@@ -8,60 +8,6 @@ P['unitframe']['units']['party']['portrait']['transparent'] = false
 P['unitframe']['units']['party']['roleIcon']['xOffset'] = 0
 P['unitframe']['units']['party']['roleIcon']['yOffset'] = 0
 
---[[ Add Party EmptyBars to ElvUI defaults
-P['unitframe']['units']['party']['emptybar'] = {
-	['enable'] = false,
-	['height'] = 20,
-	['transparent'] = true,
-	['shadow'] = false,
-	['threat'] = false,
-}
-
--- Add Raid EmptyBars to ElvUI defaults
-P['unitframe']['units']['raid']['emptybar'] = {
-	['enable'] = false,
-	['height'] = 14,
-	['transparent'] = true,
-	['shadow'] = false,
-	['threat'] = false,
-}
-
--- Add Raid40 EmptyBars to ElvUI defaults
-P['unitframe']['units']['raid40']['emptybar'] = {
-	['enable'] = false,
-	['height'] = 14,
-	['transparent'] = true,
-	['shadow'] = false,
-	['threat'] = false,
-}
-
--- Add Pet EmptyBars to ElvUI defaults
-P['unitframe']['units']['pet']['emptybar'] = {
-	['enable'] = false,
-	['height'] = 14,
-	['transparent'] = true,
-	['shadow'] = false,
-	['threat'] = false,
-}
-
--- Add TargetTarget EmptyBars to ElvUI defaults
-P['unitframe']['units']['targettarget']['emptybar'] = {
-	['enable'] = false,
-	['height'] = 14,
-	['transparent'] = true,
-	['shadow'] = false,
-	['threat'] = false,
-}
-
--- Add Focus EmptyBars to ElvUI defaults
-P['unitframe']['units']['focus']['emptybar'] = {
-	['enable'] = false,
-	['height'] = 14,
-	['transparent'] = true,
-	['shadow'] = false,
-	['threat'] = false,
-}]]
-
 -- Add Raid role icon offsets to ElvUI defaults
 P['unitframe']['units']['raid']['roleIcon']['xOffset'] = 0
 P['unitframe']['units']['raid']['roleIcon']['yOffset'] = 0
@@ -78,18 +24,6 @@ P['unitframe']['units']['raid40']['classHover'] = false
 
 -- Add Bag stack count to ElvUI defaults
 P['bags']['countPosition'] = 'BOTTOMRIGHT'
-
---[[ Add Player Castbar Icon Detach to ElvUI defaults
-P['unitframe']['units']['player']['castbar']['detachCastbarIcon'] = false
-P['unitframe']['units']['player']['castbar']['detachediconSize'] = 32
-P['unitframe']['units']['player']['castbar']['yOffset'] = 0
-P['unitframe']['units']['player']['castbar']['xOffset'] = 0
-
--- Add Target Castbar Icon Detach to ElvUI defaults
-P['unitframe']['units']['target']['castbar']['detachCastbarIcon'] = false
-P['unitframe']['units']['target']['castbar']['detachediconSize'] = 32
-P['unitframe']['units']['target']['castbar']['yOffset'] = 0
-P['unitframe']['units']['target']['castbar']['xOffset'] = 0]]
 
 -- Core
 P['bui'] = {
@@ -253,12 +187,6 @@ P['dashboards'] = {
 
 -- Unitframes
 P['ufb'] = {
-	-- EmptyBars
-	['barshow'] = true,
-	['barheight'] = 20,
-	['toggleTransparency'] = true,
-	['toggleShadow'] = false,
-	['threat'] = false,
 	-- Detach portrait
 	['detachPlayerPortrait'] = false,
 	['PlayerPortraitWidth'] = 110,
@@ -275,12 +203,6 @@ P['ufb'] = {
 	['TargetPortraitTransparent'] = true,
 	['TargetPortraitStyle'] = false,
 	['TargetPortraitStyleHeight'] = 6,
-	-- Castbar attach
-	['attachCastbar'] = true,
-	['castText'] = true,
-	['yOffsetText'] = -15,
-	['hideText'] = false,
-	['castbarWarned'] = nil,
 	-- Misc
 	['svui'] = true
 }

@@ -30,8 +30,6 @@ function UFB:Initialize()
 	self:InitFocus()
 	self:InitPet()
 	self:InitTargetTarget()
-	
-	--self:InitEmptyBars()
 
 	self:InitParty()
 	self:InitRaid()
