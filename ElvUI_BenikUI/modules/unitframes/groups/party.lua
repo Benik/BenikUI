@@ -6,11 +6,20 @@ function UFB:Update_PartyFrames(frame, db)
 	frame.db = db
 
 	do
-		frame.PORTRAIT_HEIGHT = db.portrait.height
+		frame.PORTRAIT_HEIGHT = (frame.USE_PORTRAIT_OVERLAY or not frame.USE_PORTRAIT) and 0 or db.portrait.height
 		frame.PORTRAIT_TRANSPARENCY = db.portrait.transparent
 	end
 	
 	if not frame.isChild then
+		-- Portrait
+		UFB:Configure_Portrait(frame)
+		
+		-- Threat
+		UFB:Configure_Threat(frame)
+		
+		-- Target Glow
+		UFB:Configure_TargetGlow(frame)
+
 		-- Role Icon
 		UFB:Configure_RoleIcons(frame)
 	end
