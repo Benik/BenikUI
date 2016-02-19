@@ -152,7 +152,7 @@ L['Hide any text placed on the EmptyBars, while casting.'] = true
 L['I understand'] = true
 
 -- UnitFrame Options
-L['Adjust text Y Offset'] = true
+L['Adjust castbar text Y Offset'] = true
 L['Apply shadow under the portrait'] = true
 L['Apply transparency on the portrait backdrop.'] = true
 L['BenikUI Style on Portrait'] = true
@@ -160,9 +160,12 @@ L['Change the detached portrait height'] = true
 L['Change the detached portrait width'] = true
 L['Copy Player portrait width and height'] = true
 L['Detach Portrait'] = true
+L['Force show any text placed on the InfoPanel, while casting.'] = true
 L['Player Size'] = true
 L['Replaces the default role icons with SVUI ones.'] = true
 L['Shadow'] = true
+L['Show Castbar text'] = true
+L['Show InfoPanel text']
 L['Style Height'] = true
 L['SVUI Icons'] = true
 

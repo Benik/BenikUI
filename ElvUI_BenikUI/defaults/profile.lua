@@ -58,6 +58,8 @@ P['bui'] = {
 	['ilvlfont'] = 'Bui Prototype',
 	['ilvlfontsize'] = 9,
 	['ilvlfontflags'] = 'OUTLINE',
+	-- Unitframes
+	['infopanelShadow'] = false,
 }
 
 -- Datatexts
@@ -203,6 +205,10 @@ P['ufb'] = {
 	['TargetPortraitTransparent'] = true,
 	['TargetPortraitStyle'] = false,
 	['TargetPortraitStyleHeight'] = 6,
+	-- Castbar
+	['yOffsetText'] = -16,
+	['ShowInfoText'] = true,
+	['castText'] = true,
 	-- Misc
 	['svui'] = true
 }

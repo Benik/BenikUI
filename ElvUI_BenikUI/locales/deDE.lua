@@ -152,7 +152,7 @@ L['Hide EmptyBar text'] = "Verstecke Leere Rahmen Text"
 L['Hide any text placed on the EmptyBars, while casting.'] = "Verstecke jeden Text auf den Leeren Rahmen während des Zauberns."
 
 -- UnitFrame Options
-L['Adjust text Y Offset'] = "Passe Text Y-Versatz an"
+L['Adjust castbar text Y Offset'] = true
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
 L['Apply transparency on the portrait backdrop.'] = "Wende Transparenz auf den Portrait Hintergrund an."
 L['BenikUI Style on Portrait'] = "BenikUI Stil auf dem Portrait"
@@ -160,9 +160,12 @@ L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten P
 L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten Portrait"
 L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite und Höhe"
 L['Detach Portrait'] = "Abgetrenntes Portrait"
+L['Force show any text placed on the InfoPanel, while casting.'] = true
 L['Player Size'] = "Spieler Größe"
 L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rollen Symbole mit denen von SVUI."
 L['Shadow'] = "Schatten"
+L['Show Castbar text'] = true
+L['Show InfoPanel text'] = true
 L['Style Height'] = "Stil Höhe"
 L['SVUI Icons'] = "SVUI Symbole"
 

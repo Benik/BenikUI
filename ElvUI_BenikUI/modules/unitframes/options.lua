@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local UFB = E:GetModule('BuiUnits');
---local BUIC = E:GetModule('BuiCastbar');
+local BUIC = E:GetModule('BuiCastbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
@@ -14,32 +14,36 @@ local function ufTable()
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			buicastbar = {
-				order = 2,
+				order = 1,
 				type = 'group',
 				name = L['Castbar'],
 				guiInline = true,
-				disabled = function() return not E.db.ufb.barshow end,
 				get = function(info) return E.db.ufb[ info[#info] ] end,
 				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
 				args = {
-					--[[yOffsetText = {
+					ShowInfoText = {
+						type = 'toggle',
+						order = 1,
+						name = L['Show InfoPanel text'],
+						desc = L['Force show any text placed on the InfoPanel, while casting.'],
+						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					castText = {
+						type = 'toggle',
+						order = 2,
+						name = L['Show Castbar text'],
+					},
+					yOffsetText = {
 						order = 3,
 						type = 'range',
 						name = L['Y Offset'],
-						desc = L['Adjust text Y Offset'],
+						desc = L['Adjust castbar text Y Offset'],
 						min = -25, max = 0, step = 1,
 					},
-					hideText = {
-						type = 'toggle',
-						order = 4,
-						name = L['Hide EmptyBar text'],
-						desc = L['Hide any text placed on the EmptyBars, while casting.'],
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},]]
 				},
 			},
 			misc = {
-				order = 4,
+				order = 2,
 				type = 'group',
 				name = MISCELLANEOUS,
 				guiInline = true,
