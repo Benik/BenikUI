@@ -577,8 +577,9 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["health"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["party"]["health"]["text_format"] = "[health:current-percent]"
 		E.db["unitframe"]["units"]["party"]["health"]["position"] = "TOPRIGHT"
-		E.db["unitframe"]["units"]["party"]["height"] = 60
+		E.db["unitframe"]["units"]["party"]["height"] = 65
 		E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["name"]["position"] = "BOTTOMLEFT"
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 16
@@ -603,7 +604,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["party"]["roleIcon"]["size"] = 12
 		E.db["unitframe"]["units"]["party"]["roleIcon"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = -23
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = -22
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["anchorPoint"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["width"] = 70
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["height"] = 16
@@ -612,6 +613,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 4
 		E.db["unitframe"]["units"]["party"]["width"] = 120
 		E.db["unitframe"]["units"]["party"]["infoPanel"]["height"] = 18
+		E.db["unitframe"]["units"]["party"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["infoPanel"]["transparent"] = true
 
 		-- raid
