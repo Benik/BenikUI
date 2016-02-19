@@ -330,20 +330,7 @@ function BXR:UpdateXpNotifier()
 	end
 end
 
--- Clear ElvUI database from deleted options
-local function ClearDb()
-	if E.db.buixprep.show then E.db.buixprep.show = nil end
-	if E.db.buixprep.textFormat then E.db.buixprep.textFormat = nil end -- really old
-	if E.db.buixprep.textStyle then E.db.buixprep.textStyle = nil end -- really old
-	if E.db.buixprep.xpTextFormat then E.db.buixprep.xpTextFormat = nil end
-	if E.db.buixprep.repTextFormat then E.db.buixprep.repTextFormat = nil end
-	if E.db.buixprep.mouseOver then E.db.buixprep.mouseOver = nil end
-	if E.db.buixprep.color.reputation.applyInElvUI then E.db.buixprep.color.reputation.applyInElvUI = nil end
-	if E.db.buixprep.color.experience.applyInElvUI then E.db.buixprep.color.experience.applyInElvUI = nil end
-end
-
 function BXR:Initialize()
-	ClearDb()
 	self:ChangeXPcolor()
 	self:ChangeRepColor()
 	
