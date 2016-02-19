@@ -59,7 +59,10 @@ P['bui'] = {
 	['ilvlfontsize'] = 9,
 	['ilvlfontflags'] = 'OUTLINE',
 	-- Unitframes
-	['infopanelShadow'] = false,
+	--['infopanelShadow'] = false, -- laters... maybe
+	
+	-- db
+	['dbCleaned'] = false,
 }
 
 -- Datatexts

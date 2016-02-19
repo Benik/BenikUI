@@ -150,12 +150,17 @@ local function dbCleaning()
 	if E.db.unitframe.units.target.castbar.detachediconSize then E.db.unitframe.units.target.castbar.detachediconSize = nil end
 	if E.db.unitframe.units.target.castbar.xOffset then E.db.unitframe.units.target.castbar.xOffset = nil end
 	if E.db.unitframe.units.target.castbar.yOffset then E.db.unitframe.units.target.castbar.yOffset = nil end
+
+	E.db.bui.dbCleaned = true
 end
 
 function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:LoadCommands()
-	dbCleaning()
+	
+	if E.db.bui.dbCleaned ~= true then
+		dbCleaning()
+	end
 	
 	if E.db.bui.SplashScreen then
 		CreateSplashScreen()
