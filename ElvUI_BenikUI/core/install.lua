@@ -84,8 +84,6 @@ local function SetupBuiLayout()
 	E.private["skins"]["blizzard"]["alertframes"] = true
 	E.private["skins"]["blizzard"]["questChoice"] = true
 
-	--E.global["unitframe"]["buffwatchBackup"]["general"]["smallerWorldMap"] = false
-
 	E.db["datatexts"]["leftChatPanel"] = false
 	E.db["datatexts"]["rightChatPanel"] = false
 	E.db["datatexts"]["panelTransparency"] = true
@@ -178,42 +176,33 @@ end
 function BUI:BuiColorThemes(color)
 	-- Colors
 	if color == 'Diablo' then
-		E.db.general.backdropfadecolor.a = 0.80
+		E.db.general.backdropfadecolor.a = 0.75
 		E.db.general.backdropfadecolor.r = 0.125
 		E.db.general.backdropfadecolor.g = 0.054
 		E.db.general.backdropfadecolor.b = 0.050
-		E.db.general.backdropcolor.r = 0.105
-		E.db.general.backdropcolor.g = 0.054
-		E.db.general.backdropcolor.b = 0.039
 		E.db.bui.colorTheme = 'Diablo'
 	elseif color == 'Hearthstone' then
-		E.db.general.backdropfadecolor.a = 0.80
+		E.db.general.backdropfadecolor.a = 0.75
 		E.db.general.backdropfadecolor.r = 0.086
 		E.db.general.backdropfadecolor.g = 0.109
 		E.db.general.backdropfadecolor.b = 0.149
-		E.db.general.backdropcolor.r = 0.070
-		E.db.general.backdropcolor.g = 0.086
-		E.db.general.backdropcolor.b = 0.117
 		E.db.bui.colorTheme = 'Hearthstone'
 	elseif color == 'Mists' then
-		E.db.general.backdropfadecolor.a = 0.80
+		E.db.general.backdropfadecolor.a = 0.75
 		E.db.general.backdropfadecolor.r = 0.043
 		E.db.general.backdropfadecolor.g = 0.101
 		E.db.general.backdropfadecolor.b = 0.101
-		E.db.general.backdropcolor.r = 0.027
-		E.db.general.backdropcolor.g = 0.062
-		E.db.general.backdropcolor.b = 0.062
 		E.db.bui.colorTheme = 'Mists'
 	elseif color == 'Elv' then
-		E.db.general.backdropfadecolor.a = 0.80
+		E.db.general.backdropfadecolor.a = 0.75
 		E.db.general.backdropfadecolor.r = 0.054
 		E.db.general.backdropfadecolor.g = 0.054
 		E.db.general.backdropfadecolor.b = 0.054
-		E.db.general.backdropcolor.r = 0.025
-		E.db.general.backdropcolor.g = 0.025
-		E.db.general.backdropcolor.b = 0.025
 		E.db.bui.colorTheme = 'Elv'
 	end
+	E.db.general.backdropcolor.r = 0.025
+	E.db.general.backdropcolor.g = 0.025
+	E.db.general.backdropcolor.b = 0.025
 
 	E:UpdateAll(true)
 end
