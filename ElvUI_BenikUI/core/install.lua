@@ -452,7 +452,8 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = '[healthcolor][health:current-percent]'
 		E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = 'InfoPanel'
-		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 14
+		E.db["unitframe"]["units"]["player"]["infoPanel"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 16
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["player"]["height"] = 53
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
@@ -515,7 +516,8 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["power"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["target"]["power"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["target"]["width"] = 300
-		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 14
+		E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = true
+		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 16
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
@@ -540,7 +542,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["focus"]["power"]["width"] = 'fill'
 		E.db["unitframe"]["units"]["focus"]["width"] = 130
 		E.db["unitframe"]["units"]["focus"]["height"] = 30
-		E.db["unitframe"]["units"]["focus"]["castbar"]["height"] = 6
+		E.db["unitframe"]["units"]["focus"]["castbar"]["height"] = 14
 		E.db["unitframe"]["units"]["focus"]["castbar"]["width"] = 130
 		E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["focus"]["debuffs"]["enable"] = false
@@ -581,6 +583,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["name"]["position"] = "BOTTOMLEFT"
+		E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 16
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["width"] = 60
@@ -672,6 +675,7 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,211"
 		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-231,215"
 		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,231,215"
+		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-442,190"
 
 	elseif layout == 'detached' then
 		E.db["ufb"]["PlayerPortraitHeight"] = 47
@@ -767,6 +771,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = -25
 		E.db["unitframe"]["units"]["player"]["height"] = 52
+		E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 18
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
@@ -817,6 +822,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = -40
 		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = -25
 		E.db["unitframe"]["units"]["target"]["height"] = 52
+		E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 18
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["target"]["name"]["position"] = "RIGHT"
