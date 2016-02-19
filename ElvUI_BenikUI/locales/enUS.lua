@@ -165,7 +165,7 @@ L['Player Size'] = true
 L['Replaces the default role icons with SVUI ones.'] = true
 L['Shadow'] = true
 L['Show Castbar text'] = true
-L['Show InfoPanel text']
+L['Show InfoPanel text'] = true
 L['Style Height'] = true
 L['SVUI Icons'] = true
 
