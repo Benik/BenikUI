@@ -1300,7 +1300,7 @@ function BUI:SetupBuiDts(role)
 		if IsAddOnLoaded('AtlasLoot') then
 			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'AtlasLoot'
 		else
-			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Talent/Loot Specialization'
+			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Spec Switch (BenikUI)'
 		end
 	end
 	if role == 'tank' then
