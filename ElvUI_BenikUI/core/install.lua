@@ -987,15 +987,11 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["TargetPortraitMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-513,163"
 		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,216,209"
 	end
-
+	
 	if E.db.ufb.detachPlayerPortrait == true then
-		E.Options.args.unitframe.args.player.args.portrait.args.width.min = 0
-		E.Options.args.unitframe.args.target.args.portrait.args.width.min = 0
 		E.db.unitframe.units.player.portrait.width = 0
 		E.db.unitframe.units.target.portrait.width = 0
 	else
-		E.Options.args.unitframe.args.player.args.portrait.args.width.min = 15
-		E.Options.args.unitframe.args.target.args.portrait.args.width.min = 15
 		E.db.unitframe.units.player.portrait.width = 45
 		E.db.unitframe.units.target.portrait.width = 45
 	end
