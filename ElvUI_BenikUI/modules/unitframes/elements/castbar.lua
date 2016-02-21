@@ -51,7 +51,7 @@ local function ToggleCastbarText(unit, unitframe)
 		
 		if E.db.ufb.ShowInfoText then
 			unitframe.Castbar:SetFrameStrata(unitframe.InfoPanel:GetFrameStrata())
-			unitframe.Castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel())
+			unitframe.Castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel() + 5)
 			
 			unitframe.Castbar:SetScript('OnShow', function(self)
 				if E.db.unitframe.units[unit].health.attachTextTo == 'InfoPanel' then
