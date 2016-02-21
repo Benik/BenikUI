@@ -61,7 +61,7 @@ local function updateItems()
 	end
 end
 
-function createString(parent, myPoint, parentPoint, x, y)
+local function createString(parent, myPoint, parentPoint, x, y)
 	local s = f:CreateFontString(nil, "OVERLAY")
 	s:FontTemplate(LSM:Fetch('font', E.db.bui.ilvlfont), E.db.bui.ilvlfontsize, E.db.bui.ilvlfontflags)
 	s:SetPoint(myPoint, parent, parentPoint, x or 0, y or 0)
