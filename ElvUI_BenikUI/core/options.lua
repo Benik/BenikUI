@@ -234,6 +234,8 @@ local function buiCore()
 				type = 'group',
 				name = MISCELLANEOUS,
 				guiInline = true,
+				get = function(info) return E.db.bui[ info[#info] ] end,
+				set = function(info, value) E.db.bui[ info[#info] ] = value; end,	
 				args = {
 					ilvl = {
 						order = 1,
@@ -249,16 +251,12 @@ local function buiCore()
 						order = 2,
 						name = L['Font'],
 						values = AceGUIWidgetLSMlists.font,
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,	
 					},
 					ilvlfontsize = {
 						order = 3,
 						name = FONT_SIZE,
 						type = 'range',
 						min = 6, max = 22, step = 1,
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,	
 					},
 					ilvlfontflags = {
 						order = 4,
@@ -270,8 +268,31 @@ local function buiCore()
 							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
 							['THICKOUTLINE'] = 'THICKOUTLINE',
 						},
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,	
+					},
+					ilvlColorStyle = {
+						order = 5,
+						type = "select",
+						name = COLOR,
+						values = {
+							['RARITY'] = RARITY,
+							['CUSTOM'] = CUSTOM,
+						},
+					},
+					ilvlColor = {
+						order = 6,
+						type = "color",
+						name = COLOR_PICKER,
+						disabled = function() return E.db.bui.ilvlColorStyle == 'RARITY' end,
+						get = function(info)
+							local t = E.db.bui[ info[#info] ]
+							local d = P.bui[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+							end,
+						set = function(info, r, g, b)
+							E.db.bui[ info[#info] ] = {}
+							local t = E.db.bui[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
+						end,
 					},					
 				},
 			},

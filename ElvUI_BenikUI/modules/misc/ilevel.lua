@@ -41,6 +41,7 @@ local function getItemLevel(slotId)
 end
 
 local function updateItems()
+	local db = E.db.bui
 	for i = 1, 17 do
 		local itemLink = GetInventoryItemLink("player", i)
 		if i ~= 4 and (equipped[i] ~= itemLink or f[i]:GetText() ~= nil) then
@@ -48,22 +49,23 @@ local function updateItems()
 			if (itemLink ~= nil) then
 				f[i]:SetFormattedText("%s", getItemLevel(i))
 				local _, _, ItemRarity = GetItemInfo(itemLink)
-				if ItemRarity then
+				if ItemRarity and db.ilvlColorStyle == 'RARITY' then
 					local r, g, b = GetItemQualityColor(ItemRarity)
 					f[i]:SetTextColor(r, g, b)
 				else
-					f[i]:SetTextColor(1, 1, 0)
+					f[i]:SetTextColor(db.ilvlColor.r, db.ilvlColor.g, db.ilvlColor.b)
 				end
 			else
 				f[i]:SetText("")
 			end
+			f[i]:FontTemplate(LSM:Fetch('font', db.ilvlfont), db.ilvlfontsize, db.ilvlfontflags)
 		end
 	end
 end
 
 local function createString(parent, myPoint, parentPoint, x, y)
 	local s = f:CreateFontString(nil, "OVERLAY")
-	s:FontTemplate(LSM:Fetch('font', E.db.bui.ilvlfont), E.db.bui.ilvlfontsize, E.db.bui.ilvlfontflags)
+	s:FontTemplate()
 	s:SetPoint(myPoint, parent, parentPoint, x or 0, y or 0)
 	return s
 end

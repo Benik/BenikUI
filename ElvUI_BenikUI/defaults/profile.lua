@@ -58,6 +58,8 @@ P['bui'] = {
 	['ilvlfont'] = 'Bui Prototype',
 	['ilvlfontsize'] = 9,
 	['ilvlfontflags'] = 'OUTLINE',
+	['ilvlColorStyle'] = 'RARITY',
+	['ilvlColor'] =  {r = 1, g = 1, b = 0},
 	-- Unitframes
 	--['infopanelShadow'] = false, -- laters... maybe
 	
