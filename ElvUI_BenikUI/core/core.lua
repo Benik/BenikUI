@@ -137,7 +137,6 @@ local function dbCleaning()
 	
 	-- Castbar on Emptybars
 	if E.db.ufb.attachCastbar then E.db.ufb.attachCastbar = nil end
-	if E.db.ufb.castText then E.db.ufb.castText = nil end
 	
 	-- Player Castbar icon detach
 	if E.db.unitframe.units.player.castbar.detachCastbarIcon then E.db.unitframe.units.player.castbar.detachCastbarIcon = nil end
