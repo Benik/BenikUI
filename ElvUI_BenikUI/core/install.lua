@@ -1523,7 +1523,7 @@ function BUI:SetupBui()
 		imsg:Hide()
 		imsg:SetScript('OnShow', function(self)
 			if self.message then 
-				PlaySoundFile([[Sound\Interface\LevelUp.ogg]])
+				PlaySoundFile([[Sound\Interface\alarmclockwarning2.ogg]])
 				self.text:SetText(self.message)
 				UIFrameFadeOut(self, 3.5, 1, 0)
 				E:Delay(4, function() self:Hide() end)	
