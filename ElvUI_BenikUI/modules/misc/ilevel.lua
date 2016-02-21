@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
 if E.db.bui.ilvl == false then return end
