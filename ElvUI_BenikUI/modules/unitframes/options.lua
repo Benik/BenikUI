@@ -26,7 +26,6 @@ local function ufTable()
 						order = 1,
 						name = L['Show InfoPanel text'],
 						desc = L['Force show any text placed on the InfoPanel, while casting.'],
-						set = function(info, value) E.db.ufb[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					castText = {
 						type = 'toggle',
