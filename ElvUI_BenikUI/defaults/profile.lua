@@ -214,6 +214,7 @@ P['ufb'] = {
 	['yOffsetText'] = -16,
 	['ShowInfoText'] = true,
 	['castText'] = true,
+	['notDetachedIcon'] = false,
 	-- Misc
 	['svui'] = true
 }

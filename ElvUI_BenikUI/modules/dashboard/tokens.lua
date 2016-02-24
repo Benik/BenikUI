@@ -74,7 +74,7 @@ local function tholderOnFade()
 	tokenHolder:Hide()
 end
 
-local classColor = RAID_CLASS_COLORS[E.myclass]
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local color = { r = 1, g = 1, b = 1 }
 local function unpackColor(color)

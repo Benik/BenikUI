@@ -311,7 +311,7 @@ local function prank(self, status)
 end
 hooksecurefunc(AFK, "SetAFK", prank)]]
 
-local classColor = RAID_CLASS_COLORS[E.myclass]
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 AFK.InitializeBuiAfk = AFK.Initialize
 function AFK:Initialize()

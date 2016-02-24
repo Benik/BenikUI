@@ -16,7 +16,7 @@ local function ufTable()
 			buicastbar = {
 				order = 1,
 				type = 'group',
-				name = L['Castbar'],
+				name = L['Castbar'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
 				get = function(info) return E.db.ufb[ info[#info] ] end,
 				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
@@ -38,6 +38,12 @@ local function ufTable()
 						name = L['Y Offset'],
 						desc = L['Adjust castbar text Y Offset'],
 						min = -25, max = 0, step = 1,
+					},
+					detachedIcon = {
+						type = 'toggle',
+						order = 4,
+						name = L['Icon on castbar'],
+						desc = L['Attaches icon on castbar, when the castbar is inside the Info Panel'],
 					},
 				},
 			},

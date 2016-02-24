@@ -7,7 +7,7 @@ local getmetatable = getmetatable
 
 local SPACING = (E.PixelMode and 1 or 3)
 
-local classColor = RAID_CLASS_COLORS[E.myclass]
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local color = { r = 1, g = 0.5, b = 0 }
 local function unpackColor(color)

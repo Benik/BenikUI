@@ -46,7 +46,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 			local mu = power.bg.multiplier or 1
 			local color = ElvUF['colors'].power[pToken]
 			local isPlayer = UnitIsPlayer("target")
-			local classColor = RAID_CLASS_COLORS[targetClass]
+			local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
 
 			if not power.colorClass then
 				if maxValue > 0 then
