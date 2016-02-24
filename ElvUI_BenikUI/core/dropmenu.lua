@@ -33,11 +33,6 @@ end
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local color = { r = 1, g = 1, b = 1 }
-local function unpackColor(color)
-	return color.r, color.g, color.b
-end
-
 -- added parent, removed the mouse x,y and set menu frame position to any parent corners.
 -- Also added delay to autohide
 function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay)
@@ -83,7 +78,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay)
 		if E.db.bui.gameMenuColor == 1 then
 			frame.buttons[i].text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		else
-			frame.buttons[i].text:SetTextColor(unpackColor(E.db.bui.customGameMenuColor))
+			frame.buttons[i].text:SetTextColor(BUI:unpackColor(E.db.bui.customGameMenuColor))
 		end
 		frame.buttons[i].func = list[i].func
 		frame.buttons[i]:SetScript('OnClick', OnClick)

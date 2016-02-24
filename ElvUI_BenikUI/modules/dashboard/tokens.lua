@@ -76,11 +76,6 @@ end
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local color = { r = 1, g = 1, b = 1 }
-local function unpackColor(color)
-	return color.r, color.g, color.b
-end
-
 function BUIT:CreateTokensHolder()
 	local db = E.db.dashboards.tokens
 	local tholder
@@ -199,7 +194,7 @@ function BUIT:UpdateTokens()
 					if E.db.dashboards.textColor == 1 then
 						token.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 					else
-						token.Text:SetTextColor(unpackColor(E.db.dashboards.customTextColor))
+						token.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 					end
 					
 					if totalMax == 0 then

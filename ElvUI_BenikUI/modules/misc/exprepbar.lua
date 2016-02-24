@@ -152,12 +152,6 @@ function BXR:ApplyXpRepStyling()
 	end
 end
 
--- Custom color
-local color = { r = 1, g = 1, b = 1, a = 1 }
-local function unpackColor(color)
-	return color.r, color.g, color.b, color.a
-end
-
 function BXR:ChangeXPcolor()
 	local db = E.db.buixprep.color.experience
 	local elvxpstatus = ElvUI_ExperienceBar.statusBar
@@ -167,8 +161,8 @@ function BXR:ChangeXPcolor()
 		elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
 		elvrestedstatus:SetStatusBarColor(1, 0, 1, 0.2)
 	else
-		elvxpstatus:SetStatusBarColor(unpackColor(db.xp))
-		elvrestedstatus:SetStatusBarColor(unpackColor(db.rested))
+		elvxpstatus:SetStatusBarColor(BUI:unpackColor(db.xp))
+		elvrestedstatus:SetStatusBarColor(BUI:unpackColor(db.rested))
 	end
 end
 
@@ -183,13 +177,13 @@ function BXR:ChangeRepColor()
 		elvstatus:SetStatusBarColor(color.r, color.g, color.b)
 	else 
 		if reaction >= 5 then
-			elvstatus:SetStatusBarColor(unpackColor(db.friendly))
+			elvstatus:SetStatusBarColor(BUI:unpackColor(db.friendly))
 		elseif reaction == 4 then
-			elvstatus:SetStatusBarColor(unpackColor(db.neutral))
+			elvstatus:SetStatusBarColor(BUI:unpackColor(db.neutral))
 		elseif reaction == 3 then
-			elvstatus:SetStatusBarColor(unpackColor(db.unfriendly))
+			elvstatus:SetStatusBarColor(BUI:unpackColor(db.unfriendly))
 		elseif reaction < 3 then
-			elvstatus:SetStatusBarColor(unpackColor(db.hated))
+			elvstatus:SetStatusBarColor(BUI:unpackColor(db.hated))
 		end
 	end
 end

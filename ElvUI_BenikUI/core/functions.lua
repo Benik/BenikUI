@@ -9,11 +9,6 @@ local SPACING = (E.PixelMode and 1 or 3)
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local color = { r = 1, g = 0.5, b = 0 }
-local function unpackColor(color)
-	return color.r, color.g, color.b
-end
-
 local function CreateSoftShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
@@ -45,8 +40,8 @@ local function CreateSoftGlow(f)
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
-	sglow:SetBackdropColor(unpackColor(E.db.general.valuecolor), 0)
-	sglow:SetBackdropBorderColor(unpackColor(E.db.general.valuecolor), 0.4)
+	sglow:SetBackdropColor(BUI:unpackColor(E.db.general.valuecolor), 0)
+	sglow:SetBackdropBorderColor(BUI:unpackColor(E.db.general.valuecolor), 0.4)
 	f.sglow = sglow
 end
 
@@ -88,11 +83,11 @@ local function Style(f, template, name, colored)
 			if E.db.bui.StyleColor == 1 then
 				style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
 			elseif E.db.bui.StyleColor == 2 then
-				style.color:SetVertexColor(unpackColor(E.db.bui.customStyleColor))
+				style.color:SetVertexColor(BUI:unpackColor(E.db.bui.customStyleColor))
 			elseif E.db.bui.StyleColor == 3 then
-				style.color:SetVertexColor(unpackColor(E.db.general.valuecolor))
+				style.color:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 			else
-				style.color:SetVertexColor(unpackColor(E.db.general.backdropcolor))
+				style.color:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
 			end
 		end
 	end

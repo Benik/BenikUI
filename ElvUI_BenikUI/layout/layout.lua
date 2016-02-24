@@ -106,11 +106,6 @@ local menuList = {
 	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end}
 }
 
-local color = { r = 1, g = 1, b = 1 }
-local function unpackColor(color)
-	return color.r, color.g, color.b
-end
-
 local function BuiGameMenu_OnMouseUp(self)
 	GameTooltip:Hide()
 	BUI:Dropmenu(menuList, menuFrame, self:GetName(), 'tLeft', -SPACING, SPACING, 4)
@@ -345,7 +340,7 @@ function BUIL:ChangeLayout()
 		bbuttons[i].text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		bbuttons[i].text:SetPoint('CENTER', 1, 0)
 		bbuttons[i].text:SetJustifyH('CENTER')
-		bbuttons[i].text:SetTextColor(unpackColor(E.db.general.valuecolor))
+		bbuttons[i].text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
 		
 		-- ElvUI Config
 		if i == 1 then

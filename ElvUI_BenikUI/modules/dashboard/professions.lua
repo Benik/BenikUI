@@ -22,11 +22,6 @@ local SPACING = 1
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local color = { r = 1, g = 1, b = 1 }
-local function unpackColor(color)
-	return color.r, color.g, color.b
-end
-
 local BuiProfessions = {}
 
 local function pholderOnFade()
@@ -156,7 +151,7 @@ function BUIP:UpdateProfessions()
 					if E.db.dashboards.textColor == 1 then
 						ProFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 					else
-						ProFrame.Text:SetTextColor(unpackColor(E.db.dashboards.customTextColor))
+						ProFrame.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 					end
 
 					ProFrame.IconBG = CreateFrame('Button', nil, ProFrame)

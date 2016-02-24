@@ -123,11 +123,6 @@ local BlizzUiFrames = {
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local color = { r = 1, g = 0.5, b = 0 }
-local function unpackColor(color)
-	return color.r, color.g, color.b
-end
-
 function BUI:StyleBlizzard(parent, ...)
 	local frame = CreateFrame('Frame', parent..'Decor', E.UIParent)
 	frame:CreateBackdrop('Default', true)
@@ -141,11 +136,11 @@ function BUI:StyleBlizzard(parent, ...)
 	if E.db.bui.StyleColor == 1 then
 		frame.backdrop.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	elseif E.db.bui.StyleColor == 2 then
-		frame.backdrop.color:SetVertexColor(unpackColor(E.db.bui.customStyleColor))
+		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.bui.customStyleColor))
 	elseif E.db.bui.StyleColor == 3 then
-		frame.backdrop.color:SetVertexColor(unpackColor(E.db.general.valuecolor))
+		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 	else
-		frame.backdrop.color:SetVertexColor(unpackColor(E.db.general.backdropcolor))
+		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
 	end
 end
 

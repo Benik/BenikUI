@@ -9,11 +9,6 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local color = { r = 1, g = 1, b = 1 }
-local function unpackColor(color)
-	return color.r, color.g, color.b
-end
-
 if E.db.bab == nil then E.db.bab = {} end
 
 local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar}
@@ -46,11 +41,11 @@ function BAB:ColorBackdrops()
 			if E.db.bui.abStyleColor == 1 then
 				frame.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
 			elseif E.db.bui.abStyleColor == 2 then
-				frame.backdropTexture:SetVertexColor(unpackColor(E.db.bui.customAbStyleColor))
+				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.bui.customAbStyleColor))
 			elseif E.db.bui.abStyleColor == 3 then
-				frame.backdropTexture:SetVertexColor(unpackColor(E.db.general.valuecolor))
+				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 			else
-				frame.backdropTexture:SetVertexColor(unpackColor(E.db.general.backdropcolor))
+				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
 			end
 		end
 	end
@@ -61,11 +56,11 @@ function BAB:ColorBackdrops()
 		if E.db.bui.abStyleColor == 1 then
 			name.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		elseif E.db.bui.abStyleColor == 2 then
-			name.backdropTexture:SetVertexColor(unpackColor(E.db.bui.customAbStyleColor))
+			name.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.bui.customAbStyleColor))
 		elseif E.db.bui.abStyleColor == 3 then
-			name.backdropTexture:SetVertexColor(unpackColor(E.db.general.valuecolor))
+			name.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 		else
-			name.backdropTexture:SetVertexColor(unpackColor(E.db.general.backdropcolor))
+			name.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
 		end
 	end
 end
