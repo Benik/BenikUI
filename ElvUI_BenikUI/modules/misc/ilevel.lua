@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
 if E.db.bui.ilvl == false then return end
@@ -53,7 +54,7 @@ local function updateItems()
 					local r, g, b = GetItemQualityColor(ItemRarity)
 					f[i]:SetTextColor(r, g, b)
 				else
-					f[i]:SetTextColor(db.ilvlColor.r, db.ilvlColor.g, db.ilvlColor.b)
+					f[i]:SetTextColor(BUI:unpackColor(db.ilvlColor))
 				end
 			else
 				f[i]:SetText("")
