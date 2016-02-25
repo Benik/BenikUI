@@ -210,6 +210,7 @@ P['ufb'] = {
 	['TargetPortraitTransparent'] = true,
 	['TargetPortraitStyle'] = false,
 	['TargetPortraitStyleHeight'] = 6,
+	['fixInfoPanel'] = true,
 	-- Castbar
 	['yOffsetText'] = -16,
 	['ShowInfoText'] = true,

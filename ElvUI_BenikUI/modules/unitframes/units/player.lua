@@ -37,7 +37,12 @@ function UFB:ArrangePlayer()
 		frame.PORTRAIT_STYLING_HEIGHT = E.db.ufb.PlayerPortraitStyleHeight
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.ufb.PlayerPortraitHeight
+		
+		frame.PORTRAIT_AND_INFOPANEL = E.db.ufb.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
 	end
+	
+	-- InfoPanel
+	UFB:Configure_Infopanel(frame)
 	
 	-- Portrait
 	UFB:Configure_Portrait(frame, true)

@@ -13,6 +13,22 @@ local function ufTable()
 		name = L['UnitFrames'],
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
+			infopanel = {
+				order = 1,
+				type = 'group',
+				name = L['CInformation Panel'],
+				guiInline = true,
+				get = function(info) return E.db.ufb[ info[#info] ] end,
+				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
+				args = {
+					fixInfoPanel = {
+						type = 'toggle',
+						order = 1,
+						name = L['Fix InfoPanel width'],
+						desc = L['Lower InfoPanel width when potraits are enabled'],
+					},
+				},
+			},
 			buicastbar = {
 				order = 1,
 				type = 'group',
@@ -39,7 +55,7 @@ local function ufTable()
 						desc = L['Adjust castbar text Y Offset'],
 						min = -25, max = 0, step = 1,
 					},
-					detachedIcon = {
+					notDetachedIcon = {
 						type = 'toggle',
 						order = 4,
 						name = L['Icon on castbar'],

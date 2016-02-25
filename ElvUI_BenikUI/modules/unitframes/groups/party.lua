@@ -8,9 +8,15 @@ function UFB:Update_PartyFrames(frame, db)
 	do
 		frame.PORTRAIT_HEIGHT = (frame.USE_PORTRAIT_OVERLAY or not frame.USE_PORTRAIT) and 0 or db.portrait.height
 		frame.PORTRAIT_TRANSPARENCY = db.portrait.transparent
+		
+		frame.PORTRAIT_AND_INFOPANEL = E.db.ufb.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
 	end
-	
+
 	if not frame.isChild then
+
+		-- InfoPanel
+		UFB:Configure_Infopanel(frame)
+
 		-- Portrait
 		UFB:Configure_Portrait(frame)
 		
