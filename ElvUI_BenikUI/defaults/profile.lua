@@ -60,8 +60,6 @@ P['bui'] = {
 	['ilvlfontflags'] = 'OUTLINE',
 	['ilvlColorStyle'] = 'RARITY',
 	['ilvlColor'] =  {r = 1, g = 1, b = 0},
-	-- Unitframes
-	--['infopanelShadow'] = false, -- laters... maybe
 	
 	-- db
 	['dbCleaned'] = false,
@@ -215,7 +213,6 @@ P['ufb'] = {
 	['yOffsetText'] = -16,
 	['ShowInfoText'] = true,
 	['castText'] = true,
-	['notDetachedIcon'] = false,
 	-- Misc
 	['svui'] = true
 }

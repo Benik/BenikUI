@@ -143,14 +143,6 @@ L['Decursive'] = true
 L['ElvUI AddOns'] = true
 L['decor.'] = "Dekor."
 
--- Castbar
-L['CONFLICT_WARNING'] = "Es sieht so aus, als würdest du ElvUI_CastBarPowerOverlay oder ElvUI_CastBarSnap aktiviert haben. BenikUI abgetrente Zauberleisten wurden deaktiviert."
-L['Detach Castbar Icon'] = "Abgetrenntes Zauberleisten Symbol"
-L['Icon Size'] = "Symbol Größe"
-L['I understand'] = "Ich verstehe"
-L['Hide EmptyBar text'] = "Verstecke Leere Rahmen Text"
-L['Hide any text placed on the EmptyBars, while casting.'] = "Verstecke jeden Text auf den Leeren Rahmen während des Zauberns."
-
 -- UnitFrame Options
 L['Adjust castbar text Y Offset'] = "Passe Zauberleisten Text Y-Versatz an"
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
@@ -161,15 +153,16 @@ L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten P
 L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite und Höhe"
 L['Detach Portrait'] = "Abgetrenntes Portrait"
 L['Fix InfoPanel width'] = "Behebt InfoPanel Breite"
-L['Force show any text placed on the InfoPanel, while casting.'] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
 L['Lower InfoPanel width when potraits are enabled.'] = "Verringert die InfoPanel Breite, wenn Portraits aktiviert sind."
 L['Player Size'] = "Spieler Größe"
 L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rollen Symbole mit denen von SVUI."
 L['Shadow'] = "Schatten"
-L['Show Castbar text'] = "Zeige Zauberleisten Text"
-L['Show InfoPanel text'] = "Zeige InfoPanel Text"
 L['Style Height'] = "Stil Höhe"
 L['SVUI Icons'] = "SVUI Symbole"
+-- Castbar
+L['Force show any text placed on the InfoPanel, while casting.'] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
+L['Show Castbar text'] = "Zeige Zauberleisten Text"
+L['Show InfoPanel text'] = "Zeige InfoPanel Text"
 
 -- Raid
 L['Class Hover'] = "Klassenfarbeneffekt"

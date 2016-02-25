@@ -143,14 +143,6 @@ L['Decursive'] = true
 L['ElvUI AddOns'] = true
 L['decor.'] = true
 
--- Castbar
-L['CONFLICT_WARNING'] = 'It would appear you have ElvUI_CastBarPowerOverlay or ElvUI_CastBarSnap loaded. BenikUI Attach Castbar feature has been disabled.'
-L['Detach Castbar Icon'] = true
-L['Icon Size'] = true
-L['Hide EmptyBar text'] = true
-L['Hide any text placed on the EmptyBars, while casting.'] = true
-L['I understand'] = true
-
 -- UnitFrame Options
 L['Adjust castbar text Y Offset'] = true
 L['Apply shadow under the portrait'] = true
@@ -161,15 +153,16 @@ L['Change the detached portrait width'] = true
 L['Copy Player portrait width and height'] = true
 L['Detach Portrait'] = true
 L['Fix InfoPanel width'] = true
-L['Force show any text placed on the InfoPanel, while casting.'] = true
 L['Lower InfoPanel width when potraits are enabled.'] = true
 L['Player Size'] = true
 L['Replaces the default role icons with SVUI ones.'] = true
 L['Shadow'] = true
-L['Show Castbar text'] = true
-L['Show InfoPanel text'] = true
 L['Style Height'] = true
 L['SVUI Icons'] = true
+-- Castbar
+L['Force show any text placed on the InfoPanel, while casting.'] = true
+L['Show Castbar text'] = true
+L['Show InfoPanel text'] = true
 
 -- Raid
 L['Class Hover'] = true
