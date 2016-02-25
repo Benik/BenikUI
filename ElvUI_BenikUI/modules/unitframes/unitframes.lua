@@ -22,6 +22,12 @@ function UFB:UnitDefaults()
 	end
 end
 
+function UFB:UpdateUF()
+	UFB:ArrangePlayer()
+	UFB:ArrangeTarget()
+	UF:CreateAndUpdateHeaderGroup('party')
+end
+
 function UFB:Initialize()
 	if E.private.unitframe.enable ~= true then return end
 	self:UnitDefaults()
