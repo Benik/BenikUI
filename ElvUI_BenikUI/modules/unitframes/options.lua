@@ -30,7 +30,7 @@ local function ufTable()
 				},
 			},
 			buicastbar = {
-				order = 1,
+				order = 2,
 				type = 'group',
 				name = L['Castbar'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
