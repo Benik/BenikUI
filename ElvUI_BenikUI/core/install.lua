@@ -573,8 +573,9 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 10
 		E.db["unitframe"]["units"]["party"]["debuffs"]["fontSize"] = 10
-		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 19
+		E.db["unitframe"]["units"]["party"]["debuffs"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 25
 		E.db["unitframe"]["units"]["party"]["health"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["party"]["health"]["text_format"] = "[health:current-percent]"
@@ -689,7 +690,6 @@ local function SetupUnitframes(layout)
 		E.db["ufb"]["detachPlayerPortrait"] = true
 		E.db["ufb"]["detachTargetPortrait"] = true
 		E.db["ufb"]["getPlayerPortraitSize"] = false
-		--E.db["ufb"]["yOffsetText"] = -20
 
 		-- Auras
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
@@ -1440,6 +1440,7 @@ local function SetPage(PageNum)
 		f.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
 		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your actionbars.'])
 		f.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+		f.Desc4:SetFormattedText("%s", L['Buttons must be clicked twice'])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', function() SetupActionbars('big') end)
 		InstallOption1Button:SetFormattedText("%s", L['Setup ActionBars'].." - 1")
