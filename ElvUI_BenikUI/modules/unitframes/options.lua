@@ -16,16 +16,16 @@ local function ufTable()
 			infopanel = {
 				order = 1,
 				type = 'group',
-				name = L['CInformation Panel'],
+				name = L['Information Panel'],
 				guiInline = true,
 				get = function(info) return E.db.ufb[ info[#info] ] end,
-				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
+				set = function(info, value) E.db.ufb[ info[#info] ] = value; BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); E:StaticPopup_Show('PRIVATE_RL'); end,
 				args = {
 					fixInfoPanel = {
 						type = 'toggle',
 						order = 1,
 						name = L['Fix InfoPanel width'],
-						desc = L['Lower InfoPanel width when potraits are enabled'],
+						desc = L['Lower InfoPanel width when potraits are enabled.'],
 					},
 				},
 			},
