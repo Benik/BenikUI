@@ -4,7 +4,7 @@ local BUI = E:GetModule('BenikUI');
 
 if E.db.benikui.misc == nil then E.db.benikui.misc = {} end
 
-if E.db.benikui.misc.ilevel == false then return end
+if E.db.benikui.misc.ilevel.enable == false then return end
 
 local match, gsub = string.match, gsub
 
