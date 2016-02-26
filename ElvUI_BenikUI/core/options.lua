@@ -73,7 +73,7 @@ local function Core()
 				type = 'execute',
 				name = L['Install'],
 				desc = L['Run the installation process.'],
-				func = function() BUI:SetupBui(); E:ToggleConfig(); end,
+				func = function() BUI:SetupBenikUI(); E:ToggleConfig(); end,
 			},
 			spacer2 = {
 				order = 4,

@@ -61,7 +61,7 @@ end
 
 function BUI:LoadCommands()
 	self:RegisterChatCommand("benikui", "DasOptions")
-	self:RegisterChatCommand("benikuisetup", "SetupBui")
+	self:RegisterChatCommand("benikuisetup", "SetupBenikUI")
 end
 
 local function CreateSplashScreen()
@@ -175,14 +175,14 @@ function BUI:Initialize()
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
 	-- run install when ElvUI install finishes
-	if E.private.install_complete == E.version and E.db.benikui.installed == nil then self:SetupBui() end
+	if E.private.install_complete == E.version and E.db.benikui.installed == nil then self:SetupBenikUI() end
 	
 	-- Show Splash Screen only if the install is completed
 	if (E.db.benikui.installed == true and E.db.benikui.general.splashScreen) then C_TimerAfter(6, ShowSplashScreen) end
 	
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
-	if ElvDB.profileKeys and profileKey == nil then self:SetupBui() end
+	if ElvDB.profileKeys and profileKey == nil then self:SetupBenikUI() end
 
 	if E.db.benikui.general.loginMessage then
 		print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..BUI:PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues'))

@@ -1520,7 +1520,7 @@ local function PreviousPage()
 	end
 end
 
-function BUI:SetupBui()	
+function BUI:SetupBenikUI()	
 	if not InstallStepComplete then
 		local imsg = CreateFrame('Frame', 'InstallStepComplete', E.UIParent)
 		imsg:Size(418, 72)
