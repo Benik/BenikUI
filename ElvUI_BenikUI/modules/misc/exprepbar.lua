@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0');
+local BUI = E:GetModule('BenikUI');
 local M = E:GetModule('Misc');
 local LO = E:GetModule('Layout');
 local LSM = LibStub('LibSharedMedia-3.0');
