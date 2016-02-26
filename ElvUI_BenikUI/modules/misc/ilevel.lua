@@ -3,8 +3,9 @@ local BUI = E:GetModule('BenikUI');
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
 if E.db.benikui.misc == nil then E.db.benikui.misc = {} end
+if E.db.benikui.misc.ilevel == nil then E.db.benikui.misc.ilevel = {} end
 
-if E.db.benikui.misc.ilevel == false then return end
+if E.db.benikui.misc.ilevel.enable == false then return end
 
 local match, gsub = string.match, gsub
 
