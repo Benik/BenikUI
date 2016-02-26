@@ -1359,6 +1359,7 @@ end
 local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.benikui.installed = true
+	E.private.benikui.install_complete = BUI.Version
 	
 	ReloadUI()
 end
