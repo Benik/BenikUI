@@ -183,7 +183,7 @@ local function xprepTable()
 			notifiers = {
 				order = 5,
 				type = 'group',
-				name = L['Notifiers']..BUI.newsign,
+				name = L['Notifiers'],
 				guiInline = true,
 				args = {
 					desc = {
