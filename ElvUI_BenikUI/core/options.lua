@@ -238,7 +238,7 @@ local function Core()
 						type = 'group',
 						name = L['iLevel'],
 						get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; end,
+						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):UpdateSlots() end,
 						args = {
 							enable = {
 								order = 1,
@@ -247,7 +247,7 @@ local function Core()
 								desc = L['Show item level per slot, on the character info frame'],
 								width = "full",
 								get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,	
+								set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):EnableDisable() end,	
 							},
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',
