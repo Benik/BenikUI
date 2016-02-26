@@ -9,7 +9,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local SPACING = (E.PixelMode and 1 or 3)
 
 local function skinDecursive()
-	if not IsAddOnLoaded('Decursive') or not E.db.buiVariousSkins.decursive then return end
+	if not IsAddOnLoaded('Decursive') or not E.db.benikuiSkins.variousSkins.decursive then return end
 
 	-- Main Buttons
 	DecursiveMainBar:StripTextures()
@@ -83,7 +83,7 @@ local function skinDecursive()
 end
 
 local function skinStoryline()
-	if not IsAddOnLoaded('Storyline') or not E.db.buiVariousSkins.storyline then return end
+	if not IsAddOnLoaded('Storyline') or not E.db.benikuiSkins.variousSkins.storyline then return end
 	Storyline_NPCFrame:StripTextures()
 	Storyline_NPCFrame:CreateBackdrop('Transparent')
 	Storyline_NPCFrame.backdrop:Style('Outside')
@@ -104,7 +104,7 @@ if not IsAddOnLoaded('AddOnSkins') then return end
 local AS = unpack(AddOnSkins)
 
 local function SkadaDecor()
-	if not E.db.buiaddonskins.skada then return end
+	if not E.db.benikuiSkins.addonSkins.skada then return end
 	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 		local skada = win.bargroup
 		skada.Backdrop:Style('Outside')
@@ -127,7 +127,7 @@ local function SkadaDecor()
 end
 
 local function StyleRecount(name, parent, ...)
-	if E.db.bui.buiStyle ~= true then return end
+	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local recountdecor = CreateFrame('Frame', name, E.UIParent)
 	recountdecor:SetTemplate('Default', true)
 	recountdecor:SetParent(parent)
@@ -138,7 +138,7 @@ local function StyleRecount(name, parent, ...)
 end
 
 local function RecountDecor()
-	if not E.db.buiaddonskins.recount then return end
+	if not E.db.benikuiSkins.addonSkins.recount then return end
 	StyleRecount('recountMain', Recount_MainWindow)
 	Recount_MainWindow.TitleBackground:StripTextures()
 	Recount_ConfigWindow.TitleBackground:StripTextures()
@@ -155,7 +155,7 @@ local function RecountDecor()
 	hooksecurefunc(AS, 'Embed_Check', function(self, message)
 		-- Fix for blurry pixel fonts
 		Recount.db.profile.Scaling = 0.95
-		if E.db.bui.buiStyle ~= true then return end
+		if E.db.benikui.general.benikuiStyle ~= true then return end
 		if E.private.addonskins.EmbedSystem then
 			recountMain:Hide()
 		else
@@ -165,7 +165,7 @@ local function RecountDecor()
 end
 
 local function TinyDPSDecor()
-	if not E.db.buiaddonskins.tinydps then return end
+	if not E.db.benikuiSkins.addonSkins.tinydps then return end
 	if tdpsFrame then
 		if not tdpsFrame.style then
 			tdpsFrame:Style('Outside')
@@ -175,7 +175,7 @@ end
 
 local function AtlasLootDecor()
 	if not strfind(GetAddOnMetadata('AtlasLoot', 'Version'), 'v8') then return end -- As Azilroka did ;)
-	if not E.db.buiaddonskins.atlasloot then return end
+	if not E.db.benikuiSkins.addonSkins.atlasloot then return end
 	local AtlasLootFrame = _G["AtlasLoot_GUI-Frame"]
 	if AtlasLootFrame then
 		if not AtlasLootFrame.style then
@@ -185,7 +185,7 @@ local function AtlasLootDecor()
 end
 
 local function AltoholicDecor()
-	if not E.db.buiaddonskins.altoholic then return end
+	if not E.db.benikuiSkins.addonSkins.altoholic then return end
 	if AltoholicFrame then
 		if not AltoholicFrame.style then
 			AltoholicFrame:Style('Outside')
@@ -194,7 +194,7 @@ local function AltoholicDecor()
 end
 
 local function ZygorDecor()
-	if not E.db.buiaddonskins.zg then return end
+	if not E.db.benikuiSkins.addonSkins.zg then return end
 
 		if not ZygorGuidesViewerFrame_Border.style then
 			ZygorGuidesViewerFrame_Border:Style('Outside')
@@ -210,7 +210,7 @@ local function ZygorDecor()
 end
 
 local function RareCoordDecor()
-	if not E.db.buiaddonskins.rc then return end
+	if not E.db.benikuiSkins.addonSkins.rc then return end
 	local rcFrames = {RC, RC.opt, RCnotify, RCminimized}
 	for _, frame in pairs(rcFrames) do
 		if not frame.style then
@@ -220,7 +220,7 @@ local function RareCoordDecor()
 end
 
 local function CliqueDecor()
-	if not E.db.buiaddonskins.clique then return end
+	if not E.db.benikuiSkins.addonSkins.clique then return end
 	CliqueConfig:Style('Small')
 	local tab = CliqueSpellTab
 	if not tab.style then
@@ -230,7 +230,7 @@ local function CliqueDecor()
 end
 
 local function oRA3Decor()
-	if not E.db.buiaddonskins.ora then return end
+	if not E.db.benikuiSkins.addonSkins.ora then return end
 	hooksecurefunc(oRA3, "ToggleFrame", function() oRA3Frame:Style('Small'); end)
 	
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")

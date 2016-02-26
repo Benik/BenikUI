@@ -70,7 +70,7 @@ local fly_icon = "Interface\\ICONS\\ABILITY_MOUNT_GOLDENGRYPHON"
 
 -- TaxiButton
 function BAB:TaxiButton()
-	if not E.db.bab.requestStop then return end
+	if not E.db.benikui.actionbars.requestStop then return end
 	
 	local holder = CreateFrame('Frame', 'BuiTaxiButtonHolder', E.UIParent)
 	holder:Point('TOP', E.UIParent, 'TOP', 0, -150)

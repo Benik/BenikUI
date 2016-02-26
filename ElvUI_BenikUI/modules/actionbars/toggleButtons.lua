@@ -64,10 +64,11 @@ end
 function BAB:ShowButtons()
 	local bar1 = ElvUI_Bar1_Bui
 	local bar2 = ElvUI_Bar2_Bui
+	local db = E.db.benikui.actionbars.toggleButtons
 	
 	for i = 1, 2 do
 		abtn[i]:ClearAllPoints()
-		if E.db.bab.chooseAb == 'BAR2' then
+		if db.chooseAb == 'BAR2' then
 			abtn[i]:SetParent(bar2)
 			if i == 1 then
 				abtn[i]:Point('RIGHT', bar2, 'RIGHT')
@@ -83,7 +84,7 @@ function BAB:ShowButtons()
 			end
 		end
 		
-		if E.db.bab.enable then
+		if db.enable then
 			abtn[i]:Show()
 		else
 			abtn[i]:Hide()

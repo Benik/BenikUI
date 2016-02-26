@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI);
+﻿local E, L, V, P, G = unpack(ElvUI);
 local CH = E:GetModule('Chat')
 
 local pairs = pairs
@@ -12,7 +12,7 @@ function CH:UpdateAnchors()
 		if not frame then break; end
 		if E.db.datatexts.leftChatPanel and E.db.chat.editBoxPosition == 'BELOW_CHAT' then
 			frame:SetAllPoints(LeftChatDataPanel)
-		elseif E.db.bui.buiDts and BuiDummyChat and E.db.bui.editBoxPosition == 'BELOW_CHAT' then
+		elseif E.db.benikui.datatexts.chat.enable and BuiDummyChat and E.db.benikui.datatexts.chat.editBoxPosition == 'BELOW_CHAT' then
 			frame:SetAllPoints(BuiDummyChat)
 		else
 			frame:SetAllPoints(LeftChatTab)
@@ -38,7 +38,7 @@ local function PositionChat(self, override, noSave)
 	if ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
 	if not RightChatPanel or not LeftChatPanel then return; end
 	if not self.db.lockPositions or E.private.chat.enable ~= true then return end
-	if not E.db.bui.styledChatDts then return end
+	if not E.db.benikui.datatexts.chat.styled then return end
 	
 	local BASE_OFFSET = 60
 	if E.PixelMode then

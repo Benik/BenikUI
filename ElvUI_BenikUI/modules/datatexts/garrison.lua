@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ =  unpack(ElvUI);
+local E, L, V, P, G =  unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
 -- Missions are based on TukUI Garrison DataText. Credits: Hydra, Tukz
@@ -136,12 +136,14 @@ local OnEnter = function(self)
 		DT.tooltip:AddLine(" ")
 	end
 	
-	if E.db.bui.garrisonCurrency then 
+	local db = E.db.benikui.datatexts.garrison
+	
+	if db.currency then 
 		local name, amount, tex = GetCurrencyInfo(GARRISON_CURRENCY)
 		DT.tooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, amount, 1, 1, 1, selectioncolor)
 	end
 	
-	if E.db.bui.garrisonCurrencyOil then
+	if db.oil then
 		local name, amount, tex = GetCurrencyInfo(GARRISON_CURRENCY_OIL)
 		DT.tooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, amount, 1, 1, 1, selectioncolor)
 		DT.tooltip:AddLine(" ")

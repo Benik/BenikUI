@@ -372,7 +372,7 @@ function AFK:Initialize()
 	self.AFKMode.top.Status:SetStatusBarTexture((E["media"].normTex))
 	self.AFKMode.top.Status:SetMinMaxValues(0, 1800)
 	self.AFKMode.top.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b, 1)
-	if E.db.bui.buiStyle and self.AFKMode.top.style then
+	if E.db.benikui.general.benikuiStyle and self.AFKMode.top.style then
 		self.AFKMode.top.Status:SetInside(self.AFKMode.top.style)
 	else
 		self.AFKMode.top.Status:Point('TOPRIGHT', self.AFKMode.top, 'BOTTOMRIGHT', 0, E.PixelMode and 5 or 7)

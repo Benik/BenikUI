@@ -68,7 +68,7 @@ end
 
 -- Hide the mail icon from minimap
 function DT:ToggleMailFrame()
-	if E.db.bui.toggleMail then
+	if E.db.benikui.datatexts.mail.toggle then
 		MiniMapMailFrame.Show = MiniMapMailFrame.Hide;
 		MiniMapMailFrame:Hide();
 	end

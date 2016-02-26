@@ -34,7 +34,7 @@ local function RecolorTooltipStyle()
 end
 
 function BTT:Initialize()
-	if E.db.bui.buiStyle ~= true then return end
+	if E.db.benikui.general.benikuiStyle ~= true then return end
 	StyleTooltip()
 	hooksecurefunc(TT, "SetUnitAura", RecolorTooltipStyle)
 	hooksecurefunc(TT, "SetConsolidatedUnitAura", RecolorTooltipStyle)

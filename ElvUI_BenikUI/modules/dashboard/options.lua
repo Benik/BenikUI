@@ -81,7 +81,7 @@ local boards = {"FPS", "MS", "Memory", "Durability", "Volume"}
 local function UpdateSystemOptions()
 	for _, boardname in pairs(boards) do
 		local optionOrder = 1
-		E.Options.args.bui.args.config.args.dashboards.args.system.args.chooseSystem.args[boardname] = {
+		E.Options.args.benikui.args.dashboards.args.system.args.chooseSystem.args[boardname] = {
 			order = optionOrder + 1,
 			type = 'toggle',
 			name = boardname,
@@ -100,12 +100,12 @@ local function UpdateTokenOptions()
 		for _, id in ipairs(tableName) do
 			local tname, _, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
 			if tname then
-				E.Options.args.bui.args.config.args.dashboards.args.tokens.args[optionName].args.desc = {
+				E.Options.args.benikui.args.dashboards.args.tokens.args[optionName].args.desc = {
 					order = optionOrder + 1,
 					name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered']),
 					type = 'header',					
 				}
-				E.Options.args.bui.args.config.args.dashboards.args.tokens.args[optionName].args[tname] = {
+				E.Options.args.benikui.args.dashboards.args.tokens.args[optionName].args[tname] = {
 					order = optionOrder + 1,
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
@@ -123,7 +123,7 @@ local function UpdateProfessionOptions()
 	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
 	local optionOrder = 1
 	if (prof1 or prof2 or archy or fishing or cooking or firstAid) then
-		E.Options.args.bui.args.config.args.dashboards.args.professions.args.choosePofessions = {
+		E.Options.args.benikui.args.dashboards.args.professions.args.choosePofessions = {
 			order = 5,
 			type = 'group',
 			guiInline = true,
@@ -136,7 +136,7 @@ local function UpdateProfessionOptions()
 		for _, id in pairs(proftable) do
 			local pname, icon = GetProfessionInfo(id)
 			if pname then
-				E.Options.args.bui.args.config.args.dashboards.args.professions.args.choosePofessions.args[pname] = {
+				E.Options.args.benikui.args.dashboards.args.professions.args.choosePofessions.args[pname] = {
 					order = optionOrder + 1,
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..pname,
@@ -147,7 +147,7 @@ local function UpdateProfessionOptions()
 			end
 		end
 	else
-		E.Options.args.bui.args.config.args.dashboards.args.professions.args.choosePofessions = {
+		E.Options.args.benikui.args.dashboards.args.professions.args.choosePofessions = {
 			order = 5,
 			type = 'group',
 			guiInline = true,
@@ -165,11 +165,16 @@ local function UpdateProfessionOptions()
 end
 
 local function dashboardsTable()
-	E.Options.args.bui.args.config.args.dashboards = {
+	E.Options.args.benikui.args.dashboards = {
 		order = 20,
 		type = 'group',
 		name = L['Dashboards'],
 		args = {
+			name = {
+				order = 1,
+				type = 'header',
+				name = BUI:cOption(L['Dashboards']),
+			},
 			dashColor = {
 				order = 2,
 				type = 'group',
@@ -281,12 +286,17 @@ local function dashboardsTable()
 				},
 			},
 			system = {
-				order = 2,
+				order = 4,
 				type = 'group',
 				name = L['System'],
 				args = {
-					enableSystem = {
+					name = {
 						order = 1,
+						type = 'header',
+						name = BUI:cOption(L['System']),
+					},
+					enableSystem = {
+						order = 2,
 						type = 'toggle',
 						name = ENABLE,
 						width = 'full',
@@ -295,7 +305,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.system.enableSystem = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 					combat = {
-						order = 2,
+						order = 3,
 						name = L['Combat Fade'],
 						desc = L['Show/Hide System Dashboard when in combat'],
 						type = 'toggle',
@@ -304,7 +314,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.system.combat = value; BUID:EnableDisableCombat(); end,					
 					},
 					width = {
-						order = 3,
+						order = 4,
 						type = 'range',
 						name = L['Width'],
 						desc = L['Change the System Dashboard width.'],
@@ -314,7 +324,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.system.width = value; BUID:UpdateSysHolderDimensions() end,	
 					},
 					chooseSystem = {
-						order = 4,
+						order = 5,
 						type = 'group',
 						guiInline = true,
 						name = L['Select System Board'],
@@ -325,12 +335,18 @@ local function dashboardsTable()
 				},
 			},
 			tokens = {
-				order = 3,
+				order = 5,
 				type = 'group',
 				name = TOKENS,
+				childGroups = 'tab',
 				args = {
-					enableTokens = {
+					name = {
 						order = 1,
+						type = 'header',
+						name = BUI:cOption(TOKENS),
+					},
+					enableTokens = {
+						order = 2,
 						type = 'toggle',
 						name = ENABLE,
 						width = 'full',
@@ -339,7 +355,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.enableTokens = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 					combat = {
-						order = 2,
+						order = 3,
 						name = L['Combat Fade'],
 						desc = L['Show/Hide Tokens Dashboard when in combat'],
 						type = 'toggle',
@@ -348,7 +364,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.combat = value; BUIT:EnableDisableCombat(); end,					
 					},
 					tooltip = {
-						order = 3,
+						order = 4,
 						name = L['Tooltip'],
 						desc = L['Show/Hide Tooltips'],
 						type = 'toggle',
@@ -357,7 +373,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.tooltip = value; BUIT:UpdateTokens(); end,					
 					},
 					width = {
-						order = 4,
+						order = 5,
 						type = 'range',
 						name = L['Width'],
 						desc = L['Change the Tokens Dashboard width.'],
@@ -367,7 +383,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.width = value; BUIT:UpdateTHolderDimensions(); end,	
 					},
 					zeroamount = {
-						order = 5,
+						order = 6,
 						name = L['Show zero amount tokens'],
 						desc = L['Show the token, even if the amount is 0'],
 						type = 'toggle',
@@ -376,7 +392,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.zeroamount = value; BUIT:UpdateTokens(); end,					
 					},
 					weekly = {
-						order = 6,
+						order = 7,
 						name = L['Show Weekly max'],
 						desc = L['Show Weekly max tokens instead of total max'],
 						type = 'toggle',
@@ -385,7 +401,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.weekly = value; BUIT:UpdateTokens(); end,					
 					},
 					flash = {
-						order = 7,
+						order = 8,
 						name = L['Flash on updates'],
 						type = 'toggle',
 						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
@@ -393,35 +409,35 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.flash = value; BUIT:UpdateTokens(); end,					
 					},
 					dTokens = {
-						order = 8,
+						order = 9,
 						type = 'group',
 						name = format('%s & %s', CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID),
 						args = {
 						},
 					},
 					pTokens = {
-						order = 9,
+						order = 10,
 						type = 'group',
 						name = format('%s', PLAYER_V_PLAYER),
 						args = {
 						},
 					},
 					sTokens = {
-						order = 10,
+						order = 11,
 						type = 'group',
 						name = format('%s', (SECONDARY_SKILLS:gsub(':', ''))),
 						args = {
 						},
 					},
 					mTokens = {
-						order = 11,
+						order = 12,
 						type = 'group',
 						name = format('%s', MISCELLANEOUS),
 						args = {
 						},
 					},
 					aTokens = {
-						order = 12,
+						order = 13,
 						type = 'group',
 						name = format('%s', PROFESSIONS_ARCHAEOLOGY),
 						args = {
@@ -430,12 +446,17 @@ local function dashboardsTable()
 				},
 			},
 			professions = {
-				order = 4,
+				order = 6,
 				type = 'group',
 				name = TRADE_SKILLS,
 				args = {
-					enableProfessions = {
+					name = {
 						order = 1,
+						type = 'header',
+						name = BUI:cOption(TRADE_SKILLS),
+					},
+					enableProfessions = {
+						order = 2,
 						type = 'toggle',
 						name = ENABLE,
 						width = 'full',
@@ -444,7 +465,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.professions.enableProfessions = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 					combat = {
-						order = 2,
+						order = 3,
 						name = L['Combat Fade'],
 						desc = L['Show/Hide Professions Dashboard when in combat'],
 						type = 'toggle',
@@ -453,7 +474,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.professions.combat = value; BUIP:EnableDisableCombat(); end,					
 					},
 					width = {
-						order = 3,
+						order = 4,
 						type = 'range',
 						name = L['Width'],
 						desc = L['Change the Professions Dashboard width.'],
@@ -463,7 +484,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.professions.width = value; BUIP:UpdatePholderDimensions(); end,	
 					},
 					capped = {
-						order = 4,
+						order = 5,
 						name = L['Filter Capped'],
 						desc = L['Show/Hide Professions that are skill capped'],
 						type = 'toggle',

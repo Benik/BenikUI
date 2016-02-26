@@ -180,25 +180,25 @@ function BUI:BuiColorThemes(color)
 		E.db.general.backdropfadecolor.r = 0.125
 		E.db.general.backdropfadecolor.g = 0.054
 		E.db.general.backdropfadecolor.b = 0.050
-		E.db.bui.colorTheme = 'Diablo'
+		E.db.benikui.colors.colorTheme = 'Diablo'
 	elseif color == 'Hearthstone' then
 		E.db.general.backdropfadecolor.a = 0.75
 		E.db.general.backdropfadecolor.r = 0.086
 		E.db.general.backdropfadecolor.g = 0.109
 		E.db.general.backdropfadecolor.b = 0.149
-		E.db.bui.colorTheme = 'Hearthstone'
+		E.db.benikui.colors.colorTheme = 'Hearthstone'
 	elseif color == 'Mists' then
 		E.db.general.backdropfadecolor.a = 0.75
 		E.db.general.backdropfadecolor.r = 0.043
 		E.db.general.backdropfadecolor.g = 0.101
 		E.db.general.backdropfadecolor.b = 0.101
-		E.db.bui.colorTheme = 'Mists'
+		E.db.benikui.colors.colorTheme = 'Mists'
 	elseif color == 'Elv' then
 		E.db.general.backdropfadecolor.a = 0.75
 		E.db.general.backdropfadecolor.r = 0.054
 		E.db.general.backdropfadecolor.g = 0.054
 		E.db.general.backdropfadecolor.b = 0.054
-		E.db.bui.colorTheme = 'Elv'
+		E.db.benikui.colors.colorTheme = 'Elv'
 	end
 	E.db.general.backdropcolor.r = 0.025
 	E.db.general.backdropcolor.g = 0.025
@@ -260,9 +260,9 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["font"] = "Bui Visitor1"
 		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
 		E.db["actionbar"]["fontSize"] = 10
-		E.db["bui"]["middleDatatext"]["styled"] = false
-		E.db["bui"]["middleDatatext"]["width"] = 412
-		E.db["bui"]["middleDatatext"]["backdrop"] = true
+		E.db["benikui"]["datatexts"]["middle"]["styled"] = false
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 412
+		E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
 		
 		E.db["actionbar"]["bar1"]["backdrop"] = false
 		E.db["actionbar"]["bar1"]["buttons"] = 12
@@ -296,7 +296,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonspacing"] = 2
 		E.db["actionbar"]["stanceBar"]["backdrop"] = false
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24	
-		E.db["bab"]["enable"] = true
+		E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
 		
 
 		E:GetModule('BuiLayout'):MiddleDatatextDimensions()
@@ -320,7 +320,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["font"] = "Bui Visitor1"
 		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
 		E.db["actionbar"]["fontSize"] = 10;
-		E.db["bui"]["middleDatatext"]["styled"] = false
+		E.db["benikui"]["datatexts"]["middle"]["styled"] = false
 		
 		E.db["actionbar"]["bar1"]["backdrop"] = false
 		E.db["actionbar"]["bar1"]["buttons"] = 12
@@ -356,11 +356,11 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonspacing"] = 2
 		E.db["actionbar"]["stanceBar"]["backdrop"] = false
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24	
-		E.db["bab"]["enable"] = true
+		E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
 		
-		E.db["bui"]["middleDatatext"]["width"] = 412
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 412
 		E:GetModule('BuiLayout'):MiddleDatatextDimensions()
-		E.db["bui"]["middleDatatext"]["backdrop"] = true
+		E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
 		E:GetModule('BuiLayout'):MiddleDatatextLayout()
 		
 		-- movers
@@ -389,12 +389,11 @@ end
 local function SetupUnitframes(layout)
 	
 	if layout == 'normal' then
-		E.db["ufb"]["detachPlayerPortrait"] = false
-		E.db["ufb"]["PlayerPortraitStyle"] = false
-		E.db["ufb"]["TargetPortraitStyle"] = false
-		E.db["ufb"]["getPlayerPortraitSize"] = false
-		E.db["ufb"]["detachTargetPortrait"] = false
-		--E.db.ufb.yOffsetText = -15
+		E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = false
+		E.db["benikui"]["unitframes"]["player"]["portraitStyle"] = false
+		E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = false
+		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
+		E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = false
 
 		-- Auras
 		E.db["auras"]["timeXOffset"] = -1
@@ -679,17 +678,17 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-442,190"
 
 	elseif layout == 'detached' then
-		E.db["ufb"]["PlayerPortraitHeight"] = 47
-		E.db["ufb"]["PlayerPortraitStyle"] = true
-		E.db["ufb"]["PlayerPortraitStyleHeight"] = 5
-		E.db["ufb"]["PlayerPortraitWidth"] = 110
-		E.db["ufb"]["TargetPortraitHeight"] = 47
-		E.db["ufb"]["TargetPortraitStyle"] = true
-		E.db["ufb"]["TargetPortraitStyleHeight"] = 5
-		E.db["ufb"]["TargetPortraitWidth"] = 110
-		E.db["ufb"]["detachPlayerPortrait"] = true
-		E.db["ufb"]["detachTargetPortrait"] = true
-		E.db["ufb"]["getPlayerPortraitSize"] = false
+		E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = true
+		E.db["benikui"]["unitframes"]["player"]["portraitHeight"] = 47
+		E.db["benikui"]["unitframes"]["player"]["portraitStyle"] = true
+		E.db["benikui"]["unitframes"]["player"]["portraitStyleHeight"] = 5
+		E.db["benikui"]["unitframes"]["player"]["portraitWidth"] = 110
+		E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = true
+		E.db["benikui"]["unitframes"]["target"]["portraitHeight"] = 47
+		E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = true
+		E.db["benikui"]["unitframes"]["target"]["portraitStyleHeight"] = 5
+		E.db["benikui"]["unitframes"]["target"]["portraitWidth"] = 110
+		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
 
 		-- Auras
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
@@ -988,11 +987,15 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,216,209"
 	end
 	
-	if E.db.ufb.detachPlayerPortrait == true then
+	if E.db.benikui.unitframes.player.detachPortrait == true then
 		E.db.unitframe.units.player.portrait.width = 0
-		E.db.unitframe.units.target.portrait.width = 0
 	else
 		E.db.unitframe.units.player.portrait.width = 45
+	end
+
+	if E.db.benikui.unitframes.target.detachPortrait == true then
+		E.db.unitframe.units.target.portrait.width = 0
+	else
 		E.db.unitframe.units.target.portrait.width = 45
 	end
 
@@ -1355,7 +1358,7 @@ end
 
 local function InstallComplete()
 	E.private.install_complete = E.version
-	E.db.bui.installed = true
+	E.db.benikui.installed = true
 	
 	ReloadUI()
 end

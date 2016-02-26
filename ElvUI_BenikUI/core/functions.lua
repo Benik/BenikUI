@@ -46,7 +46,7 @@ local function CreateSoftGlow(f)
 end
 
 local function Style(f, template, name, colored)
-	if f.style or E.db.bui.buiStyle ~= true then return end
+	if f.style or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local style = CreateFrame('Frame', name or nil, f)
 	if not template then
@@ -80,11 +80,11 @@ local function Style(f, template, name, colored)
 			style.color = style:CreateTexture(nil, 'OVERLAY')
 			style.color:SetInside()
 			style.color:SetTexture(E['media'].BuiFlat)
-			if E.db.bui.StyleColor == 1 then
+			if E.db.benikui.colors.StyleColor == 1 then
 				style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
-			elseif E.db.bui.StyleColor == 2 then
-				style.color:SetVertexColor(BUI:unpackColor(E.db.bui.customStyleColor))
-			elseif E.db.bui.StyleColor == 3 then
+			elseif E.db.benikui.colors.StyleColor == 2 then
+				style.color:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
+			elseif E.db.benikui.colors.StyleColor == 3 then
 				style.color:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 			else
 				style.color:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))

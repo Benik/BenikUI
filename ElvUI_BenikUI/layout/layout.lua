@@ -133,7 +133,7 @@ end
 local bbuttons = {}
 
 function BUIL:ToggleBuiDts()
-	if not E.db.bui.buiDts or E.db.datatexts.leftChatPanel then
+	if not E.db.benikui.datatexts.chat.enable or E.db.datatexts.leftChatPanel then
 		BuiLeftChatDTPanel:Hide()
 		for i = 3, 4 do
 			bbuttons[i]:Hide()
@@ -145,7 +145,7 @@ function BUIL:ToggleBuiDts()
 		end
 	end
 	
-	if not E.db.bui.buiDts or E.db.datatexts.rightChatPanel then
+	if not E.db.benikui.datatexts.chat.enable or E.db.datatexts.rightChatPanel then
 		BuiRightChatDTPanel:Hide()
 		for i = 1, 2 do
 			bbuttons[i]:Hide()
@@ -161,7 +161,7 @@ end
 function BUIL:ResizeMinimapPanels()
 
 	if E.db.auras.consolidatedBuffs.enable then
-		if E.db.bui.buiDts then
+		if E.db.benikui.datatexts.chat.enable then
 			if E.db.auras.consolidatedBuffs.position == "LEFT" then
 				LeftMiniPanel:Point('TOPLEFT', ElvUI_ConsolidatedBuffs, 'BOTTOMLEFT', 0, -SPACING)
 				LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -(E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
@@ -207,15 +207,15 @@ function BUIL:ResizeMinimapPanels()
 end
 
 function BUIL:ToggleTransparency()
-	local db = E.db.bui
-	if not db.chatDtsBackdrop then
+	local db = E.db.benikui.datatexts.chat
+	if not db.backdrop then
 		Bui_ldtp:StripTextures()
 		Bui_rdtp:StripTextures()
 		for i = 1, BUTTON_NUM do
 			bbuttons[i]:StripTextures()
 		end
 	else
-		if db.transparentDts then
+		if db.transparent then
 			Bui_ldtp:SetTemplate('Transparent')
 			Bui_rdtp:SetTemplate('Transparent')	
 			for i = 1, BUTTON_NUM do
@@ -232,7 +232,7 @@ function BUIL:ToggleTransparency()
 end
 
 function BUIL:MiddleDatatextLayout()
-	local db = E.db.bui.middleDatatext
+	local db = E.db.benikui.datatexts.middle
 	
 	if db.enable then
 		Bui_mdtp:Show()
@@ -243,7 +243,7 @@ function BUIL:MiddleDatatextLayout()
 	if not db.backdrop then
 		Bui_mdtp:StripTextures()
 	else
-		if db.transparency then
+		if db.transparent then
 			Bui_mdtp:SetTemplate('Transparent')
 		else
 			Bui_mdtp:SetTemplate('Default', true)
@@ -260,8 +260,8 @@ function BUIL:MiddleDatatextLayout()
 end
 
 function BUIL:ChatStyles()
-	if not E.db.bui.buiStyle then return end
-	if E.db.bui.styledChatDts and E.db.chat.panelBackdrop == 'HIDEBOTH' then
+	if not E.db.benikui.general.benikuiStyle then return end
+	if E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH' then
 		Bui_rdtp.style:Show()
 		Bui_ldtp.style:Show()
 		for i = 1, BUTTON_NUM do
@@ -277,8 +277,9 @@ function BUIL:ChatStyles()
 end
 
 function BUIL:MiddleDatatextDimensions()
-	Bui_mdtp:Width(E.db.bui.middleDatatext.width)
-	Bui_mdtp:Height(E.db.bui.middleDatatext.height)
+	local db = E.db.benikui.datatexts.middle
+	Bui_mdtp:Width(db.width)
+	Bui_mdtp:Height(db.height)
 	DT:UpdateAllDimensions()
 end
 
@@ -312,8 +313,8 @@ function BUIL:ChangeLayout()
 	-- Middle dt panel
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
 	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
-	Bui_mdtp:Width(E.db.bui.middleDatatext.width or 400)
-	Bui_mdtp:Height(E.db.bui.middleDatatext.height or PANEL_HEIGHT)
+	Bui_mdtp:Width(E.db.benikui.datatexts.middle.width or 400)
+	Bui_mdtp:Height(E.db.benikui.datatexts.middle.height or PANEL_HEIGHT)
 	Bui_mdtp:Style('Outside')
 
 	E:CreateMover(Bui_mdtp, "BuiMiddleDtMover", L['BenikUI Middle DataText'])
@@ -350,7 +351,7 @@ function BUIL:ChangeLayout()
 			bbuttons[i].text:SetText('C')
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				if not E.db.bui.styledChatDts then
+				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
 				end
 				if IsShiftKeyDown() then
@@ -390,7 +391,7 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				if not E.db.bui.styledChatDts then
+				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
@@ -413,7 +414,7 @@ function BUIL:ChangeLayout()
 			bbuttons[i].text:SetText('A')
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				if not E.db.bui.styledChatDts then
+				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
 				end
 				if IsShiftKeyDown() then
@@ -451,7 +452,7 @@ function BUIL:ChangeLayout()
 			end)
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				if not E.db.bui.styledChatDts then
+				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2 )

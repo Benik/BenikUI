@@ -7,10 +7,6 @@ local _G = _G
 function UFB:ArrangeFocus()
 	local frame = _G["ElvUF_Focus"]
 	local db = E.db['unitframe']['units'].focus
-
-	do
-
-	end
 	
 	-- Portrait
 	UFB:Configure_Portrait(frame)

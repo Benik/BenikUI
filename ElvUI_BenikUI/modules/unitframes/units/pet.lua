@@ -8,10 +8,6 @@ function UFB:ArrangePet()
 	local frame = _G["ElvUF_Pet"]
 	local db = E.db['unitframe']['units'].pet
 	
-	do
-
-	end
-	
 	-- Portrait
 	UFB:Configure_Portrait(frame)
 	

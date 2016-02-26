@@ -7,10 +7,6 @@ local _G = _G
 function UFB:ArrangeTargetTarget()
 	local frame = _G["ElvUF_TargetTarget"]
 	local db = E.db['unitframe']['units'].targettarget;
-
-	do
-
-	end
 	
 	-- Portrait
 	UFB:Configure_Portrait(frame)

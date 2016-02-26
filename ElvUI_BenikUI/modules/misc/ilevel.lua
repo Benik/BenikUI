@@ -2,7 +2,9 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
-if E.db.bui.ilvl == false then return end
+if E.db.benikui.misc == nil then E.db.benikui.misc = {} end
+
+if E.db.benikui.misc.ilevel == false then return end
 
 local match, gsub = string.match, gsub
 
@@ -42,7 +44,7 @@ local function getItemLevel(slotId)
 end
 
 local function updateItems()
-	local db = E.db.bui
+	local db = E.db.benikui.misc.ilevel
 	for i = 1, 17 do
 		local itemLink = GetInventoryItemLink("player", i)
 		if i ~= 4 and (equipped[i] ~= itemLink or f[i]:GetText() ~= nil) then
@@ -50,16 +52,16 @@ local function updateItems()
 			if (itemLink ~= nil) then
 				f[i]:SetFormattedText("%s", getItemLevel(i))
 				local _, _, ItemRarity = GetItemInfo(itemLink)
-				if ItemRarity and db.ilvlColorStyle == 'RARITY' then
+				if ItemRarity and db.colorStyle == 'RARITY' then
 					local r, g, b = GetItemQualityColor(ItemRarity)
 					f[i]:SetTextColor(r, g, b)
 				else
-					f[i]:SetTextColor(BUI:unpackColor(db.ilvlColor))
+					f[i]:SetTextColor(BUI:unpackColor(db.color))
 				end
 			else
 				f[i]:SetText("")
 			end
-			f[i]:FontTemplate(LSM:Fetch('font', db.ilvlfont), db.ilvlfontsize, db.ilvlfontflags)
+			f[i]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
 	end
 end

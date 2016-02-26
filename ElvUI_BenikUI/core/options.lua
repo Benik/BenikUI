@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 
-if E.db.bui == nil then E.db.bui = {} end
+if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
 
 local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
@@ -49,8 +49,8 @@ local StaticPopup_Show = StaticPopup_Show
 		hideOnEscape = 1,
 	}
 
-local function buiCore()
-	E.Options.args.bui = {
+local function Core()
+	E.Options.args.benikui = {
 		order = 9000,
 		type = 'group',
 		name = BUI.Title,
@@ -85,36 +85,34 @@ local function buiCore()
 				type = 'group',
 				name = L['General'],
 				guiInline = true,
+				get = function(info) return E.db.benikui.general[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.general[ info[#info] ] = value; end,
 				args = {
-					buiStyle = {
+					benikuiStyle = {
 						order = 1,
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						desc = L['Show/Hide the decorative bars from UI elements'],
 						width = 'full',
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, color) E.db.bui[ info[#info] ] = color; E:StaticPopup_Show('PRIVATE_RL'); end,
+						get = function(info) return E.db.benikui.general[ info[#info] ] end,
+						set = function(info, color) E.db.benikui.general[ info[#info] ] = color; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					LoginMsg = {
+					loginMessage = {
 						order = 2,
 						type = 'toggle',
 						name = L['Login Message'],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; end,	
 					},
-					SplashScreen = {
+					splashScreen = {
 						order = 3,
 						type = 'toggle',
 						name = L['Splash Screen'],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; end,	
 					},
-					GameMenuButton = {
+					gameMenuButton = {
 						order = 4,
 						type = 'toggle',
 						name = L['GameMenu Button'],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
+						get = function(info) return E.db.benikui.general[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 				},
 			},
@@ -134,8 +132,8 @@ local function buiCore()
 							['Hearthstone'] = L['Hearthstone'],
 							['Mists'] = L['Mists'],
 						},
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, color) E.db.bui[ info[#info] ] = color; BUI:BuiColorThemes(color); end,
+						get = function(info) return E.db.benikui.colors[ info[#info] ] end,
+						set = function(info, color) E.db.benikui.colors[ info[#info] ] = color; BUI:BuiColorThemes(color); end,
 					},
 					StyleColor = {
 						order = 3,
@@ -147,23 +145,23 @@ local function buiCore()
 							[3] = L['Value Color'],
 							[4] = DEFAULT,
 						},
-						disabled = function() return E.db.bui.buiStyle ~= true end,
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+						get = function(info) return E.db.benikui.colors[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					customStyleColor = {
 						order = 4,
 						type = "color",
 						name = COLOR_PICKER,
-						disabled = function() return E.db.bui.StyleColor ~= 2 or E.db.bui.buiStyle ~= true end,
+						disabled = function() return E.db.benikui.colors.StyleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info)
-							local t = E.db.bui[ info[#info] ]
-							local d = P.bui[info[#info]]
+							local t = E.db.benikui.colors[ info[#info] ]
+							local d = P.benikui.colors[info[#info]]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 							end,
 						set = function(info, r, g, b)
-							E.db.bui[ info[#info] ] = {}
-							local t = E.db.bui[ info[#info] ]
+							E.db.benikui.colors[ info[#info] ] = {}
+							local t = E.db.benikui.colors[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
 							E:StaticPopup_Show('PRIVATE_RL'); 
 						end,
@@ -178,24 +176,24 @@ local function buiCore()
 							[3] = L['Value Color'],
 							[4] = DEFAULT,
 						},
-						disabled = function() return E.db.bui.buiStyle ~= true end,
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
+						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+						get = function(info) return E.db.benikui.colors[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
 					},
 					customAbStyleColor = {
 						order = 6,
 						type = "color",
 						name = COLOR_PICKER,
 						width = "half",
-						disabled = function() return E.db.bui.abStyleColor ~= 2 or E.db.bui.buiStyle ~= true end,
+						disabled = function() return E.db.benikui.colors.abStyleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info)
-							local t = E.db.bui[ info[#info] ]
-							local d = P.bui[info[#info]]
+							local t = E.db.benikui.colors[ info[#info] ]
+							local d = P.benikui.colors[info[#info]]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 							end,
 						set = function(info, r, g, b)
-							E.db.bui[ info[#info] ] = {}
-							local t = E.db.bui[ info[#info] ]
+							E.db.benikui.colors[ info[#info] ] = {}
+							local t = E.db.benikui.colors[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
 							E:GetModule('BuiActionbars'):ColorBackdrops();
 						end,
@@ -208,22 +206,22 @@ local function buiCore()
 							[1] = CLASS_COLORS,
 							[2] = CUSTOM,
 						},
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; end,
+						get = function(info) return E.db.benikui.colors[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; end,
 					},
 					customGameMenuColor = {
 						order = 8,
 						type = "color",
 						name = COLOR_PICKER,
-						disabled = function() return E.db.bui.gameMenuColor == 1 end,
+						disabled = function() return E.db.benikui.colors.gameMenuColor == 1 end,
 						get = function(info)
-							local t = E.db.bui[ info[#info] ]
-							local d = P.bui[info[#info]]
+							local t = E.db.benikui.colors[ info[#info] ]
+							local d = P.benikui.colors[info[#info]]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 							end,
 						set = function(info, r, g, b)
-							E.db.bui[ info[#info] ] = {}
-							local t = E.db.bui[ info[#info] ]
+							E.db.benikui.colors[ info[#info] ] = {}
+							local t = E.db.benikui.colors[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
 						end,
 					},
@@ -234,77 +232,77 @@ local function buiCore()
 				type = 'group',
 				name = MISCELLANEOUS,
 				guiInline = true,
-				get = function(info) return E.db.bui[ info[#info] ] end,
-				set = function(info, value) E.db.bui[ info[#info] ] = value; end,	
 				args = {
-					ilvl = {
+					ilevel = {
 						order = 1,
-						type = 'toggle',
+						type = 'group',
 						name = L['iLevel'],
-						desc = L['Show item level per slot, on the character info frame'],
-						width = "full",
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,	
-					},
-					ilvlfont = {
-						type = 'select', dialogControl = 'LSM30_Font',
-						order = 2,
-						name = L['Font'],
-						values = AceGUIWidgetLSMlists.font,
-					},
-					ilvlfontsize = {
-						order = 3,
-						name = FONT_SIZE,
-						type = 'range',
-						min = 6, max = 22, step = 1,
-					},
-					ilvlfontflags = {
-						order = 4,
-						name = L['Font Outline'],
-						type = 'select',
-						values = {
-							['NONE'] = L['None'],
-							['OUTLINE'] = 'OUTLINE',
-							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-							['THICKOUTLINE'] = 'THICKOUTLINE',
+						get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; end,
+						args = {
+							enable = {
+								order = 1,
+								type = 'toggle',
+								name = L['Enable'],
+								desc = L['Show item level per slot, on the character info frame'],
+								width = "full",
+								get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,	
+							},
+							font = {
+								type = 'select', dialogControl = 'LSM30_Font',
+								order = 2,
+								name = L['Font'],
+								values = AceGUIWidgetLSMlists.font,
+							},
+							fontsize = {
+								order = 3,
+								name = FONT_SIZE,
+								type = 'range',
+								min = 6, max = 22, step = 1,
+							},
+							fontflags = {
+								order = 4,
+								name = L['Font Outline'],
+								type = 'select',
+								values = {
+									['NONE'] = L['None'],
+									['OUTLINE'] = 'OUTLINE',
+									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
+									['THICKOUTLINE'] = 'THICKOUTLINE',
+								},
+							},
+							colorStyle = {
+								order = 5,
+								type = "select",
+								name = COLOR,
+								values = {
+									['RARITY'] = RARITY,
+									['CUSTOM'] = CUSTOM,
+								},
+							},
+							color = {
+								order = 6,
+								type = "color",
+								name = COLOR_PICKER,
+								disabled = function() return E.db.benikui.misc.ilevel.colorStyle == 'RARITY' end,
+								get = function(info)
+									local t = E.db.benikui.misc.ilevel[ info[#info] ]
+									local d = P.benikui.misc.ilevel[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+									end,
+								set = function(info, r, g, b)
+									E.db.benikui.misc.ilevel[ info[#info] ] = {}
+									local t = E.db.benikui.misc.ilevel[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+								end,
+							},
 						},
 					},
-					ilvlColorStyle = {
-						order = 5,
-						type = "select",
-						name = COLOR,
-						values = {
-							['RARITY'] = RARITY,
-							['CUSTOM'] = CUSTOM,
-						},
-					},
-					ilvlColor = {
-						order = 6,
-						type = "color",
-						name = COLOR_PICKER,
-						disabled = function() return E.db.bui.ilvlColorStyle == 'RARITY' end,
-						get = function(info)
-							local t = E.db.bui[ info[#info] ]
-							local d = P.bui[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
-							end,
-						set = function(info, r, g, b)
-							E.db.bui[ info[#info] ] = {}
-							local t = E.db.bui[ info[#info] ]
-							t.r, t.g, t.b, t.a = r, g, b, a
-						end,
-					},					
 				},
 			},
-			config = {
-				order = 20,
-				type = 'group',
-				name = L['Options'],
-				childGroups = 'tab',
-				args = {},
-			},
 			info = {
-				order = 21,
+				order = 2000,
 				type = 'group',
 				name = L['Information'],
 				args = {
@@ -448,35 +446,40 @@ local function buiCore()
 		},
 	}
 end
-tinsert(BUI.Config, buiCore)
+tinsert(BUI.Config, Core)
 
-local function buiDatatexts()
-	E.Options.args.bui.args.config.args.datatexts = {
+local function Datatexts()
+	E.Options.args.benikui.args.datatexts = {
 		order = 9,
 		type = 'group',
 		name = L['DataTexts'],
 		args = {
-			chat = {
+			name = {
 				order = 1,
+				type = 'header',
+				name = BUI:cOption(L['DataTexts']),
+			},
+			chat = {
+				order = 2,
 				type = 'group',
 				name = CHAT,
 				guiInline = true,
 				args = {
-					buiDts = {
+					enable = {
 						order = 1,
 						type = 'toggle',
 						name = ENABLE,
 						desc = L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateAnchors(); end,	
+						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateAnchors(); end,	
 					},
-					transparentDts = {
+					transparent = {
 						order = 2,
 						type = 'toggle',
 						name = L['Panel Transparency'],
-						disabled = function() return not E.db.bui.buiDts end,
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiLayout'):ToggleTransparency(); end,	
+						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
+						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('BuiLayout'):ToggleTransparency(); end,	
 					},
 					editBoxPosition = {
 						order = 3,
@@ -487,31 +490,31 @@ local function buiDatatexts()
 							['BELOW_CHAT'] = L['Below Chat'],
 							['ABOVE_CHAT'] = L['Above Chat'],
 						},
-						disabled = function() return not E.db.bui.buiDts end,
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('Chat'):UpdateAnchors() end,
+						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
+						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('Chat'):UpdateAnchors() end,
 					},
-					styledChatDts = {
+					styled = {
 						order = 4,
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						desc = L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'],
-						disabled = function() return E.db.bui.buiDts ~= true or E.db.bui.buiStyle ~= true end,
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiLayout'):ChatStyles(); E:GetModule('Layout'):ToggleChatPanels(); E.Chat:PositionChat(true); end,	
+						disabled = function() return E.db.benikui.datatexts.chat.enable ~= true or E.db.benikui.general.benikuiStyle ~= true end,
+						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('BuiLayout'):ChatStyles(); E:GetModule('Layout'):ToggleChatPanels(); E.Chat:PositionChat(true); end,	
 					},
-					chatDtsBackdrop = {
+					backdrop = {
 						order = 5,
 						type = 'toggle',
 						name = L['Backdrop'],
-						disabled = function() return E.db.bui.buiDts ~= true end,
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:GetModule('BuiLayout'):ToggleTransparency(); end,	
+						disabled = function() return E.db.benikui.datatexts.chat.enable ~= true end,
+						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('BuiLayout'):ToggleTransparency(); end,	
 					},								
 				},
 			},
-			middleDatatext = {
-				order = 2,
+			middle = {
+				order = 3,
 				type = 'group',
 				name = L['Middle'],
 				guiInline = true,
@@ -520,50 +523,50 @@ local function buiDatatexts()
 						order = 1,
 						type = 'toggle',
 						name = ENABLE,
-						get = function(info) return E.db.bui.middleDatatext.enable end,
-						set = function(info, value) E.db.bui.middleDatatext.enable = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,	
+						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,	
 					},
-					transparency = {
+					transparent = {
 						order = 2,
 						type = 'toggle',
 						name = L['Panel Transparency'],
-						disabled = function() return not E.db.bui.middleDatatext.enable end,
-						get = function(info) return E.db.bui.middleDatatext.transparency end,
-						set = function(info, value) E.db.bui.middleDatatext.transparency = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,	
+						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
+						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,	
 					},
 					backdrop = {
 						order = 3,
 						type = 'toggle',
 						name = L['Backdrop'],
-						disabled = function() return not E.db.bui.middleDatatext.enable end,
-						get = function(info) return E.db.bui.middleDatatext.backdrop end,
-						set = function(info, value) E.db.bui.middleDatatext.backdrop = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,	
+						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
+						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,	
 					},
 					styled = {
 						order = 4,
 						type = 'toggle',
 						name = L['BenikUI Style'],
-						disabled = function() return E.db.bui.middleDatatext.enable ~= true or E.db.bui.buiStyle ~= true end,
-						get = function(info) return E.db.bui.middleDatatext.styled end,
-						set = function(info, value) E.db.bui.middleDatatext.styled = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,	
+						disabled = function() return E.db.benikui.datatexts.middle.enable ~= true or E.db.benikui.general.benikuiStyle ~= true end,
+						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,	
 					},
 					width = {
 						order = 5,
 						type = "range",
 						name = L["Width"],
 						min = 300, max = 1400, step = 1,
-						disabled = function() return not E.db.bui.middleDatatext.enable end,
-						get = function(info) return E.db.bui.middleDatatext.width end,
-						set = function(info, value) E.db.bui.middleDatatext.width = value; E:GetModule('BuiLayout'):MiddleDatatextDimensions(); end,
+						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
+						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextDimensions(); end,
 					},	
 					height = {
 						order = 6,
 						type = "range",
 						name = L["Height"],
 						min = 10, max = 32, step = 1,
-						disabled = function() return not E.db.bui.middleDatatext.enable end,
-						get = function(info) return E.db.bui.middleDatatext.height end,
-						set = function(info, value) E.db.bui.middleDatatext.height = value; E:GetModule('BuiLayout'):MiddleDatatextDimensions(); end,
+						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
+						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextDimensions(); end,
 					},								
 				},
 			},
@@ -572,14 +575,14 @@ local function buiDatatexts()
 				type = 'group',
 				name = MAIL_LABEL,
 				guiInline = true,
+				get = function(info) return E.db.benikui.datatexts.mail[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.datatexts.mail[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 				args = {
-					toggleMail = {
+					toggle = {
 						order = 1,
 						type = 'toggle',
 						name = L['Hide Mail Icon'],
 						desc = L['Show/Hide Mail Icon on minimap'],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 				},
 			},
@@ -588,26 +591,24 @@ local function buiDatatexts()
 				type = 'group',
 				name = GARRISON_LOCATION_TOOLTIP,
 				guiInline = true,
+				get = function(info) return E.db.benikui.datatexts.garrison[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.datatexts.garrison[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 				args = {
-					garrisonCurrency = {
+					currency = {
 						order = 1,
 						type = 'toggle',
 						name = L['Show Garrison Currency'],
 						desc = L['Show/Hide garrison currency on the datatext tooltip'],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
-					garrisonCurrencyOil = {
+					oil = {
 						order = 2,
 						type = 'toggle',
 						name = L['Show Oil'],
 						desc = L['Show/Hide oil on the datatext tooltip'],
-						get = function(info) return E.db.bui[ info[#info] ] end,
-						set = function(info, value) E.db.bui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 				},
 			},
 		},
 	}
 end
-tinsert(BUI.Config, buiDatatexts)
+tinsert(BUI.Config, Datatexts)

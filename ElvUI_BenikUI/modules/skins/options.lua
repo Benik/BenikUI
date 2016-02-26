@@ -2,10 +2,6 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUIS = E:GetModule('BuiSkins');
 
-if E.db.buiskins == nil then E.db.buiskins = {} end
-if E.db.elvuiaddons == nil then E.db.elvuiaddons = {} end
-if E.db.buiaddonskins == nil then E.db.buiaddonskins = {} end
-
 local tinsert, format, ipairs = table.insert, string.format, ipairs
 
 local DecorElvUIAddons = {
@@ -30,27 +26,32 @@ local DecorAddons = {
 }
 
 local function SkinTable()
-	if E.db.bui.buiStyle ~= true then return end
-	E.Options.args.bui.args.config.args.buiskins = {
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+	E.Options.args.benikui.args.skins = {
 		order = 40,
 		type = 'group',
 		name = L['AddOns Decor'],
 		args = {
-			header = {
+			name = {
 				order = 1,
 				type = 'header',
-				name = L['Choose which addon you wish to be decorated to fit with BenikUI style'],
+				name = BUI:cOption(L['AddOns Decor']),
+			},
+			desc = {
+				order = 2,
+				type = 'description',
+				name = L['Choose which addon you wish to be decorated to fit with BenikUI style'].."\n",
 			},
 		},
 	}
 	
-	E.Options.args.bui.args.config.args.buiskins.args.elvuiaddons = {
-		order = 1,
+	E.Options.args.benikui.args.skins.args.elvuiaddons = {
+		order = 3,
 		type = 'group',
 		guiInline = true,
 		name = L['ElvUI AddOns'],
-		get = function(info) return E.db.elvuiaddons[ info[#info] ] end,
-		set = function(info, value) E.db.elvuiaddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		get = function(info) return E.db.benikuiSkins.elvuiAddons[ info[#info] ] end,
+		set = function(info, value) E.db.benikuiSkins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			},
 		}
@@ -58,7 +59,7 @@ local function SkinTable()
 	local elvorder = 0
 	for i, v in ipairs(DecorElvUIAddons) do
 		local addonName, addonString, addonOption = unpack( v )
-		E.Options.args.bui.args.config.args.buiskins.args.elvuiaddons.args[addonOption] = {
+		E.Options.args.benikui.args.skins.args.elvuiaddons.args[addonOption] = {
 			order = elvorder + 1,
 			type = 'toggle',
 			name = addonString,
@@ -67,13 +68,13 @@ local function SkinTable()
 		}
 	end
 	
-	E.Options.args.bui.args.config.args.buiskins.args.buiaddonskins = {
-		order = 2,
+	E.Options.args.benikui.args.skins.args.addonskins = {
+		order = 4,
 		type = 'group',
 		guiInline = true,
 		name = L['AddOnSkins'],
-		get = function(info) return E.db.buiaddonskins[ info[#info] ] end,
-		set = function(info, value) E.db.buiaddonskins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		get = function(info) return E.db.benikuiSkins.addonSkins[ info[#info] ] end,
+		set = function(info, value) E.db.benikuiSkins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			},
 		}
@@ -81,7 +82,7 @@ local function SkinTable()
 	local addorder = 0
 	for i, v in ipairs(DecorAddons) do
 		local addonName, addonString, addonOption = unpack( v )
-		E.Options.args.bui.args.config.args.buiskins.args.buiaddonskins.args[addonOption] = {
+		E.Options.args.benikui.args.skins.args.addonskins.args[addonOption] = {
 			order = addorder + 1,
 			type = 'toggle',
 			name = addonString,
@@ -90,13 +91,13 @@ local function SkinTable()
 		}
 	end
 
-	E.Options.args.bui.args.config.args.buiskins.args.buiVariousSkins = {
-		order = 3,
+	E.Options.args.benikui.args.skins.args.variousSkins = {
+		order = 5,
 		type = 'group',
 		guiInline = true,
 		name = L['Skins'],
-		get = function(info) return E.db.buiVariousSkins[ info[#info] ] end,
-		set = function(info, value) E.db.buiVariousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		get = function(info) return E.db.benikuiSkins.variousSkins[ info[#info] ] end,
+		set = function(info, value) E.db.benikuiSkins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			objectiveTracker = {
 				order = 1,

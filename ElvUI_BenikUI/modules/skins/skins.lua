@@ -133,11 +133,11 @@ function BUI:StyleBlizzard(parent, ...)
 	frame.backdrop.color = frame.backdrop:CreateTexture(nil, 'OVERLAY')
 	frame.backdrop.color:SetInside()
 	frame.backdrop.color:SetTexture(E['media'].BuiFlat)
-	if E.db.bui.StyleColor == 1 then
+	if E.db.benikui.colors.StyleColor == 1 then
 		frame.backdrop.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	elseif E.db.bui.StyleColor == 2 then
-		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.bui.customStyleColor))
-	elseif E.db.bui.StyleColor == 3 then
+	elseif E.db.benikui.colors.StyleColor == 2 then
+		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
+	elseif E.db.benikui.colors.StyleColor == 3 then
 		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 	else
 		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
@@ -145,7 +145,7 @@ function BUI:StyleBlizzard(parent, ...)
 end
 
 function BUIS:BlizzardUI_LOD_Skins(event, addon)
-	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 	for i, v in ipairs(BlizzUiFrames) do
 		local blizzAddon, blizzFrame, elvoption = unpack( v )
 		if (event == 'ADDON_LOADED' and addon == blizzAddon) then
@@ -261,7 +261,7 @@ end
 
 -- Blizzard Styles
 local function styleFreeBlizzardFrames()
-	if E.private.skins.blizzard.enable ~= true or E.db.bui.buiStyle ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 	
 	for _, frame in pairs(FreeBlizzFrames) do
 		if frame and not frame.style then
@@ -508,7 +508,7 @@ local function MinimizeButton_OnClick(self)
 end
 
 local function SkinObjeciveTracker()
-	if not E.db.buiVariousSkins.objectiveTracker then return end
+	if not E.db.benikuiSkins.variousSkins.objectiveTracker then return end
 	
 	local button = ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
 	S:HandleButton(button)
@@ -537,7 +537,7 @@ function BUIS:BenikUISkins()
 	-- Objective Tracker Button
 	SkinObjeciveTracker()
 	
-	if E.db.bui.buiStyle ~= true then return end 
+	if E.db.benikui.general.benikuiStyle ~= true then return end 
 	
 	-- Blizzard Styles
 	styleFreeBlizzardFrames()
@@ -583,7 +583,7 @@ function BUIS:BenikUISkins()
 	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
 
 	-- AddOn Styles
-	if IsAddOnLoaded('ElvUI_LocLite') and E.db.elvuiaddons.loclite then
+	if IsAddOnLoaded('ElvUI_LocLite') and E.db.benikuiSkins.elvuiAddons.loclite then
 		local framestoskin = {LocationLitePanel, XCoordsLite, YCoordsLite}
 		for _, frame in pairs(framestoskin) do
 			if frame then
@@ -592,7 +592,7 @@ function BUIS:BenikUISkins()
 		end
 	end
 	
-	if IsAddOnLoaded('ElvUI_LocPlus') and E.db.elvuiaddons.locplus then
+	if IsAddOnLoaded('ElvUI_LocPlus') and E.db.benikuiSkins.elvuiAddons.locplus then
 		local framestoskin = {LeftCoordDtPanel, RightCoordDtPanel, LocationPlusPanel, XCoordsPanel, YCoordsPanel}
 		for _, frame in pairs(framestoskin) do
 			if frame then
@@ -601,7 +601,7 @@ function BUIS:BenikUISkins()
 		end
 	end
 	
-	if IsAddOnLoaded('ElvUI_SLE') and E.db.elvuiaddons.sle then
+	if IsAddOnLoaded('ElvUI_SLE') and E.db.benikuiSkins.elvuiAddons.sle then
 		local sleFrames = {BottomBG, LeftBG, RightBG, ActionBG, DP_1, DP_2, Top_Center, DP_3, DP_4, DP_5, Bottom_Panel, DP_6, Main_Flares, Mark_Menu, SquareMinimapButtonBar}		
 		for _, frame in pairs(sleFrames) do
 			if frame then
@@ -610,14 +610,14 @@ function BUIS:BenikUISkins()
 		end
 	end
 	
-	if IsAddOnLoaded('SquareMinimapButtons') and E.db.elvuiaddons.smb then
+	if IsAddOnLoaded('SquareMinimapButtons') and E.db.benikuiSkins.elvuiAddons.smb then
 		local smbFrame = SquareMinimapButtonBar
 		if smbFrame then
 			smbFrame:Style('Outside')
 		end
 	end
 	
-	if IsAddOnLoaded('ElvUI_Enhanced') and E.db.elvuiaddons.enh then
+	if IsAddOnLoaded('ElvUI_Enhanced') and E.db.benikuiSkins.elvuiAddons.enh then
 		if MinimapButtonBar then
 			MinimapButtonBar.backdrop:Style('Outside')
 		end
@@ -627,7 +627,7 @@ function BUIS:BenikUISkins()
 		end
 	end
 	
-	if IsAddOnLoaded('ElvUI_DTBars2') and E.db.elvuiaddons.dtb2 then
+	if IsAddOnLoaded('ElvUI_DTBars2') and E.db.benikuiSkins.elvuiAddons.dtb2 then
 		for panelname, data in pairs(E.global.dtbars) do
 			if panelname then
 				_G[panelname]:Style('Outside')

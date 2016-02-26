@@ -9,8 +9,6 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-if E.db.bab == nil then E.db.bab = {} end
-
 local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar}
 
 function BAB:StyleBackdrops()
@@ -33,16 +31,18 @@ function BAB:StyleBackdrops()
 end
 
 function BAB:ColorBackdrops()
-	if E.db.bui.buiStyle ~= true then return end
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+	local db = E.db.benikui.colors
+	
 	for i = 1, 10 do
 		local styleBacks = {_G['ElvUI_Bar'..i..'_Bui']}
 		for _, frame in pairs(styleBacks) do
 			frame.backdropTexture:SetTexture(E['media'].BuiFlat)
-			if E.db.bui.abStyleColor == 1 then
+			if db.abStyleColor == 1 then
 				frame.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
-			elseif E.db.bui.abStyleColor == 2 then
-				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.bui.customAbStyleColor))
-			elseif E.db.bui.abStyleColor == 3 then
+			elseif db.abStyleColor == 2 then
+				frame.backdropTexture:SetVertexColor(BUI:unpackColor(db.customAbStyleColor))
+			elseif db.abStyleColor == 3 then
 				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 			else
 				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
@@ -53,11 +53,11 @@ function BAB:ColorBackdrops()
 	for _, frame in pairs(styleOtherBacks) do
 		local name = _G[frame:GetName()..'_Bui']
 		name.backdropTexture:SetTexture(E['media'].BuiFlat)
-		if E.db.bui.abStyleColor == 1 then
+		if db.abStyleColor == 1 then
 			name.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		elseif E.db.bui.abStyleColor == 2 then
-			name.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.bui.customAbStyleColor))
-		elseif E.db.bui.abStyleColor == 3 then
+		elseif db.abStyleColor == 2 then
+			name.backdropTexture:SetVertexColor(BUI:unpackColor(db.customAbStyleColor))
+		elseif db.abStyleColor == 3 then
 			name.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 		else
 			name.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
@@ -68,11 +68,12 @@ end
 -- from ElvUI_TrasparentBackdrops plugin
 function BAB:TransparentBackdrops()
 	-- Actionbar backdrops
+	local db = E.db.benikui.actionbars
 	for i = 1, 10 do
 		local transBars = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(transBars) do
 			if frame.backdrop then
-				if E.db.bab.transBack then
+				if db.transparent then
 					frame.backdrop:SetTemplate('Transparent')
 				else
 					frame.backdrop:SetTemplate('Default')
@@ -85,7 +86,7 @@ function BAB:TransparentBackdrops()
 			local buttonBars = {_G['ElvUI_Bar'..i..'Button'..k]}
 			for _, button in pairs(buttonBars) do
 				if button.backdrop then
-					if E.db.bab.transBack then
+					if db.transparent then
 						button.backdrop:SetTemplate('Transparent')
 					else
 						button.backdrop:SetTemplate('Default', true)
@@ -99,7 +100,7 @@ function BAB:TransparentBackdrops()
 	local transOtherBars = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags}
 	for _, frame in pairs(transOtherBars) do
 		if frame.backdrop then
-			if E.db.bab.transBack then
+			if db.transparent then
 				frame.backdrop:SetTemplate('Transparent')
 			else
 				frame.backdrop:SetTemplate('Default')
@@ -112,7 +113,7 @@ function BAB:TransparentBackdrops()
 		local petButtons = {_G['PetActionButton'..i]}
 		for _, button in pairs(petButtons) do
 			if button.backdrop then
-				if E.db.bab.transBack then
+				if db.transparent then
 					button.backdrop:SetTemplate('Transparent')
 				else
 					button.backdrop:SetTemplate('Default', true)

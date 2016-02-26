@@ -41,7 +41,7 @@ end]]
 
 --Configure castbar text position and alpha
 local function ConfigureText(unit, castbar)
-	local db = E.db.ufb;
+	local db = E.db.benikui.unitframes.castbar.text
 
 	if db.castText then
 		castbar.Text:SetAlpha(1)
@@ -53,9 +53,9 @@ local function ConfigureText(unit, castbar)
 
 	-- Set position of castbar text according to chosen offsets
 	castbar.Text:ClearAllPoints()
-	castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.yOffsetText)
+	castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.yOffset)
 	castbar.Time:ClearAllPoints()
-	castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.yOffsetText)
+	castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.yOffset)
 end
 
 --Reset castbar text position and alpha
@@ -86,7 +86,7 @@ local function ConfigureCastbar(unit, unitframe)
 	if unit == 'player' or unit == 'target' then
 		if db.insideInfoPanel and unitframe.USE_INFO_PANEL then
 			ConfigureText(unit, castbar)
-			if E.db.ufb.ShowInfoText then
+			if E.db.benikui.unitframes.castbar.text.ShowInfoText then
 				changeCastbarLevel(unit, unitframe)
 			else
 				resetCastbarLevel(unit, unitframe)

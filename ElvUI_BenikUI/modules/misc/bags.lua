@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local BUIB = E:NewModule('BuiBags', 'AceHook-3.0', 'AceEvent-3.0');
 local B = E:GetModule('Bags')
 
@@ -84,7 +84,7 @@ function BUIB:UpdateCountPosition()
 end
 
 function BUIB:Initialize()
-	if E.db.bui.buiStyle ~= true then return end
+	if E.db.benikui.general.benikuiStyle ~= true then return end
 	self:AllInOneBags()
 	self:SkinBlizzBags()
 	self:UpdateCountPosition()

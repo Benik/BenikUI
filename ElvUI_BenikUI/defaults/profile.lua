@@ -26,40 +26,106 @@ P['unitframe']['units']['raid40']['classHover'] = false
 P['bags']['countPosition'] = 'BOTTOMRIGHT'
 
 -- Core
-P['bui'] = {
+P['benikui'] = {
 	['installed'] = nil,
-	['buiStyle'] = true,
-	['colorTheme'] = 'Elv',
-	['buiDts'] = true,
-	['LoginMsg'] = true,
-	['SplashScreen'] = true,
-	['GameMenuButton'] = true,
-	['transparentDts'] = false,
-	['editBoxPosition'] = 'BELOW_CHAT',
-	['middleDatatext'] = {
-		['enable'] = true,
-		['transparency'] = true,
-		['backdrop'] = false,
-		['width'] = 400,
-		['height'] = 19,
-		['styled'] = false,
+
+	['general'] = {
+		['benikuiStyle'] = true,
+		['loginMessage'] = true,
+		['splashScreen'] = true,
+		['gameMenuButton'] = true,
 	},
-	['toggleMail'] = true,
-	['garrisonCurrency'] = false,
-	['gameMenuColor'] = 2,
-	['customGameMenuColor'] = {r = .9, g = .7, b = 0},
-	['abStyleColor'] = 1,
-	['customAbStyleColor'] = {r = .9, g = .7, b = 0},
-	['StyleColor'] = 1,
-	['customStyleColor'] = {r = .9, g = .7, b = 0},
-	['styledChatDts'] = false,
-	['chatDtsBackdrop'] = true,
-	['ilvl'] = true,
-	['ilvlfont'] = 'Bui Prototype',
-	['ilvlfontsize'] = 9,
-	['ilvlfontflags'] = 'OUTLINE',
-	['ilvlColorStyle'] = 'RARITY',
-	['ilvlColor'] =  {r = 1, g = 1, b = 0},
+
+	['colors'] = {
+		['colorTheme'] = 'Elv',
+		['StyleColor'] = 1,
+		['customStyleColor'] = {r = .9, g = .7, b = 0},
+		['abStyleColor'] = 1,
+		['customAbStyleColor'] = {r = .9, g = .7, b = 0},
+		['gameMenuColor'] = 2,
+		['customGameMenuColor'] = {r = .9, g = .7, b = 0},
+	},
+
+	['misc'] = {
+		['ilevel'] = {
+			['enable'] = true,
+			['font'] = 'Bui Prototype',
+			['fontsize'] = 9,
+			['fontflags'] = 'OUTLINE',
+			['colorStyle'] = 'RARITY',
+			['color'] =  {r = 1, g = 1, b = 0},
+		},
+	},
+
+	['datatexts'] = {
+		['chat'] = {
+			['enable'] = true,
+			['transparent'] = false,
+			['editBoxPosition'] = 'BELOW_CHAT',
+			['styled'] = false,
+			['backdrop'] = true,
+		},
+		['middle'] = {
+			['enable'] = true,
+			['transparent'] = true,
+			['backdrop'] = false,
+			['width'] = 400,
+			['height'] = 19,
+			['styled'] = false,
+		},
+		['mail'] = {
+			['toggle'] = true,
+		},
+		['garrison'] = {
+			['currency'] = false,
+			['oil'] = false,
+		},
+	},
+
+	['actionbars'] = {
+		['transparent'] = true,
+		['toggleButtons'] = {
+			['enable'] = true,
+			['chooseAb'] = 'BAR2',			
+		},
+		['requestStop'] = true,	
+	},
+	
+	['unitframes'] = {
+		['player'] = {
+			['detachPortrait'] = false,
+			['portraitWidth'] = 110,
+			['portraitHeight'] = 85,
+			['portraitShadow'] = false,
+			['portraitTransparent'] = true,
+			['portraitStyle'] = false,
+			['portraitStyleHeight'] = 6,
+		},
+		['target'] = {
+			['detachPortrait'] = false,
+			['getPlayerPortraitSize'] = true,
+			['portraitWidth'] = 110,
+			['portraitHeight'] = 85,
+			['portraitShadow'] = false,
+			['portraitTransparent'] = true,
+			['portraitStyle'] = false,
+			['portraitStyleHeight'] = 6,
+		},
+		['infoPanel'] = {
+			['fixInfoPanel'] = true,
+		},
+		['castbar'] = {
+			['text'] = {
+				['yOffset'] = -16,
+				['ShowInfoText'] = true,
+				['castText'] = true,
+			},
+		},
+		['misc'] = {
+			['svui'] = true,
+		},
+	
+	},
 	
 	-- db
 	['dbCleaned'] = false,
@@ -84,18 +150,41 @@ P.datatexts.panels.BuiMiddleDTPanel = {
 	right = 'Versatility',
 }
 
--- Actionbars
-P['bab'] = {
-	['transBack'] = true,
-	['enable'] = true,
-	['chooseAb'] = 'BAR2',
-	['requestStop'] = true,
+-- Skins and ElvUI addons Styling
+P['benikuiSkins'] = {
+	['elvuiAddons'] = {
+		['loclite'] = true,
+		['locplus'] = true,
+		['sle'] = true,
+		['smb'] = true,
+		['enh'] = true,
+		['dtb2'] = true,
+	},
+	
+	['addonSkins'] = {
+		['rc'] = true,
+		['skada'] = true,
+		['recount'] = true,
+		['tinydps'] = true,
+		['atlasloot'] = true,
+		['altoholic'] = true,
+		['zg'] = true,
+		['clique'] = true,
+		['ora'] = true,
+	},
+	
+	['variousSkins'] = {
+		['objectiveTracker'] = true,
+		['decursive'] = true,
+		['storyline'] = true,
+	},
 }
 
 -- XP/Rep
-P['buixprep'] = {
+P['benikuiXprep'] = {
 	['enable'] = true,
 	['buiStyle'] = true,
+	
 	['color'] = {
 		['experience'] = {
 			['default'] = true,
@@ -110,6 +199,7 @@ P['buixprep'] = {
 			['hated'] = {r = 1, g = 0, b = 0, a = .8 },
 		},
 	},
+	
 	['notifiers'] = {
 		['combat'] = false,
 		['experience'] = {
@@ -188,61 +278,4 @@ P['dashboards'] = {
 	['barColor'] = {r = 255/255,g = 128/255,b = 0/255},
 	['textColor'] = 2,
 	['customTextColor'] = {r = 255/255,g = 255/255,b = 255/255},
-}
-
--- Unitframes
-P['ufb'] = {
-	-- Detach portrait
-	['detachPlayerPortrait'] = false,
-	['PlayerPortraitWidth'] = 110,
-	['PlayerPortraitHeight'] = 85,
-	['PlayerPortraitShadow'] = false,
-	['PlayerPortraitTransparent'] = true,
-	['PlayerPortraitStyle'] = false,
-	['PlayerPortraitStyleHeight'] = 6,
-	['detachTargetPortrait'] = false,
-	['getPlayerPortraitSize'] = true,
-	['TargetPortraitWidth'] = 110,
-	['TargetPortraitHeight'] = 85,
-	['TargetPortraitShadow'] = false,
-	['TargetPortraitTransparent'] = true,
-	['TargetPortraitStyle'] = false,
-	['TargetPortraitStyleHeight'] = 6,
-	['fixInfoPanel'] = true,
-	-- Castbar
-	['yOffsetText'] = -16,
-	['ShowInfoText'] = true,
-	['castText'] = true,
-	-- Misc
-	['svui'] = true
-}
-
--- ElvUI addons Styling
-P['elvuiaddons'] = {
-	['loclite'] = true,
-	['locplus'] = true,
-	['sle'] = true,
-	['smb'] = true,
-	['enh'] = true,
-	['dtb2'] = true,
-}
-
--- Addonskins addons Styling
-P['buiaddonskins'] = {
-	['rc'] = true,
-	['skada'] = true,
-	['recount'] = true,
-	['tinydps'] = true,
-	['atlasloot'] = true,
-	['altoholic'] = true,
-	['zg'] = true,
-	['clique'] = true,
-	['ora'] = true,
-}
-
--- Skins
-P['buiVariousSkins'] = {
-	['objectiveTracker'] = true,
-	['decursive'] = true,
-	['storyline'] = true,
 }

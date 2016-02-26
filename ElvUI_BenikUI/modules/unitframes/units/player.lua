@@ -13,7 +13,7 @@ function UFB:Construct_PlayerFrame()
 		frame.Portrait.backdrop.shadow:Hide()
 	end
 
-	if E.db.bui.buiStyle == true then
+	if E.db.benikui.general.benikuiStyle == true then
 		frame.Portrait.backdrop:Style('Outside')
 		frame.Portrait.backdrop.style:Hide()
 	end
@@ -29,16 +29,16 @@ function UFB:ArrangePlayer()
 	local db = E.db['unitframe']['units'].player
 
 	do
-		frame.PORTRAIT_DETACHED = E.db.ufb.detachPlayerPortrait
-		frame.PORTRAIT_TRANSPARENCY = E.db.ufb.PlayerPortraitTransparent
-		frame.PORTRAIT_SHADOW = E.db.ufb.PlayerPortraitShadow
+		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.player.detachPortrait
+		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.player.portraitTransparent
+		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.player.portraitShadow
 		
-		frame.PORTRAIT_STYLING = E.db.ufb.PlayerPortraitStyle
-		frame.PORTRAIT_STYLING_HEIGHT = E.db.ufb.PlayerPortraitStyleHeight
-		frame.DETACHED_PORTRAIT_WIDTH = E.db.ufb.PlayerPortraitWidth
-		frame.DETACHED_PORTRAIT_HEIGHT = E.db.ufb.PlayerPortraitHeight
+		frame.PORTRAIT_STYLING = E.db.benikui.unitframes.player.portraitStyle
+		frame.PORTRAIT_STYLING_HEIGHT = E.db.benikui.unitframes.player.portraitStyleHeight
+		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.player.portraitWidth
+		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.player.portraitHeight
 		
-		frame.PORTRAIT_AND_INFOPANEL = E.db.ufb.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
+		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
 	end
 	
 	-- InfoPanel

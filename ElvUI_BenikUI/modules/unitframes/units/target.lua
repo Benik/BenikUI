@@ -16,7 +16,7 @@ function UFB:Construct_TargetFrame()
 		frame.Portrait.backdrop.shadow:Hide()
 	end
 
-	if E.db.bui.buiStyle == true then
+	if E.db.benikui.general.benikuiStyle == true then
 		frame.Portrait.backdrop:Style('Outside')
 		frame.Portrait.backdrop.style:Hide()
 	end
@@ -31,16 +31,15 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
 	
-	if E.db.ufb.TargetPortraitStyle ~= true or db.portrait.overlay == true then return end
+	if E.db.benikui.unitframes.target.portraitStyle ~= true or db.portrait.overlay == true then return end
 	
-	local USE_PORTRAIT = db.portrait.enable
 	local targetClass = select(2, UnitClass("target"));
 
 	do
 		local portrait = frame.Portrait
 		local power = frame.Power
 
-		if USE_PORTRAIT and portrait.backdrop.style and E.db.ufb.TargetPortraitStyle then
+		if frame.USE_PORTRAIT and portrait.backdrop.style and E.db.benikui.unitframes.target.portraitStyle then
 			local maxValue = UnitPowerMax("target")
 			local pType, pToken, altR, altG, altB = UnitPowerType("target")
 			local mu = power.bg.multiplier or 1
@@ -87,16 +86,16 @@ function UFB:ArrangeTarget()
 	local db = E.db['unitframe']['units'].target
 
 	do
-		frame.PORTRAIT_DETACHED = E.db.ufb.detachTargetPortrait
-		frame.PORTRAIT_TRANSPARENCY = E.db.ufb.TargetPortraitTransparent
-		frame.PORTRAIT_SHADOW = E.db.ufb.TargetPortraitShadow
+		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.target.detachPortrait
+		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.target.portraitTransparent
+		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.target.portraitShadow
 		
-		frame.PORTRAIT_STYLING = E.db.ufb.TargetPortraitStyle
-		frame.PORTRAIT_STYLING_HEIGHT = E.db.ufb.TargetPortraitStyleHeight
-		frame.DETACHED_PORTRAIT_WIDTH = E.db.ufb.getPlayerPortraitSize and E.db.ufb.PlayerPortraitWidth or E.db.ufb.TargetPortraitWidth
-		frame.DETACHED_PORTRAIT_HEIGHT = E.db.ufb.getPlayerPortraitSize and E.db.ufb.PlayerPortraitHeight or E.db.ufb.TargetPortraitHeight
+		frame.PORTRAIT_STYLING = E.db.benikui.unitframes.target.portraitStyle
+		frame.PORTRAIT_STYLING_HEIGHT = E.db.benikui.unitframes.target.portraitStyleHeight
+		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.target.getPlayerPortraitSize and E.db.benikui.unitframes.player.portraitWidth or E.db.benikui.unitframes.target.portraitWidth
+		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.target.getPlayerPortraitSize and E.db.benikui.unitframes.player.ortraitHeight or E.db.benikui.unitframes.target.portraitHeight
 	
-		frame.PORTRAIT_AND_INFOPANEL = E.db.ufb.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
+		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
 	end
 	
 	-- InfoPanel

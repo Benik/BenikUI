@@ -19,7 +19,7 @@ function A:UpdateAura(button, index)
 	local name = UnitAura(unit, index, filter)
 
 	if(name) then
-		if E.db.bui.buiStyle == true then
+		if E.db.benikui.general.benikuiStyle == true then
 			button.texture:SetTexCoord(unpack(BUI.TexCoords))
 		end
 

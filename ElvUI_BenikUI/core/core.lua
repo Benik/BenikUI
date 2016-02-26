@@ -56,12 +56,12 @@ function BUI:AddOptions()
 end
 
 function BUI:DasOptions()
-	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "bui")
+	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
 function BUI:LoadCommands()
-	self:RegisterChatCommand("bui", "DasOptions")
-	self:RegisterChatCommand("buisetup", "SetupBui")
+	self:RegisterChatCommand("benikui", "DasOptions")
+	self:RegisterChatCommand("benikuisetup", "SetupBui")
 end
 
 local function CreateSplashScreen()
@@ -133,16 +133,6 @@ end
 
 -- Clean ElvUI.lua in WTF folder from outdated settings
 local function dbCleaning()
-	-- Player/Target Emptybars rip
-	if E.db.ufb.barshow then E.db.ufb.barshow = nil end
-	if E.db.ufb.toggleTransparency then E.db.ufb.toggleTransparency = nil end
-	if E.db.ufb.toggleShadow then E.db.ufb.toggleShadow = nil end
-	if E.db.ufb.barheight then E.db.ufb.barheight = nil end
-	if E.db.ufb.threat then E.db.ufb.threat = nil end
-	
-	-- Castbar on Emptybars
-	if E.db.ufb.attachCastbar then E.db.ufb.attachCastbar = nil end
-	
 	-- Player Castbar icon detach
 	if E.db.unitframe.units.player.castbar.detachCastbarIcon then E.db.unitframe.units.player.castbar.detachCastbarIcon = nil end
 	if E.db.unitframe.units.player.castbar.detachediconSize then E.db.unitframe.units.player.castbar.detachediconSize = nil end
@@ -155,37 +145,46 @@ local function dbCleaning()
 	if E.db.unitframe.units.target.castbar.xOffset then E.db.unitframe.units.target.castbar.xOffset = nil end
 	if E.db.unitframe.units.target.castbar.yOffset then E.db.unitframe.units.target.castbar.yOffset = nil end
 
-	E.db.bui.dbCleaned = true
+	-- Clear the old db
+	if E.db.bui then E.db.bui = nil end
+	if E.db.bab then E.db.bab = nil end
+	if E.db.buixprep then E.db.buixprep = nil end
+	if E.db.ufb then E.db.ufb = nil end
+	if E.db.elvuiaddons then E.db.elvuiaddons = nil end
+	if E.db.buiaddonskins then E.db.buiaddonskins = nil end
+	if E.db.buiVariousSkins then E.db.buiVariousSkins = nil end
+	
+	E.db.benikui.dbCleaned = true
 end
 
 function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:LoadCommands()
 	
-	if E.db.bui.dbCleaned ~= true then
+	if E.db.benikui.dbCleaned ~= true then
 		dbCleaning()
 	end
 	
-	if E.db.bui.SplashScreen then
+	if E.db.benikui.general.splashScreen then
 		CreateSplashScreen()
 	end
 
-	if E.db.bui.GameMenuButton then
+	if E.db.benikui.general.gameMenuButton then
 		self:GameMenuButton()
 	end
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
 	-- run install when ElvUI install finishes
-	if E.private.install_complete == E.version and E.db.bui.installed == nil then self:SetupBui() end
+	if E.private.install_complete == E.version and E.db.benikui.installed == nil then self:SetupBui() end
 	
 	-- Show Splash Screen only if the install is completed
-	if (E.db.bui.installed == true and E.db.bui.SplashScreen) then C_TimerAfter(6, ShowSplashScreen) end
+	if (E.db.benikui.installed == true and E.db.benikui.general.splashScreen) then C_TimerAfter(6, ShowSplashScreen) end
 	
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 	if ElvDB.profileKeys and profileKey == nil then self:SetupBui() end
 
-	if E.db.bui.LoginMsg then
+	if E.db.benikui.general.loginMessage then
 		print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..BUI:PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues'))
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)

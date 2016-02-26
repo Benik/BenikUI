@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0');
 local M = E:GetModule('Misc');
 local LO = E:GetModule('Layout');
@@ -20,8 +20,8 @@ local function xprep_OnLeave(self)
 end
 
 local function ToggleXpRepBackdrop()
-	if E.db.buixprep.enable then
-		if not E.db.bui.chatDtsBackdrop then
+	if E.db.benikuiXprep.enable then
+		if not E.db.benikui.datatexts.chat.backdrop then
 			if ElvUI_ReputationBar.fb then
 				ElvUI_ReputationBar.fb:StripTextures()
 			end
@@ -29,7 +29,7 @@ local function ToggleXpRepBackdrop()
 				ElvUI_ExperienceBar.fb:StripTextures()
 			end
 		else
-			if E.db.bui.transparentDts then
+			if E.db.benikui.datatexts.chat.transparent then
 				if ElvUI_ReputationBar.fb then
 					ElvUI_ReputationBar.fb:SetTemplate('Transparent')
 				end
@@ -100,7 +100,7 @@ local function StyleXpRepBars()
 	
 	ToggleXpRepBackdrop()
 	
-	if E.db.bui.buiStyle ~= true then return end
+	if E.db.benikui.general.benikuiStyle ~= true then return end
 	xp:Style('Outside')
 	rp:Style('Outside')
 end
@@ -109,7 +109,7 @@ function BXR:ApplyXpRepStyling()
 	local xp = ElvUI_ExperienceBar
 	if E.db.general.experience.enable then
 		if E.db.general.experience.orientation == 'VERTICAL' then
-			if E.db.bui.buiDts then 
+			if E.db.benikui.datatexts.chat.enable then 
 				xp.fb:Show()
 			else
 				xp.fb:Hide()
@@ -125,7 +125,7 @@ function BXR:ApplyXpRepStyling()
 			if rp.ft then
 				rp.ft:Show()
 			end
-			if E.db.bui.buiDts then
+			if E.db.benikui.datatexts.chat.enable then
 				rp.fb:Show()
 			else
 				rp.fb:Hide()
@@ -135,7 +135,7 @@ function BXR:ApplyXpRepStyling()
 		end
 	end
 	
-	if E.db.buixprep.buiStyle then
+	if E.db.benikuiXprep.buiStyle then
 		if rp.style then
 			rp.style:Show()
 		end
@@ -153,7 +153,7 @@ function BXR:ApplyXpRepStyling()
 end
 
 function BXR:ChangeXPcolor()
-	local db = E.db.buixprep.color.experience
+	local db = E.db.benikuiXprep.color.experience
 	local elvxpstatus = ElvUI_ExperienceBar.statusBar
 	local elvrestedstatus = ElvUI_ExperienceBar.rested
 	
@@ -168,7 +168,7 @@ end
 
 local backupColor = FACTION_BAR_COLORS[1]
 function BXR:ChangeRepColor()
-	local db = E.db.buixprep.color.reputation
+	local db = E.db.benikuiXprep.color.reputation
 	local _, reaction = GetWatchedFactionInfo()
 	local color = FACTION_BAR_COLORS[reaction] or backupColor
 	local elvstatus = ElvUI_ReputationBar.statusBar
@@ -195,7 +195,7 @@ function BXR:CreateNotifier(bar)
 	bar.f.arrow = bar.f:CreateFontString(nil, 'OVERLAY')
 	bar.f.arrow:SetFont(LSM:Fetch("font", 'Bui Visitor1'), 10, 'MONOCHROMEOUTLINE')
 	
-	if E.db.buixprep.notifiers.combat then
+	if E.db.benikuiXprep.notifiers.combat then
 		bar.f:RegisterEvent("PLAYER_REGEN_DISABLED")
 		bar.f:RegisterEvent("PLAYER_REGEN_ENABLED")
 		
@@ -214,7 +214,7 @@ end
 function BXR:UpdateRepNotifierPositions()
 	local bar = ElvUI_ReputationBar.statusBar
 	
-	local db = E.db.buixprep.notifiers.reputation
+	local db = E.db.benikuiXprep.notifiers.reputation
 	local arrow = ""
 	
 	bar.f:ClearAllPoints()
@@ -267,7 +267,7 @@ end
 function BXR:UpdateXpNotifierPositions()
 	local bar = ElvUI_ExperienceBar.statusBar
 	
-	local db = E.db.buixprep.notifiers.experience
+	local db = E.db.benikuiXprep.notifiers.experience
 	local arrow = ""
 	
 	bar.f:ClearAllPoints()
@@ -328,7 +328,7 @@ function BXR:Initialize()
 	self:ChangeXPcolor()
 	self:ChangeRepColor()
 	
-	local db = E.db.buixprep.notifiers
+	local db = E.db.benikuiXprep.notifiers
 	
 	if db.experience.enable and E.db.general.experience.orientation == 'VERTICAL' then
 		self:CreateNotifier(ElvUI_ExperienceBar.statusBar)
@@ -348,7 +348,7 @@ function BXR:Initialize()
 		hooksecurefunc(M, 'UpdateExpRepDimensions', BXR.UpdateRepNotifierPositions)
 	end
 	
-	if E.db.buixprep.enable ~= true then return end
+	if E.db.benikuiXprep.enable ~= true then return end
 	
 	StyleXpRepBars()
 	self:ApplyXpRepStyling()
