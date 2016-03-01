@@ -238,7 +238,7 @@ local function Core()
 						type = 'group',
 						name = L['iLevel'],
 						get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):UpdateSlots() end,
+						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; BUI:update_iLevelItems() end,
 						args = {
 							enable = {
 								order = 1,
@@ -247,19 +247,21 @@ local function Core()
 								desc = L['Show item level per slot, on the character info frame'],
 								width = "full",
 								get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):EnableDisable() end,	
+								set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,	
 							},
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',
 								order = 2,
 								name = L['Font'],
 								values = AceGUIWidgetLSMlists.font,
+								disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 							},
 							fontsize = {
 								order = 3,
 								name = FONT_SIZE,
 								type = 'range',
 								min = 6, max = 22, step = 1,
+								disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 							},
 							fontflags = {
 								order = 4,
@@ -271,6 +273,7 @@ local function Core()
 									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
 									['THICKOUTLINE'] = 'THICKOUTLINE',
 								},
+								disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 							},
 							colorStyle = {
 								order = 5,
@@ -280,12 +283,13 @@ local function Core()
 									['RARITY'] = RARITY,
 									['CUSTOM'] = CUSTOM,
 								},
+								disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 							},
 							color = {
 								order = 6,
 								type = "color",
 								name = COLOR_PICKER,
-								disabled = function() return E.db.benikui.misc.ilevel.colorStyle == 'RARITY' end,
+								disabled = function() return E.db.benikui.misc.ilevel.colorStyle == 'RARITY' or not E.db.benikui.misc.ilevel.enable end,
 								get = function(info)
 									local t = E.db.benikui.misc.ilevel[ info[#info] ]
 									local d = P.benikui.misc.ilevel[info[#info]]
