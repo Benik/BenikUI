@@ -131,7 +131,7 @@ local function SetupBuiLayout()
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-38"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-5"
-	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-5"
+	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-6"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-415,22"
 	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,22"
@@ -308,7 +308,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,295,58"
 		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-295,58"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,22"
-		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,959,136"
+		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,959,164"
 		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,283"
@@ -375,7 +375,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,257,1"
 		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-256,1"
 		E.db["movers"]["PetAB"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-150,177"
-		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,959,136"
+		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,959,164"
 	end
 
 	if InstallStepComplete then
