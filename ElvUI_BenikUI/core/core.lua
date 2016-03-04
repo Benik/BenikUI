@@ -119,7 +119,7 @@ local function ShowSplashScreen()
 	BenikUISplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
 end
 
-function BUI:GameMenuButton()
+local function GameMenuButton()
 	local lib = LibStub("LibElv-GameMenu-1.0")
 	local button = {
 		["name"] = "BUIConfigButton",
@@ -170,7 +170,7 @@ function BUI:Initialize()
 	end
 
 	if E.db.benikui.general.gameMenuButton then
-		self:GameMenuButton()
+		GameMenuButton()
 	end
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
