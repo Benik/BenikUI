@@ -147,7 +147,7 @@ P.datatexts.panels.BuiRightChatDTPanel = {
 P.datatexts.panels.BuiMiddleDTPanel = {
 	left = 'Multistrike',
 	middle = 'Garrison+ (BenikUI)',
-	right = 'Versatility',
+	right = 'Spec Switch (BenikUI)',
 }
 
 -- Skins and ElvUI addons Styling
