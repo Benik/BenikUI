@@ -118,7 +118,7 @@ local stats = {
 -- Remove capitals from class except first letter
 local function handleClass()
 	local lowclass = E.myclass:lower()
-    local firstclass = lowclass:gsub("^%l", upper)
+	local firstclass = lowclass:gsub("^%l", upper)
 	return firstclass
 end
 

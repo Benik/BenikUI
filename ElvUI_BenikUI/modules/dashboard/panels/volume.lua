@@ -12,9 +12,9 @@ local Sound_ToggleMusic = Sound_ToggleMusic
 local SPACING = (E.PixelMode and 1 or 5)
 
 local function GetVolumePercent(cat)
-    local volume = tonumber(GetCVar(cat));
-    volume = floor(volume * 100);
-    return volume;
+	local volume = tonumber(GetCVar(cat));
+	volume = floor(volume * 100);
+	return volume;
 end
 
 local function iconBG_OnEnter(self)
@@ -47,18 +47,18 @@ local function iconBG_OnLeave(self)
 end
 
 local function Sound_MasterVolumeUp()
-    local volume = (GetCVar('Sound_MasterVolume'));
+	local volume = (GetCVar('Sound_MasterVolume'));
 
-    volume = tonumber(E:Round(volume, 1));
+	volume = tonumber(E:Round(volume, 1));
 	if (volume and volume <= 0.9) then
 		SetCVar('Sound_MasterVolume', volume + 0.1);
 	end
 end
 
 local function Sound_MasterVolumeDown()
-    local volume = (GetCVar('Sound_MasterVolume'));
+	local volume = (GetCVar('Sound_MasterVolume'));
 
-    volume = tonumber(E:Round(volume, 1));
+	volume = tonumber(E:Round(volume, 1));
 	if (volume and volume >= 0.1) then
 		SetCVar('Sound_MasterVolume', volume - 0.1);
 	end

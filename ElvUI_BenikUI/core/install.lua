@@ -1029,7 +1029,7 @@ local function SetupAddOnSkins()
 		end
 		
 		if IsAddOnLoaded('Skada') then
-    		E.private['addonskins']['EmbedSystem'] = false
+			E.private['addonskins']['EmbedSystem'] = false
 			E.private['addonskins']['EmbedSystemDual'] = true
 			E.private['addonskins']['EmbedBelowTop'] = false
 			E.private['addonskins']['TransparentEmbed'] = true
@@ -1649,7 +1649,7 @@ function BUI:SetupBenikUI()
 		f.Option3:Point('LEFT', f.Option2, 'RIGHT', 4, 0)
 		f.Option3:SetText('')
 		f.Option3:Hide()
-		f.Option3:SetScript('OnShow', function() f.Option1:SetWidth(100); f.Option1:ClearAllPoints(); f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); f.Option2:SetWidth(100); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOM', f, 'BOTTOM', 0, 45)  end)
+		f.Option3:SetScript('OnShow', function() f.Option1:SetWidth(100); f.Option1:ClearAllPoints(); f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); f.Option2:SetWidth(100); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOM', f, 'BOTTOM', 0, 45) end)
 		f.Option3:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
 		E.Skins:HandleButton(f.Option3, true)			
 		
@@ -1666,7 +1666,7 @@ function BUI:SetupBenikUI()
 			f.Option1:ClearAllPoints(); 
 			f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); 
 			f.Option2:ClearAllPoints(); 
-			f.Option2:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45)  
+			f.Option2:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45)
 		end)
 		f.Option4:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
 		E.Skins:HandleButton(f.Option4, true)			

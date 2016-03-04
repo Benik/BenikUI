@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ =  unpack(ElvUI);
+local E, L, V, P, G, _ = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 local LSM = LibStub('LibSharedMedia-3.0')
 -- Based on Repooc's and Darth Predator's S&L ElvUI edit mail datatext.

@@ -53,7 +53,7 @@ P['benikui'] = {
 			['fontsize'] = 9,
 			['fontflags'] = 'OUTLINE',
 			['colorStyle'] = 'RARITY',
-			['color'] =  {r = 1, g = 1, b = 0},
+			['color'] = {r = 1, g = 1, b = 0},
 		},
 	},
 
