@@ -1,3 +1,13 @@
+[b]2.5[/b]
+*Major changes for ElvUI 9.0. BenikUI settings are reset, so the install routine will pop on load
+*EmptyBars removed, they are now an ElvUI feature (Information Panels)
+*Attach castbar on EmptyBars is now also an ElvUI feature
+*Removed the PowerBar Texture option.
+*Revamped BenikUI options.
+*Added Game Menu button.
+*iLevel module can now change the font options on the fly. Also the color.
+*Way too many adjustments in the ui profiles.
+
 [b]2.38[/b]
 *Added Detached Castbar Icon option (player/target) along with the ability to change the Icon size. Disabled by default, options in player/target Castbar. Currently works only when Castbar is attached on EmptyBars.
 *Prevent a castbar lua error.
