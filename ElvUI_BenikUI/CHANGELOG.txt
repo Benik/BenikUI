@@ -2,6 +2,7 @@
 *Major changes for ElvUI 9.0. BenikUI settings are reset, so the install routine will pop on load
 *EmptyBars removed, they are now an ElvUI feature (Information Panels)
 *Attach castbar on EmptyBars is now also an ElvUI feature
+*ElvUI_BenikUI_Fonts addon removed.
 *Removed the PowerBar Texture option.
 *Revamped BenikUI options.
 *Added Game Menu button.
