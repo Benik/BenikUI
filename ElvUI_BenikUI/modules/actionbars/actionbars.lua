@@ -1,6 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local AB = E:GetModule('ActionBars');
 local BAB = E:NewModule('BuiActionbars', 'AceEvent-3.0');
+local BUI = E:GetModule('BenikUI');
 
 if E.private.actionbar.enable ~= true then return; end
 
