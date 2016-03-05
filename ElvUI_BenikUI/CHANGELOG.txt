@@ -1,3 +1,6 @@
+[b]2.51[/b]
+*Fixed an error with Actionbar style coloring
+
 [b]2.5[/b]
 *Major changes for ElvUI 9.0. BenikUI settings are reset, so the install routine will pop on load
 *EmptyBars removed, they are now an ElvUI feature (Information Panels)
