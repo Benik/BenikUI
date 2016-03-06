@@ -338,7 +338,7 @@ local function dashboardsTable()
 				order = 5,
 				type = 'group',
 				name = TOKENS,
-				childGroups = 'tab',
+				childGroups = 'select',
 				args = {
 					name = {
 						order = 1,
@@ -408,36 +408,41 @@ local function dashboardsTable()
 						get = function(info) return E.db.dashboards.tokens.flash end,
 						set = function(info, value) E.db.dashboards.tokens.flash = value; BUIT:UpdateTokens(); end,					
 					},
-					dTokens = {
+					spacer = {
 						order = 9,
+						type = 'description',
+						name = "\n\n",
+					},					
+					dTokens = {
+						order = 10,
 						type = 'group',
 						name = format('%s & %s', CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID),
 						args = {
 						},
 					},
 					pTokens = {
-						order = 10,
+						order = 11,
 						type = 'group',
 						name = format('%s', PLAYER_V_PLAYER),
 						args = {
 						},
 					},
 					sTokens = {
-						order = 11,
+						order = 12,
 						type = 'group',
 						name = format('%s', (SECONDARY_SKILLS:gsub(':', ''))),
 						args = {
 						},
 					},
 					mTokens = {
-						order = 12,
+						order = 13,
 						type = 'group',
 						name = format('%s', MISCELLANEOUS),
 						args = {
 						},
 					},
 					aTokens = {
-						order = 13,
+						order = 14,
 						type = 'group',
 						name = format('%s', PROFESSIONS_ARCHAEOLOGY),
 						args = {
