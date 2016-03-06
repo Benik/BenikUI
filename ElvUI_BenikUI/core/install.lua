@@ -394,6 +394,7 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = false
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
 		E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = false
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["yOffset"] = -16
 
 		-- Auras
 		E.db["auras"]["timeXOffset"] = -1
@@ -447,7 +448,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "spaced"
 		E.db["unitframe"]["units"]["player"]["width"] = 300
-		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 4
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = '[healthcolor][health:current-percent]'
 		E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = 'InfoPanel'
@@ -492,7 +493,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 32
 		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 2
 		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = '[healthcolor][health:current-percent]'
-		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["health"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["target"]["height"] = 53
@@ -510,7 +511,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
 		E.db["unitframe"]["units"]["target"]["power"]["text_format"] = "[powercolor][power:current-percent]"
 		E.db["unitframe"]["units"]["target"]["power"]["width"] = 'fill'
-		E.db["unitframe"]["units"]["target"]["power"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["target"]["power"]["xOffset"] = 4
 		E.db["unitframe"]["units"]["target"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["power"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["target"]["power"]["attachTextTo"] = 'InfoPanel'
@@ -689,6 +690,7 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["portraitStyleHeight"] = 5
 		E.db["benikui"]["unitframes"]["target"]["portraitWidth"] = 110
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["yOffset"] = -18
 
 		-- Auras
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
@@ -836,7 +838,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
 		E.db["unitframe"]["units"]["target"]["power"]["text_format"] = "[powercolor][power:current-percent]"
-		E.db["unitframe"]["units"]["target"]["power"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["target"]["power"]["xOffset"] = 4
 		E.db["unitframe"]["units"]["target"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
