@@ -67,17 +67,25 @@ local function UpdateMemory()
 end
 
 local int = 10
+local zygor = IsAddOnLoaded('ZygorGuidesViewer')
 
 local function Update( self, t )
 	local boardName = Memory
 	int = int - t
-
+	
 	if( int < 0 ) then
-		RebuildAddonList(self)
-		local total = UpdateMemory()
-		boardName.Text:SetFormattedText("%s", (L['Memory: ']..formatMem(total)))
-		boardName.Status:SetMinMaxValues( 0, 100000 )
-		boardName.Status:SetValue( total )
+		local inInstance = IsInInstance()
+		if (zygor ~= nil and inInstance) then
+			boardName.Text:SetFormattedText("%s|cffffa700%s|r", L['Memory: '], L['Disabled'])
+			boardName.Status:SetMinMaxValues( 0, 100000 )
+			boardName.Status:SetValue( 0 )
+		else
+			RebuildAddonList(self)
+			local total = UpdateMemory()
+			boardName.Text:SetFormattedText("%s", (L['Memory: ']..formatMem(total)))
+			boardName.Status:SetMinMaxValues( 0, 100000 )
+			boardName.Status:SetValue( total )
+		end
 		int = 10
 	end
 end
@@ -91,20 +99,28 @@ function BUID:CreateMemory()
 
 	boardName:SetScript( 'OnEnter', function( self )
 		if( not InCombatLockdown() ) then
+			
 			GameTooltip:SetOwner( boardName, 'ANCHOR_RIGHT', 5, 0 )
 			GameTooltip:ClearLines()
-
-			local totalMemory = UpdateMemory()
-			local red, green
-			for i = 1, #memoryTable do
-				if( memoryTable[i][4] ) then
-					red = memoryTable[i][3] / totalMemory
-					green = 1 - red
-					GameTooltip:AddDoubleLine( memoryTable[i][2], formatMem( memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0 )
+			
+			local inInstance = IsInInstance()
+			
+			if (zygor ~= nil and inInstance) then
+				GameTooltip:AddLine(L['Framerate drop has been reported with Zygor Guides\nand the Memory module while in an instance.\nMemory module updates have been temporarily disabled.'], selectioncolor)
+			else
+				local totalMemory = UpdateMemory()
+				local red, green
+				for i = 1, #memoryTable do
+					if( memoryTable[i][4] ) then
+						red = memoryTable[i][3] / totalMemory
+						green = 1 - red
+						GameTooltip:AddDoubleLine( memoryTable[i][2], formatMem( memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0 )
+					end
 				end
+				GameTooltip:AddLine(' ')
+				GameTooltip:AddLine(L['Tip: Click to free memory'], 0.7, 0.7, 1)
 			end
-			GameTooltip:AddLine(' ')
-			GameTooltip:AddLine(L['Tip: Click to free memory'], 0.7, 0.7, 1)
+
 			GameTooltip:Show()
 		end
 	end )
