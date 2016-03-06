@@ -107,6 +107,7 @@ L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
 L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
 L['Enable/Disable '] = "Aktivieren/Deaktivieren"
 L['Flash on updates'] = "Beim Updaten blinken"
+L['Framerate drop has been reported with Zygor Guides\nand the Memory module while in an instance.\nMemory module updates have been temporarily disabled.'] = true
 L['Memory: '] = "Speicher"
 L['MouseWheel :'] = "Mausrad :"
 L['RightClick :'] = "Rechtsklick :"
