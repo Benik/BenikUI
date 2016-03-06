@@ -50,7 +50,44 @@ function UFB:ArrangePlayer()
 	frame:UpdateAllElements()
 end
 
+local function ToggleResourceBar(bars)
+	local frame = bars.origParent or bars:GetParent()
+	local db = frame.db
+	if not db then return end
+	frame.CLASSBAR_SHOWN = bars:IsShown()
+	
+	local height
+	if db.classbar then
+		height = db.classbar.height
+	elseif db.combobar then
+		height = db.combobar.height
+	elseif frame.AltPowerBar then
+		height = db.power.height
+	end
+	
+	if bars.text then
+		if frame.CLASSBAR_SHOWN then
+			bars.text:SetAlpha(1)
+		else
+			bars.text:SetAlpha(0)
+		end
+	end
+	
+	frame.CLASSBAR_HEIGHT = frame.USE_CLASSBAR and frame.CLASSBAR_SHOWN and height or 0
+	frame.CLASSBAR_YOFFSET = (not frame.USE_CLASSBAR or not frame.CLASSBAR_SHOWN or frame.CLASSBAR_DETACHED) and 0 or (frame.USE_MINI_CLASSBAR and ((frame.SPACING+(frame.CLASSBAR_HEIGHT/2))) or (frame.CLASSBAR_HEIGHT - (frame.BORDER-frame.SPACING)))
+
+	if not frame.CLASSBAR_DETACHED then --Only update when necessary
+		UF:Configure_HealthBar(frame)
+		UF:Configure_Portrait(frame, true) --running :Hide on portrait makes the frame all funky
+		UFB:Configure_Portrait(frame, true)
+		UF:Configure_Threat(frame)
+	end
+end
+UF.ToggleResourceBar = ToggleResourceBar --Make available to combobar
+
 function UFB:InitPlayer()
 	self:Construct_PlayerFrame()
 	hooksecurefunc(UF, 'Update_PlayerFrame', UFB.ArrangePlayer)
+	hooksecurefunc(UF, 'EclipsePostUpdateVisibility', ToggleResourceBar)
+	hooksecurefunc(UF, 'DruidManaPostUpdateVisibility', ToggleResourceBar)
 end
