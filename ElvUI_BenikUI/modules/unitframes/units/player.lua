@@ -21,11 +21,6 @@ function UFB:Construct_PlayerFrame()
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
-	if E.myclass == "DRUID" then
-		frame.EclipseBar.PostUpdateVisibility = UF.EclipsePostUpdateVisibilityBui
-		frame.DruidAltMana.PostUpdateVisibility = UF.DruidManaPostUpdateVisibilityBui
-	end
-
 	self:ArrangePlayer()
 end
 
@@ -55,61 +50,14 @@ function UFB:ArrangePlayer()
 	frame:UpdateAllElements()
 end
 
-local function ToggleResourceBarBui(bars)
-	local frame = bars.origParent or bars:GetParent()
-	local db = frame.db
-	if not db then return end
-	frame.CLASSBAR_SHOWN = bars:IsShown()
-	
-	local height
-	if db.classbar then
-		height = db.classbar.height
-	elseif db.combobar then
-		height = db.combobar.height
-	elseif frame.AltPowerBar then
-		height = db.power.height
-	end
-	
-	if bars.text then
-		if frame.CLASSBAR_SHOWN then
-			bars.text:SetAlpha(1)
-		else
-			bars.text:SetAlpha(0)
-		end
-	end
-	
-	frame.CLASSBAR_HEIGHT = frame.USE_CLASSBAR and frame.CLASSBAR_SHOWN and height or 0
-	frame.CLASSBAR_YOFFSET = (not frame.USE_CLASSBAR or not frame.CLASSBAR_SHOWN or frame.CLASSBAR_DETACHED) and 0 or (frame.USE_MINI_CLASSBAR and ((frame.SPACING+(frame.CLASSBAR_HEIGHT/2))) or (frame.CLASSBAR_HEIGHT - (frame.BORDER-frame.SPACING)))
+-- Needed for some post updates
+hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
+	local unitframeType = frame.unitframeType
 
-	if not frame.CLASSBAR_DETACHED then --Only update when necessary
-		UF:Configure_HealthBar(frame)
-		UF:Configure_Portrait(frame, true) --running :Hide on portrait makes the frame all funky
+	if unitframeType == "player" then
 		UFB:Configure_Portrait(frame, true)
-		UF:Configure_Threat(frame)
 	end
-end
-UF.ToggleResourceBar = ToggleResourceBarBui --Make available to combobar
-
-local druidEclipseIsShown = false
-function UF:EclipsePostUpdateVisibilityBui()
-	local form = GetShapeshiftFormID()
-	local isShown = self:IsShown()
-	if druidEclipseIsShown ~= isShown then
-		druidEclipseIsShown = isShown
-
-		if (form == BEAR_FORM or form == CAT_FORM) then return; end --Don't toggle, as the EclipseBar will be replaced with DruidMana
-		ToggleResourceBarBui(self)
-	end
-end
-
-local druidManaIsShown = false
-function UF:DruidManaPostUpdateVisibilityBui()
-	local isShown = self:IsShown()
-	if druidManaIsShown ~= isShown then
-		druidManaIsShown = isShown
-		ToggleResourceBarBui(self)
-	end
-end
+end)
 
 function UFB:InitPlayer()
 	self:Construct_PlayerFrame()
