@@ -2,7 +2,7 @@
 ## Author: Benik
 ## Version: 2.52
 ## Title: |cff1784d1ElvUI|r_BenikUI
-## Notes: an ElvUI 8+ decorative/enhancement edit
+## Notes: an ElvUI 9+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia, ZygorGuidesViewer
