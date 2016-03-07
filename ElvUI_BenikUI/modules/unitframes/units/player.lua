@@ -20,7 +20,12 @@ function UFB:Construct_PlayerFrame()
 	
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
-	
+
+	if E.myclass == "DRUID" then
+		frame.EclipseBar.PostUpdateVisibility = UF.EclipsePostUpdateVisibilityBui
+		frame.DruidAltMana.PostUpdateVisibility = UF.DruidManaPostUpdateVisibilityBui
+	end
+
 	self:ArrangePlayer()
 end
 
@@ -50,7 +55,7 @@ function UFB:ArrangePlayer()
 	frame:UpdateAllElements()
 end
 
-local function ToggleResourceBar(bars)
+local function ToggleResourceBarBui(bars)
 	local frame = bars.origParent or bars:GetParent()
 	local db = frame.db
 	if not db then return end
@@ -83,11 +88,30 @@ local function ToggleResourceBar(bars)
 		UF:Configure_Threat(frame)
 	end
 end
-UF.ToggleResourceBar = ToggleResourceBar --Make available to combobar
+UF.ToggleResourceBar = ToggleResourceBarBui --Make available to combobar
+
+local druidEclipseIsShown = false
+function UF:EclipsePostUpdateVisibilityBui()
+	local form = GetShapeshiftFormID()
+	local isShown = self:IsShown()
+	if druidEclipseIsShown ~= isShown then
+		druidEclipseIsShown = isShown
+
+		if (form == BEAR_FORM or form == CAT_FORM) then return; end --Don't toggle, as the EclipseBar will be replaced with DruidMana
+		ToggleResourceBarBui(self)
+	end
+end
+
+local druidManaIsShown = false
+function UF:DruidManaPostUpdateVisibilityBui()
+	local isShown = self:IsShown()
+	if druidManaIsShown ~= isShown then
+		druidManaIsShown = isShown
+		ToggleResourceBarBui(self)
+	end
+end
 
 function UFB:InitPlayer()
 	self:Construct_PlayerFrame()
 	hooksecurefunc(UF, 'Update_PlayerFrame', UFB.ArrangePlayer)
-	hooksecurefunc(UF, 'EclipsePostUpdateVisibility', ToggleResourceBar)
-	hooksecurefunc(UF, 'DruidManaPostUpdateVisibility', ToggleResourceBar)
 end
