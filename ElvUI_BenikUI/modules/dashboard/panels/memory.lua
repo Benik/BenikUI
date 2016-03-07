@@ -63,7 +63,6 @@ local function UpdateMemory()
 		sort( memoryTable, sortByMemory )
 	end
 
-	return totalMemory
 end
 
 local int = 10
@@ -81,10 +80,10 @@ local function Update( self, t )
 			boardName.Status:SetValue( 0 )
 		else
 			RebuildAddonList(self)
-			local total = UpdateMemory()
-			boardName.Text:SetFormattedText("%s", (L['Memory: ']..formatMem(total)))
+			UpdateMemory()
+			boardName.Text:SetFormattedText("%s", (L['Memory: ']..formatMem(totalMemory)))
 			boardName.Status:SetMinMaxValues( 0, 100000 )
-			boardName.Status:SetValue( total )
+			boardName.Status:SetValue( totalMemory )
 		end
 		int = 10
 	end
@@ -93,8 +92,10 @@ end
 function BUID:CreateMemory()
 	local boardName = Memory
 	boardName:SetScript( 'OnMouseDown', function (self)
-		collectgarbage( 'collect' )
-		Update(boardName, 10)
+		if( not InCombatLockdown() ) then
+			collectgarbage( 'collect' )
+			Update(boardName, 10)
+		end
 	end )
 
 	boardName:SetScript( 'OnEnter', function( self )
@@ -108,7 +109,6 @@ function BUID:CreateMemory()
 			if (zygor ~= nil and inInstance) then
 				GameTooltip:AddLine(L['Framerate drop has been reported with Zygor Guides\nand the Memory module while in an instance.\nMemory module updates have been temporarily disabled.'], selectioncolor)
 			else
-				local totalMemory = UpdateMemory()
 				local red, green
 				for i = 1, #memoryTable do
 					if( memoryTable[i][4] ) then
