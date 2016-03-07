@@ -1,3 +1,9 @@
+[b]2.52[/b]
+*Fixed the detached portraits on druid shape shifting
+*Added Zygor Guides as optional dependency. Just to be sure for the Memory module
+*Added Zygor Guides warning on Dashboard Memory module. If the player is in an instance, memory module updates will be temporarily disabled to avoid frame rate drop due to Zygor Guides being so memory hungry. Thanks to Azilroka, Blazeflack and Kodewolf.
+*Made Dashboard Token options easier to see
+
 [b]2.51[/b]
 *Fixed an error with Actionbar style coloring
 
