@@ -94,11 +94,11 @@ hooksecurefunc(UF, 'Update_BossFrames', UFB.ChangeBossPowerBarTexture)
 
 
 function UFB:ChangePowerBarTexture()
-	self:ChangeUnitPowerBarTexture()
-	self:ChangeRaidPowerBarTexture()
-	self:ChangeRaid40PowerBarTexture()
-	self:ChangePartyPowerBarTexture()
-	self:ChangeArenaPowerBarTexture()
-	self:ChangeBossPowerBarTexture()
+	UFB:ChangeUnitPowerBarTexture()
+	UFB:ChangeRaidPowerBarTexture()
+	UFB:ChangeRaid40PowerBarTexture()
+	UFB:ChangePartyPowerBarTexture()
+	UFB:ChangeArenaPowerBarTexture()
+	UFB:ChangeBossPowerBarTexture()
 end
 hooksecurefunc(UF, 'Update_StatusBars', UFB.ChangePowerBarTexture)
