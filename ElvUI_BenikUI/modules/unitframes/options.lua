@@ -271,39 +271,10 @@ local function injectPartyOptions()
 		desc = L['Makes the portrait backdrop transparent'],
 		disabled = function() return E.db.unitframe.units.party.portrait.overlay end,
 	}
-
-	E.Options.args.unitframe.args.party.args.roleIcon.args.xOffset = {
-		type = 'range',
-		order = 7,
-		name = BUI:cOption(L["xOffset"]),
-		min = -150, max = 150, step = 1,
-	}
-
-	E.Options.args.unitframe.args.party.args.roleIcon.args.yOffset = {
-		type = 'range',
-		order = 8,
-		name = BUI:cOption(L["yOffset"]),
-		min = -150, max = 150, step = 1,
-	}
 end
 tinsert(BUI.Config, injectPartyOptions)
 
 local function injectRaidOptions()
-
-	E.Options.args.unitframe.args.raid.args.roleIcon.args.xOffset = {
-		type = 'range',
-		order = 7,
-		name = BUI:cOption(L["xOffset"]),
-		min = -50, max = 50, step = 1,
-	}
-
-	E.Options.args.unitframe.args.raid.args.roleIcon.args.yOffset = {
-		type = 'range',
-		order = 8,
-		name = BUI:cOption(L["yOffset"]),
-		min = -50, max = 50, step = 1,
-	}
-	
 	E.Options.args.unitframe.args.raid.args.general.args.classHover = {	
 		order = 7,
 		type = "toggle",
@@ -315,21 +286,6 @@ end
 tinsert(BUI.Config, injectRaidOptions)
 
 local function injectRaid40Options()
-	
-	E.Options.args.unitframe.args.raid40.args.roleIcon.args.xOffset = {
-		type = 'range',
-		order = 7,
-		name = BUI:cOption(L["xOffset"]),
-		min = -50, max = 50, step = 1,
-	}
-
-	E.Options.args.unitframe.args.raid40.args.roleIcon.args.yOffset = {
-		type = 'range',
-		order = 8,
-		name = BUI:cOption(L["yOffset"]),
-		min = -50, max = 50, step = 1,
-	}
-	
 	E.Options.args.unitframe.args.raid40.args.general.args.classHover = {	
 		order = 7,
 		type = "toggle",

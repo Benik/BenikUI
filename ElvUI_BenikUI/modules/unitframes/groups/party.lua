@@ -26,8 +26,6 @@ function UFB:Update_PartyFrames(frame, db)
 		-- Target Glow
 		UFB:Configure_TargetGlow(frame)
 
-		-- Role Icon
-		UFB:Configure_RoleIcons(frame)
 	end
 	
 	frame:UpdateAllElements()

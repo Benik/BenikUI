@@ -43,17 +43,6 @@ local function GetBattleFieldIndexFromUnitName(name)
 	return nil
 end
 
-function UFB:Configure_RoleIcons(frame)
-	local role = frame.LFDRole
-
-	if frame.db.roleIcon.enable then
-		local x, y = UF:GetPositionOffset(frame.db.roleIcon.position)
-		role:ClearAllPoints()
-		role:Point(frame.db.roleIcon.position, frame.Health, frame.db.roleIcon.position, x + frame.db.roleIcon.xOffset, y + frame.db.roleIcon.yOffset)
-		role:Size(frame.db.roleIcon.size)
-	end
-end
-
 function UF:UpdateRoleIcon()
 	local lfdrole = self.LFDRole
 	if not self.db then return; end

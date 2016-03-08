@@ -16,7 +16,7 @@ function UFB:Update_RaidFrames(frame, db)
 end
 
 function UFB:InitRaid()
-	hooksecurefunc(UF, 'Update_RaidFrames', UFB.Update_RaidFrames)
+	--hooksecurefunc(UF, 'Update_RaidFrames', UFB.Update_RaidFrames)
 end
 
 -- raid, raid40 mouseover classcolor

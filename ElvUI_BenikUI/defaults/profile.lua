@@ -4,18 +4,6 @@
 P['unitframe']['units']['party']['portrait']['height'] = 0
 P['unitframe']['units']['party']['portrait']['transparent'] = false
 
--- Add Party role icon offsets to ElvUI defaults
-P['unitframe']['units']['party']['roleIcon']['xOffset'] = 0
-P['unitframe']['units']['party']['roleIcon']['yOffset'] = 0
-
--- Add Raid role icon offsets to ElvUI defaults
-P['unitframe']['units']['raid']['roleIcon']['xOffset'] = 0
-P['unitframe']['units']['raid']['roleIcon']['yOffset'] = 0
-
--- Add Raid40 role icon offsets to ElvUI defaults
-P['unitframe']['units']['raid40']['roleIcon']['xOffset'] = 0
-P['unitframe']['units']['raid40']['roleIcon']['yOffset'] = 0
-
 -- Add raid classHover to ElvUI defaults
 P['unitframe']['units']['raid']['classHover'] = false
 
