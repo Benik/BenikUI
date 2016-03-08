@@ -121,10 +121,12 @@ P['benikui'] = {
 				['castText'] = true,
 			},
 		},
+		['powerbar'] = {
+			['statusBar'] = 'BuiFlat',
+		},
 		['misc'] = {
 			['svui'] = true,
 		},
-	
 	},
 	
 	-- db
