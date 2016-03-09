@@ -523,10 +523,10 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxDuration"] = 120
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
-		--E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
-		--E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
-		--E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 160
-		--E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = false
+		E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
+		E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
+		E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 160
+		E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = false
 		
 		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
 		if E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"] then E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"] = nil end
@@ -903,10 +903,10 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
 		E.db["unitframe"]["units"]["target"]["width"] = 240
 		E.db["unitframe"]["units"]["target"]["threatStyle"] = 'GLOW'
-		--E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
-		--E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
-		--E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 160
-		--E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = false
+		E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
+		E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
+		E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 160
+		E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = false
 
 		-- pet
 		E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = false
