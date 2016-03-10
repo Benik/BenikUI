@@ -1,3 +1,9 @@
+[b]2.53[/b]
+*Changing unit Power bar texture option is back. Now it also applies on group frames
+*Removed the role icon x, y offset options. Part of ElvUI now
+*Fixed LibElv-GameMenu graphics glitch when GameMenu button was disabled
+*Install fixes due to the new ElvUI text anchoring
+
 [b]2.52[/b]
 *Fixed the detached portraits on druid shape shifting
 *Added Zygor Guides as optional dependency. Just to be sure for the Memory module
