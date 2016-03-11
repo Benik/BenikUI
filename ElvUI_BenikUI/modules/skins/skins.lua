@@ -16,6 +16,7 @@ local FreeBlizzFrames = {
 	AudioOptionsFrame,
 	BNToastFrame,
 	ChatConfigFrame,
+	ChatMenu,
 	ClassTrainerFrame,
 	ColorPickerFrame,
 	ConsolidatedBuffsTooltip,
@@ -25,6 +26,7 @@ local FreeBlizzFrames = {
 	ElvUI_StaticPopup1,
 	ElvUI_StaticPopup2,
 	ElvUI_StaticPopup3,
+	EmoteMenu,
 	FloatingBattlePetTooltip,
 	FriendsFrame,
 	GameMenuFrame,
@@ -34,6 +36,7 @@ local FreeBlizzFrames = {
 	InterfaceOptionsFrame,
 	ItemRefTooltip,
 	ItemTextFrame,
+	LanguageMenu,
 	LFGDungeonReadyPopup,
 	LFGDungeonReadyDialog,
 	LFGDungeonReadyStatus,
@@ -72,6 +75,7 @@ local FreeBlizzFrames = {
 	TokenFramePopup,
 	TradeFrame,
 	VideoOptionsFrame,
+	VoiceMacroMenu,
 	WorldStateScoreFrame,
 }
 
