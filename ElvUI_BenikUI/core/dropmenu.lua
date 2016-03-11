@@ -35,7 +35,7 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 
 -- added parent, removed the mouse x,y and set menu frame position to any parent corners.
 -- Also added delay to autohide
-function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay)
+function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSize)
 	if not frame.buttons then
 		frame.buttons = {}
 		frame:SetParent(parent)
@@ -73,7 +73,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay)
 
 		frame.buttons[i]:Show()
 		frame.buttons[i]:SetHeight(BUTTON_HEIGHT)
-		frame.buttons[i]:SetWidth(BUTTON_WIDTH)
+		frame.buttons[i]:SetWidth(BUTTON_WIDTH + (addedSize or 0))
 		frame.buttons[i].text:SetText(list[i].text)
 		if E.db.benikui.colors.gameMenuColor == 1 then
 			frame.buttons[i].text:SetTextColor(classColor.r, classColor.g, classColor.b)
@@ -105,7 +105,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay)
 	end)
 	
 	frame:SetHeight((#list * BUTTON_HEIGHT) + PADDING * 2)
-	frame:SetWidth(BUTTON_WIDTH + PADDING * 2)
+	frame:SetWidth(BUTTON_WIDTH + PADDING * 2 + (addedSize or 0))
 	frame:Style('Outside')
 	frame:ClearAllPoints()
 	if pos == 'tLeft' then
