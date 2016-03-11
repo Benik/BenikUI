@@ -205,6 +205,7 @@ local function Core()
 						values = {
 							[1] = CLASS_COLORS,
 							[2] = CUSTOM,
+							[3] = L["Value Color"],
 						},
 						get = function(info) return E.db.benikui.colors[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; end,
@@ -213,7 +214,7 @@ local function Core()
 						order = 8,
 						type = "color",
 						name = COLOR_PICKER,
-						disabled = function() return E.db.benikui.colors.gameMenuColor == 1 end,
+						disabled = function() return E.db.benikui.colors.gameMenuColor == 1 or E.db.benikui.colors.gameMenuColor == 3 end,
 						get = function(info)
 							local t = E.db.benikui.colors[ info[#info] ]
 							local d = P.benikui.colors[info[#info]]
