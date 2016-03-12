@@ -120,109 +120,137 @@ local function Core()
 				name = COLORS,
 				guiInline = true,
 				args = {
-					colorTheme = {
-						order = 2,
-						type = 'select',
+					themes = {
+						order = 1,
+						type = 'group',
 						name = L['Color Themes'],
-						values = {
-							['Elv'] = L['ElvUI'],
-							['Diablo'] = L['Diablo'],
-							['Hearthstone'] = L['Hearthstone'],
-							['Mists'] = L['Mists'],
+						args = {
+							colorTheme = {
+								order = 1,
+								type = 'select',
+								name = "",
+								values = {
+									['Elv'] = L['ElvUI'],
+									['Diablo'] = L['Diablo'],
+									['Hearthstone'] = L['Hearthstone'],
+									['Mists'] = L['Mists'],
+								},
+								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
+								set = function(info, color) E.db.benikui.colors[ info[#info] ] = color; BUI:BuiColorThemes(color); end,
+							},
 						},
-						get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-						set = function(info, color) E.db.benikui.colors[ info[#info] ] = color; BUI:BuiColorThemes(color); end,
 					},
-					StyleColor = {
-						order = 3,
-						type = "select",
+					style = {
+						order = 2,
+						type = 'group',
 						name = L['Style Color'],
-						values = {
-							[1] = CLASS_COLORS,
-							[2] = CUSTOM,
-							[3] = L['Value Color'],
-							[4] = DEFAULT,
+						args = {
+							StyleColor = {
+								order = 1,
+								type = "select",
+								name = "",
+								values = {
+									[1] = CLASS_COLORS,
+									[2] = CUSTOM,
+									[3] = L['Value Color'],
+									[4] = DEFAULT,
+								},
+								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+							},
+							customStyleColor = {
+								order = 2,
+								type = "color",
+								name = COLOR_PICKER,
+								disabled = function() return E.db.benikui.colors.StyleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
+								get = function(info)
+									local t = E.db.benikui.colors[ info[#info] ]
+									local d = P.benikui.colors[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+									end,
+								set = function(info, r, g, b)
+									E.db.benikui.colors[ info[#info] ] = {}
+									local t = E.db.benikui.colors[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									E:StaticPopup_Show('PRIVATE_RL'); 
+								end,
+							},
 						},
-						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
-						get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					customStyleColor = {
-						order = 4,
-						type = "color",
-						name = COLOR_PICKER,
-						disabled = function() return E.db.benikui.colors.StyleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
-						get = function(info)
-							local t = E.db.benikui.colors[ info[#info] ]
-							local d = P.benikui.colors[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
-							end,
-						set = function(info, r, g, b)
-							E.db.benikui.colors[ info[#info] ] = {}
-							local t = E.db.benikui.colors[ info[#info] ]
-							t.r, t.g, t.b, t.a = r, g, b, a
-							E:StaticPopup_Show('PRIVATE_RL'); 
-						end,
-					},
-					abStyleColor = {
-						order = 5,
-						type = "select",
+					abStyle = {
+						order = 3,
+						type = 'group',
 						name = L['ActionBar Style Color'],
-						values = {
-							[1] = CLASS_COLORS,
-							[2] = CUSTOM,
-							[3] = L['Value Color'],
-							[4] = DEFAULT,
+						args = {
+							abStyleColor = {
+								order = 1,
+								type = "select",
+								name = "",
+								values = {
+									[1] = CLASS_COLORS,
+									[2] = CUSTOM,
+									[3] = L['Value Color'],
+									[4] = DEFAULT,
+								},
+								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
+							},
+							customAbStyleColor = {
+								order = 2,
+								type = "color",
+								name = COLOR_PICKER,
+								width = "half",
+								disabled = function() return E.db.benikui.colors.abStyleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
+								get = function(info)
+									local t = E.db.benikui.colors[ info[#info] ]
+									local d = P.benikui.colors[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+									end,
+								set = function(info, r, g, b)
+									E.db.benikui.colors[ info[#info] ] = {}
+									local t = E.db.benikui.colors[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									E:GetModule('BuiActionbars'):ColorBackdrops();
+								end,
+							},
 						},
-						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
-						get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
 					},
-					customAbStyleColor = {
-						order = 6,
-						type = "color",
-						name = COLOR_PICKER,
-						width = "half",
-						disabled = function() return E.db.benikui.colors.abStyleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
-						get = function(info)
-							local t = E.db.benikui.colors[ info[#info] ]
-							local d = P.benikui.colors[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
-							end,
-						set = function(info, r, g, b)
-							E.db.benikui.colors[ info[#info] ] = {}
-							local t = E.db.benikui.colors[ info[#info] ]
-							t.r, t.g, t.b, t.a = r, g, b, a
-							E:GetModule('BuiActionbars'):ColorBackdrops();
-						end,
-					},
-					gameMenuColor = {
-						order = 7,
-						type = "select",
+					gameMenu = {
+						order = 4,
+						type = 'group',
 						name = L['Game Menu Color'],
-						values = {
-							[1] = CLASS_COLORS,
-							[2] = CUSTOM,
-							[3] = L["Value Color"],
+						args = {
+							gameMenuColor = {
+								order = 1,
+								type = "select",
+								name = "",
+								values = {
+									[1] = CLASS_COLORS,
+									[2] = CUSTOM,
+									[3] = L["Value Color"],
+								},
+								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; end,
+							},
+							customGameMenuColor = {
+								order = 2,
+								type = "color",
+								name = COLOR_PICKER,
+								disabled = function() return E.db.benikui.colors.gameMenuColor == 1 or E.db.benikui.colors.gameMenuColor == 3 end,
+								get = function(info)
+									local t = E.db.benikui.colors[ info[#info] ]
+									local d = P.benikui.colors[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+									end,
+								set = function(info, r, g, b)
+									E.db.benikui.colors[ info[#info] ] = {}
+									local t = E.db.benikui.colors[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+								end,
+							},
 						},
-						get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; end,
-					},
-					customGameMenuColor = {
-						order = 8,
-						type = "color",
-						name = COLOR_PICKER,
-						disabled = function() return E.db.benikui.colors.gameMenuColor == 1 or E.db.benikui.colors.gameMenuColor == 3 end,
-						get = function(info)
-							local t = E.db.benikui.colors[ info[#info] ]
-							local d = P.benikui.colors[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
-							end,
-						set = function(info, r, g, b)
-							E.db.benikui.colors[ info[#info] ] = {}
-							local t = E.db.benikui.colors[ info[#info] ]
-							t.r, t.g, t.b, t.a = r, g, b, a
-						end,
 					},
 				},
 			},
