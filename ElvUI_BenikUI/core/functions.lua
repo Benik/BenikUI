@@ -9,6 +9,23 @@ local SPACING = (E.PixelMode and 1 or 3)
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
+local function CreateWideShadow(f)
+	local borderr, borderg, borderb = 0, 0, 0
+	local backdropr, backdropg, backdropb = 0, 0, 0
+
+	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
+	shadow:SetFrameLevel(1)
+	shadow:SetFrameStrata(f:GetFrameStrata())
+	shadow:SetOutside(f, 6, 6)
+	shadow:SetBackdrop( { 
+		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(6),
+		insets = {left = E:Scale(8), right = E:Scale(8), top = E:Scale(8), bottom = E:Scale(8)},
+	})
+	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
+	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.5)
+	f.shadow = shadow
+end
+
 local function CreateSoftShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
@@ -98,6 +115,7 @@ end
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.CreateSoftShadow then mt.CreateSoftShadow = CreateSoftShadow end
+	if not object.CreateWideShadow then mt.CreateWideShadow = CreateWideShadow end
 	if not object.CreateSoftGlow then mt.CreateSoftGlow = CreateSoftGlow end
 	if not object.Style then mt.Style = Style end
 end
