@@ -526,7 +526,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
 		E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 160
-		E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = false
+		E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = true
 		
 		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
 		if E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"] then E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"] = nil end
@@ -906,7 +906,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
 		E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 160
-		E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = false
+		E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = true
 
 		-- pet
 		E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = false
