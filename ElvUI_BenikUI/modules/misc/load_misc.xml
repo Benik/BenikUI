@@ -5,6 +5,7 @@
 	<script file="threat.lua"/>
 	<script file="exprepbar.lua"/>
 	<script file="afk.lua"/>
+	<script file="flightMode.lua"/>
 	<script file="ilevel.lua"/>
 	<script file="options.lua"/>
 </Ui>
