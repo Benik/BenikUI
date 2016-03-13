@@ -342,7 +342,12 @@ local function Core()
 								type = 'toggle',
 								name = L['Enable'],
 								desc = L['Display the Flight Mode screen when taking flight paths'],
-								width = "full",
+							},
+							frames = {
+								order = 2,
+								type = 'toggle',
+								name = L['Hide all frames'],
+								desc = L['Enabling this will hide all frames, thus making the game menu and map buttons unusable.\nEnable this if you have if some addons still show while on Flight Mode'],
 							},
 						},
 					},

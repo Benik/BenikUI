@@ -45,6 +45,7 @@ P['benikui'] = {
 		},
 		['flightMode'] = {
 			['enable'] = true,
+			['frames'] = false,
 		},
 	},
 

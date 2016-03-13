@@ -145,7 +145,6 @@ function BFM:UpdateLocation()
 	self.FlightMode.top.location.text:SetText(displayLine)
 	self.FlightMode.top.location.text:SetTextColor(r, g, b)
 	self.FlightMode.top.location.text:Width(LOCATION_WIDTH - 30)
-	--self.FlightMode.top.location:Width(self.FlightMode.top.location.text:GetStringWidth() + 30)
 end
 
 function BFM:UpdateCoords()
@@ -182,21 +181,38 @@ function BFM:SetFlightMode(status)
 		MoveViewLeftStart(CAMERA_SPEED);
 		self.FlightMode:Show()
 		CloseAllBags()
-		E.UIParent:Hide()
+		if(E.db.benikui.misc.flightMode.frames) then
+			UIParent:Hide()
+			self.FlightMode.bottom.map:EnableMouse(false)
+			self.FlightMode.bottom.menuButton:EnableMouse(false)
+		else
+			E.UIParent:Hide()
+			-- Hide some frames
+			if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Hide() end
+			if E.private.general.minimap.enable then
+				Minimap:Hide()
+			end
+			self.FlightMode.bottom.map:EnableMouse(true)
+			self.FlightMode.bottom.menuButton:EnableMouse(true)
+		end
 		ZoneTextFrame:UnregisterAllEvents()
 		self.startTime = GetTime()
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
 		self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
-		-- Hide some frames
-		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Hide() end
-		if E.private.general.minimap.enable then
-			Minimap:Hide()
-		end
 		
 		self.inFlightMode = true
 	elseif(self.inFlightMode) then
-		E.UIParent:Show()
+		if(E.db.benikui.misc.flightMode.frames) then
+			UIParent:Show()
+		else
+			E.UIParent:Show()
+			-- Show hidden frames
+			if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Show() end
+			if E.private.general.minimap.enable then
+				Minimap:Show()
+			end
+		end
 		self.FlightMode:Hide()
 		MoveViewLeftStop();
 		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
@@ -213,11 +229,7 @@ function BFM:SetFlightMode(status)
 		self.FlightMode.message:SetAlpha(1)
 		self.FlightMode.message:Width(10)
 		self.FlightMode.message.text:SetAlpha(0)
-		-- Show hidden frames
-		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Show() end
-		if E.private.general.minimap.enable then
-			Minimap:Show()
-		end
+
 		self.inFlightMode = false
 	end
 end
