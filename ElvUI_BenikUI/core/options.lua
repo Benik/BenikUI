@@ -347,7 +347,7 @@ local function Core()
 								order = 2,
 								type = 'toggle',
 								name = L['Hide all frames'],
-								desc = L['Enabling this will hide all frames, thus making the game menu and map buttons unusable.\nEnable this if you have if some addons still show while on Flight Mode'],
+								desc = L['Enabling this will hide all frames, thus making the game menu and map buttons unusable.\nEnable this if you have addons that still show while on Flight Mode'],
 							},
 						},
 					},

@@ -24,6 +24,15 @@ L['GameMenu Button'] = true
 L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = true
 
+-- Flight mode
+L['Show an enhanced game menu'] = true
+L['Press Esc to exit Flight Mode'] = true
+L['Toggle Location and Coords'] = true
+L['Toggle World Map'] = true
+L['Display the Flight Mode screen when taking flight paths'] = true
+L['Hide all frames'] = true
+L['Enabling this will hide all frames, thus making the game menu and map buttons unusable.\nEnable this if you have addons that still show while on Flight Mode'] = true
+
 -- DataTexts
 L['BenikUI Middle DataText'] = true
 L['Hide Mail Icon'] = true
