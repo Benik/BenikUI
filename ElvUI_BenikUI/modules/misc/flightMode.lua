@@ -349,6 +349,11 @@ function BFM:Initialize()
 	self.FlightMode.bottom.menuButton.img:SetVertexColor(1, 1, 1, .7)
 	
 	self.FlightMode.bottom.menuButton:SetScript('OnEnter', function()
+		GameTooltip:SetOwner(self.FlightMode.bottom.menuButton, 'ANCHOR_RIGHT', 1, 0)
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(L['Show an enhanced game menu'], selectioncolor)
+		GameTooltip:AddLine(L['Press Esc to exit Flight Mode'], 0.7, 0.7, 1)
+		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
 			self.FlightMode.bottom.menuButton.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		elseif db.gameMenuColor == 2 then
@@ -360,6 +365,7 @@ function BFM:Initialize()
 	
 	self.FlightMode.bottom.menuButton:SetScript('OnLeave', function()
 		self.FlightMode.bottom.menuButton.img:SetVertexColor(1, 1, 1, .7)
+		GameTooltip:Hide()
 	end)
 	
 	self.FlightMode.bottom.menuButton:SetScript('OnClick', function()
