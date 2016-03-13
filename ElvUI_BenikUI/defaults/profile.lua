@@ -43,6 +43,9 @@ P['benikui'] = {
 			['colorStyle'] = 'RARITY',
 			['color'] = {r = 1, g = 1, b = 0},
 		},
+		['flightMode'] = {
+			['enable'] = true,
+		},
 	},
 
 	['datatexts'] = {

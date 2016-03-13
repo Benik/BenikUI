@@ -330,6 +330,22 @@ local function Core()
 							},
 						},
 					},
+					flightMode = {
+						order = 2,
+						type = 'group',
+						name = L['Flight Mode'],
+						get = function(info) return E.db.benikui.misc.flightMode[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.misc.flightMode[ info[#info] ] = value; E:GetModule('BUIFlightMode'):Toggle() end,
+						args = {
+							enable = {
+								order = 1,
+								type = 'toggle',
+								name = L['Enable'],
+								desc = L['Display the Flight Mode screen when taking flight paths'],
+								width = "full",
+							},
+						},
+					},
 				},
 			},
 			info = {

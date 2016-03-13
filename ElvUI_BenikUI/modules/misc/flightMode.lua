@@ -231,13 +231,13 @@ function BFM:OnEvent(...)
 end
 
 function BFM:Toggle()
-	--if(E.db.general.afk) then
+	if(E.db.benikui.misc.flightMode.enable) then
 		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
-	--[[else
+	else
 		self:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
 		self:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
-	end]]
+	end
 end
 
 function BFM:Initialize()
@@ -264,12 +264,9 @@ function BFM:Initialize()
 	self.FlightMode.top.location:SetFrameLevel(1)
 	self.FlightMode.top.location:SetTemplate('Transparent')
 	self.FlightMode.top.location:CreateWideShadow()
-	--self.FlightMode.top:ClearAllPoints() -- needed for anims
 	self.FlightMode.top.location:Point("TOP", self.FlightMode.top, "BOTTOM", 0, (E.PixelMode and -8 or -10))
 	self.FlightMode.top.location:Width(LOCATION_WIDTH)
-	--self.FlightMode.top:Width(GetScreenWidth() + (E.Border*2))
 	self.FlightMode.top.location:Height(50)
-	--self.FlightMode.top:Style('Under')
 	
 	self.FlightMode.top.location.text = self.FlightMode.top.location:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.top.location.text:FontTemplate(nil, 18)
@@ -308,7 +305,6 @@ function BFM:Initialize()
 	self.FlightMode.bottom:Point("BOTTOM", self.FlightMode, "BOTTOM", 0, -E.Border)
 	self.FlightMode.bottom:Width(GetScreenWidth() + (E.Border*2))
 	self.FlightMode.bottom:Height(52)
-	--self.FlightMode.bottom:Style('Outside')
 
 	-- BenikUI logo
 	self.FlightMode.bottom.logo = self.FlightMode:CreateTexture(nil, 'OVERLAY')
