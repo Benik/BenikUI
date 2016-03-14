@@ -25,13 +25,13 @@ L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = "Zeigt das Itemlevel pro Slot, im Spielerfenster"
 
 -- Flight mode
-L['Show an enhanced game menu'] = true
-L['Press Esc to exit Flight Mode'] = true
-L['Toggle Location and Coords'] = true
-L['Toggle World Map'] = true
-L['Display the Flight Mode screen when taking flight paths'] = true
-L['Hide all frames'] = true
-L['Enabling this will hide all frames, thus making the game menu and map buttons unusable.\nEnable this if you have addons that still show while on Flight Mode'] = true
+L['Show an enhanced game menu'] = "Zeigt ein erweitertes Spielmenu"
+L['Press Esc to exit Flight Mode'] = "Drücke Esc um den Flugmodus zu beenden"
+L['Toggle Location and Coords'] = "Schalte Umgebungstext und Koordinaten um"
+L['Toggle World Map'] = "Schalte Weltkarte um"
+L['Display the Flight Mode screen when taking flight paths'] = "Zeige den Flugmodus wenn du eine Flugroute benutzt"
+L['Hide all frames'] = "Verstecke alle Fenster"
+L['Enabling this will hide all frames, thus making the game menu and map buttons unusable.\nEnable this if you have addons that still show while on Flight Mode'] = "Wenn du dies aktivierst, werden alle Fenster ausgeblendet. Dieses bewirkt dass das Spielmenu und die Weltkartentaste unbrauchbar sind.\nAktiviere dies, wenn du andere Addons hast die während des Flugmodus angezeigt werden."
 
 -- DataTexts
 L['BenikUI Middle DataText'] = "BenikUI mittlerer Infotext"
