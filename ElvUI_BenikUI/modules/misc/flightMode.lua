@@ -3,9 +3,31 @@ local BUI = E:GetModule('BenikUI');
 local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
 local CH = E:GetModule("Chat")
 
+local _G = _G
+local GetTime = GetTime
+local tostring, tonumber, pcall = tostring, tonumber, pcall
+local floor = floor
+local format, strsub = string.format, string.sub
+
+local AFKString = _G["AFK"]
+local GameTooltip = _G["GameTooltip"]
+local WorldMapFrame = _G["WorldMapFrame"]
+local C_TimerAfter = C_Timer.After
 local CreateFrame = CreateFrame
 local UnitOnTaxi = UnitOnTaxi
+local MoveViewLeftStart, MoveViewLeftStop = MoveViewLeftStart, MoveViewLeftStop
+
+local GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
+local Chat_GetChatCategory = Chat_GetChatCategory
+local ChatFrame_GetMobileEmbeddedTexture = ChatFrame_GetMobileEmbeddedTexture
+local ChatHistory_GetAccessID = ChatHistory_GetAccessID
+local IsShiftKeyDown = IsShiftKeyDown
+local GetScreenWidth = GetScreenWidth
+local ToggleFrame, UIFrameFadeIn, UIFrameFadeOut, PlaySound = ToggleFrame, UIFrameFadeIn, UIFrameFadeOut, PlaySound
+local TAXI_CANCEL_DESCRIPTION, UNKNOWN, DND = TAXI_CANCEL_DESCRIPTION, UNKNOWN, DND
+
+-- GLOBALS: UIParent, PVEFrame, FlightModeLocation, ChatTypeInfo
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
@@ -15,7 +37,6 @@ local SPACING = (E.PixelMode and 1 or 3)
 local LOCATION_WIDTH = 400
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local CAMERA_SPEED = 0.035
-local AFKString = _G["AFK"]
 
 local printKeys = {
 	["PRINTSCREEN"] = true,
@@ -527,10 +548,10 @@ function BFM:Initialize()
 		self.FlightMode.message:Show()
 		self.FlightMode.message.anim.sizing:SetChange(self.FlightMode.message.text:GetStringWidth() + 24)
 		self.FlightMode.message.anim:Play()
-		C_Timer.After(.5, function()
+		C_TimerAfter(.5, function()
 			UIFrameFadeIn(self.FlightMode.message.text, 1, 0, 1)
 		end)
-		C_Timer.After(8, function()
+		C_TimerAfter(8, function()
 			UIFrameFadeOut(self.FlightMode.message, 1, 1, 0)
 		end)
 	end)
