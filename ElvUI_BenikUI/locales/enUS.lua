@@ -30,8 +30,7 @@ L['Press Esc to exit Flight Mode'] = true
 L['Toggle Location and Coords'] = true
 L['Toggle World Map'] = true
 L['Display the Flight Mode screen when taking flight paths'] = true
-L['Hide all frames'] = true
-L['Enabling this will hide all frames, thus making the game menu and map buttons unusable.\nEnable this if you have addons that still show while on Flight Mode'] = true
+L['Toggle Bags'] = true
 
 -- DataTexts
 L['BenikUI Middle DataText'] = true
