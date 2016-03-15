@@ -119,9 +119,6 @@ local function SetupBuiLayout()
 	E.db["nameplate"]["buffs"]["font"] = "Bui Visitor1"
 	E.db["nameplate"]["buffs"]["fontSize"] = 7
 	E.db["nameplate"]["buffs"]["fontOutline"] = 'MONOCHROMEOUTLINE'
-	
-	-- movers
-	--if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["BNETMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-182"
@@ -268,27 +265,32 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar1"]["buttons"] = 12
 		E.db["actionbar"]["bar1"]["buttonsize"] = 30
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
 		E.db["actionbar"]["bar2"]["enabled"] = true
 		E.db["actionbar"]["bar2"]["backdrop"] = true
 		E.db["actionbar"]["bar2"]["buttons"] = 12
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar2"]["heightMult"] = 2
 		E.db["actionbar"]["bar2"]["buttonsize"] = 30
+		E.db["actionbar"]["bar2"]["backdropSpacing"] = 4
 		E.db["actionbar"]["bar3"]["backdrop"] = true
 		E.db["actionbar"]["bar3"]["buttons"] = 10
 		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 5
 		E.db["actionbar"]["bar3"]["buttonsize"] = 30
 		E.db["actionbar"]["bar3"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar3"]["backdropSpacing"] = 4
 		E.db["actionbar"]["bar4"]["backdrop"] = true
 		E.db["actionbar"]["bar4"]["buttons"] = 12
 		E.db["actionbar"]["bar4"]["buttonsize"] = 26
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
+		E.db["actionbar"]["bar4"]["backdropSpacing"] = 4
 		E.db["actionbar"]["bar5"]["backdrop"] = true
 		E.db["actionbar"]["bar5"]["buttons"] = 10
 		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 5
 		E.db["actionbar"]["bar5"]["buttonsize"] = 30
 		E.db["actionbar"]["bar5"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar5"]["backdropSpacing"] = 4
 		E.db["actionbar"]["barPet"]["backdrop"] = false
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["barPet"]["buttonsize"] = 22
@@ -297,7 +299,6 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["backdrop"] = false
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24	
 		E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
-		
 
 		E:GetModule('BuiLayout'):MiddleDatatextDimensions()
 		E:GetModule('BuiLayout'):MiddleDatatextLayout()
@@ -305,8 +306,8 @@ local function SetupActionbars(layout)
 		-- movers
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,92"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,58"
-		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,295,58"
-		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-295,58"
+		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,296,58"
+		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-296,58"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,22"
 		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,136"
 		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
@@ -326,27 +327,32 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar1"]["buttons"] = 12
 		E.db["actionbar"]["bar1"]["buttonsize"] = 30
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
 		E.db["actionbar"]["bar2"]["buttons"] = 12
 		E.db["actionbar"]["bar2"]["backdrop"] = true
 		E.db["actionbar"]["bar2"]["buttonsize"] = 30
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar2"]["enabled"] = true
 		E.db["actionbar"]["bar2"]["heightMult"] = 2
+		E.db["actionbar"]["bar2"]["backdropSpacing"] = 3
 		E.db["actionbar"]["bar3"]["backdrop"] = false
 		E.db["actionbar"]["bar3"]["buttons"] = 5
 		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 5
 		E.db["actionbar"]["bar3"]["buttonsize"] = 19
 		E.db["actionbar"]["bar3"]["buttonspacing"] = 1
+		E.db["actionbar"]["bar3"]["backdropSpacing"] = 1
 		E.db["actionbar"]["bar4"]["backdrop"] = true
 		E.db["actionbar"]["bar4"]["buttons"] = 12
 		E.db["actionbar"]["bar4"]["buttonsize"] = 26
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
+		E.db["actionbar"]["bar5"]["backdropSpacing"] = 4
 		E.db["actionbar"]["bar5"]["backdrop"] = false
 		E.db["actionbar"]["bar5"]["buttons"] = 5
 		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 5
 		E.db["actionbar"]["bar5"]["buttonsize"] = 19
 		E.db["actionbar"]["bar5"]["buttonspacing"] = 1
+		E.db["actionbar"]["bar5"]["backdropSpacing"] = 1
 
 		E.db["actionbar"]["barPet"]["buttonspacing"] = 4
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
