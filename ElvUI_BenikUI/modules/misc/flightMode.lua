@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
-local CH = E:GetModule("Chat")
+local B = E:GetModule("Bags")
 
 local GetTime = GetTime
 local tostring, tonumber, pcall = tostring, tonumber, pcall
@@ -174,6 +174,8 @@ function BFM:UpdateTimer()
 	self.FlightMode.bottom.timeFlying:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
 end
 
+local bagYoffset = E.db.bags.yOffset
+
 function BFM:SetFlightMode(status)
 	if(status) then
 		MoveViewLeftStart(CAMERA_SPEED);
@@ -188,7 +190,12 @@ function BFM:SetFlightMode(status)
 		self.FlightMode.bottom.menuButton:EnableMouse(true)
 		
 		-- Bags
-		if ElvUI_ContainerFrame then ElvUI_ContainerFrame:SetParent(self.FlightMode) end
+		if ElvUI_ContainerFrame then
+			E.db.bags.yOffset = 30
+			B:PositionBagFrames()
+			ElvUI_ContainerFrame:SetParent(self.FlightMode)
+			ElvUI_ContainerFrame.shadow:Show()
+		end
 		
 		-- Disable Blizz location messsages
 		ZoneTextFrame:UnregisterAllEvents()
@@ -226,7 +233,12 @@ function BFM:SetFlightMode(status)
 		self.FlightMode.message:Width(10)
 		self.FlightMode.message.text:SetAlpha(0)
 		-- Revert Bags
-		if ElvUI_ContainerFrame then ElvUI_ContainerFrame:SetParent(E.UIParent) end
+		if ElvUI_ContainerFrame then
+			E.db.bags.yOffset = bagYoffset
+			B:PositionBagFrames()
+			ElvUI_ContainerFrame:SetParent(E.UIParent)
+			ElvUI_ContainerFrame.shadow:Hide()
+		end
 
 		self.inFlightMode = false
 	end
@@ -539,6 +551,12 @@ function BFM:Initialize()
 	self.FlightMode.bottom.timeFlying:SetText("00:00")
 	self.FlightMode.bottom.timeFlying:Point("RIGHT", self.FlightMode.bottom, "RIGHT", -10, 0)
 	self.FlightMode.bottom.timeFlying:SetTextColor(1, 1, 1)
+	
+	-- Add Shadow at the bags
+	if ElvUI_ContainerFrame then
+		ElvUI_ContainerFrame:CreateWideShadow()
+		ElvUI_ContainerFrame.shadow:Hide()
+	end
 
 	self:Toggle()
 end
