@@ -38,14 +38,6 @@ local LOCATION_WIDTH = 400
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local CAMERA_SPEED = 0.035
 
-local printKeys = {
-	["PRINTSCREEN"] = true,
-}
-
-if IsMacClient() then
-	printKeys[_G["KEY_PRINTSCREEN_MAC"]] = true
-end
-
 local menuList = {
 	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
 	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
@@ -110,6 +102,7 @@ local menuList = {
 	end},
 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
 	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end},
+	{text = EXIT, func = function() BFM:SetFlightMode(false) end},
 }
 
 local function AutoColoring()
@@ -130,80 +123,6 @@ local function AutoColoring()
 	else
 		return 1, 1, 0
 	end
-end
-
-local function OnKeyDown(self, key)
-	if key == "ESCAPE" then
-		BFM:SetFlightMode(false)
-	elseif printKeys[key] then
-		Screenshot()
-	end
-end
-
-local function Chat_OnMouseWheel(self, delta)
-	if(delta == 1 and IsShiftKeyDown()) then
-		self:ScrollToTop()
-	elseif(delta == -1 and IsShiftKeyDown()) then
-		self:ScrollToBottom()
-	elseif(delta == -1) then
-		self:ScrollDown()
-	else
-		self:ScrollUp()
-	end
-end
-
-local function Chat_OnEvent(self, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
-	local coloredName = GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
-	local type = strsub(event, 10);
-	local info = ChatTypeInfo[type];
-
-	if(event == "CHAT_MSG_BN_WHISPER" or event == "CHAT_MSG_BN_CONVERSATION") then
-		coloredName = CH:GetBNFriendColor(arg2, arg13)
-	end
-
-	arg1 = RemoveExtraSpaces(arg1);
-
-	local chatGroup = Chat_GetChatCategory(type);
-	local chatTarget, body;
-	if ( chatGroup == "BN_CONVERSATION" ) then
-		chatTarget = tostring(arg8);
-	elseif ( chatGroup == "WHISPER" or chatGroup == "BN_WHISPER" ) then
-		if(not(strsub(arg2, 1, 2) == "|K")) then
-			chatTarget = arg2:upper()
-		else
-			chatTarget = arg2;
-		end
-	end
-
-	local playerLink
-	if ( type ~= "BN_WHISPER" and type ~= "BN_CONVERSATION" ) then
-		playerLink = "|Hplayer:"..arg2..":"..arg11..":"..chatGroup..(chatTarget and ":"..chatTarget or "").."|h";
-	else
-		playerLink = "|HBNplayer:"..arg2..":"..arg13..":"..arg11..":"..chatGroup..(chatTarget and ":"..chatTarget or "").."|h";
-	end
-
-	local message = arg1;
-	if ( arg14 ) then	--isMobile
-		message = ChatFrame_GetMobileEmbeddedTexture(info.r, info.g, info.b)..message;
-	end
-
-	local success
-	success, body = pcall(format, _G["CHAT_"..type.."_GET"]..message, playerLink.."["..coloredName.."]".."|h");
-	if not success then
-		E:Print("An error happened in the AFK Chat module. Please screenshot this message and report it. Info:", type, message, _G["CHAT_"..type.."_GET"])
-	end
-
-	local accessID = ChatHistory_GetAccessID(chatGroup, chatTarget);
-	local typeID = ChatHistory_GetAccessID(type, chatTarget, arg12 == "" and arg13 or arg12);
-	if CH.db.shortChannels then
-		body = body:gsub("|Hchannel:(.-)|h%[(.-)%]|h", CH.ShortChannel)
-		body = body:gsub("^(.-|h) "..L["whispers"], "%1")
-		body = body:gsub("<"..AFKString..">", "[|cffFF0000"..L["AFK"].."|r] ")
-		body = body:gsub("<"..DND..">", "[|cffE7E716"..L["DND"].."|r] ")
-		body = body:gsub("%[BN_CONVERSATION:", '%['.."")
-	end
-
-	self:AddMessage(CH:ConcatenateTimeStamp(body), info.r, info.g, info.b, info.id, false, accessID, typeID);
 end
 
 function BFM:CreateCoords()
@@ -265,84 +184,61 @@ function BFM:SetFlightMode(status)
 	if(status) then
 		MoveViewLeftStart(CAMERA_SPEED);
 		self.FlightMode:Show()
-		CloseAllBags()
-		if(E.db.benikui.misc.flightMode.frames) then
-			UIParent:Hide()
-			self.FlightMode.bottom.map:EnableMouse(false)
-			self.FlightMode.bottom.menuButton:EnableMouse(false)
-		else
-			E.UIParent:Hide()
-			-- Hide some frames
-			if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Hide() end
-			if E.private.general.minimap.enable then
-				Minimap:Hide()
-			end
-			self.FlightMode.bottom.map:EnableMouse(true)
-			self.FlightMode.bottom.menuButton:EnableMouse(true)
+		E.UIParent:Hide()
+		-- Hide some frames
+		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Hide() end
+		if E.private.general.minimap.enable then
+			Minimap:Hide()
 		end
+		self.FlightMode.bottom.map:EnableMouse(true)
+		self.FlightMode.bottom.menuButton:EnableMouse(true)
+		
+		-- Bags
+		if ElvUI_ContainerFrame then ElvUI_ContainerFrame:SetParent(self.FlightMode) end
+		
+		-- Disable Blizz location messsages
 		ZoneTextFrame:UnregisterAllEvents()
+		
 		self.startTime = GetTime()
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
 		self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
 		
-		self.FlightMode.chat:RegisterEvent("CHAT_MSG_WHISPER")
-		self.FlightMode.chat:RegisterEvent("CHAT_MSG_BN_WHISPER")
-		self.FlightMode.chat:RegisterEvent("CHAT_MSG_BN_CONVERSATION")
-		self.FlightMode.chat:RegisterEvent("CHAT_MSG_GUILD")		
-		
 		self.inFlightMode = true
 	elseif(self.inFlightMode) then
-		if(E.db.benikui.misc.flightMode.frames) then
-			UIParent:Show()
-		else
-			E.UIParent:Show()
-			-- Show hidden frames
-			if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Show() end
-			if E.private.general.minimap.enable then
-				Minimap:Show()
-			end
+		E.UIParent:Show()
+		-- Show hidden frames
+		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Show() end
+		if E.private.general.minimap.enable then
+			Minimap:Show()
 		end
 		self.FlightMode:Hide()
 		MoveViewLeftStop();
+		
+		-- Enable Blizz location messsages
 		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
 		ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
+		
 		self:CancelTimer(self.locationTimer)
 		self:CancelTimer(self.coordsTimer)
 		self:CancelTimer(self.timer)
-		self.FlightMode.bottom.timeFlying:SetText("00:00")
 
+		self.FlightMode.bottom.timeFlying:SetText("00:00")
 		self.FlightMode.bottom.requestStop:EnableMouse(true)
 		self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
 		self.FlightMode.message:Hide()
 		self.FlightMode.message:SetAlpha(1)
 		self.FlightMode.message:Width(10)
 		self.FlightMode.message.text:SetAlpha(0)
-		
-		self.FlightMode.chat:UnregisterAllEvents()
-		self.FlightMode.chat:Clear()
-		if(PVEFrame:IsShown()) then --odd bug, frame is blank
-			PVEFrame_ToggleFrame()
-			PVEFrame_ToggleFrame()
-		end
+		-- Revert Bags
+		if ElvUI_ContainerFrame then ElvUI_ContainerFrame:SetParent(E.UIParent) end
 
 		self.inFlightMode = false
 	end
 end
 
-function BFM:OnEvent(event, ...)
-	if E.db.benikui.misc.flightMode.frames and (event == "LFG_PROPOSAL_SHOW" or event == "UPDATE_BATTLEFIELD_STATUS") then
-		if(event == "UPDATE_BATTLEFIELD_STATUS") then
-			local status = GetBattlefieldStatus(...);
-			if ( status == "confirm" ) then
-				self:SetFlightMode(false)
-			end
-		else
-			self:SetFlightMode(false)
-		end
-	end
-
+function BFM:OnEvent(...)
 	if (UnitOnTaxi("player")) then
 		self:SetFlightMode(true)
 	else
@@ -354,37 +250,18 @@ function BFM:Toggle()
 	if(E.db.benikui.misc.flightMode.enable) then
 		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
-		self:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
-		self:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
 	else
 		self:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
 		self:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
-		self:UnregisterEvent("LFG_PROPOSAL_SHOW")
-		self:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
 	end
 end
 
 function BFM:Initialize()
 	local db = E.db.benikui.colors
-	self.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame")
+	self.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", UIParent)
 	self.FlightMode:SetFrameLevel(1)
-	self.FlightMode:SetScale(UIParent:GetScale())
 	self.FlightMode:SetAllPoints(UIParent)
 	self.FlightMode:Hide()
-	self.FlightMode:EnableKeyboard(true)
-	self.FlightMode:SetScript("OnKeyDown", OnKeyDown)
-	
-	-- Chat frame
-	self.FlightMode.chat = CreateFrame("ScrollingMessageFrame", nil, self.FlightMode)
-	self.FlightMode.chat:SetSize(500, 200)
-	self.FlightMode.chat:Point("TOPLEFT", self.FlightMode, "TOPLEFT", 4, -26)
-	self.FlightMode.chat:FontTemplate()
-	self.FlightMode.chat:SetJustifyH("LEFT")
-	self.FlightMode.chat:SetMaxLines(500)
-	self.FlightMode.chat:EnableMouseWheel(true)
-	self.FlightMode.chat:SetFading(false)
-	self.FlightMode.chat:SetScript("OnMouseWheel", Chat_OnMouseWheel)
-	self.FlightMode.chat:SetScript("OnEvent", Chat_OnEvent)
 
 	-- Top frame
 	self.FlightMode.top = CreateFrame('Frame', nil, self.FlightMode)
@@ -626,6 +503,40 @@ function BFM:Initialize()
 	self.FlightMode.bottom.map:SetScript('OnClick', function()
 		PlaySound("igMainMenuOptionCheckBoxOff");
 		ToggleFrame(WorldMapFrame)
+	end)
+	
+	-- Toggle bags button
+	self.FlightMode.bottom.bags = CreateFrame('Button', nil, self.FlightMode.bottom)
+	self.FlightMode.bottom.bags:Size(32, 32)
+	self.FlightMode.bottom.bags:Point("LEFT", self.FlightMode.bottom.map, "RIGHT", 10, 0)
+	
+	self.FlightMode.bottom.bags.img = self.FlightMode.bottom.bags:CreateTexture(nil, 'OVERLAY')
+	self.FlightMode.bottom.bags.img:Point("CENTER")
+	self.FlightMode.bottom.bags.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\bags.tga')
+	self.FlightMode.bottom.bags.img:SetVertexColor(1, 1, 1, .7)
+	
+	self.FlightMode.bottom.bags:SetScript('OnEnter', function()
+		GameTooltip:SetOwner(self.FlightMode.bottom.bags, 'ANCHOR_RIGHT', 1, 0)
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(L['Toggle Bags'], selectioncolor)
+		GameTooltip:Show()
+		if db.gameMenuColor == 1 then
+			self.FlightMode.bottom.bags.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		elseif db.gameMenuColor == 2 then
+			self.FlightMode.bottom.bags.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
+		else
+			self.FlightMode.bottom.bags.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+		end
+	end)
+	
+	self.FlightMode.bottom.bags:SetScript('OnLeave', function()
+		self.FlightMode.bottom.bags.img:SetVertexColor(1, 1, 1, .7)
+		GameTooltip:Hide()
+	end)
+	
+	self.FlightMode.bottom.bags:SetScript('OnClick', function()
+		PlaySound("igMainMenuOptionCheckBoxOff");
+		ToggleAllBags()
 	end)
 	
 	-- Time flying
