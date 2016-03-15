@@ -3,13 +3,11 @@ local BUI = E:GetModule('BenikUI');
 local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
 local CH = E:GetModule("Chat")
 
-local _G = _G
 local GetTime = GetTime
 local tostring, tonumber, pcall = tostring, tonumber, pcall
 local floor = floor
 local format, strsub = string.format, string.sub
 
-local AFKString = _G["AFK"]
 local GameTooltip = _G["GameTooltip"]
 local WorldMapFrame = _G["WorldMapFrame"]
 local C_TimerAfter = C_Timer.After
@@ -19,13 +17,9 @@ local MoveViewLeftStart, MoveViewLeftStop = MoveViewLeftStart, MoveViewLeftStop
 
 local GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
-local Chat_GetChatCategory = Chat_GetChatCategory
-local ChatFrame_GetMobileEmbeddedTexture = ChatFrame_GetMobileEmbeddedTexture
-local ChatHistory_GetAccessID = ChatHistory_GetAccessID
-local IsShiftKeyDown = IsShiftKeyDown
 local GetScreenWidth = GetScreenWidth
 local ToggleFrame, UIFrameFadeIn, UIFrameFadeOut, PlaySound = ToggleFrame, UIFrameFadeIn, UIFrameFadeOut, PlaySound
-local TAXI_CANCEL_DESCRIPTION, UNKNOWN, DND = TAXI_CANCEL_DESCRIPTION, UNKNOWN, DND
+local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 
 -- GLOBALS: UIParent, PVEFrame, FlightModeLocation, ChatTypeInfo
 
