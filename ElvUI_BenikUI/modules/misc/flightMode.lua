@@ -15,6 +15,7 @@ local SPACING = (E.PixelMode and 1 or 3)
 local LOCATION_WIDTH = 400
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local CAMERA_SPEED = 0.035
+local AFKString = _G["AFK"]
 
 local printKeys = {
 	["PRINTSCREEN"] = true,
@@ -263,6 +264,11 @@ function BFM:SetFlightMode(status)
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
 		self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
+		
+		self.FlightMode.chat:RegisterEvent("CHAT_MSG_WHISPER")
+		self.FlightMode.chat:RegisterEvent("CHAT_MSG_BN_WHISPER")
+		self.FlightMode.chat:RegisterEvent("CHAT_MSG_BN_CONVERSATION")
+		self.FlightMode.chat:RegisterEvent("CHAT_MSG_GUILD")		
 		
 		self.inFlightMode = true
 	elseif(self.inFlightMode) then
