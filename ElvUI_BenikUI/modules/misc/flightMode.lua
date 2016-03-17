@@ -239,6 +239,11 @@ function BFM:SetFlightMode(status)
 			ElvUI_ContainerFrame:SetParent(E.UIParent)
 			ElvUI_ContainerFrame.shadow:Hide()
 		end
+		
+		if IsAddOnLoaded('AddOnSkins') then
+			local AS = unpack(AddOnSkins) or nil			
+			if E.private.addonskins.EmbedSystem or E.private.addonskins.EmbedSystemDual then AS:Embed_Show() end
+		end
 
 		self.inFlightMode = false
 	end
