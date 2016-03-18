@@ -156,19 +156,26 @@ local function ufPlayerTable()
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 				min = 10, max = 250, step = 1,
 			},
-			portraitStyle = {
+			styleGroup = {
 				order = 6,
-				type = 'toggle',
-				name = L['BenikUI Style on Portrait'],
-				disabled = function() return not E.db.benikui.general.benikuiStyle end,
+				type = 'group',
+				name = L['BenikUI Style'],
+				args = {
+					portraitStyle = {
+						order = 1,
+						type = 'toggle',
+						name = L['BenikUI Style on Portrait'],
+						disabled = function() return not E.db.benikui.general.benikuiStyle end,
+					},
+					portraitStyleHeight = {
+						order = 2,
+						type = 'range',
+						name = L['Style Height'],
+						disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.player.portraitStyle end,
+						min = 4, max = 20, step = 1,
+					},
+				},
 			},
-			portraitStyleHeight = {
-				order = 7,
-				type = 'range',
-				name = L['Style Height'],
-				disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.player.portraitStyle end,
-				min = 4, max = 20, step = 1,
-			},			
 		},
 	}
 end
@@ -237,18 +244,25 @@ local function ufTargetTable()
 				disabled = function() return E.db.benikui.unitframes.target.getPlayerPortraitSize or not E.db.benikui.unitframes.target.detachPortrait end,
 				min = 10, max = 250, step = 1,
 			},
-			portraitStyle = {
+			styleGroup = {
 				order = 7,
-				type = 'toggle',
-				name = L['BenikUI Style on Portrait'],
-				disabled = function() return not E.db.benikui.general.benikuiStyle end,
-			},
-			portraitStyleHeight = {
-				order = 8,
-				type = 'range',
-				name = L['Style Height'],
-				disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.target.portraitStyle end,
-				min = 4, max = 20, step = 1,
+				type = 'group',
+				name = L['BenikUI Style'],
+				args = {
+					portraitStyle = {
+						order = 1,
+						type = 'toggle',
+						name = L['BenikUI Style on Portrait'],
+						disabled = function() return not E.db.benikui.general.benikuiStyle end,
+					},
+					portraitStyleHeight = {
+						order = 2,
+						type = 'range',
+						name = L['Style Height'],
+						disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.target.portraitStyle end,
+						min = 4, max = 20, step = 1,
+					},
+				},
 			},
 		},
 	}
