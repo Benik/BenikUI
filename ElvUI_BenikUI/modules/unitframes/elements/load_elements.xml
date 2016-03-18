@@ -5,6 +5,7 @@
 	<Script file='threat.lua'/>
 	<Script file='targetglow.lua'/>
 	<Script file='castbar.lua'/>
+	<Script file='restingindicator.lua'/>
 	<Script file='tags.lua'/>
 	<Script file='roleIcons.lua'/>
 </Ui>

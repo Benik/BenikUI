@@ -53,10 +53,12 @@ function UFB:Configure_Portrait(frame, isPlayer)
 				frame.portraitmover:Height(frame.DETACHED_PORTRAIT_HEIGHT)
 				portrait.backdrop:SetAllPoints(frame.portraitmover)
 				
-				if frame.PORTRAIT_SHADOW then
-					portrait.backdrop.shadow:Show()
-				else
-					portrait.backdrop.shadow:Hide()
+				if portrait.backdrop.shadow then
+					if frame.PORTRAIT_SHADOW then
+						portrait.backdrop.shadow:Show()
+					else
+						portrait.backdrop.shadow:Hide()
+					end
 				end
 
 				if db.portrait.style == '3D' then
@@ -78,20 +80,6 @@ function UFB:Configure_Portrait(frame, isPlayer)
 				else
 					frame.portraitmover:ClearAllPoints()
 					frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")		
-				end
-				
-				if isPlayer then
-					local rIcon = frame.Resting
-					if db.restIcon then
-						rIcon:ClearAllPoints()
-						if frame.PORTRAIT_STYLING and portrait.backdrop.style then
-							rIcon:SetParent(portrait.backdrop.style)
-							rIcon:Point('CENTER', portrait.backdrop.style, 'TOPLEFT')					
-						else
-							rIcon:SetParent(portrait)
-							rIcon:Point('CENTER', portrait, 'TOPLEFT')
-						end
-					end
 				end
 			else
 				portrait:SetAlpha(1)

@@ -46,6 +46,9 @@ function UFB:ArrangePlayer()
 	
 	-- Portrait
 	UFB:Configure_Portrait(frame, true)
+	
+	-- Rest Icon
+	UFB:Configure_RestingIndicator(frame)
 
 	frame:UpdateAllElements()
 end
