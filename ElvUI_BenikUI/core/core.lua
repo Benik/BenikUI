@@ -48,7 +48,6 @@ function BUI:RegisterBuiMedia()
 	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
 end
 
--- Like S&L did ;)
 function BUI:AddOptions()
 	for _, func in pairs(BUI.Config) do
 		func()
