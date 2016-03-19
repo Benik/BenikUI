@@ -26,7 +26,6 @@ L['Show item level per slot, on the character info frame'] = true
 
 -- Flight mode
 L['Show an enhanced game menu'] = true
-L['Press Esc to exit Flight Mode'] = true
 L['Toggle Location and Coords'] = true
 L['Toggle World Map'] = true
 L['Display the Flight Mode screen when taking flight paths'] = true
