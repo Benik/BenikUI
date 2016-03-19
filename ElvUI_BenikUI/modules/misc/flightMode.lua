@@ -181,13 +181,14 @@ function BFM:SetFlightMode(status)
 		MoveViewLeftStart(CAMERA_SPEED);
 		self.FlightMode:Show()
 		E.UIParent:Hide()
+
 		-- Hide some frames
 		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Hide() end
 		if E.private.general.minimap.enable then
 			Minimap:Hide()
 		end
 		self.FlightMode.bottom.map:EnableMouse(true)
-		self.FlightMode.bottom.menuButton:EnableMouse(true)
+		self.FlightMode.top.menuButton:EnableMouse(true)
 		
 		-- Bags
 		if ElvUI_ContainerFrame then
@@ -196,18 +197,26 @@ function BFM:SetFlightMode(status)
 			ElvUI_ContainerFrame:SetParent(self.FlightMode)
 			ElvUI_ContainerFrame.shadow:Show()
 		end
-		
+
+		-- Left Chat
+		BuiDummyChat:SetParent(self.FlightMode)
+		LeftChatPanel:SetParent(self.FlightMode)
+		LeftChatPanel.backdrop.shadow:Show()
+		LeftChatPanel:ClearAllPoints()
+		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
+
 		-- Disable Blizz location messsages
 		ZoneTextFrame:UnregisterAllEvents()
-		
+
 		self.startTime = GetTime()
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
 		self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
-		
+
 		self.inFlightMode = true
 	elseif(self.inFlightMode) then
 		E.UIParent:Show()
+
 		-- Show hidden frames
 		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Show() end
 		if E.private.general.minimap.enable then
@@ -215,12 +224,12 @@ function BFM:SetFlightMode(status)
 		end
 		self.FlightMode:Hide()
 		MoveViewLeftStop();
-		
+
 		-- Enable Blizz location messsages
 		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
 		ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
-		
+
 		self:CancelTimer(self.locationTimer)
 		self:CancelTimer(self.coordsTimer)
 		self:CancelTimer(self.timer)
@@ -232,6 +241,7 @@ function BFM:SetFlightMode(status)
 		self.FlightMode.message:SetAlpha(1)
 		self.FlightMode.message:Width(10)
 		self.FlightMode.message.text:SetAlpha(0)
+
 		-- Revert Bags
 		if ElvUI_ContainerFrame then
 			E.db.bags.yOffset = bagYoffset
@@ -239,11 +249,18 @@ function BFM:SetFlightMode(status)
 			ElvUI_ContainerFrame:SetParent(E.UIParent)
 			ElvUI_ContainerFrame.shadow:Hide()
 		end
-		
+
 		if IsAddOnLoaded('AddOnSkins') then
 			local AS = unpack(AddOnSkins) or nil			
 			if E.private.addonskins.EmbedSystem or E.private.addonskins.EmbedSystemDual then AS:Embed_Show() end
 		end
+
+		-- revert Left Chat
+		BuiDummyChat:SetParent(E.UIParent)
+		LeftChatPanel:SetParent(E.UIParent)
+		LeftChatPanel.backdrop.shadow:Hide()
+		LeftChatPanel:ClearAllPoints()
+		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
 
 		self.inFlightMode = false
 	end
@@ -281,14 +298,48 @@ function BFM:Initialize()
 	self.FlightMode.top:SetTemplate('Transparent')
 	self.FlightMode.top:CreateWideShadow()
 	self.FlightMode.top:Width(GetScreenWidth() + (E.Border*2))
-	self.FlightMode.top:Height(20)
+	self.FlightMode.top:Height(40)
+	
+	-- Menu button
+	self.FlightMode.top.menuButton = CreateFrame('Button', 'FlightModeMenuBtn', self.FlightMode.top)
+	self.FlightMode.top.menuButton:Size(32)
+	self.FlightMode.top.menuButton:Point("LEFT", self.FlightMode.top, "LEFT", 6, 1)
+
+	self.FlightMode.top.menuButton.img = self.FlightMode.top.menuButton:CreateTexture(nil, 'OVERLAY')
+	self.FlightMode.top.menuButton.img:Point("CENTER")
+	self.FlightMode.top.menuButton.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\menu.tga')
+	self.FlightMode.top.menuButton.img:SetVertexColor(1, 1, 1, .7)
+	
+	self.FlightMode.top.menuButton:SetScript('OnEnter', function()
+		GameTooltip:SetOwner(self.FlightMode.top.menuButton, 'ANCHOR_BOTTOMRIGHT', 4, 4)
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(L['Show an enhanced game menu'], selectioncolor)
+		GameTooltip:Show()
+		if db.gameMenuColor == 1 then
+			self.FlightMode.top.menuButton.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		elseif db.gameMenuColor == 2 then
+			self.FlightMode.top.menuButton.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
+		else
+			self.FlightMode.top.menuButton.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+		end
+	end)
+	
+	self.FlightMode.top.menuButton:SetScript('OnLeave', function()
+		self.FlightMode.top.menuButton.img:SetVertexColor(1, 1, 1, .7)
+		GameTooltip:Hide()
+	end)
+	
+	self.FlightMode.top.menuButton:SetScript('OnClick', function()
+		BUI:Dropmenu(menuList, menuFrame, FlightModeMenuBtn, 'bRight', (E.PixelMode and -32 or -30), (E.PixelMode and -13 or -15), 4, 36)
+		PlaySound("igMainMenuOptionCheckBoxOff");
+	end)
 
 	-- Location frame
 	self.FlightMode.top.location = CreateFrame('Frame', 'FlightModeLocation', self.FlightMode.top)
 	self.FlightMode.top.location:SetFrameLevel(1)
-	self.FlightMode.top.location:SetTemplate('Transparent')
+	self.FlightMode.top.location:SetTemplate('Default', true)
 	self.FlightMode.top.location:CreateWideShadow()
-	self.FlightMode.top.location:Point("TOP", self.FlightMode.top, "BOTTOM", 0, (E.PixelMode and -8 or -10))
+	self.FlightMode.top.location:Point("TOP", self.FlightMode.top, "CENTER", 0, 6)
 	self.FlightMode.top.location:Width(LOCATION_WIDTH)
 	self.FlightMode.top.location:Height(50)
 	
@@ -299,7 +350,7 @@ function BFM:Initialize()
 	
 	-- Coords X frame
 	self.FlightMode.top.location.x = CreateFrame('Frame', nil, self.FlightMode.top.location)
-	self.FlightMode.top.location.x:SetTemplate('Transparent')
+	self.FlightMode.top.location.x:SetTemplate('Default', true)
 	self.FlightMode.top.location.x:CreateWideShadow()
 	self.FlightMode.top.location.x:Point("RIGHT", self.FlightMode.top.location, "LEFT", (E.PixelMode and -8 or -10), 0)
 	self.FlightMode.top.location.x:Width(60)
@@ -311,7 +362,7 @@ function BFM:Initialize()
 	
 	-- Coords Y frame
 	self.FlightMode.top.location.y = CreateFrame('Frame', nil, self.FlightMode.top.location)
-	self.FlightMode.top.location.y:SetTemplate('Transparent')
+	self.FlightMode.top.location.y:SetTemplate('Default', true)
 	self.FlightMode.top.location.y:CreateWideShadow()
 	self.FlightMode.top.location.y:Point("LEFT", self.FlightMode.top.location, "RIGHT", (E.PixelMode and 8 or 10), 0)
 	self.FlightMode.top.location.y:Width(60)
@@ -341,7 +392,7 @@ function BFM:Initialize()
 	self.FlightMode.bottom.benikui:FontTemplate(nil, 10)
 	self.FlightMode.bottom.benikui:SetFormattedText("v%s", BUI.Version)
 	self.FlightMode.bottom.benikui:SetPoint("TOP", self.FlightMode.bottom.logo, "BOTTOM", 0, 24)
-	self.FlightMode.bottom.benikui:SetTextColor(1, 1, 1)	
+	self.FlightMode.bottom.benikui:SetTextColor(1, 1, 1)
 
 	-- Message frame. Shows when request stop is pressed
 	self.FlightMode.message = CreateFrame("Frame", nil, self.FlightMode)
@@ -361,46 +412,11 @@ function BFM:Initialize()
 	self.FlightMode.message.text:SetPoint("CENTER")
 	self.FlightMode.message.text:SetTextColor(1, 1, 0, .7)
 	self.FlightMode.message.text:SetAlpha(0)
-	
-	-- Menu button
-	self.FlightMode.bottom.menuButton = CreateFrame('Button', 'FlightModeMenuBtn', self.FlightMode.bottom)
-	self.FlightMode.bottom.menuButton:Size(32, 32)
-	self.FlightMode.bottom.menuButton:Point("LEFT", self.FlightMode.bottom, "LEFT", 6, 0)
 
-	self.FlightMode.bottom.menuButton.img = self.FlightMode.bottom.menuButton:CreateTexture(nil, 'OVERLAY')
-	self.FlightMode.bottom.menuButton.img:Point("CENTER")
-	self.FlightMode.bottom.menuButton.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\menu.tga')
-	self.FlightMode.bottom.menuButton.img:SetVertexColor(1, 1, 1, .7)
-	
-	self.FlightMode.bottom.menuButton:SetScript('OnEnter', function()
-		GameTooltip:SetOwner(self.FlightMode.bottom.menuButton, 'ANCHOR_RIGHT', 1, 0)
-		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L['Show an enhanced game menu'], selectioncolor)
-		GameTooltip:AddLine(L['Press Esc to exit Flight Mode'], 0.7, 0.7, 1)
-		GameTooltip:Show()
-		if db.gameMenuColor == 1 then
-			self.FlightMode.bottom.menuButton.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		elseif db.gameMenuColor == 2 then
-			self.FlightMode.bottom.menuButton.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
-		else
-			self.FlightMode.bottom.menuButton.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
-		end
-	end)
-	
-	self.FlightMode.bottom.menuButton:SetScript('OnLeave', function()
-		self.FlightMode.bottom.menuButton.img:SetVertexColor(1, 1, 1, .7)
-		GameTooltip:Hide()
-	end)
-	
-	self.FlightMode.bottom.menuButton:SetScript('OnClick', function()
-		BUI:Dropmenu(menuList, menuFrame, FlightModeMenuBtn, 'tRight', (E.PixelMode and -38 or -36), (E.PixelMode and 13 or 15), 4, 36)
-		PlaySound("igMainMenuOptionCheckBoxOff");
-	end)
-	
 	-- Request Stop button
 	self.FlightMode.bottom.requestStop = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.requestStop:Size(32, 32)
-	self.FlightMode.bottom.requestStop:Point("LEFT", self.FlightMode.bottom.menuButton, "RIGHT", 10, 0)
+	self.FlightMode.bottom.requestStop:Size(32)
+	self.FlightMode.bottom.requestStop:Point("LEFT", self.FlightMode.bottom, "LEFT", 10, 0)
 	self.FlightMode.bottom.requestStop:EnableMouse(true)
 	
 	self.FlightMode.bottom.requestStop.img = self.FlightMode.bottom.requestStop:CreateTexture(nil, 'OVERLAY')
@@ -446,7 +462,7 @@ function BFM:Initialize()
 	
 	-- Toggle Location button
 	self.FlightMode.bottom.info = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.info:Size(32, 32)
+	self.FlightMode.bottom.info:Size(32)
 	self.FlightMode.bottom.info:Point("LEFT", self.FlightMode.bottom.requestStop, "RIGHT", 10, 0)
 	
 	self.FlightMode.bottom.info.img = self.FlightMode.bottom.info:CreateTexture(nil, 'OVERLAY')
@@ -484,7 +500,7 @@ function BFM:Initialize()
 	
 	-- Toggle Map button
 	self.FlightMode.bottom.map = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.map:Size(32, 32)
+	self.FlightMode.bottom.map:Size(32)
 	self.FlightMode.bottom.map:Point("LEFT", self.FlightMode.bottom.info, "RIGHT", 10, 0)
 	
 	self.FlightMode.bottom.map.img = self.FlightMode.bottom.map:CreateTexture(nil, 'OVERLAY')
@@ -518,7 +534,7 @@ function BFM:Initialize()
 	
 	-- Toggle bags button
 	self.FlightMode.bottom.bags = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.bags:Size(32, 32)
+	self.FlightMode.bottom.bags:Size(32)
 	self.FlightMode.bottom.bags:Point("LEFT", self.FlightMode.bottom.map, "RIGHT", 10, 0)
 	
 	self.FlightMode.bottom.bags.img = self.FlightMode.bottom.bags:CreateTexture(nil, 'OVERLAY')
@@ -562,6 +578,10 @@ function BFM:Initialize()
 		ElvUI_ContainerFrame:CreateWideShadow()
 		ElvUI_ContainerFrame.shadow:Hide()
 	end
+	
+	-- Add Shadow at the left chat
+	LeftChatPanel.backdrop:CreateWideShadow()
+	LeftChatPanel.backdrop.shadow:Hide()
 
 	self:Toggle()
 end
