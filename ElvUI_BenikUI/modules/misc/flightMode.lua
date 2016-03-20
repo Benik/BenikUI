@@ -4,7 +4,7 @@ local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
 local B = E:GetModule("Bags")
 
 local GetTime = GetTime
-local tostring, tonumber, pcall = tostring, tonumber, pcall
+local tostring, tonumber, pcall, unpack = tostring, tonumber, pcall, unpack
 local floor = floor
 local format, strsub = string.format, string.sub
 
@@ -12,7 +12,7 @@ local GameTooltip = _G["GameTooltip"]
 local WorldMapFrame = _G["WorldMapFrame"]
 local C_TimerAfter = C_Timer.After
 local CreateFrame = CreateFrame
-local UnitOnTaxi = UnitOnTaxi
+local UnitOnTaxi, IsAddOnLoaded = UnitOnTaxi, IsAddOnLoaded
 local MoveViewLeftStart, MoveViewLeftStop = MoveViewLeftStart, MoveViewLeftStop
 
 local GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo
@@ -21,7 +21,7 @@ local GetScreenWidth = GetScreenWidth
 local ToggleFrame, UIFrameFadeIn, UIFrameFadeOut, PlaySound = ToggleFrame, UIFrameFadeIn, UIFrameFadeOut, PlaySound
 local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 
--- GLOBALS: UIParent, PVEFrame, FlightModeLocation, ChatTypeInfo
+-- GLOBALS: UIParent, FlightModeLocation
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
