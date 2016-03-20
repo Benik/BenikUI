@@ -4,7 +4,7 @@ local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
 local B = E:GetModule("Bags")
 
 local GetTime = GetTime
-local tostring, tonumber, pcall, unpack = tostring, tonumber, pcall, unpack
+local tonumber, pcall, unpack = tonumber, pcall, unpack
 local floor = floor
 local format, strsub = string.format, string.sub
 
