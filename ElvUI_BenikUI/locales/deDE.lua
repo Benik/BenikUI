@@ -25,7 +25,7 @@ L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = "Zeigt das Itemlevel pro Slot, im Spielerfenster"
 
 -- Flight mode
-L['Exit FlightMode'] = true
+L['Exit FlightMode'] = "Verlasse den Flugmodus"
 L['Show an enhanced game menu'] = "Zeigt ein erweitertes Spielmenu"
 L['Toggle Location and Coords'] = "Schalte Umgebungstext und Koordinaten um"
 L['Toggle World Map'] = "Schalte Weltkarte um"
@@ -149,7 +149,7 @@ L['AddOns Decor'] = "AddOns Dekor"
 L['Choose which addon you wish to be decorated to fit with BenikUI style'] = "Wähle aus, welches Addon du stylen möchtest so dass es am besten zu BenikUI passt"
 L['Decursive'] = true
 L['ElvUI AddOns'] = true
-L['decor.'] = "Dekor."
+L['decor.'] = "dekor."
 
 -- UnitFrame Options
 L['Adjust castbar text Y Offset'] = "Passe Zauberleisten Text Y-Versatz an"
@@ -193,7 +193,7 @@ L["Nov"] = true
 L["Dec"] = "Dez"
 
 L["Sun"] = "So"
-L["Mon"] = true
+L["Mon"] = "Mo"
 L["Tue"] = "Di"
 L["Wed"] = "Mi"
 L["Thu"] = "Do"
