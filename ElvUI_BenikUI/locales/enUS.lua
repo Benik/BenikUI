@@ -25,11 +25,11 @@ L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = true
 
 -- Flight mode
+L['Exit FlightMode'] = true
 L['Show an enhanced game menu'] = true
 L['Toggle Location and Coords'] = true
 L['Toggle World Map'] = true
 L['Display the Flight Mode screen when taking flight paths'] = true
-L['Toggle Bags'] = true
 
 -- DataTexts
 L['BenikUI Middle DataText'] = true

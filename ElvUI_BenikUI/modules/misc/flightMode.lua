@@ -96,7 +96,6 @@ local menuList = {
 	end},
 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
 	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end},
-	{text = EXIT, func = function() BFM:SetFlightMode(false) end},
 }
 
 local function AutoColoring()
@@ -303,15 +302,15 @@ function BFM:Initialize()
 	-- Menu button
 	self.FlightMode.top.menuButton = CreateFrame('Button', 'FlightModeMenuBtn', self.FlightMode.top)
 	self.FlightMode.top.menuButton:Size(32)
-	self.FlightMode.top.menuButton:Point("LEFT", self.FlightMode.top, "LEFT", 6, 1)
+	self.FlightMode.top.menuButton:Point("LEFT", self.FlightMode.top, "LEFT", 6, 0)
 
 	self.FlightMode.top.menuButton.img = self.FlightMode.top.menuButton:CreateTexture(nil, 'OVERLAY')
 	self.FlightMode.top.menuButton.img:Point("CENTER")
-	self.FlightMode.top.menuButton.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\menu.tga')
+	self.FlightMode.top.menuButton.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\menu.tga')
 	self.FlightMode.top.menuButton.img:SetVertexColor(1, 1, 1, .7)
 	
 	self.FlightMode.top.menuButton:SetScript('OnEnter', function()
-		GameTooltip:SetOwner(self.FlightMode.top.menuButton, 'ANCHOR_BOTTOMRIGHT', 4, 4)
+		GameTooltip:SetOwner(self.FlightMode.top.menuButton, 'ANCHOR_BOTTOMRIGHT', 4, -4)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(L['Show an enhanced game menu'], selectioncolor)
 		GameTooltip:Show()
@@ -331,6 +330,40 @@ function BFM:Initialize()
 	
 	self.FlightMode.top.menuButton:SetScript('OnClick', function()
 		BUI:Dropmenu(menuList, menuFrame, FlightModeMenuBtn, 'bRight', (E.PixelMode and -32 or -30), (E.PixelMode and -13 or -15), 4, 36)
+		PlaySound("igMainMenuOptionCheckBoxOff");
+	end)
+	
+	-- Close button
+	self.FlightMode.top.closeButton = CreateFrame('Button', nil, self.FlightMode.top)
+	self.FlightMode.top.closeButton:Size(32)
+	self.FlightMode.top.closeButton:Point("RIGHT", self.FlightMode.top, "RIGHT", -6, 0)
+
+	self.FlightMode.top.closeButton.img = self.FlightMode.top.closeButton:CreateTexture(nil, 'OVERLAY')
+	self.FlightMode.top.closeButton.img:Point("CENTER")
+	self.FlightMode.top.closeButton.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\close.tga')
+	self.FlightMode.top.closeButton.img:SetVertexColor(1, 1, 1, .7)
+	
+	self.FlightMode.top.closeButton:SetScript('OnEnter', function()
+		GameTooltip:SetOwner(self.FlightMode.top.closeButton, 'ANCHOR_BOTTOMLEFT', -4, -4)
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(L['Exit FlightMode'], selectioncolor)
+		GameTooltip:Show()
+		if db.gameMenuColor == 1 then
+			self.FlightMode.top.closeButton.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		elseif db.gameMenuColor == 2 then
+			self.FlightMode.top.closeButton.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
+		else
+			self.FlightMode.top.closeButton.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+		end
+	end)
+	
+	self.FlightMode.top.closeButton:SetScript('OnLeave', function()
+		self.FlightMode.top.closeButton.img:SetVertexColor(1, 1, 1, .7)
+		GameTooltip:Hide()
+	end)
+	
+	self.FlightMode.top.closeButton:SetScript('OnClick', function()
+		BFM:SetFlightMode(false)
 		PlaySound("igMainMenuOptionCheckBoxOff");
 	end)
 
@@ -421,7 +454,7 @@ function BFM:Initialize()
 	
 	self.FlightMode.bottom.requestStop.img = self.FlightMode.bottom.requestStop:CreateTexture(nil, 'OVERLAY')
 	self.FlightMode.bottom.requestStop.img:Point("CENTER")
-	self.FlightMode.bottom.requestStop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\arrowDown.tga')
+	self.FlightMode.bottom.requestStop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow.tga')
 	self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
 	
 	self.FlightMode.bottom.requestStop:SetScript('OnEnter', function()
@@ -467,7 +500,7 @@ function BFM:Initialize()
 	
 	self.FlightMode.bottom.info.img = self.FlightMode.bottom.info:CreateTexture(nil, 'OVERLAY')
 	self.FlightMode.bottom.info.img:Point("CENTER")
-	self.FlightMode.bottom.info.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\info.tga')
+	self.FlightMode.bottom.info.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\info.tga')
 	self.FlightMode.bottom.info.img:SetVertexColor(1, 1, 1, .7)
 	
 	self.FlightMode.bottom.info:SetScript('OnEnter', function()
@@ -505,7 +538,7 @@ function BFM:Initialize()
 	
 	self.FlightMode.bottom.map.img = self.FlightMode.bottom.map:CreateTexture(nil, 'OVERLAY')
 	self.FlightMode.bottom.map.img:Point("CENTER")
-	self.FlightMode.bottom.map.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\map.tga')
+	self.FlightMode.bottom.map.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\map.tga')
 	self.FlightMode.bottom.map.img:SetVertexColor(1, 1, 1, .7)
 	
 	self.FlightMode.bottom.map:SetScript('OnEnter', function()
@@ -539,7 +572,7 @@ function BFM:Initialize()
 	
 	self.FlightMode.bottom.bags.img = self.FlightMode.bottom.bags:CreateTexture(nil, 'OVERLAY')
 	self.FlightMode.bottom.bags.img:Point("CENTER")
-	self.FlightMode.bottom.bags.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\bags.tga')
+	self.FlightMode.bottom.bags.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\bags.tga')
 	self.FlightMode.bottom.bags.img:SetVertexColor(1, 1, 1, .7)
 	
 	self.FlightMode.bottom.bags:SetScript('OnEnter', function()
