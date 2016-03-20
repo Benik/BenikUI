@@ -44,6 +44,7 @@ local FreeBlizzFrames = {
 	LFGListInviteDialog,
 	LootFrame,
 	MailFrame,
+	MasterLooterFrame,
 	MerchantFrame,
 	MinimapRightClickMenu,
 	OpenMailFrame,
