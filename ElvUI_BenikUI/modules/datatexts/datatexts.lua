@@ -10,8 +10,6 @@ local GetBattlefieldScore = GetBattlefieldScore
 local GetNumBattlefieldScores = GetNumBattlefieldScores
 local IsInInstance = IsInInstance
 
--- GLOBALS: name
-
 DT.SetupTooltipBui = DT.SetupTooltip
 function DT:SetupTooltip(panel)
 	self:SetupTooltipBui(panel)
@@ -53,6 +51,8 @@ local dataStrings = {
 	[3] = HONORABLE_KILLS,
 	[11] = SHOW_COMBAT_HEALING,
 }
+
+local name
 
 function BDT:UPDATE_BATTLEFIELD_SCORE()
 	lastPanel = self

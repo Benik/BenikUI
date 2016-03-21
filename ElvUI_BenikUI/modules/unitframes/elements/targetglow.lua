@@ -2,8 +2,6 @@ local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
--- GLOBALS: USE_POWERBAR_OFFSET
-
 function UFB:Configure_TargetGlow(frame)
 	local SHADOW_SPACING = frame.SHADOW_SPACING
 	local tGlow = frame.TargetGlow
@@ -28,7 +26,7 @@ function UFB:Configure_TargetGlow(frame)
 		tGlow:Point("BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 	end
 
-	if USE_POWERBAR_OFFSET then
+	if frame.USE_POWERBAR_OFFSET then
 		tGlow:Point("TOPLEFT", -SHADOW_SPACING+frame.POWERBAR_OFFSET, SHADOW_SPACING)
 		tGlow:Point("TOPRIGHT", SHADOW_SPACING, SHADOW_SPACING)
 		tGlow:Point("BOTTOMLEFT", -SHADOW_SPACING+frame.POWERBAR_OFFSET, -SHADOW_SPACING+frame.POWERBAR_OFFSET)

@@ -3,7 +3,6 @@ local DT = E:GetModule('DataTexts')
 
 -- Missions are based on TukUI Garrison DataText. Credits: Hydra, Tukz
 
-local _G = _G
 local join = string.join
 local format = string.format
 local tsort = table.sort
@@ -15,11 +14,14 @@ local C_GarrisonGetInProgressMissions = C_Garrison.GetInProgressMissions
 local C_GarrisonGetLandingPageShipmentInfo = C_Garrison.GetLandingPageShipmentInfo
 local C_GarrisonGetAvailableMissions = C_Garrison.GetAvailableMissions
 local LoadAddOn = LoadAddOn
-local LE_FOLLOWER_TYPE_GARRISON_6_0 = LE_FOLLOWER_TYPE_GARRISON_6_0
-local LE_FOLLOWER_TYPE_SHIPYARD_6_2 = LE_FOLLOWER_TYPE_SHIPYARD_6_2
+local GarrisonMissionFrame = GarrisonMissionFrame
 
--- GLOBALS: GARRISON_MISSIONS, GARRISON_LOCATION_TOOLTIP, CAPACITANCE_WORK_ORDERS, selectioncolor, GARRISON_SHIPMENT_EMPTY, GARRISON_MISSIONS_TITLE
--- GLOBALS: AVAILABLE, GARRISON_MISSION_COMPLETE, SPLASH_NEW_6_2_FEATURE2_TITLE, MINIMAP_GARRISON_LANDING_PAGE_TOOLTIP
+local LE_FOLLOWER_TYPE_GARRISON_6_0, LE_FOLLOWER_TYPE_SHIPYARD_6_2 = LE_FOLLOWER_TYPE_GARRISON_6_0, LE_FOLLOWER_TYPE_SHIPYARD_6_2
+local GARRISON_MISSIONS, GARRISON_LOCATION_TOOLTIP, GARRISON_SHIPMENT_EMPTY, GARRISON_MISSIONS_TITLE = GARRISON_MISSIONS, GARRISON_LOCATION_TOOLTIP, GARRISON_SHIPMENT_EMPTY, GARRISON_MISSIONS_TITLE
+local AVAILABLE, GARRISON_MISSION_COMPLETE = AVAILABLE, GARRISON_MISSION_COMPLETE
+local CAPACITANCE_WORK_ORDERS, SPLASH_NEW_6_2_FEATURE2_TITLE, MINIMAP_GARRISON_LANDING_PAGE_TOOLTIP = CAPACITANCE_WORK_ORDERS, SPLASH_NEW_6_2_FEATURE2_TITLE, MINIMAP_GARRISON_LANDING_PAGE_TOOLTIP
+
+-- GLOBALS: selectioncolor
 
 local displayModifierString = ''
 local lastPanel;
@@ -60,7 +62,7 @@ end
 local OnEnter = function(self)
 	DT:SetupTooltip(self)
 
-	if (not _G["GarrisonMissionFrame"]) then
+	if (not GarrisonMissionFrame) then
 		LoadAddOn("Blizzard_GarrisonUI")
 	end
 

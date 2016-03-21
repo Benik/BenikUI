@@ -15,10 +15,15 @@ local C_TimerAfter = C_Timer.After
 local CreateFrame = CreateFrame
 local UnitOnTaxi, IsAddOnLoaded = UnitOnTaxi, IsAddOnLoaded
 local MoveViewLeftStart, MoveViewLeftStop = MoveViewLeftStart, MoveViewLeftStop
+local GarrisonLandingPageMinimapButton_OnClick = GarrisonLandingPageMinimapButton_OnClick
+local GameMenuButtonMacros = GameMenuButtonMacros
 local GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo
 local GetScreenWidth = GetScreenWidth
 local HideUIPanel, ShowUIPanel = HideUIPanel, ShowUIPanel
 local IsInGuild = IsInGuild
+local CloseMenus = CloseMenus
+local CloseAllWindows = CloseAllWindows
+local MainMenuMicroButton_SetNormal = MainMenuMicroButton_SetNormal
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local ToggleAllBags = ToggleAllBags
 local ToggleAchievementFrame = ToggleAchievementFrame
@@ -31,8 +36,14 @@ local ToggleHelpFrame = ToggleHelpFrame
 local UIFrameFadeIn, UIFrameFadeOut, PlaySound = UIFrameFadeIn, UIFrameFadeOut, PlaySound
 local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 
--- GLOBALS: UIParent, FlightModeLocation, selectioncolor, AddOnSkins, GarrisonLandingPageMinimapButton_OnClick, MainMenuMicroButton_SetNormal
--- GLOBALS: CreateAnimationGroup, CloseMenus, CloseAllWindows, BuiDummyChat, FlightModeMenuBtn
+-- GLOBALS: UIParent, FlightModeLocation, selectioncolor, LeftChatPanel, ElvUI_ContainerFrame
+-- GLOBALS: FlightModeMenuBtn, CreateAnimationGroup, LeftChatMover, BuiDummyChat, Minimap, AddOnSkins
+-- GLOBALS: SpellBookFrame, PlayerTalentFrame, TalentFrame_LoadUI, GlyphFrame, GlyphFrame_LoadUI
+-- GLOBALS: GuildFrame, GuildFrame_LoadUI, GuildFrame_Toggle, LookingForGuildFrame, LookingForGuildFrame_LoadUI,  LookingForGuildFrame_Toggle
+-- GLOBALS: GameTimeFrame, EncounterJournal_LoadUI, EncounterJournal, GameMenuFrame
+-- GLOBALS: VideoOptionsFrame, VideoOptionsFrameCancel, AudioOptionsFrame, AudioOptionsFrameCancel
+-- GLOBALS: InterfaceOptionsFrame, InterfaceOptionsFrameCancel, StoreMicroButton
+-- GLOBALS: ObjectiveTrackerFrame, ZoneTextFrame
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
@@ -45,21 +56,21 @@ local CAMERA_SPEED = 0.035
 
 local menuList = {
 	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
-	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not _G["SpellBookFrame"]:IsShown() then ShowUIPanel(_G["SpellBookFrame"]) else HideUIPanel(_G["SpellBookFrame"]) end end},
+	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
 	{text = TALENTS_BUTTON,
 	func = function()
-		if not _G["PlayerTalentFrame"] then
-			_G["TalentFrame_LoadUI"]()
+		if not PlayerTalentFrame then
+			TalentFrame_LoadUI()
 		end
 
-		if not _G["GlyphFrame"] then
-			_G["GlyphFrame_LoadUI"]()
+		if not GlyphFrame then
+			GlyphFrame_LoadUI()
 		end
 
-		if not _G["PlayerTalentFrame"]:IsShown() then
-			ShowUIPanel(_G["PlayerTalentFrame"])
+		if not PlayerTalentFrame:IsShown() then
+			ShowUIPanel(PlayerTalentFrame)
 		else
-			HideUIPanel(_G["PlayerTalentFrame"])
+			HideUIPanel(PlayerTalentFrame)
 		end
 	end},
 	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
@@ -69,44 +80,44 @@ local menuList = {
 	{text = ACHIEVEMENTS_GUILD_TAB,
 	func = function()
 		if IsInGuild() then
-			if not _G["GuildFrame"] then _G["GuildFrame_LoadUI"]() end
-			_G["GuildFrame_Toggle"]()
+			if not GuildFrame then GuildFrame_LoadUI() end
+			GuildFrame_Toggle()
 		else
-			if not _G["LookingForGuildFrame"] then _G["LookingForGuildFrame_LoadUI"]() end
-			if not _G["LookingForGuildFrame"] then return end
-			_G["LookingForGuildFrame_Toggle"]()
+			if not LookingForGuildFrame then LookingForGuildFrame_LoadUI() end
+			if not LookingForGuildFrame then return end
+			LookingForGuildFrame_Toggle()
 		end
 	end},
-	{text = L["Calendar"], func = function() _G["GameTimeFrame"]:Click() end},
+	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
 	{text = MOUNTS, func = function() ToggleCollectionsJournal(1) end},
 	{text = PET_JOURNAL, func = function() ToggleCollectionsJournal(2) end},
 	{text = TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
 	{text = HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
-	{text = MACROS, func = function() _G["GameMenuButtonMacros"]:Click() end},
-	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then _G["EncounterJournal_LoadUI"](); end ToggleFrame(_G["EncounterJournal"]) end},
+	{text = MACROS, func = function() GameMenuButtonMacros:Click() end},
+	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
 	{text = SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
 	{text = MAINMENU_BUTTON,
 	func = function()
-		if ( not _G["GameMenuFrame"]:IsShown() ) then
-			if ( _G["VideoOptionsFrame"]:IsShown() ) then
-					_G["VideoOptionsFrameCancel"]:Click();
-			elseif ( _G["AudioOptionsFrame"]:IsShown() ) then
-					_G["AudioOptionsFrameCancel"]:Click();
-			elseif ( _G["InterfaceOptionsFrame"]:IsShown() ) then
-					_G["InterfaceOptionsFrameCancel"]:Click();
+		if ( not GameMenuFrame:IsShown() ) then
+			if ( VideoOptionsFrame:IsShown() ) then
+					VideoOptionsFrameCancel:Click();
+			elseif ( AudioOptionsFrame:IsShown() ) then
+					AudioOptionsFrameCancel:Click();
+			elseif ( InterfaceOptionsFrame:IsShown() ) then
+					InterfaceOptionsFrameCancel:Click();
 			end
 			CloseMenus();
 			CloseAllWindows()
 			PlaySound("igMainMenuOpen");
-			ShowUIPanel(_G["GameMenuFrame"]);
+			ShowUIPanel(GameMenuFrame);
 		else
 			PlaySound("igMainMenuQuit");
-			HideUIPanel(_G["GameMenuFrame"]);
+			HideUIPanel(GameMenuFrame);
 			MainMenuMicroButton_SetNormal();
 		end
 	end},
 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
-	{text = BLIZZARD_STORE, func = function() _G["StoreMicroButton"]:Click() end},
+	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end},
 }
 
 local function AutoColoring()
@@ -193,30 +204,30 @@ function BFM:SetFlightMode(status)
 		E.UIParent:Hide()
 
 		-- Hide some frames
-		if _G["ObjectiveTrackerFrame"] then _G["ObjectiveTrackerFrame"]:Hide() end
+		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Hide() end
 		if E.private.general.minimap.enable then
-			_G["Minimap"]:Hide()
+			Minimap:Hide()
 		end
 		self.FlightMode.bottom.map:EnableMouse(true)
 		self.FlightMode.top.menuButton:EnableMouse(true)
 		
 		-- Bags
-		if _G["ElvUI_ContainerFrame"] then
+		if ElvUI_ContainerFrame then
 			E.db.bags.yOffset = 30
 			B:PositionBagFrames()
-			_G["ElvUI_ContainerFrame"]:SetParent(self.FlightMode)
-			_G["ElvUI_ContainerFrame"].shadow:Show()
+			ElvUI_ContainerFrame:SetParent(self.FlightMode)
+			ElvUI_ContainerFrame.shadow:Show()
 		end
 
 		-- Left Chat
 		BuiDummyChat:SetParent(self.FlightMode)
-		_G["LeftChatPanel"]:SetParent(self.FlightMode)
-		_G["LeftChatPanel"].backdrop.shadow:Show()
-		_G["LeftChatPanel"]:ClearAllPoints()
-		_G["LeftChatPanel"]:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
+		LeftChatPanel:SetParent(self.FlightMode)
+		LeftChatPanel.backdrop.shadow:Show()
+		LeftChatPanel:ClearAllPoints()
+		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 
 		-- Disable Blizz location messsages
-		_G["ZoneTextFrame"]:UnregisterAllEvents()
+		ZoneTextFrame:UnregisterAllEvents()
 
 		self.startTime = GetTime()
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
@@ -228,17 +239,17 @@ function BFM:SetFlightMode(status)
 		E.UIParent:Show()
 
 		-- Show hidden frames
-		if _G["ObjectiveTrackerFrame"] then _G["ObjectiveTrackerFrame"]:Show() end
+		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Show() end
 		if E.private.general.minimap.enable then
-			_G["Minimap"]:Show()
+			Minimap:Show()
 		end
 		self.FlightMode:Hide()
 		MoveViewLeftStop();
 
 		-- Enable Blizz location messsages
-		_G["ZoneTextFrame"]:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-		_G["ZoneTextFrame"]:RegisterEvent("ZONE_CHANGED_INDOORS")
-		_G["ZoneTextFrame"]:RegisterEvent("ZONE_CHANGED")
+		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
+		ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
 
 		self:CancelTimer(self.locationTimer)
 		self:CancelTimer(self.coordsTimer)
@@ -253,24 +264,24 @@ function BFM:SetFlightMode(status)
 		self.FlightMode.message.text:SetAlpha(0)
 
 		-- Revert Bags
-		if _G["ElvUI_ContainerFrame"] then
+		if ElvUI_ContainerFrame then
 			E.db.bags.yOffset = bagYoffset
 			B:PositionBagFrames()
-			_G["ElvUI_ContainerFrame"]:SetParent(E.UIParent)
-			_G["ElvUI_ContainerFrame"].shadow:Hide()
+			ElvUI_ContainerFrame:SetParent(E.UIParent)
+			ElvUI_ContainerFrame.shadow:Hide()
 		end
 
 		if IsAddOnLoaded('AddOnSkins') then
-			local AS = unpack(AddOnSkins) or nil
+			local AS = unpack(AddOnSkins) or nil			
 			if E.private.addonskins.EmbedSystem or E.private.addonskins.EmbedSystemDual then AS:Embed_Show() end
 		end
 
 		-- revert Left Chat
 		BuiDummyChat:SetParent(E.UIParent)
-		_G["LeftChatPanel"]:SetParent(E.UIParent)
-		_G["LeftChatPanel"].backdrop.shadow:Hide()
-		_G["LeftChatPanel"]:ClearAllPoints()
-		_G["LeftChatPanel"]:Point("BOTTOMLEFT", _G["LeftChatMover"], "BOTTOMLEFT")
+		LeftChatPanel:SetParent(E.UIParent)
+		LeftChatPanel.backdrop.shadow:Hide()
+		LeftChatPanel:ClearAllPoints()
+		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
 
 		self.inFlightMode = false
 	end
@@ -618,14 +629,14 @@ function BFM:Initialize()
 	self.FlightMode.bottom.timeFlying:SetTextColor(1, 1, 1)
 	
 	-- Add Shadow at the bags
-	if _G["ElvUI_ContainerFrame"] then
-		_G["ElvUI_ContainerFrame"]:CreateWideShadow()
-		_G["ElvUI_ContainerFrame"].shadow:Hide()
+	if ElvUI_ContainerFrame then
+		ElvUI_ContainerFrame:CreateWideShadow()
+		ElvUI_ContainerFrame.shadow:Hide()
 	end
 	
 	-- Add Shadow at the left chat
-	_G["LeftChatPanel"].backdrop:CreateWideShadow()
-	_G["LeftChatPanel"].backdrop.shadow:Hide()
+	LeftChatPanel.backdrop:CreateWideShadow()
+	LeftChatPanel.backdrop.shadow:Hide()
 
 	self:Toggle()
 end

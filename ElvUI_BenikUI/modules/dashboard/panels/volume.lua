@@ -11,8 +11,10 @@ local GetCVar, SetCVar = GetCVar, SetCVar
 local Sound_ToggleSound = Sound_ToggleSound
 local Sound_ToggleMusic = Sound_ToggleMusic
 
--- GLOBALS: iconBG_OnClick, MASTER_VOLUME, MUTED, selectioncolor, ENABLE_SOUNDFX, MUSIC_VOLUME, VOICE_AMBIENCE, BINDING_NAME_TOGGLESOUND
--- GLOBALS: BINDING_NAME_TOGGLEMUSIC, VOLUME, Volume
+local MASTER_VOLUME, MUTED, ENABLE_SOUNDFX, MUSIC_VOLUME, VOICE_AMBIENCE, VOLUME = MASTER_VOLUME, MUTED, ENABLE_SOUNDFX, MUSIC_VOLUME, VOICE_AMBIENCE, VOLUME
+local BINDING_NAME_TOGGLESOUND, BINDING_NAME_TOGGLEMUSIC = BINDING_NAME_TOGGLESOUND, BINDING_NAME_TOGGLEMUSIC
+
+-- GLOBALS: selectioncolor
 
 local SPACING = (E.PixelMode and 1 or 5)
 
@@ -78,7 +80,7 @@ local function iconBG_OnMouseWheel(self, d)
 end
 
 -- Toggle all sounds
-function iconBG_OnClick(self, btn)
+local function iconBG_OnClick(self, btn)
 	if btn == 'LeftButton' then
 		Sound_ToggleSound()
 	end
@@ -100,7 +102,7 @@ local SOUND_MEDIUM_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\
 local SOUND_MAX_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\\sound-max.blp:14:14|t')
 
 function BUID:CreateVolume()
-	local boardName = Volume
+	local boardName = _G['Volume']
 	
 	local iconBG = CreateFrame('Frame', nil, boardName)
 	iconBG:Size(16,16)

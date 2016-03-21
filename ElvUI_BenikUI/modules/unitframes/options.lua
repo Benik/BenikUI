@@ -5,8 +5,9 @@ local BUIC = E:GetModule('BuiCastbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
+local PLAYER, TARGET, MISCELLANEOUS = PLAYER, TARGET, MISCELLANEOUS
 
--- GLOBALS: PLAYER, TARGET, AceGUIWidgetLSMlists, MISCELLANEOUS
+-- GLOBALS: AceGUIWidgetLSMlists
 
 local function ufTable()
 	E.Options.args.benikui.args.unitframes = {

@@ -8,8 +8,10 @@ if E.private.actionbar.enable ~= true then return; end
 local _G = _G
 local pairs = pairs
 local IsAddOnLoaded = IsAddOnLoaded
+local C_TimerAfter = C_Timer.After
 
--- GLOBALS: NUM_PET_ACTION_SLOTS, C_Timer, DisableAddOn
+-- GLOBALS: NUM_PET_ACTION_SLOTS, DisableAddOn
+-- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
@@ -101,7 +103,7 @@ function BAB:TransparentBackdrops()
 	end
 
 	-- Other bar backdrops
-	local transOtherBars = {_G["ElvUI_BarPet"], _G["ElvUI_StanceBar"], _G["ElvUI_TotemBar"], _G["ElvUIBags"]}
+	local transOtherBars = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags}
 	for _, frame in pairs(transOtherBars) do
 		if frame.backdrop then
 			if db.transparent then
@@ -129,10 +131,10 @@ end
 
 function BAB:Initialize()
 	-- Adding a small delay, because ElvUI_ExtraActionBars addon loads before BAB initialize
-	C_Timer.After(1, BAB.StyleBackdrops)
-	C_Timer.After(1, BAB.TransparentBackdrops)
-	C_Timer.After(2, BAB.ColorBackdrops)
-	C_Timer.After(2, BAB.LoadToggleButtons)
+	C_TimerAfter(1, BAB.StyleBackdrops)
+	C_TimerAfter(1, BAB.TransparentBackdrops)
+	C_TimerAfter(2, BAB.ColorBackdrops)
+	C_TimerAfter(2, BAB.LoadToggleButtons)
 	self:LoadRequestButton()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
 	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end

@@ -1,10 +1,9 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local AFK = E:GetModule('AFK')
 local LSM = LibStub('LibSharedMedia-3.0')
 local BUI = E:GetModule('BenikUI');
 
-local floor, format, gsub, random, lower, upper = floor, string.format, gsub, random, string.lower, string.upper
-local tonumber = tonumber
+local format, gsub, random, lower, upper, tonumber, date, floor = string.format, gsub, random, string.lower, string.upper, tonumber, date, floor
 
 local CreateFrame = CreateFrame
 local GetGameTime = GetGameTime
@@ -15,14 +14,14 @@ local GetStatistic = GetStatistic
 local GetCursorPosition = GetCursorPosition
 local IsXPUserDisabled = IsXPUserDisabled
 local UnitLevel = UnitLevel
+local InCombatLockdown = InCombatLockdown
 
--- GLOBALS: date, TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, NONE, CAMP_TIMER, MAX_PLAYER_LEVEL, LEVEL
--- GLOBALS: CreateAnimationGroup
+local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME
+local CAMP_TIMER, MAX_PLAYER_LEVEL, LEVEL, NONE = CAMP_TIMER, MAX_PLAYER_LEVEL, LEVEL, NONE
+
+-- GLOBALS: CreateAnimationGroup, UIParent
 
 local SPACING = (E.PixelMode and 1 or 5)
-
--- Credit for the Class logos: ADDOriN @DevianArt
--- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
 
 -- Source wowhead.com
 local stats = {
@@ -288,15 +287,6 @@ function BUI:SetAFK(status)
 end
 hooksecurefunc(AFK, 'SetAFK', BUI.SetAFK)
 
---[[local creatures = {
-	62835, -- peng
-	87257, -- cow
-	32398, -- peng2
-	15552, -- Doctor Weavil
-	48040, -- Pygmy Oaf
-	86470, -- Pepe
-}
-
 local find = string.find
 
 local function IsFoolsDay()
@@ -310,13 +300,12 @@ end
 local function prank(self, status)
 	if(InCombatLockdown()) then return end
 	if not IsFoolsDay() then return end
+	
 	if(status) then
-		local id = creatures[random( #creatures )]
-		self.AFKMode.bottom.model:SetCreature(id)
-		self.AFKMode.bottom.model:SetAnimation(1) -- die
+		self.AFKMode.prank:Show()
 	end
 end
-hooksecurefunc(AFK, "SetAFK", prank)]]
+hooksecurefunc(AFK, "SetAFK", prank)
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
@@ -527,4 +516,26 @@ function AFK:Initialize()
 	self.AFKMode.statMsg.info:SetTimeVisible(4)
 	self.AFKMode.statMsg.info:SetJustifyH("CENTER")
 	self.AFKMode.statMsg.info:SetTextColor(0.7, 0.7, 0.7)
+	
+	self.AFKMode.prank = CreateFrame("Frame", nil, self.AFKMode)
+	self.AFKMode.prank:SetTemplate('Default', true)
+	self.AFKMode.prank:SetFrameStrata("HIGH")
+	self.AFKMode.prank:SetScale(UIParent:GetScale())
+	self.AFKMode.prank:SetAllPoints(UIParent)
+	self.AFKMode.prank:Hide()
+	
+	self.AFKMode.prank.tex = self.AFKMode.prank:CreateTexture(nil, 'OVERLAY')
+	self.AFKMode.prank.tex:SetInside()
+	self.AFKMode.prank.tex:SetTexture([[Interface\BUTTONS\WHITE8X8]])
+	self.AFKMode.prank.tex:SetVertexColor(0.24, 0.36, 1)
+	
+	self.AFKMode.prank.text = self.AFKMode.prank:CreateFontString(nil, 'OVERLAY')
+	self.AFKMode.prank.text:FontTemplate([[Interface\AddOns\ElvUI_BenikUI\media\fonts\ARIALN.ttf]], 52)
+	self.AFKMode.prank.text:SetPoint("CENTER", self.AFKMode.prank, "CENTER")
+	self.AFKMode.prank.text:SetText("Your PC run into a problem and needs to restart. We 're just \n\ncollecting some error info, and then we 'll restart for you")
+	
+	self.AFKMode.prank.text2 = self.AFKMode.prank:CreateFontString(nil, 'OVERLAY')
+	self.AFKMode.prank.text2:FontTemplate([[Interface\AddOns\ElvUI_BenikUI\media\fonts\ARIALN.ttf]], 20)
+	self.AFKMode.prank.text2:SetPoint("CENTER", self.AFKMode.prank, "CENTER", 0, -260)
+	self.AFKMode.prank.text2:SetText("If you'd like to know more, you can search online later for this error: HAPPY_APRIL_FOOLS_DAY_FROM_BENIKUI_DEV_TEAM")
 end

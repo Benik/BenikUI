@@ -16,7 +16,7 @@ local GetSpecializationInfoByID = GetSpecializationInfoByID
 local SetActiveSpecGroup = SetActiveSpecGroup
 local SetLootSpecialization = SetLootSpecialization
 
--- GLOBALS: SELECT_LOOT_SPECIALIZATION, LOOT_SPECIALIZATION_DEFAULT
+local SELECT_LOOT_SPECIALIZATION, LOOT_SPECIALIZATION_DEFAULT = SELECT_LOOT_SPECIALIZATION, LOOT_SPECIALIZATION_DEFAULT
 
 local lastPanel, active
 local displayString = '';

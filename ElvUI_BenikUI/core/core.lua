@@ -5,7 +5,6 @@ local LSM = LibStub('LibSharedMedia-3.0')
 local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, ns = ...
 
--- GLOBALS: LibStub, BenikUISplashScreen, ElvDB
 local _G = _G
 local pairs, print = pairs, print
 local format = string.format
@@ -14,6 +13,8 @@ local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 local PlaySound = PlaySound
 local HideUIPanel = HideUIPanel
+
+-- GLOBALS: LibStub, BenikUISplashScreen, ElvDB
 
 BUI.Config = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}

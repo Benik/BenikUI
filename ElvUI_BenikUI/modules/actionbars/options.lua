@@ -1,9 +1,9 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BAB = E:GetModule('BuiActionbars');
-local tinsert = table.insert
 
--- GLOBALS: SHOW
+local tinsert = table.insert
+local SHOW = SHOW
 
 local function abTable()
 	E.Options.args.actionbar.args.benikui = {

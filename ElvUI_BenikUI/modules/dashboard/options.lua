@@ -1,18 +1,20 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUID = E:GetModule('BuiDashboard');
 local BUIT = E:GetModule('BuiTokensDashboard');
 local BUIP = E:GetModule('BuiProfessionsDashboard')
 
-local tinsert, gsub, format = table.insert, gsub, format
-local pairs, ipairs, unpack = pairs, ipairs, unpack
+local tinsert, pairs, ipairs, gsub, unpack, format = table.insert, pairs, ipairs, gsub, unpack, string.format
 local GetCurrencyInfo = GetCurrencyInfo
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
 
--- GLOBALS: PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, COLOR, CLASS_COLORS, CUSTOM, COLOR_PICKER, AceGUIWidgetLSMlists
--- GLOBALS: FONT_SIZE, ENABLE, TOKENS, CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID, PLAYER_V_PLAYER, SECONDARY_SKILLS, MISCELLANEOUS
--- GLOBALS: TRADE_SKILLS, hooksecurefunc, a
+local PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS = PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS
+local COLOR, CLASS_COLORS, CUSTOM, COLOR_PICKER = COLOR, CLASS_COLORS, CUSTOM, COLOR_PICKER
+local CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID, PLAYER_V_PLAYER, SECONDARY_SKILLS, TRADE_SKILLS = CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID, PLAYER_V_PLAYER, SECONDARY_SKILLS, TRADE_SKILLS
+local ENABLE, MISCELLANEOUS, FONT_SIZE = ENABLE, MISCELLANEOUS, FONT_SIZE
+
+-- GLOBALS: AceGUIWidgetLSMlists, hooksecurefunc
 
 local dungeonTokens = {
 	776,	-- Warforged Seal
@@ -230,7 +232,7 @@ local function dashboardsTable()
 							local d = P.dashboards[info[#info]]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 							end,
-						set = function(info, r, g, b)
+						set = function(info, r, g, b, a)
 							E.db.dashboards[ info[#info] ] = {}
 							local t = E.db.dashboards[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a

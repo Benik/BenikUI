@@ -14,7 +14,7 @@ local GetItemQualityColor = GetItemQualityColor
 
 -- GLOBALS: CharacterHeadSlot, CharacterNeckSlot, CharacterShoulderSlot, CharacterBackSlot, CharacterChestSlot, CharacterWristSlot
 -- GLOBALS: CharacterHandsSlot, CharacterWaistSlot, CharacterLegsSlot, CharacterFeetSlot, CharacterFinger0Slot, CharacterFinger1Slot
--- GLOBALS: CharacterTrinket0Slot, CharacterTrinket1Slot, CharacterMainHandSlot, CharacterSecondaryHandSlot
+-- GLOBALS: CharacterTrinket0Slot, CharacterTrinket1Slot, CharacterMainHandSlot, CharacterSecondaryHandSlot, PaperDollFrame
 
 local xo, yo = 0, 1
 local equipped = {}
@@ -105,14 +105,14 @@ local function OnEvent(self, event)
 
 		applyStrings()
 
-		_G["PaperDollFrame"]:HookScript("OnShow", function(self)
+		PaperDollFrame:HookScript("OnShow", function(self)
 			f:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 			f:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE")
 			BUI:update_iLevelItems()
 			f:Show()
 		end)
 
-		_G["PaperDollFrame"]:HookScript("OnHide", function(self)
+		PaperDollFrame:HookScript("OnHide", function(self)
 			f:UnregisterEvent("PLAYER_EQUIPMENT_CHANGED")
 			f:UnregisterEvent("ITEM_UPGRADE_MASTER_UPDATE")
 			f:Hide()

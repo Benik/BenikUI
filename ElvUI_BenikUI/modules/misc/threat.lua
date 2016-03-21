@@ -3,28 +3,26 @@ local BTH = E:NewModule('BuiThreat', 'AceHook-3.0');
 local THREAT = E:GetModule('Threat');
 local LO = E:GetModule('Layout');
 
-local _G = _G
-
--- GLOBALS: hooksecurefunc
+-- GLOBALS: hooksecurefunc, ElvUI_ThreatBar, RightChatDataPanel, LeftChatDataPanel, BuiDummyChat, BuiDummyThreat
 
 function BTH:UpdateThreatPosition()
-	local bar = _G["ElvUI_ThreatBar"]
+	local bar = ElvUI_ThreatBar
 	bar:SetStatusBarTexture(E['media'].BuiFlat)
 	if E.db.general.threat.position == 'RIGHTCHAT' then
 		if E.db.datatexts.rightChatPanel then
-			bar:SetInside(_G["RightChatDataPanel"])
-			bar:SetParent(_G["RightChatDataPanel"])
+			bar:SetInside(RightChatDataPanel)
+			bar:SetParent(RightChatDataPanel)
 		else
-			bar:SetInside(_G["BuiDummyThreat"])
-			bar:SetParent(_G["BuiDummyThreat"])
+			bar:SetInside(BuiDummyThreat)
+			bar:SetParent(BuiDummyThreat)
 		end
 	else
 		if E.db.datatexts.leftChatPanel then
-			bar:SetInside(_G["LeftChatDataPanel"])
-			bar:SetParent(_G["LeftChatDataPanel"])
+			bar:SetInside(LeftChatDataPanel)
+			bar:SetParent(LeftChatDataPanel)
 		else
-			bar:SetInside(_G["BuiDummyChat"])
-			bar:SetParent(_G["BuiDummyChat"])
+			bar:SetInside(BuiDummyChat)
+			bar:SetParent(BuiDummyChat)
 		end
 	end
 	bar:SetFrameStrata('MEDIUM')

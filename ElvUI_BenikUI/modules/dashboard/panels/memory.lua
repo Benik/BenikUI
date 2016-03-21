@@ -5,8 +5,7 @@ local select, collectgarbage = select, collectgarbage
 local sort, wipe = table.sort, table.wipe
 local format = string.format
 
--- GLOBALS: Memory, selectioncolor
-
+local _G = _G
 local GetNumAddOns = GetNumAddOns
 local GetAddOnInfo = GetAddOnInfo
 local IsAddOnLoaded = IsAddOnLoaded
@@ -14,6 +13,8 @@ local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local GetAddOnMemoryUsage = GetAddOnMemoryUsage
 local InCombatLockdown, IsInInstance = InCombatLockdown, IsInInstance
 local GameTooltip = _G["GameTooltip"]
+
+-- GLOBALS: selectioncolor
 
 local kiloByteString = '|cfff6a01a %d|r'..' kb'
 local megaByteString = '|cfff6a01a %.2f|r'..' mb'
@@ -71,7 +72,7 @@ local int = 10
 local zygor = IsAddOnLoaded('ZygorGuidesViewer')
 
 local function Update( self, t )
-	local boardName = Memory
+	local boardName = _G['Memory']
 	int = int - t
 	
 	if( int < 0 ) then
@@ -92,7 +93,7 @@ local function Update( self, t )
 end
 
 function BUID:CreateMemory()
-	local boardName = Memory
+	local boardName = _G['Memory']
 	boardName:SetScript( 'OnMouseDown', function (self)
 		if( not InCombatLockdown() ) then
 			collectgarbage( 'collect' )

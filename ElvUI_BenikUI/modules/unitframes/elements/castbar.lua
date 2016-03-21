@@ -10,41 +10,15 @@ local UFB = E:GetModule('BuiUnits');
 	Edited for BenikUI under Blaze's permission. Many thanks :)
 ]]
 
-
 local _G = _G
 
 -- GLOBALS: hooksecurefunc
 
---[[Detach Castbar Icon
-local function DetachIcon(unit, unitframe)
-	local cdb = E.db.unitframe.units[unit].castbar;
-	local castbar = unitframe.Castbar
-	
-	if cdb.icon == true then
-		castbar.ButtonIcon.bg:ClearAllPoints()
-		if cdb.detachCastbarIcon then
-			castbar.ButtonIcon.bg:Point("TOP", castbar, "BOTTOM", cdb.xOffset, cdb.yOffset)
-			castbar.ButtonIcon.bg:Size(cdb.detachediconSize)
-			castbar:Width(cdb.width - ((unitframe.BORDER + unitframe.SPACING)*2))
-		else
-			castbar.ButtonIcon.bg:Width(cdb.height)
-			castbar.ButtonIcon.bg:Height(cdb.height)
-			if unit == 'player' then
-				castbar.ButtonIcon.bg:Point("RIGHT", castbar, "LEFT", -E.Spacing*3, 0)
-			elseif unit == 'target' then
-				castbar.ButtonIcon.bg:Point("LEFT", castbar, "RIGHT", E.Spacing*3, 0)
-			end
-			castbar:Width(cdb.width - castbar.ButtonIcon.bg:GetWidth() - (unitframe.BORDER + unitframe.SPACING*5))
-		end
-	else
-		castbar:Width(cdb.width - ((unitframe.BORDER + unitframe.SPACING)*2))
-	end
-end]]
-
 --Configure castbar text position and alpha
 local function ConfigureText(unit, castbar)
 	local db = E.db.benikui.unitframes.castbar.text
-
+	local dbe = E.db.unitframe.units[unit];
+	
 	if db.castText then
 		castbar.Text:SetAlpha(1)
 		castbar.Time:SetAlpha(1)
@@ -55,9 +29,19 @@ local function ConfigureText(unit, castbar)
 
 	-- Set position of castbar text according to chosen offsets
 	castbar.Text:ClearAllPoints()
-	castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.yOffset)
 	castbar.Time:ClearAllPoints()
-	castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.yOffset)
+	if dbe.infoPanel.enable and dbe.castbar.insideInfoPanel and dbe.castbar.icon and dbe.castbar.iconAttached then
+		if dbe.orientation == "LEFT" or dbe.orientation == "MIDDLE" and db.infoPanel.enable then
+			castbar.Text:SetPoint("LEFT", castbar, "LEFT", -castbar.ButtonIcon.bg:GetWidth() + 4, db.yOffset)
+			castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.yOffset)
+		else
+			castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.yOffset)
+			castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", castbar.ButtonIcon.bg:GetWidth() -4, db.yOffset)
+		end
+	else
+		castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.yOffset)
+		castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.yOffset)
+	end
 end
 
 --Reset castbar text position and alpha
@@ -93,7 +77,6 @@ local function ConfigureCastbar(unit, unitframe)
 			else
 				resetCastbarLevel(unit, unitframe)
 			end
-			--DetachIcon(unit, unitframe)
 		else
 			ResetText(castbar)
 			resetCastbarLevel(unit, unitframe)

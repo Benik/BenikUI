@@ -19,8 +19,12 @@ local IsXPUserDisabled = IsXPUserDisabled
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local UnitLevel = UnitLevel
 local UnitXP, UnitXPMax = UnitXP, UnitXPM
+local ToggleCharacter = ToggleCharacter
 
--- GLOBALS: hooksecurefunc, FACTION_BAR_COLORS,  MAX_PLAYER_LEVEL, SPELLBOOK_ABILITIES_BUTTON, selectioncolor, BINDING_NAME_TOGGLECHARACTER2
+local FACTION_BAR_COLORS, MAX_PLAYER_LEVEL = FACTION_BAR_COLORS, MAX_PLAYER_LEVEL
+local SPELLBOOK_ABILITIES_BUTTON, BINDING_NAME_TOGGLECHARACTER2 = SPELLBOOK_ABILITIES_BUTTON, BINDING_NAME_TOGGLECHARACTER2
+
+-- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ReputationBar, ElvUI_ExperienceBar, SpellBookFrame
 
 -- Style ElvUI default XP/Rep bars
 local SPACING = (E.PixelMode and 1 or 3)
@@ -33,26 +37,26 @@ end
 local function ToggleXpRepBackdrop()
 	if E.db.benikuiXprep.enable then
 		if not E.db.benikui.datatexts.chat.backdrop then
-			if _G["ElvUI_ReputationBar"].fb then
-				_G["ElvUI_ReputationBar"].fb:StripTextures()
+			if ElvUI_ReputationBar.fb then
+				ElvUI_ReputationBar.fb:StripTextures()
 			end
-			if _G["ElvUI_ExperienceBar"].fb then
-				_G["ElvUI_ExperienceBar"].fb:StripTextures()
+			if ElvUI_ExperienceBar.fb then
+				ElvUI_ExperienceBar.fb:StripTextures()
 			end
 		else
 			if E.db.benikui.datatexts.chat.transparent then
-				if _G["ElvUI_ReputationBar"].fb then
-					_G["ElvUI_ReputationBar"].fb:SetTemplate('Transparent')
+				if ElvUI_ReputationBar.fb then
+					ElvUI_ReputationBar.fb:SetTemplate('Transparent')
 				end
-				if _G["ElvUI_ExperienceBar"].fb then
-					_G["ElvUI_ExperienceBar"].fb:SetTemplate('Transparent')
+				if ElvUI_ExperienceBar.fb then
+					ElvUI_ExperienceBar.fb:SetTemplate('Transparent')
 				end
 			else
-				if _G["ElvUI_ReputationBar"].fb then
-					_G["ElvUI_ReputationBar"].fb:SetTemplate('Default', true)
+				if ElvUI_ReputationBar.fb then
+					ElvUI_ReputationBar.fb:SetTemplate('Default', true)
 				end
-				if _G["ElvUI_ExperienceBar"].fb then
-					_G["ElvUI_ExperienceBar"].fb:SetTemplate('Default', true)
+				if ElvUI_ExperienceBar.fb then
+					ElvUI_ExperienceBar.fb:SetTemplate('Default', true)
 				end
 			end
 		end
@@ -61,7 +65,7 @@ end
 
 local function StyleXpRepBars()
 	-- Xp Bar
-	local xp = _G["ElvUI_ExperienceBar"]
+	local xp = ElvUI_ExperienceBar
 	
 	-- bottom decor/button
 	xp.fb = CreateFrame('Button', nil, xp)
@@ -81,13 +85,13 @@ local function StyleXpRepBars()
 	xp.fb:SetScript('OnLeave', xprep_OnLeave)
 	
 	xp.fb:SetScript('OnClick', function(self)
-		if not _G["SpellBookFrame"]:IsShown() then ShowUIPanel(_G["SpellBookFrame"]) else HideUIPanel(_G["SpellBookFrame"]) end
+		if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end
 	end)
 	
 	-- Rep bar
-	local rp = _G["ElvUI_ReputationBar"]
+	local rp = ElvUI_ReputationBar
 	
-	-- bottom decor/button
+	-- bottom decor/button	
 	rp.fb = CreateFrame('Button', nil, rp)
 	rp.fb:CreateSoftGlow()
 	rp.fb.sglow:Hide()
@@ -106,7 +110,7 @@ local function StyleXpRepBars()
 	rp.fb:SetScript('OnLeave', xprep_OnLeave)
 
 	rp.fb:SetScript('OnClick', function(self)
-		_G["ToggleCharacter"]("ReputationFrame")
+		ToggleCharacter("ReputationFrame")
 	end)
 	
 	ToggleXpRepBackdrop()
@@ -117,7 +121,7 @@ local function StyleXpRepBars()
 end
 
 function BXR:ApplyXpRepStyling()
-	local xp = _G["ElvUI_ExperienceBar"]
+	local xp = ElvUI_ExperienceBar
 	if E.db.general.experience.enable then
 		if E.db.general.experience.orientation == 'VERTICAL' then
 			if E.db.benikui.datatexts.chat.enable then 
@@ -130,7 +134,7 @@ function BXR:ApplyXpRepStyling()
 		end
 	end	
 	
-	local rp = _G["ElvUI_ReputationBar"]
+	local rp = ElvUI_ReputationBar
 	if E.db.general.reputation.enable then
 		if E.db.general.reputation.orientation == 'VERTICAL' then
 			if rp.ft then
@@ -165,8 +169,8 @@ end
 
 function BXR:ChangeXPcolor()
 	local db = E.db.benikuiXprep.color.experience
-	local elvxpstatus = _G["ElvUI_ExperienceBar"].statusBar
-	local elvrestedstatus = _G["ElvUI_ExperienceBar"].rested
+	local elvxpstatus = ElvUI_ExperienceBar.statusBar
+	local elvrestedstatus = ElvUI_ExperienceBar.rested
 	
 	if db.default then
 		elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
@@ -182,7 +186,7 @@ function BXR:ChangeRepColor()
 	local db = E.db.benikuiXprep.color.reputation
 	local _, reaction = GetWatchedFactionInfo()
 	local color = FACTION_BAR_COLORS[reaction] or backupColor
-	local elvstatus = _G["ElvUI_ReputationBar"].statusBar
+	local elvstatus = ElvUI_ReputationBar.statusBar
 	
 	if db.default then
 		elvstatus:SetStatusBarColor(color.r, color.g, color.b)
@@ -223,7 +227,7 @@ function BXR:CreateNotifier(bar)
 end
 
 function BXR:UpdateRepNotifierPositions()
-	local bar = _G["ElvUI_ReputationBar"].statusBar
+	local bar = ElvUI_ReputationBar.statusBar
 	
 	local db = E.db.benikuiXprep.notifiers.reputation
 	local arrow = ""
@@ -263,7 +267,7 @@ function BXR:UpdateRepNotifierPositions()
 end
 
 function BXR:UpdateRepNotifier()
-	local bar = _G["ElvUI_ReputationBar"].statusBar
+	local bar = ElvUI_ReputationBar.statusBar
 	
 	local name, _, min, max, value = GetWatchedFactionInfo()
 	
@@ -276,7 +280,7 @@ function BXR:UpdateRepNotifier()
 end
 
 function BXR:UpdateXpNotifierPositions()
-	local bar = _G["ElvUI_ExperienceBar"].statusBar
+	local bar = ElvUI_ExperienceBar.statusBar
 	
 	local db = E.db.benikuiXprep.notifiers.experience
 	local arrow = ""
@@ -324,7 +328,7 @@ function BXR:GetXP(unit)
 end
 
 function BXR:UpdateXpNotifier()
-	local bar = _G["ElvUI_ExperienceBar"].statusBar
+	local bar = ElvUI_ExperienceBar.statusBar
 
 	if(UnitLevel('player') == MAX_PLAYER_LEVEL) or IsXPUserDisabled() or E.db.general.reputation.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
@@ -342,7 +346,7 @@ function BXR:Initialize()
 	local db = E.db.benikuiXprep.notifiers
 	
 	if db.experience.enable and E.db.general.experience.orientation == 'VERTICAL' then
-		self:CreateNotifier(_G["ElvUI_ExperienceBar"].statusBar)
+		self:CreateNotifier(ElvUI_ExperienceBar.statusBar)
 		self:UpdateXpNotifierPositions()
 		self:UpdateXpNotifier()
 		hooksecurefunc(M, 'UpdateExperience', BXR.UpdateXpNotifier)
@@ -351,7 +355,7 @@ function BXR:Initialize()
 	end
 	
 	if db.reputation.enable and E.db.general.reputation.orientation == 'VERTICAL' then
-		self:CreateNotifier(_G["ElvUI_ReputationBar"].statusBar)
+		self:CreateNotifier(ElvUI_ReputationBar.statusBar)
 		self:UpdateRepNotifierPositions()
 		self:UpdateRepNotifier()
 		hooksecurefunc(M, 'UpdateReputation', BXR.UpdateRepNotifier)

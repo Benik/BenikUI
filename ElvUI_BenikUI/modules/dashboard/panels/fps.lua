@@ -1,10 +1,9 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUID = E:GetModule('BuiDashboard')
 
+local _G = _G
 local join, floor = string.join, floor
 local GetFramerate = GetFramerate
-
--- GLOBALS: FPS
 
 local LastUpdate = 1
 
@@ -16,7 +15,7 @@ local statusColors = {
 }
 
 function BUID:CreateFps()
-	local boardName = FPS
+	local boardName = _G['FPS']
 	boardName.Status:SetScript('OnUpdate', function(self, elapsed)
 		LastUpdate = LastUpdate - elapsed
 

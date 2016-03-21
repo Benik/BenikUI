@@ -10,8 +10,9 @@ local _G = _G
 local unpack = unpack
 local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
-local BuiGameClickMenu = _G["BuiGameClickMenu"]
 local ToggleCharacter = ToggleCharacter
+local ToggleFriendsFrame = ToggleFriendsFrame
+local ToggleHelpFrame = ToggleHelpFrame
 local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
 local PlaySound = PlaySound
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
@@ -19,10 +20,26 @@ local IsInGuild = IsInGuild
 local IsAddOnLoaded = IsAddOnLoaded
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
+local ToggleLFDParentFrame = ToggleLFDParentFrame
+local ToggleAchievementFrame = ToggleAchievementFrame
+local ToggleCollectionsJournal = ToggleCollectionsJournal
+local GameMenuButtonMacros = GameMenuButtonMacros
+local ToggleFrame = ToggleFrame
+local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
+local GameMenuButtonAddons = GameMenuButtonAddons
 
 -- GLOBALS: hooksecurefunc, GarrisonLandingPageMinimapButton_OnClick, CloseMenus, CloseAllWindows, selectioncolor
 -- GLOBALS: MainMenuMicroButton_SetNormal, AddOnSkins, MAINMENU_BUTTON, ADDONS, LFG_TITLE, BuiLeftChatDTPanel
--- GLOBALS: BuiMiddleDTPanel, BuiRightChatDTPanel
+-- GLOBALS: BuiMiddleDTPanel, BuiRightChatDTPanel, BuiGameClickMenu
+-- GLOBALS: SpellBookFrame, PlayerTalentFrame, TalentFrame_LoadUI
+-- GLOBALS: GlyphFrame, GlyphFrame_LoadUI, PlayerTalentFrame, TimeManagerFrame
+-- GLOBALS: GameTimeFrame, GuildFrame, GuildFrame_LoadUI, EncounterJournal_LoadUI, EncounterJournal
+-- GLOBALS: FarmModeMap, LookingForGuildFrame, LookingForGuildFrame_LoadUI, LookingForGuildFrame_Toggle
+-- GLOBALS: GameMenuFrame, VideoOptionsFrame, VideoOptionsFrameCancel, AudioOptionsFrame, AudioOptionsFrameCancel
+-- GLOBALS: InterfaceOptionsFrame, InterfaceOptionsFrameCancel, GuildFrame_Toggle
+-- GLOBALS: LibStub, StoreMicroButton, ElvConfigToggle
+-- GLOBALS: LeftMiniPanel, RightMiniPanel, Minimap, ElvUI_ConsolidatedBuffs
+-- GLOBALS: LeftChatPanel, RightChatPanel, CopyChatFrame
 
 local PANEL_HEIGHT = 19;
 local SIDE_BUTTON_WIDTH = 16;
@@ -52,70 +69,70 @@ menuFrame:SetTemplate('Transparent', true)
 
 local menuList = {
 	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
-	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not _G["SpellBookFrame"]:IsShown() then ShowUIPanel(_G["SpellBookFrame"]) else HideUIPanel(_G["SpellBookFrame"]) end end},
+	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
 	{text = TALENTS_BUTTON,
 	func = function()
-		if not _G["PlayerTalentFrame"] then
-			_G["TalentFrame_LoadUI"]()
+		if not PlayerTalentFrame then
+			TalentFrame_LoadUI()
 		end
 
-		if not _G["GlyphFrame"] then
-			_G["GlyphFrame_LoadUI"]()
+		if not GlyphFrame then
+			GlyphFrame_LoadUI()
 		end
 
-		if not _G["PlayerTalentFrame"]:IsShown() then
-			ShowUIPanel(_G["PlayerTalentFrame"])
+		if not PlayerTalentFrame:IsShown() then
+			ShowUIPanel(PlayerTalentFrame)
 		else
-			HideUIPanel(_G["PlayerTalentFrame"])
+			HideUIPanel(PlayerTalentFrame)
 		end
 	end},
-	{text = LFG_TITLE, func = function() _G["ToggleLFDParentFrame"](); end},
-	{text = ACHIEVEMENT_BUTTON, func = function() _G["ToggleAchievementFrame"]() end},
+	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
+	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
 	{text = GARRISON_LANDING_PAGE_TITLE, func = function() GarrisonLandingPageMinimapButton_OnClick() end},
 	{text = ACHIEVEMENTS_GUILD_TAB,
 	func = function()
 		if IsInGuild() then
-			if not _G["GuildFrame"] then _G["GuildFrame_LoadUI"]() end
-			_G["GuildFrame_Toggle"]()
+			if not GuildFrame then GuildFrame_LoadUI() end
+			GuildFrame_Toggle()
 		else
-			if not _G["LookingForGuildFrame"] then _G["LookingForGuildFrame_LoadUI"]() end
-			if not _G["LookingForGuildFrame"] then return end
-			_G["LookingForGuildFrame_Toggle"]()
+			if not LookingForGuildFrame then LookingForGuildFrame_LoadUI() end
+			if not LookingForGuildFrame then return end
+			LookingForGuildFrame_Toggle()
 		end
 	end},
-	{text = L["Calendar"], func = function() _G["GameTimeFrame"]:Click() end},
-	{text = MOUNTS, func = function() _G["ToggleCollectionsJournal"](1) end},
-	{text = PET_JOURNAL, func = function() _G["ToggleCollectionsJournal"](2) end},
-	{text = TOY_BOX, func = function() _G["ToggleCollectionsJournal"](3) end},
-	{text = HEIRLOOMS, func = function() _G["ToggleCollectionsJournal"](4) end},
+	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
+	{text = MOUNTS, func = function() ToggleCollectionsJournal(1) end},
+	{text = PET_JOURNAL, func = function() ToggleCollectionsJournal(2) end},
+	{text = TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
+	{text = HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
 	{text = L["Farm Mode"], func = FarmMode},
-	{text = MACROS, func = function() _G["GameMenuButtonMacros"]:Click() end},
-	{text = TIMEMANAGER_TITLE, func = function() _G["ToggleFrame"](_G["TimeManagerFrame"]) end},
-	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then _G["EncounterJournal_LoadUI"](); end _G["ToggleFrame"](_G["EncounterJournal"]) end},
-	{text = SOCIAL_BUTTON, func = function() _G["ToggleFriendsFrame"]() end},
+	{text = MACROS, func = function() GameMenuButtonMacros:Click() end},
+	{text = TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
+	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
+	{text = SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
 	{text = MAINMENU_BUTTON,
 	func = function()
-		if ( not _G["GameMenuFrame"]:IsShown() ) then
-			if ( _G["VideoOptionsFrame"]:IsShown() ) then
-					_G["VideoOptionsFrameCancel"]:Click();
-			elseif ( _G["AudioOptionsFrame"]:IsShown() ) then
-					_G["AudioOptionsFrameCancel"]:Click();
-			elseif ( _G["InterfaceOptionsFrame"]:IsShown() ) then
-					_G["InterfaceOptionsFrameCancel"]:Click();
+		if ( not GameMenuFrame:IsShown() ) then
+			if ( VideoOptionsFrame:IsShown() ) then
+					VideoOptionsFrameCancel:Click();
+			elseif ( AudioOptionsFrame:IsShown() ) then
+					AudioOptionsFrameCancel:Click();
+			elseif ( InterfaceOptionsFrame:IsShown() ) then
+					InterfaceOptionsFrameCancel:Click();
 			end
 			CloseMenus();
 			CloseAllWindows()
 			PlaySound("igMainMenuOpen");
-			ShowUIPanel(_G["GameMenuFrame"]);
+			ShowUIPanel(GameMenuFrame);
 		else
 			PlaySound("igMainMenuQuit");
-			HideUIPanel(_G["GameMenuFrame"]);
+			HideUIPanel(GameMenuFrame);
 			MainMenuMicroButton_SetNormal();
 		end
 	end},
-	{text = HELP_BUTTON, func = function() _G["ToggleHelpFrame"]() end},
-	{text = BLIZZARD_STORE, func = function() _G["StoreMicroButton"]:Click() end}
+	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
+	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end}
 }
 
 local function BuiGameMenu_OnMouseUp(self)
@@ -175,46 +192,46 @@ function BUIL:ResizeMinimapPanels()
 	if E.db.auras.consolidatedBuffs.enable then
 		if E.db.benikui.datatexts.chat.enable then
 			if E.db.auras.consolidatedBuffs.position == "LEFT" then
-				_G["LeftMiniPanel"]:Point('TOPLEFT', _G["ElvUI_ConsolidatedBuffs"], 'BOTTOMLEFT', 0, -SPACING)
-				_G["LeftMiniPanel"]:Point('BOTTOMRIGHT', _G["Minimap"].backdrop, 'BOTTOM', -(E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
-				_G["RightMiniPanel"]:Point('TOPRIGHT', _G["Minimap"].backdrop, 'BOTTOMRIGHT', 0, -SPACING)
-				_G["RightMiniPanel"]:Point('BOTTOMLEFT', _G["LeftMiniPanel"], 'BOTTOMRIGHT', SPACING, 0)
+				LeftMiniPanel:Point('TOPLEFT', ElvUI_ConsolidatedBuffs, 'BOTTOMLEFT', 0, -SPACING)
+				LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -(E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
+				RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
+				RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)					
 			else
-				_G["LeftMiniPanel"]:Point('TOPLEFT', _G["Minimap"].backdrop, 'BOTTOMLEFT', 0, -SPACING)
-				_G["LeftMiniPanel"]:Point('BOTTOMRIGHT', _G["Minimap"].backdrop, 'BOTTOM', (E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
-				_G["RightMiniPanel"]:Point('TOPRIGHT', _G["Minimap"].backdrop, 'BOTTOMRIGHT', E.ConsolidatedBuffsWidth + SPACING, -SPACING)
-				_G["RightMiniPanel"]:Point('BOTTOMLEFT', _G["LeftMiniPanel"], 'BOTTOMRIGHT', SPACING, 0)
+				LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+				LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', (E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
+				RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', E.ConsolidatedBuffsWidth + SPACING, -SPACING)
+				RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
 			end
-			_G["ElvConfigToggle"]:Hide()
+			ElvConfigToggle:Hide()
 		else
-			_G["LeftMiniPanel"]:Point('TOPLEFT', _G["Minimap"].backdrop, 'BOTTOMLEFT', 0, -SPACING)
-			_G["LeftMiniPanel"]:Point('BOTTOMRIGHT', _G["Minimap"].backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
-			_G["RightMiniPanel"]:Point('TOPRIGHT', _G["Minimap"].backdrop, 'BOTTOMRIGHT', 0, -SPACING)
-			_G["RightMiniPanel"]:Point('BOTTOMLEFT', _G["LeftMiniPanel"], 'BOTTOMRIGHT', SPACING, 0)
-			_G["ElvConfigToggle"]:Show()
+			LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+			LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
+			RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
+			RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
+			ElvConfigToggle:Show()			
 		end
 	else
-		_G["LeftMiniPanel"]:Point('TOPLEFT', _G["Minimap"].backdrop, 'BOTTOMLEFT', 0, -SPACING)
-		_G["LeftMiniPanel"]:Point('BOTTOMRIGHT', _G["Minimap"].backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
-		_G["RightMiniPanel"]:Point('TOPRIGHT', _G["Minimap"].backdrop, 'BOTTOMRIGHT', 0, -SPACING)
-		_G["RightMiniPanel"]:Point('BOTTOMLEFT', _G["LeftMiniPanel"], 'BOTTOMRIGHT', SPACING, 0)
+		LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+		LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
+		RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
+		RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
 	end
 	
-	if E.db.datatexts.minimapPanels == false then _G["ElvConfigToggle"]:Hide() end
+	if E.db.datatexts.minimapPanels == false then ElvConfigToggle:Hide() end
 	
 	-- Stop here to support ElvUI_CustomTweaks CBEnhanced
 	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] then return end
 	
 	if E.db.auras.consolidatedBuffs.position == "LEFT" then
-		_G["ElvUI_ConsolidatedBuffs"]:Point('TOPRIGHT', _G["Minimap"].backdrop, 'TOPLEFT', -SPACING, 0)
-		_G["ElvUI_ConsolidatedBuffs"]:Point('BOTTOMRIGHT', _G["Minimap"].backdrop, 'BOTTOMLEFT', -SPACING, 0)
-		_G["ElvConfigToggle"]:Point('TOPRIGHT', _G["LeftMiniPanel"], 'TOPLEFT', -SPACING, 0)
-		_G["ElvConfigToggle"]:Point('BOTTOMRIGHT', _G["LeftMiniPanel"], 'BOTTOMLEFT', -SPACING, 0)		
+		ElvUI_ConsolidatedBuffs:Point('TOPRIGHT', Minimap.backdrop, 'TOPLEFT', -SPACING, 0)
+		ElvUI_ConsolidatedBuffs:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOMLEFT', -SPACING, 0)
+		ElvConfigToggle:Point('TOPRIGHT', LeftMiniPanel, 'TOPLEFT', -SPACING, 0)
+		ElvConfigToggle:Point('BOTTOMRIGHT', LeftMiniPanel, 'BOTTOMLEFT', -SPACING, 0)		
 	else
-		_G["ElvUI_ConsolidatedBuffs"]:Point('TOPLEFT', _G["Minimap"].backdrop, 'TOPRIGHT', SPACING, 0)
-		_G["ElvUI_ConsolidatedBuffs"]:Point('BOTTOMLEFT', _G["Minimap"].backdrop, 'BOTTOMRIGHT', SPACING, 0)
-		_G["ElvConfigToggle"]:Point('TOPLEFT', _G["RightMiniPanel"], 'TOPRIGHT', SPACING, 0)
-		_G["ElvConfigToggle"]:Point('BOTTOMLEFT', _G["RightMiniPanel"], 'BOTTOMRIGHT', SPACING, 0)
+		ElvUI_ConsolidatedBuffs:Point('TOPLEFT', Minimap.backdrop, 'TOPRIGHT', SPACING, 0)
+		ElvUI_ConsolidatedBuffs:Point('BOTTOMLEFT', Minimap.backdrop, 'BOTTOMRIGHT', SPACING, 0)
+		ElvConfigToggle:Point('TOPLEFT', RightMiniPanel, 'TOPRIGHT', SPACING, 0)
+		ElvConfigToggle:Point('BOTTOMLEFT', RightMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
 	end
 end
 
@@ -305,21 +322,21 @@ end
 
 function BUIL:ChangeLayout()
 	
-	_G["LeftMiniPanel"]:Height(PANEL_HEIGHT)
-	_G["RightMiniPanel"]:Height(PANEL_HEIGHT)
+	LeftMiniPanel:Height(PANEL_HEIGHT)
+	RightMiniPanel:Height(PANEL_HEIGHT)
 	
-	_G["ElvConfigToggle"]:Height(PANEL_HEIGHT)
+	ElvConfigToggle:Height(PANEL_HEIGHT)
 
 	-- Left dt panel
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
-	Bui_ldtp:Point('TOPLEFT', _G["LeftChatPanel"], 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
-	Bui_ldtp:Point('BOTTOMRIGHT', _G["LeftChatPanel"], 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
+	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
+	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
 	Bui_ldtp:Style('Outside')
 	
 	-- Right dt panel
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
-	Bui_rdtp:Point('TOPLEFT', _G["RightChatPanel"], 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
-	Bui_rdtp:Point('BOTTOMRIGHT', _G["RightChatPanel"], 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
+	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING + PANEL_HEIGHT), -SPACING)
+	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING + PANEL_HEIGHT), -PANEL_HEIGHT-SPACING)
 	Bui_rdtp:Style('Outside')
 	
 	-- Middle dt panel
@@ -333,13 +350,13 @@ function BUIL:ChangeLayout()
 
 	-- dummy frame for chat/threat (left)
 	Bui_dchat:SetFrameStrata('LOW')
-	Bui_dchat:Point('TOPLEFT', _G["LeftChatPanel"], 'BOTTOMLEFT', 0, -SPACING)
-	Bui_dchat:Point('BOTTOMRIGHT', _G["LeftChatPanel"], 'BOTTOMRIGHT', 0, -PANEL_HEIGHT-SPACING)
+	Bui_dchat:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -SPACING)
+	Bui_dchat:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT-SPACING)
 	
 	-- dummy frame for threat (right)
 	Bui_dthreat:SetFrameStrata('LOW')
-	Bui_dthreat:Point('TOPLEFT', _G["RightChatPanel"], 'BOTTOMLEFT', 0, -SPACING)
-	Bui_dthreat:Point('BOTTOMRIGHT', _G["RightChatPanel"], 'BOTTOMRIGHT', 0, -PANEL_HEIGHT-SPACING)
+	Bui_dthreat:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, -SPACING)
+	Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT-SPACING)
 	
 	-- Buttons
 	for i = 1, BUTTON_NUM do
@@ -359,7 +376,7 @@ function BUIL:ChangeLayout()
 		if i == 1 then
 			bbuttons[i]:Point('TOPLEFT', Bui_rdtp, 'TOPRIGHT', SPACING, 0)
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
-			bbuttons[i].parent = _G["RightChatPanel"]
+			bbuttons[i].parent = RightChatPanel
 			bbuttons[i].text:SetText('C')
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
@@ -418,11 +435,11 @@ function BUIL:ChangeLayout()
 				GameTooltip:Hide()
 			end)
 	
-		-- AddOns Button
+		-- AddOns Button	
 		elseif i == 3 then
 			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
-			bbuttons[i].parent = _G["LeftChatPanel"]
+			bbuttons[i].parent = LeftChatPanel
 			bbuttons[i].text:SetText('A')
 			
 			bbuttons[i]:SetScript('OnEnter', function(self)
@@ -434,7 +451,7 @@ function BUIL:ChangeLayout()
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
 					self:SetScript('OnClick', function(self)
-						_G["GameMenuButtonAddons"]:Click()
+						GameMenuButtonAddons:Click()
 						PlaySound("igMainMenuOptionCheckBoxOff");
 					end)
 				end
@@ -459,7 +476,7 @@ function BUIL:ChangeLayout()
 			bbuttons[i].text:SetText('L')
 			
 			bbuttons[i]:SetScript('OnClick', function(self)
-				_G["PVEFrame_ToggleFrame"]()
+				PVEFrame_ToggleFrame()
 				PlaySound("igMainMenuOptionCheckBoxOff");
 			end)
 			
@@ -481,22 +498,22 @@ function BUIL:ChangeLayout()
 		end
 	end
 
-	_G["LeftChatPanel"].backdrop:Style('Outside', 'LeftChatPanel_Bui') -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
-	_G["RightChatPanel"].backdrop:Style('Outside', 'RightChatPanel_Bui')
+	LeftChatPanel.backdrop:Style('Outside', 'LeftChatPanel_Bui') -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
+	RightChatPanel.backdrop:Style('Outside', 'RightChatPanel_Bui')
 	
 	-- Minimap elements styling
-	if E.private.general.minimap.enable then _G["Minimap"].backdrop:Style('Outside') end
+	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end
 	
 	-- Support for ElvUI_CustomTweaks CBEnhanced
 	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] then
-		_G["ElvUI_ConsolidatedBuffs"].backdrop:Style('Outside')
+		ElvUI_ConsolidatedBuffs.backdrop:Style('Outside')
 	else
-		_G["ElvUI_ConsolidatedBuffs"]:Style('Outside')
+		ElvUI_ConsolidatedBuffs:Style('Outside')
 	end
 	
-	if _G["CopyChatFrame"] then _G["CopyChatFrame"]:Style('Outside') end
+	if CopyChatFrame then CopyChatFrame:Style('Outside') end
 	
-	if _G["FarmModeMap"] then _G["FarmModeMap"].backdrop:Style('Outside') end
+	if FarmModeMap then FarmModeMap.backdrop:Style('Outside') end
 	
 	self:ResizeMinimapPanels()
 	self:ToggleTransparency()
