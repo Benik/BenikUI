@@ -5,6 +5,8 @@ local select, collectgarbage = select, collectgarbage
 local sort, wipe = table.sort, table.wipe
 local format = string.format
 
+-- GLOBALS: Memory, selectioncolor
+
 local GetNumAddOns = GetNumAddOns
 local GetAddOnInfo = GetAddOnInfo
 local IsAddOnLoaded = IsAddOnLoaded

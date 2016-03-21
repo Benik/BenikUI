@@ -7,6 +7,9 @@ local select = select
 local CreateFrame = CreateFrame
 local UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction = UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
+
+-- GLOBALS: hooksecurefunc, ElvUF
 
 function UFB:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]

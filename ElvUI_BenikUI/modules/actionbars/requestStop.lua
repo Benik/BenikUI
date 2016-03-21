@@ -1,14 +1,18 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BAB = E:GetModule('BuiActionbars');
 
+local _G = _G
+local unpack = unpack
+local GameTooltip = _G["GameTooltip"]
 local CreateFrame = CreateFrame
 local UnitOnTaxi = UnitOnTaxi
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 
-local BAB = E:GetModule('BuiActionbars');
+-- GLOBALS: TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION, selectioncolor, GameTooltip_Hide, CreateAnimationGroup, BuiTaxiButton
 
 local function TaxiButton_OnEvent(self, event)
 	if ( UnitOnTaxi("player") ) then
-		LeaveVehicleButton:Hide() -- Hide ElvUI minimap button
+		_G["LeaveVehicleButton"]:Hide() -- Hide ElvUI minimap button
 		E:UIFrameFadeIn(self, 1, 0, 1)
 		self:Show()
 		self.textHolder.Text:SetFormattedText("%s", TAXI_CANCEL)
@@ -17,7 +21,7 @@ local function TaxiButton_OnEvent(self, event)
 		self.IconBG:SetBackdropColor(unpack(E['media'].backdropcolor))
 		self.IconBG.Icon:SetAlpha(0.5)
 		self:EnableMouse(true)
-		BuiTaxiButton:SetWidth(self:GetWidth() + 42)
+		_G["BuiTaxiButton"]:SetWidth(self:GetWidth() + 42)
 	else
 		self:Hide()
 	end
@@ -32,7 +36,7 @@ local function TaxiButton_OnClick(self, btn)
 		E:Delay(1, function()
 			self.textHolder.Text:SetFormattedText("%s", TAXI_CANCEL_DESCRIPTION)
 			self.textHolder.Text:SetTextColor(1, 0, 0)
-			self.textHolder.Text:SetAlpha(0)			
+			self.textHolder.Text:SetAlpha(0)
 			
 			self.anim.sizing:SetChange(self.textHolder.Text:GetStringWidth() + 56)
 			self.anim:Play()

@@ -1,6 +1,8 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local upper = string.upper
 
+local UnitName = UnitName
+
 ElvUF.Tags.Events['name:cap'] = 'UNIT_NAME_UPDATE'
 ElvUF.Tags.Methods['name:cap'] = function(unit)
 	local name = UnitName(unit)

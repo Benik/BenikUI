@@ -1,11 +1,14 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUID = E:GetModule('BuiDashboard')
 
-local LastUpdate = 1
 local format, select = string.format, select
 local join = string.join
 
 local GetNetStats = GetNetStats
+
+-- GLOBALS: MS
+
+local LastUpdate = 1
 
 local statusColors = {
 	'|cff0CD809',

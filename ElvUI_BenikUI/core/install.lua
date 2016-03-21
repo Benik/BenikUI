@@ -24,6 +24,7 @@ local CreateAnimationGroup = CreateAnimationGroup
 
 -- GLOBALS: BUIInstallFrame, BUITitleFrame, InstallStepComplete, InstallStatus, InstallNextButton, InstallPrevButton
 -- GLOBALS: InstallOption1Button, InstallOption2Button, InstallOption3Button, InstallOption4Button, LeftChatToggleButton
+-- GLOBALS: RecountDB, SkadaDB, DBM, DBM_AllSavedOptions, DBT_AllPersistentOptions, MSBTProfiles_SavedVars, MikSBT
 
 local CURRENT_PAGE = 0
 local MAX_PAGE = 9

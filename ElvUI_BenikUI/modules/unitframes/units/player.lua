@@ -5,6 +5,8 @@ local UF = E:GetModule('UnitFrames');
 local _G = _G
 local CreateFrame = CreateFrame
 
+-- GLOBALS: hooksecurefunc
+
 function UFB:Construct_PlayerFrame()
 	local frame = _G["ElvUF_Player"]
 	

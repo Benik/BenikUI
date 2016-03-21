@@ -2,9 +2,11 @@ local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
 local format = string.format
+local select = select
 local join = string.join
 
 local CreateFrame = CreateFrame
+local EasyMenu = EasyMenu
 local GetSpecialization = GetSpecialization
 local GetActiveSpecGroup = GetActiveSpecGroup
 local GetSpecializationInfo = GetSpecializationInfo
@@ -13,6 +15,8 @@ local GetLootSpecialization = GetLootSpecialization
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local SetActiveSpecGroup = SetActiveSpecGroup
 local SetLootSpecialization = SetLootSpecialization
+
+-- GLOBALS: SELECT_LOOT_SPECIALIZATION, LOOT_SPECIALIZATION_DEFAULT
 
 local lastPanel, active
 local displayString = '';

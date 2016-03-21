@@ -3,6 +3,7 @@ local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
 local twipe, pairs, select = table.wipe, pairs, select
+local random = random
 
 local GetNumClasses = GetNumClasses
 local GetClassInfo = GetClassInfo
@@ -15,6 +16,8 @@ local GetUnitName = GetUnitName
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitIsConnected = UnitIsConnected
 local IsAddOnLoaded = IsAddOnLoaded
+
+-- GLOBALS: hooksecurefunc
 
 local rolePaths = {
 	TANK = [[Interface\AddOns\ElvUI_BenikUI\media\textures\roleIcons\tank.tga]],

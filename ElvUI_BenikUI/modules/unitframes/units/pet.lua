@@ -4,6 +4,8 @@ local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 
+-- GLOBALS: hooksecurefunc
+
 function UFB:ArrangePet()
 	local frame = _G["ElvUF_Pet"]
 	local db = E.db['unitframe']['units'].pet

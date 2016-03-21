@@ -4,6 +4,8 @@ local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 
+-- GLOBALS: hooksecurefunc
+
 function UFB:ArrangeFocus()
 	local frame = _G["ElvUF_Focus"]
 	local db = E.db['unitframe']['units'].focus

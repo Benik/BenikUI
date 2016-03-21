@@ -2,12 +2,17 @@ local E, L, V, P, G = unpack(ElvUI);
 local LSM = LibStub('LibSharedMedia-3.0')
 local BUID = E:GetModule('BuiDashboard')
 
+local _G = _G
 local join, tonumber, floor = string.join, tonumber, floor
 
 local CreateFrame = CreateFrame
+local GameTooltip = _G["GameTooltip"]
 local GetCVar, SetCVar = GetCVar, SetCVar
 local Sound_ToggleSound = Sound_ToggleSound
 local Sound_ToggleMusic = Sound_ToggleMusic
+
+-- GLOBALS: iconBG_OnClick, MASTER_VOLUME, MUTED, selectioncolor, ENABLE_SOUNDFX, MUSIC_VOLUME, VOICE_AMBIENCE, BINDING_NAME_TOGGLESOUND
+-- GLOBALS: BINDING_NAME_TOGGLEMUSIC, VOLUME, Volume
 
 local SPACING = (E.PixelMode and 1 or 5)
 

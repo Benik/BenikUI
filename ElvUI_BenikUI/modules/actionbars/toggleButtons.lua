@@ -2,7 +2,11 @@ local E, L, V, P, G = unpack(ElvUI);
 local AB = E:GetModule('ActionBars');
 local BAB = E:GetModule('BuiActionbars');
 
+local unpack = unpack
 local CreateFrame = CreateFrame
+local InCombatLockdown = InCombatLockdown
+
+-- GLOBALS: CreateAnimationGroup, UIFrameFadeOut, ElvUI_Bar1_Bui, ElvUI_Bar2_Bui
 
 local function ab3_OnClick()
 	if E.db.actionbar.bar3.enabled == true then

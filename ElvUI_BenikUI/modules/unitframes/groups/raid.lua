@@ -2,6 +2,11 @@
 local UF = E:GetModule('UnitFrames');
 local UFB = E:GetModule('BuiUnits');
 
+local select, unpack = select, unpack
+
+local UnitClass = UnitClass
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+
 function UFB:Update_RaidFrames(frame, db)
 	frame.db = db
 

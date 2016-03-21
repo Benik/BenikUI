@@ -4,6 +4,8 @@ local BUID = E:GetModule('BuiDashboard')
 local join, floor = string.join, floor
 local GetFramerate = GetFramerate
 
+-- GLOBALS: FPS
+
 local LastUpdate = 1
 
 local statusColors = {

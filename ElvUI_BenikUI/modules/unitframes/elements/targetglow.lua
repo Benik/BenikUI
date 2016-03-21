@@ -2,6 +2,8 @@ local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
+-- GLOBALS: USE_POWERBAR_OFFSET
+
 function UFB:Configure_TargetGlow(frame)
 	local SHADOW_SPACING = frame.SHADOW_SPACING
 	local tGlow = frame.TargetGlow
