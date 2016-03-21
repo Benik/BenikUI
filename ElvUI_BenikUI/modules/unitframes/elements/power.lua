@@ -4,6 +4,9 @@ local UF = E:GetModule('UnitFrames');
 local LSM = LibStub("LibSharedMedia-3.0");
 UF.LSM = LSM
 
+local _G = _G
+local pairs, select = pairs, select
+
 -- Units
 function UFB:ChangeUnitPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.powerbar.statusBar)

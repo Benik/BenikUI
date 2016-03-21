@@ -2,6 +2,8 @@ local E, L, V, P, G = unpack(ElvUI);
 local UF = E:GetModule('UnitFrames');
 local UFB = E:GetModule('BuiUnits');
 
+-- GLOBALS: hooksecurefunc
+
 function UFB:Update_Raid40Frames(frame, db)
 	frame.db = db
 

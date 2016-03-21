@@ -1,16 +1,20 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
+local LSM = LibStub('LibSharedMedia-3.0')
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
+local _G = _G
 local match, gsub = string.match, gsub
-
-local LSM = LibStub('LibSharedMedia-3.0')
 
 local CreateFrame = CreateFrame
 local SetInventoryItem = SetInventoryItem
 local GetInventoryItemLink = GetInventoryItemLink
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
+
+-- GLOBALS: CharacterHeadSlot, CharacterNeckSlot, CharacterShoulderSlot, CharacterBackSlot, CharacterChestSlot, CharacterWristSlot
+-- GLOBALS: CharacterHandsSlot, CharacterWaistSlot, CharacterLegsSlot, CharacterFeetSlot, CharacterFinger0Slot, CharacterFinger1Slot
+-- GLOBALS: CharacterTrinket0Slot, CharacterTrinket1Slot, CharacterMainHandSlot, CharacterSecondaryHandSlot
 
 local xo, yo = 0, 1
 local equipped = {}
@@ -101,14 +105,14 @@ local function OnEvent(self, event)
 
 		applyStrings()
 
-		PaperDollFrame:HookScript("OnShow", function(self)
+		_G["PaperDollFrame"]:HookScript("OnShow", function(self)
 			f:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 			f:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE")
 			BUI:update_iLevelItems()
 			f:Show()
 		end)
 
-		PaperDollFrame:HookScript("OnHide", function(self)
+		_G["PaperDollFrame"]:HookScript("OnHide", function(self)
 			f:UnregisterEvent("PLAYER_EQUIPMENT_CHANGED")
 			f:UnregisterEvent("ITEM_UPGRADE_MASTER_UPDATE")
 			f:Hide()

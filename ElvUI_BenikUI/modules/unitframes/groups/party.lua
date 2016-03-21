@@ -2,6 +2,8 @@
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
+-- GLOBALS: hooksecurefunc
+
 function UFB:Update_PartyFrames(frame, db)
 	frame.db = db
 

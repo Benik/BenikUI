@@ -4,13 +4,18 @@ local BUIP = E:NewModule('BuiProfessionsDashboard', 'AceEvent-3.0', 'AceHook-3.0
 local LSM = LibStub('LibSharedMedia-3.0')
 local DT = E:GetModule('DataTexts')
 
-local getn, wipe, pairs, ipairs = getn, table.wipe, pairs, ipairs
+local _G = _G
+local getn = getn
+local pairs, ipairs = pairs, ipairs
+local tinsert, wipe = table.insert, table.wipe
 
 local CreateFrame = CreateFrame
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
 local CastSpellByName = CastSpellByName
+
+-- GLOBALS: TRADE_SKILLS, hooksecurefunc, PROFESSIONS_FISHING
 
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.professions == nil then E.db.dashboards.professions = {} end
@@ -25,19 +30,19 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local BuiProfessions = {}
 
 local function pholderOnFade()
-	proHolder:Hide()
+	_G["proHolder"]:Hide()
 end
 
 function BUIP:CreateProHolder()
 	local pholder
-	local mapholderWidth = E.private.general.minimap.enable and MMHolder:GetWidth() or 172
+	local mapholderWidth = E.private.general.minimap.enable and _G["MMHolder"]:GetWidth() or 172
 	if not pholder then
 		pholder = CreateFrame('Frame', 'proHolder', E.UIParent)
 		pholder:CreateBackdrop('Transparent')
 		pholder:Width(mapholderWidth or DASH_WIDTH)
 		pholder:SetFrameStrata('LOW')
 		if E.private.general.minimap.enable then
-			pholder:Point('TOPLEFT', MMHolder, 'BOTTOMLEFT', 0, -5)
+			pholder:Point('TOPLEFT', _G["MMHolder"], 'BOTTOMLEFT', 0, -5)
 		else
 			pholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -120)
 		end
@@ -61,16 +66,16 @@ function BUIP:CreateProHolder()
 	self:UpdatePholderDimensions()
 	self:EnableDisableCombat()
 	E.FrameLocks['proHolder'] = true;
-	E:CreateMover(proHolder, 'ProfessionsMover', TRADE_SKILLS)
+	E:CreateMover(_G["proHolder"], 'ProfessionsMover', TRADE_SKILLS)
 end
 
 function BUIP:EnableDisableCombat()
 	if E.db.dashboards.professions.combat then
-		proHolder:RegisterEvent('PLAYER_REGEN_DISABLED')
-		proHolder:RegisterEvent('PLAYER_REGEN_ENABLED')	
+		_G["proHolder"]:RegisterEvent('PLAYER_REGEN_DISABLED')
+		_G["proHolder"]:RegisterEvent('PLAYER_REGEN_ENABLED')	
 	else
-		proHolder:UnregisterEvent('PLAYER_REGEN_DISABLED')
-		proHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')	
+		_G["proHolder"]:UnregisterEvent('PLAYER_REGEN_DISABLED')
+		_G["proHolder"]:UnregisterEvent('PLAYER_REGEN_ENABLED')	
 	end
 end
 
@@ -81,7 +86,7 @@ function BUIP:UpdateProfessions()
 			BuiProfessions[i]:Kill()
 		end
 		wipe( BuiProfessions )
-		proHolder.backdrop:Hide()
+		_G["proHolder"].backdrop:Hide()
 	end
 	
 	local capRank = 700
@@ -95,13 +100,13 @@ function BUIP:UpdateProfessions()
 
 			if name and (rank < capRank or (not db.capped)) then
 				if db.choosePofessions[name] == true then
-					proHolder.backdrop:Show()
-					proHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BuiProfessions + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+					_G["proHolder"].backdrop:Show()
+					_G["proHolder"]:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BuiProfessions + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 
-					local ProFrame = CreateFrame('Frame', nil, proHolder)
+					local ProFrame = CreateFrame('Frame', nil, _G["proHolder"])
 					ProFrame:Height(DASH_HEIGHT)
 					ProFrame:Width(DASH_WIDTH)
-					ProFrame:Point('TOPLEFT', proHolder, 'TOPLEFT', SPACING, -SPACING)
+					ProFrame:Point('TOPLEFT', _G["proHolder"], 'TOPLEFT', SPACING, -SPACING)
 					ProFrame:EnableMouse(true)
 					
 					ProFrame.dummy = CreateFrame('Frame', nil, ProFrame)
@@ -189,7 +194,7 @@ function BUIP:UpdateProfessions()
 	for key, frame in ipairs(BuiProfessions) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point( 'TOPLEFT', proHolder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point( 'TOPLEFT', _G["proHolder"], 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			frame:Point('TOP', BuiProfessions[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
@@ -205,7 +210,7 @@ function BUIP:ProEvents()
 end
 
 function BUIP:UpdatePholderDimensions()
-	proHolder:Width(E.db.dashboards.professions.width)
+	_G["proHolder"]:Width(E.db.dashboards.professions.width)
 
 	for _, frame in pairs(BuiProfessions) do
 		frame:Width(E.db.dashboards.professions.width)

@@ -3,14 +3,21 @@ local AFK = E:GetModule('AFK')
 local LSM = LibStub('LibSharedMedia-3.0')
 local BUI = E:GetModule('BenikUI');
 
-local format, gsub, random, lower, upper, tonumber = string.format, gsub, random, string.lower, string.upper, tonumber
+local floor, format, gsub, random, lower, upper = floor, string.format, gsub, random, string.lower, string.upper
+local tonumber = tonumber
 
 local CreateFrame = CreateFrame
 local GetGameTime = GetGameTime
+local GetScreenHeight, GetScreenWidth = GetScreenHeight, GetScreenWidth
 local CalendarGetDate = CalendarGetDate
 local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic
 local GetCursorPosition = GetCursorPosition
+local IsXPUserDisabled = IsXPUserDisabled
+local UnitLevel = UnitLevel
+
+-- GLOBALS: date, TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, NONE, CAMP_TIMER, MAX_PLAYER_LEVEL, LEVEL
+-- GLOBALS: CreateAnimationGroup
 
 local SPACING = (E.PixelMode and 1 or 5)
 

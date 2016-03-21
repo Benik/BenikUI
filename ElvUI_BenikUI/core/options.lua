@@ -2,11 +2,14 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 
 if E.db.benikui == nil then E.db.benikui = {} end
+local format = format
 local tinsert = table.insert
 
-local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
+local CLASS_COLORS, COLOR, CUSTOM, DEFAULT = CLASS_COLORS, COLOR, CUSTOM, DEFAULT
 local COLORS, COLOR_PICKER, MISCELLANEOUS, RARITY, FONT_SIZE = COLORS, COLOR_PICKER, MISCELLANEOUS, RARITY, FONT_SIZE
 local StaticPopup_Show = StaticPopup_Show
+
+-- GLOBALS: AceGUIWidgetLSMlists, a
 
 	StaticPopupDialogs["BENIKUI_CREDITS"] = {
 		text = BUI.Title,

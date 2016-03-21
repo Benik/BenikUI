@@ -9,7 +9,12 @@ local BUID = E:NewModule('BuiDashboard')
 local LSM = LibStub('LibSharedMedia-3.0')
 local DT = E:GetModule('DataTexts')
 
-local tinsert, twipe, getn, pairs, ipairs = table.insert, table.wipe, getn, pairs, ipairs
+local _G = _G
+local getn = getn
+local pairs, ipairs = pairs, ipairs
+local tinsert, twipe = table.insert, table.wipe
+
+-- GLOBALS: hooksecurefunc
 
 local CreateFrame = CreateFrame
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
@@ -33,7 +38,7 @@ local boards = {"FPS", "MS", "Memory", "Durability", "Volume"}
 local loadedBoards = {}
 
 local function dholderOnFade()
-	sysHolder:Hide()
+	_G["sysHolder"]:Hide()
 end
 
 -- Bar Holder
@@ -59,23 +64,23 @@ function BUID:CreateSystemHolder()
 	end
 
 	E.FrameLocks['sysHolder'] = true;
-	E:CreateMover(sysHolder, 'BuiDashboardMover', L['System'])
+	E:CreateMover(_G["sysHolder"], 'BuiDashboardMover', L['System'])
 	self:EnableDisableCombat()
 	self:UpdateBoards()
 end
 
 function BUID:EnableDisableCombat()
 	if E.db.dashboards.system.combat then
-		sysHolder:RegisterEvent('PLAYER_REGEN_DISABLED')
-		sysHolder:RegisterEvent('PLAYER_REGEN_ENABLED')	
+		_G["sysHolder"]:RegisterEvent('PLAYER_REGEN_DISABLED')
+		_G["sysHolder"]:RegisterEvent('PLAYER_REGEN_ENABLED')	
 	else
-		sysHolder:UnregisterEvent('PLAYER_REGEN_DISABLED')
-		sysHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')	
+		_G["sysHolder"]:UnregisterEvent('PLAYER_REGEN_DISABLED')
+		_G["sysHolder"]:UnregisterEvent('PLAYER_REGEN_ENABLED')	
 	end
 end
 
 function BUID:UpdateSysHolderDimensions()
-	sysHolder:Width(E.db.dashboards.system.width)
+	_G["sysHolder"]:Width(E.db.dashboards.system.width)
 
 	for _, frame in pairs(loadedBoards) do
 		frame:Width(E.db.dashboards.system.width)
@@ -89,18 +94,18 @@ function BUID:UpdateBoards()
 			loadedBoards[i]:Kill()
 		end
 		twipe( loadedBoards )
-		sysHolder.backdrop:Hide()
+		_G["sysHolder"].backdrop:Hide()
 	end
 
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
-			sysHolder.backdrop:Show()
-			sysHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#loadedBoards + 1)) + DASH_SPACING)
+			_G["sysHolder"].backdrop:Show()
+			_G["sysHolder"]:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#loadedBoards + 1)) + DASH_SPACING)
 
-			local sysFrame = CreateFrame('Frame', name, sysHolder)
+			local sysFrame = CreateFrame('Frame', name, _G["sysHolder"])
 			sysFrame:Height(DASH_HEIGHT)
 			sysFrame:Width(DASH_WIDTH)
-			sysFrame:Point('TOPLEFT', sysHolder, 'TOPLEFT', SPACING, -SPACING)
+			sysFrame:Point('TOPLEFT', _G["sysHolder"], 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
 			
 			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
@@ -135,7 +140,7 @@ function BUID:UpdateBoards()
 	for key, frame in ipairs(loadedBoards) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point( 'TOPLEFT', sysHolder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point( 'TOPLEFT', _G["sysHolder"], 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			frame:Point('TOP', loadedBoards[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end

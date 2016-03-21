@@ -7,9 +7,15 @@ local DT = E:GetModule('DataTexts')
 if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.tokens == nil then E.db.dashboards.tokens = {} end
 
-local tinsert, twipe, ipairs = table.insert, table.wipe, ipairs
+-- GLOBALS: hooksecurefunc, tokenFrames, tokenHolder, tokenHolderMover
+
+local _G = _G
+local getn = getn
+local pairs, ipairs = pairs, ipairs
+local tinsert, twipe = table.insert, table.wipe
 
 local CreateFrame = CreateFrame
+local GameTooltip = _G["GameTooltip"]
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local GetCurrencyInfo = GetCurrencyInfo
 
@@ -71,7 +77,7 @@ local BUIcurrency = {
 }
 
 local function tholderOnFade()
-	tokenHolder:Hide()
+	_G["tokenHolder"]:Hide()
 end
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
@@ -84,7 +90,7 @@ function BUIT:CreateTokensHolder()
 		tholder:CreateBackdrop('Transparent')
 		tholder:Width(DASH_WIDTH)
 		if E.db.dashboards.system.enableSystem then
-			tholder:Point('TOPLEFT', sysHolder, 'BOTTOMLEFT', 0, -10)
+			tholder:Point('TOPLEFT', _G["sysHolder"], 'BOTTOMLEFT', 0, -10)
 		else
 			tholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
 		end
@@ -114,10 +120,10 @@ end
 function BUIT:EnableDisableCombat()
 	if E.db.dashboards.tokens.combat then
 		tokenHolder:RegisterEvent('PLAYER_REGEN_DISABLED')
-		tokenHolder:RegisterEvent('PLAYER_REGEN_ENABLED')	
+		tokenHolder:RegisterEvent('PLAYER_REGEN_ENABLED')
 	else
 		tokenHolder:UnregisterEvent('PLAYER_REGEN_DISABLED')
-		tokenHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')	
+		tokenHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')
 	end
 end
 

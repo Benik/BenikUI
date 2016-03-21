@@ -4,6 +4,12 @@ local BUI = E:GetModule('BenikUI');
 
 if E.private.auras.enable ~= true then return end
 
+local unpack = unpack
+
+local UnitAura = UnitAura
+
+-- GLOBALS: DebuffTypeColor, dtype
+
 A.CreateIconBui = A.CreateIcon
 function A:CreateIcon(button)
 	self:CreateIconBui(button)

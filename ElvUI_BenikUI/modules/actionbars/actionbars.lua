@@ -5,8 +5,11 @@ local BUI = E:GetModule('BenikUI');
 
 if E.private.actionbar.enable ~= true then return; end
 
+local _G = _G
 local pairs = pairs
 local IsAddOnLoaded = IsAddOnLoaded
+
+-- GLOBALS: NUM_PET_ACTION_SLOTS, C_Timer, DisableAddOn
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
@@ -98,7 +101,7 @@ function BAB:TransparentBackdrops()
 	end
 
 	-- Other bar backdrops
-	local transOtherBars = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags}
+	local transOtherBars = {_G["ElvUI_BarPet"], _G["ElvUI_StanceBar"], _G["ElvUI_TotemBar"], _G["ElvUIBags"]}
 	for _, frame in pairs(transOtherBars) do
 		if frame.backdrop then
 			if db.transparent then

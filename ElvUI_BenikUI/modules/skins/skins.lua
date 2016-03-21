@@ -3,10 +3,13 @@ local BUIS = E:NewModule('BuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
 local S = E:GetModule('Skins');
 
-local ipairs, pairs, unpack = ipairs, pairs, unpack
 local _G = _G
+local ipairs, pairs, unpack = ipairs, pairs, unpack
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
+local LoadAddOn = LoadAddOn
+
+-- GLOBALS: hooksecurefunc, DUNGEON_COMPLETION_MAX_REWARDS, MAX_SKILLLINE_TABS, MAX_ACHIEVEMENT_ALERTS
 
 local SPACING = (E.PixelMode and 1 or 2)
 
@@ -160,10 +163,10 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 
 				-- Fixes/Style tabs, buttons, etc
 				if addon == 'Blizzard_AchievementUI' then
-					if AchievementFrameDecor then
-						AchievementFrameDecor:ClearAllPoints()
-						AchievementFrameDecor:Point('TOPLEFT', AchievementFrame, 'TOPLEFT', (E.PixelMode and 1 or 2), (E.PixelMode and 9 or 11))
-						AchievementFrameDecor:Point('BOTTOMRIGHT', AchievementFrame, 'TOPRIGHT', -(E.PixelMode and 1 or 2), (E.PixelMode and 6 or 9))			
+					if _G["AchievementFrameDecor"] then
+						_G["AchievementFrameDecor"]:ClearAllPoints()
+						_G["AchievementFrameDecor"]:Point('TOPLEFT', _G["AchievementFrame"], 'TOPLEFT', (E.PixelMode and 1 or 2), (E.PixelMode and 9 or 11))
+						_G["AchievementFrameDecor"]:Point('BOTTOMRIGHT', _G["AchievementFrame"], 'TOPRIGHT', -(E.PixelMode and 1 or 2), (E.PixelMode and 6 or 9))			
 					end
 				end
 				
@@ -190,7 +193,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				end
 				
 				if addon == 'Blizzard_GuildUI' then
-					local GuildFrames = {GuildMemberDetailFrame, GuildTextEditFrame, GuildLogFrame, GuildNewsFiltersFrame}
+					local GuildFrames = {_G["GuildMemberDetailFrame"], _G["GuildTextEditFrame"], _G["GuildLogFrame"], _G["GuildNewsFiltersFrame"]}
 					for _, frame in pairs(GuildFrames) do
 						if frame and not frame.style then
 							frame:Style('Outside')
@@ -200,17 +203,17 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				
 				if addon == 'Blizzard_VoidStorageUI' then
 					for i = 1, 2 do
-						local tab = VoidStorageFrame["Page"..i]
+						local tab = _G["VoidStorageFrame"]["Page"..i]
 						if not tab.style then
 							tab:Style('Inside')
 							tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
 							tab:GetNormalTexture():SetInside()
-						end						
+						end
 					end
 				end
 				
 				if addon == 'Blizzard_BarbershopUI' then
-					BarberShopAltFormFrame.backdrop:Style('Outside')
+					_G["BarberShopAltFormFrame"].backdrop:Style('Outside')
 				end
 				
 			end
@@ -219,15 +222,15 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	
 	if addon == 'Blizzard_EncounterJournal' then
 		if E.private.skins.blizzard.encounterjournal == true then
-			if not EncounterJournal.style then
-				EncounterJournal:Style('Small')
+			if not _G["EncounterJournal"].style then
+				_G["EncounterJournal"]:Style('Small')
 			end
-			EncounterJournalTooltip:Style('Outside')
+			_G["EncounterJournalTooltip"]:Style('Outside')
 			local Tabs = {
-				EncounterJournalEncounterFrameInfoBossTab,
-				EncounterJournalEncounterFrameInfoLootTab,
-				EncounterJournalEncounterFrameInfoModelTab,
-				EncounterJournalEncounterFrameInfoOverviewTab
+				_G["EncounterJournalEncounterFrameInfoBossTab"],
+				_G["EncounterJournalEncounterFrameInfoLootTab"],
+				_G["EncounterJournalEncounterFrameInfoModelTab"],
+				_G["EncounterJournalEncounterFrameInfoOverviewTab"]
 			}
 			
 			for _, Tab in pairs(Tabs) do
@@ -239,27 +242,27 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	end
 	
 	if addon == 'Blizzard_QuestChoice' and E.private.skins.blizzard.questChoice then
-		if not QuestChoiceFrame.style then
-			QuestChoiceFrame:Style('Small')
+		if not _G["QuestChoiceFrame"].style then
+			_G["QuestChoiceFrame"]:Style('Small')
 		end
 	end
 	
 	if addon == 'Blizzard_AuctionUI' then
-		if not AuctionProgressFrame.style then
-			AuctionProgressFrame:Style('Outside')
+		if not _G["AuctionProgressFrame"].style then
+			_G["AuctionProgressFrame"]:Style('Outside')
 		end
-		if not WowTokenGameTimeTutorial.style then
-			WowTokenGameTimeTutorial:Style('Small')
+		if not _G["WowTokenGameTimeTutorial"].style then
+			_G["WowTokenGameTimeTutorial"]:Style('Small')
 		end
 	end
 
 	if E.private.skins.blizzard.timemanager == true then
-		if not TimeManagerFrame.style then
-			TimeManagerFrame:Style('Outside')
+		if not _G["TimeManagerFrame"].style then
+			_G["TimeManagerFrame"]:Style('Outside')
 		end
 		
-		if not StopwatchFrame.backdrop.style then
-			StopwatchFrame.backdrop:Style('Outside')
+		if not _G["StopwatchFrame"].backdrop.style then
+			_G["StopwatchFrame"].backdrop:Style('Outside')
 		end
 	end
 end
@@ -300,7 +303,7 @@ end
 local function styleCoreAbilities()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true then return end
 	hooksecurefunc('SpellBook_GetCoreAbilitySpecTab', function(index)
-		local button = SpellBookCoreAbilitiesFrame.SpecTabs[index]
+		local button = _G["SpellBookCoreAbilitiesFrame"].SpecTabs[index]
 		if not button.style then
 			button:Style('Inside')
 			button:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
@@ -339,21 +342,21 @@ local function styleAlertFrames()
 	end)
 	
 	hooksecurefunc("AlertFrame_SetGuildChallengeAnchors", function(anchorFrame)
-		local frame = GuildChallengeAlertFrame
+		local frame = _G["GuildChallengeAlertFrame"]
 		if frame then
 			frame.backdrop:Style('Outside')
 		end
 	end)
 
 	hooksecurefunc("AlertFrame_SetChallengeModeAnchors", function(anchorFrame)
-		local frame = ChallengeModeAlertFrame1
+		local frame = _G["ChallengeModeAlertFrame1"]
 		if frame then
 			frame.backdrop:Style('Outside')
 		end
 	end)
 
 	hooksecurefunc("AlertFrame_SetScenarioAnchors", function(anchorFrame)
-		local frame = ScenarioAlertFrame1
+		local frame = _G["ScenarioAlertFrame1"]
 		if frame then
 			frame.backdrop:Style('Outside')
 		end
@@ -368,30 +371,30 @@ local function styleAlertFrames()
 		end
 	end)
 
-	BonusRollFrame:Style('Outside')
-	BonusRollMoneyWonFrame.backdrop:Style('Outside')
-	BonusRollLootWonFrame.backdrop:Style('Outside')
+	_G["BonusRollFrame"]:Style('Outside')
+	_G["BonusRollMoneyWonFrame"].backdrop:Style('Outside')
+	_G["BonusRollLootWonFrame"].backdrop:Style('Outside')
 	
-	GarrisonBuildingAlertFrame.backdrop:Style('Outside')
-	GarrisonMissionAlertFrame.backdrop:Style('Outside')
-	GarrisonFollowerAlertFrame:StripTextures()
-	GarrisonFollowerAlertFrame.backdrop:Style('Outside')
+	_G["GarrisonBuildingAlertFrame"].backdrop:Style('Outside')
+	_G["GarrisonMissionAlertFrame"].backdrop:Style('Outside')
+	_G["GarrisonFollowerAlertFrame"]:StripTextures()
+	_G["GarrisonFollowerAlertFrame"].backdrop:Style('Outside')
 	
-	GarrisonShipMissionAlertFrame:StripTextures()
-	GarrisonShipMissionAlertFrame:CreateBackdrop('Transparent')
-	GarrisonShipMissionAlertFrame.backdrop:Style('Outside')
+	_G["GarrisonShipMissionAlertFrame"]:StripTextures()
+	_G["GarrisonShipMissionAlertFrame"]:CreateBackdrop('Transparent')
+	_G["GarrisonShipMissionAlertFrame"].backdrop:Style('Outside')
 	
-	GarrisonShipFollowerAlertFrame:StripTextures()
-	GarrisonShipFollowerAlertFrame:CreateBackdrop('Transparent')
-	GarrisonShipFollowerAlertFrame.backdrop:Style('Outside')
+	_G["GarrisonShipFollowerAlertFrame"]:StripTextures()
+	_G["GarrisonShipFollowerAlertFrame"]:CreateBackdrop('Transparent')
+	_G["GarrisonShipFollowerAlertFrame"].backdrop:Style('Outside')
 	
-	GarrisonRandomMissionAlertFrame:StripTextures()
-	GarrisonRandomMissionAlertFrame:CreateBackdrop('Transparent')
-	GarrisonRandomMissionAlertFrame.backdrop:Style('Outside')
+	_G["GarrisonRandomMissionAlertFrame"]:StripTextures()
+	_G["GarrisonRandomMissionAlertFrame"]:CreateBackdrop('Transparent')
+	_G["GarrisonRandomMissionAlertFrame"].backdrop:Style('Outside')
 end
 
 function BUIS:AlertFrame_SetAchievementAnchors()
-	if ( AchievementAlertFrame1 ) then
+	if ( _G["AchievementAlertFrame1"] ) then
 		for i = 1, MAX_ACHIEVEMENT_ALERTS do
 			local frame = _G["AchievementAlertFrame"..i];
 			if ( frame and frame:IsShown() ) then
@@ -407,97 +410,97 @@ end
 local fRecruits = {}
 local function styleGarrison()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true then return end
-	if (not GarrisonMissionFrame) then LoadAddOn("Blizzard_GarrisonUI") end
+	if (not _G["GarrisonMissionFrame"]) then LoadAddOn("Blizzard_GarrisonUI") end
 	
-	GarrisonMissionFrame.backdrop:Style('Outside')
-	GarrisonLandingPage.backdrop:Style('Outside')
-	GarrisonBuildingFrame.backdrop:Style('Outside')
-	GarrisonCapacitiveDisplayFrame.backdrop:Style('Outside')
-	GarrisonBuildingFrame.BuildingLevelTooltip:Style('Outside')
-	GarrisonFollowerAbilityTooltip:Style('Outside')
-	GarrisonMissionMechanicTooltip:StripTextures()
-	GarrisonMissionMechanicTooltip:CreateBackdrop('Transparent')	
-	GarrisonMissionMechanicTooltip.backdrop:Style('Outside')
-	GarrisonMissionMechanicFollowerCounterTooltip:StripTextures()
-	GarrisonMissionMechanicFollowerCounterTooltip:CreateBackdrop('Transparent')
-	GarrisonMissionMechanicFollowerCounterTooltip.backdrop:Style('Outside')
-	FloatingGarrisonFollowerTooltip:Style('Outside')
-	GarrisonFollowerTooltip:Style('Outside')
+	_G["GarrisonMissionFrame"].backdrop:Style('Outside')
+	_G["GarrisonLandingPage"].backdrop:Style('Outside')
+	_G["GarrisonBuildingFrame"].backdrop:Style('Outside')
+	_G["GarrisonCapacitiveDisplayFrame"].backdrop:Style('Outside')
+	_G["GarrisonBuildingFrame"].BuildingLevelTooltip:Style('Outside')
+	_G["GarrisonFollowerAbilityTooltip"]:Style('Outside')
+	_G["GarrisonMissionMechanicTooltip"]:StripTextures()
+	_G["GarrisonMissionMechanicTooltip"]:CreateBackdrop('Transparent')
+	_G["GarrisonMissionMechanicTooltip"].backdrop:Style('Outside')
+	_G["GarrisonMissionMechanicFollowerCounterTooltip"]:StripTextures()
+	_G["GarrisonMissionMechanicFollowerCounterTooltip"]:CreateBackdrop('Transparent')
+	_G["GarrisonMissionMechanicFollowerCounterTooltip"].backdrop:Style('Outside')
+	_G["FloatingGarrisonFollowerTooltip"]:Style('Outside')
+	_G["GarrisonFollowerTooltip"]:Style('Outside')
 	
 	-- ShipYard
-	GarrisonShipyardFrame.backdrop:Style('Outside')
+	_G["GarrisonShipyardFrame"].backdrop:Style('Outside')
 	-- Tooltips
-	GarrisonShipyardMapMissionTooltip:Style('Outside')
-	GarrisonBonusAreaTooltip:StripTextures()
-	GarrisonBonusAreaTooltip:CreateBackdrop('Transparent')
-	GarrisonBonusAreaTooltip.backdrop:Style('Outside')
-	GarrisonMissionMechanicFollowerCounterTooltip:Style('Outside')
-	GarrisonMissionMechanicTooltip:Style('Outside')
-	FloatingGarrisonShipyardFollowerTooltip:Style('Outside')
-	GarrisonShipyardFollowerTooltip:Style('Outside')
+	_G["GarrisonShipyardMapMissionTooltip"]:Style('Outside')
+	_G["GarrisonBonusAreaTooltip"]:StripTextures()
+	_G["GarrisonBonusAreaTooltip"]:CreateBackdrop('Transparent')
+	_G["GarrisonBonusAreaTooltip"].backdrop:Style('Outside')
+	_G["GarrisonMissionMechanicFollowerCounterTooltip"]:Style('Outside')
+	_G["GarrisonMissionMechanicTooltip"]:Style('Outside')
+	_G["FloatingGarrisonShipyardFollowerTooltip"]:Style('Outside')
+	_G["GarrisonShipyardFollowerTooltip"]:Style('Outside')
 	
 	-- Garrison Monument
-	GarrisonMonumentFrame:StripTextures()
-	GarrisonMonumentFrame:CreateBackdrop('Transparent')
-	GarrisonMonumentFrame:Style('Small')
-	GarrisonMonumentFrame:ClearAllPoints()
-	GarrisonMonumentFrame:Point('CENTER', E.UIParent, 'CENTER', 0, -200)
-	GarrisonMonumentFrame:Height(70)
-	GarrisonMonumentFrame.RightBtn:Size(25, 25)
-	GarrisonMonumentFrame.LeftBtn:Size(25, 25)
+	_G["GarrisonMonumentFrame"]:StripTextures()
+	_G["GarrisonMonumentFrame"]:CreateBackdrop('Transparent')
+	_G["GarrisonMonumentFrame"]:Style('Small')
+	_G["GarrisonMonumentFrame"]:ClearAllPoints()
+	_G["GarrisonMonumentFrame"]:Point('CENTER', E.UIParent, 'CENTER', 0, -200)
+	_G["GarrisonMonumentFrame"]:Height(70)
+	_G["GarrisonMonumentFrame"].RightBtn:Size(25, 25)
+	_G["GarrisonMonumentFrame"].LeftBtn:Size(25, 25)
 	
 	-- Follower recruiting (available at the Inn)
-	GarrisonRecruiterFrame.backdrop:Style('Outside')
-	S:HandleDropDownBox(GarrisonRecruiterFramePickThreatDropDown)
-	local rBtn = GarrisonRecruiterFrame.Pick.ChooseRecruits
+	_G["GarrisonRecruiterFrame"].backdrop:Style('Outside')
+	S:HandleDropDownBox(_G["GarrisonRecruiterFramePickThreatDropDown"])
+	local rBtn = _G["GarrisonRecruiterFrame"].Pick.ChooseRecruits
 	rBtn:ClearAllPoints()
-	rBtn:Point('BOTTOM', GarrisonRecruiterFrame.backdrop, 'BOTTOM', 0, 30)
+	rBtn:Point('BOTTOM', _G["GarrisonRecruiterFrame"].backdrop, 'BOTTOM', 0, 30)
 	S:HandleButton(rBtn)
 	
-	GarrisonRecruitSelectFrame:StripTextures()
-	GarrisonRecruitSelectFrame:CreateBackdrop('Transparent')
-	GarrisonRecruitSelectFrame.backdrop:Style('Outside')
-	S:HandleCloseButton(GarrisonRecruitSelectFrame.CloseButton)
-	S:HandleEditBox(GarrisonRecruitSelectFrame.FollowerList.SearchBox)
+	_G["GarrisonRecruitSelectFrame"]:StripTextures()
+	_G["GarrisonRecruitSelectFrame"]:CreateBackdrop('Transparent')
+	_G["GarrisonRecruitSelectFrame"].backdrop:Style('Outside')
+	S:HandleCloseButton(_G["GarrisonRecruitSelectFrame"].CloseButton)
+	S:HandleEditBox(_G["GarrisonRecruitSelectFrame"].FollowerList.SearchBox)
 
-	GarrisonRecruitSelectFrame.FollowerList:StripTextures()
-	S:HandleScrollBar(GarrisonRecruitSelectFrameListScrollFrameScrollBar)
-	GarrisonRecruitSelectFrame.FollowerSelection:StripTextures()
+	_G["GarrisonRecruitSelectFrame"].FollowerList:StripTextures()
+	S:HandleScrollBar(_G["GarrisonRecruitSelectFrameListScrollFrameScrollBar"])
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection:StripTextures()
 
-	GarrisonRecruitSelectFrame.FollowerSelection.Recruit1:CreateBackdrop()
-	GarrisonRecruitSelectFrame.FollowerSelection.Recruit1:ClearAllPoints()
-	GarrisonRecruitSelectFrame.FollowerSelection.Recruit1:Point('LEFT', GarrisonRecruitSelectFrame.FollowerSelection, 'LEFT', 6, 0)
-	GarrisonRecruitSelectFrame.FollowerSelection.Recruit2:CreateBackdrop()
-	GarrisonRecruitSelectFrame.FollowerSelection.Recruit2:ClearAllPoints()
-	GarrisonRecruitSelectFrame.FollowerSelection.Recruit2:Point('LEFT', GarrisonRecruitSelectFrame.FollowerSelection.Recruit1, 'RIGHT', 6, 0)
-	GarrisonRecruitSelectFrame.FollowerSelection.Recruit3:CreateBackdrop()
-	GarrisonRecruitSelectFrame.FollowerSelection.Recruit3:ClearAllPoints()
-	GarrisonRecruitSelectFrame.FollowerSelection.Recruit3:Point('LEFT', GarrisonRecruitSelectFrame.FollowerSelection.Recruit2, 'RIGHT', 6, 0)
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1:CreateBackdrop()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1:ClearAllPoints()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1:Point('LEFT', _G["GarrisonRecruitSelectFrame"].FollowerSelection, 'LEFT', 6, 0)
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2:CreateBackdrop()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2:ClearAllPoints()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2:Point('LEFT', _G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1, 'RIGHT', 6, 0)
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3:CreateBackdrop()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3:ClearAllPoints()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3:Point('LEFT', _G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2, 'RIGHT', 6, 0)
 
 	for i = 1, 3 do
 		fRecruits[i] = CreateFrame('Frame', nil, E.UIParent)
 		fRecruits[i]:SetTemplate('Default', true)
 		fRecruits[i]:Size(190, 60)
 		if i == 1 then
-			fRecruits[i]:SetParent(GarrisonRecruitSelectFrame.FollowerSelection.Recruit1)
-			fRecruits[i]:Point('TOP', GarrisonRecruitSelectFrame.FollowerSelection.Recruit1.backdrop, 'TOP')
-			fRecruits[i]:SetFrameLevel(GarrisonRecruitSelectFrame.FollowerSelection.Recruit1:GetFrameLevel())
-			GarrisonRecruitSelectFrame.FollowerSelection.Recruit1.Class:Size(60, 58)
+			fRecruits[i]:SetParent(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1)
+			fRecruits[i]:Point('TOP', _G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1.backdrop, 'TOP')
+			fRecruits[i]:SetFrameLevel(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1:GetFrameLevel())
+			_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1.Class:Size(60, 58)
 		elseif i == 2 then
-			fRecruits[i]:SetParent(GarrisonRecruitSelectFrame.FollowerSelection.Recruit2)
-			fRecruits[i]:Point('TOP', GarrisonRecruitSelectFrame.FollowerSelection.Recruit2.backdrop, 'TOP')
-			fRecruits[i]:SetFrameLevel(GarrisonRecruitSelectFrame.FollowerSelection.Recruit2:GetFrameLevel())
-			GarrisonRecruitSelectFrame.FollowerSelection.Recruit2.Class:Size(60, 58)		
+			fRecruits[i]:SetParent(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2)
+			fRecruits[i]:Point('TOP', _G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2.backdrop, 'TOP')
+			fRecruits[i]:SetFrameLevel(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2:GetFrameLevel())
+			_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2.Class:Size(60, 58)
 		elseif i == 3 then
-			fRecruits[i]:SetParent(GarrisonRecruitSelectFrame.FollowerSelection.Recruit3)
-			fRecruits[i]:Point('TOP', GarrisonRecruitSelectFrame.FollowerSelection.Recruit3.backdrop, 'TOP')
-			fRecruits[i]:SetFrameLevel(GarrisonRecruitSelectFrame.FollowerSelection.Recruit3:GetFrameLevel())
-			GarrisonRecruitSelectFrame.FollowerSelection.Recruit3.Class:Size(60, 58)		
+			fRecruits[i]:SetParent(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3)
+			fRecruits[i]:Point('TOP', _G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3.backdrop, 'TOP')
+			fRecruits[i]:SetFrameLevel(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3:GetFrameLevel())
+			_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3.Class:Size(60, 58)
 		end
 	end
-	S:HandleButton(GarrisonRecruitSelectFrame.FollowerSelection.Recruit1.HireRecruits)
-	S:HandleButton(GarrisonRecruitSelectFrame.FollowerSelection.Recruit2.HireRecruits)
-	S:HandleButton(GarrisonRecruitSelectFrame.FollowerSelection.Recruit3.HireRecruits)
+	S:HandleButton(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1.HireRecruits)
+	S:HandleButton(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2.HireRecruits)
+	S:HandleButton(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3.HireRecruits)
 end
 
 -- Objective Tracker Button
@@ -515,7 +518,7 @@ end
 local function SkinObjeciveTracker()
 	if not E.db.benikuiSkins.variousSkins.objectiveTracker then return end
 	
-	local button = ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
+	local button = _G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton
 	S:HandleButton(button)
 	button:Size(16, 12)
 	button.Text = button:CreateFontString(nil, 'OVERLAY')
@@ -526,7 +529,7 @@ local function SkinObjeciveTracker()
 	button:HookScript('OnClick', MinimizeButton_OnClick)
 	
 	-- Remove textures from Objective tracker
-	local otFrames = {ObjectiveTrackerBlocksFrame.QuestHeader, ObjectiveTrackerBlocksFrame.AchievementHeader, ObjectiveTrackerBlocksFrame.ScenarioHeader, BONUS_OBJECTIVE_TRACKER_MODULE.Header}
+	local otFrames = {_G["ObjectiveTrackerBlocksFrame"].QuestHeader, _G["ObjectiveTrackerBlocksFrame"].AchievementHeader, _G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, _G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header}
 	for _, frame in pairs(otFrames) do
 		if frame then
 			frame:StripTextures()
@@ -557,39 +560,39 @@ function BUIS:BenikUISkins()
 	styleAlertFrames()
 	
 	-- Style Changes
-	if DressUpFrame.style then
-		DressUpFrame.style:Point('TOPLEFT', DressUpFrame, 'TOPLEFT', 6, 4)
-		DressUpFrame.style:Point('BOTTOMRIGHT', DressUpFrame, 'TOPRIGHT', -32, -1)
+	if _G["DressUpFrame"].style then
+		_G["DressUpFrame"].style:Point('TOPLEFT', _G["DressUpFrame"], 'TOPLEFT', 6, 4)
+		_G["DressUpFrame"].style:Point('BOTTOMRIGHT', _G["DressUpFrame"], 'TOPRIGHT', -32, -1)
 	end
 
-	if MerchantFrame.style then
-		MerchantFrame.style:Point('TOPLEFT', MerchantFrame, 'TOPLEFT', 6, 4)
-		MerchantFrame.style:Point('BOTTOMRIGHT', MerchantFrame, 'TOPRIGHT', 2, -1)
+	if _G["MerchantFrame"].style then
+		_G["MerchantFrame"].style:Point('TOPLEFT', _G["MerchantFrame"], 'TOPLEFT', 6, 4)
+		_G["MerchantFrame"].style:Point('BOTTOMRIGHT', _G["MerchantFrame"], 'TOPRIGHT', 2, -1)
 	end
 
 	-- Map styling fix
 	local function FixMapStyle()
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then return end
-		if not WorldMapFrame.BorderFrame.backdrop.style then
-			WorldMapFrame.BorderFrame.backdrop:Style('Outside')
+		if not _G["WorldMapFrame"].BorderFrame.backdrop.style then
+			_G["WorldMapFrame"].BorderFrame.backdrop:Style('Outside')
 		end
 		
-		if not WorldMapTooltip.style then
-			WorldMapTooltip:Style('Outside')
+		if not _G["WorldMapTooltip"].style then
+			_G["WorldMapTooltip"]:Style('Outside')
 		end
 
-		QuestMapFrame.QuestsFrame.StoryTooltip:SetTemplate('Transparent')
-		if not QuestMapFrame.QuestsFrame.StoryTooltip.style then
-			QuestMapFrame.QuestsFrame.StoryTooltip:Style('Outside')
+		_G["QuestMapFrame"].QuestsFrame.StoryTooltip:SetTemplate('Transparent')
+		if not _G["QuestMapFrame"].QuestsFrame.StoryTooltip.style then
+			_G["QuestMapFrame"].QuestsFrame.StoryTooltip:Style('Outside')
 		end
 	end
 	
-	WorldMapFrame:HookScript('OnShow', FixMapStyle)
+	_G["WorldMapFrame"]:HookScript('OnShow', FixMapStyle)
 	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
 
 	-- AddOn Styles
 	if IsAddOnLoaded('ElvUI_LocLite') and E.db.benikuiSkins.elvuiAddons.loclite then
-		local framestoskin = {LocationLitePanel, XCoordsLite, YCoordsLite}
+		local framestoskin = {_G["LocationLitePanel"], _G["XCoordsLite"], _G["YCoordsLite"]}
 		for _, frame in pairs(framestoskin) do
 			if frame then
 				frame:Style('Outside')
@@ -598,7 +601,7 @@ function BUIS:BenikUISkins()
 	end
 	
 	if IsAddOnLoaded('ElvUI_LocPlus') and E.db.benikuiSkins.elvuiAddons.locplus then
-		local framestoskin = {LeftCoordDtPanel, RightCoordDtPanel, LocationPlusPanel, XCoordsPanel, YCoordsPanel}
+		local framestoskin = {_G["LeftCoordDtPanel"], _G["RightCoordDtPanel"], _G["LocationPlusPanel"], _G["XCoordsPanel"], _G["YCoordsPanel"]}
 		for _, frame in pairs(framestoskin) do
 			if frame then
 				frame:Style('Outside')
@@ -607,7 +610,7 @@ function BUIS:BenikUISkins()
 	end
 	
 	if IsAddOnLoaded('ElvUI_SLE') and E.db.benikuiSkins.elvuiAddons.sle then
-		local sleFrames = {BottomBG, LeftBG, RightBG, ActionBG, DP_1, DP_2, Top_Center, DP_3, DP_4, DP_5, Bottom_Panel, DP_6, Main_Flares, Mark_Menu, SquareMinimapButtonBar}		
+		local sleFrames = {_G["BottomBG"], _G["LeftBG"], _G["RightBG"], _G["ActionBG"], _G["DP_1"], _G["DP_2"], _G["Top_Center"], _G["DP_3"], _G["DP_4"], _G["DP_5"], _G["Bottom_Panel"], _G["DP_6"], _G["Main_Flares"], _G["Mark_Menu"], _G["SquareMinimapButtonBar"]}
 		for _, frame in pairs(sleFrames) do
 			if frame then
 				frame:Style('Outside')
@@ -616,19 +619,19 @@ function BUIS:BenikUISkins()
 	end
 	
 	if IsAddOnLoaded('SquareMinimapButtons') and E.db.benikuiSkins.elvuiAddons.smb then
-		local smbFrame = SquareMinimapButtonBar
+		local smbFrame = _G["SquareMinimapButtonBar"]
 		if smbFrame then
 			smbFrame:Style('Outside')
 		end
 	end
 	
 	if IsAddOnLoaded('ElvUI_Enhanced') and E.db.benikuiSkins.elvuiAddons.enh then
-		if MinimapButtonBar then
-			MinimapButtonBar.backdrop:Style('Outside')
+		if _G["MinimapButtonBar"] then
+			_G["MinimapButtonBar"].backdrop:Style('Outside')
 		end
 		
-		if RaidMarkerBar.backdrop then
-			RaidMarkerBar.backdrop:Style('Outside')
+		if _G["RaidMarkerBar"].backdrop then
+			_G["RaidMarkerBar"].backdrop:Style('Outside')
 		end
 	end
 	

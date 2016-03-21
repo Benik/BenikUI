@@ -3,6 +3,7 @@ local BUI = E:GetModule('BenikUI');
 local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
 local B = E:GetModule("Bags")
 
+local _G = _G 
 local GetTime = GetTime
 local tonumber, pcall, unpack = tonumber, pcall, unpack
 local floor = floor
@@ -14,14 +15,24 @@ local C_TimerAfter = C_Timer.After
 local CreateFrame = CreateFrame
 local UnitOnTaxi, IsAddOnLoaded = UnitOnTaxi, IsAddOnLoaded
 local MoveViewLeftStart, MoveViewLeftStop = MoveViewLeftStart, MoveViewLeftStop
-
 local GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo
-local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local GetScreenWidth = GetScreenWidth
-local ToggleFrame, UIFrameFadeIn, UIFrameFadeOut, PlaySound = ToggleFrame, UIFrameFadeIn, UIFrameFadeOut, PlaySound
+local HideUIPanel, ShowUIPanel = HideUIPanel, ShowUIPanel
+local IsInGuild = IsInGuild
+local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
+local ToggleAllBags = ToggleAllBags
+local ToggleAchievementFrame = ToggleAchievementFrame
+local ToggleCharacter = ToggleCharacter
+local ToggleCollectionsJournal = ToggleCollectionsJournal
+local ToggleFrame = ToggleFrame
+local ToggleFriendsFrame = ToggleFriendsFrame
+local ToggleLFDParentFrame = ToggleLFDParentFrame
+local ToggleHelpFrame = ToggleHelpFrame
+local UIFrameFadeIn, UIFrameFadeOut, PlaySound = UIFrameFadeIn, UIFrameFadeOut, PlaySound
 local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 
--- GLOBALS: UIParent, FlightModeLocation
+-- GLOBALS: UIParent, FlightModeLocation, selectioncolor, AddOnSkins, GarrisonLandingPageMinimapButton_OnClick, MainMenuMicroButton_SetNormal
+-- GLOBALS: CreateAnimationGroup, CloseMenus, CloseAllWindows, BuiDummyChat, FlightModeMenuBtn
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
@@ -34,21 +45,21 @@ local CAMERA_SPEED = 0.035
 
 local menuList = {
 	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
-	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
+	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not _G["SpellBookFrame"]:IsShown() then ShowUIPanel(_G["SpellBookFrame"]) else HideUIPanel(_G["SpellBookFrame"]) end end},
 	{text = TALENTS_BUTTON,
 	func = function()
-		if not PlayerTalentFrame then
-			TalentFrame_LoadUI()
+		if not _G["PlayerTalentFrame"] then
+			_G["TalentFrame_LoadUI"]()
 		end
 
-		if not GlyphFrame then
-			GlyphFrame_LoadUI()
+		if not _G["GlyphFrame"] then
+			_G["GlyphFrame_LoadUI"]()
 		end
 
-		if not PlayerTalentFrame:IsShown() then
-			ShowUIPanel(PlayerTalentFrame)
+		if not _G["PlayerTalentFrame"]:IsShown() then
+			ShowUIPanel(_G["PlayerTalentFrame"])
 		else
-			HideUIPanel(PlayerTalentFrame)
+			HideUIPanel(_G["PlayerTalentFrame"])
 		end
 	end},
 	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
@@ -58,44 +69,44 @@ local menuList = {
 	{text = ACHIEVEMENTS_GUILD_TAB,
 	func = function()
 		if IsInGuild() then
-			if not GuildFrame then GuildFrame_LoadUI() end
-			GuildFrame_Toggle()
+			if not _G["GuildFrame"] then _G["GuildFrame_LoadUI"]() end
+			_G["GuildFrame_Toggle"]()
 		else
-			if not LookingForGuildFrame then LookingForGuildFrame_LoadUI() end
-			if not LookingForGuildFrame then return end
-			LookingForGuildFrame_Toggle()
+			if not _G["LookingForGuildFrame"] then _G["LookingForGuildFrame_LoadUI"]() end
+			if not _G["LookingForGuildFrame"] then return end
+			_G["LookingForGuildFrame_Toggle"]()
 		end
 	end},
-	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
+	{text = L["Calendar"], func = function() _G["GameTimeFrame"]:Click() end},
 	{text = MOUNTS, func = function() ToggleCollectionsJournal(1) end},
 	{text = PET_JOURNAL, func = function() ToggleCollectionsJournal(2) end},
 	{text = TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
 	{text = HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
-	{text = MACROS, func = function() GameMenuButtonMacros:Click() end},
-	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
+	{text = MACROS, func = function() _G["GameMenuButtonMacros"]:Click() end},
+	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then _G["EncounterJournal_LoadUI"](); end ToggleFrame(_G["EncounterJournal"]) end},
 	{text = SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
 	{text = MAINMENU_BUTTON,
 	func = function()
-		if ( not GameMenuFrame:IsShown() ) then
-			if ( VideoOptionsFrame:IsShown() ) then
-					VideoOptionsFrameCancel:Click();
-			elseif ( AudioOptionsFrame:IsShown() ) then
-					AudioOptionsFrameCancel:Click();
-			elseif ( InterfaceOptionsFrame:IsShown() ) then
-					InterfaceOptionsFrameCancel:Click();
+		if ( not _G["GameMenuFrame"]:IsShown() ) then
+			if ( _G["VideoOptionsFrame"]:IsShown() ) then
+					_G["VideoOptionsFrameCancel"]:Click();
+			elseif ( _G["AudioOptionsFrame"]:IsShown() ) then
+					_G["AudioOptionsFrameCancel"]:Click();
+			elseif ( _G["InterfaceOptionsFrame"]:IsShown() ) then
+					_G["InterfaceOptionsFrameCancel"]:Click();
 			end
 			CloseMenus();
 			CloseAllWindows()
 			PlaySound("igMainMenuOpen");
-			ShowUIPanel(GameMenuFrame);
+			ShowUIPanel(_G["GameMenuFrame"]);
 		else
 			PlaySound("igMainMenuQuit");
-			HideUIPanel(GameMenuFrame);
+			HideUIPanel(_G["GameMenuFrame"]);
 			MainMenuMicroButton_SetNormal();
 		end
 	end},
 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
-	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end},
+	{text = BLIZZARD_STORE, func = function() _G["StoreMicroButton"]:Click() end},
 }
 
 local function AutoColoring()
@@ -182,30 +193,30 @@ function BFM:SetFlightMode(status)
 		E.UIParent:Hide()
 
 		-- Hide some frames
-		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Hide() end
+		if _G["ObjectiveTrackerFrame"] then _G["ObjectiveTrackerFrame"]:Hide() end
 		if E.private.general.minimap.enable then
-			Minimap:Hide()
+			_G["Minimap"]:Hide()
 		end
 		self.FlightMode.bottom.map:EnableMouse(true)
 		self.FlightMode.top.menuButton:EnableMouse(true)
 		
 		-- Bags
-		if ElvUI_ContainerFrame then
+		if _G["ElvUI_ContainerFrame"] then
 			E.db.bags.yOffset = 30
 			B:PositionBagFrames()
-			ElvUI_ContainerFrame:SetParent(self.FlightMode)
-			ElvUI_ContainerFrame.shadow:Show()
+			_G["ElvUI_ContainerFrame"]:SetParent(self.FlightMode)
+			_G["ElvUI_ContainerFrame"].shadow:Show()
 		end
 
 		-- Left Chat
 		BuiDummyChat:SetParent(self.FlightMode)
-		LeftChatPanel:SetParent(self.FlightMode)
-		LeftChatPanel.backdrop.shadow:Show()
-		LeftChatPanel:ClearAllPoints()
-		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
+		_G["LeftChatPanel"]:SetParent(self.FlightMode)
+		_G["LeftChatPanel"].backdrop.shadow:Show()
+		_G["LeftChatPanel"]:ClearAllPoints()
+		_G["LeftChatPanel"]:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 
 		-- Disable Blizz location messsages
-		ZoneTextFrame:UnregisterAllEvents()
+		_G["ZoneTextFrame"]:UnregisterAllEvents()
 
 		self.startTime = GetTime()
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
@@ -217,17 +228,17 @@ function BFM:SetFlightMode(status)
 		E.UIParent:Show()
 
 		-- Show hidden frames
-		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Show() end
+		if _G["ObjectiveTrackerFrame"] then _G["ObjectiveTrackerFrame"]:Show() end
 		if E.private.general.minimap.enable then
-			Minimap:Show()
+			_G["Minimap"]:Show()
 		end
 		self.FlightMode:Hide()
 		MoveViewLeftStop();
 
 		-- Enable Blizz location messsages
-		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
-		ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
+		_G["ZoneTextFrame"]:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+		_G["ZoneTextFrame"]:RegisterEvent("ZONE_CHANGED_INDOORS")
+		_G["ZoneTextFrame"]:RegisterEvent("ZONE_CHANGED")
 
 		self:CancelTimer(self.locationTimer)
 		self:CancelTimer(self.coordsTimer)
@@ -242,24 +253,24 @@ function BFM:SetFlightMode(status)
 		self.FlightMode.message.text:SetAlpha(0)
 
 		-- Revert Bags
-		if ElvUI_ContainerFrame then
+		if _G["ElvUI_ContainerFrame"] then
 			E.db.bags.yOffset = bagYoffset
 			B:PositionBagFrames()
-			ElvUI_ContainerFrame:SetParent(E.UIParent)
-			ElvUI_ContainerFrame.shadow:Hide()
+			_G["ElvUI_ContainerFrame"]:SetParent(E.UIParent)
+			_G["ElvUI_ContainerFrame"].shadow:Hide()
 		end
 
 		if IsAddOnLoaded('AddOnSkins') then
-			local AS = unpack(AddOnSkins) or nil			
+			local AS = unpack(AddOnSkins) or nil
 			if E.private.addonskins.EmbedSystem or E.private.addonskins.EmbedSystemDual then AS:Embed_Show() end
 		end
 
 		-- revert Left Chat
 		BuiDummyChat:SetParent(E.UIParent)
-		LeftChatPanel:SetParent(E.UIParent)
-		LeftChatPanel.backdrop.shadow:Hide()
-		LeftChatPanel:ClearAllPoints()
-		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
+		_G["LeftChatPanel"]:SetParent(E.UIParent)
+		_G["LeftChatPanel"].backdrop.shadow:Hide()
+		_G["LeftChatPanel"]:ClearAllPoints()
+		_G["LeftChatPanel"]:Point("BOTTOMLEFT", _G["LeftChatMover"], "BOTTOMLEFT")
 
 		self.inFlightMode = false
 	end
@@ -607,14 +618,14 @@ function BFM:Initialize()
 	self.FlightMode.bottom.timeFlying:SetTextColor(1, 1, 1)
 	
 	-- Add Shadow at the bags
-	if ElvUI_ContainerFrame then
-		ElvUI_ContainerFrame:CreateWideShadow()
-		ElvUI_ContainerFrame.shadow:Hide()
+	if _G["ElvUI_ContainerFrame"] then
+		_G["ElvUI_ContainerFrame"]:CreateWideShadow()
+		_G["ElvUI_ContainerFrame"].shadow:Hide()
 	end
 	
 	-- Add Shadow at the left chat
-	LeftChatPanel.backdrop:CreateWideShadow()
-	LeftChatPanel.backdrop.shadow:Hide()
+	_G["LeftChatPanel"].backdrop:CreateWideShadow()
+	_G["LeftChatPanel"].backdrop.shadow:Hide()
 
 	self:Toggle()
 end

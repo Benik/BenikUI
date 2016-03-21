@@ -3,10 +3,14 @@ local DT = E:GetModule('DataTexts')
 local LSM = LibStub('LibSharedMedia-3.0')
 -- Based on Repooc's and Darth Predator's S&L ElvUI edit mail datatext.
 
+local _G = _G
+
 local HasNewMail = HasNewMail
 local GetInboxNumItems = GetInboxNumItems
 local GetInboxHeaderInfo = GetInboxHeaderInfo
 local GetLatestThreeSenders = GetLatestThreeSenders
+
+-- GLOBALS: unreadMail, HAVE_MAIL, HAVE_MAIL_FROM
 
 local Read;
 
@@ -69,8 +73,8 @@ end
 -- Hide the mail icon from minimap
 function DT:ToggleMailFrame()
 	if E.db.benikui.datatexts.mail.toggle then
-		MiniMapMailFrame.Show = MiniMapMailFrame.Hide;
-		MiniMapMailFrame:Hide();
+		_G["MiniMapMailFrame"].Show = _G["MiniMapMailFrame"].Hide;
+		_G["MiniMapMailFrame"]:Hide();
 	end
 end
 

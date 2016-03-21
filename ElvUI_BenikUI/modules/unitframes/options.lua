@@ -6,6 +6,8 @@ local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
 
+-- GLOBALS: PLAYER, TARGET, AceGUIWidgetLSMlists, MISCELLANEOUS
+
 local function ufTable()
 	E.Options.args.benikui.args.unitframes = {
 		order = 10,

@@ -4,7 +4,12 @@ local S = E:GetModule('Skins');
 local pairs = pairs
 
 local _G = _G
+local strfind = strfind
+local CreateFrame = CreateFrame
+local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
+
+-- GLOBALS: hooksecurefunc, Skada, Recount, oRA3, RC, RCnotify, RCminimized
 
 local SPACING = (E.PixelMode and 1 or 3)
 
@@ -12,41 +17,41 @@ local function skinDecursive()
 	if not IsAddOnLoaded('Decursive') or not E.db.benikuiSkins.variousSkins.decursive then return end
 
 	-- Main Buttons
-	DecursiveMainBar:StripTextures()
-	DecursiveMainBar:SetTemplate('Default', true)
-	DecursiveMainBar:Height(20)
+	_G["DecursiveMainBar"]:StripTextures()
+	_G["DecursiveMainBar"]:SetTemplate('Default', true)
+	_G["DecursiveMainBar"]:Height(20)
 	
-	local mainButtons = {DecursiveMainBarPriority, DecursiveMainBarSkip, DecursiveMainBarHide}
+	local mainButtons = {_G["DecursiveMainBarPriority"], _G["DecursiveMainBarSkip"], _G["DecursiveMainBarHide"]}
 	for i, button in pairs(mainButtons) do
 		S:HandleButton(button)
 		button:SetTemplate('Default', true)
 		button:ClearAllPoints()
 		if(i == 1) then
-			button:Point('LEFT', DecursiveMainBar, 'RIGHT', SPACING, 0)
+			button:Point('LEFT', _G["DecursiveMainBar"], 'RIGHT', SPACING, 0)
 		else
 			button:Point('LEFT', mainButtons[i - 1], 'RIGHT', SPACING, 0)
 		end		
 	end
 	
 	-- Priority List Frame
-	DecursivePriorityListFrame:StripTextures()
-	DecursivePriorityListFrame:CreateBackdrop('Transparent')
-	DecursivePriorityListFrame.backdrop:Style('Outside')
+	_G["DecursivePriorityListFrame"]:StripTextures()
+	_G["DecursivePriorityListFrame"]:CreateBackdrop('Transparent')
+	_G["DecursivePriorityListFrame"].backdrop:Style('Outside')
 	
-	local priorityButton = {DecursivePriorityListFrameAdd, DecursivePriorityListFramePopulate, DecursivePriorityListFrameClear, DecursivePriorityListFrameClose}
+	local priorityButton = {_G["DecursivePriorityListFrameAdd"], _G["DecursivePriorityListFramePopulate"], _G["DecursivePriorityListFrameClear"], _G["DecursivePriorityListFrameClose"]}
 	for i, button in pairs(priorityButton) do
 		S:HandleButton(button)
 		button:ClearAllPoints()
 		if(i == 1) then
-			button:Point('TOP', DecursivePriorityListFrame, 'TOPLEFT', 54, -20)
+			button:Point('TOP', _G["DecursivePriorityListFrame"], 'TOPLEFT', 54, -20)
 		else
 			button:Point('LEFT', priorityButton[i - 1], 'RIGHT', SPACING, 0)
 		end			
 	end
 
-	DecursivePopulateListFrame:StripTextures()
-	DecursivePopulateListFrame:CreateBackdrop('Transparent')
-	DecursivePopulateListFrame.backdrop:Style('Outside')
+	_G["DecursivePopulateListFrame"]:StripTextures()
+	_G["DecursivePopulateListFrame"]:CreateBackdrop('Transparent')
+	_G["DecursivePopulateListFrame"].backdrop:Style('Outside')
 	
 	for i = 1, 8 do
 		local groupButton = _G["DecursivePopulateListFrameGroup"..i]
@@ -60,36 +65,36 @@ local function skinDecursive()
 	end
 
 	-- Skip List Frame
-	DecursiveSkipListFrame:StripTextures()
-	DecursiveSkipListFrame:CreateBackdrop('Transparent')
-	DecursiveSkipListFrame.backdrop:Style('Outside')	
+	_G["DecursiveSkipListFrame"]:StripTextures()
+	_G["DecursiveSkipListFrame"]:CreateBackdrop('Transparent')
+	_G["DecursiveSkipListFrame"].backdrop:Style('Outside')	
 	
-	local skipButton = {DecursiveSkipListFrameAdd, DecursiveSkipListFramePopulate, DecursiveSkipListFrameClear, DecursiveSkipListFrameClose}
+	local skipButton = {_G["DecursiveSkipListFrameAdd"], _G["DecursiveSkipListFramePopulate"], _G["DecursiveSkipListFrameClear"], _G["DecursiveSkipListFrameClose"]}
 	for i, button in pairs(skipButton) do
 		S:HandleButton(button)
 		button:ClearAllPoints()
 		if(i == 1) then
-			button:Point('TOP', DecursiveSkipListFrame, 'TOPLEFT', 54, -20)
+			button:Point('TOP', _G["DecursiveSkipListFrame"], 'TOPLEFT', 54, -20)
 		else
 			button:Point('LEFT', skipButton[i - 1], 'RIGHT', SPACING, 0)
 		end			
 	end
 	
 	-- Tooltip
-	DcrDisplay_Tooltip:StripTextures()
-	DcrDisplay_Tooltip:CreateBackdrop('Transparent')
-	DcrDisplay_Tooltip.backdrop:Style('Outside')
+	_G["DcrDisplay_Tooltip"]:StripTextures()
+	_G["DcrDisplay_Tooltip"]:CreateBackdrop('Transparent')
+	_G["DcrDisplay_Tooltip"].backdrop:Style('Outside')
 
 end
 
 local function skinStoryline()
 	if not IsAddOnLoaded('Storyline') or not E.db.benikuiSkins.variousSkins.storyline then return end
-	Storyline_NPCFrame:StripTextures()
-	Storyline_NPCFrame:CreateBackdrop('Transparent')
-	Storyline_NPCFrame.backdrop:Style('Outside')
-	S:HandleCloseButton(Storyline_NPCFrameClose)
-	Storyline_NPCFrameChat:StripTextures()
-	Storyline_NPCFrameChat:CreateBackdrop('Transparent')
+	_G["Storyline_NPCFrame"]:StripTextures()
+	_G["Storyline_NPCFrame"]:CreateBackdrop('Transparent')
+	_G["Storyline_NPCFrame"].backdrop:Style('Outside')
+	S:HandleCloseButton(_G["Storyline_NPCFrameClose"])
+	_G["Storyline_NPCFrameChat"]:StripTextures()
+	_G["Storyline_NPCFrameChat"]:CreateBackdrop('Transparent')
 end
 
 local f = CreateFrame("Frame")
@@ -139,16 +144,16 @@ end
 
 local function RecountDecor()
 	if not E.db.benikuiSkins.addonSkins.recount then return end
-	StyleRecount('recountMain', Recount_MainWindow)
-	Recount_MainWindow.TitleBackground:StripTextures()
-	Recount_ConfigWindow.TitleBackground:StripTextures()
-	Recount_DetailWindow.TitleBackground:StripTextures()
-	StyleRecount(nil, Recount_DetailWindow)
-	StyleRecount(nil, Recount_ConfigWindow)
+	StyleRecount('recountMain', _G["Recount_MainWindow"])
+	_G["Recount_MainWindow"].TitleBackground:StripTextures()
+	_G["Recount_ConfigWindow"].TitleBackground:StripTextures()
+	_G["Recount_DetailWindow"].TitleBackground:StripTextures()
+	StyleRecount(nil, _G["Recount_DetailWindow"])
+	StyleRecount(nil, _G["Recount_ConfigWindow"])
 	hooksecurefunc(Recount, 'ShowReport', function(self)
-		if Recount_ReportWindow.TitleBackground then
-			Recount_ReportWindow.TitleBackground:StripTextures()
-			StyleRecount(nil, Recount_ReportWindow)
+		if _G["Recount_ReportWindow"].TitleBackground then
+			_G["Recount_ReportWindow"].TitleBackground:StripTextures()
+			StyleRecount(nil, _G["Recount_ReportWindow"])
 		end
 	end)
 
@@ -157,18 +162,18 @@ local function RecountDecor()
 		Recount.db.profile.Scaling = 0.95
 		if E.db.benikui.general.benikuiStyle ~= true then return end
 		if E.private.addonskins.EmbedSystem then
-			recountMain:Hide()
+			_G["recountMain"]:Hide()
 		else
-			recountMain:Show()
+			_G["recountMain"]:Show()
 		end
 	end)
 end
 
 local function TinyDPSDecor()
 	if not E.db.benikuiSkins.addonSkins.tinydps then return end
-	if tdpsFrame then
-		if not tdpsFrame.style then
-			tdpsFrame:Style('Outside')
+	if _G["tdpsFrame"] then
+		if not _G["tdpsFrame"].style then
+			_G["tdpsFrame"]:Style('Outside')
 		end
 	end
 end
@@ -186,9 +191,9 @@ end
 
 local function AltoholicDecor()
 	if not E.db.benikuiSkins.addonSkins.altoholic then return end
-	if AltoholicFrame then
-		if not AltoholicFrame.style then
-			AltoholicFrame:Style('Outside')
+	if _G["AltoholicFrame"] then
+		if not _G["AltoholicFrame"].style then
+			_G["AltoholicFrame"]:Style('Outside')
 		end
 	end
 end
@@ -196,14 +201,14 @@ end
 local function ZygorDecor()
 	if not E.db.benikuiSkins.addonSkins.zg then return end
 
-		if not ZygorGuidesViewerFrame_Border.style then
-			ZygorGuidesViewerFrame_Border:Style('Outside')
+		if not _G["ZygorGuidesViewerFrame_Border"].style then
+			_G["ZygorGuidesViewerFrame_Border"]:Style('Outside')
 		end
 
-	hooksecurefunc(ZygorGuidesViewer.CreatureViewer, 'CreateFrame', function(self)
+	hooksecurefunc(_G["ZygorGuidesViewer"].CreatureViewer, 'CreateFrame', function(self)
 		if self.Frame then
-			if not ZygorGuidesViewer_CreatureViewer.style then
-				ZygorGuidesViewer_CreatureViewer:Style('Outside')
+			if not _G["ZygorGuidesViewer_CreatureViewer"].style then
+				_G["ZygorGuidesViewer_CreatureViewer"]:Style('Outside')
 			end
 		end
 	end)
@@ -221,8 +226,8 @@ end
 
 local function CliqueDecor()
 	if not E.db.benikuiSkins.addonSkins.clique then return end
-	CliqueConfig:Style('Small')
-	local tab = CliqueSpellTab
+	_G["CliqueConfig"]:Style('Small')
+	local tab = _G["CliqueSpellTab"]
 	if not tab.style then
 		tab:Style('Inside')
 	end
@@ -231,11 +236,11 @@ end
 
 local function oRA3Decor()
 	if not E.db.benikuiSkins.addonSkins.ora then return end
-	hooksecurefunc(oRA3, "ToggleFrame", function() oRA3Frame:Style('Small'); end)
+	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"]:Style('Small'); end)
 	
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")
 	if (ReadyCheckModule) then
-		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() oRA3ReadyCheck:Style('Small'); end)
+		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() _G["oRA3ReadyCheck"]:Style('Small'); end)
 	end
 end
 
@@ -250,7 +255,7 @@ if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
 if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
-	if not AcceptFrame.style then
-		AcceptFrame:Style('Outside')
+	if not _G["AcceptFrame"].style then
+		_G["AcceptFrame"]:Style('Outside')
 	end
 end)

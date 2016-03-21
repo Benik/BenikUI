@@ -4,10 +4,15 @@ local BUID = E:GetModule('BuiDashboard');
 local BUIT = E:GetModule('BuiTokensDashboard');
 local BUIP = E:GetModule('BuiProfessionsDashboard')
 
-local tinsert, pairs, ipairs, gsub = table.insert, pairs, ipairs, gsub
+local tinsert, gsub, format = table.insert, gsub, format
+local pairs, ipairs, unpack = pairs, ipairs, unpack
 local GetCurrencyInfo = GetCurrencyInfo
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
+
+-- GLOBALS: PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, COLOR, CLASS_COLORS, CUSTOM, COLOR_PICKER, AceGUIWidgetLSMlists
+-- GLOBALS: FONT_SIZE, ENABLE, TOKENS, CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID, PLAYER_V_PLAYER, SECONDARY_SKILLS, MISCELLANEOUS
+-- GLOBALS: TRADE_SKILLS, hooksecurefunc, a
 
 local dungeonTokens = {
 	776,	-- Warforged Seal

@@ -5,6 +5,9 @@ local B = E:GetModule('Bags')
 
 local tinsert = table.insert
 
+-- GLOBALS: COMBAT_XP_GAIN, REPUTATION, ENABLE, COLOR, DEFAULT, TUTORIAL_TITLE26, FACTION_STANDING_LABEL1, FACTION_STANDING_LABEL2
+-- GLOBALS: FACTION_STANDING_LABEL3, FACTION_STANDING_LABEL4, FACTION_STANDING_LABEL5
+
 if E.db.benikuiXprep == nil then E.db.benikuiXprep = {} end
 
 local function xprepTable()

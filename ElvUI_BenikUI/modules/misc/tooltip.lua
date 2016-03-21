@@ -5,6 +5,8 @@ local TT = E:GetModule('Tooltip')
 local GameTooltip, GameTooltipStatusBar = _G["GameTooltip"], _G["GameTooltipStatusBar"]
 local IsAddOnLoaded = IsAddOnLoaded
 
+-- GLOBALS: hooksecurefunc
+
 local ttr, ttg, ttb = 0, 0, 0
 
 local function StyleTooltip()

@@ -4,6 +4,8 @@ local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 
+-- GLOBALS: hooksecurefunc
+
 function UFB:ArrangeTargetTarget()
 	local frame = _G["ElvUF_TargetTarget"]
 	local db = E.db['unitframe']['units'].targettarget;

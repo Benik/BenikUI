@@ -1,9 +1,16 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUID = E:GetModule('BuiDashboard')
 
-local pairs, format, join = pairs, string.format, string.join
+local _G = _G
+local pairs = pairs
+local format, join = string.format, string.join
+
+local GameTooltip = _G["GameTooltip"]
 local GetInventorySlotInfo = GetInventorySlotInfo
 local GetInventoryItemDurability = GetInventoryItemDurability
+local ToggleCharacter = ToggleCharacter
+
+-- GLOBALS: Durability, DURABILITY
 
 local displayString = ''
 local tooltipString = '%d%%'

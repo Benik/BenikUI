@@ -4,9 +4,13 @@ local BDT = E:NewModule('BuiDataTexts', 'AceEvent-3.0');
 local LSM = LibStub("LibSharedMedia-3.0");
 local LDB = LibStub:GetLibrary("LibDataBroker-1.1");
 
-local pairs, type, join = pairs, type, string.join
+local pairs, type, select, join = pairs, type, select, string.join
 
+local GetBattlefieldScore = GetBattlefieldScore
+local GetNumBattlefieldScores = GetNumBattlefieldScores
 local IsInInstance = IsInInstance
+
+-- GLOBALS: name
 
 DT.SetupTooltipBui = DT.SetupTooltip
 function DT:SetupTooltip(panel)
