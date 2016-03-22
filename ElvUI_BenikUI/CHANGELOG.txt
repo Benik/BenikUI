@@ -1,3 +1,16 @@
+[b]2.54[/b]
+*Massive global caching. Credit: Merathilis
+*Fixed the castbar text position with catbar and icon inside the infopanel 
+*Revamped the RequestStop button. Looks much better 
+*Prevented a lua error when using 2D portraits (who does that now anyways)
+*New feature: FlightMode. Pops when the player uses a flight path. It won't hide some 3rd party addons
+*Changed BenikUI logo by removing the white glow and adding shadow
+*Revamped the color options 
+*Added wide shadow function at the toolkit 
+*Fixed combobar and backdropSpacing at he install routine
+*Added Value color option at the Game Menu
+*Styled some (still) missing frames. Thanks to detective Merathilis(TM)
+
 [b]2.53[/b]
 *Changing unit Power bar texture option is back. Now it also applies on group frames
 *Removed the role icon x, y offset options. Part of ElvUI now
