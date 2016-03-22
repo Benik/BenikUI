@@ -261,8 +261,23 @@ local function Core()
 				name = MISCELLANEOUS,
 				guiInline = true,
 				args = {
-					ilevel = {
+					flightMode = {
 						order = 1,
+						type = 'group',
+						name = L['Flight Mode'],
+						get = function(info) return E.db.benikui.misc.flightMode[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.misc.flightMode[ info[#info] ] = value; E:GetModule('BUIFlightMode'):Toggle() end,
+						args = {
+							enable = {
+								order = 1,
+								type = 'toggle',
+								name = L['Enable'],
+								desc = L['Display the Flight Mode screen when taking flight paths'],
+							},
+						},
+					},
+					ilevel = {
+						order = 2,
 						type = 'group',
 						name = L['iLevel'],
 						get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
@@ -328,21 +343,6 @@ local function Core()
 									local t = E.db.benikui.misc.ilevel[ info[#info] ]
 									t.r, t.g, t.b, t.a = r, g, b, a
 								end,
-							},
-						},
-					},
-					flightMode = {
-						order = 2,
-						type = 'group',
-						name = L['Flight Mode'],
-						get = function(info) return E.db.benikui.misc.flightMode[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.flightMode[ info[#info] ] = value; E:GetModule('BUIFlightMode'):Toggle() end,
-						args = {
-							enable = {
-								order = 1,
-								type = 'toggle',
-								name = L['Enable'],
-								desc = L['Display the Flight Mode screen when taking flight paths'],
 							},
 						},
 					},
