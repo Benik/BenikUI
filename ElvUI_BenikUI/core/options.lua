@@ -420,7 +420,7 @@ local function Core()
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', 'Elv, Tukz, Blazeflack, Azilroka, Sinaris, Hydra, Merathilis'),
+								name = format('|cffffd200%s|r', 'Elv, Tukz, Blazeflack, Azilroka, Darth Predator, Sinaris, Hydra, Merathilis'),
 							},
 						},
 					},
