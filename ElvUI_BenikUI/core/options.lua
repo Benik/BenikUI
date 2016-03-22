@@ -264,7 +264,7 @@ local function Core()
 					flightMode = {
 						order = 1,
 						type = 'group',
-						name = L['Flight Mode'],
+						name = L['Flight Mode']..BUI.NewSign,
 						get = function(info) return E.db.benikui.misc.flightMode[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.misc.flightMode[ info[#info] ] = value; E:GetModule('BUIFlightMode'):Toggle() end,
 						args = {
