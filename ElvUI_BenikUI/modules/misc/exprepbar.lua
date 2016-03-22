@@ -123,30 +123,31 @@ end
 function BXR:ApplyXpRepStyling()
 	local xp = ElvUI_ExperienceBar
 	if E.db.general.experience.enable then
-		if E.db.general.experience.orientation == 'VERTICAL' then
-			if E.db.benikui.datatexts.chat.enable then 
-				xp.fb:Show()
+		if xp.fb then
+			if E.db.general.experience.orientation == 'VERTICAL' then
+				if E.db.benikui.datatexts.chat.enable then 
+					xp.fb:Show()
+				else
+					xp.fb:Hide()
+				end
 			else
 				xp.fb:Hide()
 			end
-		else
-			xp.fb:Hide()
 		end
 	end	
 	
 	local rp = ElvUI_ReputationBar
 	if E.db.general.reputation.enable then
-		if E.db.general.reputation.orientation == 'VERTICAL' then
-			if rp.ft then
-				rp.ft:Show()
-			end
-			if E.db.benikui.datatexts.chat.enable then
-				rp.fb:Show()
+		if rp.fb then
+			if E.db.general.reputation.orientation == 'VERTICAL' then
+				if E.db.benikui.datatexts.chat.enable then
+					rp.fb:Show()
+				else
+					rp.fb:Hide()
+				end
 			else
 				rp.fb:Hide()
 			end
-		else
-			rp.fb:Hide()
 		end
 	end
 	
