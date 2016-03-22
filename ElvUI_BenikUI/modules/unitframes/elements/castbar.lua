@@ -30,7 +30,7 @@ local function ConfigureText(unit, castbar)
 	-- Set position of castbar text according to chosen offsets
 	castbar.Text:ClearAllPoints()
 	castbar.Time:ClearAllPoints()
-	if dbe.infoPanel.enable and dbe.castbar.insideInfoPanel and dbe.castbar.icon and dbe.castbar.iconAttached then
+	if dbe.infoPanel.enable and dbe.castbar.insideInfoPanel and dbe.castbar.icon and dbe.castbar.iconAttached and db.yOffset ~= 0 then
 		if dbe.orientation == "LEFT" or dbe.orientation == "MIDDLE" and db.infoPanel.enable then
 			castbar.Text:SetPoint("LEFT", castbar, "LEFT", -castbar.ButtonIcon.bg:GetWidth() + 4, db.yOffset)
 			castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.yOffset)
