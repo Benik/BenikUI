@@ -34,6 +34,7 @@ local FreeBlizzFrames = {
 	EmoteMenu,
 	FloatingBattlePetTooltip,
 	FriendsFrame,
+	FriendsTooltip,
 	GameMenuFrame,
 	GearManagerDialogPopup,
 	GossipFrame,
