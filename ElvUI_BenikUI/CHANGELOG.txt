@@ -1,3 +1,6 @@
+[b]2.55[/b]
+*Fixed an error with the xp bar
+
 [b]2.54[/b]
 *Massive global caching. Credit: Merathilis
 *Fixed the castbar text position with catbar and icon inside the infopanel 
