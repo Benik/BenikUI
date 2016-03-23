@@ -18,7 +18,7 @@ local InCombatLockdown = InCombatLockdown
 local IsXPUserDisabled = IsXPUserDisabled
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local UnitLevel = UnitLevel
-local UnitXP, UnitXPMax = UnitXP, UnitXPM
+local UnitXP, UnitXPMax = UnitXP, UnitXPMax
 local ToggleCharacter = ToggleCharacter
 
 local FACTION_BAR_COLORS, MAX_PLAYER_LEVEL = FACTION_BAR_COLORS, MAX_PLAYER_LEVEL
