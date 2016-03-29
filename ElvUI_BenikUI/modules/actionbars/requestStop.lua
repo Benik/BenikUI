@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local BAB = E:GetModule('BuiActionbars');
 
 local _G = _G
@@ -18,9 +19,9 @@ local function TaxiButton_OnEvent(self, event)
 		self:Show()
 		self.textHolder.Text:SetFormattedText("%s", TAXI_CANCEL)
 		self:Width(self.textHolder.Text:GetStringWidth() + 48)
-		self.textHolder.Text:SetTextColor(1, 1, 1)
+		self.textHolder.Text:SetTextColor(1, 1, 1, .7)
 		self.IconBG:SetBackdropColor(unpack(E['media'].backdropcolor))
-		self.IconBG.Icon:SetAlpha(0.5)
+		self.IconBG.Icon:SetVertexColor(1, 1, 1, .7)
 		self:EnableMouse(true)
 		BuiTaxiButton:SetWidth(self:GetWidth() + 42)
 	else
@@ -36,8 +37,9 @@ local function TaxiButton_OnClick(self, btn)
 		
 		E:Delay(1, function()
 			self.textHolder.Text:SetFormattedText("%s", TAXI_CANCEL_DESCRIPTION)
-			self.textHolder.Text:SetTextColor(1, 0, 0)
-			self.textHolder.Text:SetAlpha(0)			
+			self.textHolder.Text:SetTextColor(1, 0.1, 0.1)
+			self.textHolder.Text:SetAlpha(0)
+			self.IconBG.Icon:SetVertexColor(1, 0.1, 0.1)
 			
 			self.anim.sizing:SetChange(self.textHolder.Text:GetStringWidth() + 56)
 			self.anim:Play()
@@ -47,7 +49,6 @@ local function TaxiButton_OnClick(self, btn)
 			E:UIFrameFadeIn(self.textHolder.Text, 1, 0, 1)
 		end)
 
-		self.IconBG.Icon:SetVertexColor(1, 0.1, 0.1)
 		self:EnableMouse(false)
 
 		E:Delay(8, function()
@@ -68,6 +69,15 @@ local function TaxiButton_OnEnter(self)
 	GameTooltip:AddLine(L['LeftClick to Request Stop'], 0.7, 0.7, 1)
 	GameTooltip:AddLine(L['RightClick to Hide'], 0.7, 0.7, 1)
 	GameTooltip:Show()
+	
+	self.IconBG.Icon:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+	self.textHolder.Text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
+end
+
+local function TaxiButton_OnLeave(self)
+	GameTooltip:Hide()
+	self.IconBG.Icon:SetVertexColor(1, 1, 1)
+	self.textHolder.Text:SetTextColor(1, 1, 1, .7)
 end
 
 local fly_icon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow.tga'
@@ -106,7 +116,7 @@ function BAB:TaxiButton()
 	
 	tbtn:SetScript("OnClick", TaxiButton_OnClick)
 	tbtn:SetScript("OnEnter", TaxiButton_OnEnter)
-	tbtn:SetScript("OnLeave", GameTooltip_Hide)
+	tbtn:SetScript("OnLeave", TaxiButton_OnLeave)
 	tbtn:RegisterEvent("PLAYER_ENTERING_WORLD");
 	tbtn:RegisterEvent("UPDATE_BONUS_ACTIONBAR");
 	tbtn:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR");
