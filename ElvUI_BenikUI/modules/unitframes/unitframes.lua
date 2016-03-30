@@ -37,6 +37,7 @@ function UFB:Initialize()
 	self:InitRaid40()
 	
 	self:ChangePowerBarTexture()
+	self:InfoPanelColor()
 end
 
 E:RegisterModule(UFB:GetName())

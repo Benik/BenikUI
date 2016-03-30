@@ -104,6 +104,8 @@ P['benikui'] = {
 		},
 		['infoPanel'] = {
 			['fixInfoPanel'] = true,
+			['texture'] = 'BuiEmpty',
+			['color'] = {r = .9, g = .7, b = 0, a = .7},
 		},
 		['castbar'] = {
 			['text'] = {

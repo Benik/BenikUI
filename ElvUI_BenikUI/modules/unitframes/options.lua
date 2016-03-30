@@ -26,14 +26,39 @@ local function ufTable()
 				type = 'group',
 				name = L['Information Panel'],
 				guiInline = true,
-				get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:UpdateUF() end,
 				args = {
 					fixInfoPanel = {
 						type = 'toggle',
 						order = 1,
 						name = L['Fix InfoPanel width'],
 						desc = L['Lower InfoPanel width when potraits are enabled.'],
+						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:UpdateUF() end,
+					},
+					color = {
+						order = 2,
+						type = "color",
+						name = COLOR_PICKER,
+						hasAlpha = true,
+						get = function(info)
+							local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
+							local d = P.benikui.unitframes.infoPanel[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+							end,
+						set = function(info, r, g, b, a)
+							E.db.benikui.unitframes.infoPanel[ info[#info] ] = {}
+							local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
+							UFB:InfoPanelColor()
+						end,
+					},
+					texture = {
+						type = 'select', dialogControl = 'LSM30_Statusbar',
+						order = 3,
+						name = L['Textures'],
+						values = AceGUIWidgetLSMlists.statusbar,
+						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,				
+						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:InfoPanelColor() end,
 					},
 				},
 			},
