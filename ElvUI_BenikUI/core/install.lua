@@ -468,6 +468,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 2
+		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 10
 		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
