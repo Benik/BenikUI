@@ -31,9 +31,9 @@ function BUI:PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
-local color = { r = 1, g = 1, b = 1 }
+local color = { r = 1, g = 1, b = 1, a = 1 }
 function BUI:unpackColor(color)
-	return color.r, color.g, color.b
+	return color.r, color.g, color.b, color.a
 end
 
 function BUI:RegisterBuiMedia()
