@@ -88,6 +88,15 @@ local function ufTable()
 						desc = L['Adjust castbar text Y Offset'],
 						min = -25, max = 0, step = 1,
 					},
+					texture = {
+						type = 'select', dialogControl = 'LSM30_Statusbar',
+						order = 4,
+						name = L['Textures'],
+						desc = L['This applies on all available castbars.'],
+						values = AceGUIWidgetLSMlists.statusbar,
+						get = function(info) return E.db.benikui.unitframes.castbar[ info[#info] ] end,				
+						set = function(info, value) E.db.benikui.unitframes.castbar[ info[#info] ] = value; BUIC:CastBarHooks(); end,
+					},
 				},
 			},
 			powerbar = {

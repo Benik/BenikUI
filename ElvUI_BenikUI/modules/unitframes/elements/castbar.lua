@@ -2,6 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUIC = E:NewModule('BuiCastbar', 'AceTimer-3.0', 'AceEvent-3.0')
 local UF = E:GetModule('UnitFrames');
 local UFB = E:GetModule('BuiUnits');
+local LSM = LibStub("LibSharedMedia-3.0");
 
 --[[
 
@@ -99,6 +100,43 @@ function BUIC:UpdateAllCastbars()
 	BUIC:UpdateSettings("target")
 end
 
+--Castbar texture
+function BUIC:PostCast(unit)
+	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.castbar.texture)
+	self:SetStatusBarTexture(castTexture)
+end
+
+function BUIC:CastBarHooks()
+	local units = {"Player", "Target", "Focus"}
+	for _, unit in pairs(units) do
+		local unitframe = _G["ElvUF_"..unit];
+		local castbar = unitframe and unitframe.Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCast)
+			hooksecurefunc(castbar, "PostChannelStart", BUIC.PostCast)
+		end
+	end
+
+	for i = 1, 5 do
+		local castbar = _G["ElvUF_Arena"..i].Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCast)
+			hooksecurefunc(castbar, "PostChannelStart", BUIC.PostCast)
+		end
+	end
+
+	for i = 1, MAX_BOSS_FRAMES do
+		local castbar = _G["ElvUF_Boss"..i].Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCast)
+			hooksecurefunc(castbar, "PostChannelStart", BUIC.PostCast)
+		end
+	end
+end
+
 function BUIC:Initialize()
 
 	--ElvUI UnitFrames are not enabled, stop right here!
@@ -119,6 +157,8 @@ function BUIC:Initialize()
 			BUIC:UpdateSettings(unit)
 		end
 	end)
+
+	BUIC:CastBarHooks()
 end
 
 E:RegisterModule(BUIC:GetName())

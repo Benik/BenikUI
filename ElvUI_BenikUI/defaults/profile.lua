@@ -112,6 +112,7 @@ P['benikui'] = {
 				['yOffset'] = -16,
 				['ShowInfoText'] = true,
 				['castText'] = true,
+				['texture'] = 'BuiEmpty',
 			},
 		},
 		['powerbar'] = {
