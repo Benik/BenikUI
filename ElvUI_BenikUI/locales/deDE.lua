@@ -174,7 +174,7 @@ L['SVUI Icons'] = "SVUI Symbole"
 L['Force show any text placed on the InfoPanel, while casting.'] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
 L['Show Castbar text'] = "Zeige Zauberleisten Text"
 L['Show InfoPanel text'] = "Zeige InfoPanel Text"
-L['This applies on all available castbars.'] = true
+L['This applies on all available castbars.'] = "Wird auf allen verfügbaren Zauberleisten angewendet."
 
 -- Raid
 L['Class Hover'] = "Klassenfarbeneffekt"
