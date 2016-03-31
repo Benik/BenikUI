@@ -460,9 +460,9 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = '[healthcolor][health:current-percent]'
 		E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["enable"] = true
-		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 16
+		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 18
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
-		E.db["unitframe"]["units"]["player"]["height"] = 53
+		E.db["unitframe"]["units"]["player"]["height"] = 58
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 30
 		E.db["unitframe"]["units"]["player"]["buffs"]["noDuration"] = false
@@ -504,7 +504,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["health"]["attachTextTo"] = 'InfoPanel'
-		E.db["unitframe"]["units"]["target"]["height"] = 53
+		E.db["unitframe"]["units"]["target"]["height"] = 58
 		E.db["unitframe"]["units"]["target"]["name"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["name"]["text_format"] = '[namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]'
 		E.db["unitframe"]["units"]["target"]["name"]["xOffset"] = 8
@@ -525,7 +525,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["power"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["target"]["width"] = 300
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = true
-		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 16
+		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 18
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
