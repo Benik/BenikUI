@@ -164,12 +164,10 @@ L['Fix InfoPanel width'] = "Behebt InfoPanel Breite"
 L['Lower InfoPanel width when potraits are enabled.'] = "Verringert die InfoPanel Breite, wenn Portraits aktiviert sind."
 L['Player Size'] = "Spieler Größe"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
-L['PowerBar Texture'] = "Kraftleiste Textur"
 L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rollen Symbole mit denen von SVUI."
 L['Shadow'] = "Schatten"
 L['Style Height'] = "Stil Höhe"
 L['SVUI Icons'] = "SVUI Symbole"
-
 -- Castbar
 L['Force show any text placed on the InfoPanel, while casting.'] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
 L['Show Castbar text'] = "Zeige Zauberleisten Text"

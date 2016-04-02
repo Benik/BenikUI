@@ -65,13 +65,13 @@ local function ufTable()
 			powerbar = {
 				order = 3,
 				type = 'group',
-				name = L['Bars'],
+				name = L['Power'],
 				guiInline = true,
 				args = {
 					statusBar = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
 						order = 1,
-						name = L['PowerBar Texture'],
+						name = L['Textures'],
 						desc = L['Power statusbar texture.'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.powerbar[ info[#info] ] end,				
