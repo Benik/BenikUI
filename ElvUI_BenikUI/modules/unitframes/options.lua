@@ -62,8 +62,25 @@ local function ufTable()
 					},
 				},
 			},
-			castbar = {
+			powerbar = {
 				order = 3,
+				type = 'group',
+				name = L['Bars'],
+				guiInline = true,
+				args = {
+					statusBar = {
+						type = 'select', dialogControl = 'LSM30_Statusbar',
+						order = 1,
+						name = L['PowerBar Texture'],
+						desc = L['Power statusbar texture.'],
+						values = AceGUIWidgetLSMlists.statusbar,
+						get = function(info) return E.db.benikui.unitframes.powerbar[ info[#info] ] end,				
+						set = function(info, value) E.db.benikui.unitframes.powerbar[ info[#info] ] = value; UFB:ChangePowerBarTexture() end,
+					},
+				},
+			},
+			castbar = {
+				order = 4,
 				type = 'group',
 				name = L['Castbar'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
@@ -99,25 +116,8 @@ local function ufTable()
 					},
 				},
 			},
-			powerbar = {
-				order = 3,
-				type = 'group',
-				name = L['Bars'],
-				guiInline = true,
-				args = {
-					statusBar = {
-						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 1,
-						name = L['PowerBar Texture'],
-						desc = L['Power statusbar texture.'],
-						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.benikui.unitframes.powerbar[ info[#info] ] end,				
-						set = function(info, value) E.db.benikui.unitframes.powerbar[ info[#info] ] = value; UFB:ChangePowerBarTexture() end,
-					},
-				},
-			},
 			misc = {
-				order = 4,
+				order = 5,
 				type = 'group',
 				name = MISCELLANEOUS,
 				guiInline = true,
