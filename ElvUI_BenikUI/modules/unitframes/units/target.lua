@@ -99,7 +99,11 @@ function UFB:ArrangeTarget()
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.target.getPlayerPortraitSize and E.db.benikui.unitframes.player.ortraitHeight or E.db.benikui.unitframes.target.portraitHeight
 	
 		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
+		frame.POWER_VERTICAL = db.power.vertical
 	end
+	
+	-- Power
+	UFB:Configure_Power(frame)
 	
 	-- InfoPanel
 	UFB:Configure_Infopanel(frame)

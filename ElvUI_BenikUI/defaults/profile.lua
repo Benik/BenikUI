@@ -1,5 +1,11 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 
+-- Add Vertical Powerbar option on Player
+P['unitframe']['units']['player']['power']['vertical'] = false
+
+-- Add Vertical Powerbar option on target
+P['unitframe']['units']['target']['power']['vertical'] = false
+
 -- Add Party portraits additions to ElvUI defaults
 P['unitframe']['units']['party']['portrait']['height'] = 0
 P['unitframe']['units']['party']['portrait']['transparent'] = false

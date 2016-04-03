@@ -111,8 +111,8 @@ local function ufTable()
 						name = L['Textures'],
 						desc = L['This applies on all available castbars.'],
 						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.benikui.unitframes.castbar[ info[#info] ] end,				
-						set = function(info, value) E.db.benikui.unitframes.castbar[ info[#info] ] = value; BUIC:CastBarHooks(); end,
+						get = function(info) return E.db.benikui.unitframes.castbar.text[ info[#info] ] end,				
+						set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BUIC:CastBarHooks(); end,
 					},
 				},
 			},
@@ -215,6 +215,14 @@ local function ufPlayerTable()
 			},
 		},
 	}
+	
+	E.Options.args.unitframe.args.player.args.power.args.vertical = {	
+		order = 15,
+		type = "toggle",
+		name = BUI:cOption(L['Vertical']),
+		desc = L['Vertical power statusbar'],
+		disabled = function() return not E.db.unitframe.units.player.power.detachFromFrame end,
+	}
 end
 tinsert(BUI.Config, ufPlayerTable)
 
@@ -302,6 +310,14 @@ local function ufTargetTable()
 				},
 			},
 		},
+	}
+
+	E.Options.args.unitframe.args.target.args.power.args.vertical = {	
+		order = 15,
+		type = "toggle",
+		name = BUI:cOption(L['Vertical']),
+		desc = L['Vertical power statusbar'],
+		disabled = function() return not E.db.unitframe.units.target.power.detachFromFrame end,
 	}
 end
 tinsert(BUI.Config, ufTargetTable)

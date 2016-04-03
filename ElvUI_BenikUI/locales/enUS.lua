@@ -168,6 +168,7 @@ L['Replaces the default role icons with SVUI ones.'] = true
 L['Shadow'] = true
 L['Style Height'] = true
 L['SVUI Icons'] = true
+L['Vertical power statusbar'] = true
 -- Castbar
 L['Force show any text placed on the InfoPanel, while casting.'] = true
 L['Show Castbar text'] = true

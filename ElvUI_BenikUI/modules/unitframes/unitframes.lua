@@ -23,6 +23,19 @@ function UFB:UpdateUF()
 	UF:CreateAndUpdateHeaderGroup('party')
 end
 
+function UFB:ADDON_LOADED(event, addon)
+	if addon ~= "ElvUI_Config" then return end
+	UFB:UnregisterEvent(event)
+	UFB:ChangeDefaultOptions()
+end
+
+function UFB:ChangeDefaultOptions()
+	E.Options.args.unitframe.args.player.args.power.args.height.max = 300
+	E.Options.args.unitframe.args.player.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
+	E.Options.args.unitframe.args.target.args.power.args.height.max = 300
+	E.Options.args.unitframe.args.target.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
+end
+
 function UFB:Initialize()
 	if E.private.unitframe.enable ~= true then return end
 	self:UnitDefaults()
@@ -38,6 +51,8 @@ function UFB:Initialize()
 	
 	self:ChangePowerBarTexture()
 	self:InfoPanelColor()
+
+	self:RegisterEvent("ADDON_LOADED")
 end
 
 E:RegisterModule(UFB:GetName())

@@ -7,6 +7,21 @@ UF.LSM = LSM
 local _G = _G
 local pairs, select = pairs, select
 
+function UFB:Configure_Power(frame)
+	local db = frame.db
+	local power = frame.Power
+	
+	if frame.USE_POWERBAR then
+		if frame.POWERBAR_DETACHED then
+			if frame.POWER_VERTICAL then
+				power:SetOrientation('VERTICAL')
+			else
+				power:SetOrientation('HORIZONTAL')
+			end
+		end
+	end
+end
+
 -- Units
 function UFB:ChangeUnitPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.powerbar.statusBar)

@@ -168,6 +168,7 @@ L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rol
 L['Shadow'] = "Schatten"
 L['Style Height'] = "Stil Höhe"
 L['SVUI Icons'] = "SVUI Symbole"
+L['Vertical power statusbar'] = true
 -- Castbar
 L['Force show any text placed on the InfoPanel, while casting.'] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
 L['Show Castbar text'] = "Zeige Zauberleisten Text"
