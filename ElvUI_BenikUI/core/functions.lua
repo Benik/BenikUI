@@ -72,6 +72,8 @@ local function Style(f, template, name, colored)
 		style:SetTemplate('Default', true)
 	end
 	
+	style:SetFrameLevel(f:GetFrameLevel())
+	
 	local tlx, tly, brx, bry
 	
 	if template == 'Inside' then
