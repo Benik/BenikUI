@@ -271,8 +271,13 @@ local function xprepTable()
 		type = 'group',
 		name = MISCELLANEOUS,
 		args = {
-			flightMode = {
+			name = {
 				order = 1,
+				type = 'header',
+				name = BUI:cOption(MISCELLANEOUS),
+			},
+			flightMode = {
+				order = 2,
 				type = 'group',
 				guiInline = true,
 				name = L['Flight Mode']..BUI.NewSign,
@@ -288,7 +293,7 @@ local function xprepTable()
 				},
 			},
 			ilevel = {
-				order = 2,
+				order = 3,
 				type = 'group',
 				guiInline = true,
 				name = L['iLevel'],
@@ -359,7 +364,7 @@ local function xprepTable()
 				},
 			},
 			panels = {
-				order = 3,
+				order = 4,
 				type = 'group',
 				guiInline = true,
 				name = L['Panels'],
