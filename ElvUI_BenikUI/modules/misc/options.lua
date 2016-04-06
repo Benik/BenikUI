@@ -267,7 +267,7 @@ local function xprepTable()
 	}
 
 	E.Options.args.benikui.args.misc = {
-		order = 40,
+		order = 35,
 		type = 'group',
 		name = MISCELLANEOUS,
 		args = {
