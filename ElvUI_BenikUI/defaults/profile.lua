@@ -52,6 +52,18 @@ P['benikui'] = {
 		['flightMode'] = {
 			['enable'] = true,
 		},
+		['panels'] = {
+			['top'] = {
+				['style'] = false,
+				['transparency'] = true,
+				['height'] = 22
+			},
+			['bottom'] = {
+				['style'] = false,
+				['transparency'] = true,
+				['height'] = 22
+			},
+		},
 	},
 
 	['datatexts'] = {

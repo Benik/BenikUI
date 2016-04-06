@@ -358,6 +358,68 @@ local function xprepTable()
 					},
 				},
 			},
+			panels = {
+				order = 3,
+				type = 'group',
+				guiInline = true,
+				name = L['Panels'],
+				args = {
+					top = {
+						order = 1,
+						type = 'group',
+						guiInline = true,
+						name = L['Top Panel'],
+						get = function(info) return E.db.benikui.misc.panels.top[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.misc.panels.top[ info[#info] ] = value; E:GetModule('BuiLayout'):TopPanelLayout() end,
+						args = {
+							style = {
+								order = 1,
+								type = 'toggle',
+								name = L['BenikUI Style'],
+								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+							},
+							transparency = {
+								order = 2,
+								type = 'toggle',
+								name = L['Panel Transparency'],
+							},
+							height = {
+								order = 3,
+								type = "range",
+								name = L["Height"],
+								min = 8, max = 60, step = 1,
+							},
+						},
+					},
+					bottom = {
+						order = 2,
+						type = 'group',
+						guiInline = true,
+						name = L['Bottom Panel'],
+						get = function(info) return E.db.benikui.misc.panels.bottom[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.misc.panels.bottom[ info[#info] ] = value; E:GetModule('BuiLayout'):BottomPanelLayout() end,
+						args = {
+							style = {
+								order = 1,
+								type = 'toggle',
+								name = L['BenikUI Style'],
+								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+							},
+							transparency = {
+								order = 2,
+								type = 'toggle',
+								name = L['Panel Transparency'],
+							},
+							height = {
+								order = 3,
+								type = "range",
+								name = L["Height"],
+								min = 8, max = 60, step = 1,
+							},
+						},
+					},
+				},
+			},
 		},
 	}
 end
