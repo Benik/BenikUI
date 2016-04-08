@@ -1,3 +1,10 @@
+[b]2.56[/b]
+*Miscellaneous options are moved from General and now they have their own group.
+*Added option for Vertical Powerbar texture (Player/Target). Option in ElvUI Player/Target Power. To be used with detached power bar ofc.
+*Added option to apply texture on the castbar 
+*Added options to apply texture and color on the Information Panels 
+*Added mouse over coloring at the RequestStop button
+
 [b]2.55[/b]
 *Fixed an error with the xp bar
 
