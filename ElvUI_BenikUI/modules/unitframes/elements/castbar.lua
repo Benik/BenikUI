@@ -102,7 +102,7 @@ end
 
 --Castbar texture
 function BUIC:PostCast(unit)
-	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.castbar.texture)
+	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.castbar.text.texture)
 	self:SetStatusBarTexture(castTexture)
 end
 
