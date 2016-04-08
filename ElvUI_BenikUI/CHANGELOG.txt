@@ -1,3 +1,6 @@
+[b]2.57[/b]
+*Fixed the Castbar Texture option
+
 [b]2.56[/b]
 *Miscellaneous options are moved from General and now they have their own group.
 *Added option for Vertical Powerbar texture (Player/Target). Option in ElvUI Player/Target Power. To be used with detached power bar ofc.
