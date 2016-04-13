@@ -69,7 +69,6 @@ local function UpdateMemory()
 end
 
 local int = 10
-local zygor = IsAddOnLoaded('ZygorGuidesViewer')
 
 local function Update( self, t )
 	local boardName = _G['Memory']
@@ -77,7 +76,7 @@ local function Update( self, t )
 	
 	if( int < 0 ) then
 		local inInstance = IsInInstance()
-		if (zygor ~= nil and inInstance) then
+		if (IsAddOnLoaded('ZygorGuidesViewer') and inInstance) then
 			boardName.Text:SetFormattedText("%s|cffffa700%s|r", L['Memory: '], L['Disabled'])
 			boardName.Status:SetMinMaxValues( 0, 100000 )
 			boardName.Status:SetValue( 0 )
@@ -109,7 +108,7 @@ function BUID:CreateMemory()
 			
 			local inInstance = IsInInstance()
 			
-			if (zygor ~= nil and inInstance) then
+			if (IsAddOnLoaded('ZygorGuidesViewer') and inInstance) then
 				GameTooltip:AddLine(L['Framerate drop has been reported with Zygor Guides\nand the Memory module while in an instance.\nMemory module updates have been temporarily disabled.'], selectioncolor)
 			else
 				local red, green
