@@ -131,6 +131,7 @@ P['benikui'] = {
 				['ShowInfoText'] = true,
 				['castText'] = true,
 				['texture'] = 'BuiEmpty',
+				['textColor'] = {r = 1, g = 1, b = 1, a = 1},
 			},
 		},
 		['powerbar'] = {

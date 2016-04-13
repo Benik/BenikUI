@@ -114,6 +114,23 @@ local function ufTable()
 						get = function(info) return E.db.benikui.unitframes.castbar.text[ info[#info] ] end,				
 						set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BUIC:CastBarHooks(); end,
 					},
+					textColor = {
+						order = 5,
+						type = "color",
+						name = L["Text Color"]..BUI.NewSign,
+						hasAlpha = true,
+						get = function(info)
+							local t = E.db.benikui.unitframes.castbar.text[ info[#info] ]
+							local d = P.benikui.unitframes.castbar.text[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+							end,
+						set = function(info, r, g, b, a)
+							E.db.benikui.unitframes.castbar.text[ info[#info] ] = {}
+							local t = E.db.benikui.unitframes.castbar.text[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
+							BUIC:CastBarHooks();
+						end,
+					},
 				},
 			},
 			misc = {

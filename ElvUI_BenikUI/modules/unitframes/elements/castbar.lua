@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local BUIC = E:NewModule('BuiCastbar', 'AceTimer-3.0', 'AceEvent-3.0')
 local UF = E:GetModule('UnitFrames');
 local UFB = E:GetModule('BuiUnits');
@@ -103,11 +104,14 @@ end
 --Castbar texture
 function BUIC:PostCast(unit)
 	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.castbar.text.texture)
+	local r, g, b, a = BUI:unpackColor(E.db.benikui.unitframes.castbar.text.textColor)
 	self:SetStatusBarTexture(castTexture)
+	self.Text:SetTextColor(r, g, b, a)
+	self.Time:SetTextColor(r, g, b, a)
 end
 
 function BUIC:CastBarHooks()
-	local units = {"Player", "Target", "Focus"}
+	local units = {"Player", "Target", "Focus", "Pet"}
 	for _, unit in pairs(units) do
 		local unitframe = _G["ElvUF_"..unit];
 		local castbar = unitframe and unitframe.Castbar
