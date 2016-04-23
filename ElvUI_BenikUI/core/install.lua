@@ -884,8 +884,11 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["text_format"] = "[namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["yOffset"] = -3
-		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = 'TOPRIGHT'
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 14
+		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 32
+		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 32
+		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 2
 		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = -40
 		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = -25
