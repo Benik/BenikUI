@@ -1,3 +1,8 @@
+[b]2.58[/b]
+*Fixed wrong target debuff anchor. This should fix #24
+*[NEW] Added option to change castbar text color
+*Fixed memory module being disabled even if Zygor is not loaded 
+
 [b]2.57[/b]
 *Fixed the Castbar Texture option
 
