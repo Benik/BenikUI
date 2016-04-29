@@ -49,13 +49,13 @@ L["This part of the installation process will fill BenikUI datatexts.\n\n|cffff8
 L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars."] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren und die leere Leiste aktivieren."
 L['- %s profile successfully created!'] = "- %s Profil erfolgreich erstellt!"
 L['ActionBars'] = "Aktionsleisten"
-L['Actionbars Set'] = "Aktionsleisten setzen"
-L['Addons Set'] = "Addons setzen"
+L['Actionbars Set'] = "Aktionsleisten gesetzt"
+L['Addons Set'] = "Addons gesetzt"
 L['\nBenikUI options are marked with light blue color, inside ElvUI options.'] = "\nBenikUI Optionen sind in hellblau hervorgehoben in den ElvUI Optionen."
 L['Buttons must be clicked twice'] = "Bitte zweimal anklicken"
-L['Color Theme Set'] = "Farbschema setzen"
+L['Color Theme Set'] = "Farbschema gesetzt"
 L['Color Themes'] = "Farbschema"
-L['DataTexts Set'] = "Infotexte setzen"
+L['DataTexts Set'] = "Infotexte gesetzt"
 L['Diablo'] = true
 L['ElvUI'] = true
 L['Hearthstone'] = true
