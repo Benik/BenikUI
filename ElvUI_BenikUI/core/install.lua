@@ -255,13 +255,18 @@ end
 local function SetupActionbars(layout)
 	-- Actionbars
 	E.db["actionbar"]["lockActionBars"] = true
+
+	E.db["benikui"]["datatexts"]["middle"]["styled"] = false
+	E.db["benikui"]["datatexts"]["middle"]["width"] = 412
+	E:GetModule('BuiLayout'):MiddleDatatextDimensions()
+	E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
+	E:GetModule('BuiLayout'):MiddleDatatextLayout()
+	E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
+
 	if layout == 'big' then
 		E.db["actionbar"]["font"] = "Bui Visitor1"
 		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
 		E.db["actionbar"]["fontSize"] = 10
-		E.db["benikui"]["datatexts"]["middle"]["styled"] = false
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 412
-		E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
 		
 		E.db["actionbar"]["bar1"]["backdrop"] = false
 		E.db["actionbar"]["bar1"]["buttons"] = 12
@@ -300,11 +305,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonspacing"] = 2
 		E.db["actionbar"]["stanceBar"]["backdrop"] = false
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24	
-		E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
 
-		E:GetModule('BuiLayout'):MiddleDatatextDimensions()
-		E:GetModule('BuiLayout'):MiddleDatatextLayout()
-		
 		-- movers
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,92"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,58"
@@ -323,7 +324,6 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["font"] = "Bui Visitor1"
 		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
 		E.db["actionbar"]["fontSize"] = 10;
-		E.db["benikui"]["datatexts"]["middle"]["styled"] = false
 		
 		E.db["actionbar"]["bar1"]["backdrop"] = false
 		E.db["actionbar"]["bar1"]["buttons"] = 12
@@ -364,12 +364,6 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonspacing"] = 2
 		E.db["actionbar"]["stanceBar"]["backdrop"] = false
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24	
-		E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
-		
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 412
-		E:GetModule('BuiLayout'):MiddleDatatextDimensions()
-		E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
-		E:GetModule('BuiLayout'):MiddleDatatextLayout()
 		
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
