@@ -134,8 +134,9 @@ P['benikui'] = {
 				['textColor'] = {r = 1, g = 1, b = 1, a = 1},
 			},
 		},
-		['powerbar'] = {
-			['statusBar'] = 'BuiFlat',
+		['textures'] = {
+			['power'] = E.db.unitframe.statusbar,
+			['health'] = E.db.unitframe.statusbar,
 		},
 		['misc'] = {
 			['svui'] = true,

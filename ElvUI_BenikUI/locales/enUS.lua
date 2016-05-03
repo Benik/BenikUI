@@ -161,6 +161,7 @@ L['Change the detached portrait width'] = true
 L['Copy Player portrait width and height'] = true
 L['Detach Portrait'] = true
 L['Fix InfoPanel width'] = true
+L['Health statusbar texture. Applies only on Group Frames'] = true
 L['Lower InfoPanel width when potraits are enabled.'] = true
 L['Player Size'] = true
 L['Power statusbar texture.'] = true

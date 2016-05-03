@@ -161,6 +161,7 @@ L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten P
 L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite und Höhe"
 L['Detach Portrait'] = "Abgetrenntes Portrait"
 L['Fix InfoPanel width'] = "Behebt InfoPanel Breite"
+L['Health statusbar texture. Applies only on Group Frames'] = true
 L['Lower InfoPanel width when potraits are enabled.'] = "Verringert die InfoPanel Breite, wenn Portraits aktiviert sind."
 L['Player Size'] = "Spieler Größe"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."

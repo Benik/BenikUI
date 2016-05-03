@@ -24,7 +24,7 @@ end
 
 -- Units
 function UFB:ChangeUnitPowerBarTexture()
-	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.powerbar.statusBar)
+	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for _, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
 		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
@@ -38,7 +38,7 @@ hooksecurefunc(UF, "Update_AllFrames", UFB.ChangeUnitPowerBarTexture)
 -- Raid
 function UFB:ChangeRaidPowerBarTexture()
 	local header = _G['ElvUF_Raid']
-	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.powerbar.statusBar)
+	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, header:GetNumChildren() do
 		local group = select(i, header:GetChildren())
 
@@ -55,7 +55,7 @@ hooksecurefunc(UF, 'Update_RaidFrames', UFB.ChangeRaidPowerBarTexture)
 -- Raid-40
 function UFB:ChangeRaid40PowerBarTexture()
 	local header = _G['ElvUF_Raid40']
-	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.powerbar.statusBar)
+	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, header:GetNumChildren() do
 		local group = select(i, header:GetChildren())
 
@@ -72,7 +72,7 @@ hooksecurefunc(UF, 'Update_Raid40Frames', UFB.ChangeRaid40PowerBarTexture)
 -- Party
 function UFB:ChangePartyPowerBarTexture()
 	local header = _G['ElvUF_Party']
-	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.powerbar.statusBar)
+	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, header:GetNumChildren() do
 		local group = select(i, header:GetChildren())
 
@@ -88,7 +88,7 @@ hooksecurefunc(UF, 'Update_PartyFrames', UFB.ChangePartyPowerBarTexture)
 
 -- Arena
 function UFB:ChangeArenaPowerBarTexture()
-	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.powerbar.statusBar)
+	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
 		if unitbutton.Power then
@@ -100,7 +100,7 @@ hooksecurefunc(UF, 'Update_ArenaFrames', UFB.ChangeArenaPowerBarTexture)
 
 -- Boss
 function UFB:ChangeBossPowerBarTexture()
-	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.powerbar.statusBar)
+	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Boss"..i]
 		if unitbutton.Power then

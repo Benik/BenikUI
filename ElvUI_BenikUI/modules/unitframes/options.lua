@@ -62,25 +62,34 @@ local function ufTable()
 					},
 				},
 			},
-			powerbar = {
-				order = 3,
+			textures = {
+				order = 4,
 				type = 'group',
-				name = L['Power'],
+				name = L['Textures'],
 				guiInline = true,
 				args = {
-					statusBar = {
+					health = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
 						order = 1,
-						name = L['Textures'],
+						name = L['Health']..BUI.NewSign,
+						desc = L['Health statusbar texture. Applies only on Group Frames'],
+						values = AceGUIWidgetLSMlists.statusbar,
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,				
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UFB:ChangeHealthBarTexture() end,
+					},
+					power = {
+						type = 'select', dialogControl = 'LSM30_Statusbar',
+						order = 2,
+						name = L['Power'],
 						desc = L['Power statusbar texture.'],
 						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.benikui.unitframes.powerbar[ info[#info] ] end,				
-						set = function(info, value) E.db.benikui.unitframes.powerbar[ info[#info] ] = value; UFB:ChangePowerBarTexture() end,
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,				
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UFB:ChangePowerBarTexture() end,
 					},
 				},
-			},
+			},			
 			castbar = {
-				order = 4,
+				order = 5,
 				type = 'group',
 				name = L['Castbar'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
@@ -117,7 +126,7 @@ local function ufTable()
 					textColor = {
 						order = 5,
 						type = "color",
-						name = L["Text Color"]..BUI.NewSign,
+						name = L["Text Color"],
 						hasAlpha = true,
 						get = function(info)
 							local t = E.db.benikui.unitframes.castbar.text[ info[#info] ]
@@ -134,7 +143,7 @@ local function ufTable()
 				},
 			},
 			misc = {
-				order = 5,
+				order = 6,
 				type = 'group',
 				name = MISCELLANEOUS,
 				guiInline = true,

@@ -50,6 +50,7 @@ function UFB:Initialize()
 	self:InitRaid40()
 	
 	self:ChangePowerBarTexture()
+	self:ChangeHealthBarTexture()
 	self:InfoPanelColor()
 
 	self:RegisterEvent("ADDON_LOADED")
