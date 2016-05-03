@@ -254,6 +254,7 @@ end
 
 local function SetupActionbars(layout)
 	-- Actionbars
+	E.db["actionbar"]["lockActionBars"] = true
 	if layout == 'big' then
 		E.db["actionbar"]["font"] = "Bui Visitor1"
 		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
