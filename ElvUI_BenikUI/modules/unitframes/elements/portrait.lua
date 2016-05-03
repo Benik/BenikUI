@@ -114,3 +114,25 @@ function UFB:Configure_Portrait(frame, isPlayer)
 		end
 	end
 end
+
+function UFB:PortraitTransparency(unit)
+	local frame = self:GetParent()
+	local db = frame.db
+	if not db then return end
+
+	local portrait = db.portrait
+	if portrait.enable and self:GetParent().USE_PORTRAIT_OVERLAY then
+		self:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
+	end
+end
+
+function UFB:UpdatePortrait(frame, dontHide)
+	local db = frame.db
+	local portrait = frame.Portrait
+
+	if not portrait.isHooked then
+		hooksecurefunc(portrait, "PostUpdate", UFB.PortraitTransparency)
+		portrait.isHooked = true
+	end
+end
+hooksecurefunc(UF, "Configure_Portrait", UFB.UpdatePortrait)
