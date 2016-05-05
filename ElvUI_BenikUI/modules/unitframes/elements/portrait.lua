@@ -108,31 +108,84 @@ function UFB:Configure_Portrait(frame, isPlayer)
 					end
 				end
 
-
 				portrait:SetInside(portrait.backdrop, frame.BORDER)
 			end
 		end
 	end
 end
 
-function UFB:PortraitTransparency(unit)
+-- Portrait Alpha setting. Idea: Vxt, Credit: Blazeflack
+local function OnConfigure_Portrait(self, frame)
+	if frame.USE_PORTRAIT then
+		local portrait = frame.Portrait
+		if frame.USE_PORTRAIT_OVERLAY then
+			portrait:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
+		else
+			portrait:SetAlpha(1)
+		end
+	end
+end
+
+local function OnPortraitUpdate(self)
 	local frame = self:GetParent()
 	local db = frame.db
 	if not db then return end
 
-	local portrait = db.portrait
-	if portrait.enable and self:GetParent().USE_PORTRAIT_OVERLAY then
+	if frame.USE_PORTRAIT_OVERLAY then
 		self:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
+	else
+		self:SetAlpha(1)
 	end
 end
 
-function UFB:UpdatePortrait(frame, dontHide)
-	local db = frame.db
-	local portrait = frame.Portrait
+hooksecurefunc(UF, "Configure_Portrait", OnConfigure_Portrait)
+hooksecurefunc(UF, "PortraitUpdate", OnPortraitUpdate)
 
-	if not portrait.isHooked then
-		hooksecurefunc(portrait, "PostUpdate", UFB.PortraitTransparency)
-		portrait.isHooked = true
+local function ResetPostUpdate()
+	for unit, unitName in pairs(UF.units) do
+		local frameNameUnit = E:StringTitle(unitName)
+		frameNameUnit = frameNameUnit:gsub('t(arget)', 'T%1')
+
+		local unitframe = _G['ElvUF_'..frameNameUnit]
+		if unitframe then
+			if unitframe.Portrait2D then unitframe.Portrait2D.PostUpdate = UF.PortraitUpdate end
+			if unitframe.Portrait3D then unitframe.Portrait3D.PostUpdate = UF.PortraitUpdate end
+		end
+	end
+
+	for unit, unitgroup in pairs(UF.groupunits) do
+		local frameNameUnit = E:StringTitle(unit)
+		frameNameUnit = frameNameUnit:gsub('t(arget)', 'T%1')
+
+		local unitframe = _G['ElvUF_'..frameNameUnit]
+		if unitframe then
+			if unitframe.Portrait2D then unitframe.Portrait2D.PostUpdate = UF.PortraitUpdate end
+			if unitframe.Portrait3D then unitframe.Portrait3D.PostUpdate = UF.PortraitUpdate end
+		end
+	end
+
+	for _, header in pairs(UF.headers) do
+		local name = header.groupName
+
+		for i = 1, header:GetNumChildren() do
+			local group = select(i, header:GetChildren())
+			--group is Tank/Assist Frames, but for Party/Raid we need to go deeper
+			if group.Portrait2D then group.Portrait2D.PostUpdate = UF.PortraitUpdate end
+			if group.Portrait3D then group.Portrait3D.PostUpdate = UF.PortraitUpdate end
+		
+			for j = 1, group:GetNumChildren() do
+				--Party/Raid unitbutton
+				local unitbutton = select(j, group:GetChildren())
+				if unitbutton.Portrait2D then unitbutton.Portrait2D.PostUpdate = UF.PortraitUpdate end
+				if unitbutton.Portrait3D then unitbutton.Portrait3D.PostUpdate = UF.PortraitUpdate end
+			end
+		end
 	end
 end
-hooksecurefunc(UF, "Configure_Portrait", UFB.UpdatePortrait)
+
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self, event)
+	self:UnregisterEvent(event)
+	ResetPostUpdate()
+end) 
