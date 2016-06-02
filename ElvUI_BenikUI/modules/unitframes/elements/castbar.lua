@@ -20,13 +20,18 @@ local _G = _G
 local function ConfigureText(unit, castbar)
 	local db = E.db.benikui.unitframes.castbar.text
 	local dbe = E.db.unitframe.units[unit];
-	
+
 	if db.castText then
-		castbar.Text:SetAlpha(1)
-		castbar.Time:SetAlpha(1)
+		castbar.Text:Show()
+		castbar.Time:Show()
 	else
-		castbar.Text:SetAlpha(0)
-		castbar.Time:SetAlpha(0)
+		if (unit == 'target' and db.forceTargetText) then
+			castbar.Text:Show()
+			castbar.Time:Show()
+		else
+			castbar.Text:Hide()
+			castbar.Time:Hide()
+		end
 	end
 
 	-- Set position of castbar text according to chosen offsets
@@ -52,8 +57,8 @@ local function ResetText(castbar)
 	castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
 	castbar.Time:ClearAllPoints()
 	castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, 0)
-	castbar.Text:SetAlpha(1)
-	castbar.Time:SetAlpha(1)
+	castbar.Text:Show()
+	castbar.Time:Show()
 end
 
 local function changeCastbarLevel(unit, unitframe)

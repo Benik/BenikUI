@@ -107,8 +107,14 @@ local function ufTable()
 						order = 2,
 						name = L['Show Castbar text'],
 					},
-					yOffset = {
+					forceTargetText = {
+						type = 'toggle',
 						order = 3,
+						name = L['Show on Target'],
+						disabled = function() return E.db.benikui.unitframes.castbar.text.castText end,
+					},
+					yOffset = {
+						order = 4,
 						type = 'range',
 						name = L['Y Offset'],
 						desc = L['Adjust castbar text Y Offset'],
@@ -116,7 +122,7 @@ local function ufTable()
 					},
 					texture = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 4,
+						order = 5,
 						name = L['Textures'],
 						desc = L['This applies on all available castbars.'],
 						values = AceGUIWidgetLSMlists.statusbar,
@@ -124,7 +130,7 @@ local function ufTable()
 						set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BUIC:CastBarHooks(); end,
 					},
 					textColor = {
-						order = 5,
+						order = 6,
 						type = "color",
 						name = L["Text Color"],
 						hasAlpha = true,

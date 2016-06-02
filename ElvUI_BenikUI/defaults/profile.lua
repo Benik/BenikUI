@@ -130,6 +130,7 @@ P['benikui'] = {
 				['yOffset'] = -16,
 				['ShowInfoText'] = true,
 				['castText'] = true,
+				['forceTargetText'] = false,
 				['texture'] = 'BuiEmpty',
 				['textColor'] = {r = 1, g = 1, b = 1, a = 1},
 			},

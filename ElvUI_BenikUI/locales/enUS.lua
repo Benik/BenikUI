@@ -176,6 +176,7 @@ L['Vertical power statusbar'] = true
 L['Force show any text placed on the InfoPanel, while casting.'] = true
 L['Show Castbar text'] = true
 L['Show InfoPanel text'] = true
+L['Show on Target'] = true
 L['This applies on all available castbars.'] = true
 
 -- Raid
