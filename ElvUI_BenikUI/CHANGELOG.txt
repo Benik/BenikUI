@@ -1,3 +1,8 @@
+[b]2.59[/b]
+*Added option to change the health texture also on group frames (user request). This will reset the power texture option.
+*Added option for Overlayed Portraits Alpha (idea: Vxt, code: Blazeflack)
+*Added option to force show castbar text on target (user request)
+
 [b]2.58[/b]
 *Fixed wrong target debuff anchor. This should fix #24
 *[NEW] Added option to change castbar text color
