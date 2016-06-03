@@ -176,7 +176,7 @@ L['Vertical power statusbar'] = "Vertikale Kraft Statusleiste"
 L['Force show any text placed on the InfoPanel, while casting.'] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
 L['Show Castbar text'] = "Zeige Zauberleisten Text"
 L['Show InfoPanel text'] = "Zeige InfoPanel Text"
-L['Show on Target'] = true
+L['Show on Target'] = "Zeige auf dem Ziel"
 L['This applies on all available castbars.'] = "Wird auf allen verfügbaren Zauberleisten angewendet."
 
 -- Raid
