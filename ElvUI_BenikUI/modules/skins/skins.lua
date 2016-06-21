@@ -216,7 +216,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				end
 				
 				if addon == 'Blizzard_BarbershopUI' then
-					_G["BarberShopAltFormFrame"].backdrop:Style('Outside')
+					_G["BarberShopAltFormFrame"]:Style('Outside')
 				end
 				
 			end
