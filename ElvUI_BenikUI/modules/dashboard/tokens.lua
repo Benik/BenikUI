@@ -94,6 +94,7 @@ function BUIT:CreateTokensHolder()
 	if not tholder then
 		tholder = CreateFrame('Frame', 'tokenHolder', E.UIParent)
 		tholder:CreateBackdrop('Transparent')
+		tholder:SetFrameStrata('BACKGROUND')
 		tholder:Width(DASH_WIDTH)
 		if E.db.dashboards.system.enableSystem then
 			tholder:Point('TOPLEFT', sysHolder, 'BOTTOMLEFT', 0, -10)
