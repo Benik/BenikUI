@@ -55,6 +55,8 @@ local miscTokens = {
 	824,	-- Garrison Resources
 	1101,	-- Oil
 	1166, 	-- Timewarped Badge (6.22)
+	-- Legion
+	1220,	-- Order Resources
 }
 
 local archyTokens = {

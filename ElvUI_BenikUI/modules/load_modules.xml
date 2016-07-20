@@ -5,5 +5,6 @@
 	<Include file="misc\load_misc.xml"/>
 	<Include file="dashboard\load_dashboards.xml"/>
 	<Include file="datatexts\load_datatexts.xml"/>
+	<Include file="databars\load_databars.xml"/>
 	<Include file="skins\load_skins.xml"/>
 </Ui>

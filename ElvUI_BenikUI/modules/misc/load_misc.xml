@@ -3,7 +3,6 @@
 	<script file="auras.lua"/>
 	<script file="tooltip.lua"/>
 	<script file="threat.lua"/>
-	<script file="exprepbar.lua"/>
 	<script file="afk.lua"/>
 	<script file="flightMode.lua"/>
 	<script file="ilevel.lua"/>

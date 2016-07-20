@@ -73,6 +73,9 @@ local BUIcurrency = {
 	1129,	-- Seal of Inevitable Fate
 	1166, 	-- Timewarped Badge (6.22)
 	1191, 	-- Valor Points (6.23)
+	
+	-- Legion
+	1220,	-- Order Resources
 }
 
 local function tholderOnFade()

@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BXR = E:NewModule('BUIExpRep', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
-local M = E:GetModule('Misc');
+local M = E:GetModule('DataBars');
 local LO = E:GetModule('Layout');
 local LSM = LibStub('LibSharedMedia-3.0');
 local DT = E:GetModule('DataTexts');
@@ -122,9 +122,9 @@ end
 
 function BXR:ApplyXpRepStyling()
 	local xp = ElvUI_ExperienceBar
-	if E.db.general.experience.enable then
+	if E.db.databars.experience.enable then
 		if xp.fb then
-			if E.db.general.experience.orientation == 'VERTICAL' then
+			if E.db.databars.experience.orientation == 'VERTICAL' then
 				if E.db.benikui.datatexts.chat.enable then 
 					xp.fb:Show()
 				else
@@ -137,9 +137,9 @@ function BXR:ApplyXpRepStyling()
 	end	
 	
 	local rp = ElvUI_ReputationBar
-	if E.db.general.reputation.enable then
+	if E.db.databars.reputation.enable then
 		if rp.fb then
-			if E.db.general.reputation.orientation == 'VERTICAL' then
+			if E.db.databars.reputation.orientation == 'VERTICAL' then
 				if E.db.benikui.datatexts.chat.enable then
 					rp.fb:Show()
 				else
@@ -238,7 +238,7 @@ function BXR:UpdateRepNotifierPositions()
 	bar.f.txt:ClearAllPoints()
 
 	if db.position == 'LEFT' then
-		if not E.db.general.reputation.reverseFill then
+		if not E.db.databars.reputation.reverseFill then
 			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
 		else
 			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
@@ -247,7 +247,7 @@ function BXR:UpdateRepNotifierPositions()
 		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
 		arrow = ">"
 	else
-		if not E.db.general.reputation.reverseFill then
+		if not E.db.databars.reputation.reverseFill then
 			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
 		else
 			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
@@ -260,7 +260,7 @@ function BXR:UpdateRepNotifierPositions()
 	bar.f.arrow:SetText(arrow)
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 
-	if E.db.general.reputation.orientation ~= 'VERTICAL' then
+	if E.db.databars.reputation.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
 		bar.f:Show()
@@ -272,7 +272,7 @@ function BXR:UpdateRepNotifier()
 	
 	local name, _, min, max, value = GetWatchedFactionInfo()
 	
-	if not name or E.db.general.reputation.orientation ~= 'VERTICAL' then
+	if not name or E.db.databars.reputation.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
 		bar.f:Show()
@@ -291,7 +291,7 @@ function BXR:UpdateXpNotifierPositions()
 	bar.f.txt:ClearAllPoints()
 
 	if db.position == 'LEFT' then
-		if not E.db.general.experience.reverseFill then
+		if not E.db.databars.experience.reverseFill then
 			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
 		else
 			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
@@ -300,7 +300,7 @@ function BXR:UpdateXpNotifierPositions()
 		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
 		arrow = ">"
 	else
-		if not E.db.general.experience.reverseFill then
+		if not E.db.databars.experience.reverseFill then
 			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
 		else
 			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
@@ -313,7 +313,7 @@ function BXR:UpdateXpNotifierPositions()
 	bar.f.arrow:SetText(arrow)
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 	
-	if E.db.general.experience.orientation ~= 'VERTICAL' then
+	if E.db.databars.experience.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
 		bar.f:Show()
@@ -331,7 +331,7 @@ end
 function BXR:UpdateXpNotifier()
 	local bar = ElvUI_ExperienceBar.statusBar
 
-	if(UnitLevel('player') == MAX_PLAYER_LEVEL) or IsXPUserDisabled() or E.db.general.reputation.orientation ~= 'VERTICAL' then
+	if(UnitLevel('player') == MAX_PLAYER_LEVEL) or IsXPUserDisabled() or E.db.databars.reputation.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
 		bar.f:Show()
@@ -346,22 +346,22 @@ function BXR:Initialize()
 	
 	local db = E.db.benikuiXprep.notifiers
 	
-	if db.experience.enable and E.db.general.experience.orientation == 'VERTICAL' then
+	if db.experience.enable and E.db.databars.experience.orientation == 'VERTICAL' then
 		self:CreateNotifier(ElvUI_ExperienceBar.statusBar)
 		self:UpdateXpNotifierPositions()
 		self:UpdateXpNotifier()
 		hooksecurefunc(M, 'UpdateExperience', BXR.UpdateXpNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', BXR.UpdateXpNotifierPositions)
-		hooksecurefunc(M, 'UpdateExpRepDimensions', BXR.UpdateXpNotifierPositions)
+		hooksecurefunc(M, 'UpdateExperienceDimensions', BXR.UpdateXpNotifierPositions)
 	end
 	
-	if db.reputation.enable and E.db.general.reputation.orientation == 'VERTICAL' then
+	if db.reputation.enable and E.db.databars.reputation.orientation == 'VERTICAL' then
 		self:CreateNotifier(ElvUI_ReputationBar.statusBar)
 		self:UpdateRepNotifierPositions()
 		self:UpdateRepNotifier()
 		hooksecurefunc(M, 'UpdateReputation', BXR.UpdateRepNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', BXR.UpdateRepNotifierPositions)
-		hooksecurefunc(M, 'UpdateExpRepDimensions', BXR.UpdateRepNotifierPositions)
+		hooksecurefunc(M, 'UpdateReputationDimensions', BXR.UpdateRepNotifierPositions)
 	end
 	
 	if E.db.benikuiXprep.enable ~= true then return end
@@ -371,7 +371,8 @@ function BXR:Initialize()
 	
 	hooksecurefunc(BUIL, 'ToggleTransparency', ToggleXpRepBackdrop)
 	hooksecurefunc(LO, 'ToggleChatPanels', BXR.ApplyXpRepStyling)
-	hooksecurefunc(M, 'UpdateExpRepDimensions', BXR.ApplyXpRepStyling)
+	hooksecurefunc(M, 'UpdateExperienceDimensions', BXR.ApplyXpRepStyling)
+	hooksecurefunc(M, 'UpdateReputationDimensions', BXR.ApplyXpRepStyling)
 end
 
 E:RegisterModule(BXR:GetName())

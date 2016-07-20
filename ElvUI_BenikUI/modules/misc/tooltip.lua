@@ -39,7 +39,6 @@ function BTT:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	StyleTooltip()
 	hooksecurefunc(TT, "SetUnitAura", RecolorTooltipStyle)
-	hooksecurefunc(TT, "SetConsolidatedUnitAura", RecolorTooltipStyle)
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetSpell", RecolorTooltipStyle)
 	hooksecurefunc(TT, "GameTooltip_OnTooltipCleared", RecolorTooltipStyle)
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetItem", RecolorTooltipStyle)

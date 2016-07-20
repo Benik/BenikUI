@@ -1,8 +1,8 @@
-## Interface: 60200
+## Interface: 70000
 ## Author: Benik
-## Version: 2.59
+## Version: 3.00
 ## Title: |cff1784d1ElvUI|r_BenikUI
-## Notes: an ElvUI 9+ decorative/enhancement edit
+## Notes: an ElvUI 10+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia, ZygorGuidesViewer

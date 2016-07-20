@@ -315,6 +315,7 @@ function BFM:Initialize()
 	-- Top frame
 	self.FlightMode.top = CreateFrame('Frame', nil, self.FlightMode)
 	self.FlightMode.top:SetFrameLevel(0)
+	self.FlightMode.top:SetFrameStrata("HIGH")
 	self.FlightMode.top:SetPoint("TOP", self.FlightMode, "TOP", 0, E.Border)
 	self.FlightMode.top:SetTemplate('Transparent')
 	self.FlightMode.top:CreateWideShadow()

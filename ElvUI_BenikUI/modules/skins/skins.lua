@@ -24,7 +24,6 @@ local FreeBlizzFrames = {
 	ChatMenu,
 	ClassTrainerFrame,
 	ColorPickerFrame,
-	ConsolidatedBuffsTooltip,
 	DressUpFrame,
 	DropDownList1,
 	DropDownList2,
@@ -106,6 +105,7 @@ local BlizzUiFrames = {
 	--{'BlizzUIname, 'FrameToBeStyled, 'ElvUIdisableSkinOption'}
 	{'Blizzard_AchievementUI', 'AchievementFrame', 'achievement'},
 	{'Blizzard_ArchaeologyUI', 'ArchaeologyFrame', 'archaeology'},
+	{'Blizzard_ArtifactUI', 'ArtifactFrame', 'artifact'},
 	{'Blizzard_AuctionUI', 'AuctionFrame', 'auctionhouse'},
 	{'Blizzard_BarbershopUI', 'BarberShopFrame', 'barber'},
 	{'Blizzard_BattlefieldMinimap', 'BattlefieldMinimap', 'bgmap'},
@@ -115,6 +115,7 @@ local BlizzUiFrames = {
 	{'Blizzard_Calendar', 'CalendarViewEventFrame', 'calendar'},
 	{'Blizzard_Calendar', 'CalendarViewHolidayFrame', 'calendar'},
 	{'Blizzard_Calendar', 'CalendarCreateEventFrame', 'calendar'},
+	{'Blizzard_FlightMap', 'FlightMapFrame', 'taxi'},
 	{'Blizzard_GuildBankUI', 'GuildBankFrame', 'gbank'},
 	{'Blizzard_GuildUI', 'GuildFrame', 'guild'},
 	{'Blizzard_GuildControlUI', 'GuildControlUI', 'guildcontrol'},
@@ -258,6 +259,16 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			_G["WowTokenGameTimeTutorial"]:Style('Small')
 		end
 	end
+	
+	if addon == 'Blizzard_ArtifactUI' then
+		_G["ArtifactFrame"]:Style('Small')
+		ArtifactFrame.CloseButton:ClearAllPoints()
+		ArtifactFrame.CloseButton:SetPoint("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
+	end
+	
+	if addon == 'Blizzard_FlightMap' then
+		_G["FlightMapFrame"]:Style('Small')
+	end
 
 	if E.private.skins.blizzard.timemanager == true then
 		if not _G["TimeManagerFrame"].style then
@@ -296,21 +307,8 @@ local function styleSpellbook()
 			local tab = _G['SpellBookSkillLineTab'..i]
 			if not tab.style then
 				tab:Style('Inside')
-				tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
 			end
 		end
-	end)
-end
-
--- SpellBook Core abilities tabs
-local function styleCoreAbilities()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true then return end
-	hooksecurefunc('SpellBook_GetCoreAbilitySpecTab', function(index)
-		local button = _G["SpellBookCoreAbilitiesFrame"].SpecTabs[index]
-		if not button.style then
-			button:Style('Inside')
-			button:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-		end	
 	end)
 end
 
@@ -335,7 +333,7 @@ local function styleAlertFrames()
 		end	
 	end)
 
-	hooksecurefunc("AlertFrame_SetDungeonCompletionAnchors", function(anchorFrame)
+	--[[hooksecurefunc("AlertFrame_SetDungeonCompletionAnchors", function(anchorFrame)
 		for i = 1, DUNGEON_COMPLETION_MAX_REWARDS do
 			local frame = _G["DungeonCompletionAlertFrame"..i]
 			if frame then
@@ -372,10 +370,10 @@ local function styleAlertFrames()
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end)
+	end)]]
 
 	_G["BonusRollFrame"]:Style('Outside')
-	_G["BonusRollMoneyWonFrame"].backdrop:Style('Outside')
+	--[[_G["BonusRollMoneyWonFrame"].backdrop:Style('Outside')
 	_G["BonusRollLootWonFrame"].backdrop:Style('Outside')
 	
 	_G["GarrisonBuildingAlertFrame"].backdrop:Style('Outside')
@@ -393,7 +391,7 @@ local function styleAlertFrames()
 	
 	_G["GarrisonRandomMissionAlertFrame"]:StripTextures()
 	_G["GarrisonRandomMissionAlertFrame"]:CreateBackdrop('Transparent')
-	_G["GarrisonRandomMissionAlertFrame"].backdrop:Style('Outside')
+	_G["GarrisonRandomMissionAlertFrame"].backdrop:Style('Outside')]]
 end
 
 function BUIS:AlertFrame_SetAchievementAnchors()
@@ -556,9 +554,6 @@ function BUIS:BenikUISkins()
 	-- SpellBook tabs
 	styleSpellbook()
 	
-	-- SpellBook Core abilities tabs
-	styleCoreAbilities()
-	
 	-- Alert Frames
 	styleAlertFrames()
 	
@@ -650,7 +645,7 @@ end
 function BUIS:Initialize()
 	self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
-	self:SecureHook('AlertFrame_SetAchievementAnchors')
+	--self:SecureHook('AlertFrame_SetAchievementAnchors')
 end
 
 E:RegisterModule(BUIS:GetName())

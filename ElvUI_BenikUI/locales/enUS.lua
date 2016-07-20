@@ -138,10 +138,9 @@ L['Use DataTexts font'] = true
 L['New Mail'] = true
 L['No Mail'] = true
 
--- XP/Rep Options
+-- Databars Options
 L['Notifiers'] = true
 L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = true
-L['Show a small arrow and percentage, near the xp/rep vertical statusbars.'] = true
 
 -- Skins Options
 L['AddOnSkins'] = true

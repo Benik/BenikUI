@@ -198,35 +198,48 @@ P['benikuiSkins'] = {
 	},
 }
 
--- XP/Rep
-P['benikuiXprep'] = {
+-- Databars
+P['benikuiDatabars'] = {
 	['enable'] = true,
 	['buiStyle'] = true,
 	
-	['color'] = {
-		['experience'] = {
+	['experience'] = {
+		['color'] = {
 			['default'] = true,
 			['xp'] = { r = 0, g = 0.4, b = 1, a = .8 },
 			['rested'] = { r = 1, g = 0, b = 1, a = .2 },
 		},
-		['reputation'] = {
+		['notifiers'] = {
+			['enable'] = true,
+			['combat'] = false,
+			['position'] = 'RIGHT',			
+		},
+	},
+	
+	['reputation'] = {
+		['color'] = {
 			['default'] = true,
 			['friendly'] = {r = 0, g = .6, b = .1, a = .8 },
 			['neutral'] = {r = .9, g = .7, b = 0, a = .8 },
 			['unfriendly'] = {r = .75, g = .27, b = 0, a = .8 },
 			['hated'] = {r = 1, g = 0, b = 0, a = .8 },
 		},
+		['notifiers'] = {
+			['enable'] = true,
+			['combat'] = false,
+			['position'] = 'LEFT',	
+		},
 	},
 	
-	['notifiers'] = {
-		['combat'] = false,
-		['experience'] = {
-			['enable'] = true,
-			['position'] = 'RIGHT',
+	['artifact'] = {
+		['color'] = {
+			['default'] = true,
+			['af'] = {r = .901, g = .8, b = .601, a = .8 },
 		},
-		['reputation'] = {
+		['notifiers'] = {
 			['enable'] = true,
-			['position'] = 'LEFT',
+			['combat'] = false,
+			['position'] = 'LEFT',	
 		},
 	},
 }

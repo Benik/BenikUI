@@ -6,7 +6,7 @@ made for BenikUI under Sinaris permission. Big thanks :)
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUID = E:NewModule('BuiDashboard')
-local LSM = LibStub('LibSharedMedia-3.0')
+local LSM = LibStub("LibSharedMedia-3.0")
 local DT = E:GetModule('DataTexts')
 
 local tinsert, twipe, getn, pairs, ipairs = table.insert, table.wipe, getn, pairs, ipairs
@@ -188,7 +188,7 @@ function BUID:Initialize()
 	if db.Memory then self:CreateMemory() end
 	if db.Durability then self:CreateDurability() end
 	if db.Volume then self:CreateVolume() end
-	if E.private.BUID.warned then E.private.BUID.warned = nil end -- delete the Zygor warn setting
+	if E.private.BUID.warned then E.private.BUID.warned = nil end
 end
 
 E:RegisterModule(BUID:GetName())

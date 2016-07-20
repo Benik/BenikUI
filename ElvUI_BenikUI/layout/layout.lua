@@ -34,11 +34,11 @@ local GameMenuButtonAddons = GameMenuButtonAddons
 -- GLOBALS: SpellBookFrame, PlayerTalentFrame, TalentFrame_LoadUI
 -- GLOBALS: GlyphFrame, GlyphFrame_LoadUI, PlayerTalentFrame, TimeManagerFrame
 -- GLOBALS: GameTimeFrame, GuildFrame, GuildFrame_LoadUI, EncounterJournal_LoadUI, EncounterJournal
--- GLOBALS: FarmModeMap, LookingForGuildFrame, LookingForGuildFrame_LoadUI, LookingForGuildFrame_Toggle
+-- GLOBALS: LookingForGuildFrame, LookingForGuildFrame_LoadUI, LookingForGuildFrame_Toggle
 -- GLOBALS: GameMenuFrame, VideoOptionsFrame, VideoOptionsFrameCancel, AudioOptionsFrame, AudioOptionsFrameCancel
 -- GLOBALS: InterfaceOptionsFrame, InterfaceOptionsFrameCancel, GuildFrame_Toggle
--- GLOBALS: LibStub, StoreMicroButton, ElvConfigToggle
--- GLOBALS: LeftMiniPanel, RightMiniPanel, Minimap, ElvUI_ConsolidatedBuffs
+-- GLOBALS: LibStub, StoreMicroButton
+-- GLOBALS: LeftMiniPanel, RightMiniPanel, Minimap
 -- GLOBALS: LeftChatPanel, RightChatPanel, CopyChatFrame
 
 local PANEL_HEIGHT = 19;
@@ -76,10 +76,6 @@ local menuList = {
 			TalentFrame_LoadUI()
 		end
 
-		if not GlyphFrame then
-			GlyphFrame_LoadUI()
-		end
-
 		if not PlayerTalentFrame:IsShown() then
 			ShowUIPanel(PlayerTalentFrame)
 		else
@@ -106,7 +102,7 @@ local menuList = {
 	{text = PET_JOURNAL, func = function() ToggleCollectionsJournal(2) end},
 	{text = TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
 	{text = HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
-	{text = L["Farm Mode"], func = FarmMode},
+	{text = WARDROBE, func = function() ToggleCollectionsJournal(5) end},
 	{text = MACROS, func = function() GameMenuButtonMacros:Click() end},
 	{text = TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
 	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
@@ -189,50 +185,11 @@ end
 
 function BUIL:ResizeMinimapPanels()
 
-	if E.db.auras.consolidatedBuffs.enable then
-		if E.db.benikui.datatexts.chat.enable then
-			if E.db.auras.consolidatedBuffs.position == "LEFT" then
-				LeftMiniPanel:Point('TOPLEFT', ElvUI_ConsolidatedBuffs, 'BOTTOMLEFT', 0, -SPACING)
-				LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -(E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
-				RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
-				RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)					
-			else
-				LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-				LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', (E.ConsolidatedBuffsWidth/2)-SPACING, -(SPACING + PANEL_HEIGHT))
-				RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', E.ConsolidatedBuffsWidth + SPACING, -SPACING)
-				RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
-			end
-			ElvConfigToggle:Hide()
-		else
-			LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-			LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
-			RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
-			RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
-			ElvConfigToggle:Show()			
-		end
-	else
-		LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-		LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
-		RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
-		RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
-	end
-	
-	if E.db.datatexts.minimapPanels == false then ElvConfigToggle:Hide() end
-	
-	-- Stop here to support ElvUI_CustomTweaks CBEnhanced
-	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] then return end
-	
-	if E.db.auras.consolidatedBuffs.position == "LEFT" then
-		ElvUI_ConsolidatedBuffs:Point('TOPRIGHT', Minimap.backdrop, 'TOPLEFT', -SPACING, 0)
-		ElvUI_ConsolidatedBuffs:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOMLEFT', -SPACING, 0)
-		ElvConfigToggle:Point('TOPRIGHT', LeftMiniPanel, 'TOPLEFT', -SPACING, 0)
-		ElvConfigToggle:Point('BOTTOMRIGHT', LeftMiniPanel, 'BOTTOMLEFT', -SPACING, 0)		
-	else
-		ElvUI_ConsolidatedBuffs:Point('TOPLEFT', Minimap.backdrop, 'TOPRIGHT', SPACING, 0)
-		ElvUI_ConsolidatedBuffs:Point('BOTTOMLEFT', Minimap.backdrop, 'BOTTOMRIGHT', SPACING, 0)
-		ElvConfigToggle:Point('TOPLEFT', RightMiniPanel, 'TOPRIGHT', SPACING, 0)
-		ElvConfigToggle:Point('BOTTOMLEFT', RightMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
-	end
+	LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+	LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
+	RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
+	RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
+
 end
 
 function BUIL:ToggleTransparency()
@@ -324,8 +281,6 @@ function BUIL:ChangeLayout()
 	
 	LeftMiniPanel:Height(PANEL_HEIGHT)
 	RightMiniPanel:Height(PANEL_HEIGHT)
-	
-	ElvConfigToggle:Height(PANEL_HEIGHT)
 
 	-- Left dt panel
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
@@ -504,16 +459,7 @@ function BUIL:ChangeLayout()
 	-- Minimap elements styling
 	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end
 	
-	-- Support for ElvUI_CustomTweaks CBEnhanced
-	if IsAddOnLoaded('ElvUI_CustomTweaks') and E.private["CustomTweaks"] and E.private["CustomTweaks"]["CBEnhanced"] then
-		ElvUI_ConsolidatedBuffs.backdrop:Style('Outside')
-	else
-		ElvUI_ConsolidatedBuffs:Style('Outside')
-	end
-	
 	if CopyChatFrame then CopyChatFrame:Style('Outside') end
-	
-	if FarmModeMap then FarmModeMap.backdrop:Style('Outside') end
 	
 	ElvUI_BottomPanel:Style('Outside')
 	if ElvUI_BottomPanel.style then

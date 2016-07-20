@@ -138,10 +138,9 @@ L['Use DataTexts font'] = "Benutze Infotext Schriftart"
 L['New Mail'] = "Neue Post"
 L['No Mail'] = "Keine Post"
 
--- XP/Rep Options
+-- Databars Options
 L['Notifiers'] = "Benachrichtigungen"
 L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = "Zeigt die BenikUI dekorative Leisten auf den Standard ElvUI Erfahrungs-/Rufleisten"
-L['Show a small arrow and percentage, near the xp/rep vertical statusbars.'] = "Zeigt einen kleinen Pfeil und Prozent, in der Nähe der vertikalen Erfahrungs-/Rufleiste."
 
 -- Skins Options
 L['AddOnSkins'] = true

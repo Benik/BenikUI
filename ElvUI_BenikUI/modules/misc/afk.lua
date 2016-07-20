@@ -16,7 +16,7 @@ local IsXPUserDisabled = IsXPUserDisabled
 local UnitLevel = UnitLevel
 local InCombatLockdown = InCombatLockdown
 
-local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME
+local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE
 local CAMP_TIMER, MAX_PLAYER_LEVEL, LEVEL, NONE = CAMP_TIMER, MAX_PLAYER_LEVEL, LEVEL, NONE
 
 -- GLOBALS: CreateAnimationGroup, UIParent
@@ -258,9 +258,10 @@ function AFK:UpdateTimer()
 end
 
 -- XP string
-local M = E:GetModule('Misc');
+local M = E:GetModule('DataBars');
 local function GetXPinfo()
-	if(UnitLevel('player') == MAX_PLAYER_LEVEL) or IsXPUserDisabled() then return end
+	local maxLevel = MAX_PLAYER_LEVEL_TABLE[GetExpansionLevel()];
+	if(UnitLevel('player') == maxLevel) or IsXPUserDisabled() then return end
 	
 	local cur, max = M:GetXP('player')
 	local curlvl = UnitLevel('player')
@@ -344,7 +345,7 @@ function AFK:Initialize()
 	self.AFKMode.top.wowlogo:SetFrameStrata("MEDIUM")
 	self.AFKMode.top.wowlogo:SetSize(300, 150)
 	self.AFKMode.top.wowlogo.tex = self.AFKMode.top.wowlogo:CreateTexture(nil, 'OVERLAY')
-	self.AFKMode.top.wowlogo.tex:SetTexture("Interface\\Glues\\Common\\GLUES-WOW-WODLOGO")
+	self.AFKMode.top.wowlogo.tex:SetAtlas("Glues-WoW-LegionLogo")
 	self.AFKMode.top.wowlogo.tex:SetInside()
 	
 	-- Server/Local Time text
