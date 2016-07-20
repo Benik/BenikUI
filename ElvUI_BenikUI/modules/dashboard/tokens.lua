@@ -59,6 +59,9 @@ local BUIcurrency = {
 	676,	-- Pandaren Archaeology Fragment
 	677,	-- Mogu Archaeology Fragment
 	754,	-- Mantid Archaeology Fragment
+	1172,	-- Highborne Archaeology Fragment
+	1173,	-- Highmountain Tauren Archaeology Fragment
+	1174,	-- Demonic Archaeology Fragment
 	
 	-- WoD
 	821,	-- Draenor Clans Archaeology Fragment
@@ -75,6 +78,7 @@ local BUIcurrency = {
 	1191, 	-- Valor Points (6.23)
 	
 	-- Legion
+	1155,	-- Ancient Mana
 	1220,	-- Order Resources
 }
 

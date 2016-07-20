@@ -56,6 +56,7 @@ local miscTokens = {
 	1101,	-- Oil
 	1166, 	-- Timewarped Badge (6.22)
 	-- Legion
+	1155,	-- Ancient Mana
 	1220,	-- Order Resources
 }
 
@@ -75,6 +76,9 @@ local archyTokens = {
 	821,	-- Draenor Clans Archaeology Fragment
 	828,	-- Ogre Archaeology Fragment
 	829,	-- Arakkoa Archaeology Fragment
+	1172,	-- Highborne Archaeology Fragment
+	1173,	-- Highmountain Tauren Archaeology Fragment
+	1174,	-- Demonic Archaeology Fragment
 }
 	
 local currencyTables = {
