@@ -313,7 +313,7 @@ local function Core()
 								order = 3,
 								type = 'execute',
 								name = L['WoW Interface'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.wowinterface.com/downloads/info23675-BenikUIv2.html") end,
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.wowinterface.com/downloads/info23675-BenikUIv3.html") end,
 							},
 						},
 					},
