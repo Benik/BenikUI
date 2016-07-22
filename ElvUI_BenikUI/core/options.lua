@@ -106,13 +106,6 @@ local function Core()
 						type = 'toggle',
 						name = L['Splash Screen'],
 					},
-					gameMenuButton = {
-						order = 4,
-						type = 'toggle',
-						name = L['GameMenu Button'],
-						get = function(info) return E.db.benikui.general[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
-					},
 				},
 			},
 			colors = {

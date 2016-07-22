@@ -27,7 +27,6 @@ P['benikui'] = {
 		['benikuiStyle'] = true,
 		['loginMessage'] = true,
 		['splashScreen'] = true,
-		['gameMenuButton'] = true,
 	},
 
 	['colors'] = {

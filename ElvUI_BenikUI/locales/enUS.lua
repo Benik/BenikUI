@@ -18,7 +18,6 @@ L['Style Color'] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = true
 L['Splash Screen'] = true
-L['GameMenu Button'] = true
 
 -- Misc
 L['iLevel'] = true
