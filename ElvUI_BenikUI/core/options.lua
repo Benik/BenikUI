@@ -355,7 +355,7 @@ local function Core()
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', 'Chilou, Merathilis'),
+								name = format('|cffffd200%s|r', 'Cawkycow, Chilou, Κevinrc, Merathilis'),
 							},
 						},
 					},
