@@ -5,8 +5,6 @@ local LSM = LibStub('LibSharedMedia-3.0')
 local CreateFrame = CreateFrame
 local getmetatable = getmetatable
 
-local SPACING = (E.PixelMode and 1 or 3)
-
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function CreateWideShadow(f)
@@ -77,7 +75,7 @@ local function Style(f, template, name, colored)
 	local tlx, tly, brx, bry
 	
 	if template == 'Inside' then
-		tlx, tly, brx, bry = 0, SPACING, 0, (E.PixelMode and -4 or -3)
+		tlx, tly, brx, bry = 0, (E.PixelMode and 1 or 3), 0, (E.PixelMode and -4 or -3)
 	elseif template == 'Outside' then
 		tlx, tly, brx, bry = 0, (E.PixelMode and 4 or 7), 0, (E.PixelMode and -1 or 1)
 	elseif template == 'Small' then
