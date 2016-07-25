@@ -40,7 +40,7 @@ function UFB:Configure_Portrait(frame, isPlayer)
 					if isPlayer then
 						if frame.USE_POWERBAR then
 							local r, g, b = frame.Power:GetStatusBarColor()
-							portrait.backdrop.style.color:SetVertexColor(r, g, b)
+							portrait.backdrop.style.color:SetColorTexture(r, g, b)
 						end
 					end
 				else
