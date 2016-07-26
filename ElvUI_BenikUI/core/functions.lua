@@ -96,14 +96,15 @@ local function Style(f, template, name, colored)
 		if not style.color then
 			style.color = style:CreateTexture(nil, 'OVERLAY')
 			style.color:SetInside()
+			style.color:SetTexture(E['media'].BuiFlat)
 			if E.db.benikui.colors.StyleColor == 1 then
-				style.color:SetColorTexture(classColor.r, classColor.g, classColor.b)
+				style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
 			elseif E.db.benikui.colors.StyleColor == 2 then
-				style.color:SetColorTexture(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
+				style.color:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
 			elseif E.db.benikui.colors.StyleColor == 3 then
-				style.color:SetColorTexture(BUI:unpackColor(E.db.general.valuecolor))
+				style.color:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 			else
-				style.color:SetColorTexture(BUI:unpackColor(E.db.general.backdropcolor))
+				style.color:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
 			end
 		end
 	end

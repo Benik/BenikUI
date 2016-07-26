@@ -144,14 +144,15 @@ function BUI:StyleBlizzard(parent, ...)
 	
 	frame.backdrop.color = frame.backdrop:CreateTexture(nil, 'OVERLAY')
 	frame.backdrop.color:SetInside()
+	frame.backdrop.color:SetTexture(E['media'].BuiFlat)
 	if E.db.benikui.colors.StyleColor == 1 then
-		frame.backdrop.color:SetColorTexture(classColor.r, classColor.g, classColor.b)
+		frame.backdrop.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	elseif E.db.benikui.colors.StyleColor == 2 then
-		frame.backdrop.color:SetColorTexture(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
+		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
 	elseif E.db.benikui.colors.StyleColor == 3 then
-		frame.backdrop.color:SetColorTexture(BUI:unpackColor(E.db.general.valuecolor))
+		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 	else
-		frame.backdrop.color:SetColorTexture(BUI:unpackColor(E.db.general.backdropcolor))
+		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
 	end
 end
 
