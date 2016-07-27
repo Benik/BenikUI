@@ -376,96 +376,96 @@ local function styleSpellbook()
 end
 
 -- Alert Frames
+local staticAlertFrames = {
+	ScenarioLegionInvasionAlertFrame,
+	BonusRollMoneyWonFrame,
+	BonusRollLootWonFrame,
+	GarrisonBuildingAlertFrame,
+	GarrisonMissionAlertFrame,
+	GarrisonShipMissionAlertFrame,
+	GarrisonRandomMissionAlertFrame,
+	WorldQuestCompleteAlertFrame,
+	GarrisonFollowerAlertFrame,
+	LegendaryItemAlertFrame,
+}
+
 local function styleAlertFrames()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alertframes ~= true then return end
-	hooksecurefunc('LootWonAlertFrame_SetUp', function(frame)
-		if frame then
+	
+	local function StyleAchievementAlert(frame)
+		if not frame.backdrop.style then
 			frame.backdrop:Style('Outside')
 		end
-	end)
+	end	
+	hooksecurefunc(AchievementAlertSystem, "setUpFunction", StyleAchievementAlert) -- needs testing
 	
-	hooksecurefunc('MoneyWonAlertFrame_SetUp', function(frame)
-		if frame then
+	local function StyleCriteriaAlert(frame)
+		if not frame.backdrop.style then
 			frame.backdrop:Style('Outside')
-		end	
-	end)
-	
-	hooksecurefunc('LootUpgradeFrame_SetUp', function(frame)
-		if frame then
-			frame.backdrop:Style('Outside')
-		end	
-	end)
-
-	--[[hooksecurefunc("AlertFrame_SetDungeonCompletionAnchors", function(anchorFrame)
-		for i = 1, DUNGEON_COMPLETION_MAX_REWARDS do
-			local frame = _G["DungeonCompletionAlertFrame"..i]
-			if frame then
-				frame.backdrop:Style('Outside')
-			end
+			frame.Icon.Texture.b:Style('Outside')
 		end
-	end)
+	end		
+	hooksecurefunc(CriteriaAlertSystem, "setUpFunction", StyleCriteriaAlert)
 	
-	hooksecurefunc("AlertFrame_SetGuildChallengeAnchors", function(anchorFrame)
-		local frame = _G["GuildChallengeAlertFrame"]
-		if frame then
+	local function StyleDungeonCompletionAlert(frame)
+		if not frame.backdrop.style then
 			frame.backdrop:Style('Outside')
 		end
-	end)
-
-	hooksecurefunc("AlertFrame_SetChallengeModeAnchors", function(anchorFrame)
-		local frame = _G["ChallengeModeAlertFrame1"]
-		if frame then
+	end		
+	hooksecurefunc(DungeonCompletionAlertSystem, "setUpFunction", StyleDungeonCompletionAlert)
+	
+	local function StyleGuildChallengeAlert(frame)
+		if not frame.backdrop.style then
 			frame.backdrop:Style('Outside')
 		end
-	end)
-
-	hooksecurefunc("AlertFrame_SetScenarioAnchors", function(anchorFrame)
-		local frame = _G["ScenarioAlertFrame1"]
-		if frame then
+	end		
+	hooksecurefunc(GuildChallengeAlertSystem, "setUpFunction", StyleGuildChallengeAlert)
+	
+	local function StyleScenarioAlert(frame)
+		if not frame.backdrop.style then
 			frame.backdrop:Style('Outside')
 		end
-	end)
-
-	hooksecurefunc('AlertFrame_SetCriteriaAnchors', function()
-		for i = 1, MAX_ACHIEVEMENT_ALERTS do
-			local frame = _G['CriteriaAlertFrame'..i]
-			if frame then
-				frame.backdrop:Style('Outside')
-			end
+	end		
+	hooksecurefunc(ScenarioAlertSystem, "setUpFunction", StyleScenarioAlert)
+	
+	local function StyleGarrisonFollowerAlert(frame)
+		if not frame.backdrop.style then
+			frame.backdrop:Style('Outside')
 		end
-	end)]]
-
-	_G["BonusRollFrame"]:Style('Outside')
-	--[[_G["BonusRollMoneyWonFrame"].backdrop:Style('Outside')
-	_G["BonusRollLootWonFrame"].backdrop:Style('Outside')
+	end		
+	hooksecurefunc(GarrisonFollowerAlertSystem, "setUpFunction", StyleGarrisonFollowerAlert)
 	
-	_G["GarrisonBuildingAlertFrame"].backdrop:Style('Outside')
-	_G["GarrisonMissionAlertFrame"].backdrop:Style('Outside')
-	_G["GarrisonFollowerAlertFrame"]:StripTextures()
-	_G["GarrisonFollowerAlertFrame"].backdrop:Style('Outside')
+	local function StyleLegendaryItemAlert(frame)
+		if not frame.backdrop.style then
+			frame.backdrop:Style('Outside')
+		end
+	end	
+	hooksecurefunc(LegendaryItemAlertSystem, "setUpFunction", StyleLegendaryItemAlert)
 	
-	_G["GarrisonShipMissionAlertFrame"]:StripTextures()
-	_G["GarrisonShipMissionAlertFrame"]:CreateBackdrop('Transparent')
-	_G["GarrisonShipMissionAlertFrame"].backdrop:Style('Outside')
+	local function StyleLootWonAlert(frame)
+		if not frame.backdrop.style then
+			frame.backdrop:Style('Outside')
+		end
+	end		
+	hooksecurefunc(LootAlertSystem, "setUpFunction", StyleLootWonAlert)
 	
-	_G["GarrisonShipFollowerAlertFrame"]:StripTextures()
-	_G["GarrisonShipFollowerAlertFrame"]:CreateBackdrop('Transparent')
-	_G["GarrisonShipFollowerAlertFrame"].backdrop:Style('Outside')
+	local function StyleLootUpgradeAlert(frame)
+		if not frame.backdrop.style then
+			frame.backdrop:Style('Outside')
+		end
+	end	
+	hooksecurefunc(LootUpgradeAlertSystem, "setUpFunction", StyleLootUpgradeAlert)
 	
-	_G["GarrisonRandomMissionAlertFrame"]:StripTextures()
-	_G["GarrisonRandomMissionAlertFrame"]:CreateBackdrop('Transparent')
-	_G["GarrisonRandomMissionAlertFrame"].backdrop:Style('Outside')]]
-end
-
-function BUIS:AlertFrame_SetAchievementAnchors()
-	if ( _G["AchievementAlertFrame1"] ) then
-		for i = 1, MAX_ACHIEVEMENT_ALERTS do
-			local frame = _G["AchievementAlertFrame"..i];
-			if ( frame and frame:IsShown() ) then
-				if frame.backdrop then
-					frame.backdrop:Style('Outside')
-				end
-			end
+	local function StyleMoneyWonAlert(frame)
+		if not frame.backdrop.style then
+			frame.backdrop:Style('Outside')
+		end
+	end
+	hooksecurefunc(MoneyWonAlertSystem, "setUpFunction", StyleMoneyWonAlert)
+	
+	for _, frame in pairs(staticAlertFrames) do
+		if frame then
+			frame.backdrop:Style('Outside')
 		end
 	end
 end
@@ -708,7 +708,6 @@ end
 function BUIS:Initialize()
 	self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
-	--self:SecureHook('AlertFrame_SetAchievementAnchors')
 end
 
 E:RegisterModule(BUIS:GetName())
