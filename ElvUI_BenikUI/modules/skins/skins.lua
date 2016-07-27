@@ -15,92 +15,6 @@ local DUNGEON_COMPLETION_MAX_REWARDS, MAX_SKILLLINE_TABS, MAX_ACHIEVEMENT_ALERTS
 
 local SPACING = (E.PixelMode and 1 or 2)
 
-local FreeBlizzFrames = {
-	AddFriendFrame,
-	AddonList,
-	AudioOptionsFrame,
-	BNToastFrame,
-	ChatConfigFrame,
-	ChatMenu,
-	ClassTrainerFrame,
-	ColorPickerFrame,
-	DressUpFrame,
-	DropDownList1,
-	DropDownList2,
-	ElvUI_StaticPopup1,
-	ElvUI_StaticPopup2,
-	ElvUI_StaticPopup3,
-	EmoteMenu,
-	FloatingBattlePetTooltip,
-	FriendsFrame,
-	FriendsTooltip,
-	GameMenuFrame,
-	GearManagerDialogPopup,
-	GossipFrame,
-	GuildRegistrarFrame,
-	InterfaceOptionsFrame,
-	ItemRefTooltip,
-	ItemTextFrame,
-	LanguageMenu,
-	LFGDungeonReadyPopup,
-	LFGDungeonReadyDialog,
-	LFGDungeonReadyStatus,
-	LFGListApplicationDialog,
-	LFGListInviteDialog,
-	LootFrame,
-	MailFrame,
-	MasterLooterFrame,
-	MerchantFrame,
-	MinimapRightClickMenu,
-	OpenMailFrame,
-	PaperDollFrame,
-	PetitionFrame, -- check
-	PetPaperDollFrame,
-	PetStableFrame,
-	PVPReadyDialog,
-	QuestLogPopupDetailFrame,
-	QueueStatusFrame,
-	RaidInfoFrame,
-	ReadyCheckFrame,
-	ReadyCheckListenerFrame,
-	RecruitAFriendFrame,
-	ReputationDetailFrame,
-	ReputationFrame,
-	ShoppingTooltip1,
-	ShoppingTooltip2,
-	ShoppingTooltip3,
-	SideDressUpFrame,
-	SpellBookFrame,
-	StackSplitFrame,
-	StaticPopup1,
-	StaticPopup2,
-	StaticPopup3,
-	TabardFrame,
-	TicketStatusFrameButton, -- check
-	TokenFrame,
-	TokenFramePopup,
-	TradeFrame,
-	VideoOptionsFrame,
-	VoiceMacroMenu,
-	WorldStateScoreFrame,
-}
-
--------------------------------------
--- the style is smaller by 1-2 pixels
--------------------------------------
-local FreeBlizzSmallerFrames = {
-	ChannelFrameDaughterFrame,
-	FriendsFriendsFrame,
-	HelpFrame,
-	HelpFrameHeader,
-	PVEFrame,
-	QuestFrame,
-	QuestNPCModel,
-	RaidBrowserFrame,
-	SplashFrame,
-	TaxiFrame,
-}
-
 local BlizzUiFrames = {
 	--{'BlizzUIname, 'FrameToBeStyled, 'ElvUIdisableSkinOption'}
 	{'Blizzard_AchievementUI', 'AchievementFrame', 'achievement'},
@@ -281,21 +195,170 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	end
 end
 
+local MAX_STATIC_POPUPS = 4
+
+local tooltips = {
+	FriendsTooltip,
+	ItemRefTooltip,
+	ShoppingTooltip1,
+	ShoppingTooltip2,
+	ShoppingTooltip3,	
+}
+
 -- Blizzard Styles
 local function styleFreeBlizzardFrames()
-	if E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.db.benikui.general.benikuiStyle ~= true then return end
 	
-	for _, frame in pairs(FreeBlizzFrames) do
+	ColorPickerFrame:Style('Outside')
+	MinimapRightClickMenu:Style('Outside')
+
+	if E.private.skins.blizzard.enable ~= true then return end
+	
+	local db = E.private.skins.blizzard
+	
+	for _, frame in pairs(tooltips) do
 		if frame and not frame.style then
 			frame:Style('Outside')
 		end
 	end
+	
+	if db.addonManager then
+		AddonList:Style('Outside')
+	end
+	
+	if db.bgscore then
+		WorldStateScoreFrame:Style('Outside')
+	end
+	
+	if db.character then
+		GearManagerDialogPopup:Style('Outside')
+		PaperDollFrame:Style('Outside')
+		ReputationDetailFrame:Style('Outside')
+		ReputationFrame:Style('Outside')
+		TokenFrame:Style('Outside')
+		TokenFramePopup:Style('Outside')
+	end
+	
+	if db.dressingroom then
+		DressUpFrame:Style('Outside')
+	end
 
-	for _, frame in pairs(FreeBlizzSmallerFrames) do
-		if frame and not frame.style then
-			frame:Style('Small')
+	if db.friends then
+		AddFriendFrame:Style('Outside')
+		ChannelFrameDaughterFrame.backdrop:Style('Outside')
+		FriendsFrame:Style('Outside')
+		FriendsFriendsFrame.backdrop:Style('Outside')
+		RecruitAFriendFrame:Style('Outside')
+	end
+	
+	if db.gossip then
+		GossipFrame:Style('Outside')
+		ItemTextFrame:Style('Outside')
+	end
+	
+	if db.guildregistrar then
+		GuildRegistrarFrame:Style('Outside')
+	end
+
+	if db.help then
+		HelpFrame.backdrop:Style('Outside')
+		HelpFrameHeader.backdrop:Style('Outside')	
+	end
+
+	if db.lfg then
+		LFGDungeonReadyPopup:Style('Outside')
+		LFGDungeonReadyDialog:Style('Outside')
+		LFGDungeonReadyStatus:Style('Outside')
+		LFGListApplicationDialog:Style('Outside')
+		LFGListInviteDialog:Style('Outside')
+		PVEFrame.backdrop:Style('Outside')
+		PVPReadyDialog:Style('Outside')
+		RaidBrowserFrame.backdrop:Style('Outside')
+	end
+	
+	if db.loot then
+		LootFrame:Style('Outside')
+		MasterLooterFrame:Style('Outside')
+	end
+	
+	if db.mail then
+		MailFrame:Style('Outside')
+		OpenMailFrame:Style('Outside')
+	end
+	
+	if db.merchant then
+		MerchantFrame:Style('Outside')
+	end
+	
+	if db.misc then
+		AudioOptionsFrame:Style('Outside')
+		BNToastFrame:Style('Outside')
+		ChatConfigFrame:Style('Outside')
+		ChatMenu:Style('Outside')
+		DropDownList1:Style('Outside')
+		DropDownList2:Style('Outside')
+		EmoteMenu:Style('Outside')
+		GameMenuFrame:Style('Outside')
+		InterfaceOptionsFrame:Style('Outside')
+		LanguageMenu:Style('Outside')
+		QueueStatusFrame:Style('Outside')
+		ReadyCheckFrame:Style('Outside')
+		ReadyCheckListenerFrame:Style('Outside')
+		SideDressUpFrame:Style('Outside')
+		SplashFrame.backdrop:Style('Outside')
+		StackSplitFrame:Style('Outside')
+		StaticPopup1:Style('Outside')
+		StaticPopup2:Style('Outside')
+		StaticPopup3:Style('Outside')
+		StaticPopup4:Style('Outside')
+		TicketStatusFrameButton:Style('Outside')
+		VideoOptionsFrame:Style('Outside')
+		VoiceMacroMenu:Style('Outside')
+		
+		for i = 1, MAX_STATIC_POPUPS do
+			local frame = _G["ElvUI_StaticPopup"..i]
+			frame:Style('Outside')
 		end
 	end
+	
+	if db.nonraid then
+		RaidInfoFrame:Style('Outside')
+	end
+	
+	if db.petition then
+		PetitionFrame:Style('Outside')
+	end
+	
+	if db.petpattle then
+		FloatingBattlePetTooltip:Style('Outside')
+	end
+	
+	if db.quest then
+		QuestFrame.backdrop:Style('Outside')
+		QuestLogPopupDetailFrame:Style('Outside')
+		QuestNPCModel.backdrop:Style('Outside')
+	end
+	
+	if db.stable then
+		PetStableFrame:Style('Outside')
+	end
+	
+	if db.spellbook then
+		SpellBookFrame:Style('Outside')
+	end
+	
+	if db.tabard then
+		TabardFrame:Style('Outside')
+	end
+	
+	if db.taxi then
+		TaxiFrame.backdrop:Style('Outside')
+	end
+	
+	if db.trade then
+		TradeFrame:Style('Outside')
+	end
+
 end
 
 -- SpellBook tabs
