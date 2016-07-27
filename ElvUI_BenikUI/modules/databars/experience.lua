@@ -34,7 +34,7 @@ local function ToggleBackdrop()
 	if E.db.benikuiDatabars.enable then
 		if not E.db.benikui.datatexts.chat.backdrop then
 			if ElvUI_ExperienceBar.fb then
-				ElvUI_ExperienceBar.fb:StripTextures()
+				ElvUI_ExperienceBar.fb:SetTemplate('NoBackdrop')
 			end
 		else
 			if E.db.benikui.datatexts.chat.transparent then

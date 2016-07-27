@@ -21,7 +21,7 @@ local function ToggleBackdrop()
 	if E.db.benikuiDatabars.enable then
 		if not E.db.benikui.datatexts.chat.backdrop then
 			if bar.fb then
-				bar.fb:StripTextures()
+				bar.fb:SetTemplate('NoBackdrop')
 			end
 		else
 			if E.db.benikui.datatexts.chat.transparent or E.db.datatexts.panelTransparency then
