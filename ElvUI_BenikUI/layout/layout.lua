@@ -195,10 +195,10 @@ end
 function BUIL:ToggleTransparency()
 	local db = E.db.benikui.datatexts.chat
 	if not db.backdrop then
-		Bui_ldtp:StripTextures()
-		Bui_rdtp:StripTextures()
+		Bui_ldtp:SetTemplate('NoBackdrop')
+		Bui_rdtp:SetTemplate('NoBackdrop')
 		for i = 1, BUTTON_NUM do
-			bbuttons[i]:StripTextures()
+			bbuttons[i]:SetTemplate('NoBackdrop')
 		end
 	else
 		if db.transparent then
@@ -227,7 +227,7 @@ function BUIL:MiddleDatatextLayout()
 	end
 	
 	if not db.backdrop then
-		Bui_mdtp:StripTextures()
+		Bui_mdtp:SetTemplate('NoBackdrop')
 	else
 		if db.transparent then
 			Bui_mdtp:SetTemplate('Transparent')
