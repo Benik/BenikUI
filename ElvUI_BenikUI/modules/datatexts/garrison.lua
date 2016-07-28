@@ -30,13 +30,14 @@ local GARRISON_CURRENCY_OIL = 1101
 
 local OnEvent = function(self, event)
 	
-	local Missions = C_GarrisonGetInProgressMissions()
+	local inProgressMissions = {};
+	C_GarrisonGetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_6_0)
 	local CountInProgress = 0
 	local CountCompleted = 0
 	
-	for i = 1, #Missions do
-		if Missions[i].inProgress then
-			local TimeLeft = Missions[i].timeLeft:match("%d")
+	for i = 1, #inProgressMissions do
+		if inProgressMissions[i].inProgress then
+			local TimeLeft = inProgressMissions[i].timeLeft:match("%d")
 			
 			if (TimeLeft ~= "0") then
 				CountInProgress = CountInProgress + 1
@@ -47,7 +48,7 @@ local OnEvent = function(self, event)
 	end
 
 	if (CountInProgress > 0) then
-		self.text:SetFormattedText(displayModifierString, GARRISON_MISSIONS, CountCompleted, #Missions)
+		self.text:SetFormattedText(displayModifierString, GARRISON_MISSIONS, CountCompleted, #inProgressMissions)
 	else
 		self.text:SetFormattedText(GARRISON_LOCATION_TOOLTIP..'+')
 	end
@@ -69,7 +70,7 @@ local OnEnter = function(self)
 	-- Work Orders
 	C_GarrisonRequestLandingPageShipmentInfo()
 
-	local buildings = C_GarrisonGetBuildings();
+	local buildings = C_GarrisonGetBuildings(LE_GARRISON_TYPE_6_0);
 	local NumBuildings = #buildings
 	local hasBuilding = false
 
@@ -95,15 +96,17 @@ local OnEnter = function(self)
 	end
 
 	-- Follower Missions
-	local Missions = C_GarrisonGetInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
-	local NumMissions = #Missions
-	local AvailableMissions = C_GarrisonGetAvailableMissions(LE_FOLLOWER_TYPE_GARRISON_6_0);
-
+	local inProgressMissions = {};
+	C_GarrisonGetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_6_0)
+	local NumMissions = #inProgressMissions
+	local AvailableMissions = {};
+	C_GarrisonGetAvailableMissions(AvailableMissions, LE_FOLLOWER_TYPE_GARRISON_6_0);
+	
 	if (NumMissions > 0) then
 		DT.tooltip:AddLine(format("%s (%s: %d)", GARRISON_MISSIONS_TITLE, AVAILABLE, #AvailableMissions), selectioncolor)
-		tsort(Missions, sortFunction)
+		tsort(inProgressMissions, sortFunction)
 		for i = 1, NumMissions do
-			local Mission = Missions[i]
+			local Mission = inProgressMissions[i]
 			local TimeLeft = Mission.timeLeft:match("%d")
 			local r, g, b = 1, 1, 1
 			if (Mission.isRare) then r, g, b = 0.09, 0.51, 0.81 end
@@ -120,15 +123,17 @@ local OnEnter = function(self)
 	end
 
 	-- Ship Missions
-	local shipMissions = C_GarrisonGetInProgressMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2)
-	local NumShipMissions = #shipMissions
-	local AvailableShipMissions = C_GarrisonGetAvailableMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2);
+	local inProgressShipMissions = {};
+	C_GarrisonGetInProgressMissions(inProgressShipMissions, LE_FOLLOWER_TYPE_SHIPYARD_6_2)
+	local NumShipMissions = #inProgressShipMissions
+	local AvailableShipMissions = {};
+	C_GarrisonGetAvailableMissions(AvailableShipMissions, LE_FOLLOWER_TYPE_SHIPYARD_6_2);
 	
 	if (NumShipMissions > 0) then
 		DT.tooltip:AddLine(format("%s (%s: %d)", SPLASH_NEW_6_2_FEATURE2_TITLE, AVAILABLE, #AvailableShipMissions), selectioncolor)
-		tsort(shipMissions, sortFunction)
+		tsort(inProgressShipMissions, sortFunction)
 		for i = 1, NumShipMissions do
-			local shipMission = shipMissions[i]
+			local shipMission = inProgressShipMissions[i]
 			local TimeLeft = shipMission.timeLeft:match("%d")
 			local r, g, b = 1, 1, 1
 			if (shipMission.isRare) then r, g, b = 0.09, 0.51, 0.81 end
@@ -168,6 +173,6 @@ local function ValueColorUpdate(hex, r, g, b)
 		OnEvent(lastPanel)
 	end
 end
---E['valueColorUpdateFuncs'][ValueColorUpdate] = true
+E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
---DT:RegisterDatatext('Garrison+ (BenikUI)', {'PLAYER_ENTERING_WORLD', 'GARRISON_MISSION_STARTED', 'GARRISON_MISSION_FINISHED', 'GARRISON_MISSION_COMPLETE_RESPONSE', 'ZONE_CHANGED_NEW_AREA'}, OnEvent, nil, GarrisonLandingPage_Toggle, OnEnter)
+DT:RegisterDatatext('Garrison+ (BenikUI)', {'PLAYER_ENTERING_WORLD', 'GARRISON_MISSION_STARTED', 'GARRISON_MISSION_FINISHED', 'GARRISON_MISSION_COMPLETE_RESPONSE', 'ZONE_CHANGED_NEW_AREA'}, OnEvent, nil, GarrisonLandingPage_Toggle, OnEnter)
