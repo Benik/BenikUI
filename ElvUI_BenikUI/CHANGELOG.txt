@@ -1,3 +1,17 @@
+[b]3.01[/b]
+*Make sure that databar custom colors doesn't revert randomly to default. This will fix #27
+*Fixed and re-enabled Garrison+ datatext
+*Style the Alert frames
+*Bliz ElvUI skins and BenikUI style now enable/disable together. This will fix #32
+*Update BenikUI styles for SLE. This will fix #35
+*Removed BenikUI Game menu button since ElvUI button is there
+*Changed Dashboards strata level. This will fix #29
+*Updated Tokens with Legion currencies. Ref #30
+*minor fixes
+
+[b]3.00[/b]
+*Update for Legion pre-patch
+
 [b]2.59[/b]
 *Added option to change the health texture also on group frames (user request). This will reset the power texture option.
 *Added option for Overlayed Portraits Alpha (idea: Vxt, code: Blazeflack)
