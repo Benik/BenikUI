@@ -201,4 +201,5 @@ function BDB:LoadRep()
 	hooksecurefunc(BUIL, 'ToggleTransparency', ToggleBackdrop)
 	hooksecurefunc(LO, 'ToggleChatPanels', BDB.ApplyRepStyling)
 	hooksecurefunc(M, 'UpdateReputationDimensions', BDB.ApplyRepStyling)
+	hooksecurefunc(M, 'UpdateReputation', BDB.ChangeRepColor)
 end

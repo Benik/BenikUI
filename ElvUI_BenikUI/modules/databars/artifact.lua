@@ -182,4 +182,5 @@ function BDB:LoadAF()
 	hooksecurefunc(LO, 'ToggleChatPanels', BDB.ApplyAfStyling)
 	hooksecurefunc(LO, 'SetDataPanelStyle', ToggleBackdrop)
 	hooksecurefunc(M, 'UpdateArtifactDimensions', BDB.ApplyAfStyling)
+	hooksecurefunc(M, 'UpdateArtifact', BDB.ChangeAFcolor)
 end

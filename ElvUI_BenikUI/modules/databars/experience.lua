@@ -203,4 +203,5 @@ function BDB:LoadXP()
 	hooksecurefunc(BUIL, 'ToggleTransparency', ToggleBackdrop)
 	hooksecurefunc(LO, 'ToggleChatPanels', BDB.ApplyXpStyling)
 	hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.ApplyXpStyling)
+	hooksecurefunc(M, 'UpdateExperience', BDB.ChangeXPcolor)
 end
