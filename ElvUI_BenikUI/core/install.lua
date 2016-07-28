@@ -836,7 +836,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = -25
 		E.db["unitframe"]["units"]["player"]["height"] = 29
-		E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 18
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
