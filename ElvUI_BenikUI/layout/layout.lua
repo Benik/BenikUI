@@ -277,6 +277,10 @@ local function updateButtonFont()
 	end
 end
 
+local function Panel_OnShow(self)
+	self:SetFrameLevel(0)
+end
+
 function BUIL:ChangeLayout()
 	
 	LeftMiniPanel:Height(PANEL_HEIGHT)
@@ -462,14 +466,18 @@ function BUIL:ChangeLayout()
 	if CopyChatFrame then CopyChatFrame:Style('Outside') end
 	
 	ElvUI_BottomPanel:Style('Outside')
+	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
 	if ElvUI_BottomPanel.style then
 		ElvUI_BottomPanel.style:Hide()
 	end
+	Panel_OnShow(ElvUI_BottomPanel)
 
 	ElvUI_TopPanel:Style('Under')
+	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
 	if ElvUI_TopPanel.style then
 		ElvUI_TopPanel.style:Hide()
 	end
+	Panel_OnShow(ElvUI_TopPanel)
 	
 	self:ResizeMinimapPanels()
 	self:ToggleTransparency()
