@@ -39,6 +39,7 @@ function BUIP:CreateProHolder()
 		pholder:CreateBackdrop('Transparent')
 		pholder:Width(mapholderWidth or DASH_WIDTH)
 		pholder:SetFrameStrata('BACKGROUND')
+		pholder:SetFrameLevel(5)
 		if E.private.general.minimap.enable then
 			pholder:Point('TOPLEFT', MMHolder, 'BOTTOMLEFT', 0, -5)
 		else
