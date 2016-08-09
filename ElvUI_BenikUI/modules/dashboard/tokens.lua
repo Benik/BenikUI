@@ -80,6 +80,12 @@ local BUIcurrency = {
 	-- Legion
 	1155,	-- Ancient Mana
 	1220,	-- Order Resources
+	1275,	-- Curious Coin (Buy stuff :P)
+	1226,	-- Nethershard (Invasion scenarios)
+	1273,	-- Seal of Broken Fate (Raid)
+	1154,	-- Shadowy Coins
+	1149,	-- Sightless Eye (PvP)
+	1268,	-- Timeworn Artifact (Honor Points?)
 }
 
 local function tholderOnFade()

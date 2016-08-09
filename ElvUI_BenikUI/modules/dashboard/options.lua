@@ -29,6 +29,7 @@ local dungeonTokens = {
 	994,	-- Seal of Tempered Fate (Raid loot roll)
 	1129,	-- Seal of Inevitable Fate
 	1191, 	-- Valor Points (6.23)
+	1273,	-- Seal of Broken Fate (Raid)
 }
 
 local pvpTokens = {
@@ -36,6 +37,8 @@ local pvpTokens = {
 	392,	-- Honor Points
 	391,	-- Tol Barad Commendation
 	944,	-- Artifact Fragment (PvP)
+	1149,	-- Sightless Eye (PvP)
+	1268,	-- Timeworn Artifact (Honor Points?)
 }
 
 local secondaryTokens = {
@@ -58,6 +61,9 @@ local miscTokens = {
 	-- Legion
 	1155,	-- Ancient Mana
 	1220,	-- Order Resources
+	1275,	-- Curious Coin (Buy stuff :P)
+	1226,	-- Nethershard (Invasion scenarios)
+	1154,	-- Shadowy Coins
 }
 
 local archyTokens = {
