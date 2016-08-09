@@ -28,9 +28,9 @@ local tokenFrames = {}
 local BUIcurrency = {
 	241,	-- Champion's Seal
 	361,	-- Illustrious Jewelcrafter's Token
-	390,	-- Conquest Points
+	--390,	-- Conquest Points
 	391,	-- Tol Barad Commendation
-	392,	-- Honor Points
+	--392,	-- Honor Points
 	395,	-- Justice Points
 	--396,	-- Valor Points (old)
 	402,	-- Ironpaw Token

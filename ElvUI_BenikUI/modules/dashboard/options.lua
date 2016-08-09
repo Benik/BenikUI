@@ -33,8 +33,8 @@ local dungeonTokens = {
 }
 
 local pvpTokens = {
-	390,	-- Conquest Points
-	392,	-- Honor Points
+	--390,	-- Conquest Points
+	--392,	-- Honor Points
 	391,	-- Tol Barad Commendation
 	944,	-- Artifact Fragment (PvP)
 	1149,	-- Sightless Eye (PvP)
@@ -131,7 +131,7 @@ local function UpdateTokenOptions()
 					desc = L['Enable/Disable ']..tname,
 					get = function(info) return E.db.dashboards.tokens.chooseTokens[tname] end,
 					set = function(info, value) E.db.dashboards.tokens.chooseTokens[tname] = value; BUIT:UpdateTokens(); end,
-					disabled = function() return not isDiscovered end,
+					--disabled = function() return not isDiscovered end,
 				}
 			end
 		end
