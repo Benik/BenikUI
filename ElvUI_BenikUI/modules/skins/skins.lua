@@ -193,6 +193,12 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			_G["StopwatchFrame"].backdrop:Style('Outside')
 		end
 	end
+
+	if addon == 'Blizzard_PVPUI' then
+		if not _G["PVPRewardTooltip"].style then
+			_G["PVPRewardTooltip"]:Style('Outside')
+		end
+	end
 end
 
 local MAX_STATIC_POPUPS = 4
@@ -202,7 +208,7 @@ local tooltips = {
 	ItemRefTooltip,
 	ShoppingTooltip1,
 	ShoppingTooltip2,
-	ShoppingTooltip3,	
+	ShoppingTooltip3,
 }
 
 -- Blizzard Styles
