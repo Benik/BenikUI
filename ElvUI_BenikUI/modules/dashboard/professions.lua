@@ -19,7 +19,7 @@ if E.db.dashboards == nil then E.db.dashboards = {} end
 if E.db.dashboards.professions == nil then E.db.dashboards.professions = {} end
 
 local DASH_HEIGHT = 20
-local DASH_WIDTH = E.db.dashboards.professions.width or 172
+local DASH_WIDTH = E.db.dashboards.professions.width or 150
 local DASH_SPACING = 3
 local SPACING = 1
 
@@ -33,7 +33,7 @@ end
 
 function BUIP:CreateProHolder()
 	local pholder
-	local mapholderWidth = E.private.general.minimap.enable and MMHolder:GetWidth() or 172
+	local mapholderWidth = E.private.general.minimap.enable and MMHolder:GetWidth() or 150
 	if not pholder then
 		pholder = CreateFrame('Frame', 'proHolder', E.UIParent)
 		pholder:CreateBackdrop('Transparent')
