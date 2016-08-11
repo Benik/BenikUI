@@ -802,7 +802,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["player"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 26
-		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 2
+		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 6
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 240
@@ -819,7 +819,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["size"] = 20
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["text_format"] = "[health:current-percent]"
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["yOffset"] = -3
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["yOffset"] = -1
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["font"] = "Bui Tukui"
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["fontOutline"] = "OUTLINE"
@@ -827,7 +827,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["size"] = 20
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["text_format"] = "[name]"
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["xOffset"] = 2
-		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["yOffset"] = -3
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["yOffset"] = -1
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "BUFFS"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 32
@@ -858,7 +858,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 26
-		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 2
+		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 6
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 240
@@ -872,7 +872,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["size"] = 20
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["text_format"] = "[health:current-percent]"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["xOffset"] = 2
-		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["yOffset"] = -3
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["yOffset"] = -1
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["font"] = "Bui Tukui"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["fontOutline"] = "OUTLINE"
@@ -880,7 +880,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["size"] = 20
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["text_format"] = "[namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["yOffset"] = -3
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["yOffset"] = -1
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = 'TOPRIGHT'
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 32
