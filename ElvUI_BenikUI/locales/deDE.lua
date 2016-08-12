@@ -139,7 +139,9 @@ L['No Mail'] = "Keine Post"
 
 -- Databars Options
 L['Notifiers'] = "Benachrichtigungen"
-L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'] = "Zeigt die BenikUI dekorative Leisten auf den Standard ElvUI Erfahrungs-/Rufleisten"
+L['Show BenikUI decorative bars on the default ElvUI XP bar'] = true
+L['Show BenikUI decorative bars on the default ElvUI Artifact bar'] = true
+L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = true
 
 -- Skins Options
 L['AddOnSkins'] = true
