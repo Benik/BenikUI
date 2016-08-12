@@ -4,7 +4,7 @@ local LSM = LibStub('LibSharedMedia-3.0');
 
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 
-local bars = {'experience', 'reputation'}
+local bars = {'experience', 'reputation', 'artifact'}
 
 function BDB:CreateNotifier(bar)
 	bar.f = CreateFrame('Frame', nil, bar)

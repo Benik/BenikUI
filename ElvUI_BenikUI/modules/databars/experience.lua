@@ -31,7 +31,7 @@ local function onLeave(self)
 end
 
 local function ToggleBackdrop()
-	if E.db.benikuiDatabars.enable then
+	if E.db.benikuiDatabars.experience.enable then
 		if not E.db.benikui.datatexts.chat.backdrop then
 			if ElvUI_ExperienceBar.fb then
 				ElvUI_ExperienceBar.fb:SetTemplate('NoBackdrop')
@@ -96,7 +96,7 @@ function BDB:ApplyXpStyling()
 		end
 	end	
 	
-	if E.db.benikuiDatabars.buiStyle then
+	if E.db.benikuiDatabars.experience.buiStyle then
 		if xp.style then
 			xp.style:Show()
 		end
@@ -183,7 +183,8 @@ end
 
 function BDB:LoadXP()
 	self:ChangeXPcolor()
-	
+	hooksecurefunc(M, 'UpdateExperience', BDB.ChangeXPcolor)
+
 	local db = E.db.benikuiDatabars.experience.notifiers
 	
 	if db.enable and E.db.databars.experience.orientation == 'VERTICAL' then
@@ -194,14 +195,13 @@ function BDB:LoadXP()
 		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateXpNotifierPositions)
 		hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.UpdateXpNotifierPositions)
 	end
-	
-	if E.db.benikuiDatabars.enable ~= true then return end
-	
+
+	if E.db.benikuiDatabars.experience.enable ~= true then return end
+
 	StyleBar()
 	self:ApplyXpStyling()
 	
 	hooksecurefunc(BUIL, 'ToggleTransparency', ToggleBackdrop)
 	hooksecurefunc(LO, 'ToggleChatPanels', BDB.ApplyXpStyling)
 	hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.ApplyXpStyling)
-	hooksecurefunc(M, 'UpdateExperience', BDB.ChangeXPcolor)
 end

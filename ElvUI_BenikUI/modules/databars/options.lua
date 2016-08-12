@@ -20,29 +20,29 @@ local function databarsTable()
 				type = 'header',
 				name = BUI:cOption(L['DataBars']),
 			},
-			enable = {
-				order = 2,
-				type = 'toggle',
-				name = ENABLE,
-				get = function(info) return E.db.benikuiDatabars.enable end,
-				set = function(info, value) E.db.benikuiDatabars.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
-			},
-			buiStyle = {
-				order = 3,
-				type = 'toggle',
-				name = L['BenikUI Style'],
-				disabled = function() return not E.db.benikuiDatabars.enable end,
-				desc = L['Show BenikUI decorative bars on the default ElvUI xp/rep bars'],
-				get = function(info) return E.db.benikuiDatabars.buiStyle end,
-				set = function(info, value) E.db.benikuiDatabars.buiStyle = value; BDB:ApplyXpStyling(); BDB:ApplyRepStyling(); end,
-			},
 			experience = {
 				order = 1,
 				type = 'group',
 				name = L['XP Bar'],
 				args = {
-					color = {
+					enable = {
 						order = 1,
+						type = 'toggle',
+						name = ENABLE,
+						get = function(info) return E.db.benikuiDatabars.experience.enable end,
+						set = function(info, value) E.db.benikuiDatabars.experience.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					buiStyle = {
+						order = 2,
+						type = 'toggle',
+						name = L['BenikUI Style'],
+						disabled = function() return not E.db.benikuiDatabars.experience.enable end,
+						desc = L['Show BenikUI decorative bars on the default ElvUI XP bar'],
+						get = function(info) return E.db.benikuiDatabars.experience.buiStyle end,
+						set = function(info, value) E.db.benikuiDatabars.experience.buiStyle = value; BDB:ApplyXpStyling(); end,
+					},
+					color = {
+						order = 3,
 						type = 'group',
 						name = COLOR,
 						guiInline = true,
@@ -94,7 +94,7 @@ local function databarsTable()
 						},
 					},
 					notifiers = {
-						order = 2,
+						order = 4,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,
@@ -134,8 +134,24 @@ local function databarsTable()
 				type = 'group',
 				name = L['Artifact Bar'],
 				args = {
-					color = {
+					enable = {
 						order = 1,
+						type = 'toggle',
+						name = ENABLE,
+						get = function(info) return E.db.benikuiDatabars.artifact.enable end,
+						set = function(info, value) E.db.benikuiDatabars.artifact.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					buiStyle = {
+						order = 2,
+						type = 'toggle',
+						name = L['BenikUI Style'],
+						disabled = function() return not E.db.benikuiDatabars.artifact.enable end,
+						desc = L['Show BenikUI decorative bars on the default ElvUI Artifact bar'],
+						get = function(info) return E.db.benikuiDatabars.artifact.buiStyle end,
+						set = function(info, value) E.db.benikuiDatabars.artifact.buiStyle = value; BDB:ApplyAfStyling(); end,
+					},
+					color = {
+						order = 3,
 						type = 'group',
 						name = COLOR,
 						guiInline = true,
@@ -169,7 +185,7 @@ local function databarsTable()
 						},
 					},
 					notifiers = {
-						order = 2,
+						order = 4,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,
@@ -209,8 +225,24 @@ local function databarsTable()
 				type = 'group',
 				name = REPUTATION,
 				args = {
-					color = {
+					enable = {
 						order = 1,
+						type = 'toggle',
+						name = ENABLE,
+						get = function(info) return E.db.benikuiDatabars.reputation.enable end,
+						set = function(info, value) E.db.benikuiDatabars.reputation.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					buiStyle = {
+						order = 2,
+						type = 'toggle',
+						name = L['BenikUI Style'],
+						disabled = function() return not E.db.benikuiDatabars.reputation.enable end,
+						desc = L['Show BenikUI decorative bars on the default ElvUI Reputation bar'],
+						get = function(info) return E.db.benikuiDatabars.reputation.buiStyle end,
+						set = function(info, value) E.db.benikuiDatabars.reputation.buiStyle = value; BDB:ApplyRepStyling(); end,
+					},
+					color = {
+						order = 3,
 						type = 'group',
 						name = COLOR,
 						guiInline = true,
@@ -298,7 +330,7 @@ local function databarsTable()
 						},
 					},
 					notifiers = {
-						order = 2,
+						order = 4,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,

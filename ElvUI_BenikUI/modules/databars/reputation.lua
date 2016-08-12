@@ -27,7 +27,7 @@ local function onLeave(self)
 end
 
 local function ToggleBackdrop()
-	if E.db.benikuiDatabars.enable then
+	if E.db.benikuiDatabars.reputation.enable then
 		if not E.db.benikui.datatexts.chat.backdrop then
 			if ElvUI_ReputationBar.fb then
 				ElvUI_ReputationBar.fb:SetTemplate('NoBackdrop')
@@ -93,7 +93,7 @@ function BDB:ApplyRepStyling()
 		end
 	end
 	
-	if E.db.benikuiDatabars.buiStyle then
+	if E.db.benikuiDatabars.reputation.buiStyle then
 		if rp.style then
 			rp.style:Show()
 		end
@@ -181,7 +181,8 @@ end
 
 function BDB:LoadRep()
 	self:ChangeRepColor()
-	
+	hooksecurefunc(M, 'UpdateReputation', BDB.ChangeRepColor)
+
 	local db = E.db.benikuiDatabars.reputation.notifiers
 	
 	if db.enable and E.db.databars.reputation.orientation == 'VERTICAL' then
@@ -192,14 +193,13 @@ function BDB:LoadRep()
 		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateRepNotifierPositions)
 		hooksecurefunc(M, 'UpdateReputationDimensions', BDB.UpdateRepNotifierPositions)
 	end
-	
-	if E.db.benikuiDatabars.enable ~= true then return end
-	
+
+	if E.db.benikuiDatabars.reputation.enable ~= true then return end
+
 	StyleBar()
 	self:ApplyRepStyling()
 	
 	hooksecurefunc(BUIL, 'ToggleTransparency', ToggleBackdrop)
 	hooksecurefunc(LO, 'ToggleChatPanels', BDB.ApplyRepStyling)
 	hooksecurefunc(M, 'UpdateReputationDimensions', BDB.ApplyRepStyling)
-	hooksecurefunc(M, 'UpdateReputation', BDB.ChangeRepColor)
 end

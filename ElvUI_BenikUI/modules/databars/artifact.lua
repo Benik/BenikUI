@@ -18,7 +18,7 @@ end
 
 local function ToggleBackdrop()
 	local bar = ElvUI_ArtifactBar
-	if E.db.benikuiDatabars.enable then
+	if E.db.benikuiDatabars.artifact.enable then
 		if not E.db.benikui.datatexts.chat.backdrop then
 			if bar.fb then
 				bar.fb:SetTemplate('NoBackdrop')
@@ -84,7 +84,7 @@ function BDB:ApplyAfStyling()
 		end
 	end	
 	
-	if E.db.benikuiDatabars.buiStyle then
+	if E.db.benikuiDatabars.artifact.buiStyle then
 		if bar.style then
 			bar.style:Show()
 		end
@@ -161,6 +161,7 @@ end
 
 function BDB:LoadAF()
 	self:ChangeAFcolor()
+	hooksecurefunc(M, 'UpdateArtifact', BDB.ChangeAFcolor)
 	
 	local db = E.db.benikuiDatabars.artifact.notifiers
 	
@@ -173,7 +174,7 @@ function BDB:LoadAF()
 		hooksecurefunc(M, 'UpdateArtifactDimensions', BDB.UpdateAfNotifierPositions)
 	end
 	
-	if E.db.benikuiDatabars.enable ~= true then return end
+	if E.db.benikuiDatabars.artifact.enable ~= true then return end
 	
 	StyleBar()
 	self:ApplyAfStyling()
@@ -182,5 +183,4 @@ function BDB:LoadAF()
 	hooksecurefunc(LO, 'ToggleChatPanels', BDB.ApplyAfStyling)
 	hooksecurefunc(LO, 'SetDataPanelStyle', ToggleBackdrop)
 	hooksecurefunc(M, 'UpdateArtifactDimensions', BDB.ApplyAfStyling)
-	hooksecurefunc(M, 'UpdateArtifact', BDB.ChangeAFcolor)
 end
