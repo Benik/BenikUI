@@ -4,7 +4,7 @@ local LSM = LibStub('LibSharedMedia-3.0');
 
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 
-local bars = {'experience', 'reputation', 'artifact'}
+local bars = {'experience', 'reputation', 'artifact', 'honor'}
 
 function BDB:CreateNotifier(bar)
 	bar.f = CreateFrame('Frame', nil, bar)
@@ -35,6 +35,7 @@ function BDB:Initialize()
 	self:LoadXP()
 	self:LoadRep()
 	self:LoadAF()
+	self:LoadHonor()
 	-- clean the old db
 end
 

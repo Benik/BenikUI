@@ -199,10 +199,9 @@ P['benikuiSkins'] = {
 
 -- Databars
 P['benikuiDatabars'] = {
-	['enable'] = true,
-	['buiStyle'] = true,
-	
 	['experience'] = {
+		['enable'] = true,
+		['buiStyle'] = true,
 		['color'] = {
 			['default'] = true,
 			['xp'] = { r = 0, g = 0.4, b = 1, a = .8 },
@@ -216,6 +215,8 @@ P['benikuiDatabars'] = {
 	},
 	
 	['reputation'] = {
+		['enable'] = true,
+		['buiStyle'] = true,
 		['color'] = {
 			['default'] = true,
 			['friendly'] = {r = 0, g = .6, b = .1, a = .8 },
@@ -231,6 +232,8 @@ P['benikuiDatabars'] = {
 	},
 	
 	['artifact'] = {
+		['enable'] = true,
+		['buiStyle'] = true,
 		['color'] = {
 			['default'] = true,
 			['af'] = {r = .901, g = .8, b = .601, a = .8 },
@@ -239,6 +242,20 @@ P['benikuiDatabars'] = {
 			['enable'] = true,
 			['combat'] = false,
 			['position'] = 'LEFT',	
+		},
+	},
+	
+	['honor'] = {
+		['enable'] = true,
+		['buiStyle'] = true,
+		['color'] = {
+			['default'] = true,
+			['hn'] = {r = .941, g = .447, b = .254, a = .8 },
+		},
+		['notifiers'] = {
+			['enable'] = true,
+			['combat'] = false,
+			['position'] = 'RIGHT',	
 		},
 	},
 }
