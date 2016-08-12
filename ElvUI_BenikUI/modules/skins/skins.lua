@@ -256,16 +256,16 @@ local function styleFreeBlizzardFrames()
 	
 	ColorPickerFrame:Style('Outside')
 	MinimapRightClickMenu:Style('Outside')
-
-	if E.private.skins.blizzard.enable ~= true then return end
-	
-	local db = E.private.skins.blizzard
 	
 	for _, frame in pairs(tooltips) do
 		if frame and not frame.style then
 			frame:Style('Outside')
 		end
 	end
+
+	if E.private.skins.blizzard.enable ~= true then return end
+	
+	local db = E.private.skins.blizzard
 	
 	if db.addonManager then
 		AddonList:Style('Outside')
