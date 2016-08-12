@@ -4,187 +4,226 @@ local BUI = E:GetModule('BenikUI');
 local S = E:GetModule('Skins');
 
 local _G = _G
-local ipairs, pairs, unpack = ipairs, pairs, unpack
+local pairs, unpack = pairs, unpack
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local LoadAddOn = LoadAddOn
 
-local DUNGEON_COMPLETION_MAX_REWARDS, MAX_SKILLLINE_TABS, MAX_ACHIEVEMENT_ALERTS = DUNGEON_COMPLETION_MAX_REWARDS, MAX_SKILLLINE_TABS, MAX_ACHIEVEMENT_ALERTS
-
 -- GLOBALS: hooksecurefunc
-
-local SPACING = (E.PixelMode and 1 or 2)
-
-local BlizzUiFrames = {
-	--{'BlizzUIname, 'FrameToBeStyled, 'ElvUIdisableSkinOption'}
-	{'Blizzard_AchievementUI', 'AchievementFrame', 'achievement'},
-	{'Blizzard_ArchaeologyUI', 'ArchaeologyFrame', 'archaeology'},
-	{'Blizzard_ArtifactUI', 'ArtifactFrame', 'artifact'},
-	{'Blizzard_AuctionUI', 'AuctionFrame', 'auctionhouse'},
-	{'Blizzard_BarbershopUI', 'BarberShopFrame', 'barber'},
-	{'Blizzard_BattlefieldMinimap', 'BattlefieldMinimap', 'bgmap'},
-	{'Blizzard_BindingUI', 'KeyBindingFrame', 'binding'},
-	{'Blizzard_BlackMarketUI', 'BlackMarketFrame', 'bmah'},
-	{'Blizzard_Calendar', 'CalendarFrame', 'calendar'}, -- issues non pixel perfect
-	{'Blizzard_Calendar', 'CalendarViewEventFrame', 'calendar'},
-	{'Blizzard_Calendar', 'CalendarViewHolidayFrame', 'calendar'},
-	{'Blizzard_Calendar', 'CalendarCreateEventFrame', 'calendar'},
-	{'Blizzard_FlightMap', 'FlightMapFrame', 'taxi'},
-	{'Blizzard_GuildBankUI', 'GuildBankFrame', 'gbank'},
-	{'Blizzard_GuildUI', 'GuildFrame', 'guild'},
-	{'Blizzard_GuildControlUI', 'GuildControlUI', 'guildcontrol'},
-	{'Blizzard_InspectUI', 'InspectFrame', 'inspect'},
-	{'Blizzard_ItemAlterationUI', 'TransmogrifyFrame', 'transmogrify'},
-	{'Blizzard_ItemUpgradeUI', 'ItemUpgradeFrame', 'itemUpgrade'},
-	{'Blizzard_LookingForGuildUI', 'LookingForGuildFrame', 'lfguild'},
-	{'Blizzard_MacroUI', 'MacroFrame', 'macro'},
-	{'Blizzard_DeathRecap', 'DeathRecapFrame', 'deathRecap'},
-	{'Blizzard_Collections', 'CollectionsJournal', 'mounts'},
-	{'Blizzard_ItemSocketingUI', 'ItemSocketingFrame', 'socket'},
-	{'Blizzard_TalentUI', 'PlayerTalentFrame', 'talent'},
-	{'Blizzard_TradeSkillUI', 'TradeSkillFrame', 'trade'},
-	{'Blizzard_TrainerUI', 'ClassTrainerFrame', 'trainer'},
-	{'Blizzard_VoidStorageUI', 'VoidStorageFrame', 'voidstorage'},
-}
-
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
-function BUI:StyleBlizzard(parent, ...)
-	local frame = CreateFrame('Frame', parent..'Decor', E.UIParent)
-	frame:CreateBackdrop('Default', true)
-	frame:SetParent(parent)
-	frame:Point('TOPLEFT', parent, 'TOPLEFT', SPACING, (E.PixelMode and 3 or 5))
-	frame:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', -SPACING, (E.PixelMode and 0 or 3))
-	
-	frame.backdrop.color = frame.backdrop:CreateTexture(nil, 'OVERLAY')
-	frame.backdrop.color:SetInside()
-	frame.backdrop.color:SetTexture(E['media'].BuiFlat)
-	if E.db.benikui.colors.StyleColor == 1 then
-		frame.backdrop.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	elseif E.db.benikui.colors.StyleColor == 2 then
-		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
-	elseif E.db.benikui.colors.StyleColor == 3 then
-		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
-	else
-		frame.backdrop.color:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
-	end
-end
 
 function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	if E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
-	for i, v in ipairs(BlizzUiFrames) do
-		local blizzAddon, blizzFrame, elvoption = unpack( v )
-		if (event == 'ADDON_LOADED' and addon == blizzAddon) then
-			if E.private.skins.blizzard[elvoption] ~= true then return end
-			if blizzFrame then
-				BUI:StyleBlizzard(blizzFrame)
 
-				-- Fixes/Style tabs, buttons, etc
-				if addon == 'Blizzard_AchievementUI' then
-					if _G["AchievementFrameDecor"] then
-						_G["AchievementFrameDecor"]:ClearAllPoints()
-						_G["AchievementFrameDecor"]:Point('TOPLEFT', _G["AchievementFrame"], 'TOPLEFT', (E.PixelMode and 1 or 2), (E.PixelMode and 9 or 11))
-						_G["AchievementFrameDecor"]:Point('BOTTOMRIGHT', _G["AchievementFrame"], 'TOPRIGHT', -(E.PixelMode and 1 or 2), (E.PixelMode and 6 or 9))			
-					end
+	if (event == 'ADDON_LOADED') then
+		if addon == 'Blizzard_AchievementUI' and E.private.skins.blizzard.achievement == true then
+			local frame = _G["AchievementFrame"]
+			frame:Style('Outside')
+			if frame.style then
+				frame.style:ClearAllPoints()
+				frame.style:Point('TOPLEFT', frame, 'TOPLEFT', 0, (E.PixelMode and 7 or 9))
+				frame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', 0, (E.PixelMode and 2 or 4))			
+			end
+		end
+
+		if addon == 'Blizzard_ArchaeologyUI' and E.private.skins.blizzard.archaeology == true then
+			local frame = _G["ArchaeologyFrame"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_ArtifactUI' and E.private.skins.blizzard.artifact == true then
+			local frame = _G["ArtifactFrame"]
+			frame:Style('Small')
+			frame.CloseButton:ClearAllPoints()
+			frame.CloseButton:SetPoint("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
+		end
+
+		if addon == 'Blizzard_AuctionUI' and E.private.skins.blizzard.auctionhouse == true then
+			local frame = _G["AuctionFrame"]
+			frame:Style('Outside')
+			if not _G["AuctionProgressFrame"].style then
+				_G["AuctionProgressFrame"]:Style('Outside')
+			end
+			if not _G["WowTokenGameTimeTutorial"].style then
+				_G["WowTokenGameTimeTutorial"]:Style('Small')
+			end
+		end
+		
+		if addon == 'Blizzard_BarbershopUI' and E.private.skins.blizzard.barber == true then
+			local frame = _G["BarberShopFrame"]
+			frame:Style('Outside')
+			_G["BarberShopAltFormFrame"]:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_BattlefieldMinimap' and E.private.skins.blizzard.bgmap == true then
+			local frame = _G["BattlefieldMinimap"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_BindingUI' and E.private.skins.blizzard.binding == true then
+			local frame = _G["KeyBindingFrame"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_BlackMarketUI' and E.private.skins.blizzard.bmah == true then
+			local frame = _G["BlackMarketFrame"]
+			frame:Style('Outside')
+		end
+
+		if addon == 'Blizzard_Calendar' and E.private.skins.blizzard.calendar == true then
+			_G["CalendarFrame"]:Style('Outside')
+			_G["CalendarViewEventFrame"]:Style('Outside')
+			_G["CalendarViewHolidayFrame"]:Style('Outside')
+			_G["CalendarCreateEventFrame"]:Style('Outside')
+			_G["CalendarContextMenu"]:Style('Outside')
+		end
+
+		if addon == 'Blizzard_Collections' and E.private.skins.blizzard.mounts == true then
+			local frame = _G["CollectionsJournal"]
+			frame:Style('Outside')
+		end
+
+		if addon == 'Blizzard_DeathRecap' and E.private.skins.blizzard.deathRecap == true then
+			local frame = _G["DeathRecapFrame"]
+			frame:Style('Outside')
+		end
+
+		if addon == 'Blizzard_GuildBankUI' and E.private.skins.blizzard.gbank == true then
+			local frame = _G["GuildBankFrame"]
+			frame:Style('Outside')
+			for i = 1, 8 do
+				local button = _G['GuildBankTab'..i..'Button']
+				local texture = _G['GuildBankTab'..i..'ButtonIconTexture']
+				if not button.style then
+					button:Style('Inside')
+					texture:SetTexCoord(unpack(BUI.TexCoords))
 				end
-				
-				if addon == 'Blizzard_GuildBankUI' then
-					for i = 1, 8 do
-						local button = _G['GuildBankTab'..i..'Button']
-						local texture = _G['GuildBankTab'..i..'ButtonIconTexture']
-						if not button.style then
-							button:Style('Inside')
-							texture:SetTexCoord(unpack(BUI.TexCoords))
-						end
-					end
+			end
+		end
+
+		if addon == 'Blizzard_GuildUI' and E.private.skins.blizzard.guild == true then
+			local frame = _G["GuildFrame"]
+			frame:Style('Outside')
+			local GuildFrames = {_G["GuildMemberDetailFrame"], _G["GuildTextEditFrame"], _G["GuildLogFrame"], _G["GuildNewsFiltersFrame"]}
+			for _, frame in pairs(GuildFrames) do
+				if frame and not frame.style then
+					frame:Style('Outside')
 				end
-				
-				if addon == 'Blizzard_TalentUI' then
-					for i = 1, 2 do
-						local tab = _G['PlayerSpecTab'..i]
-						if not tab.style then
-							tab:Style('Inside')
-							tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-							tab:GetNormalTexture():SetInside()
-						end
-					end
+			end
+		end
+
+		if addon == 'Blizzard_GuildControlUI' and E.private.skins.blizzard.guildcontrol == true then
+			local frame = _G["GuildControlUI"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_InspectUI' and E.private.skins.blizzard.inspect == true then
+			local frame = _G["InspectFrame"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_ItemAlterationUI' and E.private.skins.blizzard.transmogrify == true then
+			local frame = _G["TransmogrifyFrame"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_ItemUpgradeUI' and E.private.skins.blizzard.itemUpgrade == true then
+			local frame = _G["ItemUpgradeFrame"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_ItemSocketingUI' and E.private.skins.blizzard.socket == true then
+			local frame = _G["ItemSocketingFrame"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_LookingForGuildUI' and E.private.skins.blizzard.lfguild == true then
+			local frame = _G["LookingForGuildFrame"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_MacroUI' and E.private.skins.blizzard.macro == true then
+			local frame = _G["MacroFrame"]
+			frame:Style('Outside')
+		end
+
+		if addon == 'Blizzard_TalentUI' and E.private.skins.blizzard.talent == true then
+			local frame = _G["PlayerTalentFrame"]
+			frame:Style('Outside')
+			for i = 1, 2 do
+				local tab = _G['PlayerSpecTab'..i]
+				if not tab.style then
+					tab:Style('Inside')
+					tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
+					tab:GetNormalTexture():SetInside()
 				end
-				
-				if addon == 'Blizzard_GuildUI' then
-					local GuildFrames = {_G["GuildMemberDetailFrame"], _G["GuildTextEditFrame"], _G["GuildLogFrame"], _G["GuildNewsFiltersFrame"]}
-					for _, frame in pairs(GuildFrames) do
-						if frame and not frame.style then
-							frame:Style('Outside')
-						end
-					end
+			end
+		end
+
+		if addon == 'Blizzard_TradeSkillUI' and E.private.skins.blizzard.trade == true then
+			local frame = _G["TradeSkillFrame"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_TrainerUI' and E.private.skins.blizzard.trainer == true then
+			local frame = _G["ClassTrainerFrame"]
+			frame:Style('Outside')
+		end
+		
+		if addon == 'Blizzard_VoidStorageUI' and E.private.skins.blizzard.voidstorage == true then
+			local frame = _G["VoidStorageFrame"]
+			frame:Style('Outside')
+			for i = 1, 2 do
+				local tab = _G["VoidStorageFrame"]["Page"..i]
+				if not tab.style then
+					tab:Style('Inside')
+					tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
+					tab:GetNormalTexture():SetInside()
 				end
-				
-				if addon == 'Blizzard_VoidStorageUI' then
-					for i = 1, 2 do
-						local tab = _G["VoidStorageFrame"]["Page"..i]
-						if not tab.style then
-							tab:Style('Inside')
-							tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-							tab:GetNormalTexture():SetInside()
-						end
-					end
-				end
-				
-				if addon == 'Blizzard_BarbershopUI' then
-					_G["BarberShopAltFormFrame"]:Style('Outside')
-				end
-				
 			end
 		end
 	end
 	
-	if addon == 'Blizzard_EncounterJournal' then
-		if E.private.skins.blizzard.encounterjournal == true then
-			if not _G["EncounterJournal"].style then
-				_G["EncounterJournal"]:Style('Small')
-			end
-			_G["EncounterJournalTooltip"]:Style('Outside')
-			local Tabs = {
-				_G["EncounterJournalEncounterFrameInfoBossTab"],
-				_G["EncounterJournalEncounterFrameInfoLootTab"],
-				_G["EncounterJournalEncounterFrameInfoModelTab"],
-				_G["EncounterJournalEncounterFrameInfoOverviewTab"]
-			}
-			
-			for _, Tab in pairs(Tabs) do
-				if Tab.backdrop then
-					Tab.backdrop:Style('Outside')
-				end
+	if addon == 'Blizzard_EncounterJournal' and E.private.skins.blizzard.encounterjournal == true then
+		if not _G["EncounterJournal"].style then
+			_G["EncounterJournal"]:Style('Small')
+		end
+		_G["EncounterJournalTooltip"]:Style('Outside')
+		local Tabs = {
+			_G["EncounterJournalEncounterFrameInfoBossTab"],
+			_G["EncounterJournalEncounterFrameInfoLootTab"],
+			_G["EncounterJournalEncounterFrameInfoModelTab"],
+			_G["EncounterJournalEncounterFrameInfoOverviewTab"]
+		}
+		
+		for _, Tab in pairs(Tabs) do
+			if Tab.backdrop then
+				Tab.backdrop:Style('Outside')
 			end
 		end
 	end
 	
-	if addon == 'Blizzard_QuestChoice' and E.private.skins.blizzard.questChoice then
+	if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true then
+		local frame = _G["TalkingHeadFrame"]
+		frame:SetTemplate('Transparent')
+		frame:Style('Outside')
+		if frame.style then
+			frame.style:ClearAllPoints()
+			frame.style:Point('TOPLEFT', frame, 'TOPLEFT', -(E.PixelMode and 2 or 4), (E.PixelMode and 6 or 8))
+			frame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', 0, (E.PixelMode and 1 or 3))			
+		end
+	end
+	
+	if addon == 'Blizzard_QuestChoice' and E.private.skins.blizzard.questChoice == true then
 		if not _G["QuestChoiceFrame"].style then
 			_G["QuestChoiceFrame"]:Style('Small')
 		end
 	end
 	
-	if addon == 'Blizzard_AuctionUI' then
-		if not _G["AuctionProgressFrame"].style then
-			_G["AuctionProgressFrame"]:Style('Outside')
-		end
-		if not _G["WowTokenGameTimeTutorial"].style then
-			_G["WowTokenGameTimeTutorial"]:Style('Small')
-		end
-	end
-	
-	if addon == 'Blizzard_ArtifactUI' then
-		_G["ArtifactFrame"]:Style('Small')
-		ArtifactFrame.CloseButton:ClearAllPoints()
-		ArtifactFrame.CloseButton:SetPoint("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
-	end
-	
-	if addon == 'Blizzard_FlightMap' then
+	if addon == 'Blizzard_FlightMap' and E.private.skins.blizzard.taxi == true then
 		_G["FlightMapFrame"]:Style('Small')
 	end
 
-	if E.private.skins.blizzard.timemanager == true then
+	if addon == 'Blizzard_TimeManager' and E.private.skins.blizzard.timemanager == true then
 		if not _G["TimeManagerFrame"].style then
 			_G["TimeManagerFrame"]:Style('Outside')
 		end
@@ -194,7 +233,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		end
 	end
 
-	if addon == 'Blizzard_PVPUI' then
+	if addon == 'Blizzard_PVPUI' and E.private.skins.blizzard.pvp == true then
 		if not _G["PVPRewardTooltip"].style then
 			_G["PVPRewardTooltip"]:Style('Outside')
 		end
@@ -376,6 +415,8 @@ local function styleSpellbook()
 			local tab = _G['SpellBookSkillLineTab'..i]
 			if not tab.style then
 				tab:Style('Inside')
+				tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
+				tab:GetNormalTexture():SetInside()
 			end
 		end
 	end)
