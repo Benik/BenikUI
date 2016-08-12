@@ -74,6 +74,11 @@ local function SetupBuiLayout()
 	E.db["databars"]["artifact"]["textSize"] = 9
 	E.db["databars"]["artifact"]["height"] = 152
 	E.db["databars"]["artifact"]["width"] = 8
+	E.db["databars"]["honor"]["enable"] = true
+	E.db["databars"]["honor"]["height"] = 150
+	E.db["databars"]["honor"]["textFormat"] = 'NONE'
+	E.db["databars"]["honor"]["textSize"] = 9
+	E.db["databars"]["honor"]["width"] = 8	
 
 	E.db["general"]["topPanel"] = false
 	E.db["general"]["valuecolor"]["a"] = 1
@@ -144,6 +149,7 @@ local function SetupBuiLayout()
 	E.db["movers"]["WatchFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-122,-292"
 	E.db["movers"]["tokenHolderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-123"
 	E.db["movers"]["ArtifactBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-157,-6"
+	E.db["movers"]["HonorBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
 	
 	-- LocationPlus
 	if E.db.locplus == nil then E.db.locplus = {} end
