@@ -94,9 +94,9 @@ P['benikui'] = {
 		['transparent'] = true,
 		['toggleButtons'] = {
 			['enable'] = true,
-			['chooseAb'] = 'BAR2',			
+			['chooseAb'] = 'BAR2',
 		},
-		['requestStop'] = true,	
+		['requestStop'] = true,
 	},
 	
 	['unitframes'] = {
@@ -192,6 +192,7 @@ P['benikuiSkins'] = {
 	
 	['variousSkins'] = {
 		['objectiveTracker'] = true,
+		['talkingHead'] = true,
 		['decursive'] = true,
 		['storyline'] = true,
 	},
@@ -210,7 +211,7 @@ P['benikuiDatabars'] = {
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
-			['position'] = 'RIGHT',			
+			['position'] = 'RIGHT',
 		},
 	},
 	
@@ -227,7 +228,7 @@ P['benikuiDatabars'] = {
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
-			['position'] = 'LEFT',	
+			['position'] = 'LEFT',
 		},
 	},
 	
@@ -241,7 +242,7 @@ P['benikuiDatabars'] = {
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
-			['position'] = 'LEFT',	
+			['position'] = 'LEFT',
 		},
 	},
 	
@@ -255,7 +256,7 @@ P['benikuiDatabars'] = {
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
-			['position'] = 'RIGHT',	
+			['position'] = 'RIGHT',
 		},
 	},
 }
@@ -311,7 +312,7 @@ P['dashboards'] = {
 			['Archaeology'] = false,
 			['First Aid'] = false,
 			['Cooking'] = false,
-			['Fishing'] = false,		
+			['Fishing'] = false,
 		},
 	},
 

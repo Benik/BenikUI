@@ -108,14 +108,19 @@ local function SkinTable()
 				type = 'toggle',
 				name = QUEST_OBJECTIVES,
 			},
-			decursive = {
+			talkingHead = {
 				order = 2,
+				type = 'toggle',
+				name = L["TalkingHead"],
+			},
+			decursive = {
+				order = 3,
 				type = 'toggle',
 				name = L['Decursive'],
 				disabled = function() return not IsAddOnLoaded('Decursive') end,
 			},
 			storyline = {
-				order = 3,
+				order = 4,
 				type = 'toggle',
 				name = L['Storyline'],
 				disabled = function() return not IsAddOnLoaded('Storyline') end,

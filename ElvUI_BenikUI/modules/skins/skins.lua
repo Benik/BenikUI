@@ -202,11 +202,15 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		end
 	end
 	
-	-- The Style bar is in the wrong place, we must have a deeper look at this.
-	if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true then
+	if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true and E.db.benikuiSkins.variousSkins.talkingHead == true then
 		local frame = _G["TalkingHeadFrame"]
-		frame:SetTemplate('Transparent')
-		frame:Style('Outside')
+
+		-- Just to make sure the backrop only shows, if the frame gets created.
+		if frame then
+			frame:CreateBackdrop('Transparent')
+			frame.backdrop:SetAllPoints()
+			frame:Style('Outside')
+		end
 		if frame.style then
 			frame.style:ClearAllPoints()
 			frame.style:Point('TOPLEFT', frame, 'TOPLEFT', -(E.PixelMode and 0 or 2), (E.PixelMode and 5 or 7))
