@@ -21,7 +21,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			if frame.style then
 				frame.style:ClearAllPoints()
 				frame.style:Point('TOPLEFT', frame, 'TOPLEFT', 0, (E.PixelMode and 7 or 9))
-				frame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', 0, (E.PixelMode and 2 or 4))			
+				frame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', 0, (E.PixelMode and 2 or 4))
 			end
 		end
 
@@ -202,16 +202,17 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		end
 	end
 	
-	if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true then
+	-- The Style bar is in the wrong place, we must have a deeper look at this.
+	--[[if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true then
 		local frame = _G["TalkingHeadFrame"]
 		frame:SetTemplate('Transparent')
 		frame:Style('Outside')
 		if frame.style then
 			frame.style:ClearAllPoints()
 			frame.style:Point('TOPLEFT', frame, 'TOPLEFT', -(E.PixelMode and 2 or 4), (E.PixelMode and 6 or 8))
-			frame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', 0, (E.PixelMode and 1 or 3))			
+			frame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', 0, (E.PixelMode and 1 or 3))
 		end
-	end
+	end]]
 	
 	if addon == 'Blizzard_QuestChoice' and E.private.skins.blizzard.questChoice == true then
 		if not _G["QuestChoiceFrame"].style then
@@ -307,7 +308,7 @@ local function styleFreeBlizzardFrames()
 
 	if db.help then
 		HelpFrame.backdrop:Style('Outside')
-		HelpFrameHeader.backdrop:Style('Outside')	
+		HelpFrameHeader.backdrop:Style('Outside')
 	end
 
 	if db.lfg then
