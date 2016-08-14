@@ -202,7 +202,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		end
 	end
 	
-	if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true and E.db.benikuiSkins.variousSkins.talkingHead == true then
+	--[[if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true and E.db.benikuiSkins.variousSkins.talkingHead == true then
 		local frame = _G["TalkingHeadFrame"]
 		if frame then
 			frame.BackgroundFrame:Style('Outside')
@@ -212,7 +212,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				frame.BackgroundFrame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', (E.PixelMode and -1 or 1), (E.PixelMode and 0 or 2))
 			end
 		end
-	end
+	end]]
 	
 	
 	if addon == 'Blizzard_QuestChoice' and E.private.skins.blizzard.questChoice == true then
