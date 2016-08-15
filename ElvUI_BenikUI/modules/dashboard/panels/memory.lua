@@ -80,7 +80,7 @@ local function Update( self, t )
 			boardName.Text:SetFormattedText("%s|cffffa700%s|r", L['Memory: '], L['Disabled'])
 			boardName.Status:SetMinMaxValues( 0, 100000 )
 			boardName.Status:SetValue( 0 )
-		else
+		elseif not InCombatLockdown() then
 			RebuildAddonList(self)
 			UpdateMemory()
 			boardName.Text:SetFormattedText("%s", (L['Memory: ']..formatMem(totalMemory)))
