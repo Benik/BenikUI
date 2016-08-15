@@ -202,19 +202,30 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		end
 	end
 	
-	--[[if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true and E.db.benikuiSkins.variousSkins.talkingHead == true then
+	if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true and E.db.benikuiSkins.variousSkins.talkingHead == true then
 		local frame = _G["TalkingHeadFrame"]
 		if frame then
-			frame.BackgroundFrame:Style('Outside')
+			frame.BackgroundFrame:StripTextures()
+			frame.BackgroundFrame:CreateBackdrop('Transparent')
+			frame.BackgroundFrame.backdrop:SetAllPoints()
+			frame.BackgroundFrame.backdrop:CreateWideShadow() -- to hide the borders not showing due to scaling
+			frame.MainFrame.Model:SetTemplate('Transparent')
+			frame.MainFrame.Model:CreateShadow('Default')
+			
+			local button = TalkingHeadFrame.MainFrame.CloseButton
+			S:HandleCloseButton(button)
+			button:ClearAllPoints()
+			button:Point('TOPRIGHT', TalkingHeadFrame.BackgroundFrame, 'TOPRIGHT', 0, -2)
+			
+			frame.BackgroundFrame:Style('Inside')
 			if frame.BackgroundFrame.style then
 				frame.BackgroundFrame.style:ClearAllPoints()
-				frame.BackgroundFrame.style:Point('TOPLEFT', frame, 'TOPLEFT', -(E.PixelMode and 0 or 2), (E.PixelMode and 5 or 7))
-				frame.BackgroundFrame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', (E.PixelMode and -1 or 1), (E.PixelMode and 0 or 2))
+				frame.BackgroundFrame.style:Point('TOPLEFT', frame, 'TOPLEFT', -(E.PixelMode and 0 or 2), (E.PixelMode and -5 or -7))
+				frame.BackgroundFrame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', (E.PixelMode and -1 or 1), (E.PixelMode and 0 or -2))
 			end
 		end
-	end]]
-	
-	
+	end
+
 	if addon == 'Blizzard_QuestChoice' and E.private.skins.blizzard.questChoice == true then
 		if not _G["QuestChoiceFrame"].style then
 			_G["QuestChoiceFrame"]:Style('Small')
