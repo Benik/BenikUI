@@ -1,3 +1,14 @@
+[b]3.02[/b]
+*Don't update the Dashboard Memory module while in combat
+*Talking Head frame styled
+*Used a unique name in the iLevel scanning tooltip
+*Added Honor bar options (Color, Notifier)
+*Added Honor bar in the install
+*Added seperate option to enable/disable styling on Databars
+*Fixed Professions Dashboard size and position 
+*Added all Legion currencies. Removed Honor and Conquest points from tokens 
+*Styled the PVPRewardTooltip
+
 [b]3.01[/b]
 *Make sure that databar custom colors doesn't revert randomly to default. This will fix #27
 *Fixed and re-enabled Garrison+ datatext
