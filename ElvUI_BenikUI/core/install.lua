@@ -733,7 +733,6 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,349"
 		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-392"
 		E.db["movers"]["ElvUF_BodyGuardMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,444"
-		-- E.db["movers"]["ComboBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,279"
 		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-442,205"
 		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,202"
 		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,169"
@@ -825,7 +824,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["size"] = 20
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["text_format"] = "[health:current-percent]"
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["yOffset"] = -1
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"]["yOffset"] = -2
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["font"] = "Bui Tukui"
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["fontOutline"] = "OUTLINE"
@@ -833,7 +832,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["size"] = 20
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["text_format"] = "[name]"
 		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["xOffset"] = 2
-		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["yOffset"] = -1
+		E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"]["yOffset"] = -2
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "BUFFS"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 32
@@ -841,7 +840,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = -25
-		E.db["unitframe"]["units"]["player"]["height"] = 29
+		E.db["unitframe"]["units"]["player"]["height"] = 34
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 18
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
@@ -878,7 +877,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["size"] = 20
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["text_format"] = "[health:current-percent]"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["xOffset"] = 2
-		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["yOffset"] = -1
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"]["yOffset"] = -2
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["font"] = "Bui Tukui"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["fontOutline"] = "OUTLINE"
@@ -886,7 +885,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["size"] = 20
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["text_format"] = "[namecolor][name:medium] [difficultycolor][smartlevel] [shortclassification]"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["yOffset"] = -1
+		E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"]["yOffset"] = -2
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = 'TOPRIGHT'
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 32
@@ -895,7 +894,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = -40
 		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = -25
-		E.db["unitframe"]["units"]["target"]["height"] = 29
+		E.db["unitframe"]["units"]["target"]["height"] = 34
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 18
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
