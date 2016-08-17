@@ -537,10 +537,6 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxDuration"] = 120
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
-		-- E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
-		-- E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
-		-- E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 160
-		-- E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = true
 		
 		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
 		if E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"] then E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"] = nil end
@@ -807,7 +803,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["player"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 26
-		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 6
+		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 240
@@ -863,7 +859,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 26
-		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 6
+		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 240
@@ -1005,8 +1001,10 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["width"] = 220
 
 		-- raid
-		E.db["unitframe"]["units"]["raid"]["height"] = 58
-		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 3
+		E.db["unitframe"]["units"]["raid"]["height"] = 40
+		E.db["unitframe"]["units"]["raid"]["width"] = 78
+		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 5
+		E.db["unitframe"]["units"]["raid"]["horizontalSpacing"] = 5
 		E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 2
@@ -1041,8 +1039,10 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["transparent"] = true
 
 		-- raid 40
-		E.db["unitframe"]["units"]["raid40"]["height"] = 50
-		E.db["unitframe"]["units"]["raid40"]["width"] = 80
+		E.db["unitframe"]["units"]["raid40"]["height"] = 35
+		E.db["unitframe"]["units"]["raid40"]["width"] = 78
+		E.db["unitframe"]["units"]["raid40"]["verticalSpacing"] = 5
+		E.db["unitframe"]["units"]["raid40"]["horizontalSpacing"] = 5
 		E.db["unitframe"]["units"]["raid40"]["name"]["position"] = "CENTER"
 		E.db["unitframe"]["units"]["raid40"]["name"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid40"]["name"]["yOffset"] = -1
@@ -1101,7 +1101,6 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,349"
 		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,722"
 		E.db["movers"]["ElvUF_BodyGuardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-526"
-		-- E.db["movers"]["ComboBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,279"
 		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,226"
 		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,242"
 		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,200"
@@ -1109,8 +1108,8 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,159"
 		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-217,140"
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-216,163"
-		E.db["movers"]["ElvUF_Raid40Mover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,600"
-		E.db["movers"]["ElvUF_RaidMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,480"
+		E.db["movers"]["ElvUF_Raid40Mover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,3,638"
+		E.db["movers"]["ElvUF_RaidMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,3,490"
 		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,664"
 		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-300"
 		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,217,140"
