@@ -1222,7 +1222,7 @@ local function SetupBuiAddons()
 			['BarTexture'] = 'BuiEmpty',
 			['CurDataSet'] = 'OverallData',
 			['ClampToScreen'] = true,
-			['Font'] = 'Bui Visitor1',	
+			['Font'] = 'Bui Visitor1',
 		}
 	end
 
@@ -1338,8 +1338,9 @@ local function SetupBuiAddons()
 					["point"] = "TOPRIGHT",
 					["mode"] = "Healing",
 				}, -- [2]
-			},		
+			},
 		}
+		Skada.db:SetProfile("BenikUI") -- set automatically the profile
 	end
 
 	-- DBM Profile
