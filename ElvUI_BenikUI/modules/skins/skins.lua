@@ -236,7 +236,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		_G["FlightMapFrame"]:Style('Small')
 	end
 
-	if addon == 'Blizzard_TimeManager' and E.private.skins.blizzard.timemanager == true then
+	if E.private.skins.blizzard.timemanager == true then
 		if not _G["TimeManagerFrame"].style then
 			_G["TimeManagerFrame"]:Style('Outside')
 		end
