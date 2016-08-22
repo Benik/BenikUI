@@ -1,7 +1,7 @@
 ## Interface: 70000
 ## Author: Benik
 ## Version: 3.02
-## Title: |cff1784d1ElvUI|r_BenikUI
+## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 10+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled

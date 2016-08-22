@@ -1390,7 +1390,7 @@ local function SetupBuiAddons()
 			},
 			["normalFontName"] = "Bui Prototype",
 			["critFontName"] = "Bui Prototype",
-			["creationVersion"] = MikSBT.VERSION.."."..MikSBT.SVN_REVISION,		
+			["creationVersion"] = MikSBT.VERSION.."."..MikSBT.SVN_REVISION,
 		}
 	end
 
