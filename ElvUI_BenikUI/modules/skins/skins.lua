@@ -77,7 +77,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			_G["CalendarContextMenu"]:Style('Outside')
 		end
 
-		if addon == 'Blizzard_Collections' and E.private.skins.blizzard.mounts == true then
+		if addon == 'Blizzard_Collections' and E.private.skins.blizzard.collections == true then
 			local frame = _G["CollectionsJournal"]
 			frame:Style('Outside')
 		end
