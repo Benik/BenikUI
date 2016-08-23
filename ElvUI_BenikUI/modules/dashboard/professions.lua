@@ -46,7 +46,7 @@ function BUIP:CreateProHolder()
 			pholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -120)
 		end
 		pholder.backdrop:Style('Outside')
-		pholder.backdrop:Hide()
+		pholder:Hide()
 	end
 	
 	if E.db.dashboards.professions.combat then
@@ -85,7 +85,7 @@ function BUIP:UpdateProfessions()
 			BuiProfessions[i]:Kill()
 		end
 		wipe( BuiProfessions )
-		proHolder.backdrop:Hide()
+		proHolder:Hide()
 	end
 	
 	local capRank = 700
@@ -99,7 +99,12 @@ function BUIP:UpdateProfessions()
 
 			if name and (rank < capRank or (not db.capped)) then
 				if db.choosePofessions[name] == true then
-					proHolder.backdrop:Show()
+					proHolder:Show()
+					if E.private.general.minimap.enable then
+						proHolder:Point('TOPLEFT', MMHolder, 'BOTTOMLEFT', 0, -5)
+					else
+						proHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -120)
+					end
 					proHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BuiProfessions + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 
 					local ProFrame = CreateFrame('Frame', nil, proHolder)
