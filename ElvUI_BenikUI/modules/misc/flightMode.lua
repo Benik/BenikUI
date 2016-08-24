@@ -63,10 +63,6 @@ local menuList = {
 			TalentFrame_LoadUI()
 		end
 
-		if not GlyphFrame then
-			GlyphFrame_LoadUI()
-		end
-
 		if not PlayerTalentFrame:IsShown() then
 			ShowUIPanel(PlayerTalentFrame)
 		else
@@ -93,7 +89,9 @@ local menuList = {
 	{text = PET_JOURNAL, func = function() ToggleCollectionsJournal(2) end},
 	{text = TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
 	{text = HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
+	{text = WARDROBE, func = function() ToggleCollectionsJournal(5) end},
 	{text = MACROS, func = function() GameMenuButtonMacros:Click() end},
+	{text = TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
 	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
 	{text = SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
 	{text = MAINMENU_BUTTON,
@@ -117,7 +115,7 @@ local menuList = {
 		end
 	end},
 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
-	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end},
+	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end}
 }
 
 local function AutoColoring()
