@@ -429,10 +429,10 @@ local function styleSpellbook()
 			local tab = _G['SpellBookSkillLineTab'..i]
 			if not tab.style then
 				tab:Style('Inside')
-				-- This causing a lua error after you enter a portal or using your hearthstone
-				-- 3x ElvUI_BenikUI\modules\skins\skins.lua:419: attempt to index a nil value
-				--[[tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-				tab:GetNormalTexture():SetInside()]]
+				if tab:GetNormalTexture() then
+					tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
+					tab:GetNormalTexture():SetInside()
+				end
 			end
 		end
 	end)
@@ -525,6 +525,13 @@ local function styleAlertFrames()
 		end
 	end
 	hooksecurefunc(MoneyWonAlertSystem, "setUpFunction", StyleMoneyWonAlert)
+	
+	local function StyleRecipeLearnedAlert(frame)
+		if not frame.backdrop.style then
+			frame.backdrop:Style('Outside')
+		end
+	end
+	hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", StyleRecipeLearnedAlert)
 	
 	for _, frame in pairs(staticAlertFrames) do
 		if frame then
