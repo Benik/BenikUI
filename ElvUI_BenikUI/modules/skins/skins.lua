@@ -491,19 +491,19 @@ local function styleAlertFrames()
 	end		
 	hooksecurefunc(ScenarioAlertSystem, "setUpFunction", StyleScenarioAlert)
 	
+	local function WorldQuestCompleteAlert(frame)
+		if not frame.backdrop.style then
+			frame.backdrop:Style('Outside')
+		end
+	end		
+	hooksecurefunc(WorldQuestCompleteAlertSystem, "setUpFunction", WorldQuestCompleteAlert)
+	
 	local function StyleGarrisonFollowerAlert(frame)
 		if not frame.backdrop.style then
 			frame.backdrop:Style('Outside')
 		end
 	end		
 	hooksecurefunc(GarrisonFollowerAlertSystem, "setUpFunction", StyleGarrisonFollowerAlert)
-	
-	local function StyleLegendaryItemAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
-		end
-	end	
-	hooksecurefunc(LegendaryItemAlertSystem, "setUpFunction", StyleLegendaryItemAlert)
 	
 	local function StyleLootWonAlert(frame)
 		if not frame.backdrop.style then
@@ -525,6 +525,20 @@ local function styleAlertFrames()
 		end
 	end
 	hooksecurefunc(MoneyWonAlertSystem, "setUpFunction", StyleMoneyWonAlert)
+
+	local function StorePurchaseAlert(frame)
+		if not frame.backdrop.style then
+			frame.backdrop:Style('Outside')
+		end
+	end
+	hooksecurefunc(StorePurchaseAlertSystem, "setUpFunction", StyleStorePurchaseAlert)
+	
+	local function DigsiteCompleteAlert(frame)
+		if not frame.backdrop.style then
+			frame.backdrop:Style('Outside')
+		end
+	end
+	hooksecurefunc(DigsiteCompleteAlertSystem, "setUpFunction", StyleDigsiteCompleteAlert)
 	
 	local function StyleRecipeLearnedAlert(frame)
 		if not frame.backdrop.style then
