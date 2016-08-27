@@ -20,7 +20,7 @@ L['light blue color.'] = "hell blau"
 L['Splash Screen'] = "Startbildschirm"
 
 -- Misc
-L['Camera rotation'] = true
+L['Camera rotation'] = "Kamerarotation"
 L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = "Zeigt das Itemlevel pro Slot, im Spielerfenster"
 
