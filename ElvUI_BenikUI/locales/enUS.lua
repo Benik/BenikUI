@@ -20,6 +20,7 @@ L['light blue color.'] = true
 L['Splash Screen'] = true
 
 -- Misc
+L['Camera rotation'] = true
 L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = true
 

@@ -197,7 +197,9 @@ local bagYoffset = E.db.bags.yOffset
 
 function BFM:SetFlightMode(status)
 	if(status) then
-		MoveViewLeftStart(CAMERA_SPEED);
+		if E.db.benikui.misc.flightMode.cameraRotation then
+			MoveViewLeftStart(CAMERA_SPEED);
+		end
 		self.FlightMode:Show()
 		E.UIParent:Hide()
 

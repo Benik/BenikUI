@@ -31,6 +31,12 @@ local function miscTable()
 						name = L['Enable'],
 						desc = L['Display the Flight Mode screen when taking flight paths'],
 					},
+					cameraRotation = {
+						order = 2,
+						type = 'toggle',
+						name = L['Camera rotation'],
+						disabled = function() return not E.db.benikui.misc.flightMode.enable end,
+					},
 				},
 			},
 			ilevel = {

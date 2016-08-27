@@ -50,6 +50,7 @@ P['benikui'] = {
 		},
 		['flightMode'] = {
 			['enable'] = true,
+			['cameraRotation'] = false,
 		},
 		['panels'] = {
 			['top'] = {
