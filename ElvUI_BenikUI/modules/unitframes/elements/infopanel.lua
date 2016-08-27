@@ -116,7 +116,7 @@ end
 -- Arena
 function UFB:ArenaInfoPanelColor()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
-	for i = 1, 3 do
+	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
 		if unitbutton.InfoPanel then
 			if not unitbutton.InfoPanel.color then

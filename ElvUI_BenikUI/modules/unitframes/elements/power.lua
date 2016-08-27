@@ -89,7 +89,7 @@ hooksecurefunc(UF, 'Update_PartyFrames', UFB.ChangePartyPowerBarTexture)
 -- Arena
 function UFB:ChangeArenaPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
-	for i = 1, 3 do
+	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
 		if unitbutton.Power then
 			unitbutton.Power:SetStatusBarTexture(bar)

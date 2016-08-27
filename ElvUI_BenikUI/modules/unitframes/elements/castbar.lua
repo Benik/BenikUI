@@ -127,7 +127,7 @@ function BUIC:CastBarHooks()
 		end
 	end
 
-	for i = 1, 3 do
+	for i = 1, 5 do
 		local castbar = _G["ElvUF_Arena"..i].Castbar
 		if castbar then
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
