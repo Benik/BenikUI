@@ -58,8 +58,11 @@ local function StyleBar()
 	bar.fb:SetScript('OnLeave', onLeave)
 	
 	bar.fb:SetScript('OnClick', function(self)
-		--if not _G["ArtifactFrame"]:IsShown() then ShowUIPanel(_G["ArtifactFrame"]) else HideUIPanel(_G["ArtifactFrame"]) end
-		ShowUIPanel(SocketInventoryItem(16)) -- at least it opens, don't know if this is a proper way.
+		if not ArtifactFrame or not ArtifactFrame:IsShown() then
+			ShowUIPanel(SocketInventoryItem(16))
+		elseif ArtifactFrame and ArtifactFrame:IsShown() then
+			HideUIPanel(ArtifactFrame)
+		end
 	end)
 	
 	ToggleBackdrop()
