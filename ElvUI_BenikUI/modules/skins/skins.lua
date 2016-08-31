@@ -251,6 +251,10 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			_G["PVPRewardTooltip"]:Style('Outside')
 		end
 	end
+
+	if addon == 'Blizzard_OrderHallUI' and E.private.skins.blizzard.orderhall == true then
+		_G["OrderHallMissionFrame"].backdrop:Style('Outside')
+	end
 end
 
 local MAX_STATIC_POPUPS = 4
