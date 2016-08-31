@@ -253,13 +253,13 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	end
 
 	if addon == 'Blizzard_OrderHallUI' and E.private.skins.blizzard.orderhall == true then
-		if not _G["OrderHallMissionFrame"].backdrop.style then
+		if (_G["OrderHallMissionFrame"].backdrop and not _G["OrderHallMissionFrame"].backdrop.style) then
 			_G["OrderHallMissionFrame"].backdrop:Style('Outside')
 		end
 	end
 	
 	if addon == 'Blizzard_AdventureMap' and E.private.skins.blizzard.AdventureMap == true then
-		if not _G["AdventureMapQuestChoiceDialog"].backdrop.style then
+		if (_G["AdventureMapQuestChoiceDialog"].backdrop and not _G["AdventureMapQuestChoiceDialog"].backdrop.style) then
 			_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
 		end
 	end
