@@ -103,12 +103,15 @@ function E:UpdateBlizzardFonts()
 		SetFont(SystemFont_Huge1, 					NORMAL, 20);								 -- Garrison Mission XP
 		SetFont(SystemFont_Huge1_Outline, 			NORMAL, 18, MONOCHROME.."OUTLINE");			 -- Garrison Mission Chance
 		SetFont(Fancy22Font,						NORMAL, 20)									 -- Talking frame Title font
+		SetFont(Fancy24Font,						NORMAL, 20)									 -- Artifact frame - weapon name
+		--SetFont(SystemFont_Shadow_Med2,				NORMAL, 16)
+		--SetFont(GameFontHighlightLeft,				NORMAL, 16)
 		--SetFont(GameFontHighlightMed2, 				NORMAL, self.db.general.fontSize*1.1);		
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
 		--SetFont(GameFontHighlightSmall, 			NORMAL, 10);
 		--SetFont(GameFontHighlight, 					NORMAL, self.db.general.fontSize);
 		--SetFont(GameFontHighlightLarge,				NORMAL, 15);
-		--SetFont(GameFontNormalHuge,					NORMAL, 16);		
+		--SetFont(GameFontNormalHuge,					NORMAL, 16);
 		
 		--SetFont(SystemFont_InverseShadow_Small, 	NORMAL, 10);
 
