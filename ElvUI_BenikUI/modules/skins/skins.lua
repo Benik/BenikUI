@@ -253,7 +253,9 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	end
 
 	if addon == 'Blizzard_OrderHallUI' and E.private.skins.blizzard.orderhall == true then
-		_G["OrderHallMissionFrame"].backdrop:Style('Outside')
+		if not _G["OrderHallMissionFrame"].backdrop.style then
+			_G["OrderHallMissionFrame"].backdrop:Style('Outside')
+		end
 	end
 end
 
