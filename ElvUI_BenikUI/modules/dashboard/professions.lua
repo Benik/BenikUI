@@ -78,6 +78,8 @@ function BUIP:EnableDisableCombat()
 	end
 end
 
+local capRank = 800
+
 function BUIP:UpdateProfessions()
 	local db = E.db.dashboards.professions
 	if( BuiProfessions[1] ) then
@@ -87,8 +89,7 @@ function BUIP:UpdateProfessions()
 		wipe( BuiProfessions )
 		proHolder:Hide()
 	end
-	
-	local capRank = 800
+
 	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
 	
 	if (prof1 or prof2 or archy or fishing or cooking or firstAid) then
