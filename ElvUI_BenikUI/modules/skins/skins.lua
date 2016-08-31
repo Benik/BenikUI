@@ -257,6 +257,12 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			_G["OrderHallMissionFrame"].backdrop:Style('Outside')
 		end
 	end
+	
+	if addon == 'Blizzard_AdventureMap' and E.private.skins.blizzard.AdventureMap == true then
+		if not _G["AdventureMapQuestChoiceDialog"].backdrop.style then
+			_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
+		end
+	end
 end
 
 local MAX_STATIC_POPUPS = 4
