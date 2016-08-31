@@ -88,7 +88,7 @@ function BUIP:UpdateProfessions()
 		proHolder:Hide()
 	end
 	
-	local capRank = 700
+	local capRank = 800
 	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
 	
 	if (prof1 or prof2 or archy or fishing or cooking or firstAid) then
