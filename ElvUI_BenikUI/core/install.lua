@@ -124,15 +124,11 @@ local function SetupBuiLayout()
 	
 	-- Nameplates
 	E.db["nameplates"]["font"] = "Bui Visitor1"
-	E.db["nameplates"]["fontSize"] = 7
+	E.db["nameplates"]["fontSize"] = 10
 	E.db["nameplates"]["fontOutline"] = 'MONOCHROMEOUTLINE'
-	-- E.db["nameplates"]["debuffs"]["font"] = "Bui Visitor1"
-	-- E.db["nameplates"]["debuffs"]["fontSize"] = 7
-	-- E.db["nameplates"]["debuffs"]["fontOutline"] = 'MONOCHROMEOUTLINE'
-	-- E.db["nameplates"]["buffs"]["font"] = "Bui Visitor1"
-	-- E.db["nameplates"]["buffs"]["fontSize"] = 7
-	-- E.db["nameplates"]["buffs"]["fontOutline"] = 'MONOCHROMEOUTLINE'
+	E.db["nameplates"]["statusbar"] = "BuiFlat"
 
+	-- Movers
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["BNETMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-182"
 	E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
@@ -640,7 +636,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["infoPanel"]["transparent"] = true
 
 		-- raid
-		E.db["unitframe"]["units"]["raid"]["height"] = 58
+		E.db["unitframe"]["units"]["raid"]["height"] = 40
 		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 3
 		E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["power"]["height"] = 5
