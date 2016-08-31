@@ -1,3 +1,18 @@
+[b]3.03[/b]
+Updated max profession level
+Proper way to show/hide the ArticaftFrame. (Merathilis)
+Added option to Enable/Disable camera rotation during FlightMode. Disabled by default.
+Alert frames skin styling
+Fixed the flightMode Game Menu
+Fixed Professions Dashboard not showing when a char learns a new profession
+Fixed Tokens Dashboard not showing when a new char discovers a token
+Fixed Clock not getting styled
+Fixed Collections frame not getting styled
+Changed BenikUI color in the character select AddOn Manager. (Merathilis)
+Automatically set the Skada profile in install. (Merathilis)
+Style for the LFDRoleCheckPopup. (Merathilis)
+Raid frames install fixes
+
 [b]3.02[/b]
 *Don't update the Dashboard Memory module while in combat
 *Talking Head frame styled
