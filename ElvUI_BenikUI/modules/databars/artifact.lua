@@ -58,9 +58,9 @@ local function StyleBar()
 	bar.fb:SetScript('OnLeave', onLeave)
 	
 	bar.fb:SetScript('OnClick', function(self)
-		if not ArtifactFrame or not ArtifactFrame:IsShown() then
+		if not _G["ArtifactFrame"] or not _G["ArtifactFrame"]:IsShown() then
 			ShowUIPanel(SocketInventoryItem(16))
-		elseif ArtifactFrame and ArtifactFrame:IsShown() then
+		elseif _G["ArtifactFrame"] and _G["ArtifactFrame"]:IsShown() then
 			HideUIPanel(ArtifactFrame)
 		end
 	end)
