@@ -101,12 +101,11 @@ function BUIP:UpdateProfessions()
 			if name and (rank < capRank or (not db.capped)) then
 				if db.choosePofessions[name] == true then
 					proHolder:Show()
-					if E.private.general.minimap.enable then
-						proHolder:Point('TOPLEFT', MMHolder, 'BOTTOMLEFT', 0, -5)
-					else
-						proHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -120)
-					end
 					proHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BuiProfessions + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+					if ProfessionsMover then
+						ProfessionsMover:Size(proHolder:GetSize())
+						proHolder:Point('TOPLEFT', ProfessionsMover, 'TOPLEFT')
+					end
 
 					local ProFrame = CreateFrame('Frame', nil, proHolder)
 					ProFrame:Height(DASH_HEIGHT)
