@@ -1,3 +1,7 @@
+[b]3.05[/b]
+*Proper styling for OrderHall Mission frame
+*Bag changes in ElvUI break flightMode. Releasing with a temp fix before ElvUI.
+
 [b]3.04[/b]
 *Fixed Professions and Tokens Dashboards movers
 *Replace Blizzard font in the Artifact frame - weapon name
