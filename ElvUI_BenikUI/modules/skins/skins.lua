@@ -251,18 +251,6 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			_G["PVPRewardTooltip"]:Style('Outside')
 		end
 	end
-
-	--[[if addon == 'Blizzard_OrderHallUI' and E.private.skins.blizzard.orderhall == true then
-		if (_G["OrderHallMissionFrame"].backdrop and not _G["OrderHallMissionFrame"].backdrop.style) then
-			_G["OrderHallMissionFrame"].backdrop:Style('Outside')
-		end
-	end
-	
-	if addon == 'Blizzard_AdventureMap' and E.private.skins.blizzard.AdventureMap == true then
-		if (_G["AdventureMapQuestChoiceDialog"].backdrop and not _G["AdventureMapQuestChoiceDialog"].backdrop.style) then
-			_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
-		end
-	end]]
 end
 
 local MAX_STATIC_POPUPS = 4
@@ -571,8 +559,8 @@ local function styleOrderHall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true then return end
 	if (not _G["OrderHallMissionFrame"]) then LoadAddOn("Blizzard_OrderHallUI") end
 
-	_G["OrderHallMissionFrame"].backdrop:Style('Outside')
-	_G["AdventureMapQuestChoiceDialog"]:Style('Outside') -- do not use a backdrop :P
+	_G["OrderHallMissionFrame"]:Style('Small')
+	_G["AdventureMapQuestChoiceDialog"]:Style('Small')
 	_G["OrderHallTalentFrame"]:Style('Outside')
 end
 
