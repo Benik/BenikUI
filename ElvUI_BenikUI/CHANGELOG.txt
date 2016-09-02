@@ -1,3 +1,6 @@
+[b]3.06[/b]
+*Fixed styling for OrderHall Mission frame
+
 [b]3.05[/b]
 *Proper styling for OrderHall Mission frame
 *Bag changes in ElvUI break flightMode. Releasing with a temp fix before ElvUI.
