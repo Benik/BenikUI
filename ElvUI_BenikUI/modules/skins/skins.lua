@@ -570,18 +570,10 @@ end
 local function styleOrderHall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true then return end
 	if (not _G["OrderHallMissionFrame"]) then LoadAddOn("Blizzard_OrderHallUI") end
-	
-	if _G["OrderHallMissionFrame"] then
-		_G["OrderHallMissionFrame"].backdrop:Style('Outside')
-	end
 
-	if _G["AdventureMapQuestChoiceDialog"] then
-		_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
-	end
-
-	if _G["OrderHallTalentFrame"] then
-		_G["OrderHallTalentFrame"]:Style('Outside')
-	end
+	_G["OrderHallMissionFrame"].backdrop:Style('Outside')
+	_G["AdventureMapQuestChoiceDialog"]:Style('Outside') -- do not use a backdrop :P
+	_G["OrderHallTalentFrame"]:Style('Outside')
 end
 
 -- Garrison Style
