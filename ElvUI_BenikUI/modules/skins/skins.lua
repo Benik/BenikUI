@@ -252,7 +252,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		end
 	end
 
-	if addon == 'Blizzard_OrderHallUI' and E.private.skins.blizzard.orderhall == true then
+	--[[if addon == 'Blizzard_OrderHallUI' and E.private.skins.blizzard.orderhall == true then
 		if (_G["OrderHallMissionFrame"].backdrop and not _G["OrderHallMissionFrame"].backdrop.style) then
 			_G["OrderHallMissionFrame"].backdrop:Style('Outside')
 		end
@@ -262,7 +262,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		if (_G["AdventureMapQuestChoiceDialog"].backdrop and not _G["AdventureMapQuestChoiceDialog"].backdrop.style) then
 			_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
 		end
-	end
+	end]]
 end
 
 local MAX_STATIC_POPUPS = 4
@@ -566,6 +566,16 @@ local function styleAlertFrames()
 	end
 end
 
+-- Order Hall
+local function styleOrderHall()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true then return end
+	if (not _G["OrderHallMissionFrame"]) then LoadAddOn("Blizzard_OrderHallUI") end
+	
+	_G["OrderHallMissionFrame"].backdrop:Style('Outside')
+	_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
+	_G["OrderHallTalentFrame"]:Style('Outside')
+end
+
 -- Garrison Style
 local fRecruits = {}
 local function styleGarrison()
@@ -701,6 +711,9 @@ function BUIS:BenikUISkins()
 
 	-- Garrison Style
 	styleGarrison()
+
+	-- OrderHall Style
+	styleOrderHall()
 
 	-- Objective Tracker Button
 	SkinObjeciveTracker()
