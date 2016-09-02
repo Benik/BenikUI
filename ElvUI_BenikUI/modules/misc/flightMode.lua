@@ -1,7 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
-local B = E:GetModule("Bags")
 
 local _G = _G 
 local GetTime = GetTime
@@ -193,8 +192,6 @@ function BFM:UpdateTimer()
 	self.FlightMode.bottom.timeFlying:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
 end
 
-local bagYoffset = E.db.bags.yOffset
-
 function BFM:SetFlightMode(status)
 	if(status) then
 		if E.db.benikui.misc.flightMode.cameraRotation then
@@ -213,8 +210,6 @@ function BFM:SetFlightMode(status)
 		
 		-- Bags
 		if ElvUI_ContainerFrame then
-			E.db.bags.yOffset = 30
-			B:PositionBagFrames()
 			ElvUI_ContainerFrame:SetParent(self.FlightMode)
 			ElvUI_ContainerFrame.shadow:Show()
 		end
@@ -265,8 +260,6 @@ function BFM:SetFlightMode(status)
 
 		-- Revert Bags
 		if ElvUI_ContainerFrame then
-			E.db.bags.yOffset = bagYoffset
-			B:PositionBagFrames()
 			ElvUI_ContainerFrame:SetParent(E.UIParent)
 			ElvUI_ContainerFrame.shadow:Hide()
 		end
