@@ -261,6 +261,7 @@ local tooltips = {
 	ShoppingTooltip1,
 	ShoppingTooltip2,
 	ShoppingTooltip3,
+	FloatingBattlePetTooltip
 }
 
 -- Blizzard Styles
@@ -386,10 +387,6 @@ local function styleFreeBlizzardFrames()
 	
 	if db.petition then
 		PetitionFrame:Style('Outside')
-	end
-	
-	if db.petpattle then
-		FloatingBattlePetTooltip:Style('Outside')
 	end
 	
 	if db.quest then
