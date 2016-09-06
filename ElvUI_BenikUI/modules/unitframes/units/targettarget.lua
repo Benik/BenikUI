@@ -17,5 +17,6 @@ function UFB:ArrangeTargetTarget()
 end
 
 function UFB:InitTargetTarget()
+	if not E.db.unitframe.units.targettarget.enable then return end
 	hooksecurefunc(UF, 'Update_TargetTargetFrame', UFB.ArrangeTargetTarget)
 end

@@ -17,5 +17,6 @@ function UFB:ArrangeFocus()
 end
 
 function UFB:InitFocus()
+	if not E.db.unitframe.units.focus.enable then return end
 	hooksecurefunc(UF, 'Update_FocusFrame', UFB.ArrangeFocus)
 end

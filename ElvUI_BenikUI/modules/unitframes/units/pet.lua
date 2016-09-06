@@ -17,5 +17,6 @@ function UFB:ArrangePet()
 end
 
 function UFB:InitPet()
+	if not E.db.unitframe.units.pet.enable then return end
 	hooksecurefunc(UF, 'Update_PetFrame', UFB.ArrangePet)
 end

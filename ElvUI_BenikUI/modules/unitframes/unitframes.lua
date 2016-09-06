@@ -18,9 +18,17 @@ function UFB:UnitDefaults()
 end
 
 function UFB:UpdateUF()
-	UFB:ArrangePlayer()
-	UFB:ArrangeTarget()
-	UF:CreateAndUpdateHeaderGroup('party')
+	if E.db.unitframe.units.player.enable then
+		UFB:ArrangePlayer()
+	end
+	
+	if E.db.unitframe.units.target.enable then
+		UFB:ArrangeTarget()
+	end
+	
+	if E.db.unitframe.units.party.enable then
+		UF:CreateAndUpdateHeaderGroup('party')
+	end
 end
 
 function UFB:ADDON_LOADED(event, addon)

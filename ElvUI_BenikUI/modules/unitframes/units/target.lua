@@ -118,18 +118,19 @@ function UFB:PLAYER_TARGET_CHANGED()
 	self:ScheduleTimer('RecolorTargetDetachedPortraitStyle', 0.02)
 end
 
--- Needed for some post updates
-hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
-	local unitframeType = frame.unitframeType
-
-	if unitframeType == "target" then
-		UFB:Configure_Portrait(frame, false)
-	end
-end)
-
 function UFB:InitTarget()
+	if not E.db.unitframe.units.target.enable then return end
 	self:Construct_TargetFrame()
 	hooksecurefunc(UF, 'Update_TargetFrame', UFB.ArrangeTarget)
 	self:RegisterEvent('PLAYER_TARGET_CHANGED')
 	hooksecurefunc(UF, 'Update_TargetFrame', UFB.RecolorTargetDetachedPortraitStyle)
+
+	-- Needed for some post updates
+	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "target" then
+			UFB:Configure_Portrait(frame, false)
+		end
+	end)
 end
