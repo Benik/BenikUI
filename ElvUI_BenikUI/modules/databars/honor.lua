@@ -148,13 +148,21 @@ function BDB:UpdateHonorNotifier()
 	local showHonor = UnitLevel("player") >= MAX_PLAYER_LEVEL
 	if not showHonor then
 		bar.f:Hide()
-	else
+	elseif showHonor and (not E.db.honor.hideInCombat or not InCombatLockdown()) then
 		bar.f:Show()
+		local text = ''
 		local current = UnitHonor("player");
 		local max = UnitHonorMax("player");
 		local level = UnitHonorLevel("player");
         local levelmax = GetMaxPlayerHonorLevel();
-		bar.f.txt:SetFormattedText('%d%%', current / max * 100)
+		if (CanPrestige()) then
+			text = 'P'
+		elseif (level == levelmax) then
+			text = 'Max'
+		else
+			text = format('%d%%', current / max * 100)
+		end
+		bar.f.txt:SetText(text)
 	end
 end
 
