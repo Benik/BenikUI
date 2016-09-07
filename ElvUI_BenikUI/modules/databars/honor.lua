@@ -148,7 +148,7 @@ function BDB:UpdateHonorNotifier()
 	local showHonor = UnitLevel("player") >= MAX_PLAYER_LEVEL
 	if not showHonor then
 		bar.f:Hide()
-	elseif showHonor and (not E.db.dataBars.honor.hideInCombat or not InCombatLockdown()) then
+	elseif showHonor and (not E.db.databars.honor.hideInCombat or not InCombatLockdown()) then
 		bar.f:Show()
 		local text = ''
 		local current = UnitHonor("player");
