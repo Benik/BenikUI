@@ -1,3 +1,9 @@
+[b]3.07[/b]
+*Fixed a honorbar lua error
+*BenikUI Style for the BattlePet Ability Tooltip
+*Added checks to prevent lua error when the unitframe is disabled via ElvUI options
+*Change BenikUI style for Battlepet tooltip 
+
 [b]3.06[/b]
 *Fixed styling for OrderHall Mission frame
 
