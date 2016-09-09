@@ -251,6 +251,12 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			_G["PVPRewardTooltip"]:Style('Outside')
 		end
 	end
+
+	if addon == 'Blizzard_ObliterumUI' and E.private.skins.blizzard.Obliterum == true then
+		if not _G["ObliterumForgeFrame"].style then
+			_G["ObliterumForgeFrame"]:Style('Outsinde')
+		end
+	end
 end
 
 local MAX_STATIC_POPUPS = 4
