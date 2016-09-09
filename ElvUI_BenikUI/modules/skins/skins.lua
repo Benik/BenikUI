@@ -558,7 +558,9 @@ local function styleOrderHall()
 	if (not _G["OrderHallMissionFrame"]) then LoadAddOn("Blizzard_OrderHallUI") end
 
 	_G["OrderHallMissionFrame"]:Style('Small')
-	_G["AdventureMapQuestChoiceDialog"]:Style('Small')
+	if _G["AdventureMapQuestChoiceDialog"].backdrop then
+		_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
+	end
 	_G["OrderHallTalentFrame"]:Style('Outside')
 end
 
