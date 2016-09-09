@@ -254,7 +254,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 
 	if addon == 'Blizzard_ObliterumUI' and E.private.skins.blizzard.Obliterum == true then
 		if not _G["ObliterumForgeFrame"].style then
-			_G["ObliterumForgeFrame"]:Style('Outsinde')
+			_G["ObliterumForgeFrame"]:Style('Outside')
 		end
 	end
 end
