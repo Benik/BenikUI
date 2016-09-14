@@ -115,6 +115,7 @@ L['Enable the Tokens Dashboard.'] = true
 L['Enable/Disable '] = true
 L['Flash on updates'] = true
 L['Framerate drop has been reported with Zygor Guides\nand the Memory module while in an instance.\nMemory module updates have been temporarily disabled.'] = true
+L['Latency (MS)'] = true
 L['Memory: '] = true
 L['MouseWheel :'] = true
 L['RightClick :'] = true

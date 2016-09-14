@@ -275,6 +275,7 @@ P['dashboards'] = {
 			['Durability'] = true,
 			['Volume'] = true,
 		},
+		['latency'] = 2,
 	},
 	
 	['tokens'] = {

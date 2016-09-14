@@ -109,6 +109,19 @@ local function UpdateSystemOptions()
 			set = function(info, value) E.db.dashboards.system.chooseSystem[boardname] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 		}
 	end
+	
+	E.Options.args.benikui.args.dashboards.args.system.args.latency = {
+		order = 10,
+		type = "select",
+		name = L['Latency (MS)'],
+		values = {
+			[1] = HOME,
+			[2] = WORLD,
+		},
+		disabled = function() return not E.db.dashboards.system.chooseSystem.MS end,
+		get = function(info) return E.db.dashboards.system.latency end,
+		set = function(info, value) E.db.dashboards.system.latency = value; BUID:CreateMs(); end,	
+	}
 end
 
 -- these options must be updated when the player discovers a new token.

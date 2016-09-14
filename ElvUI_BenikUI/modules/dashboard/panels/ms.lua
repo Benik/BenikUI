@@ -22,9 +22,18 @@ function BUID:CreateMs()
 		
 		if(LastUpdate < 0) then
 			self:SetMinMaxValues(0, 200)
-			local value = (select(4, GetNetStats()))
+			local value = 0
+			local displayFormat = ""
+			
+			if E.db.dashboards.system.latency == 1 then
+				value = (select(3, GetNetStats())) -- Home
+			else
+				value = (select(4, GetNetStats())) -- World
+			end
+			
 			local max = 200
 			local mscolor = 4
+			
 			self:SetValue(value)
 
 			if( value * 100 / max <= 35) then
@@ -35,7 +44,12 @@ function BUID:CreateMs()
 				mscolor = 3
 			end
 
-			local displayFormat = join('', 'MS: ', statusColors[mscolor], '%d|r')
+			if E.db.dashboards.system.latency == 1 then
+				displayFormat = join('', 'MS (', HOME, '): ', statusColors[mscolor], '%d|r')
+			else
+				displayFormat = join('', 'MS (', WORLD, '): ', statusColors[mscolor], '%d|r')
+			end
+
 			boardName.Text:SetFormattedText(displayFormat, value)
 			LastUpdate = 1
 		end
