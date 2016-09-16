@@ -11,7 +11,8 @@ local ttr, ttg, ttb = 0, 0, 0
 
 local function StyleTooltip()
 	GameTooltip:Style('Outside')
-	
+	GameTooltip.style:SetClampedToScreen(true)
+
 	-- Grab the style color
 	local r, g, b = GameTooltip.style.color:GetVertexColor()
 	ttr, ttg, ttb = r, g, b
