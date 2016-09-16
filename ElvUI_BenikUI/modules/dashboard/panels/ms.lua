@@ -17,6 +17,29 @@ local statusColors = {
 
 function BUID:CreateMs()
 	local boardName = _G['MS']
+	
+	boardName:SetScript('OnEnter', function(self)
+		if not InCombatLockdown() then
+			local value = 0
+			local text = ""
+			GameTooltip:SetOwner(boardName, 'ANCHOR_RIGHT', 5, 0)
+			GameTooltip:ClearLines()
+			if E.db.dashboards.system.latency == 2 then
+				value = (select(3, GetNetStats())) -- Home
+				text = "MS ("..HOME.."): "
+			else
+				value = (select(4, GetNetStats())) -- World
+				text = "MS ("..WORLD.."): "
+			end
+			GameTooltip:AddDoubleLine(text, value, 0.7, 0.7, 1, 0.84, 0.75, 0.65)
+			GameTooltip:Show()			
+		end
+	end)
+	
+	boardName:SetScript('OnLeave', function(self)
+		GameTooltip:Hide()
+	end)
+	
 	boardName.Status:SetScript('OnUpdate', function(self, elapsed)
 		LastUpdate = LastUpdate - elapsed
 		
