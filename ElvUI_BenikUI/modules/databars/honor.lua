@@ -155,6 +155,9 @@ function BDB:UpdateHonorNotifier()
 		local max = UnitHonorMax("player");
 		local level = UnitHonorLevel("player");
         local levelmax = GetMaxPlayerHonorLevel();
+
+		if max == 0 then max = 1 end
+
 		if (CanPrestige()) then
 			text = 'P'
 		elseif (level == levelmax) then
