@@ -338,7 +338,7 @@ local function Core()
 							},
 						},
 					},
-					donators = {
+					donors = {
 						order = 6,
 						type = 'group',
 						name = BUI:cOption(L['Donations']),
@@ -348,7 +348,7 @@ local function Core()
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', 'Cawkycow, Chilou, Κevinrc, Merathilis'),
+								name = format('|cffffd200%s|r', 'Cawkycow, Chilou, Judicator, Κevinrc, Merathilis'),
 							},
 						},
 					},
