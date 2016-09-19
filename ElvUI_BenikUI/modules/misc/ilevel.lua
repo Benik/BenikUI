@@ -47,10 +47,11 @@ function BUI:update_iLevelItems()
 	local db = E.db.benikui.misc.ilevel
 	for i = 1, 17 do
 		local itemLink = GetInventoryItemLink("player", i)
+		local iLvl = getItemLevel(i)
 		if i ~= 4 and (equipped[i] ~= itemLink or f[i]:GetText() ~= nil) then
 			equipped[i] = itemLink
 			if (itemLink ~= nil) then
-				f[i]:SetFormattedText("%s", getItemLevel(i))
+				f[i]:SetText(iLvl)
 				local _, _, ItemRarity = GetItemInfo(itemLink)
 				if ItemRarity and db.colorStyle == 'RARITY' then
 					local r, g, b = GetItemQualityColor(ItemRarity)
