@@ -741,10 +741,16 @@ function BUIS:BenikUISkins()
 			_G["WorldMapFrame"].BorderFrame.backdrop:Style('Outside')
 		end
 		
-		if not _G["WorldMapTooltip"].style then
-			_G["WorldMapTooltip"]:Style('Outside')
+		if not _G["WorldMapTooltip"].BackdropFrame.style then
+			_G["WorldMapTooltip"].BackdropFrame:Style('Outside')
 		end
 
+		for i, tooltip in ipairs(WorldMapTooltip.ItemTooltip.Tooltip.shoppingTooltips) do
+			if not tooltip.style then
+				tooltip:Style('Outside')
+			end
+		end
+		
 		_G["QuestMapFrame"].QuestsFrame.StoryTooltip:SetTemplate('Transparent')
 		if not _G["QuestMapFrame"].QuestsFrame.StoryTooltip.style then
 			_G["QuestMapFrame"].QuestsFrame.StoryTooltip:Style('Outside')
