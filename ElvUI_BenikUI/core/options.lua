@@ -348,7 +348,7 @@ local function Core()
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', 'Cawkycow, Chilou, Judicator, Κevinrc, Merathilis, Sumidian'),
+								name = format('|cffffd200%s|r', 'Cawkycow, Chilou, Judicator, Hilderic, Κevinrc, Merathilis, Sumidian'),
 							},
 						},
 					},
