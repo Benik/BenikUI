@@ -12,7 +12,7 @@ local LoadAddOn = LoadAddOn
 -- GLOBALS: hooksecurefunc
 
 function BUIS:BlizzardUI_LOD_Skins(event, addon)
-	if E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.private.skins.blizzard.enable ~= true then return end
 
 	if (event == 'ADDON_LOADED') then
 		if addon == 'Blizzard_AchievementUI' and E.private.skins.blizzard.achievement == true then
@@ -273,8 +273,7 @@ local tooltips = {
 
 -- Blizzard Styles
 local function styleFreeBlizzardFrames()
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-	
+
 	ColorPickerFrame:Style('Outside')
 	MinimapRightClickMenu:Style('Outside')
 	
@@ -307,6 +306,10 @@ local function styleFreeBlizzardFrames()
 	
 	if db.dressingroom then
 		DressUpFrame:Style('Outside')
+		if DressUpFrame.style then
+			DressUpFrame.style:Point('TOPLEFT', DressUpFrame, 'TOPLEFT', 6, 4)
+			DressUpFrame.style:Point('BOTTOMRIGHT', DressUpFrame, 'TOPRIGHT', -32, -1)
+		end
 	end
 
 	if db.friends then
@@ -354,6 +357,10 @@ local function styleFreeBlizzardFrames()
 	
 	if db.merchant then
 		MerchantFrame:Style('Outside')
+		if MerchantFrame.style then
+			MerchantFrame.style:Point('TOPLEFT', MerchantFrame, 'TOPLEFT', 6, 4)
+			MerchantFrame.style:Point('BOTTOMRIGHT', MerchantFrame, 'TOPRIGHT', 2, -1)
+		end
 	end
 	
 	if db.misc then
@@ -679,7 +686,7 @@ local function MinimizeButton_OnClick(self)
 	end
 end
 
-local function SkinObjeciveTracker()
+local function SkinObjectiveTracker()
 	if not E.db.benikuiSkins.variousSkins.objectiveTracker then return end
 	
 	local button = _G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton
@@ -710,9 +717,7 @@ function BUIS:BenikUISkins()
 	styleOrderHall()
 
 	-- Objective Tracker Button
-	SkinObjeciveTracker()
-	
-	if E.db.benikui.general.benikuiStyle ~= true then return end 
+	SkinObjectiveTracker() 
 	
 	-- Blizzard Styles
 	styleFreeBlizzardFrames()
@@ -722,17 +727,6 @@ function BUIS:BenikUISkins()
 	
 	-- Alert Frames
 	styleAlertFrames()
-	
-	-- Style Changes
-	if _G["DressUpFrame"].style then
-		_G["DressUpFrame"].style:Point('TOPLEFT', _G["DressUpFrame"], 'TOPLEFT', 6, 4)
-		_G["DressUpFrame"].style:Point('BOTTOMRIGHT', _G["DressUpFrame"], 'TOPRIGHT', -32, -1)
-	end
-
-	if _G["MerchantFrame"].style then
-		_G["MerchantFrame"].style:Point('TOPLEFT', _G["MerchantFrame"], 'TOPLEFT', 6, 4)
-		_G["MerchantFrame"].style:Point('BOTTOMRIGHT', _G["MerchantFrame"], 'TOPRIGHT', 2, -1)
-	end
 
 	-- Map styling fix
 	local function FixMapStyle()
@@ -815,6 +809,7 @@ function BUIS:BenikUISkins()
 end
 
 function BUIS:Initialize()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
 	self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
 end
