@@ -575,6 +575,8 @@ local function styleOrderHall()
 		_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
 	end
 	_G["OrderHallTalentFrame"]:Style('Outside')
+	_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
+	_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')
 end
 
 -- Garrison Style
