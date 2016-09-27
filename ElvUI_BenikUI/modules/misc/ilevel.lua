@@ -30,12 +30,13 @@ scantip:SetOwner(UIParent, "ANCHOR_NONE")
 
 local function getItemLevel(slotId)
 	local hasItem = scantip:SetInventoryItem("player", slotId)
+	local realItemLevel
 	if not hasItem then return nil end
 
 	for i = 2, scantip:NumLines() do
 		local text = _G["BenikUIiLvlScanningTooltipTextLeft"..i]:GetText()
 		if text and text ~= "" then
-			local realItemLevel = match(text, S_ITEM_LEVEL)
+			realItemLevel = realItemLevel or match(text, S_ITEM_LEVEL)
 			if realItemLevel then
 				return realItemLevel
 			end
