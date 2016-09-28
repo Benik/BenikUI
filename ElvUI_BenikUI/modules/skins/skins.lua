@@ -716,7 +716,10 @@ function BUIS:BenikUISkins()
 	styleGarrison()
 
 	-- OrderHall Style
-	styleOrderHall()
+	local reason = select(5, GetAddOnInfo("GarrisonCommander"))
+	if reason == "DISABLED" or reason == "MISSING" then 
+		styleOrderHall()
+	end
 
 	-- Objective Tracker Button
 	SkinObjectiveTracker() 
