@@ -461,6 +461,7 @@ local staticAlertFrames = {
 	WorldQuestCompleteAlertFrame,
 	GarrisonFollowerAlertFrame,
 	LegendaryItemAlertFrame,
+	GarrisonTalentAlertFrame,
 }
 
 local function styleAlertFrames()
