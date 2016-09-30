@@ -21,7 +21,7 @@ local ToggleCharacter = ToggleCharacter
 
 local SPELLBOOK_ABILITIES_BUTTON, MAX_PLAYER_LEVEL_TABLE = SPELLBOOK_ABILITIES_BUTTON, MAX_PLAYER_LEVEL_TABLE
 
--- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ReputationBar, ElvUI_ExperienceBar, SpellBookFrame
+-- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ExperienceBar, SpellBookFrame
 
 local SPACING = (E.PixelMode and 1 or 3)
 
@@ -172,7 +172,7 @@ end
 function BDB:UpdateXpNotifier()
 	local bar = ElvUI_ExperienceBar.statusBar
 	local maxLevel = MAX_PLAYER_LEVEL_TABLE[GetExpansionLevel()];
-	if(UnitLevel('player') == maxLevel) or IsXPUserDisabled() or E.db.databars.reputation.orientation ~= 'VERTICAL' then
+	if(UnitLevel('player') == maxLevel) or IsXPUserDisabled() or E.db.databars.experience.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
 		bar.f:Show()
