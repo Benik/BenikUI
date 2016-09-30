@@ -1,5 +1,5 @@
-/label ~Bug
-
+~Bug
+<!--- Use the Preview button to see how the report looks. Please don't delete the first line or the lines in ** -->
 **Description**
 <!--- Please give a short description of the issue here -->
 
