@@ -131,7 +131,7 @@ P['benikui'] = {
 				['ShowInfoText'] = true,
 				['castText'] = true,
 				['forceTargetText'] = false,
-				['texture'] = 'BuiEmpty',
+				['texture'] = 'BuiFlat',
 				['textColor'] = {r = 1, g = 1, b = 1, a = 1},
 			},
 		},
