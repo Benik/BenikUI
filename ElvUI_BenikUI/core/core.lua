@@ -133,39 +133,11 @@ local function GameMenuButton()
 	lib:UpdateHolder()
 end
 
--- Clean ElvUI.lua in WTF folder from outdated settings
-local function dbCleaning()
-	-- Player Castbar icon detach
-	if E.db.unitframe.units.player.castbar.detachCastbarIcon then E.db.unitframe.units.player.castbar.detachCastbarIcon = nil end
-	if E.db.unitframe.units.player.castbar.detachediconSize then E.db.unitframe.units.player.castbar.detachediconSize = nil end
-	if E.db.unitframe.units.player.castbar.xOffset then E.db.unitframe.units.player.castbar.xOffset = nil end
-	if E.db.unitframe.units.player.castbar.yOffset then E.db.unitframe.units.player.castbar.yOffset = nil end
-	
-	-- Target Castbar icon detach
-	if E.db.unitframe.units.target.castbar.detachCastbarIcon then E.db.unitframe.units.target.castbar.detachCastbarIcon = nil end
-	if E.db.unitframe.units.target.castbar.detachediconSize then E.db.unitframe.units.target.castbar.detachediconSize = nil end
-	if E.db.unitframe.units.target.castbar.xOffset then E.db.unitframe.units.target.castbar.xOffset = nil end
-	if E.db.unitframe.units.target.castbar.yOffset then E.db.unitframe.units.target.castbar.yOffset = nil end
-
-	-- Clear the old db
-	if E.db.bui then E.db.bui = nil end
-	if E.db.bab then E.db.bab = nil end
-	if E.db.buixprep then E.db.buixprep = nil end
-	if E.db.ufb then E.db.ufb = nil end
-	if E.db.elvuiaddons then E.db.elvuiaddons = nil end
-	if E.db.buiaddonskins then E.db.buiaddonskins = nil end
-	if E.db.buiVariousSkins then E.db.buiVariousSkins = nil end
-	
-	E.db.benikui.dbCleaned = true
-end
-
 function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:LoadCommands()
 	
-	if E.db.benikui.dbCleaned ~= true then
-		dbCleaning()
-	end
+	if E.db.benikui.dbCleaned then E.db.benikui.dbCleaned = nil end -- Deleted old settings db check
 	
 	if E.db.benikui.general.splashScreen then
 		CreateSplashScreen()

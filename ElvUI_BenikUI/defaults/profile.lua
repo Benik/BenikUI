@@ -144,9 +144,6 @@ P['benikui'] = {
 			['portraitTransparency'] = 0.70,
 		},
 	},
-	
-	-- db
-	['dbCleaned'] = false,
 }
 
 -- Datatexts
