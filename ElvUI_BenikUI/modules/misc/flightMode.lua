@@ -220,6 +220,13 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel.backdrop.shadow:Show()
 		LeftChatPanel:ClearAllPoints()
 		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
+		
+		-- Hide SquareMinimapButtonBar
+		if IsAddOnLoaded("SquareMinimapButtons") then
+			if SquareMinimapButtonOptions.BarEnabled == true then
+				SquareMinimapButtonBar:Hide()
+			end
+		end
 
 		-- Disable Blizz location messsages
 		ZoneTextFrame:UnregisterAllEvents()
@@ -275,6 +282,13 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel.backdrop.shadow:Hide()
 		LeftChatPanel:ClearAllPoints()
 		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
+		
+		-- Show SquareMinimapButtonBar
+		if IsAddOnLoaded("SquareMinimapButtons") then
+			if SquareMinimapButtonOptions.BarEnabled == true then
+				SquareMinimapButtonBar:Show()
+			end
+		end
 
 		self.inFlightMode = false
 	end
