@@ -30,7 +30,7 @@ function UFB:Update_PartyFrames(frame, db)
 
 	end
 	
-	frame:UpdateAllElements()
+	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
 function UFB:InitParty()

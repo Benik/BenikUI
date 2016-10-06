@@ -56,7 +56,7 @@ function UFB:ArrangePlayer()
 	-- Rest Icon
 	UFB:Configure_RestingIndicator(frame)
 
-	frame:UpdateAllElements()
+	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
 function UFB:InitPlayer()

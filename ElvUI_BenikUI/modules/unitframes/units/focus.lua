@@ -13,7 +13,7 @@ function UFB:ArrangeFocus()
 	-- Portrait
 	UFB:Configure_Portrait(frame)
 	
-	frame:UpdateAllElements()
+	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
 function UFB:InitFocus()

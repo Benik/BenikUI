@@ -111,7 +111,7 @@ function UFB:ArrangeTarget()
 	-- Portrait
 	UFB:Configure_Portrait(frame, false)
 
-	frame:UpdateAllElements()
+	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
 function UFB:PLAYER_TARGET_CHANGED()

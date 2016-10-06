@@ -17,7 +17,7 @@ function UFB:Update_RaidFrames(frame, db)
 	-- Role Icon
 	UFB:Configure_RoleIcons(frame)
 
-	frame:UpdateAllElements()
+	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
 function UFB:InitRaid()

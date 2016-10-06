@@ -11,7 +11,7 @@ function UFB:Update_Raid40Frames(frame, db)
 
 	end
 
-	frame:UpdateAllElements()
+	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
 function UFB:InitRaid40()
