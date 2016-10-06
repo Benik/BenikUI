@@ -2,10 +2,8 @@ local E, L, V, P, G = unpack(ElvUI);
 local BDB = E:GetModule('BenikUI_databars');
 local BUI = E:GetModule('BenikUI');
 local M = E:GetModule('DataBars');
-local LO = E:GetModule('Layout');
 local LSM = LibStub('LibSharedMedia-3.0');
 local DT = E:GetModule('DataTexts');
-local BUIL = E:GetModule('BuiLayout');
 
 local _G = _G
 
@@ -30,24 +28,14 @@ local function onLeave(self)
 	GameTooltip:Hide()
 end
 
-local function ToggleBackdrop()
-	if E.db.benikuiDatabars.experience.enable then
-		if not E.db.benikui.datatexts.chat.backdrop then
-			if ElvUI_ExperienceBar.fb then
-				ElvUI_ExperienceBar.fb:SetTemplate('NoBackdrop')
-			end
-		else
-			if E.db.benikui.datatexts.chat.transparent then
-				if ElvUI_ExperienceBar.fb then
-					ElvUI_ExperienceBar.fb:SetTemplate('Transparent')
-				end
-			else
-				if ElvUI_ExperienceBar.fb then
-					ElvUI_ExperienceBar.fb:SetTemplate('Default', true)
-				end
-			end
-		end
-	end
+local function onEnter(self)
+	if self.template == 'NoBackdrop' then return end
+	self.sglow:Show()
+	GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
+	GameTooltip:ClearLines()
+	GameTooltip:AddLine(SPELLBOOK_ABILITIES_BUTTON, selectioncolor)
+	GameTooltip:Show()
+	if InCombatLockdown() then GameTooltip:Hide() end
 end
 
 local function StyleBar()
@@ -59,22 +47,14 @@ local function StyleBar()
 	xp.fb.sglow:Hide()
 	xp.fb:Point('TOPLEFT', xp, 'BOTTOMLEFT', 0, -SPACING)
 	xp.fb:Point('BOTTOMRIGHT', xp, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
-	xp.fb:SetScript('OnEnter', function(self)
-		self.sglow:Show()
-		GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
-		GameTooltip:ClearLines()
-		GameTooltip:AddLine(SPELLBOOK_ABILITIES_BUTTON, selectioncolor)
-		GameTooltip:Show()
-		if InCombatLockdown() then GameTooltip:Hide() end
-	end)
-	
+	xp.fb:SetScript('OnEnter', onEnter)
 	xp.fb:SetScript('OnLeave', onLeave)
 	
 	xp.fb:SetScript('OnClick', function(self)
 		if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end
 	end)
 	
-	ToggleBackdrop()
+	BDB:ToggleXPBackdrop()
 	
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	xp:Style('Outside')
@@ -118,6 +98,22 @@ function BDB:ChangeXPcolor()
 	else
 		elvxpstatus:SetStatusBarColor(BUI:unpackColor(db.xp))
 		elvrestedstatus:SetStatusBarColor(BUI:unpackColor(db.rested))
+	end
+end
+
+function BDB:ToggleXPBackdrop()
+	if E.db.benikuiDatabars.experience.enable ~= true then return end
+	local bar = ElvUI_ExperienceBar
+	local db = E.db.benikuiDatabars.experience
+
+	if bar.fb then
+		if db.buttonStyle == 'DEFAULT' then
+			bar.fb:SetTemplate('Default', true)
+		elseif db.buttonStyle == 'TRANSPARENT' then
+			bar.fb:SetTemplate('Transparent')
+		else
+			bar.fb:SetTemplate('NoBackdrop')
+		end
 	end
 end
 
@@ -201,7 +197,5 @@ function BDB:LoadXP()
 	StyleBar()
 	self:ApplyXpStyling()
 	
-	hooksecurefunc(BUIL, 'ToggleTransparency', ToggleBackdrop)
-	hooksecurefunc(LO, 'ToggleChatPanels', BDB.ApplyXpStyling)
 	hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.ApplyXpStyling)
 end

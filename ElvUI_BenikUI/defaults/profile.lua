@@ -201,6 +201,7 @@ P['benikuiDatabars'] = {
 	['experience'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
+		['buttonStyle'] = "DEFAULT",
 		['color'] = {
 			['default'] = true,
 			['xp'] = { r = 0, g = 0.4, b = 1, a = .8 },
@@ -216,6 +217,7 @@ P['benikuiDatabars'] = {
 	['reputation'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
+		['buttonStyle'] = "DEFAULT",
 		['color'] = {
 			['default'] = true,
 			['friendly'] = {r = 0, g = .6, b = .1, a = .8 },
@@ -233,6 +235,7 @@ P['benikuiDatabars'] = {
 	['artifact'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
+		['buttonStyle'] = "TRANSPARENT",
 		['color'] = {
 			['default'] = true,
 			['af'] = {r = .901, g = .8, b = .601, a = .8 },

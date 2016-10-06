@@ -2,10 +2,8 @@ local E, L, V, P, G = unpack(ElvUI);
 local BDB = E:GetModule('BenikUI_databars');
 local BUI = E:GetModule('BenikUI');
 local M = E:GetModule('DataBars');
-local LO = E:GetModule('Layout');
 local LSM = LibStub('LibSharedMedia-3.0');
 local DT = E:GetModule('DataTexts');
-local BUIL = E:GetModule('BuiLayout');
 
 local _G = _G
 
@@ -17,7 +15,7 @@ local ToggleCharacter = ToggleCharacter
 
 local FACTION_BAR_COLORS, BINDING_NAME_TOGGLECHARACTER2 = FACTION_BAR_COLORS, BINDING_NAME_TOGGLECHARACTER2
 
--- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ReputationBar, ElvUI_ExperienceBar, SpellBookFrame
+-- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ReputationBar, SpellBookFrame
 
 local SPACING = (E.PixelMode and 1 or 3)
 
@@ -26,24 +24,14 @@ local function onLeave(self)
 	GameTooltip:Hide()
 end
 
-local function ToggleBackdrop()
-	if E.db.benikuiDatabars.reputation.enable then
-		if not E.db.benikui.datatexts.chat.backdrop then
-			if ElvUI_ReputationBar.fb then
-				ElvUI_ReputationBar.fb:SetTemplate('NoBackdrop')
-			end
-		else
-			if E.db.benikui.datatexts.chat.transparent then
-				if ElvUI_ReputationBar.fb then
-					ElvUI_ReputationBar.fb:SetTemplate('Transparent')
-				end
-			else
-				if ElvUI_ReputationBar.fb then
-					ElvUI_ReputationBar.fb:SetTemplate('Default', true)
-				end
-			end
-		end
-	end
+local function onEnter(self)
+	if self.template == 'NoBackdrop' then return end
+	self.sglow:Show()
+	GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
+	GameTooltip:ClearLines()
+	GameTooltip:AddLine(BINDING_NAME_TOGGLECHARACTER2, selectioncolor)
+	GameTooltip:Show()
+	if InCombatLockdown() then GameTooltip:Hide() end
 end
 
 local function StyleBar()
@@ -56,22 +44,14 @@ local function StyleBar()
 	rp.fb:Point('TOPLEFT', rp, 'BOTTOMLEFT', 0, -SPACING)
 	rp.fb:Point('BOTTOMRIGHT', rp, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
 
-	rp.fb:SetScript('OnEnter', function(self)
-		self.sglow:Show()
-		GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
-		GameTooltip:ClearLines()
-		GameTooltip:AddLine(BINDING_NAME_TOGGLECHARACTER2, selectioncolor)
-		GameTooltip:Show()
-		if InCombatLockdown() then GameTooltip:Hide() end
-	end)
-	
+	rp.fb:SetScript('OnEnter', onEnter)
 	rp.fb:SetScript('OnLeave', onLeave)
 
 	rp.fb:SetScript('OnClick', function(self)
 		ToggleCharacter("ReputationFrame")
 	end)
 	
-	ToggleBackdrop()
+	BDB:ToggleRepBackdrop()
 	
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	rp:Style('Outside')
@@ -82,11 +62,7 @@ function BDB:ApplyRepStyling()
 	if E.db.databars.reputation.enable then
 		if rp.fb then
 			if E.db.databars.reputation.orientation == 'VERTICAL' then
-				if E.db.benikui.datatexts.chat.enable then
-					rp.fb:Show()
-				else
-					rp.fb:Hide()
-				end
+				rp.fb:Show()
 			else
 				rp.fb:Hide()
 			end
@@ -122,6 +98,22 @@ function BDB:ChangeRepColor()
 			elvstatus:SetStatusBarColor(BUI:unpackColor(db.unfriendly))
 		elseif reaction < 3 then
 			elvstatus:SetStatusBarColor(BUI:unpackColor(db.hated))
+		end
+	end
+end
+
+function BDB:ToggleRepBackdrop()
+	if E.db.benikuiDatabars.reputation.enable ~= true then return end
+	local bar = ElvUI_ReputationBar
+	local db = E.db.benikuiDatabars.reputation
+
+	if bar.fb then
+		if db.buttonStyle == 'DEFAULT' then
+			bar.fb:SetTemplate('Default', true)
+		elseif db.buttonStyle == 'TRANSPARENT' then
+			bar.fb:SetTemplate('Transparent')
+		else
+			bar.fb:SetTemplate('NoBackdrop')
 		end
 	end
 end
@@ -199,7 +191,5 @@ function BDB:LoadRep()
 	StyleBar()
 	self:ApplyRepStyling()
 	
-	hooksecurefunc(BUIL, 'ToggleTransparency', ToggleBackdrop)
-	hooksecurefunc(LO, 'ToggleChatPanels', BDB.ApplyRepStyling)
 	hooksecurefunc(M, 'UpdateReputationDimensions', BDB.ApplyRepStyling)
 end

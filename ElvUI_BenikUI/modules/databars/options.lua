@@ -8,6 +8,12 @@ local COMBAT_XP_GAIN, REPUTATION, ENABLE, COLOR, DEFAULT = COMBAT_XP_GAIN, REPUT
 local TUTORIAL_TITLE26, FACTION_STANDING_LABEL1, FACTION_STANDING_LABEL2 = TUTORIAL_TITLE26, FACTION_STANDING_LABEL1, FACTION_STANDING_LABEL2
 local FACTION_STANDING_LABEL3, FACTION_STANDING_LABEL4, FACTION_STANDING_LABEL5 = FACTION_STANDING_LABEL3, FACTION_STANDING_LABEL4, FACTION_STANDING_LABEL5
 
+local backdropValues = {
+	TRANSPARENT = L['Transparent'],
+	DEFAULT = DEFAULT,
+	NO_BACK = L['Without Backdrop'],
+}
+
 local function databarsTable()
 	E.Options.args.benikui.args.benikuiDatabars = {
 		order = 30,
@@ -41,8 +47,17 @@ local function databarsTable()
 						get = function(info) return E.db.benikuiDatabars.experience.buiStyle end,
 						set = function(info, value) E.db.benikuiDatabars.experience.buiStyle = value; BDB:ApplyXpStyling(); end,
 					},
-					color = {
+					buttonStyle = {
 						order = 3,
+						type = 'select',
+						name = L['Button Backdrop'],
+						disabled = function() return not E.db.benikuiDatabars.experience.enable end,
+						values = backdropValues,
+						get = function(info) return E.db.benikuiDatabars.experience.buttonStyle end,
+						set = function(info, value) E.db.benikuiDatabars.experience.buttonStyle = value; BDB:ToggleXPBackdrop(); end,
+					},
+					color = {
+						order = 4,
 						type = 'group',
 						name = COLOR,
 						guiInline = true,
@@ -94,7 +109,7 @@ local function databarsTable()
 						},
 					},
 					notifiers = {
-						order = 4,
+						order = 5,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,
@@ -150,8 +165,17 @@ local function databarsTable()
 						get = function(info) return E.db.benikuiDatabars.artifact.buiStyle end,
 						set = function(info, value) E.db.benikuiDatabars.artifact.buiStyle = value; BDB:ApplyAfStyling(); end,
 					},
-					color = {
+					buttonStyle = {
 						order = 3,
+						type = 'select',
+						name = L['Button Backdrop'],
+						disabled = function() return not E.db.benikuiDatabars.artifact.enable end,
+						values = backdropValues,
+						get = function(info) return E.db.benikuiDatabars.artifact.buttonStyle end,
+						set = function(info, value) E.db.benikuiDatabars.artifact.buttonStyle = value; BDB:ToggleAFBackdrop(); end,
+					},
+					color = {
+						order = 4,
 						type = 'group',
 						name = COLOR,
 						guiInline = true,
@@ -185,7 +209,7 @@ local function databarsTable()
 						},
 					},
 					notifiers = {
-						order = 4,
+						order = 5,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,
@@ -241,8 +265,17 @@ local function databarsTable()
 						get = function(info) return E.db.benikuiDatabars.reputation.buiStyle end,
 						set = function(info, value) E.db.benikuiDatabars.reputation.buiStyle = value; BDB:ApplyRepStyling(); end,
 					},
+					buttonStyle = {
+						order = 4,
+						type = 'select',
+						name = L['Button Backdrop'],
+						disabled = function() return not E.db.benikuiDatabars.reputation.enable end,
+						values = backdropValues,
+						get = function(info) return E.db.benikuiDatabars.reputation.buttonStyle end,
+						set = function(info, value) E.db.benikuiDatabars.reputation.buttonStyle = value; BDB:ToggleRepBackdrop(); end,
+					},
 					color = {
-						order = 3,
+						order = 5,
 						type = 'group',
 						name = COLOR,
 						guiInline = true,
@@ -330,7 +363,7 @@ local function databarsTable()
 						},
 					},
 					notifiers = {
-						order = 4,
+						order = 6,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,
