@@ -6,7 +6,7 @@ local _G = _G
 local GetTime = GetTime
 local tonumber, pcall, unpack = tonumber, pcall, unpack
 local floor = floor
-local format, strsub = string.format, string.sub
+local format, strsub, join = string.format, string.sub, string.join
 
 local GameTooltip = _G["GameTooltip"]
 local WorldMapFrame = _G["WorldMapFrame"]
@@ -189,7 +189,29 @@ end
 
 function BFM:UpdateTimer()
 	local time = GetTime() - self.startTime
-	self.FlightMode.bottom.timeFlying:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
+	self.FlightMode.bottom.timeFlying.txt:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
+end
+
+local statusColors = {
+	'|cff0CD809',	-- green
+	'|cffE8DA0F',	-- yellow
+	'|cffD80909'	-- red
+}
+
+function BFM:UpdateFps()	
+	local value = floor(GetFramerate())
+	local fpscolor = 3
+	local max = 120
+
+	if(value * 100 / max >= 45) then
+		fpscolor = 1
+	elseif value * 100 / max < 45 and value * 100 / max > 30 then
+		fpscolor = 2
+	else
+		fpscolor = 3
+	end
+	local displayFormat = join('', statusColors[fpscolor], '%d|rFps')
+	self.FlightMode.bottom.fps.txt:SetFormattedText(displayFormat, value)
 end
 
 function BFM:SetFlightMode(status)
@@ -235,6 +257,7 @@ function BFM:SetFlightMode(status)
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
 		self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
+		self.fpsTimer = self:ScheduleRepeatingTimer('UpdateFps', 1)
 
 		self.inFlightMode = true
 	elseif(self.inFlightMode) then
@@ -256,8 +279,9 @@ function BFM:SetFlightMode(status)
 		self:CancelTimer(self.locationTimer)
 		self:CancelTimer(self.coordsTimer)
 		self:CancelTimer(self.timer)
+		self:CancelTimer(self.fpsTimer)
 
-		self.FlightMode.bottom.timeFlying:SetText("00:00")
+		self.FlightMode.bottom.timeFlying.txt:SetText("00:00")
 		self.FlightMode.bottom.requestStop:EnableMouse(true)
 		self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
 		self.FlightMode.message:Hide()
@@ -433,8 +457,8 @@ function BFM:Initialize()
 	
 	self.FlightMode.top.location.y.text = self.FlightMode.top.location.y:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.top.location.y.text:FontTemplate(nil, 18)
-	self.FlightMode.top.location.y.text:Point('CENTER')	
-
+	self.FlightMode.top.location.y.text:Point('CENTER')
+	
 	-- Bottom frame
 	self.FlightMode.bottom = CreateFrame("Frame", nil, self.FlightMode)
 	self.FlightMode.bottom:SetFrameLevel(0)
@@ -628,13 +652,27 @@ function BFM:Initialize()
 		PlaySound("igMainMenuOptionCheckBoxOff");
 		ToggleAllBags()
 	end)
-	
+
 	-- Time flying
-	self.FlightMode.bottom.timeFlying = self.FlightMode.bottom:CreateFontString(nil, 'OVERLAY')
-	self.FlightMode.bottom.timeFlying:FontTemplate(nil, 16)
-	self.FlightMode.bottom.timeFlying:SetText("00:00")
+	self.FlightMode.bottom.timeFlying = CreateFrame('Frame', nil, self.FlightMode.bottom)
 	self.FlightMode.bottom.timeFlying:Point("RIGHT", self.FlightMode.bottom, "RIGHT", -10, 0)
-	self.FlightMode.bottom.timeFlying:SetTextColor(1, 1, 1)
+	self.FlightMode.bottom.timeFlying:SetTemplate("Default")
+	self.FlightMode.bottom.timeFlying:Size(70,30)	
+	self.FlightMode.bottom.timeFlying.txt = self.FlightMode.bottom.timeFlying:CreateFontString(nil, 'OVERLAY')
+	self.FlightMode.bottom.timeFlying.txt:FontTemplate(nil, 14)
+	self.FlightMode.bottom.timeFlying.txt:SetText("00:00")
+	self.FlightMode.bottom.timeFlying.txt:Point("CENTER", self.FlightMode.bottom.timeFlying, "CENTER")
+	self.FlightMode.bottom.timeFlying.txt:SetTextColor(1, 1, 1)
+	
+	-- fps
+	self.FlightMode.bottom.fps = CreateFrame('Frame', nil, self.FlightMode.bottom)
+	self.FlightMode.bottom.fps:Point('RIGHT', self.FlightMode.bottom.timeFlying, 'LEFT', -10, 0)
+	self.FlightMode.bottom.fps:SetTemplate("Default")
+	self.FlightMode.bottom.fps:Size(70,30)
+	self.FlightMode.bottom.fps.txt = self.FlightMode.bottom.fps:CreateFontString(nil, 'OVERLAY')
+	self.FlightMode.bottom.fps.txt:FontTemplate(nil, 14)
+	self.FlightMode.bottom.fps.txt:Point('CENTER', self.FlightMode.bottom.fps, 'CENTER')
+	self.FlightMode.bottom.fps.txt:SetText("")
 	
 	-- Add Shadow at the bags
 	if ElvUI_ContainerFrame then
