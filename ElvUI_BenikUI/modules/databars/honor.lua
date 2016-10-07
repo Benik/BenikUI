@@ -44,7 +44,16 @@ local function StyleBar()
 	bar.fb:SetScript('OnLeave', onLeave)
 	
 	bar.fb:SetScript('OnClick', function(self)
-		-- ToDo
+		if not PlayerTalentFrame then
+			TalentFrame_LoadUI()
+		end
+
+		if not PlayerTalentFrame:IsShown() then
+			ShowUIPanel(PlayerTalentFrame)
+			_G["PlayerTalentFrameTab"..PVP_TALENTS_TAB]:Click()
+		else
+			HideUIPanel(PlayerTalentFrame)
+		end
 	end)
 	
 	BDB:ToggleHonorBackdrop()
