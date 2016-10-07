@@ -419,8 +419,17 @@ local function databarsTable()
 						get = function(info) return E.db.benikuiDatabars.honor.buiStyle end,
 						set = function(info, value) E.db.benikuiDatabars.honor.buiStyle = value; BDB:ApplyHonorStyling(); end,
 					},
-					color = {
+					buttonStyle = {
 						order = 3,
+						type = 'select',
+						name = L['Button Backdrop'],
+						disabled = function() return not E.db.benikuiDatabars.honor.enable end,
+						values = backdropValues,
+						get = function(info) return E.db.benikuiDatabars.honor.buttonStyle end,
+						set = function(info, value) E.db.benikuiDatabars.honor.buttonStyle = value; BDB:ToggleHonorBackdrop(); end,
+					},
+					color = {
+						order = 4,
 						type = 'group',
 						name = COLOR,
 						guiInline = true,
@@ -454,7 +463,7 @@ local function databarsTable()
 						},
 					},
 					notifiers = {
-						order = 4,
+						order = 5,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,
