@@ -145,6 +145,8 @@ L['Show BenikUI decorative bars on the default ElvUI XP bar'] = "Zeige BenikUI d
 L['Show BenikUI decorative bars on the default ElvUI Artifact bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Artefaktleiste"
 L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Rufleiste"
 L['Show BenikUI decorative bars on the default ElvUI Honor bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Ehrenleiste"
+L['Button Backdrop'] = true
+L['Without Backdrop'] = true
 
 -- Skins Options
 L['AddOnSkins'] = true

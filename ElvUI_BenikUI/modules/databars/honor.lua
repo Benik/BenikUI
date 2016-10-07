@@ -2,10 +2,17 @@ local E, L, V, P, G = unpack(ElvUI);
 local BDB = E:GetModule('BenikUI_databars');
 local BUI = E:GetModule('BenikUI');
 local M = E:GetModule('DataBars');
-local LO = E:GetModule('Layout');
 local LSM = LibStub('LibSharedMedia-3.0');
 local DT = E:GetModule('DataTexts');
-local BUIL = E:GetModule('BuiLayout');
+
+local _G = _G
+
+local CreateFrame = CreateFrame
+local GameTooltip = _G["GameTooltip"]
+local InCombatLockdown = InCombatLockdown
+local HONOR = HONOR
+
+-- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ArtifactBar, ArtifactFrame
 
 local SPACING = (E.PixelMode and 1 or 3)
 
@@ -14,25 +21,14 @@ local function onLeave(self)
 	GameTooltip:Hide()
 end
 
-local function ToggleBackdrop()
-	local bar = ElvUI_HonorBar
-	if E.db.benikuiDatabars.honor.enable then
-		if not E.db.benikui.datatexts.chat.backdrop then
-			if bar.fb then
-				bar.fb:SetTemplate('NoBackdrop')
-			end
-		else
-			if E.db.benikui.datatexts.chat.transparent or E.db.datatexts.panelTransparency then
-				if bar.fb then
-					bar.fb:SetTemplate('Transparent')
-				end
-			else
-				if bar.fb then
-					bar.fb:SetTemplate('Default', true)
-				end
-			end
-		end
-	end
+local function onEnter(self)
+	if self.template == 'NoBackdrop' then return end
+	self.sglow:Show()
+	GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
+	GameTooltip:ClearLines()
+	GameTooltip:AddLine(HONOR, selectioncolor)
+	GameTooltip:Show()
+	if InCombatLockdown() then GameTooltip:Hide() end
 end
 
 local function StyleBar()
@@ -44,22 +40,14 @@ local function StyleBar()
 	bar.fb.sglow:Hide()
 	bar.fb:Point('TOPLEFT', bar, 'BOTTOMLEFT', 0, -SPACING)
 	bar.fb:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
-	bar.fb:SetScript('OnEnter', function(self)
-		self.sglow:Show()
-		GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
-		GameTooltip:ClearLines()
-		GameTooltip:AddLine(HONOR, selectioncolor)
-		GameTooltip:Show()
-		if InCombatLockdown() then GameTooltip:Hide() end
-	end)
-	
+	bar.fb:SetScript('OnEnter', onEnter)
 	bar.fb:SetScript('OnLeave', onLeave)
 	
 	bar.fb:SetScript('OnClick', function(self)
 		-- ToDo
 	end)
 	
-	ToggleBackdrop()
+	BDB:ToggleHonorBackdrop()
 	
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	bar:Style('Outside')
@@ -69,19 +57,15 @@ function BDB:ApplyHonorStyling()
 	local bar = ElvUI_HonorBar
 	if E.db.databars.honor.enable then
 		if bar.fb then
-			if E.db.databars.honor.orientation == 'VERTICAL' then
-				if E.db.benikui.datatexts.chat.enable then 
-					bar.fb:Show()
-				else
-					bar.fb:Hide()
-				end
+			if E.db.databars.artifact.orientation == 'VERTICAL' then
+				bar.fb:Show()
 			else
 				bar.fb:Hide()
 			end
 		end
 	end	
 	
-	if E.db.benikuiDatabars.honor.buiStyle then
+	if E.db.benikuiDatabars.artifact.buiStyle then
 		if bar.style then
 			bar.style:Show()
 		end
@@ -100,6 +84,22 @@ function BDB:ChangeHonorColor()
 		bar.statusBar:SetStatusBarColor(0.941, 0.447, 0.254, 0.8)
 	else
 		bar.statusBar:SetStatusBarColor(BUI:unpackColor(db.hn))
+	end
+end
+
+function BDB:ToggleHonorBackdrop()
+	if E.db.benikuiDatabars.honor.enable ~= true then return end
+	local bar = ElvUI_HonorBar
+	local db = E.db.benikuiDatabars.honor
+
+	if bar.fb then
+		if db.buttonStyle == 'DEFAULT' then
+			bar.fb:SetTemplate('Default', true)
+		elseif db.buttonStyle == 'TRANSPARENT' then
+			bar.fb:SetTemplate('Transparent')
+		else
+			bar.fb:SetTemplate('NoBackdrop')
+		end
 	end
 end
 
@@ -156,7 +156,7 @@ function BDB:UpdateHonorNotifier()
 		local level = UnitHonorLevel("player");
         local levelmax = GetMaxPlayerHonorLevel();
 
-		if max == 0 then max = 1 end
+		if max == 0 then max = 1 end --this still pops error
 
 		if (CanPrestige()) then
 			text = 'P'
@@ -189,8 +189,5 @@ function BDB:LoadHonor()
 	StyleBar()
 	self:ApplyHonorStyling()
 	
-	hooksecurefunc(BUIL, 'ToggleTransparency', ToggleBackdrop)
-	hooksecurefunc(LO, 'ToggleChatPanels', BDB.ApplyHonorStyling)
-	hooksecurefunc(LO, 'SetDataPanelStyle', ToggleBackdrop)
 	hooksecurefunc(M, 'UpdateHonorDimensions', BDB.ApplyHonorStyling)
 end

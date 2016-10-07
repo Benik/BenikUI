@@ -250,6 +250,7 @@ P['benikuiDatabars'] = {
 	['honor'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
+		['buttonStyle'] = "DEFAULT",
 		['color'] = {
 			['default'] = true,
 			['hn'] = {r = .941, g = .447, b = .254, a = .8 },

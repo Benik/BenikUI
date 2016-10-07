@@ -145,6 +145,8 @@ L['Show BenikUI decorative bars on the default ElvUI XP bar'] = true
 L['Show BenikUI decorative bars on the default ElvUI Artifact bar'] = true
 L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = true
 L['Show BenikUI decorative bars on the default ElvUI Honor bar'] = true
+L['Button Backdrop'] = true
+L['Without Backdrop'] = true
 
 -- Skins Options
 L['AddOnSkins'] = true
