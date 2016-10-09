@@ -173,6 +173,7 @@ function BDB:UpdateXpNotifier()
 	else
 		bar.f:Show()
 		local cur, max = BDB:GetXP('player')
+		if max == 0 then max = 1 end
 		bar.f.txt:SetFormattedText('%d%%', cur / max * 100)
 	end
 end
