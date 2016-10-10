@@ -56,6 +56,21 @@ local OnEvent = function(self, event)
 	lastPanel = self
 end
 
+local garrisonType = LE_GARRISON_TYPE_6_0;
+
+local function OnClick()
+	local isShown = GarrisonLandingPage and GarrisonLandingPage:IsShown();
+	if (not isShown) then
+		ShowGarrisonLandingPage(garrisonType);
+	elseif (GarrisonLandingPage) then
+		local currentGarrType = GarrisonLandingPage.garrTypeID;
+		HideUIPanel(GarrisonLandingPage);
+		if (currentGarrType ~= garrisonType) then
+			ShowGarrisonLandingPage(garrisonType);
+		end
+	end
+end
+
 local function sortFunction(a, b)
 	return a.missionEndTime < b.missionEndTime
 end
@@ -175,4 +190,4 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
-DT:RegisterDatatext('Garrison+ (BenikUI)', {'PLAYER_ENTERING_WORLD', 'GARRISON_MISSION_STARTED', 'GARRISON_MISSION_FINISHED', 'GARRISON_MISSION_COMPLETE_RESPONSE', 'ZONE_CHANGED_NEW_AREA'}, OnEvent, nil, GarrisonLandingPage_Toggle, OnEnter)
+DT:RegisterDatatext('Garrison+ (BenikUI)', {'PLAYER_ENTERING_WORLD', 'GARRISON_MISSION_STARTED', 'GARRISON_MISSION_FINISHED', 'GARRISON_MISSION_COMPLETE_RESPONSE', 'ZONE_CHANGED_NEW_AREA'}, OnEvent, nil, OnClick, OnEnter)
