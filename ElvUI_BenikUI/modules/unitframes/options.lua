@@ -250,7 +250,7 @@ local function ufPlayerTable()
 						type = 'range',
 						name = L['Style Height'],
 						disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.player.portraitStyle end,
-						min = 4, max = 20, step = 1,
+						min = 3, max = 20, step = 1,
 					},
 				},
 			},
