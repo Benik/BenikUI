@@ -32,7 +32,7 @@ local ORDER_HALL_MISSIONS = ORDER_HALL_MISSIONS
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS: GarrisonLandingPage
-
+local displayModifierString = ''
 local lastPanel;
 
 local function sortFunction(a, b)
@@ -41,6 +41,8 @@ end
 
 local function OnEnter(self)
 	DT:SetupTooltip(self)
+
+	C_GarrisonRequestLandingPageShipmentInfo()
 
 	local firstLine = true
 
