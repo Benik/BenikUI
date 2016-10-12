@@ -1,3 +1,27 @@
+[b]3.08[/b]
+*Fixed detached portrait style height and also lowered the minimum height option from 4 to 3
+*Added Order Hall Datatext. This will show missions instead
+*Removed Roadway font. Merathilis has his own ui now :P 
+*Guard against a rare lua error in the experience databar notifier 
+*Fixed max player level for Honor Databar. This should deal with #51 
+*AFK mode: Added backdrops under XP remaining string
+*Game Menu: Added Talents, Specialization, PvP Talents
+*Clicking the Honor button will show the PvP Talents frame 
+*Added fps in FlightMode 
+*Databar buttons now have their own backdrop option
+*Adopted ElvUI beta oUF changes 
+*Added tab chat flash 
+*Changed the default castbar texture to a non transparent one, so that the interrupt casts color shows
+*Fixed a copy/paste error in experience databar. This should fix #50 
+*Disable OrdeHall styling when GarrisonCommander addon is loaded. This should fix #47 
+*Styled all order hall mission tooltips
+*Fixed World Quest tooltips style
+*Updated donor list 
+*Prevent tooltip style to go off screen
+*Fixed code to prevent a HonorBar error
+*Added option on System Dashboard to show World or Home Latency. Default is World. Also added tooltip.
+*Styled Obliterum Forge Frame, Garrison Talent AlertFrame, Bonus Roll frame, Guild Invite frame
+
 [b]3.07[/b]
 *Fixed a honorbar lua error
 *BenikUI Style for the BattlePet Ability Tooltip
