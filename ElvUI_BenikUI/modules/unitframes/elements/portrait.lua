@@ -9,7 +9,7 @@ function UFB:Configure_Portrait(frame, isPlayer)
 	if frame.USE_PORTRAIT then
 		if frame.USE_PORTRAIT_OVERLAY then
 			if db.portrait.style == '3D' then
-				portrait:SetFrameLevel(frame.Health:GetFrameLevel() + 1)
+				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
 			end
 
 			portrait:SetAllPoints(frame.Health)
