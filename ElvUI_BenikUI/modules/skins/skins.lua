@@ -348,6 +348,7 @@ local function styleFreeBlizzardFrames()
 	if db.loot then
 		LootFrame:Style('Outside')
 		MasterLooterFrame:Style('Outside')
+		BonusRollFrame:Style('Outside')
 	end
 	
 	if db.mail then
