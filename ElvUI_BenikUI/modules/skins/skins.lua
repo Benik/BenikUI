@@ -562,8 +562,10 @@ local function styleAlertFrames()
 	hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", StyleRecipeLearnedAlert)
 	
 	for _, frame in pairs(staticAlertFrames) do
-		if frame then
-			frame.backdrop:Style('Outside')
+		if not frame.backdrop.style then
+			if frame.backdrop then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end
 end
