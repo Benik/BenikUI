@@ -105,7 +105,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(Fancy22Font,						NORMAL, 20)									 -- Talking frame Title font
 		SetFont(Fancy24Font,						NORMAL, 20)									 -- Artifact frame - weapon name
 		SetFont(Game30Font,							NORMAL, 28)									 -- Mission Level
-		--SetFont(SystemFont_Shadow_Med2,				NORMAL, 16)
+		SetFont(SystemFont_Shadow_Med2,				NORMAL, 15)									 -- Shows Order resourses on OrderHallTalentFrame
 		--SetFont(GameFontHighlightLeft,				NORMAL, 16)
 		--SetFont(GameFontHighlightMed2, 				NORMAL, self.db.general.fontSize*1.1);		
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
