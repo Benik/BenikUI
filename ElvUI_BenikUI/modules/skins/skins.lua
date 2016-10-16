@@ -745,8 +745,10 @@ function BUIS:BenikUISkins()
 			_G["WorldMapFrame"].BorderFrame.backdrop:Style('Outside')
 		end
 		
-		if not _G["WorldMapTooltip"].BackdropFrame.style then
-			_G["WorldMapTooltip"].BackdropFrame:Style('Outside')
+		if _G["WorldMapTooltip"].BackdropFrame then
+			if not _G["WorldMapTooltip"].BackdropFrame.style then
+				_G["WorldMapTooltip"].BackdropFrame:Style('Outside')
+			end
 		end
 
 		for i, tooltip in ipairs(WorldMapTooltip.ItemTooltip.Tooltip.shoppingTooltips) do
