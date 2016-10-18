@@ -165,8 +165,6 @@ local function ResetPostUpdate()
 	end
 
 	for _, header in pairs(UF.headers) do
-		local name = header.groupName
-
 		for i = 1, header:GetNumChildren() do
 			local group = select(i, header:GetChildren())
 			--group is Tank/Assist Frames, but for Party/Raid we need to go deeper

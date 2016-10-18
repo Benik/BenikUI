@@ -1,6 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
-local BUIS = E:GetModule('BuiSkins');
 
 local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack

@@ -1,8 +1,7 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
-local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
-local twipe, pairs, select, random = table.wipe, pairs, select, random
+local pairs, select, random = pairs, select, random
 
 -- GLOBALS: hooksecurefunc
 
@@ -108,7 +107,7 @@ f:SetScript("OnEvent", function(self, event)
 	if IsAddOnLoaded("ElvUI_SLE") or E.db.benikui.unitframes.misc.svui == false then return end
 	SetRoleIcons()
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRoleIcons")
-	--hooksecurefunc(UF, 'Update_PartyFrames', SetRoleIcons)
-	--hooksecurefunc(UF, 'Update_RaidFrames', SetRoleIcons)
-	--hooksecurefunc(UF, 'Update_Raid40Frames', SetRoleIcons)
+	hooksecurefunc(UF, 'Update_PartyFrames', SetRoleIcons)
+	hooksecurefunc(UF, 'Update_RaidFrames', SetRoleIcons)
+	hooksecurefunc(UF, 'Update_Raid40Frames', SetRoleIcons)
 end)

@@ -44,9 +44,6 @@ end
 local function CreateSoftGlow(f)
 	if f.sglow then return end
 
-	local borderr, borderg, borderb = 1, 1, .5
-	local backdropr, backdropg, backdropb = 1, 1, .5
-
 	local sglow = CreateFrame('Frame', nil, f)
 	sglow:SetFrameLevel(1)
 	sglow:SetFrameStrata(f:GetFrameStrata())

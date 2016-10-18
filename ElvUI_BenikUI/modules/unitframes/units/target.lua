@@ -44,7 +44,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 
 		if frame.USE_PORTRAIT and portrait.backdrop.style and E.db.benikui.unitframes.target.portraitStyle then
 			local maxValue = UnitPowerMax("target")
-			local pType, pToken, altR, altG, altB = UnitPowerType("target")
+			local _, pToken, altR, altG, altB = UnitPowerType("target")
 			local mu = power.bg.multiplier or 1
 			local color = ElvUF['colors'].power[pToken]
 			local isPlayer = UnitIsPlayer("target")

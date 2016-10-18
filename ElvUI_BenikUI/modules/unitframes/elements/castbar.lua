@@ -2,7 +2,6 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BUIC = E:NewModule('BuiCastbar', 'AceTimer-3.0', 'AceEvent-3.0')
 local UF = E:GetModule('UnitFrames');
-local UFB = E:GetModule('BuiUnits');
 local LSM = LibStub("LibSharedMedia-3.0");
 
 --[[

@@ -18,7 +18,6 @@ end
 
 local lastPanel
 local displayString = ''
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local dataLayout = {
 	['LeftChatDataPanel'] = {

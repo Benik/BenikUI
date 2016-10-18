@@ -15,7 +15,6 @@ local InCombatLockdown = InCombatLockdown
 local IsXPUserDisabled = IsXPUserDisabled
 local UnitLevel = UnitLevel
 local UnitXP, UnitXPMax = UnitXP, UnitXPMax
-local ToggleCharacter = ToggleCharacter
 
 local SPELLBOOK_ABILITIES_BUTTON, MAX_PLAYER_LEVEL_TABLE = SPELLBOOK_ABILITIES_BUTTON, MAX_PLAYER_LEVEL_TABLE
 

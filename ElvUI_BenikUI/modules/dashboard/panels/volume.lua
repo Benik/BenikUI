@@ -16,8 +16,6 @@ local BINDING_NAME_TOGGLESOUND, BINDING_NAME_TOGGLEMUSIC = BINDING_NAME_TOGGLESO
 
 -- GLOBALS: selectioncolor
 
-local SPACING = (E.PixelMode and 1 or 5)
-
 local function GetVolumePercent(cat)
 	local volume = tonumber(GetCVar(cat));
 	volume = floor(volume * 100);

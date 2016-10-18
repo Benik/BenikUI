@@ -1,6 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
-local UF = E:GetModule('UnitFrames');
 
 function UFB:Configure_Threat(frame)
 	local threat = frame.Threat

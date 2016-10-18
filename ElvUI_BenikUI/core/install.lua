@@ -31,15 +31,6 @@ local MAX_PAGE = 9
 
 local titleText = {}
 
-local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
-	if not _G[mover] then return end
-	local frame = _G[mover]
-
-	frame:ClearAllPoints()
-	frame:SetPoint(point, anchor, secondaryPoint, x, y)
-	E:SaveMoverPosition(mover)
-end
-
 local function SetupBuiLayout()
 	
 	-- General

@@ -1,6 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local AFK = E:GetModule('AFK')
-local LSM = LibStub('LibSharedMedia-3.0')
 local BUI = E:GetModule('BenikUI');
 
 local format, gsub, random, lower, upper, tonumber, date, floor = string.format, gsub, random, string.lower, string.upper, tonumber, date, floor
@@ -17,11 +16,9 @@ local UnitLevel = UnitLevel
 local InCombatLockdown = InCombatLockdown
 
 local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE
-local CAMP_TIMER, MAX_PLAYER_LEVEL, LEVEL, NONE = CAMP_TIMER, MAX_PLAYER_LEVEL, LEVEL, NONE
+local CAMP_TIMER, LEVEL, NONE = CAMP_TIMER, LEVEL, NONE
 
 -- GLOBALS: CreateAnimationGroup, UIParent
-
-local SPACING = (E.PixelMode and 1 or 5)
 
 -- Source wowhead.com
 local stats = {

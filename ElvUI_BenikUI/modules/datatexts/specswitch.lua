@@ -19,7 +19,6 @@ local SELECT_LOOT_SPECIALIZATION, LOOT_SPECIALIZATION_DEFAULT = SELECT_LOOT_SPEC
 
 local lastPanel, active
 local displayString = '';
-local talent = {}
 local activeString = join("", "|cff00FF00" , ACTIVE_PETS, "|r")
 local inactiveString = join("", "|cffFF0000", FACTION_INACTIVE, "|r")
 
@@ -43,7 +42,7 @@ local specList = {
 	{ notCheckable = true }
 }
 
-local function OnEvent(self, event)
+local function OnEvent(self)
 	lastPanel = self
 
 	local specIndex = GetSpecialization();
@@ -78,7 +77,7 @@ local function OnEnter(self)
 		local specIndex = GetSpecialization();
 
 		if specIndex then
-			local specID, name = GetSpecializationInfo(specIndex);
+			local _, name = GetSpecializationInfo(specIndex);
 			DT.tooltip:AddLine(format('|cffFFFFFF%s:|r %s', SELECT_LOOT_SPECIALIZATION, format(LOOT_SPECIALIZATION_DEFAULT, name)))
 		end
 	else

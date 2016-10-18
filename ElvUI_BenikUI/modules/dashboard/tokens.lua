@@ -285,7 +285,6 @@ end
 
 function BUIT:TokenEvents()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateTokens')
-	self:RegisterEvent('PLAYER_HONOR_GAIN', 'UpdateTokens')
 	self:RegisterEvent('CURRENCY_DISPLAY_UPDATE', 'UpdateTokens')
 	self:SecureHook('BackpackTokenFrame_Update', 'UpdateTokens')
 	self:SecureHook('TokenFrame_Update', 'UpdateTokens')

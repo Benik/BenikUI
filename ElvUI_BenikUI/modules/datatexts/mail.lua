@@ -1,6 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
-local LSM = LibStub('LibSharedMedia-3.0')
 
 local HasNewMail = HasNewMail
 local GetInboxNumItems = GetInboxNumItems

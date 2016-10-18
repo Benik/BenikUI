@@ -9,7 +9,6 @@ local _G = _G
 local pairs, print = pairs, print
 local format = string.format
 local CreateFrame = CreateFrame
-local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 local PlaySound = PlaySound
 local HideUIPanel = HideUIPanel

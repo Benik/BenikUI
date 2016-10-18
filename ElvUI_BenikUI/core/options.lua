@@ -5,8 +5,8 @@ if E.db.benikui == nil then E.db.benikui = {} end
 local format = string.format
 local tinsert = table.insert
 
-local CLASS_COLORS, COLOR, CUSTOM, DEFAULT = CLASS_COLORS, COLOR, CUSTOM, DEFAULT
-local COLORS, COLOR_PICKER, MISCELLANEOUS, RARITY, FONT_SIZE = COLORS, COLOR_PICKER, MISCELLANEOUS, RARITY, FONT_SIZE
+local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
+local COLORS, COLOR_PICKER = COLORS, COLOR_PICKER
 local StaticPopup_Show = StaticPopup_Show
 
 	StaticPopupDialogs["BENIKUI_CREDITS"] = {

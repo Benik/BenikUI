@@ -28,7 +28,7 @@ local lastPanel;
 local GARRISON_CURRENCY = 824
 local GARRISON_CURRENCY_OIL = 1101
 
-local OnEvent = function(self, event)
+local OnEvent = function(self)
 	
 	local inProgressMissions = {};
 	C_GarrisonGetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_6_0)

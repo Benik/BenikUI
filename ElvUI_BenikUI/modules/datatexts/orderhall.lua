@@ -171,7 +171,7 @@ local function OnClick()
 end
 
 local _, class = UnitClass("player");
-local function OnEvent(self, event)
+local function OnEvent(self)
 	local inProgressMissions = {};
 	C_GarrisonGetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_7_0)
 	local CountInProgress = 0

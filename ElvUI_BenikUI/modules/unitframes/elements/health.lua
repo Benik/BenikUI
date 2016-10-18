@@ -5,7 +5,7 @@ local LSM = LibStub("LibSharedMedia-3.0");
 UF.LSM = LSM
 
 local _G = _G
-local pairs, select = pairs, select
+local select = select
 
 -- Raid
 function UFB:ChangeRaidHealthBarTexture()

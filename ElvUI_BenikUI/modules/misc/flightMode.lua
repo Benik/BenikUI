@@ -4,9 +4,9 @@ local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
 
 local _G = _G 
 local GetTime = GetTime
-local tonumber, pcall, unpack = tonumber, pcall, unpack
+local tonumber, unpack = tonumber, unpack
 local floor = floor
-local format, strsub, join = string.format, string.sub, string.join
+local join = string.join
 
 local GameTooltip = _G["GameTooltip"]
 local WorldMapFrame = _G["WorldMapFrame"]
@@ -48,7 +48,6 @@ local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
 menuFrame:CreateWideShadow()
 
-local SPACING = (E.PixelMode and 1 or 3)
 local LOCATION_WIDTH = 400
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local CAMERA_SPEED = 0.035

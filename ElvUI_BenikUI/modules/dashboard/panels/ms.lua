@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUID = E:GetModule('BuiDashboard')
 
 local LastUpdate = 1
-local format, select = string.format, select
+local select = select
 local join = string.join
 local _G = _G
 
