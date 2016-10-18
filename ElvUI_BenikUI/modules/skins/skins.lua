@@ -121,8 +121,8 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			frame:Style('Outside')
 		end
 		
-		if addon == 'Blizzard_ItemAlterationUI' and E.private.skins.blizzard.transmogrify == true then
-			local frame = _G["TransmogrifyFrame"]
+		if addon == 'Blizzard_Collections' and E.private.skins.blizzard.collections == true then
+			local frame = _G["WardrobeFrame"]
 			frame:Style('Outside')
 		end
 		
