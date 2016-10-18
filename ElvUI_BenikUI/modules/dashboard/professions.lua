@@ -208,7 +208,6 @@ end
 
 function BUIP:ProEvents()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateProfessions')
-	self:RegisterEvent('TRADE_SKILL_UPDATE', 'UpdateProfessions')
 	self:RegisterEvent('SKILL_LINES_CHANGED', 'UpdateProfessions')
 	self:RegisterEvent('CHAT_MSG_SKILL', 'UpdateProfessions')
 end
