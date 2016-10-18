@@ -470,100 +470,126 @@ local function styleAlertFrames()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alertframes ~= true then return end
 	
 	local function StyleAchievementAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end
 	hooksecurefunc(AchievementAlertSystem, "setUpFunction", StyleAchievementAlert) -- needs testing
 	
 	local function StyleCriteriaAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
-			frame.Icon.Texture.b:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+				frame.Icon.Texture.b:Style('Outside')
+			end
 		end
 	end		
 	hooksecurefunc(CriteriaAlertSystem, "setUpFunction", StyleCriteriaAlert)
 	
 	local function StyleDungeonCompletionAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end		
 	hooksecurefunc(DungeonCompletionAlertSystem, "setUpFunction", StyleDungeonCompletionAlert)
 	
 	local function StyleGuildChallengeAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end		
 	hooksecurefunc(GuildChallengeAlertSystem, "setUpFunction", StyleGuildChallengeAlert)
 	
 	local function StyleScenarioAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end		
 	hooksecurefunc(ScenarioAlertSystem, "setUpFunction", StyleScenarioAlert)
 	
 	local function StyleWorldQuestCompleteAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end		
 	hooksecurefunc(WorldQuestCompleteAlertSystem, "setUpFunction", StyleWorldQuestCompleteAlert)
 	
 	local function StyleGarrisonFollowerAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end		
 	hooksecurefunc(GarrisonFollowerAlertSystem, "setUpFunction", StyleGarrisonFollowerAlert)
 	
 	local function StyleLootWonAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end		
 	hooksecurefunc(LootAlertSystem, "setUpFunction", StyleLootWonAlert)
 	
 	local function StyleLootUpgradeAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end	
 	hooksecurefunc(LootUpgradeAlertSystem, "setUpFunction", StyleLootUpgradeAlert)
 	
 	local function StyleMoneyWonAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end
 	hooksecurefunc(MoneyWonAlertSystem, "setUpFunction", StyleMoneyWonAlert)
 
 	local function StyleStorePurchaseAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end
 	hooksecurefunc(StorePurchaseAlertSystem, "setUpFunction", StyleStorePurchaseAlert)
 	
 	local function StyleDigsiteCompleteAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end
 	hooksecurefunc(DigsiteCompleteAlertSystem, "setUpFunction", StyleDigsiteCompleteAlert)
 	
 	local function StyleRecipeLearnedAlert(frame)
-		if not frame.backdrop.style then
-			frame.backdrop:Style('Outside')
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
 		end
 	end
 	hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", StyleRecipeLearnedAlert)
 	
 	for _, frame in pairs(staticAlertFrames) do
-		if not frame.backdrop.style then
-			if frame.backdrop then
+		if frame.backdrop then
+			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
