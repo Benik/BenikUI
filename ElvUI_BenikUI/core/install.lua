@@ -1427,11 +1427,10 @@ function BUI:SetupBuiDts(role)
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = 'BuiMail'
 	if IsAddOnLoaded('ElvUI_LocPlus') then
 		E.db["datatexts"]["panels"]["RightCoordDtPanel"] = 'Time'
-		if IsAddOnLoaded('AtlasLoot') then
-			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'AtlasLoot'
-		else
-			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Versatility'
-		end
+		E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Spec Switch (BenikUI)'
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Versatility'
+	else
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Spec Switch (BenikUI)'
 	end
 	if role == 'tank' then
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Attack Power'
@@ -1447,12 +1446,10 @@ function BUI:SetupBuiDts(role)
 	
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = 'Gold'
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = 'Bags'
-	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Spec Switch (BenikUI)'
 	
 	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Crit Chance'
 	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = 'Mastery'
-	
-	
+
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['DataTexts Set']
 		InstallStepComplete:Show()
