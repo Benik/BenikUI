@@ -1430,22 +1430,28 @@ function BUI:SetupBuiDts(role)
 		if IsAddOnLoaded('AtlasLoot') then
 			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'AtlasLoot'
 		else
-			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Spec Switch (BenikUI)'
+			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Versatility'
 		end
 	end
 	if role == 'tank' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Avoidance'
-		--E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = 'Resolve'
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Attack Power'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Avoidance'
 	elseif role == 'dpsMelee' then
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Attack Power'
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = 'Haste'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Haste'
 	elseif role == 'healer' or 'dpsCaster' then
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Spell/Heal Power'
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = 'Haste'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Haste'
 	end
+	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = 'Orderhall (BenikUI)'
+	
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = 'Gold'
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = 'Bags'
-	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Mastery'
+	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Spec Switch (BenikUI)'
+	
+	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Crit Chance'
+	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = 'Mastery'
+	
 	
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['DataTexts Set']
