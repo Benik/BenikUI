@@ -288,9 +288,9 @@ P['dashboards'] = {
 		['weekly'] = true,
 		['flash'] = false,
 		['chooseTokens'] = {
-			['Conquest Points'] = true,
+			['Order Resources'] = true,
 			['Honor Points'] = true,
-			['Apexis Crystal'] = true,
+			['Ancient Mana'] = true,
 			['Garrison Resources'] = true,
 		},
 	},
