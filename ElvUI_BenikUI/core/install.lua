@@ -835,6 +835,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[powercolor][power:current-percent]"
+		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["player"]["width"] = 'fill'
 		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
