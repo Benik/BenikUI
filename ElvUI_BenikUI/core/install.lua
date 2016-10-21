@@ -1389,6 +1389,7 @@ local function SetupBuiAddons()
 			["critFontName"] = "Bui Prototype",
 			["creationVersion"] = MikSBT.VERSION.."."..MikSBT.SVN_REVISION,
 		}
+		MikSBT.Profiles.SelectProfile('BenikUI')
 	end
 	
 	-- Details
