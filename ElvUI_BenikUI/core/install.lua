@@ -737,12 +737,12 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = true
 		E.db["benikui"]["unitframes"]["player"]["portraitHeight"] = 47
 		E.db["benikui"]["unitframes"]["player"]["portraitStyle"] = true
-		E.db["benikui"]["unitframes"]["player"]["portraitStyleHeight"] = 5
+		E.db["benikui"]["unitframes"]["player"]["portraitStyleHeight"] = 6
 		E.db["benikui"]["unitframes"]["player"]["portraitWidth"] = 110
 		E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = true
 		E.db["benikui"]["unitframes"]["target"]["portraitHeight"] = 47
 		E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = true
-		E.db["benikui"]["unitframes"]["target"]["portraitStyleHeight"] = 5
+		E.db["benikui"]["unitframes"]["target"]["portraitStyleHeight"] = 6
 		E.db["benikui"]["unitframes"]["target"]["portraitWidth"] = 110
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["yOffset"] = -18
@@ -900,10 +900,6 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
 		E.db["unitframe"]["units"]["target"]["width"] = 240
 		E.db["unitframe"]["units"]["target"]["threatStyle"] = 'GLOW'
-		-- E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
-		-- E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
-		-- E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 160
-		-- E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = true
 
 		-- pet
 		E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = false
@@ -1095,18 +1091,18 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,148"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,159"
 		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-217,140"
-		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-216,163"
+		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-189,163"
 		E.db["movers"]["ElvUF_Raid40Mover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,3,638"
 		E.db["movers"]["ElvUF_RaidMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,3,490"
 		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,664"
 		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-300"
 		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,217,140"
-		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,216,163"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,189,163"
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,185"
 		E.db["movers"]["PlayerPortraitMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,513,163"
-		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-216,209"
+		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-189,209"
 		E.db["movers"]["TargetPortraitMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-513,163"
-		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,216,209"
+		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,189,209"
 	end
 	
 	if E.db.benikui.unitframes.player.detachPortrait == true then
