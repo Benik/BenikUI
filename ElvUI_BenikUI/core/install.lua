@@ -1219,8 +1219,9 @@ local function SetupBuiAddons()
 			['BarTexture'] = 'BuiEmpty',
 			['CurDataSet'] = 'OverallData',
 			['ClampToScreen'] = true,
-			['Font'] = 'Bui Visitor1',
+			['Font'] = 'Bui Prototype',
 		}
+		Recount.db:SetProfile("BenikUI")
 	end
 
 	-- Skada Profile
