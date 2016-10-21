@@ -10,6 +10,8 @@ function UFB:Configure_Portrait(frame, isPlayer)
 		if frame.USE_PORTRAIT_OVERLAY then
 			if db.portrait.style == '3D' then
 				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
+			else
+				portrait:SetParent(frame.Health)
 			end
 
 			portrait:SetAllPoints(frame.Health)
@@ -22,6 +24,8 @@ function UFB:Configure_Portrait(frame, isPlayer)
 
 			if db.portrait.style == '3D' then
 				portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
+			else
+				portrait:SetParent(frame)
 			end
 			
 			if frame.PORTRAIT_TRANSPARENCY then
@@ -107,9 +111,8 @@ function UFB:Configure_Portrait(frame, isPlayer)
 						portrait.backdrop:Point("BOTTOMLEFT", frame.Power.backdrop, "BOTTOMRIGHT", -frame.BORDER + frame.SPACING*3, 0)
 					end
 				end
-
-				portrait:SetInside(portrait.backdrop, frame.BORDER)
 			end
+			portrait:SetInside(portrait.backdrop, frame.BORDER)
 		end
 	end
 end
