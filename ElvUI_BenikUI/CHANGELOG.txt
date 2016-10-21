@@ -1,3 +1,16 @@
+[b]3.09[/b]
+*Added support for LocationPlus & LocationLite feature to hide Bliz Zonetext
+*Unitframe position fixes during install
+*Actionbar position fixes during install
+*Updated datatext positions during install
+*Changed tokens defaults
+*Fixed Power text position for Uintframes-2 layout
+*Fixed the transmog frame style
+*Prevent a map lua error in wow 7.1
+*Guard against a skin error. This sould fix #52. Also added styling safety check on all Alert frames
+*Follow ElvUI portrait changes
+*Set Mission level font to ElvUI default font
+
 [b]3.08[/b]
 *Fixed detached portrait style height and also lowered the minimum height option from 4 to 3
 *Added Order Hall Datatext. This will show missions instead
