@@ -137,7 +137,8 @@ local function SetupBuiLayout()
 	E.db["movers"]["tokenHolderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-123"
 	E.db["movers"]["ArtifactBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-157,-6"
 	E.db["movers"]["HonorBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
-	
+	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-207,-260"
+
 	-- LocationPlus
 	if E.db.locplus == nil then E.db.locplus = {} end
 	E.db["locplus"]["both"] = false
@@ -1408,6 +1409,16 @@ local function SetupBuiAddons()
 		E.db["VAT"]["colors"]["hoursIndicator"]["b"] = 0
 		E.db["VAT"]["statusbarTexture"] = 'BuiFlat'
 		E.db["VAT"]["position"] = 'TOP'
+	end
+
+	-- SquareMinimapButtons
+	if SquareMinimapButtonOptions == nil then SquareMinimapButtonOptions = {} end
+	if IsAddOnLoaded('SquareMinimapButtons') then
+		SquareMinimapButtonOptions['BarEnabled'] = true
+		SquareMinimapButtonOptions['ButtonsPerRow'] = 6
+		SquareMinimapButtonOptions['IconSize'] = 22
+		SquareMinimapButtonOptions['ButtonSpacing'] = 1
+		E.db["movers"]["SquareMinimapButtonBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-258"
 	end
 
 	if InstallStepComplete then
