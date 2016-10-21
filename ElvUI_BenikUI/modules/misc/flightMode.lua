@@ -270,10 +270,15 @@ function BFM:SetFlightMode(status)
 		self.FlightMode:Hide()
 		MoveViewLeftStop();
 
-		-- Enable Blizz location messsages
-		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
-		ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
+		-- Enable Blizz location messsages.
+		-- Added support for LocationPlus & LocationLite
+		if (IsAddOnLoaded('ElvUI_LocPlus') and E.db.locplus.zonetext) or (IsAddOnLoaded('ElvUI_LocLite') and not E.db.loclite.zonetext) then
+			ZoneTextFrame:UnregisterAllEvents()
+		else
+			ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+			ZoneTextFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
+			ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
+		end
 
 		self:CancelTimer(self.locationTimer)
 		self:CancelTimer(self.coordsTimer)
