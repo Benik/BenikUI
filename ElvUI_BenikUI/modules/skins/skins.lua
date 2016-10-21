@@ -506,6 +506,15 @@ local function styleAlertFrames()
 	end		
 	hooksecurefunc(GuildChallengeAlertSystem, "setUpFunction", StyleGuildChallengeAlert)
 	
+	local function StyleInvasionAlertSystem(frame)
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end		
+	hooksecurefunc(InvasionAlertSystem, "setUpFunction", StyleInvasionAlertSystem)
+	
 	local function StyleScenarioAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
@@ -532,6 +541,69 @@ local function styleAlertFrames()
 		end
 	end		
 	hooksecurefunc(GarrisonFollowerAlertSystem, "setUpFunction", StyleGarrisonFollowerAlert)
+	
+	local function StyleGarrisonShipFollowerAlertSystem(frame)
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end		
+	hooksecurefunc(GarrisonShipFollowerAlertSystem, "setUpFunction", StyleGarrisonShipFollowerAlertSystem)
+	
+	local function StyleGarrisonTalentAlertSystem(frame)
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end		
+	hooksecurefunc(GarrisonTalentAlertSystem, "setUpFunction", StyleGarrisonTalentAlertSystem)
+	
+	local function StyleGarrisonBuildingAlertSystem(frame)
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end		
+	hooksecurefunc(GarrisonBuildingAlertSystem, "setUpFunction", StyleGarrisonBuildingAlertSystem)
+	
+	local function StyleGarrisonMissionAlertSystem(frame)
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end		
+	hooksecurefunc(GarrisonMissionAlertSystem, "setUpFunction", StyleGarrisonMissionAlertSystem)
+	
+	local function StyleGarrisonShipMissionAlertSystem(frame)
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end		
+	hooksecurefunc(GarrisonShipMissionAlertSystem, "setUpFunction", StyleGarrisonShipMissionAlertSystem)
+	
+	local function StyleGarrisonRandomMissionAlertSystem(frame)
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end		
+	hooksecurefunc(GarrisonRandomMissionAlertSystem, "setUpFunction", StyleGarrisonRandomMissionAlertSystem)
+
+	local function StyleLegendaryItemAlertSystem(frame)
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end		
+	hooksecurefunc(LegendaryItemAlertSystem, "setUpFunction", StyleLegendaryItemAlertSystem)
 	
 	local function StyleLootWonAlert(frame)
 		if frame.backdrop then
