@@ -308,7 +308,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24	
 
 		-- movers
-		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,92"
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,97"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,58"
 		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,296,58"
 		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-296,58"
@@ -373,10 +373,10 @@ local function SetupActionbars(layout)
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-3"
 		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-128"
-		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,56"
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,60"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,22"
-		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,257,1"
-		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-256,1"
+		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,257,2"
+		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-257,2"
 		E.db["movers"]["PetAB"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-150,177"
 		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,100"
 	end
