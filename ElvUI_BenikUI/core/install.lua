@@ -1531,7 +1531,7 @@ local function SetupBuiAddons()
 			["disable_window_groups"] = false,
 			["instances_suppress_trash"] = 0,
 			["font_faces"] = {
-				["menus"] = "Expressway",
+				["menus"] = "Bui Prototype",
 			},
 			["segments_amount"] = 12,
 			["report_lines"] = 5,
@@ -2466,12 +2466,12 @@ local function SetupBuiAddons()
 							0.7, -- [4]
 						},
 						["custom_text"] = "{name}",
-						["text_face"] = "Expressway",
+						["text_face"] = "Bui Prototype",
 						["anchor"] = {
 							-2, -- [1]
 							3, -- [2]
 						},
-						["text_size"] = 11,
+						["text_size"] = 10,
 						["enable_custom_text"] = false,
 						["enabled"] = true,
 					},
@@ -2587,11 +2587,11 @@ local function SetupBuiAddons()
 						["space"] = {
 							["right"] = 0,
 							["left"] = 0,
-							["between"] = 1,
+							["between"] = 2,
 						},
 						["texture_background_class_color"] = false,
 						["start_after_icon"] = false,
-						["font_face_file"] = "Interface\\AddOns\\ElvUI\\media\\fonts\\Expressway.ttf",
+						["font_face_file"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE.TTF",
 						["textL_custom_text"] = "{data1}. {data3}{data2}",
 						["font_size"] = 10,
 						["texture_custom_file"] = "Interface\\",
@@ -2658,7 +2658,7 @@ local function SetupBuiAddons()
 							0, -- [3]
 							1, -- [4]
 						},
-						["font_face"] = "Expressway",
+						["font_face"] = "Bui Prototype",
 						["texture_class_colors"] = true,
 						["texture_background_file"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Empty.tga",
 						["fast_ps_update"] = false,
@@ -2821,12 +2821,12 @@ local function SetupBuiAddons()
 							0.7, -- [4]
 						},
 						["custom_text"] = "{name}",
-						["text_face"] = "Expressway",
+						["text_face"] = "Bui Prototype",
 						["anchor"] = {
 							-2, -- [1]
 							3, -- [2]
 						},
-						["text_size"] = 11,
+						["text_size"] = 10,
 						["enable_custom_text"] = false,
 						["enabled"] = true,
 					},
@@ -2942,11 +2942,11 @@ local function SetupBuiAddons()
 						["space"] = {
 							["right"] = 0,
 							["left"] = 0,
-							["between"] = 1,
+							["between"] = 2,
 						},
 						["texture_background_class_color"] = false,
 						["start_after_icon"] = false,
-						["font_face_file"] = "Interface\\AddOns\\ElvUI\\media\\fonts\\Expressway.ttf",
+						["font_face_file"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE.ttf",
 						["textL_custom_text"] = "{data1}. {data3}{data2}",
 						["font_size"] = 10,
 						["texture_custom_file"] = "Interface\\",
@@ -3013,7 +3013,7 @@ local function SetupBuiAddons()
 							0, -- [3]
 							1, -- [4]
 						},
-						["font_face"] = "Expressway",
+						["font_face"] = "Bui Prototype",
 						["texture_class_colors"] = true,
 						["texture_background_file"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Empty.tga",
 						["fast_ps_update"] = false,
