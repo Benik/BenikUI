@@ -1127,7 +1127,11 @@ local function SetupUnitframes(layout)
 end
 
 local function SetupAddOnSkins()
-	if IsAddOnLoaded('AddOnSkins') then
+	-- OLD:
+	--[[You must redone this complete.
+		Azil changes complete the Profile creation]]--
+
+	--[[if IsAddOnLoaded('AddOnSkins') then
 		-- reset the embeds in case of Skada/Recount swap
 		E.private['addonskins']['EmbedSystem'] = nil
 		E.private['addonskins']['EmbedSystemDual'] = nil
@@ -1174,7 +1178,88 @@ local function SetupAddOnSkins()
 			E.private['addonskins']['DBMFontSize'] = 10
 			E.private['addonskins']['DBMFontFlag'] = 'OUTLINE'
 		end
-	end
+	end]]
+
+	-- NEW: 
+	-- This is the example from MerathilisUI
+	--[[if IsAddOnLoaded('AddOnSkins') then
+		AddOnSkinsDB = {
+			["profiles"] = {
+				["BenikUI"] = {
+					["Blizzard_WorldStateCaptureBar"] = true,
+					["Blizzard_AbilityButton"] = false,
+					["Blizzard_Transmogrify"] = false,
+					["Blizzard_Collections"] = false,
+					["Blizzard_TradeSkill"] = false,
+					["EmbedIsHidden"] = false,
+					["Blizzard_Options"] = false,
+					["BigWigs"] = true,
+					["ElvUISkinModule"] = true,
+					["SkadaBackdrop"] = false,
+					["TransparentEmbed"] = true,
+					["Blizzard_Quest"] = false,
+					["MiscellaneousFixes"] = true,
+					["Blizzard_MacroUI"] = false,
+					["BagSync"] = true,
+					["Blizzard_AddonManager"] = false,
+					["Blizzard_BarberShop"] = false,
+					["Blizzard_Inspect"] = false,
+					["DBMFont"] = "Merathilis Roboto-Bold",
+					["Blizzard_ExtraActionButton"] = false,
+					["Blizzard_AuctionHouse"] = false,
+					["Auctionator"] = true,
+					["Blizzard_WorldMap"] = false,
+					["Blizzard_Mail"] = false,
+					["Blizzard_Spellbook"] = false,
+					["Blizzard_Garrison"] = false,
+					["Blizzard_Gossip"] = false,
+					["Blizzard_Bags"] = false,
+					["Blizzard_Taxi"] = false,
+					["EmbedLeft"] = "",
+					["EmbedLeftWidth"] = 170,
+					["Blizzard_VoidStorage"] = false,
+					["EmbedSystem"] = true,
+					["Blizzard_TimeManager"] = false,
+					["Postal"] = true,
+					["EmbedRight"] = "",
+					["Blizzard_StackSplit"] = false,
+					["oRA3"] = true,
+					["Blizzard_LootFrames"] = false,
+					["Blizzard_DebugTools"] = false,
+					["Skada"] = true,
+					["BugSack"] = true,
+					["Blizzard_Guild"] = false,
+					["WowLua"] = true,
+					["Blizzard_PvE"] = false,
+					["Blizzard_PVPUI"] = false,
+					["Blizzard_CharacterFrame"] = false,
+					["Blizzard_ArchaeologyUI"] = false,
+					["Blizzard_Friends"] = false,
+					["Blizzard_DressUpFrame"] = false,
+					["ParchmentRemover"] = false,
+					["RCLootCouncil"] = true,
+					["WeakAuras"] = false,
+					["MasterPlan"] = true,
+					["Blizzard_ChallengesUI"] = false,
+					["Blizzard_RaidUI"] = false,
+					["Blizzard_ItemSocketing"] = false,
+					["Blizzard_Trainer"] = false,
+					["Blizzard_Merchant"] = false,
+					["Clique"] = true,
+					["Blizzard_Others"] = false,
+					["Blizzard_EncounterJournal"] = false,
+					["Blizzard_Talent"] = false,
+					["Blizzard_Calendar"] = false,
+					["Blizzard_DeathRecap"] = false,
+					["Blizzard_AchievementUI"] = false,
+					["Blizzard_BlackMarket"] = false,
+					["Blizzard_TradeWindow"] = false,
+					["Blizzard_ChatBubbles"] = false,
+					["LoginMsg"] = false,
+				},
+			},
+		}
+	end]]
 end
 
 local recountName = GetAddOnMetadata('Recount', 'Title')
