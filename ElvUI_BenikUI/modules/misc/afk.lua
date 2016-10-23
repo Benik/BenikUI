@@ -190,13 +190,25 @@ local function createStats()
 	return format("%s: |cfff0ff00%s|r", name, result)
 end
 
-local x, y
-local timer = 0
-local showTime = 5
-local total = 0
+function AFK:UpdateStatMessage()
+	local createdStat = createStats()
+	self.AFKMode.statMsg.info:AddMessage(createdStat)
+	E:UIFrameFadeIn(self.AFKMode.statMsg.info, 1, 0, 1)
+end
 
-local function GetMousePosition()
-	x, y = GetCursorPosition();
+function AFK:UpdateLogOff()
+	local timePassed = GetTime() - self.startTime
+	local minutes = floor(timePassed/60)
+	local neg_seconds = -timePassed % 60
+	
+	self.AFKMode.top.Status:SetValue(floor(timePassed))
+	
+	if minutes - 29 == 0 and floor(neg_seconds) == 0 then
+		self:CancelTimer(self.logoffTimer)
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+	else
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
+	end
 end
 
 AFK.UpdateTimerBui = AFK.UpdateTimer
@@ -204,45 +216,6 @@ function AFK:UpdateTimer()
 	self:UpdateTimerBui()
 
 	local createdTime = createTime()
-	local minutes = floor(timer/60)
-	local neg_seconds = -timer % 60
-	
-	-- Accurate AFK Timer by catching mouse movements. Credit: Nikita S. Doroshenko,
-	-- http://www.wowinterface.com/forums/showthread.php?t=52742
-	local nx, ny = GetCursorPosition();
-	if x ~= nx and y ~= ny then
-		x, y = GetCursorPosition();
-		if timer > 0 then
-			self.AFKMode.countd.text:SetFormattedText("|cffff8000%s|r", L["Cursor moved. Timer reset."])
-			timer = 0
-		end
-	else
-		timer = timer + 1
-		if timer > 1 then
-			if (minutes -29 >= 0) and (neg_seconds >= 0) then
-				self.AFKMode.countd.text:SetFormattedText("|cffff8000"..CAMP_TIMER.."|r", neg_seconds, L["sec"])
-				if neg_seconds <= 30 then
-					E:Flash(self.AFKMode.countd.text, 0.5, true)
-				else
-					E:StopFlash(self.AFKMode.countd.text)
-				end
-			else
-				self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
-			end
-		end
-	end
-	GetMousePosition()
-
-	total = total + 1
-	if total >= showTime then
-		local createdStat = createStats()
-		self.AFKMode.statMsg.info:AddMessage(createdStat)
-		E:UIFrameFadeIn(self.AFKMode.statMsg.info, 1, 0, 1)
-		total = 0
-	end
-
-	-- Set the value on log off statusbar
-	self.AFKMode.top.Status:SetValue(floor(timer))
 
 	-- Set time
 	self.AFKMode.top.time:SetFormattedText(createdTime)
@@ -265,7 +238,9 @@ local function GetXPinfo()
 	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
 end
 
-function BUI:SetAFK(status)
+AFK.BUISetAFK = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:BUISetAFK(status)
 	if(status) then
 		local xptxt = GetXPinfo()
 		local level = UnitLevel('player')
@@ -274,6 +249,8 @@ function BUI:SetAFK(status)
 		self.AFKMode.top.anim.height:Play()
 		self.AFKMode.bottom:SetHeight(0)
 		self.AFKMode.bottom.anim.height:Play()
+		self.statsTimer = self:ScheduleRepeatingTimer("UpdateStatMessage", 5)
+		self.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
 		if xptxt then
 			self.AFKMode.xp:Show()
 			self.AFKMode.xp.text:SetText(xptxt)
@@ -282,14 +259,14 @@ function BUI:SetAFK(status)
 			self.AFKMode.xp.text:SetText("")		
 		end
 		self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, nonCapClass)
-	elseif (self.isAFK) then
-		total = 0
-		timer = 0
+	else
+		self:CancelTimer(self.statsTimer)
+		self:CancelTimer(self.logoffTimer)
+
 		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
 		self.AFKMode.statMsg.info:AddMessage(format("|cffb3b3b3%s|r", L["Random Stats"]))
 	end
 end
-hooksecurefunc(AFK, 'SetAFK', BUI.SetAFK)
 
 local find = string.find
 
@@ -532,5 +509,4 @@ function AFK:Initialize()
 	self.AFKMode.statMsg.info:SetTimeVisible(4)
 	self.AFKMode.statMsg.info:SetJustifyH("CENTER")
 	self.AFKMode.statMsg.info:SetTextColor(0.7, 0.7, 0.7)
-
 end

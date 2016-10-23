@@ -99,7 +99,6 @@ L['LeftClick to Request Stop'] = true
 L['RightClick to Hide'] = true
 
 -- afk Mode
-L["Cursor moved. Timer reset."] = true
 L["Logout Timer"] = true
 L["Random Stats"] = true
 L["remaining till level"] = true

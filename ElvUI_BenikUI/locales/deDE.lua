@@ -99,7 +99,6 @@ L['LeftClick to Request Stop'] = "Links-Klick um am nächsten Flugpunkt zu lande
 L['RightClick to Hide'] = "Rechts-Klick zum verstecken"
 
 -- afk Mode
-L["Cursor moved. Timer reset."] = "Cursor bewegt. Timer zurückgesetzt."
 L["Logout Timer"] = "Auslogzeit"
 L["Random Stats"] = "Zufällige Werte"
 L["remaining till level"] = "verbleibend bis zum Level"
