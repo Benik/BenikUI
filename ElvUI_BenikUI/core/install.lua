@@ -1127,139 +1127,121 @@ local function SetupUnitframes(layout)
 end
 
 local function SetupAddOnSkins()
-	-- OLD:
-	--[[You must redone this complete.
-		Azil changes complete the Profile creation]]--
-
-	--[[if IsAddOnLoaded('AddOnSkins') then
-		-- reset the embeds in case of Skada/Recount swap
-		E.private['addonskins']['EmbedSystem'] = nil
-		E.private['addonskins']['EmbedSystemDual'] = nil
-		E.private['addonskins']['EmbedBelowTop'] = nil
-		E.private['addonskins']['TransparentEmbed'] = nil
-		E.private['addonskins']['RecountBackdrop'] = false
-		E.private['addonskins']['EmbedMain'] = nil
-		E.private['addonskins']['EmbedLeft'] = nil
-		E.private['addonskins']['EmbedRight'] = nil
-		
-		if IsAddOnLoaded('Recount') then
-			E.private['addonskins']['EmbedMain'] = 'Recount'
-			E.private['addonskins']['EmbedSystem'] = true
-			E.private['addonskins']['EmbedSystemDual'] = false
+	if IsAddOnLoaded('AddOnSkins') then
+		if GetAddOnMetadata("AddOnSkins", "Version") <= "3.39" then -- temp till Azil updates
+			-- reset the embeds in case of Skada/Recount swap
+			E.private['addonskins']['EmbedSystem'] = nil
+			E.private['addonskins']['EmbedSystemDual'] = nil
+			E.private['addonskins']['EmbedBelowTop'] = nil
+			E.private['addonskins']['TransparentEmbed'] = nil
 			E.private['addonskins']['RecountBackdrop'] = false
-			E.private['addonskins']['EmbedBelowTop'] = false
-			E.private['addonskins']['TransparentEmbed'] = true
+			E.private['addonskins']['EmbedMain'] = nil
+			E.private['addonskins']['EmbedLeft'] = nil
+			E.private['addonskins']['EmbedRight'] = nil
+			
+			if IsAddOnLoaded('Recount') then
+				E.private['addonskins']['EmbedMain'] = 'Recount'
+				E.private['addonskins']['EmbedSystem'] = true
+				E.private['addonskins']['EmbedSystemDual'] = false
+				E.private['addonskins']['RecountBackdrop'] = false
+				E.private['addonskins']['EmbedBelowTop'] = false
+				E.private['addonskins']['TransparentEmbed'] = true
+			end
+			
+			if IsAddOnLoaded('Skada') then
+				E.private['addonskins']['EmbedSystem'] = false
+				E.private['addonskins']['EmbedSystemDual'] = true
+				E.private['addonskins']['EmbedBelowTop'] = false
+				E.private['addonskins']['TransparentEmbed'] = true
+				E.private['addonskins']['SkadaBackdrop'] = false
+				E.private['addonskins']['EmbedMain'] = 'Skada'
+				E.private['addonskins']['EmbedLeft'] = 'Skada'
+				E.private['addonskins']['EmbedRight'] = 'Skada'
+			end
+			
+			if IsAddOnLoaded('Details') then
+				E.private['addonskins']['EmbedSystem'] = false
+				E.private['addonskins']['EmbedSystemDual'] = true
+				E.private['addonskins']['EmbedBelowTop'] = false
+				E.private['addonskins']['TransparentEmbed'] = true
+				E.private['addonskins']['DetailsBackdrop'] = false
+				E.private['addonskins']['EmbedMain'] = 'Details'
+				E.private['addonskins']['EmbedLeft'] = 'Details'
+				E.private['addonskins']['EmbedRight'] = 'Details'
+			end
+			
+			if IsAddOnLoaded('DBM-Core') then
+				E.private['addonskins']['DBMFont'] = 'Bui Prototype'
+				E.private['addonskins']['DBMFontSize'] = 10
+				E.private['addonskins']['DBMFontFlag'] = 'OUTLINE'
+			end
+		else
+			if IsAddOnLoaded('Recount') then
+				AddOnSkinsDB = {
+					["profiles"] = {
+						["BenikUI-Recount"] = {
+							['EmbedMain'] = 'Recount',
+							['EmbedSystem'] = true,
+							['EmbedSystemDual'] = false,
+							['RecountBackdrop'] = false,
+							['EmbedBelowTop'] = false,
+							['TransparentEmbed'] = true,
+							['Parchment'] = false,
+							['DBMFont'] = 'Bui Prototype',
+							['DBMFontSize'] = 10,
+							['DBMFontFlag'] = 'OUTLINE',					
+						},
+					},
+				}
+				--AddOnSkinsDB:SetProfile("BenikUI-Recount")
+			end
+			
+			if IsAddOnLoaded('Skada') then
+				AddOnSkinsDB = {
+					["profiles"] = {
+						["BenikUI-Skada"] = {
+							['EmbedSystem'] = false,
+							['EmbedSystemDual'] = true,
+							['EmbedBelowTop'] = false,
+							['TransparentEmbed'] = true,
+							['SkadaBackdrop'] = false,
+							['EmbedMain'] = 'Skada',
+							['EmbedLeft'] = 'Skada',
+							['EmbedRight'] = 'Skada',
+							['Parchment'] = false,
+							['DBMFont'] = 'Bui Prototype',
+							['DBMFontSize'] = 10,
+							['DBMFontFlag'] = 'OUTLINE',			
+						},
+					},
+				}
+				--AddOnSkinsDB:SetProfile("BenikUI-Skada")
+			end
+			
+			if IsAddOnLoaded('Details') then
+				AddOnSkinsDB = {
+					["profiles"] = {
+						["BenikUI-Details"] = {
+							['EmbedSystem'] = false,
+							['EmbedSystemDual'] = true,
+							['EmbedBelowTop'] = false,
+							['TransparentEmbed'] = true,
+							['DetailsBackdrop'] = false,
+							['EmbedMain'] = 'Details',
+							['EmbedLeft'] = 'Details',
+							['EmbedRight'] = 'Details',
+							['Parchment'] = false,
+							['DBMFont'] = 'Bui Prototype',
+							['DBMFontSize'] = 10,
+							['DBMFontFlag'] = 'OUTLINE',					
+						},
+					},
+				}
+				--AddOnSkinsDB:SetProfile("BenikUI-Details")
+			end
+			
 		end
-		
-		if IsAddOnLoaded('Skada') then
-			E.private['addonskins']['EmbedSystem'] = false
-			E.private['addonskins']['EmbedSystemDual'] = true
-			E.private['addonskins']['EmbedBelowTop'] = false
-			E.private['addonskins']['TransparentEmbed'] = true
-			E.private['addonskins']['SkadaBackdrop'] = false
-			E.private['addonskins']['EmbedMain'] = 'Skada'
-			E.private['addonskins']['EmbedLeft'] = 'Skada'
-			E.private['addonskins']['EmbedRight'] = 'Skada'
-		end
-		
-		if IsAddOnLoaded('Details') then
-			E.private['addonskins']['EmbedSystem'] = false
-			E.private['addonskins']['EmbedSystemDual'] = true
-			E.private['addonskins']['EmbedBelowTop'] = false
-			E.private['addonskins']['TransparentEmbed'] = true
-			E.private['addonskins']['DetailsBackdrop'] = false
-			E.private['addonskins']['EmbedMain'] = 'Details'
-			E.private['addonskins']['EmbedLeft'] = 'Details'
-			E.private['addonskins']['EmbedRight'] = 'Details'
-		end
-		
-		if IsAddOnLoaded('DBM-Core') then
-			E.private['addonskins']['DBMFont'] = 'Bui Prototype'
-			E.private['addonskins']['DBMFontSize'] = 10
-			E.private['addonskins']['DBMFontFlag'] = 'OUTLINE'
-		end
-	end]]
-
-	-- NEW: 
-	-- This is the example from MerathilisUI
-	--[[if IsAddOnLoaded('AddOnSkins') then
-		AddOnSkinsDB = {
-			["profiles"] = {
-				["BenikUI"] = {
-					["Blizzard_WorldStateCaptureBar"] = true,
-					["Blizzard_AbilityButton"] = false,
-					["Blizzard_Transmogrify"] = false,
-					["Blizzard_Collections"] = false,
-					["Blizzard_TradeSkill"] = false,
-					["EmbedIsHidden"] = false,
-					["Blizzard_Options"] = false,
-					["BigWigs"] = true,
-					["ElvUISkinModule"] = true,
-					["SkadaBackdrop"] = false,
-					["TransparentEmbed"] = true,
-					["Blizzard_Quest"] = false,
-					["MiscellaneousFixes"] = true,
-					["Blizzard_MacroUI"] = false,
-					["BagSync"] = true,
-					["Blizzard_AddonManager"] = false,
-					["Blizzard_BarberShop"] = false,
-					["Blizzard_Inspect"] = false,
-					["DBMFont"] = "Merathilis Roboto-Bold",
-					["Blizzard_ExtraActionButton"] = false,
-					["Blizzard_AuctionHouse"] = false,
-					["Auctionator"] = true,
-					["Blizzard_WorldMap"] = false,
-					["Blizzard_Mail"] = false,
-					["Blizzard_Spellbook"] = false,
-					["Blizzard_Garrison"] = false,
-					["Blizzard_Gossip"] = false,
-					["Blizzard_Bags"] = false,
-					["Blizzard_Taxi"] = false,
-					["EmbedLeft"] = "",
-					["EmbedLeftWidth"] = 170,
-					["Blizzard_VoidStorage"] = false,
-					["EmbedSystem"] = true,
-					["Blizzard_TimeManager"] = false,
-					["Postal"] = true,
-					["EmbedRight"] = "",
-					["Blizzard_StackSplit"] = false,
-					["oRA3"] = true,
-					["Blizzard_LootFrames"] = false,
-					["Blizzard_DebugTools"] = false,
-					["Skada"] = true,
-					["BugSack"] = true,
-					["Blizzard_Guild"] = false,
-					["WowLua"] = true,
-					["Blizzard_PvE"] = false,
-					["Blizzard_PVPUI"] = false,
-					["Blizzard_CharacterFrame"] = false,
-					["Blizzard_ArchaeologyUI"] = false,
-					["Blizzard_Friends"] = false,
-					["Blizzard_DressUpFrame"] = false,
-					["ParchmentRemover"] = false,
-					["RCLootCouncil"] = true,
-					["WeakAuras"] = false,
-					["MasterPlan"] = true,
-					["Blizzard_ChallengesUI"] = false,
-					["Blizzard_RaidUI"] = false,
-					["Blizzard_ItemSocketing"] = false,
-					["Blizzard_Trainer"] = false,
-					["Blizzard_Merchant"] = false,
-					["Clique"] = true,
-					["Blizzard_Others"] = false,
-					["Blizzard_EncounterJournal"] = false,
-					["Blizzard_Talent"] = false,
-					["Blizzard_Calendar"] = false,
-					["Blizzard_DeathRecap"] = false,
-					["Blizzard_AchievementUI"] = false,
-					["Blizzard_BlackMarket"] = false,
-					["Blizzard_TradeWindow"] = false,
-					["Blizzard_ChatBubbles"] = false,
-					["LoginMsg"] = false,
-				},
-			},
-		}
-	end]]
+	end
 end
 
 local recountName = GetAddOnMetadata('Recount', 'Title')

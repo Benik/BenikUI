@@ -300,8 +300,12 @@ function BFM:SetFlightMode(status)
 		end
 
 		if IsAddOnLoaded('AddOnSkins') then
-			local AS = unpack(AddOnSkins) or nil			
-			if E.private.addonskins.EmbedSystem or E.private.addonskins.EmbedSystemDual then AS:Embed_Show() end
+			local AS = unpack(AddOnSkins) or nil
+			if GetAddOnMetadata("AddOnSkins", "Version") <= "3.39" then 
+				if E.private.addonskins.EmbedSystem or E.private.addonskins.EmbedSystemDual then AS:Embed_Show() end
+			else
+				if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
+			end
 		end
 
 		-- revert Left Chat
