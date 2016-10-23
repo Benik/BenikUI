@@ -104,6 +104,8 @@ function E:UpdateBlizzardFonts()
 		SetFont(Fancy24Font,						NORMAL, 20)									 -- Artifact frame - weapon name
 		SetFont(Game30Font,							NORMAL, 28)									 -- Mission Level
 		SetFont(SystemFont_Shadow_Med2,				NORMAL, 15)									 -- Shows Order resourses on OrderHallTalentFrame
+		SetFont(WhiteNormalNumberFont,				NORMAL, self.db.general.fontSize);			 -- Statusbar Numbers on TradeSkill frame
+		SetFont(GameFontHighlightSmall2,			NORMAL, self.db.general.fontSize);			 -- Skill or Recipe description on TradeSkill frame
 		--SetFont(GameFontHighlightLeft,				NORMAL, 16)
 		--SetFont(GameFontHighlightMed2, 				NORMAL, self.db.general.fontSize*1.1);		
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
