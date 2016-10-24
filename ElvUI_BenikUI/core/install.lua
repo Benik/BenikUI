@@ -1192,6 +1192,7 @@ local function SetupAddOnSkins()
 			AS.db['DBMFont'] = 'Tukui'
 			AS.db['DBMFontSize'] = 12
 			AS.db['DBMRadarTrans'] = false
+			AS.db['Parchment'] = false
 			
 			if IsAddOnLoaded('Recount') then
 				AS.db['EmbedMain'] = 'Recount'
