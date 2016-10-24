@@ -1128,6 +1128,7 @@ end
 
 local function SetupAddOnSkins()
 	if IsAddOnLoaded('AddOnSkins') then
+		local AS = unpack(AddOnSkins) or nil
 		if GetAddOnMetadata("AddOnSkins", "Version") <= "3.39" then -- temp till Azil updates
 			-- reset the embeds in case of Skada/Recount swap
 			E.private['addonskins']['EmbedSystem'] = nil
@@ -1176,70 +1177,58 @@ local function SetupAddOnSkins()
 				E.private['addonskins']['DBMFontFlag'] = 'OUTLINE'
 			end
 		else
+			-- reset the embeds to defaults, in case of Skada/Recount/Details swap
+			AS.db['EmbedSystem'] = false
+			AS.db['EmbedSystemDual'] = false
+			AS.db['EmbedBelowTop'] = false
+			AS.db['TransparentEmbed'] = false
+			AS.db['EmbedMain'] = 'Skada'
+			AS.db['EmbedLeft'] = 'Skada'
+			AS.db['EmbedRight'] = 'Skada'
+			AS.db['RecountBackdrop'] = true
+			AS.db['SkadaBackdrop'] = true
+			AS.db['DetailsBackdrop'] = true
+			AS.db['DBMSkinHalf'] = false,
+			AS.db['DBMFont'] = 'Tukui',
+			AS.db['DBMFontSize'] = 12,
+			AS.db['DBMRadarTrans'] = false,
+			
 			if IsAddOnLoaded('Recount') then
-				AddOnSkinsDB = {
-					["profiles"] = {
-						["BenikUI-Recount"] = {
-							['EmbedMain'] = 'Recount',
-							['EmbedSystem'] = true,
-							['EmbedSystemDual'] = false,
-							['RecountBackdrop'] = false,
-							['EmbedBelowTop'] = false,
-							['TransparentEmbed'] = true,
-							['Parchment'] = false,
-							['DBMFont'] = 'Bui Prototype',
-							['DBMFontSize'] = 10,
-							['DBMFontFlag'] = 'OUTLINE',					
-						},
-					},
-				}
-				--AddOnSkinsDB:SetProfile("BenikUI-Recount")
+				AS.db['EmbedMain'] = 'Recount'
+				AS.db['EmbedSystem'] = true
+				AS.db['EmbedSystemDual'] = false
+				AS.db['RecountBackdrop'] = false
+				AS.db['EmbedBelowTop'] = false
+				AS.db['TransparentEmbed'] = true
 			end
 			
 			if IsAddOnLoaded('Skada') then
-				AddOnSkinsDB = {
-					["profiles"] = {
-						["BenikUI-Skada"] = {
-							['EmbedSystem'] = false,
-							['EmbedSystemDual'] = true,
-							['EmbedBelowTop'] = false,
-							['TransparentEmbed'] = true,
-							['SkadaBackdrop'] = false,
-							['EmbedMain'] = 'Skada',
-							['EmbedLeft'] = 'Skada',
-							['EmbedRight'] = 'Skada',
-							['Parchment'] = false,
-							['DBMFont'] = 'Bui Prototype',
-							['DBMFontSize'] = 10,
-							['DBMFontFlag'] = 'OUTLINE',			
-						},
-					},
-				}
-				--AddOnSkinsDB:SetProfile("BenikUI-Skada")
+				AS.db['EmbedSystem'] = false
+				AS.db['EmbedSystemDual'] = true
+				AS.db['EmbedBelowTop'] = false
+				AS.db['TransparentEmbed'] = true
+				AS.db['SkadaBackdrop'] = false
+				AS.db['EmbedMain'] = 'Skada'
+				AS.db['EmbedLeft'] = 'Skada'
+				AS.db['EmbedRight'] = 'Skada'
 			end
 			
 			if IsAddOnLoaded('Details') then
-				AddOnSkinsDB = {
-					["profiles"] = {
-						["BenikUI-Details"] = {
-							['EmbedSystem'] = false,
-							['EmbedSystemDual'] = true,
-							['EmbedBelowTop'] = false,
-							['TransparentEmbed'] = true,
-							['DetailsBackdrop'] = false,
-							['EmbedMain'] = 'Details',
-							['EmbedLeft'] = 'Details',
-							['EmbedRight'] = 'Details',
-							['Parchment'] = false,
-							['DBMFont'] = 'Bui Prototype',
-							['DBMFontSize'] = 10,
-							['DBMFontFlag'] = 'OUTLINE',					
-						},
-					},
-				}
-				--AddOnSkinsDB:SetProfile("BenikUI-Details")
+				AS.db['EmbedSystem'] = false
+				AS.db['EmbedSystemDual'] = true
+				AS.db['EmbedBelowTop'] = false
+				AS.db['TransparentEmbed'] = true
+				AS.db['DetailsBackdrop'] = false
+				AS.db['EmbedMain'] = 'Details'
+				AS.db['EmbedLeft'] = 'Details'
+				AS.db['EmbedRight'] = 'Details'
 			end
 			
+			if IsAddOnLoaded('DBM-Core') then
+				AS.db['DBMFont'] = 'Bui Prototype'
+				AS.db['DBMFontSize'] = 10
+				AS.db['DBMRadarTrans'] = true,
+			end
 		end
 	end
 end
