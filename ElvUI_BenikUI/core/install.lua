@@ -1188,10 +1188,10 @@ local function SetupAddOnSkins()
 			AS.db['RecountBackdrop'] = true
 			AS.db['SkadaBackdrop'] = true
 			AS.db['DetailsBackdrop'] = true
-			AS.db['DBMSkinHalf'] = false,
-			AS.db['DBMFont'] = 'Tukui',
-			AS.db['DBMFontSize'] = 12,
-			AS.db['DBMRadarTrans'] = false,
+			AS.db['DBMSkinHalf'] = false
+			AS.db['DBMFont'] = 'Tukui'
+			AS.db['DBMFontSize'] = 12
+			AS.db['DBMRadarTrans'] = false
 			
 			if IsAddOnLoaded('Recount') then
 				AS.db['EmbedMain'] = 'Recount'
@@ -1227,7 +1227,7 @@ local function SetupAddOnSkins()
 			if IsAddOnLoaded('DBM-Core') then
 				AS.db['DBMFont'] = 'Bui Prototype'
 				AS.db['DBMFontSize'] = 10
-				AS.db['DBMRadarTrans'] = true,
+				AS.db['DBMRadarTrans'] = true
 			end
 		end
 	end
