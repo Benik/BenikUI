@@ -1,3 +1,16 @@
+[b]3.10[/b]
+*toc update for wow patch 7.1
+*Temporary disable iLevel in wow 7.03 till 7.1 goes live
+*New AddOnSkins defaults per addon. Due to AddOnSkins profile changes, BenikUI install must run again in order to apply embedds.
+*Revampet the afkMode timers. It's gonna show a simple 30mins logoff timer now. Also removed the mouse movement check.
+*Apply Recount profile on the fly
+*Apply MSBT profile on the fly
+*Added Details profile
+*Added profile for SquareMinimap Buttons
+*iLevel issues should be fixed by using the new GetDetailedItemLevelInfo api
+*Fixed detached portrait position during install
+*Styled some missing alert frames
+
 [b]3.09[/b]
 *Added support for LocationPlus & LocationLite feature to hide Bliz Zonetext
 *Unitframe position fixes during install
