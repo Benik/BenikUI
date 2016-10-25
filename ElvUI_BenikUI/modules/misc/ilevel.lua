@@ -11,57 +11,30 @@ local SetInventoryItem = SetInventoryItem
 local GetInventoryItemLink = GetInventoryItemLink
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
+local GetDetailedItemLevelInfo = GetDetailedItemLevelInfo
 
 -- GLOBALS: CharacterHeadSlot, CharacterNeckSlot, CharacterShoulderSlot, CharacterBackSlot, CharacterChestSlot, CharacterWristSlot
 -- GLOBALS: CharacterHandsSlot, CharacterWaistSlot, CharacterLegsSlot, CharacterFeetSlot, CharacterFinger0Slot, CharacterFinger1Slot
 -- GLOBALS: CharacterTrinket0Slot, CharacterTrinket1Slot, CharacterMainHandSlot, CharacterSecondaryHandSlot, PaperDollFrame
 
 local xo, yo = 0, 1
-local equipped = {}
 
 local f = CreateFrame("Frame", nil, PaperDollFrame)
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 
--- Tooltip and scanning by Phanx @ http://www.wowinterface.com/forums/showthread.php?p=271406
-local S_ITEM_LEVEL = "^" .. gsub(ITEM_LEVEL, "%%d", "(%%d+)")
-
-local scantip = CreateFrame("GameTooltip", "BenikUIiLvlScanningTooltip", nil, "GameTooltipTemplate")
-scantip:SetOwner(UIParent, "ANCHOR_NONE")
-
-local function getItemLevel(slotId)
-	local hasItem = scantip:SetInventoryItem("player", slotId)
-	local realItemLevel
-	if not hasItem then return nil end
-
-	for i = 2, scantip:NumLines() do
-		local text = _G["BenikUIiLvlScanningTooltipTextLeft"..i]:GetText()
-		if text and text ~= "" then
-			realItemLevel = realItemLevel or match(text, S_ITEM_LEVEL)
-			if realItemLevel then
-				return realItemLevel
-			end
-		end
-	end
-end
-
 function BUI:update_iLevelItems()
 	local db = E.db.benikui.misc.ilevel
 	for i = 1, 17 do
-		local itemLink = GetInventoryItemLink("player", i)
-		local iLvl = getItemLevel(i)
-		if i ~= 4 and (equipped[i] ~= itemLink or f[i]:GetText() ~= nil) then
-			equipped[i] = itemLink
-			if (itemLink ~= nil) then
-				f[i]:SetText(iLvl)
-				local _, _, ItemRarity = GetItemInfo(itemLink)
-				if ItemRarity and db.colorStyle == 'RARITY' then
-					local r, g, b = GetItemQualityColor(ItemRarity)
-					f[i]:SetTextColor(r, g, b)
-				else
-					f[i]:SetTextColor(BUI:unpackColor(db.color))
-				end
+		local itemLink = GetInventoryItemLink("player", i)	
+		if (i ~= 4 and itemLink ~= nil) then
+			local iLvl = GetDetailedItemLevelInfo(itemLink)
+			f[i]:SetText(iLvl)
+			local _, _, ItemRarity = GetItemInfo(itemLink)
+			if ItemRarity and db.colorStyle == 'RARITY' then
+				local r, g, b = GetItemQualityColor(ItemRarity)
+				f[i]:SetTextColor(r, g, b)
 			else
-				f[i]:SetText("")
+				f[i]:SetTextColor(BUI:unpackColor(db.color))
 			end
 			f[i]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
