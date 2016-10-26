@@ -843,9 +843,9 @@ function BUIS:BenikUISkins()
 			_G["WorldMapFrame"].BorderFrame.backdrop:Style('Outside')
 		end
 		
-		if _G["WorldMapTooltip"].BackdropFrame then
-			if not _G["WorldMapTooltip"].BackdropFrame.style then
-				_G["WorldMapTooltip"].BackdropFrame:Style('Outside')
+		if _G["WorldMapTooltip"] then
+			if not _G["WorldMapTooltip"].style then
+				_G["WorldMapTooltip"]:Style('Outside')
 			end
 		end
 
