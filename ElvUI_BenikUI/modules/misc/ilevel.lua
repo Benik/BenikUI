@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local LSM = LibStub('LibSharedMedia-3.0')
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
-if E.wowbuild <= 22882 then return end
+
 local _G = _G
 local match, gsub = string.match, gsub
 

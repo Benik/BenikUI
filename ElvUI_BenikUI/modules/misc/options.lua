@@ -45,7 +45,7 @@ local function miscTable()
 				guiInline = true,
 				name = L['iLevel'],
 				get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; if E.wowbuild >= 22882 then BUI:update_iLevelItems() end; end,
+				set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; BUI:update_iLevelItems() end,
 				args = {
 					enable = {
 						order = 1,
