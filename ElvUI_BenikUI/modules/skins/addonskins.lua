@@ -119,7 +119,7 @@ local function SkadaDecor()
 		if not skada.Backdrop.ishooked then
 			hooksecurefunc(AS, 'Embed_Check', function(self, message)
 				if skada.Backdrop.style then
-					if E.private.addonskins.EmbedSystem and E.private.addonskins.EmbedSkada then
+					if AS.db.EmbedSystem and AS.db.EmbedSkada then
 						skada.Backdrop.style:Hide()
 					else
 						skada.Backdrop.style:Show()
@@ -161,7 +161,7 @@ local function RecountDecor()
 		-- Fix for blurry pixel fonts
 		Recount.db.profile.Scaling = 0.95
 		if E.db.benikui.general.benikuiStyle ~= true then return end
-		if E.private.addonskins.EmbedSystem then
+		if AS.db.EmbedSystem then
 			_G["recountMain"]:Hide()
 		else
 			_G["recountMain"]:Show()
