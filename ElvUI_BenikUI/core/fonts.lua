@@ -106,7 +106,9 @@ function E:UpdateBlizzardFonts()
 		SetFont(SystemFont_Shadow_Med2,				NORMAL, 15)									 -- Shows Order resourses on OrderHallTalentFrame
 		SetFont(WhiteNormalNumberFont,				NORMAL, self.db.general.fontSize);			 -- Statusbar Numbers on TradeSkill frame
 		SetFont(GameFontHighlightSmall2,			NORMAL, self.db.general.fontSize);			 -- Skill or Recipe description on TradeSkill frame
-		--SetFont(GameFontHighlightLeft,				NORMAL, 16)
+		SetFont(Game18Font,							NORMAL, 18)									 -- MissionUI Bonus Chance
+		SetFont(GameFontNormalSmall2,				NORMAL, 12)			 					 	 -- MissionUI Followers names
+		--SetFont(QuestTitleFontBlackShadow,				NORMAL, 16)
 		--SetFont(GameFontHighlightMed2, 				NORMAL, self.db.general.fontSize*1.1);		
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
 		--SetFont(GameFontHighlightSmall, 			NORMAL, 10);
