@@ -433,6 +433,13 @@ local function styleFreeBlizzardFrames()
 
 end
 
+local function StyleCagedBattlePetTooltip(tooltipFrame)
+	if not tooltipFrame.style then
+		tooltipFrame:Style('Outside')
+	end
+end
+hooksecurefunc('BattlePetTooltipTemplate_SetBattlePet', StyleCagedBattlePetTooltip)
+
 -- SpellBook tabs
 local function styleSpellbook()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true then return end
