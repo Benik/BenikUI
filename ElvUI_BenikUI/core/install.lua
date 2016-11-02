@@ -1193,6 +1193,7 @@ local function SetupAddOnSkins()
 			AS.db['DBMFontSize'] = 12
 			AS.db['DBMRadarTrans'] = false
 			AS.db['Parchment'] = false
+			AS.db['EmbedFrameStrata'] = "2-LOW"
 			
 			if IsAddOnLoaded('Recount') then
 				AS.db['EmbedMain'] = 'Recount'
