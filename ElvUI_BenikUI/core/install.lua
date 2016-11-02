@@ -1129,108 +1129,59 @@ end
 local function SetupAddOnSkins()
 	if IsAddOnLoaded('AddOnSkins') then
 		local AS = unpack(AddOnSkins) or nil
-		if GetAddOnMetadata("AddOnSkins", "Version") <= "3.39" then -- temp till Azil updates
-			-- reset the embeds in case of Skada/Recount swap
-			E.private['addonskins']['EmbedSystem'] = nil
-			E.private['addonskins']['EmbedSystemDual'] = nil
-			E.private['addonskins']['EmbedBelowTop'] = nil
-			E.private['addonskins']['TransparentEmbed'] = nil
-			E.private['addonskins']['RecountBackdrop'] = false
-			E.private['addonskins']['EmbedMain'] = nil
-			E.private['addonskins']['EmbedLeft'] = nil
-			E.private['addonskins']['EmbedRight'] = nil
-			
-			if IsAddOnLoaded('Recount') then
-				E.private['addonskins']['EmbedMain'] = 'Recount'
-				E.private['addonskins']['EmbedSystem'] = true
-				E.private['addonskins']['EmbedSystemDual'] = false
-				E.private['addonskins']['RecountBackdrop'] = false
-				E.private['addonskins']['EmbedBelowTop'] = false
-				E.private['addonskins']['TransparentEmbed'] = true
-			end
-			
-			if IsAddOnLoaded('Skada') then
-				E.private['addonskins']['EmbedSystem'] = false
-				E.private['addonskins']['EmbedSystemDual'] = true
-				E.private['addonskins']['EmbedBelowTop'] = false
-				E.private['addonskins']['TransparentEmbed'] = true
-				E.private['addonskins']['SkadaBackdrop'] = false
-				E.private['addonskins']['EmbedMain'] = 'Skada'
-				E.private['addonskins']['EmbedLeft'] = 'Skada'
-				E.private['addonskins']['EmbedRight'] = 'Skada'
-			end
-			
-			if IsAddOnLoaded('Details') then
-				E.private['addonskins']['EmbedSystem'] = false
-				E.private['addonskins']['EmbedSystemDual'] = true
-				E.private['addonskins']['EmbedBelowTop'] = false
-				E.private['addonskins']['TransparentEmbed'] = true
-				E.private['addonskins']['DetailsBackdrop'] = false
-				E.private['addonskins']['EmbedMain'] = 'Details'
-				E.private['addonskins']['EmbedLeft'] = 'Details'
-				E.private['addonskins']['EmbedRight'] = 'Details'
-			end
-			
-			if IsAddOnLoaded('DBM-Core') then
-				E.private['addonskins']['DBMFont'] = 'Bui Prototype'
-				E.private['addonskins']['DBMFontSize'] = 10
-				E.private['addonskins']['DBMFontFlag'] = 'OUTLINE'
-			end
-		else
-			-- reset the embeds to defaults, in case of Skada/Recount/Details swap
-			AS.db['DBMFont'] = 'Tukui'
-			AS.db['DBMFontSize'] = 12
-			AS.db['DBMRadarTrans'] = false
-			AS.db['DBMSkinHalf'] = false
-			AS.db['DetailsBackdrop'] = true
+		-- reset the embeds to defaults, in case of Skada/Recount/Details swap
+		AS.db['DBMFont'] = 'Tukui'
+		AS.db['DBMFontSize'] = 12
+		AS.db['DBMRadarTrans'] = false
+		AS.db['DBMSkinHalf'] = false
+		AS.db['DetailsBackdrop'] = true
+		AS.db['EmbedBelowTop'] = false
+		AS.db['EmbedFrameStrata'] = "2-LOW"
+		AS.db['EmbedLeft'] = 'Skada'
+		AS.db['EmbedMain'] = 'Skada'
+		AS.db['EmbedRight'] = 'Skada'
+		AS.db['EmbedSystem'] = false
+		AS.db['EmbedSystemDual'] = false
+		AS.db['Parchment'] = false
+		AS.db['RecountBackdrop'] = true
+		AS.db['SkadaBackdrop'] = true
+		AS.db['TransparentEmbed'] = false
+		
+		if IsAddOnLoaded('Recount') then
 			AS.db['EmbedBelowTop'] = false
-			AS.db['EmbedFrameStrata'] = "2-LOW"
+			AS.db['EmbedMain'] = 'Recount'
+			AS.db['EmbedSystem'] = true
+			AS.db['EmbedSystemDual'] = false
+			AS.db['RecountBackdrop'] = false
+			AS.db['TransparentEmbed'] = true
+		end
+		
+		if IsAddOnLoaded('Skada') then
+			AS.db['EmbedBelowTop'] = false
 			AS.db['EmbedLeft'] = 'Skada'
 			AS.db['EmbedMain'] = 'Skada'
 			AS.db['EmbedRight'] = 'Skada'
 			AS.db['EmbedSystem'] = false
-			AS.db['EmbedSystemDual'] = false
-			AS.db['Parchment'] = false
-			AS.db['RecountBackdrop'] = true
-			AS.db['SkadaBackdrop'] = true
-			AS.db['TransparentEmbed'] = false
-			
-			if IsAddOnLoaded('Recount') then
-				AS.db['EmbedBelowTop'] = false
-				AS.db['EmbedMain'] = 'Recount'
-				AS.db['EmbedSystem'] = true
-				AS.db['EmbedSystemDual'] = false
-				AS.db['RecountBackdrop'] = false
-				AS.db['TransparentEmbed'] = true
-			end
-			
-			if IsAddOnLoaded('Skada') then
-				AS.db['EmbedBelowTop'] = false
-				AS.db['EmbedLeft'] = 'Skada'
-				AS.db['EmbedMain'] = 'Skada'
-				AS.db['EmbedRight'] = 'Skada'
-				AS.db['EmbedSystem'] = false
-				AS.db['EmbedSystemDual'] = true
-				AS.db['SkadaBackdrop'] = false
-				AS.db['TransparentEmbed'] = true
-			end
-			
-			if IsAddOnLoaded('Details') then
-				AS.db['DetailsBackdrop'] = false
-				AS.db['EmbedBelowTop'] = false
-				AS.db['EmbedLeft'] = 'Details'
-				AS.db['EmbedMain'] = 'Details'
-				AS.db['EmbedRight'] = 'Details'
-				AS.db['EmbedSystem'] = false
-				AS.db['EmbedSystemDual'] = true
-				AS.db['TransparentEmbed'] = true
-			end
-			
-			if IsAddOnLoaded('DBM-Core') then
-				AS.db['DBMFont'] = 'Bui Prototype'
-				AS.db['DBMFontSize'] = 10
-				AS.db['DBMRadarTrans'] = true
-			end
+			AS.db['EmbedSystemDual'] = true
+			AS.db['SkadaBackdrop'] = false
+			AS.db['TransparentEmbed'] = true
+		end
+		
+		if IsAddOnLoaded('Details') then
+			AS.db['DetailsBackdrop'] = false
+			AS.db['EmbedBelowTop'] = false
+			AS.db['EmbedLeft'] = 'Details'
+			AS.db['EmbedMain'] = 'Details'
+			AS.db['EmbedRight'] = 'Details'
+			AS.db['EmbedSystem'] = false
+			AS.db['EmbedSystemDual'] = true
+			AS.db['TransparentEmbed'] = true
+		end
+		
+		if IsAddOnLoaded('DBM-Core') then
+			AS.db['DBMFont'] = 'Bui Prototype'
+			AS.db['DBMFontSize'] = 10
+			AS.db['DBMRadarTrans'] = true
 		end
 	end
 end
