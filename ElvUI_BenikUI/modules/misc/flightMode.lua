@@ -280,10 +280,7 @@ function BFM:SetFlightMode(status)
 			ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
 		end
 
-		self:CancelTimer(self.locationTimer)
-		self:CancelTimer(self.coordsTimer)
-		self:CancelTimer(self.timer)
-		self:CancelTimer(self.fpsTimer)
+		self:CancelAllTimers()
 
 		self.FlightMode.bottom.timeFlying.txt:SetText("00:00")
 		self.FlightMode.bottom.requestStop:EnableMouse(true)
