@@ -86,6 +86,7 @@ local BUIcurrency = {
 	1154,	-- Shadowy Coins
 	1149,	-- Sightless Eye (PvP)
 	1268,	-- Timeworn Artifact (Honor Points?)
+	1314,	-- Lingering Soul Fragment (Good luck with this one :D)
 }
 
 local function tholderOnFade()

@@ -64,6 +64,7 @@ local miscTokens = {
 	1275,	-- Curious Coin (Buy stuff :P)
 	1226,	-- Nethershard (Invasion scenarios)
 	1154,	-- Shadowy Coins
+	1314,	-- Lingering Soul Fragment
 }
 
 local archyTokens = {
