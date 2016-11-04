@@ -25,16 +25,20 @@ f:RegisterEvent("PLAYER_ENTERING_WORLD")
 function BUI:update_iLevelItems()
 	local db = E.db.benikui.misc.ilevel
 	for i = 1, 17 do
-		local itemLink = GetInventoryItemLink("player", i)	
-		if (i ~= 4 and itemLink ~= nil) then
-			local iLvl = GetDetailedItemLevelInfo(itemLink)
-			f[i]:SetText(iLvl)
-			local _, _, ItemRarity = GetItemInfo(itemLink)
-			if ItemRarity and db.colorStyle == 'RARITY' then
-				local r, g, b = GetItemQualityColor(ItemRarity)
-				f[i]:SetTextColor(r, g, b)
+		if i ~= 4 then
+			local itemLink = GetInventoryItemLink("player", i)	
+			if (itemLink ~= nil) then
+				local iLvl = GetDetailedItemLevelInfo(itemLink)
+				f[i]:SetText(iLvl)
+				local _, _, ItemRarity = GetItemInfo(itemLink)
+				if ItemRarity and db.colorStyle == 'RARITY' then
+					local r, g, b = GetItemQualityColor(ItemRarity)
+					f[i]:SetTextColor(r, g, b)
+				else
+					f[i]:SetTextColor(BUI:unpackColor(db.color))
+				end
 			else
-				f[i]:SetTextColor(BUI:unpackColor(db.color))
+				f[i]:SetText('')
 			end
 			f[i]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
