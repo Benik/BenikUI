@@ -509,5 +509,4 @@ function AFK:Initialize()
 	self.AFKMode.statMsg.info:SetTimeVisible(4)
 	self.AFKMode.statMsg.info:SetJustifyH("CENTER")
 	self.AFKMode.statMsg.info:SetTextColor(0.7, 0.7, 0.7)
-	self.AFKMode.statMsg.info:SetClipsChildren(true)
 end
