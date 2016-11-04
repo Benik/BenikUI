@@ -1,3 +1,16 @@
+[b]3.11[/b]
+*Fixed iLevel still showing even if there is no item in the slot
+*Added Lingering Soul Fragment in tokens dashboard
+*Removed AddOnSkins version check in install and in flightMode
+*Changed AddOnSkins Embed Strata to fix a visual glitch with bags
+*Fixed detached portraits position for large resolutions, during install
+*Styled caged battlepet tooltip
+*Prevent an error in Garrison+ datatext, if the character doesn't have a Garrison
+*Missed some old AddOnSkins settings that broke Skada/Recount styling
+*Removed wow build check from iLevel
+*Fixed WorldMap tooltips not getting styled
+*Got rid of Bliz font in MissionUI bonus chance and followers names
+
 [b]3.10[/b]
 *toc update for wow patch 7.1
 *Temporary disable iLevel in wow 7.03 till 7.1 goes live
