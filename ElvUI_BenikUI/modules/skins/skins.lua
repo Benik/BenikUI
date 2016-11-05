@@ -234,6 +234,11 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 	
 	if addon == 'Blizzard_FlightMap' and E.private.skins.blizzard.taxi == true then
 		_G["FlightMapFrame"]:Style('Small')
+		if _G["WorldMapTooltip"] then
+			if not _G["WorldMapTooltip"].style then
+				_G["WorldMapTooltip"]:Style('Outside')
+			end
+		end
 	end
 
 	if E.private.skins.blizzard.timemanager == true then
