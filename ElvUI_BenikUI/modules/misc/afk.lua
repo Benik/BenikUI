@@ -14,6 +14,9 @@ local GetCursorPosition = GetCursorPosition
 local IsXPUserDisabled = IsXPUserDisabled
 local UnitLevel = UnitLevel
 local InCombatLockdown = InCombatLockdown
+local GetSpecialization = GetSpecialization
+local GetActiveSpecGroup = GetActiveSpecGroup
+local GetSpecializationInfo = GetSpecializationInfo
 
 local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE
 local CAMP_TIMER, LEVEL, NONE = CAMP_TIMER, LEVEL, NONE
