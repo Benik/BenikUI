@@ -124,6 +124,9 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		if addon == 'Blizzard_Collections' and E.private.skins.blizzard.collections == true then
 			local frame = _G["WardrobeFrame"]
 			frame:Style('Outside')
+			if not WardrobeOutfitEditFrame.style then
+				WardrobeOutfitEditFrame:Style('Outside')
+			end
 		end
 		
 		if addon == 'Blizzard_ItemUpgradeUI' and E.private.skins.blizzard.itemUpgrade == true then
@@ -311,9 +314,24 @@ local function styleFreeBlizzardFrames()
 	
 	if db.dressingroom then
 		DressUpFrame:Style('Outside')
+		local frameScaled = false
+		if frameScaled == false then
+			DressUpFrame:Size(650, 800)
+			DressUpModel:Size(580, 700)
+			DressUpFrameCancelButton:ClearAllPoints()
+			DressUpFrameCancelButton:Point("BOTTOMRIGHT", DressUpFrame.backdrop, "BOTTOMRIGHT", -10, 10)
+			DressUpModelControlFrame:ClearAllPoints()
+			DressUpModelControlFrame:Point("BOTTOM", DressUpFrame.backdrop, "BOTTOM", 0, 10)
+			DressUpFrameOutfitDropDown:ClearAllPoints()
+			DressUpFrameOutfitDropDown:Point("TOPRIGHT", DressUpFrame.backdrop, "TOPRIGHT", -(DressUpFrameOutfitDropDown.SaveButton:GetWidth() +10), -40)
+			frameScaled = true
+		end
 		if DressUpFrame.style then
 			DressUpFrame.style:Point('TOPLEFT', DressUpFrame, 'TOPLEFT', 6, 4)
 			DressUpFrame.style:Point('BOTTOMRIGHT', DressUpFrame, 'TOPRIGHT', -32, -1)
+		end
+		if not WardrobeOutfitEditFrame.style then
+			WardrobeOutfitEditFrame:Style('Outside')
 		end
 	end
 
