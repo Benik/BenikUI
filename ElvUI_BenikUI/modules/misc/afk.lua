@@ -190,6 +190,25 @@ local function createStats()
 	return format("%s: |cfff0ff00%s|r", name, result)
 end
 
+local active
+local function getSpec()
+	local specIndex = GetSpecialization();
+	if not specIndex then return end
+
+	active = GetActiveSpecGroup()
+
+	local talent = ''
+	local i = GetSpecialization(false, false, active)
+	if i then
+		i = select(2, GetSpecializationInfo(i))
+		if(i) then
+			talent = format('%s', i)
+		end
+	end
+
+	return format('%s', talent)
+end
+
 function AFK:UpdateStatMessage()
 	local createdStat = createStats()
 	self.AFKMode.statMsg.info:AddMessage(createdStat)
@@ -245,6 +264,7 @@ function AFK:SetAFK(status)
 		local xptxt = GetXPinfo()
 		local level = UnitLevel('player')
 		local nonCapClass = handleClass()
+		local spec = getSpec()
 		self.AFKMode.top:SetHeight(0)
 		self.AFKMode.top.anim.height:Play()
 		self.AFKMode.bottom:SetHeight(0)
@@ -258,7 +278,7 @@ function AFK:SetAFK(status)
 			self.AFKMode.xp:Hide()
 			self.AFKMode.xp.text:SetText("")		
 		end
-		self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, nonCapClass)
+		self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, spec, nonCapClass)
 	else
 		self:CancelTimer(self.statsTimer)
 		self:CancelTimer(self.logoffTimer)
@@ -297,6 +317,7 @@ function AFK:Initialize()
 	local level = UnitLevel('player')
 	local nonCapClass = handleClass()
 	local className = E.myclass
+	local spec = getSpec()
 	
 	-- Create Top frame
 	self.AFKMode.top = CreateFrame('Frame', nil, self.AFKMode)
@@ -381,7 +402,7 @@ function AFK:Initialize()
 	-- Add more info in the name and position it to the center
 	self.AFKMode.bottom.name:ClearAllPoints()	
 	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.factionb, "BOTTOM")
-	self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, nonCapClass)
+	self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, spec, nonCapClass)
 	self.AFKMode.bottom.name:SetJustifyH("CENTER")
 	self.AFKMode.bottom.name:FontTemplate(nil, 18)	
 
