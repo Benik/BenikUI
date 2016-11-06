@@ -314,18 +314,22 @@ local function styleFreeBlizzardFrames()
 	
 	if db.dressingroom then
 		DressUpFrame:Style('Outside')
-		local frameScaled = false
-		if frameScaled == false then
-			DressUpFrame:Size(650, 800)
-			DressUpModel:Size(580, 700)
-			DressUpFrameCancelButton:ClearAllPoints()
-			DressUpFrameCancelButton:Point("BOTTOMRIGHT", DressUpFrame.backdrop, "BOTTOMRIGHT", -10, 10)
-			DressUpModelControlFrame:ClearAllPoints()
-			DressUpModelControlFrame:Point("BOTTOM", DressUpFrame.backdrop, "BOTTOM", 0, 10)
-			DressUpFrameOutfitDropDown:ClearAllPoints()
-			DressUpFrameOutfitDropDown:Point("TOPRIGHT", DressUpFrame.backdrop, "TOPRIGHT", -(DressUpFrameOutfitDropDown.SaveButton:GetWidth() +10), -40)
-			frameScaled = true
-		end
+		-- Scale the dressUp frame. A bit.
+		DressUpFrame:Size(500, 620)
+		DressUpModel:Size(420, 540)
+		DressUpModel:ClearAllPoints()
+		DressUpModel:Point("CENTER", DressUpFrame.backdrop, "CENTER")
+
+		DressUpFrameCancelButton:ClearAllPoints()
+		DressUpFrameCancelButton:Point("BOTTOMRIGHT", DressUpFrame.backdrop, "BOTTOMRIGHT", -10, 10)
+
+		DressUpModelControlFrame:ClearAllPoints()
+		DressUpModelControlFrame:Point("BOTTOM", DressUpFrame.backdrop, "BOTTOM", 0, 10)
+		DressUpModelControlFrame:SetFrameLevel(10)
+
+		DressUpFrameOutfitDropDown:ClearAllPoints()
+		DressUpFrameOutfitDropDown:Point("TOPRIGHT", DressUpFrame.backdrop, "TOPRIGHT", -(DressUpFrameOutfitDropDown.SaveButton:GetWidth() +10), -40)
+
 		if DressUpFrame.style then
 			DressUpFrame.style:Point('TOPLEFT', DressUpFrame, 'TOPLEFT', 6, 4)
 			DressUpFrame.style:Point('BOTTOMRIGHT', DressUpFrame, 'TOPRIGHT', -32, -1)
