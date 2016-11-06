@@ -17,9 +17,11 @@ local InCombatLockdown = InCombatLockdown
 local GetSpecialization = GetSpecialization
 local GetActiveSpecGroup = GetActiveSpecGroup
 local GetSpecializationInfo = GetSpecializationInfo
+local GetAverageItemLevel = GetAverageItemLevel
 
 local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE
 local CAMP_TIMER, LEVEL, NONE = CAMP_TIMER, LEVEL, NONE
+local ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY
 
 -- GLOBALS: CreateAnimationGroup, UIParent
 
@@ -212,6 +214,16 @@ local function getSpec()
 	return format('%s', talent)
 end
 
+local function getItemLevel()
+	local level = UnitLevel("player");
+	local _, equipped = GetAverageItemLevel()
+	local ilvl = ''
+	if (level >= MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY) then
+		ilvl = format('\n%s: %d', ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, equipped)
+	end
+	return ilvl
+end
+
 function AFK:UpdateStatMessage()
 	local createdStat = createStats()
 	self.AFKMode.statMsg.info:AddMessage(createdStat)
@@ -268,6 +280,7 @@ function AFK:SetAFK(status)
 		local level = UnitLevel('player')
 		local nonCapClass = handleClass()
 		local spec = getSpec()
+		local ilvl = getItemLevel()
 		self.AFKMode.top:SetHeight(0)
 		self.AFKMode.top.anim.height:Play()
 		self.AFKMode.bottom:SetHeight(0)
@@ -281,7 +294,7 @@ function AFK:SetAFK(status)
 			self.AFKMode.xp:Hide()
 			self.AFKMode.xp.text:SetText("")		
 		end
-		self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, spec, nonCapClass)
+		self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, E.myrace, spec, nonCapClass, ilvl)
 	else
 		self:CancelTimer(self.statsTimer)
 		self:CancelTimer(self.logoffTimer)
@@ -321,6 +334,7 @@ function AFK:Initialize()
 	local nonCapClass = handleClass()
 	local className = E.myclass
 	local spec = getSpec()
+	local ilvl = getItemLevel()
 	
 	-- Create Top frame
 	self.AFKMode.top = CreateFrame('Frame', nil, self.AFKMode)
@@ -404,8 +418,8 @@ function AFK:Initialize()
 	
 	-- Add more info in the name and position it to the center
 	self.AFKMode.bottom.name:ClearAllPoints()	
-	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.factionb, "BOTTOM")
-	self.AFKMode.bottom.name:SetFormattedText("%s - %s \n%s %s %s %s %s", E.myname, E.myrealm, LEVEL, level, E.myrace, spec, nonCapClass)
+	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.factionb, "BOTTOM", 0, 5)
+	self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, E.myrace, spec, nonCapClass, ilvl)
 	self.AFKMode.bottom.name:SetJustifyH("CENTER")
 	self.AFKMode.bottom.name:FontTemplate(nil, 18)	
 
