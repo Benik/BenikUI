@@ -1142,7 +1142,7 @@ local function SetupAddOnSkins()
 		AS.db['EmbedRight'] = 'Skada'
 		AS.db['EmbedSystem'] = false
 		AS.db['EmbedSystemDual'] = false
-		AS.db['Parchment'] = false
+		AS.db['ParchmentRemover'] = false
 		AS.db['RecountBackdrop'] = true
 		AS.db['SkadaBackdrop'] = true
 		AS.db['TransparentEmbed'] = false
