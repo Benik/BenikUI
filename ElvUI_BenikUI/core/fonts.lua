@@ -108,6 +108,8 @@ function E:UpdateBlizzardFonts()
 		SetFont(GameFontHighlightSmall2,			NORMAL, self.db.general.fontSize);			 -- Skill or Recipe description on TradeSkill frame
 		SetFont(Game18Font,							NORMAL, 18)									 -- MissionUI Bonus Chance
 		SetFont(GameFontNormalSmall2,				NORMAL, 12)			 					 	 -- MissionUI Followers names
+		SetFont(GameFontNormalHuge2,				NORMAL, 22)			 					 	 -- Mythic weekly best dungeon name
+
 		--SetFont(QuestTitleFontBlackShadow,				NORMAL, 16)
 		--SetFont(GameFontHighlightMed2, 				NORMAL, self.db.general.fontSize*1.1);		
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
