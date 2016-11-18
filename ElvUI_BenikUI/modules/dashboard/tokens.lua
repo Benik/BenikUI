@@ -15,6 +15,7 @@ local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local GetCurrencyInfo = GetCurrencyInfo
+local IsShiftKeyDown = IsShiftKeyDown
 
 -- GLOBALS: hooksecurefunc, tokenFrames, tokenHolder, tokenHolderMover, sysHolder
 
@@ -141,6 +142,17 @@ function BUIT:EnableDisableCombat()
 	end
 end
 
+local function OnMouseUp(self, btn)
+	if btn == "RightButton" then
+		if IsShiftKeyDown() then
+			local id = self:GetParent().id
+			local name = GetCurrencyInfo(id)
+			E.db.dashboards.tokens.chooseTokens[name] = false
+			BUIT:UpdateTokens()
+		end
+	end
+end
+
 function BUIT:UpdateTokens()
 	local db = E.db.dashboards.tokens
 	
@@ -174,6 +186,7 @@ function BUIT:UpdateTokens()
 					token:Width(DASH_WIDTH)
 					token:Point('TOPLEFT', tokenHolder, 'TOPLEFT', SPACING, -SPACING)
 					token:EnableMouse(true)
+					token.id = id
 
 					token.dummy = CreateFrame('Frame', nil, token)
 					token.dummy:Point('BOTTOMLEFT', token, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
@@ -232,10 +245,11 @@ function BUIT:UpdateTokens()
 						end
 					end
 
-					token.IconBG = CreateFrame('Frame', nil, token)
+					token.IconBG = CreateFrame('Button', nil, token)
 					token.IconBG:SetTemplate('Transparent')
 					token.IconBG:Size(E.PixelMode and 18 or 20)
 					token.IconBG:Point('BOTTOMRIGHT', token, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
+					token.IconBG:SetScript('OnMouseUp', OnMouseUp)
 
 					token.IconBG.Icon = token.IconBG:CreateTexture(nil, 'ARTWORK')
 					token.IconBG.Icon:SetInside()
