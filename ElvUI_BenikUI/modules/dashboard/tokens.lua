@@ -142,7 +142,7 @@ function BUIT:EnableDisableCombat()
 	end
 end
 
-local function OnMouseUp(self, btn)
+local function Icon_OnMouseUp(self, btn)
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
 			local id = self:GetParent().id
@@ -150,6 +150,14 @@ local function OnMouseUp(self, btn)
 			E.db.dashboards.tokens.chooseTokens[name] = false
 			BUIT:UpdateTokens()
 		end
+	end
+end
+
+local function Icon_OnEnter(self)
+	local id = self:GetParent().id
+	if E.db.dashboards.tokens.tooltip then
+		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
+		GameTooltip:SetCurrencyByID(id)
 	end
 end
 
@@ -249,7 +257,8 @@ function BUIT:UpdateTokens()
 					token.IconBG:SetTemplate('Transparent')
 					token.IconBG:Size(E.PixelMode and 18 or 20)
 					token.IconBG:Point('BOTTOMRIGHT', token, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
-					token.IconBG:SetScript('OnMouseUp', OnMouseUp)
+					token.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
+					token.IconBG:SetScript('OnEnter', Icon_OnEnter)
 
 					token.IconBG.Icon = token.IconBG:CreateTexture(nil, 'ARTWORK')
 					token.IconBG.Icon:SetInside()
@@ -258,10 +267,6 @@ function BUIT:UpdateTokens()
 
 					token:SetScript('OnEnter', function(self)
 						token.Text:SetFormattedText('%s', name)
-						if db.tooltip then
-							GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
-							GameTooltip:SetCurrencyByID(id)
-						end
 					end)
 					
 					-- Flash
