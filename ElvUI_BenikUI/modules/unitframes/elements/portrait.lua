@@ -79,7 +79,7 @@ function UFB:Configure_Portrait(frame, isPlayer)
 						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'TargetPortraitMover', 'Target Portrait', nil, nil, nil, 'ALL,SOLO')
 					elseif frame.unit == "targettarget" then
-						frame.portraitmover:Point('TOP', frame, 'BOTTOM', frame.BORDER, 0)
+						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'TargetTargetPortraitMover', 'TargetTarget Portrait', nil, nil, nil, 'ALL,SOLO')						
 					end
 					frame.portraitmover:ClearAllPoints()
