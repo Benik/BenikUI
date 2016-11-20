@@ -278,7 +278,8 @@ function AFK:SetAFK(status)
 	if(status) then
 		local xptxt = GetXPinfo()
 		local level = UnitLevel('player')
-		local nonCapClass = handleClass()
+		local race = UnitRace('player')
+		local localizedClass = UnitClass('player')
 		local spec = getSpec()
 		local ilvl = getItemLevel()
 		self.AFKMode.top:SetHeight(0)
@@ -292,9 +293,9 @@ function AFK:SetAFK(status)
 			self.AFKMode.xp.text:SetText(xptxt)
 		else
 			self.AFKMode.xp:Hide()
-			self.AFKMode.xp.text:SetText("")		
+			self.AFKMode.xp.text:SetText("")
 		end
-		self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, E.myrace, spec, nonCapClass, ilvl)
+		self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
 	else
 		self:CancelTimer(self.statsTimer)
 		self:CancelTimer(self.logoffTimer)
@@ -335,7 +336,7 @@ function AFK:Initialize()
 	local className = E.myclass
 	local spec = getSpec()
 	local ilvl = getItemLevel()
-	
+
 	-- Create Top frame
 	self.AFKMode.top = CreateFrame('Frame', nil, self.AFKMode)
 	self.AFKMode.top:SetFrameLevel(0)
@@ -346,17 +347,17 @@ function AFK:Initialize()
 
 	--Style the top frame
 	self.AFKMode.top:Style('Under')
-	
+
 	--Top Animation
 	self.AFKMode.top.anim = CreateAnimationGroup(self.AFKMode.top)
 	self.AFKMode.top.anim.height = self.AFKMode.top.anim:CreateAnimation("Height")
 	self.AFKMode.top.anim.height:SetChange(GetScreenHeight() * (1 / 20))
 	self.AFKMode.top.anim.height:SetDuration(1)
 	self.AFKMode.top.anim.height:SetSmoothing("Bounce")
-	
+
 	-- move the chat lower
 	self.AFKMode.chat:SetPoint("TOPLEFT", self.AFKMode.top.style, "TOPLEFT", 4, -4)
-	
+
 	-- WoW logo
 	self.AFKMode.top.wowlogo = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the logo layer
 	self.AFKMode.top.wowlogo:SetPoint("TOP", self.AFKMode.top, "TOP", 0, -5)
@@ -365,7 +366,7 @@ function AFK:Initialize()
 	self.AFKMode.top.wowlogo.tex = self.AFKMode.top.wowlogo:CreateTexture(nil, 'OVERLAY')
 	self.AFKMode.top.wowlogo.tex:SetAtlas("Glues-WoW-LegionLogo")
 	self.AFKMode.top.wowlogo.tex:SetInside()
-	
+
 	-- Server/Local Time text
 	self.AFKMode.top.time = self.AFKMode.top:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.top.time:FontTemplate(nil, 16)
@@ -373,7 +374,7 @@ function AFK:Initialize()
 	self.AFKMode.top.time:SetPoint("RIGHT", self.AFKMode.top, "RIGHT", -20, 0)
 	self.AFKMode.top.time:SetJustifyH("LEFT")
 	self.AFKMode.top.time:SetTextColor(classColor.r, classColor.g, classColor.b)
-	
+
 	-- Date text
 	self.AFKMode.top.date = self.AFKMode.top:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.top.date:FontTemplate(nil, 16)
@@ -381,7 +382,7 @@ function AFK:Initialize()
 	self.AFKMode.top.date:SetPoint("LEFT", self.AFKMode.top, "LEFT", 20, 0)
 	self.AFKMode.top.date:SetJustifyH("RIGHT")
 	self.AFKMode.top.date:SetTextColor(classColor.r, classColor.g, classColor.b)
-	
+
 	-- Statusbar on Top frame decor showing time to log off (30mins)
 	self.AFKMode.top.Status = CreateFrame('StatusBar', nil, self.AFKMode.top)
 	self.AFKMode.top.Status:SetStatusBarTexture((E["media"].normTex))
@@ -397,14 +398,14 @@ function AFK:Initialize()
 
 	-- Style the bottom frame
 	self.AFKMode.bottom:Style('Inside')
-	
+
 	-- Bottom Frame Animation
 	self.AFKMode.bottom.anim = CreateAnimationGroup(self.AFKMode.bottom)
 	self.AFKMode.bottom.anim.height = self.AFKMode.bottom.anim:CreateAnimation("Height")
 	self.AFKMode.bottom.anim.height:SetChange(GetScreenHeight() * (1 / 9))
 	self.AFKMode.bottom.anim.height:SetDuration(1)
-	self.AFKMode.bottom.anim.height:SetSmoothing("Bounce")	
-	
+	self.AFKMode.bottom.anim.height:SetSmoothing("Bounce")
+
 	-- Move the factiongroup sign to the center
 	self.AFKMode.bottom.factionb = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the faction logo layer
 	self.AFKMode.bottom.factionb:SetPoint("BOTTOM", self.AFKMode.bottom, "TOP", 0, -40)
@@ -415,13 +416,13 @@ function AFK:Initialize()
 	self.AFKMode.bottom.faction:SetInside()
 	-- Apply class texture rather than the faction
 	self.AFKMode.bottom.faction:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\classIcons\\CLASS-'..className)
-	
+
 	-- Add more info in the name and position it to the center
-	self.AFKMode.bottom.name:ClearAllPoints()	
+	self.AFKMode.bottom.name:ClearAllPoints()
 	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.factionb, "BOTTOM", 0, 5)
 	self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, E.myrace, spec, nonCapClass, ilvl)
 	self.AFKMode.bottom.name:SetJustifyH("CENTER")
-	self.AFKMode.bottom.name:FontTemplate(nil, 18)	
+	self.AFKMode.bottom.name:FontTemplate(nil, 18)
 
 	-- Lower the guild text size a bit
 	self.AFKMode.bottom.guild:ClearAllPoints()
@@ -443,7 +444,7 @@ function AFK:Initialize()
 	self.AFKMode.bottom.etext:SetTextColor(0.7, 0.7, 0.7)
 	-- Hide ElvUI logo
 	self.AFKMode.bottom.logo:Hide()
-	
+
 	-- Add BenikUI name
 	self.AFKMode.bottom.benikui = self.AFKMode.bottom:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.bottom.benikui:FontTemplate(nil, 24)
@@ -456,45 +457,45 @@ function AFK:Initialize()
 	self.AFKMode.bottom.btext:SetFormattedText("v%s", BUI.Version)
 	self.AFKMode.bottom.btext:SetPoint("TOP", self.AFKMode.bottom.benikui, "BOTTOM")
 	self.AFKMode.bottom.btext:SetTextColor(0.7, 0.7, 0.7)
-	
+
 	-- Random stats decor (taken from install routine)
 	self.AFKMode.statMsg = CreateFrame("Frame", nil, self.AFKMode)
 	self.AFKMode.statMsg:Size(418, 72)
 	self.AFKMode.statMsg:Point("CENTER", 0, 200)
-	
+
 	self.AFKMode.statMsg.bg = self.AFKMode.statMsg:CreateTexture(nil, 'BACKGROUND')
 	self.AFKMode.statMsg.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	self.AFKMode.statMsg.bg:SetPoint('BOTTOM')
 	self.AFKMode.statMsg.bg:Size(326, 103)
 	self.AFKMode.statMsg.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	self.AFKMode.statMsg.bg:SetVertexColor(1, 1, 1, 0.7)
-	
+
 	self.AFKMode.statMsg.lineTop = self.AFKMode.statMsg:CreateTexture(nil, 'BACKGROUND')
 	self.AFKMode.statMsg.lineTop:SetDrawLayer('BACKGROUND', 2)
 	self.AFKMode.statMsg.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	self.AFKMode.statMsg.lineTop:SetPoint("TOP")
 	self.AFKMode.statMsg.lineTop:Size(418, 7)
 	self.AFKMode.statMsg.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
-	
+
 	self.AFKMode.statMsg.lineBottom = self.AFKMode.statMsg:CreateTexture(nil, 'BACKGROUND')
 	self.AFKMode.statMsg.lineBottom:SetDrawLayer('BACKGROUND', 2)
 	self.AFKMode.statMsg.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	self.AFKMode.statMsg.lineBottom:SetPoint("BOTTOM")
 	self.AFKMode.statMsg.lineBottom:Size(418, 7)
 	self.AFKMode.statMsg.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
-	
+
 	-- Countdown decor
 	self.AFKMode.countd = CreateFrame("Frame", nil, self.AFKMode)
 	self.AFKMode.countd:Size(418, 36)
 	self.AFKMode.countd:Point("TOP", self.AFKMode.statMsg.lineBottom, "BOTTOM")
-	
+
 	self.AFKMode.countd.bg = self.AFKMode.countd:CreateTexture(nil, 'BACKGROUND')
 	self.AFKMode.countd.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	self.AFKMode.countd.bg:SetPoint('BOTTOM')
 	self.AFKMode.countd.bg:Size(326, 56)
 	self.AFKMode.countd.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	self.AFKMode.countd.bg:SetVertexColor(1, 1, 1, 0.7)
-	
+
 	self.AFKMode.countd.lineBottom = self.AFKMode.countd:CreateTexture(nil, 'BACKGROUND')
 	self.AFKMode.countd.lineBottom:SetDrawLayer('BACKGROUND', 2)
 	self.AFKMode.countd.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
@@ -509,9 +510,9 @@ function AFK:Initialize()
 	self.AFKMode.countd.text:SetJustifyH("CENTER")
 	self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
 	self.AFKMode.countd.text:SetTextColor(0.7, 0.7, 0.7)
-	
+
 	self.AFKMode.bottom.time:Hide()
-	
+
 	local xptxt = GetXPinfo()
 	-- XP info
 	self.AFKMode.xp = CreateFrame("Frame", nil, self.AFKMode)
@@ -535,7 +536,7 @@ function AFK:Initialize()
 	self.AFKMode.xp.text:SetJustifyH("CENTER")
 	self.AFKMode.xp.text:SetText(xptxt)
 	self.AFKMode.xp.text:SetTextColor(0.7, 0.7, 0.7)
-	
+
 	-- Random stats frame
 	self.AFKMode.statMsg.info = CreateFrame("ScrollingMessageFrame", nil, self.AFKMode.statMsg)
 	self.AFKMode.statMsg.info:FontTemplate(nil, 18)
