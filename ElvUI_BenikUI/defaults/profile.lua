@@ -120,6 +120,13 @@ P['benikui'] = {
 			['portraitStyle'] = false,
 			['portraitStyleHeight'] = 6,
 		},
+		['targettarget'] = {
+			['detachPortrait'] = false,
+			['portraitWidth'] = 110,
+			['portraitHeight'] = 85,
+			['portraitShadow'] = false,
+			['portraitTransparent'] = true,
+		},
 		['infoPanel'] = {
 			['fixInfoPanel'] = true,
 			['texture'] = 'BuiEmpty',
