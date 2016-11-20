@@ -196,6 +196,7 @@ local function ufPlayerTable()
 					if value == true then
 						E.Options.args.unitframe.args.player.args.portrait.args.width.min = 0
 						E.db.unitframe.units.player.portrait.width = 0
+						E.db.unitframe.units.player.orientation = "LEFT"
 					else
 						E.Options.args.unitframe.args.player.args.portrait.args.width.min = 15
 						E.db.unitframe.units.player.portrait.width = 45
@@ -285,6 +286,7 @@ local function ufTargetTable()
 					if value == true then
 						E.Options.args.unitframe.args.target.args.portrait.args.width.min = 0
 						E.db.unitframe.units.target.portrait.width = 0
+						E.db.unitframe.units.target.orientation = "RIGHT"
 					else
 						E.Options.args.unitframe.args.target.args.portrait.args.width.min = 15
 						E.db.unitframe.units.target.portrait.width = 45
