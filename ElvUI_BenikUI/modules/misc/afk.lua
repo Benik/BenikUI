@@ -123,13 +123,6 @@ local stats = {
 	10184,	-- Garrision Rare Missions completed
 }
 
--- Remove capitals from class except first letter
-local function handleClass()
-	local lowclass = E.myclass:lower()
-	local firstclass = lowclass:gsub("^%l", upper)
-	return firstclass
-end
-
 -- Create Time
 local function createTime()
 	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
@@ -332,7 +325,8 @@ function AFK:Initialize()
 	self:InitializeBuiAfk()
 
 	local level = UnitLevel('player')
-	local nonCapClass = handleClass()
+	local race = UnitRace('player')
+	local localizedClass = UnitClass('player')
 	local className = E.myclass
 	local spec = getSpec()
 	local ilvl = getItemLevel()
@@ -420,7 +414,7 @@ function AFK:Initialize()
 	-- Add more info in the name and position it to the center
 	self.AFKMode.bottom.name:ClearAllPoints()
 	self.AFKMode.bottom.name:SetPoint("TOP", self.AFKMode.bottom.factionb, "BOTTOM", 0, 5)
-	self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, E.myrace, spec, nonCapClass, ilvl)
+	self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
 	self.AFKMode.bottom.name:SetJustifyH("CENTER")
 	self.AFKMode.bottom.name:FontTemplate(nil, 18)
 
