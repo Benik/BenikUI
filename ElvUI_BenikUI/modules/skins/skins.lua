@@ -29,7 +29,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			local frame = _G["ArchaeologyFrame"]
 			frame:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_ArtifactUI' and E.private.skins.blizzard.artifact == true then
 			local frame = _G["ArtifactFrame"]
 			frame:Style('Small')
@@ -47,23 +47,23 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				_G["WowTokenGameTimeTutorial"]:Style('Small')
 			end
 		end
-		
+
 		if addon == 'Blizzard_BarbershopUI' and E.private.skins.blizzard.barber == true then
 			local frame = _G["BarberShopFrame"]
 			frame:Style('Outside')
 			_G["BarberShopAltFormFrame"]:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_BattlefieldMinimap' and E.private.skins.blizzard.bgmap == true then
 			local frame = _G["BattlefieldMinimap"]
 			frame:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_BindingUI' and E.private.skins.blizzard.binding == true then
 			local frame = _G["KeyBindingFrame"]
 			frame:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_BlackMarketUI' and E.private.skins.blizzard.bmah == true then
 			local frame = _G["BlackMarketFrame"]
 			frame:Style('Outside')
@@ -115,12 +115,12 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			local frame = _G["GuildControlUI"]
 			frame:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_InspectUI' and E.private.skins.blizzard.inspect == true then
 			local frame = _G["InspectFrame"]
 			frame:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_Collections' and E.private.skins.blizzard.collections == true then
 			local frame = _G["WardrobeFrame"]
 			frame:Style('Outside')
@@ -128,22 +128,22 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 				WardrobeOutfitEditFrame:Style('Outside')
 			end
 		end
-		
+
 		if addon == 'Blizzard_ItemUpgradeUI' and E.private.skins.blizzard.itemUpgrade == true then
 			local frame = _G["ItemUpgradeFrame"]
 			frame:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_ItemSocketingUI' and E.private.skins.blizzard.socket == true then
 			local frame = _G["ItemSocketingFrame"]
 			frame:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_LookingForGuildUI' and E.private.skins.blizzard.lfguild == true then
 			local frame = _G["LookingForGuildFrame"]
 			frame:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_MacroUI' and E.private.skins.blizzard.macro == true then
 			local frame = _G["MacroFrame"]
 			frame:Style('Outside')
@@ -166,12 +166,12 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			local frame = _G["TradeSkillFrame"]
 			frame:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_TrainerUI' and E.private.skins.blizzard.trainer == true then
 			local frame = _G["ClassTrainerFrame"]
 			frame:Style('Outside')
 		end
-		
+
 		if addon == 'Blizzard_VoidStorageUI' and E.private.skins.blizzard.voidstorage == true then
 			local frame = _G["VoidStorageFrame"]
 			frame:Style('Outside')
@@ -185,7 +185,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			end
 		end
 	end
-	
+
 	if addon == 'Blizzard_EncounterJournal' and E.private.skins.blizzard.encounterjournal == true then
 		if not _G["EncounterJournal"].style then
 			_G["EncounterJournal"]:Style('Small')
@@ -197,14 +197,14 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			_G["EncounterJournalEncounterFrameInfoModelTab"],
 			_G["EncounterJournalEncounterFrameInfoOverviewTab"]
 		}
-		
+
 		for _, Tab in pairs(Tabs) do
 			if Tab.backdrop then
 				Tab.backdrop:Style('Outside')
 			end
 		end
 	end
-	
+
 	if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true and E.db.benikuiSkins.variousSkins.talkingHead == true then
 		local frame = _G["TalkingHeadFrame"]
 		if frame then
@@ -214,12 +214,12 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			frame.BackgroundFrame.backdrop:CreateWideShadow() -- to hide the borders not showing due to scaling
 			frame.MainFrame.Model:SetTemplate('Transparent')
 			frame.MainFrame.Model:CreateShadow('Default')
-			
+
 			local button = TalkingHeadFrame.MainFrame.CloseButton
 			S:HandleCloseButton(button)
 			button:ClearAllPoints()
 			button:Point('TOPRIGHT', TalkingHeadFrame.BackgroundFrame, 'TOPRIGHT', 0, -2)
-			
+
 			frame.BackgroundFrame:Style('Inside')
 			if frame.BackgroundFrame.style then
 				frame.BackgroundFrame.style:ClearAllPoints()
@@ -234,7 +234,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 			_G["QuestChoiceFrame"]:Style('Small')
 		end
 	end
-	
+
 	if addon == 'Blizzard_FlightMap' and E.private.skins.blizzard.taxi == true then
 		_G["FlightMapFrame"]:Style('Small')
 		if _G["WorldMapTooltip"] then
@@ -284,7 +284,7 @@ local function styleFreeBlizzardFrames()
 
 	ColorPickerFrame:Style('Outside')
 	MinimapRightClickMenu:Style('Outside')
-	
+
 	for _, frame in pairs(tooltips) do
 		if frame and not frame.style then
 			frame:Style('Outside')
@@ -292,17 +292,17 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if E.private.skins.blizzard.enable ~= true then return end
-	
+
 	local db = E.private.skins.blizzard
-	
+
 	if db.addonManager then
 		AddonList:Style('Outside')
 	end
-	
+
 	if db.bgscore then
 		WorldStateScoreFrame:Style('Outside')
 	end
-	
+
 	if db.character then
 		GearManagerDialogPopup:Style('Outside')
 		PaperDollFrame:Style('Outside')
@@ -311,7 +311,7 @@ local function styleFreeBlizzardFrames()
 		TokenFrame:Style('Outside')
 		TokenFramePopup:Style('Outside')
 	end
-	
+
 	if db.dressingroom then
 		DressUpFrame:Style('Outside')
 		-- Scale the dressUp frame. A bit.
@@ -346,12 +346,12 @@ local function styleFreeBlizzardFrames()
 		FriendsFriendsFrame.backdrop:Style('Outside')
 		RecruitAFriendFrame:Style('Outside')
 	end
-	
+
 	if db.gossip then
 		GossipFrame:Style('Outside')
 		ItemTextFrame:Style('Outside')
 	end
-	
+
 	if db.guildregistrar then
 		GuildRegistrarFrame:Style('Outside')
 	end
@@ -371,18 +371,18 @@ local function styleFreeBlizzardFrames()
 		PVPReadyDialog:Style('Outside')
 		RaidBrowserFrame.backdrop:Style('Outside')
 	end
-	
+
 	if db.loot then
 		LootFrame:Style('Outside')
 		MasterLooterFrame:Style('Outside')
 		BonusRollFrame:Style('Outside')
 	end
-	
+
 	if db.mail then
 		MailFrame:Style('Outside')
 		OpenMailFrame:Style('Outside')
 	end
-	
+
 	if db.merchant then
 		MerchantFrame:Style('Outside')
 		if MerchantFrame.style then
@@ -390,7 +390,7 @@ local function styleFreeBlizzardFrames()
 			MerchantFrame.style:Point('BOTTOMRIGHT', MerchantFrame, 'TOPRIGHT', 2, -1)
 		end
 	end
-	
+
 	if db.misc then
 		AudioOptionsFrame:Style('Outside')
 		BNToastFrame:Style('Outside')
@@ -417,43 +417,43 @@ local function styleFreeBlizzardFrames()
 		TicketStatusFrameButton:Style('Outside')
 		VideoOptionsFrame:Style('Outside')
 		VoiceMacroMenu:Style('Outside')
-		
+
 		for i = 1, MAX_STATIC_POPUPS do
 			local frame = _G["ElvUI_StaticPopup"..i]
 			frame:Style('Outside')
 		end
 	end
-	
+
 	if db.nonraid then
 		RaidInfoFrame:Style('Outside')
 	end
-	
+
 	if db.petition then
 		PetitionFrame:Style('Outside')
 	end
-	
+
 	if db.quest then
 		QuestFrame.backdrop:Style('Outside')
 		QuestLogPopupDetailFrame:Style('Outside')
 		QuestNPCModel.backdrop:Style('Outside')
 	end
-	
+
 	if db.stable then
 		PetStableFrame:Style('Outside')
 	end
-	
+
 	if db.spellbook then
 		SpellBookFrame:Style('Outside')
 	end
-	
+
 	if db.tabard then
 		TabardFrame:Style('Outside')
 	end
-	
+
 	if db.taxi then
 		TaxiFrame.backdrop:Style('Outside')
 	end
-	
+
 	if db.trade then
 		TradeFrame:Style('Outside')
 	end
@@ -470,7 +470,7 @@ hooksecurefunc('BattlePetTooltipTemplate_SetBattlePet', StyleCagedBattlePetToolt
 -- SpellBook tabs
 local function styleSpellbook()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true then return end
-	
+
 	hooksecurefunc('SpellBookFrame_UpdateSkillLineTabs', function()
 		for i = 1, MAX_SKILLLINE_TABS do
 			local tab = _G['SpellBookSkillLineTab'..i]
@@ -511,7 +511,7 @@ local function styleAlertFrames()
 		end
 	end
 	hooksecurefunc(AchievementAlertSystem, "setUpFunction", StyleAchievementAlert) -- needs testing
-	
+
 	local function StyleCriteriaAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
@@ -519,43 +519,43 @@ local function styleAlertFrames()
 				frame.Icon.Texture.b:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(CriteriaAlertSystem, "setUpFunction", StyleCriteriaAlert)
-	
+
 	local function StyleDungeonCompletionAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(DungeonCompletionAlertSystem, "setUpFunction", StyleDungeonCompletionAlert)
-	
+
 	local function StyleGuildChallengeAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(GuildChallengeAlertSystem, "setUpFunction", StyleGuildChallengeAlert)
-	
+
 	local function StyleInvasionAlertSystem(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(InvasionAlertSystem, "setUpFunction", StyleInvasionAlertSystem)
-	
+
 	local function StyleScenarioAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(ScenarioAlertSystem, "setUpFunction", StyleScenarioAlert)
 	
 	local function StyleWorldQuestCompleteAlert(frame)
@@ -564,70 +564,70 @@ local function styleAlertFrames()
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(WorldQuestCompleteAlertSystem, "setUpFunction", StyleWorldQuestCompleteAlert)
-	
+
 	local function StyleGarrisonFollowerAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(GarrisonFollowerAlertSystem, "setUpFunction", StyleGarrisonFollowerAlert)
-	
+
 	local function StyleGarrisonShipFollowerAlertSystem(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(GarrisonShipFollowerAlertSystem, "setUpFunction", StyleGarrisonShipFollowerAlertSystem)
-	
+
 	local function StyleGarrisonTalentAlertSystem(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(GarrisonTalentAlertSystem, "setUpFunction", StyleGarrisonTalentAlertSystem)
-	
+
 	local function StyleGarrisonBuildingAlertSystem(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(GarrisonBuildingAlertSystem, "setUpFunction", StyleGarrisonBuildingAlertSystem)
-	
+
 	local function StyleGarrisonMissionAlertSystem(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(GarrisonMissionAlertSystem, "setUpFunction", StyleGarrisonMissionAlertSystem)
-	
+
 	local function StyleGarrisonShipMissionAlertSystem(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(GarrisonShipMissionAlertSystem, "setUpFunction", StyleGarrisonShipMissionAlertSystem)
-	
+
 	local function StyleGarrisonRandomMissionAlertSystem(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(GarrisonRandomMissionAlertSystem, "setUpFunction", StyleGarrisonRandomMissionAlertSystem)
 
 	local function StyleLegendaryItemAlertSystem(frame)
@@ -636,27 +636,27 @@ local function styleAlertFrames()
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(LegendaryItemAlertSystem, "setUpFunction", StyleLegendaryItemAlertSystem)
-	
+
 	local function StyleLootWonAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end		
+	end
 	hooksecurefunc(LootAlertSystem, "setUpFunction", StyleLootWonAlert)
-	
+
 	local function StyleLootUpgradeAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
-	end	
+	end
 	hooksecurefunc(LootUpgradeAlertSystem, "setUpFunction", StyleLootUpgradeAlert)
-	
+
 	local function StyleMoneyWonAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
@@ -674,7 +674,7 @@ local function styleAlertFrames()
 		end
 	end
 	hooksecurefunc(StorePurchaseAlertSystem, "setUpFunction", StyleStorePurchaseAlert)
-	
+
 	local function StyleDigsiteCompleteAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
@@ -683,7 +683,7 @@ local function styleAlertFrames()
 		end
 	end
 	hooksecurefunc(DigsiteCompleteAlertSystem, "setUpFunction", StyleDigsiteCompleteAlert)
-	
+
 	local function StyleRecipeLearnedAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
@@ -692,7 +692,7 @@ local function styleAlertFrames()
 		end
 	end
 	hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", StyleRecipeLearnedAlert)
-	
+
 	for _, frame in pairs(staticAlertFrames) do
 		if frame.backdrop then
 			if not frame.backdrop.style then
@@ -721,7 +721,7 @@ local fRecruits = {}
 local function styleGarrison()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true then return end
 	if (not _G["GarrisonMissionFrame"]) then LoadAddOn("Blizzard_GarrisonUI") end
-	
+
 	_G["GarrisonMissionFrame"].backdrop:Style('Outside')
 	_G["GarrisonLandingPage"].backdrop:Style('Outside')
 	_G["GarrisonBuildingFrame"].backdrop:Style('Outside')
@@ -736,7 +736,7 @@ local function styleGarrison()
 	_G["GarrisonMissionMechanicFollowerCounterTooltip"].backdrop:Style('Outside')
 	_G["FloatingGarrisonFollowerTooltip"]:Style('Outside')
 	_G["GarrisonFollowerTooltip"]:Style('Outside')
-	
+
 	-- ShipYard
 	_G["GarrisonShipyardFrame"].backdrop:Style('Outside')
 	-- Tooltips
@@ -748,7 +748,7 @@ local function styleGarrison()
 	_G["GarrisonMissionMechanicTooltip"]:Style('Outside')
 	_G["FloatingGarrisonShipyardFollowerTooltip"]:Style('Outside')
 	_G["GarrisonShipyardFollowerTooltip"]:Style('Outside')
-	
+
 	-- Garrison Monument
 	_G["GarrisonMonumentFrame"]:StripTextures()
 	_G["GarrisonMonumentFrame"]:CreateBackdrop('Transparent')
@@ -758,7 +758,7 @@ local function styleGarrison()
 	_G["GarrisonMonumentFrame"]:Height(70)
 	_G["GarrisonMonumentFrame"].RightBtn:Size(25, 25)
 	_G["GarrisonMonumentFrame"].LeftBtn:Size(25, 25)
-	
+
 	-- Follower recruiting (available at the Inn)
 	_G["GarrisonRecruiterFrame"].backdrop:Style('Outside')
 	S:HandleDropDownBox(_G["GarrisonRecruiterFramePickThreatDropDown"])
@@ -766,7 +766,7 @@ local function styleGarrison()
 	rBtn:ClearAllPoints()
 	rBtn:Point('BOTTOM', _G["GarrisonRecruiterFrame"].backdrop, 'BOTTOM', 0, 30)
 	S:HandleButton(rBtn)
-	
+
 	_G["GarrisonRecruitSelectFrame"]:StripTextures()
 	_G["GarrisonRecruitSelectFrame"]:CreateBackdrop('Transparent')
 	_G["GarrisonRecruitSelectFrame"].backdrop:Style('Outside')
@@ -817,7 +817,7 @@ end
 local function MinimizeButton_OnClick(self)
 	local text = self.Text
 	local symbol = text:GetText()
-	
+
 	if (symbol and symbol == '-') then
 		text:SetText('+')
 	else
@@ -827,7 +827,7 @@ end
 
 local function SkinObjectiveTracker()
 	if not E.db.benikuiSkins.variousSkins.objectiveTracker then return end
-	
+
 	local button = _G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton
 	S:HandleButton(button)
 	button:Size(16, 12)
@@ -837,7 +837,7 @@ local function SkinObjectiveTracker()
 	button.Text:SetJustifyH('CENTER')
 	button.Text:SetText('-')
 	button:HookScript('OnClick', MinimizeButton_OnClick)
-	
+
 	-- Remove textures from Objective tracker
 	local otFrames = {_G["ObjectiveTrackerBlocksFrame"].QuestHeader, _G["ObjectiveTrackerBlocksFrame"].AchievementHeader, _G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, _G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header}
 	for _, frame in pairs(otFrames) do
@@ -876,7 +876,7 @@ function BUIS:BenikUISkins()
 		if not _G["WorldMapFrame"].BorderFrame.backdrop.style then
 			_G["WorldMapFrame"].BorderFrame.backdrop:Style('Outside')
 		end
-		
+
 		if _G["WorldMapTooltip"] then
 			if not _G["WorldMapTooltip"].style then
 				_G["WorldMapTooltip"]:Style('Outside')
@@ -888,13 +888,13 @@ function BUIS:BenikUISkins()
 				tooltip:Style('Outside')
 			end
 		end
-		
+
 		_G["QuestMapFrame"].QuestsFrame.StoryTooltip:SetTemplate('Transparent')
 		if not _G["QuestMapFrame"].QuestsFrame.StoryTooltip.style then
 			_G["QuestMapFrame"].QuestsFrame.StoryTooltip:Style('Outside')
 		end
 	end
-	
+
 	_G["WorldMapFrame"]:HookScript('OnShow', FixMapStyle)
 	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
 
@@ -907,7 +907,7 @@ function BUIS:BenikUISkins()
 			end
 		end
 	end
-	
+
 	if IsAddOnLoaded('ElvUI_LocPlus') and E.db.benikuiSkins.elvuiAddons.locplus then
 		local framestoskin = {_G["LeftCoordDtPanel"], _G["RightCoordDtPanel"], _G["LocationPlusPanel"], _G["XCoordsPanel"], _G["YCoordsPanel"]}
 		for _, frame in pairs(framestoskin) do
@@ -916,23 +916,23 @@ function BUIS:BenikUISkins()
 			end
 		end
 	end
-	
+
 	if IsAddOnLoaded('ElvUI_SLE') and E.db.benikuiSkins.elvuiAddons.sle then
-		local sleFrames = {_G["SLE_BG_1"], _G["SLE_BG_2"], _G["SLE_BG_3"], _G["SLE_BG_4"], _G["SLE_DataPanel_1"], _G["SLE_DataPanel_2"], _G["SLE_DataPanel_3"], _G["SLE_DataPanel_4"], _G["SLE_DataPanel_5"], _G["SLE_DataPanel_6"], _G["SLE_DataPanel_7"], _G["SLE_DataPanel_8"], _G["RaidMarkerBar"].backdrop, _G["SLE_SquareMinimapButtonBar"], _G["SLE_LocationPanel"], _G["SLE_LocationPanel_X"], _G["SLE_LocationPanel_Y"], _G["SLE_LocationPanel_RightClickMenu1"], _G["SLE_LocationPanel_RightClickMenu2"]}
+		local sleFrames = {_G["SLE_BG_1"], _G["SLE_BG_2"], _G["SLE_BG_3"], _G["SLE_BG_4"], _G["SLE_DataPanel_1"], _G["SLE_DataPanel_2"], _G["SLE_DataPanel_3"], _G["SLE_DataPanel_4"], _G["SLE_DataPanel_5"], _G["SLE_DataPanel_6"], _G["SLE_DataPanel_7"], _G["SLE_DataPanel_8"], _G["RaidMarkerBar"].backdrop, _G["SLE_SquareMinimapButtonBar"], _G["SLE_LocationPanel"], _G["SLE_LocationPanel_X"], _G["SLE_LocationPanel_Y"], _G["SLE_LocationPanel_RightClickMenu1"], _G["SLE_LocationPanel_RightClickMenu2"], _G["InspectArmory"]}
 		for _, frame in pairs(sleFrames) do
 			if frame then
 				frame:Style('Outside')
 			end
 		end
 	end
-	
+
 	if IsAddOnLoaded('SquareMinimapButtons') and E.db.benikuiSkins.elvuiAddons.smb then
 		local smbFrame = _G["SquareMinimapButtonBar"]
 		if smbFrame then
 			smbFrame:Style('Outside')
 		end
 	end
-	
+
 	if IsAddOnLoaded('ElvUI_Enhanced') and E.db.benikuiSkins.elvuiAddons.enh then
 		if _G["MinimapButtonBar"] then
 			_G["MinimapButtonBar"].backdrop:Style('Outside')
@@ -942,7 +942,7 @@ function BUIS:BenikUISkins()
 			_G["RaidMarkerBar"].backdrop:Style('Outside')
 		end
 	end
-	
+
 	if IsAddOnLoaded('ElvUI_DTBars2') and E.db.benikuiSkins.elvuiAddons.dtb2 then
 		for panelname, data in pairs(E.global.dtbars) do
 			if panelname then
