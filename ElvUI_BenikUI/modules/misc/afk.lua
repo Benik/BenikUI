@@ -218,8 +218,9 @@ local function getItemLevel()
 end
 
 function AFK:UpdateStatMessage()
+	E:UIFrameFadeIn(self.AFKMode.statMsg.info, 1, 1, 0)
 	local createdStat = createStats()
-	self.AFKMode.statMsg.info:AddMessage(createdStat)
+	self.AFKMode.statMsg.info:SetText(createdStat)
 	E:UIFrameFadeIn(self.AFKMode.statMsg.info, 1, 0, 1)
 end
 
@@ -294,7 +295,7 @@ function AFK:SetAFK(status)
 		self:CancelTimer(self.logoffTimer)
 
 		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
-		self.AFKMode.statMsg.info:AddMessage(format("|cffb3b3b3%s|r", L["Random Stats"]))
+		self.AFKMode.statMsg.info:SetFormattedText("|cffb3b3b3%s|r", L["Random Stats"])
 	end
 end
 
@@ -532,14 +533,10 @@ function AFK:Initialize()
 	self.AFKMode.xp.text:SetTextColor(0.7, 0.7, 0.7)
 
 	-- Random stats frame
-	self.AFKMode.statMsg.info = CreateFrame("ScrollingMessageFrame", nil, self.AFKMode.statMsg)
+	self.AFKMode.statMsg.info = self.AFKMode.statMsg:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.statMsg.info:FontTemplate(nil, 18)
-	self.AFKMode.statMsg.info:SetPoint("CENTER", self.AFKMode.statMsg, "CENTER", 0, 0)
-	self.AFKMode.statMsg.info:SetSize(800, 24)
-	self.AFKMode.statMsg.info:AddMessage(format("|cffb3b3b3%s|r", L["Random Stats"]))
-	self.AFKMode.statMsg.info:SetFading(true)
-	self.AFKMode.statMsg.info:SetFadeDuration(1)
-	self.AFKMode.statMsg.info:SetTimeVisible(4)
+	self.AFKMode.statMsg.info:Point("CENTER", self.AFKMode.statMsg, "CENTER", 0, -2)
+	self.AFKMode.statMsg.info:SetText(format("|cffb3b3b3%s|r", L["Random Stats"]))
 	self.AFKMode.statMsg.info:SetJustifyH("CENTER")
 	self.AFKMode.statMsg.info:SetTextColor(0.7, 0.7, 0.7)
 end
