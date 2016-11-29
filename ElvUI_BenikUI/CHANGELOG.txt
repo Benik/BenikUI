@@ -1,3 +1,16 @@
+[b]3.12[/b]
+*Added mouseover feature for Professions Dashboard by user request. Disabled by default.
+*Added mouseover feature for the Tokens dashboard by user request. Disabled by default. 
+*ScrollingMessageFrame in AFK mode sometimes was showing 1.5 lines. Replaced with text.
+*Empty tab cleanup. (Merathilis)
+*Update AFK Mode to use wow api for "race" and "localizedClass" so it works with non-english clients too. (Merathilis)
+*Added TargetTarget detached portrait option by user request
+*Tokens Dashboard: The token tooltip will show only when mouse overing the icon
+*Tokens Dashboard: token can be disabled by Shift+Right click on it's icon, straight from the dashboard.
+*Added spec and ilvl in afkMode
+*Styled the WardrobeEdit frames and made the DressUp frame bigger 
+*Fixed FlightMap tooltips not getting styled when zoom in the area
+
 [b]3.11[/b]
 *Fixed iLevel still showing even if there is no item in the slot
 *Added Lingering Soul Fragment in tokens dashboard
