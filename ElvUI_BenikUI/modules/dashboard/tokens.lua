@@ -90,11 +90,29 @@ local BUIcurrency = {
 	1314,	-- Lingering Soul Fragment (Good luck with this one :D)
 }
 
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+
 local function tholderOnFade()
 	tokenHolder:Hide()
 end
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local function Icon_OnEnter(self)
+	local id = self:GetParent().id
+	if E.db.dashboards.tokens.tooltip then
+		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
+		GameTooltip:SetCurrencyByID(id)
+	end
+	if E.db.dashboards.tokens.mouseover then
+		E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
+	end
+end
+
+local function Icon_OnLeave(self)
+	if E.db.dashboards.tokens.mouseover then
+		E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
+	end
+	GameTooltip:Hide()
+end
 
 function BUIT:CreateTokensHolder()
 	local db = E.db.dashboards.tokens
@@ -151,24 +169,6 @@ local function Icon_OnMouseUp(self, btn)
 			BUIT:UpdateTokens()
 		end
 	end
-end
-
-local function Icon_OnEnter(self)
-	local id = self:GetParent().id
-	if E.db.dashboards.tokens.tooltip then
-		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
-		GameTooltip:SetCurrencyByID(id)
-	end
-	if E.db.dashboards.tokens.mouseover then
-		E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
-	end
-end
-
-local function Icon_OnLeave(self)
-	if E.db.dashboards.tokens.mouseover then
-		E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
-	end
-	GameTooltip:Hide()
 end
 
 function BUIT:UpdateTokens()
