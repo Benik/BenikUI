@@ -183,6 +183,18 @@ function BUIT:UpdateTokens()
 	end
 	
 	if db.mouseover then tokenHolder:SetAlpha(0) else tokenHolder:SetAlpha(1) end
+	
+	tokenHolder:SetScript('OnEnter', function(self)
+		if E.db.dashboards.tokens.mouseover then
+			E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
+		end
+	end)
+
+	tokenHolder:SetScript('OnLeave', function(self)
+		if E.db.dashboards.tokens.mouseover then
+			E:UIFrameFadeOut(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
+		end
+	end)
 
 	for i, id in ipairs(BUIcurrency) do
 		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
@@ -200,18 +212,6 @@ function BUIT:UpdateTokens()
 						tokenHolderMover:Size(tokenHolder:GetSize())
 						tokenHolder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
-
-					tokenHolder:SetScript('OnEnter', function(self)
-						if E.db.dashboards.tokens.mouseover then
-							E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
-						end
-					end)
-			
-					tokenHolder:SetScript('OnLeave', function(self)
-						if E.db.dashboards.tokens.mouseover then
-							E:UIFrameFadeOut(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
-						end
-					end)
 					
 					local token = CreateFrame('Frame', nil, tokenHolder)
 					token:Height(DASH_HEIGHT)
