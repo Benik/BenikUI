@@ -396,8 +396,17 @@ local function dashboardsTable()
 						get = function(info) return E.db.dashboards.tokens.combat end,
 						set = function(info, value) E.db.dashboards.tokens.combat = value; BUIT:EnableDisableCombat(); end,					
 					},
-					tooltip = {
+					mouseover = {
 						order = 4,
+						name = L['Mouse Over']..BUI.NewSign,
+						desc = L['The frame is not shown unless you mouse over the frame.'],
+						type = 'toggle',
+						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+						get = function(info) return E.db.dashboards.tokens.mouseover end,
+						set = function(info, value) E.db.dashboards.tokens.mouseover = value; BUIT:UpdateTokens(); end,					
+					},
+					tooltip = {
+						order = 5,
 						name = L['Tooltip'],
 						desc = L['Show/Hide Tooltips'],
 						type = 'toggle',
@@ -406,7 +415,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.tooltip = value; BUIT:UpdateTokens(); end,					
 					},
 					width = {
-						order = 5,
+						order = 6,
 						type = 'range',
 						name = L['Width'],
 						desc = L['Change the Tokens Dashboard width.'],
@@ -416,7 +425,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.width = value; BUIT:UpdateTHolderDimensions(); end,	
 					},
 					zeroamount = {
-						order = 6,
+						order = 7,
 						name = L['Show zero amount tokens'],
 						desc = L['Show the token, even if the amount is 0'],
 						type = 'toggle',
@@ -425,7 +434,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.zeroamount = value; BUIT:UpdateTokens(); end,					
 					},
 					weekly = {
-						order = 7,
+						order = 8,
 						name = L['Show Weekly max'],
 						desc = L['Show Weekly max tokens instead of total max'],
 						type = 'toggle',
@@ -434,7 +443,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.weekly = value; BUIT:UpdateTokens(); end,					
 					},
 					flash = {
-						order = 8,
+						order = 9,
 						name = L['Flash on updates'],
 						type = 'toggle',
 						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
@@ -442,40 +451,40 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.tokens.flash = value; BUIT:UpdateTokens(); end,					
 					},
 					spacer = {
-						order = 9,
+						order = 20,
 						type = 'description',
 						name = "\n\n",
 					},					
 					dTokens = {
-						order = 10,
+						order = 21,
 						type = 'group',
 						name = format('%s & %s', CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID),
 						args = {
 						},
 					},
 					pTokens = {
-						order = 11,
+						order = 22,
 						type = 'group',
 						name = format('%s', PLAYER_V_PLAYER),
 						args = {
 						},
 					},
 					sTokens = {
-						order = 12,
+						order = 23,
 						type = 'group',
 						name = format('%s', (SECONDARY_SKILLS:gsub(':', ''))),
 						args = {
 						},
 					},
 					mTokens = {
-						order = 13,
+						order = 24,
 						type = 'group',
 						name = format('%s', MISCELLANEOUS),
 						args = {
 						},
 					},
 					aTokens = {
-						order = 14,
+						order = 25,
 						type = 'group',
 						name = format('%s', PROFESSIONS_ARCHAEOLOGY),
 						args = {

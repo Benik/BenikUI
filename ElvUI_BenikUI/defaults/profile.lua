@@ -289,6 +289,7 @@ P['dashboards'] = {
 	['tokens'] = {
 		['enableTokens'] = true,
 		['combat'] = true,
+		['mouseover'] = false,
 		['tooltip'] = true,
 		['width'] = 150,
 		['zeroamount'] = false,

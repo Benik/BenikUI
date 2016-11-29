@@ -159,6 +159,16 @@ local function Icon_OnEnter(self)
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 		GameTooltip:SetCurrencyByID(id)
 	end
+	if E.db.dashboards.tokens.mouseover then
+		E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
+	end
+end
+
+local function Icon_OnLeave(self)
+	if E.db.dashboards.tokens.mouseover then
+		E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
+	end
+	GameTooltip:Hide()
 end
 
 function BUIT:UpdateTokens()
@@ -171,6 +181,8 @@ function BUIT:UpdateTokens()
 		twipe( tokenFrames )
 		tokenHolder:Hide()
 	end
+	
+	if db.mouseover then tokenHolder:SetAlpha(0) else tokenHolder:SetAlpha(1) end
 
 	for i, id in ipairs(BUIcurrency) do
 		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
@@ -188,6 +200,18 @@ function BUIT:UpdateTokens()
 						tokenHolderMover:Size(tokenHolder:GetSize())
 						tokenHolder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
+
+					tokenHolder:SetScript('OnEnter', function(self)
+						if E.db.dashboards.tokens.mouseover then
+							E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
+						end
+					end)
+			
+					tokenHolder:SetScript('OnLeave', function(self)
+						if E.db.dashboards.tokens.mouseover then
+							E:UIFrameFadeOut(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
+						end
+					end)
 					
 					local token = CreateFrame('Frame', nil, tokenHolder)
 					token:Height(DASH_HEIGHT)
@@ -259,6 +283,7 @@ function BUIT:UpdateTokens()
 					token.IconBG:Point('BOTTOMRIGHT', token, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 					token.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
 					token.IconBG:SetScript('OnEnter', Icon_OnEnter)
+					token.IconBG:SetScript('OnLeave', Icon_OnLeave)
 
 					token.IconBG.Icon = token.IconBG:CreateTexture(nil, 'ARTWORK')
 					token.IconBG.Icon:SetInside()
@@ -267,6 +292,9 @@ function BUIT:UpdateTokens()
 
 					token:SetScript('OnEnter', function(self)
 						token.Text:SetFormattedText('%s', name)
+						if E.db.dashboards.tokens.mouseover then
+							E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
+						end
 					end)
 					
 					-- Flash
@@ -285,6 +313,9 @@ function BUIT:UpdateTokens()
 							end
 						end				
 						GameTooltip:Hide()
+						if E.db.dashboards.tokens.mouseover then
+							E:UIFrameFadeOut(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
+						end
 					end)
 
 					tinsert(tokenFrames, token)
