@@ -306,6 +306,7 @@ P['dashboards'] = {
 	['professions'] = {
 		['enableProfessions'] = true,
 		['combat'] = true,
+		['mouseover'] = false,
 		['width'] = 150,
 		['capped'] = false,
 		['choosePofessions'] = {

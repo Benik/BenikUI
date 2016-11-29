@@ -520,8 +520,17 @@ local function dashboardsTable()
 						get = function(info) return E.db.dashboards.professions.combat end,
 						set = function(info, value) E.db.dashboards.professions.combat = value; BUIP:EnableDisableCombat(); end,					
 					},
-					width = {
+					mouseover = {
 						order = 4,
+						name = L['Mouse Over']..BUI.NewSign,
+						desc = L['The frame is not shown unless you mouse over the frame.'],
+						type = 'toggle',
+						disabled = function() return not E.db.dashboards.professions.enableProfessions end,
+						get = function(info) return E.db.dashboards.professions.mouseover end,
+						set = function(info, value) E.db.dashboards.professions.mouseover = value; BUIP:UpdateProfessions(); end,					
+					},
+					width = {
+						order = 5,
 						type = 'range',
 						name = L['Width'],
 						desc = L['Change the Professions Dashboard width.'],
@@ -531,7 +540,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.professions.width = value; BUIP:UpdatePholderDimensions(); end,	
 					},
 					capped = {
-						order = 5,
+						order = 6,
 						name = L['Filter Capped'],
 						desc = L['Show/Hide Professions that are skill capped'],
 						type = 'toggle',
