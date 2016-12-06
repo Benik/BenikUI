@@ -3050,9 +3050,6 @@ local function SetupBuiAddons()
 		E.db["VAT"]["colors"]["minutesIndicator"]["r"] = 1
 		E.db["VAT"]["colors"]["minutesIndicator"]["g"] = 0.5
 		E.db["VAT"]["colors"]["minutesIndicator"]["b"] = 0
-		E.db["VAT"]["colors"]["hourminutesIndicator"]["r"] = 1
-		E.db["VAT"]["colors"]["hourminutesIndicator"]["g"] = 0.5
-		E.db["VAT"]["colors"]["hourminutesIndicator"]["b"] = 0
 		E.db["VAT"]["colors"]["expireIndicator"]["r"] = 1
 		E.db["VAT"]["colors"]["expireIndicator"]["g"] = 0.5
 		E.db["VAT"]["colors"]["expireIndicator"]["b"] = 0
