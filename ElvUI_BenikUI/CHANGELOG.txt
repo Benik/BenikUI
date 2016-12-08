@@ -1,3 +1,6 @@
+[b]3.13[/b]
+*Fixed a lua error during install, that was caused by a VAT setting that Blaze removed and I missed.
+
 [b]3.12[/b]
 *Added mouseover feature for Professions Dashboard by user request. Disabled by default.
 *Added mouseover feature for the Tokens dashboard by user request. Disabled by default. 
