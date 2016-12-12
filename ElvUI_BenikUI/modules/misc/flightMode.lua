@@ -181,8 +181,8 @@ function BFM:UpdateCoords()
 		else
 			yt = y
 		end
-		self.FlightMode.top.location.x.text:SetText(x)
-		self.FlightMode.top.location.y.text:SetText(y)
+		self.FlightMode.top.location.x.text:SetText(xt)
+		self.FlightMode.top.location.y.text:SetText(yt)
 	end
 end
 
@@ -320,7 +320,7 @@ function BFM:SetFlightMode(status)
 end
 
 function BFM:OnEvent(...)
-	if (UnitOnTaxi("player")) then
+	if (UnitOnTaxi("player")) and not IsInInstance() then
 		self:SetFlightMode(true)
 	else
 		self:SetFlightMode(false)

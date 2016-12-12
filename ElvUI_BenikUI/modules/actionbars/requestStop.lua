@@ -13,7 +13,7 @@ local TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION = TAXI_CANCEL, TAXI_CANCEL_DESCRIPTIO
 -- GLOBALS: selectioncolor, GameTooltip_Hide, CreateAnimationGroup, BuiTaxiButton, LeaveVehicleButton
 
 local function TaxiButton_OnEvent(self)
-	if ( UnitOnTaxi("player") ) then
+	if ( UnitOnTaxi("player") and not IsInInstance() ) then
 		LeaveVehicleButton:Hide() -- Hide ElvUI minimap button
 		E:UIFrameFadeIn(self, 1, 0, 1)
 		self:Show()
