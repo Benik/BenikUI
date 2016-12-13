@@ -164,8 +164,7 @@ local function Icon_OnMouseUp(self, btn)
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
 			local id = self:GetParent().id
-			local name = GetCurrencyInfo(id)
-			E.db.dashboards.tokens.chooseTokens[name] = false
+			E.db.dashboards.tokens.chooseTokens[id] = false
 			BUIT:UpdateTokens()
 		end
 	end
