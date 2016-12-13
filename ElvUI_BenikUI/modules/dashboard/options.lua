@@ -143,8 +143,8 @@ local function UpdateTokenOptions()
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
 					desc = L['Enable/Disable ']..tname,
-					get = function(info) return E.db.dashboards.tokens.chooseTokens[tname] end,
-					set = function(info, value) E.db.dashboards.tokens.chooseTokens[tname] = value; BUIT:UpdateTokens(); end,
+					get = function(info) return E.db.dashboards.tokens.chooseTokens[id] end,
+					set = function(info, value) E.db.dashboards.tokens.chooseTokens[id] = value; BUIT:UpdateTokens(); end,
 					disabled = function() return not isDiscovered end,
 				}
 			end

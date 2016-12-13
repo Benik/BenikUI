@@ -296,10 +296,9 @@ P['dashboards'] = {
 		['weekly'] = true,
 		['flash'] = false,
 		['chooseTokens'] = {
-			['Order Resources'] = true,
-			['Honor Points'] = true,
-			['Ancient Mana'] = true,
-			['Garrison Resources'] = true,
+			[1220] = true, -- Order Resources
+			[1273] = true, -- Seal of Broken Fate
+			[1155] = true, -- Ancient Mana
 		},
 	},
 	

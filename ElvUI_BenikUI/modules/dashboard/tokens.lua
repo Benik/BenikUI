@@ -201,9 +201,9 @@ function BUIT:UpdateTokens()
 		
 		if name then
 			
-			if isDiscovered == false then db.chooseTokens[name] = false end
+			if isDiscovered == false then db.chooseTokens[id] = false end
 			
-			if db.chooseTokens[name] == true then
+			if db.chooseTokens[id] == true then
 				if db.zeroamount or amount > 0 then
 					tokenHolder:Show()
 					tokenHolder:Width(DASH_WIDTH)
