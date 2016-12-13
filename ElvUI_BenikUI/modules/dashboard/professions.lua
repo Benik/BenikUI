@@ -125,7 +125,7 @@ function BUIP:UpdateProfessions()
 			local name, icon, rank, maxRank, _, _, _, rankModifier = GetProfessionInfo(id)
 
 			if name and (rank < capRank or (not db.capped)) then
-				if db.choosePofessions[name] == true then
+				if db.choosePofessions[id] == true then
 					proHolder:Show()
 					proHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BuiProfessions + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if ProfessionsMover then

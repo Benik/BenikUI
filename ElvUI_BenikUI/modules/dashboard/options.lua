@@ -174,8 +174,8 @@ local function UpdateProfessionOptions()
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..pname,
 					desc = L['Enable/Disable ']..pname,
-					get = function(info) return E.db.dashboards.professions.choosePofessions[pname] end,
-					set = function(info, value) E.db.dashboards.professions.choosePofessions[pname] = value; BUIP:UpdateProfessions(); end,
+					get = function(info) return E.db.dashboards.professions.choosePofessions[id] end,
+					set = function(info, value) E.db.dashboards.professions.choosePofessions[id] = value; BUIP:UpdateProfessions(); end,
 				}			
 			end
 		end
