@@ -165,6 +165,7 @@ function BUIS:BlizzardUI_LOD_Skins(event, addon)
 		if addon == 'Blizzard_TradeSkillUI' and E.private.skins.blizzard.trade == true then
 			local frame = _G["TradeSkillFrame"]
 			frame:Style('Outside')
+			frame.DetailsFrame.GuildFrame:Style('Outside')
 		end
 
 		if addon == 'Blizzard_TrainerUI' and E.private.skins.blizzard.trainer == true then
