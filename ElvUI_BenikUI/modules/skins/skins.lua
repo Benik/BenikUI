@@ -371,6 +371,7 @@ local function styleFreeBlizzardFrames()
 		PVEFrame.backdrop:Style('Outside')
 		PVPReadyDialog:Style('Outside')
 		RaidBrowserFrame.backdrop:Style('Outside')
+		QuickJoinRoleSelectionFrame:Style('Outside')
 	end
 
 	if db.loot then
