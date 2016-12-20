@@ -87,7 +87,7 @@ local function ufTable()
 						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UFB:ChangePowerBarTexture() end,
 					},
 				},
-			},			
+			},
 			castbar = {
 				order = 5,
 				type = 'group',
@@ -170,6 +170,21 @@ local function ufTable()
 						min = 0.2, max = 1, step = 0.05,
 						get = function(info) return E.db.benikui.unitframes.misc[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.misc[ info[#info] ] = value; UF:Update_AllFrames(); end,
+					},
+				},
+			},
+			auras = {
+				order = 7,
+				type = 'group',
+				name = L["Auras"],
+				guiInline = true,
+				args = {
+					buiStyle = {
+						order = 1,
+						type = 'toggle',
+						name = L['BenikUI Style'],
+						get = function(info) return E.db.benikui.unitframes.auras[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.auras[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 				},
 			},

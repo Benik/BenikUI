@@ -11,8 +11,9 @@ if E.private.auras.enable ~= true then return end
 A.CreateIconBui = A.CreateIcon
 function A:CreateIcon(button)
 	self:CreateIconBui(button)
-	
-	button:Style('Inside', _, true)
+	if E.db.benikui.unitframes.auras.buiStyle then
+		button:Style('Inside', _, true)
+	end
 end
 
 A.UpdateAuraBui = A.UpdateAura

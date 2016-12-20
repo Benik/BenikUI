@@ -150,6 +150,9 @@ P['benikui'] = {
 			['svui'] = true,
 			['portraitTransparency'] = 0.70,
 		},
+		['auras'] = {
+			['buiStyle'] = true,
+		},
 	},
 }
 
