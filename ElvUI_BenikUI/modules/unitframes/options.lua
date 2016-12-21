@@ -173,21 +173,6 @@ local function ufTable()
 					},
 				},
 			},
-			auras = {
-				order = 7,
-				type = 'group',
-				name = L["Auras"],
-				guiInline = true,
-				args = {
-					buiStyle = {
-						order = 1,
-						type = 'toggle',
-						name = L['BenikUI Style'],
-						get = function(info) return E.db.benikui.unitframes.auras[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.auras[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
-				},
-			},
 		},
 	}
 end

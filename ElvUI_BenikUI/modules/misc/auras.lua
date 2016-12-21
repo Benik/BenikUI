@@ -7,13 +7,12 @@ local unpack = unpack
 local UnitAura = UnitAura
 
 if E.private.auras.enable ~= true then return end
+if E.private.auras.masque.buffs or E.private.auras.masque.debuffs then return end
 
 A.CreateIconBui = A.CreateIcon
 function A:CreateIcon(button)
 	self:CreateIconBui(button)
-	if E.db.benikui.unitframes.auras.buiStyle then
-		button:Style('Inside', _, true)
-	end
+	button:Style('Inside', _, true)
 end
 
 A.UpdateAuraBui = A.UpdateAura
