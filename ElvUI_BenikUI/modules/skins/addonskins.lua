@@ -243,6 +243,16 @@ local function oRA3Decor()
 	end
 end
 
+local function PawnDecor()
+	if not E.db.benikuiSkins.addonSkins.pawn then return end
+	local frame = PawnUIFrame
+
+	if not frame.style then
+		frame:Style('Outside')
+	end
+end
+
+
 if AS:CheckAddOn('Skada') then AS:RegisterSkin('Skada', SkadaDecor, 2) end
 if AS:CheckAddOn('Recount') then AS:RegisterSkin('Recount', RecountDecor, 2) end
 if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPS', TinyDPSDecor, 2) end
@@ -252,6 +262,7 @@ if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinator', Rare
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
 if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
+if AS:CheckAddOn('Pawn') then AS:RegisterSkin('Pawn', PawnDecor, 2) end
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
 	if not _G["AcceptFrame"].style then

@@ -26,6 +26,7 @@ local DecorAddons = {
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zg'},
 	{'Clique', L['Clique'], 'clique'},
 	{'oRA3', L['oRA3'], 'ora'},
+	{'Pawn', L['Pawn'], 'pawn'},
 }
 
 local function SkinTable()

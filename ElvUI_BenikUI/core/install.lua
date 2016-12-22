@@ -1191,6 +1191,7 @@ local skadaName = GetAddOnMetadata('Skada', 'Title')
 local dbmName = GetAddOnMetadata('DBM-Core', 'Title')
 local mikName = GetAddOnMetadata('MikScrollingBattleText', 'Title')
 local detailsName = GetAddOnMetadata('Details', 'Title')
+local pawnName = GetAddOnMetadata('Pawn', 'Title')
 
 local function SetupBuiAddons()
 	-- Recount Profile
@@ -1400,6 +1401,14 @@ local function SetupBuiAddons()
 			["creationVersion"] = MikSBT.VERSION.."."..MikSBT.SVN_REVISION,
 		}
 		MikSBT.Profiles.SelectProfile('BenikUI')
+	end
+
+	-- Pawn
+	if IsAddOnLoaded('Pawn') then
+		print(BUI.Title..format(L['- %s profile successfully created!'], pawnName))
+		
+		-- Disable the tooltip item update coloring, cause it doesn't fit with BenikUI style
+		PawnCommon["ColorTooltipBorder"] = false
 	end
 	
 	-- Details
