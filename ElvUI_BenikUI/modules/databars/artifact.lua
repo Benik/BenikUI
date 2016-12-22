@@ -160,7 +160,7 @@ function BDB:UpdateAfNotifierPositions()
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 
 	if db.movetobagbar and apInBags > 0 then
-		bar.f.txt:SetTextColor(0, 0.43, 0.95)
+		bar.f.txt:SetTextColor(0, 0.75, 0.98)
 	else
 		bar.f.txt:SetTextColor(1, 1, 1)
 	end
