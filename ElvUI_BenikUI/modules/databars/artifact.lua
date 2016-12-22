@@ -185,7 +185,7 @@ function BDB:UpdateAfNotifier()
 		local apInBags = ElvUI_ArtifactBar.BagArtifactPower
 		
 		if db.movetobagbar and apInBags > 0 then
-			bar.f.txt:SetFormattedText('%d%%', apInBags / xpForNextPoint * 100)
+			bar.f.txt:SetFormattedText('%d%%',(xp / xpForNextPoint * 100) + (apInBags / xpForNextPoint * 100))
 		else
 			bar.f.txt:SetFormattedText('%d%%', xp / xpForNextPoint * 100)
 		end
