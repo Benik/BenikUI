@@ -140,6 +140,8 @@ L['No Mail'] = true
 
 -- Databars Options
 L['Notifiers'] = true
+L['Move to Bag bar'] = true
+L['Move the Notifier to Bag bar, when Artifact items are available'] = true
 L['Show BenikUI decorative bars on the default ElvUI XP bar'] = true
 L['Show BenikUI decorative bars on the default ElvUI Artifact bar'] = true
 L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = true

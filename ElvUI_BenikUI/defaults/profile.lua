@@ -252,6 +252,7 @@ P['benikuiDatabars'] = {
 			['enable'] = true,
 			['combat'] = false,
 			['position'] = 'LEFT',
+			['movetobagbar'] = true,
 		},
 	},
 	

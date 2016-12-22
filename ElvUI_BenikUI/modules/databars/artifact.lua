@@ -110,8 +110,10 @@ end
 
 function BDB:UpdateAfNotifierPositions()
 	local bar = ElvUI_ArtifactBar.statusBar
+	local bagbar = ElvUI_ArtifactBar.bagValue
 	
 	local db = E.db.benikuiDatabars.artifact.notifiers
+	local apInBags = ElvUI_ArtifactBar.BagArtifactPower
 	local arrow = ""
 	
 	bar.f:ClearAllPoints()
@@ -120,18 +122,34 @@ function BDB:UpdateAfNotifierPositions()
 
 	if db.position == 'LEFT' then
 		if not E.db.databars.artifact.reverseFill then
-			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+			if db.movetobagbar and apInBags > 0 then
+				bar.f.arrow:Point('RIGHT', bagbar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+			else
+				bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+			end
 		else
-			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
+			if db.movetobagbar and apInBags > 0 then
+				bar.f.arrow:Point('RIGHT', bagbar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
+			else
+				bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
+			end
 		end
 		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
 		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
 		arrow = ">"
 	else
 		if not E.db.databars.artifact.reverseFill then
-			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+			if db.movetobagbar and apInBags > 0 then
+				bar.f.arrow:Point('LEFT', bagbar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+			else
+				bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+			end
 		else
-			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
+			if db.movetobagbar and apInBags > 0 then
+				bar.f.arrow:Point('LEFT', bagbar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
+			else
+				bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
+			end
 		end
 		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
 		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
@@ -140,7 +158,13 @@ function BDB:UpdateAfNotifierPositions()
 	
 	bar.f.arrow:SetText(arrow)
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-	
+
+	if db.movetobagbar and apInBags > 0 then
+		bar.f.txt:SetTextColor(0, 0.43, 0.95)
+	else
+		bar.f.txt:SetTextColor(1, 1, 1)
+	end
+
 	if E.db.databars.artifact.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
@@ -150,6 +174,7 @@ end
 
 function BDB:UpdateAfNotifier()
 	local bar = ElvUI_ArtifactBar.statusBar
+	local db = E.db.benikuiDatabars.artifact.notifiers
 	local showArtifact = HasArtifactEquipped();
 	if not showArtifact then
 		bar.f:Hide()
@@ -157,7 +182,14 @@ function BDB:UpdateAfNotifier()
 		bar.f:Show()
 		local _, _, _, _, totalXP, pointsSpent = C_ArtifactUI.GetEquippedArtifactInfo();
 		local _, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP);
-		bar.f.txt:SetFormattedText('%d%%', xp / xpForNextPoint * 100)
+		local apInBags = ElvUI_ArtifactBar.BagArtifactPower
+		
+		if db.movetobagbar and apInBags > 0 then
+			bar.f.txt:SetFormattedText('%d%%', apInBags / xpForNextPoint * 100)
+		else
+			bar.f.txt:SetFormattedText('%d%%', xp / xpForNextPoint * 100)
+		end
+		BDB.UpdateAfNotifierPositions()
 	end
 end
 
