@@ -71,7 +71,7 @@ local function ufTable()
 					health = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
 						order = 1,
-						name = L['Health']..BUI.NewSign,
+						name = L['Health'],
 						desc = L['Health statusbar texture. Applies only on Group Frames'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,				
@@ -165,7 +165,7 @@ local function ufTable()
 					portraitTransparency = {
 						order = 2,
 						type = 'range',
-						name = L['Overlayed Portraits Alpha']..BUI.NewSign,
+						name = L['Overlayed Portraits Alpha'],
 						isPercent = true,
 						min = 0.2, max = 1, step = 0.05,
 						get = function(info) return E.db.benikui.unitframes.misc[ info[#info] ] end,

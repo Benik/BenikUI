@@ -21,7 +21,7 @@ local function miscTable()
 				order = 2,
 				type = 'group',
 				guiInline = true,
-				name = L['Flight Mode']..BUI.NewSign,
+				name = L['Flight Mode'],
 				get = function(info) return E.db.benikui.misc.flightMode[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.misc.flightMode[ info[#info] ] = value; E:GetModule('BUIFlightMode'):Toggle() end,
 				args = {
