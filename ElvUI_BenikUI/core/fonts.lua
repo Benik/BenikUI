@@ -97,7 +97,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(GameFontNormalLarge2,				NORMAL, 15); 								 -- Garrison Follower Names
 		SetFont(QuestFont_Enormous, 				NORMAL, 24, nil, SHADOWCOLOR, NORMALOFFSET); -- Garrison Titles
 		SetFont(DestinyFontHuge,					NORMAL, 20, nil, SHADOWCOLOR, BIGOFFSET);	 -- Garrison Mission Report
-		SetFont(Game24Font, 						NORMAL, 24);								 -- Garrison Mission level (in detail frame)		
+		SetFont(Game24Font, 						NORMAL, 24);								 -- Garrison Mission level (in detail frame)
 		SetFont(SystemFont_Huge1, 					NORMAL, 20);								 -- Garrison Mission XP
 		SetFont(SystemFont_Huge1_Outline, 			NORMAL, 18, MONOCHROME.."OUTLINE");			 -- Garrison Mission Chance
 		SetFont(Fancy22Font,						NORMAL, 20)									 -- Talking frame Title font
@@ -109,9 +109,12 @@ function E:UpdateBlizzardFonts()
 		SetFont(Game18Font,							NORMAL, 18)									 -- MissionUI Bonus Chance
 		SetFont(GameFontNormalSmall2,				NORMAL, 12)			 					 	 -- MissionUI Followers names
 		SetFont(GameFontNormalHuge2,				NORMAL, 22)			 					 	 -- Mythic weekly best dungeon name
+		SetFont(Game15Font_o1,						NORMAL, 15)									 -- CharacterStatsPane (ItemLevelFrame)
+		SetFont(Game13FontShadow,					NORMAL, 14)									 -- InspectPvpFrame
+		SetFont(NumberFontNormalSmall,				NORMAL, 11, "OUTLINE")						 -- Calendar, EncounterJournal
 
 		--SetFont(QuestTitleFontBlackShadow,				NORMAL, 16)
-		--SetFont(GameFontHighlightMed2, 				NORMAL, self.db.general.fontSize*1.1);		
+		--SetFont(GameFontHighlightMed2, 				NORMAL, self.db.general.fontSize*1.1);
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
 		--SetFont(GameFontHighlightSmall, 			NORMAL, 10);
 		--SetFont(GameFontHighlight, 					NORMAL, self.db.general.fontSize);
