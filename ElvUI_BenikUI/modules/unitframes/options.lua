@@ -235,8 +235,22 @@ local function ufPlayerTable()
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 				min = 10, max = 250, step = 1,
 			},
-			styleGroup = {
+			portraitFrameStrata = {
 				order = 6,
+				type = "select",
+				name = L['Frame Strata'],
+				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
+				values = {
+					["BACKGROUND"] = "BACKGROUND",
+					["LOW"] = "LOW",
+					["MEDIUM"] = "MEDIUM",
+					["HIGH"] = "HIGH",
+					["DIALOG"] = "DIALOG",
+					["TOOLTIP"] = "TOOLTIP",
+				},
+			},
+			styleGroup = {
+				order = 7,
 				type = 'group',
 				name = L['BenikUI Style'],
 				args = {
@@ -332,8 +346,22 @@ local function ufTargetTable()
 				disabled = function() return E.db.benikui.unitframes.target.getPlayerPortraitSize or not E.db.benikui.unitframes.target.detachPortrait end,
 				min = 10, max = 250, step = 1,
 			},
-			styleGroup = {
+			portraitFrameStrata = {
 				order = 7,
+				type = "select",
+				name = L['Frame Strata'],
+				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
+				values = {
+					["BACKGROUND"] = "BACKGROUND",
+					["LOW"] = "LOW",
+					["MEDIUM"] = "MEDIUM",
+					["HIGH"] = "HIGH",
+					["DIALOG"] = "DIALOG",
+					["TOOLTIP"] = "TOOLTIP",
+				},
+			},
+			styleGroup = {
+				order = 8,
 				type = 'group',
 				name = L['BenikUI Style'],
 				args = {
@@ -422,6 +450,20 @@ local function ufTargetTargetTable()
 				desc = L['Change the detached portrait height'],
 				disabled = function() return E.db.benikui.unitframes.targettarget.getPlayerPortraitSize or not E.db.benikui.unitframes.targettarget.detachPortrait end,
 				min = 10, max = 250, step = 1,
+			},
+			portraitFrameStrata = {
+				order = 6,
+				type = "select",
+				name = L['Frame Strata'],
+				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
+				values = {
+					["BACKGROUND"] = "BACKGROUND",
+					["LOW"] = "LOW",
+					["MEDIUM"] = "MEDIUM",
+					["HIGH"] = "HIGH",
+					["DIALOG"] = "DIALOG",
+					["TOOLTIP"] = "TOOLTIP",
+				},
 			},
 		},
 	}

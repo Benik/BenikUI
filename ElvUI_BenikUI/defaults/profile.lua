@@ -109,6 +109,7 @@ P['benikui'] = {
 			['portraitTransparent'] = true,
 			['portraitStyle'] = false,
 			['portraitStyleHeight'] = 6,
+			['portraitFrameStrata'] = "MEDIUM",
 		},
 		['target'] = {
 			['detachPortrait'] = false,
@@ -119,6 +120,7 @@ P['benikui'] = {
 			['portraitTransparent'] = true,
 			['portraitStyle'] = false,
 			['portraitStyleHeight'] = 6,
+			['portraitFrameStrata'] = "MEDIUM",
 		},
 		['targettarget'] = {
 			['detachPortrait'] = false,
@@ -126,6 +128,7 @@ P['benikui'] = {
 			['portraitHeight'] = 85,
 			['portraitShadow'] = false,
 			['portraitTransparent'] = true,
+			['portraitFrameStrata'] = "MEDIUM",
 		},
 		['infoPanel'] = {
 			['fixInfoPanel'] = true,

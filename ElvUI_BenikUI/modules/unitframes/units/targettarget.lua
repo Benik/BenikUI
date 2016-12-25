@@ -28,6 +28,7 @@ function UFB:ArrangeTargetTarget()
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.targettarget.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.targettarget.portraitTransparent
 		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.targettarget.portraitShadow
+		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.targettarget.portraitFrameStrata
 
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.targettarget.portraitWidth
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.targettarget.portraitHeight	

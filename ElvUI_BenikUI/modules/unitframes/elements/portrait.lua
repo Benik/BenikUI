@@ -66,7 +66,7 @@ function UFB:Configure_Portrait(frame, isPlayer)
 				end
 
 				if db.portrait.style == '3D' then
-					portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
+					portrait.backdrop:SetFrameStrata(frame.DETACHED_PORTRAIT_STRATA)
 					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
 				end
 				
@@ -92,6 +92,8 @@ function UFB:Configure_Portrait(frame, isPlayer)
 				portrait:SetAlpha(1)
 				portrait.backdrop:Show()
 				if db.portrait.style == '3D' then
+					portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
+					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())					
 					portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
 				end
 
