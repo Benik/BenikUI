@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local BUIS = E:NewModule('BuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
 local S = E:GetModule('Skins');
 
@@ -10,263 +9,6 @@ local IsAddOnLoaded = IsAddOnLoaded
 local LoadAddOn = LoadAddOn
 
 -- GLOBALS: hooksecurefunc
-
-function BUIS:BlizzardUI_LOD_Skins(event, addon)
-	if E.private.skins.blizzard.enable ~= true then return end
-
-	if (event == 'ADDON_LOADED') then
-		if addon == 'Blizzard_AchievementUI' and E.private.skins.blizzard.achievement == true then
-			local frame = _G["AchievementFrame"]
-			frame:Style('Outside')
-			if frame.style then
-				frame.style:ClearAllPoints()
-				frame.style:Point('TOPLEFT', frame, 'TOPLEFT', 0, (E.PixelMode and 7 or 9))
-				frame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', 0, (E.PixelMode and 2 or 4))
-			end
-		end
-
-		if addon == 'Blizzard_ArchaeologyUI' and E.private.skins.blizzard.archaeology == true then
-			local frame = _G["ArchaeologyFrame"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_ArtifactUI' and E.private.skins.blizzard.artifact == true then
-			local frame = _G["ArtifactFrame"]
-			frame:Style('Small')
-			frame.CloseButton:ClearAllPoints()
-			frame.CloseButton:SetPoint("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
-		end
-
-		if addon == 'Blizzard_AuctionUI' and E.private.skins.blizzard.auctionhouse == true then
-			local frame = _G["AuctionFrame"]
-			frame:Style('Outside')
-			if not _G["AuctionProgressFrame"].style then
-				_G["AuctionProgressFrame"]:Style('Outside')
-			end
-			if not _G["WowTokenGameTimeTutorial"].style then
-				_G["WowTokenGameTimeTutorial"]:Style('Small')
-			end
-		end
-
-		if addon == 'Blizzard_BarbershopUI' and E.private.skins.blizzard.barber == true then
-			local frame = _G["BarberShopFrame"]
-			frame:Style('Outside')
-			_G["BarberShopAltFormFrame"]:Style('Outside')
-		end
-
-		if addon == 'Blizzard_BattlefieldMinimap' and E.private.skins.blizzard.bgmap == true then
-			local frame = _G["BattlefieldMinimap"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_BindingUI' and E.private.skins.blizzard.binding == true then
-			local frame = _G["KeyBindingFrame"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_BlackMarketUI' and E.private.skins.blizzard.bmah == true then
-			local frame = _G["BlackMarketFrame"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_Calendar' and E.private.skins.blizzard.calendar == true then
-			_G["CalendarFrame"]:Style('Outside')
-			_G["CalendarViewEventFrame"]:Style('Outside')
-			_G["CalendarViewHolidayFrame"]:Style('Outside')
-			_G["CalendarCreateEventFrame"]:Style('Outside')
-			_G["CalendarContextMenu"]:Style('Outside')
-		end
-
-		if addon == 'Blizzard_Collections' and E.private.skins.blizzard.collections == true then
-			local frame = _G["CollectionsJournal"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_DeathRecap' and E.private.skins.blizzard.deathRecap == true then
-			local frame = _G["DeathRecapFrame"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_GuildBankUI' and E.private.skins.blizzard.gbank == true then
-			local frame = _G["GuildBankFrame"]
-			frame:Style('Outside')
-			for i = 1, 8 do
-				local button = _G['GuildBankTab'..i..'Button']
-				local texture = _G['GuildBankTab'..i..'ButtonIconTexture']
-				if not button.style then
-					button:Style('Inside')
-					texture:SetTexCoord(unpack(BUI.TexCoords))
-				end
-			end
-		end
-
-		if addon == 'Blizzard_GuildUI' and E.private.skins.blizzard.guild == true then
-			local frame = _G["GuildFrame"]
-			frame:Style('Outside')
-			local GuildFrames = {_G["GuildMemberDetailFrame"], _G["GuildTextEditFrame"], _G["GuildLogFrame"], _G["GuildNewsFiltersFrame"]}
-			for _, frame in pairs(GuildFrames) do
-				if frame and not frame.style then
-					frame:Style('Outside')
-				end
-			end
-		end
-
-		if addon == 'Blizzard_GuildControlUI' and E.private.skins.blizzard.guildcontrol == true then
-			local frame = _G["GuildControlUI"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_InspectUI' and E.private.skins.blizzard.inspect == true then
-			local frame = _G["InspectFrame"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_Collections' and E.private.skins.blizzard.collections == true then
-			local frame = _G["WardrobeFrame"]
-			frame:Style('Outside')
-			if not WardrobeOutfitEditFrame.style then
-				WardrobeOutfitEditFrame:Style('Outside')
-			end
-		end
-
-		if addon == 'Blizzard_ItemUpgradeUI' and E.private.skins.blizzard.itemUpgrade == true then
-			local frame = _G["ItemUpgradeFrame"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_ItemSocketingUI' and E.private.skins.blizzard.socket == true then
-			local frame = _G["ItemSocketingFrame"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_LookingForGuildUI' and E.private.skins.blizzard.lfguild == true then
-			local frame = _G["LookingForGuildFrame"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_MacroUI' and E.private.skins.blizzard.macro == true then
-			local frame = _G["MacroFrame"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_TalentUI' and E.private.skins.blizzard.talent == true then
-			local frame = _G["PlayerTalentFrame"]
-			frame:Style('Outside')
-			for i = 1, 2 do
-				local tab = _G['PlayerSpecTab'..i]
-				if not tab.style then
-					tab:Style('Inside')
-					tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-					tab:GetNormalTexture():SetInside()
-				end
-			end
-		end
-
-		if addon == 'Blizzard_TradeSkillUI' and E.private.skins.blizzard.trade == true then
-			local frame = _G["TradeSkillFrame"]
-			frame:Style('Outside')
-			frame.DetailsFrame.GuildFrame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_TrainerUI' and E.private.skins.blizzard.trainer == true then
-			local frame = _G["ClassTrainerFrame"]
-			frame:Style('Outside')
-		end
-
-		if addon == 'Blizzard_VoidStorageUI' and E.private.skins.blizzard.voidstorage == true then
-			local frame = _G["VoidStorageFrame"]
-			frame:Style('Outside')
-			for i = 1, 2 do
-				local tab = _G["VoidStorageFrame"]["Page"..i]
-				if not tab.style then
-					tab:Style('Inside')
-					tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-					tab:GetNormalTexture():SetInside()
-				end
-			end
-		end
-	end
-
-	if addon == 'Blizzard_EncounterJournal' and E.private.skins.blizzard.encounterjournal == true then
-		if not _G["EncounterJournal"].style then
-			_G["EncounterJournal"]:Style('Small')
-		end
-		_G["EncounterJournalTooltip"]:Style('Outside')
-		local Tabs = {
-			_G["EncounterJournalEncounterFrameInfoBossTab"],
-			_G["EncounterJournalEncounterFrameInfoLootTab"],
-			_G["EncounterJournalEncounterFrameInfoModelTab"],
-			_G["EncounterJournalEncounterFrameInfoOverviewTab"]
-		}
-
-		for _, Tab in pairs(Tabs) do
-			if Tab.backdrop then
-				Tab.backdrop:Style('Outside')
-			end
-		end
-	end
-
-	if addon == 'Blizzard_TalkingHeadUI' and E.private.skins.blizzard.talkinghead == true and E.db.benikuiSkins.variousSkins.talkingHead == true then
-		local frame = _G["TalkingHeadFrame"]
-		if frame then
-			frame.BackgroundFrame:StripTextures()
-			frame.BackgroundFrame:CreateBackdrop('Transparent')
-			frame.BackgroundFrame.backdrop:SetAllPoints()
-			frame.BackgroundFrame.backdrop:CreateWideShadow() -- to hide the borders not showing due to scaling
-			frame.MainFrame.Model:SetTemplate('Transparent')
-			frame.MainFrame.Model:CreateShadow('Default')
-
-			local button = TalkingHeadFrame.MainFrame.CloseButton
-			S:HandleCloseButton(button)
-			button:ClearAllPoints()
-			button:Point('TOPRIGHT', TalkingHeadFrame.BackgroundFrame, 'TOPRIGHT', 0, -2)
-
-			frame.BackgroundFrame:Style('Inside')
-			if frame.BackgroundFrame.style then
-				frame.BackgroundFrame.style:ClearAllPoints()
-				frame.BackgroundFrame.style:Point('TOPLEFT', frame, 'TOPLEFT', -(E.PixelMode and 0 or 2), (E.PixelMode and -5 or -7))
-				frame.BackgroundFrame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', (E.PixelMode and -1 or 1), (E.PixelMode and 0 or -2))
-			end
-		end
-	end
-
-	if addon == 'Blizzard_QuestChoice' and E.private.skins.blizzard.questChoice == true then
-		if not _G["QuestChoiceFrame"].style then
-			_G["QuestChoiceFrame"]:Style('Small')
-		end
-	end
-
-	if addon == 'Blizzard_FlightMap' and E.private.skins.blizzard.taxi == true then
-		_G["FlightMapFrame"]:Style('Small')
-		if _G["WorldMapTooltip"] then
-			if not _G["WorldMapTooltip"].style then
-				_G["WorldMapTooltip"]:Style('Outside')
-			end
-		end
-	end
-
-	if E.private.skins.blizzard.timemanager == true then
-		if not _G["TimeManagerFrame"].style then
-			_G["TimeManagerFrame"]:Style('Outside')
-		end
-		
-		if not _G["StopwatchFrame"].backdrop.style then
-			_G["StopwatchFrame"].backdrop:Style('Outside')
-		end
-	end
-
-	if addon == 'Blizzard_PVPUI' and E.private.skins.blizzard.pvp == true then
-		if not _G["PVPRewardTooltip"].style then
-			_G["PVPRewardTooltip"]:Style('Outside')
-		end
-	end
-
-	if addon == 'Blizzard_ObliterumUI' and E.private.skins.blizzard.Obliterum == true then
-		if not _G["ObliterumForgeFrame"].style then
-			_G["ObliterumForgeFrame"]:Style('Outside')
-		end
-	end
-end
 
 local MAX_STATIC_POPUPS = 4
 
@@ -475,7 +217,7 @@ hooksecurefunc('BattlePetTooltipTemplate_SetBattlePet', StyleCagedBattlePetToolt
 
 -- SpellBook tabs
 local function styleSpellbook()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true or E.private.skins.blizzard.spellbook ~= true then return end
 
 	hooksecurefunc('SpellBookFrame_UpdateSkillLineTabs', function()
 		for i = 1, MAX_SKILLLINE_TABS do
@@ -490,223 +232,7 @@ local function styleSpellbook()
 		end
 	end)
 end
-
--- Alert Frames
-local staticAlertFrames = {
-	ScenarioLegionInvasionAlertFrame,
-	BonusRollMoneyWonFrame,
-	BonusRollLootWonFrame,
-	GarrisonBuildingAlertFrame,
-	GarrisonMissionAlertFrame,
-	GarrisonShipMissionAlertFrame,
-	GarrisonRandomMissionAlertFrame,
-	WorldQuestCompleteAlertFrame,
-	GarrisonFollowerAlertFrame,
-	LegendaryItemAlertFrame,
-	GarrisonTalentAlertFrame,
-}
-
-local function styleAlertFrames()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alertframes ~= true then return end
-	
-	local function StyleAchievementAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(AchievementAlertSystem, "setUpFunction", StyleAchievementAlert) -- needs testing
-
-	local function StyleCriteriaAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-				frame.Icon.Texture.b:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(CriteriaAlertSystem, "setUpFunction", StyleCriteriaAlert)
-
-	local function StyleDungeonCompletionAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(DungeonCompletionAlertSystem, "setUpFunction", StyleDungeonCompletionAlert)
-
-	local function StyleGuildChallengeAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GuildChallengeAlertSystem, "setUpFunction", StyleGuildChallengeAlert)
-
-	local function StyleInvasionAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(InvasionAlertSystem, "setUpFunction", StyleInvasionAlertSystem)
-
-	local function StyleScenarioAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(ScenarioAlertSystem, "setUpFunction", StyleScenarioAlert)
-	
-	local function StyleWorldQuestCompleteAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(WorldQuestCompleteAlertSystem, "setUpFunction", StyleWorldQuestCompleteAlert)
-
-	local function StyleGarrisonFollowerAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonFollowerAlertSystem, "setUpFunction", StyleGarrisonFollowerAlert)
-
-	local function StyleGarrisonShipFollowerAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonShipFollowerAlertSystem, "setUpFunction", StyleGarrisonShipFollowerAlertSystem)
-
-	local function StyleGarrisonTalentAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonTalentAlertSystem, "setUpFunction", StyleGarrisonTalentAlertSystem)
-
-	local function StyleGarrisonBuildingAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonBuildingAlertSystem, "setUpFunction", StyleGarrisonBuildingAlertSystem)
-
-	local function StyleGarrisonMissionAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonMissionAlertSystem, "setUpFunction", StyleGarrisonMissionAlertSystem)
-
-	local function StyleGarrisonShipMissionAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonShipMissionAlertSystem, "setUpFunction", StyleGarrisonShipMissionAlertSystem)
-
-	local function StyleGarrisonRandomMissionAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonRandomMissionAlertSystem, "setUpFunction", StyleGarrisonRandomMissionAlertSystem)
-
-	local function StyleLegendaryItemAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(LegendaryItemAlertSystem, "setUpFunction", StyleLegendaryItemAlertSystem)
-
-	local function StyleLootWonAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(LootAlertSystem, "setUpFunction", StyleLootWonAlert)
-
-	local function StyleLootUpgradeAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(LootUpgradeAlertSystem, "setUpFunction", StyleLootUpgradeAlert)
-
-	local function StyleMoneyWonAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(MoneyWonAlertSystem, "setUpFunction", StyleMoneyWonAlert)
-
-	local function StyleStorePurchaseAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(StorePurchaseAlertSystem, "setUpFunction", StyleStorePurchaseAlert)
-
-	local function StyleDigsiteCompleteAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(DigsiteCompleteAlertSystem, "setUpFunction", StyleDigsiteCompleteAlert)
-
-	local function StyleRecipeLearnedAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", StyleRecipeLearnedAlert)
-
-	for _, frame in pairs(staticAlertFrames) do
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-end
+S:AddCallback("BenikUI_Spellbook", styleSpellbook)
 
 -- Order Hall
 local function styleOrderHall()
@@ -819,92 +345,43 @@ local function styleGarrison()
 	S:HandleButton(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3.HireRecruits)
 end
 
--- Objective Tracker Button
-local function MinimizeButton_OnClick(self)
-	local text = self.Text
-	local symbol = text:GetText()
-
-	if (symbol and symbol == '-') then
-		text:SetText('+')
-	else
-		text:SetText('-')
-	end
-end
-
 local function SkinObjectiveTracker()
 	if not E.db.benikuiSkins.variousSkins.objectiveTracker then return end
 
 	local button = _G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton
-	S:HandleButton(button)
 	button:Size(16, 12)
-	button.Text = button:CreateFontString(nil, 'OVERLAY')
-	button.Text:FontTemplate(E['media'].buiVisitor, 10)
-	button.Text:Point('CENTER', button, 'CENTER', 0, 1)
-	button.Text:SetJustifyH('CENTER')
-	button.Text:SetText('-')
-	button:HookScript('OnClick', MinimizeButton_OnClick)
+	button.text:FontTemplate(E['media'].buiVisitor, 10)
+	button.text:Point('CENTER', button, 'CENTER', 0, 1)
+end
 
-	-- Remove textures from Objective tracker
-	local otFrames = {_G["ObjectiveTrackerBlocksFrame"].QuestHeader, _G["ObjectiveTrackerBlocksFrame"].AchievementHeader, _G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, _G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header}
-	for _, frame in pairs(otFrames) do
-		if frame then
-			frame:StripTextures()
+-- Map styling fix
+local function FixMapStyle()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then return end
+	if not _G["WorldMapFrame"].BorderFrame.backdrop.style then
+		_G["WorldMapFrame"].BorderFrame.backdrop:Style('Outside')
+	end
+
+	if _G["WorldMapTooltip"] then
+		if not _G["WorldMapTooltip"].style then
+			_G["WorldMapTooltip"]:Style('Outside')
 		end
+	end
+
+	for i, tooltip in ipairs(WorldMapTooltip.ItemTooltip.Tooltip.shoppingTooltips) do
+		if not tooltip.style then
+			tooltip:Style('Outside')
+		end
+	end
+
+	_G["QuestMapFrame"].QuestsFrame.StoryTooltip:SetTemplate('Transparent')
+	if not _G["QuestMapFrame"].QuestsFrame.StoryTooltip.style then
+		_G["QuestMapFrame"].QuestsFrame.StoryTooltip:Style('Outside')
 	end
 end
 
-function BUIS:BenikUISkins()
-
-	-- Garrison Style
-	styleGarrison()
-
-	-- OrderHall Style
-	local reason = select(5, GetAddOnInfo("GarrisonCommander"))
-	if reason == "DISABLED" or reason == "MISSING" then 
-		styleOrderHall()
-	end
-
-	-- Objective Tracker Button
-	SkinObjectiveTracker() 
+local function styleAddons()
 	
-	-- Blizzard Styles
-	styleFreeBlizzardFrames()
-	
-	-- SpellBook tabs
-	styleSpellbook()
-	
-	-- Alert Frames
-	styleAlertFrames()
-
-	-- Map styling fix
-	local function FixMapStyle()
-		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then return end
-		if not _G["WorldMapFrame"].BorderFrame.backdrop.style then
-			_G["WorldMapFrame"].BorderFrame.backdrop:Style('Outside')
-		end
-
-		if _G["WorldMapTooltip"] then
-			if not _G["WorldMapTooltip"].style then
-				_G["WorldMapTooltip"]:Style('Outside')
-			end
-		end
-
-		for i, tooltip in ipairs(WorldMapTooltip.ItemTooltip.Tooltip.shoppingTooltips) do
-			if not tooltip.style then
-				tooltip:Style('Outside')
-			end
-		end
-
-		_G["QuestMapFrame"].QuestsFrame.StoryTooltip:SetTemplate('Transparent')
-		if not _G["QuestMapFrame"].QuestsFrame.StoryTooltip.style then
-			_G["QuestMapFrame"].QuestsFrame.StoryTooltip:Style('Outside')
-		end
-	end
-
-	_G["WorldMapFrame"]:HookScript('OnShow', FixMapStyle)
-	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
-
-	-- AddOn Styles
+	-- LocationLite
 	if IsAddOnLoaded('ElvUI_LocLite') and E.db.benikuiSkins.elvuiAddons.loclite then
 		local framestoskin = {_G["LocationLitePanel"], _G["XCoordsLite"], _G["YCoordsLite"]}
 		for _, frame in pairs(framestoskin) do
@@ -914,6 +391,7 @@ function BUIS:BenikUISkins()
 		end
 	end
 
+	-- LocationPlus
 	if IsAddOnLoaded('ElvUI_LocPlus') and E.db.benikuiSkins.elvuiAddons.locplus then
 		local framestoskin = {_G["LeftCoordDtPanel"], _G["RightCoordDtPanel"], _G["LocationPlusPanel"], _G["XCoordsPanel"], _G["YCoordsPanel"]}
 		for _, frame in pairs(framestoskin) do
@@ -923,6 +401,7 @@ function BUIS:BenikUISkins()
 		end
 	end
 
+	-- Shadow & Light
 	if IsAddOnLoaded('ElvUI_SLE') and E.db.benikuiSkins.elvuiAddons.sle then
 		local sleFrames = {_G["SLE_BG_1"], _G["SLE_BG_2"], _G["SLE_BG_3"], _G["SLE_BG_4"], _G["SLE_DataPanel_1"], _G["SLE_DataPanel_2"], _G["SLE_DataPanel_3"], _G["SLE_DataPanel_4"], _G["SLE_DataPanel_5"], _G["SLE_DataPanel_6"], _G["SLE_DataPanel_7"], _G["SLE_DataPanel_8"], _G["RaidMarkerBar"].backdrop, _G["SLE_SquareMinimapButtonBar"], _G["SLE_LocationPanel"], _G["SLE_LocationPanel_X"], _G["SLE_LocationPanel_Y"], _G["SLE_LocationPanel_RightClickMenu1"], _G["SLE_LocationPanel_RightClickMenu2"], _G["InspectArmory"]}
 		for _, frame in pairs(sleFrames) do
@@ -932,6 +411,7 @@ function BUIS:BenikUISkins()
 		end
 	end
 
+	-- SquareMinimapButtons
 	if IsAddOnLoaded('SquareMinimapButtons') and E.db.benikuiSkins.elvuiAddons.smb then
 		local smbFrame = _G["SquareMinimapButtonBar"]
 		if smbFrame then
@@ -939,6 +419,7 @@ function BUIS:BenikUISkins()
 		end
 	end
 
+	-- ElvUI_Enhanced
 	if IsAddOnLoaded('ElvUI_Enhanced') and E.db.benikuiSkins.elvuiAddons.enh then
 		if _G["MinimapButtonBar"] then
 			_G["MinimapButtonBar"].backdrop:Style('Outside')
@@ -949,6 +430,7 @@ function BUIS:BenikUISkins()
 		end
 	end
 
+	-- ElvUI_DTBars2
 	if IsAddOnLoaded('ElvUI_DTBars2') and E.db.benikuiSkins.elvuiAddons.dtb2 then
 		for panelname, data in pairs(E.global.dtbars) do
 			if panelname then
@@ -958,10 +440,27 @@ function BUIS:BenikUISkins()
 	end
 end
 
-function BUIS:Initialize()
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-	self:RegisterEvent('ADDON_LOADED', 'BlizzardUI_LOD_Skins')
-	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'BenikUISkins')
+local function init()
+	styleFreeBlizzardFrames()
+	styleAddons()
+	styleGarrison()
+
+	local reason = select(5, GetAddOnInfo("GarrisonCommander"))
+	if reason == "DISABLED" or reason == "MISSING" then 
+		styleOrderHall()
+	end
+	
+	_G["WorldMapFrame"]:HookScript('OnShow', FixMapStyle)
+	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
 end
 
-E:RegisterModule(BUIS:GetName())
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self, event)
+	self:UnregisterEvent(event)
+	
+	SkinObjectiveTracker()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+	init()
+end)
+
