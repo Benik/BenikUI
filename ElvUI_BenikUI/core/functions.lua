@@ -107,6 +107,7 @@ local function Style(f, template, name, colored)
 	end
 	
 	f.style = style
+	BUI["styles"][style] = true
 end
 
 local function addapi(object)

@@ -16,10 +16,13 @@ local HideUIPanel = HideUIPanel
 -- GLOBALS: LibStub, BenikUISplashScreen, ElvDB
 
 BUI.Config = {}
+BUI["styles"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.NewSign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
+
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 function BUI:cOption(name)
 	local color = '|cff00c0fa%s |r'
@@ -48,6 +51,24 @@ function BUI:RegisterBuiMedia()
 	E['media'].BuiMelli = LSM:Fetch('statusbar', 'BuiMelli')
 	E['media'].BuiMelliDark = LSM:Fetch('statusbar', 'BuiMelliDark')
 	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
+end
+
+function BUI:UpdateStyleColors()
+	for frame, _ in pairs(self["styles"]) do
+		if frame.color then
+			if E.db.benikui.colors.StyleColor == 1 then
+				frame.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			elseif E.db.benikui.colors.StyleColor == 2 then
+				frame.color:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
+			elseif E.db.benikui.colors.StyleColor == 3 then
+				frame.color:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+			else
+				frame.color:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
+			end
+		else
+			self["styles"][frame] = nil;
+		end
+	end
 end
 
 function BUI:AddOptions()
@@ -135,7 +156,7 @@ end
 function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:LoadCommands()
-	
+
 	if E.db.benikui.dbCleaned then E.db.benikui.dbCleaned = nil end -- Deleted old settings db check
 	
 	if E.db.benikui.general.splashScreen then
