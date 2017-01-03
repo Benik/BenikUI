@@ -157,8 +157,6 @@ function BUI:Initialize()
 	self:RegisterBuiMedia()
 	self:LoadCommands()
 
-	if E.db.benikui.dbCleaned then E.db.benikui.dbCleaned = nil end -- Deleted old settings db check
-	
 	if E.db.benikui.general.splashScreen then
 		CreateSplashScreen()
 	end
