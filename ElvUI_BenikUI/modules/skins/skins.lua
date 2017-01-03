@@ -345,7 +345,7 @@ local function styleGarrison()
 	S:HandleButton(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3.HireRecruits)
 end
 
-local function SkinObjectiveTracker()
+local function tweakObjectiveTrackerButtonFont()
 	local button = _G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton
 	button:Size(16, 12)
 	button.text:FontTemplate(E['media'].buiVisitor, 10)
@@ -457,7 +457,7 @@ f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent(event)
 	
-	SkinObjectiveTracker()
+	tweakObjectiveTrackerButtonFont()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	init()
 end)
