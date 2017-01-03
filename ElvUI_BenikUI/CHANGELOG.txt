@@ -1,3 +1,20 @@
+[b]3.14[/b]
+*Added French and Russian locale files. Any help on translating will be much appreciated.
+*NEW: Change style colors on the fly, without a reload.
+*Removed the Objective tracker button skin. It's been done in ElvUI for ages. Just kept the font. 
+*Chg: Blizzard frames styling overhaul (Internal change - Blizzard frames style creation)
+*Added more Blizzard replacement fonts (Merathilis)
+*Added Strata option for player/target/targettarget detached portrait. Default to "Medium". 
+*Added option for the Artifact databar notifier, to show at the bag bar
+*Added Styling and mini profile for Pawn 
+*Added a simple check for Buff-/Debuff Styling if Masque Support is enabled (Merathilis)
+*Added option for BenikUI Style for Auras (Merathilis)
+*Added the font used in XIV_Databar 
+*Chg: Professions Dashboard: Store profession ids rather than names, so it will work for all locales during install. This will reset the profession settings.
+*Chg: Tokens Dashboard: Store token ids rather than the names so it will work for all locales during install. This will reset the token settings.
+*Fix: Prevent flightMode to enable and requestStop button to show, when in an instance e.g. Old Hillsbrad Foothills
+*Minor fixes, frames styling, clenup, German locale updates.
+
 [b]3.13[/b]
 *Fixed a lua error during install, that was caused by a VAT setting that Blaze removed and I missed.
 
