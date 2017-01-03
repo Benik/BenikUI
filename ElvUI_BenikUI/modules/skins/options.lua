@@ -103,24 +103,19 @@ local function SkinTable()
 		get = function(info) return E.db.benikuiSkins.variousSkins[ info[#info] ] end,
 		set = function(info, value) E.db.benikuiSkins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
-			objectiveTracker = {
-				order = 1,
-				type = 'toggle',
-				name = QUEST_OBJECTIVES,
-			},
 			talkingHead = {
-				order = 2,
+				order = 1,
 				type = 'toggle',
 				name = L["TalkingHead"],
 			},
 			decursive = {
-				order = 3,
+				order = 2,
 				type = 'toggle',
 				name = L['Decursive'],
 				disabled = function() return not IsAddOnLoaded('Decursive') end,
 			},
 			storyline = {
-				order = 4,
+				order = 3,
 				type = 'toggle',
 				name = L['Storyline'],
 				disabled = function() return not IsAddOnLoaded('Storyline') end,

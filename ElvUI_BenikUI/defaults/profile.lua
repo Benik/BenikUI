@@ -200,7 +200,6 @@ P['benikuiSkins'] = {
 	},
 	
 	['variousSkins'] = {
-		['objectiveTracker'] = true,
 		['talkingHead'] = true,
 		['decursive'] = true,
 		['storyline'] = true,

@@ -346,8 +346,6 @@ local function styleGarrison()
 end
 
 local function SkinObjectiveTracker()
-	if not E.db.benikuiSkins.variousSkins.objectiveTracker then return end
-
 	local button = _G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton
 	button:Size(16, 12)
 	button.text:FontTemplate(E['media'].buiVisitor, 10)
