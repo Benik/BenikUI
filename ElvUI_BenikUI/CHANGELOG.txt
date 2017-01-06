@@ -1,3 +1,7 @@
+[b]3.15[/b]
+*Fixed the alert frames styling not updating correctly.
+*Fixed an error with the ObjectiveTracker button.
+
 [b]3.14[/b]
 *Added French and Russian locale files. Any help on translating will be much appreciated.
 *NEW: Change style colors on the fly, without a reload.
