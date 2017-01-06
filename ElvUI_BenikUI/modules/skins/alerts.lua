@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule('Skins');
+local BUIS = E:GetModule('BuiSkins')
 
 local pairs = pairs
 
@@ -18,7 +19,7 @@ local staticAlertFrames = {
 	GarrisonTalentAlertFrame,
 }
 
-local function styleAlertFrames()
+function BUIS:styleAlertFrames()
 	if E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true or E.private.skins.blizzard.alertframes ~= true then return end
 	
 	local function StyleAchievementAlert(frame)
@@ -219,5 +220,3 @@ local function styleAlertFrames()
 		end
 	end
 end
-
-S:AddCallback("BenikUI_Alerts", styleAlertFrames)

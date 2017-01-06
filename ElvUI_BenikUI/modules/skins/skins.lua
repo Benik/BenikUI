@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUIS = E:NewModule('BuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
 local S = E:GetModule('Skins');
 
@@ -346,6 +347,8 @@ local function styleGarrison()
 end
 
 local function tweakObjectiveTrackerButtonFont()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true then return end
+
 	local button = _G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton
 	button:Size(16, 12)
 	button.text:FontTemplate(E['media'].buiVisitor, 10)
@@ -438,10 +441,12 @@ local function styleAddons()
 	end
 end
 
-local function init()
+function BUIS:init()
+	self:styleAlertFrames()
 	styleFreeBlizzardFrames()
 	styleAddons()
 	styleGarrison()
+	tweakObjectiveTrackerButtonFont()
 
 	local reason = select(5, GetAddOnInfo("GarrisonCommander"))
 	if reason == "DISABLED" or reason == "MISSING" then 
@@ -452,13 +457,9 @@ local function init()
 	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent", function(self, event)
-	self:UnregisterEvent(event)
-	
-	tweakObjectiveTrackerButtonFont()
+function BUIS:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	init()
-end)
+	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'init')
+end
 
+E:RegisterModule(BUIS:GetName())
