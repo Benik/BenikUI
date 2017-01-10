@@ -204,7 +204,8 @@ function BUI:BuiColorThemes(color)
 	E.db.general.backdropcolor.g = 0.025
 	E.db.general.backdropcolor.b = 0.025
 
-	E:UpdateAll(true)
+	E:UpdateMedia()
+	E:UpdateBackdropColors()
 end
 
 function BUI:SetupBuiColors()
