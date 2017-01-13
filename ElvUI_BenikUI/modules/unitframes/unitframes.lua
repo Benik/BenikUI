@@ -31,6 +31,14 @@ function UFB:UpdateUF()
 	end
 end
 
+function UFB:Configure_ReadyCheckIcon(frame)
+	local tex = frame.ReadyCheck
+
+	tex.readyTexture = [[Interface\AddOns\ElvUI_BenikUI\media\textures\ready]]
+	tex.notReadyTexture = [[Interface\AddOns\ElvUI_BenikUI\media\textures\notready]]
+	tex.waitingTexture = [[Interface\AddOns\ElvUI_BenikUI\media\textures\waiting]]
+end
+
 function UFB:ADDON_LOADED(event, addon)
 	if addon ~= "ElvUI_Config" then return end
 	UFB:UnregisterEvent(event)
@@ -60,6 +68,8 @@ function UFB:Initialize()
 	self:ChangePowerBarTexture()
 	self:ChangeHealthBarTexture()
 	self:InfoPanelColor()
+
+	hooksecurefunc(UF, "Configure_ReadyCheckIcon", UFB.Configure_ReadyCheckIcon)
 
 	self:RegisterEvent("ADDON_LOADED")
 end
