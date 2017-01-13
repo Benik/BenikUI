@@ -9,6 +9,15 @@ local PLAYER, TARGET, MISCELLANEOUS = PLAYER, TARGET, MISCELLANEOUS
 
 -- GLOBALS: AceGUIWidgetLSMlists
 
+local strataValues = {
+	BACKGROUND = "BACKGROUND",
+	LOW = "LOW",
+	MEDIUM = "MEDIUM",
+	HIGH = "HIGH",
+	DIALOG = "DIALOG",
+	TOOLTIP = "TOOLTIP",
+};
+
 local function ufTable()
 	E.Options.args.benikui.args.unitframes = {
 		order = 10,
@@ -240,14 +249,7 @@ local function ufPlayerTable()
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
-				values = {
-					["BACKGROUND"] = "BACKGROUND",
-					["LOW"] = "LOW",
-					["MEDIUM"] = "MEDIUM",
-					["HIGH"] = "HIGH",
-					["DIALOG"] = "DIALOG",
-					["TOOLTIP"] = "TOOLTIP",
-				},
+				values = strataValues,
 			},
 			styleGroup = {
 				order = 7,
@@ -351,14 +353,7 @@ local function ufTargetTable()
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
-				values = {
-					["BACKGROUND"] = "BACKGROUND",
-					["LOW"] = "LOW",
-					["MEDIUM"] = "MEDIUM",
-					["HIGH"] = "HIGH",
-					["DIALOG"] = "DIALOG",
-					["TOOLTIP"] = "TOOLTIP",
-				},
+				values = strataValues,
 			},
 			styleGroup = {
 				order = 8,
@@ -456,19 +451,82 @@ local function ufTargetTargetTable()
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
-				values = {
-					["BACKGROUND"] = "BACKGROUND",
-					["LOW"] = "LOW",
-					["MEDIUM"] = "MEDIUM",
-					["HIGH"] = "HIGH",
-					["DIALOG"] = "DIALOG",
-					["TOOLTIP"] = "TOOLTIP",
-				},
+				values = strataValues,
 			},
 		},
 	}
 end
 tinsert(BUI.Config, ufTargetTargetTable)
+
+local function ufPetTable()
+	E.Options.args.unitframe.args.pet.args.portrait.args.benikui = {
+		order = 10,
+		type = 'group',
+		name = BUI.Title,
+		guiInline = true,
+		get = function(info) return E.db.benikui.unitframes.pet[ info[#info] ] end,
+		set = function(info, value) E.db.benikui.unitframes.pet[ info[#info] ] = value; UFB:ArrangePet(); end,
+		args = {		
+			detachPortrait = {
+				order = 1,
+				type = 'toggle',
+				name = L['Detach Portrait'],
+				set = function(info, value)
+					E.db.benikui.unitframes.pet[ info[#info] ] = value;
+					if value == true then
+						E.Options.args.unitframe.args.pet.args.portrait.args.width.min = 0
+						E.db.unitframe.units.pet.portrait.width = 0
+						E.db.unitframe.units.pet.orientation = "RIGHT"
+					else
+						E.Options.args.unitframe.args.pet.args.portrait.args.width.min = 15
+						E.db.unitframe.units.pet.portrait.width = 45
+						E.db.unitframe.units.pet.orientation = "MIDDLE"
+					end
+					UF:CreateAndUpdateUF('pet')
+				end,
+				disabled = function() return E.db.unitframe.units.pet.portrait.overlay end,
+			},
+			portraitTransparent = {
+				order = 2,
+				type = 'toggle',
+				name = L['Transparent'],
+				desc = L['Makes the portrait backdrop transparent'],
+				disabled = function() return E.db.unitframe.units.pet.portrait.overlay end,
+			},
+			portraitShadow = {
+				order = 3,
+				type = 'toggle',
+				name = L['Shadow'],
+				desc = L['Add shadow under the portrait'],
+				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
+			},
+			portraitWidth = {
+				order = 4,
+				type = 'range',
+				name = L['Width'],
+				desc = L['Change the detached portrait width'],
+				disabled = function() return E.db.benikui.unitframes.pet.getPlayerPortraitSize or not E.db.benikui.unitframes.pet.detachPortrait end,
+				min = 10, max = 500, step = 1,
+			},	
+			portraitHeight = {
+				order = 5,
+				type = 'range',
+				name = L['Height'],
+				desc = L['Change the detached portrait height'],
+				disabled = function() return E.db.benikui.unitframes.pet.getPlayerPortraitSize or not E.db.benikui.unitframes.pet.detachPortrait end,
+				min = 10, max = 250, step = 1,
+			},
+			portraitFrameStrata = {
+				order = 6,
+				type = "select",
+				name = L['Frame Strata'],
+				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
+				values = strataValues,
+			},
+		},
+	}
+end
+tinsert(BUI.Config, ufPetTable)
 
 local function injectPartyOptions()
 

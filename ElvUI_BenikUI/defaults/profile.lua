@@ -130,6 +130,14 @@ P['benikui'] = {
 			['portraitTransparent'] = true,
 			['portraitFrameStrata'] = "MEDIUM",
 		},
+		['pet'] = {
+			['detachPortrait'] = false,
+			['portraitWidth'] = 110,
+			['portraitHeight'] = 85,
+			['portraitShadow'] = false,
+			['portraitTransparent'] = true,
+			['portraitFrameStrata'] = "MEDIUM",
+		},
 		['infoPanel'] = {
 			['fixInfoPanel'] = true,
 			['texture'] = 'BuiEmpty',
