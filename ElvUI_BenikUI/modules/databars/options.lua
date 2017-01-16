@@ -142,6 +142,12 @@ local function databarsTable()
 							},
 						},
 					},
+					elvuiOption = {
+						order = 10,
+						type = "execute",
+						name = L["ElvUI"].." "..XPBAR_LABEL,
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "experience") end,
+					},
 				},
 			},
 			artifact = {
@@ -250,7 +256,13 @@ local function databarsTable()
 								set = function(info, value) E.db.benikuiDatabars.artifact.notifiers.movetobagbar = value; BDB:UpdateAfNotifier(); end,
 							},
 						},
-					},				
+					},
+					elvuiOption = {
+						order = 10,
+						type = "execute",
+						name = L["ElvUI"].." "..L["Artifact Bar"],
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "artifact") end,
+					},					
 				},
 			},
 			reputation = {
@@ -404,7 +416,13 @@ local function databarsTable()
 								set = function(info, value) E.db.benikuiDatabars.reputation.notifiers.position = value; BDB:UpdateRepNotifierPositions(); end,
 							},
 						},
-					},	
+					},
+					elvuiOption = {
+						order = 10,
+						type = "execute",
+						name = L["ElvUI"].." "..REPUTATION,
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "reputation") end,
+					},						
 				},
 			},
 			honor = {
@@ -504,7 +522,13 @@ local function databarsTable()
 								set = function(info, value) E.db.benikuiDatabars.honor.notifiers.position = value; BDB:UpdateHonorNotifierPositions(); end,
 							},
 						},
-					},				
+					},
+					elvuiOption = {
+						order = 10,
+						type = "execute",
+						name = L["ElvUI"].." "..HONOR,
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "honor") end,
+					},					
 				},
 			},
 		},
@@ -516,17 +540,35 @@ tinsert(BUI.Config, databarsTable)
 local function injectElvUIDatabarOptions()
 	-- xp
 	E.Options.args.databars.args.experience.args.textYoffset = {	
-		order = 11,
+		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
 		name = BUI:cOption(L['Text yOffset']),
 		get = function(info) return E.db.databars.experience[ info[#info] ] end,
 		set = function(info, value) E.db.databars.experience[ info[#info] ] = value; BDB:XpTextOffset() end,
 	}
+	
+	E.Options.args.databars.args.experience.args.spacer1 = {
+		order = 21,
+		type = 'description',
+		name = '',	
+	}
+	E.Options.args.databars.args.experience.args.spacer2 = {
+		order = 22,
+		type = 'header',
+		name = '',	
+	}
+
+	E.Options.args.databars.args.experience.args.gotobenikui = {
+		order = 23,
+		type = "execute",
+		name = BUI.Title..XPBAR_LABEL,
+		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "experience") end,
+	}
 
 	-- artifact
 	E.Options.args.databars.args.artifact.args.textYoffset = {	
-		order = 11,
+		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
 		name = BUI:cOption(L['Text yOffset']),
@@ -534,24 +576,81 @@ local function injectElvUIDatabarOptions()
 		set = function(info, value) E.db.databars.artifact[ info[#info] ] = value; BDB:AfTextOffset() end,
 	}
 
+	E.Options.args.databars.args.artifact.args.spacer1 = {
+		order = 21,
+		type = 'description',
+		name = '',	
+	}
+
+	E.Options.args.databars.args.artifact.args.spacer2 = {
+		order = 22,
+		type = 'header',
+		name = '',	
+	}
+
+	E.Options.args.databars.args.artifact.args.gotobenikui = {
+		order = 23,
+		type = "execute",
+		name = BUI.Title..L["Artifact Bar"],
+		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "artifact") end,
+	}
+
 	-- reputation
 	E.Options.args.databars.args.reputation.args.textYoffset = {	
-		order = 11,
+		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
 		name = BUI:cOption(L['Text yOffset']),
 		get = function(info) return E.db.databars.reputation[ info[#info] ] end,
 		set = function(info, value) E.db.databars.reputation[ info[#info] ] = value; BDB:RepTextOffset() end,
 	}
+
+	E.Options.args.databars.args.reputation.args.spacer1 = {
+		order = 21,
+		type = 'description',
+		name = '',	
+	}
+
+	E.Options.args.databars.args.reputation.args.spacer2 = {
+		order = 22,
+		type = 'header',
+		name = '',	
+	}
+
+	E.Options.args.databars.args.reputation.args.gotobenikui = {
+		order = 23,
+		type = "execute",
+		name = BUI.Title..REPUTATION,
+		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "reputation") end,
+	}
 	
 	-- honor
 	E.Options.args.databars.args.honor.args.textYoffset = {	
-		order = 11,
+		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
 		name = BUI:cOption(L['Text yOffset']),
 		get = function(info) return E.db.databars.honor[ info[#info] ] end,
 		set = function(info, value) E.db.databars.honor[ info[#info] ] = value; BDB:HonorTextOffset() end,
+	}
+
+	E.Options.args.databars.args.honor.args.spacer1 = {
+		order = 21,
+		type = 'description',
+		name = '',	
+	}
+
+	E.Options.args.databars.args.honor.args.spacer2 = {
+		order = 22,
+		type = 'header',
+		name = '',	
+	}
+
+	E.Options.args.databars.args.honor.args.gotobenikui = {
+		order = 23,
+		type = "execute",
+		name = BUI.Title..HONOR,
+		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "honor") end,
 	}
 end
 tinsert(BUI.Config, injectElvUIDatabarOptions)
