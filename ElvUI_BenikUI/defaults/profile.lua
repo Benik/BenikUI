@@ -19,6 +19,12 @@ P['unitframe']['units']['raid40']['classHover'] = false
 -- Add Bag stack count to ElvUI defaults
 P['bags']['countPosition'] = 'BOTTOMRIGHT'
 
+-- Databars text yOffset
+P['databars']['experience']['textYoffset'] = 0
+P['databars']['artifact']['textYoffset'] = 0
+P['databars']['reputation']['textYoffset'] = 0
+P['databars']['honor']['textYoffset'] = 0
+
 -- Core
 P['benikui'] = {
 	['installed'] = nil,

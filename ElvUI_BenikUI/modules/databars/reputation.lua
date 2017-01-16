@@ -171,9 +171,16 @@ function BDB:UpdateRepNotifier()
 	end
 end
 
+function BDB:RepTextOffset()
+	local text = ElvUI_ReputationBar.text
+	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset)
+end
+
 function BDB:LoadRep()
 	self:ChangeRepColor()
+	self:RepTextOffset()
 	hooksecurefunc(M, 'UpdateReputation', BDB.ChangeRepColor)
+	hooksecurefunc(M, 'UpdateReputation', BDB.RepTextOffset)
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
 	

@@ -179,9 +179,16 @@ function BDB:UpdateHonorNotifier()
 	end
 end
 
+function BDB:HonorTextOffset()
+	local text = ElvUI_ExperienceBar.text
+	text:Point('CENTER', 0, E.db.databars.experience.textYoffset)
+end
+
 function BDB:LoadHonor()
 	self:ChangeHonorColor()
+	self:HonorTextOffset()
 	hooksecurefunc(M, 'UpdateHonor', BDB.ChangeHonorColor)
+	hooksecurefunc(M, 'UpdateHonor', BDB.HonorTextOffset)
 	
 	local db = E.db.benikuiDatabars.honor.notifiers
 	

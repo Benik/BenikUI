@@ -193,9 +193,16 @@ function BDB:UpdateAfNotifier()
 	end
 end
 
+function BDB:AfTextOffset()
+	local text = ElvUI_ArtifactBar.text
+	text:Point('CENTER', 0, E.db.databars.artifact.textYoffset)
+end
+
 function BDB:LoadAF()
 	self:ChangeAFcolor()
+	self:AfTextOffset()
 	hooksecurefunc(M, 'UpdateArtifact', BDB.ChangeAFcolor)
+	hooksecurefunc(M, 'UpdateArtifact', BDB.AfTextOffset)
 	
 	local db = E.db.benikuiDatabars.artifact.notifiers
 	

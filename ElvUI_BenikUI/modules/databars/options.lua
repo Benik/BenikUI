@@ -511,3 +511,47 @@ local function databarsTable()
 	}
 end
 tinsert(BUI.Config, databarsTable)
+
+
+local function injectElvUIDatabarOptions()
+	-- xp
+	E.Options.args.databars.args.experience.args.textYoffset = {	
+		order = 11,
+		type = "range",
+		min = -30, max = 30, step = 1,
+		name = BUI:cOption(L['Text yOffset']),
+		get = function(info) return E.db.databars.experience[ info[#info] ] end,
+		set = function(info, value) E.db.databars.experience[ info[#info] ] = value; BDB:XpTextOffset() end,
+	}
+
+	-- artifact
+	E.Options.args.databars.args.artifact.args.textYoffset = {	
+		order = 11,
+		type = "range",
+		min = -30, max = 30, step = 1,
+		name = BUI:cOption(L['Text yOffset']),
+		get = function(info) return E.db.databars.artifact[ info[#info] ] end,
+		set = function(info, value) E.db.databars.artifact[ info[#info] ] = value; BDB:AfTextOffset() end,
+	}
+
+	-- reputation
+	E.Options.args.databars.args.reputation.args.textYoffset = {	
+		order = 11,
+		type = "range",
+		min = -30, max = 30, step = 1,
+		name = BUI:cOption(L['Text yOffset']),
+		get = function(info) return E.db.databars.reputation[ info[#info] ] end,
+		set = function(info, value) E.db.databars.reputation[ info[#info] ] = value; BDB:RepTextOffset() end,
+	}
+	
+	-- honor
+	E.Options.args.databars.args.honor.args.textYoffset = {	
+		order = 11,
+		type = "range",
+		min = -30, max = 30, step = 1,
+		name = BUI:cOption(L['Text yOffset']),
+		get = function(info) return E.db.databars.honor[ info[#info] ] end,
+		set = function(info, value) E.db.databars.honor[ info[#info] ] = value; BDB:HonorTextOffset() end,
+	}
+end
+tinsert(BUI.Config, injectElvUIDatabarOptions)

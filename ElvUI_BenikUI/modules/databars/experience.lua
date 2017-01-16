@@ -177,9 +177,16 @@ function BDB:UpdateXpNotifier()
 	end
 end
 
+function BDB:XpTextOffset()
+	local text = ElvUI_ExperienceBar.text
+	text:Point('CENTER', 0, E.db.databars.experience.textYoffset)
+end
+
 function BDB:LoadXP()
 	self:ChangeXPcolor()
+	self:XpTextOffset()
 	hooksecurefunc(M, 'UpdateExperience', BDB.ChangeXPcolor)
+	hooksecurefunc(M, 'UpdateExperience', BDB.XpTextOffset)
 
 	local db = E.db.benikuiDatabars.experience.notifiers
 	
