@@ -122,7 +122,7 @@ function BUIP:UpdateProfessions()
 		local proftable = { GetProfessions() }
 
 		for _, id in pairs(proftable) do
-			local name, icon, rank, maxRank, _, _, _, rankModifier = GetProfessionInfo(id)
+			local name, icon, rank, maxRank, _, _, skillLine, rankModifier = GetProfessionInfo(id)
 
 			if name and (rank < capRank or (not db.capped)) then
 				if db.choosePofessions[id] == true then
@@ -195,7 +195,15 @@ function BUIP:UpdateProfessions()
 					ProFrame.IconBG:Point('BOTTOMRIGHT', ProFrame, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 					ProFrame.IconBG:SetScript('OnClick', function(self)
 						if name ~= PROFESSIONS_FISHING then
-							CastSpellByName(name)
+							if skillLine == 186 then
+								CastSpellByID(2656) -- mining skills
+							elseif skillLine == 182 then
+								CastSpellByID(193290) -- herbalism skills
+							elseif skillLine == 393 then
+								CastSpellByID(194174) -- skinning skills
+							else
+								CastSpellByName(name)
+							end
 						end
 					end)
 					ProFrame.IconBG:SetScript('OnEnter', Icon_OnEnter)
