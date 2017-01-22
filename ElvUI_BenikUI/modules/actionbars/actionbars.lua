@@ -22,7 +22,7 @@ function BAB:StyleBackdrops()
 		local styleBacks = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(styleBacks) do
 			if frame.backdrop then
-				frame.backdrop:Style('Outside', frame:GetName()..'_Bui', true)
+				frame.backdrop:Style('Outside', nil, true)
 			end
 		end
 	end
@@ -30,7 +30,7 @@ function BAB:StyleBackdrops()
 	-- Other bar backdrops
 	for _, frame in pairs(styleOtherBacks) do
 		if frame.backdrop then
-			frame.backdrop:Style('Outside', frame:GetName()..'_Bui', true)
+			frame.backdrop:Style('Outside', nil, true)
 		end
 	end
 end
@@ -64,7 +64,7 @@ function BAB:ColorBackdrops()
 	local db = E.db.benikui.colors
 	
 	for i = 1, 10 do
-		local styleBacks = {_G['ElvUI_Bar'..i..'_Bui']}
+		local styleBacks = {_G['ElvUI_Bar'..i].backdrop.style}
 		for _, frame in pairs(styleBacks) do
 			frame.backdropTexture:SetTexture(E['media'].BuiFlat)
 			if db.abStyleColor == 1 then
@@ -80,7 +80,7 @@ function BAB:ColorBackdrops()
 	end
 	
 	for _, frame in pairs(styleOtherBacks) do
-		local name = _G[frame:GetName()..'_Bui']
+		local name = _G[frame:GetName()].backdrop.style
 		name.backdropTexture:SetTexture(E['media'].BuiFlat)
 		if db.abStyleColor == 1 then
 			name.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
