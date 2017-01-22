@@ -10,7 +10,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 
 -- GLOBALS: NUM_PET_ACTION_SLOTS, DisableAddOn
--- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar, ElvUIBags
+-- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
@@ -126,7 +126,7 @@ function BAB:TransparentBackdrops()
 	end
 
 	-- Other bar backdrops
-	local transOtherBars = {ElvUI_BarPet, ElvUI_StanceBar, ElvUIBags}
+	local transOtherBars = {ElvUI_BarPet, ElvUI_StanceBar}
 	for _, frame in pairs(transOtherBars) do
 		if frame.backdrop then
 			if db.transparent then

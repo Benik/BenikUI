@@ -22,6 +22,11 @@ function BUIB:StyleBags()
 	if ElvUI_ContainerFrameContainerHolder then
 		ElvUI_ContainerFrameContainerHolder:Point('BOTTOMLEFT', playerbags, 'TOPLEFT', 0, SPACING + BORDER)
 	end
+	
+	if ElvUIBags then
+		ElvUIBags.backdrop:Style('Outside')
+		ElvUIBags.backdrop:SetTemplate('Transparent')
+	end
 end
 
 function BUIB:OpenBankBags()
