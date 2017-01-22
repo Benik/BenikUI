@@ -16,7 +16,7 @@ function UFB:ChangeRaidHealthBarTexture()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Health then
+			if unitbutton.Health and not unitbutton.Health.isTransparent then
 				unitbutton.Health:SetStatusBarTexture(bar)
 			end
 		end
@@ -33,7 +33,7 @@ function UFB:ChangeRaid40HealthBarTexture()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Health then
+			if unitbutton.Health and not unitbutton.Health.isTransparent then
 				unitbutton.Health:SetStatusBarTexture(bar)
 			end
 		end
@@ -50,7 +50,7 @@ function UFB:ChangePartyHealthBarTexture()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Health then
+			if unitbutton.Health and not unitbutton.Health.isTransparent then
 				unitbutton.Health:SetStatusBarTexture(bar)
 			end
 		end
