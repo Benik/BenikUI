@@ -6,32 +6,30 @@ local tinsert = table.insert
 local SHOW = SHOW
 
 local function abTable()
-	E.Options.args.actionbar.args.benikui = {
-		order = 20,
+	E.Options.args.benikui.args.actionbars = {
+		order = 7,
 		type = 'group',
-		name = BUI.Title,
-		guiInline = true,
+		name = L['ActionBars']..BUI.NewSign,
 		args = {
-			transparent = {
+			name = {
 				order = 1,
-				type = 'toggle',
-				name = L['Transparent Backdrops'],
-				desc = L['Applies transparency in all actionbar backdrops and actionbar buttons.'],
-				get = function(info) return E.db.benikui.actionbars[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.actionbars[ info[#info] ] = value; BAB:TransparentBackdrops() end,	
+				type = 'header',
+				name = BUI:cOption(L['ActionBars']),
 			},
-			requestStop = {
-				order = 2,
-				type = 'toggle',
-				name = L['Request Stop button'],
-				get = function(info) return E.db.benikui.actionbars[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.actionbars[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
-			},
-			toggleButtons = {
+			style = {
 				order = 2,
 				type = 'group',
-				name = BUI:cOption(L['Switch Buttons']),
+				name = L['BenikUI Style']..BUI.NewSign,
 				guiInline = true,
+				args = {
+				},
+			},
+			toggleButtons = {
+				order = 3,
+				type = 'group',
+				name = L['Switch Buttons'],
+				guiInline = true,
+				disabled = function() return not E.private.actionbar.enable end,
 				get = function(info) return E.db.benikui.actionbars.toggleButtons[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.actionbars.toggleButtons[ info[#info] ] = value; BAB:ShowButtons() end,
 				args = {
@@ -54,8 +52,76 @@ local function abTable()
 					},
 				},
 			},
+			transparent = {
+				order = 4,
+				type = 'toggle',
+				name = L['Transparent Backdrops'],
+				desc = L['Applies transparency in all actionbar backdrops and actionbar buttons.'],
+				disabled = function() return not E.private.actionbar.enable end,
+				get = function(info) return E.db.benikui.actionbars[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.actionbars[ info[#info] ] = value; BAB:TransparentBackdrops() end,	
+			},
+			requestStop = {
+				order = 5,
+				type = 'toggle',
+				name = L['Request Stop button'],
+				get = function(info) return E.db.benikui.actionbars[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.actionbars[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
+			},
 		},
 	}
-end
 
+	local available = available or 6
+
+	if IsAddOnLoaded('ElvUI_ExtraActionBars') then
+		available = 10
+	else
+		available = 6
+	end
+
+	for i = 1, available do
+		local name = L["Bar "]..i
+		E.Options.args.benikui.args.actionbars.args.style.args['bar'..i] = {
+			order = i,
+			type = 'toggle',
+			name = name,
+			disabled = function() return not E.private.actionbar.enable end,
+			get = function(info) return E.db.benikui.actionbars.style[ info[#info] ] end,
+			set = function(info, value)
+				E.db.benikui.actionbars.style[ info[#info] ] = value;
+				BAB:ToggleStyle()
+			end,
+		}	
+	end
+
+	E.Options.args.benikui.args.actionbars.args.style.args.spacer = {
+		order = 20,
+		type = 'header',
+		name = '',
+	}
+
+	E.Options.args.benikui.args.actionbars.args.style.args.petbar = {
+		order = 21,
+		type = 'toggle',
+		name = L["Pet Bar"],
+		disabled = function() return not E.private.actionbar.enable end,
+		get = function(info) return E.db.benikui.actionbars.style[ info[#info] ] end,
+		set = function(info, value)
+			E.db.benikui.actionbars.style[ info[#info] ] = value;
+			BAB:ToggleStyle()
+		end,
+	}
+
+	E.Options.args.benikui.args.actionbars.args.style.args.stancebar = {
+		order = 22,
+		type = 'toggle',
+		name = L["Stance Bar"],
+		disabled = function() return not E.private.actionbar.enable end,
+		get = function(info) return E.db.benikui.actionbars.style[ info[#info] ] end,
+		set = function(info, value)
+			E.db.benikui.actionbars.style[ info[#info] ] = value;
+			BAB:ToggleStyle()
+		end,
+	}
+end
 tinsert(BUI.Config, abTable)

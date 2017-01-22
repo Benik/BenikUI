@@ -10,11 +10,11 @@ local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 
 -- GLOBALS: NUM_PET_ACTION_SLOTS, DisableAddOn
--- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags
+-- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar, ElvUIBags
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar}
+local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar}
 
 function BAB:StyleBackdrops()
 	-- Actionbar backdrops
@@ -32,6 +32,30 @@ function BAB:StyleBackdrops()
 		if frame.backdrop then
 			frame.backdrop:Style('Outside', frame:GetName()..'_Bui', true)
 		end
+	end
+end
+
+function BAB:ToggleStyle()
+	-- Actionbar backdrops
+	for i = 1, 10 do
+		if E.db.benikui.actionbars.style['bar'..i] then
+			_G['ElvUI_Bar'..i].backdrop.style:Show()
+		else
+			_G['ElvUI_Bar'..i].backdrop.style:Hide()
+		end
+	end
+	
+	-- Other bar backdrops
+	if E.db.benikui.actionbars.style.petbar then
+		_G['ElvUI_BarPet'].backdrop.style:Show()
+	else
+		_G['ElvUI_BarPet'].backdrop.style:Hide()
+	end
+	
+	if E.db.benikui.actionbars.style.stancebar then
+		_G['ElvUI_StanceBar'].backdrop.style:Show()
+	else
+		_G['ElvUI_StanceBar'].backdrop.style:Hide()
 	end
 end
 
@@ -102,7 +126,7 @@ function BAB:TransparentBackdrops()
 	end
 
 	-- Other bar backdrops
-	local transOtherBars = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_TotemBar, ElvUIBags}
+	local transOtherBars = {ElvUI_BarPet, ElvUI_StanceBar, ElvUIBags}
 	for _, frame in pairs(transOtherBars) do
 		if frame.backdrop then
 			if db.transparent then
@@ -114,7 +138,7 @@ function BAB:TransparentBackdrops()
 	end
 	
 	-- Pet Buttons
-	for i=1, NUM_PET_ACTION_SLOTS do
+	for i = 1, NUM_PET_ACTION_SLOTS do
 		local petButtons = {_G['PetActionButton'..i]}
 		for _, button in pairs(petButtons) do
 			if button.backdrop then
@@ -134,6 +158,7 @@ function BAB:Initialize()
 	C_TimerAfter(1, BAB.TransparentBackdrops)
 	C_TimerAfter(2, BAB.ColorBackdrops)
 	C_TimerAfter(2, BAB.LoadToggleButtons)
+	C_TimerAfter(2, BAB.ToggleStyle)
 	self:LoadRequestButton()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
 	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end

@@ -104,6 +104,20 @@ P['benikui'] = {
 			['chooseAb'] = 'BAR2',
 		},
 		['requestStop'] = true,
+		['style'] = {
+			['bar1'] = true,
+			['bar2'] = true,
+			['bar3'] = true,
+			['bar4'] = true,
+			['bar5'] = true,
+			['bar6'] = true,
+			['bar7'] = true,
+			['bar8'] = true,
+			['bar9'] = true,
+			['bar10'] = true,
+			['petbar'] = true,
+			['stancebar'] = true,
+		},
 	},
 	
 	['unitframes'] = {
