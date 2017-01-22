@@ -1,3 +1,17 @@
+[b]3.16[/b]
+*Fixed ElvUI transparency on uf elements: health, power, castbar that was breaking after using BenikUI uf texture options
+*Moved ElvUI Bags bar styling from actionbars.lua to bags lua. Also added transparency to it
+*Changed the way the Actionbar style color is registered 
+*Added option to toggle style for each Actionbar. Also moved BenikUI Actionbar options from ElvUI Ab's. They now have their own group
+*Added Detached portrait option on Focus frame by user request 
+*Fixed the click function for mining, skinning and herbalism dashboard icon.
+*Added toggle buttons from ElvUI databars to BenikUI databars and vice versa 
+*Added text yOffset option on all ElvUI DataBars
+*Added new readyCheck icons (Code: Merathilis - Darth) 
+*Added option for Pet detached portrait by user request 
+*Added a theme color edit option by user request
+*Changed the Monk crest in AFK mode
+
 [b]3.15[/b]
 *Fixed the alert frames styling not updating correctly.
 *Fixed an error with the ObjectiveTracker button.
