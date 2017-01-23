@@ -47,24 +47,30 @@ end
 function BAB:ToggleStyle()
 	-- Actionbar backdrops
 	for i = 1, availableActionbars do
-		if E.db.benikui.actionbars.style['bar'..i] then
-			_G['ElvUI_Bar'..i].backdrop.style:Show()
-		else
-			_G['ElvUI_Bar'..i].backdrop.style:Hide()
+		if _G['ElvUI_Bar'..i].backdrop.style then
+			if E.db.benikui.actionbars.style['bar'..i] then
+				_G['ElvUI_Bar'..i].backdrop.style:Show()
+			else
+				_G['ElvUI_Bar'..i].backdrop.style:Hide()
+			end
 		end
 	end
 	
 	-- Other bar backdrops
-	if E.db.benikui.actionbars.style.petbar then
-		_G['ElvUI_BarPet'].backdrop.style:Show()
-	else
-		_G['ElvUI_BarPet'].backdrop.style:Hide()
+	if _G['ElvUI_BarPet'].backdrop.style then
+		if E.db.benikui.actionbars.style.petbar then
+			_G['ElvUI_BarPet'].backdrop.style:Show()
+		else
+			_G['ElvUI_BarPet'].backdrop.style:Hide()
+		end
 	end
-	
-	if E.db.benikui.actionbars.style.stancebar then
-		_G['ElvUI_StanceBar'].backdrop.style:Show()
-	else
-		_G['ElvUI_StanceBar'].backdrop.style:Hide()
+
+	if _G['ElvUI_StanceBar'].backdrop.style then
+		if E.db.benikui.actionbars.style.stancebar then
+			_G['ElvUI_StanceBar'].backdrop.style:Show()
+		else
+			_G['ElvUI_StanceBar'].backdrop.style:Hide()
+		end
 	end
 end
 
