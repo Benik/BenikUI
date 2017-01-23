@@ -1,3 +1,6 @@
+[b]3.17[/b]
+*Prevent an error when ElvUI_ExtraActionbars is not loaded
+
 [b]3.16[/b]
 *Fixed ElvUI transparency on uf elements: health, power, castbar that was breaking after using BenikUI uf texture options
 *Moved ElvUI Bags bar styling from actionbars.lua to bags lua. Also added transparency to it
