@@ -169,6 +169,7 @@ L['Copy Player portrait width and height'] = true
 L['Detach Portrait'] = true
 L['Fix InfoPanel width'] = true
 L['Health statusbar texture. Applies only on Group Frames'] = true
+L['Ignore Transparency'] = true
 L['Lower InfoPanel width when potraits are enabled.'] = true
 L['Makes the portrait backdrop transparent'] = true
 L['Overlayed Portraits Alpha'] = true
@@ -178,7 +179,9 @@ L['Replaces the default role icons with SVUI ones.'] = true
 L['Shadow'] = true
 L['Style Height'] = true
 L['SVUI Icons'] = true
+L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = true
 L['Vertical power statusbar'] = true
+
 -- Castbar
 L['Force show any text placed on the InfoPanel, while casting.'] = true
 L['Show Castbar text'] = true

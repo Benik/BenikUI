@@ -184,6 +184,7 @@ P['benikui'] = {
 		['textures'] = {
 			['power'] = E.db.unitframe.statusbar,
 			['health'] = E.db.unitframe.statusbar,
+			['ignoreTransparency'] = false,
 		},
 		['misc'] = {
 			['svui'] = true,

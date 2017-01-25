@@ -168,6 +168,7 @@ L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite un
 L['Detach Portrait'] = "Abgetrenntes Portrait"
 L['Fix InfoPanel width'] = "Behebt InfoPanel Breite"
 L['Health statusbar texture. Applies only on Group Frames'] = "Gesundheit Statusleiste Texture. Wird nur auf GruppenFrames angewandt"
+L['Ignore Transparency'] = true
 L['Lower InfoPanel width when potraits are enabled.'] = "Verringert die InfoPanel Breite, wenn Portraits aktiviert sind."
 L['Makes the portrait backdrop transparent'] = "Dadurch wird der Portrait Hintergrund transparent"
 L['Overlayed Portraits Alpha'] = "Überlappende Portrait Alpha"
@@ -177,6 +178,7 @@ L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rol
 L['Shadow'] = "Schatten"
 L['Style Height'] = "Stil Höhe"
 L['SVUI Icons'] = "SVUI Symbole"
+L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = true
 L['Vertical power statusbar'] = "Vertikale Kraft Statusleiste"
 -- Castbar
 L['Force show any text placed on the InfoPanel, while casting.'] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."

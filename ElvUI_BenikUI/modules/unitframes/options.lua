@@ -86,9 +86,22 @@ local function ufTable()
 						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,				
 						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UFB:ChangeHealthBarTexture() end,
 					},
+					ignoreTransparency = {
+						type = 'toggle',
+						order = 2,
+						name = L['Ignore Transparency'],
+						desc = L['This will ignore ElvUI Health Transparency setting on all Group Frames.'],
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,				
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UF:Update_AllFrames(); end,
+					},
+					spacer = {
+						order = 3,
+						type = 'header',
+						name = '',
+					},
 					power = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 2,
+						order = 4,
 						name = L['Power'],
 						desc = L['Power statusbar texture.'],
 						values = AceGUIWidgetLSMlists.statusbar,
