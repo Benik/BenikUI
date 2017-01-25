@@ -140,6 +140,8 @@ L['New Mail'] = true
 L['No Mail'] = true
 
 -- Databars Options
+L['AutoTrack'] = true
+L['Change the tracked Faction automatically when reputation changes'] = true
 L['Notifiers'] = true
 L['Move to Bag bar'] = true
 L['Move the Notifier to Bag bar, when Artifact items are available'] = true

@@ -139,6 +139,8 @@ L['New Mail'] = "Neue Post"
 L['No Mail'] = "Keine Post"
 
 -- Databars Options
+L['AutoTrack'] = true
+L['Change the tracked Faction automatically when reputation changes'] = true
 L['Notifiers'] = "Benachrichtigungen"
 L['Move to Bag bar'] = "Verschiebe zur Taschenleiste"
 L['Move the Notifier to Bag bar, when Artifact items are available'] = "Verschiebe die Notifizierung zur Taschenleiste wenn Artefaktitems benutzbar sind."

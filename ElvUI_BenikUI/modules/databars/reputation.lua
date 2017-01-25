@@ -7,6 +7,12 @@ local DT = E:GetModule('DataTexts');
 
 local _G = _G
 
+local find, gsub, format = string.find, string.gsub, string.format
+
+local incpat = gsub(gsub(FACTION_STANDING_INCREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
+local changedpat = gsub(gsub(FACTION_STANDING_CHANGED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
+local decpat = gsub(gsub(FACTION_STANDING_DECREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
+
 local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local GetWatchedFactionInfo = GetWatchedFactionInfo
@@ -176,11 +182,35 @@ function BDB:RepTextOffset()
 	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset)
 end
 
+-- Credit: Feraldin, ElvUI Enhanced (Legion)
+function BDB:SetWatchedFactionOnReputationBar(event, msg)
+	if not E.db.benikuiDatabars.reputation.autotrack then return end
+	
+	local _, _, faction, amount = find(msg, incpat)
+	if not faction then _, _, faction, amount = find(msg, changedpat) or find(msg, decpat) end
+	if faction then
+		if faction == GUILD_REPUTATION then
+			faction = GetGuildInfo("player")
+		end
+
+		local active = GetWatchedFactionInfo()
+		for factionIndex = 1, GetNumFactions() do
+			local name = GetFactionInfo(factionIndex)
+			if name == faction and name ~= active then
+				-- check if watch has been disabled by user
+				local inactive = IsFactionInactive(factionIndex) or SetWatchedFactionIndex(factionIndex)
+				break
+			end
+		end
+	end
+end
+
 function BDB:LoadRep()
 	self:ChangeRepColor()
 	self:RepTextOffset()
 	hooksecurefunc(M, 'UpdateReputation', BDB.ChangeRepColor)
 	hooksecurefunc(M, 'UpdateReputation', BDB.RepTextOffset)
+	self:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE", 'SetWatchedFactionOnReputationBar')
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
 	

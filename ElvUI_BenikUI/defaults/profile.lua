@@ -265,6 +265,7 @@ P['benikuiDatabars'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "DEFAULT",
+		['autotrack'] = false,
 		['color'] = {
 			['default'] = true,
 			['friendly'] = {r = 0, g = .6, b = .1, a = .8 },

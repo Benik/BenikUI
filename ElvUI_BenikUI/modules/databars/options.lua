@@ -287,13 +287,19 @@ local function databarsTable()
 						set = function(info, value) E.db.benikuiDatabars.reputation.buiStyle = value; BDB:ApplyRepStyling(); end,
 					},
 					buttonStyle = {
-						order = 4,
+						order = 3,
 						type = 'select',
 						name = L['Button Backdrop'],
 						disabled = function() return not E.db.benikuiDatabars.reputation.enable end,
 						values = backdropValues,
 						get = function(info) return E.db.benikuiDatabars.reputation.buttonStyle end,
 						set = function(info, value) E.db.benikuiDatabars.reputation.buttonStyle = value; BDB:ToggleRepBackdrop(); end,
+					},
+					autotrack = {
+						order = 4,
+						type = 'toggle',
+						name = L['AutoTrack']..BUI.NewSign,
+						desc = L['Change the tracked Faction automatically when reputation changes'],
 					},
 					color = {
 						order = 5,
