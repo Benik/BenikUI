@@ -300,6 +300,8 @@ local function databarsTable()
 						type = 'toggle',
 						name = L['AutoTrack']..BUI.NewSign,
 						desc = L['Change the tracked Faction automatically when reputation changes'],
+						get = function(info) return E.db.benikuiDatabars.reputation.autotrack end,
+						set = function(info, value) E.db.benikuiDatabars.reputation.autotrack = value; end,
 					},
 					color = {
 						order = 5,
