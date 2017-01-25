@@ -177,14 +177,14 @@ P['benikui'] = {
 				['ShowInfoText'] = true,
 				['castText'] = true,
 				['forceTargetText'] = false,
-				['texture'] = 'BuiFlat',
 				['textColor'] = {r = 1, g = 1, b = 1, a = 1},
 			},
 		},
 		['textures'] = {
-			['power'] = E.db.unitframe.statusbar,
 			['health'] = E.db.unitframe.statusbar,
 			['ignoreTransparency'] = false,
+			['power'] = E.db.unitframe.statusbar,
+			['castbar'] = 'BuiFlat',
 		},
 		['misc'] = {
 			['svui'] = true,

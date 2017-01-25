@@ -107,7 +107,7 @@ end
 
 --Castbar texture
 function BUIC:PostCast(unit)
-	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.castbar.text.texture)
+	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
 	local r, g, b, a = BUI:unpackColor(E.db.benikui.unitframes.castbar.text.textColor)
 	if not self.isTransparent then
 		self:SetStatusBarTexture(castTexture)
