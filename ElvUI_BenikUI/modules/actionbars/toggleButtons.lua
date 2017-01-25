@@ -67,36 +67,39 @@ function BAB:CreateButtons()
 end
 
 function BAB:ShowButtons()
-	local bar1 = ElvUI_Bar1_Bui
-	local bar2 = ElvUI_Bar2_Bui
+	local bar1 = ElvUI_Bar1.backdrop.style
+	local bar2 = ElvUI_Bar2.backdrop.style
 	local db = E.db.benikui.actionbars.toggleButtons
 	
-	for i = 1, 2 do
-		abtn[i]:ClearAllPoints()
-		if db.chooseAb == 'BAR2' then
-			abtn[i]:SetParent(bar2)
-			if i == 1 then
-				abtn[i]:Point('RIGHT', bar2, 'RIGHT')
+	if bar1 or bar2 then
+		for i = 1, 2 do
+			abtn[i]:ClearAllPoints()
+			if db.chooseAb == 'BAR2' then
+				abtn[i]:SetParent(bar2)
+				if i == 1 then
+					abtn[i]:Point('RIGHT', bar2, 'RIGHT')
+				else
+					abtn[i]:Point('LEFT', bar2, 'LEFT')
+				end
 			else
-				abtn[i]:Point('LEFT', bar2, 'LEFT')
+				abtn[i]:SetParent(bar1)
+				if i == 1 then
+					abtn[i]:Point('RIGHT', bar1, 'RIGHT')
+				else
+					abtn[i]:Point('LEFT', bar1, 'LEFT')
+				end
 			end
-		else
-			abtn[i]:SetParent(bar1)
-			if i == 1 then
-				abtn[i]:Point('RIGHT', bar1, 'RIGHT')
+			
+			if db.enable then
+				abtn[i]:Show()
 			else
-				abtn[i]:Point('LEFT', bar1, 'LEFT')
+				abtn[i]:Hide()
 			end
-		end
-		
-		if db.enable then
-			abtn[i]:Show()
-		else
-			abtn[i]:Hide()
 		end
 	end
 end
 
 function BAB:LoadToggleButtons()
+	if not E.db.benikui.general.benikuiStyle then return end
 	BAB:CreateButtons()
 end

@@ -92,7 +92,7 @@ L['Choose Actionbar to show to'] = true
 L['Request Stop button'] = true
 L['Show in:'] = true
 L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = true
-L['Switch Buttons'] = true
+L['Switch Buttons (requires BenikUI Style)'] = true
 L['Transparent Backdrops'] = true
 
 -- Request stop button
