@@ -205,12 +205,20 @@ function BDB:SetWatchedFactionOnReputationBar(event, msg)
 	end
 end
 
+function BDB:ToggleRepAutotrack()
+	if E.db.benikuiDatabars.reputation.autotrack then
+		self:RegisterEvent('CHAT_MSG_COMBAT_FACTION_CHANGE', 'SetWatchedFactionOnReputationBar')
+	else
+		self:UnregisterEvent('CHAT_MSG_COMBAT_FACTION_CHANGE')
+	end
+end
+
 function BDB:LoadRep()
 	self:ChangeRepColor()
 	self:RepTextOffset()
 	hooksecurefunc(M, 'UpdateReputation', BDB.ChangeRepColor)
 	hooksecurefunc(M, 'UpdateReputation', BDB.RepTextOffset)
-	self:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE", 'SetWatchedFactionOnReputationBar')
+	self:ToggleRepAutotrack()
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
 	
