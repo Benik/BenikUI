@@ -18,7 +18,6 @@ local _G = _G
 --Configure castbar text position and alpha
 local function ConfigureText(unit, castbar)
 	local db = E.db.benikui.unitframes.castbar.text
-	local dbe = E.db.unitframe.units[unit];
 
 	if db.castText then
 		castbar.Text:Show()
@@ -36,17 +35,12 @@ local function ConfigureText(unit, castbar)
 	-- Set position of castbar text according to chosen offsets
 	castbar.Text:ClearAllPoints()
 	castbar.Time:ClearAllPoints()
-	if dbe.infoPanel.enable and dbe.castbar.insideInfoPanel and dbe.castbar.icon and dbe.castbar.iconAttached and db.yOffset ~= 0 then
-		if dbe.orientation == "LEFT" or dbe.orientation == "MIDDLE" and db.infoPanel.enable then
-			castbar.Text:SetPoint("LEFT", castbar, "LEFT", -castbar.ButtonIcon.bg:GetWidth() + 4, db.yOffset)
-			castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.yOffset)
-		else
-			castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.yOffset)
-			castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", castbar.ButtonIcon.bg:GetWidth() -4, db.yOffset)
-		end
-	else
+	if db.yOffset ~= 0 then
 		castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.yOffset)
-		castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.yOffset)
+		castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.yOffset) --LFGInvitePopup
+	else
+		castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
+		castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, 0)
 	end
 end
 
@@ -76,7 +70,7 @@ local function ConfigureCastbar(unit, unitframe)
 	local castbar = unitframe.Castbar
 	
 	if unit == 'player' or unit == 'target' then
-		if db.insideInfoPanel and unitframe.USE_INFO_PANEL then
+		if unitframe.USE_INFO_PANEL and db.insideInfoPanel then
 			ConfigureText(unit, castbar)
 			if E.db.benikui.unitframes.castbar.text.ShowInfoText then
 				changeCastbarLevel(unit, unitframe)

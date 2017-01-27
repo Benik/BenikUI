@@ -130,7 +130,7 @@ local function ufTable()
 				name = L['Castbar'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
 				get = function(info) return E.db.benikui.unitframes.castbar.text[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BUIC:UpdateSettings("player"); BUIC:UpdateSettings("target"); end,
+				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BUIC:UpdateAllCastbars(); end,
 				args = {
 					ShowInfoText = {
 						type = 'toggle',
