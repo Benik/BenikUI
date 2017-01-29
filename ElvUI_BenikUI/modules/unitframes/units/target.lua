@@ -53,30 +53,30 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 			if not power.colorClass then
 				if maxValue > 0 then
 					if color then
-						portrait.backdrop.style.color:SetVertexColor(color[1], color[2], color[3])
+						portrait.backdrop.style.backdropTexture:SetVertexColor(color[1], color[2], color[3])
 					else
-						portrait.backdrop.style.color:SetVertexColor(altR, altG, altB)
+						portrait.backdrop.style.backdropTexture:SetVertexColor(altR, altG, altB)
 					end
 				else
 					if color then
-						portrait.backdrop.style.color:SetVertexColor(color[1] * mu, color[2] * mu, color[3] * mu)
+						portrait.backdrop.style.backdropTexture:SetVertexColor(color[1] * mu, color[2] * mu, color[3] * mu)
 					end
 				end
 			else
 				local reaction = UnitReaction('target', 'player')
 				if maxValue > 0 then
 					if isPlayer then
-						portrait.backdrop.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
+						portrait.backdrop.style.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
 					else
 						if reaction then
 							local tpet = ElvUF.colors.reaction[reaction]
-							portrait.backdrop.style.color:SetVertexColor(tpet[1], tpet[2], tpet[3])
+							portrait.backdrop.style.backdropTexture:SetVertexColor(tpet[1], tpet[2], tpet[3])
 						end
 					end
 				else
 					if reaction then
 						local t = ElvUF.colors.reaction[reaction]
-						portrait.backdrop.style.color:SetVertexColor(t[1] * mu, t[2] * mu, t[3] * mu)
+						portrait.backdrop.style.backdropTexture:SetVertexColor(t[1] * mu, t[2] * mu, t[3] * mu)
 					end
 				end
 			end	

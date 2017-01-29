@@ -14,7 +14,7 @@ local function StyleTooltip()
 	GameTooltip.style:SetClampedToScreen(true)
 
 	-- Grab the style color
-	local r, g, b = GameTooltip.style.color:GetVertexColor()
+	local r, g, b = GameTooltip.style.backdropTexture:GetVertexColor()
 	ttr, ttg, ttb = r, g, b
 	
 	-- FreebTip support
@@ -33,7 +33,7 @@ local function RecolorTooltipStyle()
 	else
 		r, g, b = ttr, ttg, ttb
 	end
-	GameTooltip.style.color:SetVertexColor(r, g, b)
+	GameTooltip.style.backdropTexture:SetVertexColor(r, g, b)
 end
 
 function BTT:Initialize()

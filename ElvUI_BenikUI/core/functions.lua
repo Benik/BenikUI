@@ -67,6 +67,7 @@ local function Style(f, template, name, colored)
 		style:SetTemplate('Default', true)
 	end
 	
+	style.ignoreUpdates = true
 	style:SetFrameLevel(f:GetFrameLevel())
 	
 	local tlx, tly, brx, bry
@@ -90,19 +91,15 @@ local function Style(f, template, name, colored)
 	end
 	
 	if not colored then
-		if not style.color then
-			style.color = style:CreateTexture(nil, 'OVERLAY')
-			style.color:SetInside()
-			style.color:SetTexture(E['media'].BuiFlat)
-			if E.db.benikui.colors.StyleColor == 1 then
-				style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
-			elseif E.db.benikui.colors.StyleColor == 2 then
-				style.color:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
-			elseif E.db.benikui.colors.StyleColor == 3 then
-				style.color:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
-			else
-				style.color:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
-			end
+		--style.backdropTexture:SetTexture(E['media'].BuiFlat)
+		if E.db.benikui.colors.StyleColor == 1 then
+			style.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		elseif E.db.benikui.colors.StyleColor == 2 then
+			style.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
+		elseif E.db.benikui.colors.StyleColor == 3 then
+			style.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+		else
+			style.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
 		end
 	end
 	
