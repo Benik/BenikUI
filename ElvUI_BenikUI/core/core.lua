@@ -55,15 +55,15 @@ end
 
 function BUI:UpdateStyleColors()
 	for frame, _ in pairs(self["styles"]) do
-		if frame.color then
+		if frame and not frame.ignoreColor then
 			if E.db.benikui.colors.StyleColor == 1 then
-				frame.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
+				frame.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
 			elseif E.db.benikui.colors.StyleColor == 2 then
-				frame.color:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
+				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
 			elseif E.db.benikui.colors.StyleColor == 3 then
-				frame.color:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 			else
-				frame.color:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
+				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
 			end
 		else
 			self["styles"][frame] = nil;

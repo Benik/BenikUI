@@ -57,7 +57,7 @@ local function CreateSoftGlow(f)
 	f.sglow = sglow
 end
 
-local function Style(f, template, name, colored)
+local function Style(f, template, name, ignoreColor)
 	if f.style or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local style = CreateFrame('Frame', name or nil, f)
@@ -68,6 +68,11 @@ local function Style(f, template, name, colored)
 	end
 	
 	style.ignoreUpdates = true
+
+	if(ignoreColor) then
+	   style.ignoreColor = ignoreColor
+	end
+
 	style:SetFrameLevel(f:GetFrameLevel())
 	
 	local tlx, tly, brx, bry
@@ -104,7 +109,9 @@ local function Style(f, template, name, colored)
 	end
 	
 	f.style = style
-	BUI["styles"][style] = true
+	if not style.ignoreColor then
+		BUI["styles"][style] = true
+	end
 end
 
 local function addapi(object)
