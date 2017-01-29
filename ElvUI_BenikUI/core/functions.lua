@@ -96,7 +96,6 @@ local function Style(f, template, name, ignoreColor)
 	end
 	
 	if not colored then
-		--style.backdropTexture:SetTexture(E['media'].BuiFlat)
 		if E.db.benikui.colors.StyleColor == 1 then
 			style.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		elseif E.db.benikui.colors.StyleColor == 2 then
