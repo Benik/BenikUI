@@ -74,38 +74,42 @@ function BAB:ToggleStyle()
 	end
 end
 
+local r, g, b = 0, 0, 0
+
 function BAB:ColorBackdrops()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local db = E.db.benikui.colors
 	
 	for i = 1, availableActionbars do
 		local styleBacks = {_G['ElvUI_Bar'..i].backdrop.style}
+
 		for _, frame in pairs(styleBacks) do
-			frame.backdropTexture:SetTexture(E['media'].BuiFlat)
 			if db.abStyleColor == 1 then
-				frame.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+				r, g, b = classColor.r, classColor.g, classColor.b
 			elseif db.abStyleColor == 2 then
-				frame.backdropTexture:SetVertexColor(BUI:unpackColor(db.customAbStyleColor))
+				r, g, b = BUI:unpackColor(db.customAbStyleColor)
 			elseif db.abStyleColor == 3 then
-				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+				r, g, b = BUI:unpackColor(E.db.general.valuecolor)
 			else
-				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
+				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
+			frame:SetBackdropColor(r, g, b, (db.abAlpha or 0.75))
 		end
 	end
 	
 	for _, frame in pairs(styleOtherBacks) do
 		local name = _G[frame:GetName()].backdrop.style
-		name.backdropTexture:SetTexture(E['media'].BuiFlat)
+
 		if db.abStyleColor == 1 then
-			name.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			r, g, b = classColor.r, classColor.g, classColor.b
 		elseif db.abStyleColor == 2 then
-			name.backdropTexture:SetVertexColor(BUI:unpackColor(db.customAbStyleColor))
+			r, g, b = BUI:unpackColor(db.customAbStyleColor)
 		elseif db.abStyleColor == 3 then
-			name.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+			r, g, b = BUI:unpackColor(E.db.general.valuecolor)
 		else
-			name.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
+			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
+		frame:SetBackdropColor(r, g, b, (db.abAlpha or 0.75))
 	end
 end
 

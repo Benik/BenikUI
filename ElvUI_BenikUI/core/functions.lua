@@ -57,14 +57,16 @@ local function CreateSoftGlow(f)
 	f.sglow = sglow
 end
 
+local r, g, b = 0, 0, 0
+
 local function Style(f, template, name, ignoreColor)
 	if f.style or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local style = CreateFrame('Frame', name or nil, f)
 	if not template then
-		style:CreateBackdrop('Default', true)
+		style:CreateBackdrop('Transparent', true)
 	else
-		style:SetTemplate('Default', true)
+		style:SetTemplate('Transparent', true)
 	end
 	
 	style.ignoreUpdates = true
@@ -97,14 +99,15 @@ local function Style(f, template, name, ignoreColor)
 	
 	if not colored then
 		if E.db.benikui.colors.StyleColor == 1 then
-			style.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			r, g, b = classColor.r, classColor.g, classColor.b
 		elseif E.db.benikui.colors.StyleColor == 2 then
-			style.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
+			r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
 		elseif E.db.benikui.colors.StyleColor == 3 then
-			style.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+			r, g, b = BUI:unpackColor(E.db.general.valuecolor)
 		else
-			style.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
+			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
+		style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 0.75))
 	end
 	
 	f.style = style

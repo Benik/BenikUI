@@ -30,6 +30,8 @@ function UFB:Construct_TargetFrame()
 	self:ArrangeTarget()
 end
 
+local r, g, b = 0, 0, 0
+
 function UFB:RecolorTargetDetachedPortraitStyle()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
@@ -53,33 +55,34 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 			if not power.colorClass then
 				if maxValue > 0 then
 					if color then
-						portrait.backdrop.style.backdropTexture:SetVertexColor(color[1], color[2], color[3])
+						r, g, b = color[1], color[2], color[3]
 					else
-						portrait.backdrop.style.backdropTexture:SetVertexColor(altR, altG, altB)
+						r, g, b = altR, altG, altB
 					end
 				else
 					if color then
-						portrait.backdrop.style.backdropTexture:SetVertexColor(color[1] * mu, color[2] * mu, color[3] * mu)
+						r, g, b = color[1] * mu, color[2] * mu, color[3] * mu
 					end
 				end
 			else
 				local reaction = UnitReaction('target', 'player')
 				if maxValue > 0 then
 					if isPlayer then
-						portrait.backdrop.style.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+						r, g, b = classColor.r, classColor.g, classColor.b
 					else
 						if reaction then
 							local tpet = ElvUF.colors.reaction[reaction]
-							portrait.backdrop.style.backdropTexture:SetVertexColor(tpet[1], tpet[2], tpet[3])
+							r, g, b = tpet[1], tpet[2], tpet[3]
 						end
 					end
 				else
 					if reaction then
 						local t = ElvUF.colors.reaction[reaction]
-						portrait.backdrop.style.backdropTexture:SetVertexColor(t[1] * mu, t[2] * mu, t[3] * mu)
+						r, g, b = t[1] * mu, t[2] * mu, t[3] * mu
 					end
 				end
-			end	
+			end
+			portrait.backdrop.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 0.75))
 		end
 	end
 end

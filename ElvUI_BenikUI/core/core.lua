@@ -53,18 +53,21 @@ function BUI:RegisterBuiMedia()
 	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
 end
 
+local r, g, b = 0, 0, 0
+
 function BUI:UpdateStyleColors()
 	for frame, _ in pairs(self["styles"]) do
 		if frame and not frame.ignoreColor then
 			if E.db.benikui.colors.StyleColor == 1 then
-				frame.backdropTexture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+				r, g, b = classColor.r, classColor.g, classColor.b
 			elseif E.db.benikui.colors.StyleColor == 2 then
-				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customStyleColor))
+				r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
 			elseif E.db.benikui.colors.StyleColor == 3 then
-				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+				r, g, b = BUI:unpackColor(E.db.general.valuecolor)
 			else
-				frame.backdropTexture:SetVertexColor(BUI:unpackColor(E.db.general.backdropcolor))
+				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
+			frame:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 0.75))
 		else
 			self["styles"][frame] = nil;
 		end

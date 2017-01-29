@@ -44,7 +44,7 @@ function UFB:Configure_Portrait(frame, isPlayer)
 					if isPlayer then
 						if frame.USE_POWERBAR then
 							local r, g, b = frame.Power:GetStatusBarColor()
-							portrait.backdrop.style.backdropTexture:SetVertexColor(r, g, b)
+							portrait.backdrop.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 0.75))
 						end
 					end
 				else
