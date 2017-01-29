@@ -341,7 +341,7 @@ function AFK:Initialize()
 	self.AFKMode.top:SetWidth(GetScreenWidth() + (E.Border*2))
 
 	--Style the top frame
-	self.AFKMode.top:Style('Under')
+	self.AFKMode.top:Style('Under', nil, true)
 
 	--Top Animation
 	self.AFKMode.top.anim = CreateAnimationGroup(self.AFKMode.top)
@@ -392,7 +392,7 @@ function AFK:Initialize()
 	self.AFKMode.top.Status:SetValue(0)
 
 	-- Style the bottom frame
-	self.AFKMode.bottom:Style('Inside')
+	self.AFKMode.bottom:Style('Inside', nil, true)
 
 	-- Bottom Frame Animation
 	self.AFKMode.bottom.anim = CreateAnimationGroup(self.AFKMode.bottom)
