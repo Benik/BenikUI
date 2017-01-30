@@ -67,7 +67,7 @@ function BUI:UpdateStyleColors()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
-			frame:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 0.75))
+			frame:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
 		else
 			self["styles"][frame] = nil;
 		end

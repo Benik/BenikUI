@@ -82,7 +82,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 					end
 				end
 			end
-			portrait.backdrop.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 0.75))
+			portrait.backdrop.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
 		end
 	end
 end

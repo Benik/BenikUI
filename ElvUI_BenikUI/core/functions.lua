@@ -107,7 +107,7 @@ local function Style(f, template, name, ignoreColor)
 		else
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
-		style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 0.75))
+		style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
 	end
 	
 	f.style = style

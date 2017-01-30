@@ -93,7 +93,7 @@ function BAB:ColorBackdrops()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
-			frame:SetBackdropColor(r, g, b, (db.abAlpha or 0.75))
+			frame:SetBackdropColor(r, g, b, (db.abAlpha or 1))
 		end
 	end
 	
@@ -109,7 +109,7 @@ function BAB:ColorBackdrops()
 		else
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
-		frame:SetBackdropColor(r, g, b, (db.abAlpha or 0.75))
+		frame:SetBackdropColor(r, g, b, (db.abAlpha or 1))
 	end
 end
 
