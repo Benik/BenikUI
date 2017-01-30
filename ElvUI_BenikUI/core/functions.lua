@@ -80,7 +80,7 @@ local function Style(f, template, name, ignoreColor)
 	local tlx, tly, brx, bry
 	
 	if template == 'Inside' then
-		tlx, tly, brx, bry = 0, (E.PixelMode and 1 or 3), 0, (E.PixelMode and -4 or -3)
+		tlx, tly, brx, bry = 0, (E.PixelMode and 0 or 2), 0, (E.PixelMode and -5 or -4)
 	elseif template == 'Outside' then
 		tlx, tly, brx, bry = 0, (E.PixelMode and 4 or 7), 0, (E.PixelMode and -1 or 1)
 	elseif template == 'Small' then
@@ -97,7 +97,7 @@ local function Style(f, template, name, ignoreColor)
 		style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
 	end
 	
-	if not colored then
+	if not ignoreColor then
 		if E.db.benikui.colors.StyleColor == 1 then
 			r, g, b = classColor.r, classColor.g, classColor.b
 		elseif E.db.benikui.colors.StyleColor == 2 then
@@ -108,6 +108,8 @@ local function Style(f, template, name, ignoreColor)
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
 		style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
+	else
+		style:SetBackdropColor(unpack(E["media"].backdropcolor))
 	end
 	
 	f.style = style

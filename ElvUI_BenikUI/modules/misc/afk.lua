@@ -392,7 +392,7 @@ function AFK:Initialize()
 	self.AFKMode.top.Status:SetValue(0)
 
 	-- Style the bottom frame
-	self.AFKMode.bottom:Style('Inside', nil, true)
+	self.AFKMode.bottom:Style('Outside', nil, true)
 
 	-- Bottom Frame Animation
 	self.AFKMode.bottom.anim = CreateAnimationGroup(self.AFKMode.bottom)
