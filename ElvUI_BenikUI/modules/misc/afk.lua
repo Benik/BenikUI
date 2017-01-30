@@ -341,7 +341,7 @@ function AFK:Initialize()
 	self.AFKMode.top:SetWidth(GetScreenWidth() + (E.Border*2))
 
 	--Style the top frame
-	self.AFKMode.top:Style('Under', nil, true)
+	self.AFKMode.top:Style('Under', _, true)
 
 	--Top Animation
 	self.AFKMode.top.anim = CreateAnimationGroup(self.AFKMode.top)
@@ -392,7 +392,10 @@ function AFK:Initialize()
 	self.AFKMode.top.Status:SetValue(0)
 
 	-- Style the bottom frame
-	self.AFKMode.bottom:Style('Outside', nil, true)
+	self.AFKMode.bottom:Style('Inside', _, true)
+	self.AFKMode.bottom.style:SetFrameLevel(5)
+	
+	self.AFKMode.bottom.modelHolder:SetFrameLevel(7)
 
 	-- Bottom Frame Animation
 	self.AFKMode.bottom.anim = CreateAnimationGroup(self.AFKMode.bottom)
@@ -405,6 +408,7 @@ function AFK:Initialize()
 	self.AFKMode.bottom.factionb = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the faction logo layer
 	self.AFKMode.bottom.factionb:SetPoint("BOTTOM", self.AFKMode.bottom, "TOP", 0, -40)
 	self.AFKMode.bottom.factionb:SetFrameStrata("MEDIUM")
+	self.AFKMode.bottom.factionb:SetFrameLevel(10)
 	self.AFKMode.bottom.factionb:SetSize(220, 220)
 	self.AFKMode.bottom.faction:ClearAllPoints()
 	self.AFKMode.bottom.faction:SetParent(self.AFKMode.bottom.factionb)

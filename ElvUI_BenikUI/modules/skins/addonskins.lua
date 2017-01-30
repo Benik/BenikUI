@@ -226,9 +226,11 @@ end
 local function CliqueDecor()
 	if not E.db.benikuiSkins.addonSkins.clique then return end
 	_G["CliqueConfig"]:Style('Small')
+	_G["CliqueDialog"]:Style('Small')
 	local tab = _G["CliqueSpellTab"]
 	if not tab.style then
 		tab:Style('Inside')
+		tab.style:SetFrameLevel(5)
 	end
 	tab:GetNormalTexture():SetTexCoord(.08, 0.92, 0.08, 0.92)
 end

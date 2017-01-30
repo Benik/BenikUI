@@ -258,6 +258,7 @@ local function style_TalentUI()
 		local tab = _G['PlayerSpecTab'..i]
 		if tab then
 			tab:Style('Inside')
+			tab.style:SetFrameLevel(5)
 			tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
 			tab:GetNormalTexture():SetInside()
 		end

@@ -229,6 +229,7 @@ local function styleSpellbook()
 			local tab = _G['SpellBookSkillLineTab'..i]
 			if not tab.style then
 				tab:Style('Inside')
+				tab.style:SetFrameLevel(5)
 				if tab:GetNormalTexture() then
 					tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
 					tab:GetNormalTexture():SetInside()
