@@ -75,7 +75,7 @@ local function Style(f, template, name, ignoreColor)
 	   style.ignoreColor = ignoreColor
 	end
 
-	style:SetFrameLevel(f:GetFrameLevel())
+	style:SetFrameLevel(f:GetFrameLevel() + 2)
 	
 	local tlx, tly, brx, bry
 	
