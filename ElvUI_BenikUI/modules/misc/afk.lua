@@ -383,6 +383,7 @@ function AFK:Initialize()
 	self.AFKMode.top.Status:SetStatusBarTexture((E["media"].normTex))
 	self.AFKMode.top.Status:SetMinMaxValues(0, 1800)
 	self.AFKMode.top.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b, 1)
+	self.AFKMode.top.Status:SetFrameLevel(2)
 	if E.db.benikui.general.benikuiStyle and self.AFKMode.top.style then
 		self.AFKMode.top.Status:SetInside(self.AFKMode.top.style)
 	else
