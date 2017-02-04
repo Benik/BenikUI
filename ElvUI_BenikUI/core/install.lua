@@ -139,32 +139,6 @@ local function SetupLayout()
 	E.db["movers"]["HonorBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
 	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-207,-260"
 
-	-- LocationPlus
-	if E.db.locplus == nil then E.db.locplus = {} end
-	E.db["locplus"]["both"] = false
-	E.db["locplus"]["displayOther"] = "NONE"
-	E.db["locplus"]["dtheight"] = 16
-	E.db["locplus"]["dtwidth"] = 120
-	E.db["locplus"]["hidecoords"] = false
-	E.db["locplus"]["lpauto"] = false
-	E.db["locplus"]["lpfont"] = "Bui Visitor1"
-	E.db["locplus"]["lpfontflags"] = "MONOCROMEOUTLINE"
-	E.db["locplus"]["lpfontsize"] = 10
-	E.db["locplus"]["lpwidth"] = 220
-	E.db["locplus"]["trunc"] = true
-	E.db["movers"]["LocationMover"] = "TOP,ElvUIParent,TOP,0,-7"
-
-	-- LocationLite
-	if E.db.loclite == nil then E.db.loclite = {} end
-	E.db["loclite"]["dtheight"] = 16
-	E.db["loclite"]["lpfontsize"] = 10
-	E.db["loclite"]["trunc"] = true
-	E.db["loclite"]["lpwidth"] = 220
-	E.db["loclite"]["lpfontflags"] = "MONOCROMEOUTLINE"
-	E.db["loclite"]["lpauto"] = false
-	E.db["loclite"]["lpfont"] = "Bui Visitor1"
-	E.db["movers"]["LocationLiteMover"] = "TOP,ElvUIParent,TOP,0,-7"
-
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Layout Set']
 		InstallStepComplete:Show()
@@ -1128,6 +1102,8 @@ end
 local addOnSkinsName = GetAddOnMetadata('AddOnSkins', 'Title')
 local dbmName = GetAddOnMetadata('DBM-Core', 'Title')
 local detailsName = GetAddOnMetadata('Details', 'Title')
+local locationLiteName = GetAddOnMetadata('ElvUI_LocLite', 'Title')
+local locationPlusName = GetAddOnMetadata('ElvUI_LocPlus', 'Title')
 local mikName = GetAddOnMetadata('MikScrollingBattleText', 'Title')
 local pawnName = GetAddOnMetadata('Pawn', 'Title')
 local recountName = GetAddOnMetadata('Recount', 'Title')
@@ -1147,6 +1123,20 @@ local function SetupAddons()
 	if IsAddOnLoaded('Details') then
 		BUI:LoadDetailsProfile()
 		print(BUI.Title..format(L['- %s profile successfully created!'], detailsName))
+	end
+
+	-- Location Lite
+	if IsAddOnLoaded('ElvUI_LocLite') then
+		if E.db.loclite == nil then E.db.loclite = {} end
+		BUI:LoadLocationLiteProfile()
+		print(BUI.Title..format(L['- %s profile successfully created!'], locationLiteName))
+	end
+
+	-- Location Plus
+	if IsAddOnLoaded('ElvUI_LocPlus') then
+		if E.db.locplus == nil then E.db.locplus = {} end
+		BUI:LoadLocationPlusProfile()
+		print(BUI.Title..format(L['- %s profile successfully created!'], locationPlusName))
 	end
 
 	-- MikScrollingBattleText
@@ -1174,15 +1164,15 @@ local function SetupAddons()
 	end
 
 	-- SquareMinimapButtons
-	if SquareMinimapButtonOptions == nil then SquareMinimapButtonOptions = {} end
 	if IsAddOnLoaded('SquareMinimapButtons') then
+		if SquareMinimapButtonOptions == nil then SquareMinimapButtonOptions = {} end
 		BUI:LoadSMBProfile()
 		print(BUI.Title..format(L['- %s profile successfully created!'], smbName))
 	end
 
 	-- ElvUI_VisualAuraTimers
-	if E.db.VAT == nil then E.db.VAT = {} end
 	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
+		if E.db.VAT == nil then E.db.VAT = {} end
 		BUI:LoadVATProfile()
 		print(BUI.Title..format(L['- %s profile successfully created!'], vatName))
 	end
