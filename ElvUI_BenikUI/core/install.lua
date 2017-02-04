@@ -3052,7 +3052,7 @@ local function SetupBuiAddons()
 	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 		E.db["VAT"]["enableStaticColor"] = true
 		E.db["VAT"]["barHeight"] = 5
-		E.db["VAT"]["spacing"] = -5
+		E.db["VAT"]["spacing"] = -6
 		E.db["VAT"]["staticColor"]["r"] = 1
 		E.db["VAT"]["staticColor"]["g"] = 0.5
 		E.db["VAT"]["staticColor"]["b"] = 0
