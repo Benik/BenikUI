@@ -130,7 +130,7 @@ local function Core()
 									['Mists'] = L['Mists'],
 								},
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-								set = function(info, color) E.db.benikui.colors[ info[#info] ] = color; BUI:BuiColorThemes(color); end,
+								set = function(info, color) E.db.benikui.colors[ info[#info] ] = color; BUI:SetupColorThemes(color); end,
 							},
 							customThemeColor = {
 								order = 2,
