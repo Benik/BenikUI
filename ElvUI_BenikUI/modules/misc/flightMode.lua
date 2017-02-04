@@ -240,7 +240,6 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel:SetParent(self.FlightMode)
 		LeftChatPanel.backdrop.shadow:Show()
 		LeftChatPanel.backdrop.shadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
-
 		LeftChatPanel:ClearAllPoints()
 		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		
