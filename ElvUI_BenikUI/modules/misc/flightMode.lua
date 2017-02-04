@@ -239,6 +239,8 @@ function BFM:SetFlightMode(status)
 		BuiDummyChat:SetParent(self.FlightMode)
 		LeftChatPanel:SetParent(self.FlightMode)
 		LeftChatPanel.backdrop.shadow:Show()
+		LeftChatPanel.backdrop.shadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
+
 		LeftChatPanel:ClearAllPoints()
 		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		
