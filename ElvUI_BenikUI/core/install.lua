@@ -197,7 +197,7 @@ local function SetupChat()
 		local chatFrameId = frame:GetID()
 		local chatName = FCF_GetChatWindowInfo(chatFrameId)
 		
-		FCF_SetChatWindowFontSize(nil, frame, 10)
+		FCF_SetChatWindowFontSize(nil, frame, 11)
 		
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
 		if i == 3 and chatName == LOOT..' / '..TRADE then
