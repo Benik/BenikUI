@@ -239,7 +239,6 @@ function BFM:SetFlightMode(status)
 		BuiDummyChat:SetParent(self.FlightMode)
 		LeftChatPanel:SetParent(self.FlightMode)
 		LeftChatPanel.backdrop.shadow:Show()
-		LeftChatPanel.backdrop.shadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
 		LeftChatPanel:ClearAllPoints()
 		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		
@@ -685,6 +684,7 @@ function BFM:Initialize()
 	-- Add Shadow at the left chat
 	LeftChatPanel.backdrop:CreateWideShadow()
 	LeftChatPanel.backdrop.shadow:Hide()
+	LeftChatPanel.backdrop.shadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
 
 	self:Toggle()
 end
