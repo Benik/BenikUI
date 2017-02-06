@@ -1,3 +1,7 @@
+3.19
+*Prevent an error in afkMode when BenikUI style is disabled
+*Reworked the install.lua file by creating a seperate file for each addon profile. This will avoid cluttering in the install file. Also made some functions local.
+
 3.18
 *Disable DressUp frame edit when some 3d party addons are loaded 
 *Complete overhaul on Style coloring. Now transparent style is also an option. 
