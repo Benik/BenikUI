@@ -394,7 +394,9 @@ function AFK:Initialize()
 
 	-- Style the bottom frame
 	self.AFKMode.bottom:Style('Inside', _, true)
-	self.AFKMode.bottom.style:SetFrameLevel(5)
+	if self.AFKMode.bottom.style then
+		self.AFKMode.bottom.style:SetFrameLevel(5)
+	end
 	
 	self.AFKMode.bottom.modelHolder:SetFrameLevel(7)
 
