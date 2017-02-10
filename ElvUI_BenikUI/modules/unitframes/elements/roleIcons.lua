@@ -1,5 +1,6 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local UF = E:GetModule('UnitFrames');
+local UFB = E:GetModule('BuiUnits');
 
 local pairs, select, random = pairs, select, random
 
@@ -44,7 +45,7 @@ local function GetBattleFieldIndexFromUnitName(name)
 	return nil
 end
 
-function UF:UpdateRoleIcon()
+function UFB:UpdateRoleIcon()
 	local lfdrole = self.LFDRole
 	if not self.db then return; end
 	local db = self.db.roleIcon;
@@ -92,11 +93,14 @@ local function SetRoleIcons()
 			for j = 1, group:GetNumChildren() do
 				local unitbutton = select(j, group:GetChildren())
 				if unitbutton.LFDRole and unitbutton.LFDRole.Override then
-					unitbutton.LFDRole.Override = UF.UpdateRoleIcon
+					unitbutton.LFDRole.Override = UFB.UpdateRoleIcon
+					unitbutton:UnregisterEvent("UNIT_CONNECTION")
+					unitbutton:RegisterEvent("UNIT_CONNECTION", UFB.UpdateRoleIcon)
 				end
 			end
 		end
 	end
+	UF:UpdateAllHeaders()
 end
 
 local f = CreateFrame("Frame")
@@ -106,8 +110,4 @@ f:SetScript("OnEvent", function(self, event)
 
 	if IsAddOnLoaded("ElvUI_SLE") or E.db.benikui.unitframes.misc.svui == false then return end
 	SetRoleIcons()
-	self:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRoleIcons")
-	hooksecurefunc(UF, 'Update_PartyFrames', SetRoleIcons)
-	hooksecurefunc(UF, 'Update_RaidFrames', SetRoleIcons)
-	hooksecurefunc(UF, 'Update_Raid40Frames', SetRoleIcons)
 end)
