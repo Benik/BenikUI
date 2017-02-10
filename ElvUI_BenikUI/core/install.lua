@@ -1176,7 +1176,7 @@ local function SetupAddons()
 	end
 
 	if next(addonNames) ~= nil then
-		local profileString = format('|cff00c0fa%s |r', L['BenikUI successfully created profile(s) for:']..'\n')
+		local profileString = format('|cff00c0fa%s |r', L['BenikUI successfully created and applied profile(s) for:']..'\n')
 
 		tsort(addonNames, function(a, b) return a < b end)
 
