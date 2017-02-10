@@ -52,7 +52,6 @@ L["This part of the installation process will reposition your Unitframes."] = "D
 L['Actionbars Set'] = "Aktionsleisten gesetzt"
 L['Addons Set'] = "Addons gesetzt"
 L['\nBenikUI options are marked with light blue color, inside ElvUI options.'] = "\nBenikUI Optionen sind in hellblau hervorgehoben in den ElvUI Optionen."
-L['Buttons must be clicked twice'] = "Bitte zweimal anklicken"
 L['Color Theme Set'] = "Farbschema gesetzt"
 L['Color Themes'] = "Farbschema"
 L['DataTexts Set'] = "Infotexte gesetzt"

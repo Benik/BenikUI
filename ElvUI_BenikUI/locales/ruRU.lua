@@ -53,7 +53,6 @@ L["This part of the installation process will reposition your Unitframes."] = tr
 L['Actionbars Set'] = true
 L['Addons Set'] = true
 L['\nBenikUI options are marked with light blue color, inside ElvUI options.'] = true
-L['Buttons must be clicked twice'] = true
 L['Color Theme Set'] = true
 L['Color Themes'] = true
 L['DataTexts Set'] = true
