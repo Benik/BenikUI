@@ -46,7 +46,7 @@ L['Styles the chat datetexts and buttons only if both chat backdrops are set to 
 -- install
 L["By pressing the Continue button, BenikUI will be applied in your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = "Durch drücken der Weiter-Taste werden die BenikUI-Änderungen in der vorhandenen ElvUI Installation angewand.\n\n|cffff8000 TIP: Es wäre gut, wenn Du die Änderungen in einem neuen Profil erstellst. Nur für den Fall dass Du mit den Änderungen nicht zufrieden bist.|r"
 L["This part of the installation process will fill BenikUI datatexts.\n\n|cffff8000This doesn't touch ElvUI datatexts|r"] = "Dieser Teil des Installationsprozesses wird die BenikUI Infotexte einstellen.\n\n|cffff8000Hierbei werden die ElvUI Infotexte nicht verändert|r"
-L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars."] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren und die leere Leiste aktivieren."
+L["This part of the installation process will reposition your Unitframes."] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren und die leere Leiste aktivieren."
 L['- %s profile successfully created!'] = "- %s Profil erfolgreich erstellt!"
 L['ActionBars'] = "Aktionsleisten"
 L['Actionbars Set'] = "Aktionsleisten gesetzt"
