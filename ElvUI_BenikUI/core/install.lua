@@ -2,6 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 
 local ceil, format, print = ceil, format, print
+local tinsert, twipe, tsort, sub = table.insert, table.wipe, table.sort, string.sub
 local _G = _G
 
 local CreateFrame = CreateFrame
@@ -1099,94 +1100,103 @@ local function SetupUnitframes(layout)
 	E:UpdateAll(true)
 end
 
-local addOnSkinsName = GetAddOnMetadata('AddOnSkins', 'Title')
-local dbmName = GetAddOnMetadata('DBM-Core', 'Title')
-local detailsName = GetAddOnMetadata('Details', 'Title')
-local locationLiteName = GetAddOnMetadata('ElvUI_LocLite', 'Title')
-local locationPlusName = GetAddOnMetadata('ElvUI_LocPlus', 'Title')
-local mikName = GetAddOnMetadata('MikScrollingBattleText', 'Title')
-local pawnName = GetAddOnMetadata('Pawn', 'Title')
-local recountName = GetAddOnMetadata('Recount', 'Title')
-local skadaName = GetAddOnMetadata('Skada', 'Title')
-local smbName = GetAddOnMetadata('SquareMinimapButtons', 'Title')
-local vatName = GetAddOnMetadata('ElvUI_VisualAuraTimers', 'Title')
+local addonNames = {}
+local profilesFailed = format('|cff00c0fa%s |r', L["BenikUI hasn't found any supported addons for profile creation"])
 
 local function SetupAddons()
-	
+
 	-- DBM
 	if IsAddOnLoaded('DBM-Core') then
 		BUI:LoadDBMProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], dbmName))
+		tinsert(addonNames, 'Deadly Boss Mods')
 	end
 
 	-- Details
 	if IsAddOnLoaded('Details') then
 		BUI:LoadDetailsProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], detailsName))
+		tinsert(addonNames, 'Details')
 	end
 
 	-- Location Lite
 	if IsAddOnLoaded('ElvUI_LocLite') then
 		if E.db.loclite == nil then E.db.loclite = {} end
 		BUI:LoadLocationLiteProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], locationLiteName))
+		tinsert(addonNames, 'Location Lite')
 	end
 
 	-- Location Plus
 	if IsAddOnLoaded('ElvUI_LocPlus') then
 		if E.db.locplus == nil then E.db.locplus = {} end
 		BUI:LoadLocationPlusProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], locationPlusName))
+		tinsert(addonNames, 'Location Plus')
 	end
 
 	-- MikScrollingBattleText
 	if IsAddOnLoaded('MikScrollingBattleText') then
 		BUI:LoadMSBTProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], mikName))
+		tinsert(addonNames, "Mik's Scrolling Battle Text")
 	end
 
 	-- Pawn
 	if IsAddOnLoaded('Pawn') then
 		BUI:LoadPawnProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], pawnName))
+		tinsert(addonNames, 'Pawn')
 	end
 
 	-- Recount
 	if IsAddOnLoaded('Recount') then
 		BUI:LoadRecountProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], recountName))
+		tinsert(addonNames, 'Recount')
 	end
 
 	-- Skada
 	if IsAddOnLoaded('Skada') then
 		BUI:LoadSkadaProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], skadaName))
+		tinsert(addonNames, 'Skada')
 	end
 
 	-- SquareMinimapButtons
 	if IsAddOnLoaded('SquareMinimapButtons') then
 		if SquareMinimapButtonOptions == nil then SquareMinimapButtonOptions = {} end
 		BUI:LoadSMBProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], smbName))
+		tinsert(addonNames, 'Square Minimap Buttons')
 	end
 
 	-- ElvUI_VisualAuraTimers
 	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 		if E.db.VAT == nil then E.db.VAT = {} end
 		BUI:LoadVATProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], vatName))
+		tinsert(addonNames, 'ElvUI_VisualAuraTimers')
 	end
 	
 	-- AddOnSkins
 	if IsAddOnLoaded('AddOnSkins') then
 		BUI:LoadAddOnSkinsProfile()
-		print(BUI.Title..format(L['- %s profile successfully created!'], addOnSkinsName))
+		tinsert(addonNames, 'AddOnSkins')
+	end
+
+	if next(addonNames) ~= nil then
+		local profileString = format('|cff00c0fa%s |r', L['BenikUI successfully created profile for:'])
+
+		tsort(addonNames, function(a, b) return a < b end)
+
+		for _, names in pairs(addonNames) do
+			names = format('|cffffffff%s, |r', names)
+			profileString = profileString..names
+		end
+
+		profileString = sub(profileString, 1, -5) -- trim the last comma
+
+		print(profileString..'.')
+	else
+		print(profilesFailed)
 	end
 
 	if InstallStepComplete then
 		InstallStepComplete.message = BUI.Title..L['Addons Set']
 		InstallStepComplete:Show()
 		titleText[8].check:Show()
+		twipe(addonNames)
 	end
 	E:UpdateAll(true)
 end
