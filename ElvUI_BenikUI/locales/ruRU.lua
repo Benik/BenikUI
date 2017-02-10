@@ -45,11 +45,11 @@ L['Show/Hide oil on the datatext tooltip'] = true
 L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = true
 
 -- install
+L["BenikUI didn't find any supported addons for profile creation"] = true
+L['BenikUI successfully created profile for:'] = true
 L["By pressing the Continue button, BenikUI will be applied in your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = true
 L["This part of the installation process will fill BenikUI datatexts.\n\n|cffff8000This doesn't touch ElvUI datatexts|r"] = true
 L["This part of the installation process will reposition your Unitframes."] = true
-L['- %s profile successfully created!'] = true
-L['ActionBars'] = true
 L['Actionbars Set'] = true
 L['Addons Set'] = true
 L['\nBenikUI options are marked with light blue color, inside ElvUI options.'] = true

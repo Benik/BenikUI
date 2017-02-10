@@ -1101,7 +1101,7 @@ local function SetupUnitframes(layout)
 end
 
 local addonNames = {}
-local profilesFailed = format('|cff00c0fa%s |r', L["BenikUI hasn't found any supported addons for profile creation"])
+local profilesFailed = format('|cff00c0fa%s |r', L["BenikUI didn't find any supported addons for profile creation"])
 
 local function SetupAddons()
 
@@ -1334,7 +1334,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetFormattedText("%s", L['Setup Chat'])
 	elseif PageNum == 5 then
 		f.SubTitle:SetFormattedText("%s", L['UnitFrames'])
-		f.Desc1:SetFormattedText("%s", L["This part of the installation process will reposition your Unitframes and will enable the EmptyBars."])
+		f.Desc1:SetFormattedText("%s", L["This part of the installation process will reposition your Unitframes."])
 		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your Unitframes.'])
 		f.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
 		f.Desc4:SetFormattedText("%s", L['Buttons must be clicked twice'])
