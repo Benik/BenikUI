@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 
-local ceil, format, print = ceil, format, print
+local ceil, format = ceil, format
 local tinsert, twipe, tsort, sub = table.insert, table.wipe, table.sort, string.sub
 local _G = _G
 
@@ -1187,9 +1187,9 @@ local function SetupAddons()
 
 		profileString = sub(profileString, 1, -5) -- trim the last comma
 
-		print(profileString..'.')
+		BUIInstallFrame.Desc4:SetText(profileString..'.')
 	else
-		print(profilesFailed)
+		BUIInstallFrame.Desc4:SetText(profilesFailed)
 	end
 
 	if InstallStepComplete then
@@ -1585,17 +1585,17 @@ function BUI:SetupBenikUI()
 		
 		f.Desc2 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc2:FontTemplate()	
-		f.Desc2:Point('TOP', 0, -125)		
+		f.Desc2:Point('TOP', 0, -110)		
 		f.Desc2:Width(f:GetWidth() - 40)
 		
 		f.Desc3 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc3:FontTemplate()	
-		f.Desc3:Point('TOP', 0, -175)	
+		f.Desc3:Point('TOP', 0, -145)	
 		f.Desc3:Width(f:GetWidth() - 40)
 		
 		f.Desc4 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc4:FontTemplate()	
-		f.Desc4:Point('BOTTOM', 0, 75)	
+		f.Desc4:Point('TOP', 0, -170)	
 		f.Desc4:Width(f:GetWidth() - 40)
 	
 		local close = CreateFrame('Button', nil, f, 'UIPanelCloseButton')
