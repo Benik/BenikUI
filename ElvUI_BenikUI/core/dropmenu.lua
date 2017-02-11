@@ -14,6 +14,97 @@ local tinsert = table.insert
 local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
 local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
 
+BUI.MenuList = {
+	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
+	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
+	{text = SPECIALIZATION,
+	func = function()
+		if not PlayerTalentFrame then
+			TalentFrame_LoadUI()
+		end
+
+		if not PlayerTalentFrame:IsShown() then
+			ShowUIPanel(PlayerTalentFrame)
+			_G["PlayerTalentFrameTab"..SPECIALIZATION_TAB]:Click()
+		else
+			HideUIPanel(PlayerTalentFrame)
+		end
+	end},
+	{text = TALENTS,
+	func = function()
+		if not PlayerTalentFrame then
+			TalentFrame_LoadUI()
+		end
+
+		if not PlayerTalentFrame:IsShown() then
+			ShowUIPanel(PlayerTalentFrame)
+			_G["PlayerTalentFrameTab"..TALENTS_TAB]:Click()
+		else
+			HideUIPanel(PlayerTalentFrame)
+		end
+	end},
+	{text = PVP_TALENTS,
+	func = function()
+		if not PlayerTalentFrame then
+			TalentFrame_LoadUI()
+		end
+
+		if not PlayerTalentFrame:IsShown() then
+			ShowUIPanel(PlayerTalentFrame)
+			_G["PlayerTalentFrameTab"..PVP_TALENTS_TAB]:Click()
+		else
+			HideUIPanel(PlayerTalentFrame)
+		end
+	end},
+	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
+	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
+	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
+	{text = GARRISON_LANDING_PAGE_TITLE, func = function() GarrisonLandingPageMinimapButton_OnClick() end},
+	{text = ACHIEVEMENTS_GUILD_TAB,
+	func = function()
+		if IsInGuild() then
+			if not GuildFrame then GuildFrame_LoadUI() end
+			GuildFrame_Toggle()
+		else
+			if not LookingForGuildFrame then LookingForGuildFrame_LoadUI() end
+			if not LookingForGuildFrame then return end
+			LookingForGuildFrame_Toggle()
+		end
+	end},
+	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
+	{text = MOUNTS, func = function() ToggleCollectionsJournal(1) end},
+	{text = PET_JOURNAL, func = function() ToggleCollectionsJournal(2) end},
+	{text = TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
+	{text = HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
+	{text = WARDROBE, func = function() ToggleCollectionsJournal(5) end},
+	{text = MACROS, func = function() GameMenuButtonMacros:Click() end},
+	{text = TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
+	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
+	{text = SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
+	{text = MAINMENU_BUTTON,
+	func = function()
+		if ( not GameMenuFrame:IsShown() ) then
+			if ( VideoOptionsFrame:IsShown() ) then
+					VideoOptionsFrameCancel:Click();
+			elseif ( AudioOptionsFrame:IsShown() ) then
+					AudioOptionsFrameCancel:Click();
+			elseif ( InterfaceOptionsFrame:IsShown() ) then
+					InterfaceOptionsFrameCancel:Click();
+			end
+			CloseMenus();
+			CloseAllWindows()
+			PlaySound("igMainMenuOpen");
+			ShowUIPanel(GameMenuFrame);
+		else
+			PlaySound("igMainMenuQuit");
+			HideUIPanel(GameMenuFrame);
+			MainMenuMicroButton_SetNormal();
+		end
+	end},
+	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
+	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end}
+}
+
 local function OnClick(btn)
 	local parent = btn:GetParent()
 	btn.func()
