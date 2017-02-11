@@ -1373,7 +1373,7 @@ local function SetPage(PageNum)
 		InstallOption4Button:SetFormattedText("%s", L['Caster DPS'])
 	elseif PageNum == 8 then
 		f.SubTitle:SetFormattedText("|cfffff400%s|r", ADDONS)
-		f.Desc1:SetFormattedText("%s", L['This part of the installation process will apply changes to the addons like Recount, DBM and ElvUI plugins'])
+		f.Desc1:SetFormattedText("%s", L['This part of the installation process will create and apply profiles for addons like Recount, DBM, ElvUI plugins, etc'])
 		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your addons.'])
 		f.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
 		InstallOption1Button:Show()
