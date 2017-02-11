@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 
-local ceil, format = ceil, format
+local ceil, format, checkTable = ceil, format, next
 local tinsert, twipe, tsort, sub = table.insert, table.wipe, table.sort, string.sub
 local _G = _G
 
@@ -1175,7 +1175,7 @@ local function SetupAddons()
 		tinsert(addonNames, 'AddOnSkins')
 	end
 
-	if next(addonNames) ~= nil then
+	if checkTable(addonNames) ~= nil then
 		local profileString = format('|cff00c0fa%s |r', L['BenikUI successfully created and applied profile(s) for:']..'\n')
 
 		tsort(addonNames, function(a, b) return a < b end)
