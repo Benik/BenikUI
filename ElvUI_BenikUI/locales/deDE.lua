@@ -48,7 +48,7 @@ L["BenikUI didn't find any supported addons for profile creation"] = "BenikUI ko
 L['BenikUI successfully created and applied profile(s) for:'] = "BenikUI hat erfolgreich Addon Profile erstellt und angewandt für:"
 L["By pressing the Continue button, BenikUI will be applied on your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = "Durch drücken der Weiter-Taste werden die BenikUI-Änderungen in der vorhandenen ElvUI Installation angewand.\n\n|cffff8000 TIP: Es wäre gut, wenn Du die Änderungen in einem neuen Profil erstellst. Nur für den Fall dass Du mit den Änderungen nicht zufrieden bist.|r"
 L["This part of the installation process will fill BenikUI datatexts.\n\n|cffff8000This doesn't touch ElvUI datatexts|r"] = "Dieser Teil des Installationsprozesses wird die BenikUI Infotexte einstellen.\n\n|cffff8000Hierbei werden die ElvUI Infotexte nicht verändert|r"
-L["This part of the installation process will reposition your Unitframes."] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren und die leere Leiste aktivieren."
+L["This part of the installation process will reposition your Unitframes."] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren."
 L['Actionbars Set'] = "Aktionsleisten gesetzt"
 L['Addons Set'] = "Addons gesetzt"
 L['\nBenikUI options are marked with light blue color, inside ElvUI options.'] = "\nBenikUI Optionen sind in hellblau hervorgehoben in den ElvUI Optionen."
@@ -90,7 +90,7 @@ L['Choose Actionbar to show to'] = "Wähle Aktionsleiste zum Anzeigen"
 L['Request Stop button'] = "Haltewunschtaste"
 L['Show in:'] = "Zeige in:"
 L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Zeigt kleine Tasten über Aktionsleiste 1 oder 2, um Aktionsleiste 3 oder 5 anzuzeigen/auszublenden."
-L['Switch Buttons (requires BenikUI Style)'] = "Tasten wechseln" -- bla bla
+L['Switch Buttons (requires BenikUI Style)'] = "Tasten wechseln (benötigt BenikUI Stil)"
 L['Transparent Backdrops'] = "Transparente Hintergründe"
 
 -- Request stop button
