@@ -1166,7 +1166,7 @@ local function SetupAddons()
 	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 		if E.db.VAT == nil then E.db.VAT = {} end
 		BUI:LoadVATProfile()
-		tinsert(addonNames, 'ElvUI_VisualAuraTimers')
+		tinsert(addonNames, 'ElvUI VisualAuraTimers')
 	end
 	
 	-- AddOnSkins
@@ -1292,7 +1292,7 @@ local function SetPage(PageNum)
 
 	if PageNum == 1 then
 		f.SubTitle:SetFormattedText(L['Welcome to BenikUI version %s, for ElvUI %s.'], BUI.Version, E.version)
-		f.Desc1:SetFormattedText("%s", L["By pressing the Continue button, BenikUI will be applied in your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
+		f.Desc1:SetFormattedText("%s", L["By pressing the Continue button, BenikUI will be applied on your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
 		f.Desc2:SetFormattedText("%s", BUI:cOption(L['\nBenikUI options are marked with light blue color, inside ElvUI options.']))
 		f.Desc3:SetFormattedText("%s", L['Please press the continue button to go onto the next step.'])
 		titleText[1].text:SetText(titleText[1].text:GetText())		
