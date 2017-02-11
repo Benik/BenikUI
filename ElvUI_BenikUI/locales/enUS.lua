@@ -12,12 +12,16 @@ L["Credits:"] = true
 L['ActionBar Style Color'] = true
 L['BenikUI Style'] = true
 L['Game Menu Color'] = true
-L['ShiftClick to toggle chat'] = true
 L['Show/Hide the decorative bars from UI elements'] = true
 L['Style Color'] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = true
 L['Splash Screen'] = true
+
+-- Layout
+L['LeftClick: Toggle Configuration'] = true
+L['RightClick: Toggle Embedded Addon'] = true
+L['ShiftClick to toggle chat'] = true
 
 -- Misc
 L['Camera rotation'] = true
@@ -35,6 +39,8 @@ L['Display the Flight Mode screen when taking flight paths'] = true
 L['BenikUI Middle DataText'] = true
 L['Hide Mail Icon'] = true
 L['Middle'] = true
+L['New Mail'] = true
+L['No Mail'] = true
 L['Show Garrison Currency'] = true
 L['Show Oil'] = true
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = true
@@ -132,10 +138,6 @@ L['System'] = true
 L['Tip: Grayed tokens are not yet discovered'] = true
 L['Tip: Click to free memory'] = true
 L['Use DataTexts font'] = true
-
--- DataTexts
-L['New Mail'] = true
-L['No Mail'] = true
 
 -- Databars Options
 L['AutoTrack'] = true

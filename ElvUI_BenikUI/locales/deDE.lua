@@ -12,12 +12,16 @@ L["Credits:"] = "Danksagung:"
 L['ActionBar Style Color'] = "Aktionsleiste Stil Farbe"
 L['BenikUI Style'] = "BenikUI Stil"
 L['Game Menu Color'] = "Spielmenü Farbe"
-L['ShiftClick to toggle chat'] = "ShiftKlick um Chat umzuschalten"
 L['Show/Hide the decorative bars from UI elements'] = "Dekorative Leisten von den UI Elementen anzeigen/ausblenden"
 L['Style Color'] = "Stil Farbe"
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
 L['light blue color.'] = "hell blau"
 L['Splash Screen'] = "Startbildschirm"
+
+-- Layout
+L['LeftClick: Toggle Configuration'] = true
+L['RightClick: Toggle Embedded Addon'] = true
+L['ShiftClick to toggle chat'] = "ShiftKlick um Chat umzuschalten"
 
 -- Misc
 L['Camera rotation'] = "Kamerarotation"
@@ -35,6 +39,8 @@ L['Display the Flight Mode screen when taking flight paths'] = "Zeige den Flugmo
 L['BenikUI Middle DataText'] = "BenikUI mittlerer Infotext"
 L['Hide Mail Icon'] = "Verstecke das Postsymbol"
 L['Middle'] = "Mittlerer"
+L['New Mail'] = "Neue Post"
+L['No Mail'] = "Keine Post"
 L['Show Garrison Currency'] = "Zeige Garnisonsresourcen"
 L['Show Oil'] = "Zeige Öl"
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Chat Infotexte anzeigen/ausblenden. ElvUI Infotexte müssen dafür deaktiviert sein"
@@ -132,10 +138,6 @@ L['System'] = true
 L['Tip: Grayed tokens are not yet discovered'] = "Tip: Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
 L['Tip: Click to free memory'] = "Tip: Klicken um den Speicher zu bereinigen"
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
-
--- DataTexts
-L['New Mail'] = "Neue Post"
-L['No Mail'] = "Keine Post"
 
 -- Databars Options
 L['AutoTrack'] = "Automatische Verfolgung"

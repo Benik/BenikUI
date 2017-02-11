@@ -171,7 +171,7 @@ local function ChatButton_OnClick(self)
 		UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
 		if IsAddOnLoaded('AddOnSkins') then
 			local AS = unpack(AddOnSkins) or nil			
-			if E.private.addonskins.EmbedSystem or E.private.addonskins.EmbedSystemDual then AS:Embed_Show() end
+			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
 		end
 	else
 		E.db[self.parent:GetName()..'Faded'] = true
@@ -365,9 +365,18 @@ function BUIL:ChangeLayout()
 			bbuttons[i].text:SetText('C')
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
+				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
+				GameTooltip:ClearLines()
+				GameTooltip:AddLine(L['LeftClick: Toggle Configuration'], selectioncolor)
+				if IsAddOnLoaded('AddOnSkins') then
+					GameTooltip:AddLine(L['RightClick: Toggle Embedded Addon'], selectioncolor)
+				end
+				GameTooltip:AddLine(L['ShiftClick to toggle chat'], selectioncolor)
+
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
 				end
+
 				if IsShiftKeyDown() then
 					self.text:SetText('>')
 					self:SetScript('OnClick', ChatButton_OnClick)
@@ -377,15 +386,25 @@ function BUIL:ChangeLayout()
 						if btn == 'LeftButton' then
 							E:ToggleConfig()
 						else
-							E:BGStats()
+							if IsAddOnLoaded('AddOnSkins') then
+								local AS = unpack(AddOnSkins) or nil
+								if AS:CheckOption('EmbedRightChat') then
+									if EmbedSystem_MainWindow:IsShown() then
+										AS:SetOption('EmbedIsHidden', true)
+										EmbedSystem_MainWindow:Hide()
+									else
+										AS:SetOption('EmbedIsHidden', false)
+										EmbedSystem_MainWindow:Show()
+									end
+								end
+							else
+								E:BGStats()
+							end
 						end
 						PlaySound("igMainMenuOptionCheckBoxOff");
 					end)
 				end
-				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
-				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L['Toggle Configuration'], selectioncolor)
-				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
+
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
