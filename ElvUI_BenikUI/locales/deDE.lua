@@ -44,8 +44,8 @@ L['Show/Hide oil on the datatext tooltip'] = "Öl am Infotext Tooltip anzeigen/a
 L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = "Passt die Chatinfotexte und Tasten an, wenn der Chathintergrund auf 'Verstecke Beide' gesetzt ist."
 
 -- install
-L["BenikUI didn't find any supported addons for profile creation"] = true
-L['BenikUI successfully created and applied profile(s) for:'] = true
+L["BenikUI didn't find any supported addons for profile creation"] = "BenikUI konnte keine unterstütze Profile für Addons finden"
+L['BenikUI successfully created and applied profile(s) for:'] = "BenikUI hat erfolgreich Addon Profile erstellt und angewandt für:"
 L["By pressing the Continue button, BenikUI will be applied on your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = "Durch drücken der Weiter-Taste werden die BenikUI-Änderungen in der vorhandenen ElvUI Installation angewand.\n\n|cffff8000 TIP: Es wäre gut, wenn Du die Änderungen in einem neuen Profil erstellst. Nur für den Fall dass Du mit den Änderungen nicht zufrieden bist.|r"
 L["This part of the installation process will fill BenikUI datatexts.\n\n|cffff8000This doesn't touch ElvUI datatexts|r"] = "Dieser Teil des Installationsprozesses wird die BenikUI Infotexte einstellen.\n\n|cffff8000Hierbei werden die ElvUI Infotexte nicht verändert|r"
 L["This part of the installation process will reposition your Unitframes."] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren und die leere Leiste aktivieren."
@@ -72,7 +72,7 @@ L['Setup Addons'] = "Addons einstellen"
 L['Setup Layout'] = "Layout einstellen"
 L['Setup Unitframes'] = "Einheitenfenster einstellen"
 L['This part of the installation process sets up your chat fonts and colors.'] = "Dieser Teil des Installationsprozesses ändert die Chatschrifart und -farbe." 
-L['This part of the installation process will create and apply profiles for addons like Recount, DBM, ElvUI plugins, etc'] = "Dieser Teil des Installationsprozesses wird Änderungen an Addons wie Recount, DBM und andere ElvUI Plugins vornehmen"
+L['This part of the installation process will create and apply profiles for addons like Recount, DBM, ElvUI plugins, etc'] = "Dieser Teil des Installationsprozesses erstellt und wendet Profile für Addons wie Recount, DBM und andere ElvUI Plugins an"
 L['This part of the installation process will reposition your Actionbars and will enable backdrops'] = "Dieser Teil des Installationsprozesses wird die Aktionsleisten neu positionieren und wird den Hintergrund einschalten"
 L['This part of the installation will apply a Color Theme'] = "Dieser Teil der Installation wendet ein Farbschema an"
 L['This part of the installation will change the default ElvUI look.'] = "Dieser Teil der Installation ändert das standard Aussehen von ElvUI."
