@@ -5,7 +5,7 @@ local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack
 
 local IsAddOnLoaded = IsAddOnLoaded
-local QUEST_OBJECTIVES = QUEST_OBJECTIVES
+local QUEST_OBJECTIVES, ADDONS = QUEST_OBJECTIVES, ADDONS
 
 local DecorElvUIAddons = {
 	{'ElvUI_LocLite', L['LocationLite'], 'loclite'},
@@ -50,12 +50,12 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins = {
 		order = 40,
 		type = 'group',
-		name = L['AddOns Decor'],
+		name = ADDONS..BUI.NewSign,
 		args = {
 			name = {
 				order = 1,
 				type = 'header',
-				name = BUI:cOption(L['AddOns Decor']),
+				name = BUI:cOption(ADDONS),
 			},
 			desc = {
 				order = 2,

@@ -9,7 +9,7 @@ local function abTable()
 	E.Options.args.benikui.args.actionbars = {
 		order = 7,
 		type = 'group',
-		name = L['ActionBars']..BUI.NewSign,
+		name = L['ActionBars'],
 		args = {
 			name = {
 				order = 1,
