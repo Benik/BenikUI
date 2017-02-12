@@ -19,9 +19,9 @@ L['light blue color.'] = "hell blau"
 L['Splash Screen'] = "Startbildschirm"
 
 -- Layout
-L['LeftClick: Toggle Configuration'] = true
-L['RightClick: Toggle Embedded Addon'] = true
-L['ShiftClick to toggle chat'] = "ShiftKlick um Chat umzuschalten"
+L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten" --must check this
+L['RightClick: Toggle Embedded Addon'] = "Rechts Klick: Einbettung Addon umschalten" --must check this
+L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 
 -- Misc
 L['Camera rotation'] = "Kamerarotation"
