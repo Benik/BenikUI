@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 
 local ceil, format, checkTable = ceil, format, next
-local tinsert, twipe, tsort, sub = table.insert, table.wipe, table.sort, string.sub
+local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 local _G = _G
 
 local CreateFrame = CreateFrame
@@ -1176,16 +1176,11 @@ local function SetupAddons()
 	end
 
 	if checkTable(addonNames) ~= nil then
-		local profileString = format('|cff00c0fa%s |r', L['BenikUI successfully created and applied profile(s) for:']..'\n')
+		local profileString = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:']..'\n')
 
 		tsort(addonNames, function(a, b) return a < b end)
-
-		for _, names in pairs(addonNames) do
-			names = format('|cfffff400%s, |r', names)
-			profileString = profileString..names
-		end
-
-		profileString = sub(profileString, 1, -5) -- trim the last comma
+		local names = tconcat(addonNames, ", ")
+		profileString = profileString..names
 
 		BUIInstallFrame.Desc4:SetText(profileString..'.')
 	else
