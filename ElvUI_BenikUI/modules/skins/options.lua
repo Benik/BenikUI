@@ -143,7 +143,7 @@ local function SkinTable()
 		order = 6,
 		type = 'group',
 		guiInline = true,
-		name = L['Profiles'],
+		name = L['Profiles']..BUI.NewSign,
 		args = {
 		},
 	}
