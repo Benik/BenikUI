@@ -2,6 +2,7 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadLocationLiteProfile()
+	if E.db.loclite == nil then E.db.loclite = {} end
 	E.db["loclite"]["dtheight"] = 16
 	E.db["loclite"]["lpfontsize"] = 10
 	E.db["loclite"]["trunc"] = true

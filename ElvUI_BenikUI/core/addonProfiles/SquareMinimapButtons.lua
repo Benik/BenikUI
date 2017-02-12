@@ -2,6 +2,7 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadSMBProfile()
+	if SquareMinimapButtonOptions == nil then SquareMinimapButtonOptions = {} end
 	SquareMinimapButtonOptions['BarEnabled'] = true
 	SquareMinimapButtonOptions['ButtonsPerRow'] = 6
 	SquareMinimapButtonOptions['IconSize'] = 22

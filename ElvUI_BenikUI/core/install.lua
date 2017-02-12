@@ -1119,14 +1119,12 @@ local function SetupAddons()
 
 	-- Location Lite
 	if IsAddOnLoaded('ElvUI_LocLite') then
-		if E.db.loclite == nil then E.db.loclite = {} end
 		BUI:LoadLocationLiteProfile()
 		tinsert(addonNames, 'Location Lite')
 	end
 
 	-- Location Plus
 	if IsAddOnLoaded('ElvUI_LocPlus') then
-		if E.db.locplus == nil then E.db.locplus = {} end
 		BUI:LoadLocationPlusProfile()
 		tinsert(addonNames, 'Location Plus')
 	end
@@ -1157,14 +1155,12 @@ local function SetupAddons()
 
 	-- SquareMinimapButtons
 	if IsAddOnLoaded('SquareMinimapButtons') then
-		if SquareMinimapButtonOptions == nil then SquareMinimapButtonOptions = {} end
 		BUI:LoadSMBProfile()
 		tinsert(addonNames, 'Square Minimap Buttons')
 	end
 
 	-- ElvUI_VisualAuraTimers
 	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
-		if E.db.VAT == nil then E.db.VAT = {} end
 		BUI:LoadVATProfile()
 		tinsert(addonNames, 'ElvUI VisualAuraTimers')
 	end

@@ -2,6 +2,7 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadLocationPlusProfile()
+	if E.db.locplus == nil then E.db.locplus = {} end
 	E.db["locplus"]["both"] = false
 	E.db["locplus"]["displayOther"] = "NONE"
 	E.db["locplus"]["dtheight"] = 16

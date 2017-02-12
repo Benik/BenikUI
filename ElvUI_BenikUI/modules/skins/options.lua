@@ -29,6 +29,22 @@ local DecorAddons = {
 	{'Pawn', L['Pawn'], 'pawn'},
 }
 
+local SupportedProfiles = {
+	{'AddOnSkins', 'AddOnSkins'},
+	{'DBM-Core', 'Deadly Boss Mods'},
+	{'Details', 'Details'},
+	{'ElvUI_VisualAuraTimers', 'ElvUI VisualAuraTimers'},
+	{'ElvUI_LocLite', 'Location Lite'},
+	{'ElvUI_LocPlus', 'Location Plus'},
+	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
+	{'Pawn', 'Pawn'},
+	{'Recount', 'Recount'},
+	{'Skada', 'Skada'},
+	{'SquareMinimapButtons', 'Square Minimap Buttons'},
+}
+
+local profileString = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:'])
+
 local function SkinTable()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	E.Options.args.benikui.args.skins = {
@@ -122,6 +138,53 @@ local function SkinTable()
 			},	
 		},
 	}
+	
+	E.Options.args.benikui.args.skins.args.profiles = {
+		order = 6,
+		type = 'group',
+		guiInline = true,
+		name = L['Profiles'],
+		args = {
+		},
+	}
+
+	for i, v in ipairs(SupportedProfiles) do
+		local addon, addonName = unpack(v)
+		local optionOrder = 1
+		E.Options.args.benikui.args.skins.args.profiles.args[addon] = {
+			order = optionOrder + 1,
+			type = 'execute',
+			name = addonName,
+			desc = L['This will create and apply profile for ']..addonName,
+			func = function()
+				if addon == 'DBM-Core' then
+					BUI:LoadDBMProfile()
+				elseif addon == 'Details' then
+					BUI:LoadDetailsProfile()
+				elseif addon == 'ElvUI_LocLite' then
+					BUI:LoadLocationLiteProfile()
+				elseif addon == 'ElvUI_LocPlus' then
+					BUI:LoadLocationPlusProfile()
+				elseif addon == 'MikScrollingBattleText' then
+					BUI:LoadMSBTProfile()
+				elseif addon == 'Pawn' then
+					BUI:LoadPawnProfile()
+				elseif addon == 'Recount' then
+					BUI:LoadRecountProfile()
+				elseif addon == 'Skada' then
+					BUI:LoadSkadaProfile()
+				elseif addon == 'SquareMinimapButtons' then
+					BUI:LoadSMBProfile()
+				elseif addon == 'ElvUI_VisualAuraTimers' then
+					BUI:LoadVATProfile()
+				elseif addon == 'AddOnSkins' then
+					BUI:LoadAddOnSkinsProfile()
+				end
+				print(profileString..addonName)
+			end,
+			disabled = function() return not IsAddOnLoaded(addon) end,
+		}
+	end
 
 end
 
