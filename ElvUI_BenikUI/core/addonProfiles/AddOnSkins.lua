@@ -58,5 +58,5 @@ function BUI:LoadAddOnSkinsProfile()
 	end
 
 	local db = LibStub("AceDB-3.0"):New(AddOnSkinsDB, nil, true)
-    db:SetProfile("BenikUI")
+	db:SetProfile("BenikUI")
 end
