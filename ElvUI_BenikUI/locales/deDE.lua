@@ -159,7 +159,8 @@ L['Choose which addon you wish to be decorated to fit with BenikUI style'] = "W√
 L['Decursive'] = true
 L['ElvUI AddOns'] = true
 L['decor.'] = "dekor."
-L['This will create and apply profile for '] = true
+L['This will create and apply profile for '] = "Dieses wird ein Profil erstellen und anwenden f√ºr "
+L['Profiles'] = "Profile"
 
 -- UnitFrame Options
 L['Adjust castbar text Y Offset'] = "Passe Zauberleisten Text Y-Versatz an"

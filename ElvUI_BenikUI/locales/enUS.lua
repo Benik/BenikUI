@@ -160,6 +160,7 @@ L['Decursive'] = true
 L['ElvUI AddOns'] = true
 L['decor.'] = true
 L['This will create and apply profile for '] = true
+L['Profiles'] = true
 
 -- UnitFrame Options
 L['Adjust castbar text Y Offset'] = true
