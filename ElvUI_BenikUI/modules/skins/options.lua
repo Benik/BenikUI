@@ -163,8 +163,10 @@ local function SkinTable()
 					BUI:LoadDetailsProfile()
 				elseif addon == 'ElvUI_LocLite' then
 					BUI:LoadLocationLiteProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ElvUI_LocPlus' then
 					BUI:LoadLocationPlusProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'MikScrollingBattleText' then
 					BUI:LoadMSBTProfile()
 				elseif addon == 'Pawn' then
@@ -175,10 +177,13 @@ local function SkinTable()
 					BUI:LoadSkadaProfile()
 				elseif addon == 'SquareMinimapButtons' then
 					BUI:LoadSMBProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ElvUI_VisualAuraTimers' then
 					BUI:LoadVATProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'AddOnSkins' then
 					BUI:LoadAddOnSkinsProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				end
 				print(profileString..addonName)
 			end,
