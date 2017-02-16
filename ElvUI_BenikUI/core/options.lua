@@ -324,11 +324,11 @@ local function Core()
 								name = L['Git Ticket tracker'],
 								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://git.tukui.org/Benik/ElvUI_BenikUI/issues") end,
 							},
-							beta = {
+							discord = {
 								order = 3,
 								type = 'execute',
-								name = L['Beta versions'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://git.tukui.org/Benik/ElvUI_BenikUI/commits/master") end,
+								name = L['Tukui.org Discord Server'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://discord.gg/xFWcfgE") end,
 							},
 						},
 					},
@@ -355,6 +355,12 @@ local function Core()
 								type = 'execute',
 								name = L['WoW Interface'],
 								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.wowinterface.com/downloads/info23675-BenikUIv3.html") end,
+							},			
+							beta = {
+								order = 4,
+								type = 'execute',
+								name = L['Beta versions'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://git.tukui.org/Benik/ElvUI_BenikUI/commits/master") end,
 							},
 						},
 					},
