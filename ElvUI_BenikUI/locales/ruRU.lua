@@ -196,6 +196,24 @@ L['This applies on all available castbars.'] = true
 L['Class Hover'] = true
 L['Enable Class color on health border, when mouse over'] = true
 
+-- Information
+L['Information'] = true
+L['Support'] = true
+L['Download'] = true
+L['Beta versions'] = true
+L['Coding'] = true
+L['Testing & Inspiration'] = true
+L['Donations'] = true
+L['My other Addons'] = true
+-- Location Plus
+L['Adds player location, coords + 2 Datatexts and a tooltip with info based on player location/level.'] = true
+-- Location Lite
+L['Adds a location panel with coords. A LocationPlus alternative.'] = true
+-- Datatext color
+L['a plugin for ElvUI, that changes the DT text color to class color, value color or any user defined'] = true
+-- Transparent Actionbars
+L['A small plugin that makes the actionbar backdrops and the unused buttons transparent'] = true
+
 -- afk
 L["Jan"] = true
 L["Feb"] = true
