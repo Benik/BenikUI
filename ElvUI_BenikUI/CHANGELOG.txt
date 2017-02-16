@@ -1,3 +1,15 @@
+3.20
+*Added Discord link button in Information tab
+*Updated the Donations list in Information tab, by adding Justin. Thank you very much :)
+*Overhauled AddOnSkins profile (credit: Merathilis)
+*Added button options to re apply addon profiles seperately (AddOn option)
+*Fixed the chat micro buttons not getting colored on the fly. This should deal with ticket #69
+*Fixed an error when ShiftClicking the config button (C)
+*Added rightClick functionality on the config button (C), to toggle embedded window, if AddOnSkins is loaded
+*The profile creation message will now show in the install frame (addons step) and not in chat
+*Fixed the roleIcons on group frames not updating SVUI icons
+*Fixed a typo that prevented Petbar and Stancebar styles from getting colored
+
 3.19
 *Prevent an error in afkMode when BenikUI style is disabled
 *Reworked the install.lua file by creating a seperate file for each addon profile. This will avoid cluttering in the install file. Also made some functions local.
