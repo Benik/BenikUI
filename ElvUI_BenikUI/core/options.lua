@@ -3,11 +3,24 @@ local BUI = E:GetModule('BenikUI');
 
 if E.db.benikui == nil then E.db.benikui = {} end
 local format = string.format
-local tinsert = table.insert
+local tinsert, tsort, tconcat = table.insert, table.sort, table.concat
 
 local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
 local COLORS, COLOR_PICKER = COLORS, COLOR_PICKER
 local StaticPopup_Show = StaticPopup_Show
+
+local DONATORS = {
+	'Cawkycow',
+	'Chilou',
+	'Judicator',
+	'Hilderic',
+	'Kevinrc',
+	'Merathilis',
+	'Sumidian',
+	'Justin'
+}
+tsort(DONATORS, function(a, b) return a < b end)
+local DONATOR_STRING = tconcat(DONATORS, ", ")
 
 	StaticPopupDialogs["BENIKUI_CREDITS"] = {
 		text = BUI.Title,
@@ -383,7 +396,7 @@ local function Core()
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', 'Cawkycow, Chilou, Judicator, Hilderic, Kevinrc, Merathilis, Sumidian'),
+								name = format('|cffffd200%s|r', DONATOR_STRING)
 							},
 						},
 					},
