@@ -28,6 +28,7 @@ local ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISP
 -- Source wowhead.com
 local stats = {
 	60,		-- Total deaths
+	94,		-- Quests abandoned
 	97,		-- Daily quests completed
 	98,		-- Quests completed
 	107,	-- Creatures killed
@@ -44,6 +45,7 @@ local stats = {
 	339,	-- Mounts owned
 	342,	-- Epic items acquired
 	349,	-- Flight paths taken
+	353,	-- Number of times hearthed
 	377,	-- Most factions at Exalted
 	588,	-- Total Honorable Kills
 	837,	-- Arenas won
@@ -60,67 +62,26 @@ local stats = {
 	1047,	-- Total facepalms
 	1065,	-- Total waves
 	1066,	-- Total times LOL'd
-	1088,	-- Kael'thas Sunstrider kills (Tempest Keep)
 	1149,	-- Talent tree respecs
 	1197,	-- Total kills
-	1098,	-- Onyxia kills (Onyxia's Lair)
 	1198,	-- Total kills that grant experience or honor
 	1339,	-- Mage portal taken most
 	1487,	-- Killing Blows
 	1491,	-- Battleground Killing Blows
 	1518,	-- Fish caught
 	1716,	-- Battleground with the most Killing Blows
-	4687,	-- Victories over the Lich King (Icecrown 25 player)
+	2277,	-- Summons accepted
 	5692,	-- Rated battlegrounds played
 	5694,	-- Rated battlegrounds won
-	6167,	-- Deathwing kills (Dragon Soul)
 	7399,	-- Challenge mode dungeons completed
 	8278,	-- Pet Battles won at max level
-	8632,	-- Garrosh Hellscream (LFR Siege of Orgrimmar)
-	
-	-- Draenor Raiding stats. Thanks Flodropp for the effort :)
-	--[[
-	9297,	-- Brackenspore kills (Normal Highmaul)
-	9298,	-- Brackenspore kills (Heroic Highmaul)
-	9283,	-- Kargath Bladefist defeats (Normal Highmaul)
-	9284,	-- Kargath Bladefist defeats (Heroic Highmaul)
-	9287,	-- The Butcher kills (Normal Highmaul)
-	9288,	-- The Butcher kills (Heroic Highmaul)
-	9292,	-- Tectus kills (Normal Highmaul)
-	9293,	-- Tectus kills (Heroic Highmaul)
-	9302,	-- Twin Ogron kills (Normal Highmaul)
-	9303,	-- Twin Ogron kills (Heroic Highmaul)
-	9309,	-- Ko'ragh kills (Normal Highmaul)
-	9310,	-- Ko'ragh kills (Heroic Highmaul)
-	9313,	-- Imperator Mar'gok kills (Normal Highmaul)
-	9314,	-- Imperator Mar'gok kills (Heroic Highmaul)
-	9317,	-- Gruul kills (Normal Blackrock Foundry)
-	9318,	-- Gruul kills (Heroic Blackrock Foundry)
-	9321,	-- Oregorger kills (Normal Blackrock Foundry)
-	9322,	-- Oregorger kills (Heroic Blackrock Foundry)
-	9327,	-- Hans'gar and Franzok kills (Normal Blackrock Foundry)
-	9328,	-- Hans'gar and Franzok kills (Heroic Blackrock Foundry)
-	9331,	-- Flamebender Ka'graz kills (Normal Blackrock Foundry)
-	9332,	-- Flamebender Ka'graz kills (Heroic Blackrock Foundry)
-	9336,	-- Beastlord Darmac kills (Normal Blackrock Foundry)
-	9337,	-- Beastlord Darmac kills (Heroic Blackrock Foundry)
-	9340,	-- Operator Thogar kills (Normal Blackrock Foundry)
-	9341,	-- Operator Thogar kills (Heroic Blackrock Foundry)
-	9350,	-- Blast Furnace destructions (Normal Blackrock Foundry)
-	9351,	-- Blast Furnace destructions (Heroic Blackrock Foundry)
-	9355,	-- Kromog kills (Normal Blackrock Foundry)
-	9356,	-- Kromog kills (Heroic Blackrock Foundry)
-	9359,	-- Iron Maidens kills (Normal Blackrock Foundry)
-	9360,	-- Iron Maidens kills (Heroic Blackrock Foundry)
-	9363,	-- Warlord Blackhand kills (Normal Blackrock Foundry)
-	9364,	-- Warlord Blackhand kills (Heroic Blackrock Foundry)
-	]]
-	9430,	-- Draenor dungeons completed (final boss defeated)
-	9561,	-- Draenor raid boss defeated the most
-	9558,	-- Draenor raids completed (final boss defeated)
 	10060,	-- Garrison Followers recruited
 	10181,	-- Garrision Missions completed
 	10184,	-- Garrision Rare Missions completed
+	11234,	-- Class Hall Champions recruited
+	11235,	-- Class Hall Troops recruited
+	11236,	-- Class Hall Missions completed
+	11237,	-- Class Hall Rare Missions completed
 }
 
 -- Create Time
