@@ -129,6 +129,24 @@ local function style_EncounterJournal()
 			Tab.backdrop:Style('Outside')
 		end
 	end
+
+	local Buttons = {
+		_G["EncounterJournalInstanceSelectSuggestTab"],
+		_G["EncounterJournalInstanceSelectDungeonTab"],
+		_G["EncounterJournalInstanceSelectRaidTab"],
+		_G["EncounterJournalInstanceSelectLootJournalTab"]
+	}
+
+	for _, Button in pairs(Buttons) do
+		if Button then
+			local text = Button:GetFontString()
+			if text then
+				text:ClearAllPoints()
+				text:Point('CENTER', Button, 'CENTER', 0, 2)
+				text:FontTemplate(nil, 14)
+			end
+		end
+	end
 end
 S:AddCallbackForAddon("Blizzard_EncounterJournal", "BenikUI_EncounterJournal", style_EncounterJournal)
 
