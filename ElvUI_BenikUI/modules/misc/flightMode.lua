@@ -20,6 +20,7 @@ local GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo 
 local GetScreenWidth = GetScreenWidth
 local HideUIPanel, ShowUIPanel = HideUIPanel, ShowUIPanel
 local IsInGuild = IsInGuild
+local InCombatLockdown = InCombatLockdown
 local CloseMenus = CloseMenus
 local CloseAllWindows = CloseAllWindows
 local MainMenuMicroButton_SetNormal = MainMenuMicroButton_SetNormal
@@ -150,6 +151,8 @@ function BFM:UpdateFps()
 end
 
 function BFM:SetFlightMode(status)
+	if(InCombatLockdown()) then return end
+
 	if(status) then
 		if E.db.benikui.misc.flightMode.cameraRotation then
 			MoveViewLeftStart(CAMERA_SPEED);
