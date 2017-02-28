@@ -38,11 +38,6 @@ local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 
 -- GLOBALS: UIParent, FlightModeLocation, selectioncolor, LeftChatPanel, ElvUI_ContainerFrame
 -- GLOBALS: FlightModeMenuBtn, CreateAnimationGroup, LeftChatMover, BuiDummyChat, Minimap, AddOnSkins
--- GLOBALS: SpellBookFrame, PlayerTalentFrame, TalentFrame_LoadUI, GlyphFrame, GlyphFrame_LoadUI
--- GLOBALS: GuildFrame, GuildFrame_LoadUI, GuildFrame_Toggle, LookingForGuildFrame, LookingForGuildFrame_LoadUI,  LookingForGuildFrame_Toggle
--- GLOBALS: GameTimeFrame, EncounterJournal_LoadUI, EncounterJournal, GameMenuFrame
--- GLOBALS: VideoOptionsFrame, VideoOptionsFrameCancel, AudioOptionsFrame, AudioOptionsFrameCancel
--- GLOBALS: InterfaceOptionsFrame, InterfaceOptionsFrameCancel, StoreMicroButton
 -- GLOBALS: ObjectiveTrackerFrame, ZoneTextFrame
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
