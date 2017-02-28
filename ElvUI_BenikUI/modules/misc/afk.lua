@@ -229,9 +229,8 @@ end
 
 AFK.BUISetAFK = AFK.SetAFK
 function AFK:SetAFK(status)
-	if(InCombatLockdown()) then return end
-
 	self:BUISetAFK(status)
+
 	if(status) then
 		local xptxt = GetXPinfo()
 		local level = UnitLevel('player')
