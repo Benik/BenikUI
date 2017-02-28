@@ -90,6 +90,7 @@ local function style_Calendar()
 	_G["CalendarViewHolidayFrame"]:Style('Outside')
 	_G["CalendarCreateEventFrame"]:Style('Outside')
 	_G["CalendarContextMenu"]:Style('Outside')
+	_G["CalendarViewRaidFrame"]:Style('Outside')
 end
 S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_Calendar", style_Calendar)
 
