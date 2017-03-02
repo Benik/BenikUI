@@ -148,9 +148,9 @@ local function SkinTable()
 		},
 	}
 
+	local optionOrder = 1
 	for i, v in ipairs(SupportedProfiles) do
 		local addon, addonName = unpack(v)
-		local optionOrder = 1
 		E.Options.args.benikui.args.skins.args.profiles.args[addon] = {
 			order = optionOrder + 1,
 			type = 'execute',
