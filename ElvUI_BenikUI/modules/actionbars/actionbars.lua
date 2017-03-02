@@ -172,8 +172,7 @@ function BAB:TransparentBackdrops()
 end
 
 function BAB:Initialize()
-	-- Adding a small delay, because ElvUI_ExtraActionBars addon loads before BAB initialize
-	C_TimerAfter(1, CheckExtraAB)
+	CheckExtraAB()
 	C_TimerAfter(1, BAB.StyleBackdrops)
 	C_TimerAfter(1, BAB.TransparentBackdrops)
 	C_TimerAfter(2, BAB.ColorBackdrops)
