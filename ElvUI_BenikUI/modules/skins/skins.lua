@@ -118,6 +118,17 @@ local function styleFreeBlizzardFrames()
 		PVPReadyDialog:Style('Outside')
 		RaidBrowserFrame.backdrop:Style('Outside')
 		QuickJoinRoleSelectionFrame:Style('Outside')
+
+		local function forceTabFont(button)
+			if not button then return end
+			local text = button:GetFontString()
+			if text then
+				text:FontTemplate(nil, 11)
+			end
+		end
+		forceTabFont(LFGListFrame.ApplicationViewer.NameColumnHeader)
+		forceTabFont(LFGListFrame.ApplicationViewer.RoleColumnHeader)
+		forceTabFont(LFGListFrame.ApplicationViewer.ItemLevelColumnHeader)
 	end
 
 	if db.loot then
