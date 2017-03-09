@@ -120,11 +120,12 @@ local function styleFreeBlizzardFrames()
 		QuickJoinRoleSelectionFrame:Style('Outside')
 
 		local function forceTabFont(button)
-			if not button then return end
+			if button.isSkinned then return end
 			local text = button:GetFontString()
 			if text then
 				text:FontTemplate(nil, 11)
 			end
+			button.isSkinned = true
 		end
 		forceTabFont(LFGListFrame.ApplicationViewer.NameColumnHeader)
 		forceTabFont(LFGListFrame.ApplicationViewer.RoleColumnHeader)
