@@ -11,7 +11,7 @@ function UFB:Construct_PlayerFrame()
 	local frame = _G["ElvUF_Player"]
 	
 	if not frame.Portrait.backdrop.shadow then
-		frame.Portrait.backdrop:CreateSoftShadow()
+		frame.Portrait.backdrop:CreateShadow('Default')
 		frame.Portrait.backdrop.shadow:Hide()
 	end
 
@@ -56,6 +56,10 @@ function UFB:ArrangePlayer()
 	
 	-- Rest Icon
 	UFB:Configure_RestingIndicator(frame)
+	
+	if E.db.benikui.general.shadows then
+		frame.Power:CreateShadow('Default')
+	end
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end

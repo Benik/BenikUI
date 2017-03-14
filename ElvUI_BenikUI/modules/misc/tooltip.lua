@@ -16,7 +16,13 @@ local function StyleTooltip()
 	-- Grab the style color
 	local r, g, b = GameTooltip.style:GetBackdropColor()
 	ttr, ttg, ttb = r, g, b
-	
+
+	if E.db.benikui.general.shadows then
+		if not GameTooltipStatusBar.backdrop.shadow then
+			GameTooltipStatusBar.backdrop:CreateShadow('Default')
+		end
+	end
+
 	-- FreebTip support
 	if IsAddOnLoaded('FreebTip') then
 		GameTooltip.style:ClearAllPoints()

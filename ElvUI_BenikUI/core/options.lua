@@ -119,6 +119,13 @@ local function Core()
 						type = 'toggle',
 						name = L['Splash Screen'],
 					},
+					shadows = {
+						order = 4,
+						type = 'toggle',
+						name = L['Shadows'].." (Beta)",
+						get = function(info) return E.db.benikui.general[ info[#info] ] end,
+						set = function(info, color) E.db.benikui.general[ info[#info] ] = color; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
 				},
 			},
 			colors = {

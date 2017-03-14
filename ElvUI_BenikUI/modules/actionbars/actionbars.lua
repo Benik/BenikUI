@@ -134,6 +134,12 @@ function BAB:TransparentBackdrops()
 			local buttonBars = {_G['ElvUI_Bar'..i..'Button'..k]}
 			for _, button in pairs(buttonBars) do
 				if button.backdrop then
+					if E.db.benikui.general.shadows then
+						if not button.backdrop.shadow then
+							button.backdrop:CreateShadow('Default')
+						end
+					end
+
 					if db.transparent then
 						button.backdrop:SetTemplate('Transparent')
 					else
@@ -161,6 +167,10 @@ function BAB:TransparentBackdrops()
 		local petButtons = {_G['PetActionButton'..i]}
 		for _, button in pairs(petButtons) do
 			if button.backdrop then
+				if not button.backdrop.shadow then
+					button.backdrop:CreateShadow('Default')
+				end
+
 				if db.transparent then
 					button.backdrop:SetTemplate('Transparent')
 				else

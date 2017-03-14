@@ -166,13 +166,13 @@ function BFM:SetFlightMode(status)
 		-- Bags
 		if ElvUI_ContainerFrame then
 			ElvUI_ContainerFrame:SetParent(self.FlightMode)
-			ElvUI_ContainerFrame.shadow:Show()
+			ElvUI_ContainerFrame.wideshadow:Show()
 		end
 
 		-- Left Chat
 		BuiDummyChat:SetParent(self.FlightMode)
 		LeftChatPanel:SetParent(self.FlightMode)
-		LeftChatPanel.backdrop.shadow:Show()
+		LeftChatPanel.backdrop.wideshadow:Show()
 		LeftChatPanel:ClearAllPoints()
 		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		
@@ -227,7 +227,7 @@ function BFM:SetFlightMode(status)
 		-- Revert Bags
 		if ElvUI_ContainerFrame then
 			ElvUI_ContainerFrame:SetParent(E.UIParent)
-			ElvUI_ContainerFrame.shadow:Hide()
+			ElvUI_ContainerFrame.wideshadow:Hide()
 		end
 
 		if IsAddOnLoaded('AddOnSkins') then
@@ -238,7 +238,7 @@ function BFM:SetFlightMode(status)
 		-- revert Left Chat
 		BuiDummyChat:SetParent(E.UIParent)
 		LeftChatPanel:SetParent(E.UIParent)
-		LeftChatPanel.backdrop.shadow:Hide()
+		LeftChatPanel.backdrop.wideshadow:Hide()
 		LeftChatPanel:ClearAllPoints()
 		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
 		
@@ -612,13 +612,13 @@ function BFM:Initialize()
 	-- Add Shadow at the bags
 	if ElvUI_ContainerFrame then
 		ElvUI_ContainerFrame:CreateWideShadow()
-		ElvUI_ContainerFrame.shadow:Hide()
+		ElvUI_ContainerFrame.wideshadow:Hide()
 	end
 	
 	-- Add Shadow at the left chat
 	LeftChatPanel.backdrop:CreateWideShadow()
-	LeftChatPanel.backdrop.shadow:Hide()
-	LeftChatPanel.backdrop.shadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
+	LeftChatPanel.backdrop.wideshadow:Hide()
+	LeftChatPanel.backdrop.wideshadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
 
 	self:Toggle()
 end

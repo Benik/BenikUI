@@ -15,7 +15,7 @@ function UFB:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
 	
 	if not frame.Portrait.backdrop.shadow then
-		frame.Portrait.backdrop:CreateSoftShadow()
+		frame.Portrait.backdrop:CreateShadow()
 		frame.Portrait.backdrop.shadow:Hide()
 	end
 
@@ -114,6 +114,10 @@ function UFB:ArrangeTarget()
 	
 	-- Portrait
 	UFB:Configure_Portrait(frame, false)
+	
+	if E.db.benikui.general.shadows then
+		frame.Power:CreateShadow('Default')
+	end
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end

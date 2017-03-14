@@ -47,6 +47,9 @@ local function StyleBar()
 	rp.fb = CreateFrame('Button', nil, rp)
 	rp.fb:CreateSoftGlow()
 	rp.fb.sglow:Hide()
+	if E.db.benikui.general.shadows then
+		rp.fb:CreateShadow('Default')
+	end
 	rp.fb:Point('TOPLEFT', rp, 'BOTTOMLEFT', 0, -SPACING)
 	rp.fb:Point('BOTTOMRIGHT', rp, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
 

@@ -414,6 +414,15 @@ function BUIL:ChangeLayout()
 
 	LeftChatPanel.backdrop:Style('Outside', 'LeftChatPanel_Bui') -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
 	RightChatPanel.backdrop:Style('Outside', 'RightChatPanel_Bui')
+
+	if E.db.benikui.general.shadows then
+		LeftMiniPanel:CreateShadow('Default')
+		RightMiniPanel:CreateShadow('Default')
+		LeftChatDataPanel:CreateShadow('Default')
+		LeftChatToggleButton:CreateShadow('Default')
+		RightChatDataPanel:CreateShadow('Default')
+		RightChatToggleButton:CreateShadow('Default')
+	end
 	
 	-- Minimap elements styling
 	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end

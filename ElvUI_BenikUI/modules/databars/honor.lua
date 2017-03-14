@@ -39,6 +39,9 @@ local function StyleBar()
 	bar.fb = CreateFrame('Button', nil, bar)
 	bar.fb:CreateSoftGlow()
 	bar.fb.sglow:Hide()
+	if E.db.benikui.general.shadows then
+		bar.fb:CreateShadow('Default')
+	end
 	bar.fb:Point('TOPLEFT', bar, 'BOTTOMLEFT', 0, -SPACING)
 	bar.fb:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
 	bar.fb:SetScript('OnEnter', onEnter)

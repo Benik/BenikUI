@@ -18,6 +18,13 @@ function UFB:Configure_Power(frame)
 			else
 				power:SetOrientation('HORIZONTAL')
 			end
+			if power.shadow then
+				power.shadow:Show()
+			end
+		else
+			if power.shadow then
+				power.shadow:Hide()
+			end
 		end
 	end
 end

@@ -272,7 +272,7 @@ S:AddCallbackForAddon("Blizzard_QuestChoice", "BenikUI_QuestChoice", style_Quest
 local function style_TalentUI()
 	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	_G["PlayerTalentFrame"]:Style('Outside')
+	_G["PlayerTalentFrame"].backdrop:Style('Outside')
 	for i = 1, 2 do
 		local tab = _G['PlayerSpecTab'..i]
 		if tab then

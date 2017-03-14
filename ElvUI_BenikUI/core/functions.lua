@@ -11,34 +11,34 @@ local function CreateWideShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
-	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
-	shadow:SetFrameLevel(1)
-	shadow:SetFrameStrata(f:GetFrameStrata())
-	shadow:SetOutside(f, 6, 6)
-	shadow:SetBackdrop( { 
+	local wideshadow = f.wideshadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
+	wideshadow:SetFrameLevel(1)
+	wideshadow:SetFrameStrata(f:GetFrameStrata())
+	wideshadow:SetOutside(f, 6, 6)
+	wideshadow:SetBackdrop( { 
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(6),
 		insets = {left = E:Scale(8), right = E:Scale(8), top = E:Scale(8), bottom = E:Scale(8)},
 	})
-	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.5)
-	f.shadow = shadow
+	wideshadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
+	wideshadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.5)
+	f.wideshadow = wideshadow
 end
 
 local function CreateSoftShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
-	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
-	shadow:SetFrameLevel(1)
-	shadow:SetFrameStrata(f:GetFrameStrata())
-	shadow:SetOutside(f, 2, 2)
-	shadow:SetBackdrop( { 
+	local softshadow = f.softshadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
+	softshadow:SetFrameLevel(1)
+	softshadow:SetFrameStrata(f:GetFrameStrata())
+	softshadow:SetOutside(f, 2, 2)
+	softshadow:SetBackdrop( { 
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(2),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
-	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.4)
-	f.shadow = shadow
+	softshadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
+	softshadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.4)
+	f.softshadow = softshadow
 end
 
 local function CreateSoftGlow(f)
@@ -111,8 +111,13 @@ local function Style(f, template, name, ignoreColor)
 	else
 		style:SetBackdropColor(unpack(E["media"].backdropcolor))
 	end
-	
+
+	if E.db.benikui.general.shadows then
+		f:CreateShadow('Default')
+	end
+
 	f.style = style
+
 	if not style.ignoreColor then
 		BUI["styles"][style] = true
 	end

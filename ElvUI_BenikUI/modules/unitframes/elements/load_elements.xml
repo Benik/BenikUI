@@ -9,4 +9,5 @@
 	<Script file='restingindicator.lua'/>
 	<Script file='tags.lua'/>
 	<Script file='roleIcons.lua'/>
+	<Script file='classbars.lua'/>
 </Ui>
