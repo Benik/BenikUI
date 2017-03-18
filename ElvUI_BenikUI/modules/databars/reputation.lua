@@ -63,7 +63,7 @@ local function StyleBar()
 	BDB:ToggleRepBackdrop()
 	
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	rp:Style('Outside')
+	rp:Style('Outside', nil, false, true)
 end
 
 function BDB:ApplyRepStyling()

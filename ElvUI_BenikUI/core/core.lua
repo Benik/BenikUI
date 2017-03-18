@@ -74,6 +74,18 @@ function BUI:UpdateStyleColors()
 	end
 end
 
+function BUI:UpdateStyleVisibility()
+	for frame, _ in pairs(self["styles"]) do
+		if frame and not frame.ignoreVisibility then
+			if E.db.benikui.general.hideStyle then
+				frame:Hide()
+			else
+				frame:Show()
+			end
+		end
+	end
+end
+
 function BUI:AddOptions()
 	for _, func in pairs(BUI.Config) do
 		func()

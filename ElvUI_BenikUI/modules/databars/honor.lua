@@ -63,7 +63,7 @@ local function StyleBar()
 	BDB:ToggleHonorBackdrop()
 	
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	bar:Style('Outside')
+	bar:Style('Outside', nil, false, true)
 end
 
 function BDB:ApplyHonorStyling()

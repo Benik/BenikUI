@@ -59,7 +59,7 @@ local function StyleBar()
 	BDB:ToggleXPBackdrop()
 	
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	xp:Style('Outside')
+	xp:Style('Outside', nil, false, true)
 end
 
 function BDB:ApplyXpStyling()

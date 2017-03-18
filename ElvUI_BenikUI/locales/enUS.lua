@@ -11,8 +11,10 @@ L["BenikUI is a completely external ElvUI mod. More available options can be fou
 L["Credits:"] = true
 L['ActionBar Style Color'] = true
 L['BenikUI Style'] = true
+L['Enable/Disable the decorative bars from UI elements'] = true
+L['Hide BenikUI Style'] = true
+L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility option.|r'] = true
 L['Game Menu Color'] = true
-L['Show/Hide the decorative bars from UI elements'] = true
 L['Style Color'] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = true

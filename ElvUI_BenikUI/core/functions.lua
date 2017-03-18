@@ -59,7 +59,7 @@ end
 
 local r, g, b = 0, 0, 0
 
-local function Style(f, template, name, ignoreColor)
+local function Style(f, template, name, ignoreColor, ignoreVisibility)
 	if f.style or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local style = CreateFrame('Frame', name or nil, f)
@@ -73,6 +73,10 @@ local function Style(f, template, name, ignoreColor)
 
 	if(ignoreColor) then
 	   style.ignoreColor = ignoreColor
+	end
+	
+	if(ignoreVisibility) then
+	   style.ignoreVisibility = ignoreVisibility
 	end
 
 	style:SetFrameLevel(f:GetFrameLevel() + 2)
@@ -114,6 +118,12 @@ local function Style(f, template, name, ignoreColor)
 
 	if E.db.benikui.general.shadows then
 		f:CreateShadow('Default')
+	end
+
+	if E.db.benikui.general.hideStyle then
+		style:Hide()
+	else
+		style:Show()
 	end
 
 	f.style = style
