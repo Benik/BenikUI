@@ -47,7 +47,7 @@ local function CreateSoftGlow(f)
 	local sglow = CreateFrame('Frame', nil, f)
 	sglow:SetFrameLevel(1)
 	sglow:SetFrameStrata(f:GetFrameStrata())
-	sglow:SetOutside(f, E.PixelMode and 2 or 3, E.PixelMode and 2 or 3)
+	sglow:SetOutside(f, E.PixelMode and 3 or 4, E.PixelMode and 3 or 4)
 	sglow:SetBackdrop( { 
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
