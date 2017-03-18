@@ -129,7 +129,7 @@ local function ufTable()
 				type = 'group',
 				name = L['Castbar'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
-				disabled = function() return not E.db.unitframe.units.player.infoPanel.enable or not E.db.unitframe.units.target.infoPanel.enable end,
+				disabled = function() return not E.db.unitframe.units.player.castbar.insideInfoPanel or not E.db.unitframe.units.target.castbar.insideInfoPanel end,
 				get = function(info) return E.db.benikui.unitframes.castbar.text[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BUIC:UpdateAllCastbars(); end,
 				args = {
