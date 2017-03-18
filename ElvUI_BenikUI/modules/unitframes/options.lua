@@ -66,7 +66,7 @@ local function ufTable()
 						order = 3,
 						name = L['Textures'],
 						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,				
+						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:InfoPanelColor() end,
 					},
 				},
@@ -83,7 +83,7 @@ local function ufTable()
 						name = L['Health'],
 						desc = L['Health statusbar texture. Applies only on Group Frames'],
 						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,				
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UFB:ChangeHealthBarTexture() end,
 					},
 					ignoreTransparency = {
@@ -91,7 +91,7 @@ local function ufTable()
 						order = 2,
 						name = L['Ignore Transparency'],
 						desc = L['This will ignore ElvUI Health Transparency setting on all Group Frames.'],
-						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,				
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UF:Update_AllFrames(); end,
 					},
 					spacer = {
@@ -105,7 +105,7 @@ local function ufTable()
 						name = L['Power'],
 						desc = L['Power statusbar texture.'],
 						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,				
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UFB:ChangePowerBarTexture() end,
 					},
 					spacer2 = {
@@ -119,7 +119,7 @@ local function ufTable()
 						name = L['Castbar'],
 						desc = L['This applies on all available castbars.'],
 						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,				
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BUIC:CastBarHooks(); end,
 					},
 				},
@@ -129,7 +129,7 @@ local function ufTable()
 				type = 'group',
 				name = L['Castbar'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
-				-- disabled = function() return not E.db.unitframe.units[groupName]['infoPanel'] end, -- disable the yOffset if the InfoPanel are not enabled.
+				disabled = function() return not E.db.unitframe.units.player.infoPanel.enable or not E.db.unitframe.units.target.infoPanel.enable end,
 				get = function(info) return E.db.benikui.unitframes.castbar.text[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BUIC:UpdateAllCastbars(); end,
 				args = {
@@ -293,7 +293,7 @@ local function ufPlayerTable()
 		},
 	}
 	
-	E.Options.args.unitframe.args.player.args.power.args.vertical = {	
+	E.Options.args.unitframe.args.player.args.power.args.vertical = {
 		order = 15,
 		type = "toggle",
 		name = BUI:cOption(L['Vertical']),
