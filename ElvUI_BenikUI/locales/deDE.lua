@@ -167,6 +167,7 @@ L['Adjust castbar text Y Offset'] = "Passe Zauberleisten Text Y-Versatz an"
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
 L['Apply transparency on the portrait backdrop.'] = "Wende Transparenz auf den Portrait Hintergrund an."
 L['BenikUI Style on Portrait'] = "BenikUI Stil auf dem Portrait"
+L['Castbar Text'] = true
 L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten Portrait"
 L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten Portrait"
 L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite und Höhe"

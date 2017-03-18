@@ -176,11 +176,17 @@ P['benikui'] = {
 		},
 		['castbar'] = {
 			['text'] = {
-				['yOffset'] = -16,
 				['ShowInfoText'] = true,
 				['castText'] = true,
 				['forceTargetText'] = false,
-				['textColor'] = {r = 1, g = 1, b = 1, a = 1},
+				['player'] = {
+					['yOffset'] = -16,
+					['textColor'] = {r = 1, g = 1, b = 1, a = 1},
+				},
+				['target'] = {
+					['yOffset'] = -16,
+					['textColor'] = {r = 1, g = 1, b = 1, a = 1},
+				},
 			},
 		},
 		['textures'] = {

@@ -36,8 +36,13 @@ local function ConfigureText(unit, castbar)
 	castbar.Text:ClearAllPoints()
 	castbar.Time:ClearAllPoints()
 	if db.yOffset ~= 0 then
-		castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.yOffset)
-		castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.yOffset)
+		if unit == 'player' then
+			castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.player.yOffset)
+			castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.player.yOffset)
+		elseif unit == 'target' then
+			castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.target.yOffset)
+			castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.target.yOffset)
+		end
 	else
 		castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
 		castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, 0)
@@ -101,12 +106,18 @@ end
 --Castbar texture
 function BUIC:PostCast(unit, unitframe)
 	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
-	local r, g, b, a = BUI:unpackColor(E.db.benikui.unitframes.castbar.text.textColor)
+	local pr, pg, pb, pa = BUI:unpackColor(E.db.benikui.unitframes.castbar.text.player.textColor)
+	local tr, tg, tb, ta = BUI:unpackColor(E.db.benikui.unitframes.castbar.text.target.textColor)
 	if not self.isTransparent then
 		self:SetStatusBarTexture(castTexture)
 	end
-	self.Text:SetTextColor(r, g, b, a)
-	self.Time:SetTextColor(r, g, b, a)
+	if unit == 'player' then
+		self.Text:SetTextColor(pr, pg, pb, pa)
+		self.Time:SetTextColor(pr, pg, pb, pa)
+	elseif unit == 'target' then
+		self.Text:SetTextColor(tr, tg, tb, ta)
+		self.Time:SetTextColor(tr, tg, tb, ta)	
+	end
 end
 
 function BUIC:CastBarHooks()

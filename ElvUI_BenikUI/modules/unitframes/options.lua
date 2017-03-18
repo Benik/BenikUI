@@ -127,7 +127,7 @@ local function ufTable()
 			castbar = {
 				order = 5,
 				type = 'group',
-				name = L['Castbar'].." ("..PLAYER.."/"..TARGET..")",
+				name = L['Castbar Text'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
 				get = function(info) return E.db.benikui.unitframes.castbar.text[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BUIC:UpdateAllCastbars(); end,
@@ -149,29 +149,71 @@ local function ufTable()
 						name = L['Show on Target'],
 						disabled = function() return E.db.benikui.unitframes.castbar.text.castText end,
 					},
-					yOffset = {
+					player = {
 						order = 4,
-						type = 'range',
-						name = L['Y Offset'],
-						desc = L['Adjust castbar text Y Offset'],
-						min = -40, max = 40, step = 1,
+						type = 'group',
+						name = PLAYER,
+						args = {
+							yOffset = {
+								order = 1,
+								type = 'range',
+								name = L['Y Offset'],
+								desc = L['Adjust castbar text Y Offset'],
+								min = -40, max = 40, step = 1,
+								get = function(info) return E.db.benikui.unitframes.castbar.text.player[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.unitframes.castbar.text.player[ info[#info] ] = value; BUIC:UpdateAllCastbars(); end,
+							},
+							textColor = {
+								order = 2,
+								type = "color",
+								name = L["Text Color"],
+								hasAlpha = true,
+								get = function(info)
+									local t = E.db.benikui.unitframes.castbar.text.player[ info[#info] ]
+									local d = P.benikui.unitframes.castbar.text.player[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+									end,
+								set = function(info, r, g, b, a)
+									E.db.benikui.unitframes.castbar.text.player[ info[#info] ] = {}
+									local t = E.db.benikui.unitframes.castbar.text.player[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									BUIC:CastBarHooks();
+								end,
+							},
+						},
 					},
-					textColor = {
+					target = {
 						order = 5,
-						type = "color",
-						name = L["Text Color"],
-						hasAlpha = true,
-						get = function(info)
-							local t = E.db.benikui.unitframes.castbar.text[ info[#info] ]
-							local d = P.benikui.unitframes.castbar.text[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-							end,
-						set = function(info, r, g, b, a)
-							E.db.benikui.unitframes.castbar.text[ info[#info] ] = {}
-							local t = E.db.benikui.unitframes.castbar.text[ info[#info] ]
-							t.r, t.g, t.b, t.a = r, g, b, a
-							BUIC:CastBarHooks();
-						end,
+						type = 'group',
+						name = TARGET,
+						args = {
+							yOffset = {
+								order = 1,
+								type = 'range',
+								name = L['Y Offset'],
+								desc = L['Adjust castbar text Y Offset'],
+								min = -40, max = 40, step = 1,
+								get = function(info) return E.db.benikui.unitframes.castbar.text.target[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.unitframes.castbar.text.target[ info[#info] ] = value; BUIC:UpdateAllCastbars(); end,
+							},
+							textColor = {
+								order = 2,
+								type = "color",
+								name = L["Text Color"],
+								hasAlpha = true,
+								get = function(info)
+									local t = E.db.benikui.unitframes.castbar.text.target[ info[#info] ]
+									local d = P.benikui.unitframes.castbar.text.target[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+									end,
+								set = function(info, r, g, b, a)
+									E.db.benikui.unitframes.castbar.text.target[ info[#info] ] = {}
+									local t = E.db.benikui.unitframes.castbar.text.target[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									BUIC:CastBarHooks();
+								end,
+							},
+						},
 					},
 				},
 			},

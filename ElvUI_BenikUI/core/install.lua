@@ -372,7 +372,8 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = false
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
 		E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = false
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["yOffset"] = -16
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = -16
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = -16
 
 		-- Auras
 		E.db["auras"]["timeXOffset"] = -1
@@ -720,7 +721,8 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["portraitStyleHeight"] = 6
 		E.db["benikui"]["unitframes"]["target"]["portraitWidth"] = 110
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["yOffset"] = -18
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = -18
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = -18
 
 		-- Auras
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
