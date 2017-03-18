@@ -70,15 +70,14 @@ local function ConfigureCastbar(unit, unitframe)
 	local castbar = unitframe.Castbar
 	
 	if unit == 'player' or unit == 'target' then
+		ConfigureText(unit, castbar)
 		if unitframe.USE_INFO_PANEL and db.insideInfoPanel then
-			ConfigureText(unit, castbar)
 			if E.db.benikui.unitframes.castbar.text.ShowInfoText then
 				changeCastbarLevel(unit, unitframe)
 			else
 				resetCastbarLevel(unit, unitframe)
 			end
 		else
-			ResetText(castbar)
 			resetCastbarLevel(unit, unitframe)
 		end
 	end
@@ -169,7 +168,7 @@ function BUIC:Initialize()
 		if preventLoop then return; end
 
 		local unit = frame.unitframeType
-		if unit and (unit == 'player' or unit == 'target') and E.db.unitframe.units[unit].castbar.insideInfoPanel then
+		if unit and (unit == 'player' or unit == 'target') then
 			BUIC:UpdateSettings(unit)
 		end
 	end)

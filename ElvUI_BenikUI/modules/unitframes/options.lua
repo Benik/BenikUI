@@ -129,7 +129,6 @@ local function ufTable()
 				type = 'group',
 				name = L['Castbar'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
-				disabled = function() return not E.db.unitframe.units.player.castbar.insideInfoPanel or not E.db.unitframe.units.target.castbar.insideInfoPanel end,
 				get = function(info) return E.db.benikui.unitframes.castbar.text[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BUIC:UpdateAllCastbars(); end,
 				args = {
@@ -155,7 +154,7 @@ local function ufTable()
 						type = 'range',
 						name = L['Y Offset'],
 						desc = L['Adjust castbar text Y Offset'],
-						min = -25, max = 0, step = 1,
+						min = -40, max = 40, step = 1,
 					},
 					textColor = {
 						order = 5,
