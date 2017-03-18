@@ -10,11 +10,8 @@ local function style_AchievementUI()
 	if E.private.skins.blizzard.achievement ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local frame = _G["AchievementFrame"]
-	frame:Style('Outside')
-	if frame.style then
-		frame.style:ClearAllPoints()
-		frame.style:Point('TOPLEFT', frame, 'TOPLEFT', 0, (E.PixelMode and 7 or 9))
-		frame.style:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', 0, (E.PixelMode and 2 or 4))
+	if frame.backdrop then
+		frame.backdrop:Style('Outside')
 	end
 end
 S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
