@@ -12,17 +12,17 @@ L["Credits:"] = "Danksagung:"
 L['ActionBar Style Color'] = "Aktionsleiste Stil Farbe"
 L['BenikUI Style'] = "BenikUI Stil"
 L['Game Menu Color'] = "Spielmenü Farbe"
-L['Enable/Disable the decorative bars from UI elements'] = true
-L['Hide BenikUI Style'] = true
-L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility options.|r'] = true
+L['Enable/Disable the decorative bars from UI elements'] = "Aktiviert/Deaktiviert die dekorativen Leisten für UI Elemente"
+L['Hide BenikUI Style'] = "Verstecke BenikUI Stil"
+L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility options.|r'] = "Zeigt/Versteckt die dekorativen Leisten für UI Elemente. Nützlich wenn die Schatten angewandt wurden, weil BenikUI Stil muss aktiviert sein. |cff00c0faHinweis: Einige Elemente wie Aktionsleisten, Informationsleisten oder BenikUI Infotexte haben ihre eigene Sichtbarkeits Optionen.|r"
 L['Style Color'] = "Stil Farbe"
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
 L['light blue color.'] = "hell blau"
 L['Splash Screen'] = "Startbildschirm"
 
 -- Layout
-L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten" --must check this
-L['RightClick: Toggle Embedded Addon'] = "Rechts Klick: Einbettung Addon umschalten" --must check this
+L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
+L['RightClick: Toggle Embedded Addon'] = "Rechts Klick: Einbettung Addon umschalten"
 L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 
 -- Misc
@@ -169,7 +169,7 @@ L['Adjust castbar text Y Offset'] = "Passe Zauberleisten Text Y-Versatz an"
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
 L['Apply transparency on the portrait backdrop.'] = "Wende Transparenz auf den Portrait Hintergrund an."
 L['BenikUI Style on Portrait'] = "BenikUI Stil auf dem Portrait"
-L['Castbar Text'] = true
+L['Castbar Text'] = "Zauberleisten Text"
 L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten Portrait"
 L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten Portrait"
 L['Copy Player portrait width and height'] = "Kopiere Spieler Portrait Breite und Höhe"
