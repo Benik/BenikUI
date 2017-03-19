@@ -112,7 +112,7 @@ local function Core()
 						order = 2,
 						type = 'toggle',
 						name = L['Hide BenikUI Style'],
-						desc = L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility option.|r'],
+						desc = L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility options.|r'],
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, color) E.db.benikui.general[ info[#info] ] = color; BUI:UpdateStyleVisibility(); end,
