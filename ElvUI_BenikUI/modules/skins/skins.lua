@@ -370,6 +370,12 @@ local function tweakObjectiveTrackerButtonFont()
 	button:Size(16, 12)
 	button.text:FontTemplate(E['media'].buiVisitor, 10)
 	button.text:Point('CENTER', button, 'CENTER', 0, 1)
+
+	if E.db.benikui.general.shadows then
+		if not button.shadow then
+			button:CreateShadow('Default')
+		end
+	end
 end
 
 -- Map styling fix
