@@ -220,6 +220,7 @@ function BDB:ToggleRepAutotrack()
 end
 
 function BDB:LoadRep()
+	local bar = ElvUI_ReputationBar
 	self:ChangeRepColor()
 	self:RepTextOffset()
 	hooksecurefunc(M, 'UpdateReputation', BDB.ChangeRepColor)
@@ -229,12 +230,18 @@ function BDB:LoadRep()
 	local db = E.db.benikuiDatabars.reputation.notifiers
 	
 	if db.enable and E.db.databars.reputation.orientation == 'VERTICAL' then
-		self:CreateNotifier(ElvUI_ReputationBar.statusBar)
+		self:CreateNotifier(bar.statusBar)
 		self:UpdateRepNotifierPositions()
 		self:UpdateRepNotifier()
 		hooksecurefunc(M, 'UpdateReputation', BDB.UpdateRepNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateRepNotifierPositions)
 		hooksecurefunc(M, 'UpdateReputationDimensions', BDB.UpdateRepNotifierPositions)
+	end
+
+	if E.db.benikui.general.shadows then
+		if not bar.style then
+			bar:CreateShadow('Default')
+		end
 	end
 
 	if E.db.benikuiDatabars.reputation.enable ~= true then return end

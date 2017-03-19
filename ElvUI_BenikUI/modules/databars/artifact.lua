@@ -205,6 +205,7 @@ function BDB:AfTextOffset()
 end
 
 function BDB:LoadAF()
+	local bar = ElvUI_ArtifactBar
 	self:ChangeAFcolor()
 	self:AfTextOffset()
 	hooksecurefunc(M, 'UpdateArtifact', BDB.ChangeAFcolor)
@@ -213,14 +214,20 @@ function BDB:LoadAF()
 	local db = E.db.benikuiDatabars.artifact.notifiers
 	
 	if db.enable and E.db.databars.artifact.orientation == 'VERTICAL' then
-		self:CreateNotifier(ElvUI_ArtifactBar.statusBar)
+		self:CreateNotifier(bar.statusBar)
 		self:UpdateAfNotifierPositions()
 		self:UpdateAfNotifier()
 		hooksecurefunc(M, 'UpdateArtifact', BDB.UpdateAfNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateAfNotifierPositions)
 		hooksecurefunc(M, 'UpdateArtifactDimensions', BDB.UpdateAfNotifierPositions)
 	end
-	
+
+	if E.db.benikui.general.shadows then
+		if not bar.style then
+			bar:CreateShadow('Default')
+		end
+	end
+
 	if E.db.benikuiDatabars.artifact.enable ~= true then return end
 	
 	StyleBar()

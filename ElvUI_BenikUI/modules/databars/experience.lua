@@ -189,6 +189,7 @@ function BDB:XpTextOffset()
 end
 
 function BDB:LoadXP()
+	local bar = ElvUI_ExperienceBar
 	self:ChangeXPcolor()
 	self:XpTextOffset()
 	hooksecurefunc(M, 'UpdateExperience', BDB.ChangeXPcolor)
@@ -197,12 +198,18 @@ function BDB:LoadXP()
 	local db = E.db.benikuiDatabars.experience.notifiers
 	
 	if db.enable and E.db.databars.experience.orientation == 'VERTICAL' then
-		self:CreateNotifier(ElvUI_ExperienceBar.statusBar)
+		self:CreateNotifier(bar.statusBar)
 		self:UpdateXpNotifierPositions()
 		self:UpdateXpNotifier()
 		hooksecurefunc(M, 'UpdateExperience', BDB.UpdateXpNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateXpNotifierPositions)
 		hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.UpdateXpNotifierPositions)
+	end
+
+	if E.db.benikui.general.shadows then
+		if not bar.style then
+			bar:CreateShadow('Default')
+		end
 	end
 
 	if E.db.benikuiDatabars.experience.enable ~= true then return end

@@ -191,6 +191,7 @@ function BDB:HonorTextOffset()
 end
 
 function BDB:LoadHonor()
+	local bar = ElvUI_HonorBar
 	self:ChangeHonorColor()
 	self:HonorTextOffset()
 	hooksecurefunc(M, 'UpdateHonor', BDB.ChangeHonorColor)
@@ -199,14 +200,20 @@ function BDB:LoadHonor()
 	local db = E.db.benikuiDatabars.honor.notifiers
 	
 	if db.enable and E.db.databars.honor.orientation == 'VERTICAL' then
-		self:CreateNotifier(ElvUI_HonorBar.statusBar)
+		self:CreateNotifier(bar.statusBar)
 		self:UpdateHonorNotifierPositions()
 		self:UpdateHonorNotifier()
 		hooksecurefunc(M, 'UpdateHonor', BDB.UpdateHonorNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateHonorNotifierPositions)
 		hooksecurefunc(M, 'UpdateHonorDimensions', BDB.UpdateHonorNotifierPositions)
 	end
-	
+
+	if E.db.benikui.general.shadows then
+		if not bar.style then
+			bar:CreateShadow('Default')
+		end
+	end
+
 	if E.db.benikuiDatabars.honor.enable ~= true then return end
 	
 	StyleBar()
