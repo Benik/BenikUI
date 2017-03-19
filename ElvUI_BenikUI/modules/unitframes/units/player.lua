@@ -19,7 +19,12 @@ function UFB:Construct_PlayerFrame()
 		frame.Portrait.backdrop:Style('Outside')
 		frame.Portrait.backdrop.style:Hide()
 	end
-	
+
+	if E.db.benikui.general.shadows then
+		frame.Power.backdrop:CreateShadow('Default')
+		frame.Power.backdrop.shadow:Hide()
+	end
+
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
@@ -56,10 +61,6 @@ function UFB:ArrangePlayer()
 	
 	-- Rest Icon
 	UFB:Configure_RestingIndicator(frame)
-	
-	if E.db.benikui.general.shadows then
-		frame.Power:CreateShadow('Default')
-	end
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end

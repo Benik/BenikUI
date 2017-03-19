@@ -18,12 +18,12 @@ function UFB:Configure_Power(frame)
 			else
 				power:SetOrientation('HORIZONTAL')
 			end
-			if power.shadow then
-				power.shadow:Show()
+			if power.backdrop.shadow then
+				power.backdrop.shadow:Show()
 			end
 		else
-			if power.shadow then
-				power.shadow:Hide()
+			if power.backdrop.shadow then
+				power.backdrop.shadow:Hide()
 			end
 		end
 	end
