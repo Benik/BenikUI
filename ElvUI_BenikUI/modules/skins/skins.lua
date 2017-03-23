@@ -144,10 +144,8 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.merchant then
-		MerchantFrame:Style('Outside')
-		if MerchantFrame.style then
-			MerchantFrame.style:Point('TOPLEFT', MerchantFrame, 'TOPLEFT', 6, 4)
-			MerchantFrame.style:Point('BOTTOMRIGHT', MerchantFrame, 'TOPRIGHT', 2, -1)
+		if MerchantFrame.backdrop then
+			MerchantFrame.backdrop:Style('Outside')
 		end
 	end
 
