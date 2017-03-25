@@ -13,6 +13,13 @@ local incpat = gsub(gsub(FACTION_STANDING_INCREASED, "(%%s)", "(.+)"), "(%%d)", 
 local changedpat = gsub(gsub(FACTION_STANDING_CHANGED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
 local decpat = gsub(gsub(FACTION_STANDING_DECREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
 
+local C_Reputation_GetFactionParagonInfo
+local C_Reputation_IsFactionParagon
+if E.wowbuild >= 23623 then --7.2
+	C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
+	C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
+end
+
 local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local GetWatchedFactionInfo = GetWatchedFactionInfo
@@ -173,7 +180,13 @@ end
 function BDB:UpdateRepNotifier()
 	local bar = ElvUI_ReputationBar.statusBar
 	
-	local name, _, min, max, value = GetWatchedFactionInfo()
+	local name, _, min, max, value, factionID = GetWatchedFactionInfo()
+	if E.wowbuild >= 23623 then --7.2
+		if (C_Reputation_IsFactionParagon(factionID)) then
+			local currentValue, threshold = C_Reputation_GetFactionParagonInfo(factionID)
+			min, max, value = 0, threshold, currentValue
+		end
+	end
 	
 	if not name or E.db.databars.reputation.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
