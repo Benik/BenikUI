@@ -1,3 +1,17 @@
+3.21
+*Added missing Legion and patch 7.2 new currencies
+*Added 7.2 compatibility for Reputation notifier
+*Added 7.2 compatibility for Artifact notifier
+*Fixed tooltip style overlapping the statusbar. This should deal with #73
+*Added option to Hide the frame Styling, in order to use Shadows in a more efficient way, because shadows need BenikUI Style enabled.
+*To make #70 request results perfect, I've added seperate castbar text yOffset and text color, for player and target. Also changed the option group name from 'Castbar' to 'Castbar Text'.
+*Castbar text yOffset can now have positive values and can be applied even if the castbar is not inside the Information Panel. This should fulfill request #70
+*Added Shadow option (beta). Aurabars not yet done.
+*Force ElvUI default font at the buttons in the Adventure Guide and in lfg premade group tab buttons
+*Fixed actionbar styling not applying on ElvUI_ExtraActionBars
+*Updated the afkMode Random stats list
+*Minor fixes and improvements
+
 3.20
 *Added Discord link button in Information tab
 *Updated the Donations list in Information tab, by adding Justin. Thank you very much :)
