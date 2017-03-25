@@ -39,6 +39,8 @@ local pvpTokens = {
 	944,	-- Artifact Fragment (PvP)
 	1149,	-- Sightless Eye (PvP)
 	1268,	-- Timeworn Artifact (Honor Points?)
+	1356,	-- Echoes of Battle (PvP Gear)
+	1357,	-- Echoes of Domination (Elite PvP Gear)
 }
 
 local secondaryTokens = {
@@ -64,7 +66,10 @@ local miscTokens = {
 	1275,	-- Curious Coin (Buy stuff :P)
 	1226,	-- Nethershard (Invasion scenarios)
 	1154,	-- Shadowy Coins
+	1299,	-- Brawler's Gold
 	1314,	-- Lingering Soul Fragment
+	1342,	-- Legionfall War Supplies (Construction at the Broken Shore)
+	1355,	-- Felessence (Craft Legentary items)
 }
 
 local archyTokens = {

@@ -47,7 +47,6 @@ local BUIcurrency = {
 	777,	-- Timeless Coin
 	789,	-- Bloody Coin
 	81,		-- Epicurean's Award
-	402,	-- Ironpaw Token
 	384,	-- Dwarf Archaeology Fragment
 	385,	-- Troll Archaeology Fragment
 	393,	-- Fossil Archaeology Fragment
@@ -87,7 +86,12 @@ local BUIcurrency = {
 	1154,	-- Shadowy Coins
 	1149,	-- Sightless Eye (PvP)
 	1268,	-- Timeworn Artifact (Honor Points?)
+	1299,	-- Brawler's Gold
 	1314,	-- Lingering Soul Fragment (Good luck with this one :D)
+	1342,	-- Legionfall War Supplies (Construction at the Broken Shore)
+	1355,	-- Felessence (Craft Legentary items)
+	1356,	-- Echoes of Battle (PvP Gear)
+	1357,	-- Echoes of Domination (Elite PvP Gear)
 }
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
