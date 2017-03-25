@@ -12,6 +12,8 @@ local GameTooltip = _G["GameTooltip"]
 local InCombatLockdown = InCombatLockdown
 local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
 local ARTIFACT_POWER = ARTIFACT_POWER
+local C_ArtifactUI_GetEquippedArtifactInfo = C_ArtifactUI.GetEquippedArtifactInfo
+local MainMenuBar_GetNumArtifactTraitsPurchasableFromXP = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP
 
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ArtifactBar, ArtifactFrame
 
@@ -186,10 +188,17 @@ function BDB:UpdateAfNotifier()
 		bar.f:Hide()
 	else
 		bar.f:Show()
-		local _, _, _, _, totalXP, pointsSpent = C_ArtifactUI.GetEquippedArtifactInfo();
-		local _, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP);
+		local _, _, _, _, totalXP, pointsSpent, _, _, _, _, _, _, artifactTier = C_ArtifactUI_GetEquippedArtifactInfo();
+		local _, xp, xpForNextPoint
+
+		if E.wowbuild >= 23623 then --7.2
+			_, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP, artifactTier);
+		else
+			_, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP);
+		end
+
 		local apInBags = ElvUI_ArtifactBar.BagArtifactPower
-		
+
 		if db.movetobagbar and apInBags > 0 then
 			bar.f.txt:SetFormattedText('%d%%',(xp / xpForNextPoint * 100) + (apInBags / xpForNextPoint * 100))
 		else
