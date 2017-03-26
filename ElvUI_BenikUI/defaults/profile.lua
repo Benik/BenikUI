@@ -181,11 +181,11 @@ P['benikui'] = {
 				['castText'] = true,
 				['forceTargetText'] = false,
 				['player'] = {
-					['yOffset'] = -16,
+					['yOffset'] = 0,
 					['textColor'] = {r = 1, g = 1, b = 1, a = 1},
 				},
 				['target'] = {
-					['yOffset'] = -16,
+					['yOffset'] = 0,
 					['textColor'] = {r = 1, g = 1, b = 1, a = 1},
 				},
 			},
