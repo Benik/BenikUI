@@ -52,6 +52,7 @@ local function styleFreeBlizzardFrames()
 		PaperDollFrame:Style('Outside')
 		ReputationDetailFrame:Style('Outside')
 		ReputationFrame:Style('Outside')
+		ReputationParagonTooltip:Style('Outside')
 		TokenFrame:Style('Outside')
 		TokenFramePopup:Style('Outside')
 	end
