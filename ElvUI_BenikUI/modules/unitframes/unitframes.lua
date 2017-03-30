@@ -132,8 +132,77 @@ function UFB:ArenaShadows()
 end
 
 function UFB:PostUpdateAura(unit, button, index)
+	local name, _, _, _, dtype, duration, expiration, _, isStealable = UnitAura(unit, index, button.filter)
 	if not button.shadow then
 		button:CreateShadow('Default')
+	end
+	local isFriend = UnitIsFriend('player', unit)
+	
+	local auras = button:GetParent()
+	local frame = auras:GetParent()
+	local type = auras.type
+	local db = frame.db and frame.db[type]
+
+	if db then
+		if db.clickThrough and button:IsMouseEnabled() then
+			button:EnableMouse(false)
+		elseif not db.clickThrough and not button:IsMouseEnabled() then
+			button:EnableMouse(true)
+		end
+	end
+
+	if button.isDebuff then
+		if(not isFriend and button.owner ~= "player" and button.owner ~= "vehicle") --[[and (not E.isDebuffWhiteList[name])]] then
+			button:SetBackdropBorderColor(0.9, 0.1, 0.1)
+			button.icon:SetDesaturated((unit and not unit:find('arena%d')) and true or false)
+		else
+			local color = DebuffTypeColor[dtype] or DebuffTypeColor.none
+			if (name == "Unstable Affliction" or name == "Vampiric Touch") and E.myclass ~= "WARLOCK" then
+				button:SetBackdropBorderColor(0.05, 0.85, 0.94)
+			else
+				button:SetBackdropBorderColor(color.r * 0.6, color.g * 0.6, color.b * 0.6)
+			end
+			button.icon:SetDesaturated(false)
+		end
+	else
+		if (isStealable) and not isFriend then
+			button:SetBackdropBorderColor(237/255, 234/255, 142/255)
+		else
+			button:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+		end
+	end
+
+	local size = button:GetParent().size
+	if size then
+		button:SetSize(size, size)
+	end
+
+	button.spell = name
+	button.isStealable = isStealable
+	button.duration = duration
+
+	if expiration and duration ~= 0 then
+		if not button:GetScript('OnUpdate') then
+			button.expirationTime = expiration
+			button.expiration = expiration - GetTime()
+			button.nextupdate = -1
+			button:SetScript('OnUpdate', UF.UpdateAuraTimer)
+		end
+		if (button.expirationTime ~= expiration) or (button.expiration ~= (expiration - GetTime()))  then
+			button.expirationTime = expiration
+			button.expiration = expiration - GetTime()
+			button.nextupdate = -1
+		end
+	end
+	if duration == 0 or expiration == 0 then
+		button.expirationTime = nil
+		button.expiration = nil
+		button.priority = nil
+		button.duration = nil
+		button:SetScript('OnUpdate', nil)
+		if(button.text:GetFont()) then
+			button.text:SetText('')
+		end
 	end
 end
 
