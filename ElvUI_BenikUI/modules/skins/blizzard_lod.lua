@@ -101,6 +101,27 @@ local function style_Collections()
 end
 S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
 
+-- Contribution
+local function style_Contribution()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Contribution ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	local frame = _G["ContributionCollectionFrame"]
+	if not frame.backdrop then
+		frame:CreateBackdrop('Default')
+	end
+	
+	if frame.backdrop then
+		frame.backdrop:Style('Outside')
+	end
+
+	ContributionBuffTooltip:Style('Outside')
+
+	if ContributionTooltip.backdrop then
+		ContributionTooltip.backdrop:Style('Outside')
+	end
+end
+S:AddCallbackForAddon("Blizzard_Contribution", "BenikUI_Contribution", style_Contribution)
+
 -- DeathRecap
 local function style_DeathRecap()
 	if E.private.skins.blizzard.deathRecap ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
