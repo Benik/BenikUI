@@ -12,12 +12,16 @@ if E.private.auras.masque.buffs or E.private.auras.masque.debuffs then return en
 A.CreateIconBui = A.CreateIcon
 function A:CreateIcon(button)
 	self:CreateIconBui(button)
+	if E.db.benikui.general.auras ~= true then return end
+
 	button:Style('Inside', _, true)
 end
 
 A.UpdateAuraBui = A.UpdateAura
 function A:UpdateAura(button, index)
 	self:UpdateAuraBui(button, index)
+	if E.db.benikui.general.auras ~= true then return end
+
 	local filter = button:GetParent():GetAttribute('filter')
 	local unit = button:GetParent():GetAttribute('unit')
 	local name = UnitAura(unit, index, filter)

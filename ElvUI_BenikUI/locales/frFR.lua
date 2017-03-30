@@ -18,6 +18,7 @@ L['Style Color'] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = true
 L['Splash Screen'] = true
+L['Style Auras'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = true

@@ -33,6 +33,7 @@ P['benikui'] = {
 		['benikuiStyle'] = true,
 		['hideStyle'] = false,
 		['shadows'] = false,
+		['auras'] = true,
 		['loginMessage'] = true,
 		['splashScreen'] = true,
 	},
