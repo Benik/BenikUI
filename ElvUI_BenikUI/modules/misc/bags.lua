@@ -99,6 +99,7 @@ function BUIB:Initialize()
 	self:AllInOneBags()
 	self:SkinBlizzBags()
 	self:UpdateCountPosition()
+	self:OpenBankBags()
 	
 	hooksecurefunc(B, 'UpdateCountDisplay', BUIB.UpdateCountPosition)
 end
