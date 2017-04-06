@@ -19,7 +19,7 @@ L['Style Color'] = "Stil Farbe"
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
 L['light blue color.'] = "hell blau"
 L['Splash Screen'] = "Startbildschirm"
-L['Style Auras'] = true
+L['Style Auras'] = "Aura Stil"
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
