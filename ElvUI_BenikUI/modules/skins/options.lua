@@ -50,7 +50,7 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins = {
 		order = 40,
 		type = 'group',
-		name = ADDONS..BUI.NewSign,
+		name = ADDONS,
 		args = {
 			name = {
 				order = 1,
@@ -143,7 +143,7 @@ local function SkinTable()
 		order = 6,
 		type = 'group',
 		guiInline = true,
-		name = L['Profiles']..BUI.NewSign,
+		name = L['Profiles'],
 		args = {
 		},
 	}

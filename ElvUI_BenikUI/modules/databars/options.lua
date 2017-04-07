@@ -249,7 +249,7 @@ local function databarsTable()
 							movetobagbar = {
 								order = 4,
 								type = 'toggle',
-								name = L['Move to Bag bar']..BUI.NewSign,
+								name = L['Move to Bag bar'],
 								desc = L['Move the Notifier to Bag bar, when Artifact items are available'],
 								disabled = function() return not E.db.benikuiDatabars.artifact.notifiers.enable end,
 								get = function(info) return E.db.benikuiDatabars.artifact.notifiers.movetobagbar end,
@@ -298,7 +298,7 @@ local function databarsTable()
 					autotrack = {
 						order = 4,
 						type = 'toggle',
-						name = L['AutoTrack']..BUI.NewSign,
+						name = L['AutoTrack'],
 						desc = L['Change the tracked Faction automatically when reputation changes'],
 						get = function(info) return E.db.benikuiDatabars.reputation.autotrack end,
 						set = function(info, value) E.db.benikuiDatabars.reputation.autotrack = value; BDB:ToggleRepAutotrack(); end,

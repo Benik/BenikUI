@@ -403,7 +403,7 @@ local function dashboardsTable()
 					},
 					mouseover = {
 						order = 4,
-						name = L['Mouse Over']..BUI.NewSign,
+						name = L['Mouse Over'],
 						desc = L['The frame is not shown unless you mouse over the frame.'],
 						type = 'toggle',
 						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
@@ -527,7 +527,7 @@ local function dashboardsTable()
 					},
 					mouseover = {
 						order = 4,
-						name = L['Mouse Over']..BUI.NewSign,
+						name = L['Mouse Over'],
 						desc = L['The frame is not shown unless you mouse over the frame.'],
 						type = 'toggle',
 						disabled = function() return not E.db.dashboards.professions.enableProfessions end,

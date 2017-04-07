@@ -120,7 +120,7 @@ local function Core()
 					shadows = {
 						order = 3,
 						type = 'toggle',
-						name = L['Shadows'].." (Beta)",
+						name = L['Shadows'].." (Beta)"..BUI.NewSign,
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
@@ -128,7 +128,7 @@ local function Core()
 					auras = {
 						order = 4,
 						type = 'toggle',
-						name = L['Style Auras'],
+						name = L['Style Auras']..BUI.NewSign,
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,

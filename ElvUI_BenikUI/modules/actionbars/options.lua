@@ -19,7 +19,7 @@ local function abTable()
 			style = {
 				order = 2,
 				type = 'group',
-				name = L['BenikUI Style']..BUI.NewSign,
+				name = L['BenikUI Style'],
 				guiInline = true,
 				args = {
 				},
