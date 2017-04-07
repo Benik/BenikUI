@@ -1,3 +1,14 @@
+3.23
+*Added compatibility between Toggle worldmap while in flightMode and addons that add overlays on the map, like World Quest Tracker
+*Update german locales (Merathilis)
+*Fixed Bank frame not getting styled on first load
+*Added option to toggle Aura styling. Enabled by default
+*Styled the new Contribution frame and ReputationParagon tooltip
+*Removed 7.1.5 compatibility
+
+3.22
+toc update for patch 7.2
+
 3.21
 *Added missing Legion and patch 7.2 new currencies
 *Added 7.2 compatibility for Reputation notifier
