@@ -380,25 +380,31 @@ end
 -- Map styling fix
 local function FixMapStyle()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then return end
-	if not _G["WorldMapFrame"].BorderFrame.backdrop.style then
-		_G["WorldMapFrame"].BorderFrame.backdrop:Style('Outside')
+
+	local mapFrame = _G["WorldMapFrame"]
+	if not mapFrame.BorderFrame.backdrop.style then
+		mapFrame.BorderFrame.backdrop:Style('Outside')
 	end
 
-	if _G["WorldMapTooltip"] then
-		if not _G["WorldMapTooltip"].style then
-			_G["WorldMapTooltip"]:Style('Outside')
+	mapFrame.UIElementsFrame.BountyBoard.BountyName:FontTemplate(nil, 12, 'OUTLINE')
+
+	local mapTooltip = _G["WorldMapTooltip"]
+	if mapTooltip then
+		if not mapTooltip.style then
+			mapTooltip:Style('Outside')
 		end
 	end
 
-	for i, tooltip in ipairs(WorldMapTooltip.ItemTooltip.Tooltip.shoppingTooltips) do
+	for i, tooltip in ipairs(mapTooltip.ItemTooltip.Tooltip.shoppingTooltips) do
 		if not tooltip.style then
 			tooltip:Style('Outside')
 		end
 	end
 
-	_G["QuestMapFrame"].QuestsFrame.StoryTooltip:SetTemplate('Transparent')
-	if not _G["QuestMapFrame"].QuestsFrame.StoryTooltip.style then
-		_G["QuestMapFrame"].QuestsFrame.StoryTooltip:Style('Outside')
+	local questFrame = _G["QuestMapFrame"]
+	questFrame.QuestsFrame.StoryTooltip:SetTemplate('Transparent')
+	if not questFrame.QuestsFrame.StoryTooltip.style then
+		questFrame.QuestsFrame.StoryTooltip:Style('Outside')
 	end
 end
 
