@@ -168,7 +168,7 @@ local function Icon_OnMouseUp(self, btn)
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
 			local id = self:GetParent().id
-			E.db.dashboards.tokens.chooseTokens[id] = false
+			E.private.dashboards.tokens.chooseTokens[id] = false
 			BUIT:UpdateTokens()
 		end
 	end
@@ -204,9 +204,9 @@ function BUIT:UpdateTokens()
 		
 		if name then
 			
-			if isDiscovered == false then db.chooseTokens[id] = false end
+			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = false end
 			
-			if db.chooseTokens[id] == true then
+			if E.private.dashboards.tokens.chooseTokens[id] == true then
 				if db.zeroamount or amount > 0 then
 					tokenHolder:Show()
 					tokenHolder:Width(DASH_WIDTH)
@@ -358,7 +358,7 @@ function BUIT:TokenDefaults()
 end
 
 function BUIT:Initialize()
-	if E.db.dashboards.tokens.enableTokens ~= true then return end
+	if E.private.dashboards.tokens.enableTokens ~= true then return end
 	self:TokenDefaults()
 	self:CreateTokensHolder()
 	self:TokenEvents()

@@ -340,7 +340,6 @@ P['dashboards'] = {
 	},
 	
 	['tokens'] = {
-		['enableTokens'] = true,
 		['combat'] = true,
 		['mouseover'] = false,
 		['tooltip'] = true,
@@ -348,27 +347,13 @@ P['dashboards'] = {
 		['zeroamount'] = false,
 		['weekly'] = true,
 		['flash'] = false,
-		['chooseTokens'] = {
-			[1220] = true, -- Order Resources
-			[1273] = true, -- Seal of Broken Fate
-			[1155] = true, -- Ancient Mana
-		},
 	},
 	
 	['professions'] = {
-		['enableProfessions'] = true,
 		['combat'] = true,
 		['mouseover'] = false,
 		['width'] = 150,
 		['capped'] = false,
-		['choosePofessions'] = {
-			[5] = true,
-			[6] = true,
-			[7] = true,
-			[8] = true,
-			[9] = true,
-			[10] = true,
-		},
 	},
 
 	['dashfont'] = {
