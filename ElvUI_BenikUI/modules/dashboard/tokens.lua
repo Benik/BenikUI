@@ -358,7 +358,7 @@ function BUIT:TokenDefaults()
 end
 
 function BUIT:Initialize()
-	if E.private.dashboards.tokens.enableTokens ~= true then return end
+	if E.db.dashboards.tokens.enableTokens ~= true then return end
 	self:TokenDefaults()
 	self:CreateTokensHolder()
 	self:TokenEvents()

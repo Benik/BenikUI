@@ -340,6 +340,7 @@ P['dashboards'] = {
 	},
 	
 	['tokens'] = {
+		['enableTokens'] = true,
 		['combat'] = true,
 		['mouseover'] = false,
 		['tooltip'] = true,
@@ -350,6 +351,7 @@ P['dashboards'] = {
 	},
 	
 	['professions'] = {
+		['enableProfessions'] = true,
 		['combat'] = true,
 		['mouseover'] = false,
 		['width'] = 150,

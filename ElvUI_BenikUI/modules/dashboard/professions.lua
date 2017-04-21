@@ -267,7 +267,7 @@ function BUIP:ProDefaults()
 end
 
 function BUIP:Initialize()
-	if E.private.dashboards.professions.enableProfessions ~= true then return end
+	if E.db.dashboards.professions.enableProfessions ~= true then return end
 	self:ProDefaults()
 	self:CreateProHolder()
 	self:ProEvents()
