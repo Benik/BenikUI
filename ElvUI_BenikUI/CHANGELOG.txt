@@ -1,3 +1,6 @@
+3.25
+*Fixed the wrong value at the Paragon Reputation Notifier
+
 3.24
 *Made selecting Tokens and Professions in their Dashboards, per char as they should be. This will avoid losing tokens (mostly) selections on a maxed level char, after loading a low level char, that hasn't of course discovered the high level tokens yet. This will reset the tokens and the professions on all chars, since from now on they are going to be saved per character. 
 *Changed the WorldMap emissary quests faction font, to ElvUI default. I think now I've done them all. Yey :)
