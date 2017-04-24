@@ -174,13 +174,15 @@ end
 
 function BDB:UpdateRepNotifier()
 	local bar = ElvUI_ReputationBar.statusBar
-	local name, min, max, value, factionID
-
-	name, _, min, max, value, factionID = GetWatchedFactionInfo()
+	local name, reaction, min, max, value, factionID = GetWatchedFactionInfo()
 
 	if (C_Reputation_IsFactionParagon(factionID)) then
-		local currentValue, threshold = C_Reputation_GetFactionParagonInfo(factionID)
-		min, max, value = 0, threshold, currentValue
+		local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
+		min, max = 0, threshold
+		value = currentValue % threshold
+		if hasRewardPending then 
+			value = value + threshold
+		end
 	end
 	
 	if not name or E.db.databars.reputation.orientation ~= 'VERTICAL' then
