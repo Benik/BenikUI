@@ -259,7 +259,7 @@ P['benikuiDatabars'] = {
 	['experience'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
-		['buttonStyle'] = "DEFAULT",
+		['buttonStyle'] = "TRANSPARENT",
 		['color'] = {
 			['default'] = true,
 			['xp'] = { r = 0, g = 0.4, b = 1, a = .8 },
@@ -275,7 +275,7 @@ P['benikuiDatabars'] = {
 	['reputation'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
-		['buttonStyle'] = "DEFAULT",
+		['buttonStyle'] = "TRANSPARENT",
 		['autotrack'] = false,
 		['color'] = {
 			['default'] = true,
@@ -310,7 +310,7 @@ P['benikuiDatabars'] = {
 	['honor'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
-		['buttonStyle'] = "DEFAULT",
+		['buttonStyle'] = "TRANSPARENT",
 		['color'] = {
 			['default'] = true,
 			['hn'] = {r = .941, g = .447, b = .254, a = .8 },
