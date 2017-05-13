@@ -193,4 +193,8 @@ function BAB:Initialize()
 	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end
 end
 
-E:RegisterModule(BAB:GetName())
+local function InitializeCallback()
+	BAB:Initialize()
+end
+
+E:RegisterModule(BAB:GetName(), InitializeCallback)

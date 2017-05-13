@@ -109,4 +109,3 @@ local function InitializeCallback()
 end
 
 E:RegisterModule(BUIB:GetName(), InitializeCallback)
-

@@ -192,4 +192,8 @@ function BUID:Initialize()
 	if E.private.BUID.warned then E.private.BUID.warned = nil end
 end
 
-E:RegisterModule(BUID:GetName())
+local function InitializeCallback()
+	BUID:Initialize()
+end
+
+E:RegisterModule(BUID:GetName(), InitializeCallback)

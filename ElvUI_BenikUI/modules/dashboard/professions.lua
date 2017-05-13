@@ -274,4 +274,8 @@ function BUIP:Initialize()
 	hooksecurefunc(DT, 'LoadDataTexts', BUIP.UpdateProfessions)
 end
 
-E:RegisterModule(BUIP:GetName())
+local function InitializeCallback()
+	BUIP:Initialize()
+end
+
+E:RegisterModule(BUIP:GetName(), InitializeCallback)

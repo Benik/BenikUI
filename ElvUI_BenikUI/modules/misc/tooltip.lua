@@ -64,4 +64,8 @@ function BTT:Initialize()
 	hooksecurefunc(TT, "GameTooltipStatusBar_OnValueChanged", RecolorTooltipStyle)
 end
 
-E:RegisterModule(BTT:GetName())
+local function InitializeCallback()
+	BTT:Initialize()
+end
+
+E:RegisterModule(BTT:GetName(), InitializeCallback)

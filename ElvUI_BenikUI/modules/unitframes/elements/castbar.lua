@@ -187,4 +187,8 @@ function BUIC:Initialize()
 	BUIC:CastBarHooks()
 end
 
-E:RegisterModule(BUIC:GetName())
+local function InitializeCallback()
+	BUIC:Initialize()
+end
+
+E:RegisterModule(BUIC:GetName(), InitializeCallback)

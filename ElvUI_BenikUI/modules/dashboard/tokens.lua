@@ -366,4 +366,8 @@ function BUIT:Initialize()
 	hooksecurefunc(DT, 'LoadDataTexts', BUIT.UpdateTokens)
 end
 
-E:RegisterModule(BUIT:GetName())
+local function InitializeCallback()
+	BUIT:Initialize()
+end
+
+E:RegisterModule(BUIT:GetName(), InitializeCallback)
