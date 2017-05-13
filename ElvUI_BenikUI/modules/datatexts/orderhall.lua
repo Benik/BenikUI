@@ -167,7 +167,6 @@ local function OnClick()
 			ShowGarrisonLandingPage(LE_GARRISON_TYPE_7_0);
 		end
 	end
-	collectgarbage('collect');
 end
 
 local _, class = UnitClass("player");
