@@ -69,7 +69,7 @@ local function Datatexts()
 						disabled = function() return E.db.benikui.datatexts.chat.enable ~= true end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('BuiLayout'):ToggleTransparency(); end,	
-					},								
+					},
 				},
 			},
 			middle = {
@@ -113,7 +113,7 @@ local function Datatexts()
 						order = 5,
 						type = "range",
 						name = L["Width"],
-						min = 300, max = 1400, step = 1,
+						min = 200, max = 1400, step = 1,
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextDimensions(); end,
@@ -126,7 +126,7 @@ local function Datatexts()
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextDimensions(); end,
-					},								
+					},
 				},
 			},
 			mail = {
