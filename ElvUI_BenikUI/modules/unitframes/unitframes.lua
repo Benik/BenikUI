@@ -250,4 +250,8 @@ function UFB:Initialize()
 	self:RegisterEvent("ADDON_LOADED")
 end
 
-E:RegisterModule(UFB:GetName())
+local function InitializeCallback()
+	UFB:Initialize()
+end
+
+E:RegisterModule(UFB:GetName(), InitializeCallback)

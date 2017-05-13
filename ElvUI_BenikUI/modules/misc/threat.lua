@@ -34,4 +34,8 @@ function BTH:Initialize()
 	hooksecurefunc(THREAT, 'UpdatePosition', BTH.UpdateThreatPosition)
 end
 
-E:RegisterModule(BTH:GetName())
+local function InitializeCallback()
+	BTH:Initialize()
+end
+
+E:RegisterModule(BTH:GetName(), InitializeCallback)

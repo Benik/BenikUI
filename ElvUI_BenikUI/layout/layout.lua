@@ -561,5 +561,8 @@ function BUIL:Initialize()
 	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
 end
 
-E:RegisterModule(BUIL:GetName())
+local function InitializeCallback()
+	BUIL:Initialize()
+end
 
+E:RegisterModule(BUIL:GetName(), InitializeCallback)

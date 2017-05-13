@@ -133,4 +133,8 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
-E:RegisterModule(BDT:GetName())
+local function InitializeCallback()
+	DT:LoadDataTexts()
+end
+
+E:RegisterModule(BDT:GetName(), InitializeCallback)

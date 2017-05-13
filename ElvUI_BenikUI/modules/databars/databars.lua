@@ -39,4 +39,8 @@ function BDB:Initialize()
 	-- clean the old db
 end
 
-E:RegisterModule(BDB:GetName())
+local function InitializeCallback()
+	BDB:Initialize()
+end
+
+E:RegisterModule(BDB:GetName(), InitializeCallback)

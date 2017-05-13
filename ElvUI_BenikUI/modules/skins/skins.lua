@@ -490,4 +490,8 @@ function BUIS:Initialize()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'init')
 end
 
-E:RegisterModule(BUIS:GetName())
+local function InitializeCallback()
+	BUIS:Initialize()
+end
+
+E:RegisterModule(BUIS:GetName(), InitializeCallback)

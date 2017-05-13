@@ -182,4 +182,8 @@ function BUI:Initialize()
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
-E:RegisterModule(BUI:GetName())
+local function InitializeCallback()
+	BUI:Initialize()
+end
+
+E:RegisterModule(BUI:GetName(), InitializeCallback)

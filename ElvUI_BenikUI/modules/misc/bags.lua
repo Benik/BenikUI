@@ -104,5 +104,9 @@ function BUIB:Initialize()
 	hooksecurefunc(B, 'UpdateCountDisplay', BUIB.UpdateCountPosition)
 end
 
-E:RegisterModule(BUIB:GetName())
+local function InitializeCallback()
+	BUIB:Initialize()
+end
+
+E:RegisterModule(BUIB:GetName(), InitializeCallback)
 

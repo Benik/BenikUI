@@ -635,4 +635,8 @@ function BFM:Initialize()
 	self:Toggle()
 end
 
-E:RegisterModule(BFM:GetName())
+local function InitializeCallback()
+	BFM:Initialize()
+end
+
+E:RegisterModule(BFM:GetName(), InitializeCallback)
