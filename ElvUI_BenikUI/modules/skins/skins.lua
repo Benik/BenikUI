@@ -20,7 +20,8 @@ local tooltips = {
 	ShoppingTooltip2,
 	ShoppingTooltip3,
 	FloatingBattlePetTooltip,
-	FloatingPetBattleAbilityTooltip
+	FloatingPetBattleAbilityTooltip,
+	FloatingGarrisonFollowerAbilityTooltip
 }
 
 -- Blizzard Styles
