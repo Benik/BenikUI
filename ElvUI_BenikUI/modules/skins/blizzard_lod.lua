@@ -107,7 +107,7 @@ local function style_Contribution()
 
 	local frame = _G["ContributionCollectionFrame"]
 	if not frame.backdrop then
-		frame:CreateBackdrop('Default')
+		frame:CreateBackdrop('Transparent')
 	end
 	
 	if frame.backdrop then
