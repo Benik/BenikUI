@@ -4,7 +4,7 @@ local UFB = E:GetModule('BuiUnits');
 function UFB:Configure_RestingIndicator(frame)
 	if IsAddOnLoaded("ElvUI_SLE") then return end -- S&L don't like BenikUI
 
-	local rIcon = frame.Resting
+	local rIcon = frame.RestingIndicator
 	local db = frame.db
 	if db.restIcon then
 	rIcon:ClearAllPoints()

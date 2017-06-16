@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
 
 function UFB:Configure_Threat(frame)
-	local threat = frame.Threat
+	local threat = frame.ThreatIndicator
 	local db = frame.db
 
 	if db.threatStyle ~= 'NONE' and db.threatStyle ~= nil then
