@@ -1,3 +1,6 @@
+3.26
+*Followed ElvUI oUF changes (Merathilis)
+
 3.25
 *Fixed the wrong value at the Paragon Reputation Notifier
 
