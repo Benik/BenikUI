@@ -46,7 +46,7 @@ local function GetBattleFieldIndexFromUnitName(name)
 end
 
 function UFB:UpdateRoleIcon()
-	local lfdrole = self.LFDRole
+	local lfdrole = self.GroupRoleIndicator
 	if not self.db then return; end
 	local db = self.db.roleIcon;
 	if (not db) or (db and not db.enable) then
@@ -92,8 +92,8 @@ local function SetRoleIcons()
 		local group = select(i, header:GetChildren())
 			for j = 1, group:GetNumChildren() do
 				local unitbutton = select(j, group:GetChildren())
-				if unitbutton.LFDRole and unitbutton.LFDRole.Override then
-					unitbutton.LFDRole.Override = UFB.UpdateRoleIcon
+				if unitbutton.GroupRoleIndicator and unitbutton.GroupRoleIndicator.Override then
+					unitbutton.GroupRoleIndicator.Override = UFB.UpdateRoleIcon
 					unitbutton:UnregisterEvent("UNIT_CONNECTION")
 					unitbutton:RegisterEvent("UNIT_CONNECTION", UFB.UpdateRoleIcon)
 				end
