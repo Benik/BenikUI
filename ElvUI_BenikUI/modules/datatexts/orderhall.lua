@@ -9,13 +9,14 @@ local tsort = table.sort
 local join = string.join
 local collectgarbage = collectgarbage
 --WoW API / Variables
-local C_GarrisonGetCompleteTalent = C_Garrison.GetCompleteTalent
-local C_GarrisonGetFollowerShipments = C_Garrison.GetFollowerShipments
-local C_GarrisonGetInProgressMissions = C_Garrison.GetInProgressMissions
-local C_GarrisonGetLandingPageShipmentInfoByContainerID = C_Garrison.GetLandingPageShipmentInfoByContainerID
+local C_Garrison_GetCompleteTalent = C_Garrison.GetCompleteTalent
+local C_Garrison_GetFollowerShipments = C_Garrison.GetFollowerShipments
+local C_Garrison_GetInProgressMissions = C_Garrison.GetInProgressMissions
+local C_Garrison_GetLandingPageShipmentInfoByContainerID = C_Garrison.GetLandingPageShipmentInfoByContainerID
 local C_GarrisonGetLooseShipments = C_Garrison.GetLooseShipments
-local C_GarrisonGetTalentTrees = C_Garrison.GetTalentTrees
-local C_GarrisonRequestLandingPageShipmentInfo = C_Garrison.RequestLandingPageShipmentInfo
+local C_Garrison_GetTalentTreeIDsByClassID = C_Garrison.GetTalentTreeIDsByClassID
+local C_Garrison_GetTalentTreeInfoForID = C_Garrison.GetTalentTreeInfoForID
+local C_Garrison_RequestLandingPageShipmentInfo = C_Garrison.RequestLandingPageShipmentInfo
 local C_Garrison_HasGarrison = C_Garrison.HasGarrison
 local C_GarrisonGetAvailableMissions = C_Garrison.GetAvailableMissions
 local HideUIPanel = HideUIPanel
@@ -42,12 +43,12 @@ end
 local function OnEnter(self)
 	DT:SetupTooltip(self)
 
-	C_GarrisonRequestLandingPageShipmentInfo()
+	C_Garrison_RequestLandingPageShipmentInfo()
 
 	local firstLine = true
 
 	--Missions
-	local inProgressMissions = C_GarrisonGetInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
+	local inProgressMissions = C_Garrison_GetInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
 	local numMissions = (inProgressMissions and #inProgressMissions or 0)
 	local AvailableMissions = C_GarrisonGetAvailableMissions(LE_FOLLOWER_TYPE_GARRISON_7_0);
 	local numAvailableMissions = (AvailableMissions and #AvailableMissions or 0)
@@ -76,11 +77,11 @@ local function OnEnter(self)
 	end
 
 	-- Troop Work Orders
-	local followerShipments = C_GarrisonGetFollowerShipments(LE_GARRISON_TYPE_7_0)
+	local followerShipments = C_Garrison_GetFollowerShipments(LE_GARRISON_TYPE_7_0)
 	local hasFollowers = false
 	if (followerShipments) then
 		for i = 1, #followerShipments do
-			local name, _, _, shipmentsReady, shipmentsTotal = C_GarrisonGetLandingPageShipmentInfoByContainerID(followerShipments[i])
+			local name, _, _, shipmentsReady, shipmentsTotal = C_Garrison_GetLandingPageShipmentInfoByContainerID(followerShipments[i])
 			if ( name and shipmentsReady and shipmentsTotal ) then
 				if(hasFollowers == false) then
 					if not firstLine then
@@ -101,7 +102,7 @@ local function OnEnter(self)
 	local hasLoose = false
 	if (looseShipments) then
 		for i = 1, #looseShipments do
-			local name, _, _, shipmentsReady, shipmentsTotal = C_GarrisonGetLandingPageShipmentInfoByContainerID(looseShipments[i])
+			local name, _, _, shipmentsReady, shipmentsTotal = C_Garrison_GetLandingPageShipmentInfoByContainerID(looseShipments[i])
 			if ( name and shipmentsReady and shipmentsTotal ) then
 				if(hasLoose == false) then
 					if not firstLine then
@@ -118,13 +119,14 @@ local function OnEnter(self)
 	end
 
 	-- Talents
-	local talentTrees = C_GarrisonGetTalentTrees(LE_GARRISON_TYPE_7_0, select(3, UnitClass("player")));
+	local talentTreeIDs = C_Garrison_GetTalentTreeIDsByClassID(LE_GARRISON_TYPE_7_0, select(3, UnitClass("player")));
 	-- this is a talent that has completed, but has not been seen in the talent UI yet.
 	local hasTalent = false
-	if (talentTrees) then
-		local completeTalentID = C_GarrisonGetCompleteTalent(LE_GARRISON_TYPE_7_0);
-		for treeIndex, tree in ipairs(talentTrees) do
-			for talentIndex, talent in ipairs(tree) do
+	if (talentTreeIDs) then
+		local completeTalentID = C_Garrison_GetCompleteTalent(LE_GARRISON_TYPE_7_0)
+		for treeIndex, tree in ipairs(talentTreeIDs) do
+			for treeIndex, treeID in ipairs(talentTreeIDs) do
+				local _, _, tree = C_Garrison_GetTalentTreeInfoForID(LE_GARRISON_TYPE_7_0, treeID)
 				local showTalent = false;
 				if (talent.isBeingResearched) then
 					showTalent = true;
@@ -172,7 +174,7 @@ end
 local _, class = UnitClass("player");
 local function OnEvent(self)
 	local inProgressMissions = {};
-	C_GarrisonGetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_7_0)
+	C_Garrison_GetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_7_0)
 	local CountInProgress = 0
 	local CountCompleted = 0
 	
