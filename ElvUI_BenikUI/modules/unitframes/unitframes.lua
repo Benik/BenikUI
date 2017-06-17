@@ -32,7 +32,7 @@ function UFB:UpdateUF()
 end
 
 function UFB:Configure_ReadyCheckIcon(frame)
-	local tex = frame.ReadyCheck
+	local tex = frame.ReadyCheckIndicator
 
 	tex.readyTexture = [[Interface\AddOns\ElvUI_BenikUI\media\textures\ready]]
 	tex.notReadyTexture = [[Interface\AddOns\ElvUI_BenikUI\media\textures\notready]]
