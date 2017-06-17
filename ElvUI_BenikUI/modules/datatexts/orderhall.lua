@@ -124,9 +124,9 @@ local function OnEnter(self)
 	local hasTalent = false
 	if (talentTreeIDs) then
 		local completeTalentID = C_Garrison_GetCompleteTalent(LE_GARRISON_TYPE_7_0)
-		for treeIndex, tree in ipairs(talentTreeIDs) do
-			for treeIndex, treeID in ipairs(talentTreeIDs) do
-				local _, _, tree = C_Garrison_GetTalentTreeInfoForID(LE_GARRISON_TYPE_7_0, treeID)
+		for treeIndex, treeID in ipairs(talentTreeIDs) do
+			local _, _, tree = C_Garrison_GetTalentTreeInfoForID(LE_GARRISON_TYPE_7_0, treeID)
+			for talentIndex, talent in ipairs(tree) do
 				local showTalent = false;
 				if (talent.isBeingResearched) then
 					showTalent = true;
