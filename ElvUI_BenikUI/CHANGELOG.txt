@@ -1,3 +1,7 @@
+3.27
+*Fix Orderhall datatext (Merathilis)
+*Update readycheck to the oUF update (Merathilis)
+
 3.26
 *Followed ElvUI oUF changes (Merathilis)
 
