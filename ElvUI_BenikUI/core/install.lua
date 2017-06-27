@@ -1227,6 +1227,8 @@ BUI.installTable = {
 	["tutorialImage"] = [[Interface\AddOns\ElvUI_BenikUI\media\textures\logo_benikui.tga]],
 	["Pages"] = {
 		[1] = function()
+			PluginInstallFrame:Style('Outside')
+			PluginInstallTitleFrame:Style('Outside')
 			PluginInstallFrame.SubTitle:SetFormattedText(L["Welcome to BenikUI version %s, for ElvUI %s."], BUI.Version, E.version)
 			PluginInstallFrame.Desc1:SetText(L["By pressing the Continue button, BenikUI will be applied on your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
 			PluginInstallFrame.Desc2:SetText(BUI:cOption(L["BenikUI options are marked with light blue color, inside ElvUI options."]))
