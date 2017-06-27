@@ -59,7 +59,7 @@ L["This part of the installation process will fill BenikUI datatexts.\n\n|cffff8
 L["This part of the installation process will reposition your Unitframes."] = true
 L['Actionbars Set'] = true
 L['Addons Set'] = true
-L['\nBenikUI options are marked with light blue color, inside ElvUI options.'] = true
+L['BenikUI options are marked with light blue color, inside ElvUI options.'] = true
 L['Color Theme Set'] = true
 L['Color Themes'] = true
 L['DataTexts Set'] = true

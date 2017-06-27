@@ -79,13 +79,13 @@ local function Core()
 				fontSize = 'medium',
 				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 192, 96 end,
 				imageCoords = {0.09, 0.99, 0.01, 0.99}
-			},			
+			},
 			install = {
 				order = 3,
 				type = 'execute',
 				name = L['Install'],
 				desc = L['Run the installation process.'],
-				func = function() BUI:SetupBenikUI(); E:ToggleConfig(); end,
+				func = function() E:GetModule("PluginInstaller"):Queue(BUI.installTable); E:ToggleConfig() end,
 			},
 			spacer2 = {
 				order = 4,
