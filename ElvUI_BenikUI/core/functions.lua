@@ -126,6 +126,13 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 		style:Show()
 	end
 
+	f.stripes = f:CreateTexture(nil, "BACKGROUND", nil, 1)
+	f.stripes:SetAllPoints()
+	f.stripes:SetTexture([[Interface\AddOns\ElvUI_BenikUI\media\textures\stripes]], true, true)
+	f.stripes:SetHorizTile(true)
+	f.stripes:SetVertTile(true)
+	f.stripes:SetBlendMode("ADD")
+
 	f.style = style
 
 	if not style.ignoreColor then
