@@ -403,7 +403,8 @@ local function FixMapStyle()
 		end
 	end
 
-	for i, tooltip in ipairs(mapTooltip.ItemTooltip.Tooltip.shoppingTooltips) do
+	local shoppingTooltips = {_G["WorldMapCompareTooltip1"], _G["WorldMapCompareTooltip2"]}
+	for i, tooltip in pairs(shoppingTooltips) do
 		if not tooltip.style then
 			tooltip:Style('Outside')
 		end
