@@ -53,24 +53,13 @@ local function styleFreeBlizzardFrames()
 		PaperDollFrame:Style('Outside')
 		ReputationDetailFrame:Style('Outside')
 		ReputationFrame:Style('Outside')
-		local function UpdateStripes()
-			ReputationFrame.stripes = ReputationFrame:CreateTexture(nil, "BACKGROUND", nil, 1)
-			ReputationFrame.stripes:SetAllPoints()
-			ReputationFrame.stripes:SetTexture([[Interface\AddOns\ElvUI_BenikUI\media\textures\stripes]], true, true)
-			ReputationFrame.stripes:SetHorizTile(true)
-			ReputationFrame.stripes:SetVertTile(true)
-			ReputationFrame.stripes:SetBlendMode("ADD")
-		end
-		ReputationFrame:HookScript("OnShow", UpdateStripes)
-		hooksecurefunc("ExpandFactionHeader", UpdateStripes)
-		hooksecurefunc("CollapseFactionHeader", UpdateStripes)
 		ReputationParagonTooltip:Style('Outside')
 		TokenFrame:Style('Outside')
 		TokenFramePopup:Style('Outside')
 	end
 
 	if db.dressingroom then
-		DressUpFrame.backdrop:Style('Outside')
+		DressUpFrame:Style('Outside')
 		-- Scale the dressUp frame. A bit.
 		if not IsAddOnLoaded('dressingroomfunctions') or not IsAddOnLoaded('Leatrix_Plus') then
 			DressUpFrame:Size(500, 620)
@@ -89,6 +78,10 @@ local function styleFreeBlizzardFrames()
 			DressUpFrameOutfitDropDown:Point("TOPRIGHT", DressUpFrame.backdrop, "TOPRIGHT", -(DressUpFrameOutfitDropDown.SaveButton:GetWidth() +10), -40)
 		end
 
+		if DressUpFrame.style then
+			DressUpFrame.style:Point('TOPLEFT', DressUpFrame, 'TOPLEFT', 6, 4)
+			DressUpFrame.style:Point('BOTTOMRIGHT', DressUpFrame, 'TOPRIGHT', -32, -1)
+		end
 		if not WardrobeOutfitEditFrame.style then
 			WardrobeOutfitEditFrame:Style('Outside')
 		end
@@ -165,10 +158,10 @@ local function styleFreeBlizzardFrames()
 		ChatMenu:Style('Outside')
 		DropDownList1:Style('Outside') -- Maybe this get replaced with new Lib_Dropdown
 		DropDownList2:Style('Outside') -- Maybe this get replaced with new Lib_Dropdown
-		L_DropDownList1MenuBackdrop:Style('Outside')
-		L_DropDownList2MenuBackdrop:Style('Outside')
-		L_DropDownList1Backdrop:Style('Outside')
-		L_DropDownList2Backdrop:Style('Outside')
+		Lib_DropDownList1MenuBackdrop:Style('Outside')
+		Lib_DropDownList2MenuBackdrop:Style('Outside')
+		Lib_DropDownList1Backdrop:Style('Outside')
+		Lib_DropDownList2Backdrop:Style('Outside')
 		EmoteMenu:Style('Outside')
 		GameMenuFrame:Style('Outside')
 		GhostFrame:Style('Outside')
@@ -403,8 +396,7 @@ local function FixMapStyle()
 		end
 	end
 
-	local shoppingTooltips = {_G["WorldMapCompareTooltip1"], _G["WorldMapCompareTooltip2"]}
-	for i, tooltip in pairs(shoppingTooltips) do
+	for i, tooltip in ipairs(mapTooltip.ItemTooltip.Tooltip.shoppingTooltips) do
 		if not tooltip.style then
 			tooltip:Style('Outside')
 		end

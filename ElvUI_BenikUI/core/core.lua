@@ -114,26 +114,26 @@ local function CreateSplashScreen()
 	f.bg:Size(400, 240)
 	f.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	f.bg:SetVertexColor(1, 1, 1, 0.7)
-
+	
 	f.lineTop = f:CreateTexture(nil, 'BACKGROUND')
 	f.lineTop:SetDrawLayer('BACKGROUND', 2)
 	f.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	f.lineTop:SetPoint("TOP")
 	f.lineTop:Size(418, 7)
 	f.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
-
+	
 	f.lineBottom = f:CreateTexture(nil, 'BACKGROUND')
 	f.lineBottom:SetDrawLayer('BACKGROUND', 2)
 	f.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	f.lineBottom:SetPoint("BOTTOM")
 	f.lineBottom:Size(418, 7)
 	f.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
-
+	
 	f.logo = f:CreateTexture(nil, 'OVERLAY')
 	f.logo:Size(256, 128)
 	f.logo:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga')
 	f.logo:Point('CENTER', f, 'CENTER')
-
+	
 	f.version = f:CreateFontString(nil, 'OVERLAY')
 	f.version:FontTemplate(nil, 12, nil)
 	f.version:Point('TOP', f.logo, 'BOTTOM', 0, 30)
@@ -167,20 +167,14 @@ function BUI:Initialize()
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
 	-- run install when ElvUI install finishes
-	if E.private.install_complete == E.version and E.db.benikui.installed == nil then
-		E:GetModule("PluginInstaller"):Queue(BUI.installTable)
-		-- self:SetupBenikUI()
-	end
-
+	if E.private.install_complete == E.version and E.db.benikui.installed == nil then self:SetupBenikUI() end
+	
 	-- Show Splash Screen only if the install is completed
 	if (E.db.benikui.installed == true and E.db.benikui.general.splashScreen) then C_TimerAfter(6, ShowSplashScreen) end
-
+	
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
-	if ElvDB.profileKeys and profileKey == nil then
-		E:GetModule("PluginInstaller"):Queue(BUI.installTable)
-		-- self:SetupBenikUI()
-	end
+	if ElvDB.profileKeys and profileKey == nil then self:SetupBenikUI() end
 
 	if E.db.benikui.general.loginMessage then
 		print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..BUI:PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues'))

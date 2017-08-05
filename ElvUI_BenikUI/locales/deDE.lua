@@ -60,7 +60,7 @@ L["This part of the installation process will fill BenikUI datatexts.\n\n|cffff8
 L["This part of the installation process will reposition your Unitframes."] = "Dieser Teil des Installationsprozesses wird die Einheitenfenster neu positionieren."
 L['Actionbars Set'] = "Aktionsleisten gesetzt"
 L['Addons Set'] = "Addons gesetzt"
-L["BenikUI options are marked with light blue color, inside ElvUI options."] = "BenikUI Optionen sind in hellblau hervorgehoben in den ElvUI Optionen."
+L['\nBenikUI options are marked with light blue color, inside ElvUI options.'] = "\nBenikUI Optionen sind in hellblau hervorgehoben in den ElvUI Optionen."
 L['Color Theme Set'] = "Farbschema gesetzt"
 L['Color Themes'] = "Farbschema"
 L['DataTexts Set'] = "Infotexte gesetzt"

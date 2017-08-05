@@ -6,7 +6,7 @@ local select = select
 local join = string.join
 
 local CreateFrame = CreateFrame
-local L_EasyMenu = L_EasyMenu
+local EasyMenu = EasyMenu
 local GetSpecialization = GetSpecialization
 local GetActiveSpecGroup = GetActiveSpecGroup
 local GetSpecializationInfo = GetSpecializationInfo
@@ -111,7 +111,7 @@ local function OnClick(self, button)
 				specList[index + 1] = nil
 			end
 		end
-		L_EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
+		EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
 	else
 		DT.tooltip:Hide()
 		local specID, specName = GetSpecializationInfo(specIndex);
@@ -126,7 +126,7 @@ local function OnClick(self, button)
 				menuList[index + 2] = nil
 			end
 		end
-		L_EasyMenu(menuList, menuFrame, "cursor", -15, -7, "MENU", 2)
+		EasyMenu(menuList, menuFrame, "cursor", -15, -7, "MENU", 2)
 	end
 end
 
