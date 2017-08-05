@@ -151,8 +151,7 @@ function BAB:TransparentBackdrops()
 	end
 
 	-- Other bar backdrops
-	local transOtherBars = {ElvUI_BarPet, ElvUI_StanceBar}
-	for _, frame in pairs(transOtherBars) do
+	for _, frame in pairs(styleOtherBacks) do
 		if frame.backdrop then
 			if db.transparent then
 				frame.backdrop:SetTemplate('Transparent')
@@ -167,8 +166,10 @@ function BAB:TransparentBackdrops()
 		local petButtons = {_G['PetActionButton'..i]}
 		for _, button in pairs(petButtons) do
 			if button.backdrop then
-				if not button.backdrop.shadow then
-					button.backdrop:CreateShadow('Default')
+				if E.db.benikui.general.shadows then
+					if not button.backdrop.shadow then
+						button.backdrop:CreateShadow('Default')
+					end
 				end
 
 				if db.transparent then
