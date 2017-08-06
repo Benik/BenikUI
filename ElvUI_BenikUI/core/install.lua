@@ -532,6 +532,7 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = -16
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = -16
 		E.db["benikui"]["colors"]["styleAlpha"] = 1
+		E.db["benikui"]["colors"]["abAlpha"] = 1
 
 		-- Auras
 		E.db["auras"]["timeXOffset"] = -1
@@ -899,6 +900,7 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = -18
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = -18
 		E.db["benikui"]["colors"]["styleAlpha"] = 1
+		E.db["benikui"]["colors"]["abAlpha"] = 1
 
 		-- Auras
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
@@ -1304,6 +1306,7 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["yOffset"] = 0
 		E.db["benikui"]["colors"]["styleAlpha"] = 0.7
+		E.db["benikui"]["colors"]["abAlpha"] = 0.7
 	
 		E.db["unitframe"]["colors"]["auraBarBuff"]["b"] = 0.1
 		E.db["unitframe"]["colors"]["auraBarBuff"]["g"] = 0.1
