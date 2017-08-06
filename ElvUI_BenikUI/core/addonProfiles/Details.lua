@@ -2,6 +2,13 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadDetailsProfile()
+	local font
+	if E.private.benikui.expressway == true then
+		font = "Expressway"
+	else
+		font = "Bui Prototype"
+	end
+
 	_detalhes_global["__profiles"]['BenikUI'] = {
 		["capture_real"] = {
 			["heal"] = true,
@@ -137,7 +144,7 @@ function BUI:LoadDetailsProfile()
 		["disable_window_groups"] = false,
 		["instances_suppress_trash"] = 0,
 		["font_faces"] = {
-			["menus"] = "Bui Prototype",
+			["menus"] = font,
 		},
 		["segments_amount"] = 12,
 		["report_lines"] = 5,
@@ -1072,7 +1079,7 @@ function BUI:LoadDetailsProfile()
 						0.7, -- [4]
 					},
 					["custom_text"] = "{name}",
-					["text_face"] = "Bui Prototype",
+					["text_face"] = font,
 					["anchor"] = {
 						-2, -- [1]
 						3, -- [2]
@@ -1264,7 +1271,7 @@ function BUI:LoadDetailsProfile()
 						0, -- [3]
 						1, -- [4]
 					},
-					["font_face"] = "Bui Prototype",
+					["font_face"] = font,
 					["texture_class_colors"] = true,
 					["texture_background_file"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Empty.tga",
 					["fast_ps_update"] = false,
@@ -1427,7 +1434,7 @@ function BUI:LoadDetailsProfile()
 						0.7, -- [4]
 					},
 					["custom_text"] = "{name}",
-					["text_face"] = "Bui Prototype",
+					["text_face"] = font,
 					["anchor"] = {
 						-2, -- [1]
 						3, -- [2]
@@ -1619,7 +1626,7 @@ function BUI:LoadDetailsProfile()
 						0, -- [3]
 						1, -- [4]
 					},
-					["font_face"] = "Bui Prototype",
+					["font_face"] = font,
 					["texture_class_colors"] = true,
 					["texture_background_file"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Empty.tga",
 					["fast_ps_update"] = false,

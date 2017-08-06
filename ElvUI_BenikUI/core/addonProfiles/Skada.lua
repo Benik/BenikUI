@@ -2,16 +2,24 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadSkadaProfile()
+	local font, fontsize
+	if E.private.benikui.expressway == true then
+		font = "Expressway"
+		fontsize = 11
+	else
+		font = "Bui Prototype"
+		fontsize = 10
+	end
 	SkadaDB['profiles']['BenikUI'] = {
 		["windows"] = {
 			{
 				["barheight"] = 14,
 				["classicons"] = false,
 				["barslocked"] = true,
-				["barfont"] = "Bui Prototype",
+				["barfont"] = font,
 				["title"] = {
-					["font"] = "Bui Visitor1",
-					["fontsize"] = 10,
+					["font"] = font,
+					["fontsize"] = fontsize,
 					["height"] = 18,
 				},
 				["classcolortext"] = true,
@@ -40,7 +48,7 @@ function BUI:LoadSkadaProfile()
 				["wipemode"] = "",
 				["set"] = "current",
 				["hidden"] = false,
-				["barfont"] = "Bui Prototype",
+				["barfont"] = font,
 				["name"] = "Skada 2",
 				["display"] = "bar",
 				["barfontflags"] = "",
@@ -67,9 +75,9 @@ function BUI:LoadSkadaProfile()
 						["r"] = 0.1,
 					},
 					["bordertexture"] = "None",
-					["font"] = "Bui Visitor1",
+					["font"] = font,
 					["borderthickness"] = 2,
-					["fontsize"] = 10,
+					["fontsize"] = fontsize,
 					["fontflags"] = "",
 					["height"] = 18,
 					["margin"] = 0,

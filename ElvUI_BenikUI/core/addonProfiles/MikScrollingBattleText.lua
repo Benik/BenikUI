@@ -2,6 +2,13 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadMSBTProfile()
+	local font
+	if E.private.benikui.expressway == true then
+		font = "Expressway"
+	else
+		font = "Bui Prototype"
+	end
+
 	MSBTProfiles_SavedVars['profiles']['BenikUI'] = {
 		["scrollAreas"] = {
 			["Incoming"] = {
@@ -22,8 +29,8 @@ function BUI:LoadMSBTProfile()
 				["offsetY"] = -231,
 			},
 		},
-		["normalFontName"] = "Bui Prototype",
-		["critFontName"] = "Bui Prototype",
+		["normalFontName"] = font,
+		["critFontName"] = font,
 		["creationVersion"] = MikSBT.VERSION.."."..MikSBT.SVN_REVISION,
 	}
 	MikSBT.Profiles.SelectProfile('BenikUI')

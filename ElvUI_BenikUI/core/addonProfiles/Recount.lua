@@ -2,6 +2,13 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadRecountProfile()
+	local font
+	if E.private.benikui.expressway == true then
+		font = "Expressway"
+	else
+		font = "Bui Prototype"
+	end
+
 	RecountDB['profiles']['BenikUI'] = {
 		['Colors'] = {
 			['Other Windows'] = {
@@ -34,7 +41,7 @@ function BUI:LoadRecountProfile()
 		['BarTexture'] = 'BuiEmpty',
 		['CurDataSet'] = 'OverallData',
 		['ClampToScreen'] = true,
-		['Font'] = 'Bui Prototype',
+		['Font'] = font,
 	}
 	Recount.db:SetProfile("BenikUI")
 end

@@ -2,6 +2,7 @@
 
 V['benikui'] = {
 	['install_complete'] = nil,
+	['expressway'] = false,
 }
 
 -- Dashboards
