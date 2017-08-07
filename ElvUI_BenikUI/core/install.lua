@@ -49,8 +49,6 @@ local function SetupLayout(layout)
 	E.db["databars"]["experience"]["height"] = 6
 	E.db["databars"]["experience"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["experience"]["textSize"] = 10
-	E.db["databars"]["experience"]["width"] = 414
-	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
 	E.db["databars"]["honor"]["enable"] = true
 	E.db["databars"]["honor"]["height"] = 152
 	E.db["databars"]["honor"]["textFormat"] = 'NONE'
@@ -92,6 +90,7 @@ local function SetupLayout(layout)
 	E.db["benikuiDatabars"]["reputation"]["notifiers"]["position"] = "LEFT"
 	E.db["benikuiDatabars"]["honor"]["buttonStyle"] = "TRANSPARENT"
 	E.db["benikuiDatabars"]["honor"]["notifiers"]["position"] = "LEFT"
+	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
 	
 	E.private["general"]["normTex"] = "BuiFlat"
 	E.private["general"]["glossTex"] = "BuiFlat"
@@ -149,7 +148,6 @@ local function SetupLayout(layout)
 		E.db["movers"]["BNETMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-182"
 		E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
 		E.db["movers"]["DigSiteProgressBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,315"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,61"
 		E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-38"
 		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
 		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-5"
@@ -374,6 +372,7 @@ local function SetupActionbars(layout)
 		
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
 		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
+		E.db["databars"]["experience"]["width"] = 414
 
 		-- movers
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,97"
@@ -388,7 +387,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-56,-397"
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-3"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-128"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,135"
+		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,20"
 
 	elseif layout == 'v2' then
 		E.db["actionbar"]["font"] = "Bui Visitor1"
@@ -440,6 +439,7 @@ local function SetupActionbars(layout)
 		
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
 		E.db["benikui"]["datatexts"]["middle"]["width"] = 412
+		E.db["databars"]["experience"]["width"] = 412
 
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
@@ -454,7 +454,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-256,2"
 		E.db["movers"]["PetAB"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-150,177"
 		E.db["movers"]["ShiftAB"] = "TOP,ElvUIParent,BOTTOM,0,141"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,93"
+		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,97"
 	elseif layout == 'v3' then
 		E.db["actionbar"]["backdropSpacingConverted"] = true
 		E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
@@ -496,6 +496,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
 		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
+		E.db["databars"]["experience"]["width"] = 414
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
