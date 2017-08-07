@@ -16,9 +16,7 @@ local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 local ADDONS, LOOT, TRADE, TANK, HEALER = ADDONS, LOOT, TRADE, TANK, HEALER
 
--- GLOBALS: BUIInstallFrame, BUITitleFrame, InstallStepComplete, InstallStatus, InstallNextButton, InstallPrevButton
--- GLOBALS: InstallOption1Button, InstallOption2Button, InstallOption3Button, InstallOption4Button, LeftChatToggleButton
--- GLOBALS: RecountDB, SkadaDB, DBM, DBM_AllSavedOptions, DBT_AllPersistentOptions, MSBTProfiles_SavedVars, MikSBT
+-- GLOBALS: LeftChatToggleButton
 
 local function SetupLayout(layout)
 	-- common settings
@@ -1756,10 +1754,8 @@ local function SetupAddons()
 		local names = tconcat(addonNames, ", ")
 		profileString = profileString..names
 
-		-- BUIInstallFrame.Desc4:SetText(profileString..'.')
 		PluginInstallFrame.Desc4:SetText(profileString..'.')
 	else
-		-- BUIInstallFrame.Desc4:SetText(profilesFailed)
 		PluginInstallFrame.Desc4:SetText(profilesFailed)
 	end
 
@@ -1925,15 +1921,13 @@ BUI.installTable = {
 		end,
 		[9] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
-			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
+			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at https://www.tukui.org."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() InstallComplete() end)
 			PluginInstallFrame.Option1:SetText(L["Finished"])
-			if InstallStepComplete then
-				InstallStepComplete.message = BUI.Title..L["Installed"]
-				InstallStepComplete:Show()
-			end
+			PluginInstallStepComplete.message = BUI.Title..L['Installed']
+			PluginInstallStepComplete:Show()
 		end,
 	},
 
