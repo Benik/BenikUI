@@ -79,7 +79,7 @@ local function ChatButton_OnClick(self)
 		E.db[self.parent:GetName()..'Faded'] = nil
 		UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
 		if IsAddOnLoaded('AddOnSkins') then
-			local AS = unpack(AddOnSkins) or nil			
+			local AS = unpack(AddOnSkins) or nil
 			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
 		end
 	else
@@ -159,13 +159,13 @@ end
 
 function BUIL:MiddleDatatextLayout()
 	local db = E.db.benikui.datatexts.middle
-	
+
 	if db.enable then
 		Bui_mdtp:Show()
 	else
 		Bui_mdtp:Hide()
 	end
-	
+
 	if not db.backdrop then
 		Bui_mdtp:SetTemplate('NoBackdrop')
 	else
@@ -175,7 +175,7 @@ function BUIL:MiddleDatatextLayout()
 			Bui_mdtp:SetTemplate('Default', true)
 		end
 	end
-	
+
 	if Bui_mdtp.style then 
 		if db.styled and db.backdrop then
 			Bui_mdtp.style:Show()
@@ -192,7 +192,7 @@ function BUIL:ChatStyles()
 		Bui_ldtp.style:Show()
 		for i = 1, BUTTON_NUM do
 			bbuttons[i].style:Show()
-		end	
+		end
 	else
 		Bui_rdtp.style:Hide()
 		Bui_ldtp.style:Hide()
@@ -223,7 +223,7 @@ local function Panel_OnShow(self)
 end
 
 function BUIL:ChangeLayout()
-	
+
 	LeftMiniPanel:Height(PANEL_HEIGHT)
 	RightMiniPanel:Height(PANEL_HEIGHT)
 
@@ -237,7 +237,7 @@ function BUIL:ChangeLayout()
 		Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	end
 	Bui_ldtp:Style('Outside', nil, false, true)
-	
+
 	-- Right dt panel
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
 	if E.db.benikui.general.shadows then
@@ -248,7 +248,7 @@ function BUIL:ChangeLayout()
 		Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	end
 	Bui_rdtp:Style('Outside', nil, false, true)
-	
+
 	-- Middle dt panel
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
 	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
@@ -267,7 +267,7 @@ function BUIL:ChangeLayout()
 		Bui_dchat:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -SPACING)
 		Bui_dchat:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
 	end
-	
+
 	-- dummy frame for threat (right)
 	Bui_dthreat:SetFrameStrata('LOW')
 	if E.db.benikui.general.shadows then
@@ -277,7 +277,7 @@ function BUIL:ChangeLayout()
 		Bui_dthreat:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, -SPACING)
 		Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
 	end
-	
+
 	-- Buttons
 	for i = 1, BUTTON_NUM do
 		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i, E.UIParent)
@@ -291,7 +291,7 @@ function BUIL:ChangeLayout()
 		bbuttons[i].text:SetPoint('CENTER', 1, 0)
 		bbuttons[i].text:SetJustifyH('CENTER')
 		bbuttons[i].text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
-		
+
 		-- ElvUI Config
 		if i == 1 then
 			if E.db.benikui.general.shadows then
@@ -348,13 +348,13 @@ function BUIL:ChangeLayout()
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
-			
+
 			bbuttons[i]:SetScript('OnLeave', function(self)
 				self.text:SetText('C')
 				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
-		
+
 		-- Game menu button
 		elseif i == 2 then
 			if E.db.benikui.general.shadows then
@@ -378,13 +378,13 @@ function BUIL:ChangeLayout()
 				GameTooltip:Show()
 				if InCombatLockdown() or BuiGameClickMenu:IsShown() then GameTooltip:Hide() end
 			end)
-			
+
 			bbuttons[i]:SetScript('OnLeave', function(self)
 				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
-	
-		-- AddOns Button	
+
+		-- AddOns Button
 		elseif i == 3 then
 			if E.db.benikui.general.shadows then
 				bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', (E.PixelMode and -SPACING -2 or -SPACING), 0)
@@ -395,7 +395,7 @@ function BUIL:ChangeLayout()
 			end
 			bbuttons[i].parent = LeftChatPanel
 			bbuttons[i].text:SetText('A')
-			
+
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
@@ -416,13 +416,13 @@ function BUIL:ChangeLayout()
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
-			
+
 			bbuttons[i]:SetScript('OnLeave', function(self)
 				self.text:SetText('A')
 				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
-			
+
 		-- LFG Button
 		elseif i == 4 then
 			if E.db.benikui.general.shadows then
@@ -433,12 +433,12 @@ function BUIL:ChangeLayout()
 				bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			end
 			bbuttons[i].text:SetText('L')
-			
+
 			bbuttons[i]:SetScript('OnClick', function(self)
 				PVEFrame_ToggleFrame()
 				PlaySound("igMainMenuOptionCheckBoxOff");
 			end)
-			
+
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
@@ -449,7 +449,7 @@ function BUIL:ChangeLayout()
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
-			
+
 			bbuttons[i]:SetScript('OnLeave', function(self)
 				self.sglow:Hide()
 				GameTooltip:Hide()
@@ -468,12 +468,12 @@ function BUIL:ChangeLayout()
 		RightChatDataPanel:CreateShadow('Default')
 		RightChatToggleButton:CreateShadow('Default')
 	end
-	
+
 	-- Minimap elements styling
 	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end
-	
+
 	if CopyChatFrame then CopyChatFrame:Style('Outside') end
-	
+
 	ElvUI_BottomPanel:Style('Outside')
 	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
 	if ElvUI_BottomPanel.style then
@@ -487,14 +487,14 @@ function BUIL:ChangeLayout()
 		ElvUI_TopPanel.style:Hide()
 	end
 	Panel_OnShow(ElvUI_TopPanel)
-	
+
 	self:ResizeMinimapPanels()
 	self:ToggleTransparency()
 end
 
 function BUIL:TopPanelLayout()
 	local db = E.db.benikui.misc.panels.top
-	
+
 	if E.db.benikui.general.benikuiStyle then
 		if db.style then
 			ElvUI_TopPanel.style:Show()
@@ -502,7 +502,7 @@ function BUIL:TopPanelLayout()
 			ElvUI_TopPanel.style:Hide()
 		end
 	end
-	
+
 	if db.transparency then
 		ElvUI_TopPanel:SetTemplate('Transparent')
 	else
@@ -515,7 +515,7 @@ end
 
 function BUIL:BottomPanelLayout()
 	local db = E.db.benikui.misc.panels.bottom
-	
+
 	if E.db.benikui.general.benikuiStyle then
 		if db.style then
 			ElvUI_BottomPanel.style:Show()
@@ -523,7 +523,7 @@ function BUIL:BottomPanelLayout()
 			ElvUI_BottomPanel.style:Hide()
 		end
 	end
-	
+
 	if db.transparency then
 		ElvUI_BottomPanel:SetTemplate('Transparent')
 	else
