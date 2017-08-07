@@ -163,7 +163,7 @@ local function SetupLayout(layout)
 		E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-207,-260"
 		
 		E.private.benikui.expressway = false
-	elseif layout == "expressway" then
+	elseif layout == "v3" then
 		E.db["general"]["font"] = "Expressway"
 		E.db["general"]["fontSize"] = 11
 		
@@ -1848,8 +1848,8 @@ BUI.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function() SetupLayout('classic') end)
 			PluginInstallFrame.Option1:SetText(L["Classic"])
 			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript("OnClick", function() SetupLayout('expressway') end)
-			PluginInstallFrame.Option2:SetText(L["Expressway"])
+			PluginInstallFrame.Option2:SetScript("OnClick", function() SetupLayout('v3') end)
+			PluginInstallFrame.Option2:SetText(L["v3"])
 		end,
 		[3] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Color Themes"])
