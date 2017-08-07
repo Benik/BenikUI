@@ -1,36 +1,24 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 
-local ceil, format, checkTable = ceil, format, next
+local format, checkTable = format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 local _G = _G
 
-local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
-local PlaySoundFile = PlaySoundFile
 local ReloadUI = ReloadUI
-local UIFrameFadeOut = UIFrameFadeOut
 local FCF_SetLocked = FCF_SetLocked
 local FCF_DockFrame, FCF_UnDockFrame = FCF_DockFrame, FCF_UnDockFrame
 local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
 local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
 local FCF_StopDragging = FCF_StopDragging
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
-local CONTINUE, PREVIOUS, ADDONS = CONTINUE, PREVIOUS, ADDONS
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
-local LOOT, TRADE = LOOT, TRADE
-local TANK, HEALER = TANK, HEALER
-
-local CreateAnimationGroup = CreateAnimationGroup
+local ADDONS, LOOT, TRADE, TANK, HEALER = ADDONS, LOOT, TRADE, TANK, HEALER
 
 -- GLOBALS: BUIInstallFrame, BUITitleFrame, InstallStepComplete, InstallStatus, InstallNextButton, InstallPrevButton
 -- GLOBALS: InstallOption1Button, InstallOption2Button, InstallOption3Button, InstallOption4Button, LeftChatToggleButton
 -- GLOBALS: RecountDB, SkadaDB, DBM, DBM_AllSavedOptions, DBT_AllPersistentOptions, MSBTProfiles_SavedVars, MikSBT
-
-local CURRENT_PAGE = 0
-local MAX_PAGE = 9
-
-local titleText = {}
 
 local function SetupLayout(layout)
 	-- common settings
