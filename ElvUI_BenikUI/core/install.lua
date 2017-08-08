@@ -1360,6 +1360,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 28
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 258
+		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 140
 		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "spaced"
@@ -1428,6 +1429,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["castbar"]["iconPosition"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["castbar"]["iconXOffset"] = 10
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 258
+		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["fontOutline"] = "NONE"
