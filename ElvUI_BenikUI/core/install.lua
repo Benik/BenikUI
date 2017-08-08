@@ -512,6 +512,9 @@ local function SetupActionbars(layout)
 end
 
 local function SetupUnitframes(layout)
+	if not IsAddOnLoaded('ElvUI_VisualAuraTimers') then
+		E.db["benikui"]["general"]["auras"] = false
+	end
 
 	if layout == 'v1' then
 		E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = false

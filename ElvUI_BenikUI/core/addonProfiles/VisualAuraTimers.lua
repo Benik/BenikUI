@@ -3,6 +3,7 @@ local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadVATProfile()
 	if E.db.VAT == nil then E.db.VAT = {} end
+	E.db["benikui"]["general"]["auras"] = true
 	E.db["VAT"]["enableStaticColor"] = true
 	E.db["VAT"]["barHeight"] = 5
 	E.db["VAT"]["spacing"] = -6
