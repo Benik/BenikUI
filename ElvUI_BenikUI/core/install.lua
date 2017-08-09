@@ -707,15 +707,21 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["targettarget"]["height"] = 30
 
 		-- party
-		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "BOTTOMRIGHT"
+		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 18
+		E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -22
+		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 19
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 10
 		E.db["unitframe"]["units"]["party"]["debuffs"]["fontSize"] = 10
-		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 2
-		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 19
 		E.db["unitframe"]["units"]["party"]["debuffs"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 25
+		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "RIGHT"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 19
+		E.db["unitframe"]["units"]["party"]['growthDirection'] = 'UP_RIGHT'
 		E.db["unitframe"]["units"]["party"]["health"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["party"]["health"]["text_format"] = "[health:current-percent]"
 		E.db["unitframe"]["units"]["party"]["health"]["position"] = "TOPRIGHT"
@@ -800,6 +806,10 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["height"] = 16
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 16
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["yOffset"] = -17
 
 		-- raid 40
 		E.db["unitframe"]["units"]["raid40"]["height"] = 27
@@ -1113,14 +1123,18 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["targettarget"]["width"] = 110
 
 		-- Party
-		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "BOTTOMRIGHT"
+		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 18
+		E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -10
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 14
 		E.db["unitframe"]["units"]["party"]["debuffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 23
-		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 1
+		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 8
+		E.db["unitframe"]["units"]["party"]['growthDirection'] = 'UP_RIGHT'
 		E.db["unitframe"]["units"]["party"]["health"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["party"]["health"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["health"]["text_format"] = "[health:current-percent]"
@@ -1207,6 +1221,10 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["height"] = 18
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 16
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["yOffset"] = -17
 
 		-- raid 40
 		E.db["unitframe"]["units"]["raid40"]["height"] = 35
@@ -1535,8 +1553,10 @@ local function SetupUnitframes(layout)
 		if E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"] == nil then
 			E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"] = {}
 		end
-		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "BOTTOMRIGHT"
+		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 18
+		E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -20
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["font"] = "Expressway"
@@ -1546,10 +1566,11 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["text_format"] = "[health:current-percent]"
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["party"]["debuffs"]["position"] = "RIGHT"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 25
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 2
-		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 19
+		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 17
+		E.db["unitframe"]["units"]["party"]['growthDirection'] = 'UP_RIGHT'
 		E.db["unitframe"]["units"]["party"]["health"]["position"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["party"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["party"]["health"]["xOffset"] = 0
@@ -1590,6 +1611,10 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["yOffset"] = -14
 		E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 4
 		E.db["unitframe"]["units"]["party"]["width"] = 120
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 16
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["yOffset"] = -17
 
 		-- raid
 		E.db["unitframe"]["units"]["raid"]["health"]["position"] = "CENTER"
