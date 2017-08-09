@@ -239,26 +239,24 @@ function BUI:SetupColorThemes(color)
 		E.db.general.backdropfadecolor.r = 0.125
 		E.db.general.backdropfadecolor.g = 0.054
 		E.db.general.backdropfadecolor.b = 0.050
-		E.db.benikui.colors.colorTheme = 'Diablo'
 	elseif color == 'Hearthstone' then
 		E.db.general.backdropfadecolor.a = 0.75
 		E.db.general.backdropfadecolor.r = 0.086
 		E.db.general.backdropfadecolor.g = 0.109
 		E.db.general.backdropfadecolor.b = 0.149
-		E.db.benikui.colors.colorTheme = 'Hearthstone'
 	elseif color == 'Mists' then
 		E.db.general.backdropfadecolor.a = 0.75
 		E.db.general.backdropfadecolor.r = 0.043
 		E.db.general.backdropfadecolor.g = 0.101
 		E.db.general.backdropfadecolor.b = 0.101
-		E.db.benikui.colors.colorTheme = 'Mists'
 	elseif color == 'Elv' then
 		E.db.general.backdropfadecolor.a = 0.75
 		E.db.general.backdropfadecolor.r = 0.054
 		E.db.general.backdropfadecolor.g = 0.054
 		E.db.general.backdropfadecolor.b = 0.054
-		E.db.benikui.colors.colorTheme = 'Elv'
 	end
+	E.db.benikui.colors.colorTheme = color
+
 	E.db.general.backdropcolor.r = 0.025
 	E.db.general.backdropcolor.g = 0.025
 	E.db.general.backdropcolor.b = 0.025
