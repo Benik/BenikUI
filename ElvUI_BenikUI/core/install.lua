@@ -77,6 +77,7 @@ local function SetupLayout(layout)
 	E.db["benikuiDatabars"]["honor"]["buttonStyle"] = "TRANSPARENT"
 	E.db["benikuiDatabars"]["honor"]["notifiers"]["position"] = "LEFT"
 	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
+	E.db["benikui"]["general"]["auras"] = false
 	
 	E.private["general"]["normTex"] = "BuiFlat"
 	E.private["general"]["glossTex"] = "BuiFlat"
@@ -512,9 +513,6 @@ local function SetupActionbars(layout)
 end
 
 local function SetupUnitframes(layout)
-	if not IsAddOnLoaded('ElvUI_VisualAuraTimers') then
-		E.db["benikui"]["general"]["auras"] = false
-	end
 
 	if layout == 'v1' then
 		E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = false
