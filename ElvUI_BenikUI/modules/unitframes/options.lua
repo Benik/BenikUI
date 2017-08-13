@@ -678,7 +678,7 @@ end
 tinsert(BUI.Config, injectPartyOptions)
 
 local function injectRaidOptions()
-	E.Options.args.unitframe.args.raid.args.general.args.classHover = {	
+	E.Options.args.unitframe.args.raid.args.generalGroup.args.classHover = {	
 		order = 7,
 		type = "toggle",
 		name = BUI:cOption(L['Class Hover']),
@@ -689,7 +689,7 @@ end
 tinsert(BUI.Config, injectRaidOptions)
 
 local function injectRaid40Options()
-	E.Options.args.unitframe.args.raid40.args.general.args.classHover = {	
+	E.Options.args.unitframe.args.raid40.args.generalGroup.args.classHover = {	
 		order = 7,
 		type = "toggle",
 		name = BUI:cOption(L['Class Hover']),
