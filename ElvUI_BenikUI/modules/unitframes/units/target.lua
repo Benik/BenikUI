@@ -92,6 +92,33 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 	end
 end
 
+function UFB:RecolorTargetInfoPanel()
+	local frame = _G["ElvUF_Target"]
+	local db = E.db['unitframe']['units'].target
+
+	if not frame.USE_INFO_PANEL then return end
+	
+	local targetClass = select(2, UnitClass("target"));
+
+	do
+		local panel = frame.InfoPanel
+		local isPlayer = UnitIsPlayer("target")
+		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
+		local reaction = UnitReaction('target', 'player')
+
+		if isPlayer then
+			r, g, b = classColor.r, classColor.g, classColor.b
+		else
+			if reaction then
+				local tpet = ElvUF.colors.reaction[reaction]
+				r, g, b = tpet[1], tpet[2], tpet[3]
+			end
+		end
+
+		panel.color:SetVertexColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
+	end
+end
+
 function UFB:ArrangeTarget()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
@@ -125,6 +152,7 @@ end
 
 function UFB:PLAYER_TARGET_CHANGED()
 	self:ScheduleTimer('RecolorTargetDetachedPortraitStyle', 0.02)
+	self:ScheduleTimer('RecolorTargetInfoPanel', 0.02)
 end
 
 function UFB:InitTarget()
@@ -133,6 +161,7 @@ function UFB:InitTarget()
 	hooksecurefunc(UF, 'Update_TargetFrame', UFB.ArrangeTarget)
 	self:RegisterEvent('PLAYER_TARGET_CHANGED')
 	hooksecurefunc(UF, 'Update_TargetFrame', UFB.RecolorTargetDetachedPortraitStyle)
+	hooksecurefunc(UF, 'Update_TargetFrame', UFB.RecolorTargetInfoPanel)
 
 	-- Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
