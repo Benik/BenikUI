@@ -2,7 +2,13 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadAddOnSkinsProfile()
-	local AS = unpack(AddOnSkins) or nil
+	
+	local font
+	if E.private.benikui.expressway == true then
+		font = "Expressway"
+	else
+		font = "Bui Prototype"
+	end
 
 	if AddOnSkinsDB["profiles"]["BenikUI"] == nil then AddOnSkinsDB["profiles"]["BenikUI"] = {} end
 
@@ -51,8 +57,8 @@ function BUI:LoadAddOnSkinsProfile()
 	end
 	
 	if IsAddOnLoaded('DBM-Core') then
-		AddOnSkinsDB["profiles"]["BenikUI"]['DBMFont'] = 'Bui Prototype'
-		AddOnSkinsDB["profiles"]["BenikUI"]['DBMFont'] = 'Bui Prototype'
+		AddOnSkinsDB["profiles"]["BenikUI"]['DBMFont'] = font
+		AddOnSkinsDB["profiles"]["BenikUI"]['DBMFont'] = font
 		AddOnSkinsDB["profiles"]["BenikUI"]['DBMFontSize'] = 10
 		AddOnSkinsDB["profiles"]["BenikUI"]['DBMRadarTrans'] = true
 	end
