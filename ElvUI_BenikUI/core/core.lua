@@ -104,14 +104,14 @@ end
 local function CreateSplashScreen()
 	local f = CreateFrame('Frame', 'BenikUISplashScreen', E.UIParent)
 	f:Size(300, 150)
-	f:SetPoint('CENTER', 0, 100)
+	f:SetPoint('CENTER')
 	f:SetFrameStrata('TOOLTIP')
 	f:SetAlpha(0)
 
 	f.bg = f:CreateTexture(nil, 'BACKGROUND')
 	f.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	f.bg:SetPoint('BOTTOM')
-	f.bg:Size(400, 240)
+	f.bg:Size(400, 200)
 	f.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	f.bg:SetVertexColor(1, 1, 1, 0.7)
 
@@ -130,13 +130,13 @@ local function CreateSplashScreen()
 	f.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
 	f.logo = f:CreateTexture(nil, 'OVERLAY')
-	f.logo:Size(256, 128)
+	f.logo:Size(384, 96)
 	f.logo:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga')
 	f.logo:Point('CENTER', f, 'CENTER')
 
 	f.version = f:CreateFontString(nil, 'OVERLAY')
 	f.version:FontTemplate(nil, 12, nil)
-	f.version:Point('TOP', f.logo, 'BOTTOM', 0, 30)
+	f.version:Point('TOP', f.logo, 'BOTTOM')
 	f.version:SetFormattedText("v%s", BUI.Version)
 end
 
@@ -169,7 +169,6 @@ function BUI:Initialize()
 	-- run install when ElvUI install finishes
 	if E.private.install_complete == E.version and E.db.benikui.installed == nil then
 		E:GetModule("PluginInstaller"):Queue(BUI.installTable)
-		-- self:SetupBenikUI()
 	end
 
 	-- Show Splash Screen only if the install is completed
@@ -179,7 +178,6 @@ function BUI:Initialize()
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 	if ElvDB.profileKeys and profileKey == nil then
 		E:GetModule("PluginInstaller"):Queue(BUI.installTable)
-		-- self:SetupBenikUI()
 	end
 
 	if E.db.benikui.general.loginMessage then

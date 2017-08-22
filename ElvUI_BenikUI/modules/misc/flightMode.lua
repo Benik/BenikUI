@@ -417,15 +417,15 @@ function BFM:Initialize()
 
 	-- BenikUI logo
 	self.FlightMode.bottom.logo = self.FlightMode:CreateTexture(nil, 'OVERLAY')
-	self.FlightMode.bottom.logo:Size(256, 128)
-	self.FlightMode.bottom.logo:Point("CENTER", self.FlightMode.bottom, "CENTER", 0, 40)
+	self.FlightMode.bottom.logo:Size(420, 105)
+	self.FlightMode.bottom.logo:Point("BOTTOM", self.FlightMode.bottom, "CENTER", 0, -20)
 	self.FlightMode.bottom.logo:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga')
 
 	-- BenikUI version
 	self.FlightMode.bottom.benikui = self.FlightMode.bottom:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.bottom.benikui:FontTemplate(nil, 10)
 	self.FlightMode.bottom.benikui:SetFormattedText("v%s", BUI.Version)
-	self.FlightMode.bottom.benikui:SetPoint("TOP", self.FlightMode.bottom.logo, "BOTTOM", 0, 24)
+	self.FlightMode.bottom.benikui:SetPoint("TOP", self.FlightMode.bottom.logo, "BOTTOM", 0, 12)
 	self.FlightMode.bottom.benikui:SetTextColor(1, 1, 1)
 
 	-- Message frame. Shows when request stop is pressed

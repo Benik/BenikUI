@@ -77,8 +77,8 @@ local function Core()
 				type = 'description',
 				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.']),
 				fontSize = 'medium',
-				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 192, 96 end,
-				imageCoords = {0.09, 0.99, 0.01, 0.99}
+				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 256, 64 end,
+				--imageCoords = {0.09, 0.99, 0.01, 0.99}
 			},
 			install = {
 				order = 3,
