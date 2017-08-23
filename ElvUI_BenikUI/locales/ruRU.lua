@@ -207,6 +207,9 @@ L['Coding'] = true
 L['Testing & Inspiration'] = true
 L['Donations'] = true
 L['My other Addons'] = true
+L['Discord Server'] = true
+L['Git Ticket tracker'] = true
+L['Tukui.org'] = true
 -- Location Plus
 L['Adds player location, coords + 2 Datatexts and a tooltip with info based on player location/level.'] = true
 -- Location Lite
