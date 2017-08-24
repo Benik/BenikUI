@@ -92,6 +92,8 @@ local BUIcurrency = {
 	1355,	-- Felessence (Craft Legentary items)
 	1356,	-- Echoes of Battle (PvP Gear)
 	1357,	-- Echoes of Domination (Elite PvP Gear)
+	1416,	-- Coins of Air
+	1506,	-- Argus Waystone
 }
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
