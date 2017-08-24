@@ -68,7 +68,9 @@ local function SetupLayout(layout)
 	E.db["general"]["valuecolor"]["b"] = 0
 	E.db["general"]["valuecolor"]["g"] = 0.5
 	E.db["general"]["valuecolor"]["r"] = 1
-	E.db["hideTutorial"] = true
+	E.db["hideTutorial"] = true	
+	E.private["skins"]["blizzard"]["alertframes"] = true
+	E.private["skins"]["blizzard"]["questChoice"] = true
 	
 	E.db["benikuiDatabars"]["artifact"]["buttonStyle"] = "DEFAULT"
 	E.db["benikuiDatabars"]["artifact"]["notifiers"]["position"] = "RIGHT"
@@ -98,9 +100,6 @@ local function SetupLayout(layout)
 		E.private["general"]["chatBubbleFont"] = "Bui Prototype"
 		E.private["general"]["chatBubbleFontSize"] = 14
 		E.private["general"]["namefont"] = "Bui Prototype"
-		
-		E.private["skins"]["blizzard"]["alertframes"] = true
-		E.private["skins"]["blizzard"]["questChoice"] = true
 
 		E.db["datatexts"]["font"] = "Bui Visitor1"
 		E.db["datatexts"]["fontSize"] = 10
