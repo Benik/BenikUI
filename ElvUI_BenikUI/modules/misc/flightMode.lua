@@ -331,7 +331,7 @@ function BFM:Initialize()
 	
 	self.FlightMode.top.menuButton:SetScript('OnClick', function()
 		BUI:Dropmenu(BUI.MenuList, menuFrame, FlightModeMenuBtn, 'bRight', (E.PixelMode and -32 or -30), (E.PixelMode and -13 or -15), 4, 36)
-		PlaySound("igMainMenuOptionCheckBoxOff");
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 	end)
 	
 	-- Close button
@@ -365,7 +365,7 @@ function BFM:Initialize()
 	
 	self.FlightMode.top.closeButton:SetScript('OnClick', function()
 		BFM:SetFlightMode(false)
-		PlaySound("igMainMenuOptionCheckBoxOff");
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 	end)
 
 	-- Location frame
@@ -479,7 +479,7 @@ function BFM:Initialize()
 	end)
 
 	self.FlightMode.bottom.requestStop:SetScript('OnClick', function()
-		PlaySound("igMainMenuOptionCheckBoxOff");
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 		TaxiRequestEarlyLanding();
 		self.FlightMode.bottom.requestStop:EnableMouse(false)
 		self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 0, 0, .7)
@@ -524,7 +524,7 @@ function BFM:Initialize()
 	end)
 	
 	self.FlightMode.bottom.info:SetScript('OnClick', function()
-		PlaySound("igMainMenuOptionCheckBoxOff");
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 		if FlightModeLocation:GetAlpha() == 1 then
 			UIFrameFadeOut(FlightModeLocation, 0.2, 1, 0)
 		else
@@ -562,7 +562,7 @@ function BFM:Initialize()
 	end)
 	
 	self.FlightMode.bottom.map:SetScript('OnClick', function()
-		PlaySound("igMainMenuOptionCheckBoxOff");
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 		ToggleWorldMap()
 	end)
 	
@@ -596,7 +596,7 @@ function BFM:Initialize()
 	end)
 	
 	self.FlightMode.bottom.bags:SetScript('OnClick', function()
-		PlaySound("igMainMenuOptionCheckBoxOff");
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 		ToggleAllBags()
 	end)
 

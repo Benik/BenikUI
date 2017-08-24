@@ -10,7 +10,6 @@ local pairs, print = pairs, print
 local format = string.format
 local CreateFrame = CreateFrame
 local C_TimerAfter = C_Timer.After
-local PlaySound = PlaySound
 local HideUIPanel = HideUIPanel
 
 -- GLOBALS: LibStub, BenikUISplashScreen, ElvDB

@@ -69,7 +69,7 @@ menuFrame:SetTemplate('Transparent', true)
 local function BuiGameMenu_OnMouseUp(self)
 	GameTooltip:Hide()
 	BUI:Dropmenu(BUI.MenuList, menuFrame, self:GetName(), 'tLeft', -SPACING, SPACING, 4)
-	PlaySound("igMainMenuOptionCheckBoxOff");
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 end
 
 local function ChatButton_OnClick(self)
@@ -87,7 +87,7 @@ local function ChatButton_OnClick(self)
 		UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
 		self.parent.fadeInfo.finishedFunc = self.parent.fadeFunc
 	end
-	PlaySound("igMainMenuOptionCheckBoxOff");
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 end
 
 local bbuttons = {}
@@ -341,7 +341,7 @@ function BUIL:ChangeLayout()
 								E:BGStats()
 							end
 						end
-						PlaySound("igMainMenuOptionCheckBoxOff");
+						PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 					end)
 				end
 
@@ -406,7 +406,7 @@ function BUIL:ChangeLayout()
 				else
 					self:SetScript('OnClick', function(self)
 						GameMenuButtonAddons:Click()
-						PlaySound("igMainMenuOptionCheckBoxOff");
+						PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 					end)
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 64, 2 )
@@ -436,7 +436,7 @@ function BUIL:ChangeLayout()
 
 			bbuttons[i]:SetScript('OnClick', function(self)
 				PVEFrame_ToggleFrame()
-				PlaySound("igMainMenuOptionCheckBoxOff");
+				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 			end)
 
 			bbuttons[i]:SetScript('OnEnter', function(self)

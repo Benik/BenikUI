@@ -93,10 +93,8 @@ BUI.MenuList = {
 			end
 			CloseMenus();
 			CloseAllWindows()
-			PlaySound("igMainMenuOpen");
 			ShowUIPanel(GameMenuFrame);
 		else
-			PlaySound("igMainMenuQuit");
 			HideUIPanel(GameMenuFrame);
 			MainMenuMicroButton_SetNormal();
 		end
