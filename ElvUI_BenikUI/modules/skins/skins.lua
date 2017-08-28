@@ -60,23 +60,6 @@ local function styleFreeBlizzardFrames()
 
 	if db.dressingroom then
 		DressUpFrame.backdrop:Style('Outside')
-		-- Scale the dressUp frame. A bit.
-		if not IsAddOnLoaded('dressingroomfunctions') or not IsAddOnLoaded('Leatrix_Plus') then
-			DressUpFrame:Size(500, 620)
-			DressUpModel:Size(420, 540)
-			DressUpModel:ClearAllPoints()
-			DressUpModel:Point("CENTER", DressUpFrame.backdrop, "CENTER")
-
-			DressUpFrameCancelButton:ClearAllPoints()
-			DressUpFrameCancelButton:Point("BOTTOMRIGHT", DressUpFrame.backdrop, "BOTTOMRIGHT", -10, 10)
-
-			DressUpModelControlFrame:ClearAllPoints()
-			DressUpModelControlFrame:Point("BOTTOM", DressUpFrame.backdrop, "BOTTOM", 0, 10)
-			DressUpModelControlFrame:SetFrameLevel(10)
-
-			DressUpFrameOutfitDropDown:ClearAllPoints()
-			DressUpFrameOutfitDropDown:Point("TOPRIGHT", DressUpFrame.backdrop, "TOPRIGHT", -(DressUpFrameOutfitDropDown.SaveButton:GetWidth() +10), -40)
-		end
 
 		if not WardrobeOutfitEditFrame.style then
 			WardrobeOutfitEditFrame:Style('Outside')
