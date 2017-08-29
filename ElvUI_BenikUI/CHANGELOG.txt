@@ -1,3 +1,16 @@
+3.28
+*toc update for 7.3
+*Remove the dressup frame scaling. It's in Blizz ui now
+*Fixed OprderHall datatext for patch 7.3
+*Added 7.3 currencies
+*Fixed the sound file issues
+*Fixed the old site links
+*Implement the new logo
+*Changed the Target infoPanel texture color behaviour. It's now always class colored. Idea: Merathilis the Ultimate
+*Tons of adjustments for the new profile
+*Added a new profile (v3)
+*BenikUI now also uses the plugin installer.
+
 3.27
 *Fix Orderhall datatext (Merathilis)
 *Update readycheck to the oUF update (Merathilis)
