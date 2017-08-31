@@ -11,7 +11,7 @@ V['dashboards'] = {
 		['chooseTokens'] = {
 			[1220] = true, -- Order Resources
 			[1273] = true, -- Seal of Broken Fate
-			[1155] = true, -- Ancient Mana
+			[1508] = true, -- Veiled Argunite
 		},
 	},
 	
