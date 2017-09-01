@@ -266,7 +266,7 @@ function BFM:SetFlightMode(status)
 end
 
 function BFM:OnEvent(event, ...)
-	if (UnitOnTaxi("player")) and not IsInInstance() and not event == "VEHICLE_POWER_SHOW" then
+	if (UnitOnTaxi("player")) and not IsInInstance() and not event == "VEHICLE_POWER_SHOW" and not event == "LFG_PROPOSAL_SUCCEEDED" then
 		self:SetFlightMode(true)
 	else
 		self:SetFlightMode(false)
@@ -278,10 +278,12 @@ function BFM:Toggle()
 		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("VEHICLE_POWER_SHOW", "OnEvent")
+		self:RegisterEvent("LFG_PROPOSAL_SUCCEEDED", "OnEvent")
 	else
 		self:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
 		self:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
 		self:UnregisterEvent("VEHICLE_POWER_SHOW")
+		self:UnregisterEvent("LFG_PROPOSAL_SUCCEEDED")
 	end
 end
 
