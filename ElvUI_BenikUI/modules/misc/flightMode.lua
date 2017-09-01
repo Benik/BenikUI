@@ -265,8 +265,8 @@ function BFM:SetFlightMode(status)
 	end
 end
 
-function BFM:OnEvent(...)
-	if (UnitOnTaxi("player")) and not IsInInstance() then
+function BFM:OnEvent(event, ...)
+	if (UnitOnTaxi("player")) and not IsInInstance() and not event == "VEHICLE_POWER_SHOW" then
 		self:SetFlightMode(true)
 	else
 		self:SetFlightMode(false)
@@ -277,9 +277,11 @@ function BFM:Toggle()
 	if(E.db.benikui.misc.flightMode.enable) then
 		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
+		self:RegisterEvent("VEHICLE_POWER_SHOW", "OnEvent")
 	else
 		self:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
 		self:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
+		self:UnregisterEvent("VEHICLE_POWER_SHOW")
 	end
 end
 
