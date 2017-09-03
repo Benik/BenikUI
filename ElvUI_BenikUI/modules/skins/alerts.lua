@@ -212,6 +212,15 @@ function BUIS:styleAlertFrames()
 	end
 	hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", StyleRecipeLearnedAlert)
 
+	local function StyleNewPetAlertSystem(frame)
+		if frame.backdrop then
+			if not frame.backdrop.style then
+				frame.backdrop:Style('Outside')
+			end
+		end
+	end
+	hooksecurefunc(NewPetAlertSystem, "setUpFunction", StyleNewPetAlertSystem)
+
 	for _, frame in pairs(staticAlertFrames) do
 		if frame.backdrop then
 			if not frame.backdrop.style then
