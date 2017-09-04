@@ -13,7 +13,7 @@ local TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION = TAXI_CANCEL, TAXI_CANCEL_DESCRIPTIO
 -- GLOBALS: selectioncolor, GameTooltip_Hide, CreateAnimationGroup, BuiTaxiButton, LeaveVehicleButton
 
 local function TaxiButton_OnEvent(self, event)
-	if ( UnitOnTaxi("player") and not IsInInstance() and not event == "VEHICLE_POWER_SHOW" ) then
+	if ( UnitOnTaxi("player") and not IsInInstance() ) then
 		LeaveVehicleButton:Hide() -- Hide ElvUI minimap button
 		E:UIFrameFadeIn(self, 1, 0, 1)
 		self:Show()
@@ -117,12 +117,11 @@ function BAB:TaxiButton()
 	tbtn:SetScript("OnClick", TaxiButton_OnClick)
 	tbtn:SetScript("OnEnter", TaxiButton_OnEnter)
 	tbtn:SetScript("OnLeave", TaxiButton_OnLeave)
-	tbtn:RegisterEvent("PLAYER_ENTERING_WORLD");
 	tbtn:RegisterEvent("UPDATE_BONUS_ACTIONBAR");
 	tbtn:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR");
-	tbtn:RegisterEvent("VEHICLE_POWER_SHOW")
 	
 	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
+	tbtn:Hide()
 
 	E:CreateMover(BuiTaxiButton, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS');
 end
