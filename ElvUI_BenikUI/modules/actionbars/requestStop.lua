@@ -117,11 +117,11 @@ function BAB:TaxiButton()
 	tbtn:SetScript("OnClick", TaxiButton_OnClick)
 	tbtn:SetScript("OnEnter", TaxiButton_OnEnter)
 	tbtn:SetScript("OnLeave", TaxiButton_OnLeave)
+	tbtn:RegisterEvent("PLAYER_ENTERING_WORLD");
 	tbtn:RegisterEvent("UPDATE_BONUS_ACTIONBAR");
 	tbtn:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR");
 	
 	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
-	tbtn:Hide()
 
 	E:CreateMover(BuiTaxiButton, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS');
 end
