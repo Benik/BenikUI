@@ -113,7 +113,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(Game13FontShadow,					NORMAL, 14)									 -- InspectPvpFrame
 		SetFont(NumberFontNormalSmall,				NORMAL, 11, "OUTLINE")						 -- Calendar, EncounterJournal
 		SetFont(GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);	 -- Used at the install steps
-		--SetFont(QuestTitleFontBlackShadow,				NORMAL, 16)
+		SetFont(SystemFont_Shadow_Huge3,			NORMAL, 22, nil, SHADOWCOLOR, BIGOFFSET);	 -- Flight Map, Zone Name
 		--SetFont(GameFontHighlightMed2, 				NORMAL, self.db.general.fontSize*1.1);
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
 		--SetFont(GameFontHighlightSmall, 			NORMAL, 10);
