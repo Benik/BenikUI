@@ -189,7 +189,7 @@ function BDB:UpdateRepNotifier()
 		bar.f:Hide()
 	else
 		bar.f:Show()
-		bar.f.txt:SetFormattedText('%d%%', ((value - min) / (max - min) * 100))
+		bar.f.txt:SetFormattedText('%d%%', ((value - min) / ((max - min == 0) and max or (max - min)) * 100))
 	end
 end
 
