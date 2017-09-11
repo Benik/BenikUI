@@ -265,8 +265,34 @@ function BFM:SetFlightMode(status)
 	end
 end
 
+local mapIDs = {
+	1171, 
+	1170,
+	1135,
+}
+
 function BFM:OnEvent(event, ...)
-	if (UnitOnTaxi("player")) and not IsInInstance() and not event == "LFG_PROPOSAL_SHOW" then
+
+	for _, id in pairs (mapIDs) do
+		local mapID = GetCurrentMapAreaID()
+		if id == mapID then return end
+	end
+	
+	if(event == "LFG_PROPOSAL_SHOW" or event == "UPDATE_BATTLEFIELD_STATUS") then
+		if(event == "UPDATE_BATTLEFIELD_STATUS") then
+			local status = GetBattlefieldStatus(...);
+			if ( status == "confirm" ) then
+				self:SetFlightMode(false)
+			end
+		else
+			self:SetFlightMode(false)
+		end
+		return
+	end
+	
+	if IsInInstance() then return end
+
+	if (UnitOnTaxi("player")) then
 		self:SetFlightMode(true)
 	else
 		self:SetFlightMode(false)
@@ -277,13 +303,13 @@ function BFM:Toggle()
 	if(E.db.benikui.misc.flightMode.enable) then
 		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
-		--self:RegisterEvent("VEHICLE_POWER_SHOW", "OnEvent")
 		self:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
+		self:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
 	else
 		self:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
 		self:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
-		--self:UnregisterEvent("VEHICLE_POWER_SHOW")
 		self:UnregisterEvent("LFG_PROPOSAL_SHOW")
+		self:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
 	end
 end
 
