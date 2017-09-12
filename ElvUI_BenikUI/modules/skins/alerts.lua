@@ -22,16 +22,38 @@ local staticAlertFrames = {
 function BUIS:styleAlertFrames()
 	if E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true or E.private.skins.blizzard.alertframes ~= true then return end
 	
-	local function StyleAchievementAlert(frame)
+	local function StyleAlert(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
 			end
 		end
 	end
-	hooksecurefunc(AchievementAlertSystem, "setUpFunction", StyleAchievementAlert)
 
-	local function StyleCriteriaAlert(frame)
+	hooksecurefunc(AchievementAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(DungeonCompletionAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(GuildChallengeAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(InvasionAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(ScenarioAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(WorldQuestCompleteAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(GarrisonFollowerAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(GarrisonShipFollowerAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(GarrisonTalentAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(GarrisonBuildingAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(GarrisonMissionAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(GarrisonShipMissionAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(GarrisonRandomMissionAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(LegendaryItemAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(LootAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(LootUpgradeAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(MoneyWonAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(StorePurchaseAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(DigsiteCompleteAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(NewPetAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(NewMountAlertSystem, "setUpFunction", StyleAlert)
+	
+	local function StyleAlertWithIcon(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:Style('Outside')
@@ -39,187 +61,7 @@ function BUIS:styleAlertFrames()
 			end
 		end
 	end
-	hooksecurefunc(CriteriaAlertSystem, "setUpFunction", StyleCriteriaAlert)
-
-	local function StyleDungeonCompletionAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(DungeonCompletionAlertSystem, "setUpFunction", StyleDungeonCompletionAlert)
-
-	local function StyleGuildChallengeAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GuildChallengeAlertSystem, "setUpFunction", StyleGuildChallengeAlert)
-
-	local function StyleInvasionAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(InvasionAlertSystem, "setUpFunction", StyleInvasionAlertSystem)
-
-	local function StyleScenarioAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(ScenarioAlertSystem, "setUpFunction", StyleScenarioAlert)
-	
-	local function StyleWorldQuestCompleteAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(WorldQuestCompleteAlertSystem, "setUpFunction", StyleWorldQuestCompleteAlert)
-
-	local function StyleGarrisonFollowerAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonFollowerAlertSystem, "setUpFunction", StyleGarrisonFollowerAlert)
-
-	local function StyleGarrisonShipFollowerAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonShipFollowerAlertSystem, "setUpFunction", StyleGarrisonShipFollowerAlertSystem)
-
-	local function StyleGarrisonTalentAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonTalentAlertSystem, "setUpFunction", StyleGarrisonTalentAlertSystem)
-
-	local function StyleGarrisonBuildingAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonBuildingAlertSystem, "setUpFunction", StyleGarrisonBuildingAlertSystem)
-
-	local function StyleGarrisonMissionAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonMissionAlertSystem, "setUpFunction", StyleGarrisonMissionAlertSystem)
-
-	local function StyleGarrisonShipMissionAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonShipMissionAlertSystem, "setUpFunction", StyleGarrisonShipMissionAlertSystem)
-
-	local function StyleGarrisonRandomMissionAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(GarrisonRandomMissionAlertSystem, "setUpFunction", StyleGarrisonRandomMissionAlertSystem)
-
-	local function StyleLegendaryItemAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(LegendaryItemAlertSystem, "setUpFunction", StyleLegendaryItemAlertSystem)
-
-	local function StyleLootWonAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(LootAlertSystem, "setUpFunction", StyleLootWonAlert)
-
-	local function StyleLootUpgradeAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(LootUpgradeAlertSystem, "setUpFunction", StyleLootUpgradeAlert)
-
-	local function StyleMoneyWonAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(MoneyWonAlertSystem, "setUpFunction", StyleMoneyWonAlert)
-
-	local function StyleStorePurchaseAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(StorePurchaseAlertSystem, "setUpFunction", StyleStorePurchaseAlert)
-
-	local function StyleDigsiteCompleteAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(DigsiteCompleteAlertSystem, "setUpFunction", StyleDigsiteCompleteAlert)
-
-	local function StyleRecipeLearnedAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", StyleRecipeLearnedAlert)
-
-	local function StyleNewPetAlertSystem(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:Style('Outside')
-			end
-		end
-	end
-	hooksecurefunc(NewPetAlertSystem, "setUpFunction", StyleNewPetAlertSystem)
+	hooksecurefunc(CriteriaAlertSystem, "setUpFunction", StyleAlertWithIcon)
 
 	for _, frame in pairs(staticAlertFrames) do
 		if frame.backdrop then
