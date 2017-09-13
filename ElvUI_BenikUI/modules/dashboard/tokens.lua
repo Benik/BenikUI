@@ -93,7 +93,6 @@ local BUIcurrency = {
 	1356,	-- Echoes of Battle (PvP Gear)
 	1357,	-- Echoes of Domination (Elite PvP Gear)
 	1416,	-- Coins of Air
-	1506,	-- Argus Waystone
 	1508,	-- Veiled Argunite
 }
 

@@ -71,7 +71,6 @@ local miscTokens = {
 	1342,	-- Legionfall War Supplies (Construction at the Broken Shore)
 	1355,	-- Felessence (Craft Legentary items)
 	1416,	-- Coins of Air
-	1506,	-- Argus Waystone
 	1508,	-- Veiled Argunite
 }
 
