@@ -29,9 +29,15 @@ local function style_ArtifactUI()
 	if E.private.skins.blizzard.artifact ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local frame = _G["ArtifactFrame"]
-	frame:Style('Small')
+	frame.backdrop:Style('Outside')
 	frame.CloseButton:ClearAllPoints()
 	frame.CloseButton:SetPoint("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
+
+	local forgeFrame = _G["ArtifactRelicForgeFrame"]
+	forgeFrame.backdrop:Style('Outside')
+	forgeFrame.benik = CreateFrame('Frame', nil, forgeFrame)
+	forgeFrame.benik:SetTemplate("Transparent")
+	forgeFrame.benik:SetAllPoints(forgeFrame.TalentsBackground)
 end
 S:AddCallbackForAddon("Blizzard_ArtifactUI", "BenikUI_ArtifactUI", style_ArtifactUI)
 
