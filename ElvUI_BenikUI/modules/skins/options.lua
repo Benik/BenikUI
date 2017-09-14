@@ -31,6 +31,7 @@ local DecorAddons = {
 
 local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
+	{'BigWigs', 'BigWigs'},
 	{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
 	{'ElvUI_VisualAuraTimers', 'ElvUI VisualAuraTimers'},
@@ -159,6 +160,8 @@ local function SkinTable()
 			func = function()
 				if addon == 'DBM-Core' then
 					BUI:LoadDBMProfile()
+				elseif addon == 'BigWigs' then
+					BUI:LoadBigWigsProfile()
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
 				elseif addon == 'ElvUI_LocLite' then

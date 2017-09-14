@@ -1706,6 +1706,12 @@ local profilesFailed = format('|cff00c0fa%s |r', L["BenikUI didn't find any supp
 
 local function SetupAddons()
 
+	-- BigWigs
+	if IsAddOnLoaded('BigWigs') then
+		BUI:LoadBigWigsProfile()
+		tinsert(addonNames, 'BigWigs')
+	end
+
 	-- DBM
 	if IsAddOnLoaded('DBM-Core') then
 		BUI:LoadDBMProfile()
