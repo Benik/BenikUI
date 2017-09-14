@@ -667,6 +667,8 @@ end
 
 local function InitializeCallback()
 	BFM:Initialize()
+	ToggleWorldMap()
+	ToggleWorldMap()
 end
 
 E:RegisterModule(BFM:GetName(), InitializeCallback)
