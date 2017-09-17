@@ -163,6 +163,7 @@ local function SkinTable()
 					BUI:LoadDBMProfile()
 				elseif addon == 'BigWigs' then
 					BUI:LoadBigWigsProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
 				elseif addon == 'ElvUI_LocLite' then

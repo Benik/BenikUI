@@ -28,6 +28,8 @@ function BUI:LoadBigWigsProfile()
 					["BenikUI"] = {
 						["font"] = font,
 						["BigWigsAnchor_width"] = 199.999908447266,
+						["texture"] = "BuiFlat",
+						["barStyle"] = "AddOnSkins Half-Bar",
 					},
 				},
 			},
