@@ -19,8 +19,9 @@ function BUI:LoadAddOnSkinsProfile()
 	AddOnSkinsDB["profiles"]["BenikUI"]['EmbedRight'] = 'Skada'
 	AddOnSkinsDB["profiles"]["BenikUI"]['EmbedSystem'] = false
 	AddOnSkinsDB["profiles"]["BenikUI"]['EmbedSystemDual'] = false
-	AddOnSkinsDB["profiles"]["BenikUI"]['ParchmentRemover'] = false
+	AddOnSkinsDB["profiles"]["BenikUI"]['ParchmentRemover'] = true
 	AddOnSkinsDB["profiles"]["BenikUI"]['TransparentEmbed'] = false
+	AddOnSkinsDB["profiles"]["BenikUI"]['DBMSkinHalf'] = true
 
 	if IsAddOnLoaded('Recount') then
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedFrameStrata'] = "2-LOW"
