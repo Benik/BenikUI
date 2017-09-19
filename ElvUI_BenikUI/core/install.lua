@@ -837,7 +837,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["fontSize"] = 10
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["fontOutline"] = "OUTLINE"
-		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = 'UP_RIGHT'
+		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = 'RIGHT_UP'
 
 		-- Boss
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 24
@@ -1259,7 +1259,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["height"] = 18
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
-		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = 'UP_RIGHT'
+		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = 'RIGHT_UP'
 
 		-- Boss
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 24
@@ -1663,7 +1663,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid40"]["verticalSpacing"] = 5
-		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = 'UP_RIGHT'
+		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = 'RIGHT_UP'
 
 		-- movers
 		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-392"
