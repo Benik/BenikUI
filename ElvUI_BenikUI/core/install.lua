@@ -805,6 +805,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 16
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["yOffset"] = -17
+		E.db["unitframe"]["units"]["raid"]["growthDirection"] = 'UP_RIGHT'
 
 		-- raid 40
 		E.db["unitframe"]["units"]["raid40"]["height"] = 27
@@ -836,6 +837,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["fontSize"] = 10
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["fontOutline"] = "OUTLINE"
+		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = 'UP_RIGHT'
 
 		-- Boss
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 24
@@ -1220,6 +1222,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 16
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["yOffset"] = -17
+		E.db["unitframe"]["units"]["raid"]["growthDirection"] = 'UP_RIGHT'
 
 		-- raid 40
 		E.db["unitframe"]["units"]["raid40"]["height"] = 35
@@ -1256,6 +1259,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["height"] = 18
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
+		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = 'UP_RIGHT'
 
 		-- Boss
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 24
@@ -1606,12 +1610,12 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["yOffset"] = -14
 		E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 4
 		E.db["unitframe"]["units"]["party"]["width"] = 120
+
+		-- raid
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 16
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["yOffset"] = -17
-
-		-- raid
 		E.db["unitframe"]["units"]["raid"]["health"]["position"] = "CENTER"
 		E.db["unitframe"]["units"]["raid"]["health"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["height"] = 40
@@ -1637,6 +1641,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 5
 		E.db["unitframe"]["units"]["raid"]["width"] = 78
+		E.db["unitframe"]["units"]["raid"]["growthDirection"] = 'UP_RIGHT'
 		
 		--raid 40
 		E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_ON"
@@ -1658,6 +1663,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid40"]["verticalSpacing"] = 5
+		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = 'UP_RIGHT'
 
 		-- movers
 		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-392"
