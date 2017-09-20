@@ -67,4 +67,6 @@ function BUI:LoadBigWigsProfile()
 		},
 	}
 
+	local db = LibStub("AceDB-3.0"):New(BigWigs3DB, nil, true)
+	db:SetProfile("BenikUI")
 end
