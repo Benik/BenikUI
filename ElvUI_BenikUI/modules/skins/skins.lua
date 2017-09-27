@@ -135,6 +135,7 @@ local function styleFreeBlizzardFrames()
 		BNToastFrame:Style('Outside')
 		ChatConfigFrame:Style('Outside')
 		ChatMenu:Style('Outside')
+		CinematicFrameCloseDialog:Style('Outside')
 		DropDownList1:Style('Outside') -- Maybe this get replaced with new Lib_Dropdown
 		DropDownList2:Style('Outside') -- Maybe this get replaced with new Lib_Dropdown
 		L_DropDownList1MenuBackdrop:Style('Outside')
