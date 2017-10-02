@@ -181,6 +181,15 @@ local function styleFreeBlizzardFrames()
 		QuestFrame.backdrop:Style('Outside')
 		QuestLogPopupDetailFrame:Style('Outside')
 		QuestNPCModel.backdrop:Style('Outside')
+		
+		if IsAddOnLoaded('AddOnSkins') then
+			QuestDetailScrollFrame:SetTemplate('Transparent')
+			QuestProgressScrollFrame:SetTemplate('Transparent')
+			QuestRewardScrollFrame:HookScript('OnUpdate', function(self)
+				self:SetTemplate('Transparent')
+			end)
+			GossipGreetingScrollFrame:SetTemplate('Transparent')
+		end
 	end
 
 	if db.stable then

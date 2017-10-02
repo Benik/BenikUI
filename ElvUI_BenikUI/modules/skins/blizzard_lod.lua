@@ -4,6 +4,7 @@ local BUI = E:GetModule('BenikUI');
 
 local _G = _G
 local pairs, unpack = pairs, unpack
+local IsAddOnLoaded = IsAddOnLoaded
 
 -- AchievementUI
 local function style_AchievementUI()
@@ -94,6 +95,12 @@ local function style_Calendar()
 	_G["CalendarCreateEventFrame"]:Style('Outside')
 	_G["CalendarContextMenu"]:Style('Outside')
 	_G["CalendarViewRaidFrame"]:Style('Outside')
+	
+	if not IsAddOnLoaded('AddOnSkins') then return end
+	for i = 1, 42 do
+		_G['CalendarDayButton'..i]:SetTemplate('Transparent')
+	end
+	
 end
 S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_Calendar", style_Calendar)
 
