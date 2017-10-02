@@ -5,7 +5,7 @@
 ## Notes: an ElvUI 10+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
-## OptionalDeps: SharedMedia, ZygorGuidesViewer
+## OptionalDeps: SharedMedia, AddOnSkins, ZygorGuidesViewer
 
 libs\load_libs.xml
 media\load_media.xml
