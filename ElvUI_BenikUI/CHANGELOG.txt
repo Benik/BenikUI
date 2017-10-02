@@ -1,3 +1,15 @@
+3.30
+*Style the cinematic dialog
+*Added BigWigs profile. Feature request. ticket #6
+*Professions Dashboard: click on the icon or the frame will bring up the corresponding Profession frame. This will take care of #2
+*Removed Argus Waystone token
+*Styled and tweaked the Crucible frame
+*Prevend a divide by zero error at the reputation notifier
+*Style the new PetAlert frame
+*Fix error when a group has successfully formed while on flightMode
+*Fix flightMode showing when using Argus teleports
+*Various tweaks
+
 3.29
 *Added Veiled Argunite token and set it as default
 
