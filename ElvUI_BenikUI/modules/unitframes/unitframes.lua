@@ -2,6 +2,8 @@ local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:NewModule('BuiUnits', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 local UF = E:GetModule('UnitFrames');
 
+local find = string.find
+
 function UFB:UnitDefaults()
 	if E.db.benikui.unitframes.player.portraitWidth == nil then
 		E.db.benikui.unitframes.player.portraitWidth = 110
