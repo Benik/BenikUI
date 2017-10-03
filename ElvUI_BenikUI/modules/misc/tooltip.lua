@@ -10,6 +10,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local ttr, ttg, ttb = 0, 0, 0
 
 local function StyleTooltip()
+	if GameTooltip:IsForbidden() then return end
 	GameTooltip:Style('Outside')
 	GameTooltip.style:SetClampedToScreen(true)
 
@@ -34,6 +35,7 @@ local function StyleTooltip()
 end
 
 local function RecolorTooltipStyle()
+	if GameTooltip:IsForbidden() then return end
 	local r, g, b = 0, 0, 0
 
 	if GameTooltipStatusBar:IsShown() then
@@ -45,6 +47,7 @@ local function RecolorTooltipStyle()
 end
 
 local function TooltipStyleToggle()
+	if GameTooltip:IsForbidden() then return end
 	if not GameTooltip.style then return end
 	if TT.db.healthBar.statusPosition == "BOTTOM" then
 		GameTooltip.style:Show()
