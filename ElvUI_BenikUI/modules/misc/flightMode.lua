@@ -192,6 +192,10 @@ function BFM:SetFlightMode(status)
 		-- Disable Blizz location messsages
 		ZoneTextFrame:UnregisterAllEvents()
 
+		if IsAddOnLoaded("XIV_Databar") then
+			XIV_Databar:Hide()
+		end
+
 		self.startTime = GetTime()
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
@@ -259,6 +263,10 @@ function BFM:SetFlightMode(status)
 			if SquareMinimapButtonOptions.BarEnabled == true then
 				SquareMinimapButtonBar:Show()
 			end
+		end
+
+		if IsAddOnLoaded("XIV_Databar") then
+			XIV_Databar:Show()
 		end
 
 		self.inFlightMode = false
