@@ -10,19 +10,12 @@ local IsAddOnLoaded = IsAddOnLoaded
 local ttr, ttg, ttb = 0, 0, 0
 
 local function StyleTooltip()
-	if GameTooltip:IsForbidden() then return end
 	GameTooltip:Style('Outside')
 	GameTooltip.style:SetClampedToScreen(true)
 
 	-- Grab the style color
 	local r, g, b = GameTooltip.style:GetBackdropColor()
 	ttr, ttg, ttb = r, g, b
-
-	if E.db.benikui.general.shadows then
-		if not GameTooltipStatusBar.backdrop.shadow then
-			GameTooltipStatusBar.backdrop:CreateShadow('Default')
-		end
-	end
 
 	GameTooltipStatusBar:SetFrameLevel(GameTooltip.style:GetFrameLevel() +2)
 
@@ -32,10 +25,15 @@ local function StyleTooltip()
 		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
 		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
 	end
+	
+	if not E.db.benikui.general.shadows then return end
+
+	if not GameTooltipStatusBar.backdrop.shadow then
+		GameTooltipStatusBar.backdrop:CreateShadow('Default')
+	end
 end
 
 local function RecolorTooltipStyle()
-	if GameTooltip:IsForbidden() then return end
 	local r, g, b = 0, 0, 0
 
 	if GameTooltipStatusBar:IsShown() then
@@ -47,7 +45,6 @@ local function RecolorTooltipStyle()
 end
 
 local function TooltipStyleToggle()
-	if GameTooltip:IsForbidden() then return end
 	if not GameTooltip.style then return end
 	if TT.db.healthBar.statusPosition == "BOTTOM" then
 		GameTooltip.style:Show()
@@ -57,6 +54,7 @@ local function TooltipStyleToggle()
 end
 
 function BTT:Initialize()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	StyleTooltip()
 	hooksecurefunc(TT, "SetUnitAura", RecolorTooltipStyle)
