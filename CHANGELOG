@@ -1,3 +1,7 @@
+3.31
+*Fixed an aura error when shadows enabled.
+*Hide XIV_Databar when in flighMode
+
 3.30
 *Style the cinematic dialog
 *Added BigWigs profile. Feature request. ticket #6
