@@ -114,6 +114,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(NumberFontNormalSmall,				NORMAL, 11, "OUTLINE")						 -- Calendar, EncounterJournal
 		SetFont(GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);	 -- Used at the install steps
 		SetFont(SystemFont_Shadow_Huge3,			NORMAL, 22, nil, SHADOWCOLOR, BIGOFFSET);	 -- Flight Map, Zone Name
+		SetFont(SubSpellFont, 						NORMAL, 10);								 -- String under each spell name in spellbook
 		--SetFont(GameFontHighlightMed2, 				NORMAL, self.db.general.fontSize*1.1);
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
 		--SetFont(GameFontHighlightSmall, 			NORMAL, 10);
