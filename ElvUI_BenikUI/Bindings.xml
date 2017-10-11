@@ -1,0 +1,5 @@
+<Bindings>
+  <Binding name="Game Menu" runOnUp="true" category="BINDING_HEADER_BENIKUI">
+    BuiGameMenu_OnMouseUp(BuiButton_2)
+  </Binding>
+</Bindings>

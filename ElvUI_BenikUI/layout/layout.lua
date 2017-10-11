@@ -66,7 +66,7 @@ local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent)
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
 
-local function BuiGameMenu_OnMouseUp(self)
+function BuiGameMenu_OnMouseUp(self)
 	GameTooltip:Hide()
 	BUI:Dropmenu(BUI.MenuList, menuFrame, self:GetName(), 'tLeft', -SPACING, SPACING, 4)
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);

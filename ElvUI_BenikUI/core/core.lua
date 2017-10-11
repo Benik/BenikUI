@@ -20,6 +20,7 @@ BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.NewSign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
+BINDING_HEADER_BENIKUI = BUI.Title
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
