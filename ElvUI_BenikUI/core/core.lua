@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:NewModule('BenikUI', "AceConsole-3.0");
+local BUI = E:NewModule('BenikUI', "AceConsole-3.0", "AceHook-3.0");
 
 local LSM = LibStub('LibSharedMedia-3.0')
 local EP = LibStub('LibElvUIPlugin-1.0')
@@ -16,6 +16,7 @@ local HideUIPanel = HideUIPanel
 
 BUI.Config = {}
 BUI["styles"] = {}
+BUI["softGlow"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
@@ -82,6 +83,20 @@ function BUI:UpdateStyleVisibility()
 			else
 				frame:Show()
 			end
+		end
+	end
+end
+
+function BUI:UpdateSoftGlowColor()
+	if BUI["softGlow"] == nil then BUI["softGlow"] = {} end
+
+	local sr, sg, sb = BUI:unpackColor(E.db.general.valuecolor)
+
+	for glow, _ in pairs(BUI["softGlow"]) do
+		if glow then
+			glow:SetBackdropBorderColor(sr, sg, sb, 0.6)
+		else
+			BUI["softGlow"][glow] = nil;
 		end
 	end
 end
@@ -184,6 +199,8 @@ function BUI:Initialize()
 		print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..BUI:PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues'))
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)
+	
+	hooksecurefunc(E, "UpdateMedia", BUI.UpdateSoftGlowColor)
 end
 
 local function InitializeCallback()

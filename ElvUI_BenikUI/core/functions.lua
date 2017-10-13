@@ -44,7 +44,9 @@ end
 local function CreateSoftGlow(f)
 	if f.sglow then return end
 
+	local r, g, b = BUI:unpackColor(E.db.general.valuecolor)
 	local sglow = CreateFrame('Frame', nil, f)
+
 	sglow:SetFrameLevel(1)
 	sglow:SetFrameStrata(f:GetFrameStrata())
 	sglow:SetOutside(f, 3, 3)
@@ -52,9 +54,11 @@ local function CreateSoftGlow(f)
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
-	sglow:SetBackdropColor(BUI:unpackColor(E.db.general.valuecolor), 0)
-	sglow:SetBackdropBorderColor(BUI:unpackColor(E.db.general.valuecolor), 0.4)
+
+	sglow:SetBackdropBorderColor(r, g, b, 0.6)
+
 	f.sglow = sglow
+	BUI["softGlow"][sglow] = true
 end
 
 local r, g, b = 0, 0, 0
