@@ -6,14 +6,29 @@ local _G = _G
 local unpack = unpack
 local GameTooltip = _G["GameTooltip"]
 local CreateFrame = CreateFrame
-local UnitOnTaxi = UnitOnTaxi
+local UnitOnTaxi, GetCurrentMapAreaID = UnitOnTaxi, GetCurrentMapAreaID
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION = TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION
 
 -- GLOBALS: selectioncolor, GameTooltip_Hide, CreateAnimationGroup, BuiTaxiButton, LeaveVehicleButton
 
+local noFlightMapIDs = {
+	1171, 
+	1170,
+	1135,
+}
+
+function BUI:CheckFlightMapID()
+	for _, id in pairs (noFlightMapIDs) do
+		local noFlightMapIDs = GetCurrentMapAreaID()
+		if id == noFlightMapIDs then return true end
+	end
+end
+
 local function TaxiButton_OnEvent(self, event)
-	if ( UnitOnTaxi("player") and not IsInInstance() ) then
+	local forbiddenArea = BUI:CheckFlightMapID()
+	
+	if (UnitOnTaxi("player") and not IsInInstance() and not forbiddenArea) then
 		LeaveVehicleButton:Hide() -- Hide ElvUI minimap button
 		E:UIFrameFadeIn(self, 1, 0, 1)
 		self:Show()

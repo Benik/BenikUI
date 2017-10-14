@@ -273,19 +273,11 @@ function BFM:SetFlightMode(status)
 	end
 end
 
-local mapIDs = {
-	1171, 
-	1170,
-	1135,
-}
-
 function BFM:OnEvent(event, ...)
+	local forbiddenArea = BUI:CheckFlightMapID()
 
-	for _, id in pairs (mapIDs) do
-		local mapID = GetCurrentMapAreaID()
-		if id == mapID then return end
-	end
-	
+	if forbiddenArea then return end
+
 	if(event == "LFG_PROPOSAL_SHOW" or event == "UPDATE_BATTLEFIELD_STATUS") then
 		if(event == "UPDATE_BATTLEFIELD_STATUS") then
 			local status = GetBattlefieldStatus(...);
