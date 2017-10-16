@@ -128,6 +128,7 @@ L['Select Professions'] = true
 L['Select System Board'] = true
 L['Select Tokens'] = true
 L['Set the font size.'] = true
+L['Shift+RightClick to remove'] = true
 L['Show the token, even if the amount is 0'] = true
 L['Show Weekly max'] = true
 L['Show Weekly max tokens instead of total max'] = true

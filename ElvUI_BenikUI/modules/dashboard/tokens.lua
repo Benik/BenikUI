@@ -107,6 +107,9 @@ local function Icon_OnEnter(self)
 	if E.db.dashboards.tokens.tooltip then
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 		GameTooltip:SetCurrencyByID(id)
+		GameTooltip:AddLine(' ')
+		GameTooltip:AddLine(L['Shift+RightClick to remove'], 0.7, 0.7, 1)
+		GameTooltip:Show()
 	end
 	if E.db.dashboards.tokens.mouseover then
 		E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)

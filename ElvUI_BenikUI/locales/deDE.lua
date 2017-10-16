@@ -128,6 +128,7 @@ L['Select Professions'] = "Berufe auswählen"
 L['Select System Board'] = "Wähle System Board"
 L['Select Tokens'] = "Abzeichen auswählen"
 L['Set the font size.'] = "Schriftgröße auswählen."
+L['Shift+RightClick to remove'] = true
 L['Show the token, even if the amount is 0'] = "Abzeichen anzeigen, auch wenn die Anzahl 0 ist"
 L['Show Weekly max'] = "Zeige wöchentliches maximum"
 L['Show Weekly max tokens instead of total max'] = "Zeige wöchentliches max. Abzeichen anstatt vom totalem max."
