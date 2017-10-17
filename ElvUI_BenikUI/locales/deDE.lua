@@ -28,7 +28,7 @@ L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 
 -- Misc
 L['Camera rotation'] = "Kamerarotation"
-L['iLevel'] = true
+L['iLevel'] = true --No need to translate
 L['Show item level per slot, on the character info frame'] = "Zeigt das Itemlevel pro Slot, im Spielerfenster"
 
 -- Flight mode
@@ -64,11 +64,11 @@ L["BenikUI options are marked with light blue color, inside ElvUI options."] = "
 L['Color Theme Set'] = "Farbschema gesetzt"
 L['Color Themes'] = "Farbschema"
 L['DataTexts Set'] = "Infotexte gesetzt"
-L['Diablo'] = true
-L['ElvUI'] = true
-L['Hearthstone'] = true
-L['Installation'] = true
-L['Mists'] = true
+L['Diablo'] = true --No need to translate
+L['ElvUI'] = true --No need to translate
+L['Hearthstone'] = true --No need to translate
+L['Installation'] = true --No need to translate
+L['Mists'] = true --No need to translate
 L['Please click a button below to apply a color theme.'] = "Bitte klick eine der Tasten unten um ein Farbschema anzuwenden."
 L['Please click the button below to apply the new layout.'] = "Bitte klick die Taste unten um das neue Layout anzuwenden."
 L['Please click a button below to setup your Unitframes.'] = "Bitte klick auf die Taste unten um das Einheitenfenster einzustellen."
@@ -114,7 +114,7 @@ L['Bar Color'] = "Leistenfarbe"
 L['Change the System Dashboard width.'] = "Ändert die Dashboard Breite"
 L['Choose font for all dashboards.'] = "Wähle Schriftart für alle Dashboards."
 L['Click :'] = "Klick :"
-L['Dashboards'] = true
+L['Dashboards'] = true --No need to translate
 L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
 L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
 L['Enable/Disable '] = "Aktivieren/Deaktivieren"
@@ -128,7 +128,7 @@ L['Select Professions'] = "Berufe auswählen"
 L['Select System Board'] = "Wähle System Board"
 L['Select Tokens'] = "Abzeichen auswählen"
 L['Set the font size.'] = "Schriftgröße auswählen."
-L['Shift+RightClick to remove'] = true
+L['Shift+RightClick to remove'] = "Shift+Rechts click um zu entfernen"
 L['Show the token, even if the amount is 0'] = "Abzeichen anzeigen, auch wenn die Anzahl 0 ist"
 L['Show Weekly max'] = "Zeige wöchentliches maximum"
 L['Show Weekly max tokens instead of total max'] = "Zeige wöchentliches max. Abzeichen anstatt vom totalem max."
@@ -136,7 +136,7 @@ L['Show zero amount tokens'] = "Zeige Abzeichen mit der Anzahl 0"
 L['Show/Hide System Dashboard when in combat'] = "Dashboard im Kampf anzeigen/ausblenden"
 L['Show/Hide Tokens Dashboard when in combat'] = "Abzeichen Dashboard im Kampf anzeigen/ausblenden"
 L['Show/Hide Tooltips'] = "Tooltip anzeigen/ausblenden"
-L['System'] = true
+L['System'] = true --No need to translate
 L['Tip: Grayed tokens are not yet discovered'] = "Tip: Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
 L['Tip: Click to free memory'] = "Tip: Klicken um den Speicher zu bereinigen"
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
@@ -155,11 +155,11 @@ L['Button Backdrop'] = "Tasten Hintergrund"
 L['Without Backdrop'] = "Ohne Hintergrund"
 
 -- Skins Options
-L['AddOnSkins'] = true
+L['AddOnSkins'] = true --No need to translate
 L['AddOns Decor'] = "AddOns Dekor"
 L['Choose which addon you wish to be decorated to fit with BenikUI style'] = "Wähle aus, welches Addon du stylen möchtest so dass es am besten zu BenikUI passt"
-L['Decursive'] = true
-L['ElvUI AddOns'] = true
+L['Decursive'] = true --No need to translate
+L['ElvUI AddOns'] = true --No need to translate
 L['decor.'] = "dekor."
 L['This will create and apply profile for '] = "Dieses wird ein Profil erstellen und anwenden für "
 L['Profiles'] = "Profile"
@@ -200,17 +200,17 @@ L['Class Hover'] = "Klassenfarbeneffekt"
 L['Enable Class color on health border, when mouse over'] = "Aktiviert den Klassenfarbeneffekt auf den Gesundheitsrand während Mouseover"
 
 -- Information
-L['Information'] = true
-L['Support'] = true
-L['Download'] = true
-L['Beta versions'] = true
-L['Coding'] = true
+L['Information'] = true --No need to translate
+L['Support'] = true --No need to translate
+L['Download'] = true --No need to translate
+L['Beta versions'] = true --No need to translate
+L['Coding'] = true --No need to translate
 L['Testing & Inspiration'] = "Tester & Inspiration"
 L['Donations'] = "Spenden"
 L['My other Addons'] = "Meine anderen Addons"
-L['Discord Server'] = true
-L['Git Ticket tracker'] = true
-L['Tukui.org'] = true
+L['Discord Server'] = true --No need to translate
+L['Git Ticket tracker'] = true --No need to translate
+L['Tukui.org'] = true --No need to translate
 -- Location Plus
 L['Adds player location, coords + 2 Datatexts and a tooltip with info based on player location/level.'] = "Fügt Spieler Aufenthaltsort, Koordinaten + 2 Infotexte und einen Tooltip mit Informationen basierend auf dem Aufenthaltsort/Level hinzu."
 -- Location Lite
