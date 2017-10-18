@@ -164,7 +164,7 @@ local function UpdateProfessionOptions()
 	local optionOrder = 1
 	if (prof1 or prof2 or archy or fishing or cooking or firstAid) then
 		E.Options.args.benikui.args.dashboards.args.professions.args.choosePofessions = {
-			order = 5,
+			order = 50,
 			type = 'group',
 			guiInline = true,
 			name = L['Select Professions'],
@@ -412,17 +412,8 @@ local function dashboardsTable()
 						get = function(info) return E.db.dashboards.tokens.mouseover end,
 						set = function(info, value) E.db.dashboards.tokens.mouseover = value; BUIT:UpdateTokens(); end,					
 					},
-					tooltip = {
-						order = 5,
-						name = L['Tooltip'],
-						desc = L['Show/Hide Tooltips'],
-						type = 'toggle',
-						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
-						get = function(info) return E.db.dashboards.tokens.tooltip end,
-						set = function(info, value) E.db.dashboards.tokens.tooltip = value; BUIT:UpdateTokens(); end,					
-					},
 					width = {
-						order = 6,
+						order = 5,
 						type = 'range',
 						name = L['Width'],
 						desc = L['Change the Tokens Dashboard width.'],
@@ -430,6 +421,15 @@ local function dashboardsTable()
 						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
 						get = function(info) return E.db.dashboards.tokens.width end,
 						set = function(info, value) E.db.dashboards.tokens.width = value; BUIT:UpdateTHolderDimensions(); end,	
+					},
+					tooltip = {
+						order = 6,
+						name = L['Tooltip'],
+						desc = L['Show/Hide Tooltips'],
+						type = 'toggle',
+						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+						get = function(info) return E.db.dashboards.tokens.tooltip end,
+						set = function(info, value) E.db.dashboards.tokens.tooltip = value; BUIT:UpdateTokens(); end,					
 					},
 					zeroamount = {
 						order = 7,
