@@ -59,7 +59,7 @@ BUI.MenuList = {
 	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
 	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
-	{text = GARRISON_LANDING_PAGE_TITLE, func = function() GarrisonLandingPageMinimapButton_OnClick() end},
+	{text = ORDER_HALL_LANDING_PAGE_TITLE, func = function() GarrisonLandingPageMinimapButton_OnClick() end},
 	{text = ACHIEVEMENTS_GUILD_TAB,
 	func = function()
 		if IsInGuild() then
