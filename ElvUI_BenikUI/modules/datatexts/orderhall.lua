@@ -155,18 +155,35 @@ local function OnEnter(self)
 end
 
 local function OnClick()
-	if not (C_Garrison_HasGarrison(LE_GARRISON_TYPE_7_0)) then
-		return;
-	end
+	if IsShiftKeyDown() then
+		if not (C_Garrison_HasGarrison(LE_GARRISON_TYPE_6_0)) then
+			return;
+		end
 
-	local isShown = GarrisonLandingPage and GarrisonLandingPage:IsShown();
-	if (not isShown) then
-		ShowGarrisonLandingPage(LE_GARRISON_TYPE_7_0);
-	elseif (GarrisonLandingPage) then
-		local currentGarrType = GarrisonLandingPage.garrTypeID;
-		HideUIPanel(GarrisonLandingPage);
-		if (currentGarrType ~= LE_GARRISON_TYPE_7_0) then
+		local isShown = GarrisonLandingPage and GarrisonLandingPage:IsShown();
+		if (not isShown) then
+			ShowGarrisonLandingPage(LE_GARRISON_TYPE_6_0);
+		elseif (GarrisonLandingPage) then
+			local currentGarrType = GarrisonLandingPage.garrTypeID;
+			HideUIPanel(GarrisonLandingPage);
+			if (currentGarrType ~= LE_GARRISON_TYPE_6_0) then
+				ShowGarrisonLandingPage(LE_GARRISON_TYPE_6_0);
+			end
+		end
+	else
+		if not (C_Garrison_HasGarrison(LE_GARRISON_TYPE_7_0)) then
+			return;
+		end
+
+		local isShown = GarrisonLandingPage and GarrisonLandingPage:IsShown();
+		if (not isShown) then
 			ShowGarrisonLandingPage(LE_GARRISON_TYPE_7_0);
+		elseif (GarrisonLandingPage) then
+			local currentGarrType = GarrisonLandingPage.garrTypeID;
+			HideUIPanel(GarrisonLandingPage);
+			if (currentGarrType ~= LE_GARRISON_TYPE_7_0) then
+				ShowGarrisonLandingPage(LE_GARRISON_TYPE_7_0);
+			end
 		end
 	end
 end
