@@ -540,7 +540,7 @@ local function InjectMinimapOption()
 		order = 3,
 		type = "toggle",
 		name = BUI:cOption(L['BenikUI Style']),
-		disabled = function() return not E.private.general.minimap.enable end,
+		disabled = function() return not E.private.general.minimap.enable or not E.db.benikui.general.benikuiStyle end,
 		get = function(info) return E.db.general.minimap.benikuiStyle end,
 		set = function(info, value) E.db.general.minimap.benikuiStyle = value; BUIL:ToggleMinimapStyle(); end,
 	}
