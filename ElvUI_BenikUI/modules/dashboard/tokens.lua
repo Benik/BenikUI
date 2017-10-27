@@ -358,6 +358,26 @@ function BUIT:UpdateTHolderDimensions()
 	end
 end
 
+function BUIT:ToggleTransparency()
+	local db = E.db.dashboards.tokens
+	if not db.backdrop then
+		tokenHolder.backdrop:SetTemplate("NoBackdrop")
+	elseif db.transparency then
+		tokenHolder.backdrop:SetTemplate("Transparent")
+	else
+		tokenHolder.backdrop:SetTemplate("Default", true)
+	end
+end
+
+function BUIT:ToggleStyle()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.db.dashboards.tokens.style then
+		tokenHolder.backdrop.style:Show()
+	else
+		tokenHolder.backdrop.style:Hide()
+	end
+end
+
 function BUIT:TokenDefaults()
 	if E.db.dashboards.tokens.width == nil then E.db.dashboards.tokens.width = 150 end
 end
@@ -368,6 +388,8 @@ function BUIT:Initialize()
 	self:CreateTokensHolder()
 	self:TokenEvents()
 	self:UpdateTHolderDimensions()
+	self:ToggleStyle()
+	self:ToggleTransparency()
 	hooksecurefunc(DT, 'LoadDataTexts', BUIT.UpdateTokens)
 end
 

@@ -281,6 +281,26 @@ function BUIP:UpdatePholderDimensions()
 	end
 end
 
+function BUIP:ToggleTransparency()
+	local db = E.db.dashboards.professions
+	if not db.backdrop then
+		proHolder.backdrop:SetTemplate("NoBackdrop")
+	elseif db.transparency then
+		proHolder.backdrop:SetTemplate("Transparent")
+	else
+		proHolder.backdrop:SetTemplate("Default", true)
+	end
+end
+
+function BUIP:ToggleStyle()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.db.dashboards.professions.style then
+		proHolder.backdrop.style:Show()
+	else
+		proHolder.backdrop.style:Hide()
+	end
+end
+
 function BUIP:ProDefaults()
 	if E.db.dashboards.professions.width == nil then E.db.dashboards.professions.width = 172 end
 end
@@ -290,6 +310,8 @@ function BUIP:Initialize()
 	self:ProDefaults()
 	self:CreateProHolder()
 	self:ProEvents()
+	self:ToggleStyle()
+	self:ToggleTransparency()
 	hooksecurefunc(DT, 'LoadDataTexts', BUIP.UpdateProfessions)
 end
 

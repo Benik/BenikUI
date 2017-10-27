@@ -172,6 +172,26 @@ function BUID:BarColor()
 	end
 end
 
+function BUID:ToggleTransparency()
+	local db = E.db.dashboards.system
+	if not db.backdrop then
+		sysHolder.backdrop:SetTemplate("NoBackdrop")
+	elseif db.transparency then
+		sysHolder.backdrop:SetTemplate("Transparent")
+	else
+		sysHolder.backdrop:SetTemplate("Default", true)
+	end
+end
+
+function BUID:ToggleStyle()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.db.dashboards.system.style then
+		sysHolder.backdrop.style:Show()
+	else
+		sysHolder.backdrop.style:Hide()
+	end
+end
+
 function BUID:Initialize()
 	
 	if E.db.dashboards.system.enableSystem ~= true then return end
@@ -183,6 +203,8 @@ function BUID:Initialize()
 	hooksecurefunc(DT, 'LoadDataTexts', BUID.ChangeFont)
 	self:FontColor()
 	self:BarColor()
+	self:ToggleStyle()
+	self:ToggleTransparency()
 	
 	if db.FPS then self:CreateFps() end
 	if db.MS then self:CreateMs() end
