@@ -25,6 +25,9 @@ P['databars']['artifact']['textYoffset'] = 0
 P['databars']['reputation']['textYoffset'] = 0
 P['databars']['honor']['textYoffset'] = 0
 
+-- Add Minimap styling toggle default
+P['general']['minimap']['benikuiStyle'] = true
+
 -- Core
 P['benikui'] = {
 	['installed'] = nil,

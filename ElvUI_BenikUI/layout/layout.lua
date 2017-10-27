@@ -8,6 +8,7 @@ local LSM = LibStub('LibSharedMedia-3.0')
 
 local _G = _G
 local unpack = unpack
+local tinsert = table.insert
 local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local ToggleCharacter = ToggleCharacter
@@ -533,6 +534,28 @@ function BUIL:BottomPanelLayout()
 	ElvUI_BottomPanel:Height(db.height)
 end
 
+-- Add minimap styling option in ElvUI minimap options
+local function InjectMinimapOption()
+	E.Options.args.maps.args.minimap.args.generalGroup.args.benikuiStyle = {
+		order = 3,
+		type = "toggle",
+		name = BUI:cOption(L['BenikUI Style']),
+		disabled = function() return not E.private.general.minimap.enable end,
+		get = function(info) return E.db.general.minimap.benikuiStyle end,
+		set = function(info, value) E.db.general.minimap.benikuiStyle = value; BUIL:ToggleMinimapStyle(); end,
+	}
+end
+tinsert(BUI.Config, InjectMinimapOption)
+
+function BUIL:ToggleMinimapStyle()
+	if E.private.general.minimap.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.db.general.minimap.benikuiStyle then
+		Minimap.backdrop.style:Show()
+	else
+		Minimap.backdrop.style:Hide()
+	end
+end
+
 function BUIL:regEvents()
 	self:MiddleDatatextLayout()
 	self:MiddleDatatextDimensions()
@@ -551,6 +574,7 @@ function BUIL:Initialize()
 	self:ChatStyles()
 	self:TopPanelLayout()
 	self:BottomPanelLayout()
+	self:ToggleMinimapStyle()
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ToggleBuiDts)
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ResizeMinimapPanels)
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ChatStyles)
