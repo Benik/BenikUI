@@ -61,20 +61,19 @@ local function UpdateMemory()
 		memoryTable[i][3] = addOnMemory
 		totalMemory = totalMemory + addOnMemory
 	end
-	
+
 	if not InCombatLockdown() then
 		sort( memoryTable, sortByMemory )
 	end
-
 end
 
 local int = 10
 
-local function Update( self, t )
+local function Update(self, t)
 	local boardName = _G['Memory']
 	int = int - t
-	
-	if( int < 0 ) then
+
+	if(int < 0) then
 		local inInstance = IsInInstance()
 		if (IsAddOnLoaded('ZygorGuidesViewer') and inInstance) then
 			boardName.Text:SetFormattedText("%s|cffffa700%s|r", L['Memory: '], L['Disabled'])
@@ -93,30 +92,30 @@ end
 
 function BUID:CreateMemory()
 	local boardName = _G['Memory']
-	boardName:SetScript( 'OnMouseDown', function (self)
-		if( not InCombatLockdown() ) then
-			collectgarbage( 'collect' )
+	boardName:SetScript('OnMouseDown', function (self)
+		if(not InCombatLockdown()) then
+			collectgarbage('collect')
 			Update(boardName, 10)
 		end
-	end )
+	end)
 
-	boardName:SetScript( 'OnEnter', function( self )
-		if( not InCombatLockdown() ) then
-			
-			GameTooltip:SetOwner( boardName, 'ANCHOR_RIGHT', 5, 0 )
+	boardName:SetScript('OnEnter', function(self)
+		if(not InCombatLockdown()) then
+
+			GameTooltip:SetOwner(boardName, 'ANCHOR_RIGHT', 5, 0)
 			GameTooltip:ClearLines()
-			
+
 			local inInstance = IsInInstance()
-			
+
 			if (IsAddOnLoaded('ZygorGuidesViewer') and inInstance) then
 				GameTooltip:AddLine(L['Framerate drop has been reported with Zygor Guides\nand the Memory module while in an instance.\nMemory module updates have been temporarily disabled.'], selectioncolor)
 			else
 				local red, green
 				for i = 1, #memoryTable do
-					if( memoryTable[i][4] ) then
+					if(memoryTable[i][4] ) then
 						red = memoryTable[i][3] / totalMemory
 						green = 1 - red
-						GameTooltip:AddDoubleLine( memoryTable[i][2], formatMem( memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0 )
+						GameTooltip:AddDoubleLine(memoryTable[i][2], formatMem( memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0)
 					end
 				end
 				GameTooltip:AddLine(' ')
@@ -125,11 +124,11 @@ function BUID:CreateMemory()
 
 			GameTooltip:Show()
 		end
-	end )
-	
-	boardName:SetScript( 'OnLeave', function( self )
+	end)
+
+	boardName:SetScript('OnLeave', function(self)
 		GameTooltip:Hide()
-	end )
-	
-	boardName.Status:SetScript( 'OnUpdate', Update )
+	end)
+
+	boardName.Status:SetScript('OnUpdate', Update)
 end

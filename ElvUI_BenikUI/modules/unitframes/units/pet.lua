@@ -8,21 +8,21 @@ local CreateFrame = CreateFrame
 
 function UFB:Construct_PetFrame()
 	local frame = _G["ElvUF_Pet"]
-	
+
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateShadow('Default')
 		frame.Portrait.backdrop.shadow:Hide()
 	end
-	
+
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
-	
+
 	self:ArrangePet()
 end
 
 function UFB:ArrangePet()
 	local frame = _G["ElvUF_Pet"]
-	
+
 	do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.pet.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.pet.portraitTransparent
@@ -32,10 +32,10 @@ function UFB:ArrangePet()
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.pet.portraitWidth
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.pet.portraitHeight	
 	end
-	
+
 	-- Portrait
 	UFB:Configure_Portrait(frame, false)
-	
+
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
@@ -43,7 +43,7 @@ function UFB:InitPet()
 	if not E.db.unitframe.units.pet.enable then return end
 	self:Construct_PetFrame()
 	hooksecurefunc(UF, 'Update_PetFrame', UFB.ArrangePet)
-	
+
 	-- Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType

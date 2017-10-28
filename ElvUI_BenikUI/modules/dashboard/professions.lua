@@ -48,7 +48,7 @@ function BUIP:CreateProHolder()
 		pholder.backdrop:Style('Outside')
 		pholder:Hide()
 	end
-	
+
 	if E.db.dashboards.professions.combat then
 		pholder:SetScript('OnEvent',function(self, event)
 			if event == 'PLAYER_REGEN_DISABLED' then
@@ -71,10 +71,10 @@ end
 function BUIP:EnableDisableCombat()
 	if E.db.dashboards.professions.combat then
 		proHolder:RegisterEvent('PLAYER_REGEN_DISABLED')
-		proHolder:RegisterEvent('PLAYER_REGEN_ENABLED')	
+		proHolder:RegisterEvent('PLAYER_REGEN_ENABLED')
 	else
 		proHolder:UnregisterEvent('PLAYER_REGEN_DISABLED')
-		proHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')	
+		proHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')
 	end
 end
 
@@ -89,9 +89,9 @@ function BUIP:UpdateProfessions()
 		wipe( BuiProfessions )
 		proHolder:Hide()
 	end
-	
+
 	if db.mouseover then proHolder:SetAlpha(0) else proHolder:SetAlpha(1) end
-	
+
 	proHolder:SetScript('OnEnter', function(self)
 		if db.mouseover then
 			E:UIFrameFadeIn(proHolder, 0.2, proHolder:GetAlpha(), 1)
@@ -132,7 +132,7 @@ function BUIP:UpdateProfessions()
 							E:UIFrameFadeIn(proHolder, 0.2, proHolder:GetAlpha(), 1)
 						end
 					end)
-			
+
 					ProFrame:SetScript('OnLeave', function(self)
 						if (rankModifier and rankModifier > 0) then
 							ProFrame.Text:SetFormattedText('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
@@ -141,7 +141,7 @@ function BUIP:UpdateProfessions()
 						end
 						if db.mouseover then
 							E:UIFrameFadeOut(proHolder, 0.2, proHolder:GetAlpha(), 0)
-						end						
+						end
 					end)
 
 					ProFrame:SetScript('OnClick', function(self)
@@ -157,7 +157,7 @@ function BUIP:UpdateProfessions()
 							end
 						end
 					end)
-					
+
 					ProFrame.dummy = CreateFrame('Frame', nil, ProFrame)
 					ProFrame.dummy:Point('BOTTOMLEFT', ProFrame, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
 					ProFrame.dummy:Point('BOTTOMRIGHT', ProFrame, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
@@ -167,10 +167,10 @@ function BUIP:UpdateProfessions()
 					ProFrame.dummy.dummyStatus:SetInside()
 					ProFrame.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
 					ProFrame.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
-					
+
 					ProFrame.Status = CreateFrame('StatusBar', nil, ProFrame.dummy)
 					ProFrame.Status:SetStatusBarTexture(E['media'].BuiFlat)
-					
+
 					if (rankModifier and rankModifier > 0) then
 						ProFrame.Status:SetMinMaxValues(1, maxRank + rankModifier)
 						ProFrame.Status:SetValue(rank + rankModifier)
@@ -180,13 +180,13 @@ function BUIP:UpdateProfessions()
 					end
 					ProFrame.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
 					ProFrame.Status:SetInside()
-					
+
 					ProFrame.spark = ProFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
 					ProFrame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
 					ProFrame.spark:Size(12, 6);
 					ProFrame.spark:SetBlendMode('ADD');
-					ProFrame.spark:SetPoint('CENTER', ProFrame.Status:GetStatusBarTexture(), 'RIGHT')			
-					
+					ProFrame.spark:SetPoint('CENTER', ProFrame.Status:GetStatusBarTexture(), 'RIGHT')
+
 					ProFrame.Text = ProFrame.Status:CreateFontString(nil, 'OVERLAY')
 					if E.db.dashboards.dashfont.useDTfont then
 						ProFrame.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
@@ -201,7 +201,7 @@ function BUIP:UpdateProfessions()
 					else
 						ProFrame.Text:SetFormattedText('%s / %s', rank, maxRank)
 					end
-					
+
 					if E.db.dashboards.textColor == 1 then
 						ProFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 					else
@@ -228,7 +228,7 @@ function BUIP:UpdateProfessions()
 						end
 						if db.mouseover then
 							E:UIFrameFadeOut(proHolder, 0.2, proHolder:GetAlpha(), 0)
-						end						
+						end
 					end)
 
 					ProFrame.IconBG:SetScript('OnClick', function(self)

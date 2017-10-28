@@ -8,21 +8,21 @@ local CreateFrame = CreateFrame
 
 function UFB:Construct_TargetTargetFrame()
 	local frame = _G["ElvUF_TargetTarget"]
-	
+
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateShadow('Default')
 		frame.Portrait.backdrop.shadow:Hide()
 	end
-	
+
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
-	
+
 	self:ArrangeTargetTarget()
 end
 
 function UFB:ArrangeTargetTarget()
 	local frame = _G["ElvUF_TargetTarget"]
-	
+
 	do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.targettarget.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.targettarget.portraitTransparent
@@ -32,7 +32,7 @@ function UFB:ArrangeTargetTarget()
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.targettarget.portraitWidth
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.targettarget.portraitHeight	
 	end
-	
+
 	-- Portrait
 	UFB:Configure_Portrait(frame, false)
 

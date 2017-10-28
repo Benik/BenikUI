@@ -16,6 +16,6 @@ function BUI:LoadLocationLiteProfile()
 		E.db["loclite"]["dtheight"] = 16
 		E.db["loclite"]["lpfont"] = "Bui Visitor1"
 		E.db["loclite"]["lpfontflags"] = "MONOCROMEOUTLINE"
-		E.db["loclite"]["lpfontsize"] = 10	
+		E.db["loclite"]["lpfontsize"] = 10
 	end
 end

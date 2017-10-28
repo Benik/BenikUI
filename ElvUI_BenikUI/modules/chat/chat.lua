@@ -26,7 +26,7 @@ function CH:UpdateAnchors()
 		else
 			frame:SetAllPoints(LeftChatTab)
 		end
-	
+
 		frame:SetScript('OnShow', function(self)
 			E:UIFrameFadeIn(self, .5, 0, 1)
 		end)
@@ -49,11 +49,11 @@ local function PositionChat(self, override)
 	if not RightChatPanel or not LeftChatPanel then return; end
 	if not self.db.lockPositions or E.private.chat.enable ~= true then return end
 	if not E.db.benikui.datatexts.chat.styled then return end
-	
+
 	local BASE_OFFSET = 60
 	if E.PixelMode then
 		BASE_OFFSET = BASE_OFFSET - 3
-	end	
+	end
 	local chat, id, tab, isDocked, point
 	for i=1, CreatedFrames do
 		chat = _G[format("ChatFrame%d", i)]
@@ -75,7 +75,7 @@ local function PositionChat(self, override)
 				chat:Size((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 10, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
 			end
 		elseif not isDocked and chat:IsShown() then
-		
+
 		else
 			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
 				BASE_OFFSET = BASE_OFFSET - 24

@@ -40,7 +40,7 @@ local DONATOR_STRING = tconcat(DONATORS, ", ")
 			self.editBox:Width(self.editBox.width or 50)
 			self.editBox.width = nil
 			self.temptxt = nil
-		end,		
+		end,
 		EditBoxOnEnterPressed = function(self)
 			self:GetParent():Hide();
 		end,
@@ -383,7 +383,7 @@ local function Core()
 								type = 'execute',
 								name = L['WoW Interface'],
 								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.wowinterface.com/downloads/info23675-BenikUIv3.html") end,
-							},			
+							},
 							beta = {
 								order = 4,
 								type = 'execute',

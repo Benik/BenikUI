@@ -2,7 +2,6 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadBigWigsProfile()
-
 	local font, fontsize
 	if E.private.benikui.expressway == true then
 		font = "Expressway"

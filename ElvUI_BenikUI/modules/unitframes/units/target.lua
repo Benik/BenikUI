@@ -13,7 +13,7 @@ local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 
 function UFB:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
-	
+
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateShadow()
 		frame.Portrait.backdrop.shadow:Hide()
@@ -31,7 +31,7 @@ function UFB:Construct_TargetFrame()
 
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
-	
+
 	self:ArrangeTarget()
 end
 
@@ -40,9 +40,9 @@ local r, g, b = 0, 0, 0
 function UFB:RecolorTargetDetachedPortraitStyle()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
-	
+
 	if E.db.benikui.unitframes.target.portraitStyle ~= true or db.portrait.overlay == true then return end
-	
+
 	local targetClass = select(2, UnitClass("target"));
 
 	do
@@ -136,13 +136,13 @@ function UFB:ArrangeTarget()
 		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
 		frame.POWER_VERTICAL = db.power.vertical
 	end
-	
+
 	-- Power
 	UFB:Configure_Power(frame)
-	
+
 	-- InfoPanel
 	UFB:Configure_Infopanel(frame)
-	
+
 	-- Portrait
 	UFB:Configure_Portrait(frame, false)
 

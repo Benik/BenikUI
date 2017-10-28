@@ -25,7 +25,7 @@ local function StyleTooltip()
 		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
 		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
 	end
-	
+
 	if not E.db.benikui.general.shadows then return end
 
 	if not GameTooltipStatusBar.backdrop.shadow then

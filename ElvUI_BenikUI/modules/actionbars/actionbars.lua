@@ -35,7 +35,7 @@ function BAB:StyleBackdrops()
 			end
 		end
 	end
-	
+
 	-- Other bar backdrops
 	for _, frame in pairs(styleOtherBacks) do
 		if frame.backdrop then
@@ -55,7 +55,7 @@ function BAB:ToggleStyle()
 			end
 		end
 	end
-	
+
 	-- Other bar backdrops
 	if _G['ElvUI_BarPet'].backdrop.style then
 		if E.db.benikui.actionbars.style.petbar then
@@ -96,7 +96,7 @@ function BAB:ColorBackdrops()
 			frame:SetBackdropColor(r, g, b, (db.abAlpha or 1))
 		end
 	end
-	
+
 	for _, frame in pairs(styleOtherBacks) do
 		local name = _G[frame:GetName()].backdrop.style
 
@@ -127,8 +127,8 @@ function BAB:TransparentBackdrops()
 					frame.backdrop:SetTemplate('Default')
 				end
 			end
-		end	
-		
+		end
+
 		-- Buttons
 		for k = 1, 12 do
 			local buttonBars = {_G['ElvUI_Bar'..i..'Button'..k]}
@@ -147,7 +147,7 @@ function BAB:TransparentBackdrops()
 					end
 				end
 			end
-		end	
+		end
 	end
 
 	-- Other bar backdrops
@@ -160,7 +160,7 @@ function BAB:TransparentBackdrops()
 			end
 		end
 	end
-	
+
 	-- Pet Buttons
 	for i = 1, NUM_PET_ACTION_SLOTS do
 		local petButtons = {_G['PetActionButton'..i]}

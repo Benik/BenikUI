@@ -22,7 +22,7 @@ function BUIB:StyleBags()
 	if ElvUI_ContainerFrameContainerHolder then
 		ElvUI_ContainerFrameContainerHolder:Point('BOTTOMLEFT', ElvUI_ContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
 	end
-	
+
 	if ElvUIBags then
 		ElvUIBags.backdrop:Style('Outside')
 		ElvUIBags.backdrop:SetTemplate('Transparent')
@@ -34,7 +34,7 @@ function BUIB:OpenBankBags()
 		ElvUI_BankContainerFrame:Style('Outside')
 		ElvUI_BankContainerFrameContainerHolder:Style('Outside')
 	end
-	
+
 	if ElvUI_BankContainerFrameContainerHolder then
 		ElvUI_BankContainerFrameContainerHolder:Point('BOTTOMLEFT', ElvUI_BankContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
 	end
@@ -61,7 +61,7 @@ end
 
 function BUIB:UpdateCountPosition()
 	if E.private.bags.enable ~= true then return; end
-	
+
 	local y = 0
 	local x = 0
 	if E.db.bags.countPosition == 'TOPLEFT' then
@@ -100,7 +100,7 @@ function BUIB:Initialize()
 	self:SkinBlizzBags()
 	self:UpdateCountPosition()
 	self:OpenBankBags()
-	
+
 	hooksecurefunc(B, 'UpdateCountDisplay', BUIB.UpdateCountPosition)
 end
 

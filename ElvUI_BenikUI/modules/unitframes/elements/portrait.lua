@@ -16,8 +16,8 @@ function UFB:Configure_Portrait(frame, isPlayer)
 
 			portrait:SetAllPoints(frame.Health)
 			portrait:SetAlpha(0.3)
-			portrait.backdrop:Hide()			
-		else		
+			portrait.backdrop:Hide()
+		else
 			portrait:SetAlpha(1)
 			portrait.backdrop:ClearAllPoints()
 			portrait.backdrop:Show()
@@ -86,20 +86,20 @@ function UFB:Configure_Portrait(frame, isPlayer)
 						E:CreateMover(frame.portraitmover, 'FocusPortraitMover', 'Focus Portrait', nil, nil, nil, 'ALL,SOLO')
 					elseif frame.unit == "pet" then
 						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
-						E:CreateMover(frame.portraitmover, 'PetPortraitMover', 'Pet Portrait', nil, nil, nil, 'ALL,SOLO')	
+						E:CreateMover(frame.portraitmover, 'PetPortraitMover', 'Pet Portrait', nil, nil, nil, 'ALL,SOLO')
 					end
 					frame.portraitmover:ClearAllPoints()
 					frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")
 				else
 					frame.portraitmover:ClearAllPoints()
-					frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")		
+					frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")
 				end
 			else
 				portrait:SetAlpha(1)
 				portrait.backdrop:Show()
 				if db.portrait.style == '3D' then
 					portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
-					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())					
+					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
 					portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
 				end
 
@@ -184,7 +184,7 @@ local function ResetPostUpdate()
 			--group is Tank/Assist Frames, but for Party/Raid we need to go deeper
 			if group.Portrait2D then group.Portrait2D.PostUpdate = UF.PortraitUpdate end
 			if group.Portrait3D then group.Portrait3D.PostUpdate = UF.PortraitUpdate end
-		
+
 			for j = 1, group:GetNumChildren() do
 				--Party/Raid unitbutton
 				local unitbutton = select(j, group:GetChildren())

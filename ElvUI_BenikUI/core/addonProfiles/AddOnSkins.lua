@@ -2,7 +2,6 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadAddOnSkinsProfile()
-	
 	local font
 	if E.private.benikui.expressway == true then
 		font = "Expressway"
@@ -32,7 +31,7 @@ function BUI:LoadAddOnSkinsProfile()
 		AddOnSkinsDB["profiles"]["BenikUI"]['RecountBackdrop'] = false
 		AddOnSkinsDB["profiles"]["BenikUI"]['TransparentEmbed'] = true
 	end
-	
+
 	if IsAddOnLoaded('Skada') then
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedFrameStrata'] = "2-LOW"
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedBelowTop'] = false
@@ -44,7 +43,7 @@ function BUI:LoadAddOnSkinsProfile()
 		AddOnSkinsDB["profiles"]["BenikUI"]['SkadaBackdrop'] = false
 		AddOnSkinsDB["profiles"]["BenikUI"]['TransparentEmbed'] = true
 	end
-	
+
 	if IsAddOnLoaded('Details') then
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedFrameStrata'] = "2-LOW"
 		AddOnSkinsDB["profiles"]["BenikUI"]['DetailsBackdrop'] = false
@@ -56,7 +55,7 @@ function BUI:LoadAddOnSkinsProfile()
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedSystemDual'] = true
 		AddOnSkinsDB["profiles"]["BenikUI"]['TransparentEmbed'] = true
 	end
-	
+
 	if IsAddOnLoaded('DBM-Core') then
 		AddOnSkinsDB["profiles"]["BenikUI"]['DBMFont'] = font
 		AddOnSkinsDB["profiles"]["BenikUI"]['DBMFont'] = font

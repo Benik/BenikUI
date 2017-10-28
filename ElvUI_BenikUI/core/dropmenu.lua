@@ -145,7 +145,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 	for i=1, #list do 
 		if not frame.buttons[i] then
 			frame.buttons[i] = CreateFrame('Button', nil, frame)
-			
+
 			frame.buttons[i].hoverTex = frame.buttons[i]:CreateTexture(nil, 'OVERLAY')
 			frame.buttons[i].hoverTex:SetAllPoints()
 			frame.buttons[i].hoverTex:SetTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]])
@@ -158,7 +158,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 			frame.buttons[i].text:SetJustifyH('LEFT')
 
 			frame.buttons[i]:SetScript('OnEnter', OnEnter)
-			frame.buttons[i]:SetScript('OnLeave', OnLeave)			
+			frame.buttons[i]:SetScript('OnLeave', OnLeave)
 		end
 
 		frame.buttons[i]:Show()
@@ -181,7 +181,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 			frame.buttons[i]:SetPoint('TOPLEFT', frame.buttons[i-1], 'BOTTOMLEFT')
 		end
 	end
-	
+
 	frame:SetScript('OnShow', function(self)
 		UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 	end)
@@ -193,9 +193,9 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 			UIFrameFadeOut(self, 0.3, self:GetAlpha(), 0)
 			self.fadeInfo.finishedFunc = function() self:Hide() end
 			counter = 0
-		end	
+		end
 	end)
-	
+
 	frame:SetHeight((#list * BUTTON_HEIGHT) + PADDING * 2)
 	frame:SetWidth(BUTTON_WIDTH + PADDING * 2 + (addedSize or 0))
 	frame:Style('Outside')
@@ -207,7 +207,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 	elseif pos == 'bLeft' then
 		frame:SetPoint('TOPRIGHT', parent, 'BOTTOMLEFT', xOffset, yOffset)
 	elseif pos == 'bRight' then
-		frame:SetPoint('TOPLEFT', parent, 'BOTTOMRIGHT', xOffset, yOffset)				
+		frame:SetPoint('TOPLEFT', parent, 'BOTTOMRIGHT', xOffset, yOffset)
 	end
 
 	ToggleFrame(frame)

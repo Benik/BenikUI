@@ -34,7 +34,7 @@ end
 
 local function StyleBar()
 	local bar = ElvUI_HonorBar
-	
+
 	-- bottom decor/button
 	bar.fb = CreateFrame('Button', nil, bar)
 	bar.fb:CreateSoftGlow()
@@ -49,7 +49,7 @@ local function StyleBar()
 	end
 	bar.fb:SetScript('OnEnter', onEnter)
 	bar.fb:SetScript('OnLeave', onLeave)
-	
+
 	bar.fb:SetScript('OnClick', function(self)
 		if not PlayerTalentFrame then
 			TalentFrame_LoadUI()
@@ -62,9 +62,9 @@ local function StyleBar()
 			HideUIPanel(PlayerTalentFrame)
 		end
 	end)
-	
+
 	BDB:ToggleHonorBackdrop()
-	
+
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	bar:Style('Outside', nil, false, true)
 end
@@ -79,15 +79,15 @@ function BDB:ApplyHonorStyling()
 				bar.fb:Hide()
 			end
 		end
-	end	
-	
+	end
+
 	if E.db.benikuiDatabars.artifact.buiStyle then
 		if bar.style then
 			bar.style:Show()
 		end
 	else
 		if bar.style then
-			bar.style:Hide()	
+			bar.style:Hide()
 		end
 	end
 end
@@ -95,7 +95,7 @@ end
 function BDB:ChangeHonorColor()
 	local bar = ElvUI_HonorBar
 	local db = E.db.benikuiDatabars.honor.color
-	
+
 	if db.default then
 		bar.statusBar:SetStatusBarColor(0.941, 0.447, 0.254, 0.8)
 	else
@@ -121,10 +121,10 @@ end
 
 function BDB:UpdateHonorNotifierPositions()
 	local bar = ElvUI_HonorBar.statusBar
-	
+
 	local db = E.db.benikuiDatabars.honor.notifiers
 	local arrow = ""
-	
+
 	bar.f:ClearAllPoints()
 	bar.f.arrow:ClearAllPoints()
 	bar.f.txt:ClearAllPoints()
@@ -148,10 +148,10 @@ function BDB:UpdateHonorNotifierPositions()
 		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
 		arrow = "<"
 	end
-	
+
 	bar.f.arrow:SetText(arrow)
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-	
+
 	if E.db.databars.honor.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
@@ -170,7 +170,7 @@ function BDB:UpdateHonorNotifier()
 		local current = UnitHonor("player");
 		local max = UnitHonorMax("player");
 		local level = UnitHonorLevel("player");
-        local levelmax = GetMaxPlayerHonorLevel();
+		local levelmax = GetMaxPlayerHonorLevel();
 
 		if max == 0 then max = 1 end
 
@@ -196,9 +196,9 @@ function BDB:LoadHonor()
 	self:HonorTextOffset()
 	hooksecurefunc(M, 'UpdateHonor', BDB.ChangeHonorColor)
 	hooksecurefunc(M, 'UpdateHonor', BDB.HonorTextOffset)
-	
+
 	local db = E.db.benikuiDatabars.honor.notifiers
-	
+
 	if db.enable and E.db.databars.honor.orientation == 'VERTICAL' then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateHonorNotifierPositions()
@@ -215,9 +215,9 @@ function BDB:LoadHonor()
 	end
 
 	if E.db.benikuiDatabars.honor.enable ~= true then return end
-	
+
 	StyleBar()
 	self:ApplyHonorStyling()
-	
+
 	hooksecurefunc(M, 'UpdateHonorDimensions', BDB.ApplyHonorStyling)
 end

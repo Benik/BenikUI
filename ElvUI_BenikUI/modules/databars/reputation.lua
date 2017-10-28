@@ -44,8 +44,8 @@ end
 
 local function StyleBar()
 	local rp = ElvUI_ReputationBar
-	
-	-- bottom decor/button	
+
+	-- bottom decor/button
 	rp.fb = CreateFrame('Button', nil, rp)
 	rp.fb:CreateSoftGlow()
 	rp.fb.sglow:Hide()
@@ -66,7 +66,7 @@ local function StyleBar()
 	end)
 	
 	BDB:ToggleRepBackdrop()
-	
+
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	rp:Style('Outside', nil, false, true)
 end
@@ -82,7 +82,7 @@ function BDB:ApplyRepStyling()
 			end
 		end
 	end
-	
+
 	if E.db.benikuiDatabars.reputation.buiStyle then
 		if rp.style then
 			rp.style:Show()
@@ -100,7 +100,7 @@ function BDB:ChangeRepColor()
 	local _, reaction = GetWatchedFactionInfo()
 	local color = FACTION_BAR_COLORS[reaction] or backupColor
 	local elvstatus = ElvUI_ReputationBar.statusBar
-	
+
 	if db.default then
 		elvstatus:SetStatusBarColor(color.r, color.g, color.b)
 	else 
@@ -134,10 +134,10 @@ end
 
 function BDB:UpdateRepNotifierPositions()
 	local bar = ElvUI_ReputationBar.statusBar
-	
+
 	local db = E.db.benikuiDatabars.reputation.notifiers
 	local arrow = ""
-	
+
 	bar.f:ClearAllPoints()
 	bar.f.arrow:ClearAllPoints()
 	bar.f.txt:ClearAllPoints()
@@ -161,7 +161,7 @@ function BDB:UpdateRepNotifierPositions()
 		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
 		arrow = "<"
 	end
-	
+
 	bar.f.arrow:SetText(arrow)
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 
@@ -184,7 +184,7 @@ function BDB:UpdateRepNotifier()
 			value = value + threshold
 		end
 	end
-	
+
 	if not name or E.db.databars.reputation.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
@@ -201,7 +201,7 @@ end
 -- Credit: Feraldin, ElvUI Enhanced (Legion)
 function BDB:SetWatchedFactionOnReputationBar(event, msg)
 	if not E.db.benikuiDatabars.reputation.autotrack then return end
-	
+
 	local _, _, faction, amount = find(msg, incpat)
 	if not faction then _, _, faction, amount = find(msg, changedpat) or find(msg, decpat) end
 	if faction then
@@ -236,7 +236,7 @@ function BDB:LoadRep()
 	self:ToggleRepAutotrack()
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
-	
+
 	if db.enable and E.db.databars.reputation.orientation == 'VERTICAL' then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateRepNotifierPositions()
@@ -256,6 +256,6 @@ function BDB:LoadRep()
 
 	StyleBar()
 	self:ApplyRepStyling()
-	
+
 	hooksecurefunc(M, 'UpdateReputationDimensions', BDB.ApplyRepStyling)
 end

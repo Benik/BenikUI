@@ -39,7 +39,7 @@ end
 
 local function StyleBar()
 	local xp = ElvUI_ExperienceBar
-	
+
 	-- bottom decor/button
 	xp.fb = CreateFrame('Button', nil, xp)
 	xp.fb:CreateSoftGlow()
@@ -54,13 +54,13 @@ local function StyleBar()
 	end
 	xp.fb:SetScript('OnEnter', onEnter)
 	xp.fb:SetScript('OnLeave', onLeave)
-	
+
 	xp.fb:SetScript('OnClick', function(self)
 		if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end
 	end)
-	
+
 	BDB:ToggleXPBackdrop()
-	
+
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	xp:Style('Outside', nil, false, true)
 end
@@ -79,8 +79,8 @@ function BDB:ApplyXpStyling()
 				xp.fb:Hide()
 			end
 		end
-	end	
-	
+	end
+
 	if E.db.benikuiDatabars.experience.buiStyle then
 		if xp.style then
 			xp.style:Show()
@@ -96,7 +96,7 @@ function BDB:ChangeXPcolor()
 	local db = E.db.benikuiDatabars.experience.color
 	local elvxpstatus = ElvUI_ExperienceBar.statusBar
 	local elvrestedstatus = ElvUI_ExperienceBar.rested
-	
+
 	if db.default then
 		elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
 		elvrestedstatus:SetStatusBarColor(1, 0, 1, 0.2)
@@ -124,10 +124,10 @@ end
 
 function BDB:UpdateXpNotifierPositions()
 	local bar = ElvUI_ExperienceBar.statusBar
-	
+
 	local db = E.db.benikuiDatabars.experience.notifiers
 	local arrow = ""
-	
+
 	bar.f:ClearAllPoints()
 	bar.f.arrow:ClearAllPoints()
 	bar.f.txt:ClearAllPoints()
@@ -151,10 +151,10 @@ function BDB:UpdateXpNotifierPositions()
 		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
 		arrow = "<"
 	end
-	
+
 	bar.f.arrow:SetText(arrow)
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-	
+
 	if E.db.databars.experience.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
@@ -196,7 +196,7 @@ function BDB:LoadXP()
 	hooksecurefunc(M, 'UpdateExperience', BDB.XpTextOffset)
 
 	local db = E.db.benikuiDatabars.experience.notifiers
-	
+
 	if db.enable and E.db.databars.experience.orientation == 'VERTICAL' then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateXpNotifierPositions()
@@ -216,6 +216,6 @@ function BDB:LoadXP()
 
 	StyleBar()
 	self:ApplyXpStyling()
-	
+
 	hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.ApplyXpStyling)
 end

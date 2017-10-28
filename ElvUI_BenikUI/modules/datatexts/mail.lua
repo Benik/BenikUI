@@ -15,19 +15,19 @@ local unreadMail;
 
 local function OnEvent(self, event, ...)
 	local newMail = false
-	
+
 	if event == 'UPDATE_PENDING_MAIL' or event == 'PLAYER_ENTERING_WORLD' or event =='PLAYER_LOGIN' then
-	
-		newMail = HasNewMail() 
-		
+
+		newMail = HasNewMail()
+
 		if unreadMail ~= newMail then
 			unreadMail = newMail
 		end
-	
+
 		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
 		self:UnregisterEvent('PLAYER_LOGIN')
 	end
-	
+
 	if event == 'MAIL_INBOX_UPDATE' or event == 'MAIL_SHOW' or event == 'MAIL_CLOSED' then
 		for i = 1, GetInboxNumItems() do
 			local _, _, _, _, _, _, _, _, wasRead = GetInboxHeaderInfo(i);
@@ -37,7 +37,7 @@ local function OnEvent(self, event, ...)
 			end
 		end
 	end
-	
+
 	if newMail then
 		self.text:SetFormattedText("|cff00ff00%s|r", L['New Mail'])
 		Read = false;
@@ -45,14 +45,13 @@ local function OnEvent(self, event, ...)
 		self.text:SetFormattedText("%s", L['No Mail'])
 		Read = true;
 	end
-
 end
 
 local function OnEnter(self)
 	DT:SetupTooltip(self)
-	
+
 	local sender1, sender2, sender3 = GetLatestThreeSenders()
-	
+
 	if not Read then
 
 		if (sender1 or sender2 or sender3) then

@@ -7,13 +7,13 @@ local find = string.find
 function UFB:UnitDefaults()
 	if E.db.benikui.unitframes.player.portraitWidth == nil then
 		E.db.benikui.unitframes.player.portraitWidth = 110
-	end	
+	end
 	if E.db.benikui.unitframes.player.portraitHeight == nil then
 		E.db.benikui.unitframes.player.portraitHeight = 85
-	end	
+	end
 	if E.db.benikui.unitframes.target.portraitWidth == nil then
 		E.db.benikui.unitframes.target.portraitWidth = 110
-	end	
+	end
 	if E.db.benikui.unitframes.target.portraitHeight == nil then
 		E.db.benikui.unitframes.target.portraitHeight = 85
 	end
@@ -23,11 +23,11 @@ function UFB:UpdateUF()
 	if E.db.unitframe.units.player.enable then
 		UFB:ArrangePlayer()
 	end
-	
+
 	if E.db.unitframe.units.target.enable then
 		UFB:ArrangeTarget()
 	end
-	
+
 	if E.db.unitframe.units.party.enable then
 		UF:CreateAndUpdateHeaderGroup('party')
 	end
@@ -46,7 +46,7 @@ function UFB:UnitShadows()
 	for _, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
 		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
-		
+
 		local unitframe = _G["ElvUF_"..frameNameUnit]
 		unitframe:CreateShadow('Default')
 		unitframe.Buffs.PostUpdateIcon = UFB.PostUpdateAura

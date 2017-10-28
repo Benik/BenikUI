@@ -3,7 +3,7 @@ local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadDBMProfile()
 	DBM:CreateProfile('BenikUI')
-	
+
 	local font
 	if E.private.benikui.expressway == true then
 		font = "Interface\\AddOns\\ElvUI\\media\\fonts\\Expressway.ttf"
@@ -20,6 +20,6 @@ function BUI:LoadDBMProfile()
 	DBT_AllPersistentOptions["BenikUI"]["DBM"]["Font"] = font
 	DBM_AllSavedOptions["BenikUI"]["WarningFont"] = font
 	DBM_AllSavedOptions["BenikUI"]["SpecialWarningFont"] = font
-	
+
 	DBM:ApplyProfile('BenikUI')
 end

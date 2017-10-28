@@ -20,6 +20,6 @@ function BUI:LoadLocationPlusProfile()
 		E.db["locplus"]["dtheight"] = 16
 		E.db["locplus"]["lpfont"] = "Bui Visitor1"
 		E.db["locplus"]["lpfontflags"] = "MONOCROMEOUTLINE"
-		E.db["locplus"]["lpfontsize"] = 10	
+		E.db["locplus"]["lpfontsize"] = 10
 	end
 end

@@ -95,12 +95,11 @@ local function style_Calendar()
 	_G["CalendarCreateEventFrame"]:Style('Outside')
 	_G["CalendarContextMenu"]:Style('Outside')
 	_G["CalendarViewRaidFrame"]:Style('Outside')
-	
+
 	if not IsAddOnLoaded('AddOnSkins') then return end
 	for i = 1, 42 do
 		_G['CalendarDayButton'..i]:SetTemplate('Transparent')
 	end
-	
 end
 S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_Calendar", style_Calendar)
 
@@ -122,7 +121,7 @@ local function style_Contribution()
 	if not frame.backdrop then
 		frame:CreateBackdrop('Transparent')
 	end
-	
+
 	if frame.backdrop then
 		frame.backdrop:Style('Outside')
 	end

@@ -400,7 +400,6 @@ local function FixMapStyle()
 end
 
 local function styleAddons()
-	
 	-- LocationLite
 	if IsAddOnLoaded('ElvUI_LocLite') and E.db.benikuiSkins.elvuiAddons.loclite then
 		local framestoskin = {_G["LocationLitePanel"], _G["XCoordsLite"], _G["YCoordsLite"]}
@@ -471,7 +470,7 @@ function BUIS:init()
 	if reason == "DISABLED" or reason == "MISSING" then 
 		styleOrderHall()
 	end
-	
+
 	_G["WorldMapFrame"]:HookScript('OnShow', FixMapStyle)
 	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
 end

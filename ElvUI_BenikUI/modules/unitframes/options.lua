@@ -333,7 +333,7 @@ local function ufPlayerTable()
 			},
 		},
 	}
-	
+
 	E.Options.args.unitframe.args.player.args.power.args.vertical = {
 		order = 15,
 		type = "toggle",
@@ -352,7 +352,7 @@ local function ufTargetTable()
 		guiInline = true,
 		get = function(info) return E.db.benikui.unitframes.target[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.unitframes.target[ info[#info] ] = value; UFB:ArrangeTarget(); end,
-		args = {		
+		args = {
 			detachPortrait = {
 				order = 1,
 				type = 'toggle',
@@ -399,7 +399,7 @@ local function ufTargetTable()
 				desc = L['Change the detached portrait width'],
 				disabled = function() return E.db.benikui.unitframes.target.getPlayerPortraitSize or not E.db.benikui.unitframes.target.detachPortrait end,
 				min = 10, max = 500, step = 1,
-			},	
+			},
 			portraitHeight = {
 				order = 6,
 				type = 'range',
@@ -438,7 +438,7 @@ local function ufTargetTable()
 		},
 	}
 
-	E.Options.args.unitframe.args.target.args.power.args.vertical = {	
+	E.Options.args.unitframe.args.target.args.power.args.vertical = {
 		order = 15,
 		type = "toggle",
 		name = BUI:cOption(L['Vertical']),
@@ -456,7 +456,7 @@ local function ufTargetTargetTable()
 		guiInline = true,
 		get = function(info) return E.db.benikui.unitframes.targettarget[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.unitframes.targettarget[ info[#info] ] = value; UFB:ArrangeTargetTarget(); end,
-		args = {		
+		args = {
 			detachPortrait = {
 				order = 1,
 				type = 'toggle',
@@ -497,7 +497,7 @@ local function ufTargetTargetTable()
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
 				min = 10, max = 500, step = 1,
-			},	
+			},
 			portraitHeight = {
 				order = 5,
 				type = 'range',
@@ -526,7 +526,7 @@ local function ufFocusTable()
 		guiInline = true,
 		get = function(info) return E.db.benikui.unitframes.focus[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.unitframes.focus[ info[#info] ] = value; UFB:ArrangeFocus(); end,
-		args = {		
+		args = {
 			detachPortrait = {
 				order = 1,
 				type = 'toggle',
@@ -567,7 +567,7 @@ local function ufFocusTable()
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
 				min = 10, max = 500, step = 1,
-			},	
+			},
 			portraitHeight = {
 				order = 5,
 				type = 'range',
@@ -596,7 +596,7 @@ local function ufPetTable()
 		guiInline = true,
 		get = function(info) return E.db.benikui.unitframes.pet[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.unitframes.pet[ info[#info] ] = value; UFB:ArrangePet(); end,
-		args = {		
+		args = {
 			detachPortrait = {
 				order = 1,
 				type = 'toggle',
@@ -637,7 +637,7 @@ local function ufPetTable()
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
 				min = 10, max = 500, step = 1,
-			},	
+			},
 			portraitHeight = {
 				order = 5,
 				type = 'range',
@@ -659,15 +659,14 @@ end
 tinsert(BUI.Config, ufPetTable)
 
 local function injectPartyOptions()
-
 	E.Options.args.unitframe.args.party.args.portrait.args.height = {
 		type = 'range',
 		order = 15,
 		name = BUI:cOption("+ "..L["Height"]),
 		min = 0, max = 150, step = 1,
 	}
-	
-	E.Options.args.unitframe.args.party.args.portrait.args.transparent = {	
+
+	E.Options.args.unitframe.args.party.args.portrait.args.transparent = {
 		order = 16,
 		type = "toggle",
 		name = BUI:cOption(L['Transparent']),
@@ -678,7 +677,7 @@ end
 tinsert(BUI.Config, injectPartyOptions)
 
 local function injectRaidOptions()
-	E.Options.args.unitframe.args.raid.args.generalGroup.args.classHover = {	
+	E.Options.args.unitframe.args.raid.args.generalGroup.args.classHover = {
 		order = 7,
 		type = "toggle",
 		name = BUI:cOption(L['Class Hover']),
@@ -689,7 +688,7 @@ end
 tinsert(BUI.Config, injectRaidOptions)
 
 local function injectRaid40Options()
-	E.Options.args.unitframe.args.raid40.args.generalGroup.args.classHover = {	
+	E.Options.args.unitframe.args.raid40.args.generalGroup.args.classHover = {
 		order = 7,
 		type = "toggle",
 		name = BUI:cOption(L['Class Hover']),

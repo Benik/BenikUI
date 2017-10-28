@@ -48,7 +48,7 @@ function BUID:CreateSystemHolder()
 	sholder:Width(DASH_WIDTH)
 	sholder:Height(DASH_HEIGHT)
 	sholder.backdrop:Style('Outside')
-	
+
 	if E.db.dashboards.system.combat then
 		sholder:SetScript('OnEvent',function(self, event)
 			if event == 'PLAYER_REGEN_DISABLED' then
@@ -57,7 +57,7 @@ function BUID:CreateSystemHolder()
 			elseif event == 'PLAYER_REGEN_ENABLED' then
 				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 				self:Show()
-			end	
+			end
 		end)
 	end
 
@@ -70,10 +70,10 @@ end
 function BUID:EnableDisableCombat()
 	if E.db.dashboards.system.combat then
 		sysHolder:RegisterEvent('PLAYER_REGEN_DISABLED')
-		sysHolder:RegisterEvent('PLAYER_REGEN_ENABLED')	
+		sysHolder:RegisterEvent('PLAYER_REGEN_ENABLED')
 	else
 		sysHolder:UnregisterEvent('PLAYER_REGEN_DISABLED')
-		sysHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')	
+		sysHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')
 	end
 end
 
@@ -105,7 +105,7 @@ function BUID:UpdateBoards()
 			sysFrame:Width(DASH_WIDTH)
 			sysFrame:Point('TOPLEFT', sysHolder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
-			
+
 			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
 			sysFrame.dummy:Point('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 2)
 			sysFrame.dummy:Point('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
@@ -115,18 +115,18 @@ function BUID:UpdateBoards()
 			sysFrame.dummy.dummyStatus:SetInside()
 			sysFrame.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
 			sysFrame.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
-			
+
 			sysFrame.Status = CreateFrame('StatusBar', nil, sysFrame.dummy)
 			sysFrame.Status:SetStatusBarTexture(E['media'].BuiFlat)
 			sysFrame.Status:SetMinMaxValues(0, 100)
 			sysFrame.Status:SetInside()
-			
+
 			sysFrame.spark = sysFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
 			sysFrame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
 			sysFrame.spark:SetSize(12, 6);
 			sysFrame.spark:SetBlendMode('ADD');
-			sysFrame.spark:SetPoint('CENTER', sysFrame.Status:GetStatusBarTexture(), 'RIGHT')			
-			
+			sysFrame.spark:SetPoint('CENTER', sysFrame.Status:GetStatusBarTexture(), 'RIGHT')
+
 			sysFrame.Text = sysFrame.Status:CreateFontString(nil, 'OVERLAY')
 			sysFrame.Text:Point('LEFT', sysFrame, 'LEFT', 6, (E.PixelMode and 2 or 3))
 			sysFrame.Text:SetJustifyH('LEFT')
@@ -193,11 +193,10 @@ function BUID:ToggleStyle()
 end
 
 function BUID:Initialize()
-	
 	if E.db.dashboards.system.enableSystem ~= true then return end
 	local db = E.db.dashboards.system.chooseSystem
 
-	if (db.FPS ~= true and db.MS ~= true and db.Memory ~= true and db.Durability ~= true and db.Volume ~= true) then return end	
+	if (db.FPS ~= true and db.MS ~= true and db.Memory ~= true and db.Durability ~= true and db.Volume ~= true) then return end
 
 	self:CreateSystemHolder()
 	hooksecurefunc(DT, 'LoadDataTexts', BUID.ChangeFont)
@@ -205,7 +204,7 @@ function BUID:Initialize()
 	self:BarColor()
 	self:ToggleStyle()
 	self:ToggleTransparency()
-	
+
 	if db.FPS then self:CreateFps() end
 	if db.MS then self:CreateMs() end
 	if db.Memory then self:CreateMemory() end

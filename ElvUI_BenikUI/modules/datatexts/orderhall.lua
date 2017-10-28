@@ -52,7 +52,7 @@ local function OnEnter(self)
 	local numMissions = (inProgressMissions and #inProgressMissions or 0)
 	local AvailableMissions = C_GarrisonGetAvailableMissions(LE_FOLLOWER_TYPE_GARRISON_7_0);
 	local numAvailableMissions = (AvailableMissions and #AvailableMissions or 0)
-	
+
 	if (numAvailableMissions > 0 and numMissions == 0) then
 		DT.tooltip:AddLine(format(GARRISON_LANDING_AVAILABLE, numAvailableMissions))
 	elseif (numMissions > 0) then
@@ -194,11 +194,11 @@ local function OnEvent(self)
 	C_Garrison_GetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_7_0)
 	local CountInProgress = 0
 	local CountCompleted = 0
-	
+
 	for i = 1, #inProgressMissions do
 		if inProgressMissions[i].inProgress then
 			local TimeLeft = inProgressMissions[i].timeLeft:match("%d")
-			
+
 			if (TimeLeft ~= "0") then
 				CountInProgress = CountInProgress + 1
 			else
@@ -212,13 +212,13 @@ local function OnEvent(self)
 	else
 		self.text:SetText(_G["ORDER_HALL_"..class]) --or ORDER_HALL_LANDING_PAGE_TITLE
 	end
-	
+
 	lastPanel = self
 end
 
 local function ValueColorUpdate(hex)
 	displayModifierString = join("", "%s: ", hex, "%d/%d|r")
-	
+
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
 	end

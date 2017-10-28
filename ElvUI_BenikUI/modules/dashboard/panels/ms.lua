@@ -17,7 +17,7 @@ local statusColors = {
 
 function BUID:CreateMs()
 	local boardName = _G['MS']
-	
+
 	boardName:SetScript('OnEnter', function(self)
 		if not InCombatLockdown() then
 			local value = 0
@@ -32,31 +32,31 @@ function BUID:CreateMs()
 				text = "MS ("..WORLD.."): "
 			end
 			GameTooltip:AddDoubleLine(text, value, 0.7, 0.7, 1, 0.84, 0.75, 0.65)
-			GameTooltip:Show()			
+			GameTooltip:Show()
 		end
 	end)
-	
+
 	boardName:SetScript('OnLeave', function(self)
 		GameTooltip:Hide()
 	end)
-	
+
 	boardName.Status:SetScript('OnUpdate', function(self, elapsed)
 		LastUpdate = LastUpdate - elapsed
-		
+
 		if(LastUpdate < 0) then
 			self:SetMinMaxValues(0, 200)
 			local value = 0
 			local displayFormat = ""
-			
+
 			if E.db.dashboards.system.latency == 1 then
 				value = (select(3, GetNetStats())) -- Home
 			else
 				value = (select(4, GetNetStats())) -- World
 			end
-			
+
 			local max = 200
 			local mscolor = 4
-			
+
 			self:SetValue(value)
 
 			if( value * 100 / max <= 35) then

@@ -62,7 +62,7 @@ local BUIcurrency = {
 	1172,	-- Highborne Archaeology Fragment
 	1173,	-- Highmountain Tauren Archaeology Fragment
 	1174,	-- Demonic Archaeology Fragment
-	
+
 	-- WoD
 	821,	-- Draenor Clans Archaeology Fragment
 	828,	-- Ogre Archaeology Fragment
@@ -76,7 +76,7 @@ local BUIcurrency = {
 	1129,	-- Seal of Inevitable Fate
 	1166, 	-- Timewarped Badge (6.22)
 	1191, 	-- Valor Points (6.23)
-	
+
 	-- Legion
 	1155,	-- Ancient Mana
 	1220,	-- Order Resources
@@ -139,7 +139,7 @@ function BUIT:CreateTokensHolder()
 		tholder.backdrop:Style('Outside')
 		tholder:Hide()
 	end
-	
+
 	if db.combat then
 		tholder:SetScript('OnEvent',function(self, event)
 			if event == 'PLAYER_REGEN_DISABLED' then
@@ -148,10 +148,10 @@ function BUIT:CreateTokensHolder()
 			elseif event == 'PLAYER_REGEN_ENABLED' then
 				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 				self:Show()
-			end	
+			end
 		end)
 	end
-	
+
 	self:UpdateTokens()
 	self:UpdateTHolderDimensions()
 	self:EnableDisableCombat()
@@ -162,10 +162,10 @@ end
 function BUIT:EnableDisableCombat()
 	if E.db.dashboards.tokens.combat then
 		tokenHolder:RegisterEvent('PLAYER_REGEN_DISABLED')
-		tokenHolder:RegisterEvent('PLAYER_REGEN_ENABLED')	
+		tokenHolder:RegisterEvent('PLAYER_REGEN_ENABLED')
 	else
 		tokenHolder:UnregisterEvent('PLAYER_REGEN_DISABLED')
-		tokenHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')	
+		tokenHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')
 	end
 end
 
@@ -181,7 +181,7 @@ end
 
 function BUIT:UpdateTokens()
 	local db = E.db.dashboards.tokens
-	
+
 	if( tokenFrames[1] ) then
 		for i = 1, getn( tokenFrames ) do
 			tokenFrames[i]:Kill()
@@ -189,9 +189,9 @@ function BUIT:UpdateTokens()
 		twipe( tokenFrames )
 		tokenHolder:Hide()
 	end
-	
+
 	if db.mouseover then tokenHolder:SetAlpha(0) else tokenHolder:SetAlpha(1) end
-	
+
 	tokenHolder:SetScript('OnEnter', function(self)
 		if db.mouseover then
 			E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
@@ -208,9 +208,8 @@ function BUIT:UpdateTokens()
 		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
 		
 		if name then
-			
 			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = false end
-			
+
 			if E.private.dashboards.tokens.chooseTokens[id] == true then
 				if db.zeroamount or amount > 0 then
 					tokenHolder:Show()
@@ -220,7 +219,7 @@ function BUIT:UpdateTokens()
 						tokenHolderMover:Size(tokenHolder:GetSize())
 						tokenHolder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
-					
+
 					local token = CreateFrame('Frame', nil, tokenHolder)
 					token:Height(DASH_HEIGHT)
 					token:Width(DASH_WIDTH)
@@ -252,7 +251,7 @@ function BUIT:UpdateTokens()
 					token.Status:SetValue(amount)
 					token.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
 					token.Status:SetInside()
-					
+
 					token.spark = token.Status:CreateTexture(nil, 'OVERLAY', nil);
 					token.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
 					token.spark:Size(12, 6);
@@ -268,13 +267,13 @@ function BUIT:UpdateTokens()
 					token.Text:Point('CENTER', token, 'CENTER', -10, (E.PixelMode and 1 or 3))
 					token.Text:Width(token:GetWidth() - 20)
 					token.Text:SetWordWrap(false)
-					
+
 					if E.db.dashboards.textColor == 1 then
 						token.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 					else
 						token.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 					end
-					
+
 					if totalMax == 0 then
 						token.Text:SetFormattedText('%s', amount)
 					else
@@ -304,12 +303,12 @@ function BUIT:UpdateTokens()
 							E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
 						end
 					end)
-					
+
 					-- Flash
 					if db.flash then
 						E:Flash(token, 0.2)
 					end
-			
+
 					token:SetScript('OnLeave', function(self)
 						if totalMax == 0 then
 							token.Text:SetFormattedText('%s', amount)
@@ -319,7 +318,7 @@ function BUIT:UpdateTokens()
 							else
 								token.Text:SetFormattedText('%s / %s', amount, totalMax)
 							end
-						end				
+						end
 						GameTooltip:Hide()
 						if db.mouseover then
 							E:UIFrameFadeOut(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)

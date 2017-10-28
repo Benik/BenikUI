@@ -19,7 +19,7 @@ function UFB:Configure_Infopanel(frame)
 		end
 	else
 		if frame.PORTRAIT_AND_INFOPANEL then
-			frame.InfoPanel:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", frame.PORTRAIT_WIDTH +frame.BORDER + frame.SPACING, frame.BORDER + frame.SPACING)			
+			frame.InfoPanel:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", frame.PORTRAIT_WIDTH +frame.BORDER + frame.SPACING, frame.BORDER + frame.SPACING)
 		else
 			frame.InfoPanel:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", frame.BORDER + frame.SPACING, frame.BORDER + frame.SPACING)
 		end
@@ -37,7 +37,7 @@ function UFB:UnitInfoPanelColor()
 	for _, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
 		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
-		
+
 		local unitframe = _G["ElvUF_"..frameNameUnit]
 		if unitframe and unitframe.InfoPanel then
 			if not unitframe.InfoPanel.color then

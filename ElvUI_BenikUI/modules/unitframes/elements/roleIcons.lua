@@ -53,7 +53,7 @@ function UFB:UpdateRoleIcon()
 		lfdrole:Hide()
 		return
 	end
-	
+
 	local isInstance, instanceType = IsInInstance()
 	local role
 	if isInstance and instanceType == "pvp" then

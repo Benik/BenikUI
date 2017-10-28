@@ -44,7 +44,7 @@ function BUI:RegisterBuiMedia()
 	E['media'].buiVisitor = LSM:Fetch('font', 'Bui Visitor1')
 	E['media'].buiVisitor2 = LSM:Fetch('font', 'Bui Visitor2')
 	E['media'].buiTuk = LSM:Fetch('font', 'Bui Tukui')
-	
+
 	--Textures
 	E['media'].BuiEmpty = LSM:Fetch('statusbar', 'BuiEmpty')
 	E['media'].BuiFlat = LSM:Fetch('statusbar', 'BuiFlat')
@@ -103,7 +103,7 @@ end
 function BUI:AddOptions()
 	for _, func in pairs(BUI.Config) do
 		func()
-	end	
+	end
 end
 
 function BUI:DasOptions()
@@ -198,7 +198,7 @@ function BUI:Initialize()
 		print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..BUI:PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues'))
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)
-	
+
 	hooksecurefunc(E, "UpdateMedia", BUI.UpdateSoftGlowColor)
 end
 

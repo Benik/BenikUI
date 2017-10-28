@@ -51,7 +51,7 @@ function BUIS:styleAlertFrames()
 	hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(NewPetAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(NewMountAlertSystem, "setUpFunction", StyleAlert)
-	
+
 	local function StyleAlertWithIcon(frame)
 		if frame.backdrop then
 			if not frame.backdrop.style then

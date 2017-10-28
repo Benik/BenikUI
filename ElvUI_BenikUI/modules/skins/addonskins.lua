@@ -37,7 +37,7 @@ local function skinDecursive()
 	_G["DecursivePriorityListFrame"]:StripTextures()
 	_G["DecursivePriorityListFrame"]:CreateBackdrop('Transparent')
 	_G["DecursivePriorityListFrame"].backdrop:Style('Outside')
-	
+
 	local priorityButton = {_G["DecursivePriorityListFrameAdd"], _G["DecursivePriorityListFramePopulate"], _G["DecursivePriorityListFrameClear"], _G["DecursivePriorityListFrameClose"]}
 	for i, button in pairs(priorityButton) do
 		S:HandleButton(button)
@@ -67,7 +67,7 @@ local function skinDecursive()
 	-- Skip List Frame
 	_G["DecursiveSkipListFrame"]:StripTextures()
 	_G["DecursiveSkipListFrame"]:CreateBackdrop('Transparent')
-	_G["DecursiveSkipListFrame"].backdrop:Style('Outside')	
+	_G["DecursiveSkipListFrame"].backdrop:Style('Outside')
 
 	local skipButton = {_G["DecursiveSkipListFrameAdd"], _G["DecursiveSkipListFramePopulate"], _G["DecursiveSkipListFrameClear"], _G["DecursiveSkipListFrameClose"]}
 	for i, button in pairs(skipButton) do
@@ -220,7 +220,7 @@ local function RareCoordDecor()
 		if not frame.style then
 			frame:Style('Outside')
 		end
-	end	
+	end
 end
 
 local function CliqueDecor()
@@ -238,7 +238,7 @@ end
 local function oRA3Decor()
 	if not E.db.benikuiSkins.addonSkins.ora then return end
 	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"]:Style('Small'); end)
-	
+
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")
 	if (ReadyCheckModule) then
 		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() _G["oRA3ReadyCheck"]:Style('Small'); end)
@@ -253,7 +253,6 @@ local function PawnDecor()
 		frame:Style('Outside')
 	end
 end
-
 
 if AS:CheckAddOn('Skada') then AS:RegisterSkin('Skada', SkadaDecor, 2) end
 if AS:CheckAddOn('Recount') then AS:RegisterSkin('Recount', RecountDecor, 2) end

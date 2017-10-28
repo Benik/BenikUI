@@ -36,7 +36,7 @@ end
 
 local function StyleBar()
 	local bar = ElvUI_ArtifactBar
-	
+
 	-- bottom decor/button
 	bar.fb = CreateFrame('Button', nil, bar)
 	bar.fb:CreateSoftGlow()
@@ -51,7 +51,7 @@ local function StyleBar()
 	end
 	bar.fb:SetScript('OnEnter', onEnter)
 	bar.fb:SetScript('OnLeave', onLeave)
-	
+
 	bar.fb:SetScript('OnClick', function(self)
 		if not _G["ArtifactFrame"] or not _G["ArtifactFrame"]:IsShown() then
 			ShowUIPanel(SocketInventoryItem(16))
@@ -59,9 +59,9 @@ local function StyleBar()
 			HideUIPanel(ArtifactFrame)
 		end
 	end)
-	
+
 	BDB:ToggleAFBackdrop()
-	
+
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	bar:Style('Outside', nil, false, true)
 end
@@ -76,15 +76,15 @@ function BDB:ApplyAfStyling()
 				bar.fb:Hide()
 			end
 		end
-	end	
-	
+	end
+
 	if E.db.benikuiDatabars.artifact.buiStyle then
 		if bar.style then
 			bar.style:Show()
 		end
 	else
 		if bar.style then
-			bar.style:Hide()	
+			bar.style:Hide()
 		end
 	end
 end
@@ -92,7 +92,7 @@ end
 function BDB:ChangeAFcolor()
 	local bar = ElvUI_ArtifactBar
 	local db = E.db.benikuiDatabars.artifact.color
-	
+
 	if db.default then
 		bar.statusBar:SetStatusBarColor(.901, .8, .601, .8)
 	else
@@ -119,11 +119,11 @@ end
 function BDB:UpdateAfNotifierPositions()
 	local bar = ElvUI_ArtifactBar.statusBar
 	local bagbar = ElvUI_ArtifactBar.bagValue
-	
+
 	local db = E.db.benikuiDatabars.artifact.notifiers
 	local apInBags = ElvUI_ArtifactBar.BagArtifactPower
 	local arrow = ""
-	
+
 	bar.f:ClearAllPoints()
 	bar.f.arrow:ClearAllPoints()
 	bar.f.txt:ClearAllPoints()
@@ -163,7 +163,7 @@ function BDB:UpdateAfNotifierPositions()
 		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
 		arrow = "<"
 	end
-	
+
 	bar.f.arrow:SetText(arrow)
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 
@@ -217,9 +217,9 @@ function BDB:LoadAF()
 	self:AfTextOffset()
 	hooksecurefunc(M, 'UpdateArtifact', BDB.ChangeAFcolor)
 	hooksecurefunc(M, 'UpdateArtifact', BDB.AfTextOffset)
-	
+
 	local db = E.db.benikuiDatabars.artifact.notifiers
-	
+
 	if db.enable and E.db.databars.artifact.orientation == 'VERTICAL' then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateAfNotifierPositions()
@@ -236,9 +236,9 @@ function BDB:LoadAF()
 	end
 
 	if E.db.benikuiDatabars.artifact.enable ~= true then return end
-	
+
 	StyleBar()
 	self:ApplyAfStyling()
-	
+
 	hooksecurefunc(M, 'UpdateArtifactDimensions', BDB.ApplyAfStyling)
 end

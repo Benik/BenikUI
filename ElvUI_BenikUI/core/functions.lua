@@ -72,21 +72,21 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 	else
 		style:SetTemplate('Transparent', true)
 	end
-	
+
 	style.ignoreUpdates = true
 
 	if(ignoreColor) then
-	   style.ignoreColor = ignoreColor
+		style.ignoreColor = ignoreColor
 	end
-	
+
 	if(ignoreVisibility) then
-	   style.ignoreVisibility = ignoreVisibility
+		style.ignoreVisibility = ignoreVisibility
 	end
 
 	style:SetFrameLevel(f:GetFrameLevel() + 2)
-	
+
 	local tlx, tly, brx, bry
-	
+
 	if template == 'Inside' then
 		tlx, tly, brx, bry = 0, (E.PixelMode and 0 or 2), 0, (E.PixelMode and -5 or -4)
 	elseif template == 'Outside' then
@@ -96,7 +96,7 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 	elseif template == 'Under' then
 		tlx, tly, brx, bry = 0, 1, 0, (E.PixelMode and -4 or -7)
 	end
-	
+
 	if template == 'Under' then
 		style:Point('TOPLEFT', f, 'BOTTOMLEFT', tlx, tly)
 		style:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT', brx, bry)
@@ -104,7 +104,7 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 		style:Point('TOPLEFT', f, 'TOPLEFT', tlx, tly)
 		style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
 	end
-	
+
 	if not ignoreColor then
 		if E.db.benikui.colors.StyleColor == 1 then
 			r, g, b = classColor.r, classColor.g, classColor.b
@@ -157,6 +157,6 @@ while object do
 		addapi(object)
 		handled[object:GetObjectType()] = true
 	end
-	
+
 	object = EnumerateFrames(object)
 end

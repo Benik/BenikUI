@@ -308,7 +308,7 @@ local function databarsTable()
 						type = 'group',
 						name = COLOR,
 						guiInline = true,
-						args = {				
+						args = {
 							default = {
 								order = 1,
 								type = 'toggle',
@@ -430,7 +430,7 @@ local function databarsTable()
 						type = "execute",
 						name = L["ElvUI"].." "..REPUTATION,
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "reputation") end,
-					},						
+					},
 				},
 			},
 			honor = {
@@ -536,14 +536,13 @@ local function databarsTable()
 						type = "execute",
 						name = L["ElvUI"].." "..HONOR,
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "honor") end,
-					},					
+					},
 				},
 			},
 		},
 	}
 end
 tinsert(BUI.Config, databarsTable)
-
 
 local function injectElvUIDatabarOptions()
 	-- xp
@@ -559,12 +558,12 @@ local function injectElvUIDatabarOptions()
 	E.Options.args.databars.args.experience.args.spacer1 = {
 		order = 21,
 		type = 'description',
-		name = '',	
+		name = '',
 	}
 	E.Options.args.databars.args.experience.args.spacer2 = {
 		order = 22,
 		type = 'header',
-		name = '',	
+		name = '',
 	}
 
 	E.Options.args.databars.args.experience.args.gotobenikui = {
@@ -587,13 +586,13 @@ local function injectElvUIDatabarOptions()
 	E.Options.args.databars.args.artifact.args.spacer1 = {
 		order = 21,
 		type = 'description',
-		name = '',	
+		name = '',
 	}
 
 	E.Options.args.databars.args.artifact.args.spacer2 = {
 		order = 22,
 		type = 'header',
-		name = '',	
+		name = '',
 	}
 
 	E.Options.args.databars.args.artifact.args.gotobenikui = {
@@ -604,7 +603,7 @@ local function injectElvUIDatabarOptions()
 	}
 
 	-- reputation
-	E.Options.args.databars.args.reputation.args.textYoffset = {	
+	E.Options.args.databars.args.reputation.args.textYoffset = {
 		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
@@ -616,13 +615,13 @@ local function injectElvUIDatabarOptions()
 	E.Options.args.databars.args.reputation.args.spacer1 = {
 		order = 21,
 		type = 'description',
-		name = '',	
+		name = '',
 	}
 
 	E.Options.args.databars.args.reputation.args.spacer2 = {
 		order = 22,
 		type = 'header',
-		name = '',	
+		name = '',
 	}
 
 	E.Options.args.databars.args.reputation.args.gotobenikui = {
@@ -631,7 +630,7 @@ local function injectElvUIDatabarOptions()
 		name = BUI.Title..REPUTATION,
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "reputation") end,
 	}
-	
+
 	-- honor
 	E.Options.args.databars.args.honor.args.textYoffset = {	
 		order = 20,
@@ -645,13 +644,13 @@ local function injectElvUIDatabarOptions()
 	E.Options.args.databars.args.honor.args.spacer1 = {
 		order = 21,
 		type = 'description',
-		name = '',	
+		name = '',
 	}
 
 	E.Options.args.databars.args.honor.args.spacer2 = {
 		order = 22,
 		type = 'header',
-		name = '',	
+		name = '',
 	}
 
 	E.Options.args.databars.args.honor.args.gotobenikui = {

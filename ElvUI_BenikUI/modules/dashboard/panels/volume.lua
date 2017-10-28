@@ -25,13 +25,13 @@ end
 local function iconBG_OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, -20)
 	GameTooltip:ClearAllPoints()
-	
+
 	GameTooltip:ClearLines()
 	local master = GetVolumePercent('Sound_MasterVolume');
 	local effects = GetVolumePercent('Sound_SFXVolume');
 	local music = GetVolumePercent('Sound_MusicVolume');
 	local ambience = GetVolumePercent('Sound_AmbienceVolume');
-	
+
 	if (GetCVar('Sound_EnableAllSound') == '0') then
 		GameTooltip:AddDoubleLine(MASTER_VOLUME, MUTED, 1, 1, 1, selectioncolor)
 	else
@@ -82,7 +82,7 @@ local function iconBG_OnClick(self, btn)
 	if btn == 'LeftButton' then
 		Sound_ToggleSound()
 	end
-	
+
 	if btn == 'RightButton' then
 		Sound_ToggleMusic()
 	end
@@ -101,7 +101,7 @@ local SOUND_MAX_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\\so
 
 function BUID:CreateVolume()
 	local boardName = _G['Volume']
-	
+
 	local iconBG = CreateFrame('Frame', nil, boardName)
 	iconBG:Size(16,16)
 	iconBG:Point('BOTTOMRIGHT', boardName, 'BOTTOMRIGHT', 0, (E.PixelMode and 4 or 6))
@@ -127,7 +127,7 @@ function BUID:CreateVolume()
 		local max = 100
 		local color = 3
 		local icon
-		
+
 		self:SetValue(volumeValue)
 
 		if (GetCVar('Sound_EnableSFX') == '0') then
@@ -149,7 +149,7 @@ function BUID:CreateVolume()
 				icon = SOUND_LOW_ICON
 			end
 		end
-		
+
 		iconBG.text:SetText(icon)
 		local displayFormat = join('', VOLUME..':', statusColors[color], ' %d%%|r')
 		boardName.Text:SetFormattedText(displayFormat, volumeValue)

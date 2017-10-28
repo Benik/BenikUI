@@ -91,7 +91,7 @@ local function abTable()
 				E.db.benikui.actionbars.style[ info[#info] ] = value;
 				BAB:ToggleStyle()
 			end,
-		}	
+		}
 	end
 
 	E.Options.args.benikui.args.actionbars.args.style.args.spacer = {

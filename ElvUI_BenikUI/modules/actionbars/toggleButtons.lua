@@ -34,7 +34,7 @@ function BAB:CreateButtons()
 		abtn[i] = CreateFrame('Button', nil, E.UIParent)
 		abtn[i]:Size(12, 5)
 		abtn[i]:SetTemplate('Default', true)
-		abtn[i]:SetAlpha(0)		
+		abtn[i]:SetAlpha(0)
 		abtn[i].tex = abtn[i]:CreateTexture(nil, 'OVERLAY')
 		abtn[i].tex:SetInside()
 		abtn[i].tex:SetTexture(E['media'].BuiFlat)
@@ -43,7 +43,7 @@ function BAB:CreateButtons()
 		abtn[i].anim = CreateAnimationGroup(abtn[i])
 		abtn[i].anim.height = abtn[i].anim:CreateAnimation("Height")
 		abtn[i].anim.height:SetDuration(.1)
-		
+
 		abtn[i]:SetScript('OnEnter', function(self)
 			if InCombatLockdown() then return end
 			self.anim.height:SetChange(12)
@@ -70,7 +70,7 @@ function BAB:ShowButtons()
 	local bar1 = ElvUI_Bar1.backdrop.style
 	local bar2 = ElvUI_Bar2.backdrop.style
 	local db = E.db.benikui.actionbars.toggleButtons
-	
+
 	if bar1 or bar2 then
 		for i = 1, 2 do
 			abtn[i]:ClearAllPoints()
@@ -89,7 +89,7 @@ function BAB:ShowButtons()
 					abtn[i]:Point('LEFT', bar1, 'LEFT')
 				end
 			end
-			
+
 			if db.enable then
 				abtn[i]:Show()
 			else

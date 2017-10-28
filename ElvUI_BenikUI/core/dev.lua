@@ -8,7 +8,7 @@
 		/run LootUpgradeAlertSystem:AddAlert("\124cffa335ee\124Hitem:18832::::::::::\124h[Brutality Blade]\124h\124r", 1, 1, 1, nil, nil, false)
 		/run MoneyWonAlertSystem:AddAlert(815)
 		/run NewRecipeLearnedAlertSystem:AddAlert(204)
-		
+
 		--Simple Alerts
 		/run GuildChallengeAlertSystem:AddAlert(3, 2, 5)
 		/run InvasionAlertSystem:AddAlert(1)

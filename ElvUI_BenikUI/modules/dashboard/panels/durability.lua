@@ -20,13 +20,13 @@ local invDurability = {}
 local function OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
 	GameTooltip:ClearAllPoints()
-	
+
 	GameTooltip:ClearLines()
-	
+
 	for slot, durability in pairs(invDurability) do
 		GameTooltip:AddDoubleLine(slot, format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0))
 	end
-		
+
 	GameTooltip:Show()
 end
 
@@ -53,16 +53,16 @@ local slots = {
 
 function BUID:CreateDurability()
 	local boardName = _G['Durability']
-	
+
 	boardName.Status:SetScript('OnEvent', function( self, ...)
 
 		lastPanel = self
 		totalDurability = 100
-		
+
 		for index, value in pairs(slots) do
 			local slot = GetInventorySlotInfo(index)
 			current, max = GetInventoryItemDurability(slot)
-			
+
 			if current then
 				invDurability[value] = (current/max)*100
 
@@ -71,13 +71,13 @@ function BUID:CreateDurability()
 				end
 			end
 		end
-		
+
 		boardName.Text:SetFormattedText(displayString, totalDurability)
 
 		self:SetMinMaxValues(0, 100)
 		self:SetValue(totalDurability)
 	end)
-	
+
 	boardName:EnableMouse(true)
 	boardName:SetScript('OnEnter', OnEnter)
 	boardName:SetScript('OnLeave', OnLeave)
@@ -92,4 +92,3 @@ local function ValueColorUpdate(hex)
 	displayString = join('', DURABILITY, ': ', hex, '%d%%|r')
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
-

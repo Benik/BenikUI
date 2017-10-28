@@ -8,7 +8,7 @@ function UFB:Configure_RestingIndicator(frame)
 	local db = frame.db
 	if db.restIcon then
 	rIcon:ClearAllPoints()
-		
+
 		if frame.USE_PORTRAIT and not frame.USE_PORTRAIT_OVERLAY and frame.PORTRAIT_DETACHED then
 			if frame.PORTRAIT_STYLING and frame.Portrait.backdrop.style then
 				rIcon:SetParent(frame.Portrait.backdrop.style)

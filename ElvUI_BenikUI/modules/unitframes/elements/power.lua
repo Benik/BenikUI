@@ -9,7 +9,7 @@ local pairs, select = pairs, select
 
 function UFB:Configure_Power(frame)
 	local power = frame.Power
-	
+
 	if frame.USE_POWERBAR then
 		if frame.POWERBAR_DETACHED then
 			if frame.POWER_VERTICAL then
@@ -34,7 +34,7 @@ function UFB:ChangeUnitPowerBarTexture()
 	for _, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
 		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
-		
+
 		local unitframe = _G["ElvUF_"..frameNameUnit]
 		if unitframe and unitframe.Power and not unitframe.Power.isTransparent then unitframe.Power:SetStatusBarTexture(bar) end
 	end

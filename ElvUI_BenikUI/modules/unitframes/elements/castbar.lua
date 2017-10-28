@@ -63,7 +63,7 @@ end
 local function ConfigureCastbar(unit, unitframe)
 	local db = E.db.unitframe.units[unit].castbar;
 	local castbar = unitframe.Castbar
-	
+
 	if unit == 'player' or unit == 'target' then
 		ConfigureText(unit, castbar)
 		if unitframe.USE_INFO_PANEL and db.insideInfoPanel then
@@ -154,7 +154,6 @@ function BUIC:CastBarHooks()
 end
 
 function BUIC:Initialize()
-
 	--ElvUI UnitFrames are not enabled, stop right here!
 	if E.private.unitframe.enable ~= true then return end
 

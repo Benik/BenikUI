@@ -37,7 +37,7 @@ function E:UpdateBlizzardFonts()
 	local BIGOFFSET = 2, -2 			-- shadow offset for large fonts
 
 	CHAT_FONT_HEIGHTS = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
-	
+
 	if self.private.general.replaceBlizzFonts then
 		-- Base fonts
 		--SetFont(NumberFontNormal,					LSM:Fetch('font', 'ElvUI Pixel'), 10, 'MONOCHROMEOUTLINE', 1, 1, 1, 0, 0, 0)
@@ -76,7 +76,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(FriendsFont_Small, NORMAL, self.db.general.fontSize)
 		SetFont(FriendsFont_Large, NORMAL, self.db.general.fontSize)
 		SetFont(FriendsFont_UserText, NORMAL, self.db.general.fontSize)
-		
+
 		-- new fonts subs
 		SetFont(QuestFont_Shadow_Huge, 				NORMAL, 15, nil, SHADOWCOLOR, NORMALOFFSET); -- Quest Title
 		SetFont(QuestFont_Shadow_Small, 			NORMAL, 14, nil, SHADOWCOLOR, NORMALOFFSET);

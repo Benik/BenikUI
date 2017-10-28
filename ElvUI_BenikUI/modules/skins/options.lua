@@ -65,7 +65,7 @@ local function SkinTable()
 			},
 		},
 	}
-	
+
 	E.Options.args.benikui.args.skins.args.elvuiaddons = {
 		order = 3,
 		type = 'group',
@@ -76,7 +76,7 @@ local function SkinTable()
 		args = {
 			},
 		}
-	
+
 	local elvorder = 0
 	for i, v in ipairs(DecorElvUIAddons) do
 		local addonName, addonString, addonOption = unpack( v )
@@ -88,7 +88,7 @@ local function SkinTable()
 			disabled = function() return not IsAddOnLoaded(addonName) end,
 		}
 	end
-	
+
 	E.Options.args.benikui.args.skins.args.addonskins = {
 		order = 4,
 		type = 'group',
@@ -99,7 +99,7 @@ local function SkinTable()
 		args = {
 			},
 		}
-		
+
 	local addorder = 0
 	for i, v in ipairs(DecorAddons) do
 		local addonName, addonString, addonOption = unpack( v )
@@ -136,10 +136,10 @@ local function SkinTable()
 				type = 'toggle',
 				name = L['Storyline'],
 				disabled = function() return not IsAddOnLoaded('Storyline') end,
-			},	
+			},
 		},
 	}
-	
+
 	E.Options.args.benikui.args.skins.args.profiles = {
 		order = 6,
 		type = 'group',
@@ -195,7 +195,6 @@ local function SkinTable()
 			disabled = function() return not IsAddOnLoaded(addon) end,
 		}
 	end
-
 end
 
 tinsert(BUI.Config, SkinTable)

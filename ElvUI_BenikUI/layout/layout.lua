@@ -44,7 +44,7 @@ local function RegBuiDataTexts()
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiMiddleDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
-	
+
 	L['BuiLeftChatDTPanel'] = BUI.Title..BUI:cOption(L['Left Chat Panel']);
 	L['BuiRightChatDTPanel'] = BUI.Title..BUI:cOption(L['Right Chat Panel']);
 	L['BuiMiddleDTPanel'] = BUI.Title..BUI:cOption(L['Middle Panel']);
@@ -95,7 +95,7 @@ function BUIL:ToggleBuiDts()
 			bbuttons[i]:Show()
 		end
 	end
-	
+
 	if not E.db.benikui.datatexts.chat.enable or E.db.datatexts.rightChatPanel then
 		BuiRightChatDTPanel:Hide()
 		for i = 1, 2 do
@@ -358,7 +358,7 @@ function BUIL:ChangeLayout()
 			bbuttons[i].text:SetText('G')
 
 			bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
-			
+
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()

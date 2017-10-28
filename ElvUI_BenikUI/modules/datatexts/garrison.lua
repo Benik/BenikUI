@@ -30,12 +30,11 @@ local GARRISON_CURRENCY = 824
 local GARRISON_CURRENCY_OIL = 1101
 
 local OnEvent = function(self)
-	
 	local inProgressMissions = {};
 	C_GarrisonGetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_6_0)
 	local CountInProgress = 0
 	local CountCompleted = 0
-	
+
 	for i = 1, #inProgressMissions do
 		if inProgressMissions[i].inProgress then
 			local TimeLeft = inProgressMissions[i].timeLeft:match("%d")
@@ -53,7 +52,7 @@ local OnEvent = function(self)
 	else
 		self.text:SetFormattedText(GARRISON_LOCATION_TOOLTIP..'+')
 	end
-	
+
 	lastPanel = self
 end
 
@@ -121,7 +120,7 @@ local OnEnter = function(self)
 	local NumMissions = #inProgressMissions
 	local AvailableMissions = {};
 	C_GarrisonGetAvailableMissions(AvailableMissions, LE_FOLLOWER_TYPE_GARRISON_6_0);
-	
+
 	if (NumMissions > 0) then
 		DT.tooltip:AddLine(format("%s (%s: %d)", GARRISON_MISSIONS_TITLE, AVAILABLE, #AvailableMissions), selectioncolor)
 		tsort(inProgressMissions, sortFunction)
@@ -148,7 +147,7 @@ local OnEnter = function(self)
 	local NumShipMissions = #inProgressShipMissions
 	local AvailableShipMissions = {};
 	C_GarrisonGetAvailableMissions(AvailableShipMissions, LE_FOLLOWER_TYPE_SHIPYARD_6_2);
-	
+
 	if (NumShipMissions > 0) then
 		DT.tooltip:AddLine(format("%s (%s: %d)", SPLASH_NEW_6_2_FEATURE2_TITLE, AVAILABLE, #AvailableShipMissions), selectioncolor)
 		tsort(inProgressShipMissions, sortFunction)
@@ -168,27 +167,27 @@ local OnEnter = function(self)
 		
 		DT.tooltip:AddLine(" ")
 	end
-	
+
 	local db = E.db.benikui.datatexts.garrison
-	
+
 	if db.currency then 
 		local name, amount, tex = GetCurrencyInfo(GARRISON_CURRENCY)
 		DT.tooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, amount, 1, 1, 1, selectioncolor)
 	end
-	
+
 	if db.oil then
 		local name, amount, tex = GetCurrencyInfo(GARRISON_CURRENCY_OIL)
 		DT.tooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, amount, 1, 1, 1, selectioncolor)
 		DT.tooltip:AddLine(" ")
 	end
 	DT.tooltip:AddLine(MINIMAP_GARRISON_LANDING_PAGE_TOOLTIP, 0.7, 0.7, 1)
-	
+
 	DT.tooltip:Show()
 end
 
 local function ValueColorUpdate(hex)
 	displayModifierString = join("", "%s: ", hex, "%d/%d|r")
-	
+
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
 	end

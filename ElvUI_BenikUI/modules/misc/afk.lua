@@ -87,12 +87,12 @@ local stats = {
 local function createTime()
 	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
 	local sHour, sMinute = GetGameTime()
-	
+
 	local localTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_LOCALTIME, hour, minute, ampm)
 	local localTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_LOCALTIME, hour24, minute)
 	local realmTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute, ampm)
 	local realmTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute)
-	
+
 	if E.db.datatexts.localtime then
 		if E.db.datatexts.time24 then
 			return localTime24
@@ -188,9 +188,9 @@ function AFK:UpdateLogOff()
 	local timePassed = GetTime() - self.startTime
 	local minutes = floor(timePassed/60)
 	local neg_seconds = -timePassed % 60
-	
+
 	self.AFKMode.top.Status:SetValue(floor(timePassed))
-	
+
 	if minutes - 29 == 0 and floor(neg_seconds) == 0 then
 		self:CancelTimer(self.logoffTimer)
 		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
@@ -207,10 +207,10 @@ function AFK:UpdateTimer()
 
 	-- Set time
 	self.AFKMode.top.time:SetFormattedText(createdTime)
-	
+
 	-- Set Date
 	createDate()
-	
+
 	-- Don't need the default timer
 	self.AFKMode.bottom.time:SetText(nil)
 end
@@ -220,7 +220,7 @@ local M = E:GetModule('DataBars');
 local function GetXPinfo()
 	local maxLevel = MAX_PLAYER_LEVEL_TABLE[GetExpansionLevel()];
 	if(UnitLevel('player') == maxLevel) or IsXPUserDisabled() then return end
-	
+
 	local cur, max = M:GetXP('player')
 	local curlvl = UnitLevel('player')
 	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
@@ -273,7 +273,7 @@ end
 local function prank(self, status)
 	if(InCombatLockdown()) then return end
 	if not IsFoolsDay() then return end
-	
+
 	if(status) then
 
 	end

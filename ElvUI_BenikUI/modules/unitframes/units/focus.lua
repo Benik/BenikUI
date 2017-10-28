@@ -9,15 +9,15 @@ local CreateFrame = CreateFrame
 
 function UFB:Construct_FocusFrame()
 	local frame = _G["ElvUF_Focus"]
-	
+
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateShadow('Default')
 		frame.Portrait.backdrop.shadow:Hide()
 	end
-	
+
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
-	
+
 	self:ArrangeFocus()
 end
 
