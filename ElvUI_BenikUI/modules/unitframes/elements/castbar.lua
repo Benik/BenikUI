@@ -49,16 +49,6 @@ local function ConfigureText(unit, castbar)
 	end
 end
 
---Reset castbar text position and alpha
-local function ResetText(castbar)
-	castbar.Text:ClearAllPoints()
-	castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
-	castbar.Time:ClearAllPoints()
-	castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, 0)
-	castbar.Text:Show()
-	castbar.Time:Show()
-end
-
 local function changeCastbarLevel(unit, unitframe)
 	unitframe.Castbar:SetFrameStrata("LOW")
 	unitframe.Castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel() + 10)

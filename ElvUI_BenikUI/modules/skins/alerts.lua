@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local S = E:GetModule('Skins');
 local BUIS = E:GetModule('BuiSkins')
 
 local pairs = pairs

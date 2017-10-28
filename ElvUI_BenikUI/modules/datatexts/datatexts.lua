@@ -124,7 +124,7 @@ function DT:LoadDataTexts()
 	end
 end
 
-local function ValueColorUpdate(hex, r, g, b)
+local function ValueColorUpdate(hex)
 	displayString = join("", "%s: ", hex, "%s|r")
 
 	if lastPanel ~= nil then

@@ -22,7 +22,6 @@ end
 
 function UFB:ArrangeTargetTarget()
 	local frame = _G["ElvUF_TargetTarget"]
-	local db = E.db['unitframe']['units'].targettarget;
 	
 	do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.targettarget.detachPortrait

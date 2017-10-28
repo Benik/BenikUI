@@ -87,9 +87,9 @@ end
 local function SetRoleIcons()
 	for _, header in pairs(UF.headers) do
 		local name = header.groupName
-		local db = UF.db['units'][name]
+
 		for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
+			local group = select(i, header:GetChildren())
 			for j = 1, group:GetNumChildren() do
 				local unitbutton = select(j, group:GetChildren())
 				if unitbutton.GroupRoleIndicator and unitbutton.GroupRoleIndicator.Override then

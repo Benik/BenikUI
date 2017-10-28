@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Profi
 local AFK = E:GetModule('AFK')
 local BUI = E:GetModule('BenikUI');
 
-local format, gsub, random, lower, upper, tonumber, date, floor = string.format, gsub, random, string.lower, string.upper, tonumber, date, floor
+local format, random, lower, tonumber, date, floor = string.format, random, string.lower, tonumber, date, floor
 
 local CreateFrame = CreateFrame
 local GetGameTime = GetGameTime
@@ -10,7 +10,6 @@ local GetScreenHeight, GetScreenWidth = GetScreenHeight, GetScreenWidth
 local CalendarGetDate = CalendarGetDate
 local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic
-local GetCursorPosition = GetCursorPosition
 local IsXPUserDisabled = IsXPUserDisabled
 local UnitLevel = UnitLevel
 local InCombatLockdown = InCombatLockdown
@@ -20,7 +19,7 @@ local GetSpecializationInfo = GetSpecializationInfo
 local GetAverageItemLevel = GetAverageItemLevel
 
 local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE
-local CAMP_TIMER, LEVEL, NONE = CAMP_TIMER, LEVEL, NONE
+local LEVEL, NONE = LEVEL, NONE
 local ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY
 
 -- GLOBALS: CreateAnimationGroup, UIParent

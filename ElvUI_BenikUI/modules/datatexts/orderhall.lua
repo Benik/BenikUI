@@ -7,7 +7,7 @@ local select, ipairs = select, ipairs
 local format = string.format
 local tsort = table.sort
 local join = string.join
-local collectgarbage = collectgarbage
+
 --WoW API / Variables
 local C_Garrison_GetCompleteTalent = C_Garrison.GetCompleteTalent
 local C_Garrison_GetFollowerShipments = C_Garrison.GetFollowerShipments
@@ -124,9 +124,9 @@ local function OnEnter(self)
 	local hasTalent = false
 	if (talentTreeIDs) then
 		local completeTalentID = C_Garrison_GetCompleteTalent(LE_GARRISON_TYPE_7_0)
-		for treeIndex, treeID in ipairs(talentTreeIDs) do
+		for _, treeID in ipairs(talentTreeIDs) do
 			local _, _, tree = C_Garrison_GetTalentTreeInfoForID(treeID)
-			for talentIndex, talent in ipairs(tree) do
+			for _, talent in ipairs(tree) do
 				local showTalent = false;
 				if (talent.isBeingResearched) then
 					showTalent = true;
@@ -216,7 +216,7 @@ local function OnEvent(self)
 	lastPanel = self
 end
 
-local function ValueColorUpdate(hex, r, g, b)
+local function ValueColorUpdate(hex)
 	displayModifierString = join("", "%s: ", hex, "%d/%d|r")
 	
 	if lastPanel ~= nil then

@@ -130,7 +130,7 @@ local function OnClick(self, button)
 	end
 end
 
-local function ValueColorUpdate(hex, r, g, b)
+local function ValueColorUpdate(hex)
 	displayString = join("", "|cffFFFFFF%s:|r ")
 
 	if lastPanel ~= nil then

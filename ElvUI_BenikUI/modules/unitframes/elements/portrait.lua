@@ -156,7 +156,7 @@ hooksecurefunc(UF, "Configure_Portrait", OnConfigure_Portrait)
 hooksecurefunc(UF, "PortraitUpdate", OnPortraitUpdate)
 
 local function ResetPostUpdate()
-	for unit, unitName in pairs(UF.units) do
+	for _, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
 		frameNameUnit = frameNameUnit:gsub('t(arget)', 'T%1')
 

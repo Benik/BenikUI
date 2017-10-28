@@ -4,10 +4,8 @@ local LSM = LibStub('LibSharedMedia-3.0')
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
 local _G = _G
-local match, gsub = string.match, gsub
 
 local CreateFrame = CreateFrame
-local SetInventoryItem = SetInventoryItem
 local GetInventoryItemLink = GetInventoryItemLink
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor

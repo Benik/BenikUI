@@ -23,7 +23,6 @@ end
 
 function UFB:ArrangeFocus()
 	local frame = _G["ElvUF_Focus"]
-	local db = E.db['unitframe']['units'].focus
 
 	do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.focus.detachPortrait

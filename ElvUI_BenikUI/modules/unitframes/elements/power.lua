@@ -8,7 +8,6 @@ local _G = _G
 local pairs, select = pairs, select
 
 function UFB:Configure_Power(frame)
-	local db = frame.db
 	local power = frame.Power
 	
 	if frame.USE_POWERBAR then

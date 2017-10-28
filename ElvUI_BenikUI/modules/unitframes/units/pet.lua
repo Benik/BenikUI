@@ -22,7 +22,6 @@ end
 
 function UFB:ArrangePet()
 	local frame = _G["ElvUF_Pet"]
-	local db = E.db['unitframe']['units'].pet
 	
 	do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.pet.detachPortrait

@@ -94,7 +94,6 @@ end
 
 function UFB:RecolorTargetInfoPanel()
 	local frame = _G["ElvUF_Target"]
-	local db = E.db['unitframe']['units'].target
 
 	if not frame.USE_INFO_PANEL then return end
 	

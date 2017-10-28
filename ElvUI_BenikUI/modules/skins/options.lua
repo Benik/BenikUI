@@ -5,7 +5,7 @@ local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack
 
 local IsAddOnLoaded = IsAddOnLoaded
-local QUEST_OBJECTIVES, ADDONS = QUEST_OBJECTIVES, ADDONS
+local ADDONS = ADDONS
 
 local DecorElvUIAddons = {
 	{'ElvUI_LocLite', L['LocationLite'], 'loclite'},

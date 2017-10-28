@@ -7,7 +7,7 @@ local DT = E:GetModule('DataTexts');
 
 local _G = _G
 
-local find, gsub, format = string.find, string.gsub, string.format
+local find, gsub = string.find, string.gsub
 
 local incpat = gsub(gsub(FACTION_STANDING_INCREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
 local changedpat = gsub(gsub(FACTION_STANDING_CHANGED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
@@ -174,7 +174,7 @@ end
 
 function BDB:UpdateRepNotifier()
 	local bar = ElvUI_ReputationBar.statusBar
-	local name, reaction, min, max, value, factionID = GetWatchedFactionInfo()
+	local name, _, min, max, value, factionID = GetWatchedFactionInfo()
 
 	if (C_Reputation_IsFactionParagon(factionID)) then
 		local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
@@ -213,8 +213,6 @@ function BDB:SetWatchedFactionOnReputationBar(event, msg)
 		for factionIndex = 1, GetNumFactions() do
 			local name = GetFactionInfo(factionIndex)
 			if name == faction and name ~= active then
-				-- check if watch has been disabled by user
-				local inactive = IsFactionInactive(factionIndex) or SetWatchedFactionIndex(factionIndex)
 				break
 			end
 		end

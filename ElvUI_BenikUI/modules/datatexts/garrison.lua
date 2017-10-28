@@ -186,7 +186,7 @@ local OnEnter = function(self)
 	DT.tooltip:Show()
 end
 
-local function ValueColorUpdate(hex, r, g, b)
+local function ValueColorUpdate(hex)
 	displayModifierString = join("", "%s: ", hex, "%d/%d|r")
 	
 	if lastPanel ~= nil then

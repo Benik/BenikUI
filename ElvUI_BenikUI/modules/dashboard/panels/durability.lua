@@ -88,7 +88,7 @@ function BUID:CreateDurability()
 	boardName.Status:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
-local function ValueColorUpdate(hex, r, g, b)
+local function ValueColorUpdate(hex)
 	displayString = join('', DURABILITY, ': ', hex, '%d%%|r')
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
