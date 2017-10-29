@@ -1764,7 +1764,7 @@ local function SetupAddons()
 	end
 
 	-- SquareMinimapButtons
-	if IsAddOnLoaded('SquareMinimapButtons') then
+	if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) then
 		BUI:LoadSMBProfile()
 		tinsert(addonNames, 'Square Minimap Buttons')
 	end

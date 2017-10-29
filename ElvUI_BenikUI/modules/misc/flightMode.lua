@@ -168,10 +168,8 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		
 		-- Hide SquareMinimapButtonBar
-		if IsAddOnLoaded("SquareMinimapButtons") then
-			if SquareMinimapButtonOptions.BarEnabled == true then
-				SquareMinimapButtonBar:Hide()
-			end
+		if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) then
+			SquareMinimapButtonBar:SetAlpha(0)
 		end
 
 		-- Disable Blizz location messsages
@@ -244,10 +242,8 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
 
 		-- Show SquareMinimapButtonBar
-		if IsAddOnLoaded("SquareMinimapButtons") then
-			if SquareMinimapButtonOptions.BarEnabled == true then
-				SquareMinimapButtonBar:Show()
-			end
+		if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) then
+			SquareMinimapButtonBar:SetAlpha(1)
 		end
 
 		if IsAddOnLoaded("XIV_Databar") then

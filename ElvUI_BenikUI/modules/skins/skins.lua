@@ -431,7 +431,7 @@ local function styleAddons()
 	end
 
 	-- SquareMinimapButtons
-	if IsAddOnLoaded('SquareMinimapButtons') and E.db.benikuiSkins.elvuiAddons.smb then
+	if _G.SquareMinimapButtons and E.db.benikuiSkins.elvuiAddons.smb then
 		local smbFrame = _G["SquareMinimapButtonBar"]
 		if smbFrame then
 			smbFrame:Style('Outside')

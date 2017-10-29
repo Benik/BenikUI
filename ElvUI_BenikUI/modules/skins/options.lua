@@ -41,7 +41,7 @@ local SupportedProfiles = {
 	{'Pawn', 'Pawn'},
 	{'Recount', 'Recount'},
 	{'Skada', 'Skada'},
-	{'SquareMinimapButtons', 'Square Minimap Buttons'},
+	--{'SquareMinimapButtons', 'Square Minimap Buttons'},
 }
 
 local profileString = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:'])
@@ -180,9 +180,9 @@ local function SkinTable()
 					BUI:LoadRecountProfile()
 				elseif addon == 'Skada' then
 					BUI:LoadSkadaProfile()
-				elseif addon == 'SquareMinimapButtons' then
-					BUI:LoadSMBProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
+				--elseif addon == 'SquareMinimapButtons' then
+					--BUI:LoadSMBProfile()
+					--E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ElvUI_VisualAuraTimers' then
 					BUI:LoadVATProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
@@ -195,6 +195,22 @@ local function SkinTable()
 			disabled = function() return not IsAddOnLoaded(addon) end,
 		}
 	end
+
+	-- New SquareMinimapButtons from ProjectAzilroka
+	local smb = 'Square Minimap Buttons'
+	E.Options.args.benikui.args.skins.args.profiles.args.SquareMinimapButtons = {
+		order = optionOrder + 1,
+		type = 'execute',
+		name = smb,
+		desc = L['This will create and apply profile for ']..smb,
+		buttonElvUI = true,
+		func = function()
+			BUI:LoadSMBProfile()
+			E:StaticPopup_Show('PRIVATE_RL')
+			print(profileString..smb)
+		end,
+		disabled = function() return not (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) end,
+	}
 end
 
 tinsert(BUI.Config, SkinTable)
