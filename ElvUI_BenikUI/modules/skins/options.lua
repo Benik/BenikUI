@@ -11,7 +11,6 @@ local DecorElvUIAddons = {
 	{'ElvUI_LocLite', L['LocationLite'], 'loclite'},
 	{'ElvUI_LocPlus', L['LocationPlus'], 'locplus'},
 	{'ElvUI_SLE', L['Shadow & Light'], 'sle'},
-	{'SquareMinimapButtons', L['Square Minimap Buttons'], 'smb'},
 	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
 	{'ElvUI_DTBars2', L['DT Bars 2'], 'dtb2'},
 }
@@ -41,10 +40,10 @@ local SupportedProfiles = {
 	{'Pawn', 'Pawn'},
 	{'Recount', 'Recount'},
 	{'Skada', 'Skada'},
-	--{'SquareMinimapButtons', 'Square Minimap Buttons'},
 }
 
 local profileString = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:'])
+local smb = L['Square Minimap Buttons']
 
 local function SkinTable()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -88,6 +87,15 @@ local function SkinTable()
 			disabled = function() return not IsAddOnLoaded(addonName) end,
 		}
 	end
+
+	-- New SquareMinimapButtons
+	E.Options.args.benikui.args.skins.args.elvuiaddons.args.smb = {
+		order = elvorder + 1,
+		type = 'toggle',
+		name = smb,
+		desc = format('%s '..smb..' %s', L['Enable/Disable'], L['decor.']),
+		disabled = function() return not (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) end,
+	}
 
 	E.Options.args.benikui.args.skins.args.addonskins = {
 		order = 4,
@@ -180,9 +188,6 @@ local function SkinTable()
 					BUI:LoadRecountProfile()
 				elseif addon == 'Skada' then
 					BUI:LoadSkadaProfile()
-				--elseif addon == 'SquareMinimapButtons' then
-					--BUI:LoadSMBProfile()
-					--E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ElvUI_VisualAuraTimers' then
 					BUI:LoadVATProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
@@ -197,7 +202,6 @@ local function SkinTable()
 	end
 
 	-- New SquareMinimapButtons from ProjectAzilroka
-	local smb = 'Square Minimap Buttons'
 	E.Options.args.benikui.args.skins.args.profiles.args.SquareMinimapButtons = {
 		order = optionOrder + 1,
 		type = 'execute',
