@@ -98,6 +98,8 @@ local function OnClick(self, button)
 	local specIndex = GetSpecialization();
 	if not specIndex then return end
 
+	DT.tooltip:Hide()
+
 	if button == "LeftButton" then
 		if not PlayerTalentFrame then
 			LoadAddOn("Blizzard_TalentUI")
@@ -113,7 +115,6 @@ local function OnClick(self, button)
 		end
 		L_EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
 	else
-		DT.tooltip:Hide()
 		local specID, specName = GetSpecializationInfo(specIndex);
 		menuList[2].text = format(LOOT_SPECIALIZATION_DEFAULT, specName);
 
