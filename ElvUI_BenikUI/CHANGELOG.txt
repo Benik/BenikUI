@@ -1,3 +1,18 @@
+3.32
+*Hide the mouseover toolitp when clicking on SpecSwitch datatext, so it doesn't overlap the menu shown after clicking
+
+*Added support for ProjectAzilroka (SquareMinimapButtons)
+*Shift+RightClick the Order Hall Datatext will show Garrison report
+*Added option for toggling minimap styling. Option in ElvUI Minimap options
+*Added Transparency, Backdrop and Style toggle on all Dashboards
+*Rearranged the dashboard options a bit
+*Update german locale
+*Added hint at the Tokens tooltip
+*Use the same check function for requestStop and flightMode, so they both hide on Argus teleports
+*Fixed the incorrect glow coloring. It now also update when the Value Color is updated
+*Added Binding option for the Game Menu (button G)
+*Fixed tooltip error, when shadows enabled and ElvUI tooltip skinning disabled.
+
 3.31
 *Fixed an aura error when shadows enabled.
 *Hide XIV_Databar when in flighMode
