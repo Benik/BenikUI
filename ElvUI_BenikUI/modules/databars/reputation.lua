@@ -19,11 +19,10 @@ local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local GetWatchedFactionInfo = GetWatchedFactionInfo
 local InCombatLockdown = InCombatLockdown
-local ToggleCharacter = ToggleCharacter
 
 local FACTION_BAR_COLORS, BINDING_NAME_TOGGLECHARACTER2 = FACTION_BAR_COLORS, BINDING_NAME_TOGGLECHARACTER2
 
--- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ReputationBar, SpellBookFrame
+-- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ReputationBar, SpellBookFrame, ToggleCharacter
 
 local SPACING = (E.PixelMode and 1 or 3)
 
