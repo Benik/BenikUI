@@ -18,6 +18,8 @@ function BUI:LoadDBMProfile()
 	DBT_AllPersistentOptions["BenikUI"]["DBM"]["FontSize"] = 12
 	DBT_AllPersistentOptions["BenikUI"]["DBM"]["HugeScale"] = 1
 	DBT_AllPersistentOptions["BenikUI"]["DBM"]["Font"] = font
+	DBT_AllPersistentOptions["BenikUI"]["DBM"]["BarYOffset"] = 16
+	DBT_AllPersistentOptions["BenikUI"]["DBM"]["HugeBarYOffset"] = 16
 	DBM_AllSavedOptions["BenikUI"]["WarningFont"] = font
 	DBM_AllSavedOptions["BenikUI"]["SpecialWarningFont"] = font
 
