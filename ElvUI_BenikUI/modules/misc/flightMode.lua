@@ -169,6 +169,7 @@ function BFM:SetFlightMode(status)
 		
 		-- Hide SquareMinimapButtonBar
 		if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) then
+			_G.SquareMinimapButtons:CancelAllTimers()
 			SquareMinimapButtonBar:SetAlpha(0)
 		end
 
@@ -243,6 +244,7 @@ function BFM:SetFlightMode(status)
 
 		-- Show SquareMinimapButtonBar
 		if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) then
+			_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
 			SquareMinimapButtonBar:SetAlpha(1)
 		end
 
