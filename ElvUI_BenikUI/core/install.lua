@@ -509,6 +509,7 @@ local function SetupActionbars(layout)
 end
 
 local function SetupUnitframes(layout)
+	E.db["general"]["decimalLenght"] = 2
 	if layout == 'v1' then
 		E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = false
 		E.db["benikui"]["unitframes"]["player"]["portraitStyle"] = false
