@@ -431,7 +431,7 @@ local function styleAddons()
 	end
 
 	-- SquareMinimapButtons
-	if _G.SquareMinimapButtons and E.db.benikuiSkins.elvuiAddons.smb then
+	if IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB'] and E.db.benikuiSkins.elvuiAddons.smb then
 		local smbFrame = _G["SquareMinimapButtonBar"]
 		if smbFrame then
 			smbFrame:Style('Outside')
@@ -455,6 +455,14 @@ local function styleAddons()
 			if panelname then
 				_G[panelname]:Style('Outside')
 			end
+		end
+	end
+
+	-- stAddonManager
+	if IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['stAM'] and E.db.benikuiSkins.elvuiAddons.stam then
+		local stFrame = _G["stAMFrame"]
+		if stFrame then
+			stFrame:Style('Outside')
 		end
 	end
 end

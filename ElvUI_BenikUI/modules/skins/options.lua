@@ -44,6 +44,7 @@ local SupportedProfiles = {
 
 local profileString = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:'])
 local smb = L['Square Minimap Buttons']
+local stAM = L['stAddOnManager']
 
 local function SkinTable()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -95,6 +96,15 @@ local function SkinTable()
 		name = smb,
 		desc = format('%s '..smb..' %s', L['Enable/Disable'], L['decor.']),
 		disabled = function() return not (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) end,
+	}
+	
+	-- stAddonManager
+	E.Options.args.benikui.args.skins.args.elvuiaddons.args.stam = {
+		order = elvorder + 1,
+		type = 'toggle',
+		name = stAM,
+		desc = format('%s '..stAM..' %s', L['Enable/Disable'], L['decor.']),
+		disabled = function() return not (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['stAM']) end,
 	}
 
 	E.Options.args.benikui.args.skins.args.addonskins = {
