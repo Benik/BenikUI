@@ -225,6 +225,21 @@ local function SkinTable()
 		end,
 		disabled = function() return not (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) end,
 	}
+
+	-- New stAddOnManager from ProjectAzilroka
+	E.Options.args.benikui.args.skins.args.profiles.args.stAddOnManager = {
+		order = optionOrder + 1,
+		type = 'execute',
+		name = stAM,
+		desc = L['This will create and apply profile for ']..stAM,
+		buttonElvUI = true,
+		func = function()
+			BUI:LoadStamProfile()
+			E:StaticPopup_Show('PRIVATE_RL')
+			print(profileString..stAM)
+		end,
+		disabled = function() return not (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['stAM']) end,
+	}
 end
 
 tinsert(BUI.Config, SkinTable)

@@ -11,5 +11,6 @@
 	<script file="SquareMinimapButtons.lua"/>
 	<script file="VisualAuraTimers.lua"/>
 	<script file="BigWigs.lua"/>
+	<script file="stAddOnManager.lua"/>
 	<script file="template.lua"/>
 </Ui>

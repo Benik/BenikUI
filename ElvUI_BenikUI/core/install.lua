@@ -1770,6 +1770,12 @@ local function SetupAddons()
 		tinsert(addonNames, 'Square Minimap Buttons')
 	end
 
+	-- stAddOnManager
+	if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['stAM']) then
+		BUI:LoadStamProfile()
+		tinsert(addonNames, 'stAddOnManager')
+	end
+
 	-- ElvUI_VisualAuraTimers
 	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 		BUI:LoadVATProfile()
