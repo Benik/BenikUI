@@ -177,10 +177,12 @@ function BDB:UpdateRepNotifier()
 
 	if (C_Reputation_IsFactionParagon(factionID)) then
 		local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
-		min, max = 0, threshold
-		value = currentValue % threshold
-		if hasRewardPending then 
-			value = value + threshold
+		if currentValue and threshold then
+			min, max = 0, threshold
+			value = currentValue % threshold
+			if hasRewardPending then 
+				value = value + threshold
+			end
 		end
 	end
 
