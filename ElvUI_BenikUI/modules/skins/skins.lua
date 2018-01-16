@@ -463,11 +463,6 @@ local function styleAddons()
 		local stFrame = _G["stAMFrame"]
 		if stFrame then
 			stFrame:Style('Outside')
-			stFrame.Title:FontTemplate(nil, 14, 'OUTLINE')
-			stFrame.Close.Text:FontTemplate(E['media'].buiVisitor, 10, 'OUTLINE')
-			stFrame.Search:FontTemplate(nil, 12, 'OUTLINE')
-			stFrame.Reload.Text:FontTemplate(nil, 12, 'OUTLINE')
-			stFrame.Profiles.Text:FontTemplate(nil, 12, 'OUTLINE')
 		end
 	end
 end
