@@ -392,3 +392,13 @@ local function style_VoidStorageUI()
 	end
 end
 S:AddCallbackForAddon("Blizzard_VoidStorageUI", "BenikUI_VoidStorageUI", style_VoidStorageUI)
+
+-- WarboardUI
+local function style_WarboardUI()
+	if E.private.skins.blizzard.Warboard ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+	
+	local frame = _G["WarboardQuestChoiceFrame"]
+	frame:Style('Outside')
+	frame.style:SetFrameLevel(1)
+end
+S:AddCallbackForAddon("Blizzard_WarboardUI", "BenikUI_WarboardUI", style_WarboardUI)
