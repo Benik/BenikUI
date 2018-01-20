@@ -398,7 +398,10 @@ local function style_WarboardUI()
 	if E.private.skins.blizzard.Warboard ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 	
 	local frame = _G["WarboardQuestChoiceFrame"]
-	frame:Style('Outside')
-	frame.style:SetFrameLevel(1)
+	frame.Title.Left:Show()
+	frame.Title.Right:Show()
+	frame.Title.Middle:Show()
+	frame.backdrop:Style('Outside')
+	frame.backdrop.style:SetFrameLevel(1)
 end
 S:AddCallbackForAddon("Blizzard_WarboardUI", "BenikUI_WarboardUI", style_WarboardUI)
