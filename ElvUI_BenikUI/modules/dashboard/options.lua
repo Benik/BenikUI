@@ -72,6 +72,7 @@ local miscTokens = {
 	1355,	-- Felessence (Craft Legentary items)
 	1416,	-- Coins of Air
 	1508,	-- Veiled Argunite
+	1533,	-- Wakening Essence
 }
 
 local archyTokens = {

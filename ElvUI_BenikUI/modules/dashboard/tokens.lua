@@ -94,6 +94,7 @@ local BUIcurrency = {
 	1357,	-- Echoes of Domination (Elite PvP Gear)
 	1416,	-- Coins of Air
 	1508,	-- Veiled Argunite
+	1533,	-- Wakening Essence
 }
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
