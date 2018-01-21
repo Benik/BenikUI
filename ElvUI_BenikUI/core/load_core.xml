@@ -5,6 +5,7 @@
 	<script file="options.lua"/>
 	<script file="install.lua"/>
 	<script file="dropmenu.lua"/>
+	<script file="statusReport.lua"/>
 	<script file="dev.lua"/>
 	<Include file="addonProfiles\load_addonProfiles.xml"/>
 </Ui>
