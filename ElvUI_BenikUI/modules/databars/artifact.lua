@@ -6,11 +6,13 @@ local LSM = LibStub('LibSharedMedia-3.0');
 local DT = E:GetModule('DataTexts');
 
 local _G = _G
-
+local floor = floor
 local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local InCombatLockdown = InCombatLockdown
 local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
+local SocketInventoryItem = SocketInventoryItem
+local HasArtifactEquipped = HasArtifactEquipped
 local ARTIFACT_POWER = ARTIFACT_POWER
 local C_ArtifactUI_GetEquippedArtifactInfo = C_ArtifactUI.GetEquippedArtifactInfo
 local MainMenuBar_GetNumArtifactTraitsPurchasableFromXP = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP
@@ -198,9 +200,9 @@ function BDB:UpdateAfNotifier()
 		local apInBags = ElvUI_ArtifactBar.BagArtifactPower
 
 		if db.movetobagbar and apInBags > 0 then
-			bar.f.txt:SetFormattedText('%d%%',(xp / xpForNextPoint * 100) + (apInBags / xpForNextPoint * 100))
+			bar.f.txt:SetFormattedText('%s%%', floor((xp / xpForNextPoint * 100) + (apInBags / xpForNextPoint * 100)))
 		else
-			bar.f.txt:SetFormattedText('%d%%', xp / xpForNextPoint * 100)
+			bar.f.txt:SetFormattedText('%s%%', floor(xp / xpForNextPoint * 100))
 		end
 		BDB.UpdateAfNotifierPositions()
 	end
