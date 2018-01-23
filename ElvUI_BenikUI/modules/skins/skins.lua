@@ -90,7 +90,6 @@ local function styleFreeBlizzardFrames()
 
 	if db.lfg then
 		LFGInvitePopup:Style('Outside')
-		LFGDungeonReadyPopup:Style('Outside')
 		LFGDungeonReadyDialog:Style('Outside')
 		LFGDungeonReadyStatus:Style('Outside')
 		LFGListApplicationDialog:Style('Outside')
