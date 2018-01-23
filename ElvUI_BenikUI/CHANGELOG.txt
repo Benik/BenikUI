@@ -1,6 +1,14 @@
+3.33
+*Edited the new ElvUI StatusReport frame
+*Style WarboardUI
+*Added profile for stAddOnManager
+*Update donators/testers list
+*Added bar Yoffset at the DBM profile
+*Fixed "SLE_RaidMarkBar" styling
+*Lots of minor fixes/adjustments
+
 3.32
 *Hide the mouseover toolitp when clicking on SpecSwitch datatext, so it doesn't overlap the menu shown after clicking
-
 *Added support for ProjectAzilroka (SquareMinimapButtons)
 *Shift+RightClick the Order Hall Datatext will show Garrison report
 *Added option for toggling minimap styling. Option in ElvUI Minimap options
