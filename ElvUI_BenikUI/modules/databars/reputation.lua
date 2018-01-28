@@ -19,6 +19,10 @@ local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local GetWatchedFactionInfo = GetWatchedFactionInfo
 local InCombatLockdown = InCombatLockdown
+local SetWatchedFactionIndex = SetWatchedFactionIndex
+local GetNumFactions = GetNumFactions
+local GetGuildInfo = GetGuildInfo
+local GetFactionInfo = GetFactionInfo
 
 local FACTION_BAR_COLORS, BINDING_NAME_TOGGLECHARACTER2 = FACTION_BAR_COLORS, BINDING_NAME_TOGGLECHARACTER2
 
@@ -214,6 +218,7 @@ function BDB:SetWatchedFactionOnReputationBar(event, msg)
 		for factionIndex = 1, GetNumFactions() do
 			local name = GetFactionInfo(factionIndex)
 			if name == faction and name ~= active then
+				SetWatchedFactionIndex(factionIndex)
 				break
 			end
 		end
