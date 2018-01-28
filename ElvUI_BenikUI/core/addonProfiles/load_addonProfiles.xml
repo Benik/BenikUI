@@ -12,5 +12,5 @@
 	<script file="VisualAuraTimers.lua"/>
 	<script file="BigWigs.lua"/>
 	<script file="stAddOnManager.lua"/>
-	<script file="template.lua"/>
+	<script file="InFlight.lua"/>
 </Ui>

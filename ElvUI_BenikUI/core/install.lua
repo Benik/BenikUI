@@ -1728,6 +1728,12 @@ local function SetupAddons()
 		tinsert(addonNames, 'Details')
 	end
 
+	-- InFlight
+	if IsAddOnLoaded('InFlight_Load') then
+		BUI:LoadInFlightProfile()
+		tinsert(addonNames, 'InFlight')
+	end
+
 	-- Location Lite
 	if IsAddOnLoaded('ElvUI_LocLite') then
 		BUI:LoadLocationLiteProfile()
