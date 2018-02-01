@@ -15,6 +15,7 @@ local LSM = LibStub('LibSharedMedia-3.0')
 -- GLOBALS: DestinyFontHuge, Game24Font, SystemFont_Huge1, SystemFont_Huge1_Outline
 
 -- add alpha in shadow color (sa) and moved the r, g, b to the end cause of Blizz auto coloring
+-- some fonts like Fancy32Font or Fancy30Font are kinda big so I adjusted their size -2
 local function SetFont(obj, font, size, style, sr, sg, sb, sa, sox, soy, r, g, b)
 	obj:SetFont(font, size, style)
 	if sr and sg and sb then obj:SetShadowColor(sr, sg, sb, sa) end
@@ -101,7 +102,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(SystemFont_Huge1, 					NORMAL, 20);								 -- Garrison Mission XP
 		SetFont(SystemFont_Huge1_Outline, 			NORMAL, 18, MONOCHROME.."OUTLINE");			 -- Garrison Mission Chance
 		SetFont(Fancy22Font,						NORMAL, 20)									 -- Talking frame Title font
-		SetFont(Fancy24Font,						NORMAL, 20)									 -- Artifact frame - weapon name
+		SetFont(Fancy24Font,						NORMAL, 22)									 -- Artifact frame - weapon name
 		SetFont(Game30Font,							NORMAL, 28)									 -- Mission Level
 		SetFont(SystemFont_Shadow_Med2,				NORMAL, 15)									 -- Shows Order resourses on OrderHallTalentFrame
 		SetFont(WhiteNormalNumberFont,				NORMAL, self.db.general.fontSize);			 -- Statusbar Numbers on TradeSkill frame
@@ -117,6 +118,11 @@ function E:UpdateBlizzardFonts()
 		SetFont(SubSpellFont, 						NORMAL, 10);								 -- String under each spell name in spellbook
 		SetFont(Game12Font, 						NORMAL, 12);								 -- WarboardUI Options
 		SetFont(Game20Font, 						NORMAL, 20);								 -- WarboardUI Options
+		SetFont(Fancy32Font, 						NORMAL, 30);								 -- Allied Races Blizzard tryout font
+		SetFont(Fancy30Font, 						NORMAL, 28);								 -- Allied Races Blizzard tryout font
+		SetFont(Fancy27Font, 						NORMAL, 25);								 -- Allied Races Blizzard tryout font
+		SetFont(Fancy18Font, 						NORMAL, 16);								 -- Allied Races Blizzard tryout font
+		SetFont(Fancy16Font, 						NORMAL, 14);								 -- Allied Races Blizzard tryout font
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
 		--SetFont(GameFontHighlightSmall, 			NORMAL, 10);
 		--SetFont(GameFontHighlight, 					NORMAL, self.db.general.fontSize);

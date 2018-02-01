@@ -36,6 +36,7 @@ local SupportedProfiles = {
 	{'ElvUI_VisualAuraTimers', 'ElvUI VisualAuraTimers'},
 	{'ElvUI_LocLite', 'Location Lite'},
 	{'ElvUI_LocPlus', 'Location Plus'},
+	{'InFlight_Load', 'InFlight'},
 	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
 	{'Pawn', 'Pawn'},
 	{'Recount', 'Recount'},
@@ -184,6 +185,9 @@ local function SkinTable()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
+				elseif addon == 'InFlight_Load'then
+					BUI:LoadInFlightProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ElvUI_LocLite' then
 					BUI:LoadLocationLiteProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
