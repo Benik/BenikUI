@@ -197,22 +197,6 @@ local function AltoholicDecor()
 	end
 end
 
-local function ZygorDecor()
-	if not E.db.benikuiSkins.addonSkins.zg then return end
-
-		if not _G["ZygorGuidesViewerFrame_Border"].style then
-			_G["ZygorGuidesViewerFrame_Border"]:Style('Outside')
-		end
-
-	hooksecurefunc(_G["ZygorGuidesViewer"].CreatureViewer, 'CreateFrame', function(self)
-		if self.Frame then
-			if not _G["ZygorGuidesViewer_CreatureViewer"].style then
-				_G["ZygorGuidesViewer_CreatureViewer"]:Style('Outside')
-			end
-		end
-	end)
-end
-
 local function RareCoordDecor()
 	if not E.db.benikuiSkins.addonSkins.rc then return end
 	local rcFrames = {RC, RC.opt, RCnotify, RCminimized}
@@ -260,7 +244,6 @@ if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPS', TinyDPSDecor, 2) end
 if AS:CheckAddOn('AtlasLoot') then AS:RegisterSkin('AtlasLoot', AtlasLootDecor, 2) end
 if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('Altoholic', AltoholicDecor, 2) end
 if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinator', RareCoordDecor, 2) end
-if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
 if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
 if AS:CheckAddOn('Pawn') then AS:RegisterSkin('Pawn', PawnDecor, 2) end
