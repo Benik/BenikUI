@@ -351,21 +351,6 @@ local function styleGarrison()
 	S:HandleButton(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3.HireRecruits)
 end
 
-local function tweakObjectiveTrackerButtonFont()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true then return end
-
-	local button = _G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton
-	button:Size(16, 12)
-	button.text:FontTemplate(E['media'].buiVisitor, 10)
-	button.text:Point('CENTER', button, 'CENTER', 0, 1)
-
-	if E.db.benikui.general.shadows then
-		if not button.shadow then
-			button:CreateShadow('Default')
-		end
-	end
-end
-
 -- Map styling fix
 local function FixMapStyle()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then return end
@@ -471,7 +456,6 @@ function BUIS:init()
 	styleFreeBlizzardFrames()
 	styleAddons()
 	styleGarrison()
-	tweakObjectiveTrackerButtonFont()
 
 	local reason = select(5, GetAddOnInfo("GarrisonCommander"))
 	if reason == "DISABLED" or reason == "MISSING" then 
