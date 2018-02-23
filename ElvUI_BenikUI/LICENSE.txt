@@ -1,5 +1,5 @@
 BenikUI License
-	Copyright ©2014-2017
+	Copyright ©2014-2018
 The contents of this addon, excluding third-party resources, are
  copyrighted to their authors with all rights reserved.
 
