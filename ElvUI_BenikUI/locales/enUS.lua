@@ -30,6 +30,8 @@ L['ShiftClick to toggle chat'] = true
 L['Camera rotation'] = true
 L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = true
+L['Inside the item slot'] = true
+L['Outside the item slot'] = true
 
 -- Flight mode
 L['Exit FlightMode'] = true

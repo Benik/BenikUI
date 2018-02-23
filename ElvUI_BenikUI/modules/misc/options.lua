@@ -45,7 +45,7 @@ local function miscTable()
 				guiInline = true,
 				name = L['iLevel'],
 				get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; BUI:update_iLevelItems() end,
+				set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):UpdateItemLevel() end,
 				args = {
 					enable = {
 						order = 1,
@@ -107,6 +107,18 @@ local function miscTable()
 							local t = E.db.benikui.misc.ilevel[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
 						end,
+					},
+					position = {
+						order = 7,
+						type = "select",
+						name = L["Text Position"],
+						values = {
+							['INSIDE'] = L['Inside the item slot'],
+							['OUTSIDE'] = L['Outside the item slot'],
+						},
+						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
+						get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):UpdateItemLevelPosition() end,
 					},
 				},
 			},

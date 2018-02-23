@@ -1,6 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local LSM = LibStub('LibSharedMedia-3.0')
+local mod = E:NewModule('BUIiLevel', 'AceEvent-3.0');
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
 local _G = _G
@@ -22,7 +23,7 @@ local slotTable = {
 	"HeadSlot",
 	"NeckSlot",
 	"ShoulderSlot",
-	"!Skip!", -- Shirt
+	"Shirt",
 	"ChestSlot",
 	"WaistSlot",
 	"LegsSlot",
@@ -38,12 +39,8 @@ local slotTable = {
 	"SecondaryHandSlot"
 }
 
-local f = CreateFrame("Frame", nil, PaperDollFrame)
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-
 -- Tooltip and scanning by Phanx @ http://www.wowinterface.com/forums/showthread.php?p=271406
 local S_ITEM_LEVEL = "^" .. gsub(ITEM_LEVEL, "%%d", "(%%d+)")
-
 local scantip = CreateFrame("GameTooltip", "BenikUIiLvlScanningTooltip", nil, "GameTooltipTemplate")
 scantip:SetOwner(UIParent, "ANCHOR_NONE")
 
@@ -63,85 +60,96 @@ local function getItemLevel(slotId)
 	end
 end
 
-function BUI:update_iLevelItems()
+function mod:UpdateItemLevel()
 	local db = E.db.benikui.misc.ilevel
+
 	for i = 1, 17 do
 		local itemLink = GetInventoryItemLink("player", i)
 		local iLvl = getItemLevel(i)
-		if i ~= 4 and (equipped[i] ~= itemLink or f[i]:GetText() ~= nil) then
+		if i ~= 4 and (equipped[i] ~= itemLink or mod.f[i]:GetText() ~= nil) then
 			equipped[i] = itemLink
 			if (itemLink ~= nil) then
-				f[i]:SetText(iLvl)
+				mod.f[i]:SetText(iLvl)
 				local _, _, ItemRarity = GetItemInfo(itemLink)
 				if ItemRarity and db.colorStyle == 'RARITY' then
 					local r, g, b = GetItemQualityColor(ItemRarity)
-					f[i]:SetTextColor(r, g, b)
+					mod.f[i]:SetTextColor(r, g, b)
 				else
-					f[i]:SetTextColor(BUI:unpackColor(db.color))
+					mod.f[i]:SetTextColor(BUI:unpackColor(db.color))
 				end
 			else
-				f[i]:SetText("")
+				mod.f[i]:SetText("")
 			end
-			f[i]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+			mod.f[i]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
 	end
 end
 
 local function returnPoints(number)
-	if number <= 5 or number == 15 or number == 9 then -- Left side
-		return "BOTTOMLEFT", "BOTTOMLEFT", 0, 1
-	elseif number <= 14 then -- Right side
-		return "BOTTOMRIGHT", "BOTTOMRIGHT", 2, 1
-	else -- Weapon slots
-		return "BOTTOM", "BOTTOM", 2, 1
+	if E.db.benikui.misc.ilevel.position == 'INSIDE' then
+		if number <= 5 or number == 15 or number == 9 then 	-- Left side
+			return "BOTTOMLEFT", "BOTTOMLEFT", 0, 1
+		elseif number <= 14 then 							-- Right side
+			return "BOTTOMRIGHT", "BOTTOMRIGHT", 2, 1
+		else 												-- Weapon slots
+			return "BOTTOM", "BOTTOM", 2, 1
+		end
+	else
+		if number <= 5 or number == 15 or number == 9 then 	-- Left side
+			return "LEFT", "RIGHT", 0, 1
+		elseif number <= 14 then 							-- Right side
+			return "RIGHT", "LEFT", 2, 1
+		else 												-- Weapon slots
+			return "BOTTOM", "BOTTOM", 2, 1
+		end
 	end
 end
 
-local function anchorString()
+function mod:UpdateItemLevelPosition()
 	for i = 1, 17 do
 		if i ~= 4 then
 			local parent = _G["Character"..slotTable[i]]
 			local myPoint, parentPoint, x, y = returnPoints(i)
-			f[i]:ClearAllPoints()
-			f[i]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
+			mod.f[i]:ClearAllPoints()
+			mod.f[i]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
 		end
 	end
 end
 
-local function createString()
+function mod:CreateString()
 	for i = 1, 17 do
 		if i ~= 4 then
-			f[i] = f:CreateFontString(nil, "OVERLAY")
-			f[i]:FontTemplate()
+			mod.f[i] = mod.f:CreateFontString(nil, "OVERLAY")
+			mod.f[i]:FontTemplate()
 		end
 	end
 
-	anchorString(f)
-	f:SetFrameLevel(CharacterHeadSlot:GetFrameLevel())
-	f:Hide()
+	mod:UpdateItemLevelPosition()
+	mod.f:SetFrameLevel(CharacterHeadSlot:GetFrameLevel())
+	mod.f:Hide()
 end
 
-local function OnEvent(self, event)
-	if E.db.benikui.misc.ilevel.enable == false then return end
-	if event == "PLAYER_ENTERING_WORLD" then
-		self:UnregisterEvent(event)
+function mod:Initialize()
+	if E.db.benikui.misc.ilevel.enable == false or (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable ~= false) then return end
 
-		createString()
+	mod.f = CreateFrame("Frame", nil, PaperDollFrame)
+	mod:CreateString()
+	mod:UpdateItemLevel()
 
-		PaperDollFrame:HookScript("OnShow", function(self)
-			f:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
-			f:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE")
-			BUI:update_iLevelItems()
-			f:Show()
-		end)
+	PaperDollFrame:HookScript("OnShow", function(self)
+		mod.f:Show()
+	end)
 
-		PaperDollFrame:HookScript("OnHide", function(self)
-			f:UnregisterEvent("PLAYER_EQUIPMENT_CHANGED")
-			f:UnregisterEvent("ITEM_UPGRADE_MASTER_UPDATE")
-			f:Hide()
-		end)
-	elseif event == "PLAYER_EQUIPMENT_CHANGED" or event == "ITEM_UPGRADE_MASTER_UPDATE" then
-		BUI:update_iLevelItems()
-	end
+	PaperDollFrame:HookScript("OnHide", function(self)
+		mod.f:Hide()
+	end)
+
+	mod:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", mod.UpdateItemLevel)
+	mod:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE", mod.UpdateItemLevel)
 end
-f:SetScript("OnEvent", OnEvent)
+
+local function InitializeCallback()
+	mod:Initialize()
+end
+
+E:RegisterModule(mod:GetName(), InitializeCallback)

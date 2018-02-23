@@ -30,6 +30,8 @@ L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 L['Camera rotation'] = "Kamerarotation"
 L['iLevel'] = true --No need to translate
 L['Show item level per slot, on the character info frame'] = "Zeigt das Itemlevel pro Slot, im Spielerfenster"
+L['Inside the item slot'] = true
+L['Outside the item slot'] = true
 
 -- Flight mode
 L['Exit FlightMode'] = "Verlasse den Flugmodus"

@@ -61,6 +61,7 @@ P['benikui'] = {
 			['fontflags'] = 'OUTLINE',
 			['colorStyle'] = 'RARITY',
 			['color'] = {r = 1, g = 1, b = 0},
+			['position'] = 'INSIDE',
 		},
 		['flightMode'] = {
 			['enable'] = true,
