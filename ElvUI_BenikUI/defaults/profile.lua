@@ -63,10 +63,8 @@ P['benikui'] = {
 			['color'] = {r = 1, g = 1, b = 0},
 			['position'] = 'INSIDE',
 		},
-		['flightMode'] = {
-			['enable'] = true,
-			['cameraRotation'] = false,
-		},
+		['flightMode'] = true,
+		['afkMode'] = true,
 		['panels'] = {
 			['top'] = {
 				['style'] = false,

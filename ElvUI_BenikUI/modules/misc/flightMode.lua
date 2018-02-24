@@ -31,7 +31,6 @@ menuFrame:CreateWideShadow()
 
 local LOCATION_WIDTH = 400
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-local CAMERA_SPEED = 0.035
 
 local function AutoColoring()
 	local pvpType = GetZonePVPInfo()
@@ -134,9 +133,6 @@ function BFM:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
 
 	if(status) then
-		if E.db.benikui.misc.flightMode.cameraRotation then
-			MoveViewLeftStart(CAMERA_SPEED);
-		end
 		self.FlightMode:Show()
 		E.UIParent:Hide()
 
@@ -283,7 +279,7 @@ function BFM:OnEvent(event, ...)
 end
 
 function BFM:Toggle()
-	if(E.db.benikui.misc.flightMode.enable) then
+	if(E.db.benikui.misc.flightMode) then
 		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")

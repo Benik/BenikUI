@@ -203,6 +203,8 @@ AFK.UpdateTimerBui = AFK.UpdateTimer
 function AFK:UpdateTimer()
 	self:UpdateTimerBui()
 
+	if E.db.benikui.misc.afkMode ~= true then return end
+
 	local createdTime = createTime()
 
 	-- Set time
@@ -229,6 +231,8 @@ end
 AFK.BUISetAFK = AFK.SetAFK
 function AFK:SetAFK(status)
 	self:BUISetAFK(status)
+
+	if E.db.benikui.misc.afkMode ~= true then return end
 
 	if(status) then
 		local xptxt = GetXPinfo()
@@ -285,6 +289,8 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 AFK.InitializeBuiAfk = AFK.Initialize
 function AFK:Initialize()
 	self:InitializeBuiAfk()
+
+	if E.db.benikui.misc.afkMode ~= true then return end
 
 	local level = UnitLevel('player')
 	local race = UnitRace('player')
