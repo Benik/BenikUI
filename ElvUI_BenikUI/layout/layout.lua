@@ -319,7 +319,7 @@ function BUIL:ChangeLayout()
 						else
 							if IsAddOnLoaded('AddOnSkins') then
 								local AS = unpack(AddOnSkins) or nil
-								if AS:CheckOption('EmbedRightChat') then
+								if AS:CheckOption('EmbedRightChat') and EmbedSystem_MainWindow then
 									if EmbedSystem_MainWindow:IsShown() then
 										AS:SetOption('EmbedIsHidden', true)
 										EmbedSystem_MainWindow:Hide()
