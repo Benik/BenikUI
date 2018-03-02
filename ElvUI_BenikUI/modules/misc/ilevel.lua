@@ -19,24 +19,23 @@ local GetItemQualityColor = GetItemQualityColor
 
 local equipped = {}
 
-local slotTable = {
-	"HeadSlot",
-	"NeckSlot",
-	"ShoulderSlot",
-	"Shirt",
-	"ChestSlot",
-	"WaistSlot",
-	"LegsSlot",
-	"FeetSlot",
-	"WristSlot",
-	"HandsSlot",
-	"Finger0Slot",
-	"Finger1Slot",
-	"Trinket0Slot",
-	"Trinket1Slot",
-	"BackSlot",
-	"MainHandSlot",
-	"SecondaryHandSlot"
+local slotIDs = {
+	[1] = "HeadSlot",
+	[2] = "NeckSlot",
+	[3] = "ShoulderSlot",
+	[5] = "ChestSlot",
+	[6] = "WaistSlot",
+	[7] = "LegsSlot",
+	[8] = "FeetSlot",
+	[9] = "WristSlot",
+	[10] = "HandsSlot",
+	[11] = "Finger0Slot",
+	[12] = "Finger1Slot",
+	[13] = "Trinket0Slot",
+	[14] = "Trinket1Slot",
+	[15] = "BackSlot",
+	[16] = "MainHandSlot",
+	[17] = "SecondaryHandSlot"
 }
 
 -- Tooltip and scanning by Phanx @ http://www.wowinterface.com/forums/showthread.php?p=271406
@@ -54,74 +53,72 @@ local function getItemLevel(slotId)
 		if text and text ~= "" then
 			realItemLevel = realItemLevel or match(text, S_ITEM_LEVEL)
 			if realItemLevel then
-				return realItemLevel
+				break
 			end
 		end
 	end
+
+	return realItemLevel
 end
 
 function mod:UpdateItemLevel()
 	local db = E.db.benikui.misc.ilevel
 
-	for i = 1, 17 do
-		local itemLink = GetInventoryItemLink("player", i)
-		local iLvl = getItemLevel(i)
-		if i ~= 4 and (equipped[i] ~= itemLink or mod.f[i]:GetText() ~= nil) then
-			equipped[i] = itemLink
+	for id, _ in pairs(slotIDs) do
+		local itemLink = GetInventoryItemLink("player", id)
+		local iLvl = getItemLevel(id)
+		if (equipped[id] ~= itemLink or mod.f[id]:GetText() ~= nil) then
+			equipped[id] = itemLink
 			if (itemLink ~= nil) then
-				mod.f[i]:SetText(iLvl)
+				mod.f[id]:SetText(iLvl)
 				local _, _, ItemRarity = GetItemInfo(itemLink)
 				if ItemRarity and db.colorStyle == 'RARITY' then
 					local r, g, b = GetItemQualityColor(ItemRarity)
-					mod.f[i]:SetTextColor(r, g, b)
+					mod.f[id]:SetTextColor(r, g, b)
 				else
-					mod.f[i]:SetTextColor(BUI:unpackColor(db.color))
+					mod.f[id]:SetTextColor(BUI:unpackColor(db.color))
 				end
 			else
-				mod.f[i]:SetText("")
+				mod.f[id]:SetText("")
 			end
-			mod.f[i]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+			mod.f[id]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
 	end
 end
 
-local function returnPoints(number)
+local function returnPoints(id)
 	if E.db.benikui.misc.ilevel.position == 'INSIDE' then
-		if number <= 5 or number == 15 or number == 9 then 	-- Left side
+		if id <= 5 or id == 15 or id == 9 then 			-- Left side
 			return "BOTTOMLEFT", "BOTTOMLEFT", 0, 1
-		elseif number <= 14 then 							-- Right side
+		elseif id <= 14 then 							-- Right side
 			return "BOTTOMRIGHT", "BOTTOMRIGHT", 2, 1
-		else 												-- Weapon slots
+		else 											-- Weapon slots
 			return "BOTTOM", "BOTTOM", 2, 1
 		end
 	else
-		if number <= 5 or number == 15 or number == 9 then 	-- Left side
+		if id <= 5 or id == 15 or id == 9 then 			-- Left side
 			return "LEFT", "RIGHT", 0, 1
-		elseif number <= 14 then 							-- Right side
+		elseif id <= 14 then 							-- Right side
 			return "RIGHT", "LEFT", 2, 1
-		else 												-- Weapon slots
+		else 											-- Weapon slots
 			return "BOTTOM", "BOTTOM", 2, 1
 		end
 	end
 end
 
 function mod:UpdateItemLevelPosition()
-	for i = 1, 17 do
-		if i ~= 4 then
-			local parent = _G["Character"..slotTable[i]]
-			local myPoint, parentPoint, x, y = returnPoints(i)
-			mod.f[i]:ClearAllPoints()
-			mod.f[i]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
-		end
+	for id, _ in pairs(slotIDs) do
+		local parent = _G["Character"..slotIDs[id]]
+		local myPoint, parentPoint, x, y = returnPoints(id)
+		mod.f[id]:ClearAllPoints()
+		mod.f[id]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
 	end
 end
 
 function mod:CreateString()
-	for i = 1, 17 do
-		if i ~= 4 then
-			mod.f[i] = mod.f:CreateFontString(nil, "OVERLAY")
-			mod.f[i]:FontTemplate()
-		end
+	for id, _ in pairs(slotIDs) do
+		mod.f[id] = mod.f:CreateFontString(nil, "OVERLAY")
+		mod.f[id]:FontTemplate()
 	end
 
 	mod:UpdateItemLevelPosition()
