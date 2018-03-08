@@ -1,3 +1,12 @@
+3.34
+*Fixed an error that popped when AddOnSkins embed system is not enabled
+*Removed a nobodyUsedThatUneededOption in flightMode. Also added an option to disable afkMode edit
+*iLevel has its own module now. Also has an option to place the ilvl text Outside the item slot.
+*Styled the AlliedRaces frame, also fixed the fonts.
+*Zygor guides skin has been removed from Addonskins. Removed styling
+*Added InFlight addon profile
+*Fixed reputation autotraking
+
 3.33
 *Edited the new ElvUI StatusReport frame
 *Style WarboardUI
