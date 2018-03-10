@@ -9,6 +9,5 @@ function BUI:LoadSMBProfile()
 	SquareMinimapButtonsDB["profiles"]["BenikUI"]['ButtonSpacing'] = 4
 	E.db["movers"]["SquareMinimapButtonBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-258"
 
-	local db = LibStub("AceDB-3.0"):New(SquareMinimapButtonsDB, nil, true)
-	db:SetProfile("BenikUI")
+	_G.SquareMinimapButtons.data:SetProfile("BenikUI")
 end

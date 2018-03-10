@@ -17,6 +17,5 @@ function BUI:LoadStamProfile()
 	stAddonManagerDB["profiles"]["BenikUI"]["Font"] = font
 	stAddonManagerDB["profiles"]["BenikUI"]["CheckTexture"] = "BuiMelli"
 
-	local db = LibStub("AceDB-3.0"):New(stAddonManagerDB, nil, true)
-	db:SetProfile("BenikUI")
+	_G.stAddonManager.data:SetProfile("BenikUI")
 end
