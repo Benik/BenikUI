@@ -63,6 +63,6 @@ function BUI:LoadAddOnSkinsProfile()
 		AddOnSkinsDB["profiles"]["BenikUI"]['DBMRadarTrans'] = true
 	end
 
-	local db = LibStub("AceDB-3.0"):New(AddOnSkinsDB, nil, true)
-	db:SetProfile("BenikUI")
+	local AS = unpack(AddOnSkins)
+	AS.data:SetProfile("BenikUI")
 end
