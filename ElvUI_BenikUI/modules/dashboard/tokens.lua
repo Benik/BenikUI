@@ -9,7 +9,7 @@ if E.db.dashboards.tokens == nil then E.db.dashboards.tokens = {} end
 
 local getn = getn
 local pairs, ipairs = pairs, ipairs
-local tinsert, twipe = table.insert, table.wipe
+local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 
 local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
@@ -184,7 +184,7 @@ end
 local function sortFunction(a, b)
 	return a.name < b.name
 end
-local tsort = table.sort
+
 function BUIT:UpdateTokens()
 	local db = E.db.dashboards.tokens
 
