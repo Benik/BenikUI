@@ -112,6 +112,7 @@ local function Icon_OnEnter(self)
 		GameTooltip:AddLine(L['Shift+RightClick to remove'], 0.7, 0.7, 1)
 		GameTooltip:Show()
 	end
+
 	if E.db.dashboards.tokens.mouseover then
 		E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
 	end
@@ -180,6 +181,10 @@ local function Icon_OnMouseUp(self, btn)
 	end
 end
 
+local function sortFunction(a, b)
+	return a.name < b.name
+end
+local tsort = table.sort
 function BUIT:UpdateTokens()
 	local db = E.db.dashboards.tokens
 
@@ -227,6 +232,7 @@ function BUIT:UpdateTokens()
 					token:Point('TOPLEFT', tokenHolder, 'TOPLEFT', SPACING, -SPACING)
 					token:EnableMouse(true)
 					token.id = id
+					token.name = name
 
 					token.dummy = CreateFrame('Frame', nil, token)
 					token.dummy:Point('BOTTOMLEFT', token, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
@@ -331,6 +337,8 @@ function BUIT:UpdateTokens()
 			end
 		end
 	end
+
+	tsort(tokenFrames, sortFunction)
 
 	for key, frame in ipairs(tokenFrames) do
 		frame:ClearAllPoints()
