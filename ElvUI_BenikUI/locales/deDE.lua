@@ -244,7 +244,7 @@ L["Thu"] = "Do"
 L["Fri"] = "Fr"
 L["Sat"] = "Sa"
 
--- Addon friendly names
+-- Addon friendly names (no need to translate)
 L['Altoholic'] = true
 L['AtlasLoot'] = true
 L['Clique'] = true
@@ -257,5 +257,4 @@ L['Shadow & Light'] = true
 L['Skada'] = true
 L['Square Minimap Buttons'] = true
 L['TinyDPS'] = true
-L['Zygor Guides'] = true
 L['oRA3'] = true

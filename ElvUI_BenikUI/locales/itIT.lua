@@ -1,6 +1,6 @@
-﻿-- English localization file for enUS
-local AceLocale = LibStub:GetLibrary('AceLocale-3.0');
-local L = AceLocale:NewLocale('ElvUI', 'enUS');
+﻿-- English localization file for itIT
+local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
+local L = AceLocale:NewLocale("ElvUI", "itIT");
 if not L then return; end
 
 -- core
@@ -245,7 +245,7 @@ L["Thu"] = true
 L["Fri"] = true
 L["Sat"] = true
 
--- Addon friendly names
+-- Addon friendly names (no need to translate)
 L['Altoholic'] = true
 L['AtlasLoot'] = true
 L['Clique'] = true

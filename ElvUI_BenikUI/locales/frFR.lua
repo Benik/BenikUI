@@ -257,5 +257,4 @@ L['Shadow & Light'] = true
 L['Skada'] = true
 L['Square Minimap Buttons'] = true
 L['TinyDPS'] = true
-L['Zygor Guides'] = true
 L['oRA3'] = true
