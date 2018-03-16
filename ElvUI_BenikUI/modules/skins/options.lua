@@ -22,7 +22,6 @@ local DecorAddons = {
 	{'TinyDPS', L['TinyDPS'], 'tinydps'},
 	{'AtlasLoot', L['AtlasLoot'], 'atlasloot'},
 	{'Altoholic', L['Altoholic'], 'altoholic'},
-	{'ZygorGuidesViewer', L['Zygor Guides'], 'zg'},
 	{'Clique', L['Clique'], 'clique'},
 	{'oRA3', L['oRA3'], 'ora'},
 	{'Pawn', L['Pawn'], 'pawn'},
