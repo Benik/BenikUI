@@ -244,7 +244,6 @@ P['benikuiSkins'] = {
 		['tinydps'] = true,
 		['atlasloot'] = true,
 		['altoholic'] = true,
-		['zg'] = true,
 		['clique'] = true,
 		['ora'] = true,
 		['pawn'] = true,
@@ -356,7 +355,6 @@ P['dashboards'] = {
 		['backdrop'] = true,
 		['zeroamount'] = false,
 		['weekly'] = true,
-		['flash'] = false,
 	},
 	
 	['professions'] = {

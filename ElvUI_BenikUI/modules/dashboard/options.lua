@@ -498,14 +498,6 @@ local function dashboardsTable()
 						get = function(info) return E.db.dashboards.tokens.weekly end,
 						set = function(info, value) E.db.dashboards.tokens.weekly = value; BUIT:UpdateTokens(); end,
 					},
-					flash = {
-						order = 12,
-						name = L['Flash on updates'],
-						type = 'toggle',
-						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
-						get = function(info) return E.db.dashboards.tokens.flash end,
-						set = function(info, value) E.db.dashboards.tokens.flash = value; BUIT:UpdateTokens(); end,
-					},
 					spacer = {
 						order = 20,
 						type = 'description',

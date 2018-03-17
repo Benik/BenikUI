@@ -120,7 +120,6 @@ L['Dashboards'] = true --No need to translate
 L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
 L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
 L['Enable/Disable '] = "Aktivieren/Deaktivieren"
-L['Flash on updates'] = "Beim Updaten blinken"
 L['Framerate drop has been reported with Zygor Guides\nand the Memory module while in an instance.\nMemory module updates have been temporarily disabled.'] = "Es wurde berichtet dass die Bildrate sinkt mit Zygor Guide\nund dem Speicher Modul während man in einer Instanz ist.\nSpeicher Modul Aktualisierung wird vorübergehend deaktiviert."
 L['Latency (MS)'] = "Latenz (MS)"
 L['Memory: '] = "Speicher"

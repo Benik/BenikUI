@@ -309,11 +309,6 @@ function BUIT:UpdateTokens()
 						end
 					end)
 
-					-- Flash
-					if db.flash then
-						E:Flash(token, 0.2)
-					end
-
 					token:SetScript('OnLeave', function(self)
 						if totalMax == 0 then
 							token.Text:SetFormattedText('%s', amount)
