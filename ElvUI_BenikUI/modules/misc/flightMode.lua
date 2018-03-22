@@ -164,7 +164,7 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		
 		-- Hide SquareMinimapButtonBar
-		if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) then
+		if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB'] and not IsAddOnLoaded('ElvUI_SLE')) then
 			_G.SquareMinimapButtons:CancelAllTimers()
 			SquareMinimapButtonBar:SetAlpha(0)
 		end
@@ -239,7 +239,7 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
 
 		-- Show SquareMinimapButtonBar
-		if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) then
+		if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB'] and not IsAddOnLoaded('ElvUI_SLE')) then
 			_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
 			SquareMinimapButtonBar:SetAlpha(1)
 		end
