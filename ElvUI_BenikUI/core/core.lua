@@ -10,6 +10,8 @@ local pairs, print = pairs, print
 local format = string.format
 local CreateFrame = CreateFrame
 local C_TimerAfter = C_Timer.After
+local GetAddOnMetadata = GetAddOnMetadata
+local GetAddOnEnableState = GetAddOnEnableState
 
 -- GLOBALS: LibStub, BenikUISplashScreen, ElvDB
 
