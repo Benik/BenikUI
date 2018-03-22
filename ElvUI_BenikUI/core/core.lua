@@ -13,7 +13,7 @@ local C_TimerAfter = C_Timer.After
 
 -- GLOBALS: LibStub, BenikUISplashScreen, ElvDB
 
-function BUI:IsAddOnEnabled(addon)
+function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
 	return GetAddOnEnableState(E.MyName, addon) == 2
 end
 
