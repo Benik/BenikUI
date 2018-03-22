@@ -2,7 +2,7 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadInFlightProfile()
-	if not IsAddOnLoaded("InFlight") then
+	if not BUI:IsAddOnEnabled("InFlight") then
 		LoadAddOn("InFlight") -- LOD addon
 	end
 

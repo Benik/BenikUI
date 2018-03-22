@@ -5,7 +5,6 @@ local format, checkTable = format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 local _G = _G
 
-local IsAddOnLoaded = IsAddOnLoaded
 local ReloadUI = ReloadUI
 local FCF_SetLocked = FCF_SetLocked
 local FCF_DockFrame, FCF_UnDockFrame = FCF_DockFrame, FCF_UnDockFrame
@@ -1711,25 +1710,25 @@ local profilesFailed = format('|cff00c0fa%s |r', L["BenikUI didn't find any supp
 
 local function SetupAddons()
 	-- BigWigs
-	if IsAddOnLoaded('BigWigs') then
+	if BUI:IsAddOnEnabled('BigWigs') then
 		BUI:LoadBigWigsProfile()
 		tinsert(addonNames, 'BigWigs')
 	end
 
 	-- DBM
-	if IsAddOnLoaded('DBM-Core') then
+	if BUI:IsAddOnEnabled('DBM-Core') then
 		BUI:LoadDBMProfile()
 		tinsert(addonNames, 'Deadly Boss Mods')
 	end
 
 	-- Details
-	if IsAddOnLoaded('Details') then
+	if BUI:IsAddOnEnabled('Details') then
 		BUI:LoadDetailsProfile()
 		tinsert(addonNames, 'Details')
 	end
 
 	-- InFlight
-	if IsAddOnLoaded('InFlight_Load') then
+	if BUI:IsAddOnEnabled('InFlight_Load') then
 		BUI:LoadInFlightProfile()
 		tinsert(addonNames, 'InFlight')
 	end
@@ -1747,25 +1746,25 @@ local function SetupAddons()
 	end
 
 	-- MikScrollingBattleText
-	if IsAddOnLoaded('MikScrollingBattleText') then
+	if BUI:IsAddOnEnabled('MikScrollingBattleText') then
 		BUI:LoadMSBTProfile()
 		tinsert(addonNames, "Mik's Scrolling Battle Text")
 	end
 
 	-- Pawn
-	if IsAddOnLoaded('Pawn') then
+	if BUI:IsAddOnEnabled('Pawn') then
 		BUI:LoadPawnProfile()
 		tinsert(addonNames, 'Pawn')
 	end
 
 	-- Recount
-	if IsAddOnLoaded('Recount') then
+	if BUI:IsAddOnEnabled('Recount') then
 		BUI:LoadRecountProfile()
 		tinsert(addonNames, 'Recount')
 	end
 
 	-- Skada
-	if IsAddOnLoaded('Skada') then
+	if BUI:IsAddOnEnabled('Skada') then
 		BUI:LoadSkadaProfile()
 		tinsert(addonNames, 'Skada')
 	end
@@ -1783,7 +1782,7 @@ local function SetupAddons()
 	end
 
 	-- ElvUI_VisualAuraTimers
-	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
+	if BUI:IsAddOnEnabled('ElvUI_VisualAuraTimers') then
 		BUI:LoadVATProfile()
 		tinsert(addonNames, 'ElvUI VisualAuraTimers')
 	end

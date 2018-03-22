@@ -13,7 +13,6 @@ local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local PlaySound = PlaySound
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
-local IsAddOnLoaded = IsAddOnLoaded
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
 local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame

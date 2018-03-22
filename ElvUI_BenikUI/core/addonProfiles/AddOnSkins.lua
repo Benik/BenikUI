@@ -22,7 +22,7 @@ function BUI:LoadAddOnSkinsProfile()
 	AddOnSkinsDB["profiles"]["BenikUI"]['TransparentEmbed'] = false
 	AddOnSkinsDB["profiles"]["BenikUI"]['DBMSkinHalf'] = true
 
-	if IsAddOnLoaded('Recount') then
+	if BUI:IsAddOnEnabled('Recount') then
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedFrameStrata'] = "2-LOW"
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedBelowTop'] = false
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedMain'] = 'Recount'
@@ -32,7 +32,7 @@ function BUI:LoadAddOnSkinsProfile()
 		AddOnSkinsDB["profiles"]["BenikUI"]['TransparentEmbed'] = true
 	end
 
-	if IsAddOnLoaded('Skada') then
+	if BUI:IsAddOnEnabled('Skada') then
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedFrameStrata'] = "2-LOW"
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedBelowTop'] = false
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedLeft'] = 'Skada'
@@ -44,7 +44,7 @@ function BUI:LoadAddOnSkinsProfile()
 		AddOnSkinsDB["profiles"]["BenikUI"]['TransparentEmbed'] = true
 	end
 
-	if IsAddOnLoaded('Details') then
+	if BUI:IsAddOnEnabled('Details') then
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedFrameStrata'] = "2-LOW"
 		AddOnSkinsDB["profiles"]["BenikUI"]['DetailsBackdrop'] = false
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedBelowTop'] = false
@@ -56,7 +56,7 @@ function BUI:LoadAddOnSkinsProfile()
 		AddOnSkinsDB["profiles"]["BenikUI"]['TransparentEmbed'] = true
 	end
 
-	if IsAddOnLoaded('DBM-Core') then
+	if BUI:IsAddOnEnabled('DBM-Core') then
 		AddOnSkinsDB["profiles"]["BenikUI"]['DBMFont'] = font
 		AddOnSkinsDB["profiles"]["BenikUI"]['DBMFont'] = font
 		AddOnSkinsDB["profiles"]["BenikUI"]['DBMFontSize'] = 10
