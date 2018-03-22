@@ -164,7 +164,7 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		
 		-- Hide SquareMinimapButtonBar
-		if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB'] and not IsAddOnLoaded('ElvUI_SLE')) then
+		if (BUI.PA and _G.ProjectAzilroka.db['SMB'] and not BUI.SLE) then
 			_G.SquareMinimapButtons:CancelAllTimers()
 			SquareMinimapButtonBar:SetAlpha(0)
 		end
@@ -196,7 +196,7 @@ function BFM:SetFlightMode(status)
 
 		-- Enable Blizz location messsages.
 		-- Added support for LocationPlus & LocationLite
-		if (IsAddOnLoaded('ElvUI_LocPlus') and E.db.locplus.zonetext) or (IsAddOnLoaded('ElvUI_LocLite') and not E.db.loclite.zonetext) then
+		if (BUI.LP and E.db.locplus.zonetext) or (BUI.LL and not E.db.loclite.zonetext) then
 			ZoneTextFrame:UnregisterAllEvents()
 		else
 			ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
@@ -223,7 +223,7 @@ function BFM:SetFlightMode(status)
 			end
 		end
 
-		if IsAddOnLoaded('AddOnSkins') then
+		if BUI.AS then
 			local AS = unpack(AddOnSkins) or nil
 			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
 		end
@@ -239,7 +239,7 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
 
 		-- Show SquareMinimapButtonBar
-		if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB'] and not IsAddOnLoaded('ElvUI_SLE')) then
+		if (BUI.PA and _G.ProjectAzilroka.db['SMB'] and not BUI.SLE) then
 			_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
 			SquareMinimapButtonBar:SetAlpha(1)
 		end

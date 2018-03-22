@@ -69,7 +69,7 @@ local function ChatButton_OnClick(self)
 	if E.db[self.parent:GetName()..'Faded'] then
 		E.db[self.parent:GetName()..'Faded'] = nil
 		UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
-		if IsAddOnLoaded('AddOnSkins') then
+		if BUI.AS then
 			local AS = unpack(AddOnSkins) or nil
 			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
 		end
@@ -299,7 +299,7 @@ function BUIL:ChangeLayout()
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(L['LeftClick: Toggle Configuration'], selectioncolor)
-				if IsAddOnLoaded('AddOnSkins') then
+				if BUI.AS then
 					GameTooltip:AddLine(L['RightClick: Toggle Embedded Addon'], selectioncolor)
 				end
 				GameTooltip:AddLine(L['ShiftClick to toggle chat'], selectioncolor)
@@ -317,7 +317,7 @@ function BUIL:ChangeLayout()
 						if btn == 'LeftButton' then
 							E:ToggleConfig()
 						else
-							if IsAddOnLoaded('AddOnSkins') then
+							if BUI.AS then
 								local AS = unpack(AddOnSkins) or nil
 								if AS:CheckOption('EmbedRightChat') and EmbedSystem_MainWindow then
 									if EmbedSystem_MainWindow:IsShown() then

@@ -13,6 +13,10 @@ local C_TimerAfter = C_Timer.After
 
 -- GLOBALS: LibStub, BenikUISplashScreen, ElvDB
 
+function BUI:IsAddOnEnabled(addon)
+	return GetAddOnEnableState(E.MyName, addon) == 2
+end
+
 BUI.Config = {}
 BUI["styles"] = {}
 BUI["softGlow"] = {}
@@ -21,6 +25,13 @@ BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.NewSign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 BINDING_HEADER_BENIKUI = BUI.Title
+
+-- Check other addons
+BUI.SLE = BUI:IsAddOnEnabled('ElvUI_SLE')
+BUI.PA = BUI:IsAddOnEnabled('ProjectAzilroka')
+BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
+BUI.LL = BUI:IsAddOnEnabled('ElvUI_LocLite')
+BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 

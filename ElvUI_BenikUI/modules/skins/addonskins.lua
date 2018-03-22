@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule('Skins');
+local BUI = E:GetModule('BenikUI');
 
 local pairs = pairs
 
@@ -104,7 +105,7 @@ f:SetScript("OnEvent", function(self)
 	f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end)
 
-if not IsAddOnLoaded('AddOnSkins') then return end
+if not BUI.AS then return end
 local AS = unpack(AddOnSkins)
 
 local function SkadaDecor()

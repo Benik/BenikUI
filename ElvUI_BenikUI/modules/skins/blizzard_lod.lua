@@ -107,7 +107,7 @@ local function style_Calendar()
 	_G["CalendarContextMenu"]:Style('Outside')
 	_G["CalendarViewRaidFrame"]:Style('Outside')
 
-	if not IsAddOnLoaded('AddOnSkins') then return end
+	if not BUI.AS then return end
 	for i = 1, 42 do
 		_G['CalendarDayButton'..i]:SetTemplate('Transparent')
 	end

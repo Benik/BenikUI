@@ -1735,13 +1735,13 @@ local function SetupAddons()
 	end
 
 	-- Location Lite
-	if IsAddOnLoaded('ElvUI_LocLite') then
+	if BUI.LL then
 		BUI:LoadLocationLiteProfile()
 		tinsert(addonNames, 'Location Lite')
 	end
 
 	-- Location Plus
-	if IsAddOnLoaded('ElvUI_LocPlus') then
+	if BUI.LP then
 		BUI:LoadLocationPlusProfile()
 		tinsert(addonNames, 'Location Plus')
 	end
@@ -1771,13 +1771,13 @@ local function SetupAddons()
 	end
 
 	-- SquareMinimapButtons
-	if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) then
+	if (BUI.PA and _G.ProjectAzilroka.db['SMB']) then
 		BUI:LoadSMBProfile()
 		tinsert(addonNames, 'Square Minimap Buttons')
 	end
 
 	-- stAddOnManager
-	if (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['stAM']) then
+	if (BUI.PA and _G.ProjectAzilroka.db['stAM']) then
 		BUI:LoadStamProfile()
 		tinsert(addonNames, 'stAddOnManager')
 	end
@@ -1789,7 +1789,7 @@ local function SetupAddons()
 	end
 
 	-- AddOnSkins
-	if IsAddOnLoaded('AddOnSkins') then
+	if BUI.AS then
 		BUI:LoadAddOnSkinsProfile()
 		tinsert(addonNames, 'AddOnSkins')
 	end
@@ -1815,7 +1815,7 @@ end
 local function SetupDataTexts(role)
 	-- Data Texts
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = 'BuiMail'
-	if IsAddOnLoaded('ElvUI_LocPlus') then
+	if BUI.LP then
 		E.db["datatexts"]["panels"]["RightCoordDtPanel"] = 'Time'
 		E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Spec Switch (BenikUI)'
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Versatility'

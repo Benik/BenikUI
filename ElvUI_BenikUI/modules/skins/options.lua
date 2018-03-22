@@ -95,7 +95,7 @@ local function SkinTable()
 		type = 'toggle',
 		name = smb,
 		desc = format('%s '..smb..' %s', L['Enable/Disable'], L['decor.']),
-		disabled = function() return not (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) end,
+		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['SMB']) end,
 	}
 	
 	-- stAddonManager
@@ -104,7 +104,7 @@ local function SkinTable()
 		type = 'toggle',
 		name = stAM,
 		desc = format('%s '..stAM..' %s', L['Enable/Disable'], L['decor.']),
-		disabled = function() return not (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['stAM']) end,
+		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['stAM']) end,
 	}
 
 	E.Options.args.benikui.args.skins.args.addonskins = {
@@ -126,7 +126,7 @@ local function SkinTable()
 			type = 'toggle',
 			name = addonString,
 			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
-			disabled = function() return not (IsAddOnLoaded('AddOnSkins') and IsAddOnLoaded(addonName)) end,
+			disabled = function() return not (BUI.AS and IsAddOnLoaded(addonName)) end,
 		}
 	end
 
@@ -226,7 +226,7 @@ local function SkinTable()
 			E:StaticPopup_Show('PRIVATE_RL')
 			print(profileString..smb)
 		end,
-		disabled = function() return not (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['SMB']) end,
+		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['SMB']) end,
 	}
 
 	-- New stAddOnManager from ProjectAzilroka
@@ -241,7 +241,7 @@ local function SkinTable()
 			E:StaticPopup_Show('PRIVATE_RL')
 			print(profileString..stAM)
 		end,
-		disabled = function() return not (IsAddOnLoaded('ProjectAzilroka') and _G.ProjectAzilroka.db['stAM']) end,
+		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['stAM']) end,
 	}
 end
 

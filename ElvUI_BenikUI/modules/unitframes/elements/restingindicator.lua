@@ -1,8 +1,9 @@
 local E, L, V, P, G = unpack(ElvUI);
 local UFB = E:GetModule('BuiUnits');
+local BUI = E:GetModule('BenikUI');
 
 function UFB:Configure_RestingIndicator(frame)
-	if IsAddOnLoaded("ElvUI_SLE") then return end -- S&L don't like BenikUI
+	if BUI.SLE then return end -- S&L don't like BenikUI
 
 	local rIcon = frame.RestingIndicator
 	local db = frame.db

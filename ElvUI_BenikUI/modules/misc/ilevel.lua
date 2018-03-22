@@ -127,7 +127,7 @@ function mod:CreateString()
 end
 
 function mod:Initialize()
-	if E.db.benikui.misc.ilevel.enable == false or (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable ~= false) then return end
+	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.Armory.Character.Enable ~= false) then return end
 
 	mod.f = CreateFrame("Frame", nil, PaperDollFrame)
 	mod:CreateString()

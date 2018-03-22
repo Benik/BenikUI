@@ -1,6 +1,7 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local UF = E:GetModule('UnitFrames');
 local UFB = E:GetModule('BuiUnits');
+local BUI = E:GetModule('BenikUI');
 
 local pairs, select, random = pairs, select, random
 
@@ -108,6 +109,6 @@ f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent(event)
 
-	if IsAddOnLoaded("ElvUI_SLE") or E.db.benikui.unitframes.misc.svui == false then return end
+	if BUI.SLE or E.db.benikui.unitframes.misc.svui == false then return end
 	SetRoleIcons()
 end)
