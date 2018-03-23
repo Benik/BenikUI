@@ -1,3 +1,14 @@
+3.35
+*Styled the afkMode to fit with flightMode new style
+*Changed the flightMode style. a bit :)
+*Changed the way other addons are checked if they are loaded
+*Fixed a ProjectAzilroka SquareMinimapButtonBar error in flightMode while S&L is loaded
+*Tokens flash was never working as intended. Removing
+*Token Dashboard frames are now sorted alphabeticaly.
+
+*Added support for all WoW locales
+*Better way to apply AddOnSkins, stAddOnManager and SquareMinimapButtons profiles
+
 3.34
 *Fixed an error that popped when AddOnSkins embed system is not enabled
 *Removed a nobodyUsedThatUneededOption in flightMode. Also added an option to disable afkMode edit
