@@ -302,13 +302,12 @@ function AFK:Initialize()
 	-- Create Top frame
 	self.AFKMode.top = CreateFrame('Frame', nil, self.AFKMode)
 	self.AFKMode.top:SetFrameLevel(0)
-	self.AFKMode.top:SetTemplate('Transparent')
+	self.AFKMode.top:SetTemplate('Transparent', true, true)
+	self.AFKMode.top:SetBackdropBorderColor(.3, .3, .3, 1)
+	self.AFKMode.top:CreateWideShadow()
 	self.AFKMode.top:ClearAllPoints()
 	self.AFKMode.top:SetPoint("TOP", self.AFKMode, "TOP", 0, E.Border)
 	self.AFKMode.top:SetWidth(GetScreenWidth() + (E.Border*2))
-
-	--Style the top frame
-	self.AFKMode.top:Style('Under', _, true)
 
 	--Top Animation
 	self.AFKMode.top.anim = CreateAnimationGroup(self.AFKMode.top)
@@ -318,7 +317,7 @@ function AFK:Initialize()
 	self.AFKMode.top.anim.height:SetSmoothing("Bounce")
 
 	-- move the chat lower
-	self.AFKMode.chat:SetPoint("TOPLEFT", self.AFKMode.top.style, "TOPLEFT", 4, -4)
+	self.AFKMode.chat:SetPoint("TOPLEFT", self.AFKMode.top, "TOPLEFT", 4, -4)
 
 	-- WoW logo
 	self.AFKMode.top.wowlogo = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the logo layer
@@ -351,20 +350,13 @@ function AFK:Initialize()
 	self.AFKMode.top.Status:SetMinMaxValues(0, 1800)
 	self.AFKMode.top.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b, 1)
 	self.AFKMode.top.Status:SetFrameLevel(2)
-	if E.db.benikui.general.benikuiStyle and self.AFKMode.top.style then
-		self.AFKMode.top.Status:SetInside(self.AFKMode.top.style)
-	else
-		self.AFKMode.top.Status:Point('TOPRIGHT', self.AFKMode.top, 'BOTTOMRIGHT', 0, E.PixelMode and 5 or 7)
-		self.AFKMode.top.Status:Point('BOTTOMLEFT', self.AFKMode.top, 'BOTTOMLEFT', 0, E.PixelMode and 1 or 2)
-	end
+	self.AFKMode.top.Status:Point('TOPRIGHT', self.AFKMode.top, 'BOTTOMRIGHT', 0, E.PixelMode and 3 or 5)
+	self.AFKMode.top.Status:Point('BOTTOMLEFT', self.AFKMode.top, 'BOTTOMLEFT', 0, E.PixelMode and 1 or 2)
 	self.AFKMode.top.Status:SetValue(0)
 
-	-- Style the bottom frame
-	self.AFKMode.bottom:Style('Inside', _, true)
-	if self.AFKMode.bottom.style then
-		self.AFKMode.bottom.style:SetFrameLevel(5)
-	end
-	
+	self.AFKMode.bottom:SetTemplate('Transparent', true, true)
+	self.AFKMode.bottom:SetBackdropBorderColor(.3, .3, .3, 1)
+	self.AFKMode.bottom:CreateWideShadow()
 	self.AFKMode.bottom.modelHolder:SetFrameLevel(7)
 
 	-- Bottom Frame Animation
