@@ -13,7 +13,7 @@ local function CreateWideShadow(f)
 
 	local wideshadow = f.wideshadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
 	wideshadow:SetFrameLevel(1)
-	wideshadow:SetFrameStrata(f:GetFrameStrata())
+	wideshadow:SetFrameStrata('BACKGROUND')
 	wideshadow:SetOutside(f, 6, 6)
 	wideshadow:SetBackdrop( { 
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(6),
@@ -30,7 +30,7 @@ local function CreateSoftShadow(f)
 
 	local softshadow = f.softshadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
 	softshadow:SetFrameLevel(1)
-	softshadow:SetFrameStrata(f:GetFrameStrata())
+	softshadow:SetFrameStrata('BACKGROUND')
 	softshadow:SetOutside(f, 2, 2)
 	softshadow:SetBackdrop( { 
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(2),
