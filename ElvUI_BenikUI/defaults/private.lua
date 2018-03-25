@@ -3,6 +3,9 @@
 V['benikui'] = {
 	['install_complete'] = nil,
 	['expressway'] = false,
+	['session'] = {
+		['day'] = 1,
+	}
 }
 
 -- Dashboards
