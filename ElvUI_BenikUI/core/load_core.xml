@@ -6,6 +6,7 @@
 	<script file="install.lua"/>
 	<script file="dropmenu.lua"/>
 	<script file="statusReport.lua"/>
+	<script file="splashScreen.lua"/>
 	<script file="dev.lua"/>
 	<Include file="addonProfiles\load_addonProfiles.xml"/>
 </Ui>
