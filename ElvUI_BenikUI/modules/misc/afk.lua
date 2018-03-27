@@ -317,7 +317,7 @@ function AFK:Initialize()
 	self.AFKMode.top.anim.height:SetSmoothing("Bounce")
 
 	-- move the chat lower
-	self.AFKMode.chat:SetPoint("TOPLEFT", self.AFKMode.top, "TOPLEFT", 4, -4)
+	self.AFKMode.chat:SetPoint("TOPLEFT", self.AFKMode.top, "BOTTOMLEFT", 4, -10)
 
 	-- WoW logo
 	self.AFKMode.top.wowlogo = CreateFrame('Frame', nil, self.AFKMode) -- need this to upper the logo layer
