@@ -24,7 +24,7 @@ BUI.NewSign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t
 BINDING_HEADER_BENIKUI = BUI.Title
 
 function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
-	return GetAddOnEnableState(E.MyName, addon) == 2
+	return GetAddOnEnableState(E.myname, addon) == 2
 end
 
 -- Check other addons
