@@ -1813,30 +1813,37 @@ end
 
 local function SetupDataTexts(role)
 	-- Data Texts
-	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = 'BuiMail'
 	if BUI.LP then
 		E.db["datatexts"]["panels"]["RightCoordDtPanel"] = 'Time'
-		E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Spec Switch (BenikUI)'
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Versatility'
-	else
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Spec Switch (BenikUI)'
+
+		if IsAddOnLoaded("AtlasLoot") then
+			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'AtlasLoot'
+		else
+			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Quick Join'
+		end
 	end
+
 	if role == 'tank' then
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Attack Power'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Avoidance'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Armor'
 	elseif role == 'dpsMelee' then
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Attack Power'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Haste'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Crit Chance'
 	elseif role == 'healer' or 'dpsCaster' then
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Spell/Heal Power'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Haste'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Crit Chance'
 	end
-	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = 'Orderhall (BenikUI)'
 
+	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = 'Orderhall (BenikUI)'
+	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = 'BuiMail'
+
+	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Spec Switch (BenikUI)'
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = 'Gold'
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = 'Bags'
 
-	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Crit Chance'
 	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = 'Mastery'
 
 	PluginInstallStepComplete.message = BUI.Title..L['DataTexts Set']
