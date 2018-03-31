@@ -1,3 +1,8 @@
+3.36
+*Fixed a typo that affected profile creation amongst others
+*Correctly position the chat frame in afkMode
+*Show the SplashScreen only once, per char/per day
+
 3.35
 *Styled the afkMode to fit with flightMode new style
 *Changed the flightMode style. a bit :)
