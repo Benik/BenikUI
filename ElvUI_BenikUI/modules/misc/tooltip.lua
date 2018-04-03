@@ -29,7 +29,7 @@ local function StyleTooltip()
 	if not E.db.benikui.general.shadows then return end
 
 	if not GameTooltipStatusBar.backdrop.shadow then
-		GameTooltipStatusBar.backdrop:CreateShadow('Default')
+		GameTooltipStatusBar.backdrop:CreateSoftShadow()
 	end
 end
 

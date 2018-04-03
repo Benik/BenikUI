@@ -11,7 +11,7 @@ local function CreateWideShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
-	local wideshadow = f.wideshadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
+	local wideshadow = f.wideshadow or CreateFrame('Frame', nil, f)
 	wideshadow:SetFrameLevel(1)
 	wideshadow:SetFrameStrata('BACKGROUND')
 	wideshadow:SetOutside(f, 6, 6)
@@ -28,17 +28,37 @@ local function CreateSoftShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
-	local softshadow = f.softshadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
-	softshadow:SetFrameLevel(1)
-	softshadow:SetFrameStrata('BACKGROUND')
-	softshadow:SetOutside(f, 2, 2)
-	softshadow:SetBackdrop( { 
+	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
+	shadow:SetFrameLevel(1)
+	shadow:SetFrameStrata('BACKGROUND')
+	shadow:SetOutside(f, 2, 2)
+	shadow:SetBackdrop( { 
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(2),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
-	softshadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	softshadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.4)
-	f.softshadow = softshadow
+	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
+	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.4)
+	f.shadow = shadow
+end
+
+local function CreateStyleShadow(f)
+	local borderr, borderg, borderb = 0, 0, 0
+	local backdropr, backdropg, backdropb = 0, 0, 0
+
+	local styleShadow = f.styleShadow or CreateFrame('Frame', nil, f)
+	styleShadow:SetFrameLevel(1)
+	styleShadow:SetFrameStrata('BACKGROUND')
+
+	styleShadow:Point('TOPLEFT', f, 'TOPLEFT', -2, 2)
+	styleShadow:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT', 2, 0)
+
+	styleShadow:SetBackdrop( { 
+		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(2),
+		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
+	})
+	styleShadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
+	styleShadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.4)
+	f.styleShadow = styleShadow
 end
 
 local function CreateSoftGlow(f)
@@ -121,7 +141,8 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 	end
 
 	if E.db.benikui.general.shadows then
-		f:CreateShadow('Default')
+		f:CreateSoftShadow()
+		style:CreateStyleShadow()
 	end
 
 	if E.db.benikui.general.hideStyle then
@@ -142,6 +163,7 @@ local function addapi(object)
 	if not object.CreateSoftShadow then mt.CreateSoftShadow = CreateSoftShadow end
 	if not object.CreateWideShadow then mt.CreateWideShadow = CreateWideShadow end
 	if not object.CreateSoftGlow then mt.CreateSoftGlow = CreateSoftGlow end
+	if not object.CreateStyleShadow then mt.CreateStyleShadow = CreateStyleShadow end
 	if not object.Style then mt.Style = Style end
 end
 

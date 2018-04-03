@@ -11,7 +11,7 @@ function UFB:Construct_PlayerFrame()
 	local frame = _G["ElvUF_Player"]
 
 	if not frame.Portrait.backdrop.shadow then
-		frame.Portrait.backdrop:CreateShadow('Default')
+		frame.Portrait.backdrop:CreateSoftShadow()
 		frame.Portrait.backdrop.shadow:Hide()
 	end
 
@@ -21,7 +21,7 @@ function UFB:Construct_PlayerFrame()
 	end
 
 	if E.db.benikui.general.shadows then
-		frame.Power.backdrop:CreateShadow('Default')
+		frame.Power.backdrop:CreateSoftShadow()
 		frame.Power.backdrop.shadow:Hide()
 	end
 

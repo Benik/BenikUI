@@ -11,7 +11,7 @@ function UFB:Update_Raid40Frames(frame, db)
 	end
 
 	if E.db.benikui.general.shadows then
-		frame:CreateShadow('Default')
+		frame:CreateSoftShadow()
 	end
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")

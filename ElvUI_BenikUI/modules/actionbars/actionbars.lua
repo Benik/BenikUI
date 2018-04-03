@@ -136,7 +136,7 @@ function BAB:TransparentBackdrops()
 				if button.backdrop then
 					if E.db.benikui.general.shadows then
 						if not button.backdrop.shadow then
-							button.backdrop:CreateShadow('Default')
+							button.backdrop:CreateSoftShadow()
 						end
 					end
 
@@ -168,7 +168,7 @@ function BAB:TransparentBackdrops()
 			if button.backdrop then
 				if E.db.benikui.general.shadows then
 					if not button.backdrop.shadow then
-						button.backdrop:CreateShadow('Default')
+						button.backdrop:CreateSoftShadow()
 					end
 				end
 

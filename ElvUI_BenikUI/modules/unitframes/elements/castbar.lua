@@ -117,8 +117,8 @@ function BUIC:CastBarHooks()
 		local castbar = unitframe and unitframe.Castbar
 		if castbar then
 			if E.db.benikui.general.shadows then
-				castbar:CreateShadow('Default')
-				castbar.ButtonIcon.bg:CreateShadow('Default')
+				castbar:CreateSoftShadow()
+				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCast)
@@ -130,8 +130,8 @@ function BUIC:CastBarHooks()
 		local castbar = _G["ElvUF_Arena"..i].Castbar
 		if castbar then
 			if E.db.benikui.general.shadows then
-				castbar:CreateShadow('Default')
-				castbar.ButtonIcon.bg:CreateShadow('Default')
+				castbar:CreateSoftShadow()
+				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCast)
@@ -143,8 +143,8 @@ function BUIC:CastBarHooks()
 		local castbar = _G["ElvUF_Boss"..i].Castbar
 		if castbar then
 			if E.db.benikui.general.shadows then
-				castbar:CreateShadow('Default')
-				castbar.ButtonIcon.bg:CreateShadow('Default')
+				castbar:CreateSoftShadow()
+				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCast)

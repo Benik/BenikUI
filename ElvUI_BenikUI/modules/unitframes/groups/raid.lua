@@ -18,7 +18,7 @@ function UFB:Update_RaidFrames(frame, db)
 	UFB:Configure_RoleIcons(frame)
 
 	if E.db.benikui.general.shadows then
-		frame:CreateShadow('Default')
+		frame:CreateSoftShadow()
 	end
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")

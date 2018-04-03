@@ -109,17 +109,10 @@ function BUIL:ToggleBuiDts()
 end
 
 function BUIL:ResizeMinimapPanels()
-	if E.db.benikui.general.shadows then
-		LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, (E.PixelMode and -SPACING -2 or -SPACING))
-		LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', (E.PixelMode and -SPACING -2 or -SPACING), (E.PixelMode and -(SPACING + PANEL_HEIGHT) -2 or -(SPACING + PANEL_HEIGHT)))
-		RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, (E.PixelMode and -SPACING -2 or -SPACING))
-		RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', (E.PixelMode and SPACING +2 or SPACING), 0)
-	else
-		LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-		LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
-		RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
-		RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
-	end
+	LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+	LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
+	RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
+	RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
 end
 
 function BUIL:ToggleTransparency()
@@ -219,24 +212,14 @@ function BUIL:ChangeLayout()
 
 	-- Left dt panel
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
-	if E.db.benikui.general.shadows then
-		Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (E.PixelMode and SPACING +PANEL_HEIGHT +2 or SPACING +PANEL_HEIGHT), (E.PixelMode and -SPACING -2 or -SPACING))
-		Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', (E.PixelMode and -(SPACING +PANEL_HEIGHT) -2 or -(SPACING +PANEL_HEIGHT)), (E.PixelMode and -PANEL_HEIGHT -SPACING -2 or -PANEL_HEIGHT -SPACING))
-	else
-		Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
-		Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
-	end
+	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
+	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_ldtp:Style('Outside', nil, false, true)
 
 	-- Right dt panel
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
-	if E.db.benikui.general.shadows then
-		Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (E.PixelMode and SPACING +PANEL_HEIGHT +2 or SPACING +PANEL_HEIGHT), (E.PixelMode and -SPACING -2 or -SPACING))
-		Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', (E.PixelMode and -(SPACING +PANEL_HEIGHT) -2 or -(SPACING +PANEL_HEIGHT)), (E.PixelMode and -PANEL_HEIGHT -SPACING -2 or -PANEL_HEIGHT -SPACING))
-	else
-		Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
-		Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
-	end
+	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
+	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_rdtp:Style('Outside', nil, false, true)
 
 	-- Middle dt panel
@@ -250,23 +233,13 @@ function BUIL:ChangeLayout()
 
 	-- dummy frame for chat/threat (left)
 	Bui_dchat:SetFrameStrata('LOW')
-	if E.db.benikui.general.shadows then
-		Bui_dchat:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, (E.PixelMode and -SPACING -2 or -SPACING))
-		Bui_dchat:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', 0, (E.PixelMode and -PANEL_HEIGHT -SPACING -2 or -PANEL_HEIGHT -SPACING))
-	else
-		Bui_dchat:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -SPACING)
-		Bui_dchat:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
-	end
+	Bui_dchat:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -SPACING)
+	Bui_dchat:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
 
 	-- dummy frame for threat (right)
 	Bui_dthreat:SetFrameStrata('LOW')
-	if E.db.benikui.general.shadows then
-		Bui_dthreat:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, (E.PixelMode and -SPACING -2 or -SPACING))
-		Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, (E.PixelMode and -PANEL_HEIGHT -SPACING -2 or -PANEL_HEIGHT -SPACING))
-	else
-		Bui_dthreat:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, -SPACING)
-		Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
-	end
+	Bui_dthreat:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, -SPACING)
+	Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
 
 	-- Buttons
 	for i = 1, BUTTON_NUM do
@@ -284,13 +257,8 @@ function BUIL:ChangeLayout()
 
 		-- ElvUI Config
 		if i == 1 then
-			if E.db.benikui.general.shadows then
-				bbuttons[i]:Point('TOPLEFT', Bui_rdtp, 'TOPRIGHT', (E.PixelMode and SPACING +2 or SPACING), 0)
-				bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', (E.PixelMode and PANEL_HEIGHT +SPACING +2 or PANEL_HEIGHT +SPACING), 0)
-			else
-				bbuttons[i]:Point('TOPLEFT', Bui_rdtp, 'TOPRIGHT', SPACING, 0)
-				bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
-			end
+			bbuttons[i]:Point('TOPLEFT', Bui_rdtp, 'TOPRIGHT', SPACING, 0)
+			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i].parent = RightChatPanel
 			bbuttons[i].text:SetText('C')
 
@@ -347,13 +315,8 @@ function BUIL:ChangeLayout()
 
 		-- Game menu button
 		elseif i == 2 then
-			if E.db.benikui.general.shadows then
-				bbuttons[i]:Point('TOPRIGHT', Bui_rdtp, 'TOPLEFT', (E.PixelMode and -SPACING -2 or -SPACING), 0)
-				bbuttons[i]:Point('BOTTOMLEFT', Bui_rdtp, 'BOTTOMLEFT', (E.PixelMode and -(PANEL_HEIGHT +SPACING +2) or -(PANEL_HEIGHT +SPACING)), 0)
-			else
-				bbuttons[i]:Point('TOPRIGHT', Bui_rdtp, 'TOPLEFT', -SPACING, 0)
-				bbuttons[i]:Point('BOTTOMLEFT', Bui_rdtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
-			end
+			bbuttons[i]:Point('TOPRIGHT', Bui_rdtp, 'TOPLEFT', -SPACING, 0)
+			bbuttons[i]:Point('BOTTOMLEFT', Bui_rdtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i].text:SetText('G')
 
 			bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
@@ -376,13 +339,8 @@ function BUIL:ChangeLayout()
 
 		-- AddOns Button
 		elseif i == 3 then
-			if E.db.benikui.general.shadows then
-				bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', (E.PixelMode and -SPACING -2 or -SPACING), 0)
-				bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', (E.PixelMode and -(PANEL_HEIGHT + SPACING +2) or -(PANEL_HEIGHT + SPACING)), 0)
-			else
-				bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
-				bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
-			end
+			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
+			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i].parent = LeftChatPanel
 			bbuttons[i].text:SetText('A')
 
@@ -415,13 +373,8 @@ function BUIL:ChangeLayout()
 
 		-- LFG Button
 		elseif i == 4 then
-			if E.db.benikui.general.shadows then
-				bbuttons[i]:Point('TOPLEFT', Bui_ldtp, 'TOPRIGHT', (E.PixelMode and SPACING +2 or SPACING), 0)
-				bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', (E.PixelMode and PANEL_HEIGHT +SPACING +2 or PANEL_HEIGHT +SPACING), 0)
-			else
-				bbuttons[i]:Point('TOPLEFT', Bui_ldtp, 'TOPRIGHT', SPACING, 0)
-				bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
-			end
+			bbuttons[i]:Point('TOPLEFT', Bui_ldtp, 'TOPRIGHT', SPACING, 0)
+			bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i].text:SetText('L')
 
 			bbuttons[i]:SetScript('OnClick', function(self)
@@ -451,12 +404,12 @@ function BUIL:ChangeLayout()
 	RightChatPanel.backdrop:Style('Outside', 'RightChatPanel_Bui')
 
 	if E.db.benikui.general.shadows then
-		LeftMiniPanel:CreateShadow('Default')
-		RightMiniPanel:CreateShadow('Default')
-		LeftChatDataPanel:CreateShadow('Default')
-		LeftChatToggleButton:CreateShadow('Default')
-		RightChatDataPanel:CreateShadow('Default')
-		RightChatToggleButton:CreateShadow('Default')
+		LeftMiniPanel:CreateSoftShadow()
+		RightMiniPanel:CreateSoftShadow()
+		LeftChatDataPanel:CreateSoftShadow()
+		LeftChatToggleButton:CreateSoftShadow()
+		RightChatDataPanel:CreateSoftShadow()
+		RightChatToggleButton:CreateSoftShadow()
 	end
 
 	-- Minimap elements styling

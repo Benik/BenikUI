@@ -337,7 +337,7 @@ local function style_TalkingHeadUI()
 		frame.BackgroundFrame.backdrop:SetAllPoints()
 		frame.BackgroundFrame.backdrop:CreateWideShadow() -- to hide the borders not showing due to scaling
 		frame.MainFrame.Model:SetTemplate('Transparent')
-		frame.MainFrame.Model:CreateShadow('Default')
+		frame.MainFrame.Model:CreateSoftShadow()
 
 		local button = frame.MainFrame.CloseButton
 		S:HandleCloseButton(button)

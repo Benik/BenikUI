@@ -48,7 +48,7 @@ function UFB:UnitShadows()
 		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
 
 		local unitframe = _G["ElvUF_"..frameNameUnit]
-		unitframe:CreateShadow('Default')
+		unitframe:CreateSoftShadow()
 		unitframe.Buffs.PostUpdateIcon = UFB.PostUpdateAura
 		unitframe.Buffs.spacing = 3
 		unitframe.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
@@ -64,7 +64,7 @@ function UFB:PartyShadows()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			unitbutton:CreateShadow('Default')
+			unitbutton:CreateSoftShadow()
 			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
 			unitbutton.Buffs.spacing = 3
 			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
@@ -82,7 +82,7 @@ function UFB:RaidShadows()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			unitbutton:CreateShadow('Default')
+			unitbutton:CreateSoftShadow()
 			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
 			unitbutton.Buffs.spacing = 3
 			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
@@ -100,7 +100,7 @@ function UFB:Raid40Shadows()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			unitbutton:CreateShadow('Default')
+			unitbutton:CreateSoftShadow()
 			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
 			unitbutton.Buffs.spacing = 3
 			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
@@ -113,7 +113,7 @@ end
 function UFB:BossShadows()
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Boss"..i]
-		unitbutton:CreateShadow('Default')
+		unitbutton:CreateSoftShadow()
 		unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
 		unitbutton.Buffs.spacing = 3
 		unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
@@ -125,7 +125,7 @@ end
 function UFB:ArenaShadows()
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
-		unitbutton:CreateShadow('Default')
+		unitbutton:CreateSoftShadow()
 		unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
 		unitbutton.Buffs.spacing = 3
 		unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
@@ -135,7 +135,7 @@ end
 
 function UFB:PostUpdateAura(unit, button, index)
 	if not button.shadow then
-		button:CreateShadow('Default')
+		button:CreateSoftShadow()
 	end
 
 	local auras = button:GetParent()
