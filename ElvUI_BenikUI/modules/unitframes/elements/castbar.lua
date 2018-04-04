@@ -95,9 +95,11 @@ end
 
 --Castbar texture
 function BUIC:PostCast(unit, unitframe)
+	local db = E.db.benikui.unitframes.castbar.text
+
 	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
-	local pr, pg, pb, pa = BUI:unpackColor(E.db.benikui.unitframes.castbar.text.player.textColor)
-	local tr, tg, tb, ta = BUI:unpackColor(E.db.benikui.unitframes.castbar.text.target.textColor)
+	local pr, pg, pb, pa = BUI:unpackColor(db.player.textColor)
+	local tr, tg, tb, ta = BUI:unpackColor(db.target.textColor)
 	if not self.isTransparent then
 		self:SetStatusBarTexture(castTexture)
 	end
@@ -117,7 +119,7 @@ function BUIC:CastBarHooks()
 		local castbar = unitframe and unitframe.Castbar
 		if castbar then
 			if E.db.benikui.general.shadows then
-				castbar:CreateSoftShadow()
+				castbar.backdrop:CreateSoftShadow()
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
@@ -130,7 +132,7 @@ function BUIC:CastBarHooks()
 		local castbar = _G["ElvUF_Arena"..i].Castbar
 		if castbar then
 			if E.db.benikui.general.shadows then
-				castbar:CreateSoftShadow()
+				castbar.backdrop:CreateSoftShadow()
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
@@ -143,7 +145,7 @@ function BUIC:CastBarHooks()
 		local castbar = _G["ElvUF_Boss"..i].Castbar
 		if castbar then
 			if E.db.benikui.general.shadows then
-				castbar:CreateSoftShadow()
+				castbar.backdrop:CreateSoftShadow()
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
