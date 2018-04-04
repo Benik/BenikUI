@@ -33,11 +33,11 @@ local function CreateSoftShadow(f)
 	shadow:SetFrameStrata('BACKGROUND')
 	shadow:SetOutside(f, 2, 2)
 	shadow:SetBackdrop( { 
-		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(2),
+		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.4)
+	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
 	f.shadow = shadow
 end
 
@@ -53,11 +53,11 @@ local function CreateStyleShadow(f)
 	styleShadow:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT', 2, 0)
 
 	styleShadow:SetBackdrop( { 
-		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(2),
+		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
 	styleShadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	styleShadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.4)
+	styleShadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
 	f.styleShadow = styleShadow
 end
 
@@ -142,7 +142,9 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 
 	if E.db.benikui.general.shadows then
 		f:CreateSoftShadow()
-		style:CreateStyleShadow()
+		if template == 'Outside' or template == 'Small' then
+			style:CreateStyleShadow()
+		end
 	end
 
 	if E.db.benikui.general.hideStyle then
