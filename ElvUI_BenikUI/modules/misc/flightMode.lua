@@ -647,6 +647,9 @@ function BFM:Initialize()
 	LeftChatPanel.backdrop:CreateWideShadow()
 	LeftChatPanel.backdrop.wideshadow:Hide()
 	LeftChatPanel.backdrop.wideshadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
+	if E.db.benikui.general.shadows and LeftChatPanel.backdrop.style then
+		LeftChatPanel.backdrop.style.styleShadow:Hide()
+	end
 
 	self:Toggle()
 end
