@@ -62,6 +62,9 @@ function UFB:ArrangePlayer()
 	-- Rest Icon
 	UFB:Configure_RestingIndicator(frame)
 
+	-- AuraBars shadows
+	UFB:Configure_AuraBars(frame)
+
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 

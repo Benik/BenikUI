@@ -146,6 +146,9 @@ function UFB:ArrangeTarget()
 	-- Portrait
 	UFB:Configure_Portrait(frame, false)
 
+	-- AuraBars shadows
+	UFB:Configure_AuraBars(frame)
+
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
