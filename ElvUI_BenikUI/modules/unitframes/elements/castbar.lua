@@ -59,6 +59,21 @@ local function resetCastbarLevel(unit, unitframe)
 	unitframe.Castbar:SetFrameLevel(6)
 end
 
+local function ConfigureCastbarShadow(unit, unitframe)
+	if not E.db.benikui.general.shadows then return end
+
+	local db = E.db.unitframe.units[unit].castbar;
+	local castbar = unitframe.Castbar
+
+	if unitframe.USE_INFO_PANEL and db.insideInfoPanel then
+		castbar.backdrop.shadow:Hide()
+		castbar.ButtonIcon.bg.shadow:Hide()
+	else
+		castbar.backdrop.shadow:Show()
+		castbar.ButtonIcon.bg.shadow:Show()
+	end
+end
+
 --Initiate update/reset of castbar
 local function ConfigureCastbar(unit, unitframe)
 	local db = E.db.unitframe.units[unit].castbar;
@@ -66,6 +81,7 @@ local function ConfigureCastbar(unit, unitframe)
 
 	if unit == 'player' or unit == 'target' then
 		ConfigureText(unit, castbar)
+		ConfigureCastbarShadow(unit, unitframe)
 		if unitframe.USE_INFO_PANEL and db.insideInfoPanel then
 			if E.db.benikui.unitframes.castbar.text.ShowInfoText then
 				changeCastbarLevel(unit, unitframe)
@@ -74,6 +90,18 @@ local function ConfigureCastbar(unit, unitframe)
 			end
 		else
 			resetCastbarLevel(unit, unitframe)
+		end
+	elseif unit == "focus" or unit == "pet" then
+		ConfigureCastbarShadow(unit, unitframe)
+	elseif unit == "arena" then
+		for i = 1, 5 do
+			local unitframe = _G["ElvUF_Arena"..i]
+			ConfigureCastbarShadow(unit, unitframe)
+		end
+	elseif unit == "boss" then
+		for i = 1, 5 do
+			local unitframe = _G["ElvUF_Boss"..i]
+			ConfigureCastbarShadow(unit, unitframe)
 		end
 	end
 end
@@ -91,6 +119,10 @@ end
 function BUIC:UpdateAllCastbars()
 	BUIC:UpdateSettings("player")
 	BUIC:UpdateSettings("target")
+	BUIC:UpdateSettings("focus")
+	BUIC:UpdateSettings("pet")
+	BUIC:UpdateSettings("arena")
+	BUIC:UpdateSettings("boss")
 end
 
 --Castbar texture
@@ -100,9 +132,11 @@ function BUIC:PostCast(unit, unitframe)
 	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
 	local pr, pg, pb, pa = BUI:unpackColor(db.player.textColor)
 	local tr, tg, tb, ta = BUI:unpackColor(db.target.textColor)
+
 	if not self.isTransparent then
 		self:SetStatusBarTexture(castTexture)
 	end
+
 	if unit == 'player' then
 		self.Text:SetTextColor(pr, pg, pb, pa)
 		self.Time:SetTextColor(pr, pg, pb, pa)
