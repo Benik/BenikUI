@@ -176,6 +176,10 @@ function BFM:SetFlightMode(status)
 			XIV_Databar:Hide()
 		end
 
+		if E.db.benikui.general.shadows and LeftChatPanel.backdrop.style then
+			LeftChatPanel.backdrop.style.styleShadow:Hide()
+		end
+
 		self.startTime = GetTime()
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
@@ -246,6 +250,10 @@ function BFM:SetFlightMode(status)
 
 		if IsAddOnLoaded("XIV_Databar") then
 			XIV_Databar:Show()
+		end
+
+		if E.db.benikui.general.shadows and LeftChatPanel.backdrop.style then
+			LeftChatPanel.backdrop.style.styleShadow:Show()
 		end
 
 		self.inFlightMode = false
@@ -647,9 +655,6 @@ function BFM:Initialize()
 	LeftChatPanel.backdrop:CreateWideShadow()
 	LeftChatPanel.backdrop.wideshadow:Hide()
 	LeftChatPanel.backdrop.wideshadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
-	if E.db.benikui.general.shadows and LeftChatPanel.backdrop.style then
-		LeftChatPanel.backdrop.style.styleShadow:Hide()
-	end
 
 	self:Toggle()
 end
