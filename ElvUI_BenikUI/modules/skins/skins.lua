@@ -12,6 +12,7 @@ local LoadAddOn = LoadAddOn
 -- GLOBALS: hooksecurefunc
 
 local MAX_STATIC_POPUPS = 4
+local SPACING = (E.PixelMode and 1 or 3)
 
 local tooltips = {
 	FriendsTooltip,
@@ -451,11 +452,111 @@ local function styleAddons()
 	end
 end
 
-function BUIS:init()
+local function skinDecursive()
+	if not IsAddOnLoaded('Decursive') or not E.db.benikuiSkins.variousSkins.decursive then return end
+
+	-- Main Buttons
+	_G["DecursiveMainBar"]:StripTextures()
+	_G["DecursiveMainBar"]:SetTemplate('Default', true)
+	_G["DecursiveMainBar"]:Height(20)
+
+	local mainButtons = {_G["DecursiveMainBarPriority"], _G["DecursiveMainBarSkip"], _G["DecursiveMainBarHide"]}
+	for i, button in pairs(mainButtons) do
+		S:HandleButton(button)
+		button:SetTemplate('Default', true)
+		button:ClearAllPoints()
+		if(i == 1) then
+			button:Point('LEFT', _G["DecursiveMainBar"], 'RIGHT', SPACING, 0)
+		else
+			button:Point('LEFT', mainButtons[i - 1], 'RIGHT', SPACING, 0)
+		end
+	end
+
+	-- Priority List Frame
+	_G["DecursivePriorityListFrame"]:StripTextures()
+	_G["DecursivePriorityListFrame"]:CreateBackdrop('Transparent')
+	_G["DecursivePriorityListFrame"].backdrop:Style('Outside')
+
+	local priorityButton = {_G["DecursivePriorityListFrameAdd"], _G["DecursivePriorityListFramePopulate"], _G["DecursivePriorityListFrameClear"], _G["DecursivePriorityListFrameClose"]}
+	for i, button in pairs(priorityButton) do
+		S:HandleButton(button)
+		button:ClearAllPoints()
+		if(i == 1) then
+			button:Point('TOP', _G["DecursivePriorityListFrame"], 'TOPLEFT', 54, -20)
+		else
+			button:Point('LEFT', priorityButton[i - 1], 'RIGHT', SPACING, 0)
+		end
+	end
+
+	_G["DecursivePopulateListFrame"]:StripTextures()
+	_G["DecursivePopulateListFrame"]:CreateBackdrop('Transparent')
+	_G["DecursivePopulateListFrame"].backdrop:Style('Outside')
+
+	for i = 1, 8 do
+		local groupButton = _G["DecursivePopulateListFrameGroup"..i]
+		S:HandleButton(groupButton)
+	end
+
+	local classPop = {'Warrior', 'Priest', 'Mage', 'Warlock', 'Hunter', 'Rogue', 'Druid', 'Shaman', 'Monk', 'Paladin', 'Deathknight', 'Close'}
+	for _, classBtn in pairs(classPop) do
+		local btnName = _G["DecursivePopulateListFrame"..classBtn]
+		S:HandleButton(btnName)
+	end
+
+	-- Skip List Frame
+	_G["DecursiveSkipListFrame"]:StripTextures()
+	_G["DecursiveSkipListFrame"]:CreateBackdrop('Transparent')
+	_G["DecursiveSkipListFrame"].backdrop:Style('Outside')
+
+	local skipButton = {_G["DecursiveSkipListFrameAdd"], _G["DecursiveSkipListFramePopulate"], _G["DecursiveSkipListFrameClear"], _G["DecursiveSkipListFrameClose"]}
+	for i, button in pairs(skipButton) do
+		S:HandleButton(button)
+		button:ClearAllPoints()
+		if(i == 1) then
+			button:Point('TOP', _G["DecursiveSkipListFrame"], 'TOPLEFT', 54, -20)
+		else
+			button:Point('LEFT', skipButton[i - 1], 'RIGHT', SPACING, 0)
+		end
+	end
+
+	-- Tooltip
+	_G["DcrDisplay_Tooltip"]:StripTextures()
+	_G["DcrDisplay_Tooltip"]:CreateBackdrop('Transparent')
+	_G["DcrDisplay_Tooltip"].backdrop:Style('Outside')
+end
+
+local function skinStoryline()
+	if not IsAddOnLoaded('Storyline') or not E.db.benikuiSkins.variousSkins.storyline then return end
+	_G["Storyline_NPCFrame"]:StripTextures()
+	_G["Storyline_NPCFrame"]:CreateBackdrop('Transparent')
+	_G["Storyline_NPCFrame"].backdrop:Style('Outside')
+	S:HandleCloseButton(_G["Storyline_NPCFrameClose"])
+	_G["Storyline_NPCFrameChat"]:StripTextures()
+	_G["Storyline_NPCFrameChat"]:CreateBackdrop('Transparent')
+end
+
+local function DbmDefaultSkinStyle()
+	if not E.db.benikuiSkins.addonSkins.dbm then return end
+
+	DBM_GUI_OptionsFrame:HookScript('OnShow', function()
+		DBM_GUI_OptionsFrame:Style('Outside')
+	end)
+end
+
+function BUIS:LoD_AddOns(event, addon)
+	if addon == "DBM-GUI" then
+		DbmDefaultSkinStyle()
+	end
+	self:UnregisterEvent(event)
+end
+
+function BUIS:PLAYER_ENTERING_WORLD(...)
 	self:styleAlertFrames()
 	styleFreeBlizzardFrames()
 	styleAddons()
 	styleGarrison()
+	skinDecursive()
+	skinStoryline()
 
 	local reason = select(5, GetAddOnInfo("GarrisonCommander"))
 	if reason == "DISABLED" or reason == "MISSING" then 
@@ -464,11 +565,13 @@ function BUIS:init()
 
 	_G["WorldMapFrame"]:HookScript('OnShow', FixMapStyle)
 	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function BUIS:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'init')
+	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
 end
 
 local function InitializeCallback()
