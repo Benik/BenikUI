@@ -219,7 +219,6 @@ local function StyleCagedBattlePetTooltip(tooltipFrame)
 		tooltipFrame:Style('Outside')
 	end
 end
-hooksecurefunc('BattlePetTooltipTemplate_SetBattlePet', StyleCagedBattlePetTooltip)
 
 -- SpellBook tabs
 local function styleSpellbook()
@@ -535,7 +534,7 @@ local function skinStoryline()
 	_G["Storyline_NPCFrameChat"]:CreateBackdrop('Transparent')
 end
 
-local function DbmDefaultSkinStyle()
+local function StyleDBM_Options()
 	if not E.db.benikuiSkins.addonSkins.dbm then return end
 
 	DBM_GUI_OptionsFrame:HookScript('OnShow', function()
@@ -545,9 +544,8 @@ end
 
 function BUIS:LoD_AddOns(event, addon)
 	if addon == "DBM-GUI" then
-		DbmDefaultSkinStyle()
+		StyleDBM_Options()
 	end
-	self:UnregisterEvent(event)
 end
 
 function BUIS:PLAYER_ENTERING_WORLD(...)
@@ -572,6 +570,8 @@ function BUIS:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
+	
+	hooksecurefunc('BattlePetTooltipTemplate_SetBattlePet', StyleCagedBattlePetTooltip)
 end
 
 local function InitializeCallback()

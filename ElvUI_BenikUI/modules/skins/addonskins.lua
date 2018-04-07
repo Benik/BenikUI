@@ -173,6 +173,10 @@ local function DbmDecor(event)
 				end
 			end
 		end
+		
+		if DBMRangeCheck and not DBMRangeCheck.style then
+			DBMRangeCheck:Style('Outside')
+		end
 	end
 
 	local function StyleInfoFrame(self, maxLines, event, ...)
