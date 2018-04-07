@@ -247,6 +247,7 @@ P['benikuiSkins'] = {
 		['clique'] = true,
 		['ora'] = true,
 		['pawn'] = true,
+		['dbm'] = true,
 	},
 	
 	['variousSkins'] = {

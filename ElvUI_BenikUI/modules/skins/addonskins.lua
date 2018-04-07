@@ -239,6 +239,41 @@ local function PawnDecor()
 	end
 end
 
+local function DbmDecor(event, addon)
+	if not E.db.benikuiSkins.addonSkins.dbm then return end
+
+	local function StyleRangeFrame(self, range, filter, forceshow, redCircleNumPlayers)
+		if DBM.Options.DontShowRangeFrame and not forceshow then return end
+
+		if DBMRangeCheckRadar and not DBMRangeCheckRadar.style then
+			DBMRangeCheckRadar:Style('Inside')
+
+			if AS:CheckOption('DBMRadarTrans') then
+				DBMRangeCheckRadar.style:Hide()
+				if DBMRangeCheckRadar.shadow then
+					DBMRangeCheckRadar.shadow:Hide()
+				end
+			else
+				DBMRangeCheckRadar.style:Show()
+				if DBMRangeCheckRadar.shadow then
+					DBMRangeCheckRadar.shadow:Show()
+				end
+			end
+		end
+	end
+
+	local function StyleInfoFrame(self, maxLines, event, ...)
+		if DBM.Options.DontShowInfoFrame and (event or 0) ~= "test" then return end
+
+		if DBMInfoFrame and not DBMInfoFrame.style then
+			DBMInfoFrame:Style('Inside')
+		end
+	end
+
+	hooksecurefunc(DBM.RangeCheck, 'Show', StyleRangeFrame)
+	hooksecurefunc(DBM.InfoFrame, 'Show', StyleInfoFrame)
+end
+
 if AS:CheckAddOn('Skada') then AS:RegisterSkin('Skada', SkadaDecor, 2) end
 if AS:CheckAddOn('Recount') then AS:RegisterSkin('Recount', RecountDecor, 2) end
 if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPS', TinyDPSDecor, 2) end
@@ -248,6 +283,7 @@ if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinator', Rare
 if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
 if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
 if AS:CheckAddOn('Pawn') then AS:RegisterSkin('Pawn', PawnDecor, 2) end
+if AS:CheckAddOn('DBM-Core') then AS:RegisterSkin('DBM', DbmDecor, 2) end
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
 	if not _G["AcceptFrame"].style then
