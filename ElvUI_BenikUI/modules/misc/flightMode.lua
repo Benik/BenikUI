@@ -160,6 +160,7 @@ function BFM:SetFlightMode(status)
 			LeftChatPanel.backdrop.shadow:Hide()
 		end
 		LeftChatPanel.backdrop.wideshadow:Show()
+		LeftChatPanel.backdrop.wideshadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
 		LeftChatPanel:ClearAllPoints()
 		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		
@@ -176,8 +177,8 @@ function BFM:SetFlightMode(status)
 			XIV_Databar:Hide()
 		end
 
-		if E.db.benikui.general.shadows and LeftChatPanel.backdrop.style then
-			LeftChatPanel.backdrop.style.styleShadow:Hide()
+		if LeftChatPanel_Bui.styleShadow then
+			LeftChatPanel_Bui.styleShadow:Hide()
 		end
 
 		self.startTime = GetTime()
@@ -252,8 +253,9 @@ function BFM:SetFlightMode(status)
 			XIV_Databar:Show()
 		end
 
-		if E.db.benikui.general.shadows and LeftChatPanel.backdrop.style then
-			LeftChatPanel.backdrop.style.styleShadow:Show()
+		if LeftChatPanel_Bui.styleShadow then
+			LeftChatPanel_Bui.styleShadow:Show()
+			LeftChatPanel_Bui.styleShadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
 		end
 
 		self.inFlightMode = false
