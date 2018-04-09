@@ -31,7 +31,7 @@ local SPACING = 1
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local boards = {"FPS", "MS", "Memory", "Durability", "Volume"}
+local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 local loadedBoards = {}
 
 local function dholderOnFade()
@@ -196,7 +196,7 @@ function BUID:Initialize()
 	if E.db.dashboards.system.enableSystem ~= true then return end
 	local db = E.db.dashboards.system.chooseSystem
 
-	if (db.FPS ~= true and db.MS ~= true and db.Memory ~= true and db.Durability ~= true and db.Volume ~= true) then return end
+	if (db.FPS ~= true and db.MS ~= true and db.Bags ~= true and db.Durability ~= true and db.Volume ~= true) then return end
 
 	self:CreateSystemHolder()
 	hooksecurefunc(DT, 'LoadDataTexts', BUID.ChangeFont)
@@ -207,10 +207,9 @@ function BUID:Initialize()
 
 	if db.FPS then self:CreateFps() end
 	if db.MS then self:CreateMs() end
-	if db.Memory then self:CreateMemory() end
+	if db.Bags then self:CreateBags() end
 	if db.Durability then self:CreateDurability() end
 	if db.Volume then self:CreateVolume() end
-	if E.private.BUID.warned then E.private.BUID.warned = nil end
 end
 
 local function InitializeCallback()

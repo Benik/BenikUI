@@ -338,7 +338,7 @@ P['dashboards'] = {
 		['chooseSystem'] = {
 			['FPS'] = true,
 			['MS'] = true,
-			['Memory'] = true,
+			['Bags'] = true,
 			['Durability'] = true,
 			['Volume'] = true,
 		},

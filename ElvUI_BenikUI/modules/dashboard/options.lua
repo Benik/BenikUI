@@ -104,7 +104,7 @@ local currencyTables = {
 	{archyTokens, 'aTokens'},
 }
 
-local boards = {"FPS", "MS", "Memory", "Durability", "Volume"}
+local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
 local function UpdateSystemOptions()
 	for _, boardname in pairs(boards) do

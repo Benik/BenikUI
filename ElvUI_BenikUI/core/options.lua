@@ -121,7 +121,7 @@ local function Core()
 					shadows = {
 						order = 3,
 						type = 'toggle',
-						name = L['Shadows'],
+						name = L['Shadows'].." (Beta)",
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,

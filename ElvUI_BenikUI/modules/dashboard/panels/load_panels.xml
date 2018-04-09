@@ -2,6 +2,6 @@
 	<Script file="durability.lua"/>
 	<Script file="fps.lua"/>
 	<Script file="ms.lua"/>
-	<Script file="memory.lua"/>
+	<Script file="bags.lua"/>
 	<Script file="volume.lua"/>
 </Ui>
