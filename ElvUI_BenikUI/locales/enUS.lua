@@ -121,7 +121,6 @@ L['Enable the System Dashboard.'] = true
 L['Enable the Tokens Dashboard.'] = true
 L['Enable/Disable '] = true
 L['Latency (MS)'] = true
-L['Memory: '] = true
 L['MouseWheel :'] = true
 L['RightClick :'] = true
 L['Select Professions'] = true
