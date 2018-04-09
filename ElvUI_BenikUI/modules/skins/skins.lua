@@ -534,18 +534,6 @@ local function skinStoryline()
 	_G["Storyline_NPCFrameChat"]:CreateBackdrop('Transparent')
 end
 
-local function raidUtilityShadows()
-	if E.db.benikui.general.shadows ~= true then return end
-
-	if _G["RaidUtility_ShowButton"] then
-		_G["RaidUtility_ShowButton"]:CreateSoftShadow()
-	end
-
-	if _G["RaidUtilityPanel"] then
-		_G["RaidUtilityPanel"]:CreateSoftShadow()
-	end
-end
-
 local function StyleDBM_Options()
 	if not E.db.benikuiSkins.addonSkins.dbm then return end
 
@@ -582,6 +570,7 @@ function BUIS:Initialize()
 	raidUtilityShadows()
 	skinDecursive()
 	skinStoryline()
+	BUIS:Shadows()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
