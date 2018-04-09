@@ -1,6 +1,9 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUIS = E:GetModule('BuiSkins')
 
+local _G = _G
+-- GLOBALS: MIRRORTIMER_NUMTIMERS
+
 local function mirrorTimersShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mirrorTimers ~= true then return end
 
