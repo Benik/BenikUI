@@ -567,7 +567,6 @@ end
 function BUIS:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
-	raidUtilityShadows()
 	skinDecursive()
 	skinStoryline()
 	BUIS:Shadows()
