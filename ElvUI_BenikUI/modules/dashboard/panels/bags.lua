@@ -17,7 +17,6 @@ local statusColors = {
 local function OnEvent(self)
 	local boardName = _G['Bags']
 
-	lastPanel = self
 	local free, total = 0, 0
 	local textColor = 1
 	for i = 0, NUM_BAG_SLOTS do
