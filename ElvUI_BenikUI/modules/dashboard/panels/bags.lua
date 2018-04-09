@@ -8,19 +8,34 @@ local GetContainerNumSlots = GetContainerNumSlots
 local ToggleAllBags = ToggleAllBags
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 
-local displayString = ''
-local lastPanel
+local statusColors = {
+	'|cff0CD809',	-- green
+	'|cffE8DA0F',	-- yellow
+	'|cffD80909'	-- red
+}
 
 local function OnEvent(self)
 	local boardName = _G['Bags']
 
 	lastPanel = self
 	local free, total = 0, 0
+	local textColor = 1
 	for i = 0, NUM_BAG_SLOTS do
 		free, total = free + GetContainerNumFreeSlots(i), total + GetContainerNumSlots(i)
 	end
 
-	boardName.Text:SetFormattedText(displayString, L["Bags"]..': ', total - free, total)
+	local percentage = ((total - free) * 100) / total
+
+	if percentage >= 80 then
+		textColor = 3
+	elseif percentage >= 60 and percentage < 80 then
+		textColor = 2
+	else
+		textColor = 1
+	end
+
+	local displayFormat = join("", "%s", statusColors[textColor], "%d/%d|r")
+	boardName.Text:SetFormattedText(displayFormat, L["Bags"]..': ', total - free, total)
 	boardName.Status:SetMinMaxValues(0, total)
 	boardName.Status:SetValue(total - free)
 end
@@ -38,12 +53,3 @@ function BUID:CreateBags()
 	boardName.Status:RegisterEvent('BAG_UPDATE')
 	boardName.Status:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
-
-local function ValueColorUpdate(hex)
-	displayString = join("", "%s", hex, "%d/%d|r")
-
-	if lastPanel ~= nil then
-		OnEvent(lastPanel)
-	end
-end
-E['valueColorUpdateFuncs'][ValueColorUpdate] = true
