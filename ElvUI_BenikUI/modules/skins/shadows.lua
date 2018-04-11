@@ -4,6 +4,8 @@ local BUIS = E:GetModule('BuiSkins')
 local S = E:GetModule('Skins');
 
 local _G = _G
+
+local CLASS_SORT_ORDER = CLASS_SORT_ORDER
 -- GLOBALS: MIRRORTIMER_NUMTIMERS
 
 local function mirrorTimersShadows()
@@ -70,6 +72,19 @@ local function ObjectiveTrackerShadows()
 	hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup",FindGroupButtonShadows)
 end
 
+-- Calendar Event Class Buttons
+local function CalendarEventButtonShadows()
+	if E.private.skins.blizzard.calendar ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.shadows ~= true then return end
+
+	for i = 1, #CLASS_SORT_ORDER do
+		local button = _G["CalendarClassButton"..i]
+		button.backdrop:CreateSoftShadow()
+	end
+	CalendarClassTotalsButton.backdrop:CreateSoftShadow()
+end
+S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_CalendarEventButtonShadows", CalendarEventButtonShadows)
+
+-- ElvUI tabs
 function BUIS:TabShadows(tab)
 	if E.db.benikui.general.shadows ~= true then return end
 	if not tab then return end
@@ -80,6 +95,7 @@ function BUIS:TabShadows(tab)
 	end
 end
 
+-- AddonSkins tabs
 function BUIS:TabShadowsAS(tab)
 	if not tab then return end
 
