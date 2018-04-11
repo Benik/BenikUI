@@ -71,6 +71,7 @@ local function ObjectiveTrackerShadows()
 end
 
 function BUIS:TabShadows(tab)
+	if E.db.benikui.general.shadows ~= true then return end
 	if not tab then return end
 	
 	if tab.backdrop then
@@ -85,7 +86,6 @@ function BUIS:TabShadowsAS(tab)
 	if tab.Backdrop then
 		tab.Backdrop:CreateSoftShadow()
 	end
-
 end
 
 function BUIS:Shadows()
@@ -94,11 +94,10 @@ function BUIS:Shadows()
 	raidUtilityShadows()
 	mirrorTimersShadows()
 	ObjectiveTrackerShadows()
-	
-	hooksecurefunc(S, "HandleTab", BUIS.TabShadows)
-	
+
 	-- AddonSkins
 	if not BUI.AS then return end
 	local AS = unpack(AddOnSkins)
 	hooksecurefunc(AS, "SkinTab", BUIS.TabShadowsAS)
 end
+hooksecurefunc(S, "HandleTab", BUIS.TabShadows)
