@@ -1,5 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local BUIS = E:GetModule('BuiSkins')
+local S = E:GetModule('Skins');
 
 local _G = _G
 -- GLOBALS: MIRRORTIMER_NUMTIMERS
@@ -68,10 +70,35 @@ local function ObjectiveTrackerShadows()
 	hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup",FindGroupButtonShadows)
 end
 
+function BUIS:TabShadows(tab)
+	if not tab then return end
+	
+	if tab.backdrop then
+		tab.backdrop:SetTemplate("Transparent")
+		tab.backdrop:CreateSoftShadow()
+	end
+end
+
+function BUIS:TabShadowsAS(tab)
+	if not tab then return end
+
+	if tab.Backdrop then
+		tab.Backdrop:CreateSoftShadow()
+	end
+
+end
+
 function BUIS:Shadows()
 	if E.db.benikui.general.shadows ~= true then return end
 
 	raidUtilityShadows()
 	mirrorTimersShadows()
 	ObjectiveTrackerShadows()
+	
+	hooksecurefunc(S, "HandleTab", BUIS.TabShadows)
+	
+	-- AddonSkins
+	if not BUI.AS then return end
+	local AS = unpack(AddOnSkins)
+	hooksecurefunc(AS, "SkinTab", BUIS.TabShadowsAS)
 end
