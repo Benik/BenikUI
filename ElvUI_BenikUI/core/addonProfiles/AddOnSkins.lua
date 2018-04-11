@@ -21,6 +21,7 @@ function BUI:LoadAddOnSkinsProfile()
 	AddOnSkinsDB["profiles"]["BenikUI"]['ParchmentRemover'] = true
 	AddOnSkinsDB["profiles"]["BenikUI"]['TransparentEmbed'] = false
 	AddOnSkinsDB["profiles"]["BenikUI"]['DBMSkinHalf'] = true
+	AddOnSkinsDB["profiles"]["BenikUI"]['WeakAuraAuraBar'] = true
 
 	if BUI:IsAddOnEnabled('Recount') then
 		AddOnSkinsDB["profiles"]["BenikUI"]['EmbedFrameStrata'] = "2-LOW"
