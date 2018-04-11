@@ -25,9 +25,53 @@ local function raidUtilityShadows()
 	end
 end
 
+local function ObjectiveTrackerShadows()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true then return end
+
+	ObjectiveTrackerFrame.HeaderMenu.MinimizeButton:CreateSoftShadow()
+	ObjectiveTrackerFrame.HeaderMenu.MinimizeButton.shadow:SetOutside()
+	
+	local function ProgressBarsShadows(self, _, line)
+		local progressBar = line and line.ProgressBar
+		local bar = progressBar and progressBar.Bar
+		if not bar then return end
+		local icon = bar.Icon
+
+		if not progressBar.hasShadow then
+			bar.backdrop:CreateSoftShadow()
+			
+			if icon then
+				if not bar.dummy then -- need a frame to apply the shadow
+					bar.dummy = CreateFrame('Frame', nil, bar)
+					bar.dummy:SetOutside(icon)
+					bar.dummy:CreateSoftShadow()
+				end
+				icon:Size(18) -- I like this better
+			end
+			progressBar.hasShadow = true
+		end
+	end
+	hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(WORLD_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(SCENARIO_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	
+	local function FindGroupButtonShadows(block)
+		if block.hasGroupFinderButton and block.groupFinderButton then
+			if block.groupFinderButton and not block.groupFinderButton.hasShadow then
+				block.groupFinderButton:SetTemplate("Transparent")
+				block.groupFinderButton:CreateSoftShadow()
+				block.groupFinderButton.hasShadow = true
+			end
+		end
+	end
+	hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup",FindGroupButtonShadows)
+end
+
 function BUIS:Shadows()
 	if E.db.benikui.general.shadows ~= true then return end
 
 	raidUtilityShadows()
 	mirrorTimersShadows()
+	ObjectiveTrackerShadows()
 end
