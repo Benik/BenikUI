@@ -30,7 +30,7 @@ local function CreateSoftShadow(f)
 
 	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
 	shadow:SetFrameLevel(1)
-	shadow:SetFrameStrata('BACKGROUND')
+	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, 2, 2)
 	shadow:SetBackdrop( { 
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
@@ -47,7 +47,7 @@ local function CreateStyleShadow(f)
 
 	local styleShadow = f.styleShadow or CreateFrame('Frame', nil, f)
 	styleShadow:SetFrameLevel(1)
-	styleShadow:SetFrameStrata('BACKGROUND')
+	styleShadow:SetFrameStrata(f:GetFrameStrata())
 
 	styleShadow:Point('TOPLEFT', f, 'TOPLEFT', -2, 2)
 	styleShadow:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT', 2, 0)
