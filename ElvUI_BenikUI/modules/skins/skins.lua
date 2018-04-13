@@ -571,7 +571,6 @@ function BUIS:Initialize()
 
 	skinDecursive()
 	skinStoryline()
-	BUIS:Shadows()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
