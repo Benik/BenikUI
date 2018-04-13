@@ -73,6 +73,8 @@ local function styleFreeBlizzardFrames()
 		FriendsFrame:Style('Outside')
 		FriendsFriendsFrame.backdrop:Style('Outside')
 		RecruitAFriendFrame:Style('Outside')
+		RecruitAFriendSentFrame:Style('Outside')
+		RecruitAFriendSentFrame.MoreDetails.Text:FontTemplate()
 	end
 
 	if db.gossip then
