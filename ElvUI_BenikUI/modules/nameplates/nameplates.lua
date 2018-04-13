@@ -19,7 +19,7 @@ end
 
 
 function mod:Initialize()
-	if E.db.benikui.general.shadows ~= true then return end
+	if E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true then return end
 	hooksecurefunc(NP, 'StyleFrame', mod.NameplateShadows)
 end
 

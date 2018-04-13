@@ -10,7 +10,7 @@ function UFB:Update_Raid40Frames(frame, db)
 
 	end
 
-	if E.db.benikui.general.shadows then
+	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		frame:CreateSoftShadow()
 	end
 

@@ -44,7 +44,7 @@ local function StyleBar()
 	xp.fb = CreateFrame('Button', nil, xp)
 	xp.fb:CreateSoftGlow()
 	xp.fb.sglow:Hide()
-	if E.db.benikui.general.shadows then
+	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		xp.fb:CreateSoftShadow()
 	end
 	xp.fb:Point('TOPLEFT', xp, 'BOTTOMLEFT', 0, -SPACING)
@@ -204,7 +204,7 @@ function BDB:LoadXP()
 		hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.UpdateXpNotifierPositions)
 	end
 
-	if E.db.benikui.general.shadows then
+	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		if not bar.style then
 			bar:CreateSoftShadow()
 		end

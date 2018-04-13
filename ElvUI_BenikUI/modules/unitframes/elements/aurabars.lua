@@ -49,7 +49,7 @@ function UFB:Create_AuraBarsWithShadow()
 end
 
 function UFB:Configure_AuraBars(frame)
-	if not E.db.benikui.general.shadows then return end
+	if E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true then return end
 
 	if not frame.VARIABLES_SET then return end
 	local auraBars = frame.AuraBars

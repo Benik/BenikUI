@@ -52,7 +52,7 @@ local function StyleBar()
 	rp.fb = CreateFrame('Button', nil, rp)
 	rp.fb:CreateSoftGlow()
 	rp.fb.sglow:Hide()
-	if E.db.benikui.general.shadows then
+	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		rp.fb:CreateSoftShadow()
 	end
 	rp.fb:Point('TOPLEFT', rp, 'BOTTOMLEFT', 0, -SPACING)
@@ -249,7 +249,7 @@ function BDB:LoadRep()
 		hooksecurefunc(M, 'UpdateReputationDimensions', BDB.UpdateRepNotifierPositions)
 	end
 
-	if E.db.benikui.general.shadows then
+	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		if not bar.style then
 			bar:CreateSoftShadow()
 		end

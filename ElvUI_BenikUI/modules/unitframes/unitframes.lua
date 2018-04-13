@@ -232,7 +232,7 @@ function UFB:Initialize()
 	self:ChangeHealthBarTexture()
 	self:InfoPanelColor()
 
-	if E.db.benikui.general.shadows then
+	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		self:UnitShadows()
 		self:PartyShadows()
 		self:RaidShadows()

@@ -20,7 +20,7 @@ function UFB:Construct_PlayerFrame()
 		frame.Portrait.backdrop.style:Hide()
 	end
 
-	if E.db.benikui.general.shadows then
+	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		frame.Power.backdrop:CreateSoftShadow()
 		frame.Power.backdrop.shadow:Hide()
 	end
