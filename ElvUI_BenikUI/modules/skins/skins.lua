@@ -537,14 +537,14 @@ local function skinStoryline()
 end
 
 local function StyleDBM_Options()
-	if not E.db.benikuiSkins.addonSkins.dbm then return end
+	if not E.db.benikuiSkins.addonSkins.dbm or not BUI.AS then return end
 
 	DBM_GUI_OptionsFrame:HookScript('OnShow', function()
 		DBM_GUI_OptionsFrame:Style('Outside')
 	end)
 end
 
-function BUIS:LoD_AddOns(event, addon)
+function BUIS:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
 	end

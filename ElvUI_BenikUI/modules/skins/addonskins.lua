@@ -152,8 +152,10 @@ local function DbmDecor(event)
 	local function StyleRangeFrame(self, range, filter, forceshow, redCircleNumPlayers)
 		if DBM.Options.DontShowRangeFrame and not forceshow then return end
 
-		if DBMRangeCheckRadar and not DBMRangeCheckRadar.style then
-			DBMRangeCheckRadar:Style('Inside')
+		if DBMRangeCheckRadar then
+			if not DBMRangeCheckRadar.style then
+				DBMRangeCheckRadar:Style('Inside')
+			end
 
 			if AS:CheckOption('DBMRadarTrans') then
 				if DBMRangeCheckRadar.style then
@@ -174,8 +176,11 @@ local function DbmDecor(event)
 			end
 		end
 		
-		if DBMRangeCheck and not DBMRangeCheck.style then
-			DBMRangeCheck:Style('Outside')
+		if DBMRangeCheck then
+			DBMRangeCheck:SetTemplate('Transparent')
+			if not DBMRangeCheck.style then
+				DBMRangeCheck:Style('Outside')
+			end
 		end
 	end
 
