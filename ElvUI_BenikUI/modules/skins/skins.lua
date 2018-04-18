@@ -31,12 +31,6 @@ local function styleFreeBlizzardFrames()
 	ColorPickerFrame:Style('Outside')
 	MinimapRightClickMenu:Style('Outside')
 
-	for _, frame in pairs(tooltips) do
-		if frame and not frame.style then
-			frame:Style('Outside')
-		end
-	end
-
 	if E.private.skins.blizzard.enable ~= true then return end
 
 	local db = E.private.skins.blizzard
@@ -54,7 +48,9 @@ local function styleFreeBlizzardFrames()
 		PaperDollFrame:Style('Outside')
 		ReputationDetailFrame:Style('Outside')
 		ReputationFrame:Style('Outside')
-		ReputationParagonTooltip:Style('Outside')
+		if db.tooltip then
+			ReputationParagonTooltip:Style('Outside')
+		end
 		TokenFrame:Style('Outside')
 		TokenFramePopup:Style('Outside')
 	end
@@ -209,6 +205,14 @@ local function styleFreeBlizzardFrames()
 	if db.taxi then
 		TaxiFrame.backdrop:Style('Outside')
 	end
+	
+	if db.tooltip then
+		for _, frame in pairs(tooltips) do
+			if frame and not frame.style then
+				frame:Style('Outside')
+			end
+		end
+	end
 
 	if db.trade then
 		TradeFrame:Style('Outside')
@@ -252,8 +256,10 @@ local function styleOrderHall()
 		_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
 	end
 	_G["OrderHallTalentFrame"]:Style('Outside')
-	_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
-	_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')
+	if E.private.skins.blizzard.tooltip then
+		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
+		_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')
+	end
 end
 
 -- Garrison Style
@@ -266,28 +272,30 @@ local function styleGarrison()
 	_G["GarrisonLandingPage"].backdrop:Style('Outside')
 	_G["GarrisonBuildingFrame"].backdrop:Style('Outside')
 	_G["GarrisonCapacitiveDisplayFrame"].backdrop:Style('Outside')
-	_G["GarrisonBuildingFrame"].BuildingLevelTooltip:Style('Outside')
-	_G["GarrisonFollowerAbilityTooltip"]:Style('Outside')
-	_G["GarrisonMissionMechanicTooltip"]:StripTextures()
-	_G["GarrisonMissionMechanicTooltip"]:CreateBackdrop('Transparent')
-	_G["GarrisonMissionMechanicTooltip"].backdrop:Style('Outside')
-	_G["GarrisonMissionMechanicFollowerCounterTooltip"]:StripTextures()
-	_G["GarrisonMissionMechanicFollowerCounterTooltip"]:CreateBackdrop('Transparent')
-	_G["GarrisonMissionMechanicFollowerCounterTooltip"].backdrop:Style('Outside')
-	_G["FloatingGarrisonFollowerTooltip"]:Style('Outside')
-	_G["GarrisonFollowerTooltip"]:Style('Outside')
 
 	-- ShipYard
 	_G["GarrisonShipyardFrame"].backdrop:Style('Outside')
 	-- Tooltips
-	_G["GarrisonShipyardMapMissionTooltip"]:Style('Outside')
-	_G["GarrisonBonusAreaTooltip"]:StripTextures()
-	_G["GarrisonBonusAreaTooltip"]:CreateBackdrop('Transparent')
-	_G["GarrisonBonusAreaTooltip"].backdrop:Style('Outside')
-	_G["GarrisonMissionMechanicFollowerCounterTooltip"]:Style('Outside')
-	_G["GarrisonMissionMechanicTooltip"]:Style('Outside')
-	_G["FloatingGarrisonShipyardFollowerTooltip"]:Style('Outside')
-	_G["GarrisonShipyardFollowerTooltip"]:Style('Outside')
+	if E.private.skins.blizzard.tooltip then
+		_G["GarrisonShipyardMapMissionTooltip"]:Style('Outside')
+		_G["GarrisonBonusAreaTooltip"]:StripTextures()
+		_G["GarrisonBonusAreaTooltip"]:CreateBackdrop('Transparent')
+		_G["GarrisonBonusAreaTooltip"].backdrop:Style('Outside')
+		_G["GarrisonMissionMechanicFollowerCounterTooltip"]:Style('Outside')
+		_G["GarrisonMissionMechanicTooltip"]:Style('Outside')
+		_G["FloatingGarrisonShipyardFollowerTooltip"]:Style('Outside')
+		_G["GarrisonShipyardFollowerTooltip"]:Style('Outside')
+		_G["GarrisonBuildingFrame"].BuildingLevelTooltip:Style('Outside')
+		_G["GarrisonFollowerAbilityTooltip"]:Style('Outside')
+		_G["GarrisonMissionMechanicTooltip"]:StripTextures()
+		_G["GarrisonMissionMechanicTooltip"]:CreateBackdrop('Transparent')
+		_G["GarrisonMissionMechanicTooltip"].backdrop:Style('Outside')
+		_G["GarrisonMissionMechanicFollowerCounterTooltip"]:StripTextures()
+		_G["GarrisonMissionMechanicFollowerCounterTooltip"]:CreateBackdrop('Transparent')
+		_G["GarrisonMissionMechanicFollowerCounterTooltip"].backdrop:Style('Outside')
+		_G["FloatingGarrisonFollowerTooltip"]:Style('Outside')
+		_G["GarrisonFollowerTooltip"]:Style('Outside')
+	end
 
 	-- Garrison Monument
 	_G["GarrisonMonumentFrame"]:StripTextures()
@@ -364,6 +372,14 @@ local function FixMapStyle()
 
 	mapFrame.UIElementsFrame.BountyBoard.BountyName:FontTemplate(nil, 12, 'OUTLINE')
 
+	if E.private.skins.blizzard.tooltip ~= true then return end
+
+	local questFrame = _G["QuestMapFrame"]
+	questFrame.QuestsFrame.StoryTooltip:SetTemplate('Transparent')
+	if not questFrame.QuestsFrame.StoryTooltip.style then
+		questFrame.QuestsFrame.StoryTooltip:Style('Outside')
+	end
+
 	local mapTooltip = _G["WorldMapTooltip"]
 	if mapTooltip then
 		if not mapTooltip.style then
@@ -376,12 +392,6 @@ local function FixMapStyle()
 		if not tooltip.style then
 			tooltip:Style('Outside')
 		end
-	end
-
-	local questFrame = _G["QuestMapFrame"]
-	questFrame.QuestsFrame.StoryTooltip:SetTemplate('Transparent')
-	if not questFrame.QuestsFrame.StoryTooltip.style then
-		questFrame.QuestsFrame.StoryTooltip:Style('Outside')
 	end
 end
 
@@ -521,9 +531,11 @@ local function skinDecursive()
 	end
 
 	-- Tooltip
-	_G["DcrDisplay_Tooltip"]:StripTextures()
-	_G["DcrDisplay_Tooltip"]:CreateBackdrop('Transparent')
-	_G["DcrDisplay_Tooltip"].backdrop:Style('Outside')
+	if E.private.skins.blizzard.tooltip then
+		_G["DcrDisplay_Tooltip"]:StripTextures()
+		_G["DcrDisplay_Tooltip"]:CreateBackdrop('Transparent')
+		_G["DcrDisplay_Tooltip"].backdrop:Style('Outside')
+	end
 end
 
 local function skinStoryline()
@@ -574,7 +586,8 @@ function BUIS:Initialize()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
-	
+
+	if E.private.skins.blizzard.tooltip ~= true then return end
 	hooksecurefunc('BattlePetTooltipTemplate_SetBattlePet', StyleCagedBattlePetTooltip)
 end
 
