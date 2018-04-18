@@ -137,6 +137,7 @@ local function style_Contribution()
 		frame.backdrop:Style('Outside')
 	end
 
+	if E.private.skins.blizzard.tooltip ~= true then return end
 	ContributionBuffTooltip:Style('Outside')
 
 	if ContributionTooltip.backdrop then
@@ -158,7 +159,7 @@ local function style_EncounterJournal()
 	if E.private.skins.blizzard.encounterjournal ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["EncounterJournal"]:Style('Small')
-	_G["EncounterJournalTooltip"]:Style('Outside')
+
 	local Tabs = {
 		_G["EncounterJournalEncounterFrameInfoBossTab"],
 		_G["EncounterJournalEncounterFrameInfoLootTab"],
@@ -189,6 +190,9 @@ local function style_EncounterJournal()
 			end
 		end
 	end
+
+	if E.private.skins.blizzard.tooltip ~= true then return end
+	_G["EncounterJournalTooltip"]:Style('Outside')
 end
 S:AddCallbackForAddon("Blizzard_EncounterJournal", "BenikUI_EncounterJournal", style_EncounterJournal)
 
@@ -197,6 +201,8 @@ local function style_FlightMap()
 	if E.private.skins.blizzard.taxi ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["FlightMapFrame"]:Style('Small')
+
+	if E.private.skins.blizzard.tooltip ~= true then return end
 	local tooltip = _G["WorldMapTooltip"]
 	if tooltip then
 		tooltip:Style('Outside')
@@ -295,9 +301,10 @@ S:AddCallbackForAddon("Blizzard_ObliterumUI", "BenikUI_ObliterumUI", style_Oblit
 
 -- PVPUI
 local function style_PVPUI()
-	if E.private.skins.blizzard.pvp ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.private.skins.blizzard.pvp ~= true or E.private.skins.blizzard.tooltip ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["PVPRewardTooltip"]:Style('Outside')
+	_G["ConquestTooltip"]:Style('Outside')
 end
 S:AddCallbackForAddon("Blizzard_PVPUI", "BenikUI_PVPUI", style_PVPUI)
 
