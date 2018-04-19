@@ -133,6 +133,30 @@ function UFB:ArenaShadows()
 	end
 end
 
+-- Tank shadows
+function UFB:TankShadows()
+	for i = 1, 2 do
+		local unitbutton = _G["ElvUF_TankUnitButton"..i]
+		unitbutton:CreateSoftShadow()
+		unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
+		unitbutton.Buffs.spacing = 3
+		unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+		unitbutton.Debuffs.spacing = 3
+	end
+end
+
+-- TankTarget shadows
+function UFB:TankTargetShadows()
+	for i = 1, 2 do
+		local unitbutton = _G["ElvUF_TankUnitButton"..i.."Target"]
+		unitbutton:CreateSoftShadow()
+		--unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
+		--unitbutton.Buffs.spacing = 3
+		--unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+		--unitbutton.Debuffs.spacing = 3
+	end
+end
+
 function UFB:PostUpdateAura(unit, button, index)
 	if not button.shadow then
 		button:CreateSoftShadow()
@@ -239,6 +263,8 @@ function UFB:Initialize()
 		self:Raid40Shadows()
 		self:BossShadows()
 		self:ArenaShadows()
+		self:TankShadows()
+		self:TankTargetShadows()
 	end
 
 	hooksecurefunc(UF, "Configure_ReadyCheckIcon", UFB.Configure_ReadyCheckIcon)
