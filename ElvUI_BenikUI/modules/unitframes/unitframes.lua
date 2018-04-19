@@ -150,10 +150,6 @@ function UFB:TankTargetShadows()
 	for i = 1, 2 do
 		local unitbutton = _G["ElvUF_TankUnitButton"..i.."Target"]
 		unitbutton:CreateSoftShadow()
-		--unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-		--unitbutton.Buffs.spacing = 3
-		--unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-		--unitbutton.Debuffs.spacing = 3
 	end
 end
 
