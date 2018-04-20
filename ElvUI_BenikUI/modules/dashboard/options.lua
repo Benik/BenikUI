@@ -223,10 +223,26 @@ local function dashboardsTable()
 				guiInline = true,
 				args = {
 					barColor = {
-						type = "color",
+						type = "select",
 						order = 1,
 						name = L['Bar Color'],
-						hasAlpha = false,
+						values = {
+							[1] = CLASS_COLORS,
+							[2] = CUSTOM,
+						},
+						get = function(info) return E.db.dashboards[ info[#info] ] end,
+						set = function(info, value) E.db.dashboards[ info[#info] ] = value;
+							if E.db.dashboards.professions.enableProfessions then BUIP:UpdateProfessions() end
+							if E.db.dashboards.tokens.enableTokens then BUIT:UpdateTokens() end
+							if E.db.dashboards.system.enableSystem then BUID:BarColor() end
+						end,
+					},
+					customBarColor = {
+						type = "select",
+						order = 2,
+						type = "color",
+						name = COLOR_PICKER,
+						disabled = function() return E.db.dashboards.barColor == 1 end,
 						get = function(info)
 							local t = E.db.dashboards[ info[#info] ]
 							local d = P.dashboards[info[#info]]
@@ -241,8 +257,13 @@ local function dashboardsTable()
 							if E.db.dashboards.system.enableSystem then BUID:BarColor() end
 						end,
 					},
+					spacer = {
+						order = 3,
+						type = 'header',
+						name = '',
+					},
 					textColor = {
-						order = 2,
+						order = 4,
 						type = "select",
 						name = L['Text Color'],
 						values = {
@@ -257,7 +278,7 @@ local function dashboardsTable()
 						end,
 					},
 					customTextColor = {
-						order = 3,
+						order = 5,
 						type = "color",
 						name = COLOR_PICKER,
 						disabled = function() return E.db.dashboards.textColor == 1 end,

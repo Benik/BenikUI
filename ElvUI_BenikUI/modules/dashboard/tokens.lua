@@ -254,7 +254,13 @@ function BUIT:UpdateTokens()
 						end
 					end
 					token.Status:SetValue(amount)
-					token.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
+
+					if E.db.dashboards.barColor == 1 then
+						token.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+					else
+						token.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+					end
+
 					token.Status:SetInside()
 
 					token.spark = token.Status:CreateTexture(nil, 'OVERLAY', nil);

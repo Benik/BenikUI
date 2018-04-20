@@ -376,7 +376,8 @@ P['dashboards'] = {
 		['dbfontflags'] = E.db.datatexts.fontOutline,
 	},
 	
-	['barColor'] = {r = 255/255,g = 128/255,b = 0/255},
+	['barColor'] = 1,
+	['customBarColor'] = {r = 255/255,g = 128/255,b = 0/255},
 	['textColor'] = 2,
 	['customTextColor'] = {r = 255/255,g = 255/255,b = 255/255},
 }

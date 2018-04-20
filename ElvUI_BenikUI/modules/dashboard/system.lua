@@ -168,7 +168,11 @@ end
 
 function BUID:BarColor()
 	for _, frame in pairs(loadedBoards) do
-		frame.Status:SetStatusBarColor(E.db.dashboards.barColor.r, E.db.dashboards.barColor.g, E.db.dashboards.barColor.b)
+		if E.db.dashboards.barColor == 1 then
+			frame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+		else
+			frame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+		end
 	end
 end
 
