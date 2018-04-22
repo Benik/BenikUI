@@ -158,7 +158,7 @@ local function DbmDecor(event)
 			end
 
 			if AS:CheckOption('DBMRadarTrans') then
-				if DBMRangeCheckRadar.style then
+				if DBMRangeCheckRadar.style and E.db.benikui.general.benikuiStyle then
 					DBMRangeCheckRadar.style:Hide()
 				end
 
@@ -166,7 +166,7 @@ local function DbmDecor(event)
 					DBMRangeCheckRadar.shadow:Hide()
 				end
 			else
-				if DBMRangeCheckRadar.style then
+				if DBMRangeCheckRadar.style and E.db.benikui.general.benikuiStyle then
 					DBMRangeCheckRadar.style:Show()
 				end
 
