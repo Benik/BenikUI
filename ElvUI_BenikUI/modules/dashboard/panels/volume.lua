@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local LSM = LibStub('LibSharedMedia-3.0')
-local BUID = E:GetModule('BuiDashboard')
+local mod = E:GetModule('BuiDashboards');
 
 local _G = _G
 local join, tonumber, floor = string.join, tonumber, floor
@@ -99,8 +99,8 @@ local SOUND_LOW_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\\so
 local SOUND_MEDIUM_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\\sound-medium.blp:14:14|t')
 local SOUND_MAX_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\\sound-max.blp:14:14|t')
 
-function BUID:CreateVolume()
-	local boardName = _G['Volume']
+function mod:CreateVolume()
+	local boardName = _G['BUI_Volume']
 
 	local iconBG = CreateFrame('Frame', nil, boardName)
 	iconBG:Size(16,16)

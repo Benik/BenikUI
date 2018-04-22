@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local BUID = E:GetModule('BuiDashboard')
+local mod = E:GetModule('BuiDashboards');
 
 local join = string.join
 
@@ -15,7 +15,7 @@ local statusColors = {
 }
 
 local function OnEvent(self)
-	local boardName = _G['Bags']
+	local boardName = _G['BUI_Bags']
 
 	local free, total = 0, 0
 	local textColor = 1
@@ -43,8 +43,8 @@ local function OnClick()
 	ToggleAllBags()
 end
 
-function BUID:CreateBags()
-	local boardName = _G['Bags']
+function mod:CreateBags()
+	local boardName = _G['BUI_Bags']
 
 	boardName.Status:SetScript('OnEvent', OnEvent)
 	boardName:SetScript('OnMouseDown', OnClick)

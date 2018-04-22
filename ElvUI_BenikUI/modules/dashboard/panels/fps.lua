@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local BUID = E:GetModule('BuiDashboard')
+local mod = E:GetModule('BuiDashboards');
 
 local _G = _G
 local join, floor = string.join, floor
@@ -74,8 +74,8 @@ local function UpdateMemory()
 	sort(memoryTable, sortByMemory)
 end
 
-function BUID:CreateFps()
-	local boardName = _G['FPS']
+function mod:CreateFps()
+	local boardName = _G['BUI_FPS']
 
 	boardName:SetScript('OnMouseDown', function (self)
 		if(not InCombatLockdown()) then

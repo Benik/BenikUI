@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local BUID = E:GetModule('BuiDashboard')
+local mod = E:GetModule('BuiDashboards');
 
 local LastUpdate = 1
 local select = select
@@ -15,8 +15,8 @@ local statusColors = {
 	'|cffD80909'
 }
 
-function BUID:CreateMs()
-	local boardName = _G['MS']
+function mod:CreateMs()
+	local boardName = _G['BUI_MS']
 
 	boardName:SetScript('OnEnter', function(self)
 		if not InCombatLockdown() then

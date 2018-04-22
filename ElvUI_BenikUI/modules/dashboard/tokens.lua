@@ -1,39 +1,27 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
-local BUIT = E:NewModule('BuiTokensDashboard', 'AceEvent-3.0', 'AceHook-3.0')
-local LSM = LibStub('LibSharedMedia-3.0')
-local DT = E:GetModule('DataTexts')
-
-if E.db.dashboards == nil then E.db.dashboards = {} end
-if E.db.dashboards.tokens == nil then E.db.dashboards.tokens = {} end
+local mod = E:GetModule('BuiDashboards');
+local DT = E:GetModule('DataTexts');
 
 local getn = getn
-local pairs = pairs
+local pairs, ipairs = pairs, ipairs
 local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 
-local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local GetCurrencyInfo = GetCurrencyInfo
 local IsShiftKeyDown = IsShiftKeyDown
 
--- GLOBALS: hooksecurefunc, tokenFrames, tokenHolder, tokenHolderMover, sysHolder
+-- GLOBALS: hooksecurefunc
 
 local DASH_HEIGHT = 20
-local DASH_WIDTH = E.db.dashboards.tokens.width or 150
 local DASH_SPACING = 3
 local SPACING = 1
 
-local tokenFrames = {}
-
-local BUIcurrency = {
+local Currency = {
 	241,	-- Champion's Seal
 	361,	-- Illustrious Jewelcrafter's Token
-	--390,	-- Conquest Points
 	391,	-- Tol Barad Commendation
-	--392,	-- Honor Points
-	395,	-- Justice Points
-	--396,	-- Valor Points (old)
 	402,	-- Ironpaw Token
 	416,	-- Mark of the World Tree
 	515,	-- Darkmoon Prize Ticket
@@ -97,12 +85,6 @@ local BUIcurrency = {
 	1533,	-- Wakening Essence
 }
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
-local function tholderOnFade()
-	tokenHolder:Hide()
-end
-
 local function Icon_OnEnter(self)
 	local id = self:GetParent().id
 	if E.db.dashboards.tokens.tooltip then
@@ -114,61 +96,15 @@ local function Icon_OnEnter(self)
 	end
 
 	if E.db.dashboards.tokens.mouseover then
-		E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
+		E:UIFrameFadeIn(BUI_TokensDashboard, 0.2, BUI_TokensDashboard:GetAlpha(), 1)
 	end
 end
 
 local function Icon_OnLeave(self)
 	if E.db.dashboards.tokens.mouseover then
-		E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
+		E:UIFrameFadeIn(BUI_TokensDashboard, 0.2, BUI_TokensDashboard:GetAlpha(), 0)
 	end
 	GameTooltip:Hide()
-end
-
-function BUIT:CreateTokensHolder()
-	local db = E.db.dashboards.tokens
-	local tholder
-	if not tholder then
-		tholder = CreateFrame('Frame', 'tokenHolder', E.UIParent)
-		tholder:CreateBackdrop('Transparent')
-		tholder:SetFrameStrata('BACKGROUND')
-		tholder:SetFrameLevel(5)
-		if E.db.dashboards.system.enableSystem then
-			tholder:Point('TOPLEFT', sysHolder, 'BOTTOMLEFT', 0, -10)
-		else
-			tholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
-		end
-		tholder.backdrop:Style('Outside')
-		tholder:Hide()
-	end
-
-	if db.combat then
-		tholder:SetScript('OnEvent',function(self, event)
-			if event == 'PLAYER_REGEN_DISABLED' then
-				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-				self.fadeInfo.finishedFunc = tholderOnFade
-			elseif event == 'PLAYER_REGEN_ENABLED' then
-				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-				self:Show()
-			end
-		end)
-	end
-
-	self:UpdateTokens()
-	self:UpdateTHolderDimensions()
-	self:EnableDisableCombat()
-	E.FrameLocks['tokenHolder'] = true;
-	E:CreateMover(tokenHolder, 'tokenHolderMover', L['Tokens'])
-end
-
-function BUIT:EnableDisableCombat()
-	if E.db.dashboards.tokens.combat then
-		tokenHolder:RegisterEvent('PLAYER_REGEN_DISABLED')
-		tokenHolder:RegisterEvent('PLAYER_REGEN_ENABLED')
-	else
-		tokenHolder:UnregisterEvent('PLAYER_REGEN_DISABLED')
-		tokenHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')
-	end
 end
 
 local function Icon_OnMouseUp(self, btn)
@@ -176,7 +112,7 @@ local function Icon_OnMouseUp(self, btn)
 		if IsShiftKeyDown() then
 			local id = self:GetParent().id
 			E.private.dashboards.tokens.chooseTokens[id] = false
-			BUIT:UpdateTokens()
+			mod:UpdateTokens()
 		end
 	end
 end
@@ -185,32 +121,33 @@ local function sortFunction(a, b)
 	return a.name < b.name
 end
 
-function BUIT:UpdateTokens()
+function mod:UpdateTokens()
 	local db = E.db.dashboards.tokens
+	local holder = BUI_TokensDashboard
 
-	if( tokenFrames[1] ) then
-		for i = 1, getn( tokenFrames ) do
-			tokenFrames[i]:Kill()
+	if(BUI.TokensDB[1]) then
+		for i = 1, getn(BUI.TokensDB) do
+			BUI.TokensDB[i]:Kill()
 		end
-		twipe( tokenFrames )
-		tokenHolder:Hide()
+		twipe(BUI.TokensDB)
+		holder:Hide()
 	end
 
-	if db.mouseover then tokenHolder:SetAlpha(0) else tokenHolder:SetAlpha(1) end
+	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 
-	tokenHolder:SetScript('OnEnter', function(self)
+	holder:SetScript('OnEnter', function(self)
 		if db.mouseover then
-			E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
+			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 		end
 	end)
 
-	tokenHolder:SetScript('OnLeave', function(self)
+	holder:SetScript('OnLeave', function(self)
 		if db.mouseover then
-			E:UIFrameFadeOut(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
+			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 		end
 	end)
 
-	for _, id in pairs(BUIcurrency) do
+	for _, id in pairs(Currency) do
 		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
 		
 		if name then
@@ -218,193 +155,123 @@ function BUIT:UpdateTokens()
 
 			if E.private.dashboards.tokens.chooseTokens[id] == true then
 				if db.zeroamount or amount > 0 then
-					tokenHolder:Show()
-					tokenHolder:Width(DASH_WIDTH)
-					tokenHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#tokenFrames + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+					holder:Show()
+					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if tokenHolderMover then
-						tokenHolderMover:Size(tokenHolder:GetSize())
-						tokenHolder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
+						tokenHolderMover:Size(holder:GetSize())
+						holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
 
-					local token = CreateFrame('Frame', nil, tokenHolder)
-					token:Height(DASH_HEIGHT)
-					token:Width(DASH_WIDTH)
-					token:Point('TOPLEFT', tokenHolder, 'TOPLEFT', SPACING, -SPACING)
-					token:EnableMouse(true)
+					self.tokenFrame = self:CreateDashboard(nil, holder, true)
 
-					token.dummy = CreateFrame('Frame', nil, token)
-					token.dummy:Point('BOTTOMLEFT', token, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
-					token.dummy:Point('BOTTOMRIGHT', token, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
-					token.dummy:Height(E.PixelMode and 3 or 5)
-
-					token.dummy.dummyStatus = token.dummy:CreateTexture(nil, 'OVERLAY')
-					token.dummy.dummyStatus:SetInside()
-					token.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
-					token.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
-
-					token.Status = CreateFrame('StatusBar', nil, token.dummy)
-					token.Status:SetStatusBarTexture(E['media'].BuiFlat)
 					if totalMax == 0 then
-						token.Status:SetMinMaxValues(0, amount)
+						self.tokenFrame.Status:SetMinMaxValues(0, amount)
 					else
 						if db.weekly and weeklyMax > 0 then
-							token.Status:SetMinMaxValues(0, weeklyMax)
+							self.tokenFrame.Status:SetMinMaxValues(0, weeklyMax)
 						else
-							token.Status:SetMinMaxValues(0, totalMax)
+							self.tokenFrame.Status:SetMinMaxValues(0, totalMax)
 						end
 					end
-					token.Status:SetValue(amount)
-
-					if E.db.dashboards.barColor == 1 then
-						token.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-					else
-						token.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
-					end
-
-					token.Status:SetInside()
-
-					token.spark = token.Status:CreateTexture(nil, 'OVERLAY', nil);
-					token.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-					token.spark:Size(12, 6);
-					token.spark:SetBlendMode('ADD');
-					token.spark:SetPoint('CENTER', token.Status:GetStatusBarTexture(), 'RIGHT')
-
-					token.Text = token.Status:CreateFontString(nil, 'OVERLAY')
-					if E.db.dashboards.dashfont.useDTfont then
-						token.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-					else
-						token.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
-					end
-					token.Text:Point('CENTER', token, 'CENTER', -10, (E.PixelMode and 1 or 3))
-					token.Text:Width(token:GetWidth() - 20)
-					token.Text:SetWordWrap(false)
-
-					if E.db.dashboards.textColor == 1 then
-						token.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
-					else
-						token.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
-					end
+					self.tokenFrame.Status:SetValue(amount)
 
 					if totalMax == 0 then
-						token.Text:SetFormattedText('%s', amount)
+						self.tokenFrame.Text:SetFormattedText('%s', amount)
 					else
 						if db.weekly and weeklyMax > 0 then
-							token.Text:SetFormattedText('%s / %s', amount, weeklyMax)
+							self.tokenFrame.Text:SetFormattedText('%s / %s', amount, weeklyMax)
 						else
-							token.Text:SetFormattedText('%s / %s', amount, totalMax)
+							self.tokenFrame.Text:SetFormattedText('%s / %s', amount, totalMax)
 						end
 					end
 
-					token.IconBG = CreateFrame('Button', nil, token)
-					token.IconBG:SetTemplate('Transparent')
-					token.IconBG:Size(E.PixelMode and 18 or 20)
-					token.IconBG:Point('BOTTOMRIGHT', token, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
-					token.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
-					token.IconBG:SetScript('OnEnter', Icon_OnEnter)
-					token.IconBG:SetScript('OnLeave', Icon_OnLeave)
+					self.tokenFrame.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
+					self.tokenFrame.IconBG:SetScript('OnEnter', Icon_OnEnter)
+					self.tokenFrame.IconBG:SetScript('OnLeave', Icon_OnLeave)
 
-					token.IconBG.Icon = token.IconBG:CreateTexture(nil, 'ARTWORK')
-					token.IconBG.Icon:SetInside()
-					token.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-					token.IconBG.Icon:SetTexture(icon)
+					self.tokenFrame.IconBG.Icon:SetTexture(icon)
 
-					token:SetScript('OnEnter', function(self)
-						token.Text:SetFormattedText('%s', name)
+					self.tokenFrame:SetScript('OnEnter', function(self)
+						self.Text:SetFormattedText('%s', name)
 						if db.mouseover then
-							E:UIFrameFadeIn(tokenHolder, 0.2, tokenHolder:GetAlpha(), 1)
+							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 						end
 					end)
 
-					token:SetScript('OnLeave', function(self)
+					self.tokenFrame:SetScript('OnLeave', function(self)
 						if totalMax == 0 then
-							token.Text:SetFormattedText('%s', amount)
+							self.Text:SetFormattedText('%s', amount)
 						else
 							if db.weekly and weeklyMax > 0 then
-								token.Text:SetFormattedText('%s / %s', amount, weeklyMax)
+								self.Text:SetFormattedText('%s / %s', amount, weeklyMax)
 							else
-								token.Text:SetFormattedText('%s / %s', amount, totalMax)
+								self.Text:SetFormattedText('%s / %s', amount, totalMax)
 							end
 						end
 						GameTooltip:Hide()
 						if db.mouseover then
-							E:UIFrameFadeOut(tokenHolder, 0.2, tokenHolder:GetAlpha(), 0)
+							E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 						end
 					end)
 
-					token.id = id
-					token.name = name
+					self.tokenFrame.id = id
+					self.tokenFrame.name = name
 
-					tinsert(tokenFrames, token)
+					tinsert(BUI.TokensDB, self.tokenFrame)
 				end
 			end
 		end
 	end
 
-	tsort(tokenFrames, sortFunction)
+	tsort(BUI.TokensDB, sortFunction)
 
-	for key, frame in pairs(tokenFrames) do
+	for key, frame in pairs(BUI.TokensDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point('TOPLEFT', tokenHolder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', tokenFrames[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			frame:Point('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
 
-function BUIT:TokenEvents()
+function mod:UpdateTokenSettings()
+	mod:FontStyle(BUI.TokensDB)
+	mod:FontColor(BUI.TokensDB)
+	mod:BarColor(BUI.TokensDB)
+end
+
+function mod:TokenEvents()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateTokens')
 	self:RegisterEvent('CURRENCY_DISPLAY_UPDATE', 'UpdateTokens')
-	self:SecureHook('BackpackTokenFrame_Update', 'UpdateTokens')
-	self:SecureHook('TokenFrame_Update', 'UpdateTokens')
 end
 
-function BUIT:UpdateTHolderDimensions()
-	local db = E.db.dashboards.tokens
-	tokenHolder:Width(db.width)
+function mod:CreateTokensDashboard()
+	local DASH_WIDTH = E.db.dashboards.tokens.width or 150
 
-	for _, frame in pairs(tokenFrames) do
-		frame:Width(db.width)
-	end
-end
+	self.tokenHolder = self:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
 
-function BUIT:ToggleTransparency()
-	local db = E.db.dashboards.tokens
-	if not db.backdrop then
-		tokenHolder.backdrop:SetTemplate("NoBackdrop")
-	elseif db.transparency then
-		tokenHolder.backdrop:SetTemplate("Transparent")
+	if E.db.dashboards.system.enableSystem and BUI_SystemDashboard then
+		self.tokenHolder:Point('TOPLEFT', BUI_SystemDashboard, 'BOTTOMLEFT', 0, -10)
 	else
-		tokenHolder.backdrop:SetTemplate("Default", true)
+		self.tokenHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
 	end
+	self.tokenHolder:Width(DASH_WIDTH)
+
+	mod:UpdateTokens()
+	mod:UpdateHolderDimensions(self.tokenHolder, 'tokens', BUI.TokensDB)
+	mod:ToggleStyle(self.tokenHolder, 'tokens')
+	mod:ToggleTransparency(self.tokenHolder, 'tokens')
+
+	E:CreateMover(self.tokenHolder, 'tokenHolderMover', L['Tokens'])
 end
 
-function BUIT:ToggleStyle()
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-	if E.db.dashboards.tokens.style then
-		tokenHolder.backdrop.style:Show()
-	else
-		tokenHolder.backdrop.style:Hide()
-	end
-end
-
-function BUIT:TokenDefaults()
-	if E.db.dashboards.tokens.width == nil then E.db.dashboards.tokens.width = 150 end
-end
-
-function BUIT:Initialize()
+function mod:LoadTokens()
 	if E.db.dashboards.tokens.enableTokens ~= true then return end
-	self:TokenDefaults()
-	self:CreateTokensHolder()
-	self:TokenEvents()
-	self:UpdateTHolderDimensions()
-	self:ToggleStyle()
-	self:ToggleTransparency()
-	hooksecurefunc(DT, 'LoadDataTexts', BUIT.UpdateTokens)
-end
 
-local function InitializeCallback()
-	BUIT:Initialize()
-end
+	mod:CreateTokensDashboard()
+	mod:TokenEvents()
+	mod:UpdateTokenSettings()
 
-E:RegisterModule(BUIT:GetName(), InitializeCallback)
+	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokenSettings)
+end

@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local BUID = E:GetModule('BuiDashboard')
+local mod = E:GetModule('BuiDashboards');
 
 local _G = _G
 local pairs, format, join = pairs, string.format, string.join
@@ -56,8 +56,8 @@ local statusColors = {
 	'|cffD80909'	-- red
 }
 
-function BUID:CreateDurability()
-	local boardName = _G['Durability']
+function mod:CreateDurability()
+	local boardName = _G['BUI_Durability']
 
 	boardName.Status:SetScript('OnEvent', function(self)
 

@@ -1,109 +1,43 @@
---[[ Dashboard Plus for BenikUI
-Credits : Sinaris, Elv
-made for BenikUI under Sinaris permission. Big thanks :)
-]]
-
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
-local BUID = E:NewModule('BuiDashboard')
-local LSM = LibStub("LibSharedMedia-3.0")
-local DT = E:GetModule('DataTexts')
+local mod = E:GetModule('BuiDashboards');
+local DT = E:GetModule('DataTexts');
 
 local tinsert, twipe, getn, pairs, ipairs = table.insert, table.wipe, getn, pairs, ipairs
 
--- GLOBALS: hooksecurefunc, sysHolder
+-- GLOBALS: hooksecurefunc
 
 local CreateFrame = CreateFrame
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 
-if E.db.dashboards == nil then E.db.dashboards = {} end
-if E.db.dashboards.system == nil then E.db.dashboards.system = {} end
-
--- Defaults
-V['BUID'] = {
-	['warned'] = false,
-}
-
 local DASH_HEIGHT = 20
-local DASH_WIDTH = E.db.dashboards.system.width or 150
 local DASH_SPACING = 3
 local SPACING = 1
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
-local loadedBoards = {}
 
-local function dholderOnFade()
-	sysHolder:Hide()
-end
-
--- Bar Holder
-function BUID:CreateSystemHolder()
-	local sholder = CreateFrame('Frame', 'sysHolder', E.UIParent)
-	sholder:CreateBackdrop('Transparent')
-	sholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
-	sholder:SetFrameStrata('BACKGROUND')
-	sholder:SetFrameLevel(5)
-	sholder:Width(DASH_WIDTH)
-	sholder:Height(DASH_HEIGHT)
-	sholder.backdrop:Style('Outside')
-
-	if E.db.dashboards.system.combat then
-		sholder:SetScript('OnEvent',function(self, event)
-			if event == 'PLAYER_REGEN_DISABLED' then
-				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-				self.fadeInfo.finishedFunc = dholderOnFade
-			elseif event == 'PLAYER_REGEN_ENABLED' then
-				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-				self:Show()
-			end
-		end)
-	end
-
-	E.FrameLocks['sysHolder'] = true;
-	E:CreateMover(sysHolder, 'BuiDashboardMover', L['System'])
-	self:EnableDisableCombat()
-	self:UpdateBoards()
-end
-
-function BUID:EnableDisableCombat()
-	if E.db.dashboards.system.combat then
-		sysHolder:RegisterEvent('PLAYER_REGEN_DISABLED')
-		sysHolder:RegisterEvent('PLAYER_REGEN_ENABLED')
-	else
-		sysHolder:UnregisterEvent('PLAYER_REGEN_DISABLED')
-		sysHolder:UnregisterEvent('PLAYER_REGEN_ENABLED')
-	end
-end
-
-function BUID:UpdateSysHolderDimensions()
-	sysHolder:Width(E.db.dashboards.system.width)
-
-	for _, frame in pairs(loadedBoards) do
-		frame:Width(E.db.dashboards.system.width)
-	end
-end
-
-function BUID:UpdateBoards()
+function mod:UpdateSystem()
 	local db = E.db.dashboards.system
-	if( loadedBoards[1] ) then
-		for i = 1, getn( loadedBoards ) do
-			loadedBoards[i]:Kill()
+	local holder = BUI_SystemDashboard
+	local DASH_WIDTH = E.db.dashboards.system.width or 150
+
+	if(BUI.SystemDB[1]) then
+		for i = 1, getn(BUI.SystemDB) do
+			BUI.SystemDB[i]:Kill()
 		end
-		twipe( loadedBoards )
-		sysHolder.backdrop:Hide()
+		twipe(BUI.SystemDB)
+		holder:Hide()
 	end
 
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
-			sysHolder.backdrop:Show()
-			sysHolder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#loadedBoards + 1)) + DASH_SPACING)
+			holder:Show()
+			holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB + 1)) + DASH_SPACING)
 
-			local sysFrame = CreateFrame('Frame', name, sysHolder)
+			local sysFrame = CreateFrame('Frame', 'BUI_'..name, holder)
 			sysFrame:Height(DASH_HEIGHT)
 			sysFrame:Width(DASH_WIDTH)
-			sysFrame:Point('TOPLEFT', sysHolder, 'TOPLEFT', SPACING, -SPACING)
+			sysFrame:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
 
 			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
@@ -131,83 +65,51 @@ function BUID:UpdateBoards()
 			sysFrame.Text:Point('LEFT', sysFrame, 'LEFT', 6, (E.PixelMode and 2 or 3))
 			sysFrame.Text:SetJustifyH('LEFT')
 
-			tinsert(loadedBoards, sysFrame)
+			tinsert(BUI.SystemDB, sysFrame)
 		end
 	end
 
-	for key, frame in ipairs(loadedBoards) do
+	for key, frame in ipairs(BUI.SystemDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point( 'TOPLEFT', sysHolder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', loadedBoards[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
-		end
-	end
-
-end
-
-function BUID:ChangeFont()
-	for _, frame in pairs(loadedBoards) do
-		if E.db.dashboards.dashfont.useDTfont then
-			frame.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-		else
-			frame.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
+			frame:Point('TOP', BUI.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
 
-function BUID:FontColor()
-	for _, frame in pairs(loadedBoards) do
-		if E.db.dashboards.textColor == 1 then
-			frame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
-		else
-			frame.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
-		end
-	end
+function mod:UpdateSystemSettings()
+	mod:FontStyle(BUI.SystemDB)
+	mod:FontColor(BUI.SystemDB)
+	mod:BarColor(BUI.SystemDB)
 end
 
-function BUID:BarColor()
-	for _, frame in pairs(loadedBoards) do
-		if E.db.dashboards.barColor == 1 then
-			frame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-		else
-			frame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
-		end
-	end
+function mod:CreateSystemDashboard()
+	local DASH_WIDTH = E.db.dashboards.system.width or 150
+
+	self.sysHolder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
+	self.sysHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
+	self.sysHolder:Width(DASH_WIDTH)
+
+	mod:UpdateSystem()
+	mod:UpdateHolderDimensions(self.sysHolder, 'system', BUI.SystemDB)
+	mod:ToggleStyle(self.sysHolder, 'system')
+	mod:ToggleTransparency(self.sysHolder, 'system')
+
+	E:CreateMover(self.sysHolder, 'BuiDashboardMover', L['System'])
 end
 
-function BUID:ToggleTransparency()
-	local db = E.db.dashboards.system
-	if not db.backdrop then
-		sysHolder.backdrop:SetTemplate("NoBackdrop")
-	elseif db.transparency then
-		sysHolder.backdrop:SetTemplate("Transparent")
-	else
-		sysHolder.backdrop:SetTemplate("Default", true)
-	end
-end
-
-function BUID:ToggleStyle()
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-	if E.db.dashboards.system.style then
-		sysHolder.backdrop.style:Show()
-	else
-		sysHolder.backdrop.style:Hide()
-	end
-end
-
-function BUID:Initialize()
+function mod:LoadSystem()
 	if E.db.dashboards.system.enableSystem ~= true then return end
 	local db = E.db.dashboards.system.chooseSystem
 
 	if (db.FPS ~= true and db.MS ~= true and db.Bags ~= true and db.Durability ~= true and db.Volume ~= true) then return end
 
-	self:CreateSystemHolder()
-	hooksecurefunc(DT, 'LoadDataTexts', BUID.ChangeFont)
-	self:FontColor()
-	self:BarColor()
-	self:ToggleStyle()
-	self:ToggleTransparency()
+	mod:CreateSystemDashboard()
+	mod:UpdateSystemSettings()
+
+	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateSystemSettings)
 
 	if db.FPS then self:CreateFps() end
 	if db.MS then self:CreateMs() end
@@ -215,9 +117,3 @@ function BUID:Initialize()
 	if db.Durability then self:CreateDurability() end
 	if db.Volume then self:CreateVolume() end
 end
-
-local function InitializeCallback()
-	BUID:Initialize()
-end
-
-E:RegisterModule(BUID:GetName(), InitializeCallback)
