@@ -18,6 +18,8 @@ local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
 
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+
 local Currency = {
 	241,	-- Champion's Seal
 	361,	-- Illustrious Jewelcrafter's Token
@@ -162,7 +164,7 @@ function mod:UpdateTokens()
 						holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
 
-					self.tokenFrame = self:CreateDashboard(nil, holder, true)
+					self.tokenFrame = self:CreateDashboard(nil, holder)
 
 					if totalMax == 0 then
 						self.tokenFrame.Status:SetMinMaxValues(0, amount)
@@ -175,6 +177,12 @@ function mod:UpdateTokens()
 					end
 					self.tokenFrame.Status:SetValue(amount)
 
+					if E.db.dashboards.barColor == 1 then
+						self.tokenFrame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+					else
+						self.tokenFrame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+					end
+
 					if totalMax == 0 then
 						self.tokenFrame.Text:SetFormattedText('%s', amount)
 					else
@@ -183,6 +191,12 @@ function mod:UpdateTokens()
 						else
 							self.tokenFrame.Text:SetFormattedText('%s / %s', amount, totalMax)
 						end
+					end
+
+					if E.db.dashboards.textColor == 1 then
+						self.tokenFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+					else
+						self.tokenFrame.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 					end
 
 					self.tokenFrame.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
@@ -242,7 +256,6 @@ function mod:UpdateTokenSettings()
 end
 
 function mod:TokenEvents()
-	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateTokens')
 	self:RegisterEvent('CURRENCY_DISPLAY_UPDATE', 'UpdateTokens')
 end
 
@@ -259,6 +272,7 @@ function mod:CreateTokensDashboard()
 	self.tokenHolder:Width(DASH_WIDTH)
 
 	mod:UpdateTokens()
+	mod:UpdateTokenSettings()
 	mod:UpdateHolderDimensions(self.tokenHolder, 'tokens', BUI.TokensDB)
 	mod:ToggleStyle(self.tokenHolder, 'tokens')
 	mod:ToggleTransparency(self.tokenHolder, 'tokens')
@@ -271,7 +285,6 @@ function mod:LoadTokens()
 
 	mod:CreateTokensDashboard()
 	mod:TokenEvents()
-	mod:UpdateTokenSettings()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokenSettings)
 end

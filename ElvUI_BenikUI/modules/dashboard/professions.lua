@@ -19,6 +19,8 @@ local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
 
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+
 local capRank = 800
 
 local function sortFunction(a, b)
@@ -72,7 +74,7 @@ function mod:UpdateProfessions()
 						holder:Point('TOPLEFT', ProfessionsMover, 'TOPLEFT')
 					end
 
-					self.ProFrame = self:CreateDashboard(nil, holder, true)
+					self.ProFrame = self:CreateDashboard(nil, holder)
 
 					self.ProFrame:SetScript('OnEnter', function(self)
 						self.Text:SetFormattedText('%s', name)
@@ -114,10 +116,22 @@ function mod:UpdateProfessions()
 						self.ProFrame.Status:SetValue(rank)
 					end
 
+					if E.db.dashboards.barColor == 1 then
+						self.ProFrame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+					else
+						self.ProFrame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+					end
+
 					if (rankModifier and rankModifier > 0) then
 						self.ProFrame.Text:SetFormattedText('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
 					else
 						self.ProFrame.Text:SetFormattedText('%s / %s', rank, maxRank)
+					end
+
+					if E.db.dashboards.textColor == 1 then
+						self.ProFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+					else
+						self.ProFrame.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 					end
 
 					self.ProFrame.IconBG:SetScript('OnClick', function(self)
@@ -163,7 +177,6 @@ function mod:UpdateProfessionSettings()
 end
 
 function mod:ProfessionsEvents()
-	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateProfessions')
 	self:RegisterEvent('SKILL_LINES_CHANGED', 'UpdateProfessions')
 	self:RegisterEvent('CHAT_MSG_SKILL', 'UpdateProfessions')
 end
@@ -182,6 +195,7 @@ function mod:CreateProfessionsDashboard()
 	self.proHolder:Width(mapholderWidth or DASH_WIDTH)
 
 	mod:UpdateProfessions()
+	mod:UpdateProfessionSettings()
 	mod:UpdateHolderDimensions(self.proHolder, 'professions', BUI.ProfessionsDB)
 	mod:ToggleStyle(self.proHolder, 'professions')
 	mod:ToggleTransparency(self.proHolder, 'professions')
@@ -194,7 +208,6 @@ function mod:LoadProfessions()
 	
 	mod:CreateProfessionsDashboard()
 	mod:ProfessionsEvents()
-	mod:UpdateProfessionSettings()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateProfessionSettings)
 end

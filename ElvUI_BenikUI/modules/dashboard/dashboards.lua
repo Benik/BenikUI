@@ -118,7 +118,7 @@ function mod:CreateDashboardHolder(holderName, option)
 	return holder
 end
 
-function mod:CreateDashboard(name, barHolder, hasIcon)
+function mod:CreateDashboard(name, barHolder)
 	local bar = CreateFrame('Button', nil, barHolder)
 	bar:Height(DASH_HEIGHT)
 	bar:Width(150)
@@ -127,11 +127,7 @@ function mod:CreateDashboard(name, barHolder, hasIcon)
 
 	bar.dummy = CreateFrame('Frame', nil, bar)
 	bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
-	if hasIcon then
-		bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
-	else
-		bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
-	end
+	bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
 	bar.dummy:Height(E.PixelMode and 3 or 5)
 
 	bar.dummy.dummyStatus = bar.dummy:CreateTexture(nil, 'OVERLAY')
@@ -159,16 +155,14 @@ function mod:CreateDashboard(name, barHolder, hasIcon)
 	bar.Text:Width(bar:GetWidth() - 20)
 	bar.Text:SetWordWrap(false)
 
-	if hasIcon then
-		bar.IconBG = CreateFrame('Button', nil, bar)
-		bar.IconBG:SetTemplate('Transparent')
-		bar.IconBG:Size(E.PixelMode and 18 or 20)
-		bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
+	bar.IconBG = CreateFrame('Button', nil, bar)
+	bar.IconBG:SetTemplate('Transparent')
+	bar.IconBG:Size(E.PixelMode and 18 or 20)
+	bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 
-		bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
-		bar.IconBG.Icon:SetInside()
-		bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-	end
+	bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
+	bar.IconBG.Icon:SetInside()
+	bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 
 	return bar
 end
