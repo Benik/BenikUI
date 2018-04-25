@@ -459,6 +459,7 @@ local function styleAddons()
 		local stFrame = _G["stAMFrame"]
 		if stFrame then
 			stFrame:Style('Outside')
+			stAMAddOns:SetTemplate('Transparent')
 		end
 	end
 end
