@@ -1,3 +1,10 @@
+3.37
+*Shadows added on all ElvUI elements, including AuraBars and Nameplates. Also on DBM, BigWigs and WeakAuras (AddonSkins is required).
+*Removed the Memory module from the Dashboards. Addon memory can be now shown in a tolltip by hovering the FPS Dashboard.
+*Added Bags dashboard to fill the removed Memory module gap.
+*Added Class Color option in Dashboard statusbars. Enabled by default.
+*Dashboards creation has been re written in a way that creating new Dashboards will be a breeze. This won't harm any user settings.
+
 3.36
 *Fixed a typo that affected profile creation amongst others
 *Correctly position the chat frame in afkMode
