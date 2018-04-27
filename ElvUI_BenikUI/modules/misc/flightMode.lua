@@ -667,4 +667,4 @@ local function InitializeCallback()
 	ToggleWorldMap()
 end
 
-E:RegisterModule(BFM:GetName(), InitializeCallback)
+--E:RegisterModule(BFM:GetName(), InitializeCallback)
