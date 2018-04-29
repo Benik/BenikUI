@@ -19,7 +19,9 @@ function AS:BigWigs(event, addon)
 					frame:ClearAllPoints()
 					frame:SetPoint('TOP', '$parent', 'BOTTOM', 0, -(AS.PixelPerfect and 2 or 4))
 					frame:SetHeight(16)
-					frame:CreateSoftShadow()
+					if E.db.benikuiSkins.addonSkins.bigwigs then
+						frame:CreateSoftShadow()
+					end
 				end
 			end)
 		end
@@ -28,8 +30,10 @@ function AS:BigWigs(event, addon)
 	if event == 'ADDON_LOADED' and addon == 'BigWigs_Plugins' then
 		AS:UnregisterSkinEvent('BigWigs', "ADDON_LOADED")
 		
-		BigWigsInfoBox:CreateSoftShadow()
-		BigWigsAltPower:CreateSoftShadow()
+		if E.db.benikuiSkins.addonSkins.bigwigs then
+			BigWigsInfoBox:CreateSoftShadow()
+			BigWigsAltPower:CreateSoftShadow()
+		end
 
 		local buttonsize = 19
 		local FreeBackgrounds = {}
@@ -37,7 +41,9 @@ function AS:BigWigs(event, addon)
 		local CreateBG = function()
 			local BG = CreateFrame('Frame')
 			BG:SetTemplate('Transparent')
-			BG:CreateSoftShadow()
+			if E.db.benikuiSkins.addonSkins.bigwigs then
+				BG:CreateSoftShadow()
+			end
 
 			return BG
 		end

@@ -52,7 +52,7 @@ local function WeakAurasShadows()
 	end
 end
 
-function mod:DBMSshadows()
+function mod:DBMShadows()
 	if not BUI.AS then return end
 	local AS = unpack(AddOnSkins) -- this is needed cause it's ADDON_LOADED
 
@@ -139,7 +139,10 @@ function mod:AddonSkins()
 	local AS = unpack(AddOnSkins)
 
 	hooksecurefunc(AS, "SkinTab", mod.TabShadowsAS)
-	mod:DBMSshadows()
+
+	if E.db.benikuiSkins.addonSkins.dbm then
+		mod:DBMShadows()
+	end
 
 	if AS:CheckAddOn('WeakAuras') then AS:RegisterSkin('WeakAuras', WeakAurasShadows, 2) end
 end
