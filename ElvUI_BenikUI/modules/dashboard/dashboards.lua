@@ -51,7 +51,7 @@ end
 
 function mod:ToggleStyle(holder, option)
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	
+
 	local db = E.db.dashboards[option]
 	if db.style then
 		holder.backdrop.style:Show()

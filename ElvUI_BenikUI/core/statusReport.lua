@@ -37,7 +37,7 @@ local function CreateStatusFrame()
 	StatusFrame.TitleLogoFrame.Title:SetJustifyH("CENTER")
 	StatusFrame.TitleLogoFrame.Title:SetJustifyV("MIDDLE")
 	StatusFrame.TitleLogoFrame.Title:SetFormattedText("|cfffe7b2c- ElvUI Status Report -|r")
-	
+
 	-- Content lines
 	StatusFrame.Section1.Content.Line1.Text:SetFormattedText("Versions: ElvUI |cff4beb2cv%s|r, BenikUI |cff4beb2cv%s|r", E.version, BUI.Version)
 	StatusFrame.Section1.Content.Line2.Text:SetFormattedText("Other AddOns Enabled: |cff4beb2c%s|r", AreOtherAddOnsEnabled())

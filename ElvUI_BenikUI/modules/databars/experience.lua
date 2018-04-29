@@ -68,7 +68,7 @@ function BDB:ApplyXpStyling()
 	if E.db.databars.experience.enable then
 		if xp.fb then
 			if E.db.databars.experience.orientation == 'VERTICAL' then
-				if E.db.benikui.datatexts.chat.enable then 
+				if E.db.benikui.datatexts.chat.enable then
 					xp.fb:Show()
 				else
 					xp.fb:Hide()
@@ -85,7 +85,7 @@ function BDB:ApplyXpStyling()
 		end
 	else
 		if xp.style then
-			xp.style:Hide()	
+			xp.style:Hide()
 		end
 	end
 end

@@ -128,7 +128,7 @@ function E:UpdateBlizzardFonts()
 		--SetFont(GameFontHighlight, 					NORMAL, self.db.general.fontSize);
 		--SetFont(GameFontHighlightLarge,				NORMAL, 15);
 		--SetFont(GameFontNormalHuge,					NORMAL, 16);
-		
+
 		--SetFont(SystemFont_InverseShadow_Small, 	NORMAL, 10);
 
 

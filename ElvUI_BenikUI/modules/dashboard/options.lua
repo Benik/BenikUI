@@ -79,7 +79,7 @@ local archyTokens = {
 	398,	-- Draenei Archaeology Fragment
 	399,	-- Vrykul Archaeology Fragment
 	400,	-- Nerubian Archaeology Fragment
-	401,	-- Tol'vir Archaeology Fragment	
+	401,	-- Tol'vir Archaeology Fragment
 	676,	-- Pandaren Archaeology Fragment
 	677,	-- Mogu Archaeology Fragment
 	754,	-- Mantid Archaeology Fragment
@@ -266,7 +266,7 @@ local function dashboardsTable()
 							[2] = CUSTOM,
 						},
 						get = function(info) return E.db.dashboards[ info[#info] ] end,
-						set = function(info, value) E.db.dashboards[ info[#info] ] = value; 
+						set = function(info, value) E.db.dashboards[ info[#info] ] = value;
 							if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
 							if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
 							if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end

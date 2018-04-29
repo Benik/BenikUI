@@ -38,7 +38,7 @@ local OnEvent = function(self)
 	for i = 1, #inProgressMissions do
 		if inProgressMissions[i].inProgress then
 			local TimeLeft = inProgressMissions[i].timeLeft:match("%d")
-			
+
 			if (TimeLeft ~= "0") then
 				CountInProgress = CountInProgress + 1
 			else
@@ -137,7 +137,7 @@ local OnEnter = function(self)
 				DT.tooltip:AddDoubleLine(Mission.name, GARRISON_MISSION_COMPLETE, r, g, b, 0, 1, 0)
 			end
 		end
-		
+
 		DT.tooltip:AddLine(" ")
 	end
 
@@ -164,13 +164,13 @@ local OnEnter = function(self)
 				DT.tooltip:AddDoubleLine(shipMission.name, GARRISON_MISSION_COMPLETE, r, g, b, 0, 1, 0)
 			end
 		end
-		
+
 		DT.tooltip:AddLine(" ")
 	end
 
 	local db = E.db.benikui.datatexts.garrison
 
-	if db.currency then 
+	if db.currency then
 		local name, amount, tex = GetCurrencyInfo(GARRISON_CURRENCY)
 		DT.tooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, amount, 1, 1, 1, selectioncolor)
 	end
