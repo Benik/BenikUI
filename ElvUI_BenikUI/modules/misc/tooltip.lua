@@ -1,6 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local BTT = E:NewModule('BenikUI_Tooltip');
-local TT = E:GetModule('Tooltip')
+local TT = E:GetModule('Tooltip');
 
 local GameTooltip, GameTooltipStatusBar = _G["GameTooltip"], _G["GameTooltipStatusBar"]
 local IsAddOnLoaded = IsAddOnLoaded
@@ -26,7 +27,7 @@ local function StyleTooltip()
 		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
 	end
 
-	if not E.db.benikui.general.shadows then return end
+	if not BUI.ShadowMode then return end
 
 	if not GameTooltipStatusBar.backdrop.shadow then
 		GameTooltipStatusBar.backdrop:CreateSoftShadow()

@@ -136,7 +136,7 @@ function BAB:TransparentBackdrops()
 			local buttonBars = {_G['ElvUI_Bar'..i..'Button'..k]}
 			for _, button in pairs(buttonBars) do
 				if button.backdrop then
-					if E.db.benikui.general.shadows then
+					if BUI.ShadowMode then
 						if not button.backdrop.shadow then
 							button.backdrop:CreateSoftShadow()
 						end
@@ -168,7 +168,7 @@ function BAB:TransparentBackdrops()
 		local petButtons = {_G['PetActionButton'..i]}
 		for _, button in pairs(petButtons) do
 			if button.backdrop then
-				if E.db.benikui.general.shadows then
+				if BUI.ShadowMode then
 					if not button.backdrop.shadow then
 						button.backdrop:CreateSoftShadow()
 					end

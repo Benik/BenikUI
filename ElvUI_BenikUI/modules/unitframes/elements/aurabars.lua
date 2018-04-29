@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local UF = E:GetModule('UnitFrames');
 local UFB = E:GetModule('BuiUnits');
 
@@ -49,7 +50,7 @@ function UFB:Create_AuraBarsWithShadow()
 end
 
 function UFB:Configure_AuraBars(frame)
-	if E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true then return end
+	if not BUI.ShadowMode then return end
 
 	if not frame.VARIABLES_SET then return end
 	local auraBars = frame.AuraBars

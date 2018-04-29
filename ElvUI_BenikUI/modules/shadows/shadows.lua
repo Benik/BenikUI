@@ -96,7 +96,7 @@ end
 
 -- ElvUI tabs
 function mod:TabShadows(tab)
-	if E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true then return end
+	if not BUI.ShadowMode then return end
 	if not tab then return end
 	
 	if tab.backdrop then
@@ -107,7 +107,7 @@ end
 hooksecurefunc(S, "HandleTab", mod.TabShadows)
 
 function mod:Initialize()
-	if E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true then return end
+	if not BUI.ShadowMode then return end
 
 	raidUtilityShadows()
 	mirrorTimersShadows()

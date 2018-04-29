@@ -1,4 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
@@ -24,7 +25,7 @@ function UFB:Construct_TargetFrame()
 		frame.Portrait.backdrop.style:Hide()
 	end
 
-	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+	if BUI.ShadowMode then
 		frame.Power.backdrop:CreateSoftShadow()
 		frame.Power.backdrop.shadow:Hide()
 	end

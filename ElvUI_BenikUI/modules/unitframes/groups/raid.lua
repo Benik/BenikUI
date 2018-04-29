@@ -1,4 +1,5 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local UF = E:GetModule('UnitFrames');
 local UFB = E:GetModule('BuiUnits');
 
@@ -17,7 +18,7 @@ function UFB:Update_RaidFrames(frame, db)
 	-- Role Icon
 	UFB:Configure_RoleIcons(frame)
 
-	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+	if BUI.ShadowMode then
 		frame:CreateSoftShadow()
 	end
 

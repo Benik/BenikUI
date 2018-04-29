@@ -2,8 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local mod = E:GetModule('BuiShadows');
 
-if E.db.benikui.general == nil then E.db.benikui.general = {} end
-if E.db.benikui.general.benikuiStyle ~= true and E.db.benikui.general.shadows ~= true then return end
+if not BUI.ShadowMode then return end
 
 if not BUI.AS then return end
 local AS = unpack(AddOnSkins)

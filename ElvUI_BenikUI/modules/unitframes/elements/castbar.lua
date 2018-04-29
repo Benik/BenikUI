@@ -60,7 +60,7 @@ local function resetCastbarLevel(unit, unitframe)
 end
 
 local function ConfigureCastbarShadow(unit, unitframe)
-	if E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true then return end
+	if not BUI.ShadowMode then return end
 
 	local db = E.db.unitframe.units[unit].castbar;
 	local castbar = unitframe.Castbar
@@ -152,7 +152,7 @@ function BUIC:CastBarHooks()
 		local unitframe = _G["ElvUF_"..unit];
 		local castbar = unitframe and unitframe.Castbar
 		if castbar then
-			if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+			if BUI.ShadowMode then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
@@ -165,7 +165,7 @@ function BUIC:CastBarHooks()
 	for i = 1, 5 do
 		local castbar = _G["ElvUF_Arena"..i].Castbar
 		if castbar then
-			if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+			if BUI.ShadowMode then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
@@ -178,7 +178,7 @@ function BUIC:CastBarHooks()
 	for i = 1, MAX_BOSS_FRAMES do
 		local castbar = _G["ElvUF_Boss"..i].Castbar
 		if castbar then
-			if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+			if BUI.ShadowMode then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end

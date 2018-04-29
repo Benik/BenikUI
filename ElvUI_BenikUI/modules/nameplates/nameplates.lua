@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local NP = E:GetModule('NamePlates')
 local mod = E:NewModule('BuiNameplates', 'AceHook-3.0');
 
@@ -19,7 +20,7 @@ end
 
 
 function mod:Initialize()
-	if E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true then return end
+	if not BUI.ShadowMode then return end
 	hooksecurefunc(NP, 'StyleFrame', mod.NameplateShadows)
 end
 

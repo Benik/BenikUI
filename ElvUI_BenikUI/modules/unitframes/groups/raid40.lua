@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local UFB = E:GetModule('BuiUnits');
 
 -- GLOBALS: hooksecurefunc
@@ -10,7 +11,7 @@ function UFB:Update_Raid40Frames(frame, db)
 
 	end
 
-	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+	if BUI.ShadowMode then
 		frame:CreateSoftShadow()
 	end
 
