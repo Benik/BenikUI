@@ -35,7 +35,7 @@ P['benikui'] = {
 	['general'] = {
 		['benikuiStyle'] = true,
 		['hideStyle'] = false,
-		['shadows'] = false,
+		['shadows'] = true,
 		['auras'] = true,
 		['loginMessage'] = true,
 		['splashScreen'] = true,
@@ -248,6 +248,7 @@ P['benikuiSkins'] = {
 		['ora'] = true,
 		['pawn'] = true,
 		['dbm'] = true,
+		['bigwigs'] = true,
 	},
 	
 	['variousSkins'] = {

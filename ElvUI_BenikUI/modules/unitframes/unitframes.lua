@@ -48,11 +48,13 @@ function UFB:UnitShadows()
 		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
 
 		local unitframe = _G["ElvUF_"..frameNameUnit]
-		unitframe:CreateSoftShadow()
-		unitframe.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-		unitframe.Buffs.spacing = 3
-		unitframe.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-		unitframe.Debuffs.spacing = 3
+		if unitframe then
+			unitframe:CreateSoftShadow()
+			unitframe.Buffs.PostUpdateIcon = UFB.PostUpdateAura
+			unitframe.Buffs.spacing = 3
+			unitframe.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+			unitframe.Debuffs.spacing = 3
+		end
 	end
 end
 
@@ -64,11 +66,13 @@ function UFB:PartyShadows()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Buffs.spacing = 3
-			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Debuffs.spacing = 3
+			if unitbutton then
+				unitbutton:CreateSoftShadow()
+				unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
+				unitbutton.Buffs.spacing = 3
+				unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+				unitbutton.Debuffs.spacing = 3
+			end
 		end
 	end
 end
@@ -82,11 +86,13 @@ function UFB:RaidShadows()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Buffs.spacing = 3
-			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Debuffs.spacing = 3
+			if unitbutton then
+				unitbutton:CreateSoftShadow()
+				unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
+				unitbutton.Buffs.spacing = 3
+				unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+				unitbutton.Debuffs.spacing = 3
+			end
 		end
 	end
 end
@@ -100,6 +106,22 @@ function UFB:Raid40Shadows()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
+			if unitbutton then
+				unitbutton:CreateSoftShadow()
+				unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
+				unitbutton.Buffs.spacing = 3
+				unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+				unitbutton.Debuffs.spacing = 3
+			end
+		end
+	end
+end
+
+-- Boss shadows
+function UFB:BossShadows()
+	for i = 1, 5 do
+		local unitbutton = _G["ElvUF_Boss"..i]
+		if unitbutton then
 			unitbutton:CreateSoftShadow()
 			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
 			unitbutton.Buffs.spacing = 3
@@ -109,27 +131,17 @@ function UFB:Raid40Shadows()
 	end
 end
 
--- Boss shadows
-function UFB:BossShadows()
-	for i = 1, 5 do
-		local unitbutton = _G["ElvUF_Boss"..i]
-		unitbutton:CreateSoftShadow()
-		unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-		unitbutton.Buffs.spacing = 3
-		unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-		unitbutton.Debuffs.spacing = 3
-	end
-end
-
 -- Arena shadows
 function UFB:ArenaShadows()
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
-		unitbutton:CreateSoftShadow()
-		unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-		unitbutton.Buffs.spacing = 3
-		unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-		unitbutton.Debuffs.spacing = 3
+		if unitbutton then
+			unitbutton:CreateSoftShadow()
+			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
+			unitbutton.Buffs.spacing = 3
+			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+			unitbutton.Debuffs.spacing = 3
+		end
 	end
 end
 
@@ -137,11 +149,13 @@ end
 function UFB:TankShadows()
 	for i = 1, 2 do
 		local unitbutton = _G["ElvUF_TankUnitButton"..i]
-		unitbutton:CreateSoftShadow()
-		unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-		unitbutton.Buffs.spacing = 3
-		unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-		unitbutton.Debuffs.spacing = 3
+		if unitbutton then
+			unitbutton:CreateSoftShadow()
+			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
+			unitbutton.Buffs.spacing = 3
+			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+			unitbutton.Debuffs.spacing = 3
+		end
 	end
 end
 
@@ -149,7 +163,9 @@ end
 function UFB:TankTargetShadows()
 	for i = 1, 2 do
 		local unitbutton = _G["ElvUF_TankUnitButton"..i.."Target"]
-		unitbutton:CreateSoftShadow()
+		if unitbutton then
+			unitbutton:CreateSoftShadow()
+		end
 	end
 end
 

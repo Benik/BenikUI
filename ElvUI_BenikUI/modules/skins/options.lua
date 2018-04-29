@@ -26,6 +26,7 @@ local DecorAddons = {
 	{'oRA3', L['oRA3'], 'ora'},
 	{'Pawn', L['Pawn'], 'pawn'},
 	{'DBM-Core', L['Deadly Boss Mods'], 'dbm'},
+	{'BigWigs', L['BigWigs'], 'bigwigs'},
 }
 
 local SupportedProfiles = {

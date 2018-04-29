@@ -257,3 +257,4 @@ L['Square Minimap Buttons'] = true
 L['TinyDPS'] = true
 L['oRA3'] = true
 L['Deadly Boss Mods'] = true
+L['BigWigs'] = true

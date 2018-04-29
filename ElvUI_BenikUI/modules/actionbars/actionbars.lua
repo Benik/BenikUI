@@ -109,7 +109,9 @@ function BAB:ColorBackdrops()
 		else
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
-		name:SetBackdropColor(r, g, b, (db.abAlpha or 1))
+		if name then
+			name:SetBackdropColor(r, g, b, (db.abAlpha or 1))
+		end
 	end
 end
 

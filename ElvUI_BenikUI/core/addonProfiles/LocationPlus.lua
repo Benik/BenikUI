@@ -10,6 +10,7 @@ function BUI:LoadLocationPlusProfile()
 	E.db["locplus"]["lpauto"] = false
 	E.db["locplus"]["lpwidth"] = 220
 	E.db["locplus"]["trunc"] = true
+	E.db["locplus"]['shadow'] = true
 	E.db["movers"]["LocationMover"] = "TOP,ElvUIParent,TOP,0,-7"
 	if E.private.benikui.expressway == true then
 		E.db["locplus"]["dtheight"] = 18
