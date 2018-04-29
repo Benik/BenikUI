@@ -240,6 +240,7 @@ local function SetAFK(status)
 		AFK.AFKMode.top.anim.height:Play()
 		AFK.AFKMode.bottom:SetHeight(0)
 		AFK.AFKMode.bottom.anim.height:Play()
+		AFK.startTime = GetTime()
 		AFK.statsTimer = AFK:ScheduleRepeatingTimer("UpdateStatMessage", 5)
 		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
 		if xptxt then
