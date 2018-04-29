@@ -6,6 +6,7 @@ function BUI:LoadLocationLiteProfile()
 	E.db["loclite"]["trunc"] = true
 	E.db["loclite"]["lpwidth"] = 220
 	E.db["loclite"]["lpauto"] = false
+	E.db["loclite"]['shadow'] = true
 	E.db["movers"]["LocationLiteMover"] = "TOP,ElvUIParent,TOP,0,-7"
 	if E.private.benikui.expressway == true then
 		E.db["loclite"]["dtheight"] = 18
