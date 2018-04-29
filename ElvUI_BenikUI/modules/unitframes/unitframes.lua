@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local UFB = E:NewModule('BuiUnits', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 local UF = E:GetModule('UnitFrames');
 
@@ -268,7 +269,7 @@ function UFB:Initialize()
 	self:ChangeHealthBarTexture()
 	self:InfoPanelColor()
 
-	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+	if BUI.ShadowMode then
 		self:UnitShadows()
 		self:PartyShadows()
 		self:RaidShadows()

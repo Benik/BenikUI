@@ -39,7 +39,7 @@ local function StyleBar()
 	bar.fb = CreateFrame('Button', nil, bar)
 	bar.fb:CreateSoftGlow()
 	bar.fb.sglow:Hide()
-	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+	if BUI.ShadowMode then
 		bar.fb:CreateSoftShadow()
 	end
 	bar.fb:Point('TOPLEFT', bar, 'BOTTOMLEFT', 0, -SPACING)
@@ -206,7 +206,7 @@ function BDB:LoadHonor()
 		hooksecurefunc(M, 'UpdateHonorDimensions', BDB.UpdateHonorNotifierPositions)
 	end
 
-	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+	if BUI.ShadowMode then
 		if not bar.style then
 			bar:CreateSoftShadow()
 		end

@@ -1,9 +1,10 @@
 local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local UF = E:GetModule('UnitFrames');
 local UFB = E:GetModule('BuiUnits');
 
 function UFB:Configure_ClassBar(frame)
-	if E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true then return end
+	if not BUI.ShadowMode then return end
 
 	if not frame.VARIABLES_SET then return end
 	local bars = frame[frame.ClassBar]
