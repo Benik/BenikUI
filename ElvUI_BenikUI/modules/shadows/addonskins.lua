@@ -131,7 +131,9 @@ function mod:DBMShadows()
 		end
 	end
 
-	hooksecurefunc(DBT, 'CreateBar', SkinBars)
+	if DBM then -- We need this check, if DBM isnt loaded = error!
+		hooksecurefunc(DBT, 'CreateBar', SkinBars)
+	end
 end
 
 function mod:AddonSkins()
