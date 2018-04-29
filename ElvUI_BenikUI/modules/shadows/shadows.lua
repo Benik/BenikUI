@@ -35,7 +35,7 @@ local function ObjectiveTrackerShadows()
 
 	ObjectiveTrackerFrame.HeaderMenu.MinimizeButton:CreateSoftShadow()
 	ObjectiveTrackerFrame.HeaderMenu.MinimizeButton.shadow:SetOutside()
-	
+
 	local function ProgressBarsShadows(self, _, line)
 		local progressBar = line and line.ProgressBar
 		local bar = progressBar and progressBar.Bar
@@ -44,7 +44,7 @@ local function ObjectiveTrackerShadows()
 
 		if not progressBar.hasShadow then
 			bar.backdrop:CreateSoftShadow()
-			
+
 			if icon then
 				if not bar.dummy then -- need a frame to apply the shadow
 					bar.dummy = CreateFrame('Frame', nil, bar)
@@ -60,7 +60,7 @@ local function ObjectiveTrackerShadows()
 	hooksecurefunc(WORLD_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(SCENARIO_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	
+
 	local function FindGroupButtonShadows(block)
 		if block.hasGroupFinderButton and block.groupFinderButton then
 			if block.groupFinderButton and not block.groupFinderButton.hasShadow then
@@ -88,7 +88,7 @@ local function miscShadows()
 	if E.private.skins.blizzard.enable ~= true then return end
 
 	local db = E.private.skins.blizzard
-	
+
 	if db.character then
 		EquipmentFlyoutFrameButtons:CreateSoftShadow()
 	end
@@ -98,7 +98,7 @@ end
 function mod:TabShadows(tab)
 	if not BUI.ShadowMode then return end
 	if not tab then return end
-	
+
 	if tab.backdrop then
 		tab.backdrop:SetTemplate("Transparent")
 		tab.backdrop:CreateSoftShadow()
