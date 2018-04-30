@@ -15,7 +15,7 @@ local function CreateWideShadow(f)
 	wideshadow:SetFrameLevel(1)
 	wideshadow:SetFrameStrata('BACKGROUND')
 	wideshadow:SetOutside(f, 6, 6)
-	wideshadow:SetBackdrop( { 
+	wideshadow:SetBackdrop( {
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(6),
 		insets = {left = E:Scale(8), right = E:Scale(8), top = E:Scale(8), bottom = E:Scale(8)},
 	})
@@ -32,7 +32,7 @@ local function CreateSoftShadow(f)
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, 2, 2)
-	shadow:SetBackdrop( { 
+	shadow:SetBackdrop( {
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
@@ -52,7 +52,7 @@ local function CreateStyleShadow(f)
 	styleShadow:Point('TOPLEFT', f, 'TOPLEFT', -2, 2)
 	styleShadow:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT', 2, 0)
 
-	styleShadow:SetBackdrop( { 
+	styleShadow:SetBackdrop( {
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
@@ -70,7 +70,7 @@ local function CreateSoftGlow(f)
 	sglow:SetFrameLevel(1)
 	sglow:SetFrameStrata(f:GetFrameStrata())
 	sglow:SetOutside(f, 3, 3)
-	sglow:SetBackdrop( { 
+	sglow:SetBackdrop( {
 		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})

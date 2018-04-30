@@ -45,7 +45,7 @@ local Currency = {
 	398,	-- Draenei Archaeology Fragment
 	399,	-- Vrykul Archaeology Fragment
 	400,	-- Nerubian Archaeology Fragment
-	401,	-- Tol'vir Archaeology Fragment	
+	401,	-- Tol'vir Archaeology Fragment
 	676,	-- Pandaren Archaeology Fragment
 	677,	-- Mogu Archaeology Fragment
 	754,	-- Mantid Archaeology Fragment
@@ -151,7 +151,7 @@ function mod:UpdateTokens()
 
 	for _, id in pairs(Currency) do
 		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
-		
+
 		if name then
 			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = false end
 

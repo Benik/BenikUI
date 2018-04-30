@@ -228,7 +228,7 @@ local function Core()
 									E.db.benikui.colors[ info[#info] ] = {}
 									local t = E.db.benikui.colors[ info[#info] ]
 									t.r, t.g, t.b, t.a = r, g, b, a
-									BUI:UpdateStyleColors(); 
+									BUI:UpdateStyleColors();
 								end,
 							},
 							styleAlpha = {
@@ -286,7 +286,7 @@ local function Core()
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
 								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
-							},	
+							},
 						},
 					},
 					gameMenu = {

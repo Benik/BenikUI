@@ -64,7 +64,7 @@ local function StyleBar()
 	rp.fb:SetScript('OnClick', function(self)
 		ToggleCharacter("ReputationFrame")
 	end)
-	
+
 	BDB:ToggleRepBackdrop()
 
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -103,7 +103,7 @@ function BDB:ChangeRepColor()
 
 	if db.default then
 		elvstatus:SetStatusBarColor(color.r, color.g, color.b)
-	else 
+	else
 		if reaction >= 5 then
 			elvstatus:SetStatusBarColor(BUI:unpackColor(db.friendly))
 		elseif reaction == 4 then
@@ -181,7 +181,7 @@ function BDB:UpdateRepNotifier()
 		if currentValue and threshold then
 			min, max = 0, threshold
 			value = currentValue % threshold
-			if hasRewardPending then 
+			if hasRewardPending then
 				value = value + threshold
 			end
 		end

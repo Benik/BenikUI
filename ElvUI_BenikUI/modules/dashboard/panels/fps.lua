@@ -88,10 +88,10 @@ function mod:CreateFps()
 
 			GameTooltip:SetOwner(boardName, 'ANCHOR_RIGHT', 5, 0)
 			GameTooltip:ClearLines()
-			
+
 			RebuildAddonList()
 			UpdateMemory()
-			
+
 			GameTooltip:AddDoubleLine(L["Total Memory:"], formatMem(totalMemory), 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
 			GameTooltip:AddLine(' ')
 

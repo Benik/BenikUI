@@ -8,7 +8,7 @@ function BUI:LoadStamProfile()
 	else
 		font = "Bui Prototype"
 	end
-	
+
 	if stAddonManagerDB["profiles"]["BenikUI"] == nil then stAddonManagerDB["profiles"]["BenikUI"] = {} end
 	stAddonManagerDB["profiles"]["BenikUI"]["FontSize"] = 12
 	stAddonManagerDB["profiles"]["BenikUI"]["NumAddOns"] = 20

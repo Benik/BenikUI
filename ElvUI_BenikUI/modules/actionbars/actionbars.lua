@@ -79,7 +79,7 @@ local r, g, b = 0, 0, 0
 function BAB:ColorBackdrops()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local db = E.db.benikui.colors
-	
+
 	for i = 1, availableActionbars do
 		local styleBacks = {_G['ElvUI_Bar'..i].backdrop.style}
 

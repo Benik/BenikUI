@@ -64,7 +64,7 @@ end
 function BUI:SplashScreen()
 	if not E.db.benikui.general.splashScreen then return end
 	CreateSplashScreen()
-	
+
 	local db = E.private.benikui.session
 	local _, _, day = CalendarGetDate()
 	if day == db.day then return end

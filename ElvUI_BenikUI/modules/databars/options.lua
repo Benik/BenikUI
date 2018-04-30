@@ -262,7 +262,7 @@ local function databarsTable()
 						type = "execute",
 						name = L["ElvUI"].." "..L["Artifact Bar"],
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "artifact") end,
-					},					
+					},
 				},
 			},
 			reputation = {
@@ -546,7 +546,7 @@ tinsert(BUI.Config, databarsTable)
 
 local function injectElvUIDatabarOptions()
 	-- xp
-	E.Options.args.databars.args.experience.args.textYoffset = {	
+	E.Options.args.databars.args.experience.args.textYoffset = {
 		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
@@ -554,7 +554,7 @@ local function injectElvUIDatabarOptions()
 		get = function(info) return E.db.databars.experience[ info[#info] ] end,
 		set = function(info, value) E.db.databars.experience[ info[#info] ] = value; BDB:XpTextOffset() end,
 	}
-	
+
 	E.Options.args.databars.args.experience.args.spacer1 = {
 		order = 21,
 		type = 'description',
@@ -574,7 +574,7 @@ local function injectElvUIDatabarOptions()
 	}
 
 	-- artifact
-	E.Options.args.databars.args.artifact.args.textYoffset = {	
+	E.Options.args.databars.args.artifact.args.textYoffset = {
 		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
@@ -632,7 +632,7 @@ local function injectElvUIDatabarOptions()
 	}
 
 	-- honor
-	E.Options.args.databars.args.honor.args.textYoffset = {	
+	E.Options.args.databars.args.honor.args.textYoffset = {
 		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,

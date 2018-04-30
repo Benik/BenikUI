@@ -59,7 +59,7 @@ local function OnEnter(self)
 		else
 			DT.tooltip:AddLine(HAVE_MAIL)
 		end
-		
+
 		if sender1 then DT.tooltip:AddLine(sender1); end
 		if sender2 then DT.tooltip:AddLine(sender2); end
 		if sender3 then DT.tooltip:AddLine(sender3); end

@@ -58,7 +58,7 @@ function mod:UpdateProfessions()
 	end)
 
 	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
-	
+
 	if (prof1 or prof2 or archy or fishing or cooking or firstAid) then
 		local proftable = { GetProfessions() }
 
@@ -149,7 +149,7 @@ function mod:UpdateProfessions()
 					end)
 
 					self.ProFrame.IconBG.Icon:SetTexture(icon)
-					
+
 					self.ProFrame.name = name
 
 					tinsert(BUI.ProfessionsDB, self.ProFrame)
@@ -205,7 +205,7 @@ end
 
 function mod:LoadProfessions()
 	if E.db.dashboards.professions.enableProfessions ~= true then return end
-	
+
 	mod:CreateProfessionsDashboard()
 	mod:ProfessionsEvents()
 
