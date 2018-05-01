@@ -29,10 +29,9 @@ function UFB:Configure_ClassBar(frame)
 		end
 	end
 
-	if (frame.ClassBar == 'ClassIcons' or frame.ClassBar == 'Runes') then
+	if (frame.ClassBar == 'ClassPower' or frame.ClassBar == 'Runes') then
 		local maxBars = max(UF['classMaxResourceBar'][E.myclass] or 0, MAX_COMBO_POINTS)
 		for i = 1, maxBars do
-			print('BEEP')
 			if not bars[i].backdrop.shadow then
 				bars[i].backdrop:CreateSoftShadow()
 			end
