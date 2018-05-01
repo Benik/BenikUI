@@ -14,6 +14,19 @@ function UFB:Configure_ClassBar(frame)
 		bars.backdrop:CreateSoftShadow()
 	end
 
+	frame.shadow:ClearAllPoints()
+	if frame.USE_MINI_CLASSBAR and not frame.CLASSBAR_DETACHED then
+		frame.shadow:Point('TOPLEFT', frame.Health.backdrop, 'TOPLEFT', -2, 2)
+		frame.shadow:Point('BOTTOMRIGHT', frame, 'BOTTOMRIGHT', 2, -2)
+		bars.backdrop.shadow:Show()
+	elseif not frame.CLASSBAR_DETACHED then
+		frame.shadow:SetOutside(frame, 2, 2)
+		bars.backdrop.shadow:Hide()
+	else
+		frame.shadow:SetOutside(frame, 2, 2)
+		bars.backdrop.shadow:Show()
+	end
+
 	if (frame.ClassBar == 'ClassIcons' or frame.ClassBar == 'Runes') then
 		local maxClassBarButtons = max(UF.classMaxResourceBar[E.myclass] or 0, MAX_COMBO_POINTS)
 		for i = 1, maxClassBarButtons do
