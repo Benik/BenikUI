@@ -38,5 +38,4 @@ function UFB:Configure_ClassBar(frame)
 		end
 	end
 end
-hooksecurefunc(UF, "Configure_ClassBar", UFB.Configure_ClassBar)
 
