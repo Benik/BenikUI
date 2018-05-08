@@ -134,12 +134,14 @@ local function styleFreeBlizzardFrames()
 		ChatConfigFrame:Style('Outside')
 		ChatMenu:Style('Outside')
 		CinematicFrameCloseDialog:Style('Outside')
-		DropDownList1:Style('Outside') -- Maybe this get replaced with new Lib_Dropdown
-		DropDownList2:Style('Outside') -- Maybe this get replaced with new Lib_Dropdown
-		L_DropDownList1MenuBackdrop:Style('Outside')
-		L_DropDownList2MenuBackdrop:Style('Outside')
-		L_DropDownList1Backdrop:Style('Outside')
-		L_DropDownList2Backdrop:Style('Outside')
+		DropDownList1:Style('Outside')
+		DropDownList2:Style('Outside')
+		if LibStub("LibUIDropDownMenu", true) then
+			L_DropDownList1MenuBackdrop:Style('Outside')
+			L_DropDownList2MenuBackdrop:Style('Outside')
+			L_DropDownList1Backdrop:Style('Outside')
+			L_DropDownList2Backdrop:Style('Outside')
+		end
 		EmoteMenu:Style('Outside')
 		GameMenuFrame:Style('Outside')
 		GhostFrame:Style('Outside')
