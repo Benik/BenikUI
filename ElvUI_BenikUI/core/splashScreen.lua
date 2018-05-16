@@ -4,7 +4,7 @@ local BUI = E:GetModule('BenikUI')
 -- GLOBALS: BenikUISplashScreen
 
 local C_TimerAfter = C_Timer.After
-local CalendarGetDate = CalendarGetDate
+local C_Calendar_GetDate = C_Calendar.GetDate
 
 local function HideSplashScreen()
 	BenikUISplashScreen:Hide()
@@ -66,7 +66,7 @@ function BUI:SplashScreen()
 	CreateSplashScreen()
 
 	local db = E.private.benikui.session
-	local _, _, day = CalendarGetDate()
+	local _, _, day = C_Calendar_GetDate()
 	if day == db.day then return end
 
 	-- Show Splash Screen only if the install is completed
