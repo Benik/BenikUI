@@ -34,9 +34,8 @@ end
 function BDB:Initialize()
 	self:LoadXP()
 	self:LoadRep()
-	self:LoadAF()
-	self:LoadHonor()
-	-- clean the old db
+	--self:LoadAF()
+	--self:LoadHonor()
 end
 
 local function InitializeCallback()
