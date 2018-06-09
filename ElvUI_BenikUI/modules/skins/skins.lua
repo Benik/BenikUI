@@ -136,10 +136,6 @@ local function styleFreeBlizzardFrames()
 		CinematicFrameCloseDialog:Style('Outside')
 		DropDownList1MenuBackdrop:Style('Outside')
 		DropDownList2MenuBackdrop:Style('Outside')
-		if LibStub("LibUIDropDownMenu", true) then
-			L_DropDownList1MenuBackdrop:Style('Outside')
-			L_DropDownList2MenuBackdrop:Style('Outside')
-		end
 		EmoteMenu:Style('Outside')
 		GameMenuFrame:Style('Outside')
 		GhostFrame:Style('Outside')
