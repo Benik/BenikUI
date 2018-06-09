@@ -1,8 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
-local mod = E:GetModule('BuiShadows');
-
-if not BUI.ShadowMode then return end
 
 if not BUI.AS then return end
 local AS = unpack(AddOnSkins)
@@ -10,6 +7,8 @@ local AS = unpack(AddOnSkins)
 if not AS:CheckAddOn('BigWigs') then return end
 
 function AS:BigWigs(event, addon)
+	if BUI.ShadowMode ~= true then return end
+
 	if event == 'PLAYER_ENTERING_WORLD' then
 		if BigWigsLoader then
 			BigWigsLoader.RegisterMessage('AddOnSkins', "BigWigs_FrameCreated", function(event, frame, name)

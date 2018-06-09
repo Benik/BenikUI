@@ -50,6 +50,7 @@ local function ObjectiveTrackerShadows()
 					bar.dummy = CreateFrame('Frame', nil, bar)
 					bar.dummy:SetOutside(icon)
 					bar.dummy:CreateSoftShadow()
+					bar.dummy:SetShown(icon:IsShown())
 				end
 				icon:Size(18) -- I like this better
 			end

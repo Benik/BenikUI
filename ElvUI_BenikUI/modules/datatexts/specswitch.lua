@@ -6,7 +6,7 @@ local select = select
 local join = string.join
 
 local CreateFrame = CreateFrame
-local L_EasyMenu = L_EasyMenu
+local EasyMenu = EasyMenu
 local GetSpecialization = GetSpecialization
 local GetActiveSpecGroup = GetActiveSpecGroup
 local GetSpecializationInfo = GetSpecializationInfo
@@ -22,7 +22,7 @@ local displayString = '';
 local activeString = join("", "|cff00FF00" , ACTIVE_PETS, "|r")
 local inactiveString = join("", "|cffFF0000", FACTION_INACTIVE, "|r")
 
-local menuFrame = CreateFrame("Frame", "LootSpecializationDatatextClickMenu", E.UIParent, "UIDropDownMenuTemplate")
+local menuFrame = CreateFrame("Frame", "BenikUI_LootSpecializationDatatextClickMenu", E.UIParent, "UIDropDownMenuTemplate")
 menuFrame:SetTemplate('Transparent')
 
 local menuList = {
@@ -113,7 +113,7 @@ local function OnClick(self, button)
 				specList[index + 1] = nil
 			end
 		end
-		L_EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
+		EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
 	else
 		local specID, specName = GetSpecializationInfo(specIndex);
 		menuList[2].text = format(LOOT_SPECIALIZATION_DEFAULT, specName);
@@ -127,7 +127,7 @@ local function OnClick(self, button)
 				menuList[index + 2] = nil
 			end
 		end
-		L_EasyMenu(menuList, menuFrame, "cursor", -15, -7, "MENU", 2)
+		EasyMenu(menuList, menuFrame, "cursor", -15, -7, "MENU", 2)
 	end
 end
 

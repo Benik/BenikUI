@@ -140,7 +140,7 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 		style:SetBackdropColor(unpack(E["media"].backdropcolor))
 	end
 
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		f:CreateSoftShadow()
 		if template == 'Outside' or template == 'Small' then
 			style:CreateStyleShadow()

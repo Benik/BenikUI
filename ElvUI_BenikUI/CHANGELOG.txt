@@ -1,3 +1,13 @@
+3.39
+Fixed a lua error if DBM is not loaded.
+Fixed Player frame shadows when the classBar is not detached.
+Fixed shadow classBars for all classes.
+Fixed objective tracker icon shadow showing while the icon doesn't exist.
+Fixed BigWigs shadows not showing
+.
+Fixed aura icons not applying shadows.
+Removed LibUIDropdown styling till I have time.
+
 3.38
 Added checks and options to toggle shadows for DBM and BigWigs.
 Added several checks in unitframe shadow creation.

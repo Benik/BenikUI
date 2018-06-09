@@ -66,6 +66,9 @@ function UFB:ArrangePlayer()
 	-- AuraBars shadows
 	UFB:Configure_AuraBars(frame)
 
+	-- ClassBar shadows
+	UFB:Configure_ClassBar(frame)
+
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
