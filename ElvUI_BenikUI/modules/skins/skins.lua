@@ -49,7 +49,7 @@ local function styleFreeBlizzardFrames()
 		ReputationDetailFrame:Style('Outside')
 		ReputationFrame:Style('Outside')
 		if db.tooltip then
-			ReputationParagonTooltip:Style('Outside')
+			--ReputationParagonTooltip:Style('Outside')
 		end
 		TokenFrame:Style('Outside')
 		TokenFramePopup:Style('Outside')
@@ -65,7 +65,7 @@ local function styleFreeBlizzardFrames()
 
 	if db.friends then
 		AddFriendFrame:Style('Outside')
-		ChannelFrameDaughterFrame.backdrop:Style('Outside')
+		--ChannelFrameDaughterFrame.backdrop:Style('Outside')
 		FriendsFrame:Style('Outside')
 		FriendsFriendsFrame.backdrop:Style('Outside')
 		RecruitAFriendFrame:Style('Outside')
@@ -251,7 +251,7 @@ local function styleOrderHall()
 	if _G["AdventureMapQuestChoiceDialog"].backdrop then
 		_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
 	end
-	_G["OrderHallTalentFrame"]:Style('Outside')
+	--_G["OrderHallTalentFrame"]:Style('Outside')
 	if E.private.skins.blizzard.tooltip then
 		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
 		_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')
@@ -570,8 +570,8 @@ function BUIS:PLAYER_ENTERING_WORLD(...)
 		styleOrderHall()
 	end
 
-	_G["WorldMapFrame"]:HookScript('OnShow', FixMapStyle)
-	hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
+	--_G["WorldMapFrame"]:HookScript('OnShow', FixMapStyle)
+	--hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
