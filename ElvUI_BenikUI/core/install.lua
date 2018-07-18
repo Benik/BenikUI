@@ -285,8 +285,10 @@ local function SetupChat()
 			FCF_SetLocked(frame, 1)
 			frame:Show()
 		end
-		FCF_SavePositionAndDimensions(frame)
-		FCF_StopDragging(frame)
+		if frame:GetLeft() then
+			FCF_SavePositionAndDimensions(frame)
+			FCF_StopDragging(frame)
+		end
 	end
 
 	PluginInstallStepComplete.message = BUI.Title..L['Chat Set']
