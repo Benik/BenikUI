@@ -68,7 +68,7 @@ function BUI:SplashScreen()
 	local db = E.private.benikui.session
 	local date = C_Calendar_GetDate()
 	local presentWeekday = date.weekday;
-	print(presentWeekday, db.day)
+
 	if presentWeekday == db.day then return end
 
 	-- Show Splash Screen only if the install is completed
