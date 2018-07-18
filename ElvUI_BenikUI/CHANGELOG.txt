@@ -1,3 +1,8 @@
+3.40
+8.0.1 Compatibily Patch
+For a full changelog have a look at: https://git.tukui.org/Benik/ElvUI_BenikUI/commits/development
+-- Merathilis
+
 3.39
 Fixed a lua error if DBM is not loaded.
 Fixed Player frame shadows when the classBar is not detached.
