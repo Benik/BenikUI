@@ -7,7 +7,7 @@ local format, random, lower, tonumber, date, floor = string.format, random, stri
 local CreateFrame = CreateFrame
 local GetGameTime = GetGameTime
 local GetScreenHeight, GetScreenWidth = GetScreenHeight, GetScreenWidth
-local CalendarGetDate = CalendarGetDate
+local C_Calendar_GetDate = C_Calendar.GetDate
 local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic
 local IsXPUserDisabled = IsXPUserDisabled
@@ -135,8 +135,12 @@ local daysAbr = {
 
 -- Create Date
 local function createDate()
-	local curDayName, curMonth, curDay, curYear = CalendarGetDate()
-	AFK.AFKMode.top.date:SetFormattedText("%s, %s %d, %d", daysAbr[curDayName], monthAbr[curMonth], curDay, curYear)
+	local date = C_Calendar_GetDate();
+	local presentWeekday = date.weekday;
+	local presentMonth = date.month;
+	local presentDay = date.monthDay;
+	local presentYear = date.year;
+	AFK.AFKMode.top.date:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
 end
 
 -- Create random stats
