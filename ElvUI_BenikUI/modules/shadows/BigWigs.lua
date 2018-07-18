@@ -7,7 +7,6 @@ local AS = unpack(AddOnSkins)
 if not AS:CheckAddOn('BigWigs') then return end
 
 function AS:BigWigs(event, addon)
-	if BUI.ShadowMode ~= true then return end
 
 	if event == 'PLAYER_ENTERING_WORLD' then
 		if BigWigsLoader then
@@ -17,7 +16,7 @@ function AS:BigWigs(event, addon)
 					frame:ClearAllPoints()
 					frame:SetPoint('TOP', '$parent', 'BOTTOM', 0, -(AS.PixelPerfect and 2 or 4))
 					frame:SetHeight(16)
-					if E.db.benikuiSkins.addonSkins.bigwigs then
+					if BUI.ShadowMode and E.db.benikuiSkins.addonSkins.bigwigs then
 						frame:CreateSoftShadow()
 					end
 				end
@@ -28,7 +27,7 @@ function AS:BigWigs(event, addon)
 	if event == 'ADDON_LOADED' and addon == 'BigWigs_Plugins' then
 		AS:UnregisterSkinEvent('BigWigs', "ADDON_LOADED")
 		
-		if E.db.benikuiSkins.addonSkins.bigwigs then
+		if BUI.ShadowMode and E.db.benikuiSkins.addonSkins.bigwigs then
 			BigWigsInfoBox:CreateSoftShadow()
 			BigWigsAltPower:CreateSoftShadow()
 		end
@@ -39,7 +38,7 @@ function AS:BigWigs(event, addon)
 		local CreateBG = function()
 			local BG = CreateFrame('Frame')
 			BG:SetTemplate('Transparent')
-			if E.db.benikuiSkins.addonSkins.bigwigs then
+			if BUI.ShadowMode and E.db.benikuiSkins.addonSkins.bigwigs then
 				BG:CreateSoftShadow()
 			end
 
