@@ -142,5 +142,5 @@ function BAB:TaxiButton()
 end
 
 function BAB:LoadRequestButton()
-	self:TaxiButton()
+	--self:TaxiButton()
 end
