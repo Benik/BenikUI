@@ -13,7 +13,9 @@ local C_TimerAfter = C_Timer.After
 local CreateFrame = CreateFrame
 local UnitOnTaxi, IsAddOnLoaded = UnitOnTaxi, IsAddOnLoaded
 local MoveViewLeftStart, MoveViewLeftStop = MoveViewLeftStart, MoveViewLeftStop
-local GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo
+local GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo
+local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
+local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
 local GetScreenWidth = GetScreenWidth
 local InCombatLockdown = InCombatLockdown
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
@@ -53,10 +55,12 @@ local function AutoColoring()
 end
 
 function BFM:CreateCoords()
-	local x, y = GetPlayerMapPosition("player")
+	local mapID = C_Map_GetBestMapForUnit("player")
+	local mapPos = mapID and C_Map_GetPlayerMapPosition(mapID, "player")
+	if mapPos then x, y = mapPos:GetXY() end
 
-	x = tonumber(E:Round(100 * x))
-	y = tonumber(E:Round(100 * y))
+	x = (mapPos and x) and E:Round(100 * x) or 0
+	y = (mapPos and y) and E:Round(100 * y) or 0
 
 	return x, y
 end
@@ -667,4 +671,4 @@ local function InitializeCallback()
 	ToggleWorldMap()
 end
 
---E:RegisterModule(BFM:GetName(), InitializeCallback)
+E:RegisterModule(BFM:GetName(), InitializeCallback)
