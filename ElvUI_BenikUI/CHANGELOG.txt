@@ -1,3 +1,6 @@
+3.41
+*Fixed a bunch of errors. Should be more stable now.
+
 3.40
 8.0.1 Compatibily Patch
 For a full changelog have a look at: https://git.tukui.org/Benik/ElvUI_BenikUI/commits/development
