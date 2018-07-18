@@ -44,12 +44,6 @@ local function style_ArtifactUI()
 	frame.backdrop:Style('Outside')
 	frame.CloseButton:ClearAllPoints()
 	frame.CloseButton:SetPoint("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
-
-	local forgeFrame = _G["ArtifactRelicForgeFrame"]
-	forgeFrame.backdrop:Style('Outside')
-	forgeFrame.benik = CreateFrame('Frame', nil, forgeFrame)
-	forgeFrame.benik:SetTemplate("Transparent")
-	forgeFrame.benik:SetAllPoints(forgeFrame.TalentsBackground)
 end
 S:AddCallbackForAddon("Blizzard_ArtifactUI", "BenikUI_ArtifactUI", style_ArtifactUI)
 
@@ -303,7 +297,6 @@ S:AddCallbackForAddon("Blizzard_ObliterumUI", "BenikUI_ObliterumUI", style_Oblit
 local function style_PVPUI()
 	if E.private.skins.blizzard.pvp ~= true or E.private.skins.blizzard.tooltip ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	_G["PVPRewardTooltip"]:Style('Outside')
 	_G["ConquestTooltip"]:Style('Outside')
 end
 S:AddCallbackForAddon("Blizzard_PVPUI", "BenikUI_PVPUI", style_PVPUI)
