@@ -17,6 +17,8 @@ local GetSpecialization = GetSpecialization
 local GetActiveSpecGroup = GetActiveSpecGroup
 local GetSpecializationInfo = GetSpecializationInfo
 local GetAverageItemLevel = GetAverageItemLevel
+local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
+local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 
 local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE
 local LEVEL, NONE = LEVEL, NONE
@@ -323,7 +325,11 @@ local function Initialize()
 	AFK.AFKMode.top.wowlogo:SetFrameStrata("MEDIUM")
 	AFK.AFKMode.top.wowlogo:SetSize(300, 150)
 	AFK.AFKMode.top.wowlogo.tex = AFK.AFKMode.top.wowlogo:CreateTexture(nil, 'OVERLAY')
-	AFK.AFKMode.top.wowlogo.tex:SetAtlas("Glues-WoW-LegionLogo")
+	local currentExpansionLevel = GetClampedCurrentExpansionLevel();
+	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel);
+	if expansionDisplayInfo then
+		AFK.AFKMode.top.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
+	end
 	AFK.AFKMode.top.wowlogo.tex:SetInside()
 
 	-- Server/Local Time text
