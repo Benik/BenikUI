@@ -24,6 +24,7 @@ L['Style Auras'] = true
 L['LeftClick: Toggle Configuration'] = true
 L['RightClick: Toggle Embedded Addon'] = true
 L['ShiftClick to toggle chat'] = true
+L['RightClick to show the Addon List'] = true
 
 -- Misc
 L['Camera rotation'] = true

@@ -352,21 +352,25 @@ function BUIL:ChangeLayout()
 					self.text:SetText('<')
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
-					self:SetScript('OnClick', function(self)
-						GameMenuButtonAddons:Click()
-						PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
+					self:SetScript('OnClick', function(self, btn)
+						if btn == "LeftButton" then
+							LO:ChatButtonPanel_OnClick(self)
+						elseif btn == "RightButton" then
+							GameMenuButtonAddons:Click()
+						end
 					end)
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 64, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(ADDONS, selectioncolor)
+				GameTooltip:AddLine(CHAT_VOICE, selectioncolor)
+				GameTooltip:AddLine(L['RightClick to show the Addon List'], 0.7, 0.7, 1)
 				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.text:SetText('A')
+				self.text:SetText('V')
 				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
