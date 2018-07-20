@@ -14,7 +14,3 @@ defaults\load_defaults.xml
 core\load_core.xml
 layout\layout.lua
 modules\load_modules.xml
- 
- 
-## X-Tukui-ProjectID: 11
-## X-Tukui-ProjectFolders: ElvUI_BenikUI
