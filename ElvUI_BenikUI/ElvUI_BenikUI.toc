@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Benik
-## Version: 3.41
+## Version: 3.42
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 10+ decorative/enhancement edit
 ## RequiredDeps: ElvUI

@@ -1,3 +1,13 @@
+3.42
+*Updated and re enabled Honor bar edit
+*Donator list update. Thank you all :)
+*Cleaned the toc file. This will finally fix #15 and #30
+*flightMode: Added a fail check for SquareMinimapButtonBar. This should fix #32
+*Styled the Communities skin
+
+*AfkMode: Changed Legion logo with BfA logo
+*Changed the A button to V. Left click to show the Voice chat, Right click to show the Addon List, ShiftClick to ToggleChat
+
 3.41
 *Fixed a bunch of errors. Should be more stable now.
 
