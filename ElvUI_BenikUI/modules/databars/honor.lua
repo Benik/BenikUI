@@ -11,7 +11,7 @@ local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local InCombatLockdown = InCombatLockdown
 local HONOR = HONOR
-local MAX_PLAYER_LEVEL = 110
+local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
 
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ArtifactBar, ArtifactFrame
 
@@ -167,18 +167,11 @@ function BDB:UpdateHonorNotifier()
 		local text = ''
 		local current = UnitHonor("player");
 		local max = UnitHonorMax("player");
-		local level = UnitHonorLevel("player");
-		local levelmax = GetMaxPlayerHonorLevel();
 
 		if max == 0 then max = 1 end
 
-		if (CanPrestige()) then
-			text = 'P'
-		elseif (level == levelmax) then
-			text = 'Max'
-		else
-			text = format('%d%%', current / max * 100)
-		end
+		text = format('%d%%', current / max * 100)
+
 		bar.f.txt:SetText(text)
 	end
 end

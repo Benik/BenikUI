@@ -35,7 +35,7 @@ function BDB:Initialize()
 	self:LoadXP()
 	self:LoadRep()
 	--self:LoadAF()
-	--self:LoadHonor()
+	self:LoadHonor()
 end
 
 local function InitializeCallback()

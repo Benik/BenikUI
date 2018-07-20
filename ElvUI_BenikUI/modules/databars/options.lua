@@ -433,7 +433,7 @@ local function databarsTable()
 					},
 				},
 			},
-			--[[honor = {
+			honor = {
 				order = 4,
 				type = 'group',
 				name = HONOR,
@@ -538,7 +538,7 @@ local function databarsTable()
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "honor") end,
 					},
 				},
-			},]]
+			},
 		},
 	}
 end
@@ -631,7 +631,7 @@ local function injectElvUIDatabarOptions()
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "reputation") end,
 	}
 
-	--[[ honor
+	-- honor
 	E.Options.args.databars.args.honor.args.textYoffset = {
 		order = 20,
 		type = "range",
@@ -658,6 +658,6 @@ local function injectElvUIDatabarOptions()
 		type = "execute",
 		name = BUI.Title..HONOR,
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "honor") end,
-	}]]
+	}
 end
 tinsert(BUI.Config, injectElvUIDatabarOptions)
