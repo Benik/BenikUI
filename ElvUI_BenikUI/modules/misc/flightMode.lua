@@ -170,8 +170,10 @@ function BFM:SetFlightMode(status)
 		
 		-- Hide SquareMinimapButtonBar
 		if (BUI.PA and _G.ProjectAzilroka.db['SMB'] and not BUI.SLE) then
-			_G.SquareMinimapButtons:CancelAllTimers()
-			SquareMinimapButtonBar:SetAlpha(0)
+			if SquareMinimapButtonBar then
+				_G.SquareMinimapButtons:CancelAllTimers()
+				SquareMinimapButtonBar:SetAlpha(0)
+			end
 		end
 
 		-- Disable Blizz location messsages
@@ -249,8 +251,10 @@ function BFM:SetFlightMode(status)
 
 		-- Show SquareMinimapButtonBar
 		if (BUI.PA and _G.ProjectAzilroka.db['SMB'] and not BUI.SLE) then
-			_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
-			SquareMinimapButtonBar:SetAlpha(1)
+			if SquareMinimapButtonBar then
+				_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
+				SquareMinimapButtonBar:SetAlpha(1)
+			end
 		end
 
 		if IsAddOnLoaded("XIV_Databar") then
