@@ -16,6 +16,7 @@ local TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION = TAXI_CANCEL, TAXI_CANCEL_DESCRIPTIO
 local noFlightMapIDs = {
 	-- Antoran Wastes (Legion)
 	830, -- Krokuun
+	831,
 	882, -- Mac'Aree
 	885, -- Antoran Wastes
 	887, -- The Vindicaar
@@ -30,7 +31,6 @@ end
 
 local function TaxiButton_OnEvent(self, event)
 	local forbiddenArea = BUI:CheckFlightMapID()
-	local noFlightMapIDs = C_Map_GetBestMapForUnit("player")
 
 	if (UnitOnTaxi("player") and not IsInInstance() and not forbiddenArea) then
 		LeaveVehicleButton:Hide() -- Hide ElvUI minimap button
