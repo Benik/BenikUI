@@ -337,12 +337,12 @@ function BUIL:ChangeLayout()
 				GameTooltip:Hide()
 			end)
 
-		-- AddOns Button
+		-- VoiceChat/AddOns Button
 		elseif i == 3 then
 			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i].parent = LeftChatPanel
-			bbuttons[i].text:SetText('A')
+			bbuttons[i].text:SetText('V')
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
