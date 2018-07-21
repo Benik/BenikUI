@@ -5,7 +5,9 @@
 ## Notes: an ElvUI 10+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
-## OptionalDeps: SharedMedia, AddOnSkins, ZygorGuidesViewer
+## OptionalDeps: SharedMedia, AddOnSkins
+## X-Tukui-ProjectID: 11
+## X-Tukui-ProjectFolders: ElvUI_BenikUI
 
 libs\load_libs.xml
 media\load_media.xml
@@ -14,3 +16,4 @@ defaults\load_defaults.xml
 core\load_core.xml
 layout\layout.lua
 modules\load_modules.xml
+
