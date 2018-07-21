@@ -127,7 +127,7 @@ local function style_Communities()
 	frame.GuildMemberDetailFrame.backdrop:Style('Outside')
 	frame.NotificationSettingsDialog.backdrop:Style('Outside')
 end
-S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Collections", style_Communities)
+S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Communities", style_Communities)
 
 -- Contribution
 local function style_Contribution()
