@@ -43,34 +43,11 @@ BUI.MenuList = {
 			HideUIPanel(PlayerTalentFrame)
 		end
 	end},
-	{text = PVP_TALENTS,
-	func = function()
-		if not PlayerTalentFrame then
-			TalentFrame_LoadUI()
-		end
-
-		if not PlayerTalentFrame:IsShown() then
-			ShowUIPanel(PlayerTalentFrame)
-			_G["PlayerTalentFrameTab"..PVP_TALENTS_TAB]:Click()
-		else
-			HideUIPanel(PlayerTalentFrame)
-		end
-	end},
 	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
 	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
 	{text = ORDER_HALL_LANDING_PAGE_TITLE, func = function() GarrisonLandingPageMinimapButton_OnClick() end},
-	{text = ACHIEVEMENTS_GUILD_TAB,
-	func = function()
-		if IsInGuild() then
-			if not GuildFrame then GuildFrame_LoadUI() end
-			GuildFrame_Toggle()
-		else
-			if not LookingForGuildFrame then LookingForGuildFrame_LoadUI() end
-			if not LookingForGuildFrame then return end
-			LookingForGuildFrame_Toggle()
-		end
-	end},
+	{text = COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
 	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
 	{text = MOUNTS, func = function() ToggleCollectionsJournal(1) end},
 	{text = PET_JOURNAL, func = function() ToggleCollectionsJournal(2) end},
