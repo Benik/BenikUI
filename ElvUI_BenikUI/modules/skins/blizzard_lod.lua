@@ -123,11 +123,13 @@ local function style_Communities()
 	if E.private.skins.blizzard.Communities ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local frame = _G["CommunitiesFrame"]
-	frame.backdrop:Style('Outside')
-	frame.GuildMemberDetailFrame.backdrop:Style('Outside')
-	frame.NotificationSettingsDialog.backdrop:Style('Outside')
+	if frame then
+		frame.backdrop:Style('Outside')
+		frame.GuildMemberDetailFrame.backdrop:Style('Outside')
+		frame.NotificationSettingsDialog.backdrop:Style('Outside')
+	end
 end
-S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Communities", style_Communities)
+S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Collections", style_Communities)
 
 -- Contribution
 local function style_Contribution()
