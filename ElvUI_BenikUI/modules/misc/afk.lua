@@ -232,7 +232,9 @@ local function GetXPinfo()
 	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
 end
 
-local function SetAFK(status)
+AFK.SetAFKBui = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:SetAFKBui(status)
 	if E.db.benikui.misc.afkMode ~= true then return end
 
 	if(status) then
@@ -242,30 +244,32 @@ local function SetAFK(status)
 		local localizedClass = UnitClass('player')
 		local spec = getSpec()
 		local ilvl = getItemLevel()
-		AFK.AFKMode.top:SetHeight(0)
-		AFK.AFKMode.top.anim.height:Play()
-		AFK.AFKMode.bottom:SetHeight(0)
-		AFK.AFKMode.bottom.anim.height:Play()
-		AFK.startTime = GetTime()
-		AFK.statsTimer = AFK:ScheduleRepeatingTimer("UpdateStatMessage", 5)
-		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
+		self.AFKMode.top:SetHeight(0)
+		self.AFKMode.top.anim.height:Play()
+		self.AFKMode.bottom:SetHeight(0)
+		self.AFKMode.bottom.anim.height:Play()
+		self.startTime = GetTime()
+		self.statsTimer = self:ScheduleRepeatingTimer("UpdateStatMessage", 5)
+		self.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
 		if xptxt then
-			AFK.AFKMode.xp:Show()
-			AFK.AFKMode.xp.text:SetText(xptxt)
+			self.AFKMode.xp:Show()
+			self.AFKMode.xp.text:SetText(xptxt)
 		else
-			AFK.AFKMode.xp:Hide()
-			AFK.AFKMode.xp.text:SetText("")
+			self.AFKMode.xp:Hide()
+			self.AFKMode.xp.text:SetText("")
 		end
-		AFK.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
-	else
-		AFK:CancelTimer(AFK.statsTimer)
-		AFK:CancelTimer(AFK.logoffTimer)
+		self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
 
-		AFK.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
-		AFK.AFKMode.statMsg.info:SetFormattedText("|cffb3b3b3%s|r", L["Random Stats"])
+		self.isAFK = true
+	else
+		self:CancelTimer(self.statsTimer)
+		self:CancelTimer(self.logoffTimer)
+
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+		self.AFKMode.statMsg.info:SetFormattedText("|cffb3b3b3%s|r", L["Random Stats"])
+		self.isAFK = false
 	end
 end
-hooksecurefunc(AFK, "SetAFK", SetAFK)
 
 local find = string.find
 
