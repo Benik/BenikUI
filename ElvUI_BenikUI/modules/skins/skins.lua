@@ -357,16 +357,14 @@ local function styleGarrison()
 	S:HandleButton(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3.HireRecruits)
 end
 
--- Map styling fix
-local function FixMapStyle()
+-- WorldMap
+local function styleWorldMap()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then return end
 
 	local mapFrame = _G["WorldMapFrame"]
-	if not mapFrame.BorderFrame.backdrop.style then
-		mapFrame.BorderFrame.backdrop:Style('Outside')
+	if not mapFrame.backdrop.style then
+		mapFrame.backdrop:Style('Outside')
 	end
-
-	mapFrame.UIElementsFrame.BountyBoard.BountyName:FontTemplate(nil, 12, 'OUTLINE')
 
 	if E.private.skins.blizzard.tooltip ~= true then return end
 
@@ -564,14 +562,13 @@ function BUIS:PLAYER_ENTERING_WORLD(...)
 	styleFreeBlizzardFrames()
 	styleAddons()
 	styleGarrison()
+	styleWorldMap()
 
 	local reason = select(5, GetAddOnInfo("GarrisonCommander"))
 	if reason == "DISABLED" or reason == "MISSING" then 
 		styleOrderHall()
 	end
 
-	--_G["WorldMapFrame"]:HookScript('OnShow', FixMapStyle)
-	--hooksecurefunc('WorldMap_ToggleSizeUp', FixMapStyle)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
