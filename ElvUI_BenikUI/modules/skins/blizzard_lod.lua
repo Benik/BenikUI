@@ -114,7 +114,7 @@ local function style_Collections()
 
 	_G["CollectionsJournal"]:Style('Outside')
 	_G["WardrobeFrame"]:Style('Outside')
-	_G["WardrobeOutfitEditFrame"]:Style('Outside')
+	_G["WardrobeOutfitEditFrame"].backdrop:Style('Outside')
 end
 S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
 
@@ -129,7 +129,7 @@ local function style_Communities()
 		frame.NotificationSettingsDialog.backdrop:Style('Outside')
 	end
 end
-S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Collections", style_Communities)
+S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Communities", style_Communities)
 
 -- Contribution
 local function style_Contribution()
