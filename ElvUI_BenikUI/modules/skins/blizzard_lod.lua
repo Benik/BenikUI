@@ -337,6 +337,7 @@ local function style_TalentUI()
 			tab:GetNormalTexture():SetInside()
 		end
 	end
+	PlayerTalentFrameTalents.PvpTalentFrame.TalentList.backdrop:Style('Outside')
 end
 S:AddCallbackForAddon("Blizzard_TalentUI", "BenikUI_TalentUI", style_TalentUI)
 
