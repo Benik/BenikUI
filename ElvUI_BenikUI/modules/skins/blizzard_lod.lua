@@ -307,6 +307,34 @@ local function style_ObliterumUI()
 end
 S:AddCallbackForAddon("Blizzard_ObliterumUI", "BenikUI_ObliterumUI", style_ObliterumUI)
 
+-- GarrisonUI
+local function style_GarrisonUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true then return end
+
+	_G["OrderHallMissionFrame"]:Style('Small')
+	if _G["AdventureMapQuestChoiceDialog"].backdrop then
+		_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
+	end
+
+	if E.private.skins.blizzard.tooltip then
+		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
+		_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')
+	end
+end
+S:AddCallbackForAddon("Blizzard_GarrisonUI", "BenikUI_GarrisonUI", style_GarrisonUI)
+
+-- OrderHallUI
+local function style_OrderHallUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true then return end
+
+	_G["OrderHallTalentFrame"]:HookScript("OnShow", function(self)
+		if self.styled then return end
+		self:Style('Outside')
+		self.styled = true
+	end)
+end
+S:AddCallbackForAddon("Blizzard_OrderHallUI", "BenikUI_OrderHallUI", style_OrderHallUI)
+
 -- PVPUI
 local function style_PVPUI()
 	if E.private.skins.blizzard.pvp ~= true or E.private.skins.blizzard.tooltip ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end

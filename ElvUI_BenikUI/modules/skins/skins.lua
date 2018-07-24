@@ -242,22 +242,6 @@ local function styleSpellbook()
 end
 S:AddCallback("BenikUI_Spellbook", styleSpellbook)
 
--- Order Hall
-local function styleOrderHall()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true then return end
-	if (not _G["OrderHallMissionFrame"]) then LoadAddOn("Blizzard_OrderHallUI") end
-
-	_G["OrderHallMissionFrame"]:Style('Small')
-	if _G["AdventureMapQuestChoiceDialog"].backdrop then
-		_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
-	end
-	--_G["OrderHallTalentFrame"]:Style('Outside')
-	if E.private.skins.blizzard.tooltip then
-		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
-		_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')
-	end
-end
-
 -- Garrison Style
 local fRecruits = {}
 local function styleGarrison()
@@ -563,11 +547,6 @@ function BUIS:PLAYER_ENTERING_WORLD(...)
 	styleAddons()
 	styleGarrison()
 	styleWorldMap()
-
-	local reason = select(5, GetAddOnInfo("GarrisonCommander"))
-	if reason == "DISABLED" or reason == "MISSING" then 
-		styleOrderHall()
-	end
 
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
