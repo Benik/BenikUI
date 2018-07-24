@@ -289,7 +289,17 @@ local function style_LookingForGuildUI()
 
 	_G["LookingForGuildFrame"]:Style('Outside')
 end
-S:AddCallbackForAddon("Blizzard_LookingForGuildUI", "BenikUI_LookingForGuildUI", style_LookingForGuildUI)
+
+local function LoadStyle()
+	if LookingForGuildFrame then
+		--Frame already created
+		style_LookingForGuildUI()
+	else
+		--Frame not created yet, wait until it is
+		hooksecurefunc("LookingForGuildFrame_CreateUIElements", style_LookingForGuildUI)
+	end
+end
+S:AddCallbackForAddon("Blizzard_LookingForGuildUI", "BenikUI_LookingForGuildUI", LoadStyle)
 
 -- MacroUI
 local function style_MacroUI()
@@ -309,7 +319,7 @@ S:AddCallbackForAddon("Blizzard_ObliterumUI", "BenikUI_ObliterumUI", style_Oblit
 
 -- GarrisonUI
 local function style_GarrisonUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["OrderHallMissionFrame"]:Style('Small')
 	if _G["AdventureMapQuestChoiceDialog"].backdrop then
@@ -325,7 +335,7 @@ S:AddCallbackForAddon("Blizzard_GarrisonUI", "BenikUI_GarrisonUI", style_Garriso
 
 -- OrderHallUI
 local function style_OrderHallUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["OrderHallTalentFrame"]:HookScript("OnShow", function(self)
 		if self.styled then return end
