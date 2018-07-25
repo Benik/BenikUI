@@ -1,10 +1,22 @@
+3.43
+*Fixed a LFguild styling error
+*Fixed GarrisonUI and OrderHallUI styling errors
+*Styled PvpTalentFrame.TalentList
+*Styled CommunitiesGuildLogFrame
+*Fixed a typo that disabled the collectables styling
+*Re enabled WorldMap styling
+*Added a frame check in the Communities skin, to avoid a lua error
+*Updated the G button menu entries
+*AfkMode: Fixed Stats timer. This will deal with #31
+*Added back the Tukui Client info in the toc file. Thanks @Clutch
+*Fixed flightMode showing when getting teleported in Argus by adding a missing mapID
+
 3.42
 *Updated and re enabled Honor bar edit
 *Donator list update. Thank you all :)
 *Cleaned the toc file. This will finally fix #15 and #30
 *flightMode: Added a fail check for SquareMinimapButtonBar. This should fix #32
 *Styled the Communities skin
-
 *AfkMode: Changed Legion logo with BfA logo
 *Changed the A button to V. Left click to show the Voice chat, Right click to show the Addon List, ShiftClick to ToggleChat
 
