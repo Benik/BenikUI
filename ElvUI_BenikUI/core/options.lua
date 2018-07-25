@@ -350,7 +350,7 @@ local function Core()
 								order = 1,
 								type = 'execute',
 								name = L['Tukui.org'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=228") end,
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.tukui.org/forum/viewforum.php?f=33") end,
 								},
 							git = {
 								order = 2,
@@ -381,17 +381,11 @@ local function Core()
 							curse = {
 								order = 2,
 								type = 'execute',
-								name = L['Curse.com'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://mods.curse.com/addons/wow/benikui-v3") end,
-							},
-							wowint = {
-								order = 3,
-								type = 'execute',
-								name = L['WoW Interface'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.wowinterface.com/downloads/info23675-BenikUIv3.html") end,
+								name = L['Curseforge'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.curseforge.com/wow/addons/benikui-v3") end,
 							},
 							beta = {
-								order = 4,
+								order = 3,
 								type = 'execute',
 								name = L['Beta versions'],
 								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://git.tukui.org/Benik/ElvUI_BenikUI/repository/archive.zip?ref=development") end,
