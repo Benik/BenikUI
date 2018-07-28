@@ -52,9 +52,7 @@ function UFB:UnitShadows()
 		if unitframe then
 			unitframe:CreateSoftShadow()
 			unitframe.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitframe.Buffs.spacing = 3
 			unitframe.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitframe.Debuffs.spacing = 3
 		end
 	end
 end
@@ -70,9 +68,7 @@ function UFB:PartyShadows()
 			if unitbutton then
 				unitbutton:CreateSoftShadow()
 				unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-				unitbutton.Buffs.spacing = 3
 				unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-				unitbutton.Debuffs.spacing = 3
 			end
 		end
 	end
@@ -90,9 +86,7 @@ function UFB:RaidShadows()
 			if unitbutton then
 				unitbutton:CreateSoftShadow()
 				unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-				unitbutton.Buffs.spacing = 3
 				unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-				unitbutton.Debuffs.spacing = 3
 			end
 		end
 	end
@@ -110,9 +104,7 @@ function UFB:Raid40Shadows()
 			if unitbutton then
 				unitbutton:CreateSoftShadow()
 				unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-				unitbutton.Buffs.spacing = 3
 				unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-				unitbutton.Debuffs.spacing = 3
 			end
 		end
 	end
@@ -125,9 +117,7 @@ function UFB:BossShadows()
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
 			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Buffs.spacing = 3
 			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Debuffs.spacing = 3
 		end
 	end
 end
@@ -139,9 +129,7 @@ function UFB:ArenaShadows()
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
 			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Buffs.spacing = 3
 			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Debuffs.spacing = 3
 		end
 	end
 end
@@ -153,9 +141,7 @@ function UFB:TankShadows()
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
 			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Buffs.spacing = 3
 			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Debuffs.spacing = 3
 		end
 	end
 end
