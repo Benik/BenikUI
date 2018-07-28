@@ -8,6 +8,7 @@ local _G = _G
 local pairs = pairs
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
+local MAX_TOTEMS = MAX_TOTEMS
 
 -- GLOBALS: NUM_PET_ACTION_SLOTS, DisableAddOn
 -- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar
@@ -184,6 +185,18 @@ function BAB:TransparentBackdrops()
 	end
 end
 
+function BAB:TotemShadows()
+	if not BUI.ShadowMode then return end
+	local button
+
+	for i=1, MAX_TOTEMS do
+		button = _G["ElvUI_TotemBarTotem"..i];
+		if not button.shadow then
+			button:CreateSoftShadow()
+		end
+	end
+end
+
 function BAB:Initialize()
 	CheckExtraAB()
 	C_TimerAfter(1, BAB.StyleBackdrops)
@@ -191,6 +204,7 @@ function BAB:Initialize()
 	C_TimerAfter(2, BAB.ColorBackdrops)
 	C_TimerAfter(2, BAB.LoadToggleButtons)
 	C_TimerAfter(2, BAB.ToggleStyle)
+	C_TimerAfter(2, BAB.TotemShadows)
 	self:LoadRequestButton()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
 	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end
