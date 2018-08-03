@@ -44,7 +44,11 @@ local SupportedProfiles = {
 	{'Skada', 'Skada'},
 }
 
-local profileString = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:'])
+BUI.profileStrings = {
+	[1] = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:']),
+	[2] = format('|cfffff400%s |r', L[': Profile for this character already exists. Aborting.']),
+}
+
 local smb = L['Square Minimap Buttons']
 local stAM = L['stAddOnManager']
 
@@ -183,18 +187,14 @@ local function SkinTable()
 					BUI:LoadDBMProfile()
 				elseif addon == 'BigWigs' then
 					BUI:LoadBigWigsProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
 				elseif addon == 'InFlight_Load'then
 					BUI:LoadInFlightProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ElvUI_LocLite' then
 					BUI:LoadLocationLiteProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ElvUI_LocPlus' then
 					BUI:LoadLocationPlusProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'MikScrollingBattleText' then
 					BUI:LoadMSBTProfile()
 				elseif addon == 'Pawn' then
@@ -205,12 +205,10 @@ local function SkinTable()
 					BUI:LoadSkadaProfile()
 				elseif addon == 'ElvUI_VisualAuraTimers' then
 					BUI:LoadVATProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'AddOnSkins' then
 					BUI:LoadAddOnSkinsProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				end
-				print(profileString..addonName)
+				E:StaticPopup_Show('PRIVATE_RL')
 			end,
 			disabled = function() return not IsAddOnLoaded(addon) end,
 		}

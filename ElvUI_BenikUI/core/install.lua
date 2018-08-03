@@ -1710,7 +1710,11 @@ end
 local addonNames = {}
 local profilesFailed = format('|cff00c0fa%s |r', L["BenikUI didn't find any supported addons for profile creation"])
 
+BUI.isInstallerRunning = false
+
 local function SetupAddons()
+	BUI.isInstallerRunning = true -- don't print when applying profile that doesn't exist
+
 	-- BigWigs
 	if BUI:IsAddOnEnabled('BigWigs') then
 		BUI:LoadBigWigsProfile()

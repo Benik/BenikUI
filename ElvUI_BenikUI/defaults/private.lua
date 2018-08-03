@@ -5,7 +5,7 @@ V['benikui'] = {
 	['expressway'] = false,
 	['session'] = {
 		['day'] = 1,
-	}
+	},
 }
 
 -- Dashboards

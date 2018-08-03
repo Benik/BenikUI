@@ -163,6 +163,7 @@ L['ElvUI AddOns'] = true --No need to translate
 L['decor.'] = "dekor."
 L['This will create and apply profile for '] = "Dieses wird ein Profil erstellen und anwenden für "
 L['Profiles'] = "Profile"
+L[': Profile for this character already exists. Aborting.'] = true
 
 -- UnitFrame Options
 L['Adjust castbar text Y Offset'] = "Passe Zauberleisten Text Y-Versatz an"
@@ -246,6 +247,7 @@ L["Sat"] = "Sa"
 L['Altoholic'] = true
 L['AtlasLoot'] = true
 L['Clique'] = true
+L['Details'] = true
 L['ElvUI_Enhanced'] = true
 L['LocationLite'] = true
 L['LocationPlus'] = true

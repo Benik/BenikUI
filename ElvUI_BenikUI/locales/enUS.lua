@@ -163,6 +163,7 @@ L['ElvUI AddOns'] = true
 L['decor.'] = true
 L['This will create and apply profile for '] = true
 L['Profiles'] = true
+L[': Profile for this character already exists. Aborting.'] = true
 
 -- UnitFrame Options
 L['Adjust castbar text Y Offset'] = true
@@ -247,6 +248,7 @@ L["Sat"] = true
 L['Altoholic'] = true
 L['AtlasLoot'] = true
 L['Clique'] = true
+L['Details'] = true
 L['ElvUI_Enhanced'] = true
 L['LocationLite'] = true
 L['LocationPlus'] = true

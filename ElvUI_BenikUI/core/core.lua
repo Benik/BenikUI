@@ -22,6 +22,7 @@ BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.NewSign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 BUI.ShadowMode = false;
+BUI.AddonProfileKey = '';
 BINDING_HEADER_BENIKUI = BUI.Title
 
 function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
@@ -152,6 +153,8 @@ function BUI:Initialize()
 	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		BUI.ShadowMode = true
 	end
+
+	BUI.AddonProfileKey = BUI.Title..E.myname.." - "..E.myrealm
 
 	EP:RegisterPlugin(addon, self.AddOptions)
 
