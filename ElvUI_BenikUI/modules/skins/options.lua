@@ -226,7 +226,7 @@ local function SkinTable()
 			E:StaticPopup_Show('PRIVATE_RL')
 			print(BUI.profileStrings[1]..smb)
 		end,
-		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['SMB']) end,
+		disabled = function() return (BUI.SLE or not (BUI.PA and _G.ProjectAzilroka.db['SMB'])) end,
 	}
 
 	-- New stAddOnManager from ProjectAzilroka

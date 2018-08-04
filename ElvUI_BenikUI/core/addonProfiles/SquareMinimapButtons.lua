@@ -2,6 +2,7 @@
 local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadSMBProfile()
+	if BUI.SLE then return end
 	if SquareMinimapButtonsDB["profiles"]["BenikUI"] == nil then SquareMinimapButtonsDB["profiles"]["BenikUI"] = {} end
 	SquareMinimapButtonsDB["profiles"]["BenikUI"]['BarEnabled'] = true
 	SquareMinimapButtonsDB["profiles"]["BenikUI"]['ButtonsPerRow'] = 6
