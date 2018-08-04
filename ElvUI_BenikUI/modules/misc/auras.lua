@@ -12,9 +12,13 @@ if E.private.auras.masque.buffs or E.private.auras.masque.debuffs then return en
 A.CreateIconBui = A.CreateIcon
 function A:CreateIcon(button)
 	self:CreateIconBui(button)
-	if E.db.benikui.general.auras ~= true then return end
-
-	button:Style('Inside', _, true)
+	if E.db.benikui.general.auras then
+		button:Style('Inside', _, true)
+	elseif E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+		if not button.shadow then
+			button:CreateSoftShadow()
+		end
+	end
 end
 
 A.UpdateAuraBui = A.UpdateAura
