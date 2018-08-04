@@ -224,7 +224,7 @@ local function SkinTable()
 		func = function()
 			BUI:LoadSMBProfile()
 			E:StaticPopup_Show('PRIVATE_RL')
-			print(profileString..smb)
+			print(BUI.profileStrings[1]..smb)
 		end,
 		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['SMB']) end,
 	}
@@ -239,7 +239,7 @@ local function SkinTable()
 		func = function()
 			BUI:LoadStamProfile()
 			E:StaticPopup_Show('PRIVATE_RL')
-			print(profileString..stAM)
+			print(BUI.profileStrings[1]..stAM)
 		end,
 		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['stAM']) end,
 	}
