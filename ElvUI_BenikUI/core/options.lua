@@ -26,6 +26,7 @@ local DONATORS = {
 	'CHRONiC',
 	'Tlareg',
 	'Sumidian',
+	'Nizz',
 }
 tsort(DONATORS, function(a, b) return a < b end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
