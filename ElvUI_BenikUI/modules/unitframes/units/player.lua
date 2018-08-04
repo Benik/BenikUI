@@ -85,4 +85,12 @@ function UFB:InitPlayer()
 			UFB:Configure_Portrait(frame, true)
 		end
 	end)
+
+	hooksecurefunc(UF, "Configure_InfoPanel", function(self, frame) -- fix Player infoPanel glitch #26
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "player" then
+			UFB:Configure_Infopanel(frame)
+		end
+	end)
 end
