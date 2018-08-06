@@ -6,14 +6,16 @@ local LSM = LibStub('LibSharedMedia-3.0');
 local DT = E:GetModule('DataTexts');
 
 local _G = _G
-
+local floor = floor
 local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local InCombatLockdown = InCombatLockdown
-local HONOR = HONOR
-local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
+local ARTIFACT_POWER = ARTIFACT_POWER
+local C_AzeriteItem_FindActiveAzeriteItem = C_AzeriteItem.FindActiveAzeriteItem
+local C_AzeriteItem_GetAzeriteItemXPInfo = C_AzeriteItem.GetAzeriteItemXPInfo
+local C_AzeriteItem_GetPowerLevel = C_AzeriteItem.GetPowerLevel
 
--- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ArtifactBar, ArtifactFrame
+-- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_AzeriteBar, ArtifactFrame
 
 local SPACING = (E.PixelMode and 1 or 3)
 
@@ -27,13 +29,13 @@ local function onEnter(self)
 	self.sglow:Show()
 	GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
 	GameTooltip:ClearLines()
-	GameTooltip:AddLine(HONOR, selectioncolor)
+	GameTooltip:AddLine(ARTIFACT_POWER, selectioncolor)
 	GameTooltip:Show()
 	if InCombatLockdown() then GameTooltip:Hide() end
 end
 
 local function StyleBar()
-	local bar = ElvUI_HonorBar
+	local bar = ElvUI_AzeriteBar
 
 	-- bottom decor/button
 	bar.fb = CreateFrame('Button', nil, bar)
@@ -44,25 +46,24 @@ local function StyleBar()
 	end
 	bar.fb:Point('TOPLEFT', bar, 'BOTTOMLEFT', 0, -SPACING)
 	bar.fb:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
-
 	bar.fb:SetScript('OnEnter', onEnter)
 	bar.fb:SetScript('OnLeave', onLeave)
 
 	bar.fb:SetScript('OnClick', function(self)
-		TogglePVPUI()
+
 	end)
 
-	BDB:ToggleHonorBackdrop()
+	BDB:ToggleAFBackdrop()
 
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	bar:Style('Outside', nil, false, true)
 end
 
-function BDB:ApplyHonorStyling()
-	local bar = ElvUI_HonorBar
-	if E.db.databars.honor.enable then
+function BDB:ApplyAfStyling()
+	local bar = ElvUI_AzeriteBar
+	if E.db.databars.azerite.enable then
 		if bar.fb then
-			if E.db.databars.honor.orientation == 'VERTICAL' then
+			if E.db.databars.azerite.orientation == 'VERTICAL' then
 				bar.fb:Show()
 			else
 				bar.fb:Hide()
@@ -70,7 +71,7 @@ function BDB:ApplyHonorStyling()
 		end
 	end
 
-	if E.db.benikuiDatabars.honor.buiStyle then
+	if E.db.benikuiDatabars.azerite.buiStyle then
 		if bar.style then
 			bar.style:Show()
 		end
@@ -81,21 +82,21 @@ function BDB:ApplyHonorStyling()
 	end
 end
 
-function BDB:ChangeHonorColor()
-	local bar = ElvUI_HonorBar
-	local db = E.db.benikuiDatabars.honor.color
+function BDB:ChangeAzeriteColor()
+	local bar = ElvUI_AzeriteBar
+	local db = E.db.benikuiDatabars.azerite.color
 
 	if db.default then
-		bar.statusBar:SetStatusBarColor(0.941, 0.447, 0.254, 0.8)
+		bar.statusBar:SetStatusBarColor(.901, .8, .601, .8)
 	else
-		bar.statusBar:SetStatusBarColor(BUI:unpackColor(db.hn))
+		bar.statusBar:SetStatusBarColor(BUI:unpackColor(db.af))
 	end
 end
 
-function BDB:ToggleHonorBackdrop()
-	if E.db.benikuiDatabars.honor.enable ~= true then return end
-	local bar = ElvUI_HonorBar
-	local db = E.db.benikuiDatabars.honor
+function BDB:ToggleAFBackdrop()
+	if E.db.benikuiDatabars.azerite.enable ~= true then return end
+	local bar = ElvUI_AzeriteBar
+	local db = E.db.benikuiDatabars.azerite
 
 	if bar.fb then
 		if db.buttonStyle == 'DEFAULT' then
@@ -108,10 +109,10 @@ function BDB:ToggleHonorBackdrop()
 	end
 end
 
-function BDB:UpdateHonorNotifierPositions()
-	local bar = ElvUI_HonorBar.statusBar
+function BDB:UpdateAzeriteNotifierPositions()
+	local bar = ElvUI_AzeriteBar.statusBar
 
-	local db = E.db.benikuiDatabars.honor.notifiers
+	local db = E.db.benikuiDatabars.azerite.notifiers
 	local arrow = ""
 
 	bar.f:ClearAllPoints()
@@ -119,7 +120,7 @@ function BDB:UpdateHonorNotifierPositions()
 	bar.f.txt:ClearAllPoints()
 
 	if db.position == 'LEFT' then
-		if not E.db.databars.honor.reverseFill then
+		if not E.db.databars.azerite.reverseFill then
 			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
 		else
 			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
@@ -128,7 +129,7 @@ function BDB:UpdateHonorNotifierPositions()
 		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
 		arrow = ">"
 	else
-		if not E.db.databars.honor.reverseFill then
+		if not E.db.databars.azerite.reverseFill then
 			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
 		else
 			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
@@ -141,53 +142,53 @@ function BDB:UpdateHonorNotifierPositions()
 	bar.f.arrow:SetText(arrow)
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 
-	if E.db.databars.honor.orientation ~= 'VERTICAL' then
+	if E.db.databars.azerite.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
 		bar.f:Show()
 	end
 end
 
-function BDB:UpdateHonorNotifier()
-	local bar = ElvUI_HonorBar.statusBar
-	local showHonor = UnitLevel("player") >= MAX_PLAYER_LEVEL
-	if not showHonor then
+function BDB:UpdateAzeriteNotifier()
+	local bar = ElvUI_AzeriteBar.statusBar
+	local db = E.db.benikuiDatabars.azerite.notifiers
+	local azeriteItemLocation = C_AzeriteItem_FindActiveAzeriteItem()
+	if not azeriteItemLocation then
 		bar.f:Hide()
-	elseif showHonor and (not E.db.databars.honor.hideInCombat or not InCombatLockdown()) then
+	else
 		bar.f:Show()
-		local text = ''
-		local current = UnitHonor("player");
-		local max = UnitHonorMax("player");
 
-		if max == 0 then max = 1 end
+		local xp, totalLevelXP = C_AzeriteItem_GetAzeriteItemXPInfo(azeriteItemLocation)
+		local xpToNextLevel = totalLevelXP - xp
+		local currentLevel = C_AzeriteItem_GetPowerLevel(azeriteItemLocation)
 
-		text = format('%d%%', current / max * 100)
+		bar.f.txt:SetFormattedText('%s%% [%s]', floor(xp / totalLevelXP * 100), currentLevel)
 
-		bar.f.txt:SetText(text)
+		BDB.UpdateAzeriteNotifierPositions()
 	end
 end
 
-function BDB:HonorTextOffset()
-	local text = ElvUI_ExperienceBar.text
-	text:Point('CENTER', 0, E.db.databars.experience.textYoffset)
+function BDB:AzeriteTextOffset()
+	local text = ElvUI_AzeriteBar.text
+	text:Point('CENTER', 0, E.db.databars.azerite.textYoffset)
 end
 
-function BDB:LoadHonor()
-	local bar = ElvUI_HonorBar
-	self:ChangeHonorColor()
-	self:HonorTextOffset()
-	hooksecurefunc(M, 'UpdateHonor', BDB.ChangeHonorColor)
-	hooksecurefunc(M, 'UpdateHonor', BDB.HonorTextOffset)
+function BDB:LoadAzerite()
+	local bar = ElvUI_AzeriteBar
+	self:ChangeAzeriteColor()
+	self:AzeriteTextOffset()
+	hooksecurefunc(M, 'UpdateAzerite', BDB.ChangeAzeriteColor)
+	hooksecurefunc(M, 'UpdateAzerite', BDB.AzeriteTextOffset)
 
-	local db = E.db.benikuiDatabars.honor.notifiers
+	local db = E.db.benikuiDatabars.azerite.notifiers
 
-	if db.enable and E.db.databars.honor.orientation == 'VERTICAL' then
+	if db.enable and E.db.databars.azerite.orientation == 'VERTICAL' then
 		self:CreateNotifier(bar.statusBar)
-		self:UpdateHonorNotifierPositions()
-		self:UpdateHonorNotifier()
-		hooksecurefunc(M, 'UpdateHonor', BDB.UpdateHonorNotifier)
-		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateHonorNotifierPositions)
-		hooksecurefunc(M, 'UpdateHonorDimensions', BDB.UpdateHonorNotifierPositions)
+		self:UpdateAzeriteNotifierPositions()
+		self:UpdateAzeriteNotifier()
+		hooksecurefunc(M, 'UpdateAzerite', BDB.UpdateAzeriteNotifier)
+		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateAzeriteNotifierPositions)
+		hooksecurefunc(M, 'UpdateAzeriteDimensions', BDB.UpdateAzeriteNotifierPositions)
 	end
 
 	if BUI.ShadowMode then
@@ -196,10 +197,10 @@ function BDB:LoadHonor()
 		end
 	end
 
-	if E.db.benikuiDatabars.honor.enable ~= true then return end
+	if E.db.benikuiDatabars.azerite.enable ~= true then return end
 
 	StyleBar()
-	self:ApplyHonorStyling()
+	self:ApplyAfStyling()
 
-	hooksecurefunc(M, 'UpdateHonorDimensions', BDB.ApplyHonorStyling)
+	hooksecurefunc(M, 'UpdateAzeriteDimensions', BDB.ApplyAfStyling)
 end

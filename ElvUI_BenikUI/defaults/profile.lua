@@ -21,7 +21,7 @@ P['bags']['countPosition'] = 'BOTTOMRIGHT'
 
 -- Databars text yOffset
 P['databars']['experience']['textYoffset'] = 0
-P['databars']['artifact']['textYoffset'] = 0
+P['databars']['azerite']['textYoffset'] = 0
 P['databars']['reputation']['textYoffset'] = 0
 P['databars']['honor']['textYoffset'] = 0
 
@@ -295,7 +295,7 @@ P['benikuiDatabars'] = {
 		},
 	},
 	
-	['artifact'] = {
+	['azerite'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
@@ -307,7 +307,6 @@ P['benikuiDatabars'] = {
 			['enable'] = true,
 			['combat'] = false,
 			['position'] = 'LEFT',
-			['movetobagbar'] = true,
 		},
 	},
 	

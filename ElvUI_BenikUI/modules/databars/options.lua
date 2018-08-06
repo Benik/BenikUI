@@ -150,35 +150,35 @@ local function databarsTable()
 					},
 				},
 			},
-			--[[artifact = {
+			azerite = {
 				order = 2,
 				type = 'group',
-				name = L['Artifact Bar'],
+				name = L['Azerite Bar'],
 				args = {
 					enable = {
 						order = 1,
 						type = 'toggle',
 						name = ENABLE,
-						get = function(info) return E.db.benikuiDatabars.artifact.enable end,
-						set = function(info, value) E.db.benikuiDatabars.artifact.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
+						get = function(info) return E.db.benikuiDatabars.azerite.enable end,
+						set = function(info, value) E.db.benikuiDatabars.azerite.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					buiStyle = {
 						order = 2,
 						type = 'toggle',
 						name = L['BenikUI Style'],
-						disabled = function() return not E.db.benikuiDatabars.artifact.enable end,
-						desc = L['Show BenikUI decorative bars on the default ElvUI Artifact bar'],
-						get = function(info) return E.db.benikuiDatabars.artifact.buiStyle end,
-						set = function(info, value) E.db.benikuiDatabars.artifact.buiStyle = value; BDB:ApplyAfStyling(); end,
+						disabled = function() return not E.db.benikuiDatabars.azerite.enable end,
+						desc = L['Show BenikUI decorative bars on the default ElvUI Azerite bar'],
+						get = function(info) return E.db.benikuiDatabars.azerite.buiStyle end,
+						set = function(info, value) E.db.benikuiDatabars.azerite.buiStyle = value; BDB:ApplyAfStyling(); end,
 					},
 					buttonStyle = {
 						order = 3,
 						type = 'select',
 						name = L['Button Backdrop'],
-						disabled = function() return not E.db.benikuiDatabars.artifact.enable end,
+						disabled = function() return not E.db.benikuiDatabars.azerite.enable end,
 						values = backdropValues,
-						get = function(info) return E.db.benikuiDatabars.artifact.buttonStyle end,
-						set = function(info, value) E.db.benikuiDatabars.artifact.buttonStyle = value; BDB:ToggleAFBackdrop(); end,
+						get = function(info) return E.db.benikuiDatabars.azerite.buttonStyle end,
+						set = function(info, value) E.db.benikuiDatabars.azerite.buttonStyle = value; BDB:ToggleAFBackdrop(); end,
 					},
 					color = {
 						order = 4,
@@ -191,25 +191,25 @@ local function databarsTable()
 								type = 'toggle',
 								name = DEFAULT,
 								width = 'full',
-								get = function(info) return E.db.benikuiDatabars.artifact.color.default end,
-								set = function(info, value) E.db.benikuiDatabars.artifact.color.default = value; BDB:ChangeAFcolor(); end,
+								get = function(info) return E.db.benikuiDatabars.azerite.color.default end,
+								set = function(info, value) E.db.benikuiDatabars.azerite.color.default = value; BDB:ChangeAzeriteColor(); end,
 							},
 							af = {
 								order = 2,
 								type = 'color',
 								hasAlpha = true,
-								name = ARTIFACT_POWER,
-								disabled = function() return E.db.benikuiDatabars.artifact.color.default end,
+								name = L['Azerite Bar'],
+								disabled = function() return E.db.benikuiDatabars.azerite.color.default end,
 								get = function(info)
-									local t = E.db.benikuiDatabars.artifact.color.af
-									local d = P.benikuiDatabars.artifact.color.af
+									local t = E.db.benikuiDatabars.azerite.color.af
+									local d = P.benikuiDatabars.azerite.color.af
 									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 									end,
 								set = function(info, r, g, b, a)
 									E.db.benikuiDatabars[ info[#info] ] = {}
-									local t = E.db.benikuiDatabars.artifact.color.af
+									local t = E.db.benikuiDatabars.azerite.color.af
 									t.r, t.g, t.b, t.a = r, g, b, a
-									BDB:ChangeAFcolor()
+									BDB:ChangeAzeriteColor()
 								end,
 							},
 						},
@@ -224,47 +224,38 @@ local function databarsTable()
 								order = 1,
 								type = 'toggle',
 								name = ENABLE,
-								get = function(info) return E.db.benikuiDatabars.artifact.notifiers.enable end,
-								set = function(info, value) E.db.benikuiDatabars.artifact.notifiers.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+								get = function(info) return E.db.benikuiDatabars.azerite.notifiers.enable end,
+								set = function(info, value) E.db.benikuiDatabars.azerite.notifiers.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 							},
 							combat = {
 								order = 2,
 								type = 'toggle',
 								name = L["Combat Fade"],
-								get = function(info) return E.db.benikuiDatabars.artifact.notifiers.combat end,
-								set = function(info, value) E.db.benikuiDatabars.artifact.notifiers.combat = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+								get = function(info) return E.db.benikuiDatabars.azerite.notifiers.combat end,
+								set = function(info, value) E.db.benikuiDatabars.azerite.notifiers.combat = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 							},
 							position = {
 								order = 3,
 								type = 'select',
 								name = L['Position'],
-								disabled = function() return not E.db.benikuiDatabars.artifact.notifiers.enable end,
+								disabled = function() return not E.db.benikuiDatabars.azerite.notifiers.enable end,
 								values = {
 									['LEFT'] = L['Left'],
 									['RIGHT'] = L['Right'],
 								},
-								get = function(info) return E.db.benikuiDatabars.artifact.notifiers.position end,
-								set = function(info, value) E.db.benikuiDatabars.artifact.notifiers.position = value; BDB:UpdateAfNotifier(); end,
-							},
-							movetobagbar = {
-								order = 4,
-								type = 'toggle',
-								name = L['Move to Bag bar'],
-								desc = L['Move the Notifier to Bag bar, when Artifact items are available'],
-								disabled = function() return not E.db.benikuiDatabars.artifact.notifiers.enable end,
-								get = function(info) return E.db.benikuiDatabars.artifact.notifiers.movetobagbar end,
-								set = function(info, value) E.db.benikuiDatabars.artifact.notifiers.movetobagbar = value; BDB:UpdateAfNotifier(); end,
+								get = function(info) return E.db.benikuiDatabars.azerite.notifiers.position end,
+								set = function(info, value) E.db.benikuiDatabars.azerite.notifiers.position = value; BDB:UpdateAzeriteNotifier(); end,
 							},
 						},
 					},
 					elvuiOption = {
 						order = 10,
 						type = "execute",
-						name = L["ElvUI"].." "..L["Artifact Bar"],
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "artifact") end,
+						name = L["ElvUI"].." "..L["Azerite Bar"],
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "azerite") end,
 					},
 				},
-			},]]
+			},
 			reputation = {
 				order = 3,
 				type = 'group',
@@ -573,34 +564,34 @@ local function injectElvUIDatabarOptions()
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "experience") end,
 	}
 
-	--[[ artifact
-	E.Options.args.databars.args.artifact.args.textYoffset = {
+	-- azerite
+	E.Options.args.databars.args.azerite.args.textYoffset = {
 		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
 		name = BUI:cOption(L['Text yOffset']),
-		get = function(info) return E.db.databars.artifact[ info[#info] ] end,
-		set = function(info, value) E.db.databars.artifact[ info[#info] ] = value; BDB:AfTextOffset() end,
+		get = function(info) return E.db.databars.azerite[ info[#info] ] end,
+		set = function(info, value) E.db.databars.azerite[ info[#info] ] = value; BDB:AzeriteTextOffset() end,
 	}
 
-	E.Options.args.databars.args.artifact.args.spacer1 = {
+	E.Options.args.databars.args.azerite.args.spacer1 = {
 		order = 21,
 		type = 'description',
 		name = '',
 	}
 
-	E.Options.args.databars.args.artifact.args.spacer2 = {
+	E.Options.args.databars.args.azerite.args.spacer2 = {
 		order = 22,
 		type = 'header',
 		name = '',
 	}
 
-	E.Options.args.databars.args.artifact.args.gotobenikui = {
+	E.Options.args.databars.args.azerite.args.gotobenikui = {
 		order = 23,
 		type = "execute",
-		name = BUI.Title..L["Artifact Bar"],
-		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "artifact") end,
-	}]]
+		name = BUI.Title..L["Azerite Bar"],
+		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "azerite") end,
+	}
 
 	-- reputation
 	E.Options.args.databars.args.reputation.args.textYoffset = {

@@ -22,12 +22,12 @@ local function SetupLayout(layout)
 	E.db["bags"]["sortInverted"] = false
 	E.db["chat"]["panelBackdrop"] = 'SHOWBOTH'
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	E.db["databars"]["artifact"]["enable"] = true
-	E.db["databars"]["artifact"]["height"] = 150
-	E.db["databars"]["artifact"]["orientation"] = 'VERTICAL'
-	E.db["databars"]["artifact"]["textFormat"] = 'NONE'
-	E.db["databars"]["artifact"]["textSize"] = 9
-	E.db["databars"]["artifact"]["width"] = 8
+	E.db["databars"]["azerite"]["enable"] = true
+	E.db["databars"]["azerite"]["height"] = 150
+	E.db["databars"]["azerite"]["orientation"] = 'VERTICAL'
+	E.db["databars"]["azerite"]["textFormat"] = 'NONE'
+	E.db["databars"]["azerite"]["textSize"] = 9
+	E.db["databars"]["azerite"]["width"] = 8
 	E.db["databars"]["experience"]["font"] = "Expressway"
 	E.db["databars"]["experience"]["textYoffset"] = 10
 	E.db["databars"]["experience"]["textFormat"] = "CURPERC"
@@ -71,8 +71,8 @@ local function SetupLayout(layout)
 	E.private["skins"]["blizzard"]["alertframes"] = true
 	E.private["skins"]["blizzard"]["questChoice"] = true
 
-	E.db["benikuiDatabars"]["artifact"]["buttonStyle"] = "DEFAULT"
-	E.db["benikuiDatabars"]["artifact"]["notifiers"]["position"] = "RIGHT"
+	E.db["benikuiDatabars"]["azerite"]["buttonStyle"] = "DEFAULT"
+	E.db["benikuiDatabars"]["azerite"]["notifiers"]["position"] = "RIGHT"
 	E.db["benikuiDatabars"]["reputation"]["buttonStyle"] = "DEFAULT"
 	E.db["benikuiDatabars"]["reputation"]["notifiers"]["position"] = "LEFT"
 	E.db["benikuiDatabars"]["honor"]["buttonStyle"] = "TRANSPARENT"
@@ -143,7 +143,7 @@ local function SetupLayout(layout)
 		E.db["movers"]["VehicleSeatMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,155,-81"
 		E.db["movers"]["WatchFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-122,-292"
 		E.db["movers"]["tokenHolderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-123"
-		E.db["movers"]["ArtifactBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
+		E.db["movers"]["AzeriteBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
 		E.db["movers"]["HonorBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-157,-6"
 		E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-207,-260"
 
@@ -199,7 +199,7 @@ local function SetupLayout(layout)
 
 		-- movers
 		E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
-		E.db["movers"]["ArtifactBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
+		E.db["movers"]["AzeriteBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
 		E.db["movers"]["BNETMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-156,-200"
 		E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
 		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,61"

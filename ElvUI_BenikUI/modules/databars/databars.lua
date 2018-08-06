@@ -14,6 +14,9 @@ function BDB:CreateNotifier(bar)
 	bar.f.arrow:SetFont(LSM:Fetch("font", 'Bui Visitor1'), 10, 'MONOCHROMEOUTLINE')
 
 	for _, barname in pairs(bars) do
+		if E.db.benikuiDatabars[barname] == nil then E.db.benikuiDatabars[barname] = {} end
+		if E.db.benikuiDatabars[barname].notifiers == nil then E.db.benikuiDatabars[barname].notifiers = {} end
+
 		if E.db.benikuiDatabars[barname].notifiers.combat then
 			bar.f:RegisterEvent("PLAYER_REGEN_DISABLED")
 			bar.f:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -34,7 +37,7 @@ end
 function BDB:Initialize()
 	self:LoadXP()
 	self:LoadRep()
-	--self:LoadAF()
+	self:LoadAzerite()
 	self:LoadHonor()
 end
 

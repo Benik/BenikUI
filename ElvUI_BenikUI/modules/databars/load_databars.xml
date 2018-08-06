@@ -3,6 +3,6 @@
 	<script file="experience.lua"/>
 	<script file="reputation.lua"/>
 	<script file="honor.lua"/>
-	<!-- <script file="artifact.lua"/> -->
+	<script file="azerite.lua"/>
 	<script file="options.lua"/>
 </Ui>
