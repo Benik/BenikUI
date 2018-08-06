@@ -183,7 +183,7 @@ end
 
 function BDB:XpTextOffset()
 	local text = ElvUI_ExperienceBar.text
-	text:Point('CENTER', 0, E.db.databars.experience.textYoffset)
+	text:Point('CENTER', 0, E.db.databars.experience.textYoffset or 0)
 end
 
 function BDB:LoadXP()

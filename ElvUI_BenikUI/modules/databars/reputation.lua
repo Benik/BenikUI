@@ -197,7 +197,7 @@ end
 
 function BDB:RepTextOffset()
 	local text = ElvUI_ReputationBar.text
-	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset)
+	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset or 0)
 end
 
 -- Credit: Feraldin, ElvUI Enhanced (Legion)

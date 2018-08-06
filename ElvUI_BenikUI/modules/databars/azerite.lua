@@ -170,7 +170,7 @@ end
 
 function BDB:AzeriteTextOffset()
 	local text = ElvUI_AzeriteBar.text
-	text:Point('CENTER', 0, E.db.databars.azerite.textYoffset)
+	text:Point('CENTER', 0, E.db.databars.azerite.textYoffset or 0)
 end
 
 function BDB:LoadAzerite()
