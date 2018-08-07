@@ -5,9 +5,7 @@ local BUI = E:GetModule('BenikUI');
 local pairs = pairs
 
 local _G = _G
-local strfind = strfind
 local CreateFrame = CreateFrame
-local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 
 -- GLOBALS: hooksecurefunc, Skada, Recount, oRA3, RC, RCnotify, RCminimized
@@ -16,7 +14,7 @@ if not BUI.AS then return end
 local AS = unpack(AddOnSkins)
 
 local function SkadaDecor()
-	if not E.db.benikuiSkins.addonSkins.skada then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.skada then return end
 	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 		local skada = win.bargroup
 		skada.Backdrop:Style('Outside')
@@ -77,7 +75,7 @@ local function RecountDecor()
 end
 
 local function TinyDPSDecor()
-	if not E.db.benikuiSkins.addonSkins.tinydps then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.tinydps then return end
 	if _G["tdpsFrame"] then
 		if not _G["tdpsFrame"].style then
 			_G["tdpsFrame"]:Style('Outside')
@@ -86,8 +84,7 @@ local function TinyDPSDecor()
 end
 
 local function AtlasLootDecor()
-	if not strfind(GetAddOnMetadata('AtlasLoot', 'Version'), 'v8') then return end -- As Azilroka did ;)
-	if not E.db.benikuiSkins.addonSkins.atlasloot then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.atlasloot then return end
 	local AtlasLootFrame = _G["AtlasLoot_GUI-Frame"]
 	if AtlasLootFrame then
 		if not AtlasLootFrame.style then
@@ -97,7 +94,7 @@ local function AtlasLootDecor()
 end
 
 local function AltoholicDecor()
-	if not E.db.benikuiSkins.addonSkins.altoholic then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.altoholic then return end
 	if _G["AltoholicFrame"] then
 		if not _G["AltoholicFrame"].style then
 			_G["AltoholicFrame"]:Style('Outside')
@@ -106,7 +103,7 @@ local function AltoholicDecor()
 end
 
 local function RareCoordDecor()
-	if not E.db.benikuiSkins.addonSkins.rc then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.rc then return end
 	local rcFrames = {RC, RC.opt, RCnotify, RCminimized}
 	for _, frame in pairs(rcFrames) do
 		if not frame.style then
@@ -116,7 +113,7 @@ local function RareCoordDecor()
 end
 
 local function CliqueDecor()
-	if not E.db.benikuiSkins.addonSkins.clique then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.clique then return end
 	_G["CliqueConfig"]:Style('Small')
 	_G["CliqueDialog"]:Style('Small')
 	local tab = _G["CliqueSpellTab"]
@@ -128,7 +125,7 @@ local function CliqueDecor()
 end
 
 local function oRA3Decor()
-	if not E.db.benikuiSkins.addonSkins.ora then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.ora then return end
 	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"]:Style('Small'); end)
 
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")
@@ -138,7 +135,7 @@ local function oRA3Decor()
 end
 
 local function PawnDecor()
-	if not E.db.benikuiSkins.addonSkins.pawn then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.pawn then return end
 	local frame = PawnUIFrame
 
 	if not frame.style then
@@ -147,7 +144,7 @@ local function PawnDecor()
 end
 
 local function DbmDecor(event)
-	if not E.db.benikuiSkins.addonSkins.dbm then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.dbm then return end
 
 	local function StyleRangeFrame(self, range, filter, forceshow, redCircleNumPlayers)
 		if DBM.Options.DontShowRangeFrame and not forceshow then return end
