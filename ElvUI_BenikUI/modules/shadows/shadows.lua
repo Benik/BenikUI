@@ -107,6 +107,13 @@ function mod:TabShadows(tab)
 end
 hooksecurefunc(S, "HandleTab", mod.TabShadows)
 
+-- MicroBar
+local function MicroBarShadows()
+	for i=1, #MICRO_BUTTONS do
+		_G[MICRO_BUTTONS[i]].backdrop:CreateSoftShadow()
+	end
+end
+
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
@@ -114,6 +121,7 @@ function mod:Initialize()
 	mirrorTimersShadows()
 	ObjectiveTrackerShadows()
 	miscShadows()
+	MicroBarShadows()
 
 	-- AddonSkins
 	mod:AddonSkins()
