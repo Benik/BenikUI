@@ -100,10 +100,19 @@ function BDB:ToggleHonorBackdrop()
 	if bar.fb then
 		if db.buttonStyle == 'DEFAULT' then
 			bar.fb:SetTemplate('Default', true)
+			if bar.fb.shadow then
+				bar.fb.shadow:Show()
+			end
 		elseif db.buttonStyle == 'TRANSPARENT' then
 			bar.fb:SetTemplate('Transparent')
+			if bar.fb.shadow then
+				bar.fb.shadow:Show()
+			end
 		else
 			bar.fb:SetTemplate('NoBackdrop')
+			if bar.fb.shadow then
+				bar.fb.shadow:Hide()
+			end
 		end
 	end
 end
