@@ -145,12 +145,9 @@ local function style_Contribution()
 		frame.backdrop:Style('Outside')
 	end
 
+	-- Not sure about this tooltip tho -- Merathilis
 	if E.private.skins.blizzard.tooltip ~= true then return end
 	ContributionBuffTooltip:Style('Outside')
-
-	if ContributionTooltip.backdrop then
-		ContributionTooltip.backdrop:Style('Outside')
-	end
 end
 S:AddCallbackForAddon("Blizzard_Contribution", "BenikUI_Contribution", style_Contribution)
 
@@ -460,7 +457,7 @@ S:AddCallbackForAddon("Blizzard_VoidStorageUI", "BenikUI_VoidStorageUI", style_V
 -- WarboardUI
 local function style_WarboardUI()
 	if E.private.skins.blizzard.Warboard ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
-	
+
 	local frame = _G["WarboardQuestChoiceFrame"]
 	frame.backdrop:Style('Outside')
 	frame.backdrop.style:SetFrameLevel(1)
