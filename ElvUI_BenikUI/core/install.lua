@@ -128,6 +128,8 @@ local function SetupLayout(layout)
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Bui Prototype"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 9
 
+		E.db["benikui"]["general"]["shadows"] = false
+
 		-- Movers
 		E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 		E.db["movers"]["BNETMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-182"
@@ -196,6 +198,8 @@ local function SetupLayout(layout)
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
 		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
 		E:GetModule('BuiLayout'):MiddleDatatextDimensions()
+
+		E.db["benikui"]["general"]["shadows"] = true
 
 		-- movers
 		E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
