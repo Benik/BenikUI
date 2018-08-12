@@ -66,13 +66,13 @@ local function style_BarbershopUI()
 end
 S:AddCallbackForAddon("Blizzard_BarbershopUI", "BenikUI_BarbershopUI", style_BarbershopUI)
 
--- BattlefieldMinimap
-local function style_BattlefieldMinimap()
+-- BattlefieldMap
+local function style_BattlefieldMap()
 	if E.private.skins.blizzard.bgmap ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	_G["BattlefieldMinimap"]:Style('Outside')
+	_G["BattlefieldMapFrame"].backdrop:Style('Outside')
 end
-S:AddCallbackForAddon("Blizzard_BattlefieldMinimap", "BenikUI_BattlefieldMinimap", style_BattlefieldMinimap)
+S:AddCallbackForAddon("Blizzard_BattlefieldMap", "BenikUI_BattlefieldMap", style_BattlefieldMap)
 
 -- BindingUI
 local function style_BindingUI()
