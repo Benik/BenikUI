@@ -1,3 +1,28 @@
+3.44
+*Fixed BattlefieldMapFrame styling
+*Enable Shadows only on v3 layout. v2 has some visual glitches
+*The Contribution tooltip don't exist anymore. This fixes #40 (Merathilis)
+*Added Shadows in microbar
+*Fixed Databar visual glitch with shadows in the databar button
+*Safety check for AddonSkins Styling when BenikUI style is disabled
+*Disable 3d party Addon styling options when BenikUI style is disabled
+*Added safety for textOffset. Also removed the Artifact bar file
+*Added Azerite Bar (not tested)
+*Adopted latest AddonSkins changes for BigWigs
+*Fixed an error in PA SquareMinimapButtons profile that was popping in case S&L was also loaded. This will close #25
+*Fixed a print statement that was using the older profileString
+*Fixed when disabling auras styling was also removing shadows on buffs/debuffs. This will close #18
+*Fixed Player infoPanel glitch. This will close #26. Credit @zephyrs
+*Removed STAGGER_WIDTH from threat glow. Doesn't exist anymore. This will fix #37
+*Added full InFlight database
+*Changed the way BenikUI addon profiles apply. They are now per character. These can be applied by running the Install again and applying the Addons step only.
+
+*Fix Benik/ElvUI_BenikUI#36 (Merathilis)
+*Updated donator list
+*Removed the hardcoded buffs/debuffs spacing. It's a pain to embed it. This will close #23
+*Added shadows for Totems
+*Updated BenikUI links
+
 3.43
 *Fixed a LFguild styling error
 *Fixed GarrisonUI and OrderHallUI styling errors
