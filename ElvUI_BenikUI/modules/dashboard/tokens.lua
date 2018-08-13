@@ -37,6 +37,8 @@ local Currency = {
 	777,	-- Timeless Coin
 	789,	-- Bloody Coin
 	81,		-- Epicurean's Award
+	
+	-- Archaeology
 	384,	-- Dwarf Archaeology Fragment
 	385,	-- Troll Archaeology Fragment
 	393,	-- Fossil Archaeology Fragment
@@ -52,6 +54,8 @@ local Currency = {
 	1172,	-- Highborne Archaeology Fragment
 	1173,	-- Highmountain Tauren Archaeology Fragment
 	1174,	-- Demonic Archaeology Fragment
+	1534,	-- Zandalari Archaeology Fragment
+	1535,	-- Drust Archaeology Fragment
 
 	-- WoD
 	821,	-- Draenor Clans Archaeology Fragment
@@ -85,6 +89,13 @@ local Currency = {
 	1416,	-- Coins of Air
 	1508,	-- Veiled Argunite
 	1533,	-- Wakening Essence
+	
+	-- BfA
+	1560, 	-- War Resources
+	1565,	-- Rich Azerite Fragment
+	1580,	-- Seal of Wartorn Fate
+	1587,	-- War Supplies
+	1710,	-- Seafarer's Dubloon
 }
 
 local function Icon_OnEnter(self)

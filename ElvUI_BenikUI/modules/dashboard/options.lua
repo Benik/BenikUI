@@ -27,6 +27,7 @@ local dungeonTokens = {
 	1129,	-- Seal of Inevitable Fate
 	1191, 	-- Valor Points (6.23)
 	1273,	-- Seal of Broken Fate (Raid)
+	1580,	-- Seal of Wartorn Fate
 }
 
 local pvpTokens = {
@@ -36,6 +37,7 @@ local pvpTokens = {
 	1268,	-- Timeworn Artifact (Honor Points?)
 	1356,	-- Echoes of Battle (PvP Gear)
 	1357,	-- Echoes of Domination (Elite PvP Gear)
+	1587,	-- War Supplies
 }
 
 local secondaryTokens = {
@@ -68,6 +70,11 @@ local miscTokens = {
 	1416,	-- Coins of Air
 	1508,	-- Veiled Argunite
 	1533,	-- Wakening Essence
+	-- BfA
+	1560, 	-- War Resources
+	1565,	-- Rich Azerite Fragment
+	1710,	-- Seafarer's Dubloon
+	
 }
 
 local archyTokens = {
@@ -89,6 +96,8 @@ local archyTokens = {
 	1172,	-- Highborne Archaeology Fragment
 	1173,	-- Highmountain Tauren Archaeology Fragment
 	1174,	-- Demonic Archaeology Fragment
+	1534,	-- Zandalari Archaeology Fragment
+	1535,	-- Drust Archaeology Fragment
 }
 
 local currencyTables = {
