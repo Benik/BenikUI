@@ -21,8 +21,6 @@ local SPACING = 1
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local capRank = 800
-
 local function sortFunction(a, b)
 	return a.name < b.name
 end
@@ -65,7 +63,7 @@ function mod:UpdateProfessions()
 		for _, id in pairs(proftable) do
 			local name, icon, rank, maxRank, _, _, skillLine, rankModifier = GetProfessionInfo(id)
 
-			if name and (rank < capRank or (not db.capped)) then
+			if name and (rank < maxRank or (not db.capped)) then
 				if E.private.dashboards.professions.choosePofessions[id] == true then
 					holder:Show()
 					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
