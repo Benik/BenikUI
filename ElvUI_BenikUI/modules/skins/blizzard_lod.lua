@@ -108,6 +108,16 @@ local function style_Calendar()
 end
 S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_Calendar", style_Calendar)
 
+-- Channels
+local function style_Channels()
+	if E.private.skins.blizzard.Channels ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	_G["ChannelFrame"].backdrop:Style('Outside')
+	_G["CreateChannelPopup"]:Style('Outside')
+
+end
+S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
+
 -- Collections
 local function style_Collections()
 	if E.private.skins.blizzard.collections ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
