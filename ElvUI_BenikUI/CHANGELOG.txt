@@ -1,3 +1,8 @@
+3.45
+*Added BfA Currency for Token Dashboard
+*Fixed maxRank for Professions
+*Styled the ChatChannels frame
+
 3.44
 *Fixed BattlefieldMapFrame styling
 *Enable Shadows only on v3 layout. v2 has some visual glitches
