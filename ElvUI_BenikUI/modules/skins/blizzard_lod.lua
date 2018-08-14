@@ -376,6 +376,14 @@ local function style_QuestChoice()
 end
 S:AddCallbackForAddon("Blizzard_QuestChoice", "BenikUI_QuestChoice", style_QuestChoice)
 
+-- ScrappingMachine
+local function style_ScrappingMachineUI()
+	if E.private.skins.blizzard.Scrapping ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	_G["ScrappingMachineFrame"].backdrop:Style('Outside')
+end
+S:AddCallbackForAddon("Blizzard_ScrappingMachineUI", "BenikUI_ScrappingMachineUI", style_ScrappingMachineUI)
+
 -- TalentUI
 local function style_TalentUI()
 	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
