@@ -13,7 +13,6 @@ local InCombatLockdown = InCombatLockdown
 local ARTIFACT_POWER = ARTIFACT_POWER
 local C_AzeriteItem_FindActiveAzeriteItem = C_AzeriteItem.FindActiveAzeriteItem
 local C_AzeriteItem_GetAzeriteItemXPInfo = C_AzeriteItem.GetAzeriteItemXPInfo
-local C_AzeriteItem_GetPowerLevel = C_AzeriteItem.GetPowerLevel
 
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_AzeriteBar, ArtifactFrame
 
@@ -169,9 +168,8 @@ function BDB:UpdateAzeriteNotifier()
 
 		local xp, totalLevelXP = C_AzeriteItem_GetAzeriteItemXPInfo(azeriteItemLocation)
 		local xpToNextLevel = totalLevelXP - xp
-		local currentLevel = C_AzeriteItem_GetPowerLevel(azeriteItemLocation)
 
-		bar.f.txt:SetFormattedText('%s%% [%s]', floor(xp / totalLevelXP * 100), currentLevel)
+		bar.f.txt:SetFormattedText('%s%%', floor(xp / totalLevelXP * 100))
 
 		BDB.UpdateAzeriteNotifierPositions()
 	end
