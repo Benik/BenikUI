@@ -110,7 +110,9 @@ hooksecurefunc(S, "HandleTab", mod.TabShadows)
 -- MicroBar
 local function MicroBarShadows()
 	for i=1, #MICRO_BUTTONS do
-		_G[MICRO_BUTTONS[i]].backdrop:CreateSoftShadow()
+		if _G[MICRO_BUTTONS[i]].backdrop then
+			_G[MICRO_BUTTONS[i]].backdrop:CreateSoftShadow()
+		end
 	end
 end
 
