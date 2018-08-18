@@ -84,6 +84,7 @@ function mod:UpdateItemLevel()
 			mod.f[id]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
 	end
+	CharacterNeckSlot.RankFrame.Label:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 end
 
 local function returnPoints(id)
@@ -113,6 +114,11 @@ function mod:UpdateItemLevelPosition()
 		mod.f[id]:ClearAllPoints()
 		mod.f[id]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
 	end
+
+	CharacterNeckSlot.RankFrame:ClearAllPoints()
+	CharacterNeckSlot.RankFrame.Label:ClearAllPoints()
+	CharacterNeckSlot.RankFrame:Point('TOPRIGHT', CharacterNeckSlot, 'TOPRIGHT', 0, 4)
+	CharacterNeckSlot.RankFrame.Label:Point('RIGHT')
 end
 
 function mod:CreateString()
