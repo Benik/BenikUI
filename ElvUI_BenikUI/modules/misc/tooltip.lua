@@ -14,6 +14,17 @@ local function StyleTooltip()
 	GameTooltip:Style('Outside')
 	GameTooltip.style:SetClampedToScreen(true)
 
+	-- Create a blank frame to position the GameTooltip.TopOverlay texture
+	GameTooltip.style.blank = CreateFrame('Frame', nil, GameTooltip.style)
+	GameTooltip.style.blank:Size(6, 6)
+	GameTooltip.style.blank:Point('BOTTOM', GameTooltip.style, 'TOP')
+	
+	if GameTooltip.TopOverlay then
+		GameTooltip.TopOverlay:SetParent(GameTooltip.style.blank)
+		GameTooltip.TopOverlay:ClearAllPoints()
+		GameTooltip.TopOverlay:Point('CENTER', GameTooltip.style.blank, 'CENTER')
+	end
+
 	-- Grab the style color
 	local r, g, b = GameTooltip.style:GetBackdropColor()
 	ttr, ttg, ttb = r, g, b
