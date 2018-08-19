@@ -344,9 +344,6 @@ local function style_GarrisonUI()
 	local MissionFrame = _G["BFAMissionFrame"]
 	MissionFrame.Topper:Hide()
 	MissionFrame.backdrop:Style('Outside')
-	-- Temp till it's fixed in ElvUI
-	GarrisonFollowerTooltip:StripTextures()
-	GarrisonFollowerTooltip:SetTemplate("Transparent")
 
 	if E.private.skins.blizzard.tooltip then
 		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
