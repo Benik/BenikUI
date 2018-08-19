@@ -334,7 +334,7 @@ S:AddCallbackForAddon("Blizzard_ObliterumUI", "BenikUI_ObliterumUI", style_Oblit
 
 -- GarrisonUI
 local function style_GarrisonUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["OrderHallMissionFrame"]:Style('Small')
 	if _G["AdventureMapQuestChoiceDialog"].backdrop then
