@@ -341,6 +341,10 @@ local function style_GarrisonUI()
 		_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
 	end
 
+	local MissionFrame = _G["BFAMissionFrame"]
+	MissionFrame.Topper:Hide()
+	MissionFrame.backdrop:Style('Outside')
+
 	if E.private.skins.blizzard.tooltip then
 		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
 		_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')
