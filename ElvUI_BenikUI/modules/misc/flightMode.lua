@@ -183,7 +183,7 @@ function BFM:SetFlightMode(status)
 			XIV_Databar:Hide()
 		end
 
-		if LeftChatPanel_Bui.styleShadow then
+		if LeftChatPanel_Bui and LeftChatPanel_Bui.styleShadow then
 			LeftChatPanel_Bui.styleShadow:Hide()
 		end
 
@@ -261,7 +261,7 @@ function BFM:SetFlightMode(status)
 			XIV_Databar:Show()
 		end
 
-		if LeftChatPanel_Bui.styleShadow then
+		if LeftChatPanel_Bui and LeftChatPanel_Bui.styleShadow then
 			LeftChatPanel_Bui.styleShadow:Show()
 			LeftChatPanel_Bui.styleShadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
 		end
