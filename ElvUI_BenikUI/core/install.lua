@@ -67,6 +67,14 @@ local function SetupLayout(layout)
 	E.db["general"]["valuecolor"]["b"] = 0
 	E.db["general"]["valuecolor"]["g"] = 0.5
 	E.db["general"]["valuecolor"]["r"] = 1
+	E.db["general"]["altPowerBar"]['enable'] = true
+	E.db["general"]["altPowerBar"]['width'] = 250
+	E.db["general"]["altPowerBar"]['height'] = 20
+	E.db["general"]["altPowerBar"]['fontOutline'] = 'OUTLINE'
+	E.db["general"]["altPowerBar"]['statusBar'] = "BuiFlat"
+	E.db["general"]["altPowerBar"]['textFormat'] = 'NAMECURMAX'
+	E.db["general"]["altPowerBar"]['statusBarColorGradient'] = false
+	E.db["general"]["altPowerBar"]['statusBarColor'] = { r = 0.2, g = 0.4, b = 0.8 }
 	E.db["hideTutorial"] = true
 	E.private["skins"]["blizzard"]["alertframes"] = true
 	E.private["skins"]["blizzard"]["questChoice"] = true
@@ -111,6 +119,8 @@ local function SetupLayout(layout)
 	if layout == 'classic' then
 		E.db["general"]["font"] = "Bui Prototype"
 		E.db["general"]["fontSize"] = 10
+		E.db["general"]["altPowerBar"]["font"] = "Bui Prototype"
+		E.db["general"]["altPowerBar"]["fontSize"] = 10
 
 		E.db["chat"]["tabFont"] = "Bui Visitor1"
 		E.db["chat"]["tabFontSize"] = 10
@@ -158,6 +168,8 @@ local function SetupLayout(layout)
 	elseif layout == "v3" then
 		E.db["general"]["font"] = "Expressway"
 		E.db["general"]["fontSize"] = 11
+		E.db["general"]["altPowerBar"]["font"] = "Expressway"
+		E.db["general"]["altPowerBar"]["fontSize"] = 11
 
 		E.db["datatexts"]["font"] = "Expressway"
 		E.db["datatexts"]["fontSize"] = 11

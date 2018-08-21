@@ -535,6 +535,13 @@ local function StyleDBM_Options()
 	end)
 end
 
+local function StyleAltPowerBar()
+	if E.db.general.altPowerBar.enable ~= true then return end
+	
+	local bar = _G["ElvUI_AltPowerBar"]
+	bar.backdrop:Style('Outside')
+end
+
 function BUIS:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
@@ -556,6 +563,7 @@ function BUIS:Initialize()
 
 	skinDecursive()
 	skinStoryline()
+	StyleAltPowerBar()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
