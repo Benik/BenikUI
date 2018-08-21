@@ -57,10 +57,20 @@ local function ObjectiveTrackerShadows()
 			progressBar.hasShadow = true
 		end
 	end
+
+	local function ItemButtonShadows(self, block)
+		local item = block.itemButton
+		if item and not item.shadow then
+			item:CreateSoftShadow()
+		end
+	end
+
 	hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(WORLD_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(SCENARIO_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(QUEST_TRACKER_MODULE,"SetBlockHeader",ItemButtonShadows)
+	hooksecurefunc(WORLD_QUEST_TRACKER_MODULE,"AddObjective",ItemButtonShadows)
 
 	local function FindGroupButtonShadows(block)
 		if block.hasGroupFinderButton and block.groupFinderButton then
