@@ -8,6 +8,8 @@ local pairs, unpack = pairs, unpack
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local LoadAddOn = LoadAddOn
+local InCombatLockdown = InCombatLockdown
+local GetQuestLogTitle = GetQuestLogTitle
 
 -- GLOBALS: hooksecurefunc
 
@@ -48,9 +50,6 @@ local function styleFreeBlizzardFrames()
 		PaperDollFrame:Style('Outside')
 		ReputationDetailFrame:Style('Outside')
 		ReputationFrame:Style('Outside')
-		if db.tooltip then
-			--ReputationParagonTooltip:Style('Outside')
-		end
 		TokenFrame:Style('Outside')
 		TokenFramePopup:Style('Outside')
 	end
@@ -65,7 +64,6 @@ local function styleFreeBlizzardFrames()
 
 	if db.friends then
 		AddFriendFrame:Style('Outside')
-		--ChannelFrameDaughterFrame.backdrop:Style('Outside')
 		FriendsFrame:Style('Outside')
 		FriendsFriendsFrame.backdrop:Style('Outside')
 		RecruitAFriendFrame:Style('Outside')
@@ -541,6 +539,21 @@ local function StyleAltPowerBar()
 	local bar = _G["ElvUI_AltPowerBar"]
 	bar.backdrop:Style('Outside')
 end
+
+local function ObjectiveTrackerQuests()
+	local function QuestNumString()
+		local questNum, q, o
+		if not InCombatLockdown() then
+			questNum = tostring(select(2, GetNumQuestLogEntries()))
+			q = questNum.."/"..MAX_QUESTS.." "..TRACKER_HEADER_QUESTS
+			o = questNum.."/"..MAX_QUESTS.." "..OBJECTIVES_TRACKER_LABEL
+			_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetText(q)
+			_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetText(o)
+		end
+	end
+	hooksecurefunc("ObjectiveTracker_Update", QuestNumString)
+end
+S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
 
 function BUIS:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
