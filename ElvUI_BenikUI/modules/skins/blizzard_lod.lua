@@ -425,6 +425,15 @@ local function style_TalkingHeadUI()
 
 		frame.BackgroundFrame.TextBackground:Hide()
 
+		-- Sometimes the text is not coloring. Credit Azilroka
+		frame.NameFrame.Name:SetTextColor(1, 0.82, 0.02)
+		frame.NameFrame.Name.SetTextColor = function() end
+		frame.NameFrame.Name:SetShadowColor(0.0, 0.0, 0.0, 1.0);
+
+		frame.TextFrame.Text:SetTextColor(1, 1, 1)
+		frame.TextFrame.Text.SetTextColor = function() end
+		frame.TextFrame.Text:SetShadowColor(0.0, 0.0, 0.0, 1.0);
+
 		local button = frame.MainFrame.CloseButton
 		S:HandleCloseButton(button)
 		button:ClearAllPoints()
