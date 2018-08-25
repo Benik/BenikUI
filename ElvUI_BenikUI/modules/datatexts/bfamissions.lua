@@ -13,12 +13,7 @@ local C_Garrison_GetLandingPageShipmentInfoByContainerID = C_Garrison.GetLanding
 local C_Garrison_GetTalentTreeIDsByClassID = C_Garrison.GetTalentTreeIDsByClassID
 local C_Garrison_GetTalentTreeInfoForID = C_Garrison.GetTalentTreeInfoForID
 local C_Garrison_GetCompleteTalent = C_Garrison.GetCompleteTalent
-local C_Garrison_HasGarrison = C_Garrison.HasGarrison
 local C_Garrison_GetAvailableMissions = C_Garrison.GetAvailableMissions
-local ShowGarrisonLandingPage = ShowGarrisonLandingPage
-local HideUIPanel = HideUIPanel
-local GetCurrencyInfo = GetCurrencyInfo
-local GetMouseFocus = GetMouseFocus
 local SecondsToTime = SecondsToTime
 local COMPLETE = COMPLETE
 local RESEARCH_TIME_LABEL = RESEARCH_TIME_LABEL
@@ -57,6 +52,8 @@ local OnEvent = function(self)
 
 	if (CountInProgress > 0) then
 		self.text:SetFormattedText(displayModifierString, GARRISON_MISSIONS, CountCompleted, #inProgressMissions)
+	elseif (CountInProgress == 0) and CountCompleted > 0 then
+		self.text:SetFormattedText("|cff00ff00%s|r", GARRISON_TYPE_8_0_LANDING_PAGE_TITLE) -- green text when there are completed missions
 	else
 		self.text:SetFormattedText(GARRISON_TYPE_8_0_LANDING_PAGE_TITLE)
 	end
