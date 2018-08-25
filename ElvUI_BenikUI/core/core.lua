@@ -35,6 +35,7 @@ BUI.PA = BUI:IsAddOnEnabled('ProjectAzilroka')
 BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.LL = BUI:IsAddOnEnabled('ElvUI_LocLite')
 BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
+BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 

@@ -133,6 +133,28 @@ function BFM:UpdateFps()
 	self.FlightMode.bottom.fps.txt:SetFormattedText(displayFormat, value)
 end
 
+local isInFlightLoaded = false
+
+function BFM:SkinInFlight()
+	if not isInFlightLoaded then
+		if not BUI.IF then
+			LoadAddOn("InFlight") -- LOD addon
+			isInFlightLoaded = true
+		end
+	end
+
+	local frame = _G["InFlightBar"]
+	if frame then
+		if not frame.isSkinned then
+			frame:CreateBackdrop('Transparent', true, true)
+			frame.backdrop:SetOutside(frame, 2, 2)
+			frame.backdrop:SetBackdropBorderColor(.3, .3, .3, 1)
+			frame.backdrop:CreateWideShadow()
+			frame.isSkinned = true
+		end
+	end
+end
+
 function BFM:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
 
@@ -192,6 +214,8 @@ function BFM:SetFlightMode(status)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
 		self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
 		self.fpsTimer = self:ScheduleRepeatingTimer('UpdateFps', 1)
+		
+		self:SkinInFlight()
 
 		self.inFlightMode = true
 	elseif(self.inFlightMode) then
