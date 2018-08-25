@@ -102,16 +102,6 @@ local function AltoholicDecor()
 	end
 end
 
-local function RareCoordDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.rc then return end
-	local rcFrames = {RC, RC.opt, RCnotify, RCminimized}
-	for _, frame in pairs(rcFrames) do
-		if not frame.style then
-			frame:Style('Outside')
-		end
-	end
-end
-
 local function CliqueDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.clique then return end
 	_G["CliqueConfig"]:Style('Small')
@@ -198,7 +188,6 @@ if AS:CheckAddOn('Recount') then AS:RegisterSkin('Recount', RecountDecor, 2) end
 if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPS', TinyDPSDecor, 2) end
 if AS:CheckAddOn('AtlasLoot') then AS:RegisterSkin('AtlasLoot', AtlasLootDecor, 2) end
 if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('Altoholic', AltoholicDecor, 2) end
-if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinator', RareCoordDecor, 2) end
 if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
 if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
 if AS:CheckAddOn('Pawn') then AS:RegisterSkin('Pawn', PawnDecor, 2) end

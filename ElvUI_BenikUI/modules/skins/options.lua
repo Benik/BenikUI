@@ -16,7 +16,6 @@ local DecorElvUIAddons = {
 }
 
 local DecorAddons = {
-	{'RareCoordinator', L['Rare Coordinator'], 'rc'},
 	{'Skada', L['Skada'], 'skada'},
 	{'Recount', L['Recount'], 'recount'},
 	{'TinyDPS', L['TinyDPS'], 'tinydps'},
