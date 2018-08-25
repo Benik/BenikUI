@@ -420,8 +420,7 @@ local function style_TalkingHeadUI()
 		-- Credit Azilroka
 		frame.MainFrame.Model.ModelShadow = frame.MainFrame.Model:CreateTexture(nil, "OVERLAY", nil, 2)
 		frame.MainFrame.Model.ModelShadow:SetAtlas("Artifacts-BG-Shadow")
-		frame.MainFrame.Model.ModelShadow:SetPoint('TOPLEFT')
-		frame.MainFrame.Model.ModelShadow:SetPoint('BOTTOMRIGHT', 0, -2)
+		frame.MainFrame.Model.ModelShadow:SetOutside()
 		frame.MainFrame.Model.PortraitBg:Hide()
 
 		frame.BackgroundFrame.TextBackground:Hide()
