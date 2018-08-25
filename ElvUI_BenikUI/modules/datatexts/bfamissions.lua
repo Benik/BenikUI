@@ -113,13 +113,15 @@ local OnEnter = function(self)
 	local inProgressMissions = {}
 	C_Garrison_GetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_8_0)
 	local numMissions = #inProgressMissions
+
 	local AvailableMissions = {};
 	C_Garrison_GetAvailableMissions(AvailableMissions, LE_FOLLOWER_TYPE_GARRISON_8_0);
-	if(numMissions > 0) then
-		DT.tooltip:AddLine(format(GARRISON_LANDING_AVAILABLE, #AvailableMissions), selectioncolor)
-		DT.tooltip:AddLine(" ")
-		tsort(inProgressMissions, sortFunction) --Sort by time left, lowest first
 
+	DT.tooltip:AddLine(format(GARRISON_LANDING_AVAILABLE:gsub('-', ': '), #AvailableMissions), selectioncolor)
+	DT.tooltip:AddLine(" ")
+
+	if(numMissions > 0) then
+		tsort(inProgressMissions, sortFunction) --Sort by time left, lowest first
 		firstLine = false
 		DT.tooltip:AddLine(L["Mission(s) Report:"])
 		for i=1, numMissions do
@@ -196,8 +198,10 @@ local OnEnter = function(self)
 			end
 		end
 	end
-
-	DT.tooltip:AddLine(" ")
+	
+	if(numMissions > 0 or hasFollowers or hasTalent) then
+		DT.tooltip:AddLine(" ")
+	end
 	DT.tooltip:AddLine(GARRISON_TYPE_8_0_LANDING_PAGE_TOOLTIP, 0.7, 0.7, 1)
 
 	DT.tooltip:Show()
@@ -212,4 +216,4 @@ local function ValueColorUpdate(hex)
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
-DT:RegisterDatatext('BfA Missions (BenikUI)', {"PLAYER_ENTERING_WORLD", "GARRISON_LANDINGPAGE_SHIPMENTS"}, OnEvent, nil, OnClick, OnEnter)
+DT:RegisterDatatext('BfA Missions (BenikUI)', {'PLAYER_ENTERING_WORLD', 'GARRISON_MISSION_LIST_UPDATE', 'GARRISON_MISSION_STARTED', 'GARRISON_MISSION_FINISHED', 'ZONE_CHANGED_NEW_AREA', 'GARRISON_MISSION_COMPLETE_RESPONSE'}, OnEvent, nil, OnClick, OnEnter)
