@@ -238,7 +238,6 @@ P['benikuiSkins'] = {
 	},
 	
 	['addonSkins'] = {
-		['rc'] = true,
 		['skada'] = true,
 		['recount'] = true,
 		['tinydps'] = true,
