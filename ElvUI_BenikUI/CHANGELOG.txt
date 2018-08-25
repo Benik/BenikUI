@@ -1,3 +1,23 @@
+3.46
+*Removed styling for RareCoordinator. It's outdated.
+*Skinned InFlight to fit with flightMode. Also made some minor changes in the profile that are needed for the skin looks
+*BfA Mission datatext: Mission label will now become green when there are only completed missions in the mission report.
+*Updated the game menu to show 'Missions' rather than Order Hall
+*Added BfA Missions Datatext. Also added it in the Install
+*Updated donor list. Thanks to Jason and Louis
+*Added #Quests on the Objective Tracker title. Credit: Merathilis
+*Added shadow at the ObjectiveTracker actionButton
+*Revamped the TalkingHead skin. Credit: Azilroka
+*Styled and added in the install the altPowerBar
+*Added the new TopCenterContainerMover in the Install and cleaned some of the rest movers
+*Styled the MissionFrame
+*Fixed Neck iLevel overlapping with Artifact Level.
+*Fixed tooltip azerite texture overlapping with tooltip Styling
+*Added a check for Microbar shadows to avoid a possible lua error
+*Styled ScrappingMachine
+*Removed Level from Azerite bar Notifier
+*Styled AzeriteUI
+
 3.45
 *Added BfA Currency for Token Dashboard
 *Fixed maxRank for Professions
