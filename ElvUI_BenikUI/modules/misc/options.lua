@@ -23,7 +23,7 @@ local function miscTable()
 				name = L['Flight Mode'],
 				desc = L['Display the Flight Mode screen when taking flight paths'],
 				get = function(info) return E.db.benikui.misc[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.misc[ info[#info] ] = value; E:GetModule('BUIFlightMode'):Toggle() end,
+				set = function(info, value) E.db.benikui.misc[ info[#info] ] = value; E:GetModule('BUIFlightMode'):Toggle() E:StaticPopup_Show('PRIVATE_RL') end,
 			},
 			afkMode = {
 				order = 3,

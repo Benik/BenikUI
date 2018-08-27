@@ -563,9 +563,37 @@ local function ObjectiveTrackerQuests()
 end
 S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
 
+local function StyleInFlight()
+	if E.db.benikuiSkins.variousSkins.inflight ~= true or E.db.benikui.misc.flightMode == true then return end
+
+	local frame = _G["InFlightBar"]
+	if frame then
+		if not frame.isStyled then
+			frame:CreateBackdrop('Transparent')
+			frame.backdrop:Style('Outside')
+			frame.isStyled = true
+		end
+	end
+end
+
+local function LoadInFlight()
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
+	f:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
+	f:SetScript("OnEvent", function(self, event)
+		if event then
+			StyleInFlight()
+			f:UnregisterEvent(event)
+		end
+	end)
+end
+
 function BUIS:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
+	end
+	if addon == "InFlight" then
+		LoadInFlight()
 	end
 end
 
