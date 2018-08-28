@@ -11,6 +11,8 @@ function BUI:LoadBigWigsProfile()
 		fontsize = 10
 	end
 
+	if BigWigs3DB['profiles'] == nil then BigWigs3DB['profiles'] = {} end
+
 	if BigWigs3DB['profiles'][BUI.AddonProfileKey] == nil then
 		BigWigs3DB = {
 			["namespaces"] = {
