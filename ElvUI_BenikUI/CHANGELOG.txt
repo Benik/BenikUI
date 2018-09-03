@@ -1,3 +1,11 @@
+3.47
+*Fixed Professions and Tokens dashboards not resizing correclty after updating. This will fix #48
+*Followed a recent AddonSkins change to avoid a BigWigs error
+*Avoid a rare lua error with BigWigs Profile. Thanks @Shadowcrit
+*Style InFlight when flightMode is disabled, otherwise use flightMode looks. Also added an option to disable InFlight styling
+*In the Objective Tracker, the quest totals will go red when there are 5 quests to reach max quests accepted
+*Removing InFlight flight times. InFlight doesn't use profiles, so user discovered flight times will be overwritten everytime the profile applies
+
 3.46
 *Removed styling for RareCoordinator. It's outdated.
 *Skinned InFlight to fit with flightMode. Also made some minor changes in the profile that are needed for the skin looks
