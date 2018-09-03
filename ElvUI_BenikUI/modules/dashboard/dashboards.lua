@@ -147,11 +147,7 @@ function mod:CreateDashboard(name, barHolder, option)
 
 	bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
 	bar.Text:FontTemplate()
-	if hasIcon then
-		bar.Text:Point('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
-	else
-		bar.Text:Point('LEFT', bar, 'LEFT', 6, (E.PixelMode and 2 or 3))
-	end
+	bar.Text:Point('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
 	bar.Text:Width(bar:GetWidth() - 20)
 	bar.Text:SetWordWrap(false)
 
