@@ -118,10 +118,10 @@ function mod:CreateDashboardHolder(holderName, option)
 	return holder
 end
 
-function mod:CreateDashboard(name, barHolder)
+function mod:CreateDashboard(name, barHolder, option)
 	local bar = CreateFrame('Button', nil, barHolder)
 	bar:Height(DASH_HEIGHT)
-	bar:Width(150)
+	bar:Width(E.db.dashboards[option].width or 150)
 	bar:Point('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
 	bar:EnableMouse(true)
 
