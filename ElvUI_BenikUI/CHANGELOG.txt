@@ -1,3 +1,6 @@
+3.471
+*Missed a Dashboard line
+
 3.47
 *Fixed Professions and Tokens dashboards not resizing correclty after updating. This will fix #48
 *Followed a recent AddonSkins change to avoid a BigWigs error
