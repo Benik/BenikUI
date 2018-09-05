@@ -65,6 +65,24 @@ local function style_AzeriteUI()
 end
 S:AddCallbackForAddon("Blizzard_AzeriteUI", "BenikUI_AzeriteUI", style_AzeriteUI)
 
+-- AzeriteRespecFrame
+local function style_AzeriteRespecUI()
+	if E.private.skins.blizzard.AzeriteRespec ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	local frame = _G["AzeriteRespecFrame"]
+	frame.backdrop:Style('Outside')
+	frame:SetClipsChildren(false)
+
+	local bg = select(23, frame:GetRegions())
+	bg:SetTexture(nil)
+
+	AzeriteRespecFrameTopTileStreaks:Hide()
+
+	frame.ButtonFrame.AzeriteRespecButton:ClearAllPoints()
+	frame.ButtonFrame.AzeriteRespecButton:Point('TOP', frame.ItemSlot, 'BOTTOM', 0, -20)
+end
+S:AddCallbackForAddon("Blizzard_AzeriteRespecUI", "BenikUI_AzeriteRespecUI", style_AzeriteRespecUI)
+
 -- BarbershopUI
 local function style_BarbershopUI()
 	if E.private.skins.blizzard.barber ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
