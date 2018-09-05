@@ -16,6 +16,8 @@ local GetQuestLogTitle = GetQuestLogTitle
 local MAX_STATIC_POPUPS = 4
 local SPACING = (E.PixelMode and 1 or 3)
 
+local WarCampaignTooltip = QuestScrollFrame.WarCampaignTooltip
+
 local tooltips = {
 	FriendsTooltip,
 	ItemRefTooltip,
@@ -24,7 +26,8 @@ local tooltips = {
 	ShoppingTooltip3,
 	FloatingBattlePetTooltip,
 	FloatingPetBattleAbilityTooltip,
-	FloatingGarrisonFollowerAbilityTooltip
+	FloatingGarrisonFollowerAbilityTooltip,
+	WarCampaignTooltip,
 }
 
 -- Blizzard Styles
