@@ -80,6 +80,12 @@ BUI.MenuList = {
 	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end}
 }
 
+local function sortFunction(a, b)
+	return a.text < b.text
+end
+
+table.sort(BUI.MenuList, sortFunction)
+
 local function OnClick(btn)
 	local parent = btn:GetParent()
 	btn.func()
