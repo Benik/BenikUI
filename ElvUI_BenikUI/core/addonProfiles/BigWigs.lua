@@ -19,7 +19,7 @@ function BUI:LoadBigWigsProfile()
 				["BigWigs_Plugins_Alt Power"] = {
 					["profiles"] = {
 						[BUI.AddonProfileKey] = {
-							["font"] = font,
+							["fontName"] = font,
 							["fontOutline"] = "",
 							["fontsize"] = fontsize,
 						},
@@ -28,7 +28,7 @@ function BUI:LoadBigWigsProfile()
 				["BigWigs_Plugins_Bars"] = {
 					["profiles"] = {
 						[BUI.AddonProfileKey] = {
-							["font"] = font,
+							["fontName"] = font,
 							["BigWigsAnchor_width"] = 199.999908447266,
 							["texture"] = "BuiFlat",
 							["barStyle"] = "AddOnSkins Half-Bar",
@@ -38,7 +38,7 @@ function BUI:LoadBigWigsProfile()
 				["BigWigs_Plugins_Super Emphasize"] = {
 					["profiles"] = {
 						[BUI.AddonProfileKey] = {
-							["font"] = font,
+							["fontName"] = font,
 						},
 					},
 				},
@@ -46,7 +46,7 @@ function BUI:LoadBigWigsProfile()
 					["profiles"] = {
 						[BUI.AddonProfileKey] = {
 							["fontSize"] = 20,
-							["font"] = font,
+							["fontName"] = font,
 						},
 					},
 				},
@@ -54,7 +54,7 @@ function BUI:LoadBigWigsProfile()
 					["profiles"] = {
 						[BUI.AddonProfileKey] = {
 							["fontSize"] = 20,
-							["font"] = font,
+							["fontName"] = font,
 							["width"] = 139.999984741211,
 							["posy"] = 453.688899874687,
 							["posx"] = 976.355666002965,
