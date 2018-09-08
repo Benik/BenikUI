@@ -3,14 +3,16 @@ local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadRecountProfile()
 	local font
+	local key = BUI.AddonProfileKey
+
 	if E.private.benikui.expressway == true then
 		font = "Expressway"
 	else
 		font = "Bui Prototype"
 	end
 
-	if RecountDB['profiles'][BUI.AddonProfileKey] == nil then
-		RecountDB['profiles'][BUI.AddonProfileKey] = {
+	if RecountDB['profiles'][key] == nil then
+		RecountDB['profiles'][key] = {
 			['Colors'] = {
 				['Other Windows'] = {
 					['Title Text'] = {
@@ -44,7 +46,7 @@ function BUI:LoadRecountProfile()
 			['ClampToScreen'] = true,
 			['Font'] = font,
 		}
-		Recount.db:SetProfile(BUI.AddonProfileKey)
+		Recount.db:SetProfile(key)
 
 		if BUI.isInstallerRunning == false then -- don't print during Install, when applying profile that doesn't exist
 			print(BUI.profileStrings[1]..L['Recount'])

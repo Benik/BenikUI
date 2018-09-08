@@ -3,6 +3,7 @@ local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadSkadaProfile()
 	local font, fontsize
+	local key = BUI.AddonProfileKey
 	if E.private.benikui.expressway == true then
 		font = "Expressway"
 		fontsize = 11
@@ -11,9 +12,9 @@ function BUI:LoadSkadaProfile()
 		fontsize = 10
 	end
 
-	if SkadaDB['profiles'][BUI.AddonProfileKey] == nil then
+	if SkadaDB['profiles'][key] == nil then
 
-		SkadaDB['profiles'][BUI.AddonProfileKey] = {
+		SkadaDB['profiles'][key] = {
 			["windows"] = {
 				{
 					["barheight"] = 14,
@@ -124,7 +125,7 @@ function BUI:LoadSkadaProfile()
 				}, -- [2]
 			},
 		}
-		Skada.db:SetProfile(BUI.AddonProfileKey) -- set automatically the profile
+		Skada.db:SetProfile(key) -- set automatically the profile
 
 		if BUI.isInstallerRunning == false then -- don't print during Install, when applying profile that doesn't exist
 			print(BUI.profileStrings[1]..L['Skada'])

@@ -3,14 +3,16 @@ local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadDetailsProfile()
 	local font
+	local key = BUI.AddonProfileKey
+
 	if E.private.benikui.expressway == true then
 		font = "Expressway"
 	else
 		font = "Bui Prototype"
 	end
 
-	if _detalhes_global["__profiles"][BUI.AddonProfileKey] == nil then
-		_detalhes_global["__profiles"][BUI.AddonProfileKey] = {
+	if _detalhes_global["__profiles"][key] == nil then
+		_detalhes_global["__profiles"][key] = {
 			["capture_real"] = {
 				["heal"] = true,
 				["spellcast"] = true,
@@ -1638,7 +1640,7 @@ function BUI:LoadDetailsProfile()
 				}, -- [2]
 			},
 		}
-		_detalhes:ApplyProfile(BUI.AddonProfileKey)
+		_detalhes:ApplyProfile(key)
 
 		if BUI.isInstallerRunning == false then -- don't print during Install, when applying profile that doesn't exist
 			print(BUI.profileStrings[1]..L['Details'])
