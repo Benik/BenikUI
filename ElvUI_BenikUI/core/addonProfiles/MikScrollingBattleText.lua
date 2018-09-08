@@ -3,35 +3,45 @@ local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadMSBTProfile()
 	local font
+	local key = BUI.AddonProfileKey
+	local addonName = GetAddOnMetadata('MikScrollingBattleText', 'Title')
+
 	if E.private.benikui.expressway == true then
 		font = "Expressway"
 	else
 		font = "Bui Prototype"
 	end
+	if MSBTProfiles_SavedVars['profiles'][key] == nil then
+		MSBTProfiles_SavedVars['profiles'][key] = {
+			["scrollAreas"] = {
+				["Incoming"] = {
+					["behavior"] = "MSBT_NORMAL",
+					["offsetY"] = -161,
+					["offsetX"] = -330,
+					["animationStyle"] = "Straight",
+				},
+				["Outgoing"] = {
+					["direction"] = "Up",
+					["offsetX"] = 287,
+					["behavior"] = "MSBT_NORMAL",
+					["offsetY"] = -161,
+					["animationStyle"] = "Straight",
+				},
+				["Static"] = {
+					["offsetX"] = -21,
+					["offsetY"] = -231,
+				},
+			},
+			["normalFontName"] = font,
+			["critFontName"] = font,
+			["creationVersion"] = MikSBT.VERSION.."."..MikSBT.SVN_REVISION,
+		}
+		MikSBT.Profiles.SelectProfile(key)
 
-	MSBTProfiles_SavedVars['profiles']['BenikUI'] = {
-		["scrollAreas"] = {
-			["Incoming"] = {
-				["behavior"] = "MSBT_NORMAL",
-				["offsetY"] = -161,
-				["offsetX"] = -330,
-				["animationStyle"] = "Straight",
-			},
-			["Outgoing"] = {
-				["direction"] = "Up",
-				["offsetX"] = 287,
-				["behavior"] = "MSBT_NORMAL",
-				["offsetY"] = -161,
-				["animationStyle"] = "Straight",
-			},
-			["Static"] = {
-				["offsetX"] = -21,
-				["offsetY"] = -231,
-			},
-		},
-		["normalFontName"] = font,
-		["critFontName"] = font,
-		["creationVersion"] = MikSBT.VERSION.."."..MikSBT.SVN_REVISION,
-	}
-	MikSBT.Profiles.SelectProfile('BenikUI')
+		if BUI.isInstallerRunning == false then -- don't print during Install, when applying profile that doesn't exist
+			print(BUI.profileStrings[1]..addonName)
+		end
+	else
+		print(BUI.Title.."- "..addonName..BUI.profileStrings[2])
+	end
 end
