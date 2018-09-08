@@ -122,6 +122,13 @@ function BUIL:ToggleTransparency()
 		Bui_rdtp:SetTemplate('NoBackdrop')
 		for i = 1, BUTTON_NUM do
 			bbuttons[i]:SetTemplate('NoBackdrop')
+			if BUI.ShadowMode then
+				bbuttons[i].shadow:Hide()
+			end
+		end
+		if BUI.ShadowMode then
+			Bui_ldtp.shadow:Hide()
+			Bui_rdtp.shadow:Hide()
 		end
 	else
 		if db.transparent then
@@ -135,6 +142,13 @@ function BUIL:ToggleTransparency()
 			Bui_rdtp:SetTemplate('Default', true)
 			for i = 1, BUTTON_NUM do
 				bbuttons[i]:SetTemplate('Default', true)
+			end
+		end
+		if BUI.ShadowMode then
+			Bui_ldtp.shadow:Show()
+			Bui_rdtp.shadow:Show()
+			for i = 1, BUTTON_NUM do
+				bbuttons[i].shadow:Show()
 			end
 		end
 	end
