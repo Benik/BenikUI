@@ -229,33 +229,46 @@ end
 
 function BUI:SetupColorThemes(color)
 	-- Colors
+	local ca, cr, cg, cb
 	if color == 'Diablo' then
-		E.db.general.backdropfadecolor.a = 0.75
-		E.db.general.backdropfadecolor.r = 0.125
-		E.db.general.backdropfadecolor.g = 0.054
-		E.db.general.backdropfadecolor.b = 0.050
+		ca = 0.75
+		cr = 0.125
+		cg = 0.054
+		cb = 0.050
 	elseif color == 'Hearthstone' then
-		E.db.general.backdropfadecolor.a = 0.75
-		E.db.general.backdropfadecolor.r = 0.086
-		E.db.general.backdropfadecolor.g = 0.109
-		E.db.general.backdropfadecolor.b = 0.149
+		ca = 0.75
+		cr = 0.086
+		cg = 0.109
+		cb = 0.149
 	elseif color == 'Mists' then
-		E.db.general.backdropfadecolor.a = 0.75
-		E.db.general.backdropfadecolor.r = 0.043
-		E.db.general.backdropfadecolor.g = 0.101
-		E.db.general.backdropfadecolor.b = 0.101
+		ca = 0.75
+		cr = 0.043
+		cg = 0.101
+		cb = 0.101
 	elseif color == 'Elv' then
-		E.db.general.backdropfadecolor.a = 0.75
-		E.db.general.backdropfadecolor.r = 0.054
-		E.db.general.backdropfadecolor.g = 0.054
-		E.db.general.backdropfadecolor.b = 0.054
+		ca = 0.75
+		cr = 0.054
+		cg = 0.054
+		cb = 0.054
 	end
+
+	E.db.general.backdropfadecolor.a = ca
+	E.db.general.backdropfadecolor.r = cr
+	E.db.general.backdropfadecolor.g = cg
+	E.db.general.backdropfadecolor.b = cb
+
+	E.db.chat.panelColor.a = ca
+	E.db.chat.panelColor.r = cr
+	E.db.chat.panelColor.g = cg
+	E.db.chat.panelColor.b = cb
+
 	E.db.benikui.colors.colorTheme = color
 
 	E.db.general.backdropcolor.r = 0.025
 	E.db.general.backdropcolor.g = 0.025
 	E.db.general.backdropcolor.b = 0.025
 
+	E:GetModule('Chat'):Panels_ColorUpdate()
 	E:UpdateMedia()
 	E:UpdateBackdropColors()
 end
