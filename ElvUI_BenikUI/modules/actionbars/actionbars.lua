@@ -207,6 +207,7 @@ function BAB:Initialize()
 	C_TimerAfter(2, BAB.TotemShadows)
 	self:LoadRequestButton()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
+	hooksecurefunc(BUI, "SetupColorThemes", BAB.ColorBackdrops)
 	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end
 end
 
