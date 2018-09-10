@@ -20,7 +20,6 @@ BUI["softGlow"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
-BUI.NewSign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 BUI.ShadowMode = false;
 BUI.AddonProfileKey = '';
 BINDING_HEADER_BENIKUI = BUI.Title

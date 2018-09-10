@@ -109,7 +109,7 @@ local function miscTable()
 					position = {
 						order = 7,
 						type = "select",
-						name = L["Text Position"]..BUI.NewSign,
+						name = L["Text Position"],
 						values = {
 							['INSIDE'] = L['Inside the item slot'],
 							['OUTSIDE'] = L['Outside the item slot'],
