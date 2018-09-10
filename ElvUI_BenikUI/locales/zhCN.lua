@@ -167,6 +167,7 @@ L['Adjust castbar text Y Offset'] = true
 L['Apply shadow under the portrait'] = true
 L['Apply transparency on the portrait backdrop.'] = true
 L['BenikUI Style on Portrait'] = true
+L['Castbar Backdrop Color'] = true
 L['Castbar Text'] = true
 L['Change the detached portrait height'] = true
 L['Change the detached portrait width'] = true

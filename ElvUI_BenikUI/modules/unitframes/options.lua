@@ -124,8 +124,41 @@ local function ufTable()
 					},
 				},
 			},
-			castbar = {
+			castbarColor = {
 				order = 5,
+				type = 'group',
+				name = L['Castbar Backdrop Color']..E.NewSign,
+				guiInline = true,
+				args = {
+					enable = {
+						order = 1,
+						type = 'toggle',
+						name = ENABLE,
+						desc = L['This applies on all available castbars.'],
+						get = function(info) return E.db.benikui.unitframes.castbarColor[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.castbarColor[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					castbarBackdropColor = {
+						type = "color",
+						order = 2,
+						name = COLOR,
+						hasAlpha = true,
+						disabled = function() return not E.db.benikui.unitframes.castbarColor.enable end,
+						get = function(info)
+							local t = E.db.benikui.unitframes.castbarColor.castbarBackdropColor
+							local d = P.benikui.unitframes.castbarColor.castbarBackdropColor
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+						end,
+						set = function(info, r, g, b, a)
+							E.db.benikui.unitframes.castbarColor.castbarBackdropColor = {}
+							local t = E.db.benikui.unitframes.castbarColor.castbarBackdropColor
+							t.r, t.g, t.b, t.a = r, g, b, a;
+						end,
+					},
+				},
+			},
+			castbar = {
+				order = 6,
 				type = 'group',
 				name = L['Castbar Text'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
@@ -218,7 +251,7 @@ local function ufTable()
 				},
 			},
 			misc = {
-				order = 6,
+				order = 7,
 				type = 'group',
 				name = MISCELLANEOUS,
 				guiInline = true,

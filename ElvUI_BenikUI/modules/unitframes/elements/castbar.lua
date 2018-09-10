@@ -5,13 +5,15 @@ local UF = E:GetModule('UnitFrames');
 local LSM = LibStub("LibSharedMedia-3.0");
 
 --[[
-
 	CREDIT:
-	This module is based on Blazeflack's ElvUI_CastBarPowerOverlay ==> http://www.tukui.org/addons/index.php?act=view&id=62
+	This module is based on Blazeflack's ElvUI_CastBarPowerOverlay
+	Castbar Backdrop Color. Credit: Blazeflack - Taken from ElvUI CustomTweaks
 	Edited for BenikUI under Blaze's permission. Many thanks :)
 ]]
 
 local _G = _G
+
+local units = {"Player", "Target", "Focus", "Pet"}
 
 -- GLOBALS: hooksecurefunc
 
@@ -147,7 +149,7 @@ function BUIC:PostCast(unit, unitframe)
 end
 
 function BUIC:CastBarHooks()
-	local units = {"Player", "Target", "Focus", "Pet"}
+	--local units = {"Player", "Target", "Focus", "Pet"}
 	for _, unit in pairs(units) do
 		local unitframe = _G["ElvUF_"..unit];
 		local castbar = unitframe and unitframe.Castbar
@@ -189,6 +191,47 @@ function BUIC:CastBarHooks()
 	end
 end
 
+local function PostCastChannelStart(self, unit)
+	local db = self:GetParent().db
+	if not db or not db.castbar then return; end
+
+	local color = E.db.benikui.unitframes.castbarColor.castbarBackdropColor
+	local r, g, b, a = color.r, color.g, color.b, color.a
+
+	if self.bg and self.bg:IsShown() then
+		self.bg:SetColorTexture(r, g, b)
+	else
+		if self.backdrop then
+			if self.backdrop.backdropTexture then
+				self.backdrop.backdropTexture:SetVertexColor(r, g, b)
+				self.backdrop.backdropTexture:SetAlpha(a)
+			end
+			r, g, b = self.backdrop:GetBackdropColor()
+			self.backdrop:SetBackdropColor(r, g, b, a)
+		end
+	end
+end
+
+local function PostCastInterruptible(self, unit)
+	if unit == "vehicle" or unit == "player" then return end
+	
+	local color = E.db.benikui.unitframes.castbarColor.castbarBackdropColor
+	local r, g, b, a = color.r, color.g, color.b, color.a
+	
+	if self.bg and self.bg:IsShown() then
+		self.bg:SetColorTexture(r, g, b)
+	else
+		if self.backdrop then
+			if self.backdrop.backdropTexture then
+				self.backdrop.backdropTexture:SetVertexColor(r, g, b)
+				self.backdrop.backdropTexture:SetAlpha(a)
+			end
+			r, g, b = self.backdrop:GetBackdropColor()
+			self.backdrop:SetBackdropColor(r, g, b, a)
+		end
+	end
+end
+
 function BUIC:Initialize()
 	--ElvUI UnitFrames are not enabled, stop right here!
 	if E.private.unitframe.enable ~= true then return end
@@ -210,6 +253,39 @@ function BUIC:Initialize()
 	end)
 
 	BUIC:CastBarHooks()
+
+	-- Castbar Backdrop Color
+	local ctEnabled = E.private["CustomTweaks"] and E.private["CustomTweaks"]["CastbarCustomBackdrop"]and true or false
+	if ctEnabled then return; end -- if CustomTweaks module is enabled then stop here
+	if not E.db.benikui.unitframes.castbarColor.enable then return; end
+
+	for _, unit in pairs(units) do
+		local unitframe = _G["ElvUF_"..unit];
+		local castbar = unitframe and unitframe.Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", PostCastChannelStart)
+			hooksecurefunc(castbar, "PostCastInterruptible", PostCastInterruptible)
+			hooksecurefunc(castbar, "PostChannelStart", PostCastChannelStart)
+		end
+	end
+
+	for i = 1, 5 do
+		local castbar = _G["ElvUF_Arena"..i].Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", PostCastChannelStart)
+			hooksecurefunc(castbar, "PostCastInterruptible", PostCastInterruptible)
+			hooksecurefunc(castbar, "PostChannelStart", PostCastChannelStart)
+		end
+	end
+
+	for i = 1, MAX_BOSS_FRAMES do
+		local castbar = _G["ElvUF_Boss"..i].Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", PostCastChannelStart)
+			hooksecurefunc(castbar, "PostCastInterruptible", PostCastInterruptible)
+			hooksecurefunc(castbar, "PostChannelStart", PostCastChannelStart)
+		end
+	end
 end
 
 local function InitializeCallback()
