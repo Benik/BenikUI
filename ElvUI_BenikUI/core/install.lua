@@ -1996,8 +1996,11 @@ BUI.installTable = {
 			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at https://www.tukui.org."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() InstallComplete() end)
-			PluginInstallFrame.Option1:SetText(L["Finished"])
+			PluginInstallFrame.Option1:SetScript("OnClick", function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://discord.gg/8ZDDUem") end)
+			PluginInstallFrame.Option1:SetText("Discord")
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript("OnClick", function() InstallComplete() end)
+			PluginInstallFrame.Option2:SetText(L["Finished"])
 			PluginInstallStepComplete.message = BUI.Title..L['Installed']
 			PluginInstallStepComplete:Show()
 		end,
