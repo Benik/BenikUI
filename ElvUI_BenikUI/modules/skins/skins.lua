@@ -19,6 +19,7 @@ local SPACING = (E.PixelMode and 1 or 3)
 local WarCampaignTooltip = QuestScrollFrame.WarCampaignTooltip
 
 local tooltips = {
+	EmbeddedItemTooltip,
 	FriendsTooltip,
 	ItemRefTooltip,
 	ShoppingTooltip1,
