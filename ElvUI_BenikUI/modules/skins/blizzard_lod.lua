@@ -292,6 +292,18 @@ local function style_GuildControlUI()
 end
 S:AddCallbackForAddon("Blizzard_GuildControlUI", "BenikUI_GuildControlUI", style_GuildControlUI)
 
+-- IslandsQueueUI
+local function style_IslandsQueueUI()
+	if E.private.skins.blizzard.IslandQueue ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	_G["IslandsQueueFrame"].backdrop:Style('Outside')
+
+	-- tooltip
+	if E.private.skins.blizzard.tooltip ~= true then return end
+	_G["IslandsQueueFrameTooltip"]:GetParent():GetParent():HookScript("OnShow", function(self) if not self.style then self:Style('Outside') end end)
+end
+S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "BenikUI_IslandsQueueUI", style_IslandsQueueUI)
+
 -- InspectUI
 local function style_InspectUI()
 	if E.private.skins.blizzard.inspect ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
