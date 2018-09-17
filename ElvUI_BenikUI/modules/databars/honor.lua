@@ -159,21 +159,17 @@ end
 
 function BDB:UpdateHonorNotifier()
 	local bar = ElvUI_HonorBar.statusBar
-	local showHonor = UnitLevel("player") >= MAX_PLAYER_LEVEL
-	if not showHonor then
-		bar.f:Hide()
-	elseif showHonor and (not E.db.databars.honor.hideInCombat or not InCombatLockdown()) then
-		bar.f:Show()
-		local text = ''
-		local current = UnitHonor("player");
-		local max = UnitHonorMax("player");
 
-		if max == 0 then max = 1 end
+	bar.f:Show()
+	local text = ''
+	local current = UnitHonor("player");
+	local max = UnitHonorMax("player");
 
-		text = format('%d%%', current / max * 100)
+	if max == 0 then max = 1 end
 
-		bar.f.txt:SetText(text)
-	end
+	text = format('%d%%', current / max * 100)
+
+	bar.f.txt:SetText(text)
 end
 
 function BDB:HonorTextOffset()
