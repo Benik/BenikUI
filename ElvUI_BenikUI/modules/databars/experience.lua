@@ -204,7 +204,7 @@ function BDB:LoadXP()
 
 	local db = E.db.benikuiDatabars.experience.notifiers
 
-	if db.enable and E.db.databars.experience.orientation == 'VERTICAL' then
+	if db.enable then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateXpNotifierPositions()
 		self:UpdateXpNotifier()

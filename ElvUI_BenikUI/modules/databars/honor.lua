@@ -186,7 +186,7 @@ function BDB:LoadHonor()
 
 	local db = E.db.benikuiDatabars.honor.notifiers
 
-	if db.enable and E.db.databars.honor.orientation == 'VERTICAL' then
+	if db.enable then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateHonorNotifierPositions()
 		self:UpdateHonorNotifier()

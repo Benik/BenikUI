@@ -189,7 +189,7 @@ function BDB:LoadAzerite()
 
 	local db = E.db.benikuiDatabars.azerite.notifiers
 
-	if db.enable and E.db.databars.azerite.orientation == 'VERTICAL' then
+	if db.enable then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateAzeriteNotifierPositions()
 		self:UpdateAzeriteNotifier()

@@ -249,7 +249,7 @@ function BDB:LoadRep()
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
 
-	if db.enable and E.db.databars.reputation.orientation == 'VERTICAL' then
+	if db.enable then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateRepNotifierPositions()
 		self:UpdateRepNotifier()
