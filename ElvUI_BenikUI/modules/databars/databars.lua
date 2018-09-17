@@ -1,12 +1,13 @@
 local E, L, V, P, G = unpack(ElvUI);
-local BDB = E:NewModule('BenikUI_databars', 'AceHook-3.0', 'AceEvent-3.0');
+local BUI = E:GetModule('BenikUI');
+local mod = E:NewModule('BenikUI_databars', 'AceHook-3.0', 'AceEvent-3.0');
 local LSM = LibStub('LibSharedMedia-3.0');
 
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
-
+local SPACING = (E.PixelMode and 1 or 3)
 local bars = {'experience', 'reputation', 'artifact', 'honor'}
 
-function BDB:CreateNotifier(bar)
+function mod:CreateNotifier(bar)
 	bar.f = CreateFrame('Frame', nil, bar)
 	bar.f:Size(2, 10)
 	bar.f.txt = bar.f:CreateFontString(nil, 'OVERLAY')
@@ -34,7 +35,25 @@ function BDB:CreateNotifier(bar)
 	end
 end
 
-function BDB:Initialize()
+function mod:StyleBar(bar, onClick)
+	bar.fb = CreateFrame('Button', nil, bar)
+	bar.fb:Point('TOPLEFT', bar, 'BOTTOMLEFT', 0, -SPACING)
+	bar.fb:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
+
+	bar.fb:SetScript('OnClick', onClick)
+
+	if BUI.ShadowMode then
+		bar.fb:CreateSoftShadow()
+		if not bar.style then
+			bar:CreateSoftShadow()
+		end
+	end
+
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+	bar:Style('Outside', nil, false, true)
+end
+
+function mod:Initialize()
 	self:LoadXP()
 	self:LoadRep()
 	self:LoadAzerite()
@@ -42,7 +61,7 @@ function BDB:Initialize()
 end
 
 local function InitializeCallback()
-	BDB:Initialize()
+	mod:Initialize()
 end
 
-E:RegisterModule(BDB:GetName(), InitializeCallback)
+E:RegisterModule(mod:GetName(), InitializeCallback)

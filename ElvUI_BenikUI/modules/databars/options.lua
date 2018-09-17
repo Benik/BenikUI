@@ -169,7 +169,7 @@ local function databarsTable()
 						disabled = function() return not E.db.benikuiDatabars.azerite.enable end,
 						desc = L['Show BenikUI decorative bars on the default ElvUI Azerite bar'],
 						get = function(info) return E.db.benikuiDatabars.azerite.buiStyle end,
-						set = function(info, value) E.db.benikuiDatabars.azerite.buiStyle = value; BDB:ApplyAfStyling(); end,
+						set = function(info, value) E.db.benikuiDatabars.azerite.buiStyle = value; BDB:ApplyAzeriteStyling(); end,
 					},
 					buttonStyle = {
 						order = 3,
@@ -178,7 +178,7 @@ local function databarsTable()
 						disabled = function() return not E.db.benikuiDatabars.azerite.enable end,
 						values = backdropValues,
 						get = function(info) return E.db.benikuiDatabars.azerite.buttonStyle end,
-						set = function(info, value) E.db.benikuiDatabars.azerite.buttonStyle = value; BDB:ToggleAFBackdrop(); end,
+						set = function(info, value) E.db.benikuiDatabars.azerite.buttonStyle = value; BDB:ToggleAzeriteBackdrop(); end,
 					},
 					color = {
 						order = 4,
