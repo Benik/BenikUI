@@ -14,13 +14,23 @@ local C_Garrison_GetTalentTreeIDsByClassID = C_Garrison.GetTalentTreeIDsByClassI
 local C_Garrison_GetTalentTreeInfoForID = C_Garrison.GetTalentTreeInfoForID
 local C_Garrison_GetCompleteTalent = C_Garrison.GetCompleteTalent
 local C_Garrison_GetAvailableMissions = C_Garrison.GetAvailableMissions
+local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
+local GetQuestObjectiveInfo = GetQuestObjectiveInfo
+local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
+local GetMaxLevelForExpansionLevel = GetMaxLevelForExpansionLevel
+local GetRGB = GetRGB
 local SecondsToTime = SecondsToTime
-local COMPLETE = COMPLETE
+local GOAL_COMPLETED = GOAL_COMPLETED
 local RESEARCH_TIME_LABEL = RESEARCH_TIME_LABEL
 local GARRISON_LANDING_SHIPMENT_COUNT = GARRISON_LANDING_SHIPMENT_COUNT
 local FOLLOWERLIST_LABEL_TROOPS = FOLLOWERLIST_LABEL_TROOPS
 local LE_FOLLOWER_TYPE_GARRISON_8_0 = LE_FOLLOWER_TYPE_GARRISON_8_0
 local LE_GARRISON_TYPE_8_0 = LE_GARRISON_TYPE_8_0
+local LE_EXPANSION_BATTLE_FOR_AZEROTH = LE_EXPANSION_BATTLE_FOR_AZEROTH
+local ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS = ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS
+local ISLANDS_HEADER = ISLANDS_HEADER
+local ISLANDS_QUEUE_FRAME_TITLE = ISLANDS_QUEUE_FRAME_TITLE
+local GREEN_FONT_COLOR = GREEN_FONT_COLOR
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS: GarrisonLandingPage, selectioncolor
@@ -98,7 +108,7 @@ local OnEnter = function(self)
 			end
 
 			if(timeLeft and timeLeft == "0") then
-				DT.tooltip:AddDoubleLine(mission.name, COMPLETE, r, g, b, 0, 1, 0)
+				DT.tooltip:AddDoubleLine(mission.name, GOAL_COMPLETED, r, g, b, 0, 1, 0)
 			else
 				DT.tooltip:AddDoubleLine(mission.name, mission.timeLeft, r, g, b)
 			end
@@ -133,7 +143,7 @@ local OnEnter = function(self)
 
 	-- Talents
 	local talentTreeIDs = C_Garrison_GetTalentTreeIDsByClassID(LE_GARRISON_TYPE_8_0, E.myClassID)
-
+	local hasTalent = false
 	if(talentTreeIDs) then
 		-- this is a talent that has completed, but has not been seen in the talent UI yet.
 		local completeTalentID = C_Garrison_GetCompleteTalent(LE_GARRISON_TYPE_8_0)
@@ -154,17 +164,42 @@ local OnEnter = function(self)
 					firstLine = false
 					DT.tooltip:AddLine(RESEARCH_TIME_LABEL) -- "Research Time:"
 					if(talent.researchTimeRemaining and talent.researchTimeRemaining == 0) then
-						DT.tooltip:AddDoubleLine(talent.name, COMPLETE, 1, 1, 1)
+						DT.tooltip:AddDoubleLine(talent.name, GOAL_COMPLETED, 1, 1, 1)
 					else
 						DT.tooltip:AddDoubleLine(talent.name, SecondsToTime(talent.researchTimeRemaining), 1, 1, 1)
 					end
 
+					hasTalent = true
 				end
 			end
 		end
 	end
+
+	-- Island Expeditions
+	local hasIsland = false
+	if(UnitLevel("player") >= GetMaxLevelForExpansionLevel(LE_EXPANSION_BATTLE_FOR_AZEROTH)) then
+		local questID = C_IslandsQueue_GetIslandsWeeklyQuestID()
+		if questID then
+			local _, _, finished, numFulfilled, numRequired = GetQuestObjectiveInfo(questID, 1, false);
+			local text = ""
+			local r1, g1 ,b1
+
+			if finished or IsQuestFlaggedCompleted(questID) then
+				text = GOAL_COMPLETED
+				r1, g1, b1 = GREEN_FONT_COLOR:GetRGB()
+			else
+				text = ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS:format(numFulfilled, numRequired)
+				r1, g1, b1 = selectioncolor
+			end
+
+			DT.tooltip:AddLine(" ")
+			DT.tooltip:AddLine(ISLANDS_HEADER..":")
+			DT.tooltip:AddDoubleLine(ISLANDS_QUEUE_FRAME_TITLE, text, 1, 1, 1, r1, g1, b1)
+			hasIsland = true
+		end
+	end
 	
-	if(numMissions > 0 or hasFollowers or hasTalent) then
+	if(numMissions > 0 or hasFollowers or hasTalent or hasIsland) then
 		DT.tooltip:AddLine(" ")
 	end
 	DT.tooltip:AddLine(GARRISON_TYPE_8_0_LANDING_PAGE_TOOLTIP, 0.7, 0.7, 1)
