@@ -12,6 +12,7 @@ local SetInventoryItem = SetInventoryItem
 local GetInventoryItemLink = GetInventoryItemLink
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
+local C_Timer_After = C_Timer.After
 
 -- GLOBALS: CharacterHeadSlot, CharacterNeckSlot, CharacterShoulderSlot, CharacterBackSlot, CharacterChestSlot, CharacterWristSlot
 -- GLOBALS: CharacterHandsSlot, CharacterWaistSlot, CharacterLegsSlot, CharacterFeetSlot, CharacterFinger0Slot, CharacterFinger1Slot
@@ -132,12 +133,16 @@ function mod:CreateString()
 	mod.f:Hide()
 end
 
+function mod:PLAYER_ENTERING_WORLD()
+	C_Timer_After(.1, function() mod:UpdateItemLevel() end)
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+end
+
 function mod:Initialize()
 	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.Armory.Character.Enable ~= false) then return end
 
 	mod.f = CreateFrame("Frame", nil, PaperDollFrame)
 	mod:CreateString()
-	mod:UpdateItemLevel()
 
 	PaperDollFrame:HookScript("OnShow", function(self)
 		mod.f:Show()
@@ -149,6 +154,7 @@ function mod:Initialize()
 
 	mod:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", mod.UpdateItemLevel)
 	mod:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE", mod.UpdateItemLevel)
+	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 local function InitializeCallback()
