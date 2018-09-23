@@ -191,8 +191,10 @@ local OnEnter = function(self)
 				text = ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS:format(numFulfilled, numRequired)
 				r1, g1, b1 = selectioncolor
 			end
-
-			DT.tooltip:AddLine(" ")
+			if not firstLine then
+				DT.tooltip:AddLine(" ")
+			end
+			firstLine = false
 			DT.tooltip:AddLine(ISLANDS_HEADER..":")
 			DT.tooltip:AddDoubleLine(ISLANDS_QUEUE_FRAME_TITLE, text, 1, 1, 1, r1, g1, b1)
 			hasIsland = true
