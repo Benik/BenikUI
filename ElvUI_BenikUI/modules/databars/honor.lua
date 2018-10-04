@@ -37,17 +37,6 @@ function mod:ApplyHonorStyling()
 	end
 end
 
-function mod:ChangeHonorColor()
-	local bar = ElvUI_HonorBar
-	local db = E.db.benikuiDatabars.honor.color
-
-	if db.default then
-		bar.statusBar:SetStatusBarColor(0.941, 0.447, 0.254, 0.8)
-	else
-		bar.statusBar:SetStatusBarColor(BUI:unpackColor(db.hn))
-	end
-end
-
 function mod:ToggleHonorBackdrop()
 	if E.db.benikuiDatabars.honor.enable ~= true then return end
 	local bar = ElvUI_HonorBar
@@ -139,9 +128,8 @@ end
 
 function mod:LoadHonor()
 	local bar = ElvUI_HonorBar
-	self:ChangeHonorColor()
+
 	self:HonorTextOffset()
-	hooksecurefunc(M, 'UpdateHonor', mod.ChangeHonorColor)
 	hooksecurefunc(M, 'UpdateHonor', mod.HonorTextOffset)
 
 	local db = E.db.benikuiDatabars.honor.notifiers

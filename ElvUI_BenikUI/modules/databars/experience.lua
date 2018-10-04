@@ -48,20 +48,6 @@ function BDB:ApplyXpStyling()
 	end
 end
 
-function BDB:ChangeXPcolor()
-	local db = E.db.benikuiDatabars.experience.color
-	local elvxpstatus = ElvUI_ExperienceBar.statusBar
-	local elvrestedstatus = ElvUI_ExperienceBar.rested
-
-	if db.default then
-		elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
-		elvrestedstatus:SetStatusBarColor(1, 0, 1, 0.2)
-	else
-		elvxpstatus:SetStatusBarColor(BUI:unpackColor(db.xp))
-		elvrestedstatus:SetStatusBarColor(BUI:unpackColor(db.rested))
-	end
-end
-
 function BDB:ToggleXPBackdrop()
 	if E.db.benikuiDatabars.experience.enable ~= true then return end
 	local bar = ElvUI_ExperienceBar
@@ -155,9 +141,8 @@ end
 
 function BDB:LoadXP()
 	local bar = ElvUI_ExperienceBar
-	self:ChangeXPcolor()
+
 	self:XpTextOffset()
-	hooksecurefunc(M, 'UpdateExperience', BDB.ChangeXPcolor)
 	hooksecurefunc(M, 'UpdateExperience', BDB.XpTextOffset)
 
 	local db = E.db.benikuiDatabars.experience.notifiers

@@ -215,10 +215,6 @@ local function updateButtonFont()
 	end
 end
 
-local function Panel_OnShow(self)
-	self:SetFrameLevel(0)
-end
-
 function BUIL:ChangeLayout()
 
 	LeftMiniPanel:Height(PANEL_HEIGHT)
@@ -435,63 +431,8 @@ function BUIL:ChangeLayout()
 
 	if CopyChatFrame then CopyChatFrame:Style('Outside') end
 
-	ElvUI_BottomPanel:Style('Outside')
-	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
-	if ElvUI_BottomPanel.style then
-		ElvUI_BottomPanel.style:Hide()
-	end
-	Panel_OnShow(ElvUI_BottomPanel)
-
-	ElvUI_TopPanel:Style('Under')
-	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
-	if ElvUI_TopPanel.style then
-		ElvUI_TopPanel.style:Hide()
-	end
-	Panel_OnShow(ElvUI_TopPanel)
-
 	self:ResizeMinimapPanels()
 	self:ToggleTransparency()
-end
-
-function BUIL:TopPanelLayout()
-	local db = E.db.benikui.misc.panels.top
-
-	if E.db.benikui.general.benikuiStyle then
-		if db.style then
-			ElvUI_TopPanel.style:Show()
-		else
-			ElvUI_TopPanel.style:Hide()
-		end
-	end
-
-	if db.transparency then
-		ElvUI_TopPanel:SetTemplate('Transparent')
-	else
-		ElvUI_TopPanel:SetTemplate('Default')
-	end
-
-	ElvUI_TopPanel:Height(db.height)
-
-end
-
-function BUIL:BottomPanelLayout()
-	local db = E.db.benikui.misc.panels.bottom
-
-	if E.db.benikui.general.benikuiStyle then
-		if db.style then
-			ElvUI_BottomPanel.style:Show()
-		else
-			ElvUI_BottomPanel.style:Hide()
-		end
-	end
-
-	if db.transparency then
-		ElvUI_BottomPanel:SetTemplate('Transparent')
-	else
-		ElvUI_BottomPanel:SetTemplate('Default')
-	end
-
-	ElvUI_BottomPanel:Height(db.height)
 end
 
 -- Add minimap styling option in ElvUI minimap options
@@ -532,8 +473,6 @@ function BUIL:Initialize()
 	RegBuiDataTexts()
 	self:ChangeLayout()
 	self:ChatStyles()
-	self:TopPanelLayout()
-	self:BottomPanelLayout()
 	self:ToggleMinimapStyle()
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ToggleBuiDts)
 	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ResizeMinimapPanels)

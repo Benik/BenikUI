@@ -16,13 +16,10 @@ local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
 
 local GetWatchedFactionInfo = GetWatchedFactionInfo
-local InCombatLockdown = InCombatLockdown
 local SetWatchedFactionIndex = SetWatchedFactionIndex
 local GetNumFactions = GetNumFactions
 local GetGuildInfo = GetGuildInfo
 local GetFactionInfo = GetFactionInfo
-
-local FACTION_BAR_COLORS = FACTION_BAR_COLORS
 
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ReputationBar, SpellBookFrame, ToggleCharacter
 
@@ -50,28 +47,6 @@ function mod:ApplyRepStyling()
 	else
 		if bar.style then
 			bar.style:Hide()
-		end
-	end
-end
-
-local backupColor = FACTION_BAR_COLORS[1]
-function mod:ChangeRepColor()
-	local db = E.db.benikuiDatabars.reputation.color
-	local _, reaction = GetWatchedFactionInfo()
-	local color = FACTION_BAR_COLORS[reaction] or backupColor
-	local elvstatus = ElvUI_ReputationBar.statusBar
-
-	if db.default then
-		elvstatus:SetStatusBarColor(color.r, color.g, color.b)
-	else
-		if reaction >= 5 then
-			elvstatus:SetStatusBarColor(BUI:unpackColor(db.friendly))
-		elseif reaction == 4 then
-			elvstatus:SetStatusBarColor(BUI:unpackColor(db.neutral))
-		elseif reaction == 3 then
-			elvstatus:SetStatusBarColor(BUI:unpackColor(db.unfriendly))
-		elseif reaction < 3 then
-			elvstatus:SetStatusBarColor(BUI:unpackColor(db.hated))
 		end
 	end
 end
@@ -201,9 +176,8 @@ end
 
 function mod:LoadRep()
 	local bar = ElvUI_ReputationBar
-	self:ChangeRepColor()
+
 	self:RepTextOffset()
-	hooksecurefunc(M, 'UpdateReputation', mod.ChangeRepColor)
 	hooksecurefunc(M, 'UpdateReputation', mod.RepTextOffset)
 	self:ToggleRepAutotrack()
 

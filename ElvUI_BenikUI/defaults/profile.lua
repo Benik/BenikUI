@@ -16,9 +16,6 @@ P['unitframe']['units']['raid']['classHover'] = false
 -- Add raid40 classHover to ElvUI defaults
 P['unitframe']['units']['raid40']['classHover'] = false
 
--- Add Bag stack count to ElvUI defaults
-P['bags']['countPosition'] = 'BOTTOMRIGHT'
-
 -- Databars text yOffset
 P['databars']['experience']['textYoffset'] = 0
 P['databars']['azerite']['textYoffset'] = 0
@@ -65,18 +62,6 @@ P['benikui'] = {
 		},
 		['flightMode'] = true,
 		['afkMode'] = true,
-		['panels'] = {
-			['top'] = {
-				['style'] = false,
-				['transparency'] = true,
-				['height'] = 22
-			},
-			['bottom'] = {
-				['style'] = false,
-				['transparency'] = true,
-				['height'] = 22
-			},
-		},
 	},
 
 	['datatexts'] = {

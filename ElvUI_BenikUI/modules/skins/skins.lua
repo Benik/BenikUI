@@ -403,15 +403,6 @@ local function styleWorldMap()
 end
 
 local function styleAddons()
-	-- LocationLite
-	if BUI.LL and E.db.benikuiSkins.elvuiAddons.loclite then
-		local framestoskin = {_G["LocationLitePanel"], _G["XCoordsLite"], _G["YCoordsLite"]}
-		for _, frame in pairs(framestoskin) do
-			if frame then
-				frame:Style('Outside')
-			end
-		end
-	end
 
 	-- LocationPlus
 	if BUI.LP and E.db.benikuiSkins.elvuiAddons.locplus then

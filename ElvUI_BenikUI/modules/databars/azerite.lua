@@ -35,17 +35,6 @@ function mod:ApplyAzeriteStyling()
 	end
 end
 
-function mod:ChangeAzeriteColor()
-	local bar = ElvUI_AzeriteBar
-	local db = E.db.benikuiDatabars.azerite.color
-
-	if db.default then
-		bar.statusBar:SetStatusBarColor(.901, .8, .601, .8)
-	else
-		bar.statusBar:SetStatusBarColor(BUI:unpackColor(db.af))
-	end
-end
-
 function mod:ToggleAzeriteBackdrop()
 	if E.db.benikuiDatabars.azerite.enable ~= true then return end
 	local bar = ElvUI_AzeriteBar
@@ -137,9 +126,8 @@ end
 
 function mod:LoadAzerite()
 	local bar = ElvUI_AzeriteBar
-	self:ChangeAzeriteColor()
+
 	self:AzeriteTextOffset()
-	hooksecurefunc(M, 'UpdateAzerite', mod.ChangeAzeriteColor)
 	hooksecurefunc(M, 'UpdateAzerite', mod.AzeriteTextOffset)
 
 	local db = E.db.benikuiDatabars.azerite.notifiers

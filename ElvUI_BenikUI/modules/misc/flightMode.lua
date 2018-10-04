@@ -230,8 +230,8 @@ function BFM:SetFlightMode(status)
 		MoveViewLeftStop();
 
 		-- Enable Blizz location messsages.
-		-- Added support for LocationPlus & LocationLite
-		if (BUI.LP and E.db.locplus.zonetext) or (BUI.LL and not E.db.loclite.zonetext) then
+		-- Added support for LocationPlus & NutsAndBolts LocationLite
+		if (BUI.LP and E.db.locplus.zonetext) or (BUI.NB and not E.db.NutsAndBolts.LocationLite.hideDefaultZonetext) then
 			ZoneTextFrame:UnregisterAllEvents()
 		else
 			ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")

@@ -102,7 +102,6 @@ local function SetupLayout(layout)
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-38"
 	E.db["movers"]["HonorBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-157,-6"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
-	E.db["movers"]["LocationLiteMover"] = "TOP,ElvUIParent,TOP,0,-7"
 	E.db["movers"]["LocationMover"] = "TOP,ElvUIParent,TOP,0,-7"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-5"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-6"
@@ -1748,12 +1747,6 @@ local function SetupAddons()
 	if BUI:IsAddOnEnabled('InFlight_Load') then
 		BUI:LoadInFlightProfile(true)
 		tinsert(addonNames, 'InFlight')
-	end
-
-	-- Location Lite
-	if BUI.LL then
-		BUI:LoadLocationLiteProfile()
-		tinsert(addonNames, 'Location Lite')
 	end
 
 	-- Location Plus
