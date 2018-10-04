@@ -1,3 +1,19 @@
+3.48
+*Removed all the stuff that was moved in Nuts & Bolts
+*Joerg is added in the in donators list. Thank you :)
+*Added Island Expeditions in BenikUI BfA Missions datatext
+*Prevented lua error in databars
+*Fixed Honor Databar Notifier not updating when the player is not max level
+*Change max width for dashboards to 520.
+*Added Castbar Backdrop Color options. It may be needed for v4. Disabled by default. Credit: Blazeflack
+
+*Added a Discord button in the last step of BenikUI install. Credit: Merathilis
+
+*Updated BigWigs and MSBT profiles
+*The Game Menu is now sorted alphabetically
+*Fixed TopOverlay texture for the rest of the tooltips
+*Styled some missing frames
+
 3.471
 *Missed a Dashboard line
 
