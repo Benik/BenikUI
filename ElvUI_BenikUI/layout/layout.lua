@@ -215,6 +215,10 @@ local function updateButtonFont()
 	end
 end
 
+local function Panel_OnShow(self)
+	self:SetFrameLevel(0)
+end
+
 function BUIL:ChangeLayout()
 
 	LeftMiniPanel:Height(PANEL_HEIGHT)
@@ -413,6 +417,11 @@ function BUIL:ChangeLayout()
 			end)
 		end
 	end
+	
+	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
+	ElvUI_BottomPanel:SetFrameLevel(0)
+	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
+	ElvUI_TopPanel:SetFrameLevel(0)
 
 	LeftChatPanel.backdrop:Style('Outside', 'LeftChatPanel_Bui') -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
 	RightChatPanel.backdrop:Style('Outside', 'RightChatPanel_Bui')
