@@ -114,12 +114,12 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 	elseif template == 'Small' then
 		tlx, tly, brx, bry = -(E.PixelMode and 1 or 2), (E.PixelMode and 4 or 9), (E.PixelMode and 1 or 2), (E.PixelMode and -1 or 3)
 	elseif template == 'Under' then
-		tlx, tly, brx, bry = 0, 1, 0, (E.PixelMode and -4 or -7)
+		tlx, tly, brx, bry = 0, (E.PixelMode and 5 or 7), 0, (E.PixelMode and 0 or 1)
 	end
 
 	if template == 'Under' then
-		style:Point('TOPLEFT', f, 'BOTTOMLEFT', tlx, tly)
-		style:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT', brx, bry)
+		style:Point('TOPRIGHT', f, 'BOTTOMRIGHT', tlx, tly)
+		style:Point('BOTTOMLEFT', f, 'BOTTOMLEFT', brx, bry)
 	else
 		style:Point('TOPLEFT', f, 'TOPLEFT', tlx, tly)
 		style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
