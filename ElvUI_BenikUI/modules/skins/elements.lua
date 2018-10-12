@@ -31,14 +31,19 @@ function S:HandleMaxMinFrame(frame)
 			end
 
 			button.backdrop.img = button.backdrop:CreateTexture(nil, 'OVERLAY')
-			button.backdrop.img:SetSize(16, 16)
+			button.backdrop.img:SetInside()
 			button.backdrop.img:Point("CENTER")
 			button.backdrop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
 			button.backdrop.img:SetVertexColor(1, 1, 1)
 			
 			button:HookScript('OnEnter', function(self)
-				self.backdrop.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
-				self.backdrop:SetBackdropBorderColor(classColor.r, classColor.g, classColor.b)
+				if E.myclass == 'PRIEST' then
+					self.backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+					self.backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+				else
+					self.backdrop.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+					self.backdrop:SetBackdropBorderColor(classColor.r, classColor.g, classColor.b)
+				end
 			end)
 
 			button:HookScript('OnLeave', function(self)
@@ -73,8 +78,13 @@ function S:HandleCloseButton(f, point, text)
 	f.backdrop.img:SetVertexColor(1, 1, 1)
 	
 	f:HookScript('OnEnter', function(self)
-		self.backdrop.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		self.backdrop:SetBackdropBorderColor(classColor.r, classColor.g, classColor.b)
+		if E.myclass == 'PRIEST' then
+			self.backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+			self.backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+		else
+			self.backdrop.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			self.backdrop:SetBackdropBorderColor(classColor.r, classColor.g, classColor.b)
+		end
 	end)
 
 	f:HookScript('OnLeave', function(self)
