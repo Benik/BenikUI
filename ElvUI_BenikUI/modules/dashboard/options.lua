@@ -165,9 +165,9 @@ local function UpdateTokenOptions()
 end
 
 local function UpdateProfessionOptions()
-	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
+	local prof1, prof2, archy, fishing, cooking = GetProfessions()
 	local optionOrder = 1
-	if (prof1 or prof2 or archy or fishing or cooking or firstAid) then
+	if (prof1 or prof2 or archy or fishing or cooking) then
 		E.Options.args.benikui.args.dashboards.args.professions.args.choosePofessions = {
 			order = 50,
 			type = 'group',
