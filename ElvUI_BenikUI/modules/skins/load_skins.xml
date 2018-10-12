@@ -1,4 +1,5 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<script file="elements.lua"/>
 	<script file="skins.lua"/>
 	<script file="blizzard_lod.lua"/>
 	<script file="alerts.lua"/>
