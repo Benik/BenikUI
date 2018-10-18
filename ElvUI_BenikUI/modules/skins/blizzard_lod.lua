@@ -378,6 +378,9 @@ local function style_GarrisonUI()
 	MissionFrame.Topper:Hide()
 	MissionFrame.backdrop:Style('Outside')
 
+	GarrisonCapacitiveDisplayFrame.DecrementButton.img:SetRotation(BUI.ArrowRotation['RIGHT'])
+	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
+	GarrisonCapacitiveDisplayFrame.IncrementButton:Point('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
 	if E.private.skins.blizzard.tooltip then
 		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
 		_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')
