@@ -198,6 +198,32 @@ local function style_DeathRecap()
 end
 S:AddCallbackForAddon("Blizzard_DeathRecap", "BenikUI_DeathRecap", style_DeathRecap)
 
+-- DebugTools
+local function style_DebugTools()
+	if E.private.skins.blizzard.debug ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	local function SkinTableAttributeDisplay(frame)
+		if frame.LinesScrollFrame and frame.LinesScrollFrame.ScrollBar then
+			local s = frame.LinesScrollFrame.ScrollBar
+			s.ScrollUpButton.img:SetRotation(BUI.ArrowRotation['DOWN'])
+			s.ScrollDownButton.img:SetRotation(BUI.ArrowRotation['UP'])
+		end
+	end
+
+	SkinTableAttributeDisplay(TableAttributeDisplay)
+	hooksecurefunc(TableInspectorMixin, "OnLoad", function(self)
+		if self and self.ScrollFrameArt and not self.styled then
+			SkinTableAttributeDisplay(self)
+			self.styled = true
+		end
+	end)
+end
+if IsAddOnLoaded("Blizzard_DebugTools") then
+	S:AddCallback("BenikUI_DebugTools", style_DebugTools)
+else
+	S:AddCallbackForAddon("Blizzard_DebugTools", "BenikUI_DebugTools", style_DebugTools)
+end
+
 -- EncounterJournal
 local function style_EncounterJournal()
 	if E.private.skins.blizzard.encounterjournal ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
