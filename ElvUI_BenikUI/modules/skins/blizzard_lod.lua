@@ -151,6 +151,9 @@ local function style_Collections()
 	_G["CollectionsJournal"]:Style('Outside')
 	_G["WardrobeFrame"]:Style('Outside')
 	_G["WardrobeOutfitEditFrame"].backdrop:Style('Outside')
+
+	_G["ToyBox"].PagingFrame.PrevPageButton.img:SetRotation(BUI.ArrowRotation['RIGHT'])
+	_G["HeirloomsJournal"].PagingFrame.PrevPageButton.img:SetRotation(BUI.ArrowRotation['RIGHT'])
 end
 S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
 
