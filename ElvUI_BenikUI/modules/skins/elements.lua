@@ -8,10 +8,10 @@ local find = string.find
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 BUI.ArrowRotation = {
-	['UP'] = 0,
-	['DOWN'] = 3.14,
-	['LEFT'] = 1.57,
-	['RIGHT'] = -1.57,
+	['UP'] = 3.14,
+	['DOWN'] = 0,
+	['LEFT'] = -1.57,
+	['RIGHT'] = 1.57,
 }
 
 function S:HandleMaxMinFrame(frame)
@@ -87,14 +87,14 @@ function S:HandleScrollBar(frame, thumbTrimY, thumbTrimX)
 			_G[frame:GetName().."ScrollUpButton"]:StripTextures()
 			if not _G[frame:GetName().."ScrollUpButton"].img then
 				S:HandleNextPrevButton(_G[frame:GetName().."ScrollUpButton"])
-				_G[frame:GetName().."ScrollUpButton"].img:SetRotation(BUI.ArrowRotation['DOWN'])
+				_G[frame:GetName().."ScrollUpButton"].img:SetRotation(BUI.ArrowRotation['UP'])
 				_G[frame:GetName().."ScrollUpButton"]:Size(_G[frame:GetName().."ScrollUpButton"]:GetWidth() + 7, _G[frame:GetName().."ScrollUpButton"]:GetHeight() + 7)
 			end
 
 			_G[frame:GetName().."ScrollDownButton"]:StripTextures()
 			if not _G[frame:GetName().."ScrollDownButton"].img then
 				S:HandleNextPrevButton(_G[frame:GetName().."ScrollDownButton"])
-				_G[frame:GetName().."ScrollDownButton"].img:SetRotation(BUI.ArrowRotation['UP'])
+				_G[frame:GetName().."ScrollDownButton"].img:SetRotation(BUI.ArrowRotation['DOWN'])
 				_G[frame:GetName().."ScrollDownButton"]:Size(_G[frame:GetName().."ScrollDownButton"]:GetWidth() + 7, _G[frame:GetName().."ScrollDownButton"]:GetHeight() + 7)
 			end
 
@@ -216,15 +216,15 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 
 	if useVertical then
 		if inverseDirection then
-			btn.img:SetRotation(BUI.ArrowRotation['DOWN'])
-		else
 			btn.img:SetRotation(BUI.ArrowRotation['UP'])
+		else
+			btn.img:SetRotation(BUI.ArrowRotation['DOWN'])
 		end
 	else
 		if inverseDirection then
-			btn.img:SetRotation(BUI.ArrowRotation['RIGHT'])
-		else
 			btn.img:SetRotation(BUI.ArrowRotation['LEFT'])
+		else
+			btn.img:SetRotation(BUI.ArrowRotation['RIGHT'])
 		end
 	end
 

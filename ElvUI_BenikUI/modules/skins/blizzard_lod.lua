@@ -152,8 +152,8 @@ local function style_Collections()
 	_G["WardrobeFrame"]:Style('Outside')
 	_G["WardrobeOutfitEditFrame"].backdrop:Style('Outside')
 
-	_G["ToyBox"].PagingFrame.PrevPageButton.img:SetRotation(BUI.ArrowRotation['RIGHT'])
-	_G["HeirloomsJournal"].PagingFrame.PrevPageButton.img:SetRotation(BUI.ArrowRotation['RIGHT'])
+	_G["ToyBox"].PagingFrame.PrevPageButton.img:SetRotation(BUI.ArrowRotation['LEFT'])
+	_G["HeirloomsJournal"].PagingFrame.PrevPageButton.img:SetRotation(BUI.ArrowRotation['LEFT'])
 end
 S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
 
@@ -205,8 +205,8 @@ local function style_DebugTools()
 	local function SkinTableAttributeDisplay(frame)
 		if frame.LinesScrollFrame and frame.LinesScrollFrame.ScrollBar then
 			local s = frame.LinesScrollFrame.ScrollBar
-			s.ScrollUpButton.img:SetRotation(BUI.ArrowRotation['DOWN'])
-			s.ScrollDownButton.img:SetRotation(BUI.ArrowRotation['UP'])
+			s.ScrollUpButton.img:SetRotation(BUI.ArrowRotation['UP'])
+			s.ScrollDownButton.img:SetRotation(BUI.ArrowRotation['DOWN'])
 		end
 	end
 
@@ -404,9 +404,9 @@ local function style_GarrisonUI()
 	MissionFrame.Topper:Hide()
 	MissionFrame.backdrop:Style('Outside')
 
-	GarrisonCapacitiveDisplayFrame.DecrementButton.img:SetRotation(BUI.ArrowRotation['RIGHT'])
+	GarrisonCapacitiveDisplayFrame.DecrementButton.img:SetRotation(BUI.ArrowRotation['LEFT'])
 	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
-	GarrisonCapacitiveDisplayFrame.IncrementButton:Point('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
+	GarrisonCapacitiveDisplayFrame.IncrementButton:Point('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'LEFT', 4, 0)
 	if E.private.skins.blizzard.tooltip then
 		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
 		_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')

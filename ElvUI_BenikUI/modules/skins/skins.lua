@@ -136,8 +136,8 @@ local function styleFreeBlizzardFrames()
 
 	if db.loot then
 		LootFrame:Style('Outside')
-		LootFrameUpButton.img:SetRotation(BUI.ArrowRotation['DOWN'])
-		LootFrameDownButton.img:SetRotation(BUI.ArrowRotation['UP'])
+		LootFrameUpButton.img:SetRotation(BUI.ArrowRotation['UP'])
+		LootFrameDownButton.img:SetRotation(BUI.ArrowRotation['DOWN'])
 		MasterLooterFrame:Style('Outside')
 		BonusRollFrame:Style('Outside')
 	end
