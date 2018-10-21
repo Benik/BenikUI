@@ -188,6 +188,7 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 		btn.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
 		btn.img:SetSize(12, 12)
 		btn.img:Point('CENTER')
+		btn.img:SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
 
 		btn:HookScript('OnMouseDown', function(button)
 			if button:IsEnabled() then
