@@ -114,7 +114,8 @@ function S:HandleScrollBar(frame, thumbTrimY, thumbTrimX)
 					frame.thumbbg:Point("TOPLEFT", frame:GetThumbTexture(), "TOPLEFT", 2, -thumbTrimY)
 					frame.thumbbg:Point("BOTTOMRIGHT", frame:GetThumbTexture(), "BOTTOMRIGHT", -thumbTrimX, thumbTrimY)
 					frame.thumbbg:SetTemplate("Default", true, true)
-					frame.thumbbg.backdropTexture:SetVertexColor(0.6, 0.6, 0.6)
+					frame.thumbbg.backdropTexture:SetTexture(E['media'].BuiMelliDark)
+					frame.thumbbg.backdropTexture:SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
 					if frame.trackbg then
 						frame.thumbbg:SetFrameLevel(frame.trackbg:GetFrameLevel()+1)
 					end
@@ -158,7 +159,8 @@ function S:HandleScrollBar(frame, thumbTrimY, thumbTrimX)
 					frame.thumbbg:Point("TOPLEFT", frame.thumbTexture, "TOPLEFT", 2, -thumbTrimY)
 					frame.thumbbg:Point("BOTTOMRIGHT", frame.thumbTexture, "BOTTOMRIGHT", -thumbTrimX, thumbTrimY)
 					frame.thumbbg:SetTemplate("Default", true, true)
-					frame.thumbbg.backdropTexture:SetVertexColor(0.6, 0.6, 0.6)
+					frame.thumbbg.backdropTexture:SetTexture(E['media'].BuiMelliDark)
+					frame.thumbbg.backdropTexture:SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
 					if frame.trackbg then
 						frame.thumbbg:SetFrameLevel(frame.trackbg:GetFrameLevel()+1)
 					end
