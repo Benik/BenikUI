@@ -179,6 +179,54 @@ function S:HandleCloseButton(f, point, text)
 	end
 end
 
+local buttons = {
+	"ElvUIMoverNudgeWindowUpButton",
+	"ElvUIMoverNudgeWindowDownButton",
+	"ElvUIMoverNudgeWindowLeftButton",
+	"ElvUIMoverNudgeWindowRightButton",
+}
+
+local function replaceConfigArrows(button)
+	-- remove the default icons
+	local tex = _G[button:GetName().."Icon"]
+	if tex then
+		tex:SetTexture(nil)
+	end
+
+	-- add the new icon
+	if not button.img then
+		button.img = button:CreateTexture(nil, 'ARTWORK')
+		button.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
+		button.img:SetSize(12, 12)
+		button.img:Point('CENTER')
+		button.img:SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
+
+		button:HookScript('OnMouseDown', function(btn)
+			if btn:IsEnabled() then
+				btn.img:Point("CENTER", -1, -1);
+			end
+		end)
+
+		button:HookScript('OnMouseUp', function(btn)
+			btn.img:Point("CENTER", 0, 0);
+		end)
+	end
+end
+
+function BUIS:ApplyConfigArrows()
+	for _, btn in pairs(buttons) do
+		replaceConfigArrows(_G[btn])
+	end
+
+	-- Apply the rotation
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(BUIS.ArrowRotation['UP'])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(BUIS.ArrowRotation['DOWN'])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(BUIS.ArrowRotation['LEFT'])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(BUIS.ArrowRotation['RIGHT'])
+
+end
+hooksecurefunc(E, "CreateMoverPopup", BUIS.ApplyConfigArrows)
+
 function BUIS:skinScrollBarThumb(frame)
 	local r, g, b = NORMAL_FONT_COLOR:GetRGB()
 	if frame:GetName() then
