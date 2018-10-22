@@ -8,7 +8,7 @@ local find = string.find
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-BUIS.ArrowRotation = {
+ArrowRotation = {
 	['UP'] = 3.14,
 	['DOWN'] = 0,
 	['LEFT'] = -1.57,
@@ -116,15 +116,15 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 
 	if useVertical then
 		if inverseDirection then
-			btn.img:SetRotation(BUIS.ArrowRotation['UP'])
+			btn.img:SetRotation(ArrowRotation['UP'])
 		else
-			btn.img:SetRotation(BUIS.ArrowRotation['DOWN'])
+			btn.img:SetRotation(ArrowRotation['DOWN'])
 		end
 	else
 		if inverseDirection then
-			btn.img:SetRotation(BUIS.ArrowRotation['LEFT'])
+			btn.img:SetRotation(ArrowRotation['LEFT'])
 		else
-			btn.img:SetRotation(BUIS.ArrowRotation['RIGHT'])
+			btn.img:SetRotation(ArrowRotation['RIGHT'])
 		end
 	end
 
@@ -219,10 +219,10 @@ function BUIS:ApplyConfigArrows()
 	end
 
 	-- Apply the rotation
-	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(BUIS.ArrowRotation['UP'])
-	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(BUIS.ArrowRotation['DOWN'])
-	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(BUIS.ArrowRotation['LEFT'])
-	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(BUIS.ArrowRotation['RIGHT'])
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(ArrowRotation['UP'])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(ArrowRotation['DOWN'])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(ArrowRotation['LEFT'])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(ArrowRotation['RIGHT'])
 
 end
 hooksecurefunc(E, "CreateMoverPopup", BUIS.ApplyConfigArrows)
