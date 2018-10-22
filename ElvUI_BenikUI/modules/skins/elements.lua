@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
+local BUIS = E:GetModule('BuiSkins')
 local S = E:GetModule('Skins');
 
 local assert, next = assert, next
@@ -7,7 +8,7 @@ local find = string.find
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-BUI.ArrowRotation = {
+BUIS.ArrowRotation = {
 	['UP'] = 3.14,
 	['DOWN'] = 0,
 	['LEFT'] = -1.57,
@@ -115,15 +116,15 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 
 	if useVertical then
 		if inverseDirection then
-			btn.img:SetRotation(BUI.ArrowRotation['UP'])
+			btn.img:SetRotation(BUIS.ArrowRotation['UP'])
 		else
-			btn.img:SetRotation(BUI.ArrowRotation['DOWN'])
+			btn.img:SetRotation(BUIS.ArrowRotation['DOWN'])
 		end
 	else
 		if inverseDirection then
-			btn.img:SetRotation(BUI.ArrowRotation['LEFT'])
+			btn.img:SetRotation(BUIS.ArrowRotation['LEFT'])
 		else
-			btn.img:SetRotation(BUI.ArrowRotation['RIGHT'])
+			btn.img:SetRotation(BUIS.ArrowRotation['RIGHT'])
 		end
 	end
 
@@ -177,3 +178,27 @@ function S:HandleCloseButton(f, point, text)
 		f:Point("TOPRIGHT", point, "TOPRIGHT", 2, 2)
 	end
 end
+
+function BUIS:skinScrollBarThumb(frame)
+	local r, g, b = NORMAL_FONT_COLOR:GetRGB()
+	if frame:GetName() then
+		if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
+			if frame.thumbbg and frame.thumbbg.backdropTexture then
+				frame.thumbbg.backdropTexture.SetVertexColor = nil
+				frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
+				frame.thumbbg.backdropTexture:SetTexture(E['media'].BuiMelliDark)
+				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
+			end
+		end
+	else
+		if frame.ScrollUpButton and frame.ScrollDownButton then
+			if frame.thumbbg and frame.thumbbg.backdropTexture then
+				frame.thumbbg.backdropTexture.SetVertexColor = nil
+				frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
+				frame.thumbbg.backdropTexture:SetTexture(E['media'].BuiMelliDark)
+				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
+			end
+		end
+	end
+end
+hooksecurefunc(S, "HandleScrollBar", BUIS.skinScrollBarThumb)
