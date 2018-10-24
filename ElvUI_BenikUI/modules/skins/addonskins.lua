@@ -204,6 +204,15 @@ local function LibrariesDecor()
 	end
 end
 
+local function ZygorDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.zygor then return end
+	ZygorGuidesViewerFrame:Style('Outside')
+
+	for i = 1, 6 do
+		_G['ZygorGuidesViewerFrame_Step'..i]:Style('Outside')
+	end
+end
+
 -- Replace the close button
 function AS:SkinCloseButton(Button, Reposition)
 	if Button.Backdrop then return end
@@ -253,6 +262,7 @@ if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
 if AS:CheckAddOn('Pawn') then AS:RegisterSkin('Pawn', PawnDecor, 2) end
 if AS:CheckAddOn('DBM-Core') then AS:RegisterSkin('DBM', DbmDecor, 'ADDON_LOADED') end
 if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
+if AS:CheckAddOn('Zygor') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 AS:RegisterSkin('Libraries', LibrariesDecor, 2)
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
