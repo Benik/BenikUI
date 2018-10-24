@@ -26,7 +26,7 @@ local DecorAddons = {
 	{'Pawn', L['Pawn'], 'pawn'},
 	{'DBM-Core', L['Deadly Boss Mods'], 'dbm'},
 	{'BigWigs', L['BigWigs'], 'bigwigs'},
-	{'Zygor', L['Zygor Guides'], 'zygor'},
+	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
 }
 
 local SupportedProfiles = {
