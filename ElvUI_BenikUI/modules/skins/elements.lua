@@ -229,24 +229,32 @@ hooksecurefunc(E, "CreateMoverPopup", BUIS.ApplyConfigArrows)
 
 function BUIS:skinScrollBarThumb(frame)
 	local r, g, b = NORMAL_FONT_COLOR:GetRGB()
+	local texture = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\MelliDark.tga'
+
 	if frame:GetName() then
 		if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
 			if frame.thumbbg and frame.thumbbg.backdropTexture then
 				frame.thumbbg.backdropTexture.SetVertexColor = nil
 				frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
-				frame.thumbbg.backdropTexture:SetTexture(E['media'].BuiMelliDark)
+				frame.thumbbg.backdropTexture:SetTexture(texture)
 				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
 			end
 		end
-	else
-		if frame.ScrollUpButton and frame.ScrollDownButton then
-			if frame.thumbbg and frame.thumbbg.backdropTexture then
-				frame.thumbbg.backdropTexture.SetVertexColor = nil
-				frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
-				frame.thumbbg.backdropTexture:SetTexture(E['media'].BuiMelliDark)
-				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
-			end
+	elseif frame.ScrollUpButton and frame.ScrollDownButton then
+		if frame.thumbbg and frame.thumbbg.backdropTexture then
+			frame.thumbbg.backdropTexture.SetVertexColor = nil
+			frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
+			frame.thumbbg.backdropTexture:SetTexture(texture)
+			frame.thumbbg.backdropTexture.SetVertexColor = E.noop
+		end
+	elseif frame.thumbTexture then
+		if frame.thumbbg and frame.thumbbg.backdropTexture then
+			frame.thumbbg.backdropTexture.SetVertexColor = nil
+			frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
+			frame.thumbbg.backdropTexture:SetTexture(texture)
+			frame.thumbbg.backdropTexture.SetVertexColor = E.noop
 		end
 	end
 end
 hooksecurefunc(S, "HandleScrollBar", BUIS.skinScrollBarThumb)
+hooksecurefunc(S, "HandleScrollSlider", BUIS.skinScrollBarThumb)
