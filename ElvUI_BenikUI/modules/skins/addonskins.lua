@@ -206,7 +206,7 @@ end
 
 local function ZygorDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.zygor then return end
-	_G['ZygorGuidesViewerFrame']:Style('Outside')
+	_G['ZygorGuidesViewerFrame_Border']:Style('Outside')
 
 	for i = 1, 6 do
 		_G['ZygorGuidesViewerFrame_Step'..i]:Style('Outside') -- it may need .Backdrop
