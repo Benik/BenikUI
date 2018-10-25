@@ -249,6 +249,42 @@ function AS:SkinCloseButton(Button, Reposition)
 	end
 end
 
+function AS:SkinArrowButton(Button, Arrow)
+	local r, g, b = NORMAL_FONT_COLOR:GetRGB()
+	if Arrow then Arrow = strlower(Arrow) end
+	if (not Arrow) then
+		Arrow = 'up'
+		local ButtonName = Button:GetName() and Button:GetName():lower()
+		if ButtonName then
+			if (strfind(ButtonName, 'left') or strfind(ButtonName, 'prev') or strfind(ButtonName, 'decrement') or strfind(ButtonName, 'back')) then
+				Arrow = 'right'
+			elseif (strfind(ButtonName, 'right') or strfind(ButtonName, 'next') or strfind(ButtonName, 'increment') or strfind(ButtonName, 'forward')) then
+				Arrow = 'left'
+			elseif (strfind(ButtonName, 'upbutton') or strfind(ButtonName, 'top') or strfind(ButtonName, 'asc') or strfind(ButtonName, 'home') or strfind(ButtonName, 'maximize')) then
+				Arrow = 'down'
+			end
+		end
+	end
+
+	if not Button.Mask then
+		AS:SkinFrame(Button)
+		Button:SetSize(18, 18)
+		local Mask = Button:CreateTexture(nil, 'ARTWORK')
+		Mask:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
+		Mask:SetRotation(AS.ArrowRotation[Arrow])
+		Mask:SetSize(12, 12)
+		Mask:SetPoint('CENTER')
+		Mask:SetVertexColor(r, g, b)
+
+		Button.Mask = Mask
+
+		Button:HookScript('OnEnter', function(self) self:SetBackdropBorderColor(unpack(AS.Color)) end)
+		Button:HookScript('OnLeave', function(self) self:SetBackdropBorderColor(unpack(AS.BorderColor)) end)
+	end
+
+	Button.Mask:SetRotation(AS.ArrowRotation[Arrow])
+end
+
 if AS:CheckAddOn('Skada') then AS:RegisterSkin('Skada', SkadaDecor, 2) end
 if AS:CheckAddOn('Recount') then AS:RegisterSkin('Recount', RecountDecor, 2) end
 if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPS', TinyDPSDecor, 2) end
