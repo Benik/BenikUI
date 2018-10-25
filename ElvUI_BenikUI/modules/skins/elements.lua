@@ -247,7 +247,7 @@ function BUIS:skinScrollBarThumb(frame)
 			frame.thumbbg.backdropTexture:SetTexture(texture)
 			frame.thumbbg.backdropTexture.SetVertexColor = E.noop
 		end
-	elseif frame.thumbTexture then
+	else
 		if frame.thumbbg and frame.thumbbg.backdropTexture then
 			frame.thumbbg.backdropTexture.SetVertexColor = nil
 			frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
