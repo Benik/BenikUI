@@ -8,7 +8,7 @@ local find = string.find
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-ArrowRotation = {
+local ArrowRotation = {
 	['UP'] = 3.14,
 	['DOWN'] = 0,
 	['LEFT'] = -1.57,
