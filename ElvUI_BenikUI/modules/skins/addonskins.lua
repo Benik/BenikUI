@@ -2,9 +2,10 @@ local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule('Skins');
 local BUI = E:GetModule('BenikUI');
 
-local pairs = pairs
-
 local _G = _G
+local pairs, unpack = pairs, unpack
+local strlower, strfind = strlower, strfind
+
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
