@@ -142,7 +142,7 @@ function BAB:TaxiButton()
 
 	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
 
-	E:CreateMover(BuiTaxiButton, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS');
+	E:CreateMover(BuiTaxiButton, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS,BenikUI', nil, 'benikui,actionbars')
 end
 
 function BAB:LoadRequestButton()

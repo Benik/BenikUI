@@ -288,7 +288,7 @@ function mod:CreateTokensDashboard()
 	mod:ToggleStyle(self.tokenHolder, 'tokens')
 	mod:ToggleTransparency(self.tokenHolder, 'tokens')
 
-	E:CreateMover(self.tokenHolder, 'tokenHolderMover', L['Tokens'])
+	E:CreateMover(self.tokenHolder, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BenikUI', nil, 'benikui,dashboards,tokens')
 end
 
 function mod:LoadTokens()

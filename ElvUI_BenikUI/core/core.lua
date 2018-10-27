@@ -6,7 +6,7 @@ local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, ns = ...
 
 local _G = _G
-local pairs, print = pairs, print
+local pairs, print, tinsert = pairs, print, table.insert
 local format = string.format
 local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
@@ -153,6 +153,9 @@ function BUI:Initialize()
 	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		BUI.ShadowMode = true
 	end
+
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BenikUI")
+	E.ConfigModeLocalizedStrings["BenikUI"] = BUI.Title
 
 	BUI.AddonProfileKey = BUI.Title..E.myname.." - "..E.myrealm
 
