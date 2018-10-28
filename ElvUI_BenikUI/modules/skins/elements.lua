@@ -270,3 +270,16 @@ function BUIS:skinDropDownArrow()
 	end
 end
 hooksecurefunc("UIDropDownMenu_CreateFrames", BUIS.skinDropDownArrow)
+
+-- Credit: Azilroka
+function BUIS:skinButtonArrow(button)
+	if button.Icon then
+		local Texture = button.Icon:GetTexture()
+		if Texture and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]]) then
+			button.Icon:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
+			button.Icon:SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
+			button.Icon:SetRotation(ArrowRotation['RIGHT'])
+		end
+	end
+end
+hooksecurefunc(S, "HandleButton", BUIS.skinButtonArrow)
