@@ -20,7 +20,7 @@ function S:HandleMaxMinFrame(frame)
 
 	frame:StripTextures()
 
-	for _, name in next, {"MaximizeButton", "MinimizeButton"} do
+	for name, direction in pairs ({ ["MaximizeButton"] = 'UP', ["MinimizeButton"] = 'DOWN'}) do
 		local button = frame[name]
 		if button then
 			button:SetSize(20, 20)
@@ -44,7 +44,9 @@ function S:HandleMaxMinFrame(frame)
 			button.backdrop.img:Point("CENTER")
 			button.backdrop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
 			button.backdrop.img:SetVertexColor(1, 1, 1)
-			
+
+			button.backdrop.img:SetRotation(ArrowRotation[direction])
+
 			button:HookScript('OnEnter', function(self)
 				if E.myclass == 'PRIEST' then
 					self.backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
@@ -59,10 +61,6 @@ function S:HandleMaxMinFrame(frame)
 				self.backdrop.img:SetVertexColor(1, 1, 1)
 				self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
 			end)
-
-			if name == "MaximizeButton" then
-				button.backdrop.img:SetTexCoord(1, 1, 1, -1.2246467991474e-016, 1.1102230246252e-016, 1, 0, -1.144237745222e-017)
-			end
 		end
 	end
 end
