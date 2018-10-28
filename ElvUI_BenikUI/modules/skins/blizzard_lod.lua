@@ -375,6 +375,7 @@ local function style_MacroUI()
 	if E.private.skins.blizzard.macro ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["MacroFrame"]:Style('Outside')
+	_G["MacroPopupFrame"]:Style('Outside')
 end
 S:AddCallbackForAddon("Blizzard_MacroUI", "BenikUI_MacroUI", style_MacroUI)
 
