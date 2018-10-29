@@ -257,19 +257,21 @@ end
 hooksecurefunc(S, "HandleScrollBar", BUIS.skinScrollBarThumb)
 hooksecurefunc(S, "HandleScrollSlider", BUIS.skinScrollBarThumb)
 
-function BUIS:skinDropDownArrow()
-	local listFrame = _G["DropDownList1"];
-	local listFrameName = listFrame:GetName();
-	local index = listFrame and (listFrame.numButtons + 1) or 1;
-	local expandArrow = _G[listFrameName.."Button"..index.."ExpandArrow"];
-	if expandArrow then
-		expandArrow:SetNormalTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
-		expandArrow:SetSize(12, 12)
-		expandArrow:GetNormalTexture():SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
-		expandArrow:GetNormalTexture():SetRotation(ArrowRotation['RIGHT'])
-	end
+local function skinDropDownArrow()
+	hooksecurefunc("UIDropDownMenu_CreateFrames", function()
+		local listFrame = _G["DropDownList1"];
+		local listFrameName = listFrame:GetName();
+		local index = listFrame and (listFrame.numButtons + 1) or 1;
+		local expandArrow = _G[listFrameName.."Button"..index.."ExpandArrow"];
+		if expandArrow then
+			expandArrow:SetNormalTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
+			expandArrow:SetSize(11, 11)
+			expandArrow:GetNormalTexture():SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
+			expandArrow:GetNormalTexture():SetRotation(ArrowRotation['RIGHT'])
+		end
+	end)
 end
-hooksecurefunc("UIDropDownMenu_CreateFrames", BUIS.skinDropDownArrow)
+S:AddCallback("BenikUI_DropDownArrow", skinDropDownArrow)
 
 -- Credit: Azilroka
 function BUIS:skinButtonArrow(button)
