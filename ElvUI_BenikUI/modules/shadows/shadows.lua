@@ -111,7 +111,6 @@ function mod:TabShadows(tab)
 	if not tab then return end
 
 	if tab.backdrop then
-		tab.backdrop:SetTemplate("Transparent")
 		tab.backdrop:CreateSoftShadow()
 	end
 end
