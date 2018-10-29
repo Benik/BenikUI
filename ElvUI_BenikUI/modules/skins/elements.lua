@@ -273,6 +273,24 @@ local function skinDropDownArrow()
 end
 S:AddCallback("BenikUI_DropDownArrow", skinDropDownArrow)
 
+local function skinStackSplitArrows()
+	local buttons = {_G["StackSplitLeftButton"], _G["StackSplitRightButton"]}
+	for _, btn in pairs(buttons) do
+		S:HandleNextPrevButton(btn)
+		btn:Size(14, 18)
+
+		btn:ClearAllPoints()
+		if btn == _G["StackSplitLeftButton"] then
+			btn:Point('LEFT', StackSplitFrame.bg1, 'LEFT', 4, 0)
+		else
+			btn:Point('RIGHT', StackSplitFrame.bg1, 'RIGHT', -4, 0)
+		end
+	end
+	StackSplitText:ClearAllPoints()
+	StackSplitText:Point('RIGHT', StackSplitRightButton, 'LEFT', -6, 0)
+end
+S:AddCallback("BenikUI_StackSplitArrows", skinStackSplitArrows)
+
 -- Credit: Azilroka
 function BUIS:skinButtonArrow(button)
 	if button.Icon then
