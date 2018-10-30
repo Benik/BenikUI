@@ -226,6 +226,8 @@ end
 hooksecurefunc(E, "CreateMoverPopup", BUIS.ApplyConfigArrows)
 
 function BUIS:skinScrollBarThumb(frame)
+	if E.private.skins.blizzard.enable ~= true then return end
+
 	local r, g, b = NORMAL_FONT_COLOR:GetRGB()
 	local texture = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\MelliDark.tga'
 
@@ -258,6 +260,8 @@ hooksecurefunc(S, "HandleScrollBar", BUIS.skinScrollBarThumb)
 hooksecurefunc(S, "HandleScrollSlider", BUIS.skinScrollBarThumb)
 
 local function skinDropDownArrow()
+	if E.private.skins.blizzard.enable ~= true then return end
+
 	hooksecurefunc("UIDropDownMenu_CreateFrames", function()
 		for i = 1, UIDROPDOWNMENU_MAXLEVELS do
 			local listFrame = _G["DropDownList"..i];
@@ -276,6 +280,8 @@ end
 S:AddCallback("BenikUI_DropDownArrow", skinDropDownArrow)
 
 local function skinStackSplitArrows()
+	if E.private.skins.blizzard.enable ~= true then return end
+
 	local buttons = {_G["StackSplitLeftButton"], _G["StackSplitRightButton"]}
 	for _, btn in pairs(buttons) do
 		S:HandleNextPrevButton(btn)
