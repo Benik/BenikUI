@@ -151,6 +151,9 @@ local function style_Collections()
 	_G["CollectionsJournal"]:Style('Outside')
 	_G["WardrobeFrame"]:Style('Outside')
 	_G["WardrobeOutfitEditFrame"].backdrop:Style('Outside')
+	if E.private.skins.blizzard.tooltip then
+		PetJournalPrimaryAbilityTooltip:Style('Outside')
+	end
 end
 S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
 
