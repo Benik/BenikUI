@@ -15,6 +15,9 @@ local ArrowRotation = {
 	['RIGHT'] = 1.57,
 }
 
+local r, g, b = NORMAL_FONT_COLOR:GetRGB()
+local arrow = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow'
+
 function S:HandleMaxMinFrame(frame)
 	assert(frame, "does not exist.")
 
@@ -42,7 +45,7 @@ function S:HandleMaxMinFrame(frame)
 			button.backdrop.img = button.backdrop:CreateTexture(nil, 'OVERLAY')
 			button.backdrop.img:SetInside()
 			button.backdrop.img:Point("CENTER")
-			button.backdrop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
+			button.backdrop.img:SetTexture(arrow)
 			button.backdrop.img:SetVertexColor(1, 1, 1)
 
 			button.backdrop.img:SetRotation(ArrowRotation[direction])
@@ -82,10 +85,10 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 
 	if not btn.img then
 		btn.img = btn:CreateTexture(nil, 'ARTWORK')
-		btn.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
+		btn.img:SetTexture(arrow)
 		btn.img:SetSize(12, 12)
 		btn.img:Point('CENTER')
-		btn.img:SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
+		btn.img:SetVertexColor(r, g, b)
 
 		btn:HookScript('OnMouseDown', function(button)
 			if button:IsEnabled() then
@@ -194,10 +197,10 @@ local function replaceConfigArrows(button)
 	-- add the new icon
 	if not button.img then
 		button.img = button:CreateTexture(nil, 'ARTWORK')
-		button.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
+		button.img:SetTexture(arrow)
 		button.img:SetSize(12, 12)
 		button.img:Point('CENTER')
-		button.img:SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
+		button.img:SetVertexColor(r, g, b)
 
 		button:HookScript('OnMouseDown', function(btn)
 			if btn:IsEnabled() then
@@ -228,7 +231,6 @@ hooksecurefunc(E, "CreateMoverPopup", BUIS.ApplyConfigArrows)
 function BUIS:skinScrollBarThumb(frame)
 	if E.private.skins.blizzard.enable ~= true then return end
 
-	local r, g, b = NORMAL_FONT_COLOR:GetRGB()
 	local texture = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\MelliDark.tga'
 
 	if frame:GetName() then
@@ -259,7 +261,7 @@ end
 hooksecurefunc(S, "HandleScrollBar", BUIS.skinScrollBarThumb)
 hooksecurefunc(S, "HandleScrollSlider", BUIS.skinScrollBarThumb)
 
-local function skinDropDownArrow()
+local function skinDropDownMenu()
 	if E.private.skins.blizzard.enable ~= true then return end
 
 	hooksecurefunc("UIDropDownMenu_CreateFrames", function()
@@ -269,15 +271,16 @@ local function skinDropDownArrow()
 			local index = listFrame and (listFrame.numButtons + 1) or 1;
 			local expandArrow = _G[listFrameName.."Button"..index.."ExpandArrow"];
 			if expandArrow then
-				expandArrow:SetNormalTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
+				expandArrow:SetNormalTexture(arrow)
 				expandArrow:SetSize(11, 11)
-				expandArrow:GetNormalTexture():SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
+				expandArrow:GetNormalTexture():SetVertexColor(r, g, b)
 				expandArrow:GetNormalTexture():SetRotation(ArrowRotation['RIGHT'])
 			end
 		end
 	end)
+
 end
-S:AddCallback("BenikUI_DropDownArrow", skinDropDownArrow)
+S:AddCallback("BenikUI_skinDropDownMenu", skinDropDownMenu)
 
 local function skinStackSplitArrows()
 	if E.private.skins.blizzard.enable ~= true then return end
@@ -304,8 +307,8 @@ function BUIS:skinButtonArrow(button)
 	if button.Icon then
 		local Texture = button.Icon:GetTexture()
 		if Texture and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]]) then
-			button.Icon:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow')
-			button.Icon:SetVertexColor(NORMAL_FONT_COLOR:GetRGB())
+			button.Icon:SetTexture(arrow)
+			button.Icon:SetVertexColor(r, g, b)
 			button.Icon:SetRotation(ArrowRotation['RIGHT'])
 		end
 	end
