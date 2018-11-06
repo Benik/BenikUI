@@ -261,6 +261,63 @@ end
 hooksecurefunc(S, "HandleScrollBar", BUIS.skinScrollBarThumb)
 hooksecurefunc(S, "HandleScrollSlider", BUIS.skinScrollBarThumb)
 
+local function CreateBD(f, a)
+	assert(f, "doesn't exist!")
+
+	f:SetBackdrop({
+		bgFile = E["media"].normTex,
+		edgeFile = E["media"].normTex,
+		edgeSize = E.mult,
+	})
+
+	f:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
+	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+end
+
+function BUIS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
+	assert(frame, "does not exist.")
+
+	if frame.backdrop then frame.backdrop:Hide() end
+
+	frame:SetNormalTexture("")
+	frame:SetPushedTexture("")
+	frame:SetHighlightTexture(E["media"].normTex)
+
+	local hl = frame:GetHighlightTexture()
+	hl:SetPoint("TOPLEFT", 5, -5)
+	hl:SetPoint("BOTTOMRIGHT", -5, 5)
+	hl:SetVertexColor(r, g, b, .2)
+
+	local bd = CreateFrame("Frame", nil, frame)
+	bd:SetPoint("TOPLEFT", 4, -4)
+	bd:SetPoint("BOTTOMRIGHT", -4, 4)
+	bd:SetFrameLevel(frame:GetFrameLevel() - 1)
+	CreateBD(bd, 0)
+
+	local ch = frame:GetCheckedTexture()
+	ch:SetDesaturated(true)
+	ch:SetVertexColor(r, g, b)
+end
+hooksecurefunc(S, "HandleCheckBox", BUIS.ReskinCheckBox)
+
+local function CreateTempBackdrop(frame, texture)
+	if frame.backdrop then return end
+
+	local parent = frame.IsObjectType and frame:IsObjectType("Texture") and frame:GetParent() or frame
+
+	local backdrop = CreateFrame("Frame", nil, parent)
+	backdrop:SetOutside(frame)
+	backdrop:SetTemplate("Transparent")
+
+	if (parent:GetFrameLevel() - 1) >= 0 then
+		backdrop:SetFrameLevel(parent:GetFrameLevel() - 1)
+	else
+		backdrop:SetFrameLevel(0)
+	end
+
+	frame.backdrop = backdrop
+end
+
 local function skinDropDownMenu()
 	if E.private.skins.blizzard.enable ~= true then return end
 
@@ -279,6 +336,43 @@ local function skinDropDownMenu()
 		end
 	end)
 
+	hooksecurefunc("ToggleDropDownMenu", function(level)
+		if not level then level = 1 end
+
+		for i = 1, UIDROPDOWNMENU_MAXBUTTONS do
+			local button = _G["DropDownList"..level.."Button"..i]
+			local check = _G["DropDownList"..level.."Button"..i.."Check"]
+			local uncheck = _G["DropDownList"..level.."Button"..i.."UnCheck"]
+
+			CreateTempBackdrop(check)
+			if check.backdrop then
+				check.backdrop:Hide()
+			end
+
+			if not button.notCheckable then
+				uncheck:SetTexture("")
+				local _, co = check:GetTexCoord()
+				if co == 0 then
+					check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+					check:SetVertexColor(r, g, b, 1)
+					check:SetSize(20, 20)
+					check:SetDesaturated(true)
+					check.backdrop:SetInside(check, 4, 4)
+				else
+					check:SetTexture(E["media"].blankTex)
+					check:SetVertexColor(r, g, b, .6)
+					check:SetSize(10, 10)
+					check:SetDesaturated(false)
+					check.backdrop:SetOutside(check)
+				end
+
+				check.backdrop:Show()
+				check:SetTexCoord(0, 1, 0, 1)
+			else
+				check:SetSize(16, 16)
+			end
+		end
+	end)
 end
 S:AddCallback("BenikUI_skinDropDownMenu", skinDropDownMenu)
 
