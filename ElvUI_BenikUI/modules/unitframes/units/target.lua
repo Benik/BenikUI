@@ -7,8 +7,7 @@ local _G = _G
 local select = select
 local CreateFrame = CreateFrame
 local UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction = UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 -- GLOBALS: hooksecurefunc, ElvUF
 
@@ -56,7 +55,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 			local mu = power.bg.multiplier or 1
 			local color = ElvUF['colors'].power[pToken]
 			local isPlayer = UnitIsPlayer("target")
-			local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
+			--local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
 
 			if not power.colorClass then
 				if maxValue > 0 then
@@ -103,11 +102,15 @@ function UFB:RecolorTargetInfoPanel()
 	do
 		local panel = frame.InfoPanel
 		local isPlayer = UnitIsPlayer("target")
-		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
+		--local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
 		local reaction = UnitReaction('target', 'player')
 
 		if isPlayer then
-			r, g, b = classColor.r, classColor.g, classColor.b
+			if E.db.benikui.unitframes.infoPanel.customColor == 1 then
+				r, g, b = classColor.r, classColor.g, classColor.b
+			else
+				r, g, b = BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color)
+			end
 		else
 			if reaction then
 				local tpet = ElvUF.colors.reaction[reaction]
