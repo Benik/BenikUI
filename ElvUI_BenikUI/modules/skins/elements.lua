@@ -8,7 +8,7 @@ local find = string.find
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local ArrowRotation = {
+BUIS.ArrowRotation = {
 	['UP'] = 3.14,
 	['DOWN'] = 0,
 	['LEFT'] = -1.57,
@@ -48,7 +48,7 @@ function S:HandleMaxMinFrame(frame)
 			button.backdrop.img:SetTexture(arrow)
 			button.backdrop.img:SetVertexColor(1, 1, 1)
 
-			button.backdrop.img:SetRotation(ArrowRotation[direction])
+			button.backdrop.img:SetRotation(BUIS.ArrowRotation[direction])
 
 			button:HookScript('OnEnter', function(self)
 				if E.myclass == 'PRIEST' then
@@ -117,15 +117,15 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 
 	if useVertical then
 		if inverseDirection then
-			btn.img:SetRotation(ArrowRotation['UP'])
+			btn.img:SetRotation(BUIS.ArrowRotation['UP'])
 		else
-			btn.img:SetRotation(ArrowRotation['DOWN'])
+			btn.img:SetRotation(BUIS.ArrowRotation['DOWN'])
 		end
 	else
 		if inverseDirection then
-			btn.img:SetRotation(ArrowRotation['LEFT'])
+			btn.img:SetRotation(BUIS.ArrowRotation['LEFT'])
 		else
-			btn.img:SetRotation(ArrowRotation['RIGHT'])
+			btn.img:SetRotation(BUIS.ArrowRotation['RIGHT'])
 		end
 	end
 
@@ -220,10 +220,10 @@ function BUIS:ApplyConfigArrows()
 	end
 
 	-- Apply the rotation
-	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(ArrowRotation['UP'])
-	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(ArrowRotation['DOWN'])
-	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(ArrowRotation['LEFT'])
-	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(ArrowRotation['RIGHT'])
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(BUIS.ArrowRotation['UP'])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(BUIS.ArrowRotation['DOWN'])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(BUIS.ArrowRotation['LEFT'])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(BUIS.ArrowRotation['RIGHT'])
 
 end
 hooksecurefunc(E, "CreateMoverPopup", BUIS.ApplyConfigArrows)
@@ -261,42 +261,45 @@ end
 hooksecurefunc(S, "HandleScrollBar", BUIS.skinScrollBarThumb)
 hooksecurefunc(S, "HandleScrollSlider", BUIS.skinScrollBarThumb)
 
-local function CreateBD(f, a)
-	assert(f, "doesn't exist!")
-
-	f:SetBackdrop({
-		bgFile = E["media"].normTex,
-		edgeFile = E["media"].normTex,
-		edgeSize = E.mult,
-	})
-
-	f:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
-	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-end
-
 function BUIS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
 
-	if frame.backdrop then frame.backdrop:Hide() end
-
 	frame:SetNormalTexture("")
 	frame:SetPushedTexture("")
-	frame:SetHighlightTexture(E["media"].normTex)
+	frame:SetHighlightTexture("")
 
 	local hl = frame:GetHighlightTexture()
 	hl:SetPoint("TOPLEFT", 5, -5)
 	hl:SetPoint("BOTTOMRIGHT", -5, 5)
 	hl:SetVertexColor(r, g, b, .2)
 
-	local bd = CreateFrame("Frame", nil, frame)
-	bd:SetPoint("TOPLEFT", 4, -4)
-	bd:SetPoint("BOTTOMRIGHT", -4, 4)
-	bd:SetFrameLevel(frame:GetFrameLevel() - 1)
-	CreateBD(bd, 0)
+	if frame.SetCheckedTexture then
+		local ch = frame:GetCheckedTexture()
+		ch:SetTexture(E["media"].blankTex)
+		ch:SetVertexColor(r, g, b, 1)
+		ch:SetDesaturated(false)
+	end
 
-	local ch = frame:GetCheckedTexture()
-	ch:SetDesaturated(true)
-	ch:SetVertexColor(r, g, b)
+	frame:HookScript('OnDisable', function(checkbox)
+		if not checkbox.SetDisabledTexture then return; end
+		if checkbox:GetChecked() then
+			checkbox:SetDisabledTexture(E["media"].blankTex)
+			if frame.backdrop then
+				checkbox:GetDisabledTexture():SetInside(frame.backdrop)
+			else
+				checkbox:GetDisabledTexture():SetInside(frame)
+			end
+			checkbox:GetDisabledTexture():SetVertexColor(r, g, b, 0.3)
+		else
+			checkbox:SetDisabledTexture("")
+		end
+	end)
+
+	if frame.backdrop then
+		frame:GetCheckedTexture():SetInside(frame.backdrop)
+	else
+		frame:GetCheckedTexture():SetInside(frame)
+	end
 end
 hooksecurefunc(S, "HandleCheckBox", BUIS.ReskinCheckBox)
 
@@ -331,7 +334,7 @@ local function skinDropDownMenu()
 				expandArrow:SetNormalTexture(arrow)
 				expandArrow:SetSize(11, 11)
 				expandArrow:GetNormalTexture():SetVertexColor(r, g, b)
-				expandArrow:GetNormalTexture():SetRotation(ArrowRotation['RIGHT'])
+				expandArrow:GetNormalTexture():SetRotation(BUIS.ArrowRotation['RIGHT'])
 			end
 		end
 	end)
@@ -403,7 +406,7 @@ function BUIS:skinButtonArrow(button)
 		if Texture and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]]) then
 			button.Icon:SetTexture(arrow)
 			button.Icon:SetVertexColor(r, g, b)
-			button.Icon:SetRotation(ArrowRotation['RIGHT'])
+			button.Icon:SetRotation(BUIS.ArrowRotation['RIGHT'])
 		end
 	end
 end
