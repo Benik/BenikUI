@@ -1,3 +1,19 @@
+3.49
+*Fixed AddOnSkins WeakAura shadows
+*Hide Zygor frames during flightMode
+*Fixed InfoPanel texture color not saving correctly
+*Reskined Check Boxes. Credit: Merathilis <3 [ElvUI (v10.83+)]
+*Added the latest RightClick to options ElvUI (v10.83+) feature for all BenikUI movable frames. Also added a seperate BenikUI group in the movers, so it will show only BenikUI movable frames.
+*Hide the reputation notifier when Exalted is reached
+*Zygor guides styling is back, since it's re added in AddonSkins
+*Skinned the ScrollThumb
+*Replaced the default ElvUI arrows. Will work with ElvUI v10.83
+*Remaked and moved the the new Close button to its own file, along with minimize/maximize button changes
+*Removed First Aid from Professions Dashboard and made Fishing clickable. This should deal with #54
+*Added shadows in the Timer frame
+*Changed the 'Under' Style a bit
+*Fixed Top/Bottom panel strata that was messing with the chat datatexts
+
 3.48
 *Removed all the stuff that was moved in Nuts & Bolts
 *Joerg is added in the in donators list. Thank you :)
