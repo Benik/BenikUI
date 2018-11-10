@@ -214,12 +214,8 @@ L['Git Ticket tracker'] = true
 L['Tukui.org'] = true
 -- Location Plus
 L['Adds player location, coords + 2 Datatexts and a tooltip with info based on player location/level.'] = true
--- Location Lite
-L['Adds a location panel with coords. A LocationPlus alternative.'] = true
--- Datatext color
-L['a plugin for ElvUI, that changes the DT text color to class color, value color or any user defined'] = true
--- Transparent Actionbars
-L['A small plugin that makes the actionbar backdrops and the unused buttons transparent'] = true
+-- Nuts & Bolts
+L['ElvUI Nuts & Bolts is a compilation of my addons hosted at tukui.org/Twitch plus some features that are moved from BenikUI'] = true
 
 -- afk
 L["Jan"] = true
@@ -260,3 +256,4 @@ L['TinyDPS'] = true
 L['oRA3'] = true
 L['Deadly Boss Mods'] = true
 L['BigWigs'] = true
+L['Zygor Guides'] = true

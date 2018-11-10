@@ -215,6 +215,10 @@ local function updateButtonFont()
 	end
 end
 
+local function Panel_OnShow(self)
+	self:SetFrameLevel(0)
+end
+
 function BUIL:ChangeLayout()
 
 	LeftMiniPanel:Height(PANEL_HEIGHT)
@@ -239,7 +243,7 @@ function BUIL:ChangeLayout()
 	Bui_mdtp:Height(E.db.benikui.datatexts.middle.height or PANEL_HEIGHT)
 	Bui_mdtp:Style('Outside', nil, false, true)
 
-	E:CreateMover(Bui_mdtp, "BuiMiddleDtMover", L['BenikUI Middle DataText'])
+	E:CreateMover(Bui_mdtp, "BuiMiddleDtMover", L['BenikUI Middle DataText'], nil, nil, nil, 'ALL,BenikUI', nil, 'benikui,datatexts')
 
 	-- dummy frame for chat/threat (left)
 	Bui_dchat:SetFrameStrata('LOW')
@@ -413,6 +417,11 @@ function BUIL:ChangeLayout()
 			end)
 		end
 	end
+	
+	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
+	ElvUI_BottomPanel:SetFrameLevel(0)
+	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
+	ElvUI_TopPanel:SetFrameLevel(0)
 
 	LeftChatPanel.backdrop:Style('Outside', 'LeftChatPanel_Bui') -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
 	RightChatPanel.backdrop:Style('Outside', 'RightChatPanel_Bui')

@@ -14,6 +14,7 @@ local changedpat = gsub(gsub(FACTION_STANDING_CHANGED, "(%%s)", "(.+)"), "(%%d)"
 local decpat = gsub(gsub(FACTION_STANDING_DECREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
+local C_TimerAfter = C_Timer.After
 
 local GetWatchedFactionInfo = GetWatchedFactionInfo
 local SetWatchedFactionIndex = SetWatchedFactionIndex
@@ -118,7 +119,7 @@ end
 
 function mod:UpdateRepNotifier()
 	local bar = ElvUI_ReputationBar.statusBar
-	local name, _, min, max, value, factionID = GetWatchedFactionInfo()
+	local name, reaction, min, max, value, factionID = GetWatchedFactionInfo()
 
 	if (C_Reputation_IsFactionParagon(factionID)) then
 		local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
@@ -131,7 +132,7 @@ function mod:UpdateRepNotifier()
 		end
 	end
 
-	if not name or E.db.databars.reputation.orientation ~= 'VERTICAL' then
+	if not name or E.db.databars.reputation.orientation ~= 'VERTICAL' or (reaction == MAX_REPUTATION_REACTION and not C_Reputation_IsFactionParagon(factionID)) then
 		bar.f:Hide()
 	else
 		bar.f:Show()
@@ -186,11 +187,13 @@ function mod:LoadRep()
 	if db.enable then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateRepNotifierPositions()
-		self:UpdateRepNotifier()
+
 		hooksecurefunc(M, 'UpdateReputation', mod.UpdateRepNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateRepNotifierPositions)
 		hooksecurefunc(M, 'UpdateReputationDimensions', mod.UpdateRepNotifierPositions)
 		hooksecurefunc(M, 'UpdateReputationDimensions', mod.UpdateRepNotifier)
+
+		C_TimerAfter(1, mod.UpdateRepNotifier)
 	end
 
 	if E.db.benikuiDatabars.reputation.enable ~= true then return end

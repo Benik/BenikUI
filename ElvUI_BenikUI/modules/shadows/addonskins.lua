@@ -146,5 +146,5 @@ function mod:AddonSkins()
 		mod:DBMShadows()
 	end
 
-	if AS:CheckAddOn('WeakAuras') then AS:RegisterSkin('WeakAuras', WeakAurasShadows, 2) end
+	if AS:CheckAddOn('WeakAuras') then AS:RegisterSkin('WeakAuras', WeakAurasShadows, 'ADDON_LOADED') end
 end

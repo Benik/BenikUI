@@ -55,9 +55,9 @@ function mod:UpdateProfessions()
 		end
 	end)
 
-	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
+	local prof1, prof2, archy, fishing, cooking = GetProfessions()
 
-	if (prof1 or prof2 or archy or fishing or cooking or firstAid) then
+	if (prof1 or prof2 or archy or fishing or cooking) then
 		local proftable = { GetProfessions() }
 
 		for _, id in pairs(proftable) do
@@ -93,16 +93,16 @@ function mod:UpdateProfessions()
 					end)
 
 					self.ProFrame:SetScript('OnClick', function(self)
-						if name ~= PROFESSIONS_FISHING then
-							if skillLine == 186 then
-								CastSpellByID(2656) -- mining skills
-							elseif skillLine == 182 then
-								CastSpellByID(193290) -- herbalism skills
-							elseif skillLine == 393 then
-								CastSpellByID(194174) -- skinning skills
-							else
-								CastSpellByName(name)
-							end
+						if skillLine == 186 then
+							CastSpellByID(2656) -- mining skills
+						elseif skillLine == 182 then
+							CastSpellByID(193290) -- herbalism skills
+						elseif skillLine == 393 then
+							CastSpellByID(194174) -- skinning skills
+						elseif skillLine == 356 then
+							CastSpellByID(271990) -- fishing
+						else
+							CastSpellByName(name)
 						end
 					end)
 
@@ -133,16 +133,16 @@ function mod:UpdateProfessions()
 					end
 
 					self.ProFrame.IconBG:SetScript('OnClick', function(self)
-						if name ~= PROFESSIONS_FISHING then
-							if skillLine == 186 then
-								CastSpellByID(2656) -- mining skills
-							elseif skillLine == 182 then
-								CastSpellByID(193290) -- herbalism skills
-							elseif skillLine == 393 then
-								CastSpellByID(194174) -- skinning skills
-							else
-								CastSpellByName(name)
-							end
+						if skillLine == 186 then
+							CastSpellByID(2656) -- mining skills
+						elseif skillLine == 182 then
+							CastSpellByID(193290) -- herbalism skills
+						elseif skillLine == 393 then
+							CastSpellByID(194174) -- skinning skills
+						elseif skillLine == 356 then
+							CastSpellByID(271990) -- fishing
+						else
+							CastSpellByName(name)
 						end
 					end)
 
@@ -198,7 +198,7 @@ function mod:CreateProfessionsDashboard()
 	mod:ToggleStyle(self.proHolder, 'professions')
 	mod:ToggleTransparency(self.proHolder, 'professions')
 
-	E:CreateMover(self.proHolder, 'ProfessionsMover', TRADE_SKILLS)
+	E:CreateMover(self.proHolder, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BenikUI', nil, 'benikui,dashboards,professions')
 end
 
 function mod:LoadProfessions()

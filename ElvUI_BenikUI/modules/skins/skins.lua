@@ -610,6 +610,13 @@ local function LoadInFlight()
 	end)
 end
 
+local function VehicleExit()
+	local f = _G["LeaveVehicleButton"]
+	f:SetNormalTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	f:SetPushedTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+end
+
 function BUIS:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
@@ -630,6 +637,7 @@ function BUIS:PLAYER_ENTERING_WORLD(...)
 end
 
 function BUIS:Initialize()
+	VehicleExit()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
 	skinDecursive()

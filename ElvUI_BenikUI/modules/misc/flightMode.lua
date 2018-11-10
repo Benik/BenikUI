@@ -155,6 +155,8 @@ function BFM:SkinInFlight()
 	end
 end
 
+local zygorVisible
+
 function BFM:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
 
@@ -195,6 +197,23 @@ function BFM:SetFlightMode(status)
 			if SquareMinimapButtonBar then
 				_G.SquareMinimapButtons:CancelAllTimers()
 				SquareMinimapButtonBar:SetAlpha(0)
+			end
+		end
+
+		-- Hide Zygor
+		if BUI.ZG then
+			if ZygorGuidesViewer.db.profile.visible then
+				if _G['ZygorGuidesViewerFrame']:IsVisible() then
+					zygorVisible = true
+				else
+					zygorVisible = false
+				end
+
+				if _G['ZygorGuidesViewerFrame'] then _G['ZygorGuidesViewerFrame']:Hide() end
+			end
+
+			if ZygorGuidesViewer.db.profile.n_nc_enabled then
+				if _G['Zygor_Notification_Center'] then _G['Zygor_Notification_Center']:Hide() end
 			end
 		end
 
@@ -261,6 +280,18 @@ function BFM:SetFlightMode(status)
 		if BUI.AS then
 			local AS = unpack(AddOnSkins) or nil
 			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
+		end
+		
+		-- Show Zygor
+		if BUI.ZG then
+			if ZygorGuidesViewer.db.profile.visible then
+				if zygorVisible then
+					if _G['ZygorGuidesViewerFrame'] then _G['ZygorGuidesViewerFrame']:Show() end
+				end
+			end
+			if ZygorGuidesViewer.db.profile.n_nc_enabled then
+				if _G['Zygor_Notification_Center'] then _G['Zygor_Notification_Center']:Show() end
+			end
 		end
 
 		-- revert Left Chat

@@ -44,11 +44,23 @@ local function ufTable()
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:UpdateUF() end,
 					},
-					color = {
+					customColor = {
 						order = 2,
+						type = "select",
+						name = COLOR,
+						values = {
+							[1] = CLASS_COLORS,
+							[2] = CUSTOM,
+						},
+						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:InfoPanelColor() UFB:RecolorTargetInfoPanel() end,
+					},
+					color = {
+						order = 3,
 						type = "color",
 						name = COLOR_PICKER,
 						hasAlpha = true,
+						disabled = function() return E.db.benikui.unitframes.infoPanel.customColor == 1 end,
 						get = function(info)
 							local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
 							local d = P.benikui.unitframes.infoPanel[info[#info]]
@@ -63,7 +75,7 @@ local function ufTable()
 					},
 					texture = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 3,
+						order = 4,
 						name = L['Textures'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,

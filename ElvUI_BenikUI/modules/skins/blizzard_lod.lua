@@ -151,6 +151,9 @@ local function style_Collections()
 	_G["CollectionsJournal"]:Style('Outside')
 	_G["WardrobeFrame"]:Style('Outside')
 	_G["WardrobeOutfitEditFrame"].backdrop:Style('Outside')
+	if E.private.skins.blizzard.tooltip then
+		PetJournalPrimaryAbilityTooltip:Style('Outside')
+	end
 end
 S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
 
@@ -194,6 +197,30 @@ local function style_DeathRecap()
 	_G["DeathRecapFrame"]:Style('Outside')
 end
 S:AddCallbackForAddon("Blizzard_DeathRecap", "BenikUI_DeathRecap", style_DeathRecap)
+
+-- DebugTools
+local function style_DebugTools()
+	if E.private.skins.blizzard.debug ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	local function SkinTableAttributeDisplay(frame)
+		if frame.LinesScrollFrame and frame.LinesScrollFrame.ScrollBar then
+			local s = frame.LinesScrollFrame.ScrollBar
+		end
+	end
+
+	SkinTableAttributeDisplay(TableAttributeDisplay)
+	hooksecurefunc(TableInspectorMixin, "OnLoad", function(self)
+		if self and self.ScrollFrameArt and not self.styled then
+			SkinTableAttributeDisplay(self)
+			self.styled = true
+		end
+	end)
+end
+if IsAddOnLoaded("Blizzard_DebugTools") then
+	S:AddCallback("BenikUI_DebugTools", style_DebugTools)
+else
+	S:AddCallbackForAddon("Blizzard_DebugTools", "BenikUI_DebugTools", style_DebugTools)
+end
 
 -- EncounterJournal
 local function style_EncounterJournal()
@@ -351,6 +378,7 @@ local function style_MacroUI()
 	if E.private.skins.blizzard.macro ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["MacroFrame"]:Style('Outside')
+	_G["MacroPopupFrame"]:Style('Outside')
 end
 S:AddCallbackForAddon("Blizzard_MacroUI", "BenikUI_MacroUI", style_MacroUI)
 
@@ -375,6 +403,8 @@ local function style_GarrisonUI()
 	MissionFrame.Topper:Hide()
 	MissionFrame.backdrop:Style('Outside')
 
+	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
+	GarrisonCapacitiveDisplayFrame.IncrementButton:Point('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
 	if E.private.skins.blizzard.tooltip then
 		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
 		_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')

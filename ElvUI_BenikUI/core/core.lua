@@ -6,7 +6,7 @@ local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, ns = ...
 
 local _G = _G
-local pairs, print = pairs, print
+local pairs, print, tinsert = pairs, print, table.insert
 local format = string.format
 local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
@@ -35,6 +35,7 @@ BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')
 BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
 BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
+BUI.ZG = BUI:IsAddOnEnabled('ZygorGuidesViewer')
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
@@ -153,6 +154,9 @@ function BUI:Initialize()
 	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		BUI.ShadowMode = true
 	end
+
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BenikUI")
+	E.ConfigModeLocalizedStrings["BenikUI"] = BUI.Title
 
 	BUI.AddonProfileKey = BUI.Title..E.myname.." - "..E.myrealm
 

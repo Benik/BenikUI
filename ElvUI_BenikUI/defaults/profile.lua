@@ -161,6 +161,7 @@ P['benikui'] = {
 		['infoPanel'] = {
 			['fixInfoPanel'] = true,
 			['texture'] = 'BuiEmpty',
+			['customColor'] = 2,
 			['color'] = {r = .9, g = .7, b = 0, a = .7},
 		},
 		['castbar'] = {
@@ -237,6 +238,7 @@ P['benikuiSkins'] = {
 		['pawn'] = true,
 		['dbm'] = true,
 		['bigwigs'] = true,
+		['zygor'] = true,
 	},
 	
 	['variousSkins'] = {

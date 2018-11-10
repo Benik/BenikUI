@@ -2,9 +2,10 @@ local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule('Skins');
 local BUI = E:GetModule('BenikUI');
 
-local pairs = pairs
-
 local _G = _G
+local pairs, unpack = pairs, unpack
+local strlower, strfind = strlower, strfind
+
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
@@ -12,6 +13,8 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 if not BUI.AS then return end
 local AS = unpack(AddOnSkins)
+
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function SkadaDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.skada then return end
@@ -202,6 +205,51 @@ local function LibrariesDecor()
 	end
 end
 
+local function ZygorDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.zygor then return end
+
+	_G['ZygorGuidesViewerFrame_Border']:Style('Outside')
+end
+
+-- Replace the close button
+function AS:SkinCloseButton(Button, Reposition)
+	if Button.Backdrop then return end
+
+	AS:SkinBackdropFrame(Button)
+
+	Button.Backdrop:Point('TOPLEFT', 7, -8)
+	Button.Backdrop:Point('BOTTOMRIGHT', -7, 8)
+	Button.Backdrop:SetTemplate('NoBackdrop')
+
+	Button:SetHitRectInsets(6, 6, 7, 7)
+	
+	Button.Backdrop.img = Button.Backdrop:CreateTexture(nil, 'OVERLAY')
+	Button.Backdrop.img:SetSize(12, 12)
+	Button.Backdrop.img:Point("CENTER")
+	Button.Backdrop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Close.tga')
+	Button.Backdrop.img:SetVertexColor(1, 1, 1)
+
+	Button:HookScript('OnEnter', function(self)
+		self.Backdrop.img:SetVertexColor(1, .2, .2)
+		if E.myclass == 'PRIEST' then
+			self.Backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+			self.Backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+		else
+			self.Backdrop.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			self.Backdrop:SetBackdropBorderColor(classColor.r, classColor.g, classColor.b)
+		end
+	end)
+
+	Button:HookScript('OnLeave', function(self)
+		self.Backdrop.img:SetVertexColor(1, 1, 1)
+		self.Backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+	end)
+
+	if Reposition then
+		Button:Point('TOPRIGHT', Reposition, 'TOPRIGHT', 2, 2)
+	end
+end
+
 if AS:CheckAddOn('Skada') then AS:RegisterSkin('Skada', SkadaDecor, 2) end
 if AS:CheckAddOn('Recount') then AS:RegisterSkin('Recount', RecountDecor, 2) end
 if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPS', TinyDPSDecor, 2) end
@@ -212,6 +260,7 @@ if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
 if AS:CheckAddOn('Pawn') then AS:RegisterSkin('Pawn', PawnDecor, 2) end
 if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers') and AS:CheckAddOn('DBM-DefaultSkin')) then AS:RegisterSkin('DBM', DbmDecor, 'ADDON_LOADED') end
 if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
+if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 AS:RegisterSkin('Libraries', LibrariesDecor, 2)
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
