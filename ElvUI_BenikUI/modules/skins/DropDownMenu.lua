@@ -2,6 +2,8 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUIS = E:GetModule('BuiSkins')
 local S = E:GetModule('Skins');
 
+if tonumber(E.version) <= 10.82 then return end
+
 local r, g, b = NORMAL_FONT_COLOR:GetRGB()
 local arrow = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow'
 
