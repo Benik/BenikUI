@@ -213,12 +213,8 @@ L['Git Ticket tracker'] = true --No need to translate
 L['Tukui.org'] = true --No need to translate
 -- Location Plus
 L['Adds player location, coords + 2 Datatexts and a tooltip with info based on player location/level.'] = "Fügt Spieler Aufenthaltsort, Koordinaten + 2 Infotexte und einen Tooltip mit Informationen basierend auf dem Aufenthaltsort/Level hinzu."
--- Location Lite
-L['Adds a location panel with coords. A LocationPlus alternative.'] = "Fügt ein Aufenthaltsort Panel mit Koordinaten hinzu. Eine LocationPlus Alternative."
--- Datatext color
-L['a plugin for ElvUI, that changes the DT text color to class color, value color or any user defined'] = "Ein PlugIn für ElvUI, welches die Farbe der Informationsleisten ändert."
--- Transparent Actionbars
-L['A small plugin that makes the actionbar backdrops and the unused buttons transparent'] = "Ein kleines Addon welches den Hintergrund der Aktionsleisten und den unbenutzen Tasten transparent macht."
+-- Nuts & Bolts
+L['ElvUI Nuts & Bolts is a compilation of my addons hosted at tukui.org/Twitch plus some features that are moved from BenikUI'] = true
 
 -- afk
 L["Jan"] = true
