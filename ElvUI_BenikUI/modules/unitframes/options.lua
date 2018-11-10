@@ -53,7 +53,7 @@ local function ufTable()
 							[2] = CUSTOM,
 						},
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:RecolorTargetInfoPanel() end,
+						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:InfoPanelColor() UFB:RecolorTargetInfoPanel() end,
 					},
 					color = {
 						order = 3,

@@ -31,13 +31,29 @@ function UFB:Configure_Infopanel(frame)
 	end
 end
 
+local function GetClassColor(unit)
+	local unitReaction = UnitReaction(unit, 'player')
+	local _, targetClass = UnitClass(unit)
+	local r, g, b
+	if (UnitIsPlayer(unit)) then
+		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
+		if not targetClass then return "" end
+		r, g, b = classColor.r, classColor.g, classColor.b
+	elseif (unitReaction) then
+		local reaction = ElvUF.colors.reaction[unitReaction]
+		r, g, b = reaction[1], reaction[2], reaction[3]
+	end
+
+	return r, g, b
+end
+
 -- Units
 function UFB:UnitInfoPanelColor()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
-	for _, unitName in pairs(UF.units) do
+	for unit, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
 		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
-
+		local r, g, b
 		local unitframe = _G["ElvUF_"..frameNameUnit]
 		if unitframe and unitframe.InfoPanel then
 			if not unitframe.InfoPanel.color then
@@ -45,7 +61,12 @@ function UFB:UnitInfoPanelColor()
 				unitframe.InfoPanel.color:SetAllPoints()
 			end
 			unitframe.InfoPanel.color:SetTexture(bar)
-			unitframe.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color))
+			if E.db.benikui.unitframes.infoPanel.customColor == 1 then
+				r, g, b = GetClassColor(unit)
+			else
+				r, g, b = BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color)
+			end
+			unitframe.InfoPanel.color:SetVertexColor(r, g, b)
 		end
 	end
 end

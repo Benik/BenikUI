@@ -7,7 +7,6 @@ local _G = _G
 local select = select
 local CreateFrame = CreateFrame
 local UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction = UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 -- GLOBALS: hooksecurefunc, ElvUF
 
@@ -35,8 +34,6 @@ function UFB:Construct_TargetFrame()
 	self:ArrangeTarget()
 end
 
-local r, g, b = 0, 0, 0
-
 function UFB:RecolorTargetDetachedPortraitStyle()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
@@ -48,6 +45,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 	do
 		local portrait = frame.Portrait
 		local power = frame.Power
+		local r, g, b
 
 		if frame.USE_PORTRAIT and portrait.backdrop.style and E.db.benikui.unitframes.target.portraitStyle then
 			local maxValue = UnitPowerMax("target")
@@ -55,7 +53,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 			local mu = power.bg.multiplier or 1
 			local color = ElvUF['colors'].power[pToken]
 			local isPlayer = UnitIsPlayer("target")
-			--local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
+			local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
 
 			if not power.colorClass then
 				if maxValue > 0 then
@@ -94,16 +92,15 @@ end
 
 function UFB:RecolorTargetInfoPanel()
 	local frame = _G["ElvUF_Target"]
-
 	if not frame.USE_INFO_PANEL then return end
-	
 	local targetClass = select(2, UnitClass("target"));
 
 	do
 		local panel = frame.InfoPanel
 		local isPlayer = UnitIsPlayer("target")
-		--local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
+		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
 		local reaction = UnitReaction('target', 'player')
+		local r, g, b
 
 		if isPlayer then
 			if E.db.benikui.unitframes.infoPanel.customColor == 1 then
@@ -114,7 +111,11 @@ function UFB:RecolorTargetInfoPanel()
 		else
 			if reaction then
 				local tpet = ElvUF.colors.reaction[reaction]
-				r, g, b = tpet[1], tpet[2], tpet[3]
+				if E.db.benikui.unitframes.infoPanel.customColor == 1 then
+					r, g, b = tpet[1], tpet[2], tpet[3]
+				else
+					r, g, b = BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color)
+				end
 			end
 		end
 
