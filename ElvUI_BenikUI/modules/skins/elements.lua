@@ -264,41 +264,49 @@ hooksecurefunc(S, "HandleScrollSlider", BUIS.skinScrollBarThumb)
 function BUIS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
 
-	frame:SetNormalTexture("")
-	frame:SetPushedTexture("")
-	frame:SetHighlightTexture("")
+	frame:StripTextures()
 
-	local hl = frame:GetHighlightTexture()
-	hl:SetPoint("TOPLEFT", 5, -5)
-	hl:SetPoint("BOTTOMRIGHT", -5, 5)
-	hl:SetVertexColor(r, g, b, .2)
-
-	if frame.SetCheckedTexture then
-		local ch = frame:GetCheckedTexture()
-		ch:SetTexture(E["media"].blankTex)
-		ch:SetVertexColor(r, g, b, 1)
-		ch:SetDesaturated(false)
+	if noBackdrop then
+		frame:SetTemplate("Default")
+		frame:Size(16)
+	else
+		frame:CreateBackdrop("Default")
+		frame.backdrop:SetInside(nil, 4, 4)
 	end
 
-	frame:HookScript('OnDisable', function(checkbox)
-		if not checkbox.SetDisabledTexture then return; end
-		if checkbox:GetChecked() then
-			checkbox:SetDisabledTexture(E["media"].blankTex)
-			if frame.backdrop then
+	if not noReplaceTextures then
+		if frame.SetCheckedTexture then
+			frame:SetCheckedTexture(E["media"].blankTex)
+			frame:GetCheckedTexture():SetVertexColor(r, g, b)
+			frame:GetCheckedTexture():SetInside(frame.backdrop)
+		end
+
+		if frame.SetDisabledTexture then
+			frame:SetDisabledTexture(E["media"].blankTex)
+			frame:GetDisabledTexture():SetVertexColor(r, g, b, 0.5)
+			frame:GetDisabledTexture():SetInside(frame.backdrop)
+		end
+
+		frame:HookScript('OnDisable', function(checkbox)
+			if not checkbox.SetDisabledTexture then return; end
+			if checkbox:GetChecked() then
+				checkbox:SetDisabledTexture(E["media"].blankTex)
+				checkbox:GetDisabledTexture():SetVertexColor(r, g, b, 0.5)
 				checkbox:GetDisabledTexture():SetInside(frame.backdrop)
 			else
-				checkbox:GetDisabledTexture():SetInside(frame)
+				checkbox:SetDisabledTexture("")
 			end
-			checkbox:GetDisabledTexture():SetVertexColor(r, g, b, 0.3)
-		else
-			checkbox:SetDisabledTexture("")
-		end
-	end)
+		end)
 
-	if frame.backdrop then
-		frame:GetCheckedTexture():SetInside(frame.backdrop)
-	else
-		frame:GetCheckedTexture():SetInside(frame)
+		hooksecurefunc(frame, "SetNormalTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetNormalTexture("") end
+		end)
+		hooksecurefunc(frame, "SetPushedTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetPushedTexture("") end
+		end)
+		hooksecurefunc(frame, "SetHighlightTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetHighlightTexture("") end
+		end)
 	end
 end
 hooksecurefunc(S, "HandleCheckBox", BUIS.ReskinCheckBox)
