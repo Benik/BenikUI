@@ -15,8 +15,10 @@ end
 -- AddonSkins WeakAuras
 local function WeakAurasShadows()
 	local function Skin_WeakAuras(frame, ftype)
-		if not frame.Backdrop.shadow then
-			frame.Backdrop:CreateSoftShadow()
+		if frame.Backdrop then
+			if not frame.Backdrop.shadow then
+				frame.Backdrop:CreateSoftShadow()
+			end
 		end
 	end
 
