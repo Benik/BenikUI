@@ -1,3 +1,6 @@
+3.491
+*Prevent an error with WA shadows
+
 3.49
 *Fixed AddOnSkins WeakAura shadows
 *Hide Zygor frames during flightMode
