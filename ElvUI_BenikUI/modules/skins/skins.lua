@@ -611,6 +611,7 @@ local function LoadInFlight()
 end
 
 local function VehicleExit()
+	if E.private.actionbar.enable ~= true then return; end
 	local f = _G["LeaveVehicleButton"]
 	f:SetNormalTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
 	f:SetPushedTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
