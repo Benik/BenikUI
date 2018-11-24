@@ -257,3 +257,4 @@ L['oRA3'] = true
 L['Deadly Boss Mods'] = true
 L['BigWigs'] = true
 L['Zygor Guides'] = true
+L['Immersion'] = true

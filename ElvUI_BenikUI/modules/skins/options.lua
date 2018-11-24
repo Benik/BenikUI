@@ -27,6 +27,7 @@ local DecorAddons = {
 	{'DBM-Core', L['Deadly Boss Mods'], 'dbm'},
 	{'BigWigs', L['BigWigs'], 'bigwigs'},
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
+	{'Immersion', L['Immersion'], 'immersion'},
 }
 
 local SupportedProfiles = {
