@@ -14,9 +14,6 @@ function BUI:LoadAddOnSkinsProfile()
 
 	AS.db['WeakAuraAuraBar'] = true
 
-	AS.db['EmbedFrameStrata'] = "2-LOW"
-	AS.db['EmbedBelowTop'] = false
-
 	if BUI:IsAddOnEnabled('Recount') then
 		AS.db['EmbedSystem'] = true
 		AS.db['EmbedSystemDual'] = false
