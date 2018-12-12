@@ -425,10 +425,13 @@ local function styleAddons()
 	end
 
 	-- SquareMinimapButtons
-	if BUI.PA and _G.ProjectAzilroka.db['SMB'] and E.db.benikuiSkins.elvuiAddons.smb then
-		local smbFrame = _G["SquareMinimapButtonBar"]
-		if smbFrame then
-			smbFrame:Style('Outside')
+	if BUI.PA then
+		local profileKey = ProjectAzilrokaDB.profiles[E.myname..' - '..E.myrealm]
+		if profileKey['SquareMinimapButtons'] and E.db.benikuiSkins.elvuiAddons.smb then
+			local smbFrame = _G["SquareMinimapButtonBar"]
+			if smbFrame then
+				smbFrame:Style('Outside')
+			end
 		end
 	end
 
