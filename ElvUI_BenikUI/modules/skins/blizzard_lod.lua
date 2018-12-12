@@ -400,7 +400,6 @@ local function style_GarrisonUI()
 	end
 
 	local MissionFrame = _G["BFAMissionFrame"]
-	MissionFrame.Topper:Hide()
 	MissionFrame.backdrop:Style('Outside')
 
 	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
