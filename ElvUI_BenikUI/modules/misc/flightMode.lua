@@ -193,7 +193,7 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		
 		-- Hide SquareMinimapButtonBar
-		if (BUI.PA and _G.ProjectAzilroka.db['SMB'] and not BUI.SLE) then
+		if (BUI.PA and not BUI.SLE) then
 			if SquareMinimapButtonBar then
 				_G.SquareMinimapButtons:CancelAllTimers()
 				SquareMinimapButtonBar:SetAlpha(0)
@@ -305,7 +305,7 @@ function BFM:SetFlightMode(status)
 		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
 
 		-- Show SquareMinimapButtonBar
-		if (BUI.PA and _G.ProjectAzilroka.db['SMB'] and not BUI.SLE) then
+		if (BUI.PA and not BUI.SLE) then
 			if SquareMinimapButtonBar then
 				_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
 				SquareMinimapButtonBar:SetAlpha(1)
