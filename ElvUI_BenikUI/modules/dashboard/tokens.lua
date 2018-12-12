@@ -96,6 +96,9 @@ local Currency = {
 	1580,	-- Seal of Wartorn Fate
 	1587,	-- War Supplies
 	1710,	-- Seafarer's Dubloon
+	1716,	-- Honorbound Service Medal (Horde)
+	1717,	-- 7th Legion Service Medal (Alliance)
+	1718,	-- Titan Residuum
 }
 
 local function Icon_OnEnter(self)

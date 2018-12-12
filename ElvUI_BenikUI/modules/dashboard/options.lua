@@ -74,7 +74,9 @@ local miscTokens = {
 	1560, 	-- War Resources
 	1565,	-- Rich Azerite Fragment
 	1710,	-- Seafarer's Dubloon
-	
+	1716,	-- Honorbound Service Medal (Horde)
+	1717,	-- 7th Legion Service Medal (Alliance)
+	1718,	-- Titan Residuum	
 }
 
 local archyTokens = {
