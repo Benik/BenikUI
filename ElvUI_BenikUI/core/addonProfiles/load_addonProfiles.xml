@@ -7,9 +7,8 @@
 	<script file="Pawn.lua"/>
 	<script file="Recount.lua"/>
 	<script file="Skada.lua"/>
-	<script file="SquareMinimapButtons.lua"/>
+	<script file="ProjectAzilroka.lua"/>
 	<script file="VisualAuraTimers.lua"/>
 	<script file="BigWigs.lua"/>
-	<script file="stAddOnManager.lua"/>
 	<script file="InFlight.lua"/>
 </Ui>
