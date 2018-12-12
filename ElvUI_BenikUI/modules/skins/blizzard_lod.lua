@@ -451,7 +451,7 @@ S:AddCallbackForAddon("Blizzard_ScrappingMachineUI", "BenikUI_ScrappingMachineUI
 local function style_TalentUI()
 	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	_G["PlayerTalentFrame"].backdrop:Style('Outside')
+	_G["PlayerTalentFrame"]:Style('Outside')
 	for i = 1, 2 do
 		local tab = _G['PlayerSpecTab'..i]
 		if tab then
