@@ -1779,16 +1779,10 @@ local function SetupAddons()
 		tinsert(addonNames, 'Skada')
 	end
 
-	-- SquareMinimapButtons
-	if (BUI.PA and _G.ProjectAzilroka.db['SMB']) then
-		BUI:LoadSMBProfile()
-		tinsert(addonNames, 'Square Minimap Buttons')
-	end
-
-	-- stAddOnManager
-	if (BUI.PA and _G.ProjectAzilroka.db['stAM']) then
-		BUI:LoadStamProfile()
-		tinsert(addonNames, 'stAddOnManager')
+	-- Project Azilroka
+	if BUI.PA then
+		BUI:LoadPAProfile()
+		tinsert(addonNames, 'Project Azilroka')
 	end
 
 	-- ElvUI_VisualAuraTimers

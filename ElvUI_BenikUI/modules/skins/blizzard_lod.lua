@@ -51,7 +51,7 @@ S:AddCallbackForAddon("Blizzard_ArtifactUI", "BenikUI_ArtifactUI", style_Artifac
 local function style_AuctionUI()
 	if E.private.skins.blizzard.auctionhouse ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	_G["AuctionFrame"]:Style('Outside')
+	_G["AuctionFrame"].backdrop:Style('Outside')
 	_G["AuctionProgressFrame"]:Style('Outside')
 	_G["WowTokenGameTimeTutorial"]:Style('Small')
 end
@@ -70,13 +70,14 @@ local function style_AzeriteRespecUI()
 	if E.private.skins.blizzard.AzeriteRespec ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local frame = _G["AzeriteRespecFrame"]
-	frame.backdrop:Style('Outside')
-	frame:SetClipsChildren(false)
+	frame:Style('Inside')
 
-	local bg = select(23, frame:GetRegions())
-	bg:SetTexture(nil)
+	local CloseButton = frame.CloseButton
+	CloseButton:ClearAllPoints()
+	CloseButton:Point("TOPRIGHT", frame, "TOPRIGHT", -2, -6)
 
-	AzeriteRespecFrameTopTileStreaks:Hide()
+	AzeriteRespecFrameTitleText:ClearAllPoints()
+	AzeriteRespecFrameTitleText:Point("TOP", frame, "TOP", 0, -12)
 
 	frame.ButtonFrame.AzeriteRespecButton:ClearAllPoints()
 	frame.ButtonFrame.AzeriteRespecButton:Point('TOP', frame.ItemSlot, 'BOTTOM', 0, -20)
@@ -400,7 +401,6 @@ local function style_GarrisonUI()
 	end
 
 	local MissionFrame = _G["BFAMissionFrame"]
-	MissionFrame.Topper:Hide()
 	MissionFrame.backdrop:Style('Outside')
 
 	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
@@ -452,7 +452,7 @@ S:AddCallbackForAddon("Blizzard_ScrappingMachineUI", "BenikUI_ScrappingMachineUI
 local function style_TalentUI()
 	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	_G["PlayerTalentFrame"].backdrop:Style('Outside')
+	_G["PlayerTalentFrame"]:Style('Outside')
 	for i = 1, 2 do
 		local tab = _G['PlayerSpecTab'..i]
 		if tab then

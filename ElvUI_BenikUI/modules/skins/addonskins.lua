@@ -211,6 +211,30 @@ local function ZygorDecor()
 	_G['ZygorGuidesViewerFrame_Border']:Style('Outside')
 end
 
+local function ImmersionDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.immersion then return end
+	local frame = _G['ImmersionFrame']
+	frame.TalkBox.BackgroundFrame.Backdrop:Style('Inside')
+	frame.TalkBox.Hilite:SetOutside(frame.TalkBox.BackgroundFrame.Backdrop)
+	frame.TalkBox.Elements.Backdrop:Style('Inside')
+
+	if BUI.ShadowMode then
+		frame.TalkBox.BackgroundFrame.Backdrop.Shadow:Hide()
+		frame.TalkBox.Elements.Backdrop.Shadow:Hide()
+	end
+	
+	frame:HookScript('OnEvent', function(self)
+		for _, Button in ipairs(self.TitleButtons.Buttons) do
+			if Button.Backdrop and not Button.Backdrop.isStyled then
+				Button.Backdrop:Style('Inside')
+				Button.Hilite:SetOutside(Button.Backdrop)
+				Button.Backdrop.Shadow:Hide()
+				Button.Backdrop.isStyled = true
+			end
+		end
+	end)
+end
+
 -- Replace the close button
 function AS:SkinCloseButton(Button, Reposition)
 	if Button.Backdrop then return end
@@ -261,6 +285,7 @@ if AS:CheckAddOn('Pawn') then AS:RegisterSkin('Pawn', PawnDecor, 2) end
 if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers') and AS:CheckAddOn('DBM-DefaultSkin')) then AS:RegisterSkin('DBM', DbmDecor, 'ADDON_LOADED') end
 if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
+if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 2) end
 AS:RegisterSkin('Libraries', LibrariesDecor, 2)
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)

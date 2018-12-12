@@ -425,7 +425,7 @@ local function styleAddons()
 	end
 
 	-- SquareMinimapButtons
-	if BUI.PA and _G.ProjectAzilroka.db['SMB'] and E.db.benikuiSkins.elvuiAddons.smb then
+	if BUI.PA and E.db.benikuiSkins.elvuiAddons.pa then
 		local smbFrame = _G["SquareMinimapButtonBar"]
 		if smbFrame then
 			smbFrame:Style('Outside')
@@ -453,7 +453,7 @@ local function styleAddons()
 	end
 
 	-- stAddonManager
-	if BUI.PA and _G.ProjectAzilroka.db['stAM'] and E.db.benikuiSkins.elvuiAddons.stam then
+	if BUI.PA and E.db.benikuiSkins.elvuiAddons.pa then
 		local stFrame = _G["stAMFrame"]
 		if stFrame then
 			stFrame:Style('Outside')
@@ -611,6 +611,7 @@ local function LoadInFlight()
 end
 
 local function VehicleExit()
+	if E.private.actionbar.enable ~= true then return; end
 	local f = _G["LeaveVehicleButton"]
 	f:SetNormalTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
 	f:SetPushedTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")

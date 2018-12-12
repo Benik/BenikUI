@@ -221,10 +221,9 @@ P['benikuiSkins'] = {
 		['loclite'] = true,
 		['locplus'] = true,
 		['sle'] = true,
-		['smb'] = true,
 		['enh'] = true,
 		['dtb2'] = true,
-		['stam'] = true,
+		['pa'] = true,
 	},
 	
 	['addonSkins'] = {
@@ -239,6 +238,7 @@ P['benikuiSkins'] = {
 		['dbm'] = true,
 		['bigwigs'] = true,
 		['zygor'] = true,
+		['immersion'] = true,
 	},
 	
 	['variousSkins'] = {
