@@ -51,7 +51,7 @@ S:AddCallbackForAddon("Blizzard_ArtifactUI", "BenikUI_ArtifactUI", style_Artifac
 local function style_AuctionUI()
 	if E.private.skins.blizzard.auctionhouse ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	_G["AuctionFrame"]:Style('Outside')
+	_G["AuctionFrame"].backdrop:Style('Outside')
 	_G["AuctionProgressFrame"]:Style('Outside')
 	_G["WowTokenGameTimeTutorial"]:Style('Small')
 end
