@@ -70,13 +70,14 @@ local function style_AzeriteRespecUI()
 	if E.private.skins.blizzard.AzeriteRespec ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local frame = _G["AzeriteRespecFrame"]
-	frame.backdrop:Style('Outside')
-	frame:SetClipsChildren(false)
+	frame:Style('Inside')
 
-	local bg = select(23, frame:GetRegions())
-	bg:SetTexture(nil)
+	local CloseButton = frame.CloseButton
+	CloseButton:ClearAllPoints()
+	CloseButton:Point("TOPRIGHT", frame, "TOPRIGHT", -2, -6)
 
-	AzeriteRespecFrameTopTileStreaks:Hide()
+	AzeriteRespecFrameTitleText:ClearAllPoints()
+	AzeriteRespecFrameTitleText:Point("TOP", frame, "TOP", 0, -12)
 
 	frame.ButtonFrame.AzeriteRespecButton:ClearAllPoints()
 	frame.ButtonFrame.AzeriteRespecButton:Point('TOP', frame.ItemSlot, 'BOTTOM', 0, -20)
