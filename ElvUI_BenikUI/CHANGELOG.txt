@@ -1,3 +1,11 @@
+3.50
+*toc update for patch 8.1
+*Fixed various errors from patch 8.1
+*AddOnSkins & ProjectAzilroka Profiles
+*Styled AddOnSkins Immersion
+*Updated Details Profile
+*Prevent an error when ElvUI Actionbars are disabled. This should fix #56
+
 3.491
 *Prevent an error with WA shadows
 
