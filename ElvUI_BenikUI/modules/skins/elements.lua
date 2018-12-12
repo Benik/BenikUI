@@ -315,21 +315,21 @@ hooksecurefunc(S, "HandleCheckBox", BUIS.ReskinCheckBox)
 
 local function skinStackSplitArrows()
 	if E.private.skins.blizzard.enable ~= true then return end
+	local StackSplitFrame = _G["StackSplitFrame"]
 
-	local buttons = {_G["StackSplitLeftButton"], _G["StackSplitRightButton"]}
+	local buttons = {StackSplitFrame.LeftButton, StackSplitFrame.RightButton}
 	for _, btn in pairs(buttons) do
 		S:HandleNextPrevButton(btn)
 		btn:Size(14, 18)
 
 		btn:ClearAllPoints()
-		if btn == _G["StackSplitLeftButton"] then
+		if btn == StackSplitFrame.LeftButton then
 			btn:Point('LEFT', StackSplitFrame.bg1, 'LEFT', 4, 0)
+			btn.img:SetRotation(BUIS.ArrowRotation['LEFT'])
 		else
 			btn:Point('RIGHT', StackSplitFrame.bg1, 'RIGHT', -4, 0)
 		end
 	end
-	StackSplitText:ClearAllPoints()
-	StackSplitText:Point('RIGHT', StackSplitRightButton, 'LEFT', -6, 0)
 end
 S:AddCallback("BenikUI_StackSplitArrows", skinStackSplitArrows)
 
