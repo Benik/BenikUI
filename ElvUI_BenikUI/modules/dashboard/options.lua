@@ -15,29 +15,11 @@ local ENABLE, MISCELLANEOUS, FONT_SIZE = ENABLE, MISCELLANEOUS, FONT_SIZE
 -- GLOBALS: AceGUIWidgetLSMlists, hooksecurefunc
 
 local dungeonTokens = {
-	776,	-- Warforged Seal
-	752,	-- Mogu Rune of Fate
-	697,	-- Elder Charm of Good Fortune
-	738,	-- Lesser Charm of Good Fortune
-	614,	-- Mote of Darkness
-	615,	-- Essence of Corrupted Deathwing
-	395,	-- Justice Points
-	823,	-- Apexis Crystal (for gear, like the valors)
-	994,	-- Seal of Tempered Fate (Raid loot roll)
-	1129,	-- Seal of Inevitable Fate
-	1191, 	-- Valor Points (6.23)
-	1273,	-- Seal of Broken Fate (Raid)
-	1580,	-- Seal of Wartorn Fate
+	1166, 	-- Timewarped Badge (6.22)
 }
 
 local pvpTokens = {
 	391,	-- Tol Barad Commendation
-	944,	-- Artifact Fragment (PvP)
-	1149,	-- Sightless Eye (PvP)
-	1268,	-- Timeworn Artifact (Honor Points?)
-	1356,	-- Echoes of Battle (PvP Gear)
-	1357,	-- Echoes of Domination (Elite PvP Gear)
-	1587,	-- War Supplies
 }
 
 local secondaryTokens = {
@@ -51,32 +33,55 @@ local miscTokens = {
 	241,	-- Champion's Seal
 	416,	-- Mark of the World Tree
 	515,	-- Darkmoon Prize Ticket
-	777,	-- Timeless Coin
 	789,	-- Bloody Coin
-	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
+}
+
+local mopTokens = {
+	697,	-- Elder Charm of Good Fortune
+	738,	-- Lesser Charm of Good Fortune
+	776,	-- Warforged Seal
+	777,	-- Timeless Coin
+}
+
+local wodTokens = {
 	824,	-- Garrison Resources
+	823,	-- Apexis Crystal (for gear, like the valors)
+	994,	-- Seal of Tempered Fate (Raid loot roll)
+	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
+	944,	-- Artifact Fragment (PvP)
 	1101,	-- Oil
-	1166, 	-- Timewarped Badge (6.22)
-	-- Legion
+	1129,	-- Seal of Inevitable Fate
+	1191, 	-- Valor Points (6.23)
+}
+
+local legionTokens = {
 	1155,	-- Ancient Mana
 	1220,	-- Order Resources
 	1275,	-- Curious Coin (Buy stuff :P)
 	1226,	-- Nethershard (Invasion scenarios)
+	1273,	-- Seal of Broken Fate (Raid)
 	1154,	-- Shadowy Coins
+	1149,	-- Sightless Eye (PvP)
+	1268,	-- Timeworn Artifact (Honor Points?)
 	1299,	-- Brawler's Gold
-	1314,	-- Lingering Soul Fragment
+	1314,	-- Lingering Soul Fragment (Good luck with this one :D)
 	1342,	-- Legionfall War Supplies (Construction at the Broken Shore)
 	1355,	-- Felessence (Craft Legentary items)
+	1356,	-- Echoes of Battle (PvP Gear)
+	1357,	-- Echoes of Domination (Elite PvP Gear)
 	1416,	-- Coins of Air
 	1508,	-- Veiled Argunite
 	1533,	-- Wakening Essence
-	-- BfA
+}
+
+local bfaTokens = {
 	1560, 	-- War Resources
-	1565,	-- Rich Azerite Fragment
+	1580,	-- Seal of Wartorn Fate
+	1587,	-- War Supplies
 	1710,	-- Seafarer's Dubloon
 	1716,	-- Honorbound Service Medal (Horde)
 	1717,	-- 7th Legion Service Medal (Alliance)
-	1718,	-- Titan Residuum	
+	1718,	-- Titan Residuum
 }
 
 local archyTokens = {
@@ -103,11 +108,15 @@ local archyTokens = {
 }
 
 local currencyTables = {
-	{dungeonTokens, 'dTokens'},
-	{pvpTokens, 'pTokens'},
-	{secondaryTokens, 'sTokens'},
-	{miscTokens, 'mTokens'},
-	{archyTokens, 'aTokens'},
+	{dungeonTokens, 'dungeonTokens'},
+	{pvpTokens, 'pvpTokens'},
+	{secondaryTokens, 'secondaryTokens'},
+	{miscTokens, 'miscTokens'},
+	{mopTokens, 'mopTokens'},
+	{wodTokens, 'wodTokens'},
+	{legionTokens, 'legionTokens'},
+	{bfaTokens, 'bfaTokens'},
+	{archyTokens, 'archyTokens'},
 }
 
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
@@ -530,36 +539,64 @@ local function dashboardsTable()
 						type = 'description',
 						name = "\n\n",
 					},
-					dTokens = {
+					dungeonTokens = {
 						order = 21,
 						type = 'group',
 						name = format('%s & %s', CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID),
 						args = {
 						},
 					},
-					pTokens = {
+					pvpTokens = {
 						order = 22,
 						type = 'group',
 						name = format('%s', PLAYER_V_PLAYER),
 						args = {
 						},
 					},
-					sTokens = {
+					bfaTokens = {
 						order = 23,
 						type = 'group',
-						name = format('%s', (SECONDARY_SKILLS:gsub(':', ''))),
+						name = format('%s', EXPANSION_NAME7),
 						args = {
 						},
 					},
-					mTokens = {
+					legionTokens = {
 						order = 24,
+						type = 'group',
+						name = format('%s', EXPANSION_NAME6),
+						args = {
+						},
+					},
+					wodTokens = {
+						order = 25,
+						type = 'group',
+						name = format('%s', EXPANSION_NAME5),
+						args = {
+						},
+					},
+					mopTokens = {
+						order = 26,
+						type = 'group',
+						name = format('%s', EXPANSION_NAME4),
+						args = {
+						},
+					},
+					miscTokens = {
+						order = 27,
 						type = 'group',
 						name = format('%s', MISCELLANEOUS),
 						args = {
 						},
 					},
-					aTokens = {
-						order = 25,
+					secondaryTokens = {
+						order = 28,
+						type = 'group',
+						name = format('%s', (SECONDARY_SKILLS:gsub(':', ''))),
+						args = {
+						},
+					},
+					archyTokens = {
+						order = 29,
 						type = 'group',
 						name = format('%s', PROFESSIONS_ARCHAEOLOGY),
 						args = {
