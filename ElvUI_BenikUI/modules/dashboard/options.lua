@@ -79,8 +79,8 @@ local bfaTokens = {
 	1580,	-- Seal of Wartorn Fate
 	1587,	-- War Supplies
 	1710,	-- Seafarer's Dubloon
-	1716,	-- Honorbound Service Medal (Horde)
-	1717,	-- 7th Legion Service Medal (Alliance)
+	--1716,	-- Honorbound Service Medal (Horde)
+	--1717,	-- 7th Legion Service Medal (Alliance)
 	1718,	-- Titan Residuum
 }
 
@@ -150,6 +150,12 @@ end
 
 -- these options must be updated when the player discovers a new token.
 local function UpdateTokenOptions()
+	if E.myfaction == 'Alliance' then
+		tinsert(bfaTokens, 1717)
+	elseif E.myfaction == 'Horde' then
+		tinsert(bfaTokens, 1716)
+	end
+
 	for i, v in ipairs(currencyTables) do
 		local tableName, optionName = unpack(v)
 		local optionOrder = 1
