@@ -84,7 +84,8 @@ local bfaTokens = {
 	1718,	-- Titan Residuum
 }
 
-local archyTokens = {
+-- Archaeology tokens
+local archyClassic = {
 	384,	-- Dwarf Archaeology Fragment
 	385,	-- Troll Archaeology Fragment
 	393,	-- Fossil Archaeology Fragment
@@ -94,20 +95,32 @@ local archyTokens = {
 	399,	-- Vrykul Archaeology Fragment
 	400,	-- Nerubian Archaeology Fragment
 	401,	-- Tol'vir Archaeology Fragment
+}
+
+local archyMop = {
 	676,	-- Pandaren Archaeology Fragment
 	677,	-- Mogu Archaeology Fragment
 	754,	-- Mantid Archaeology Fragment
+}
+
+local archyWod = {
 	821,	-- Draenor Clans Archaeology Fragment
 	828,	-- Ogre Archaeology Fragment
 	829,	-- Arakkoa Archaeology Fragment
+}
+
+local archyLegion = {
 	1172,	-- Highborne Archaeology Fragment
 	1173,	-- Highmountain Tauren Archaeology Fragment
 	1174,	-- Demonic Archaeology Fragment
+}
+local archyBfa = {
 	1534,	-- Zandalari Archaeology Fragment
 	1535,	-- Drust Archaeology Fragment
 }
 
 local currencyTables = {
+	-- table, option
 	{dungeonTokens, 'dungeonTokens'},
 	{pvpTokens, 'pvpTokens'},
 	{secondaryTokens, 'secondaryTokens'},
@@ -116,7 +129,15 @@ local currencyTables = {
 	{wodTokens, 'wodTokens'},
 	{legionTokens, 'legionTokens'},
 	{bfaTokens, 'bfaTokens'},
-	{archyTokens, 'archyTokens'},
+}
+
+local archyTables = {
+	-- table, option, name
+	{archyClassic, 'classic', EXPANSION_NAME0},
+	{archyMop, 'mop', EXPANSION_NAME4},
+	{archyWod, 'wod', EXPANSION_NAME5},
+	{archyLegion, 'legion', EXPANSION_NAME6},
+	{archyBfa, 'bfa', EXPANSION_NAME7},
 }
 
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
@@ -156,7 +177,7 @@ local function UpdateTokenOptions()
 		tinsert(bfaTokens, 1716)
 	end
 
-	for i, v in ipairs(currencyTables) do
+	for _, v in ipairs(currencyTables) do
 		local tableName, optionName = unpack(v)
 		local optionOrder = 1
 		for _, id in ipairs(tableName) do
@@ -176,6 +197,34 @@ local function UpdateTokenOptions()
 					set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 					disabled = function() return not isDiscovered end,
 				}
+			end
+		end
+	end
+
+	for i, v in ipairs(archyTables) do
+		local tableName, option, optionName = unpack(v)
+		local optionOrder = 1
+		for _, id in ipairs(tableName) do
+			E.Options.args.benikui.args.dashboards.args.tokens.args.archyGroup.args[option] = {
+				order = i,
+				type = 'group',
+				name = optionName,
+				args = {
+				},
+			}
+			for _, id in ipairs(tableName) do
+				local tname, _, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
+				if tname then
+					E.Options.args.benikui.args.dashboards.args.tokens.args.archyGroup.args[option].args[tname] = {
+						order = optionOrder + 1,
+						type = 'toggle',
+						name = '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
+						desc = L['Enable/Disable ']..tname,
+						get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
+						set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+						disabled = function() return not isDiscovered end,
+					}
+				end
 			end
 		end
 	end
@@ -601,11 +650,16 @@ local function dashboardsTable()
 						args = {
 						},
 					},
-					archyTokens = {
+					archyGroup = {
 						order = 29,
 						type = 'group',
 						name = format('%s', PROFESSIONS_ARCHAEOLOGY),
 						args = {
+							desc = {
+								order = 1,
+								name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered']),
+								type = 'header',
+							},
 						},
 					},
 				},
