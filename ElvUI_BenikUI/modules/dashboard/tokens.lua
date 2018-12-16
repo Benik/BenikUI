@@ -21,23 +21,11 @@ local SPACING = 1
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local Currency = {
-	241,	-- Champion's Seal
-	361,	-- Illustrious Jewelcrafter's Token
-	391,	-- Tol Barad Commendation
-	402,	-- Ironpaw Token
-	416,	-- Mark of the World Tree
-	515,	-- Darkmoon Prize Ticket
-	61,		-- Dalaran Jewelcrafter's Token
+	-- unused/old
 	614,	-- Mote of Darkness
 	615,	-- Essence of Corrupted Deathwing
-	697,	-- Elder Charm of Good Fortune
-	738,	-- Lesser Charm of Good Fortune
 	752,	-- Mogu Rune of Fate
-	776,	-- Warforged Seal
-	777,	-- Timeless Coin
-	789,	-- Bloody Coin
-	81,		-- Epicurean's Award
-	
+
 	-- Archaeology
 	384,	-- Dwarf Archaeology Fragment
 	385,	-- Troll Archaeology Fragment
@@ -51,16 +39,40 @@ local Currency = {
 	676,	-- Pandaren Archaeology Fragment
 	677,	-- Mogu Archaeology Fragment
 	754,	-- Mantid Archaeology Fragment
+	821,	-- Draenor Clans Archaeology Fragment
+	828,	-- Ogre Archaeology Fragment
+	829,	-- Arakkoa Archaeology Fragment
 	1172,	-- Highborne Archaeology Fragment
 	1173,	-- Highmountain Tauren Archaeology Fragment
 	1174,	-- Demonic Archaeology Fragment
 	1534,	-- Zandalari Archaeology Fragment
 	1535,	-- Drust Archaeology Fragment
 
+	-- dungeon
+	1166, 	-- Timewarped Badge (6.22)
+
+	-- pvp
+	391,	-- Tol Barad Commendation
+
+	-- secondary
+	81,		-- Epicurean's Award
+	402,	-- Ironpaw Token
+	61,		-- Dalaran Jewelcrafter's Token
+	361,	-- Illustrious Jewelcrafter's Token
+
+	-- misc
+	241,	-- Champion's Seal
+	416,	-- Mark of the World Tree
+	515,	-- Darkmoon Prize Ticket
+	789,	-- Bloody Coin
+
+	-- MoP
+	697,	-- Elder Charm of Good Fortune
+	738,	-- Lesser Charm of Good Fortune
+	776,	-- Warforged Seal
+	777,	-- Timeless Coin
+
 	-- WoD
-	821,	-- Draenor Clans Archaeology Fragment
-	828,	-- Ogre Archaeology Fragment
-	829,	-- Arakkoa Archaeology Fragment
 	824,	-- Garrison Resources
 	823,	-- Apexis Crystal (for gear, like the valors)
 	994,	-- Seal of Tempered Fate (Raid loot roll)
@@ -68,7 +80,6 @@ local Currency = {
 	944,	-- Artifact Fragment (PvP)
 	1101,	-- Oil
 	1129,	-- Seal of Inevitable Fate
-	1166, 	-- Timewarped Badge (6.22)
 	1191, 	-- Valor Points (6.23)
 
 	-- Legion
@@ -92,10 +103,12 @@ local Currency = {
 	
 	-- BfA
 	1560, 	-- War Resources
-	1565,	-- Rich Azerite Fragment
 	1580,	-- Seal of Wartorn Fate
 	1587,	-- War Supplies
 	1710,	-- Seafarer's Dubloon
+	1716,	-- Honorbound Service Medal (Horde)
+	1717,	-- 7th Legion Service Medal (Alliance)
+	1718,	-- Titan Residuum
 }
 
 local function Icon_OnEnter(self)

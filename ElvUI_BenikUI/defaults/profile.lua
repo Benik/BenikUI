@@ -255,11 +255,6 @@ P['benikuiDatabars'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
-		['color'] = {
-			['default'] = true,
-			['xp'] = { r = 0, g = 0.4, b = 1, a = .8 },
-			['rested'] = { r = 1, g = 0, b = 1, a = .2 },
-		},
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
@@ -272,13 +267,6 @@ P['benikuiDatabars'] = {
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
 		['autotrack'] = false,
-		['color'] = {
-			['default'] = true,
-			['friendly'] = {r = 0, g = .6, b = .1, a = .8 },
-			['neutral'] = {r = .9, g = .7, b = 0, a = .8 },
-			['unfriendly'] = {r = .75, g = .27, b = 0, a = .8 },
-			['hated'] = {r = 1, g = 0, b = 0, a = .8 },
-		},
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
@@ -290,10 +278,6 @@ P['benikuiDatabars'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
-		['color'] = {
-			['default'] = true,
-			['af'] = {r = .901, g = .8, b = .601, a = .8 },
-		},
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
@@ -305,10 +289,6 @@ P['benikuiDatabars'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
-		['color'] = {
-			['default'] = true,
-			['hn'] = {r = .941, g = .447, b = .254, a = .8 },
-		},
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,

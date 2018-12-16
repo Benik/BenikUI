@@ -13,7 +13,6 @@ V['dashboards'] = {
 	['tokens'] = {
 		['chooseTokens'] = {
 			[1560] = true, -- War Resources
-			[1565] = true, -- Rich Azerite Fragment
 			[1580] = true, -- Seal of Wartorn Fate
 		},
 	},
