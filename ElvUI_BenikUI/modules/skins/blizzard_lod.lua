@@ -472,7 +472,9 @@ local function style_TalkingHeadUI()
 
 	local frame = _G["TalkingHeadFrame"]
 	if frame then
-		frame.BackgroundFrame:StripTextures()
+		-- Hide ElvUI's backdrop
+		if frame.backdrop then frame.backdrop:Hide() end
+
 		frame.BackgroundFrame:CreateBackdrop('Transparent')
 		frame.BackgroundFrame.backdrop:SetAllPoints()
 		frame.BackgroundFrame.backdrop:CreateWideShadow() -- to hide the borders not showing due to scaling
@@ -481,23 +483,6 @@ local function style_TalkingHeadUI()
 		frame.MainFrame.Model.ModelShadow = frame.MainFrame.Model:CreateTexture(nil, "OVERLAY", nil, 2)
 		frame.MainFrame.Model.ModelShadow:SetAtlas("Artifacts-BG-Shadow")
 		frame.MainFrame.Model.ModelShadow:SetOutside()
-		frame.MainFrame.Model.PortraitBg:Hide()
-
-		frame.BackgroundFrame.TextBackground:Hide()
-
-		-- Sometimes the text is not coloring. Credit Azilroka
-		frame.NameFrame.Name:SetTextColor(1, 0.82, 0.02)
-		frame.NameFrame.Name.SetTextColor = function() end
-		frame.NameFrame.Name:SetShadowColor(0.0, 0.0, 0.0, 1.0);
-
-		frame.TextFrame.Text:SetTextColor(1, 1, 1)
-		frame.TextFrame.Text.SetTextColor = function() end
-		frame.TextFrame.Text:SetShadowColor(0.0, 0.0, 0.0, 1.0);
-
-		local button = frame.MainFrame.CloseButton
-		S:HandleCloseButton(button)
-		button:ClearAllPoints()
-		button:Point('TOPRIGHT', frame.BackgroundFrame, 'TOPRIGHT', 0, -2)
 
 		frame.BackgroundFrame:Style('Inside')
 		if frame.BackgroundFrame.style then
