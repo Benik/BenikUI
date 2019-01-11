@@ -191,7 +191,7 @@ local function UpdateTokenOptions()
 				E.Options.args.benikui.args.dashboards.args.tokens.args[optionName].args[tname] = {
 					order = optionOrder + 1,
 					type = 'toggle',
-					name = '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
+					name = '|T'..icon..':18|t '..tname,
 					desc = L['Enable/Disable ']..tname,
 					get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 					set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
