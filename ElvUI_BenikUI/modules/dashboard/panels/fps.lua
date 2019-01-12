@@ -115,7 +115,10 @@ function mod:CreateFps()
 	end)
 
 	boardName.Status:SetScript('OnUpdate', function(self, elapsed)
-		LastUpdate = LastUpdate - elapsed
+		if LastUpdate > 0 then
+			LastUpdate = LastUpdate - elapsed
+			return
+		end
 
 		if(LastUpdate < 0) then
 			self:SetMinMaxValues(0, 200)
