@@ -479,11 +479,6 @@ local function style_TalkingHeadUI()
 		frame.BackgroundFrame.backdrop:SetAllPoints()
 		frame.BackgroundFrame.backdrop:CreateWideShadow() -- to hide the borders not showing due to scaling
 
-		-- Credit Azilroka
-		frame.MainFrame.Model.ModelShadow = frame.MainFrame.Model:CreateTexture(nil, "OVERLAY", nil, 2)
-		frame.MainFrame.Model.ModelShadow:SetAtlas("Artifacts-BG-Shadow")
-		frame.MainFrame.Model.ModelShadow:SetOutside()
-
 		frame.BackgroundFrame:Style('Inside')
 		if frame.BackgroundFrame.style then
 			frame.BackgroundFrame.style:ClearAllPoints()
