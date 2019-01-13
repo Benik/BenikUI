@@ -5,6 +5,9 @@ function BUI:LoadBigWigsProfile()
 	local font, fontsize
 	local key = BUI.Title
 
+	LoadAddOn("BigWigs_Options")
+	LoadAddOn("BigWigs")
+
 	if E.private.benikui.expressway == true then
 		font = "Expressway"
 		fontsize = 11
@@ -77,9 +80,6 @@ function BUI:LoadBigWigsProfile()
 	else
 		print(BUI.Title.."- "..L['BigWigs']..BUI.profileStrings[2])
 	end
-
-	LoadAddOn("BigWigs_Options")
-	LoadAddOn("BigWigs")
 
 	BigWigs.db:SetProfile(key)
 end

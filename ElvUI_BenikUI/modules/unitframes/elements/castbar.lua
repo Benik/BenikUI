@@ -37,7 +37,7 @@ local function ConfigureText(unit, castbar)
 	-- Set position of castbar text according to chosen offsets
 	castbar.Text:ClearAllPoints()
 	castbar.Time:ClearAllPoints()
-	if db.yOffset ~= 0 then
+	if db[unit].yOffset ~= 0 then
 		if unit == 'player' then
 			castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, db.player.yOffset)
 			castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, db.player.yOffset)

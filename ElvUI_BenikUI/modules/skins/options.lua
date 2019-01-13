@@ -27,6 +27,7 @@ local DecorAddons = {
 	{'BigWigs', L['BigWigs'], 'bigwigs'},
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
 	{'Immersion', L['Immersion'], 'immersion'},
+	{'AdiBags', L['AdiBags'], 'adibags'},
 }
 
 local SupportedProfiles = {
