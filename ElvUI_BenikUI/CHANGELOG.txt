@@ -1,3 +1,10 @@
+3.53
+*Style AdiBags
+*Adopted latest AddonSkins dev changes on BigWigs
+*Update Talking Head Frame
+*Fixed Player/Target Castbar Y-Offset
+*Prevent a BigWigs new profile error
+
 3.52
 *Group Archy tokens by expansion
 *Show the new Service Medal token for the correct faction only
