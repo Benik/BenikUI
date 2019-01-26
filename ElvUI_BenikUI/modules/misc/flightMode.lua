@@ -182,15 +182,17 @@ function BFM:SetFlightMode(status)
 		end
 
 		-- Left Chat
-		BuiDummyChat:SetParent(self.FlightMode)
-		LeftChatPanel:SetParent(self.FlightMode)
-		if LeftChatPanel.backdrop.shadow then
-			LeftChatPanel.backdrop.shadow:Hide()
+		if E.private.chat.enable then
+			BuiDummyChat:SetParent(self.FlightMode)
+			LeftChatPanel:SetParent(self.FlightMode)
+			if LeftChatPanel.backdrop.shadow then
+				LeftChatPanel.backdrop.shadow:Hide()
+			end
+			LeftChatPanel.backdrop.wideshadow:Show()
+			LeftChatPanel.backdrop.wideshadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
+			LeftChatPanel:ClearAllPoints()
+			LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		end
-		LeftChatPanel.backdrop.wideshadow:Show()
-		LeftChatPanel.backdrop.wideshadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
-		LeftChatPanel:ClearAllPoints()
-		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		
 		-- Hide SquareMinimapButtonBar
 		if (BUI.PA and not BUI.SLE) then
@@ -295,14 +297,16 @@ function BFM:SetFlightMode(status)
 		end
 
 		-- revert Left Chat
-		BuiDummyChat:SetParent(E.UIParent)
-		LeftChatPanel:SetParent(E.UIParent)
-		if LeftChatPanel.backdrop.shadow then
-			LeftChatPanel.backdrop.shadow:Show()
+		if E.private.chat.enable then
+			BuiDummyChat:SetParent(E.UIParent)
+			LeftChatPanel:SetParent(E.UIParent)
+			if LeftChatPanel.backdrop.shadow then
+				LeftChatPanel.backdrop.shadow:Show()
+			end
+			LeftChatPanel.backdrop.wideshadow:Hide()
+			LeftChatPanel:ClearAllPoints()
+			LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
 		end
-		LeftChatPanel.backdrop.wideshadow:Hide()
-		LeftChatPanel:ClearAllPoints()
-		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
 
 		-- Show SquareMinimapButtonBar
 		if (BUI.PA and not BUI.SLE) then
