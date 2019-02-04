@@ -215,7 +215,6 @@ function BUIC:CastBarHooks()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCastInterruptible)
-			hooksecurefunc(castbar, "PostCastUpdate", BUIC.PostCast)
 		end
 	end
 
@@ -228,7 +227,6 @@ function BUIC:CastBarHooks()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCastInterruptible)
-			hooksecurefunc(castbar, "PostCastUpdate", BUIC.PostCast)
 		end
 	end
 
@@ -241,7 +239,6 @@ function BUIC:CastBarHooks()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCastInterruptible)
-			hooksecurefunc(castbar, "PostCastUpdate", BUIC.PostCast)
 		end
 	end
 end
