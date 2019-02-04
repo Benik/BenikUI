@@ -144,7 +144,7 @@ function BUIC:PostCast(unit, unitframe)
 		self.Time:SetTextColor(pr, pg, pb, pa)
 	elseif unit == 'target' then
 		self.Text:SetTextColor(tr, tg, tb, ta)
-		self.Time:SetTextColor(tr, tg, tb, ta)	
+		self.Time:SetTextColor(tr, tg, tb, ta)
 	end
 
 	if not E.db.benikui.unitframes.castbarColor.enable then return; end
@@ -167,7 +167,7 @@ end
 
 function BUIC:PostCastInterruptible(unit, unitframe)
 	if unit == "vehicle" or unit == "player" then return end
-	
+
 	local db = E.db.benikui.unitframes.castbar.text
 
 	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
@@ -183,7 +183,7 @@ function BUIC:PostCastInterruptible(unit, unitframe)
 		self.Time:SetTextColor(pr, pg, pb, pa)
 	elseif unit == 'target' then
 		self.Text:SetTextColor(tr, tg, tb, ta)
-		self.Time:SetTextColor(tr, tg, tb, ta)	
+		self.Time:SetTextColor(tr, tg, tb, ta)
 	end
 
 	if not E.db.benikui.unitframes.castbarColor.enable then return; end
@@ -215,7 +215,7 @@ function BUIC:CastBarHooks()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCastInterruptible)
-			hooksecurefunc(castbar, "PostChannelStart", BUIC.PostCast)
+			hooksecurefunc(castbar, "PostCastUpdate", BUIC.PostCast)
 		end
 	end
 
@@ -228,7 +228,7 @@ function BUIC:CastBarHooks()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCastInterruptible)
-			hooksecurefunc(castbar, "PostChannelStart", BUIC.PostCast)
+			hooksecurefunc(castbar, "PostCastUpdate", BUIC.PostCast)
 		end
 	end
 
@@ -241,7 +241,7 @@ function BUIC:CastBarHooks()
 			end
 			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCastInterruptible)
-			hooksecurefunc(castbar, "PostChannelStart", BUIC.PostCast)
+			hooksecurefunc(castbar, "PostCastUpdate", BUIC.PostCast)
 		end
 	end
 end
