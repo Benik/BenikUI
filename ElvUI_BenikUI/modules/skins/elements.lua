@@ -20,7 +20,7 @@ BUIS.ArrowRotation = {
 local r, g, b = NORMAL_FONT_COLOR:GetRGB()
 local arrow = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow'
 
-function S:HandleMaxMinFrame(frame)
+--[[function S:HandleMaxMinFrame(frame)
 	assert(frame, "does not exist.")
 
 	frame:StripTextures()
@@ -68,9 +68,9 @@ function S:HandleMaxMinFrame(frame)
 			end)
 		end
 	end
-end
+end]]
 
-function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
+--[[function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 	inverseDirection = inverseDirection or btn:GetName() and (find(btn:GetName():lower(), 'left') or find(btn:GetName():lower(), 'prev') or find(btn:GetName():lower(), 'decrement') or find(btn:GetName():lower(), 'back'))
 
 	btn:StripTextures()
@@ -133,7 +133,7 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 
 	S:HandleButton(btn)
 	btn:Size(btn:GetWidth() - 7, btn:GetHeight() - 7)
-end
+end]]
 
 function S:HandleCloseButton(f, point, text)
 	f:StripTextures()
@@ -260,8 +260,8 @@ function BUIS:skinScrollBarThumb(frame)
 		end
 	end
 end
-hooksecurefunc(S, "HandleScrollBar", BUIS.skinScrollBarThumb)
-hooksecurefunc(S, "HandleScrollSlider", BUIS.skinScrollBarThumb)
+--hooksecurefunc(S, "HandleScrollBar", BUIS.skinScrollBarThumb)
+--hooksecurefunc(S, "HandleScrollSlider", BUIS.skinScrollBarThumb)
 
 function BUIS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
@@ -331,7 +331,7 @@ local function skinStackSplitArrows()
 		end
 	end
 end
-S:AddCallback("BenikUI_StackSplitArrows", skinStackSplitArrows)
+--S:AddCallback("BenikUI_StackSplitArrows", skinStackSplitArrows)
 
 -- Credit: Azilroka
 function BUIS:skinButtonArrow(button)
@@ -344,4 +344,4 @@ function BUIS:skinButtonArrow(button)
 		end
 	end
 end
-hooksecurefunc(S, "HandleButton", BUIS.skinButtonArrow)
+--hooksecurefunc(S, "HandleButton", BUIS.skinButtonArrow)
