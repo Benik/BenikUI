@@ -228,7 +228,7 @@ function BUIS:ApplyConfigArrows()
 	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(BUIS.ArrowRotation['RIGHT'])
 
 end
-hooksecurefunc(E, "CreateMoverPopup", BUIS.ApplyConfigArrows)
+--hooksecurefunc(E, "CreateMoverPopup", BUIS.ApplyConfigArrows)
 
 function BUIS:skinScrollBarThumb(frame)
 	if E.private.skins.blizzard.enable ~= true then return end
@@ -311,7 +311,7 @@ function BUIS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 		end)
 	end
 end
-hooksecurefunc(S, "HandleCheckBox", BUIS.ReskinCheckBox)
+--hooksecurefunc(S, "HandleCheckBox", BUIS.ReskinCheckBox)
 
 local function skinStackSplitArrows()
 	if E.private.skins.blizzard.enable ~= true then return end
