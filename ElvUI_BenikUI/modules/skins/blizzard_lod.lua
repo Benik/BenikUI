@@ -230,19 +230,6 @@ local function style_EncounterJournal()
 
 	_G["EncounterJournal"]:Style('Small')
 
-	local Tabs = {
-		_G["EncounterJournalEncounterFrameInfoBossTab"],
-		_G["EncounterJournalEncounterFrameInfoLootTab"],
-		_G["EncounterJournalEncounterFrameInfoModelTab"],
-		_G["EncounterJournalEncounterFrameInfoOverviewTab"]
-	}
-
-	for _, Tab in pairs(Tabs) do
-		if Tab.backdrop then
-			Tab.backdrop:Style('Outside')
-		end
-	end
-
 	local Buttons = {
 		_G["EncounterJournalInstanceSelectSuggestTab"],
 		_G["EncounterJournalInstanceSelectDungeonTab"],
