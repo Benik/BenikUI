@@ -31,7 +31,7 @@ local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
 menuFrame:CreateWideShadow()
 
-local LOCATION_WIDTH = 400
+local LOCATION_WIDTH = 399
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function AutoColoring()
