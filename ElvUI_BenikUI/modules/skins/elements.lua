@@ -70,70 +70,17 @@ local arrow = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\ar
 	end
 end]]
 
---[[function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
-	inverseDirection = inverseDirection or btn:GetName() and (find(btn:GetName():lower(), 'left') or find(btn:GetName():lower(), 'prev') or find(btn:GetName():lower(), 'decrement') or find(btn:GetName():lower(), 'back'))
+function BUIS:EditNextPrevButton(btn)
+	if btn.isEdited then return end
 
-	btn:StripTextures()
-	btn:SetNormalTexture(nil)
-	btn:SetPushedTexture(nil)
-	btn:SetHighlightTexture(nil)
-	btn:SetDisabledTexture(nil)
-	if not btn.icon then
-		btn.icon = btn:CreateTexture(nil, 'ARTWORK')
-		btn.icon:Size(13)
-		btn.icon:Point('CENTER')
-		btn.icon:SetTexture(nil)
-	end
+	local Normal, Disabled, Pushed = btn:GetNormalTexture(), btn:GetDisabledTexture(), btn:GetPushedTexture()
+	Normal:SetInside(btn, 2, 2)
+	Pushed:SetInside(btn, 2, 2)
+	Disabled:SetInside(btn, 2, 2)
 
-	if not btn.img then
-		btn.img = btn:CreateTexture(nil, 'ARTWORK')
-		btn.img:SetTexture(arrow)
-		btn.img:SetSize(12, 12)
-		btn.img:Point('CENTER')
-		btn.img:SetVertexColor(r, g, b)
-
-		btn:HookScript('OnMouseDown', function(button)
-			if button:IsEnabled() then
-				button.img:Point("CENTER", -1, -1);
-			end
-		end)
-
-		btn:HookScript('OnMouseUp', function(button)
-			button.img:Point("CENTER", 0, 0);
-		end)
-
-		btn:HookScript('OnDisable', function(button)
-			SetDesaturation(button.img, true);
-			button.img:SetAlpha(0.5);
-		end)
-
-		btn:HookScript('OnEnable', function(button)
-			SetDesaturation(button.img, false);
-			button.img:SetAlpha(1.0);
-		end)
-
-		if not btn:IsEnabled() then
-			btn:GetScript('OnDisable')(btn)
-		end
-	end
-
-	if useVertical then
-		if inverseDirection then
-			btn.img:SetRotation(BUIS.ArrowRotation['UP'])
-		else
-			btn.img:SetRotation(BUIS.ArrowRotation['DOWN'])
-		end
-	else
-		if inverseDirection then
-			btn.img:SetRotation(BUIS.ArrowRotation['LEFT'])
-		else
-			btn.img:SetRotation(BUIS.ArrowRotation['RIGHT'])
-		end
-	end
-
-	S:HandleButton(btn)
-	btn:Size(btn:GetWidth() - 7, btn:GetHeight() - 7)
-end]]
+	btn.isEdited = true
+end
+hooksecurefunc(S, "HandleNextPrevButton", BUIS.EditNextPrevButton)
 
 function S:HandleCloseButton(f, point, text)
 	f:StripTextures()
