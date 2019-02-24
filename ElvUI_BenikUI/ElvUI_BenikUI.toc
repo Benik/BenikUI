@@ -1,6 +1,6 @@
 ## Interface: 80100
 ## Author: Benik
-## Version: 3.53
+## Version: 3.54
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 10+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
