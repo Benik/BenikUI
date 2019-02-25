@@ -22,6 +22,7 @@ local function SetupLayout(layout)
 	E.db["bags"]["sortInverted"] = false
 	E.db["chat"]["panelBackdrop"] = 'SHOWBOTH'
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
+	E.db["chat"]["panelWidth"] = 412
 	E.db["databars"]["azerite"]["enable"] = true
 	E.db["databars"]["azerite"]["height"] = 150
 	E.db["databars"]["azerite"]["orientation"] = 'VERTICAL'
@@ -127,7 +128,6 @@ local function SetupLayout(layout)
 		E.db["chat"]["tabFontOutline"] = "MONOCROMEOUTLINE"
 		E.db["chat"]["font"] = "Bui Prototype"
 		E.db["chat"]["panelHeight"] = 150
-		E.db["chat"]["panelWidth"] = 412
 
 		E.private["general"]["dmgfont"] = "Bui Prototype"
 		E.private["general"]["chatBubbleFont"] = "Bui Prototype"
@@ -1014,7 +1014,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 240
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[powercolor][power:current-percent]"
@@ -1425,7 +1425,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 294
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 7
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
