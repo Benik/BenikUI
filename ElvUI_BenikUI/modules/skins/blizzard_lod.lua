@@ -4,6 +4,7 @@ local BUI = E:GetModule('BenikUI');
 
 local _G = _G
 local pairs, unpack = pairs, unpack
+local hooksecurefunc = hooksecurefunc
 local IsAddOnLoaded = IsAddOnLoaded
 
 -- AchievementUI
@@ -228,19 +229,6 @@ local function style_EncounterJournal()
 	if E.private.skins.blizzard.encounterjournal ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["EncounterJournal"]:Style('Small')
-
-	local Tabs = {
-		_G["EncounterJournalEncounterFrameInfoBossTab"],
-		_G["EncounterJournalEncounterFrameInfoLootTab"],
-		_G["EncounterJournalEncounterFrameInfoModelTab"],
-		_G["EncounterJournalEncounterFrameInfoOverviewTab"]
-	}
-
-	for _, Tab in pairs(Tabs) do
-		if Tab.backdrop then
-			Tab.backdrop:Style('Outside')
-		end
-	end
 
 	local Buttons = {
 		_G["EncounterJournalInstanceSelectSuggestTab"],
@@ -548,3 +536,15 @@ local function style_WarboardUI()
 	frame.backdrop.style:SetFrameLevel(1)
 end
 S:AddCallbackForAddon("Blizzard_WarboardUI", "BenikUI_WarboardUI", style_WarboardUI)
+
+-- UIWidgets
+local function style_UIWidgets()
+	if E.private.skins.blizzard.Warboard ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	-- Used for Currency Fonts (Warfront only?)
+	hooksecurefunc(UIWidgetBaseCurrencyTemplateMixin, "SetFontColor", function(self)
+		self.Text:SetTextColor(1, 1, 1)
+		self.LeadingText:SetTextColor(1, 1, 1)
+	end)
+end
+S:AddCallbackForAddon("Blizzard_UIWidgets", "BenikUI_UIWidgets", style_UIWidgets)

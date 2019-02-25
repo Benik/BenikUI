@@ -1,3 +1,8 @@
+3.54
+Updated donators. Thank you Robert :)
+Removed all the arrow edits. It's in ElvUI now
+Minor fixes to comply with ElvUI changes
+
 3.53
 *Style AdiBags
 *Adopted latest AddonSkins dev changes on BigWigs

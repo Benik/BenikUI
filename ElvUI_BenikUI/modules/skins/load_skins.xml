@@ -4,6 +4,5 @@
 	<script file="blizzard_lod.lua"/>
 	<script file="alerts.lua"/>
 	<script file="addonskins.lua"/>
-	<script file="DropDownMenu.lua"/>
 	<script file="options.lua"/>
 </Ui>
