@@ -12,7 +12,7 @@ end
 
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
-	hooksecurefunc(NP, 'UpdatePlate', mod.NameplateShadows)
+	--hooksecurefunc(NP, 'UpdatePlate', mod.NameplateShadows)
 end
 
 local function InitializeCallback()
