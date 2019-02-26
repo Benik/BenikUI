@@ -243,7 +243,7 @@ local function style_EncounterJournal()
 			if text then
 				text:ClearAllPoints()
 				text:Point('CENTER', Button, 'CENTER', 0, 2)
-				text:FontTemplate(nil, 14)
+				text:FontTemplate(nil, 12)
 			end
 		end
 	end
