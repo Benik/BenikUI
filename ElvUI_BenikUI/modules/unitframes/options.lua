@@ -282,6 +282,7 @@ local function ufTable()
 						name = L['Overlayed Portraits Alpha'],
 						isPercent = true,
 						min = 0.2, max = 1, step = 0.05,
+						disabled = function() return BUI.SLE end,
 						get = function(info) return E.db.benikui.unitframes.misc[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.misc[ info[#info] ] = value; UF:Update_AllFrames(); end,
 					},
