@@ -4,13 +4,14 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 
+local tinsert, unpack = table.insert, unpack
+
 local PADDING = 10
 local BUTTON_HEIGHT = 16
 local BUTTON_WIDTH = 135
 local counter = 0
 local hoverVisible = false
 
-local tinsert = table.insert
 local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
 local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
 
@@ -108,7 +109,17 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 -- added parent, removed the mouse x,y and set menu frame position to any parent corners.
 -- Also added delay to autohide
 function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSize)
-	local db = E.db.benikui.colors
+	local db = E.db.benikui.colors.gameMenuColor
+	
+	local r, g, b
+	if db == 1 then
+		r, g, b = classColor.r, classColor.g, classColor.b
+	elseif db == 2 then
+		r, g, b = BUI:unpackColor(E.db.benikui.colors.customGameMenuColor)
+	else
+		r, g, b = unpack(E.media.rgbvaluecolor)
+	end
+
 	if not frame.buttons then
 		frame.buttons = {}
 		frame:SetParent(parent)
@@ -131,8 +142,10 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 
 			frame.buttons[i].hoverTex = frame.buttons[i]:CreateTexture(nil, 'OVERLAY')
 			frame.buttons[i].hoverTex:SetAllPoints()
-			frame.buttons[i].hoverTex:SetTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]])
-			frame.buttons[i].hoverTex:SetBlendMode('ADD')
+			frame.buttons[i].hoverTex:SetTexture(E.Media.Textures.Highlight)
+			frame.buttons[i].hoverTex:SetBlendMode('BLEND')
+			frame.buttons[i].hoverTex:SetDrawLayer('BACKGROUND')
+			frame.buttons[i].hoverTex:SetVertexColor(unpack(E.media.rgbvaluecolor))
 			frame.buttons[i].hoverTex:SetAlpha(0)
 
 			frame.buttons[i].text = frame.buttons[i]:CreateFontString(nil, 'BORDER')
@@ -148,13 +161,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 		frame.buttons[i]:SetHeight(BUTTON_HEIGHT)
 		frame.buttons[i]:SetWidth(BUTTON_WIDTH + (addedSize or 0))
 		frame.buttons[i].text:SetText(list[i].text)
-		if db.gameMenuColor == 1 then
-			frame.buttons[i].text:SetTextColor(classColor.r, classColor.g, classColor.b)
-		elseif db.gameMenuColor == 2 then
-			frame.buttons[i].text:SetTextColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
-		else
-			frame.buttons[i].text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
-		end
+		frame.buttons[i].text:SetTextColor(r, g, b)
 		frame.buttons[i].func = list[i].func
 		frame.buttons[i]:SetScript('OnClick', OnClick)
 
