@@ -145,7 +145,6 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 			frame.buttons[i].hoverTex:SetTexture(E.Media.Textures.Highlight)
 			frame.buttons[i].hoverTex:SetBlendMode('BLEND')
 			frame.buttons[i].hoverTex:SetDrawLayer('BACKGROUND')
-			frame.buttons[i].hoverTex:SetVertexColor(unpack(E.media.rgbvaluecolor))
 			frame.buttons[i].hoverTex:SetAlpha(0)
 
 			frame.buttons[i].text = frame.buttons[i]:CreateFontString(nil, 'BORDER')
@@ -162,6 +161,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 		frame.buttons[i]:SetWidth(BUTTON_WIDTH + (addedSize or 0))
 		frame.buttons[i].text:SetText(list[i].text)
 		frame.buttons[i].text:SetTextColor(r, g, b)
+		frame.buttons[i].hoverTex:SetVertexColor(r, g, b)
 		frame.buttons[i].func = list[i].func
 		frame.buttons[i]:SetScript('OnClick', OnClick)
 
