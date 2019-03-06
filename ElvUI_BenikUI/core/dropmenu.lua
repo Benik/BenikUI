@@ -57,7 +57,7 @@ BUI.MenuList = {
 	{text = WARDROBE, func = function() ToggleCollectionsJournal(5) end},
 	{text = MACROS, func = function() GameMenuButtonMacros:Click() end},
 	{text = TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
-	{text = ENCOUNTER_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
+	{text = ADVENTURE_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
 	{text = SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
 	{text = MAINMENU_BUTTON,
 	func = function()
