@@ -373,7 +373,7 @@ function BUIL:ChangeLayout()
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 64, 2 )
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(CHAT_VOICE, selectioncolor)
-				GameTooltip:AddLine(L['RightClick to show the Addon List'], 0.7, 0.7, 1)
+				GameTooltip:AddLine(L['Click to show the Addon List'], 0.7, 0.7, 1)
 				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end

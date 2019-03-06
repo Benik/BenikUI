@@ -25,7 +25,7 @@ L['Style Auras'] = "Aura Stil"
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
 L['RightClick: Toggle Embedded Addon'] = "Rechts Klick: Einbettung Addon umschalten"
 L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
-L['RightClick to show the Addon List'] = true
+L['Click to show the Addon List'] = true
 
 -- Misc
 L['Camera rotation'] = "Kamerarotation"
