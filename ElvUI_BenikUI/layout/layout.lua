@@ -351,7 +351,7 @@ function BUIL:ChangeLayout()
 				GameTooltip:Hide()
 			end)
 
-		-- VoiceChat/AddOns Button
+		-- AddOns Button
 		elseif i == 3 then
 			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
