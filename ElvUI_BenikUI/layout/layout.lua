@@ -391,18 +391,26 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i].text:SetText('L')
 
-			bbuttons[i]:SetScript('OnClick', function(self)
-				PVEFrame_ToggleFrame()
+			bbuttons[i]:SetScript('OnClick', function(self, btn)
+				if btn == "LeftButton" then
+					PVEFrame_ToggleFrame()
+				elseif btn == "RightButton" then
+					if not IsAddOnLoaded('Blizzard_EncounterJournal') then
+						EncounterJournal_LoadUI();
+					end
+					ToggleFrame(EncounterJournal)
+				end
 				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 			end)
-
+			
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(LFG_TITLE, selectioncolor)
+				GameTooltip:AddDoubleLine(L['Click :'], LFG_TITLE, 0.7, 0.7, 1)
+				GameTooltip:AddDoubleLine(L['RightClick :'], ADVENTURE_JOURNAL, 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
