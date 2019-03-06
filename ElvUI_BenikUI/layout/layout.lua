@@ -356,7 +356,7 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i].parent = LeftChatPanel
-			bbuttons[i].text:SetText('V')
+			bbuttons[i].text:SetText('A')
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
@@ -366,12 +366,8 @@ function BUIL:ChangeLayout()
 					self.text:SetText('<')
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
-					self:SetScript('OnClick', function(self, btn)
-						if btn == "LeftButton" then
-							LO:ChatButtonPanel_OnClick(self)
-						elseif btn == "RightButton" then
-							GameMenuButtonAddons:Click()
-						end
+					self:SetScript('OnClick', function(self)
+						GameMenuButtonAddons:Click()
 					end)
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 64, 2 )
@@ -384,7 +380,7 @@ function BUIL:ChangeLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.text:SetText('V')
+				self.text:SetText('A')
 				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
