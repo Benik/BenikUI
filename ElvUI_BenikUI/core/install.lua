@@ -198,10 +198,10 @@ local function SetupLayout(layout)
 		E.db["nameplates"]["statusbar"] = "BuiFlat"
 		E.db["nameplates"]["fontOutline"] = 'OUTLINE'
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
-		E.db["nameplates"]["units"]["PLAYER"]["alwaysShow"] = true
-		E.db["nameplates"]["units"]["PLAYER"]["healthbar"]["height"] = 4
-		E.db["nameplates"]["units"]["PLAYER"]["healthbar"]["width"] = 158
-		E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["text"]["enable"] = true
+		--E.db["nameplates"]["units"]["PLAYER"]["alwaysShow"] = true
+		--E.db["nameplates"]["units"]["PLAYER"]["healthbar"]["height"] = 4
+		--E.db["nameplates"]["units"]["PLAYER"]["healthbar"]["width"] = 158
+		--E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["text"]["enable"] = true
 
 		E.db["tooltip"]["font"] = "Expressway"
 		E.db["tooltip"]["fontSize"] = 10
