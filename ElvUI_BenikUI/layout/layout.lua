@@ -279,11 +279,11 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L['LeftClick: Toggle Configuration'], selectioncolor)
+				GameTooltip:AddLine(L['LeftClick: Toggle Configuration'], 0.7, 0.7, 1)
 				if BUI.AS then
-					GameTooltip:AddLine(L['RightClick: Toggle Embedded Addon'], selectioncolor)
+					GameTooltip:AddLine(L['RightClick: Toggle Embedded Addon'], 0.7, 0.7, 1)
 				end
-				GameTooltip:AddLine(L['ShiftClick to toggle chat'], selectioncolor)
+				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
@@ -343,7 +343,7 @@ function BUIL:ChangeLayout()
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(MAINMENU_BUTTON, selectioncolor)
 				GameTooltip:Show()
-				if InCombatLockdown() or BuiGameClickMenu:IsShown() then GameTooltip:Hide() end
+				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
