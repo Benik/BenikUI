@@ -85,6 +85,11 @@ local function SetupLayout(layout)
 	E.db["general"]["altPowerBar"]['textFormat'] = 'NAMECURMAX'
 	E.db["general"]["altPowerBar"]['statusBarColorGradient'] = false
 	E.db["general"]["altPowerBar"]['statusBarColor'] = { r = 0.2, g = 0.4, b = 0.8 }
+	E.db["general"]["itemLevel"]["displayCharacterInfo"] = false
+	E.db["general"]["itemLevel"]["displayInspectInfo"] = true
+	E.db["general"]["itemLevel"]["itemLevelFontSize"] = 12
+	E.db["general"]["itemLevel"]["itemLevelFontOutline"] = 'OUTLINE'
+	
 	E.db["hideTutorial"] = true
 	E.private["skins"]["blizzard"]["alertframes"] = true
 	E.private["skins"]["blizzard"]["questChoice"] = true
@@ -131,6 +136,7 @@ local function SetupLayout(layout)
 		E.db["general"]["fontSize"] = 10
 		E.db["general"]["altPowerBar"]["font"] = "Bui Prototype"
 		E.db["general"]["altPowerBar"]["fontSize"] = 10
+		E.db["general"]["itemLevel"]["itemLevelFont"] = "Bui Prototype"
 
 		E.db["chat"]["tabFont"] = "Bui Visitor1"
 		E.db["chat"]["tabFontSize"] = 10
@@ -180,6 +186,7 @@ local function SetupLayout(layout)
 		E.db["general"]["fontSize"] = 11
 		E.db["general"]["altPowerBar"]["font"] = "Expressway"
 		E.db["general"]["altPowerBar"]["fontSize"] = 11
+		E.db["general"]["itemLevel"]["itemLevelFont"] = "Expressway"
 
 		E.db["datatexts"]["font"] = "Expressway"
 		E.db["datatexts"]["fontSize"] = 11
