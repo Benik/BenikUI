@@ -20,6 +20,15 @@ local ADDONS, LOOT, TRADE, TANK, HEALER = ADDONS, LOOT, TRADE, TANK, HEALER
 local function SetupLayout(layout)
 	-- common settings
 	E.db["bags"]["sortInverted"] = false
+	E.db["bags"]["bagSize"] = 32
+	E.db["bags"]["itemLevelCustomColorEnable"] = true
+	E.db["bags"]["sortInverted"] = false
+	E.db["bags"]["bagWidth"] = 412
+	E.db["bags"]["scrapIcon"] = true
+	E.db["bags"]["countFontOutline"] = "OUTLINE"
+	E.db["bags"]["bankSize"] = 32
+	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
+	E.db["bags"]["bankWidth"] = 412
 	E.db["chat"]["panelBackdrop"] = 'SHOWBOTH'
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["chat"]["panelWidth"] = 412
@@ -148,6 +157,7 @@ local function SetupLayout(layout)
 		E.db["tooltip"]["healthBar"]["font"] = "Bui Prototype"
 		E.db["tooltip"]["healthBar"]["fontSize"] = 9
 		E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
+		E.db["tooltip"]["healthBar"]["height"] = 6
 		E.db["tooltip"]["font"] = "Bui Prototype"
 		E.db["tooltip"]["fontOutline"] = 'NONE'
 		E.db["tooltip"]["headerFontSize"] = 10
@@ -199,12 +209,14 @@ local function SetupLayout(layout)
 		E.db["tooltip"]["headerFontSize"] = 11
 		E.db["tooltip"]["healthBar"]["font"] = "Expressway"
 		E.db["tooltip"]["healthBar"]["fontSize"] = 9
+		E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
+		E.db["tooltip"]["healthBar"]["height"] = 6
 		E.db["tooltip"]["smallTextFontSize"] = 11
 		E.db["tooltip"]["textFontSize"] = 11
 
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Expressway"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
 		E:GetModule('BuiLayout'):MiddleDatatextDimensions()
 
 		E.db["benikui"]["general"]["shadows"] = true
@@ -355,8 +367,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
-		E.db["databars"]["experience"]["width"] = 415
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
+		E.db["databars"]["experience"]["width"] = 414
 
 		-- movers
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,97"
@@ -482,8 +494,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
-		E.db["databars"]["experience"]["width"] = 415
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
+		E.db["databars"]["experience"]["width"] = 414
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
@@ -627,7 +639,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["player"]["power"]["width"] = 'fill'
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
@@ -1079,7 +1091,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[powercolor][power:current-percent]"
