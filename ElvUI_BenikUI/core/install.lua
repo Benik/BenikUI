@@ -280,6 +280,7 @@ function BUI:SetupColorThemes(color)
 	E.db.general.backdropcolor.b = 0.025
 
 	E:GetModule('Chat'):Panels_ColorUpdate()
+
 	E:UpdateStart(true, true)
 end
 
@@ -1546,7 +1547,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 7
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
