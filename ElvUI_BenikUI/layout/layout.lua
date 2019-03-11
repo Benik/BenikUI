@@ -165,11 +165,17 @@ function BUIL:MiddleDatatextLayout()
 
 	if not db.backdrop then
 		Bui_mdtp:SetTemplate('NoBackdrop')
+		if BUI.ShadowMode then
+			Bui_mdtp.shadow:Hide()
+		end
 	else
 		if db.transparent then
 			Bui_mdtp:SetTemplate('Transparent')
 		else
 			Bui_mdtp:SetTemplate('Default', true)
+		end
+		if BUI.ShadowMode then
+			Bui_mdtp.shadow:Show()
 		end
 	end
 
