@@ -49,6 +49,7 @@ local function SetupLayout(layout)
 	E.db["databars"]["honor"]["textFormat"] = 'NONE'
 	E.db["databars"]["honor"]["textSize"] = 9
 	E.db["databars"]["honor"]["width"] = 8
+	E.db["databars"]["honor"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["height"] = 150
 	E.db["databars"]["reputation"]["orientation"] = 'VERTICAL'
@@ -533,7 +534,7 @@ end
 local function SetupUnitframes(layout)
 	E.db["general"]["decimalLength"] = 2
 	if layout == 'v1' then
-		--[[E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "Bui Prototype"
+		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "Bui Prototype"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Bui Prototype"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["font"] = "Bui Prototype"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Bui Prototype"
@@ -568,7 +569,7 @@ local function SetupUnitframes(layout)
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Bui Prototype"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFont"] = "Bui Prototype"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["font"] = "Bui Prototype"
-		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Bui Prototype"]]
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Bui Prototype"
 
 		E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = false
 		E.db["benikui"]["unitframes"]["player"]["portraitStyle"] = false
@@ -944,7 +945,7 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ZoneAbility"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,577,273"
 
 	elseif layout == 'v2' then
-		--[[E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "Bui Tukui"
+		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "Bui Tukui"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Bui Tukui"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["font"] = "Bui Tukui"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Bui Tukui"
@@ -979,7 +980,7 @@ local function SetupUnitframes(layout)
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Bui Tukui"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFont"] = "Bui Tukui"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["font"] = "Bui Tukui"
-		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Bui Tukui"]]
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Bui Tukui"
 
 		E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = true
 		E.db["benikui"]["unitframes"]["player"]["portraitHeight"] = 47
@@ -1404,7 +1405,7 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,189,209"
 		E.db["movers"]["ZoneAbility"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,538,233"
 	elseif layout == 'v3' then
-		--[[E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "Expressway"
+		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "Expressway"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Expressway"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["font"] = "Expressway"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Expressway"
@@ -1439,7 +1440,7 @@ local function SetupUnitframes(layout)
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Expressway"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFont"] = "Expressway"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["font"] = "Expressway"
-		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Expressway"]]
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Expressway"
 
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
 		E.db["auras"]["buffs"]["size"] = 30
