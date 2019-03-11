@@ -256,9 +256,8 @@ S:AddCallbackForAddon("Blizzard_EncounterJournal", "BenikUI_EncounterJournal", s
 -- FlightMap
 local function style_FlightMap()
 	if E.private.skins.blizzard.taxi ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
-	local frame = _G["FlightMapFrame"]
-	frame.backdrop:Style('Outside')
-	frame.backdrop.style:SetFrameLevel(frame:GetFrameLevel())
+
+	_G["FlightMapFrame"].backdrop:Style('Outside')
 
 	if E.private.skins.blizzard.tooltip ~= true then return end
 	local tooltip = _G["WorldMapTooltip"]
