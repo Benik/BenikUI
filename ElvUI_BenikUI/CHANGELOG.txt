@@ -1,3 +1,6 @@
+3.551
+*Fixed the portrait error 
+
 3.55
 Fixes:
 *A lot of adjustments in the installer, to comply with the new ui scale and ElvUI's new Nameplates.
