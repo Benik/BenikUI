@@ -105,6 +105,8 @@ local function SetupLayout(layout)
 	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
 	E.db["benikui"]["general"]["auras"] = false
 
+	if E.screenheight == 1080 then E.db["general"]["UIScale"] = 0.711 end
+
 	E.private["general"]["normTex"] = "BuiFlat"
 	E.private["general"]["glossTex"] = "BuiFlat"
 	E.private["general"]["chatBubbles"] = 'backdrop'
