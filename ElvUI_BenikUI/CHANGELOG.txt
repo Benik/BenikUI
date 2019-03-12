@@ -1,7 +1,20 @@
+3.55
+Fixes:
+*A lot of adjustments in the installer, to comply with the new ui scale and ElvUI's new Nameplates.
+*Fixed Middle Datatext backdrop toggle leaves the shadow (if enabled) visible.
+*Disable Portrait Alpha setting if Shadow & Light is loaded. This should fix #64.
+
+What's New:
+*Removed the show Voice Chat functionality from the 'V' button. It's now reverted as it was before, opening the addon frame and it also now has the 'A' letter.
+*The 'L' button (LFG) got a right click functionality by toggling the Adventure Guide.
+*Changed 'Encounter Journal' to 'Adventure Guide' in the game menu list ('G' button).
+*Styled ElvUI config frame. Cheers to Simpy for the global name.
+*Ready for patch 8.1.5 and ElvUI 11.
+
 3.54
-Updated donators. Thank you Robert :)
-Removed all the arrow edits. It's in ElvUI now
-Minor fixes to comply with ElvUI changes
+*Updated donators. Thank you Robert :)
+*Removed all the arrow edits. It's in ElvUI now
+*Minor fixes to comply with ElvUI changes
 
 3.53
 *Style AdiBags
