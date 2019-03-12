@@ -387,13 +387,6 @@ local function styleWorldMap()
 		questFrame.QuestsFrame.StoryTooltip:Style('Outside')
 	end
 
-	local mapTooltip = _G["WorldMapTooltip"]
-	if mapTooltip then
-		if not mapTooltip.style then
-			mapTooltip:Style('Outside')
-		end
-	end
-
 	local shoppingTooltips = {_G["WorldMapCompareTooltip1"], _G["WorldMapCompareTooltip2"]}
 	for i, tooltip in pairs(shoppingTooltips) do
 		if not tooltip.style then

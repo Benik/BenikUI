@@ -258,12 +258,6 @@ local function style_FlightMap()
 	if E.private.skins.blizzard.taxi ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["FlightMapFrame"].backdrop:Style('Outside')
-
-	if E.private.skins.blizzard.tooltip ~= true then return end
-	local tooltip = _G["WorldMapTooltip"]
-	if tooltip then
-		tooltip:Style('Outside')
-	end
 end
 S:AddCallbackForAddon("Blizzard_FlightMap", "BenikUI_FlightMap", style_FlightMap)
 
