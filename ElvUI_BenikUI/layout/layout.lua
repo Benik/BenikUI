@@ -165,11 +165,17 @@ function BUIL:MiddleDatatextLayout()
 
 	if not db.backdrop then
 		Bui_mdtp:SetTemplate('NoBackdrop')
+		if BUI.ShadowMode then
+			Bui_mdtp.shadow:Hide()
+		end
 	else
 		if db.transparent then
 			Bui_mdtp:SetTemplate('Transparent')
 		else
 			Bui_mdtp:SetTemplate('Default', true)
+		end
+		if BUI.ShadowMode then
+			Bui_mdtp.shadow:Show()
 		end
 	end
 
@@ -279,11 +285,11 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L['LeftClick: Toggle Configuration'], selectioncolor)
+				GameTooltip:AddLine(L['LeftClick: Toggle Configuration'], 0.7, 0.7, 1)
 				if BUI.AS then
-					GameTooltip:AddLine(L['RightClick: Toggle Embedded Addon'], selectioncolor)
+					GameTooltip:AddLine(L['RightClick: Toggle Embedded Addon'], 0.7, 0.7, 1)
 				end
-				GameTooltip:AddLine(L['ShiftClick to toggle chat'], selectioncolor)
+				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
@@ -343,7 +349,7 @@ function BUIL:ChangeLayout()
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(MAINMENU_BUTTON, selectioncolor)
 				GameTooltip:Show()
-				if InCombatLockdown() or BuiGameClickMenu:IsShown() then GameTooltip:Hide() end
+				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
@@ -351,12 +357,12 @@ function BUIL:ChangeLayout()
 				GameTooltip:Hide()
 			end)
 
-		-- VoiceChat/AddOns Button
+		-- AddOns Button
 		elseif i == 3 then
 			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i].parent = LeftChatPanel
-			bbuttons[i].text:SetText('V')
+			bbuttons[i].text:SetText('A')
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
@@ -366,25 +372,20 @@ function BUIL:ChangeLayout()
 					self.text:SetText('<')
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
-					self:SetScript('OnClick', function(self, btn)
-						if btn == "LeftButton" then
-							LO:ChatButtonPanel_OnClick(self)
-						elseif btn == "RightButton" then
-							GameMenuButtonAddons:Click()
-						end
+					self:SetScript('OnClick', function(self)
+						GameMenuButtonAddons:Click()
 					end)
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 64, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(CHAT_VOICE, selectioncolor)
-				GameTooltip:AddLine(L['RightClick to show the Addon List'], 0.7, 0.7, 1)
+				GameTooltip:AddLine(L['Click to show the Addon List'], 0.7, 0.7, 1)
 				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.text:SetText('V')
+				self.text:SetText('A')
 				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
@@ -395,18 +396,26 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i].text:SetText('L')
 
-			bbuttons[i]:SetScript('OnClick', function(self)
-				PVEFrame_ToggleFrame()
+			bbuttons[i]:SetScript('OnClick', function(self, btn)
+				if btn == "LeftButton" then
+					PVEFrame_ToggleFrame()
+				elseif btn == "RightButton" then
+					if not IsAddOnLoaded('Blizzard_EncounterJournal') then
+						EncounterJournal_LoadUI();
+					end
+					ToggleFrame(EncounterJournal)
+				end
 				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 			end)
-
+			
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(LFG_TITLE, selectioncolor)
+				GameTooltip:AddDoubleLine(L['Click :'], LFG_TITLE, 0.7, 0.7, 1)
+				GameTooltip:AddDoubleLine(L['RightClick :'], ADVENTURE_JOURNAL, 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)

@@ -387,13 +387,6 @@ local function styleWorldMap()
 		questFrame.QuestsFrame.StoryTooltip:Style('Outside')
 	end
 
-	local mapTooltip = _G["WorldMapTooltip"]
-	if mapTooltip then
-		if not mapTooltip.style then
-			mapTooltip:Style('Outside')
-		end
-	end
-
 	local shoppingTooltips = {_G["WorldMapCompareTooltip1"], _G["WorldMapCompareTooltip2"]}
 	for i, tooltip in pairs(shoppingTooltips) do
 		if not tooltip.style then
@@ -656,6 +649,13 @@ function BUIS:PLAYER_ENTERING_WORLD(...)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+local function StyleElvUIConfig()
+	local frame = _G.ElvUIGUIFrame
+	if not frame.style then
+		frame:Style('Outside')
+	end
+end
+
 function BUIS:Initialize()
 	VehicleExit()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -663,12 +663,13 @@ function BUIS:Initialize()
 	skinDecursive()
 	skinStoryline()
 	StyleAltPowerBar()
-
+	
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
 	self:RegisterEvent('BANKFRAME_OPENED', 'StyleAdibagsBank')
 
 	if E.private.skins.blizzard.tooltip ~= true then return end
+	hooksecurefunc(E, 'ToggleConfig', StyleElvUIConfig)
 	hooksecurefunc('BattlePetTooltipTemplate_SetBattlePet', StyleCagedBattlePetTooltip)
 end
 

@@ -3,25 +3,28 @@ local BUI = E:GetModule('BenikUI');
 local NP = E:GetModule('NamePlates')
 local mod = E:NewModule('BuiNameplates', 'AceHook-3.0');
 
-function mod:NameplateShadows(frame, useMainFrame)
-	local parent = frame
-
-	if(parent:GetObjectType() == "Texture") then
-		parent = frame:GetParent()
+function mod:NameplateShadows(nameplate)
+	if not nameplate.Health.backdrop.shadow then
+		nameplate.Health.backdrop:CreateSoftShadow()
 	end
-
-	if useMainFrame then
-		parent:CreateSoftShadow()
-		return
+	if not nameplate.Power.backdrop.shadow then
+		nameplate.Power.backdrop:CreateSoftShadow()
 	end
-
-	parent.backdrop:CreateSoftShadow()
+	if not nameplate.Castbar.backdrop.shadow then
+		nameplate.Castbar.backdrop:CreateSoftShadow()
+	end
+	if not nameplate.Castbar.Button.shadow then
+		nameplate.Castbar.Button:CreateSoftShadow()
+	end
+	if not nameplate.Portrait.backdrop.shadow then
+		nameplate.Portrait.backdrop:CreateSoftShadow()
+	end
 end
 
 
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
-	hooksecurefunc(NP, 'StyleFrame', mod.NameplateShadows)
+	hooksecurefunc(NP, 'StylePlate', mod.NameplateShadows)
 end
 
 local function InitializeCallback()

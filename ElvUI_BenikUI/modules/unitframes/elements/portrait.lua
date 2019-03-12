@@ -145,7 +145,7 @@ local function OnPortraitUpdate(self)
 	local db = frame.db
 	if not db then return end
 
-	if frame.USE_PORTRAIT_OVERLAY then
+	if frame.USE_PORTRAIT_OVERLAY and not BUI.SLE then
 		self:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
 	else
 		self:SetAlpha(1)
