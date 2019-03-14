@@ -42,7 +42,9 @@ local function RecolorTooltipStyle()
 	else
 		r, g, b = ttr, ttg, ttb
 	end
-	GameTooltip.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
+	if (r and g and b) then
+		GameTooltip.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
+	end
 end
 
 function BTT:Initialize()
