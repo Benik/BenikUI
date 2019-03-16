@@ -21,7 +21,7 @@ local function SetupLayout(layout)
 	-- common settings
 	E.db["bags"]["sortInverted"] = false
 	E.db["bags"]["bagSize"] = 32
-	E.db["bags"]["itemLevelCustomColorEnable"] = true
+	E.db["bags"]["itemLevelCustomColorEnable"] = false
 	E.db["bags"]["sortInverted"] = false
 	E.db["bags"]["bagWidth"] = 412
 	E.db["bags"]["scrapIcon"] = true
