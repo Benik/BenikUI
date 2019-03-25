@@ -1,4 +1,5 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 

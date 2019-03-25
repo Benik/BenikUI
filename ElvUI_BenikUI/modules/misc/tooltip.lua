@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
-local BTT = E:NewModule('BenikUI_Tooltip');
+local BTT = E:NewModule('BenikUI_Tooltip', 'AceHook-3.0');
 local TT = E:GetModule('Tooltip');
 
 local GameTooltip, GameTooltipStatusBar = _G["GameTooltip"], _G["GameTooltipStatusBar"]
@@ -8,15 +8,9 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 -- GLOBALS: hooksecurefunc
 
-local ttr, ttg, ttb = 0, 0, 0
-
 local function StyleTooltip()
 	GameTooltip:Style('Outside')
 	GameTooltip.style:SetClampedToScreen(true)
-
-	-- Grab the style color
-	local r, g, b = GameTooltip.style:GetBackdropColor()
-	ttr, ttg, ttb = r, g, b
 
 	GameTooltipStatusBar:SetFrameLevel(GameTooltip.style:GetFrameLevel() +2)
 
@@ -34,7 +28,13 @@ local function StyleTooltip()
 	end
 end
 
-local function RecolorTooltipStyle()
+local ttr, ttg, ttb = 0, 0, 0
+function BTT:CheckTooltipStyleColor()
+	local r, g, b = GameTooltip.style.pixelBorders.CENTER:GetVertexColor()
+	ttr, ttg, ttb = r, g, b
+end
+
+function BTT:RecolorTooltipStyle()
 	local r, g, b = 0, 0, 0
 
 	if GameTooltipStatusBar:IsShown() then
@@ -42,19 +42,19 @@ local function RecolorTooltipStyle()
 	else
 		r, g, b = ttr, ttg, ttb
 	end
-	GameTooltip.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
+	if (r and g and b) then
+		GameTooltip.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
+	end
 end
 
 function BTT:Initialize()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
 	if E.db.benikui.general.benikuiStyle ~= true then return end
+
 	StyleTooltip()
-	hooksecurefunc(TT, "SetUnitAura", RecolorTooltipStyle)
-	hooksecurefunc(TT, "GameTooltip_OnTooltipSetSpell", RecolorTooltipStyle)
-	hooksecurefunc(TT, "GameTooltip_OnTooltipCleared", RecolorTooltipStyle)
-	hooksecurefunc(TT, "GameTooltip_OnTooltipSetItem", RecolorTooltipStyle)
-	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", RecolorTooltipStyle)
-	hooksecurefunc(TT, "GameTooltipStatusBar_OnValueChanged", RecolorTooltipStyle)
+
+	BTT:CheckTooltipStyleColor()
+	BTT:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
 end
 
 local function InitializeCallback()
