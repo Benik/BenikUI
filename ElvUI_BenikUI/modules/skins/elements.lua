@@ -6,18 +6,6 @@ local S = E:GetModule('Skins');
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local CloseButton = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Close.tga'
 
-function BUIS:EditNextPrevButton(btn)
-	if btn.isEdited then return end
-
-	local Normal, Disabled, Pushed = btn:GetNormalTexture(), btn:GetDisabledTexture(), btn:GetPushedTexture()
-	Normal:SetInside(btn, 2, 2)
-	Pushed:SetInside(btn, 2, 2)
-	Disabled:SetInside(btn, 2, 2)
-
-	btn.isEdited = true
-end
-hooksecurefunc(S, "HandleNextPrevButton", BUIS.EditNextPrevButton)
-
 function S:HandleCloseButton(f, point, text)
 	f:StripTextures()
 
