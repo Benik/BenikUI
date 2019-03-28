@@ -65,53 +65,17 @@ function S:HandleCloseButton(f, point, text)
 	end
 end
 
-function S:HandleButton(button, strip, isDeclineButton, useCreateBackdrop, noSetTemplate)
-	if button.isSkinned then return end
+function BUIS:HandleButton(button, strip, isDeclineButton, useCreateBackdrop, noSetTemplate)
+	if button.isEdited then return end
 	assert(button, "doesn't exist!")
-
-	local buttonName = button.GetName and button:GetName()
-
-	if button.SetNormalTexture then button:SetNormalTexture("") end
-	if button.SetHighlightTexture then button:SetHighlightTexture("") end
-	if button.SetPushedTexture then button:SetPushedTexture("") end
-	if button.SetDisabledTexture then button:SetDisabledTexture("") end
-
-	if strip then button:StripTextures() end
-
-	for _, region in pairs(S.Blizzard.Regions) do
-		region = buttonName and _G[buttonName..region] or button[region]
-		if region then
-			region:SetAlpha(0)
-		end
-	end
-
-	if button.Icon then
-		local Texture = button.Icon:GetTexture()
-		if Texture and (type(Texture) == 'string' and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]])) then
-			button.Icon:SetTexture(E.Media.Textures.ArrowUp)
-			button.Icon:SetRotation(S.ArrowRotation['right'])
-			button.Icon:SetVertexColor(1, 1, 1)
-		end
-	end
 
 	-- replace the white X letter on decline buttons
 	if isDeclineButton then
 		if button.Icon then
 			button.Icon:SetTexture(CloseButton)
 		end
-		if button.text then
-			button.text:SetText('')
-		end
 	end
 
-	if useCreateBackdrop then
-		button:CreateBackdrop(nil, true)
-	elseif not noSetTemplate then
-		button:SetTemplate(nil, true)
-	end
-
-	button:HookScript("OnEnter", S.SetModifiedBackdrop)
-	button:HookScript("OnLeave", S.SetOriginalBackdrop)
-
-	button.isSkinned = true
+	button.isEdited = true
 end
+hooksecurefunc(S, "HandleButton", BUIS.HandleButton)
