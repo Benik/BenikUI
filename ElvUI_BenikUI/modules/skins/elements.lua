@@ -26,7 +26,7 @@ function BUIS:HandleCloseButton(f)
 end
 hooksecurefunc(S, "HandleCloseButton", BUIS.HandleCloseButton)
 
-function BUIS:HandleButton(button, strip, isDeclineButton, useCreateBackdrop, noSetTemplate)
+function BUIS:HandleButton(button, _, isDeclineButton)
 	if button.isEdited then return end
 	assert(button, "doesn't exist!")
 
