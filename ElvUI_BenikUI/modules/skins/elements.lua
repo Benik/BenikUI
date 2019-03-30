@@ -34,6 +34,8 @@ function BUIS:HandleButton(button, _, isDeclineButton)
 	if isDeclineButton then
 		if button.Icon then
 			button.Icon:SetTexture(CloseButton)
+			button.Icon:Size(12, 12)
+			button.Icon:Point("CENTER")
 		end
 	end
 
