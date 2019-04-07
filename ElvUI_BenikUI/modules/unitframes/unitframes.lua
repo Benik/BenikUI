@@ -2,6 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local UFB = E:NewModule('BuiUnits', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 local UF = E:GetModule('UnitFrames');
+local LSM = E.Libs.LSM
 
 local find = string.find
 
@@ -156,15 +157,14 @@ function UFB:TankTargetShadows()
 	end
 end
 
-function UFB:PostUpdateAura(unit, button, index)
+function UFB:PostUpdateAura(unit, button)
 	if not button.shadow then
 		button:CreateSoftShadow()
 	end
 
 	local auras = button:GetParent()
 	local frame = auras:GetParent()
-	local type = auras.type
-	local db = frame.db and frame.db[type]
+	local db = frame.db and frame.db[auras.type]
 
 	if db then
 		if db.clickThrough and button:IsMouseEnabled() then
@@ -172,12 +172,30 @@ function UFB:PostUpdateAura(unit, button, index)
 		elseif not db.clickThrough and not button:IsMouseEnabled() then
 			button:EnableMouse(true)
 		end
+
+		if button.cd and button.cd.timer and button.cd.timer.text then
+			button.cd.timer.text:ClearAllPoints()
+
+			if db and db.durationPosition == 'TOPLEFT' then
+				button.cd.timer.text:Point('TOPLEFT', 1, 1)
+			elseif db and db.durationPosition == 'BOTTOMLEFT' then
+				button.cd.timer.text:Point('BOTTOMLEFT', 1, 1)
+			elseif db and db.durationPosition == 'TOPRIGHT' then
+				button.cd.timer.text:Point('TOPRIGHT', 1, 1)
+			else
+				button.cd.timer.text:Point('CENTER', 1, 1)
+			end
+		end
+
+		if button.count then
+			button.count:FontTemplate(LSM:Fetch('font', auras.db.countFont), auras.db.countFontSize, auras.db.countFontOutline)
+		end
 	end
 
 	if button.isDebuff then
 		if(not button.isFriend and not button.isPlayer) then --[[and (not E.isDebuffWhiteList[name])]]
 			button:SetBackdropBorderColor(0.9, 0.1, 0.1)
-			button.icon:SetDesaturated((unit and not find(unit, 'arena%d')) and true or false)
+			button.icon:SetDesaturated((unit and not strfind(unit, 'arena%d')) and true or false)
 		else
 			local color = (button.dtype and DebuffTypeColor[button.dtype]) or DebuffTypeColor.none
 			if button.name and (button.name == "Unstable Affliction" or button.name == "Vampiric Touch") and E.myclass ~= "WARLOCK" then
@@ -189,40 +207,14 @@ function UFB:PostUpdateAura(unit, button, index)
 		end
 	else
 		if button.isStealable and not button.isFriend then
-			button:SetBackdropBorderColor(237/255, 234/255, 142/255)
+			button:SetBackdropBorderColor(0.93, 0.91, 0.55, 1.0)
 		else
-			button:SetBackdropBorderColor(unpack(E["media"].unitframeBorderColor))
+			button:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
 		end
 	end
 
 	local size = button:GetParent().size
-	if size then
-		button:SetSize(size, size)
-	end
-
-	if button.expiration and button.duration and (button.duration ~= 0) then
-		local getTime = GetTime()
-		if not button:GetScript('OnUpdate') then
-			button.expirationTime = button.expiration
-			button.expirationSaved = button.expiration - getTime
-			button.nextupdate = -1
-			button:SetScript('OnUpdate', UF.UpdateAuraTimer)
-		end
-		if (button.expirationTime ~= button.expiration) or (button.expirationSaved ~= (button.expiration - getTime))  then
-			button.expirationTime = button.expiration
-			button.expirationSaved = button.expiration - getTime
-			button.nextupdate = -1
-		end
-	end
-
-	if button.expiration and button.duration and (button.duration == 0 or button.expiration <= 0) then
-		button.expirationTime = nil
-		button.expirationSaved = nil
-		button:SetScript('OnUpdate', nil)
-		if button.text:GetFont() then
-			button.text:SetText('')
-		end
-	end
+	if size then button:Size(size, size) end
 end
 
 function UFB:ADDON_LOADED(event, addon)

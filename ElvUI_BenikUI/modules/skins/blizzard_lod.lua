@@ -136,6 +136,14 @@ local function style_Calendar()
 end
 S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_Calendar", style_Calendar)
 
+-- ChallengesUI
+local function style_ChallengesUI()
+	if E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	_G["ChallengesKeystoneFrame"].backdrop:Style('Outside')
+end
+S:AddCallbackForAddon("Blizzard_ChallengesUI", "BenikUI_ChallengesUI", style_ChallengesUI)
+
 -- Channels
 local function style_Channels()
 	if E.private.skins.blizzard.Channels ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end

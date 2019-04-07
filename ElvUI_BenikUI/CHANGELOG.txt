@@ -1,3 +1,10 @@
+3.57
+*Followed latest ElvUI dev changes regarding auras. This will also fix a .text error
+*Keep BenikUI close button for the decline buttons
+*Updated donors list. Thank you Joseph :)
+*Styled the mythic keystone frame
+*minor tweaks
+
 3.56
 *Shadow creation tweaks
 *Various install fixes for layout v2 and v1
