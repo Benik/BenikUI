@@ -269,6 +269,106 @@ local function style_FlightMap()
 end
 S:AddCallbackForAddon("Blizzard_FlightMap", "BenikUI_FlightMap", style_FlightMap)
 
+-- Garrison Style
+local fRecruits = {}
+local function style_GarrisonUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true then return end
+	if (not _G["GarrisonMissionFrame"]) then LoadAddOn("Blizzard_GarrisonUI") end
+
+	_G["GarrisonMissionFrame"].backdrop:Style('Outside')
+	_G["GarrisonLandingPage"].backdrop:Style('Outside')
+	_G["GarrisonBuildingFrame"].backdrop:Style('Outside')
+	_G["GarrisonCapacitiveDisplayFrame"].backdrop:Style('Outside')
+
+	-- ShipYard
+	_G["GarrisonShipyardFrame"].backdrop:Style('Outside')
+	-- Tooltips
+	if E.private.skins.blizzard.tooltip then
+		_G["GarrisonShipyardMapMissionTooltip"]:Style('Outside')
+		_G["GarrisonBonusAreaTooltip"]:StripTextures()
+		_G["GarrisonBonusAreaTooltip"]:CreateBackdrop('Transparent')
+		_G["GarrisonBonusAreaTooltip"].backdrop:Style('Outside')
+		_G["GarrisonMissionMechanicFollowerCounterTooltip"]:Style('Outside')
+		_G["GarrisonMissionMechanicTooltip"]:Style('Outside')
+		_G["FloatingGarrisonShipyardFollowerTooltip"]:Style('Outside')
+		_G["GarrisonShipyardFollowerTooltip"]:Style('Outside')
+		_G["GarrisonBuildingFrame"].BuildingLevelTooltip:Style('Outside')
+		_G["GarrisonFollowerAbilityTooltip"]:Style('Outside')
+		_G["GarrisonMissionMechanicTooltip"]:StripTextures()
+		_G["GarrisonMissionMechanicTooltip"]:CreateBackdrop('Transparent')
+		_G["GarrisonMissionMechanicTooltip"].backdrop:Style('Outside')
+		_G["GarrisonMissionMechanicFollowerCounterTooltip"]:StripTextures()
+		_G["GarrisonMissionMechanicFollowerCounterTooltip"]:CreateBackdrop('Transparent')
+		_G["GarrisonMissionMechanicFollowerCounterTooltip"].backdrop:Style('Outside')
+		_G["FloatingGarrisonFollowerTooltip"]:Style('Outside')
+		_G["GarrisonFollowerTooltip"]:Style('Outside')
+	end
+
+	-- Garrison Monument
+	_G["GarrisonMonumentFrame"]:StripTextures()
+	_G["GarrisonMonumentFrame"]:CreateBackdrop('Transparent')
+	_G["GarrisonMonumentFrame"]:Style('Small')
+	_G["GarrisonMonumentFrame"]:ClearAllPoints()
+	_G["GarrisonMonumentFrame"]:Point('CENTER', E.UIParent, 'CENTER', 0, -200)
+	_G["GarrisonMonumentFrame"]:Height(70)
+	_G["GarrisonMonumentFrame"].RightBtn:Size(25, 25)
+	_G["GarrisonMonumentFrame"].LeftBtn:Size(25, 25)
+
+	-- Follower recruiting (available at the Inn)
+	_G["GarrisonRecruiterFrame"].backdrop:Style('Outside')
+	S:HandleDropDownBox(_G["GarrisonRecruiterFramePickThreatDropDown"])
+	local rBtn = _G["GarrisonRecruiterFrame"].Pick.ChooseRecruits
+	rBtn:ClearAllPoints()
+	rBtn:Point('BOTTOM', _G["GarrisonRecruiterFrame"].backdrop, 'BOTTOM', 0, 30)
+	S:HandleButton(rBtn)
+
+	_G["GarrisonRecruitSelectFrame"]:StripTextures()
+	_G["GarrisonRecruitSelectFrame"]:CreateBackdrop('Transparent')
+	_G["GarrisonRecruitSelectFrame"].backdrop:Style('Outside')
+	S:HandleCloseButton(_G["GarrisonRecruitSelectFrame"].CloseButton)
+	S:HandleEditBox(_G["GarrisonRecruitSelectFrame"].FollowerList.SearchBox)
+
+	_G["GarrisonRecruitSelectFrame"].FollowerList:StripTextures()
+	S:HandleScrollBar(_G["GarrisonRecruitSelectFrameListScrollFrameScrollBar"])
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection:StripTextures()
+
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1:CreateBackdrop()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1:ClearAllPoints()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1:Point('LEFT', _G["GarrisonRecruitSelectFrame"].FollowerSelection, 'LEFT', 6, 0)
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2:CreateBackdrop()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2:ClearAllPoints()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2:Point('LEFT', _G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1, 'RIGHT', 6, 0)
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3:CreateBackdrop()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3:ClearAllPoints()
+	_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3:Point('LEFT', _G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2, 'RIGHT', 6, 0)
+
+	for i = 1, 3 do
+		fRecruits[i] = CreateFrame('Frame', nil, E.UIParent)
+		fRecruits[i]:SetTemplate('Default', true)
+		fRecruits[i]:Size(190, 60)
+		if i == 1 then
+			fRecruits[i]:SetParent(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1)
+			fRecruits[i]:Point('TOP', _G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1.backdrop, 'TOP')
+			fRecruits[i]:SetFrameLevel(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1:GetFrameLevel())
+			_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1.Class:Size(60, 58)
+		elseif i == 2 then
+			fRecruits[i]:SetParent(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2)
+			fRecruits[i]:Point('TOP', _G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2.backdrop, 'TOP')
+			fRecruits[i]:SetFrameLevel(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2:GetFrameLevel())
+			_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2.Class:Size(60, 58)
+		elseif i == 3 then
+			fRecruits[i]:SetParent(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3)
+			fRecruits[i]:Point('TOP', _G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3.backdrop, 'TOP')
+			fRecruits[i]:SetFrameLevel(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3:GetFrameLevel())
+			_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3.Class:Size(60, 58)
+		end
+	end
+	S:HandleButton(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit1.HireRecruits)
+	S:HandleButton(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit2.HireRecruits)
+	S:HandleButton(_G["GarrisonRecruitSelectFrame"].FollowerSelection.Recruit3.HireRecruits)
+end
+S:AddCallbackForAddon("Blizzard_GarrisonUI", "BenikUI_GarrisonUI", style_GarrisonUI)
+
 -- GuildBankUI
 local function style_GuildBankUI()
 	if E.private.skins.blizzard.gbank ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
