@@ -272,8 +272,7 @@ S:AddCallbackForAddon("Blizzard_FlightMap", "BenikUI_FlightMap", style_FlightMap
 -- Garrison Style
 local fRecruits = {}
 local function style_GarrisonUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true then return end
-	if (not _G["GarrisonMissionFrame"]) then LoadAddOn("Blizzard_GarrisonUI") end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G["GarrisonMissionFrame"].backdrop:Style('Outside')
 	_G["GarrisonLandingPage"].backdrop:Style('Outside')
