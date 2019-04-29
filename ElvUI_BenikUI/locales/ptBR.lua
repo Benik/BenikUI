@@ -1,6 +1,5 @@
-﻿local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
-local L = AceLocale:NewLocale("ElvUI", "ptBR")
-if not L then return end
+﻿-- Portuguese localization file for ptBR.
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "ptBR")
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true
