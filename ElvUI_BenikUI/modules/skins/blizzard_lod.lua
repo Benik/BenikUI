@@ -274,6 +274,21 @@ local fRecruits = {}
 local function style_GarrisonUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
+	_G["OrderHallMissionFrame"]:Style('Small')
+	if _G["AdventureMapQuestChoiceDialog"].backdrop then
+		_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
+	end
+
+	local MissionFrame = _G.BFAMissionFrame
+	MissionFrame.backdrop:Style('Outside')
+
+	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
+	GarrisonCapacitiveDisplayFrame.IncrementButton:Point('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
+	if E.private.skins.blizzard.tooltip then
+		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
+		_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')
+	end
+
 	_G["GarrisonMissionFrame"].backdrop:Style('Outside')
 	_G["GarrisonLandingPage"].backdrop:Style('Outside')
 	_G["GarrisonBuildingFrame"].backdrop:Style('Outside')
@@ -479,27 +494,6 @@ local function style_ObliterumUI()
 	_G["ObliterumForgeFrame"]:Style('Outside')
 end
 S:AddCallbackForAddon("Blizzard_ObliterumUI", "BenikUI_ObliterumUI", style_ObliterumUI)
-
--- GarrisonUI
-local function style_GarrisonUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
-
-	_G["OrderHallMissionFrame"]:Style('Small')
-	if _G["AdventureMapQuestChoiceDialog"].backdrop then
-		_G["AdventureMapQuestChoiceDialog"].backdrop:Style('Outside')
-	end
-
-	local MissionFrame = _G["BFAMissionFrame"]
-	MissionFrame.backdrop:Style('Outside')
-
-	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
-	GarrisonCapacitiveDisplayFrame.IncrementButton:Point('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
-	if E.private.skins.blizzard.tooltip then
-		_G["GarrisonFollowerAbilityWithoutCountersTooltip"]:Style('Outside')
-		_G["GarrisonFollowerMissionAbilityWithoutCountersTooltip"]:Style('Outside')
-	end
-end
-S:AddCallbackForAddon("Blizzard_GarrisonUI", "BenikUI_GarrisonUI", style_GarrisonUI)
 
 -- OrderHallUI
 local function style_OrderHallUI()
