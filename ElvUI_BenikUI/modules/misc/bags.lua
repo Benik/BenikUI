@@ -54,7 +54,7 @@ end
 
 function BUIB:AllInOneBags()
 	self:StyleBags()
-	self:RegisterEvent('BANKFRAME_OPENED', 'OpenBankBags')
+	hooksecurefunc(B, "OpenBank", BUIB.OpenBankBags)
 end
 
 function BUIB:Initialize()
