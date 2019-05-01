@@ -1,6 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local BAB = E:NewModule('BuiActionbars', 'AceEvent-3.0');
 local BUI = E:GetModule('BenikUI');
+local AB = E:GetModule('ActionBars');
 
 if E.private.actionbar.enable ~= true then return; end
 
@@ -197,6 +198,16 @@ function BAB:TotemShadows()
 	end
 end
 
+function BAB:FlyoutShadows()
+	for i=1, AB.FlyoutButtons do
+		if _G["SpellFlyoutButton"..i] then
+			if not _G["SpellFlyoutButton"..i].shadow then
+				_G["SpellFlyoutButton"..i]:CreateSoftShadow()
+			end
+		end
+	end
+end
+
 function BAB:Initialize()
 	CheckExtraAB()
 	C_TimerAfter(1, BAB.StyleBackdrops)
@@ -208,7 +219,9 @@ function BAB:Initialize()
 	self:LoadRequestButton()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
 	hooksecurefunc(BUI, "SetupColorThemes", BAB.ColorBackdrops)
-	if IsAddOnLoaded('ElvUI_TB') then DisableAddOn('ElvUI_TB') end
+
+	if not BUI.ShadowMode then return end
+	_G.SpellFlyout:HookScript("OnShow", BAB.FlyoutShadows)
 end
 
 local function InitializeCallback()
