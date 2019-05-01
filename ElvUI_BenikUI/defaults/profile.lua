@@ -186,8 +186,8 @@ P['benikui'] = {
 			['castbar'] = 'BuiFlat',
 		},
 		['castbarColor'] = {
-			['enable'] = false,
-			['castbarBackdropColor'] = {r = 0.043, g = 0.102, b = 0.102, a = 0.5},
+			['enable'] = true,
+			['castbarBackdropColor'] = {r = 0.054, g = 0.054, b = 0.054, a = 0.75},
 		},
 		['misc'] = {
 			['svui'] = true,
