@@ -1955,12 +1955,7 @@ local function SetupDataTexts(role)
 	-- Data Texts
 	if BUI.LP then
 		E.db["datatexts"]["panels"]["RightCoordDtPanel"] = 'Time'
-
-		if IsAddOnLoaded("AtlasLoot") then
-			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'AtlasLoot'
-		else
-			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Quick Join'
-		end
+		E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Quick Join'
 	end
 
 	if role == 'tank' then
