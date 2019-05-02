@@ -1,3 +1,25 @@
+3.58
+*Added Shadow on Flyout buttons
+*Fixed Bank Bags not getting styled on first load
+*Enable Castbar Backdrop Color option by default
+*Locale updates. Credit Merathilis
+*Moved Garrison Style function to Blizzard style file to avoid errors with low level players
+*Applied a fix that will reduce cpu usage
+*Prevent a rare AddonSkin tooltip error
+
+3.57
+*Followed latest ElvUI dev changes regarding auras. This will also fix a .text error
+*Keep BenikUI close button for the decline buttons
+*Updated donors list. Thank you Joseph :)
+*Styled the mythic keystone frame
+*minor tweaks
+
+3.56
+*Shadow creation tweaks
+*Various install fixes for layout v2 and v1
+*Fixed Tooltip Style color
+*Update donor list. Thank you Shannon :)
+
 3.551
 *Fixed the portrait error 
 

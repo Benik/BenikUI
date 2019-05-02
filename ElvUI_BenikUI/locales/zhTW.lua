@@ -1,6 +1,5 @@
-﻿local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
-local L = AceLocale:NewLocale("ElvUI", "zhTW")
-if not L then return end
+﻿-- Traditional Chinese localization file for zhTW.
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhTW")
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true

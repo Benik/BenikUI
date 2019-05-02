@@ -200,8 +200,12 @@ end
 
 local function LibrariesDecor()
 	local DBIcon = LibStub("LibDBIcon-1.0", true)
-	if DBIcon then
-		LibDBIconTooltip:Style('Outside')
+	if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType('GameTooltip') then
+		DBIcon.tooltip:HookScript("OnShow", function(self)
+			if not self.style then
+				self:Style('Outside')
+			end
+		end)
 	end
 end
 
