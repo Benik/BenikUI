@@ -1,5 +1,6 @@
-﻿-- French localization file for frFR.
-local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "frFR")
+﻿local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
+local L = AceLocale:NewLocale("ElvUI", "frFR");
+if not L then return; end
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true
