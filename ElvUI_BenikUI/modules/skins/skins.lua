@@ -54,6 +54,7 @@ end
 
 -- Blizzard Styles
 local function styleFreeBlizzardFrames()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
 
 	ColorPickerFrame:Style('Outside')
 	MinimapRightClickMenu:Style('Outside')
@@ -67,7 +68,7 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.bgscore then
-		WorldStateScoreFrame:Style('Outside')
+		--WorldStateScoreFrame:Style('Outside')
 	end
 
 	if db.character then
@@ -244,6 +245,7 @@ local function styleFreeBlizzardFrames()
 	end
 
 end
+S:AddCallback("BenikUI_styleFreeBlizzardFrames", styleFreeBlizzardFrames)
 
 local function StyleCagedBattlePetTooltip(tooltipFrame)
 	if not tooltipFrame.style then
@@ -541,7 +543,6 @@ end
 
 function BUIS:PLAYER_ENTERING_WORLD(...)
 	self:styleAlertFrames()
-	styleFreeBlizzardFrames()
 	styleAddons()
 	styleWorldMap()
 	StyleAdibags()
@@ -559,7 +560,6 @@ end
 function BUIS:Initialize()
 	VehicleExit()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-
 	skinDecursive()
 	skinStoryline()
 	StyleAltPowerBar()
