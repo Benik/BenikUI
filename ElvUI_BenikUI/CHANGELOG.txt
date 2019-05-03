@@ -1,3 +1,6 @@
+3.59
+Revert latest locales changes.
+
 3.58
 *Added Shadow on Flyout buttons
 *Fixed Bank Bags not getting styled on first load

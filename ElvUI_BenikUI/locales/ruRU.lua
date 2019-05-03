@@ -1,5 +1,6 @@
-﻿-- Russian localization file for ruRU.
-local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "ruRU")
+﻿local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
+local L = AceLocale:NewLocale("ElvUI", "ruRU")
+if not L then return; end
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true
