@@ -58,6 +58,14 @@ local function style_AuctionUI()
 end
 S:AddCallbackForAddon("Blizzard_AuctionUI", "BenikUI_AuctionUI", style_AuctionUI)
 
+-- AzeriteEssenceUI
+local function style_AzeriteEssenceUI()
+	if E.private.skins.blizzard.AzeriteEssence ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	_G["AzeriteEssenceUI"]:Style('Outside')
+end
+S:AddCallbackForAddon("Blizzard_AzeriteEssenceUI", "BenikUI_AzeriteEssenceUI", style_AzeriteEssenceUI)
+
 -- AzeriteUI
 local function style_AzeriteUI()
 	if E.private.skins.blizzard.AzeriteUI ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
