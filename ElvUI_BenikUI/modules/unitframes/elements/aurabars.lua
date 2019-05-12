@@ -25,6 +25,7 @@ function UFB:Create_AuraBarsWithShadow()
 	bar.spellname:SetWordWrap(false)
 
 	bar.iconHolder:SetTemplate(nil, nil, nil, UF.thinBorders, true)
+	bar.iconHolder:CreateSoftShadow()
 	bar.icon:SetInside(bar.iconHolder, inset, inset)
 	bar.icon:SetDrawLayer('OVERLAY')
 
