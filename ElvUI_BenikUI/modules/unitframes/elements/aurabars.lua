@@ -52,4 +52,6 @@ function UFB:Configure_AuraBars(frame)
 	local auraBars = frame.AuraBars
 
 	auraBars.PostCreateBar = UFB.Create_AuraBarsWithShadow
+	auraBars.gap = frame.BORDER*2
+	auraBars.spacing = frame.BORDER*2
 end
