@@ -1,6 +1,13 @@
 ﻿-- Korean localization file for koKR.
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "koKR")
 
+-- WoW Locales
+L["CLASS_COLORS"] = "직업 색상";
+L["COLOR_PICKER"] = "색 지정";
+L["EDIT"] = "편집";
+L["HOME"] = "처음으로";
+L["WORLD"] = "세계";
+
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true
 

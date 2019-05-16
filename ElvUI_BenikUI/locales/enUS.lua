@@ -2,6 +2,13 @@
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "enUS", true, true)
 if not L then return; end -- We only need this check in the main locale file, which is enUS, cause we set it in the check above, 1st true (default)
 
+-- WoW Locales
+L["CLASS_COLORS"] = "Class Colors";
+L["COLOR_PICKER"] = "Color Picker";
+L["EDIT"] = "Edit";
+L["HOME"] = "Home";
+L["WORLD"] = "World";
+
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true
 

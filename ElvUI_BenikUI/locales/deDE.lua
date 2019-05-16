@@ -1,6 +1,13 @@
 -- German localization file for deDE
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
+-- WoW Locales
+L["CLASS_COLORS"] = "Klassenfarben";
+L["COLOR_PICKER"] = "Farbauswahl";
+L["EDIT"] = "Bearbeiten";
+L["HOME"] = "Heim"; -- Changed the Blizzard default, it would make no sense otherwise!
+L["WORLD"] = "Welt";
+
 --core
 L[' is loaded. For any issues or suggestions, please visit '] = " ist geladen. Für Fehler oder Vorschläge besucht bitte: "
 

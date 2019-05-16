@@ -1,6 +1,13 @@
 ﻿-- Portuguese localization file for ptBR.
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "ptBR")
 
+-- WoW Locales
+L["CLASS_COLORS"] = "Cores de classes";
+L["COLOR_PICKER"] = "Seletor de cor";
+L["EDIT"] = "Editar";
+L["HOME"] = "Início";
+L["WORLD"] = "Mundo";
+
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true
 

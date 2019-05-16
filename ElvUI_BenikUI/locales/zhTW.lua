@@ -1,6 +1,13 @@
 ﻿-- Traditional Chinese localization file for zhTW.
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhTW")
 
+-- WoW Locales
+L["CLASS_COLORS"] = "職業顏色";
+L["COLOR_PICKER"] = "顏色選擇器";
+L["EDIT"] = "編輯";
+L["HOME"] = "首頁";
+L["WORLD"] = "世界";
+
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true
 

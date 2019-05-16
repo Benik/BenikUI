@@ -1,4 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, _, V, P, G = unpack(ElvUI);
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local BUI = E:GetModule('BenikUI');
 local BUID = E:GetModule('BuiDashboards');
 
@@ -8,9 +9,7 @@ local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
 
 local PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS = PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS
-local COLOR, CLASS_COLORS, CUSTOM, COLOR_PICKER = COLOR, CLASS_COLORS, CUSTOM, COLOR_PICKER
 local CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID, PLAYER_V_PLAYER, SECONDARY_SKILLS, TRADE_SKILLS = CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID, PLAYER_V_PLAYER, SECONDARY_SKILLS, TRADE_SKILLS
-local ENABLE, MISCELLANEOUS, FONT_SIZE = ENABLE, MISCELLANEOUS, FONT_SIZE
 
 -- GLOBALS: AceGUIWidgetLSMlists, hooksecurefunc
 
@@ -160,8 +159,8 @@ local function UpdateSystemOptions()
 		type = "select",
 		name = L['Latency (MS)'],
 		values = {
-			[1] = HOME,
-			[2] = WORLD,
+			[1] = L.HOME,
+			[2] = L.WORLD,
 		},
 		disabled = function() return not E.db.dashboards.system.chooseSystem.MS end,
 		get = function(info) return E.db.dashboards.system.latency end,
@@ -289,7 +288,7 @@ local function dashboardsTable()
 			dashColor = {
 				order = 2,
 				type = 'group',
-				name = COLOR,
+				name = L.COLOR,
 				guiInline = true,
 				args = {
 					barColor = {
@@ -297,8 +296,8 @@ local function dashboardsTable()
 						order = 1,
 						name = L['Bar Color'],
 						values = {
-							[1] = CLASS_COLORS,
-							[2] = CUSTOM,
+							[1] = L.CLASS_COLORS,
+							[2] = L.CUSTOM,
 						},
 						get = function(info) return E.db.dashboards[ info[#info] ] end,
 						set = function(info, value) E.db.dashboards[ info[#info] ] = value;
@@ -337,8 +336,8 @@ local function dashboardsTable()
 						type = "select",
 						name = L['Text Color'],
 						values = {
-							[1] = CLASS_COLORS,
-							[2] = CUSTOM,
+							[1] = L.CLASS_COLORS,
+							[2] = L.CUSTOM,
 						},
 						get = function(info) return E.db.dashboards[ info[#info] ] end,
 						set = function(info, value) E.db.dashboards[ info[#info] ] = value;
@@ -350,7 +349,7 @@ local function dashboardsTable()
 					customTextColor = {
 						order = 5,
 						type = "color",
-						name = COLOR_PICKER,
+						name = L.COLOR_PICKER,
 						disabled = function() return E.db.dashboards.textColor == 1 end,
 						get = function(info)
 							local t = E.db.dashboards[ info[#info] ]
@@ -397,7 +396,7 @@ local function dashboardsTable()
 					},
 					dbfontsize = {
 						order = 3,
-						name = FONT_SIZE,
+						name = L.FONT_SIZE,
 						desc = L['Set the font size.'],
 						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
 						type = 'range',
@@ -430,7 +429,7 @@ local function dashboardsTable()
 					enableSystem = {
 						order = 2,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the System Dashboard.'],
 						get = function(info) return E.db.dashboards.system.enableSystem end,
@@ -504,7 +503,7 @@ local function dashboardsTable()
 					enableTokens = {
 						order = 2,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the Tokens Dashboard.'],
 						get = function(info) return E.db.dashboards.tokens.enableTokens end,
@@ -677,7 +676,7 @@ local function dashboardsTable()
 					enableProfessions = {
 						order = 2,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the Professions Dashboard.'],
 						get = function(info) return E.db.dashboards.professions.enableProfessions end,
