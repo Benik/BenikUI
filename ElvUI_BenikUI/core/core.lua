@@ -125,7 +125,7 @@ function BUI:AddOptions()
 end
 
 function BUI:DasOptions()
-	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
+	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
 function BUI:LoadCommands()

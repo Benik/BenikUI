@@ -748,8 +748,8 @@ local function dashboardsTable()
 		},
 	}
 	-- update the options, when ElvUI Config fires
-	hooksecurefunc(E, "ToggleConfig", UpdateTokenOptions)
-	hooksecurefunc(E, "ToggleConfig", UpdateProfessionOptions)
+	hooksecurefunc(E, "ToggleOptionsUI", UpdateTokenOptions)
+	hooksecurefunc(E, "ToggleOptionsUI", UpdateProfessionOptions)
 end
 
 tinsert(BUI.Config, dashboardsTable)
