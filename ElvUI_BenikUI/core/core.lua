@@ -1,4 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, _, V, P, G = unpack(ElvUI);
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local BUI = E:NewModule('BenikUI', "AceConsole-3.0", "AceHook-3.0");
 
 local LSM = LibStub('LibSharedMedia-3.0')
@@ -124,7 +125,7 @@ function BUI:AddOptions()
 end
 
 function BUI:DasOptions()
-	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
+	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
 function BUI:LoadCommands()

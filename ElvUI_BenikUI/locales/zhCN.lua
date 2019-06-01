@@ -1,6 +1,12 @@
-﻿local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
-local L = AceLocale:NewLocale("ElvUI", "zhCN")
-if not L then return end
+﻿-- Simplified Chinese localization file for zhCN
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhCN")
+
+-- WoW Locales
+L["CLASS_COLORS"] = "职业颜色";
+L["COLOR_PICKER"] = "颜色选择器";
+L["EDIT"] = "编辑";
+L["HOME"] = "首页";
+L["WORLD"] = "世界";
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true

@@ -1,6 +1,12 @@
-﻿local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
-local L = AceLocale:NewLocale("ElvUI", "ruRU")
-if not L then return; end
+﻿-- Russian localization file for ruRU.
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "ruRU")
+
+-- WoW Locales
+L["CLASS_COLORS"] = "Цвета классов";
+L["COLOR_PICKER"] = "Выбор цвета";
+L["EDIT"] = "Отредактировать";
+L["HOME"] = "Главная";
+L["WORLD"] = "Мир";
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true

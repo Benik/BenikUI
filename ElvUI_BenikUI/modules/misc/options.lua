@@ -1,21 +1,20 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, _, V, P, G = unpack(ElvUI);
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local BUI = E:GetModule('BenikUI');
 local B = E:GetModule('Bags')
 
 local tinsert = table.insert
 
-local RARITY, COLOR, CUSTOM = RARITY, COLOR, CUSTOM
-
 local function miscTable()
 	E.Options.args.benikui.args.misc = {
 		order = 35,
 		type = 'group',
-		name = MISCELLANEOUS,
+		name = L["Miscellaneous"],
 		args = {
 			name = {
 				order = 1,
 				type = 'header',
-				name = BUI:cOption(MISCELLANEOUS),
+				name = BUI:cOption(L["Miscellaneous"]),
 			},
 			flightMode = {
 				order = 2,
@@ -63,7 +62,7 @@ local function miscTable()
 					},
 					fontsize = {
 						order = 3,
-						name = FONT_SIZE,
+						name = L.FONT_SIZE,
 						type = 'range',
 						min = 6, max = 22, step = 1,
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
@@ -83,17 +82,17 @@ local function miscTable()
 					colorStyle = {
 						order = 5,
 						type = "select",
-						name = COLOR,
+						name = L.COLOR,
 						values = {
-							['RARITY'] = RARITY,
-							['CUSTOM'] = CUSTOM,
+							['RARITY'] = L.RARITY,
+							['CUSTOM'] = L.CUSTOM,
 						},
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 					},
 					color = {
 						order = 6,
 						type = "color",
-						name = COLOR_PICKER,
+						name = L.COLOR_PICKER,
 						disabled = function() return E.db.benikui.misc.ilevel.colorStyle == 'RARITY' or not E.db.benikui.misc.ilevel.enable end,
 						get = function(info)
 							local t = E.db.benikui.misc.ilevel[ info[#info] ]

@@ -1,4 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, _, V, P, G = unpack(ElvUI);
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local BUI = E:GetModule('BenikUI');
 local BDB = E:GetModule('BenikUI_databars');
 
@@ -32,7 +33,7 @@ local function databarsTable()
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						get = function(info) return E.db.benikuiDatabars.experience.enable end,
 						set = function(info, value) E.db.benikuiDatabars.experience.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
@@ -63,7 +64,7 @@ local function databarsTable()
 							enable = {
 								order = 1,
 								type = 'toggle',
-								name = ENABLE,
+								name = L["Enable"],
 								get = function(info) return E.db.benikuiDatabars.experience.notifiers.enable end,
 								set = function(info, value) E.db.benikuiDatabars.experience.notifiers.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 							},
@@ -104,7 +105,7 @@ local function databarsTable()
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						get = function(info) return E.db.benikuiDatabars.azerite.enable end,
 						set = function(info, value) E.db.benikuiDatabars.azerite.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
@@ -135,7 +136,7 @@ local function databarsTable()
 							enable = {
 								order = 1,
 								type = 'toggle',
-								name = ENABLE,
+								name = L["Enable"],
 								get = function(info) return E.db.benikuiDatabars.azerite.notifiers.enable end,
 								set = function(info, value) E.db.benikuiDatabars.azerite.notifiers.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 							},
@@ -176,7 +177,7 @@ local function databarsTable()
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						get = function(info) return E.db.benikuiDatabars.reputation.enable end,
 						set = function(info, value) E.db.benikuiDatabars.reputation.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
@@ -215,7 +216,7 @@ local function databarsTable()
 							enable = {
 								order = 1,
 								type = 'toggle',
-								name = ENABLE,
+								name = L["Enable"],
 								get = function(info) return E.db.benikuiDatabars.reputation.notifiers.enable end,
 								set = function(info, value) E.db.benikuiDatabars.reputation.notifiers.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 							},
@@ -256,7 +257,7 @@ local function databarsTable()
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						get = function(info) return E.db.benikuiDatabars.honor.enable end,
 						set = function(info, value) E.db.benikuiDatabars.honor.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
@@ -287,7 +288,7 @@ local function databarsTable()
 							enable = {
 								order = 1,
 								type = 'toggle',
-								name = ENABLE,
+								name = L["Enable"],
 								get = function(info) return E.db.benikuiDatabars.honor.notifiers.enable end,
 								set = function(info, value) E.db.benikuiDatabars.honor.notifiers.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 							},

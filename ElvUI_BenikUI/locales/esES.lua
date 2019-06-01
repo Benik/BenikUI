@@ -1,6 +1,12 @@
-﻿local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
-local L = AceLocale:NewLocale("ElvUI", "esES") or AceLocale:NewLocale("ElvUI", "esES")
-if not L then return end
+﻿-- Spanish localization file for esES and esMX.
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "esES") or ElvUI[1].Libs.ACL:NewLocale("ElvUI", "esMX")
+
+-- WoW Locales
+L["CLASS_COLORS"] = "Colores de clase";
+L["COLOR_PICKER"] = "Selector de color";
+L["EDIT"] = "Editar";
+L["HOME"] = "Principal";
+L["WORLD"] = "Mundo";
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true

@@ -1,4 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, _, V, P, G = unpack(ElvUI);
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 local BL = E:GetModule('BuiLayout')
@@ -6,7 +7,7 @@ local BL = E:GetModule('BuiLayout')
 if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
 
-local CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP = CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP
+local MAIL_LABEL, GARRISON_LOCATION_TOOLTIP =MAIL_LABEL, GARRISON_LOCATION_TOOLTIP
 
 local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {
@@ -22,13 +23,13 @@ local function Datatexts()
 			chat = {
 				order = 2,
 				type = 'group',
-				name = CHAT,
+				name = L["Chat"],
 				guiInline = true,
 				args = {
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						desc = L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'],
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateAnchors(); end,
@@ -82,7 +83,7 @@ local function Datatexts()
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
 					},

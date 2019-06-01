@@ -569,7 +569,7 @@ function BUIS:Initialize()
 	self:RegisterEvent('BANKFRAME_OPENED', 'StyleAdibagsBank')
 
 	if E.private.skins.blizzard.tooltip ~= true then return end
-	hooksecurefunc(E, 'ToggleConfig', StyleElvUIConfig)
+	hooksecurefunc(E, 'ToggleOptionsUI', StyleElvUIConfig)
 	hooksecurefunc('BattlePetTooltipTemplate_SetBattlePet', StyleCagedBattlePetTooltip)
 end
 
