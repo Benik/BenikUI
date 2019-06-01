@@ -1,3 +1,9 @@
+3.60
+Fixed a potential error in buffs/debuffs shadows.
+Fixed AuraBars Shadows.
+Update locales to take account to the ElvUI Config language. (Credit: Merathilis)
+ToggleConfig has been renamed to ToggleOptionsUI. (Credit: NihilisticPandemonium)
+
 3.59
 Revert latest locales changes.
 
