@@ -90,9 +90,13 @@ local function CalendarEventButtonShadows()
 
 	for i = 1, #CLASS_SORT_ORDER do
 		local button = _G["CalendarClassButton"..i]
-		button.backdrop:CreateSoftShadow()
+		if button.backdrop then
+			button.backdrop:CreateSoftShadow()
+		end
 	end
-	CalendarClassTotalsButton.backdrop:CreateSoftShadow()
+	if _G.CalendarClassTotalsButton.backdrop then
+		_G.CalendarClassTotalsButton.backdrop:CreateSoftShadow()
+	end
 end
 
 local function miscShadows()
