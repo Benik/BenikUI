@@ -19,7 +19,7 @@ function UFB:Construct_TargetFrame()
 	end
 
 	if E.db.benikui.general.benikuiStyle == true then
-		frame.Portrait.backdrop:Style('Outside')
+		frame.Portrait.backdrop:Style('Inside')
 		frame.Portrait.backdrop.style:Hide()
 	end
 
