@@ -1,7 +1,12 @@
 -- German localization file for deDE
-local AceLocale = LibStub:GetLibrary('AceLocale-3.0');
-local L = AceLocale:NewLocale('ElvUI', 'deDE');
-if not L then return; end
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
+
+-- WoW Locales
+L["CLASS_COLORS"] = "Klassenfarben";
+L["COLOR_PICKER"] = "Farbauswahl";
+L["EDIT"] = "Bearbeiten";
+L["HOME"] = "Heim"; -- Changed the Blizzard default, it would make no sense otherwise!
+L["WORLD"] = "Welt";
 
 --core
 L[' is loaded. For any issues or suggestions, please visit '] = " ist geladen. Für Fehler oder Vorschläge besucht bitte: "
@@ -25,7 +30,7 @@ L['Style Auras'] = "Aura Stil"
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
 L['RightClick: Toggle Embedded Addon'] = "Rechts Klick: Einbettung Addon umschalten"
 L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
-L['Click to show the Addon List'] = true
+L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 
 -- Misc
 L['Camera rotation'] = "Kamerarotation"
@@ -81,7 +86,7 @@ L['Please click the button below to setup your chat windows.'] = "Bitte klick au
 L['Please click the button below to setup your datatexts.'] = "Bitte klick auf die Taste unten um die Infotexte einzustellen."
 L['Setup Addons'] = "Addons einstellen"
 L['Setup Layout'] = "Layout einstellen"
-L['This part of the installation process sets up your chat fonts and colors.'] = "Dieser Teil des Installationsprozesses ändert die Chatschrifart und -farbe." 
+L['This part of the installation process sets up your chat fonts and colors.'] = "Dieser Teil des Installationsprozesses ändert die Chatschrifart und -farbe."
 L['This part of the installation process will create and apply profiles for addons like Recount, DBM, ElvUI plugins, etc'] = "Dieser Teil des Installationsprozesses erstellt und wendet Profile für Addons wie Recount, DBM und andere ElvUI Plugins an"
 L['This part of the installation process will reposition your Actionbars and will enable backdrops'] = "Dieser Teil des Installationsprozesses wird die Aktionsleisten neu positionieren und wird den Hintergrund einschalten"
 L['This part of the installation will apply a Color Theme'] = "Dieser Teil der Installation wendet ein Farbschema an"
@@ -161,14 +166,14 @@ L['ElvUI AddOns'] = true --No need to translate
 L['decor.'] = "dekor."
 L['This will create and apply profile for '] = "Dieses wird ein Profil erstellen und anwenden für "
 L['Profiles'] = "Profile"
-L[': Profile for this character already exists. Aborting.'] = true
+L[': Profile for this character already exists. Aborting.'] = ": ein Profil für den Charakter existiert bereits. Abgebrochen."
 
 -- UnitFrame Options
 L['Adjust castbar text Y Offset'] = "Passe Zauberleisten Text Y-Versatz an"
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
 L['Apply transparency on the portrait backdrop.'] = "Wende Transparenz auf den Portrait Hintergrund an."
 L['BenikUI Style on Portrait'] = "BenikUI Stil auf dem Portrait"
-L['Castbar Backdrop Color'] = true
+L['Castbar Backdrop Color'] = "Zauberleisten-Hintergrund Farbe"
 L['Castbar Text'] = "Zauberleisten Text"
 L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten Portrait"
 L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten Portrait"
@@ -214,7 +219,7 @@ L['Tukui.org'] = true --No need to translate
 -- Location Plus
 L['Adds player location, coords + 2 Datatexts and a tooltip with info based on player location/level.'] = "Fügt Spieler Aufenthaltsort, Koordinaten + 2 Infotexte und einen Tooltip mit Informationen basierend auf dem Aufenthaltsort/Level hinzu."
 -- Nuts & Bolts
-L['ElvUI Nuts & Bolts is a compilation of my addons hosted at tukui.org/Twitch plus some features that are moved from BenikUI'] = true
+L['ElvUI Nuts & Bolts is a compilation of my addons hosted at tukui.org/Twitch plus some features that are moved from BenikUI'] = "ElvUI Nuts & Bolt ist eine Sammlung von meinen AddOns auf tukui.org/Twitch und einigen Ergänzungen die von BenikUI waren"
 
 -- afk
 L["Jan"] = true

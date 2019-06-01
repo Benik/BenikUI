@@ -1,4 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, _, V, P, G = unpack(ElvUI);
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local BUI = E:GetModule('BenikUI');
 local UFB = E:GetModule('BuiUnits');
 local BUIC = E:GetModule('BuiCastbar');
@@ -47,10 +48,10 @@ local function ufTable()
 					customColor = {
 						order = 2,
 						type = "select",
-						name = COLOR,
+						name = L.COLOR,
 						values = {
-							[1] = CLASS_COLORS,
-							[2] = CUSTOM,
+							[1] = L.CLASS_COLORS,
+							[2] = L.CUSTOM,
 						},
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:InfoPanelColor() UFB:RecolorTargetInfoPanel() end,
@@ -58,7 +59,7 @@ local function ufTable()
 					color = {
 						order = 3,
 						type = "color",
-						name = COLOR_PICKER,
+						name = L.COLOR_PICKER,
 						hasAlpha = true,
 						disabled = function() return E.db.benikui.unitframes.infoPanel.customColor == 1 end,
 						get = function(info)
@@ -145,7 +146,7 @@ local function ufTable()
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						desc = L['This applies on all available castbars.'],
 						get = function(info) return E.db.benikui.unitframes.castbarColor[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.castbarColor[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
@@ -153,7 +154,7 @@ local function ufTable()
 					castbarBackdropColor = {
 						type = "color",
 						order = 2,
-						name = COLOR,
+						name = L.COLOR,
 						hasAlpha = true,
 						disabled = function() return not E.db.benikui.unitframes.castbarColor.enable end,
 						get = function(info)
@@ -197,7 +198,7 @@ local function ufTable()
 					player = {
 						order = 4,
 						type = 'group',
-						name = PLAYER,
+						name = L["Player"],
 						args = {
 							yOffset = {
 								order = 1,
@@ -230,7 +231,7 @@ local function ufTable()
 					target = {
 						order = 5,
 						type = 'group',
-						name = TARGET,
+						name = L["Target"],
 						args = {
 							yOffset = {
 								order = 1,
@@ -265,7 +266,7 @@ local function ufTable()
 			misc = {
 				order = 7,
 				type = 'group',
-				name = MISCELLANEOUS,
+				name = L["Miscellaneous"],
 				guiInline = true,
 				args = {
 					svui = {
@@ -341,7 +342,7 @@ local function ufPlayerTable()
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 				min = 10, max = 500, step = 1,
-			},	
+			},
 			portraitHeight = {
 				order = 5,
 				type = 'range',

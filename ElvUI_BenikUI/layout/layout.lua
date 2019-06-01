@@ -302,7 +302,7 @@ function BUIL:ChangeLayout()
 					self.text:SetText('C')
 					self:SetScript('OnClick', function(self, btn)
 						if btn == 'LeftButton' then
-							E:ToggleConfig()
+							E:ToggleOptionsUI()
 						else
 							if BUI.AS then
 								local AS = unpack(AddOnSkins) or nil

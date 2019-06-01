@@ -1,7 +1,12 @@
-﻿-- English localization file for itIT
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
-local L = AceLocale:NewLocale("ElvUI", "itIT");
-if not L then return; end
+﻿-- Italian localization file for itIT
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "itIT")
+
+-- WoW Locales
+L["CLASS_COLORS"] = "Colori di classe";
+L["COLOR_PICKER"] = "Selettore del colore";
+L["EDIT"] = "Modifica";
+L["HOME"] = "Principale";
+L["WORLD"] = "Mondo";
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true

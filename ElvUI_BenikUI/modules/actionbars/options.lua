@@ -1,9 +1,9 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, _, V, P, G = unpack(ElvUI);
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local BUI = E:GetModule('BenikUI');
 local BAB = E:GetModule('BuiActionbars');
 
 local tinsert = table.insert
-local SHOW = SHOW
 
 local function abTable()
 	E.Options.args.benikui.args.actionbars = {
@@ -35,7 +35,7 @@ local function abTable()
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = SHOW,
+						name = L.SHOW,
 						desc = L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'],
 						disabled = function() return not E.private.actionbar.enable or not E.db.benikui.general.benikuiStyle end,
 					},

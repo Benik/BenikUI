@@ -162,42 +162,12 @@ function UFB:PostUpdateAura(unit, button)
 		button:CreateSoftShadow()
 	end
 
-	local auras = button:GetParent()
-	local frame = auras:GetParent()
-	local db = frame.db and frame.db[auras.type]
-
-	if db then
-		if db.clickThrough and button:IsMouseEnabled() then
-			button:EnableMouse(false)
-		elseif not db.clickThrough and not button:IsMouseEnabled() then
-			button:EnableMouse(true)
-		end
-
-		if button.cd and button.cd.timer and button.cd.timer.text then
-			button.cd.timer.text:ClearAllPoints()
-
-			if db and db.durationPosition == 'TOPLEFT' then
-				button.cd.timer.text:Point('TOPLEFT', 1, 1)
-			elseif db and db.durationPosition == 'BOTTOMLEFT' then
-				button.cd.timer.text:Point('BOTTOMLEFT', 1, 1)
-			elseif db and db.durationPosition == 'TOPRIGHT' then
-				button.cd.timer.text:Point('TOPRIGHT', 1, 1)
-			else
-				button.cd.timer.text:Point('CENTER', 1, 1)
-			end
-		end
-
-		if button.count then
-			button.count:FontTemplate(LSM:Fetch('font', auras.db.countFont), auras.db.countFontSize, auras.db.countFontOutline)
-		end
-	end
-
 	if button.isDebuff then
 		if(not button.isFriend and not button.isPlayer) then --[[and (not E.isDebuffWhiteList[name])]]
 			button:SetBackdropBorderColor(0.9, 0.1, 0.1)
 			button.icon:SetDesaturated((unit and not strfind(unit, 'arena%d')) and true or false)
 		else
-			local color = (button.dtype and DebuffTypeColor[button.dtype]) or DebuffTypeColor.none
+			local color = (button.dtype and _G.DebuffTypeColor[button.dtype]) or _G.DebuffTypeColor.none
 			if button.name and (button.name == "Unstable Affliction" or button.name == "Vampiric Touch") and E.myclass ~= "WARLOCK" then
 				button:SetBackdropBorderColor(0.05, 0.85, 0.94)
 			else
@@ -213,8 +183,9 @@ function UFB:PostUpdateAura(unit, button)
 		end
 	end
 
-	local size = button:GetParent().size
-	if size then button:Size(size, size) end
+	if button.needsUpdateCooldownPosition and (button.cd and button.cd.timer and button.cd.timer.text) then
+		UF:UpdateAuraCooldownPosition(button)
+	end
 end
 
 function UFB:ADDON_LOADED(event, addon)

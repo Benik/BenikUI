@@ -1,6 +1,12 @@
-﻿local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
-local L = AceLocale:NewLocale("ElvUI", "frFR");
-if not L then return; end
+﻿-- French localization file for frFR.
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "frFR")
+
+-- WoW Locales
+L["CLASS_COLORS"] = "Couleurs de classe";
+L["COLOR_PICKER"] = "Palette de couleurs";
+L["EDIT"] = "Editer";
+L["HOME"] = "Accueil";
+L["WORLD"] = "Monde";
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true

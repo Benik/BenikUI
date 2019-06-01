@@ -1,4 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, _, V, P, G = unpack(ElvUI);
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local BUI = E:GetModule('BenikUI');
 
 if E.db.benikui == nil then E.db.benikui = {} end
@@ -99,7 +100,7 @@ local function Core()
 				type = 'execute',
 				name = L['Install'],
 				desc = L['Run the installation process.'],
-				func = function() E:GetModule("PluginInstaller"):Queue(BUI.installTable); E:ToggleConfig() end,
+				func = function() E:GetModule("PluginInstaller"):Queue(BUI.installTable); E:ToggleOptionsUI() end,
 			},
 			spacer2 = {
 				order = 4,
@@ -167,7 +168,7 @@ local function Core()
 			colors = {
 				order = 6,
 				type = 'group',
-				name = COLORS,
+				name = L.COLORS,
 				guiInline = true,
 				args = {
 					themes = {
@@ -191,7 +192,7 @@ local function Core()
 							customThemeColor = {
 								order = 2,
 								type = 'color',
-								name = EDIT,
+								name = L.EDIT,
 								hasAlpha = true,
 								get = function(info)
 									local t = E.db.general.backdropfadecolor
@@ -218,10 +219,10 @@ local function Core()
 								type = "select",
 								name = "",
 								values = {
-									[1] = CLASS_COLORS,
-									[2] = CUSTOM,
+									[1] = L.CLASS_COLORS,
+									[2] = L.CUSTOM,
 									[3] = L['Value Color'],
-									[4] = DEFAULT,
+									[4] = L.DEFAULT,
 								},
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
@@ -230,7 +231,7 @@ local function Core()
 							customStyleColor = {
 								order = 2,
 								type = "color",
-								name = COLOR_PICKER,
+								name = L.COLOR_PICKER,
 								disabled = function() return E.db.benikui.colors.StyleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info)
 									local t = E.db.benikui.colors[ info[#info] ]
@@ -265,10 +266,10 @@ local function Core()
 								type = "select",
 								name = "",
 								values = {
-									[1] = CLASS_COLORS,
-									[2] = CUSTOM,
+									[1] = L.CLASS_COLORS,
+									[2] = L.CUSTOM,
 									[3] = L['Value Color'],
-									[4] = DEFAULT,
+									[4] = L.DEFAULT,
 								},
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
@@ -277,7 +278,7 @@ local function Core()
 							customAbStyleColor = {
 								order = 2,
 								type = "color",
-								name = COLOR_PICKER,
+								name = L.COLOR_PICKER,
 								disabled = function() return E.db.benikui.colors.abStyleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info)
 									local t = E.db.benikui.colors[ info[#info] ]
@@ -312,8 +313,8 @@ local function Core()
 								type = "select",
 								name = "",
 								values = {
-									[1] = CLASS_COLORS,
-									[2] = CUSTOM,
+									[1] = L.CLASS_COLORS,
+									[2] = L.CUSTOM,
 									[3] = L["Value Color"],
 								},
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
@@ -322,7 +323,7 @@ local function Core()
 							customGameMenuColor = {
 								order = 2,
 								type = "color",
-								name = COLOR_PICKER,
+								name = L.COLOR_PICKER,
 								disabled = function() return E.db.benikui.colors.gameMenuColor == 1 or E.db.benikui.colors.gameMenuColor == 3 end,
 								get = function(info)
 									local t = E.db.benikui.colors[ info[#info] ]

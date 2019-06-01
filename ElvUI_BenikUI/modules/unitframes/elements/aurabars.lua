@@ -11,7 +11,7 @@ function UFB:Create_AuraBarsWithShadow()
 	self:CreateSoftShadow()
 	local inset = UF.thinBorders and E.mult or nil
 	bar:SetInside(self, inset, inset)
-	UF['statusbars'][bar] = true
+	UF.statusbars[bar] = true
 	UF:Update_StatusBar(bar)
 
 	UF:Configure_FontString(bar.spelltime)
@@ -24,14 +24,13 @@ function UFB:Create_AuraBarsWithShadow()
 	bar.spellname:Point('RIGHT', bar.spelltime, 'LEFT', -4, 0)
 	bar.spellname:SetWordWrap(false)
 
-	bar.iconHolder:SetTemplate('Default', nil, nil, UF.thinBorders, true)
+	bar.iconHolder:SetTemplate(nil, nil, nil, UF.thinBorders, true)
 	bar.iconHolder:CreateSoftShadow()
-	bar.iconHolder:SetPoint('BOTTOMRIGHT', self, 'BOTTOMLEFT', -2, 0) -- Move the icon a bit to the left
 	bar.icon:SetInside(bar.iconHolder, inset, inset)
 	bar.icon:SetDrawLayer('OVERLAY')
 
 	bar.bg = bar:CreateTexture(nil, 'BORDER')
-	bar.bg:Hide()
+	bar.bg:Show()
 
 	bar.iconHolder:RegisterForClicks('RightButtonUp')
 	bar.iconHolder:SetScript('OnClick', function(self)
@@ -40,10 +39,7 @@ function UFB:Create_AuraBarsWithShadow()
 
 		if auraName then
 			E:Print(format(L["The spell '%s' has been added to the Blacklist unitframe aura filter."], auraName))
-			E.global['unitframe']['aurafilters']['Blacklist']['spells'][auraName] = {
-				['enable'] = true,
-				['priority'] = 0,
-			}
+			E.global.unitframe.aurafilters.Blacklist.spells[auraName] = { enable = true, priority = 0 }
 			UF:Update_AllFrames()
 		end
 	end)
@@ -56,4 +52,6 @@ function UFB:Configure_AuraBars(frame)
 	local auraBars = frame.AuraBars
 
 	auraBars.PostCreateBar = UFB.Create_AuraBarsWithShadow
+	auraBars.gap = frame.BORDER*2
+	auraBars.spacing = frame.BORDER*2
 end
