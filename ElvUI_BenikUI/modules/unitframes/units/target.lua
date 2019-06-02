@@ -19,7 +19,7 @@ function UFB:Construct_TargetFrame()
 	end
 
 	if E.db.benikui.general.benikuiStyle == true then
-		frame.Portrait.backdrop:Style('Outside')
+		frame.Portrait.backdrop:Style('Inside')
 		frame.Portrait.backdrop.style:Hide()
 	end
 
@@ -50,7 +50,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 		if frame.USE_PORTRAIT and portrait.backdrop.style and E.db.benikui.unitframes.target.portraitStyle then
 			local maxValue = UnitPowerMax("target")
 			local _, pToken, altR, altG, altB = UnitPowerType("target")
-			local mu = power.bg.multiplier or 1
+			local mu = power.BG.multiplier or 1
 			local color = ElvUF['colors'].power[pToken]
 			local isPlayer = UnitIsPlayer("target")
 			local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
@@ -63,7 +63,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 						r, g, b = altR, altG, altB
 					end
 				else
-					if color then
+					if color and mu then
 						r, g, b = color[1] * mu, color[2] * mu, color[3] * mu
 					end
 				end
@@ -79,7 +79,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 						end
 					end
 				else
-					if reaction then
+					if reaction and mu then
 						local t = ElvUF.colors.reaction[reaction]
 						r, g, b = t[1] * mu, t[2] * mu, t[3] * mu
 					end
