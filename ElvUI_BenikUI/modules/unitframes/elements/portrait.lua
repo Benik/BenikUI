@@ -8,25 +8,15 @@ function UFB:Configure_Portrait(frame, isPlayer)
 	local db = frame.db
 
 	if frame.USE_PORTRAIT then
-		if frame.USE_PORTRAIT_OVERLAY then
-			if db.portrait.style == '3D' then
-				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
-			else
-				portrait:SetParent(frame.Health)
-			end
-
-			portrait:SetAllPoints(frame.Health)
-			portrait:SetAlpha(0.3)
-			portrait.backdrop:Hide()
-		else
+		if not frame.USE_PORTRAIT_OVERLAY then
 			portrait:SetAlpha(1)
 			portrait.backdrop:ClearAllPoints()
 			portrait.backdrop:Show()
 
-			if db.portrait.style == '3D' then
-				portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
-			else
+			if db.portrait.style == '2D' then
 				portrait:SetParent(frame)
+			else
+				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
 			end
 			
 			if frame.PORTRAIT_TRANSPARENCY then
@@ -98,10 +88,10 @@ function UFB:Configure_Portrait(frame, isPlayer)
 			else
 				portrait:SetAlpha(1)
 				portrait.backdrop:Show()
-				if db.portrait.style == '3D' then
-					portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
-					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
-					portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
+				if db.portrait.style == '2D' then
+					portrait:SetParent(frame)
+				else
+					portrait:SetFrameLevel(frame.Health:GetFrameLevel())
 				end
 
 				if frame.ORIENTATION == "LEFT" then
