@@ -159,7 +159,7 @@ local function OnConfigure_Portrait(self, frame)
 		if frame.USE_PORTRAIT_OVERLAY and not db.portrait.fullOverlay then
 			portrait:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
 		else
-			portrait:SetAlpha(1)
+			portrait:SetAlpha(0.35)
 		end
 	end
 end
@@ -173,7 +173,7 @@ local function OnPortraitUpdate(self)
 	if frame.USE_PORTRAIT_OVERLAY and not db.portrait.fullOverlay then
 		self:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
 	else
-		self:SetAlpha(1)
+		self:SetAlpha(0.35)
 	end
 end
 
