@@ -8,7 +8,35 @@ function UFB:Configure_Portrait(frame, isPlayer)
 	local db = frame.db
 
 	if frame.USE_PORTRAIT then
-		if not frame.USE_PORTRAIT_OVERLAY then
+		if frame.USE_PORTRAIT_OVERLAY then
+			if db.portrait.style == '2D' then
+				portrait:SetParent(frame.Health)
+			else
+				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
+			end
+
+			portrait:SetAlpha(0.35)
+			if not dontHide then
+				portrait:Show()
+			end
+			portrait.backdrop:Hide()
+
+			portrait:ClearAllPoints()
+			if db.portrait.fullOverlay then
+				portrait:SetAllPoints(frame.Health)
+			else
+				local healthTex = frame.Health:GetStatusBarTexture()
+				if db.health.reverseFill then
+					portrait:Point("TOPLEFT", healthTex, "TOPLEFT")
+					portrait:Point("BOTTOMLEFT", healthTex, "BOTTOMLEFT")
+					portrait:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT")
+				else
+					portrait:Point("TOPLEFT", frame.Health, "TOPLEFT")
+					portrait:Point("BOTTOMRIGHT", healthTex, "BOTTOMRIGHT")
+					portrait:Point("BOTTOMLEFT", healthTex, "BOTTOMLEFT")
+				end
+			end
+		else
 			portrait:SetAlpha(1)
 			portrait.backdrop:ClearAllPoints()
 			portrait.backdrop:Show()
@@ -121,9 +149,14 @@ end
 
 -- Portrait Alpha setting. Idea: Vxt, Credit: Blazeflack
 local function OnConfigure_Portrait(self, frame)
+	--local frame = self:GetParent()
+	local db = frame.db
+	if not db then return end
+
+	if BUI.SLE then return end
 	if frame.USE_PORTRAIT then
 		local portrait = frame.Portrait
-		if frame.USE_PORTRAIT_OVERLAY then
+		if frame.USE_PORTRAIT_OVERLAY and not db.portrait.fullOverlay then
 			portrait:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
 		else
 			portrait:SetAlpha(1)
@@ -136,7 +169,8 @@ local function OnPortraitUpdate(self)
 	local db = frame.db
 	if not db then return end
 
-	if frame.USE_PORTRAIT_OVERLAY and not BUI.SLE then
+	if BUI.SLE then return end
+	if frame.USE_PORTRAIT_OVERLAY and not db.portrait.fullOverlay then
 		self:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
 	else
 		self:SetAlpha(1)
