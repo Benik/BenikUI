@@ -1,3 +1,8 @@
+3.63
+*Fixed detached portrait transparency.
+*Updated donor list. Thank you Max and Kevin
+*Compatibility changes for patch 8.2 (Credits: Merathilis, Nihilistic)
+
 3.62
 *Fix the portrait health issue #73. Also the `Overlayed Portraits Alpha` BenikUI option won't apply if ElvUI 'Full Overlay' Portrait option is enabled.
 *Added Valentina K. in the donor list. Thank you
