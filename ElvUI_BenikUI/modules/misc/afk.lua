@@ -321,6 +321,7 @@ local function Initialize()
 	AFK.AFKMode.top.anim.height:SetSmoothing("Bounce")
 
 	-- move the chat lower
+	AFK.AFKMode.chat:ClearAllPoints()
 	AFK.AFKMode.chat:SetPoint("TOPLEFT", AFK.AFKMode.top, "BOTTOMLEFT", 4, -10)
 
 	-- WoW logo

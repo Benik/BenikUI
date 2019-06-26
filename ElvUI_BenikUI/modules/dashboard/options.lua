@@ -81,6 +81,7 @@ local bfaTokens = {
 	--1716,	-- Honorbound Service Medal (Horde)
 	--1717,	-- 7th Legion Service Medal (Alliance)
 	1718,	-- Titan Residuum
+	1721,	-- Prismatic Manapearl
 }
 
 -- Archaeology tokens

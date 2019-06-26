@@ -9,24 +9,42 @@ function UFB:Configure_Portrait(frame, isPlayer)
 
 	if frame.USE_PORTRAIT then
 		if frame.USE_PORTRAIT_OVERLAY then
-			if db.portrait.style == '3D' then
-				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
-			else
+			if db.portrait.style == '2D' then
 				portrait:SetParent(frame.Health)
+			else
+				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
 			end
 
-			portrait:SetAllPoints(frame.Health)
-			portrait:SetAlpha(0.3)
+			portrait:SetAlpha(0.35)
+			if not dontHide then
+				portrait:Show()
+			end
 			portrait.backdrop:Hide()
+
+			portrait:ClearAllPoints()
+			if db.portrait.fullOverlay then
+				portrait:SetAllPoints(frame.Health)
+			else
+				local healthTex = frame.Health:GetStatusBarTexture()
+				if db.health.reverseFill then
+					portrait:Point("TOPLEFT", healthTex, "TOPLEFT")
+					portrait:Point("BOTTOMLEFT", healthTex, "BOTTOMLEFT")
+					portrait:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT")
+				else
+					portrait:Point("TOPLEFT", frame.Health, "TOPLEFT")
+					portrait:Point("BOTTOMRIGHT", healthTex, "BOTTOMRIGHT")
+					portrait:Point("BOTTOMLEFT", healthTex, "BOTTOMLEFT")
+				end
+			end
 		else
 			portrait:SetAlpha(1)
 			portrait.backdrop:ClearAllPoints()
 			portrait.backdrop:Show()
 
-			if db.portrait.style == '3D' then
-				portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
-			else
+			if db.portrait.style == '2D' then
 				portrait:SetParent(frame)
+			else
+				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
 			end
 			
 			if frame.PORTRAIT_TRANSPARENCY then
@@ -98,10 +116,10 @@ function UFB:Configure_Portrait(frame, isPlayer)
 			else
 				portrait:SetAlpha(1)
 				portrait.backdrop:Show()
-				if db.portrait.style == '3D' then
-					portrait.backdrop:SetFrameStrata(frame:GetFrameStrata())
-					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
-					portrait:SetFrameLevel(frame.Health:GetFrameLevel() -4) --Make sure portrait is behind Health and Power
+				if db.portrait.style == '2D' then
+					portrait:SetParent(frame)
+				else
+					portrait:SetFrameLevel(frame.Health:GetFrameLevel())
 				end
 
 				if frame.ORIENTATION == "LEFT" then
@@ -131,30 +149,22 @@ end
 
 -- Portrait Alpha setting. Idea: Vxt, Credit: Blazeflack
 local function OnConfigure_Portrait(self, frame)
+	local db = frame.db
+	if not db then return end
+
+	if BUI.SLE then return end
 	if frame.USE_PORTRAIT then
 		local portrait = frame.Portrait
-		if frame.USE_PORTRAIT_OVERLAY then
+		if frame.USE_PORTRAIT_OVERLAY and not db.portrait.fullOverlay then
 			portrait:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
 		else
-			portrait:SetAlpha(1)
+			portrait:SetAlpha(0.35)
 		end
 	end
 end
 
-local function OnPortraitUpdate(self)
-	local frame = self:GetParent()
-	local db = frame.db
-	if not db then return end
-
-	if frame.USE_PORTRAIT_OVERLAY and not BUI.SLE then
-		self:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
-	else
-		self:SetAlpha(1)
-	end
-end
-
 hooksecurefunc(UF, "Configure_Portrait", OnConfigure_Portrait)
-hooksecurefunc(UF, "PortraitUpdate", OnPortraitUpdate)
+hooksecurefunc(UF, "PortraitUpdate", OnConfigure_Portrait)
 
 local function ResetPostUpdate()
 	for _, unitName in pairs(UF.units) do
