@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
 
-local _G = _G 
+local _G = _G
 local GetTime = GetTime
 local tonumber, unpack = tonumber, unpack
 local floor = floor
@@ -117,7 +117,7 @@ local statusColors = {
 	'|cffD80909'	-- red
 }
 
-function BFM:UpdateFps()	
+function BFM:UpdateFps()
 	local value = floor(GetFramerate())
 	local fpscolor = 3
 	local max = 120
@@ -193,7 +193,7 @@ function BFM:SetFlightMode(status)
 			LeftChatPanel:ClearAllPoints()
 			LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		end
-		
+
 		-- Hide SquareMinimapButtonBar
 		if (BUI.PA and not BUI.SLE) then
 			if SquareMinimapButtonBar then
@@ -230,12 +230,15 @@ function BFM:SetFlightMode(status)
 			LeftChatPanel_Bui.styleShadow:Hide()
 		end
 
+		-- Taxi Button
+		BuiTaxiButton:SetParent(self.FlightMode)
+
 		self.startTime = GetTime()
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
 		self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
 		self.fpsTimer = self:ScheduleRepeatingTimer('UpdateFps', 1)
-		
+
 		self:SkinInFlight()
 
 		self.inFlightMode = true
@@ -283,7 +286,7 @@ function BFM:SetFlightMode(status)
 			local AS = unpack(AddOnSkins) or nil
 			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
 		end
-		
+
 		-- Show Zygor
 		if BUI.ZG then
 			if ZygorGuidesViewer.db.profile.visible then
@@ -324,6 +327,8 @@ function BFM:SetFlightMode(status)
 			LeftChatPanel_Bui.styleShadow:Show()
 			LeftChatPanel_Bui.styleShadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
 		end
+
+		BuiTaxiButton:SetParent(E.UIParent)
 
 		self.inFlightMode = false
 	end
@@ -483,7 +488,7 @@ function BFM:Initialize()
 
 	self.FlightMode.top.location.x.text = self.FlightMode.top.location.x:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.top.location.x.text:FontTemplate(nil, 18)
-	self.FlightMode.top.location.x.text:Point('CENTER')	
+	self.FlightMode.top.location.x.text:Point('CENTER')
 
 	-- Coords Y frame
 	self.FlightMode.top.location.y = CreateFrame('Frame', nil, self.FlightMode.top.location)
@@ -698,7 +703,7 @@ function BFM:Initialize()
 	self.FlightMode.bottom.timeFlying:Point("RIGHT", self.FlightMode.bottom, "RIGHT", -10, 0)
 	self.FlightMode.bottom.timeFlying:SetTemplate("Default", true, true)
 	self.FlightMode.bottom.timeFlying:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.bottom.timeFlying:Size(70,30)	
+	self.FlightMode.bottom.timeFlying:Size(70,30)
 	self.FlightMode.bottom.timeFlying.txt = self.FlightMode.bottom.timeFlying:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.bottom.timeFlying.txt:FontTemplate(nil, 14)
 	self.FlightMode.bottom.timeFlying.txt:SetText("00:00")
