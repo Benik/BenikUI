@@ -175,7 +175,9 @@ function BFM:SetFlightMode(status)
 		-- Bags
 		if ElvUI_ContainerFrame then
 			ElvUI_ContainerFrame:SetParent(self.FlightMode)
-			ElvUI_ContainerFrame.wideshadow:Show()
+			if ElvUI_ContainerFrame.wideshadow then
+				ElvUI_ContainerFrame.wideshadow:Show()
+			end
 			if ElvUI_ContainerFrame.shadow then
 				ElvUI_ContainerFrame.shadow:Hide()
 			end
@@ -276,7 +278,9 @@ function BFM:SetFlightMode(status)
 		-- Revert Bags
 		if ElvUI_ContainerFrame then
 			ElvUI_ContainerFrame:SetParent(E.UIParent)
-			ElvUI_ContainerFrame.wideshadow:Hide()
+			if ElvUI_ContainerFrame.wideshadow then
+				ElvUI_ContainerFrame.wideshadow:Hide()
+			end
 			if ElvUI_ContainerFrame.shadow then
 				ElvUI_ContainerFrame.shadow:Show()
 			end
