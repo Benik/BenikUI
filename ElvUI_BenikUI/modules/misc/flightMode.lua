@@ -232,9 +232,6 @@ function BFM:SetFlightMode(status)
 			LeftChatPanel_Bui.styleShadow:Hide()
 		end
 
-		-- Taxi Button
-		BuiTaxiButton:SetParent(self.FlightMode)
-
 		self.startTime = GetTime()
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
