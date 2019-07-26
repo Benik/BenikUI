@@ -80,7 +80,7 @@ end
 
 local r, g, b = 0, 0, 0
 function BUI:UpdateStyleColors()
-	local BTT = E:GetModule('BenikUI_Tooltip')
+	local BTT = BUI:GetModule('Tooltip')
 	for frame, _ in pairs(BUI["styles"]) do
 		if frame and not frame.ignoreColor then
 			if E.db.benikui.colors.StyleColor == 1 then
