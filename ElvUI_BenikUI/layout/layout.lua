@@ -4,7 +4,7 @@ local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 local DT = E:GetModule('DataTexts')
 local M = E:GetModule('Minimap');
-local LSM = LibStub('LibSharedMedia-3.0')
+local LSM = E.LSM
 
 local _G = _G
 local unpack = unpack
