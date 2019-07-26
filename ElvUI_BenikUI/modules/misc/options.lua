@@ -114,7 +114,7 @@ local function miscTable()
 						},
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 						get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):UpdateItemLevelPosition() end,
+						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; BUI:GetModule('iLevel'):UpdateItemLevelPosition() end,
 					},
 				},
 			},
