@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local BUI, E, L, V, P, G = unpack(select(2, ...)) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local AFK = E:GetModule('AFK')
-local BUI = E:GetModule('BenikUI');
 
 local format, random, lower, tonumber, date, floor = string.format, random, string.lower, tonumber, date, floor
 

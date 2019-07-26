@@ -1,6 +1,5 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 local A = E:GetModule('Auras');
-local BUI = E:GetModule('BenikUI');
 
 local unpack = unpack
 

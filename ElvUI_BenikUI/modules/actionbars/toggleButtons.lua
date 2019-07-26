@@ -1,6 +1,6 @@
-local E, L, V, P, G = unpack(ElvUI);
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 local AB = E:GetModule('ActionBars');
-local BAB = E:GetModule('BuiActionbars');
+local mod = BUI:GetModule('Actionbars');
 
 local unpack = unpack
 local CreateFrame = CreateFrame
@@ -29,7 +29,7 @@ end
 
 -- Switch ABs buttons
 local abtn = {}
-function BAB:CreateButtons()
+function mod:CreateButtons()
 	for i = 1, 2 do
 		abtn[i] = CreateFrame('Button', nil, E.UIParent)
 		abtn[i]:Size(12, 5)
@@ -63,10 +63,10 @@ function BAB:CreateButtons()
 			UIFrameFadeOut(self, .5, 1, 0)
 		end)
 	end
-	BAB:ShowButtons()
+	mod:ShowButtons()
 end
 
-function BAB:ShowButtons()
+function mod:ShowButtons()
 	local bar1 = ElvUI_Bar1.backdrop.style
 	local bar2 = ElvUI_Bar2.backdrop.style
 	local db = E.db.benikui.actionbars.toggleButtons
@@ -99,7 +99,7 @@ function BAB:ShowButtons()
 	end
 end
 
-function BAB:LoadToggleButtons()
+function mod:LoadToggleButtons()
 	if not E.db.benikui.general.benikuiStyle then return end
-	BAB:CreateButtons()
+	mod:CreateButtons()
 end

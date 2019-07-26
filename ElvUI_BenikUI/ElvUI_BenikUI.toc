@@ -10,9 +10,9 @@
 ## X-Tukui-ProjectFolders: ElvUI_BenikUI
 
 libs\load_libs.xml
-media\load_media.xml
 locales\load_locales.xml
-defaults\load_defaults.xml
+media\load_media.xml
 core\load_core.xml
-layout\layout.lua
+defaults\load_defaults.xml
+layout\load_layout.xml
 modules\load_modules.xml

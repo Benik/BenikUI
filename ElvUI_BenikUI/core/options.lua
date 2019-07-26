@@ -1,6 +1,5 @@
-local E, _, V, P, G = unpack(ElvUI);
+local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-local BUI = E:GetModule('BenikUI');
 
 if E.db.benikui == nil then E.db.benikui = {} end
 local format = string.format

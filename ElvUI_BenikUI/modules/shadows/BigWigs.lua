@@ -1,5 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 
 if not BUI.AS then return end
 local AS = unpack(AddOnSkins)

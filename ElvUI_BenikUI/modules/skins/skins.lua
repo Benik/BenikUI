@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI)
-local BUIS = E:NewModule("BuiSkins", "AceHook-3.0", "AceEvent-3.0")
-local BUI = E:GetModule("BenikUI")
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:NewModule("Skins", "AceHook-3.0", "AceEvent-3.0")
 local S = E:GetModule("Skins")
 
 local _G = _G
@@ -601,7 +600,7 @@ local function VehicleExit()
 	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
 end
 
-function BUIS:StyleAdibagsBank()
+function mod:StyleAdibagsBank()
 	if not E.db.benikuiSkins.addonSkins.adibags or not BUI.AS then
 		return
 	end
@@ -629,7 +628,7 @@ local function StyleAdibags()
 	)
 end
 
-function BUIS:LoD_AddOns(_, addon)
+function mod:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
 	end
@@ -638,7 +637,7 @@ function BUIS:LoD_AddOns(_, addon)
 	end
 end
 
-function BUIS:PLAYER_ENTERING_WORLD(...)
+function mod:PLAYER_ENTERING_WORLD(...)
 	self:styleAlertFrames()
 	styleAddons()
 	styleWorldMap()
@@ -654,7 +653,7 @@ local function StyleElvUIConfig()
 	end
 end
 
-function BUIS:Initialize()
+function mod:Initialize()
 	VehicleExit()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
@@ -678,8 +677,4 @@ function BUIS:Initialize()
 	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
 end
 
-local function InitializeCallback()
-	BUIS:Initialize()
-end
-
-E:RegisterModule(BUIS:GetName(), InitializeCallback)
+BUI:RegisterModule(mod:GetName())

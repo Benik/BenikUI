@@ -1,11 +1,11 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BTH = E:NewModule('BuiThreat', 'AceHook-3.0');
-local THREAT = E:GetModule('Threat');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:NewModule('Threat', 'AceHook-3.0');
+local T = E:GetModule('Threat');
 local LO = E:GetModule('Layout');
 
 -- GLOBALS: hooksecurefunc, ElvUI_ThreatBar, RightChatDataPanel, LeftChatDataPanel, BuiDummyChat, BuiDummyThreat
 
-function BTH:UpdateThreatPosition()
+function mod:UpdateThreatPosition()
 	local bar = ElvUI_ThreatBar
 	bar:SetStatusBarTexture(E['media'].BuiFlat)
 	if E.db.general.threat.position == 'RIGHTCHAT' then
@@ -28,14 +28,10 @@ function BTH:UpdateThreatPosition()
 	bar:SetFrameStrata('MEDIUM')
 end
 
-function BTH:Initialize()
+function mod:Initialize()
 	self:UpdateThreatPosition()
-	hooksecurefunc(LO, 'ToggleChatPanels', BTH.UpdateThreatPosition)
-	hooksecurefunc(THREAT, 'UpdatePosition', BTH.UpdateThreatPosition)
+	hooksecurefunc(LO, 'ToggleChatPanels', mod.UpdateThreatPosition)
+	hooksecurefunc(T, 'UpdatePosition', mod.UpdateThreatPosition)
 end
 
-local function InitializeCallback()
-	BTH:Initialize()
-end
-
-E:RegisterModule(BTH:GetName(), InitializeCallback)
+BUI:RegisterModule(mod:GetName())

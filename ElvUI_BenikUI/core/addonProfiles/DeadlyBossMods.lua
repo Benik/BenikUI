@@ -1,5 +1,4 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
+﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
 
 local ClearRealm = string.gsub(E.myrealm, "%s+", "")
 

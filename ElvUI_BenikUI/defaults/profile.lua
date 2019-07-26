@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
+﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
 
 -- Add Vertical Powerbar option on Player
 P['unitframe']['units']['player']['power']['vertical'] = false

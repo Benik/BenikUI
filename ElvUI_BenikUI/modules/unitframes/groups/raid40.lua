@@ -1,10 +1,9 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local UFB = E:GetModule('BuiUnits');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BU = BUI:GetModule('Units');
 
 -- GLOBALS: hooksecurefunc
 
-function UFB:Update_Raid40Frames(frame, db)
+function BU:Update_Raid40Frames(frame, db)
 	frame.db = db
 
 	do
@@ -18,6 +17,6 @@ function UFB:Update_Raid40Frames(frame, db)
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
-function UFB:InitRaid40()
-	--hooksecurefunc(UF, 'Update_Raid40Frames', UFB.Update_Raid40Frames)
+function BU:InitRaid40()
+	--hooksecurefunc(UF, 'Update_Raid40Frames', BU.Update_Raid40Frames)
 end

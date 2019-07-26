@@ -1,7 +1,7 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
-local BDT = E:NewModule('BuiDataTexts', 'AceEvent-3.0');
-local LSM = LibStub("LibSharedMedia-3.0");
+local mod = BUI:NewModule('BuiDataTexts', 'AceEvent-3.0');
+local LSM = E.LSM;
 local LDB = LibStub:GetLibrary("LibDataBroker-1.1");
 
 local pairs, type, select, join = pairs, type, select, string.join
@@ -53,7 +53,7 @@ local dataStrings = {
 
 local name
 
-function BDT:UPDATE_BATTLEFIELD_SCORE()
+function mod:UPDATE_BATTLEFIELD_SCORE()
 	lastPanel = self
 	local pointIndex = dataLayout[self:GetParent():GetName()][self.pointIndex]
 	for i=1, GetNumBattlefieldScores() do
@@ -65,9 +65,9 @@ function BDT:UPDATE_BATTLEFIELD_SCORE()
 	end
 end
 
-function BDT:HideBattlegroundTexts()
+function mod:HideBattlegroundTexts()
 	DT.ForceHideBGStats = true
-	BDT:LoadDataTexts()
+	mod:LoadDataTexts()
 	E:Print(L["Battleground datatexts temporarily hidden, to show type /bgstats or right click the 'C' icon near the minimap."])
 end
 
@@ -95,11 +95,11 @@ function DT:LoadDataTexts()
 
 			if (panelName == 'LeftChatDataPanel' or panelName == 'RightChatDataPanel' or panelName == 'BuiLeftChatDTPanel' or panelName == 'BuiRightChatDTPanel') and (inInstance and (instanceType == "pvp")) and not DT.ForceHideBGStats and E.db.datatexts.battleground then
 				panel.dataPanels[pointIndex]:RegisterEvent('UPDATE_BATTLEFIELD_SCORE')
-				panel.dataPanels[pointIndex]:SetScript('OnEvent', BDT.UPDATE_BATTLEFIELD_SCORE)
+				panel.dataPanels[pointIndex]:SetScript('OnEvent', mod.UPDATE_BATTLEFIELD_SCORE)
 				panel.dataPanels[pointIndex]:SetScript('OnEnter', DT.BattlegroundStats)
 				panel.dataPanels[pointIndex]:SetScript('OnLeave', DT.Data_OnLeave)
-				panel.dataPanels[pointIndex]:SetScript('OnClick', BDT.HideBattlegroundTexts)
-				BDT.UPDATE_BATTLEFIELD_SCORE(panel.dataPanels[pointIndex])
+				panel.dataPanels[pointIndex]:SetScript('OnClick', mod.HideBattlegroundTexts)
+				mod.UPDATE_BATTLEFIELD_SCORE(panel.dataPanels[pointIndex])
 			else
 				--Register Panel to Datatext
 				for name, data in pairs(DT.RegisteredDataTexts) do
@@ -128,13 +128,13 @@ local function ValueColorUpdate(hex)
 	displayString = join("", "%s: ", hex, "%s|r")
 
 	if lastPanel ~= nil then
-		BDT.UPDATE_BATTLEFIELD_SCORE(lastPanel)
+		mod.UPDATE_BATTLEFIELD_SCORE(lastPanel)
 	end
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
-local function InitializeCallback()
+function mod:Initialize()
 	DT:LoadDataTexts()
 end
 
-E:RegisterModule(BDT:GetName(), InitializeCallback)
+BUI:RegisterModule(mod:GetName())

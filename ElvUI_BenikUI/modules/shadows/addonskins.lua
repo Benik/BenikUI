@@ -1,7 +1,6 @@
-local E, L, V, P, G = unpack(ElvUI);
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins');
-local BUI = E:GetModule('BenikUI');
-local mod = E:GetModule('BuiShadows');
+local mod = BUI:GetModule('Shadows');
 
 -- AddonSkins tabs
 function mod:TabShadowsAS(tab)
