@@ -12,6 +12,7 @@
 libs\load_libs.xml
 locales\load_locales.xml
 media\load_media.xml
+init.lua
 core\load_core.xml
 defaults\load_defaults.xml
 layout\load_layout.xml
