@@ -654,6 +654,7 @@ local function StyleElvUIConfig()
 end
 
 local function StyleAceTooltip(self)
+	if not self or self:IsForbidden() then return end
 	if not self.style then
 		self:Style('Outside')
 	end
