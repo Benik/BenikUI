@@ -653,6 +653,10 @@ local function StyleElvUIConfig()
 	end
 end
 
+local function StyleAceTooltip(self)
+	self:Style('Outside')
+end
+
 function mod:Initialize()
 	VehicleExit()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -675,6 +679,7 @@ function mod:Initialize()
 	end
 	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)
 	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
+	hooksecurefunc(S, "Ace3_StyleTooltip", StyleAceTooltip)
 end
 
 BUI:RegisterModule(mod:GetName())
