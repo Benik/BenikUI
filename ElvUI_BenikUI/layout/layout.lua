@@ -38,7 +38,7 @@ local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
 local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
 local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
 
-local function RegBuiDataTexts()
+local function RegDataTexts()
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiMiddleDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
@@ -487,7 +487,7 @@ function mod:PLAYER_ENTERING_WORLD(...)
 end
 
 function mod:Initialize()
-	RegBuiDataTexts()
+	RegDataTexts()
 	self:ChangeLayout()
 	self:ChatStyles()
 	self:ToggleMinimapStyle()

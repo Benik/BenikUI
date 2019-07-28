@@ -1,5 +1,5 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('BuiDatabars', 'AceHook-3.0', 'AceEvent-3.0');
+local mod = BUI:NewModule('Databars', 'AceHook-3.0', 'AceEvent-3.0');
 local LSM = E.LSM;
 
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut

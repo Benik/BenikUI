@@ -1,6 +1,6 @@
 local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-local mod = BUI:GetModule('BuiDatabars');
+local mod = BUI:GetModule('Databars');
 
 local tinsert = table.insert
 

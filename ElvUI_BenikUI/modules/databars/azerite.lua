@@ -1,5 +1,5 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:GetModule('BuiDatabars');
+local mod = BUI:GetModule('Databars');
 local M = E:GetModule('DataBars');
 local DT = E:GetModule('DataTexts');
 local LSM = E.LSM;

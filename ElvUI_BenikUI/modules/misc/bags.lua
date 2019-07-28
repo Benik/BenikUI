@@ -1,5 +1,5 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('BuiBags', 'AceHook-3.0', 'AceEvent-3.0');
+local mod = BUI:NewModule('Bags', 'AceHook-3.0', 'AceEvent-3.0');
 local B = E:GetModule('Bags')
 
 local _G = _G

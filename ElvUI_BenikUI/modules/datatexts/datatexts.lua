@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
-local mod = BUI:NewModule('BuiDataTexts', 'AceEvent-3.0');
+local mod = BUI:NewModule('DataTexts', 'AceEvent-3.0');
 local LSM = E.LSM;
 local LDB = LibStub:GetLibrary("LibDataBroker-1.1");
 
