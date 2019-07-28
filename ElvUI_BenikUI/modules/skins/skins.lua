@@ -654,7 +654,9 @@ local function StyleElvUIConfig()
 end
 
 local function StyleAceTooltip(self)
-	self:Style('Outside')
+	if not self.style then
+		self:Style('Outside')
+	end
 end
 
 function mod:Initialize()
