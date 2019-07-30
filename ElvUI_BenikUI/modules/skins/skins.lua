@@ -649,6 +649,8 @@ function mod:PLAYER_ENTERING_WORLD(...)
 end
 
 local function StyleElvUIConfig()
+	if not E.private.skins.ace3.enable then return end
+
 	local frame = _G.ElvUIGUIFrame
 	if not frame.style then
 		frame:Style("Outside")
