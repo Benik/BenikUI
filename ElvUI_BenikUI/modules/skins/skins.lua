@@ -251,6 +251,8 @@ local function styleFreeBlizzardFrames()
 	if db.trade then
 		TradeFrame:Style("Outside")
 	end
+	
+	ColorPickerFrame:Style("Outside")
 end
 S:AddCallback("BenikUI_styleFreeBlizzardFrames", styleFreeBlizzardFrames)
 
