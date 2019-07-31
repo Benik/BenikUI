@@ -1,7 +1,6 @@
-local E, _, V, P, G = unpack(ElvUI);
+local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-local BUI = E:GetModule('BenikUI');
-local BAB = E:GetModule('BuiActionbars');
+local mod = BUI:GetModule('Actionbars');
 
 local tinsert = table.insert
 
@@ -30,7 +29,7 @@ local function abTable()
 				name = L['Switch Buttons (requires BenikUI Style)'],
 				guiInline = true,
 				get = function(info) return E.db.benikui.actionbars.toggleButtons[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.actionbars.toggleButtons[ info[#info] ] = value; BAB:ShowButtons() end,
+				set = function(info, value) E.db.benikui.actionbars.toggleButtons[ info[#info] ] = value; mod:ShowButtons() end,
 				args = {
 					enable = {
 						order = 1,
@@ -59,7 +58,7 @@ local function abTable()
 				desc = L['Applies transparency in all actionbar backdrops and actionbar buttons.'],
 				disabled = function() return not E.private.actionbar.enable end,
 				get = function(info) return E.db.benikui.actionbars[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.actionbars[ info[#info] ] = value; BAB:TransparentBackdrops() end,
+				set = function(info, value) E.db.benikui.actionbars[ info[#info] ] = value; mod:TransparentBackdrops() end,
 			},
 			requestStop = {
 				order = 5,
@@ -89,7 +88,7 @@ local function abTable()
 			get = function(info) return E.db.benikui.actionbars.style[ info[#info] ] end,
 			set = function(info, value)
 				E.db.benikui.actionbars.style[ info[#info] ] = value;
-				BAB:ToggleStyle()
+				mod:ToggleStyle()
 			end,
 		}
 	end
@@ -108,7 +107,7 @@ local function abTable()
 		get = function(info) return E.db.benikui.actionbars.style[ info[#info] ] end,
 		set = function(info, value)
 			E.db.benikui.actionbars.style[ info[#info] ] = value;
-			BAB:ToggleStyle()
+			mod:ToggleStyle()
 		end,
 	}
 
@@ -120,7 +119,7 @@ local function abTable()
 		get = function(info) return E.db.benikui.actionbars.style[ info[#info] ] end,
 		set = function(info, value)
 			E.db.benikui.actionbars.style[ info[#info] ] = value;
-			BAB:ToggleStyle()
+			mod:ToggleStyle()
 		end,
 	}
 end

@@ -1,14 +1,13 @@
-local E, L, V, P, G = unpack(ElvUI);
-local UFB = E:GetModule('BuiUnits');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
-local LSM = LibStub("LibSharedMedia-3.0");
-UF.LSM = LSM
+local LSM = E.LSM;
 
 local _G = _G
 local select = select
 
 -- Raid
-function UFB:ChangeRaidHealthBarTexture()
+function BU:ChangeRaidHealthBarTexture()
 	local header = _G['ElvUF_Raid']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.health)
 	for i = 1, header:GetNumChildren() do
@@ -24,10 +23,10 @@ function UFB:ChangeRaidHealthBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_RaidFrames', UFB.ChangeRaidHealthBarTexture)
+hooksecurefunc(UF, 'Update_RaidFrames', BU.ChangeRaidHealthBarTexture)
 
 -- Raid-40
-function UFB:ChangeRaid40HealthBarTexture()
+function BU:ChangeRaid40HealthBarTexture()
 	local header = _G['ElvUF_Raid40']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.health)
 	for i = 1, header:GetNumChildren() do
@@ -43,10 +42,10 @@ function UFB:ChangeRaid40HealthBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_Raid40Frames', UFB.ChangeRaid40HealthBarTexture)
+hooksecurefunc(UF, 'Update_Raid40Frames', BU.ChangeRaid40HealthBarTexture)
 
 -- Party
-function UFB:ChangePartyHealthBarTexture()
+function BU:ChangePartyHealthBarTexture()
 	local header = _G['ElvUF_Party']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.health)
 	for i = 1, header:GetNumChildren() do
@@ -62,11 +61,11 @@ function UFB:ChangePartyHealthBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_PartyFrames', UFB.ChangePartyHealthBarTexture)
+hooksecurefunc(UF, 'Update_PartyFrames', BU.ChangePartyHealthBarTexture)
 
-function UFB:ChangeHealthBarTexture()
-	UFB:ChangeRaidHealthBarTexture()
-	UFB:ChangeRaid40HealthBarTexture()
-	UFB:ChangePartyHealthBarTexture()
+function BU:ChangeHealthBarTexture()
+	BU:ChangeRaidHealthBarTexture()
+	BU:ChangeRaid40HealthBarTexture()
+	BU:ChangePartyHealthBarTexture()
 end
-hooksecurefunc(UF, 'Update_StatusBars', UFB.ChangeHealthBarTexture)
+hooksecurefunc(UF, 'Update_StatusBars', BU.ChangeHealthBarTexture)

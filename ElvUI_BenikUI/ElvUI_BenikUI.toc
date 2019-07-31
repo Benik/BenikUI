@@ -1,6 +1,6 @@
 ## Interface: 80200
 ## Author: Benik
-## Version: 3.63
+## Version: 3.64
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 11+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
@@ -10,9 +10,10 @@
 ## X-Tukui-ProjectFolders: ElvUI_BenikUI
 
 libs\load_libs.xml
-media\load_media.xml
 locales\load_locales.xml
-defaults\load_defaults.xml
+media\load_media.xml
+init.lua
 core\load_core.xml
-layout\layout.lua
+defaults\load_defaults.xml
+layout\load_layout.xml
 modules\load_modules.xml

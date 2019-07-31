@@ -1,12 +1,11 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local UFB = E:NewModule('BuiUnits', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:NewModule('Units', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 local UF = E:GetModule('UnitFrames');
-local LSM = E.Libs.LSM
+local LSM = E.LSM
 
 local find = string.find
 
-function UFB:UnitDefaults()
+function mod:UnitDefaults()
 	if E.db.benikui.unitframes.player.portraitWidth == nil then
 		E.db.benikui.unitframes.player.portraitWidth = 110
 	end
@@ -21,13 +20,13 @@ function UFB:UnitDefaults()
 	end
 end
 
-function UFB:UpdateUF()
+function mod:UpdateUF()
 	if E.db.unitframe.units.player.enable then
-		UFB:ArrangePlayer()
+		mod:ArrangePlayer()
 	end
 
 	if E.db.unitframe.units.target.enable then
-		UFB:ArrangeTarget()
+		mod:ArrangeTarget()
 	end
 
 	if E.db.unitframe.units.party.enable then
@@ -35,7 +34,7 @@ function UFB:UpdateUF()
 	end
 end
 
-function UFB:Configure_ReadyCheckIcon(frame)
+function mod:Configure_ReadyCheckIcon(frame)
 	local tex = frame.ReadyCheckIndicator
 
 	tex.readyTexture = [[Interface\AddOns\ElvUI_BenikUI\media\textures\ready]]
@@ -44,7 +43,7 @@ function UFB:Configure_ReadyCheckIcon(frame)
 end
 
 -- Unit Shadows
-function UFB:UnitShadows()
+function mod:UnitShadows()
 	for _, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
 		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
@@ -52,14 +51,14 @@ function UFB:UnitShadows()
 		local unitframe = _G["ElvUF_"..frameNameUnit]
 		if unitframe then
 			unitframe:CreateSoftShadow()
-			unitframe.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitframe.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+			unitframe.Buffs.PostUpdateIcon = mod.PostUpdateAura
+			unitframe.Debuffs.PostUpdateIcon = mod.PostUpdateAura
 		end
 	end
 end
 
 -- Party Shadows
-function UFB:PartyShadows()
+function mod:PartyShadows()
 	local header = _G['ElvUF_Party']
 	for i = 1, header:GetNumChildren() do
 		local group = select(i, header:GetChildren())
@@ -68,15 +67,15 @@ function UFB:PartyShadows()
 			local unitbutton = select(j, group:GetChildren())
 			if unitbutton then
 				unitbutton:CreateSoftShadow()
-				unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-				unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+				unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
+				unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
 			end
 		end
 	end
 end
 
 -- Raid Shadows
-function UFB:RaidShadows()
+function mod:RaidShadows()
 	local header = _G['ElvUF_Raid']
 
 	for i = 1, header:GetNumChildren() do
@@ -86,15 +85,15 @@ function UFB:RaidShadows()
 			local unitbutton = select(j, group:GetChildren())
 			if unitbutton then
 				unitbutton:CreateSoftShadow()
-				unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-				unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+				unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
+				unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
 			end
 		end
 	end
 end
 
 -- Raid-40 Shadows
-function UFB:Raid40Shadows()
+function mod:Raid40Shadows()
 	local header = _G['ElvUF_Raid40']
 
 	for i = 1, header:GetNumChildren() do
@@ -104,51 +103,51 @@ function UFB:Raid40Shadows()
 			local unitbutton = select(j, group:GetChildren())
 			if unitbutton then
 				unitbutton:CreateSoftShadow()
-				unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-				unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+				unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
+				unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
 			end
 		end
 	end
 end
 
 -- Boss shadows
-function UFB:BossShadows()
+function mod:BossShadows()
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Boss"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+			unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
 		end
 	end
 end
 
 -- Arena shadows
-function UFB:ArenaShadows()
+function mod:ArenaShadows()
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+			unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
 		end
 	end
 end
 
 -- Tank shadows
-function UFB:TankShadows()
+function mod:TankShadows()
 	for i = 1, 2 do
 		local unitbutton = _G["ElvUF_TankUnitButton"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateIcon = UFB.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateIcon = UFB.PostUpdateAura
+			unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
 		end
 	end
 end
 
 -- TankTarget shadows
-function UFB:TankTargetShadows()
+function mod:TankTargetShadows()
 	for i = 1, 2 do
 		local unitbutton = _G["ElvUF_TankUnitButton"..i.."Target"]
 		if unitbutton then
@@ -157,13 +156,13 @@ function UFB:TankTargetShadows()
 	end
 end
 
-function UFB:PostUpdateAura(unit, button)
+function mod:PostUpdateAura(unit, button)
 	if not button.shadow then
 		button:CreateSoftShadow()
 	end
 
 	if button.isDebuff then
-		if(not button.isFriend and not button.isPlayer) then --[[and (not E.isDebuffWhiteList[name])]]
+		if(not button.isFriend and not button.isPlayer) then
 			button:SetBackdropBorderColor(0.9, 0.1, 0.1)
 			button.icon:SetDesaturated((unit and not strfind(unit, 'arena%d')) and true or false)
 		else
@@ -188,20 +187,20 @@ function UFB:PostUpdateAura(unit, button)
 	end
 end
 
-function UFB:ADDON_LOADED(event, addon)
+function mod:ADDON_LOADED(event, addon)
 	if addon ~= "ElvUI_Config" then return end
-	UFB:UnregisterEvent(event)
-	UFB:ChangeDefaultOptions()
+	mod:UnregisterEvent(event)
+	mod:ChangeDefaultOptions()
 end
 
-function UFB:ChangeDefaultOptions()
+function mod:ChangeDefaultOptions()
 	E.Options.args.unitframe.args.player.args.power.args.height.max = 300
 	E.Options.args.unitframe.args.player.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
 	E.Options.args.unitframe.args.target.args.power.args.height.max = 300
 	E.Options.args.unitframe.args.target.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
 end
 
-function UFB:Initialize()
+function mod:Initialize()
 	if E.private.unitframe.enable ~= true then return end
 	self:UnitDefaults()
 	self:InitPlayer()
@@ -229,12 +228,8 @@ function UFB:Initialize()
 		self:TankTargetShadows()
 	end
 
-	hooksecurefunc(UF, "Configure_ReadyCheckIcon", UFB.Configure_ReadyCheckIcon)
+	hooksecurefunc(UF, "Configure_ReadyCheckIcon", mod.Configure_ReadyCheckIcon)
 	self:RegisterEvent("ADDON_LOADED")
 end
 
-local function InitializeCallback()
-	UFB:Initialize()
-end
-
-E:RegisterModule(UFB:GetName(), InitializeCallback)
+BUI:RegisterModule(mod:GetName())

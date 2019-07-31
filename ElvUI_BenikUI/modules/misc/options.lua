@@ -1,6 +1,5 @@
-local E, _, V, P, G = unpack(ElvUI);
+local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-local BUI = E:GetModule('BenikUI');
 local B = E:GetModule('Bags')
 
 local tinsert = table.insert
@@ -22,7 +21,7 @@ local function miscTable()
 				name = L['Flight Mode'],
 				desc = L['Display the Flight Mode screen when taking flight paths'],
 				get = function(info) return E.db.benikui.misc[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.misc[ info[#info] ] = value; E:GetModule('BUIFlightMode'):Toggle() E:StaticPopup_Show('PRIVATE_RL') end,
+				set = function(info, value) E.db.benikui.misc[ info[#info] ] = value; BUI:GetModule('FlightMode'):Toggle() E:StaticPopup_Show('PRIVATE_RL') end,
 			},
 			afkMode = {
 				order = 3,
@@ -42,7 +41,7 @@ local function miscTable()
 				guiInline = true,
 				name = L['iLevel'],
 				get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):UpdateItemLevel() end,
+				set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; BUI:GetModule('iLevel'):UpdateItemLevel() end,
 				args = {
 					enable = {
 						order = 1,
@@ -115,7 +114,7 @@ local function miscTable()
 						},
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 						get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):UpdateItemLevelPosition() end,
+						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; BUI:GetModule('iLevel'):UpdateItemLevelPosition() end,
 					},
 				},
 			},

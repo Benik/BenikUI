@@ -1,8 +1,8 @@
-local E, _, V, P, G = unpack(ElvUI);
+local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-local BUI = E:GetModule('BenikUI');
+
 local LO = E:GetModule('Layout');
-local BL = E:GetModule('BuiLayout')
+local BL = BUI:GetModule('Layout')
 
 if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert

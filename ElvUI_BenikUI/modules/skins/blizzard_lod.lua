@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI)
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
-local BUI = E:GetModule("BenikUI")
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -917,11 +916,5 @@ local function style_UIWidgets()
 	 then
 		return
 	end
-
-	-- Used for Currency Fonts (Warfront only?)
-	--[[hooksecurefunc(UIWidgetBaseCurrencyTemplateMixin, "SetFontColor", function(self)
-		self.Text:SetTextColor(1, 1, 1)
-		self.LeadingText:SetTextColor(1, 1, 1)
-	end)]]
 end
 S:AddCallbackForAddon("Blizzard_UIWidgets", "BenikUI_UIWidgets", style_UIWidgets)

@@ -1,7 +1,7 @@
-local E, L, V, P, G = unpack(ElvUI);
-local UFB = E:GetModule('BuiUnits');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BU = BUI:GetModule('Units');
 
-function UFB:Configure_TargetGlow(frame)
+function BU:Configure_TargetGlow(frame)
 	local SHADOW_SPACING = frame.SHADOW_SPACING
 	local tGlow = frame.TargetGlow
 	tGlow:ClearAllPoints()

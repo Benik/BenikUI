@@ -1,6 +1,5 @@
-local E, _, V, P, G = unpack(ElvUI);
+local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-local BUI = E:GetModule('BenikUI');
 
 if E.db.benikui == nil then E.db.benikui = {} end
 local format = string.format
@@ -17,7 +16,7 @@ local DONATORS = {
 	'Hilderic',
 	'Kevinrc',
 	'Merathilis',
-	'Sumidian',
+	'Sumidian (twice!)',
 	'Justin',
 	'Scott C.',
 	'Edward F.',
@@ -26,7 +25,6 @@ local DONATORS = {
 	'Ara M.',
 	'CHRONiC',
 	'Tlareg',
-	'Sumidian',
 	'Nizz',
 	'CremeEgg',
 	'Louis S.',
@@ -37,6 +35,8 @@ local DONATORS = {
 	'Valentina K.',
 	'Max T.',
 	'Kevin G.',
+	'Ahmed A.',
+	'Christopher S-C.',
 }
 tsort(DONATORS, function(a, b) return a < b end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -276,7 +276,7 @@ local function Core()
 								},
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
+								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; BUI:GetModule('Actionbars'):ColorBackdrops(); end,
 							},
 							customAbStyleColor = {
 								order = 2,
@@ -292,7 +292,7 @@ local function Core()
 									E.db.benikui.colors[ info[#info] ] = {}
 									local t = E.db.benikui.colors[ info[#info] ]
 									t.r, t.g, t.b, t.a = r, g, b, a
-									E:GetModule('BuiActionbars'):ColorBackdrops();
+									BUI:GetModule('Actionbars'):ColorBackdrops();
 								end,
 							},
 							abAlpha = {
@@ -302,7 +302,7 @@ local function Core()
 								min = 0, max = 1, step = 0.05,
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
+								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; BUI:GetModule('Actionbars'):ColorBackdrops(); end,
 							},
 						},
 					},

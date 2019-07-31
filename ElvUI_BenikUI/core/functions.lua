@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local LSM = LibStub('LibSharedMedia-3.0')
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local LSM = E.LSM
 
 local CreateFrame = CreateFrame
 local getmetatable = getmetatable

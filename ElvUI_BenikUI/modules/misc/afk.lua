@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local BUI, E, L, V, P, G = unpack(select(2, ...)) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local AFK = E:GetModule('AFK')
-local BUI = E:GetModule('BenikUI');
 
 local format, random, lower, tonumber, date, floor = string.format, random, string.lower, tonumber, date, floor
 
@@ -318,7 +317,7 @@ local function Initialize()
 	AFK.AFKMode.top.anim.height = AFK.AFKMode.top.anim:CreateAnimation("Height")
 	AFK.AFKMode.top.anim.height:SetChange(GetScreenHeight() * (1 / 20))
 	AFK.AFKMode.top.anim.height:SetDuration(1)
-	AFK.AFKMode.top.anim.height:SetSmoothing("Bounce")
+	AFK.AFKMode.top.anim.height:SetEasing("Bounce")
 
 	-- move the chat lower
 	AFK.AFKMode.chat:ClearAllPoints()
@@ -373,7 +372,7 @@ local function Initialize()
 	AFK.AFKMode.bottom.anim.height = AFK.AFKMode.bottom.anim:CreateAnimation("Height")
 	AFK.AFKMode.bottom.anim.height:SetChange(GetScreenHeight() * (1 / 9))
 	AFK.AFKMode.bottom.anim.height:SetDuration(1)
-	AFK.AFKMode.bottom.anim.height:SetSmoothing("Bounce")
+	AFK.AFKMode.bottom.anim.height:SetEasing("Bounce")
 
 	-- Move the factiongroup sign to the center
 	AFK.AFKMode.bottom.factionb = CreateFrame('Frame', nil, AFK.AFKMode) -- need this to upper the faction logo layer
