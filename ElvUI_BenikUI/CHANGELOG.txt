@@ -1,3 +1,6 @@
+3.641
+*Fixed the install errors triggered by incorrect module calls
+
 3.64
 *Removed outdated code
 *Don't Style ElvUI Config frame when the Ace skin is disabled

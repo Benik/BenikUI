@@ -1,6 +1,6 @@
 ## Interface: 80200
 ## Author: Benik
-## Version: 3.64
+## Version: 3.641
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 11+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
