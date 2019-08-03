@@ -1,3 +1,21 @@
+3.65
+*Reverted the module changes. The incompatibilities with some addons are just overhelming. Will see it again tho.
+
+3.641
+*Fixed the install errors triggered by incorrect module calls
+
+3.64
+*Removed outdated code
+*Don't Style ElvUI Config frame when the Ace skin is disabled
+*Styled the ColorPicker frame
+*Adopted the latest LibAnim changes
+*Styled the Ace3 Tooltip
+*Moved the module init/reg to their own file
+*Removed WeakAuras Shadows, since it's not supported by AddonSkins
+*BenikUI now creates it's own modules.
+*Fix a bug that can show up when ElvUI bags are disabled. (Credits Nihilistic)
+*Updated donor list. Thank you Ahmed and Christopher <3
+
 3.63
 *Fixed detached portrait transparency.
 *Updated donor list. Thank you Max and Kevin
