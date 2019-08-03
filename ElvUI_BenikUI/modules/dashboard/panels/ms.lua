@@ -1,5 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local mod = E:GetModule('BuiDashboards');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('BuiDashboards');
 
 local LastUpdate = 1
 local select = select
@@ -41,7 +41,10 @@ function mod:CreateMs()
 	end)
 
 	boardName.Status:SetScript('OnUpdate', function(self, elapsed)
-		LastUpdate = LastUpdate - elapsed
+		if LastUpdate > 0 then
+			LastUpdate = LastUpdate - elapsed
+			return
+		end
 
 		if(LastUpdate < 0) then
 			self:SetMinMaxValues(0, 200)

@@ -1,7 +1,6 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local mod = E:NewModule('BuiDashboards', 'AceEvent-3.0', 'AceHook-3.0')
-local LSM = LibStub('LibSharedMedia-3.0')
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:NewModule('BuiDashboards', 'AceEvent-3.0', 'AceHook-3.0')
+local LSM = E.LSM
 local DT = E:GetModule('DataTexts')
 
 local CreateFrame = CreateFrame
@@ -118,10 +117,10 @@ function mod:CreateDashboardHolder(holderName, option)
 	return holder
 end
 
-function mod:CreateDashboard(name, barHolder)
+function mod:CreateDashboard(name, barHolder, option)
 	local bar = CreateFrame('Button', nil, barHolder)
 	bar:Height(DASH_HEIGHT)
-	bar:Width(150)
+	bar:Width(E.db.dashboards[option].width or 150)
 	bar:Point('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
 	bar:EnableMouse(true)
 
@@ -147,11 +146,7 @@ function mod:CreateDashboard(name, barHolder)
 
 	bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
 	bar.Text:FontTemplate()
-	if hasIcon then
-		bar.Text:Point('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
-	else
-		bar.Text:Point('LEFT', bar, 'LEFT', 6, (E.PixelMode and 2 or 3))
-	end
+	bar.Text:Point('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
 	bar.Text:Width(bar:GetWidth() - 20)
 	bar.Text:SetWordWrap(false)
 
@@ -173,8 +168,4 @@ function mod:Initialize()
 	mod:LoadTokens()
 end
 
-local function InitializeCallback()
-	mod:Initialize()
-end
-
-E:RegisterModule(mod:GetName(), InitializeCallback)
+BUI:RegisterModule(mod:GetName())

@@ -1,26 +1,29 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local BAB = E:GetModule('BuiActionbars');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('Actionbars');
 
 local _G = _G
 local unpack = unpack
 local GameTooltip = _G["GameTooltip"]
 local CreateFrame = CreateFrame
-local UnitOnTaxi, GetCurrentMapAreaID = UnitOnTaxi, GetCurrentMapAreaID
+local UnitOnTaxi = UnitOnTaxi
+local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION = TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION
 
 -- GLOBALS: selectioncolor, GameTooltip_Hide, CreateAnimationGroup, BuiTaxiButton, LeaveVehicleButton
 
 local noFlightMapIDs = {
-	1171,
-	1170,
-	1135,
+	-- Antoran Wastes (Legion)
+	830, -- Krokuun
+	831,
+	882, -- Mac'Aree
+	885, -- Antoran Wastes
+	887, -- The Vindicaar
 }
 
 function BUI:CheckFlightMapID()
 	for _, id in pairs (noFlightMapIDs) do
-		local noFlightMapIDs = GetCurrentMapAreaID()
+		local noFlightMapIDs = C_Map_GetBestMapForUnit("player")
 		if id == noFlightMapIDs then return true end
 	end
 end
@@ -98,7 +101,7 @@ end
 local fly_icon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow.tga'
 
 -- TaxiButton
-function BAB:TaxiButton()
+function mod:TaxiButton()
 	if not E.db.benikui.actionbars.requestStop then return end
 
 	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent)
@@ -138,9 +141,9 @@ function BAB:TaxiButton()
 
 	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
 
-	E:CreateMover(BuiTaxiButton, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS');
+	E:CreateMover(BuiTaxiButton, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS,BenikUI', nil, 'benikui,actionbars')
 end
 
-function BAB:LoadRequestButton()
-	--self:TaxiButton()
+function mod:LoadRequestButton()
+	self:TaxiButton()
 end

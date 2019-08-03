@@ -1,5 +1,5 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
+local BUI, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 
 local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack
@@ -8,7 +8,6 @@ local IsAddOnLoaded = IsAddOnLoaded
 local ADDONS = ADDONS
 
 local DecorElvUIAddons = {
-	{'ElvUI_LocLite', L['LocationLite'], 'loclite'},
 	{'ElvUI_LocPlus', L['LocationPlus'], 'locplus'},
 	{'ElvUI_SLE', L['Shadow & Light'], 'sle'},
 	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
@@ -16,7 +15,6 @@ local DecorElvUIAddons = {
 }
 
 local DecorAddons = {
-	{'RareCoordinator', L['Rare Coordinator'], 'rc'},
 	{'Skada', L['Skada'], 'skada'},
 	{'Recount', L['Recount'], 'recount'},
 	{'TinyDPS', L['TinyDPS'], 'tinydps'},
@@ -27,6 +25,9 @@ local DecorAddons = {
 	{'Pawn', L['Pawn'], 'pawn'},
 	{'DBM-Core', L['Deadly Boss Mods'], 'dbm'},
 	{'BigWigs', L['BigWigs'], 'bigwigs'},
+	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
+	{'Immersion', L['Immersion'], 'immersion'},
+	{'AdiBags', L['AdiBags'], 'adibags'},
 }
 
 local SupportedProfiles = {
@@ -35,21 +36,23 @@ local SupportedProfiles = {
 	{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
 	{'ElvUI_VisualAuraTimers', 'ElvUI VisualAuraTimers'},
-	{'ElvUI_LocLite', 'Location Lite'},
 	{'ElvUI_LocPlus', 'Location Plus'},
 	{'InFlight_Load', 'InFlight'},
 	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
 	{'Pawn', 'Pawn'},
 	{'Recount', 'Recount'},
 	{'Skada', 'Skada'},
+	{'ProjectAzilroka', 'Project Azilroka'},
 }
 
-local profileString = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:'])
-local smb = L['Square Minimap Buttons']
-local stAM = L['stAddOnManager']
+BUI.profileStrings = {
+	[1] = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:']),
+	[2] = format('|cfffff400%s |r', L[': Profile for this character already exists. Aborting.']),
+}
+
+local pa = L['Project Azilroka']
 
 local function SkinTable()
-	if E.db.benikui.general.benikuiStyle ~= true then return end
 	E.Options.args.benikui.args.skins = {
 		order = 40,
 		type = 'group',
@@ -87,26 +90,17 @@ local function SkinTable()
 			type = 'toggle',
 			name = addonString,
 			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
-			disabled = function() return not IsAddOnLoaded(addonName) end,
+			disabled = function() return not IsAddOnLoaded(addonName) or not E.db.benikui.general.benikuiStyle end,
 		}
 	end
 
-	-- New SquareMinimapButtons
-	E.Options.args.benikui.args.skins.args.elvuiaddons.args.smb = {
+	-- Project Azilroka
+	E.Options.args.benikui.args.skins.args.elvuiaddons.args.pa = {
 		order = elvorder + 1,
 		type = 'toggle',
-		name = smb,
-		desc = format('%s '..smb..' %s', L['Enable/Disable'], L['decor.']),
-		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['SMB']) end,
-	}
-	
-	-- stAddonManager
-	E.Options.args.benikui.args.skins.args.elvuiaddons.args.stam = {
-		order = elvorder + 1,
-		type = 'toggle',
-		name = stAM,
-		desc = format('%s '..stAM..' %s', L['Enable/Disable'], L['decor.']),
-		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['stAM']) end,
+		name = pa,
+		desc = format('%s '..pa..' %s', L['Enable/Disable'], L['decor.']),
+		disabled = function() return not (BUI.PA) or not E.db.benikui.general.benikuiStyle end,
 	}
 
 	E.Options.args.benikui.args.skins.args.addonskins = {
@@ -128,7 +122,7 @@ local function SkinTable()
 			type = 'toggle',
 			name = addonString,
 			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
-			disabled = function() return not (BUI.AS and IsAddOnLoaded(addonName)) end,
+			disabled = function() return not (BUI.AS and IsAddOnLoaded(addonName)) or not E.db.benikui.general.benikuiStyle end,
 		}
 	end
 
@@ -157,6 +151,19 @@ local function SkinTable()
 				name = L['Storyline'],
 				disabled = function() return not IsAddOnLoaded('Storyline') end,
 			},
+			inflight = {
+				order = 4,
+				type = 'toggle',
+				name = L['InFlight'],
+				set = function(info, value) E.db.benikuiSkins.variousSkins[ info[#info] ] = value;
+					if E.db.benikuiSkins.variousSkins.inflight then
+						BUI:LoadInFlightProfile(true)
+					else
+						BUI:LoadInFlightProfile(false)
+					end
+					E:StaticPopup_Show('PRIVATE_RL') end,
+				disabled = function() return not IsAddOnLoaded('InFlight_Load') end,
+			},
 		},
 	}
 
@@ -183,18 +190,16 @@ local function SkinTable()
 					BUI:LoadDBMProfile()
 				elseif addon == 'BigWigs' then
 					BUI:LoadBigWigsProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
 				elseif addon == 'InFlight_Load'then
-					BUI:LoadInFlightProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
-				elseif addon == 'ElvUI_LocLite' then
-					BUI:LoadLocationLiteProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
+					if E.db.benikuiSkins.variousSkins.inflight then
+						BUI:LoadInFlightProfile(true)
+					else
+						BUI:LoadInFlightProfile(false)
+					end
 				elseif addon == 'ElvUI_LocPlus' then
 					BUI:LoadLocationPlusProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'MikScrollingBattleText' then
 					BUI:LoadMSBTProfile()
 				elseif addon == 'Pawn' then
@@ -205,46 +210,16 @@ local function SkinTable()
 					BUI:LoadSkadaProfile()
 				elseif addon == 'ElvUI_VisualAuraTimers' then
 					BUI:LoadVATProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'AddOnSkins' then
 					BUI:LoadAddOnSkinsProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'ProjectAzilroka' then
+					BUI:LoadPAProfile()
 				end
-				print(profileString..addonName)
+				E:StaticPopup_Show('PRIVATE_RL')
 			end,
 			disabled = function() return not IsAddOnLoaded(addon) end,
 		}
 	end
-
-	-- New SquareMinimapButtons from ProjectAzilroka
-	E.Options.args.benikui.args.skins.args.profiles.args.SquareMinimapButtons = {
-		order = optionOrder + 1,
-		type = 'execute',
-		name = smb,
-		desc = L['This will create and apply profile for ']..smb,
-		buttonElvUI = true,
-		func = function()
-			BUI:LoadSMBProfile()
-			E:StaticPopup_Show('PRIVATE_RL')
-			print(profileString..smb)
-		end,
-		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['SMB']) end,
-	}
-
-	-- New stAddOnManager from ProjectAzilroka
-	E.Options.args.benikui.args.skins.args.profiles.args.stAddOnManager = {
-		order = optionOrder + 1,
-		type = 'execute',
-		name = stAM,
-		desc = L['This will create and apply profile for ']..stAM,
-		buttonElvUI = true,
-		func = function()
-			BUI:LoadStamProfile()
-			E:StaticPopup_Show('PRIVATE_RL')
-			print(profileString..stAM)
-		end,
-		disabled = function() return not (BUI.PA and _G.ProjectAzilroka.db['stAM']) end,
-	}
 end
 
 tinsert(BUI.Config, SkinTable)

@@ -1,10 +1,9 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUIL = E:NewModule('BuiLayout', 'AceHook-3.0', 'AceEvent-3.0');
-local BUI = E:GetModule('BenikUI');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:NewModule('Layout', 'AceHook-3.0', 'AceEvent-3.0');
 local LO = E:GetModule('Layout');
 local DT = E:GetModule('DataTexts')
 local M = E:GetModule('Minimap');
-local LSM = LibStub('LibSharedMedia-3.0')
+local LSM = E.LSM
 
 local _G = _G
 local unpack = unpack
@@ -39,7 +38,7 @@ local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
 local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
 local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
 
-local function RegBuiDataTexts()
+local function RegDataTexts()
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiMiddleDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
@@ -82,7 +81,7 @@ end
 
 local bbuttons = {}
 
-function BUIL:ToggleBuiDts()
+function mod:ToggleBuiDts()
 	if not E.db.benikui.datatexts.chat.enable or E.db.datatexts.leftChatPanel then
 		BuiLeftChatDTPanel:Hide()
 		for i = 3, 4 do
@@ -108,20 +107,27 @@ function BUIL:ToggleBuiDts()
 	end
 end
 
-function BUIL:ResizeMinimapPanels()
+function mod:ResizeMinimapPanels()
 	LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
 	LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
 	RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
 	RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
 end
 
-function BUIL:ToggleTransparency()
+function mod:ToggleTransparency()
 	local db = E.db.benikui.datatexts.chat
 	if not db.backdrop then
 		Bui_ldtp:SetTemplate('NoBackdrop')
 		Bui_rdtp:SetTemplate('NoBackdrop')
 		for i = 1, BUTTON_NUM do
 			bbuttons[i]:SetTemplate('NoBackdrop')
+			if BUI.ShadowMode then
+				bbuttons[i].shadow:Hide()
+			end
+		end
+		if BUI.ShadowMode then
+			Bui_ldtp.shadow:Hide()
+			Bui_rdtp.shadow:Hide()
 		end
 	else
 		if db.transparent then
@@ -137,10 +143,17 @@ function BUIL:ToggleTransparency()
 				bbuttons[i]:SetTemplate('Default', true)
 			end
 		end
+		if BUI.ShadowMode then
+			Bui_ldtp.shadow:Show()
+			Bui_rdtp.shadow:Show()
+			for i = 1, BUTTON_NUM do
+				bbuttons[i].shadow:Show()
+			end
+		end
 	end
 end
 
-function BUIL:MiddleDatatextLayout()
+function mod:MiddleDatatextLayout()
 	local db = E.db.benikui.datatexts.middle
 
 	if db.enable then
@@ -151,11 +164,17 @@ function BUIL:MiddleDatatextLayout()
 
 	if not db.backdrop then
 		Bui_mdtp:SetTemplate('NoBackdrop')
+		if BUI.ShadowMode then
+			Bui_mdtp.shadow:Hide()
+		end
 	else
 		if db.transparent then
 			Bui_mdtp:SetTemplate('Transparent')
 		else
 			Bui_mdtp:SetTemplate('Default', true)
+		end
+		if BUI.ShadowMode then
+			Bui_mdtp.shadow:Show()
 		end
 	end
 
@@ -168,7 +187,7 @@ function BUIL:MiddleDatatextLayout()
 	end
 end
 
-function BUIL:ChatStyles()
+function mod:ChatStyles()
 	if not E.db.benikui.general.benikuiStyle then return end
 	if E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH' then
 		Bui_rdtp.style:Show()
@@ -185,7 +204,7 @@ function BUIL:ChatStyles()
 	end
 end
 
-function BUIL:MiddleDatatextDimensions()
+function mod:MiddleDatatextDimensions()
 	local db = E.db.benikui.datatexts.middle
 	Bui_mdtp:Width(db.width)
 	Bui_mdtp:Height(db.height)
@@ -205,7 +224,7 @@ local function Panel_OnShow(self)
 	self:SetFrameLevel(0)
 end
 
-function BUIL:ChangeLayout()
+function mod:ChangeLayout()
 
 	LeftMiniPanel:Height(PANEL_HEIGHT)
 	RightMiniPanel:Height(PANEL_HEIGHT)
@@ -229,7 +248,7 @@ function BUIL:ChangeLayout()
 	Bui_mdtp:Height(E.db.benikui.datatexts.middle.height or PANEL_HEIGHT)
 	Bui_mdtp:Style('Outside', nil, false, true)
 
-	E:CreateMover(Bui_mdtp, "BuiMiddleDtMover", L['BenikUI Middle DataText'])
+	E:CreateMover(Bui_mdtp, "BuiMiddleDtMover", L['BenikUI Middle DataText'], nil, nil, nil, 'ALL,BenikUI', nil, 'benikui,datatexts')
 
 	-- dummy frame for chat/threat (left)
 	Bui_dchat:SetFrameStrata('LOW')
@@ -265,11 +284,11 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(L['LeftClick: Toggle Configuration'], selectioncolor)
+				GameTooltip:AddLine(L['LeftClick: Toggle Configuration'], 0.7, 0.7, 1)
 				if BUI.AS then
-					GameTooltip:AddLine(L['RightClick: Toggle Embedded Addon'], selectioncolor)
+					GameTooltip:AddLine(L['RightClick: Toggle Embedded Addon'], 0.7, 0.7, 1)
 				end
-				GameTooltip:AddLine(L['ShiftClick to toggle chat'], selectioncolor)
+				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
@@ -282,7 +301,7 @@ function BUIL:ChangeLayout()
 					self.text:SetText('C')
 					self:SetScript('OnClick', function(self, btn)
 						if btn == 'LeftButton' then
-							E:ToggleConfig()
+							E:ToggleOptionsUI()
 						else
 							if BUI.AS then
 								local AS = unpack(AddOnSkins) or nil
@@ -329,7 +348,7 @@ function BUIL:ChangeLayout()
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(MAINMENU_BUTTON, selectioncolor)
 				GameTooltip:Show()
-				if InCombatLockdown() or BuiGameClickMenu:IsShown() then GameTooltip:Hide() end
+				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
@@ -354,12 +373,11 @@ function BUIL:ChangeLayout()
 				else
 					self:SetScript('OnClick', function(self)
 						GameMenuButtonAddons:Click()
-						PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 					end)
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 64, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(ADDONS, selectioncolor)
+				GameTooltip:AddLine(L['Click to show the Addon List'], 0.7, 0.7, 1)
 				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
@@ -377,18 +395,26 @@ function BUIL:ChangeLayout()
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i].text:SetText('L')
 
-			bbuttons[i]:SetScript('OnClick', function(self)
-				PVEFrame_ToggleFrame()
+			bbuttons[i]:SetScript('OnClick', function(self, btn)
+				if btn == "LeftButton" then
+					PVEFrame_ToggleFrame()
+				elseif btn == "RightButton" then
+					if not IsAddOnLoaded('Blizzard_EncounterJournal') then
+						EncounterJournal_LoadUI();
+					end
+					ToggleFrame(EncounterJournal)
+				end
 				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 			end)
-
+			
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
 				end
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(LFG_TITLE, selectioncolor)
+				GameTooltip:AddDoubleLine(L['Click :'], LFG_TITLE, 0.7, 0.7, 1)
+				GameTooltip:AddDoubleLine(L['RightClick :'], ADVENTURE_JOURNAL, 0.7, 0.7, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
@@ -399,6 +425,11 @@ function BUIL:ChangeLayout()
 			end)
 		end
 	end
+	
+	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
+	ElvUI_BottomPanel:SetFrameLevel(0)
+	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
+	ElvUI_TopPanel:SetFrameLevel(0)
 
 	LeftChatPanel.backdrop:Style('Outside', 'LeftChatPanel_Bui') -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
 	RightChatPanel.backdrop:Style('Outside', 'RightChatPanel_Bui')
@@ -417,63 +448,8 @@ function BUIL:ChangeLayout()
 
 	if CopyChatFrame then CopyChatFrame:Style('Outside') end
 
-	ElvUI_BottomPanel:Style('Outside')
-	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
-	if ElvUI_BottomPanel.style then
-		ElvUI_BottomPanel.style:Hide()
-	end
-	Panel_OnShow(ElvUI_BottomPanel)
-
-	ElvUI_TopPanel:Style('Under')
-	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
-	if ElvUI_TopPanel.style then
-		ElvUI_TopPanel.style:Hide()
-	end
-	Panel_OnShow(ElvUI_TopPanel)
-
 	self:ResizeMinimapPanels()
 	self:ToggleTransparency()
-end
-
-function BUIL:TopPanelLayout()
-	local db = E.db.benikui.misc.panels.top
-
-	if E.db.benikui.general.benikuiStyle then
-		if db.style then
-			ElvUI_TopPanel.style:Show()
-		else
-			ElvUI_TopPanel.style:Hide()
-		end
-	end
-
-	if db.transparency then
-		ElvUI_TopPanel:SetTemplate('Transparent')
-	else
-		ElvUI_TopPanel:SetTemplate('Default')
-	end
-
-	ElvUI_TopPanel:Height(db.height)
-
-end
-
-function BUIL:BottomPanelLayout()
-	local db = E.db.benikui.misc.panels.bottom
-
-	if E.db.benikui.general.benikuiStyle then
-		if db.style then
-			ElvUI_BottomPanel.style:Show()
-		else
-			ElvUI_BottomPanel.style:Hide()
-		end
-	end
-
-	if db.transparency then
-		ElvUI_BottomPanel:SetTemplate('Transparent')
-	else
-		ElvUI_BottomPanel:SetTemplate('Default')
-	end
-
-	ElvUI_BottomPanel:Height(db.height)
 end
 
 -- Add minimap styling option in ElvUI minimap options
@@ -484,12 +460,12 @@ local function InjectMinimapOption()
 		name = BUI:cOption(L['BenikUI Style']),
 		disabled = function() return not E.private.general.minimap.enable or not E.db.benikui.general.benikuiStyle end,
 		get = function(info) return E.db.general.minimap.benikuiStyle end,
-		set = function(info, value) E.db.general.minimap.benikuiStyle = value; BUIL:ToggleMinimapStyle(); end,
+		set = function(info, value) E.db.general.minimap.benikuiStyle = value; mod:ToggleMinimapStyle(); end,
 	}
 end
 tinsert(BUI.Config, InjectMinimapOption)
 
-function BUIL:ToggleMinimapStyle()
+function mod:ToggleMinimapStyle()
 	if E.private.general.minimap.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 	if E.db.general.minimap.benikuiStyle then
 		Minimap.backdrop.style:Show()
@@ -498,37 +474,31 @@ function BUIL:ToggleMinimapStyle()
 	end
 end
 
-function BUIL:regEvents()
+function mod:regEvents()
 	self:MiddleDatatextLayout()
 	self:MiddleDatatextDimensions()
 	self:ToggleTransparency()
 end
 
-function BUIL:PLAYER_ENTERING_WORLD(...)
+function mod:PLAYER_ENTERING_WORLD(...)
 	self:ToggleBuiDts()
 	self:regEvents()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function BUIL:Initialize()
-	RegBuiDataTexts()
+function mod:Initialize()
+	RegDataTexts()
 	self:ChangeLayout()
 	self:ChatStyles()
-	self:TopPanelLayout()
-	self:BottomPanelLayout()
 	self:ToggleMinimapStyle()
-	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ToggleBuiDts)
-	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ResizeMinimapPanels)
-	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ChatStyles)
-	hooksecurefunc(M, 'UpdateSettings', BUIL.ResizeMinimapPanels)
+	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
+	hooksecurefunc(LO, 'ToggleChatPanels', mod.ResizeMinimapPanels)
+	hooksecurefunc(LO, 'ToggleChatPanels', mod.ChatStyles)
+	hooksecurefunc(M, 'UpdateSettings', mod.ResizeMinimapPanels)
 	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
 	hooksecurefunc(E, 'UpdateMedia', updateButtonFont)
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
 end
 
-local function InitializeCallback()
-	BUIL:Initialize()
-end
-
-E:RegisterModule(BUIL:GetName(), InitializeCallback)
+BUI:RegisterModule(mod:GetName())

@@ -1,17 +1,16 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
-local UFB = E:GetModule('BuiUnits');
+local BU = BUI:GetModule('Units');
 
 --Replace ElvUI AuraBars creation. Don't want to create shadows on PostUpdate
-function UFB:Create_AuraBarsWithShadow()
+function BU:Create_AuraBarsWithShadow()
 	local bar = self.statusBar
 
 	self:SetTemplate('Default', nil, nil, UF.thinBorders, true)
 	self:CreateSoftShadow()
 	local inset = UF.thinBorders and E.mult or nil
 	bar:SetInside(self, inset, inset)
-	UF['statusbars'][bar] = true
+	UF.statusbars[bar] = true
 	UF:Update_StatusBar(bar)
 
 	UF:Configure_FontString(bar.spelltime)
@@ -24,14 +23,13 @@ function UFB:Create_AuraBarsWithShadow()
 	bar.spellname:Point('RIGHT', bar.spelltime, 'LEFT', -4, 0)
 	bar.spellname:SetWordWrap(false)
 
-	bar.iconHolder:SetTemplate('Default', nil, nil, UF.thinBorders, true)
+	bar.iconHolder:SetTemplate(nil, nil, nil, UF.thinBorders, true)
 	bar.iconHolder:CreateSoftShadow()
-	bar.iconHolder:SetPoint('BOTTOMRIGHT', self, 'BOTTOMLEFT', -2, 0) -- Move the icon a bit to the left
 	bar.icon:SetInside(bar.iconHolder, inset, inset)
 	bar.icon:SetDrawLayer('OVERLAY')
 
 	bar.bg = bar:CreateTexture(nil, 'BORDER')
-	bar.bg:Hide()
+	bar.bg:Show()
 
 	bar.iconHolder:RegisterForClicks('RightButtonUp')
 	bar.iconHolder:SetScript('OnClick', function(self)
@@ -40,20 +38,19 @@ function UFB:Create_AuraBarsWithShadow()
 
 		if auraName then
 			E:Print(format(L["The spell '%s' has been added to the Blacklist unitframe aura filter."], auraName))
-			E.global['unitframe']['aurafilters']['Blacklist']['spells'][auraName] = {
-				['enable'] = true,
-				['priority'] = 0,
-			}
+			E.global.unitframe.aurafilters.Blacklist.spells[auraName] = { enable = true, priority = 0 }
 			UF:Update_AllFrames()
 		end
 	end)
 end
 
-function UFB:Configure_AuraBars(frame)
+function BU:Configure_AuraBars(frame)
 	if not BUI.ShadowMode then return end
 
 	if not frame.VARIABLES_SET then return end
 	local auraBars = frame.AuraBars
 
-	auraBars.PostCreateBar = UFB.Create_AuraBarsWithShadow
+	auraBars.PostCreateBar = BU.Create_AuraBarsWithShadow
+	auraBars.gap = frame.BORDER*2
+	auraBars.spacing = frame.BORDER*2
 end

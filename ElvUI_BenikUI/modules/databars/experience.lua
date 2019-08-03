@@ -1,14 +1,12 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BDB = E:GetModule('BenikUI_databars');
-local BUI = E:GetModule('BenikUI');
-local M = E:GetModule('DataBars');
-local LSM = LibStub('LibSharedMedia-3.0');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('Databars');
 local DT = E:GetModule('DataTexts');
+local M = E:GetModule('DataBars');
+local LSM = E.LSM;
+
 
 local _G = _G
 
-local CreateFrame = CreateFrame
-local GameTooltip = _G["GameTooltip"]
 local GetPetExperience = GetPetExperience
 local HideUIPanel, ShowUIPanel = HideUIPanel, ShowUIPanel
 local InCombatLockdown = InCombatLockdown
@@ -16,54 +14,14 @@ local IsXPUserDisabled = IsXPUserDisabled
 local UnitLevel = UnitLevel
 local UnitXP, UnitXPMax = UnitXP, UnitXPMax
 
-local SPELLBOOK_ABILITIES_BUTTON, MAX_PLAYER_LEVEL_TABLE = SPELLBOOK_ABILITIES_BUTTON, MAX_PLAYER_LEVEL_TABLE
-
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ExperienceBar, SpellBookFrame
 
-local SPACING = (E.PixelMode and 1 or 3)
-
-local function onLeave(self)
-	self.sglow:Hide()
-	GameTooltip:Hide()
-end
-
-local function onEnter(self)
+local function OnClick(self)
 	if self.template == 'NoBackdrop' then return end
-	self.sglow:Show()
-	GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
-	GameTooltip:ClearLines()
-	GameTooltip:AddLine(SPELLBOOK_ABILITIES_BUTTON, selectioncolor)
-	GameTooltip:Show()
-	if InCombatLockdown() then GameTooltip:Hide() end
+	if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end
 end
 
-local function StyleBar()
-	local xp = ElvUI_ExperienceBar
-
-	-- bottom decor/button
-	xp.fb = CreateFrame('Button', nil, xp)
-	xp.fb:CreateSoftGlow()
-	xp.fb.sglow:Hide()
-	if BUI.ShadowMode then
-		xp.fb:CreateSoftShadow()
-	end
-	xp.fb:Point('TOPLEFT', xp, 'BOTTOMLEFT', 0, -SPACING)
-	xp.fb:Point('BOTTOMRIGHT', xp, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
-
-	xp.fb:SetScript('OnEnter', onEnter)
-	xp.fb:SetScript('OnLeave', onLeave)
-
-	xp.fb:SetScript('OnClick', function(self)
-		if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end
-	end)
-
-	BDB:ToggleXPBackdrop()
-
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-	xp:Style('Outside', nil, false, true)
-end
-
-function BDB:ApplyXpStyling()
+function mod:ApplyXpStyling()
 	local xp = ElvUI_ExperienceBar
 	if E.db.databars.experience.enable then
 		if xp.fb then
@@ -90,21 +48,7 @@ function BDB:ApplyXpStyling()
 	end
 end
 
-function BDB:ChangeXPcolor()
-	local db = E.db.benikuiDatabars.experience.color
-	local elvxpstatus = ElvUI_ExperienceBar.statusBar
-	local elvrestedstatus = ElvUI_ExperienceBar.rested
-
-	if db.default then
-		elvxpstatus:SetStatusBarColor(0, 0.4, 1, .8)
-		elvrestedstatus:SetStatusBarColor(1, 0, 1, 0.2)
-	else
-		elvxpstatus:SetStatusBarColor(BUI:unpackColor(db.xp))
-		elvrestedstatus:SetStatusBarColor(BUI:unpackColor(db.rested))
-	end
-end
-
-function BDB:ToggleXPBackdrop()
+function mod:ToggleXPBackdrop()
 	if E.db.benikuiDatabars.experience.enable ~= true then return end
 	local bar = ElvUI_ExperienceBar
 	local db = E.db.benikuiDatabars.experience
@@ -112,15 +56,24 @@ function BDB:ToggleXPBackdrop()
 	if bar.fb then
 		if db.buttonStyle == 'DEFAULT' then
 			bar.fb:SetTemplate('Default', true)
+			if bar.fb.shadow then
+				bar.fb.shadow:Show()
+			end
 		elseif db.buttonStyle == 'TRANSPARENT' then
 			bar.fb:SetTemplate('Transparent')
+			if bar.fb.shadow then
+				bar.fb.shadow:Show()
+			end
 		else
 			bar.fb:SetTemplate('NoBackdrop')
+			if bar.fb.shadow then
+				bar.fb.shadow:Hide()
+			end
 		end
 	end
 end
 
-function BDB:UpdateXpNotifierPositions()
+function mod:UpdateXpNotifierPositions()
 	local bar = ElvUI_ExperienceBar.statusBar
 
 	local db = E.db.benikuiDatabars.experience.notifiers
@@ -160,7 +113,7 @@ function BDB:UpdateXpNotifierPositions()
 	end
 end
 
-function BDB:GetXP(unit)
+function mod:GetXP(unit)
 	if(unit == 'pet') then
 		return GetPetExperience()
 	else
@@ -168,52 +121,47 @@ function BDB:GetXP(unit)
 	end
 end
 
-function BDB:UpdateXpNotifier()
+function mod:UpdateXpNotifier()
 	local bar = ElvUI_ExperienceBar.statusBar
-	local maxLevel = MAX_PLAYER_LEVEL_TABLE[GetExpansionLevel()];
-	if(UnitLevel('player') == maxLevel) or IsXPUserDisabled() or E.db.databars.experience.orientation ~= 'VERTICAL' then
+
+	if E.db.databars.experience.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
 		bar.f:Show()
-		local cur, max = BDB:GetXP('player')
+		local cur, max = mod:GetXP('player')
 		if max == 0 then max = 1 end
 		bar.f.txt:SetFormattedText('%d%%', cur / max * 100)
 	end
 end
 
-function BDB:XpTextOffset()
+function mod:XpTextOffset()
 	local text = ElvUI_ExperienceBar.text
-	text:Point('CENTER', 0, E.db.databars.experience.textYoffset)
+	text:Point('CENTER', 0, E.db.databars.experience.textYoffset or 0)
 end
 
-function BDB:LoadXP()
+function mod:LoadXP()
 	local bar = ElvUI_ExperienceBar
-	self:ChangeXPcolor()
+
 	self:XpTextOffset()
-	hooksecurefunc(M, 'UpdateExperience', BDB.ChangeXPcolor)
-	hooksecurefunc(M, 'UpdateExperience', BDB.XpTextOffset)
+	hooksecurefunc(M, 'UpdateExperience', mod.XpTextOffset)
 
 	local db = E.db.benikuiDatabars.experience.notifiers
 
-	if db.enable and E.db.databars.experience.orientation == 'VERTICAL' then
+	if db.enable then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateXpNotifierPositions()
 		self:UpdateXpNotifier()
-		hooksecurefunc(M, 'UpdateExperience', BDB.UpdateXpNotifier)
-		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateXpNotifierPositions)
-		hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.UpdateXpNotifierPositions)
-	end
-
-	if BUI.ShadowMode then
-		if not bar.style then
-			bar:CreateSoftShadow()
-		end
+		hooksecurefunc(M, 'UpdateExperience', mod.UpdateXpNotifier)
+		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateXpNotifierPositions)
+		hooksecurefunc(M, 'UpdateExperienceDimensions', mod.UpdateXpNotifierPositions)
+		hooksecurefunc(M, 'UpdateExperienceDimensions', mod.UpdateXpNotifier)
 	end
 
 	if E.db.benikuiDatabars.experience.enable ~= true then return end
 
-	StyleBar()
+	self:StyleBar(bar, OnClick)
+	self:ToggleXPBackdrop()
 	self:ApplyXpStyling()
 
-	hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.ApplyXpStyling)
+	hooksecurefunc(M, 'UpdateExperienceDimensions', mod.ApplyXpStyling)
 end

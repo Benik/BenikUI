@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local mod = E:GetModule('BuiDashboards');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('BuiDashboards');
 local DT = E:GetModule('DataTexts');
 
 local getn = getn
@@ -20,8 +19,6 @@ local DASH_SPACING = 3
 local SPACING = 1
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
-local capRank = 800
 
 local function sortFunction(a, b)
 	return a.name < b.name
@@ -57,15 +54,15 @@ function mod:UpdateProfessions()
 		end
 	end)
 
-	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
+	local prof1, prof2, archy, fishing, cooking = GetProfessions()
 
-	if (prof1 or prof2 or archy or fishing or cooking or firstAid) then
+	if (prof1 or prof2 or archy or fishing or cooking) then
 		local proftable = { GetProfessions() }
 
 		for _, id in pairs(proftable) do
 			local name, icon, rank, maxRank, _, _, skillLine, rankModifier = GetProfessionInfo(id)
 
-			if name and (rank < capRank or (not db.capped)) then
+			if name and (rank < maxRank or (not db.capped)) then
 				if E.private.dashboards.professions.choosePofessions[id] == true then
 					holder:Show()
 					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
@@ -74,7 +71,7 @@ function mod:UpdateProfessions()
 						holder:Point('TOPLEFT', ProfessionsMover, 'TOPLEFT')
 					end
 
-					self.ProFrame = self:CreateDashboard(nil, holder)
+					self.ProFrame = self:CreateDashboard(nil, holder, 'professions')
 
 					self.ProFrame:SetScript('OnEnter', function(self)
 						self.Text:SetFormattedText('%s', name)
@@ -95,16 +92,16 @@ function mod:UpdateProfessions()
 					end)
 
 					self.ProFrame:SetScript('OnClick', function(self)
-						if name ~= PROFESSIONS_FISHING then
-							if skillLine == 186 then
-								CastSpellByID(2656) -- mining skills
-							elseif skillLine == 182 then
-								CastSpellByID(193290) -- herbalism skills
-							elseif skillLine == 393 then
-								CastSpellByID(194174) -- skinning skills
-							else
-								CastSpellByName(name)
-							end
+						if skillLine == 186 then
+							CastSpellByID(2656) -- mining skills
+						elseif skillLine == 182 then
+							CastSpellByID(193290) -- herbalism skills
+						elseif skillLine == 393 then
+							CastSpellByID(194174) -- skinning skills
+						elseif skillLine == 356 then
+							CastSpellByID(271990) -- fishing
+						else
+							CastSpellByName(name)
 						end
 					end)
 
@@ -135,16 +132,16 @@ function mod:UpdateProfessions()
 					end
 
 					self.ProFrame.IconBG:SetScript('OnClick', function(self)
-						if name ~= PROFESSIONS_FISHING then
-							if skillLine == 186 then
-								CastSpellByID(2656) -- mining skills
-							elseif skillLine == 182 then
-								CastSpellByID(193290) -- herbalism skills
-							elseif skillLine == 393 then
-								CastSpellByID(194174) -- skinning skills
-							else
-								CastSpellByName(name)
-							end
+						if skillLine == 186 then
+							CastSpellByID(2656) -- mining skills
+						elseif skillLine == 182 then
+							CastSpellByID(193290) -- herbalism skills
+						elseif skillLine == 393 then
+							CastSpellByID(194174) -- skinning skills
+						elseif skillLine == 356 then
+							CastSpellByID(271990) -- fishing
+						else
+							CastSpellByName(name)
 						end
 					end)
 
@@ -200,7 +197,7 @@ function mod:CreateProfessionsDashboard()
 	mod:ToggleStyle(self.proHolder, 'professions')
 	mod:ToggleTransparency(self.proHolder, 'professions')
 
-	E:CreateMover(self.proHolder, 'ProfessionsMover', TRADE_SKILLS)
+	E:CreateMover(self.proHolder, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BenikUI', nil, 'benikui,dashboards,professions')
 end
 
 function mod:LoadProfessions()

@@ -1,5 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local mod = E:GetModule('BuiDashboards');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('BuiDashboards');
 
 local _G = _G
 local pairs, format, join = pairs, string.format, string.join

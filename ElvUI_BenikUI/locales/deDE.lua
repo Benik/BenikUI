@@ -1,7 +1,12 @@
 -- German localization file for deDE
-local AceLocale = LibStub:GetLibrary('AceLocale-3.0');
-local L = AceLocale:NewLocale('ElvUI', 'deDE');
-if not L then return; end
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
+
+-- WoW Locales
+L["CLASS_COLORS"] = "Klassenfarben";
+L["COLOR_PICKER"] = "Farbauswahl";
+L["EDIT"] = "Bearbeiten";
+L["HOME"] = "Heim"; -- Changed the Blizzard default, it would make no sense otherwise!
+L["WORLD"] = "Welt";
 
 --core
 L[' is loaded. For any issues or suggestions, please visit '] = " ist geladen. Für Fehler oder Vorschläge besucht bitte: "
@@ -25,6 +30,7 @@ L['Style Auras'] = "Aura Stil"
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
 L['RightClick: Toggle Embedded Addon'] = "Rechts Klick: Einbettung Addon umschalten"
 L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
+L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 
 -- Misc
 L['Camera rotation'] = "Kamerarotation"
@@ -80,7 +86,7 @@ L['Please click the button below to setup your chat windows.'] = "Bitte klick au
 L['Please click the button below to setup your datatexts.'] = "Bitte klick auf die Taste unten um die Infotexte einzustellen."
 L['Setup Addons'] = "Addons einstellen"
 L['Setup Layout'] = "Layout einstellen"
-L['This part of the installation process sets up your chat fonts and colors.'] = "Dieser Teil des Installationsprozesses ändert die Chatschrifart und -farbe." 
+L['This part of the installation process sets up your chat fonts and colors.'] = "Dieser Teil des Installationsprozesses ändert die Chatschrifart und -farbe."
 L['This part of the installation process will create and apply profiles for addons like Recount, DBM, ElvUI plugins, etc'] = "Dieser Teil des Installationsprozesses erstellt und wendet Profile für Addons wie Recount, DBM und andere ElvUI Plugins an"
 L['This part of the installation process will reposition your Actionbars and will enable backdrops'] = "Dieser Teil des Installationsprozesses wird die Aktionsleisten neu positionieren und wird den Hintergrund einschalten"
 L['This part of the installation will apply a Color Theme'] = "Dieser Teil der Installation wendet ein Farbschema an"
@@ -144,10 +150,8 @@ L['Use DataTexts font'] = "Benutze Infotext Schriftart"
 L['AutoTrack'] = "Automatische Verfolgung"
 L['Change the tracked Faction automatically when reputation changes'] = "Ändert automatisch die Rufverfolgung wenn sich der Ruf verändert"
 L['Notifiers'] = "Benachrichtigungen"
-L['Move to Bag bar'] = "Verschiebe zur Taschenleiste"
-L['Move the Notifier to Bag bar, when Artifact items are available'] = "Verschiebe die Notifizierung zur Taschenleiste wenn Artefaktitems benutzbar sind."
 L['Show BenikUI decorative bars on the default ElvUI XP bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Erfahrungsleiste"
-L['Show BenikUI decorative bars on the default ElvUI Artifact bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Artefaktleiste"
+L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = true
 L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Rufleiste"
 L['Show BenikUI decorative bars on the default ElvUI Honor bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Ehrenleiste"
 L['Button Backdrop'] = "Tasten Hintergrund"
@@ -162,12 +166,14 @@ L['ElvUI AddOns'] = true --No need to translate
 L['decor.'] = "dekor."
 L['This will create and apply profile for '] = "Dieses wird ein Profil erstellen und anwenden für "
 L['Profiles'] = "Profile"
+L[': Profile for this character already exists. Aborting.'] = ": ein Profil für den Charakter existiert bereits. Abgebrochen."
 
 -- UnitFrame Options
 L['Adjust castbar text Y Offset'] = "Passe Zauberleisten Text Y-Versatz an"
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
 L['Apply transparency on the portrait backdrop.'] = "Wende Transparenz auf den Portrait Hintergrund an."
 L['BenikUI Style on Portrait'] = "BenikUI Stil auf dem Portrait"
+L['Castbar Backdrop Color'] = "Zauberleisten-Hintergrund Farbe"
 L['Castbar Text'] = "Zauberleisten Text"
 L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten Portrait"
 L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten Portrait"
@@ -212,12 +218,8 @@ L['Git Ticket tracker'] = true --No need to translate
 L['Tukui.org'] = true --No need to translate
 -- Location Plus
 L['Adds player location, coords + 2 Datatexts and a tooltip with info based on player location/level.'] = "Fügt Spieler Aufenthaltsort, Koordinaten + 2 Infotexte und einen Tooltip mit Informationen basierend auf dem Aufenthaltsort/Level hinzu."
--- Location Lite
-L['Adds a location panel with coords. A LocationPlus alternative.'] = "Fügt ein Aufenthaltsort Panel mit Koordinaten hinzu. Eine LocationPlus Alternative."
--- Datatext color
-L['a plugin for ElvUI, that changes the DT text color to class color, value color or any user defined'] = "Ein PlugIn für ElvUI, welches die Farbe der Informationsleisten ändert."
--- Transparent Actionbars
-L['A small plugin that makes the actionbar backdrops and the unused buttons transparent'] = "Ein kleines Addon welches den Hintergrund der Aktionsleisten und den unbenutzen Tasten transparent macht."
+-- Nuts & Bolts
+L['ElvUI Nuts & Bolts is a compilation of my addons hosted at tukui.org/Twitch plus some features that are moved from BenikUI'] = "ElvUI Nuts & Bolt ist eine Sammlung von meinen AddOns auf tukui.org/Twitch und einigen Ergänzungen die von BenikUI waren"
 
 -- afk
 L["Jan"] = true
@@ -242,18 +244,20 @@ L["Fri"] = "Fr"
 L["Sat"] = "Sa"
 
 -- Addon friendly names (no need to translate)
+L['AdiBags'] = true
 L['Altoholic'] = true
 L['AtlasLoot'] = true
 L['Clique'] = true
+L['Details'] = true
 L['ElvUI_Enhanced'] = true
-L['LocationLite'] = true
 L['LocationPlus'] = true
-L['Rare Coordinator'] = true
 L['Recount'] = true
 L['Shadow & Light'] = true
 L['Skada'] = true
-L['Square Minimap Buttons'] = true
 L['TinyDPS'] = true
 L['oRA3'] = true
 L['Deadly Boss Mods'] = true
 L['BigWigs'] = true
+L['Zygor Guides'] = true
+L['Immersion'] = true
+L['Project Azilroka'] = true

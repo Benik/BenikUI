@@ -1,13 +1,12 @@
-local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local BUI, E, L, V, P, G = unpack(select(2, ...)) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local AFK = E:GetModule('AFK')
-local BUI = E:GetModule('BenikUI');
 
 local format, random, lower, tonumber, date, floor = string.format, random, string.lower, tonumber, date, floor
 
 local CreateFrame = CreateFrame
 local GetGameTime = GetGameTime
 local GetScreenHeight, GetScreenWidth = GetScreenHeight, GetScreenWidth
-local CalendarGetDate = CalendarGetDate
+local C_Calendar_GetDate = C_Calendar.GetDate
 local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic
 local IsXPUserDisabled = IsXPUserDisabled
@@ -17,6 +16,8 @@ local GetSpecialization = GetSpecialization
 local GetActiveSpecGroup = GetActiveSpecGroup
 local GetSpecializationInfo = GetSpecializationInfo
 local GetAverageItemLevel = GetAverageItemLevel
+local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
+local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 
 local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE
 local LEVEL, NONE = LEVEL, NONE
@@ -135,8 +136,12 @@ local daysAbr = {
 
 -- Create Date
 local function createDate()
-	local curDayName, curMonth, curDay, curYear = CalendarGetDate()
-	AFK.AFKMode.top.date:SetFormattedText("%s, %s %d, %d", daysAbr[curDayName], monthAbr[curMonth], curDay, curYear)
+	local date = C_Calendar_GetDate();
+	local presentWeekday = date.weekday;
+	local presentMonth = date.month;
+	local presentDay = date.monthDay;
+	local presentYear = date.year;
+	AFK.AFKMode.top.date:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
 end
 
 -- Create random stats
@@ -226,7 +231,9 @@ local function GetXPinfo()
 	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
 end
 
-local function SetAFK(status)
+AFK.SetAFKBui = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:SetAFKBui(status)
 	if E.db.benikui.misc.afkMode ~= true then return end
 
 	if(status) then
@@ -236,30 +243,32 @@ local function SetAFK(status)
 		local localizedClass = UnitClass('player')
 		local spec = getSpec()
 		local ilvl = getItemLevel()
-		AFK.AFKMode.top:SetHeight(0)
-		AFK.AFKMode.top.anim.height:Play()
-		AFK.AFKMode.bottom:SetHeight(0)
-		AFK.AFKMode.bottom.anim.height:Play()
-		AFK.startTime = GetTime()
-		AFK.statsTimer = AFK:ScheduleRepeatingTimer("UpdateStatMessage", 5)
-		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
+		self.AFKMode.top:SetHeight(0)
+		self.AFKMode.top.anim.height:Play()
+		self.AFKMode.bottom:SetHeight(0)
+		self.AFKMode.bottom.anim.height:Play()
+		self.startTime = GetTime()
+		self.statsTimer = self:ScheduleRepeatingTimer("UpdateStatMessage", 5)
+		self.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
 		if xptxt then
-			AFK.AFKMode.xp:Show()
-			AFK.AFKMode.xp.text:SetText(xptxt)
+			self.AFKMode.xp:Show()
+			self.AFKMode.xp.text:SetText(xptxt)
 		else
-			AFK.AFKMode.xp:Hide()
-			AFK.AFKMode.xp.text:SetText("")
+			self.AFKMode.xp:Hide()
+			self.AFKMode.xp.text:SetText("")
 		end
-		AFK.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
-	else
-		AFK:CancelTimer(AFK.statsTimer)
-		AFK:CancelTimer(AFK.logoffTimer)
+		self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
 
-		AFK.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
-		AFK.AFKMode.statMsg.info:SetFormattedText("|cffb3b3b3%s|r", L["Random Stats"])
+		self.isAFK = true
+	else
+		self:CancelTimer(self.statsTimer)
+		self:CancelTimer(self.logoffTimer)
+
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+		self.AFKMode.statMsg.info:SetFormattedText("|cffb3b3b3%s|r", L["Random Stats"])
+		self.isAFK = false
 	end
 end
-hooksecurefunc(AFK, "SetAFK", SetAFK)
 
 local find = string.find
 
@@ -308,9 +317,10 @@ local function Initialize()
 	AFK.AFKMode.top.anim.height = AFK.AFKMode.top.anim:CreateAnimation("Height")
 	AFK.AFKMode.top.anim.height:SetChange(GetScreenHeight() * (1 / 20))
 	AFK.AFKMode.top.anim.height:SetDuration(1)
-	AFK.AFKMode.top.anim.height:SetSmoothing("Bounce")
+	AFK.AFKMode.top.anim.height:SetEasing("Bounce")
 
 	-- move the chat lower
+	AFK.AFKMode.chat:ClearAllPoints()
 	AFK.AFKMode.chat:SetPoint("TOPLEFT", AFK.AFKMode.top, "BOTTOMLEFT", 4, -10)
 
 	-- WoW logo
@@ -319,7 +329,11 @@ local function Initialize()
 	AFK.AFKMode.top.wowlogo:SetFrameStrata("MEDIUM")
 	AFK.AFKMode.top.wowlogo:SetSize(300, 150)
 	AFK.AFKMode.top.wowlogo.tex = AFK.AFKMode.top.wowlogo:CreateTexture(nil, 'OVERLAY')
-	AFK.AFKMode.top.wowlogo.tex:SetAtlas("Glues-WoW-LegionLogo")
+	local currentExpansionLevel = GetClampedCurrentExpansionLevel();
+	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel);
+	if expansionDisplayInfo then
+		AFK.AFKMode.top.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
+	end
 	AFK.AFKMode.top.wowlogo.tex:SetInside()
 
 	-- Server/Local Time text
@@ -358,7 +372,7 @@ local function Initialize()
 	AFK.AFKMode.bottom.anim.height = AFK.AFKMode.bottom.anim:CreateAnimation("Height")
 	AFK.AFKMode.bottom.anim.height:SetChange(GetScreenHeight() * (1 / 9))
 	AFK.AFKMode.bottom.anim.height:SetDuration(1)
-	AFK.AFKMode.bottom.anim.height:SetSmoothing("Bounce")
+	AFK.AFKMode.bottom.anim.height:SetEasing("Bounce")
 
 	-- Move the factiongroup sign to the center
 	AFK.AFKMode.bottom.factionb = CreateFrame('Frame', nil, AFK.AFKMode) -- need this to upper the faction logo layer

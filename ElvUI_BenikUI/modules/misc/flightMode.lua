@@ -1,8 +1,7 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:NewModule('FlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
 
-local _G = _G 
+local _G = _G
 local GetTime = GetTime
 local tonumber, unpack = tonumber, unpack
 local floor = floor
@@ -13,7 +12,9 @@ local C_TimerAfter = C_Timer.After
 local CreateFrame = CreateFrame
 local UnitOnTaxi, IsAddOnLoaded = UnitOnTaxi, IsAddOnLoaded
 local MoveViewLeftStart, MoveViewLeftStop = MoveViewLeftStart, MoveViewLeftStop
-local GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetPlayerMapPosition, GetZonePVPInfo
+local GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo
+local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
+local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
 local GetScreenWidth = GetScreenWidth
 local InCombatLockdown = InCombatLockdown
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
@@ -29,7 +30,7 @@ local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
 menuFrame:CreateWideShadow()
 
-local LOCATION_WIDTH = 400
+local LOCATION_WIDTH = 399
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function AutoColoring()
@@ -52,16 +53,18 @@ local function AutoColoring()
 	end
 end
 
-function BFM:CreateCoords()
-	local x, y = GetPlayerMapPosition("player")
+function mod:CreateCoords()
+	local mapID = C_Map_GetBestMapForUnit("player")
+	local mapPos = mapID and C_Map_GetPlayerMapPosition(mapID, "player")
+	if mapPos then x, y = mapPos:GetXY() end
 
-	x = tonumber(E:Round(100 * x))
-	y = tonumber(E:Round(100 * y))
+	x = (mapPos and x) and E:Round(100 * x) or 0
+	y = (mapPos and y) and E:Round(100 * y) or 0
 
 	return x, y
 end
 
-function BFM:UpdateLocation()
+function mod:UpdateLocation()
 	local subZoneText = GetMinimapZoneText() or ""
 	local zoneText = GetRealZoneText() or UNKNOWN;
 	local displayLine
@@ -78,7 +81,7 @@ function BFM:UpdateLocation()
 	self.FlightMode.top.location.text:Width(LOCATION_WIDTH - 30)
 end
 
-function BFM:UpdateCoords()
+function mod:UpdateCoords()
 	local x, y = self.CreateCoords()
 	local xt,yt
 
@@ -102,7 +105,7 @@ function BFM:UpdateCoords()
 	end
 end
 
-function BFM:UpdateTimer()
+function mod:UpdateTimer()
 	local time = GetTime() - self.startTime
 	self.FlightMode.bottom.timeFlying.txt:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
 end
@@ -113,7 +116,7 @@ local statusColors = {
 	'|cffD80909'	-- red
 }
 
-function BFM:UpdateFps()	
+function mod:UpdateFps()
 	local value = floor(GetFramerate())
 	local fpscolor = 3
 	local max = 120
@@ -129,7 +132,31 @@ function BFM:UpdateFps()
 	self.FlightMode.bottom.fps.txt:SetFormattedText(displayFormat, value)
 end
 
-function BFM:SetFlightMode(status)
+local isInFlightLoaded = false
+
+function mod:SkinInFlight()
+	if not isInFlightLoaded then
+		if not BUI.IF then
+			LoadAddOn("InFlight") -- LOD addon
+			isInFlightLoaded = true
+		end
+	end
+
+	local frame = _G["InFlightBar"]
+	if frame then
+		if not frame.isSkinned then
+			frame:CreateBackdrop('Transparent', true, true)
+			frame.backdrop:SetOutside(frame, 2, 2)
+			frame.backdrop:SetBackdropBorderColor(.3, .3, .3, 1)
+			frame.backdrop:CreateWideShadow()
+			frame.isSkinned = true
+		end
+	end
+end
+
+local zygorVisible
+
+function mod:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
 
 	if(status) then
@@ -147,27 +174,50 @@ function BFM:SetFlightMode(status)
 		-- Bags
 		if ElvUI_ContainerFrame then
 			ElvUI_ContainerFrame:SetParent(self.FlightMode)
-			ElvUI_ContainerFrame.wideshadow:Show()
+			if ElvUI_ContainerFrame.wideshadow then
+				ElvUI_ContainerFrame.wideshadow:Show()
+			end
 			if ElvUI_ContainerFrame.shadow then
 				ElvUI_ContainerFrame.shadow:Hide()
 			end
 		end
 
 		-- Left Chat
-		BuiDummyChat:SetParent(self.FlightMode)
-		LeftChatPanel:SetParent(self.FlightMode)
-		if LeftChatPanel.backdrop.shadow then
-			LeftChatPanel.backdrop.shadow:Hide()
+		if E.private.chat.enable then
+			BuiDummyChat:SetParent(self.FlightMode)
+			LeftChatPanel:SetParent(self.FlightMode)
+			if LeftChatPanel.backdrop.shadow then
+				LeftChatPanel.backdrop.shadow:Hide()
+			end
+			LeftChatPanel.backdrop.wideshadow:Show()
+			LeftChatPanel.backdrop.wideshadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
+			LeftChatPanel:ClearAllPoints()
+			LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		end
-		LeftChatPanel.backdrop.wideshadow:Show()
-		LeftChatPanel.backdrop.wideshadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
-		LeftChatPanel:ClearAllPoints()
-		LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
-		
+
 		-- Hide SquareMinimapButtonBar
-		if (BUI.PA and _G.ProjectAzilroka.db['SMB'] and not BUI.SLE) then
-			_G.SquareMinimapButtons:CancelAllTimers()
-			SquareMinimapButtonBar:SetAlpha(0)
+		if (BUI.PA and not BUI.SLE) then
+			if SquareMinimapButtonBar then
+				_G.SquareMinimapButtons:CancelAllTimers()
+				SquareMinimapButtonBar:SetAlpha(0)
+			end
+		end
+
+		-- Hide Zygor
+		if BUI.ZG then
+			if ZygorGuidesViewer.db.profile.visible then
+				if _G['ZygorGuidesViewerFrame']:IsVisible() then
+					zygorVisible = true
+				else
+					zygorVisible = false
+				end
+
+				if _G['ZygorGuidesViewerFrame'] then _G['ZygorGuidesViewerFrame']:Hide() end
+			end
+
+			if ZygorGuidesViewer.db.profile.n_nc_enabled then
+				if _G['Zygor_Notification_Center'] then _G['Zygor_Notification_Center']:Hide() end
+			end
 		end
 
 		-- Disable Blizz location messsages
@@ -177,7 +227,7 @@ function BFM:SetFlightMode(status)
 			XIV_Databar:Hide()
 		end
 
-		if LeftChatPanel_Bui.styleShadow then
+		if LeftChatPanel_Bui and LeftChatPanel_Bui.styleShadow then
 			LeftChatPanel_Bui.styleShadow:Hide()
 		end
 
@@ -186,6 +236,8 @@ function BFM:SetFlightMode(status)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
 		self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
 		self.fpsTimer = self:ScheduleRepeatingTimer('UpdateFps', 1)
+
+		self:SkinInFlight()
 
 		self.inFlightMode = true
 	elseif(self.inFlightMode) then
@@ -200,8 +252,8 @@ function BFM:SetFlightMode(status)
 		MoveViewLeftStop();
 
 		-- Enable Blizz location messsages.
-		-- Added support for LocationPlus & LocationLite
-		if (BUI.LP and E.db.locplus.zonetext) or (BUI.LL and not E.db.loclite.zonetext) then
+		-- Added support for LocationPlus & NutsAndBolts LocationLite
+		if (BUI.LP and E.db.locplus.zonetext) or (BUI.NB and not E.db.NutsAndBolts.LocationLite.hideDefaultZonetext) then
 			ZoneTextFrame:UnregisterAllEvents()
 		else
 			ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
@@ -222,7 +274,9 @@ function BFM:SetFlightMode(status)
 		-- Revert Bags
 		if ElvUI_ContainerFrame then
 			ElvUI_ContainerFrame:SetParent(E.UIParent)
-			ElvUI_ContainerFrame.wideshadow:Hide()
+			if ElvUI_ContainerFrame.wideshadow then
+				ElvUI_ContainerFrame.wideshadow:Hide()
+			end
 			if ElvUI_ContainerFrame.shadow then
 				ElvUI_ContainerFrame.shadow:Show()
 			end
@@ -233,36 +287,54 @@ function BFM:SetFlightMode(status)
 			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
 		end
 
-		-- revert Left Chat
-		BuiDummyChat:SetParent(E.UIParent)
-		LeftChatPanel:SetParent(E.UIParent)
-		if LeftChatPanel.backdrop.shadow then
-			LeftChatPanel.backdrop.shadow:Show()
+		-- Show Zygor
+		if BUI.ZG then
+			if ZygorGuidesViewer.db.profile.visible then
+				if zygorVisible then
+					if _G['ZygorGuidesViewerFrame'] then _G['ZygorGuidesViewerFrame']:Show() end
+				end
+			end
+			if ZygorGuidesViewer.db.profile.n_nc_enabled then
+				if _G['Zygor_Notification_Center'] then _G['Zygor_Notification_Center']:Show() end
+			end
 		end
-		LeftChatPanel.backdrop.wideshadow:Hide()
-		LeftChatPanel:ClearAllPoints()
-		LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
+
+		-- revert Left Chat
+		if E.private.chat.enable then
+			BuiDummyChat:SetParent(E.UIParent)
+			LeftChatPanel:SetParent(E.UIParent)
+			if LeftChatPanel.backdrop.shadow then
+				LeftChatPanel.backdrop.shadow:Show()
+			end
+			LeftChatPanel.backdrop.wideshadow:Hide()
+			LeftChatPanel:ClearAllPoints()
+			LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
+		end
 
 		-- Show SquareMinimapButtonBar
-		if (BUI.PA and _G.ProjectAzilroka.db['SMB'] and not BUI.SLE) then
-			_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
-			SquareMinimapButtonBar:SetAlpha(1)
+		if (BUI.PA and not BUI.SLE) then
+			if SquareMinimapButtonBar then
+				_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
+				SquareMinimapButtonBar:SetAlpha(1)
+			end
 		end
 
 		if IsAddOnLoaded("XIV_Databar") then
 			XIV_Databar:Show()
 		end
 
-		if LeftChatPanel_Bui.styleShadow then
+		if LeftChatPanel_Bui and LeftChatPanel_Bui.styleShadow then
 			LeftChatPanel_Bui.styleShadow:Show()
 			LeftChatPanel_Bui.styleShadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
 		end
+
+		BuiTaxiButton:SetParent(E.UIParent)
 
 		self.inFlightMode = false
 	end
 end
 
-function BFM:OnEvent(event, ...)
+function mod:OnEvent(event, ...)
 	local forbiddenArea = BUI:CheckFlightMapID()
 
 	if forbiddenArea then return end
@@ -288,21 +360,23 @@ function BFM:OnEvent(event, ...)
 	end
 end
 
-function BFM:Toggle()
+function mod:Toggle()
 	if(E.db.benikui.misc.flightMode) then
 		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
 		self:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
+		BUI:LoadInFlightProfile(true)
 	else
 		self:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
 		self:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
 		self:UnregisterEvent("LFG_PROPOSAL_SHOW")
 		self:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
+		BUI:LoadInFlightProfile(false)
 	end
 end
 
-function BFM:Initialize()
+function mod:Initialize()
 	local db = E.db.benikui.colors
 	self.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", UIParent)
 	self.FlightMode:SetFrameLevel(1)
@@ -384,7 +458,7 @@ function BFM:Initialize()
 	end)
 
 	self.FlightMode.top.closeButton:SetScript('OnClick', function()
-		BFM:SetFlightMode(false)
+		mod:SetFlightMode(false)
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 	end)
 
@@ -414,7 +488,7 @@ function BFM:Initialize()
 
 	self.FlightMode.top.location.x.text = self.FlightMode.top.location.x:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.top.location.x.text:FontTemplate(nil, 18)
-	self.FlightMode.top.location.x.text:Point('CENTER')	
+	self.FlightMode.top.location.x.text:Point('CENTER')
 
 	-- Coords Y frame
 	self.FlightMode.top.location.y = CreateFrame('Frame', nil, self.FlightMode.top.location)
@@ -629,7 +703,7 @@ function BFM:Initialize()
 	self.FlightMode.bottom.timeFlying:Point("RIGHT", self.FlightMode.bottom, "RIGHT", -10, 0)
 	self.FlightMode.bottom.timeFlying:SetTemplate("Default", true, true)
 	self.FlightMode.bottom.timeFlying:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.bottom.timeFlying:Size(70,30)	
+	self.FlightMode.bottom.timeFlying:Size(70,30)
 	self.FlightMode.bottom.timeFlying.txt = self.FlightMode.bottom.timeFlying:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.bottom.timeFlying.txt:FontTemplate(nil, 14)
 	self.FlightMode.bottom.timeFlying.txt:SetText("00:00")
@@ -659,12 +733,8 @@ function BFM:Initialize()
 	LeftChatPanel.backdrop.wideshadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
 
 	self:Toggle()
-end
-
-local function InitializeCallback()
-	BFM:Initialize()
 	ToggleWorldMap()
 	ToggleWorldMap()
 end
 
---E:RegisterModule(BFM:GetName(), InitializeCallback)
+BUI:RegisterModule(mod:GetName())

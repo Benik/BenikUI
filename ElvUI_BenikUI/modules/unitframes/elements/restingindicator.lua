@@ -1,8 +1,7 @@
-local E, L, V, P, G = unpack(ElvUI);
-local UFB = E:GetModule('BuiUnits');
-local BUI = E:GetModule('BenikUI');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BU = BUI:GetModule('Units');
 
-function UFB:Configure_RestingIndicator(frame)
+function BU:Configure_RestingIndicator(frame)
 	if BUI.SLE then return end -- S&L don't like BenikUI
 
 	local rIcon = frame.RestingIndicator

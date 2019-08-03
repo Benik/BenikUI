@@ -1,11 +1,13 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
+local BUI, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
+
 local LO = E:GetModule('Layout');
+local BL = BUI:GetModule('Layout')
 
 if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
 
-local CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP = CHAT, ENABLE, MAIL_LABEL, GARRISON_LOCATION_TOOLTIP
+local MAIL_LABEL, GARRISON_LOCATION_TOOLTIP =MAIL_LABEL, GARRISON_LOCATION_TOOLTIP
 
 local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {
@@ -21,13 +23,13 @@ local function Datatexts()
 			chat = {
 				order = 2,
 				type = 'group',
-				name = CHAT,
+				name = L["Chat"],
 				guiInline = true,
 				args = {
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						desc = L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'],
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateAnchors(); end,
@@ -38,7 +40,7 @@ local function Datatexts()
 						name = L['Panel Transparency'],
 						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('BuiLayout'):ToggleTransparency(); end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ToggleTransparency(); end,
 					},
 					editBoxPosition = {
 						order = 3,
@@ -60,7 +62,7 @@ local function Datatexts()
 						desc = L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'],
 						disabled = function() return E.db.benikui.datatexts.chat.enable ~= true or E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('BuiLayout'):ChatStyles(); E:GetModule('Layout'):ToggleChatPanels(); E.Chat:PositionChat(true); end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ChatStyles(); E:GetModule('Layout'):ToggleChatPanels(); E.Chat:PositionChat(true); end,
 					},
 					backdrop = {
 						order = 5,
@@ -68,7 +70,7 @@ local function Datatexts()
 						name = L['Backdrop'],
 						disabled = function() return E.db.benikui.datatexts.chat.enable ~= true end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('BuiLayout'):ToggleTransparency(); end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ToggleTransparency(); end,
 					},
 				},
 			},
@@ -81,9 +83,9 @@ local function Datatexts()
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = ENABLE,
+						name = L["Enable"],
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
 					},
 					transparent = {
 						order = 2,
@@ -91,7 +93,7 @@ local function Datatexts()
 						name = L['Panel Transparency'],
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
 					},
 					backdrop = {
 						order = 3,
@@ -99,7 +101,7 @@ local function Datatexts()
 						name = L['Backdrop'],
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
 					},
 					styled = {
 						order = 4,
@@ -107,7 +109,7 @@ local function Datatexts()
 						name = L['BenikUI Style'],
 						disabled = function() return E.db.benikui.datatexts.middle.enable ~= true or E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextLayout(); end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
 					},
 					width = {
 						order = 5,
@@ -116,7 +118,7 @@ local function Datatexts()
 						min = 200, max = 1400, step = 1,
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextDimensions(); end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextDimensions(); end,
 					},
 					height = {
 						order = 6,
@@ -125,7 +127,7 @@ local function Datatexts()
 						min = 10, max = 32, step = 1,
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:GetModule('BuiLayout'):MiddleDatatextDimensions(); end,
+						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextDimensions(); end,
 					},
 				},
 			},

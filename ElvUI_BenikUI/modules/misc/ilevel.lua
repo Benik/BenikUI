@@ -1,7 +1,6 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local LSM = LibStub('LibSharedMedia-3.0')
-local mod = E:NewModule('BUIiLevel', 'AceEvent-3.0');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local LSM = E.LSM
+local mod = BUI:NewModule('iLevel', 'AceEvent-3.0');
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
 local _G = _G
@@ -12,6 +11,7 @@ local SetInventoryItem = SetInventoryItem
 local GetInventoryItemLink = GetInventoryItemLink
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
+local C_Timer_After = C_Timer.After
 
 -- GLOBALS: CharacterHeadSlot, CharacterNeckSlot, CharacterShoulderSlot, CharacterBackSlot, CharacterChestSlot, CharacterWristSlot
 -- GLOBALS: CharacterHandsSlot, CharacterWaistSlot, CharacterLegsSlot, CharacterFeetSlot, CharacterFinger0Slot, CharacterFinger1Slot
@@ -84,6 +84,7 @@ function mod:UpdateItemLevel()
 			mod.f[id]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
 	end
+	CharacterNeckSlot.RankFrame.Label:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 end
 
 local function returnPoints(id)
@@ -113,6 +114,11 @@ function mod:UpdateItemLevelPosition()
 		mod.f[id]:ClearAllPoints()
 		mod.f[id]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
 	end
+
+	CharacterNeckSlot.RankFrame:ClearAllPoints()
+	CharacterNeckSlot.RankFrame.Label:ClearAllPoints()
+	CharacterNeckSlot.RankFrame:Point('TOPRIGHT', CharacterNeckSlot, 'TOPRIGHT', 0, 4)
+	CharacterNeckSlot.RankFrame.Label:Point('RIGHT')
 end
 
 function mod:CreateString()
@@ -126,12 +132,16 @@ function mod:CreateString()
 	mod.f:Hide()
 end
 
+function mod:PLAYER_ENTERING_WORLD()
+	C_Timer_After(.1, function() mod:UpdateItemLevel() end)
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+end
+
 function mod:Initialize()
 	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.Armory.Character.Enable ~= false) then return end
 
 	mod.f = CreateFrame("Frame", nil, PaperDollFrame)
 	mod:CreateString()
-	mod:UpdateItemLevel()
 
 	PaperDollFrame:HookScript("OnShow", function(self)
 		mod.f:Show()
@@ -143,10 +153,7 @@ function mod:Initialize()
 
 	mod:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", mod.UpdateItemLevel)
 	mod:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE", mod.UpdateItemLevel)
+	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-local function InitializeCallback()
-	mod:Initialize()
-end
-
-E:RegisterModule(mod:GetName(), InitializeCallback)
+BUI:RegisterModule(mod:GetName())

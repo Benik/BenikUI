@@ -1,5 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
+local BUI, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 
 if E.db.benikui == nil then E.db.benikui = {} end
 local format = string.format
@@ -16,10 +16,27 @@ local DONATORS = {
 	'Hilderic',
 	'Kevinrc',
 	'Merathilis',
-	'Sumidian',
+	'Sumidian (twice!)',
 	'Justin',
-	'Scott C',
-	'Edward F',
+	'Scott C.',
+	'Edward F.',
+	'Marcus G.',
+	'Michael W.',
+	'Ara M.',
+	'CHRONiC',
+	'Tlareg',
+	'Nizz',
+	'CremeEgg',
+	'Louis S.',
+	'Frisko',
+	'Robert D.',
+	'Shannon B.',
+	'Joseph L.',
+	'Valentina K.',
+	'Max T.',
+	'Kevin G.',
+	'Ahmed A.',
+	'Christopher S-C.',
 }
 tsort(DONATORS, function(a, b) return a < b end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -86,7 +103,7 @@ local function Core()
 				type = 'execute',
 				name = L['Install'],
 				desc = L['Run the installation process.'],
-				func = function() E:GetModule("PluginInstaller"):Queue(BUI.installTable); E:ToggleConfig() end,
+				func = function() E:GetModule("PluginInstaller"):Queue(BUI.installTable); E:ToggleOptionsUI() end,
 			},
 			spacer2 = {
 				order = 4,
@@ -154,7 +171,7 @@ local function Core()
 			colors = {
 				order = 6,
 				type = 'group',
-				name = COLORS,
+				name = L.COLORS,
 				guiInline = true,
 				args = {
 					themes = {
@@ -178,7 +195,7 @@ local function Core()
 							customThemeColor = {
 								order = 2,
 								type = 'color',
-								name = EDIT,
+								name = L.EDIT,
 								hasAlpha = true,
 								get = function(info)
 									local t = E.db.general.backdropfadecolor
@@ -205,10 +222,10 @@ local function Core()
 								type = "select",
 								name = "",
 								values = {
-									[1] = CLASS_COLORS,
-									[2] = CUSTOM,
+									[1] = L.CLASS_COLORS,
+									[2] = L.CUSTOM,
 									[3] = L['Value Color'],
-									[4] = DEFAULT,
+									[4] = L.DEFAULT,
 								},
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
@@ -217,7 +234,7 @@ local function Core()
 							customStyleColor = {
 								order = 2,
 								type = "color",
-								name = COLOR_PICKER,
+								name = L.COLOR_PICKER,
 								disabled = function() return E.db.benikui.colors.StyleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info)
 									local t = E.db.benikui.colors[ info[#info] ]
@@ -252,19 +269,19 @@ local function Core()
 								type = "select",
 								name = "",
 								values = {
-									[1] = CLASS_COLORS,
-									[2] = CUSTOM,
+									[1] = L.CLASS_COLORS,
+									[2] = L.CUSTOM,
 									[3] = L['Value Color'],
-									[4] = DEFAULT,
+									[4] = L.DEFAULT,
 								},
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
+								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; BUI:GetModule('Actionbars'):ColorBackdrops(); end,
 							},
 							customAbStyleColor = {
 								order = 2,
 								type = "color",
-								name = COLOR_PICKER,
+								name = L.COLOR_PICKER,
 								disabled = function() return E.db.benikui.colors.abStyleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info)
 									local t = E.db.benikui.colors[ info[#info] ]
@@ -275,7 +292,7 @@ local function Core()
 									E.db.benikui.colors[ info[#info] ] = {}
 									local t = E.db.benikui.colors[ info[#info] ]
 									t.r, t.g, t.b, t.a = r, g, b, a
-									E:GetModule('BuiActionbars'):ColorBackdrops();
+									BUI:GetModule('Actionbars'):ColorBackdrops();
 								end,
 							},
 							abAlpha = {
@@ -285,7 +302,7 @@ local function Core()
 								min = 0, max = 1, step = 0.05,
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; E:GetModule('BuiActionbars'):ColorBackdrops(); end,
+								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; BUI:GetModule('Actionbars'):ColorBackdrops(); end,
 							},
 						},
 					},
@@ -299,8 +316,8 @@ local function Core()
 								type = "select",
 								name = "",
 								values = {
-									[1] = CLASS_COLORS,
-									[2] = CUSTOM,
+									[1] = L.CLASS_COLORS,
+									[2] = L.CUSTOM,
 									[3] = L["Value Color"],
 								},
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
@@ -309,7 +326,7 @@ local function Core()
 							customGameMenuColor = {
 								order = 2,
 								type = "color",
-								name = COLOR_PICKER,
+								name = L.COLOR_PICKER,
 								disabled = function() return E.db.benikui.colors.gameMenuColor == 1 or E.db.benikui.colors.gameMenuColor == 3 end,
 								get = function(info)
 									local t = E.db.benikui.colors[ info[#info] ]
@@ -346,7 +363,7 @@ local function Core()
 								order = 1,
 								type = 'execute',
 								name = L['Tukui.org'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=228") end,
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.tukui.org/forum/viewforum.php?f=33") end,
 								},
 							git = {
 								order = 2,
@@ -377,17 +394,11 @@ local function Core()
 							curse = {
 								order = 2,
 								type = 'execute',
-								name = L['Curse.com'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://mods.curse.com/addons/wow/benikui-v3") end,
-							},
-							wowint = {
-								order = 3,
-								type = 'execute',
-								name = L['WoW Interface'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.wowinterface.com/downloads/info23675-BenikUIv3.html") end,
+								name = L['Curseforge'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.curseforge.com/wow/addons/benikui-v3") end,
 							},
 							beta = {
-								order = 4,
+								order = 3,
 								type = 'execute',
 								name = L['Beta versions'],
 								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://git.tukui.org/Benik/ElvUI_BenikUI/repository/archive.zip?ref=development") end,
@@ -449,26 +460,12 @@ local function Core()
 								desc = L['Adds player location, coords + 2 Datatexts and a tooltip with info based on player location/level.'],
 								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.curse.com/addons/wow/elvui-location-plus") end,
 							},
-							loclite = {
+							nuts = {
 								order = 2,
 								type = 'execute',
-								name = L['LocationLite for ElvUI'],
-								desc = L['Adds a location panel with coords. A LocationPlus alternative.'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "http://www.curse.com/addons/wow/elvui-locationlite") end,
-							},
-							dtText = {
-								order = 3,
-								type = 'execute',
-								name = L['ElvUI DT Text Color'],
-								desc = L['a plugin for ElvUI, that changes the DT text color to class color, value color or any user defined'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.tukui.org/addons.php?id=9") end,
-							},
-							trAb = {
-								order = 5,
-								type = 'execute',
-								name = L['ElvUI Transparent Actionbar Backdrops'],
-								desc = L['A small plugin that makes the actionbar backdrops and the unused buttons transparent'],
-								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.tukui.org/addons.php?id=10") end,
+								name = L['Nuts & Bolts for ElvUI'],
+								desc = L['ElvUI Nuts & Bolts is a compilation of my addons hosted at tukui.org/Twitch plus some features that are moved from BenikUI'],
+								func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.curseforge.com/wow/addons/elvui-nutsandbolts") end,
 							},
 						},
 					},

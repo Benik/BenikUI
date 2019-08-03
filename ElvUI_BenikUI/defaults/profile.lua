@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
+﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
 
 -- Add Vertical Powerbar option on Player
 P['unitframe']['units']['player']['power']['vertical'] = false
@@ -16,12 +16,9 @@ P['unitframe']['units']['raid']['classHover'] = false
 -- Add raid40 classHover to ElvUI defaults
 P['unitframe']['units']['raid40']['classHover'] = false
 
--- Add Bag stack count to ElvUI defaults
-P['bags']['countPosition'] = 'BOTTOMRIGHT'
-
 -- Databars text yOffset
 P['databars']['experience']['textYoffset'] = 0
-P['databars']['artifact']['textYoffset'] = 0
+P['databars']['azerite']['textYoffset'] = 0
 P['databars']['reputation']['textYoffset'] = 0
 P['databars']['honor']['textYoffset'] = 0
 
@@ -65,18 +62,6 @@ P['benikui'] = {
 		},
 		['flightMode'] = true,
 		['afkMode'] = true,
-		['panels'] = {
-			['top'] = {
-				['style'] = false,
-				['transparency'] = true,
-				['height'] = 22
-			},
-			['bottom'] = {
-				['style'] = false,
-				['transparency'] = true,
-				['height'] = 22
-			},
-		},
 	},
 
 	['datatexts'] = {
@@ -176,6 +161,7 @@ P['benikui'] = {
 		['infoPanel'] = {
 			['fixInfoPanel'] = true,
 			['texture'] = 'BuiEmpty',
+			['customColor'] = 2,
 			['color'] = {r = .9, g = .7, b = 0, a = .7},
 		},
 		['castbar'] = {
@@ -198,6 +184,10 @@ P['benikui'] = {
 			['ignoreTransparency'] = false,
 			['power'] = E.db.unitframe.statusbar,
 			['castbar'] = 'BuiFlat',
+		},
+		['castbarColor'] = {
+			['enable'] = true,
+			['castbarBackdropColor'] = {r = 0.054, g = 0.054, b = 0.054, a = 0.75},
 		},
 		['misc'] = {
 			['svui'] = true,
@@ -231,14 +221,12 @@ P['benikuiSkins'] = {
 		['loclite'] = true,
 		['locplus'] = true,
 		['sle'] = true,
-		['smb'] = true,
 		['enh'] = true,
 		['dtb2'] = true,
-		['stam'] = true,
+		['pa'] = true,
 	},
 	
 	['addonSkins'] = {
-		['rc'] = true,
 		['skada'] = true,
 		['recount'] = true,
 		['tinydps'] = true,
@@ -249,12 +237,16 @@ P['benikuiSkins'] = {
 		['pawn'] = true,
 		['dbm'] = true,
 		['bigwigs'] = true,
+		['zygor'] = true,
+		['immersion'] = true,
+		['adibags'] = true,
 	},
 	
 	['variousSkins'] = {
 		['talkingHead'] = true,
 		['decursive'] = true,
 		['storyline'] = true,
+		['inflight'] = true,
 	},
 }
 
@@ -264,11 +256,6 @@ P['benikuiDatabars'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
-		['color'] = {
-			['default'] = true,
-			['xp'] = { r = 0, g = 0.4, b = 1, a = .8 },
-			['rested'] = { r = 1, g = 0, b = 1, a = .2 },
-		},
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
@@ -281,13 +268,6 @@ P['benikuiDatabars'] = {
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
 		['autotrack'] = false,
-		['color'] = {
-			['default'] = true,
-			['friendly'] = {r = 0, g = .6, b = .1, a = .8 },
-			['neutral'] = {r = .9, g = .7, b = 0, a = .8 },
-			['unfriendly'] = {r = .75, g = .27, b = 0, a = .8 },
-			['hated'] = {r = 1, g = 0, b = 0, a = .8 },
-		},
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
@@ -295,19 +275,14 @@ P['benikuiDatabars'] = {
 		},
 	},
 	
-	['artifact'] = {
+	['azerite'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
-		['color'] = {
-			['default'] = true,
-			['af'] = {r = .901, g = .8, b = .601, a = .8 },
-		},
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
 			['position'] = 'LEFT',
-			['movetobagbar'] = true,
 		},
 	},
 	
@@ -315,10 +290,6 @@ P['benikuiDatabars'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
-		['color'] = {
-			['default'] = true,
-			['hn'] = {r = .941, g = .447, b = .254, a = .8 },
-		},
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,

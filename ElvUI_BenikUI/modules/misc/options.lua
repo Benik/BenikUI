@@ -1,21 +1,19 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
+local BUI, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local B = E:GetModule('Bags')
 
 local tinsert = table.insert
-
-local RARITY, COLOR, CUSTOM = RARITY, COLOR, CUSTOM
 
 local function miscTable()
 	E.Options.args.benikui.args.misc = {
 		order = 35,
 		type = 'group',
-		name = MISCELLANEOUS,
+		name = L["Miscellaneous"],
 		args = {
 			name = {
 				order = 1,
 				type = 'header',
-				name = BUI:cOption(MISCELLANEOUS),
+				name = BUI:cOption(L["Miscellaneous"]),
 			},
 			flightMode = {
 				order = 2,
@@ -23,7 +21,7 @@ local function miscTable()
 				name = L['Flight Mode'],
 				desc = L['Display the Flight Mode screen when taking flight paths'],
 				get = function(info) return E.db.benikui.misc[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.misc[ info[#info] ] = value; E:GetModule('BUIFlightMode'):Toggle() end,
+				set = function(info, value) E.db.benikui.misc[ info[#info] ] = value; BUI:GetModule('FlightMode'):Toggle() E:StaticPopup_Show('PRIVATE_RL') end,
 			},
 			afkMode = {
 				order = 3,
@@ -43,7 +41,7 @@ local function miscTable()
 				guiInline = true,
 				name = L['iLevel'],
 				get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):UpdateItemLevel() end,
+				set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; BUI:GetModule('iLevel'):UpdateItemLevel() end,
 				args = {
 					enable = {
 						order = 1,
@@ -63,7 +61,7 @@ local function miscTable()
 					},
 					fontsize = {
 						order = 3,
-						name = FONT_SIZE,
+						name = L.FONT_SIZE,
 						type = 'range',
 						min = 6, max = 22, step = 1,
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
@@ -83,17 +81,17 @@ local function miscTable()
 					colorStyle = {
 						order = 5,
 						type = "select",
-						name = COLOR,
+						name = L.COLOR,
 						values = {
-							['RARITY'] = RARITY,
-							['CUSTOM'] = CUSTOM,
+							['RARITY'] = L.RARITY,
+							['CUSTOM'] = L.CUSTOM,
 						},
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 					},
 					color = {
 						order = 6,
 						type = "color",
-						name = COLOR_PICKER,
+						name = L.COLOR_PICKER,
 						disabled = function() return E.db.benikui.misc.ilevel.colorStyle == 'RARITY' or not E.db.benikui.misc.ilevel.enable end,
 						get = function(info)
 							local t = E.db.benikui.misc.ilevel[ info[#info] ]
@@ -109,76 +107,14 @@ local function miscTable()
 					position = {
 						order = 7,
 						type = "select",
-						name = L["Text Position"]..BUI.NewSign,
+						name = L["Text Position"],
 						values = {
 							['INSIDE'] = L['Inside the item slot'],
 							['OUTSIDE'] = L['Outside the item slot'],
 						},
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 						get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:GetModule('BUIiLevel'):UpdateItemLevelPosition() end,
-					},
-				},
-			},
-			panels = {
-				order = 6,
-				type = 'group',
-				guiInline = true,
-				name = L['Panels'],
-				args = {
-					top = {
-						order = 1,
-						type = 'group',
-						guiInline = true,
-						name = L['Top Panel'],
-						get = function(info) return E.db.benikui.misc.panels.top[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.panels.top[ info[#info] ] = value; E:GetModule('BuiLayout'):TopPanelLayout() end,
-						args = {
-							style = {
-								order = 1,
-								type = 'toggle',
-								name = L['BenikUI Style'],
-								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
-							},
-							transparency = {
-								order = 2,
-								type = 'toggle',
-								name = L['Panel Transparency'],
-							},
-							height = {
-								order = 3,
-								type = "range",
-								name = L["Height"],
-								min = 8, max = 60, step = 1,
-							},
-						},
-					},
-					bottom = {
-						order = 2,
-						type = 'group',
-						guiInline = true,
-						name = L['Bottom Panel'],
-						get = function(info) return E.db.benikui.misc.panels.bottom[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.panels.bottom[ info[#info] ] = value; E:GetModule('BuiLayout'):BottomPanelLayout() end,
-						args = {
-							style = {
-								order = 1,
-								type = 'toggle',
-								name = L['BenikUI Style'],
-								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
-							},
-							transparency = {
-								order = 2,
-								type = 'toggle',
-								name = L['Panel Transparency'],
-							},
-							height = {
-								order = 3,
-								type = "range",
-								name = L["Height"],
-								min = 8, max = 60, step = 1,
-							},
-						},
+						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; BUI:GetModule('iLevel'):UpdateItemLevelPosition() end,
 					},
 				},
 			},
@@ -186,26 +122,3 @@ local function miscTable()
 	}
 end
 tinsert(BUI.Config, miscTable)
-
-local positionValues = {
-	TOPLEFT = 'TOPLEFT',
-	LEFT = 'LEFT',
-	BOTTOMLEFT = 'BOTTOMLEFT',
-	RIGHT = 'RIGHT',
-	TOPRIGHT = 'TOPRIGHT',
-	BOTTOMRIGHT = 'BOTTOMRIGHT',
-	CENTER = 'CENTER',
-	TOP = 'TOP',
-	BOTTOM = 'BOTTOM',
-}
-
-local function injectBagOptions()
-	E.Options.args.bags.args.general.args.countGroup.args.countPosition = {
-		type = 'select',
-		order = 5,
-		name = BUI:cOption(L["Position"]),
-		values = positionValues,
-		set = function(info, value) E.db.bags.countPosition = value; B:UpdateCountDisplay() end,
-	}
-end
-tinsert(BUI.Config, injectBagOptions)

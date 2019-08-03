@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local mod = E:GetModule('BuiDashboards');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('BuiDashboards');
 local DT = E:GetModule('DataTexts');
 
 local tinsert, twipe, getn, pairs, ipairs = table.insert, table.wipe, getn, pairs, ipairs
@@ -97,7 +96,7 @@ function mod:CreateSystemDashboard()
 	mod:ToggleStyle(self.sysHolder, 'system')
 	mod:ToggleTransparency(self.sysHolder, 'system')
 
-	E:CreateMover(self.sysHolder, 'BuiDashboardMover', L['System'])
+	E:CreateMover(self.sysHolder, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BenikUI', nil, 'benikui,dashboards,system')
 end
 
 function mod:LoadSystem()

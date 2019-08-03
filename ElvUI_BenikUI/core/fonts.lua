@@ -1,5 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local LSM = LibStub('LibSharedMedia-3.0')
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local LSM = E.LSM
 
 -- GLOBALS: CHAT_FONT_HEIGHTS, GameTooltipHeader, NumberFont_OutlineThick_Mono_Small, SystemFont_Shadow_Large_Outline
 -- GLOBALS: NumberFont_Outline_Huge, NumberFont_Outline_Large, NumberFont_Outline_Med, NumberFont_Shadow_Med
@@ -123,6 +123,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(Fancy27Font, 						NORMAL, 25);								 -- Allied Races Blizzard tryout font
 		SetFont(Fancy18Font, 						NORMAL, 16);								 -- Allied Races Blizzard tryout font
 		SetFont(Fancy16Font, 						NORMAL, 14);								 -- Allied Races Blizzard tryout font
+		SetFont(Fancy20Font, 						NORMAL, 18);								 -- Mythic Chest
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
 		--SetFont(GameFontHighlightSmall, 			NORMAL, 10);
 		--SetFont(GameFontHighlight, 					NORMAL, self.db.general.fontSize);

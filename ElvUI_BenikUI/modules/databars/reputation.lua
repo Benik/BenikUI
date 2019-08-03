@@ -1,9 +1,8 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BDB = E:GetModule('BenikUI_databars');
-local BUI = E:GetModule('BenikUI');
-local M = E:GetModule('DataBars');
-local LSM = LibStub('LibSharedMedia-3.0');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('Databars');
 local DT = E:GetModule('DataTexts');
+local M = E:GetModule('DataBars');
+local LSM = E.LSM;
 
 local _G = _G
 
@@ -14,109 +13,45 @@ local changedpat = gsub(gsub(FACTION_STANDING_CHANGED, "(%%s)", "(.+)"), "(%%d)"
 local decpat = gsub(gsub(FACTION_STANDING_DECREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
+local C_TimerAfter = C_Timer.After
 
-local CreateFrame = CreateFrame
-local GameTooltip = _G["GameTooltip"]
 local GetWatchedFactionInfo = GetWatchedFactionInfo
-local InCombatLockdown = InCombatLockdown
 local SetWatchedFactionIndex = SetWatchedFactionIndex
 local GetNumFactions = GetNumFactions
 local GetGuildInfo = GetGuildInfo
 local GetFactionInfo = GetFactionInfo
 
-local FACTION_BAR_COLORS, BINDING_NAME_TOGGLECHARACTER2 = FACTION_BAR_COLORS, BINDING_NAME_TOGGLECHARACTER2
-
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ReputationBar, SpellBookFrame, ToggleCharacter
 
-local SPACING = (E.PixelMode and 1 or 3)
-
-local function onLeave(self)
-	self.sglow:Hide()
-	GameTooltip:Hide()
-end
-
-local function onEnter(self)
+local function OnClick(self)
 	if self.template == 'NoBackdrop' then return end
-	self.sglow:Show()
-	GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2)
-	GameTooltip:ClearLines()
-	GameTooltip:AddLine(BINDING_NAME_TOGGLECHARACTER2, selectioncolor)
-	GameTooltip:Show()
-	if InCombatLockdown() then GameTooltip:Hide() end
+	ToggleCharacter("ReputationFrame")
 end
 
-local function StyleBar()
-	local rp = ElvUI_ReputationBar
-
-	-- bottom decor/button
-	rp.fb = CreateFrame('Button', nil, rp)
-	rp.fb:CreateSoftGlow()
-	rp.fb.sglow:Hide()
-	if BUI.ShadowMode then
-		rp.fb:CreateSoftShadow()
-	end
-	rp.fb:Point('TOPLEFT', rp, 'BOTTOMLEFT', 0, -SPACING)
-	rp.fb:Point('BOTTOMRIGHT', rp, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
-
-	rp.fb:SetScript('OnEnter', onEnter)
-	rp.fb:SetScript('OnLeave', onLeave)
-
-	rp.fb:SetScript('OnClick', function(self)
-		ToggleCharacter("ReputationFrame")
-	end)
-
-	BDB:ToggleRepBackdrop()
-
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-	rp:Style('Outside', nil, false, true)
-end
-
-function BDB:ApplyRepStyling()
-	local rp = ElvUI_ReputationBar
+function mod:ApplyRepStyling()
+	local bar = ElvUI_ReputationBar
 	if E.db.databars.reputation.enable then
-		if rp.fb then
+		if bar.fb then
 			if E.db.databars.reputation.orientation == 'VERTICAL' then
-				rp.fb:Show()
+				bar.fb:Show()
 			else
-				rp.fb:Hide()
+				bar.fb:Hide()
 			end
 		end
 	end
 
 	if E.db.benikuiDatabars.reputation.buiStyle then
-		if rp.style then
-			rp.style:Show()
+		if bar.style then
+			bar.style:Show()
 		end
 	else
-		if rp.style then
-			rp.style:Hide()
+		if bar.style then
+			bar.style:Hide()
 		end
 	end
 end
 
-local backupColor = FACTION_BAR_COLORS[1]
-function BDB:ChangeRepColor()
-	local db = E.db.benikuiDatabars.reputation.color
-	local _, reaction = GetWatchedFactionInfo()
-	local color = FACTION_BAR_COLORS[reaction] or backupColor
-	local elvstatus = ElvUI_ReputationBar.statusBar
-
-	if db.default then
-		elvstatus:SetStatusBarColor(color.r, color.g, color.b)
-	else
-		if reaction >= 5 then
-			elvstatus:SetStatusBarColor(BUI:unpackColor(db.friendly))
-		elseif reaction == 4 then
-			elvstatus:SetStatusBarColor(BUI:unpackColor(db.neutral))
-		elseif reaction == 3 then
-			elvstatus:SetStatusBarColor(BUI:unpackColor(db.unfriendly))
-		elseif reaction < 3 then
-			elvstatus:SetStatusBarColor(BUI:unpackColor(db.hated))
-		end
-	end
-end
-
-function BDB:ToggleRepBackdrop()
+function mod:ToggleRepBackdrop()
 	if E.db.benikuiDatabars.reputation.enable ~= true then return end
 	local bar = ElvUI_ReputationBar
 	local db = E.db.benikuiDatabars.reputation
@@ -124,15 +59,24 @@ function BDB:ToggleRepBackdrop()
 	if bar.fb then
 		if db.buttonStyle == 'DEFAULT' then
 			bar.fb:SetTemplate('Default', true)
+			if bar.fb.shadow then
+				bar.fb.shadow:Show()
+			end
 		elseif db.buttonStyle == 'TRANSPARENT' then
 			bar.fb:SetTemplate('Transparent')
+			if bar.fb.shadow then
+				bar.fb.shadow:Show()
+			end
 		else
 			bar.fb:SetTemplate('NoBackdrop')
+			if bar.fb.shadow then
+				bar.fb.shadow:Hide()
+			end
 		end
 	end
 end
 
-function BDB:UpdateRepNotifierPositions()
+function mod:UpdateRepNotifierPositions()
 	local bar = ElvUI_ReputationBar.statusBar
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
@@ -172,9 +116,9 @@ function BDB:UpdateRepNotifierPositions()
 	end
 end
 
-function BDB:UpdateRepNotifier()
+function mod:UpdateRepNotifier()
 	local bar = ElvUI_ReputationBar.statusBar
-	local name, _, min, max, value, factionID = GetWatchedFactionInfo()
+	local name, reaction, min, max, value, factionID = GetWatchedFactionInfo()
 
 	if (C_Reputation_IsFactionParagon(factionID)) then
 		local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
@@ -187,7 +131,7 @@ function BDB:UpdateRepNotifier()
 		end
 	end
 
-	if not name or E.db.databars.reputation.orientation ~= 'VERTICAL' then
+	if not name or E.db.databars.reputation.orientation ~= 'VERTICAL' or (reaction == MAX_REPUTATION_REACTION and not C_Reputation_IsFactionParagon(factionID)) then
 		bar.f:Hide()
 	else
 		bar.f:Show()
@@ -195,13 +139,13 @@ function BDB:UpdateRepNotifier()
 	end
 end
 
-function BDB:RepTextOffset()
+function mod:RepTextOffset()
 	local text = ElvUI_ReputationBar.text
-	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset)
+	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset or 0)
 end
 
 -- Credit: Feraldin, ElvUI Enhanced (Legion)
-function BDB:SetWatchedFactionOnReputationBar(event, msg)
+function mod:SetWatchedFactionOnReputationBar(event, msg)
 	if not E.db.benikuiDatabars.reputation.autotrack then return end
 
 	local _, _, faction, amount = find(msg, incpat)
@@ -222,7 +166,7 @@ function BDB:SetWatchedFactionOnReputationBar(event, msg)
 	end
 end
 
-function BDB:ToggleRepAutotrack()
+function mod:ToggleRepAutotrack()
 	if E.db.benikuiDatabars.reputation.autotrack then
 		self:RegisterEvent('CHAT_MSG_COMBAT_FACTION_CHANGE', 'SetWatchedFactionOnReputationBar')
 	else
@@ -230,35 +174,32 @@ function BDB:ToggleRepAutotrack()
 	end
 end
 
-function BDB:LoadRep()
+function mod:LoadRep()
 	local bar = ElvUI_ReputationBar
-	self:ChangeRepColor()
+
 	self:RepTextOffset()
-	hooksecurefunc(M, 'UpdateReputation', BDB.ChangeRepColor)
-	hooksecurefunc(M, 'UpdateReputation', BDB.RepTextOffset)
+	hooksecurefunc(M, 'UpdateReputation', mod.RepTextOffset)
 	self:ToggleRepAutotrack()
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
 
-	if db.enable and E.db.databars.reputation.orientation == 'VERTICAL' then
+	if db.enable then
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateRepNotifierPositions()
-		self:UpdateRepNotifier()
-		hooksecurefunc(M, 'UpdateReputation', BDB.UpdateRepNotifier)
-		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateRepNotifierPositions)
-		hooksecurefunc(M, 'UpdateReputationDimensions', BDB.UpdateRepNotifierPositions)
-	end
 
-	if BUI.ShadowMode then
-		if not bar.style then
-			bar:CreateSoftShadow()
-		end
+		hooksecurefunc(M, 'UpdateReputation', mod.UpdateRepNotifier)
+		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateRepNotifierPositions)
+		hooksecurefunc(M, 'UpdateReputationDimensions', mod.UpdateRepNotifierPositions)
+		hooksecurefunc(M, 'UpdateReputationDimensions', mod.UpdateRepNotifier)
+
+		C_TimerAfter(1, mod.UpdateRepNotifier)
 	end
 
 	if E.db.benikuiDatabars.reputation.enable ~= true then return end
 
-	StyleBar()
+	self:StyleBar(bar, OnClick)
+	self:ToggleRepBackdrop()
 	self:ApplyRepStyling()
 
-	hooksecurefunc(M, 'UpdateReputationDimensions', BDB.ApplyRepStyling)
+	hooksecurefunc(M, 'UpdateReputationDimensions', mod.ApplyRepStyling)
 end

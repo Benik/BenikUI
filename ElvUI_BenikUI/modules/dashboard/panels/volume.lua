@@ -1,6 +1,6 @@
-local E, L, V, P, G = unpack(ElvUI);
-local LSM = LibStub('LibSharedMedia-3.0')
-local mod = E:GetModule('BuiDashboards');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('BuiDashboards');
+local LSM = E.LSM
 
 local _G = _G
 local join, tonumber, floor = string.join, tonumber, floor

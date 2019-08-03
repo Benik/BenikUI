@@ -1,13 +1,11 @@
-local E, L, V, P, G = unpack(ElvUI);
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins');
-local BUI = E:GetModule('BenikUI');
-
-local pairs = pairs
 
 local _G = _G
-local strfind = strfind
+local pairs, unpack = pairs, unpack
+local strlower, strfind = strlower, strfind
+
 local CreateFrame = CreateFrame
-local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 
 -- GLOBALS: hooksecurefunc, Skada, Recount, oRA3, RC, RCnotify, RCminimized
@@ -15,8 +13,10 @@ local IsAddOnLoaded = IsAddOnLoaded
 if not BUI.AS then return end
 local AS = unpack(AddOnSkins)
 
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+
 local function SkadaDecor()
-	if not E.db.benikuiSkins.addonSkins.skada then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.skada then return end
 	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 		local skada = win.bargroup
 		skada.Backdrop:Style('Outside')
@@ -77,7 +77,7 @@ local function RecountDecor()
 end
 
 local function TinyDPSDecor()
-	if not E.db.benikuiSkins.addonSkins.tinydps then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.tinydps then return end
 	if _G["tdpsFrame"] then
 		if not _G["tdpsFrame"].style then
 			_G["tdpsFrame"]:Style('Outside')
@@ -86,8 +86,7 @@ local function TinyDPSDecor()
 end
 
 local function AtlasLootDecor()
-	if not strfind(GetAddOnMetadata('AtlasLoot', 'Version'), 'v8') then return end -- As Azilroka did ;)
-	if not E.db.benikuiSkins.addonSkins.atlasloot then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.atlasloot then return end
 	local AtlasLootFrame = _G["AtlasLoot_GUI-Frame"]
 	if AtlasLootFrame then
 		if not AtlasLootFrame.style then
@@ -97,7 +96,7 @@ local function AtlasLootDecor()
 end
 
 local function AltoholicDecor()
-	if not E.db.benikuiSkins.addonSkins.altoholic then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.altoholic then return end
 	if _G["AltoholicFrame"] then
 		if not _G["AltoholicFrame"].style then
 			_G["AltoholicFrame"]:Style('Outside')
@@ -105,18 +104,8 @@ local function AltoholicDecor()
 	end
 end
 
-local function RareCoordDecor()
-	if not E.db.benikuiSkins.addonSkins.rc then return end
-	local rcFrames = {RC, RC.opt, RCnotify, RCminimized}
-	for _, frame in pairs(rcFrames) do
-		if not frame.style then
-			frame:Style('Outside')
-		end
-	end
-end
-
 local function CliqueDecor()
-	if not E.db.benikuiSkins.addonSkins.clique then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.clique then return end
 	_G["CliqueConfig"]:Style('Small')
 	_G["CliqueDialog"]:Style('Small')
 	local tab = _G["CliqueSpellTab"]
@@ -128,7 +117,7 @@ local function CliqueDecor()
 end
 
 local function oRA3Decor()
-	if not E.db.benikuiSkins.addonSkins.ora then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.ora then return end
 	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"]:Style('Small'); end)
 
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")
@@ -138,7 +127,7 @@ local function oRA3Decor()
 end
 
 local function PawnDecor()
-	if not E.db.benikuiSkins.addonSkins.pawn then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.pawn then return end
 	local frame = PawnUIFrame
 
 	if not frame.style then
@@ -147,7 +136,7 @@ local function PawnDecor()
 end
 
 local function DbmDecor(event)
-	if not E.db.benikuiSkins.addonSkins.dbm then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.dbm then return end
 
 	local function StyleRangeFrame(self, range, filter, forceshow, redCircleNumPlayers)
 		if DBM.Options.DontShowRangeFrame and not forceshow then return end
@@ -196,19 +185,120 @@ local function DbmDecor(event)
 	hooksecurefunc(DBM.InfoFrame, 'Show', StyleInfoFrame)
 end
 
+local function BugSackDecor()
+	if not E.db.benikui.general.benikuiStyle then return end
+
+	hooksecurefunc(BugSack, "OpenSack", function()
+		if BugSackFrame.IsStyled then return end
+		if not BugSackFrame.style then
+			BugSackFrame:Style('Outside')
+		end
+		BugSackFrame.IsStyled = true
+	end)
+end
+
+local function LibrariesDecor()
+	local DBIcon = LibStub("LibDBIcon-1.0", true)
+	if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType('GameTooltip') then
+		DBIcon.tooltip:HookScript("OnShow", function(self)
+			if not self.style then
+				self:Style('Outside')
+			end
+		end)
+	end
+end
+
+local function ZygorDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.zygor then return end
+
+	_G['ZygorGuidesViewerFrame_Border']:Style('Outside')
+end
+
+local function ImmersionDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.immersion then return end
+	local frame = _G['ImmersionFrame']
+	frame.TalkBox.BackgroundFrame.Backdrop:Style('Inside')
+	frame.TalkBox.Hilite:SetOutside(frame.TalkBox.BackgroundFrame.Backdrop)
+	frame.TalkBox.Elements.Backdrop:Style('Inside')
+
+	if BUI.ShadowMode then
+		frame.TalkBox.BackgroundFrame.Backdrop.Shadow:Hide()
+		frame.TalkBox.Elements.Backdrop.Shadow:Hide()
+	end
+	
+	frame:HookScript('OnEvent', function(self)
+		for _, Button in ipairs(self.TitleButtons.Buttons) do
+			if Button.Backdrop and not Button.Backdrop.isStyled then
+				Button.Backdrop:Style('Inside')
+				Button.Hilite:SetOutside(Button.Backdrop)
+				Button.Backdrop.Shadow:Hide()
+				Button.Backdrop.isStyled = true
+			end
+		end
+	end)
+end
+
+-- Replace the close button
+function AS:SkinCloseButton(Button, Reposition)
+	if Button.Backdrop then return end
+
+	AS:SkinBackdropFrame(Button)
+
+	Button.Backdrop:Point('TOPLEFT', 7, -8)
+	Button.Backdrop:Point('BOTTOMRIGHT', -7, 8)
+	Button.Backdrop:SetTemplate('NoBackdrop')
+
+	Button:SetHitRectInsets(6, 6, 7, 7)
+	
+	Button.Backdrop.img = Button.Backdrop:CreateTexture(nil, 'OVERLAY')
+	Button.Backdrop.img:SetSize(12, 12)
+	Button.Backdrop.img:Point("CENTER")
+	Button.Backdrop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Close.tga')
+	Button.Backdrop.img:SetVertexColor(1, 1, 1)
+
+	Button:HookScript('OnEnter', function(self)
+		self.Backdrop.img:SetVertexColor(1, .2, .2)
+		if E.myclass == 'PRIEST' then
+			self.Backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+			self.Backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+		else
+			self.Backdrop.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			self.Backdrop:SetBackdropBorderColor(classColor.r, classColor.g, classColor.b)
+		end
+	end)
+
+	Button:HookScript('OnLeave', function(self)
+		self.Backdrop.img:SetVertexColor(1, 1, 1)
+		self.Backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+	end)
+
+	if Reposition then
+		Button:Point('TOPRIGHT', Reposition, 'TOPRIGHT', 2, 2)
+	end
+end
+
 if AS:CheckAddOn('Skada') then AS:RegisterSkin('Skada', SkadaDecor, 2) end
 if AS:CheckAddOn('Recount') then AS:RegisterSkin('Recount', RecountDecor, 2) end
 if AS:CheckAddOn('TinyDPS') then AS:RegisterSkin('TinyDPS', TinyDPSDecor, 2) end
 if AS:CheckAddOn('AtlasLoot') then AS:RegisterSkin('AtlasLoot', AtlasLootDecor, 2) end
 if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('Altoholic', AltoholicDecor, 2) end
-if AS:CheckAddOn('RareCoordinator') then AS:RegisterSkin('RareCoordinator', RareCoordDecor, 2) end
 if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
 if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
 if AS:CheckAddOn('Pawn') then AS:RegisterSkin('Pawn', PawnDecor, 2) end
-if AS:CheckAddOn('DBM-Core') then AS:RegisterSkin('DBM', DbmDecor, 2) end
+if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers') and AS:CheckAddOn('DBM-DefaultSkin')) then AS:RegisterSkin('DBM', DbmDecor, 'ADDON_LOADED') end
+if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
+if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
+if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 2) end
+AS:RegisterSkin('Libraries', LibrariesDecor, 2)
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
 	if not _G["AcceptFrame"].style then
 		_G["AcceptFrame"]:Style('Outside')
+	end
+end)
+
+hooksecurefunc(AS, 'BugReportFrame', function(self)
+	if not _G["AddOnSkinsBugReportFrame"].style then
+		_G["AddOnSkinsBugReportFrame"]:Style('Outside')
 	end
 end)

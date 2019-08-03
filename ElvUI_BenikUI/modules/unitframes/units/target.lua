@@ -1,18 +1,15 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local UFB = E:GetModule('BuiUnits');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 local select = select
 local CreateFrame = CreateFrame
 local UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction = UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 
 -- GLOBALS: hooksecurefunc, ElvUF
 
-function UFB:Construct_TargetFrame()
+function BU:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
 
 	if not frame.Portrait.backdrop.shadow then
@@ -21,7 +18,7 @@ function UFB:Construct_TargetFrame()
 	end
 
 	if E.db.benikui.general.benikuiStyle == true then
-		frame.Portrait.backdrop:Style('Outside')
+		frame.Portrait.backdrop:Style('Inside')
 		frame.Portrait.backdrop.style:Hide()
 	end
 
@@ -36,9 +33,7 @@ function UFB:Construct_TargetFrame()
 	self:ArrangeTarget()
 end
 
-local r, g, b = 0, 0, 0
-
-function UFB:RecolorTargetDetachedPortraitStyle()
+function BU:RecolorTargetDetachedPortraitStyle()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
 
@@ -49,11 +44,12 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 	do
 		local portrait = frame.Portrait
 		local power = frame.Power
+		local r, g, b
 
 		if frame.USE_PORTRAIT and portrait.backdrop.style and E.db.benikui.unitframes.target.portraitStyle then
 			local maxValue = UnitPowerMax("target")
 			local _, pToken, altR, altG, altB = UnitPowerType("target")
-			local mu = power.bg.multiplier or 1
+			local mu = power.BG.multiplier or 1
 			local color = ElvUF['colors'].power[pToken]
 			local isPlayer = UnitIsPlayer("target")
 			local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
@@ -66,7 +62,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 						r, g, b = altR, altG, altB
 					end
 				else
-					if color then
+					if color and mu then
 						r, g, b = color[1] * mu, color[2] * mu, color[3] * mu
 					end
 				end
@@ -82,7 +78,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 						end
 					end
 				else
-					if reaction then
+					if reaction and mu then
 						local t = ElvUF.colors.reaction[reaction]
 						r, g, b = t[1] * mu, t[2] * mu, t[3] * mu
 					end
@@ -93,11 +89,9 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 	end
 end
 
-function UFB:RecolorTargetInfoPanel()
+function BU:RecolorTargetInfoPanel()
 	local frame = _G["ElvUF_Target"]
-
 	if not frame.USE_INFO_PANEL then return end
-	
 	local targetClass = select(2, UnitClass("target"));
 
 	do
@@ -105,13 +99,22 @@ function UFB:RecolorTargetInfoPanel()
 		local isPlayer = UnitIsPlayer("target")
 		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
 		local reaction = UnitReaction('target', 'player')
+		local r, g, b
 
 		if isPlayer then
-			r, g, b = classColor.r, classColor.g, classColor.b
+			if E.db.benikui.unitframes.infoPanel.customColor == 1 then
+				r, g, b = classColor.r, classColor.g, classColor.b
+			else
+				r, g, b = BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color)
+			end
 		else
 			if reaction then
 				local tpet = ElvUF.colors.reaction[reaction]
-				r, g, b = tpet[1], tpet[2], tpet[3]
+				if E.db.benikui.unitframes.infoPanel.customColor == 1 then
+					r, g, b = tpet[1], tpet[2], tpet[3]
+				else
+					r, g, b = BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color)
+				end
 			end
 		end
 
@@ -119,7 +122,7 @@ function UFB:RecolorTargetInfoPanel()
 	end
 end
 
-function UFB:ArrangeTarget()
+function BU:ArrangeTarget()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
 
@@ -139,39 +142,39 @@ function UFB:ArrangeTarget()
 	end
 
 	-- Power
-	UFB:Configure_Power(frame)
+	BU:Configure_Power(frame)
 
 	-- InfoPanel
-	UFB:Configure_Infopanel(frame)
+	BU:Configure_Infopanel(frame)
 
 	-- Portrait
-	UFB:Configure_Portrait(frame, false)
+	BU:Configure_Portrait(frame, false)
 
 	-- AuraBars shadows
-	UFB:Configure_AuraBars(frame)
+	BU:Configure_AuraBars(frame)
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
-function UFB:PLAYER_TARGET_CHANGED()
+function BU:PLAYER_TARGET_CHANGED()
 	self:ScheduleTimer('RecolorTargetDetachedPortraitStyle', 0.02)
 	self:ScheduleTimer('RecolorTargetInfoPanel', 0.02)
 end
 
-function UFB:InitTarget()
+function BU:InitTarget()
 	if not E.db.unitframe.units.target.enable then return end
 	self:Construct_TargetFrame()
-	hooksecurefunc(UF, 'Update_TargetFrame', UFB.ArrangeTarget)
+	hooksecurefunc(UF, 'Update_TargetFrame', BU.ArrangeTarget)
 	self:RegisterEvent('PLAYER_TARGET_CHANGED')
-	hooksecurefunc(UF, 'Update_TargetFrame', UFB.RecolorTargetDetachedPortraitStyle)
-	hooksecurefunc(UF, 'Update_TargetFrame', UFB.RecolorTargetInfoPanel)
+	hooksecurefunc(UF, 'Update_TargetFrame', BU.RecolorTargetDetachedPortraitStyle)
+	hooksecurefunc(UF, 'Update_TargetFrame', BU.RecolorTargetInfoPanel)
 
 	-- Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "target" then
-			UFB:Configure_Portrait(frame, false)
+			BU:Configure_Portrait(frame, false)
 		end
 	end)
 end

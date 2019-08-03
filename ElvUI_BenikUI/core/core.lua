@@ -1,12 +1,9 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:NewModule('BenikUI', "AceConsole-3.0", "AceHook-3.0");
-
-local LSM = LibStub('LibSharedMedia-3.0')
-local EP = LibStub('LibElvUIPlugin-1.0')
-local addon, ns = ...
+local BUI, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
+local LSM = E.LSM
 
 local _G = _G
-local pairs, print = pairs, print
+local pairs, print, tinsert = pairs, print, table.insert
 local format = string.format
 local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
@@ -14,14 +11,13 @@ local GetAddOnEnableState = GetAddOnEnableState
 
 -- GLOBALS: LibStub, ElvDB
 
-BUI.Config = {}
 BUI["styles"] = {}
 BUI["softGlow"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
-BUI.NewSign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t'
 BUI.ShadowMode = false;
+BUI.AddonProfileKey = '';
 BINDING_HEADER_BENIKUI = BUI.Title
 
 function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
@@ -32,8 +28,10 @@ end
 BUI.SLE = BUI:IsAddOnEnabled('ElvUI_SLE')
 BUI.PA = BUI:IsAddOnEnabled('ProjectAzilroka')
 BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
-BUI.LL = BUI:IsAddOnEnabled('ElvUI_LocLite')
+BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')
 BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
+BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
+BUI.ZG = BUI:IsAddOnEnabled('ZygorGuidesViewer')
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
@@ -68,6 +66,7 @@ end
 
 local r, g, b = 0, 0, 0
 function BUI:UpdateStyleColors()
+	local BTT = BUI:GetModule('Tooltip')
 	for frame, _ in pairs(BUI["styles"]) do
 		if frame and not frame.ignoreColor then
 			if E.db.benikui.colors.StyleColor == 1 then
@@ -84,6 +83,8 @@ function BUI:UpdateStyleColors()
 			BUI["styles"][frame] = nil;
 		end
 	end
+	BTT:CheckTooltipStyleColor()
+	BTT:RecolorTooltipStyle()
 end
 
 function BUI:UpdateStyleVisibility()
@@ -112,14 +113,8 @@ function BUI:UpdateSoftGlowColor()
 	end
 end
 
-function BUI:AddOptions()
-	for _, func in pairs(BUI.Config) do
-		func()
-	end
-end
-
 function BUI:DasOptions()
-	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
+	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
 function BUI:LoadCommands()
@@ -153,13 +148,11 @@ function BUI:Initialize()
 		BUI.ShadowMode = true
 	end
 
-	EP:RegisterPlugin(addon, self.AddOptions)
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BenikUI")
+	E.ConfigModeLocalizedStrings["BenikUI"] = BUI.Title
+
+	BUI.AddonProfileKey = BUI.Title..E.myname.." - "..E.myrealm
 
 	hooksecurefunc(E, "UpdateMedia", BUI.UpdateSoftGlowColor)
+	hooksecurefunc(BUI, "SetupColorThemes", BUI.UpdateStyleColors)
 end
-
-local function InitializeCallback()
-	BUI:Initialize()
-end
-
-E:RegisterModule(BUI:GetName(), InitializeCallback)

@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local UFB = E:GetModule('BuiUnits');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
@@ -8,7 +7,7 @@ local CreateFrame = CreateFrame
 
 -- GLOBALS: hooksecurefunc
 
-function UFB:Construct_PlayerFrame()
+function BU:Construct_PlayerFrame()
 	local frame = _G["ElvUF_Player"]
 
 	if not frame.Portrait.backdrop.shadow then
@@ -17,7 +16,7 @@ function UFB:Construct_PlayerFrame()
 	end
 
 	if E.db.benikui.general.benikuiStyle == true then
-		frame.Portrait.backdrop:Style('Outside')
+		frame.Portrait.backdrop:Style('Inside')
 		frame.Portrait.backdrop.style:Hide()
 	end
 
@@ -32,7 +31,7 @@ function UFB:Construct_PlayerFrame()
 	self:ArrangePlayer()
 end
 
-function UFB:ArrangePlayer()
+function BU:ArrangePlayer()
 	local frame = _G["ElvUF_Player"]
 	local db = E.db['unitframe']['units'].player
 
@@ -52,37 +51,45 @@ function UFB:ArrangePlayer()
 	end
 
 	-- Power
-	UFB:Configure_Power(frame)
+	BU:Configure_Power(frame)
 
 	-- InfoPanel
-	UFB:Configure_Infopanel(frame)
+	BU:Configure_Infopanel(frame)
 
 	-- Portrait
-	UFB:Configure_Portrait(frame, true)
+	BU:Configure_Portrait(frame, true)
 
 	-- Rest Icon
-	UFB:Configure_RestingIndicator(frame)
+	BU:Configure_RestingIndicator(frame)
 
 	-- AuraBars shadows
-	UFB:Configure_AuraBars(frame)
+	BU:Configure_AuraBars(frame)
 
 	-- ClassBar shadows
-	UFB:Configure_ClassBar(frame)
+	BU:Configure_ClassBar(frame)
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
-function UFB:InitPlayer()
+function BU:InitPlayer()
 	if not E.db.unitframe.units.player.enable then return end
 	self:Construct_PlayerFrame()
-	hooksecurefunc(UF, 'Update_PlayerFrame', UFB.ArrangePlayer)
+	hooksecurefunc(UF, 'Update_PlayerFrame', BU.ArrangePlayer)
 
 	-- Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "player" then
-			UFB:Configure_Portrait(frame, true)
+			BU:Configure_Portrait(frame, true)
+		end
+	end)
+
+	hooksecurefunc(UF, "Configure_InfoPanel", function(self, frame) -- fix Player infoPanel glitch #26
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "player" then
+			BU:Configure_Infopanel(frame)
 		end
 	end)
 end

@@ -1,7 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local mod = E:NewModule('BuiShadows', 'AceHook-3.0', 'AceEvent-3.0');
-local BUI = E:GetModule('BenikUI');
-local BUIS = E:GetModule('BuiSkins')
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:NewModule('Shadows', 'AceHook-3.0', 'AceEvent-3.0');
 local S = E:GetModule('Skins');
 
 local _G = _G
@@ -57,10 +55,20 @@ local function ObjectiveTrackerShadows()
 			progressBar.hasShadow = true
 		end
 	end
+
+	local function ItemButtonShadows(self, block)
+		local item = block.itemButton
+		if item and not item.shadow then
+			item:CreateSoftShadow()
+		end
+	end
+
 	hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(WORLD_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(SCENARIO_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(QUEST_TRACKER_MODULE,"SetBlockHeader",ItemButtonShadows)
+	hooksecurefunc(WORLD_QUEST_TRACKER_MODULE,"AddObjective",ItemButtonShadows)
 
 	local function FindGroupButtonShadows(block)
 		if block.hasGroupFinderButton and block.groupFinderButton then
@@ -80,9 +88,13 @@ local function CalendarEventButtonShadows()
 
 	for i = 1, #CLASS_SORT_ORDER do
 		local button = _G["CalendarClassButton"..i]
-		button.backdrop:CreateSoftShadow()
+		if button.backdrop then
+			button.backdrop:CreateSoftShadow()
+		end
 	end
-	CalendarClassTotalsButton.backdrop:CreateSoftShadow()
+	if _G.CalendarClassTotalsButton.backdrop then
+		_G.CalendarClassTotalsButton.backdrop:CreateSoftShadow()
+	end
 end
 
 local function miscShadows()
@@ -107,6 +119,28 @@ function mod:TabShadows(tab)
 end
 hooksecurefunc(S, "HandleTab", mod.TabShadows)
 
+-- MicroBar
+local function MicroBarShadows()
+	for i=1, #MICRO_BUTTONS do
+		if _G[MICRO_BUTTONS[i]].backdrop then
+			_G[MICRO_BUTTONS[i]].backdrop:CreateSoftShadow()
+		end
+	end
+end
+
+local function TimerShadow(bar)
+	bar.backdrop:CreateSoftShadow()
+end
+
+function mod:START_TIMER()
+	for _, b in pairs(TimerTracker.timerList) do
+		if b["bar"] and not b["bar"].hasShadow then
+			TimerShadow(b["bar"])
+			b["bar"].hasShadow = true
+		end
+	end
+end
+
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
@@ -114,6 +148,8 @@ function mod:Initialize()
 	mirrorTimersShadows()
 	ObjectiveTrackerShadows()
 	miscShadows()
+	MicroBarShadows()
+	mod:RegisterEvent('START_TIMER')
 
 	-- AddonSkins
 	mod:AddonSkins()
@@ -122,8 +158,4 @@ function mod:Initialize()
 	S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_CalendarEventButtonShadows", CalendarEventButtonShadows)
 end
 
-local function InitializeCallback()
-	mod:Initialize()
-end
-
-E:RegisterModule(mod:GetName(), InitializeCallback)
+BUI:RegisterModule(mod:GetName())
