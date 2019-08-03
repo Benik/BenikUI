@@ -1,5 +1,6 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Layout', 'AceHook-3.0', 'AceEvent-3.0');
+local E, L, V, P, G = unpack(ElvUI);
+local BUIL = E:NewModule('BuiLayout', 'AceHook-3.0', 'AceEvent-3.0');
+local BUI = E:GetModule('BenikUI');
 local LO = E:GetModule('Layout');
 local DT = E:GetModule('DataTexts')
 local M = E:GetModule('Minimap');
@@ -38,7 +39,7 @@ local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
 local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
 local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
 
-local function RegDataTexts()
+local function RegBuiDataTexts()
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiMiddleDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
@@ -81,7 +82,7 @@ end
 
 local bbuttons = {}
 
-function mod:ToggleBuiDts()
+function BUIL:ToggleBuiDts()
 	if not E.db.benikui.datatexts.chat.enable or E.db.datatexts.leftChatPanel then
 		BuiLeftChatDTPanel:Hide()
 		for i = 3, 4 do
@@ -107,14 +108,14 @@ function mod:ToggleBuiDts()
 	end
 end
 
-function mod:ResizeMinimapPanels()
+function BUIL:ResizeMinimapPanels()
 	LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
 	LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
 	RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
 	RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
 end
 
-function mod:ToggleTransparency()
+function BUIL:ToggleTransparency()
 	local db = E.db.benikui.datatexts.chat
 	if not db.backdrop then
 		Bui_ldtp:SetTemplate('NoBackdrop')
@@ -153,7 +154,7 @@ function mod:ToggleTransparency()
 	end
 end
 
-function mod:MiddleDatatextLayout()
+function BUIL:MiddleDatatextLayout()
 	local db = E.db.benikui.datatexts.middle
 
 	if db.enable then
@@ -187,7 +188,7 @@ function mod:MiddleDatatextLayout()
 	end
 end
 
-function mod:ChatStyles()
+function BUIL:ChatStyles()
 	if not E.db.benikui.general.benikuiStyle then return end
 	if E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH' then
 		Bui_rdtp.style:Show()
@@ -204,7 +205,7 @@ function mod:ChatStyles()
 	end
 end
 
-function mod:MiddleDatatextDimensions()
+function BUIL:MiddleDatatextDimensions()
 	local db = E.db.benikui.datatexts.middle
 	Bui_mdtp:Width(db.width)
 	Bui_mdtp:Height(db.height)
@@ -224,7 +225,7 @@ local function Panel_OnShow(self)
 	self:SetFrameLevel(0)
 end
 
-function mod:ChangeLayout()
+function BUIL:ChangeLayout()
 
 	LeftMiniPanel:Height(PANEL_HEIGHT)
 	RightMiniPanel:Height(PANEL_HEIGHT)
@@ -460,12 +461,12 @@ local function InjectMinimapOption()
 		name = BUI:cOption(L['BenikUI Style']),
 		disabled = function() return not E.private.general.minimap.enable or not E.db.benikui.general.benikuiStyle end,
 		get = function(info) return E.db.general.minimap.benikuiStyle end,
-		set = function(info, value) E.db.general.minimap.benikuiStyle = value; mod:ToggleMinimapStyle(); end,
+		set = function(info, value) E.db.general.minimap.benikuiStyle = value; BUIL:ToggleMinimapStyle(); end,
 	}
 end
 tinsert(BUI.Config, InjectMinimapOption)
 
-function mod:ToggleMinimapStyle()
+function BUIL:ToggleMinimapStyle()
 	if E.private.general.minimap.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 	if E.db.general.minimap.benikuiStyle then
 		Minimap.backdrop.style:Show()
@@ -474,31 +475,35 @@ function mod:ToggleMinimapStyle()
 	end
 end
 
-function mod:regEvents()
+function BUIL:regEvents()
 	self:MiddleDatatextLayout()
 	self:MiddleDatatextDimensions()
 	self:ToggleTransparency()
 end
 
-function mod:PLAYER_ENTERING_WORLD(...)
+function BUIL:PLAYER_ENTERING_WORLD(...)
 	self:ToggleBuiDts()
 	self:regEvents()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function mod:Initialize()
-	RegDataTexts()
+function BUIL:Initialize()
+	RegBuiDataTexts()
 	self:ChangeLayout()
 	self:ChatStyles()
 	self:ToggleMinimapStyle()
-	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
-	hooksecurefunc(LO, 'ToggleChatPanels', mod.ResizeMinimapPanels)
-	hooksecurefunc(LO, 'ToggleChatPanels', mod.ChatStyles)
-	hooksecurefunc(M, 'UpdateSettings', mod.ResizeMinimapPanels)
+	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ToggleBuiDts)
+	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ResizeMinimapPanels)
+	hooksecurefunc(LO, 'ToggleChatPanels', BUIL.ChatStyles)
+	hooksecurefunc(M, 'UpdateSettings', BUIL.ResizeMinimapPanels)
 	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
 	hooksecurefunc(E, 'UpdateMedia', updateButtonFont)
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
 end
 
-BUI:RegisterModule(mod:GetName())
+local function InitializeCallback()
+	BUIL:Initialize()
+end
+
+E:RegisterModule(BUIL:GetName(), InitializeCallback)

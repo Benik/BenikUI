@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, L, V, P, G =  unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
 -- Missions are based on TukUI Garrison DataText. Credits: Hydra, Tukz

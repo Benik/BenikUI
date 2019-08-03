@@ -1,8 +1,9 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local UF = E:GetModule('UnitFrames');
-local BU = BUI:GetModule('Units');
+local UFB = E:GetModule('BuiUnits');
 
-function BU:Configure_ClassBar(frame)
+function UFB:Configure_ClassBar(frame)
 	if not BUI.ShadowMode then return end
 
 	if not frame.VARIABLES_SET then return end

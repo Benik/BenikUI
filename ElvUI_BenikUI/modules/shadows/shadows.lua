@@ -1,5 +1,7 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Shadows', 'AceHook-3.0', 'AceEvent-3.0');
+local E, L, V, P, G = unpack(ElvUI);
+local mod = E:NewModule('BuiShadows', 'AceHook-3.0', 'AceEvent-3.0');
+local BUI = E:GetModule('BenikUI');
+local BUIS = E:GetModule('BuiSkins')
 local S = E:GetModule('Skins');
 
 local _G = _G
@@ -158,4 +160,8 @@ function mod:Initialize()
 	S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_CalendarEventButtonShadows", CalendarEventButtonShadows)
 end
 
-BUI:RegisterModule(mod:GetName())
+local function InitializeCallback()
+	mod:Initialize()
+end
+
+E:RegisterModule(mod:GetName(), InitializeCallback)

@@ -1,6 +1,7 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local E, _, V, P, G = unpack(ElvUI);
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-local BUID = BUI:GetModule('BuiDashboards');
+local BUI = E:GetModule('BenikUI');
+local BUID = E:GetModule('BuiDashboards');
 
 local tinsert, pairs, ipairs, gsub, unpack, format = table.insert, pairs, ipairs, gsub, unpack, string.format
 local GetCurrencyInfo = GetCurrencyInfo

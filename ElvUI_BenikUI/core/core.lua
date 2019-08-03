@@ -1,6 +1,10 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local E, _, V, P, G = unpack(ElvUI);
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
+local BUI = E:NewModule('BenikUI', "AceConsole-3.0", "AceHook-3.0");
+
 local LSM = E.LSM
+local EP = LibStub('LibElvUIPlugin-1.0')
+local addon, ns = ...
 
 local _G = _G
 local pairs, print, tinsert = pairs, print, table.insert
@@ -11,6 +15,7 @@ local GetAddOnEnableState = GetAddOnEnableState
 
 -- GLOBALS: LibStub, ElvDB
 
+BUI.Config = {}
 BUI["styles"] = {}
 BUI["softGlow"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
@@ -66,7 +71,7 @@ end
 
 local r, g, b = 0, 0, 0
 function BUI:UpdateStyleColors()
-	local BTT = BUI:GetModule('Tooltip')
+	local BTT = E:GetModule('BenikUI_Tooltip')
 	for frame, _ in pairs(BUI["styles"]) do
 		if frame and not frame.ignoreColor then
 			if E.db.benikui.colors.StyleColor == 1 then
@@ -113,6 +118,12 @@ function BUI:UpdateSoftGlowColor()
 	end
 end
 
+function BUI:AddOptions()
+	for _, func in pairs(BUI.Config) do
+		func()
+	end
+end
+
 function BUI:DasOptions()
 	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
@@ -153,6 +164,14 @@ function BUI:Initialize()
 
 	BUI.AddonProfileKey = BUI.Title..E.myname.." - "..E.myrealm
 
+	EP:RegisterPlugin(addon, self.AddOptions)
+
 	hooksecurefunc(E, "UpdateMedia", BUI.UpdateSoftGlowColor)
 	hooksecurefunc(BUI, "SetupColorThemes", BUI.UpdateStyleColors)
 end
+
+local function InitializeCallback()
+	BUI:Initialize()
+end
+
+E:RegisterModule(BUI:GetName(), InitializeCallback)

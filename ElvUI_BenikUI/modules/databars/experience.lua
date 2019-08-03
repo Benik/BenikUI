@@ -1,9 +1,9 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:GetModule('Databars');
-local DT = E:GetModule('DataTexts');
+local E, L, V, P, G = unpack(ElvUI);
+local BDB = E:GetModule('BenikUI_databars');
+local BUI = E:GetModule('BenikUI');
 local M = E:GetModule('DataBars');
 local LSM = E.LSM;
-
+local DT = E:GetModule('DataTexts');
 
 local _G = _G
 
@@ -21,7 +21,7 @@ local function OnClick(self)
 	if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end
 end
 
-function mod:ApplyXpStyling()
+function BDB:ApplyXpStyling()
 	local xp = ElvUI_ExperienceBar
 	if E.db.databars.experience.enable then
 		if xp.fb then
@@ -48,7 +48,7 @@ function mod:ApplyXpStyling()
 	end
 end
 
-function mod:ToggleXPBackdrop()
+function BDB:ToggleXPBackdrop()
 	if E.db.benikuiDatabars.experience.enable ~= true then return end
 	local bar = ElvUI_ExperienceBar
 	local db = E.db.benikuiDatabars.experience
@@ -73,7 +73,7 @@ function mod:ToggleXPBackdrop()
 	end
 end
 
-function mod:UpdateXpNotifierPositions()
+function BDB:UpdateXpNotifierPositions()
 	local bar = ElvUI_ExperienceBar.statusBar
 
 	local db = E.db.benikuiDatabars.experience.notifiers
@@ -113,7 +113,7 @@ function mod:UpdateXpNotifierPositions()
 	end
 end
 
-function mod:GetXP(unit)
+function BDB:GetXP(unit)
 	if(unit == 'pet') then
 		return GetPetExperience()
 	else
@@ -121,29 +121,29 @@ function mod:GetXP(unit)
 	end
 end
 
-function mod:UpdateXpNotifier()
+function BDB:UpdateXpNotifier()
 	local bar = ElvUI_ExperienceBar.statusBar
 
 	if E.db.databars.experience.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
 	else
 		bar.f:Show()
-		local cur, max = mod:GetXP('player')
+		local cur, max = BDB:GetXP('player')
 		if max == 0 then max = 1 end
 		bar.f.txt:SetFormattedText('%d%%', cur / max * 100)
 	end
 end
 
-function mod:XpTextOffset()
+function BDB:XpTextOffset()
 	local text = ElvUI_ExperienceBar.text
 	text:Point('CENTER', 0, E.db.databars.experience.textYoffset or 0)
 end
 
-function mod:LoadXP()
+function BDB:LoadXP()
 	local bar = ElvUI_ExperienceBar
 
 	self:XpTextOffset()
-	hooksecurefunc(M, 'UpdateExperience', mod.XpTextOffset)
+	hooksecurefunc(M, 'UpdateExperience', BDB.XpTextOffset)
 
 	local db = E.db.benikuiDatabars.experience.notifiers
 
@@ -151,10 +151,10 @@ function mod:LoadXP()
 		self:CreateNotifier(bar.statusBar)
 		self:UpdateXpNotifierPositions()
 		self:UpdateXpNotifier()
-		hooksecurefunc(M, 'UpdateExperience', mod.UpdateXpNotifier)
-		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateXpNotifierPositions)
-		hooksecurefunc(M, 'UpdateExperienceDimensions', mod.UpdateXpNotifierPositions)
-		hooksecurefunc(M, 'UpdateExperienceDimensions', mod.UpdateXpNotifier)
+		hooksecurefunc(M, 'UpdateExperience', BDB.UpdateXpNotifier)
+		hooksecurefunc(DT, 'LoadDataTexts', BDB.UpdateXpNotifierPositions)
+		hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.UpdateXpNotifierPositions)
+		hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.UpdateXpNotifier)
 	end
 
 	if E.db.benikuiDatabars.experience.enable ~= true then return end
@@ -163,5 +163,5 @@ function mod:LoadXP()
 	self:ToggleXPBackdrop()
 	self:ApplyXpStyling()
 
-	hooksecurefunc(M, 'UpdateExperienceDimensions', mod.ApplyXpStyling)
+	hooksecurefunc(M, 'UpdateExperienceDimensions', BDB.ApplyXpStyling)
 end

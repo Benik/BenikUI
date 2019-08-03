@@ -1,12 +1,12 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
-local BU = BUI:GetModule('Units');
+﻿local E, L, V, P, G = unpack(ElvUI);
+local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 local CreateFrame = CreateFrame
 -- GLOBALS: hooksecurefunc
 
-function BU:Construct_PetFrame()
+function UFB:Construct_PetFrame()
 	local frame = _G["ElvUF_Pet"]
 
 	if not frame.Portrait.backdrop.shadow then
@@ -20,7 +20,7 @@ function BU:Construct_PetFrame()
 	self:ArrangePet()
 end
 
-function BU:ArrangePet()
+function UFB:ArrangePet()
 	local frame = _G["ElvUF_Pet"]
 
 	do
@@ -34,22 +34,22 @@ function BU:ArrangePet()
 	end
 
 	-- Portrait
-	BU:Configure_Portrait(frame, false)
+	UFB:Configure_Portrait(frame, false)
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
-function BU:InitPet()
+function UFB:InitPet()
 	if not E.db.unitframe.units.pet.enable then return end
 	self:Construct_PetFrame()
-	hooksecurefunc(UF, 'Update_PetFrame', BU.ArrangePet)
+	hooksecurefunc(UF, 'Update_PetFrame', UFB.ArrangePet)
 
 	-- Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "pet" then
-			BU:Configure_Portrait(frame, false)
+			UFB:Configure_Portrait(frame, false)
 		end
 	end)
 end

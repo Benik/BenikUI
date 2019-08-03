@@ -1,12 +1,12 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
-local BU = BUI:GetModule('Units');
+﻿local E, L, V, P, G = unpack(ElvUI);
+local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 local CreateFrame = CreateFrame
 -- GLOBALS: hooksecurefunc
 
-function BU:Construct_TargetTargetFrame()
+function UFB:Construct_TargetTargetFrame()
 	local frame = _G["ElvUF_TargetTarget"]
 
 	if not frame.Portrait.backdrop.shadow then
@@ -20,7 +20,7 @@ function BU:Construct_TargetTargetFrame()
 	self:ArrangeTargetTarget()
 end
 
-function BU:ArrangeTargetTarget()
+function UFB:ArrangeTargetTarget()
 	local frame = _G["ElvUF_TargetTarget"]
 
 	do
@@ -34,22 +34,22 @@ function BU:ArrangeTargetTarget()
 	end
 
 	-- Portrait
-	BU:Configure_Portrait(frame, false)
+	UFB:Configure_Portrait(frame, false)
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
-function BU:InitTargetTarget()
+function UFB:InitTargetTarget()
 	if not E.db.unitframe.units.targettarget.enable then return end
 	self:Construct_TargetTargetFrame()
-	hooksecurefunc(UF, 'Update_TargetTargetFrame', BU.ArrangeTargetTarget)
+	hooksecurefunc(UF, 'Update_TargetTargetFrame', UFB.ArrangeTargetTarget)
 
 	-- Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "targettarget" then
-			BU:Configure_Portrait(frame, false)
+			UFB:Configure_Portrait(frame, false)
 		end
 	end)
 end

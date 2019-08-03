@@ -1,5 +1,6 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
+local BUI = E:GetModule("BenikUI")
 
 local _G = _G
 local pairs, unpack = pairs, unpack

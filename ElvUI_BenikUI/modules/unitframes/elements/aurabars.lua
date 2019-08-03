@@ -1,9 +1,10 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local UF = E:GetModule('UnitFrames');
-local BU = BUI:GetModule('Units');
+local UFB = E:GetModule('BuiUnits');
 
 --Replace ElvUI AuraBars creation. Don't want to create shadows on PostUpdate
-function BU:Create_AuraBarsWithShadow()
+function UFB:Create_AuraBarsWithShadow()
 	local bar = self.statusBar
 
 	self:SetTemplate('Default', nil, nil, UF.thinBorders, true)
@@ -44,13 +45,13 @@ function BU:Create_AuraBarsWithShadow()
 	end)
 end
 
-function BU:Configure_AuraBars(frame)
+function UFB:Configure_AuraBars(frame)
 	if not BUI.ShadowMode then return end
 
 	if not frame.VARIABLES_SET then return end
 	local auraBars = frame.AuraBars
 
-	auraBars.PostCreateBar = BU.Create_AuraBarsWithShadow
+	auraBars.PostCreateBar = UFB.Create_AuraBarsWithShadow
 	auraBars.gap = frame.BORDER*2
 	auraBars.spacing = frame.BORDER*2
 end

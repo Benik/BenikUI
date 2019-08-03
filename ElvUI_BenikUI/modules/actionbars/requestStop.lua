@@ -1,5 +1,6 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:GetModule('Actionbars');
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
+local BAB = E:GetModule('BuiActionbars');
 
 local _G = _G
 local unpack = unpack
@@ -101,7 +102,7 @@ end
 local fly_icon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow.tga'
 
 -- TaxiButton
-function mod:TaxiButton()
+function BAB:TaxiButton()
 	if not E.db.benikui.actionbars.requestStop then return end
 
 	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent)
@@ -144,6 +145,6 @@ function mod:TaxiButton()
 	E:CreateMover(BuiTaxiButton, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS,BenikUI', nil, 'benikui,actionbars')
 end
 
-function mod:LoadRequestButton()
+function BAB:LoadRequestButton()
 	self:TaxiButton()
 end
