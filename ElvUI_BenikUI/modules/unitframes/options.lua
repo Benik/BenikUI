@@ -1,8 +1,8 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local E, _, V, P, G = unpack(ElvUI);
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-
-local BU = BUI:GetModule('Units');
-local BC = BUI:GetModule('Castbar');
+local BUI = E:GetModule('BenikUI');
+local UFB = E:GetModule('BuiUnits');
+local BUIC = E:GetModule('BuiCastbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
@@ -43,7 +43,7 @@ local function ufTable()
 						name = L['Fix InfoPanel width'],
 						desc = L['Lower InfoPanel width when potraits are enabled.'],
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UpdateUF() end,
+						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:UpdateUF() end,
 					},
 					customColor = {
 						order = 2,
@@ -54,7 +54,7 @@ local function ufTable()
 							[2] = L.CUSTOM,
 						},
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:InfoPanelColor() BU:RecolorTargetInfoPanel() end,
+						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:InfoPanelColor() UFB:RecolorTargetInfoPanel() end,
 					},
 					color = {
 						order = 3,
@@ -71,7 +71,7 @@ local function ufTable()
 							E.db.benikui.unitframes.infoPanel[ info[#info] ] = {}
 							local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
-							BU:InfoPanelColor()
+							UFB:InfoPanelColor()
 						end,
 					},
 					texture = {
@@ -80,7 +80,7 @@ local function ufTable()
 						name = L['Textures'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:InfoPanelColor() end,
+						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; UFB:InfoPanelColor() end,
 					},
 				},
 			},
@@ -97,7 +97,7 @@ local function ufTable()
 						desc = L['Health statusbar texture. Applies only on Group Frames'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BU:ChangeHealthBarTexture() end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UFB:ChangeHealthBarTexture() end,
 					},
 					ignoreTransparency = {
 						type = 'toggle',
@@ -119,7 +119,7 @@ local function ufTable()
 						desc = L['Power statusbar texture.'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BU:ChangePowerBarTexture() end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UFB:ChangePowerBarTexture() end,
 					},
 					spacer2 = {
 						order = 5,
@@ -133,7 +133,7 @@ local function ufTable()
 						desc = L['This applies on all available castbars.'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BC:CastBarHooks(); end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BUIC:CastBarHooks(); end,
 					},
 				},
 			},
@@ -176,7 +176,7 @@ local function ufTable()
 				name = L['Castbar Text'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
 				get = function(info) return E.db.benikui.unitframes.castbar.text[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BC:UpdateAllCastbars(); end,
+				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BUIC:UpdateAllCastbars(); end,
 				args = {
 					ShowInfoText = {
 						type = 'toggle',
@@ -207,7 +207,7 @@ local function ufTable()
 								desc = L['Adjust castbar text Y Offset'],
 								min = -40, max = 40, step = 1,
 								get = function(info) return E.db.benikui.unitframes.castbar.text.player[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.unitframes.castbar.text.player[ info[#info] ] = value; BC:UpdateAllCastbars(); end,
+								set = function(info, value) E.db.benikui.unitframes.castbar.text.player[ info[#info] ] = value; BUIC:UpdateAllCastbars(); end,
 							},
 							textColor = {
 								order = 2,
@@ -223,7 +223,7 @@ local function ufTable()
 									E.db.benikui.unitframes.castbar.text.player[ info[#info] ] = {}
 									local t = E.db.benikui.unitframes.castbar.text.player[ info[#info] ]
 									t.r, t.g, t.b, t.a = r, g, b, a
-									BC:CastBarHooks();
+									BUIC:CastBarHooks();
 								end,
 							},
 						},
@@ -240,7 +240,7 @@ local function ufTable()
 								desc = L['Adjust castbar text Y Offset'],
 								min = -40, max = 40, step = 1,
 								get = function(info) return E.db.benikui.unitframes.castbar.text.target[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.unitframes.castbar.text.target[ info[#info] ] = value; BC:UpdateAllCastbars(); end,
+								set = function(info, value) E.db.benikui.unitframes.castbar.text.target[ info[#info] ] = value; BUIC:UpdateAllCastbars(); end,
 							},
 							textColor = {
 								order = 2,
@@ -256,7 +256,7 @@ local function ufTable()
 									E.db.benikui.unitframes.castbar.text.target[ info[#info] ] = {}
 									local t = E.db.benikui.unitframes.castbar.text.target[ info[#info] ]
 									t.r, t.g, t.b, t.a = r, g, b, a
-									BC:CastBarHooks();
+									BUIC:CastBarHooks();
 								end,
 							},
 						},
@@ -301,7 +301,7 @@ local function ufPlayerTable()
 		name = BUI.Title,
 		guiInline = true,
 		get = function(info) return E.db.benikui.unitframes.player[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.unitframes.player[ info[#info] ] = value; BU:ArrangePlayer(); end,
+		set = function(info, value) E.db.benikui.unitframes.player[ info[#info] ] = value; UFB:ArrangePlayer(); end,
 		args = {
 			detachPortrait = {
 				order = 1,
@@ -398,7 +398,7 @@ local function ufTargetTable()
 		name = BUI.Title,
 		guiInline = true,
 		get = function(info) return E.db.benikui.unitframes.target[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.unitframes.target[ info[#info] ] = value; BU:ArrangeTarget(); end,
+		set = function(info, value) E.db.benikui.unitframes.target[ info[#info] ] = value; UFB:ArrangeTarget(); end,
 		args = {
 			detachPortrait = {
 				order = 1,
@@ -502,7 +502,7 @@ local function ufTargetTargetTable()
 		name = BUI.Title,
 		guiInline = true,
 		get = function(info) return E.db.benikui.unitframes.targettarget[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.unitframes.targettarget[ info[#info] ] = value; BU:ArrangeTargetTarget(); end,
+		set = function(info, value) E.db.benikui.unitframes.targettarget[ info[#info] ] = value; UFB:ArrangeTargetTarget(); end,
 		args = {
 			detachPortrait = {
 				order = 1,
@@ -572,7 +572,7 @@ local function ufFocusTable()
 		name = BUI.Title,
 		guiInline = true,
 		get = function(info) return E.db.benikui.unitframes.focus[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.unitframes.focus[ info[#info] ] = value; BU:ArrangeFocus(); end,
+		set = function(info, value) E.db.benikui.unitframes.focus[ info[#info] ] = value; UFB:ArrangeFocus(); end,
 		args = {
 			detachPortrait = {
 				order = 1,
@@ -642,7 +642,7 @@ local function ufPetTable()
 		name = BUI.Title,
 		guiInline = true,
 		get = function(info) return E.db.benikui.unitframes.pet[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.unitframes.pet[ info[#info] ] = value; BU:ArrangePet(); end,
+		set = function(info, value) E.db.benikui.unitframes.pet[ info[#info] ] = value; UFB:ArrangePet(); end,
 		args = {
 			detachPortrait = {
 				order = 1,

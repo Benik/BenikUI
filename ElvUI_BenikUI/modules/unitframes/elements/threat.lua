@@ -1,7 +1,7 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local BU = BUI:GetModule('Units');
+local E, L, V, P, G = unpack(ElvUI);
+local UFB = E:GetModule('BuiUnits');
 
-function BU:Configure_Threat(frame)
+function UFB:Configure_Threat(frame)
 	local threat = frame.ThreatIndicator
 	local db = frame.db
 

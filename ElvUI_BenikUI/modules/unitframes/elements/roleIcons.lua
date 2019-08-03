@@ -1,7 +1,7 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
+﻿local E, L, V, P, G = unpack(ElvUI);
 local UF = E:GetModule('UnitFrames');
-local BU = BUI:GetModule('Units');
-
+local UFB = E:GetModule('BuiUnits');
+local BUI = E:GetModule('BenikUI');
 
 local pairs, select, random = pairs, select, random
 
@@ -46,7 +46,7 @@ local function GetBattleFieldIndexFromUnitName(name)
 	return nil
 end
 
-function BU:UpdateRoleIcon()
+function UFB:UpdateRoleIcon()
 	local lfdrole = self.GroupRoleIndicator
 	if not self.db then return; end
 	local db = self.db.roleIcon;
@@ -94,9 +94,9 @@ local function SetRoleIcons()
 			for j = 1, group:GetNumChildren() do
 				local unitbutton = select(j, group:GetChildren())
 				if unitbutton.GroupRoleIndicator and unitbutton.GroupRoleIndicator.Override then
-					unitbutton.GroupRoleIndicator.Override = BU.UpdateRoleIcon
+					unitbutton.GroupRoleIndicator.Override = UFB.UpdateRoleIcon
 					unitbutton:UnregisterEvent("UNIT_CONNECTION")
-					unitbutton:RegisterEvent("UNIT_CONNECTION", BU.UpdateRoleIcon)
+					unitbutton:RegisterEvent("UNIT_CONNECTION", UFB.UpdateRoleIcon)
 				end
 			end
 		end

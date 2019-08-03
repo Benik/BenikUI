@@ -1,5 +1,6 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Tooltip', 'AceHook-3.0');
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
+local BTT = E:NewModule('BenikUI_Tooltip', 'AceHook-3.0');
 local TT = E:GetModule('Tooltip');
 
 local GameTooltip, GameTooltipStatusBar = _G["GameTooltip"], _G["GameTooltipStatusBar"]
@@ -28,12 +29,12 @@ local function StyleTooltip()
 end
 
 local ttr, ttg, ttb = 0, 0, 0
-function mod:CheckTooltipStyleColor()
+function BTT:CheckTooltipStyleColor()
 	local r, g, b = GameTooltip.style.pixelBorders.CENTER:GetVertexColor()
 	ttr, ttg, ttb = r, g, b
 end
 
-function mod:RecolorTooltipStyle()
+function BTT:RecolorTooltipStyle()
 	local r, g, b = 0, 0, 0
 
 	if GameTooltipStatusBar:IsShown() then
@@ -46,14 +47,18 @@ function mod:RecolorTooltipStyle()
 	end
 end
 
-function mod:Initialize()
+function BTT:Initialize()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
 	StyleTooltip()
 
-	mod:CheckTooltipStyleColor()
-	mod:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
+	BTT:CheckTooltipStyleColor()
+	BTT:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
 end
 
-BUI:RegisterModule(mod:GetName())
+local function InitializeCallback()
+	BTT:Initialize()
+end
+
+E:RegisterModule(BTT:GetName(), InitializeCallback)

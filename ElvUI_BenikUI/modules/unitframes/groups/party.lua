@@ -1,10 +1,10 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
-local BU = BUI:GetModule('Units');
+﻿local E, L, V, P, G = unpack(ElvUI);
+local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
 -- GLOBALS: hooksecurefunc
 
-function BU:Update_PartyFrames(frame, db)
+function UFB:Update_PartyFrames(frame, db)
 	frame.db = db
 
 	do
@@ -15,22 +15,22 @@ function BU:Update_PartyFrames(frame, db)
 
 	if not frame.isChild then
 		-- InfoPanel
-		BU:Configure_Infopanel(frame)
+		UFB:Configure_Infopanel(frame)
 
 		-- Portrait
-		BU:Configure_Portrait(frame)
+		UFB:Configure_Portrait(frame)
 
 		-- Threat
-		BU:Configure_Threat(frame)
+		UFB:Configure_Threat(frame)
 
 		-- Target Glow
-		BU:Configure_TargetGlow(frame)
+		UFB:Configure_TargetGlow(frame)
 	end
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
-function BU:InitParty()
+function UFB:InitParty()
 	if not E.db.unitframe.units.party.enable then return end
-	hooksecurefunc(UF, 'Update_PartyFrames', BU.Update_PartyFrames)
+	hooksecurefunc(UF, 'Update_PartyFrames', UFB.Update_PartyFrames)
 end

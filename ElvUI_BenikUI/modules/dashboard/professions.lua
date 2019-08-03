@@ -1,5 +1,6 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:GetModule('BuiDashboards');
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
+local mod = E:GetModule('BuiDashboards');
 local DT = E:GetModule('DataTexts');
 
 local getn = getn

@@ -1,8 +1,9 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:GetModule('Databars');
+local E, L, V, P, G = unpack(ElvUI);
+local mod = E:GetModule('BenikUI_databars');
+local BUI = E:GetModule('BenikUI');
 local M = E:GetModule('DataBars');
+local LSM = LibStub('LibSharedMedia-3.0');
 local DT = E:GetModule('DataTexts');
-local LSM = E.LSM;
 
 local _G = _G
 local floor = floor

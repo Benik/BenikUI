@@ -1,6 +1,7 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local LSM = E.LSM
-local mod = BUI:NewModule('iLevel', 'AceEvent-3.0');
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
+local LSM = LibStub('LibSharedMedia-3.0')
+local mod = E:NewModule('BUIiLevel', 'AceEvent-3.0');
 -- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
 local _G = _G
@@ -156,4 +157,8 @@ function mod:Initialize()
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-BUI:RegisterModule(mod:GetName())
+local function InitializeCallback()
+	mod:Initialize()
+end
+
+E:RegisterModule(mod:GetName(), InitializeCallback)

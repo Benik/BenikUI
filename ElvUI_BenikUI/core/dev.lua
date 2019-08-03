@@ -1,4 +1,4 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
+﻿local E, L, V, P, G = unpack(ElvUI);
 
 	--[[ Code you can use for alert testing
 		--Queued Alerts:

@@ -1,9 +1,11 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI);
 local UF = E:GetModule('UnitFrames');
-local BU = BUI:GetModule('Units');
-local LSM = E.LSM;
+local BUI = E:GetModule('BenikUI');
+local UFB = E:GetModule('BuiUnits');
+local LSM = LibStub("LibSharedMedia-3.0");
+UF.LSM = LSM
 
-function BU:Configure_Infopanel(frame)
+function UFB:Configure_Infopanel(frame)
 	if frame.ORIENTATION == "RIGHT" and not (frame.unitframeType == "arena") then
 		if frame.PORTRAIT_AND_INFOPANEL then
 			frame.InfoPanel:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -frame.PORTRAIT_WIDTH -frame.BORDER - frame.SPACING, frame.BORDER + frame.SPACING)
@@ -46,7 +48,7 @@ local function GetClassColor(unit)
 end
 
 -- Units
-function BU:UnitInfoPanelColor()
+function UFB:UnitInfoPanelColor()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
 	for unit, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
@@ -70,7 +72,7 @@ function BU:UnitInfoPanelColor()
 end
 
 -- Raid
-function BU:RaidInfoPanelColor()
+function UFB:RaidInfoPanelColor()
 	local header = _G['ElvUF_Raid']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
 	for i = 1, header:GetNumChildren() do
@@ -91,7 +93,7 @@ function BU:RaidInfoPanelColor()
 end
 
 -- Raid-40
-function BU:Raid40InfoPanelColor()
+function UFB:Raid40InfoPanelColor()
 	local header = _G['ElvUF_Raid40']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
 	for i = 1, header:GetNumChildren() do
@@ -112,7 +114,7 @@ function BU:Raid40InfoPanelColor()
 end
 
 -- Party
-function BU:PartyInfoPanelColor()
+function UFB:PartyInfoPanelColor()
 	local header = _G['ElvUF_Party']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
 	for i = 1, header:GetNumChildren() do
@@ -133,7 +135,7 @@ function BU:PartyInfoPanelColor()
 end
 
 -- Arena
-function BU:ArenaInfoPanelColor()
+function UFB:ArenaInfoPanelColor()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
@@ -149,7 +151,7 @@ function BU:ArenaInfoPanelColor()
 end
 
 -- Boss
-function BU:BossInfoPanelColor()
+function UFB:BossInfoPanelColor()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Boss"..i]
@@ -164,11 +166,11 @@ function BU:BossInfoPanelColor()
 	end
 end
 
-function BU:InfoPanelColor()
-	BU:UnitInfoPanelColor()
-	BU:RaidInfoPanelColor()
-	BU:Raid40InfoPanelColor()
-	BU:PartyInfoPanelColor()
-	BU:ArenaInfoPanelColor()
-	BU:BossInfoPanelColor()
+function UFB:InfoPanelColor()
+	UFB:UnitInfoPanelColor()
+	UFB:RaidInfoPanelColor()
+	UFB:Raid40InfoPanelColor()
+	UFB:PartyInfoPanelColor()
+	UFB:ArenaInfoPanelColor()
+	UFB:BossInfoPanelColor()
 end

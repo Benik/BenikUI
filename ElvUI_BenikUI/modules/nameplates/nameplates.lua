@@ -1,6 +1,7 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 local NP = E:GetModule('NamePlates')
-local mod = BUI:NewModule('Nameplates', 'AceHook-3.0');
+local mod = E:NewModule('BuiNameplates', 'AceHook-3.0');
 
 function mod:NameplateShadows(nameplate)
 	if not nameplate.Health.backdrop.shadow then
@@ -20,9 +21,14 @@ function mod:NameplateShadows(nameplate)
 	end
 end
 
+
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
 	hooksecurefunc(NP, 'StylePlate', mod.NameplateShadows)
 end
 
-BUI:RegisterModule(mod:GetName())
+local function InitializeCallback()
+	mod:Initialize()
+end
+
+E:RegisterModule(mod:GetName(), InitializeCallback)

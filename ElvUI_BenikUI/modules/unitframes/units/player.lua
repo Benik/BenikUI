@@ -1,5 +1,6 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local BU = BUI:GetModule('Units');
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
+local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
@@ -7,7 +8,7 @@ local CreateFrame = CreateFrame
 
 -- GLOBALS: hooksecurefunc
 
-function BU:Construct_PlayerFrame()
+function UFB:Construct_PlayerFrame()
 	local frame = _G["ElvUF_Player"]
 
 	if not frame.Portrait.backdrop.shadow then
@@ -31,7 +32,7 @@ function BU:Construct_PlayerFrame()
 	self:ArrangePlayer()
 end
 
-function BU:ArrangePlayer()
+function UFB:ArrangePlayer()
 	local frame = _G["ElvUF_Player"]
 	local db = E.db['unitframe']['units'].player
 
@@ -51,37 +52,37 @@ function BU:ArrangePlayer()
 	end
 
 	-- Power
-	BU:Configure_Power(frame)
+	UFB:Configure_Power(frame)
 
 	-- InfoPanel
-	BU:Configure_Infopanel(frame)
+	UFB:Configure_Infopanel(frame)
 
 	-- Portrait
-	BU:Configure_Portrait(frame, true)
+	UFB:Configure_Portrait(frame, true)
 
 	-- Rest Icon
-	BU:Configure_RestingIndicator(frame)
+	UFB:Configure_RestingIndicator(frame)
 
 	-- AuraBars shadows
-	BU:Configure_AuraBars(frame)
+	UFB:Configure_AuraBars(frame)
 
 	-- ClassBar shadows
-	BU:Configure_ClassBar(frame)
+	UFB:Configure_ClassBar(frame)
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
-function BU:InitPlayer()
+function UFB:InitPlayer()
 	if not E.db.unitframe.units.player.enable then return end
 	self:Construct_PlayerFrame()
-	hooksecurefunc(UF, 'Update_PlayerFrame', BU.ArrangePlayer)
+	hooksecurefunc(UF, 'Update_PlayerFrame', UFB.ArrangePlayer)
 
 	-- Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "player" then
-			BU:Configure_Portrait(frame, true)
+			UFB:Configure_Portrait(frame, true)
 		end
 	end)
 
@@ -89,7 +90,7 @@ function BU:InitPlayer()
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "player" then
-			BU:Configure_Infopanel(frame)
+			UFB:Configure_Infopanel(frame)
 		end
 	end)
 end

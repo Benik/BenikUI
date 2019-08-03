@@ -1,5 +1,6 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule("Skins", "AceHook-3.0", "AceEvent-3.0")
+local E, L, V, P, G = unpack(ElvUI)
+local BUIS = E:NewModule("BuiSkins", "AceHook-3.0", "AceEvent-3.0")
+local BUI = E:GetModule("BenikUI")
 local S = E:GetModule("Skins")
 
 local _G = _G
@@ -251,8 +252,6 @@ local function styleFreeBlizzardFrames()
 	if db.trade then
 		TradeFrame:Style("Outside")
 	end
-	
-	ColorPickerFrame:Style("Outside")
 end
 S:AddCallback("BenikUI_styleFreeBlizzardFrames", styleFreeBlizzardFrames)
 
@@ -602,7 +601,7 @@ local function VehicleExit()
 	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
 end
 
-function mod:StyleAdibagsBank()
+function BUIS:StyleAdibagsBank()
 	if not E.db.benikuiSkins.addonSkins.adibags or not BUI.AS then
 		return
 	end
@@ -630,7 +629,7 @@ local function StyleAdibags()
 	)
 end
 
-function mod:LoD_AddOns(_, addon)
+function BUIS:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
 	end
@@ -639,7 +638,7 @@ function mod:LoD_AddOns(_, addon)
 	end
 end
 
-function mod:PLAYER_ENTERING_WORLD(...)
+function BUIS:PLAYER_ENTERING_WORLD(...)
 	self:styleAlertFrames()
 	styleAddons()
 	styleWorldMap()
@@ -649,22 +648,13 @@ function mod:PLAYER_ENTERING_WORLD(...)
 end
 
 local function StyleElvUIConfig()
-	if not E.private.skins.ace3.enable then return end
-
 	local frame = _G.ElvUIGUIFrame
 	if not frame.style then
 		frame:Style("Outside")
 	end
 end
 
-local function StyleAceTooltip(self)
-	if not self or self:IsForbidden() then return end
-	if not self.style then
-		self:Style('Outside')
-	end
-end
-
-function mod:Initialize()
+function BUIS:Initialize()
 	VehicleExit()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
@@ -686,7 +676,10 @@ function mod:Initialize()
 	end
 	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)
 	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
-	hooksecurefunc(S, "Ace3_StyleTooltip", StyleAceTooltip)
 end
 
-BUI:RegisterModule(mod:GetName())
+local function InitializeCallback()
+	BUIS:Initialize()
+end
+
+E:RegisterModule(BUIS:GetName(), InitializeCallback)

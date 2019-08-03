@@ -1,8 +1,9 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Bags', 'AceHook-3.0', 'AceEvent-3.0');
+local E, L, V, P, G = unpack(ElvUI);
+local BUIB = E:NewModule('BuiBags', 'AceHook-3.0', 'AceEvent-3.0');
 local B = E:GetModule('Bags')
 
 local _G = _G
+
 local NUM_CONTAINER_FRAMES = NUM_CONTAINER_FRAMES
 
 -- GLOBALS: hooksecurefunc
@@ -10,7 +11,7 @@ local NUM_CONTAINER_FRAMES = NUM_CONTAINER_FRAMES
 local SPACING = (E.PixelMode and 1 or 5)
 local BORDER = E.Border;
 
-function mod:StyleBags()
+function BUIB:StyleBags()
 	if ElvUI_ContainerFrame then
 		ElvUI_ContainerFrame:Style('Outside')
 		ElvUI_ContainerFrameContainerHolder:Style('Outside')
@@ -26,7 +27,7 @@ function mod:StyleBags()
 	end
 end
 
-function mod:OpenBankBags()
+function BUIB:OpenBankBags()
 	if ElvUI_BankContainerFrame then
 		ElvUI_BankContainerFrame:Style('Outside')
 		ElvUI_BankContainerFrameContainerHolder:Style('Outside')
@@ -37,7 +38,7 @@ function mod:OpenBankBags()
 	end
 end
 
-function mod:SkinBlizzBags()
+function BUIB:SkinBlizzBags()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bags ~= true or E.private.bags.enable then return end
 
 	for i = 1, NUM_CONTAINER_FRAMES, 1 do
@@ -51,16 +52,20 @@ function mod:SkinBlizzBags()
 	end
 end
 
-function mod:AllInOneBags()
+function BUIB:AllInOneBags()
 	self:StyleBags()
-	hooksecurefunc(B, "OpenBank", mod.OpenBankBags)
+	hooksecurefunc(B, "OpenBank", BUIB.OpenBankBags)
 end
 
-function mod:Initialize()
+function BUIB:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	self:AllInOneBags()
 	self:SkinBlizzBags()
 	self:OpenBankBags()
 end
 
-BUI:RegisterModule(mod:GetName())
+local function InitializeCallback()
+	BUIB:Initialize()
+end
+
+E:RegisterModule(BUIB:GetName(), InitializeCallback)

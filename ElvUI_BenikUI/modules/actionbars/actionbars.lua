@@ -1,5 +1,6 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Actionbars', 'AceEvent-3.0');
+local E, L, V, P, G, _ = unpack(ElvUI);
+local BAB = E:NewModule('BuiActionbars', 'AceEvent-3.0');
+local BUI = E:GetModule('BenikUI');
 local AB = E:GetModule('ActionBars');
 
 if E.private.actionbar.enable ~= true then return; end
@@ -26,7 +27,7 @@ local function CheckExtraAB()
 	end
 end
 
-function mod:StyleBackdrops()
+function BAB:StyleBackdrops()
 	-- Actionbar backdrops
 	for i = 1, availableActionbars do
 		local styleBacks = {_G['ElvUI_Bar'..i]}
@@ -45,7 +46,7 @@ function mod:StyleBackdrops()
 	end
 end
 
-function mod:ToggleStyle()
+function BAB:ToggleStyle()
 	-- Actionbar backdrops
 	for i = 1, availableActionbars do
 		if _G['ElvUI_Bar'..i].backdrop.style then
@@ -77,7 +78,7 @@ end
 
 local r, g, b = 0, 0, 0
 
-function mod:ColorBackdrops()
+function BAB:ColorBackdrops()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local db = E.db.benikui.colors
 
@@ -117,7 +118,7 @@ function mod:ColorBackdrops()
 end
 
 -- from ElvUI_TrasparentBackdrops plugin
-function mod:TransparentBackdrops()
+function BAB:TransparentBackdrops()
 	-- Actionbar backdrops
 	local db = E.db.benikui.actionbars
 	for i = 1, availableActionbars do
@@ -185,7 +186,7 @@ function mod:TransparentBackdrops()
 	end
 end
 
-function mod:TotemShadows()
+function BAB:TotemShadows()
 	if not BUI.ShadowMode then return end
 	local button
 
@@ -197,7 +198,7 @@ function mod:TotemShadows()
 	end
 end
 
-function mod:FlyoutShadows()
+function BAB:FlyoutShadows()
 	for i=1, AB.FlyoutButtons do
 		if _G["SpellFlyoutButton"..i] then
 			if not _G["SpellFlyoutButton"..i].shadow then
@@ -207,20 +208,24 @@ function mod:FlyoutShadows()
 	end
 end
 
-function mod:Initialize()
+function BAB:Initialize()
 	CheckExtraAB()
-	C_TimerAfter(1, mod.StyleBackdrops)
-	C_TimerAfter(1, mod.TransparentBackdrops)
-	C_TimerAfter(2, mod.ColorBackdrops)
-	C_TimerAfter(2, mod.LoadToggleButtons)
-	C_TimerAfter(2, mod.ToggleStyle)
-	C_TimerAfter(2, mod.TotemShadows)
+	C_TimerAfter(1, BAB.StyleBackdrops)
+	C_TimerAfter(1, BAB.TransparentBackdrops)
+	C_TimerAfter(2, BAB.ColorBackdrops)
+	C_TimerAfter(2, BAB.LoadToggleButtons)
+	C_TimerAfter(2, BAB.ToggleStyle)
+	C_TimerAfter(2, BAB.TotemShadows)
 	self:LoadRequestButton()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
-	hooksecurefunc(BUI, "SetupColorThemes", mod.ColorBackdrops)
+	hooksecurefunc(BUI, "SetupColorThemes", BAB.ColorBackdrops)
 
 	if not BUI.ShadowMode then return end
-	_G.SpellFlyout:HookScript("OnShow", mod.FlyoutShadows)
+	_G.SpellFlyout:HookScript("OnShow", BAB.FlyoutShadows)
 end
 
-BUI:RegisterModule(mod:GetName())
+local function InitializeCallback()
+	BAB:Initialize()
+end
+
+E:RegisterModule(BAB:GetName(), InitializeCallback)

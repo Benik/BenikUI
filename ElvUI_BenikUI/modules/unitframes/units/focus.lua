@@ -1,5 +1,5 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local BU = BUI:GetModule('Units');
+local E, L, V, P, G = unpack(ElvUI);
+local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
@@ -7,7 +7,7 @@ local CreateFrame = CreateFrame
 
 -- GLOBALS: hooksecurefunc
 
-function BU:Construct_FocusFrame()
+function UFB:Construct_FocusFrame()
 	local frame = _G["ElvUF_Focus"]
 
 	if not frame.Portrait.backdrop.shadow then
@@ -21,7 +21,7 @@ function BU:Construct_FocusFrame()
 	self:ArrangeFocus()
 end
 
-function BU:ArrangeFocus()
+function UFB:ArrangeFocus()
 	local frame = _G["ElvUF_Focus"]
 
 	do
@@ -35,25 +35,25 @@ function BU:ArrangeFocus()
 	end
 	
 	-- Portrait
-	BU:Configure_Portrait(frame)
+	UFB:Configure_Portrait(frame)
 	
 	-- AuraBars shadows
-	BU:Configure_AuraBars(frame)
+	UFB:Configure_AuraBars(frame)
 	
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
-function BU:InitFocus()
+function UFB:InitFocus()
 	if not E.db.unitframe.units.focus.enable then return end
 	self:Construct_FocusFrame()
-	hooksecurefunc(UF, 'Update_FocusFrame', BU.ArrangeFocus)
+	hooksecurefunc(UF, 'Update_FocusFrame', UFB.ArrangeFocus)
 
 	-- Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "focus" then
-			BU:Configure_Portrait(frame, false)
+			UFB:Configure_Portrait(frame, false)
 		end
 	end)
 end

@@ -1,7 +1,8 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('FlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
+local BFM = E:NewModule('BUIFlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
 
-local _G = _G
+local _G = _G 
 local GetTime = GetTime
 local tonumber, unpack = tonumber, unpack
 local floor = floor
@@ -53,7 +54,7 @@ local function AutoColoring()
 	end
 end
 
-function mod:CreateCoords()
+function BFM:CreateCoords()
 	local mapID = C_Map_GetBestMapForUnit("player")
 	local mapPos = mapID and C_Map_GetPlayerMapPosition(mapID, "player")
 	if mapPos then x, y = mapPos:GetXY() end
@@ -64,7 +65,7 @@ function mod:CreateCoords()
 	return x, y
 end
 
-function mod:UpdateLocation()
+function BFM:UpdateLocation()
 	local subZoneText = GetMinimapZoneText() or ""
 	local zoneText = GetRealZoneText() or UNKNOWN;
 	local displayLine
@@ -81,7 +82,7 @@ function mod:UpdateLocation()
 	self.FlightMode.top.location.text:Width(LOCATION_WIDTH - 30)
 end
 
-function mod:UpdateCoords()
+function BFM:UpdateCoords()
 	local x, y = self.CreateCoords()
 	local xt,yt
 
@@ -105,7 +106,7 @@ function mod:UpdateCoords()
 	end
 end
 
-function mod:UpdateTimer()
+function BFM:UpdateTimer()
 	local time = GetTime() - self.startTime
 	self.FlightMode.bottom.timeFlying.txt:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
 end
@@ -116,7 +117,7 @@ local statusColors = {
 	'|cffD80909'	-- red
 }
 
-function mod:UpdateFps()
+function BFM:UpdateFps()	
 	local value = floor(GetFramerate())
 	local fpscolor = 3
 	local max = 120
@@ -134,7 +135,7 @@ end
 
 local isInFlightLoaded = false
 
-function mod:SkinInFlight()
+function BFM:SkinInFlight()
 	if not isInFlightLoaded then
 		if not BUI.IF then
 			LoadAddOn("InFlight") -- LOD addon
@@ -156,7 +157,7 @@ end
 
 local zygorVisible
 
-function mod:SetFlightMode(status)
+function BFM:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
 
 	if(status) then
@@ -174,9 +175,7 @@ function mod:SetFlightMode(status)
 		-- Bags
 		if ElvUI_ContainerFrame then
 			ElvUI_ContainerFrame:SetParent(self.FlightMode)
-			if ElvUI_ContainerFrame.wideshadow then
-				ElvUI_ContainerFrame.wideshadow:Show()
-			end
+			ElvUI_ContainerFrame.wideshadow:Show()
 			if ElvUI_ContainerFrame.shadow then
 				ElvUI_ContainerFrame.shadow:Hide()
 			end
@@ -194,7 +193,7 @@ function mod:SetFlightMode(status)
 			LeftChatPanel:ClearAllPoints()
 			LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 		end
-
+		
 		-- Hide SquareMinimapButtonBar
 		if (BUI.PA and not BUI.SLE) then
 			if SquareMinimapButtonBar then
@@ -236,7 +235,7 @@ function mod:SetFlightMode(status)
 		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
 		self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
 		self.fpsTimer = self:ScheduleRepeatingTimer('UpdateFps', 1)
-
+		
 		self:SkinInFlight()
 
 		self.inFlightMode = true
@@ -274,9 +273,7 @@ function mod:SetFlightMode(status)
 		-- Revert Bags
 		if ElvUI_ContainerFrame then
 			ElvUI_ContainerFrame:SetParent(E.UIParent)
-			if ElvUI_ContainerFrame.wideshadow then
-				ElvUI_ContainerFrame.wideshadow:Hide()
-			end
+			ElvUI_ContainerFrame.wideshadow:Hide()
 			if ElvUI_ContainerFrame.shadow then
 				ElvUI_ContainerFrame.shadow:Show()
 			end
@@ -286,7 +283,7 @@ function mod:SetFlightMode(status)
 			local AS = unpack(AddOnSkins) or nil
 			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
 		end
-
+		
 		-- Show Zygor
 		if BUI.ZG then
 			if ZygorGuidesViewer.db.profile.visible then
@@ -328,13 +325,11 @@ function mod:SetFlightMode(status)
 			LeftChatPanel_Bui.styleShadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
 		end
 
-		BuiTaxiButton:SetParent(E.UIParent)
-
 		self.inFlightMode = false
 	end
 end
 
-function mod:OnEvent(event, ...)
+function BFM:OnEvent(event, ...)
 	local forbiddenArea = BUI:CheckFlightMapID()
 
 	if forbiddenArea then return end
@@ -360,7 +355,7 @@ function mod:OnEvent(event, ...)
 	end
 end
 
-function mod:Toggle()
+function BFM:Toggle()
 	if(E.db.benikui.misc.flightMode) then
 		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
@@ -376,7 +371,7 @@ function mod:Toggle()
 	end
 end
 
-function mod:Initialize()
+function BFM:Initialize()
 	local db = E.db.benikui.colors
 	self.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", UIParent)
 	self.FlightMode:SetFrameLevel(1)
@@ -458,7 +453,7 @@ function mod:Initialize()
 	end)
 
 	self.FlightMode.top.closeButton:SetScript('OnClick', function()
-		mod:SetFlightMode(false)
+		BFM:SetFlightMode(false)
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 	end)
 
@@ -488,7 +483,7 @@ function mod:Initialize()
 
 	self.FlightMode.top.location.x.text = self.FlightMode.top.location.x:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.top.location.x.text:FontTemplate(nil, 18)
-	self.FlightMode.top.location.x.text:Point('CENTER')
+	self.FlightMode.top.location.x.text:Point('CENTER')	
 
 	-- Coords Y frame
 	self.FlightMode.top.location.y = CreateFrame('Frame', nil, self.FlightMode.top.location)
@@ -703,7 +698,7 @@ function mod:Initialize()
 	self.FlightMode.bottom.timeFlying:Point("RIGHT", self.FlightMode.bottom, "RIGHT", -10, 0)
 	self.FlightMode.bottom.timeFlying:SetTemplate("Default", true, true)
 	self.FlightMode.bottom.timeFlying:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.bottom.timeFlying:Size(70,30)
+	self.FlightMode.bottom.timeFlying:Size(70,30)	
 	self.FlightMode.bottom.timeFlying.txt = self.FlightMode.bottom.timeFlying:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.bottom.timeFlying.txt:FontTemplate(nil, 14)
 	self.FlightMode.bottom.timeFlying.txt:SetText("00:00")
@@ -733,8 +728,12 @@ function mod:Initialize()
 	LeftChatPanel.backdrop.wideshadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
 
 	self:Toggle()
+end
+
+local function InitializeCallback()
+	BFM:Initialize()
 	ToggleWorldMap()
 	ToggleWorldMap()
 end
 
-BUI:RegisterModule(mod:GetName())
+E:RegisterModule(BFM:GetName(), InitializeCallback)

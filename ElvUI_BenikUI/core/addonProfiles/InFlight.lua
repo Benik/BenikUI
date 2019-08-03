@@ -1,4 +1,5 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
+﻿local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
 
 function BUI:LoadInFlightProfile(flightMode)
 	if not BUI.IF then

@@ -1,6 +1,7 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('BuiDashboards', 'AceEvent-3.0', 'AceHook-3.0')
-local LSM = E.LSM
+local E, L, V, P, G, _ = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
+local mod = E:NewModule('BuiDashboards', 'AceEvent-3.0', 'AceHook-3.0')
+local LSM = LibStub('LibSharedMedia-3.0')
 local DT = E:GetModule('DataTexts')
 
 local CreateFrame = CreateFrame
@@ -168,4 +169,8 @@ function mod:Initialize()
 	mod:LoadTokens()
 end
 
-BUI:RegisterModule(mod:GetName())
+local function InitializeCallback()
+	mod:Initialize()
+end
+
+E:RegisterModule(mod:GetName(), InitializeCallback)

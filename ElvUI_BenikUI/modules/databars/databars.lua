@@ -1,6 +1,7 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Databars', 'AceHook-3.0', 'AceEvent-3.0');
-local LSM = E.LSM;
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
+local mod = E:NewModule('BenikUI_databars', 'AceHook-3.0', 'AceEvent-3.0');
+local LSM = LibStub('LibSharedMedia-3.0');
 
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local SPACING = (E.PixelMode and 1 or 3)
@@ -59,4 +60,8 @@ function mod:Initialize()
 	self:LoadHonor()
 end
 
-BUI:RegisterModule(mod:GetName())
+local function InitializeCallback()
+	mod:Initialize()
+end
+
+E:RegisterModule(mod:GetName(), InitializeCallback)

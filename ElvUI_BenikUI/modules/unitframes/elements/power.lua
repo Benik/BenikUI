@@ -1,12 +1,13 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local BU = BUI:GetModule('Units');
+local E, L, V, P, G = unpack(ElvUI);
+local UFB = E:GetModule('BuiUnits');
 local UF = E:GetModule('UnitFrames');
-local LSM = E.LSM;
+local LSM = LibStub("LibSharedMedia-3.0");
+UF.LSM = LSM
 
 local _G = _G
 local pairs, select = pairs, select
 
-function BU:Configure_Power(frame)
+function UFB:Configure_Power(frame)
 	local power = frame.Power
 
 	if frame.USE_POWERBAR then
@@ -28,7 +29,7 @@ function BU:Configure_Power(frame)
 end
 
 -- Units
-function BU:ChangeUnitPowerBarTexture()
+function UFB:ChangeUnitPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for _, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
@@ -38,10 +39,10 @@ function BU:ChangeUnitPowerBarTexture()
 		if unitframe and unitframe.Power and not unitframe.Power.isTransparent then unitframe.Power:SetStatusBarTexture(bar) end
 	end
 end
-hooksecurefunc(UF, "Update_AllFrames", BU.ChangeUnitPowerBarTexture)
+hooksecurefunc(UF, "Update_AllFrames", UFB.ChangeUnitPowerBarTexture)
 
 -- Raid
-function BU:ChangeRaidPowerBarTexture()
+function UFB:ChangeRaidPowerBarTexture()
 	local header = _G['ElvUF_Raid']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, header:GetNumChildren() do
@@ -55,10 +56,10 @@ function BU:ChangeRaidPowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_RaidFrames', BU.ChangeRaidPowerBarTexture)
+hooksecurefunc(UF, 'Update_RaidFrames', UFB.ChangeRaidPowerBarTexture)
 
 -- Raid-40
-function BU:ChangeRaid40PowerBarTexture()
+function UFB:ChangeRaid40PowerBarTexture()
 	local header = _G['ElvUF_Raid40']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, header:GetNumChildren() do
@@ -72,10 +73,10 @@ function BU:ChangeRaid40PowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_Raid40Frames', BU.ChangeRaid40PowerBarTexture)
+hooksecurefunc(UF, 'Update_Raid40Frames', UFB.ChangeRaid40PowerBarTexture)
 
 -- Party
-function BU:ChangePartyPowerBarTexture()
+function UFB:ChangePartyPowerBarTexture()
 	local header = _G['ElvUF_Party']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, header:GetNumChildren() do
@@ -89,10 +90,10 @@ function BU:ChangePartyPowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_PartyFrames', BU.ChangePartyPowerBarTexture)
+hooksecurefunc(UF, 'Update_PartyFrames', UFB.ChangePartyPowerBarTexture)
 
 -- Arena
-function BU:ChangeArenaPowerBarTexture()
+function UFB:ChangeArenaPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
@@ -101,10 +102,10 @@ function BU:ChangeArenaPowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_ArenaFrames', BU.ChangeArenaPowerBarTexture)
+hooksecurefunc(UF, 'Update_ArenaFrames', UFB.ChangeArenaPowerBarTexture)
 
 -- Boss
-function BU:ChangeBossPowerBarTexture()
+function UFB:ChangeBossPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Boss"..i]
@@ -113,15 +114,15 @@ function BU:ChangeBossPowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_BossFrames', BU.ChangeBossPowerBarTexture)
+hooksecurefunc(UF, 'Update_BossFrames', UFB.ChangeBossPowerBarTexture)
 
 
-function BU:ChangePowerBarTexture()
-	BU:ChangeUnitPowerBarTexture()
-	BU:ChangeRaidPowerBarTexture()
-	BU:ChangeRaid40PowerBarTexture()
-	BU:ChangePartyPowerBarTexture()
-	BU:ChangeArenaPowerBarTexture()
-	BU:ChangeBossPowerBarTexture()
+function UFB:ChangePowerBarTexture()
+	UFB:ChangeUnitPowerBarTexture()
+	UFB:ChangeRaidPowerBarTexture()
+	UFB:ChangeRaid40PowerBarTexture()
+	UFB:ChangePartyPowerBarTexture()
+	UFB:ChangeArenaPowerBarTexture()
+	UFB:ChangeBossPowerBarTexture()
 end
-hooksecurefunc(UF, 'Update_StatusBars', BU.ChangePowerBarTexture)
+hooksecurefunc(UF, 'Update_StatusBars', UFB.ChangePowerBarTexture)

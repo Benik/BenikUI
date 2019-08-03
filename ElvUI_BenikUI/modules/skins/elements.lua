@@ -1,11 +1,12 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:GetModule('Skins')
+local E, L, V, P, G = unpack(ElvUI);
+local BUI = E:GetModule('BenikUI');
+local BUIS = E:GetModule('BuiSkins')
 local S = E:GetModule('Skins');
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local CloseButton = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Close.tga'
 
-function mod:HandleCloseButton(f)
+function BUIS:HandleCloseButton(f)
 	if f.Texture then
 		f.Texture:SetTexture(CloseButton)
 		f.Texture:SetVertexColor(1, 1, 1)
@@ -23,9 +24,9 @@ function mod:HandleCloseButton(f)
 		self.Texture:SetVertexColor(1, 1, 1)
 	end)
 end
-hooksecurefunc(S, "HandleCloseButton", mod.HandleCloseButton)
+hooksecurefunc(S, "HandleCloseButton", BUIS.HandleCloseButton)
 
-function mod:HandleButton(button, _, isDeclineButton)
+function BUIS:HandleButton(button, _, isDeclineButton)
 	if button.isEdited then return end
 	assert(button, "doesn't exist!")
 
@@ -40,4 +41,4 @@ function mod:HandleButton(button, _, isDeclineButton)
 
 	button.isEdited = true
 end
-hooksecurefunc(S, "HandleButton", mod.HandleButton)
+hooksecurefunc(S, "HandleButton", BUIS.HandleButton)
