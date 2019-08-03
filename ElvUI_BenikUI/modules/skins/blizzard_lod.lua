@@ -917,11 +917,5 @@ local function style_UIWidgets()
 	 then
 		return
 	end
-
-	-- Used for Currency Fonts (Warfront only?)
-	--[[hooksecurefunc(UIWidgetBaseCurrencyTemplateMixin, "SetFontColor", function(self)
-		self.Text:SetTextColor(1, 1, 1)
-		self.LeadingText:SetTextColor(1, 1, 1)
-	end)]]
 end
 S:AddCallbackForAddon("Blizzard_UIWidgets", "BenikUI_UIWidgets", style_UIWidgets)

@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local mod = E:GetModule('BenikUI_databars');
 local BUI = E:GetModule('BenikUI');
 local M = E:GetModule('DataBars');
-local LSM = LibStub('LibSharedMedia-3.0');
+local LSM = E.LSM;
 local DT = E:GetModule('DataTexts');
 
 local _G = _G

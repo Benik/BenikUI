@@ -1,7 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local BUI = E:GetModule('BenikUI');
 local mod = E:NewModule('BuiDashboards', 'AceEvent-3.0', 'AceHook-3.0')
-local LSM = LibStub('LibSharedMedia-3.0')
+local LSM = E.LSM
 local DT = E:GetModule('DataTexts')
 
 local CreateFrame = CreateFrame

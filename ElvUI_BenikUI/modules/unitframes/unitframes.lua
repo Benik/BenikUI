@@ -163,7 +163,7 @@ function UFB:PostUpdateAura(unit, button)
 	end
 
 	if button.isDebuff then
-		if(not button.isFriend and not button.isPlayer) then --[[and (not E.isDebuffWhiteList[name])]]
+		if(not button.isFriend and not button.isPlayer) then
 			button:SetBackdropBorderColor(0.9, 0.1, 0.1)
 			button.icon:SetDesaturated((unit and not strfind(unit, 'arena%d')) and true or false)
 		else

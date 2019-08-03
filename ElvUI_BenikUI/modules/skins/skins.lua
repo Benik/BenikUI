@@ -252,6 +252,8 @@ local function styleFreeBlizzardFrames()
 	if db.trade then
 		TradeFrame:Style("Outside")
 	end
+
+	ColorPickerFrame:Style("Outside")
 end
 S:AddCallback("BenikUI_styleFreeBlizzardFrames", styleFreeBlizzardFrames)
 
@@ -648,9 +650,18 @@ function BUIS:PLAYER_ENTERING_WORLD(...)
 end
 
 local function StyleElvUIConfig()
+	if not E.private.skins.ace3.enable then return end
+
 	local frame = _G.ElvUIGUIFrame
 	if not frame.style then
 		frame:Style("Outside")
+	end
+end
+
+local function StyleAceTooltip(self)
+	if not self or self:IsForbidden() then return end
+	if not self.style then
+		self:Style('Outside')
 	end
 end
 
@@ -676,6 +687,7 @@ function BUIS:Initialize()
 	end
 	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)
 	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
+	hooksecurefunc(S, "Ace3_StyleTooltip", StyleAceTooltip)
 end
 
 local function InitializeCallback()
