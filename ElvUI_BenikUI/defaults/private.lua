@@ -1,4 +1,4 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...)) --Inport: Engine, Locales, ProfileDB, GlobalDB
+﻿local E, L, V, P, G = unpack(ElvUI);
 
 V['benikui'] = {
 	['install_complete'] = nil,

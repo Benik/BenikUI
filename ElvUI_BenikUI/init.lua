@@ -47,15 +47,13 @@ function BUI:AddOptions()
 	end
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function()
-	BUI:Init()
-end)
-
 function BUI:Init()
 	self.initialized = true
 	self:Initialize()
 	self:InitializeModules()
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
+
+hooksecurefunc(E, "Initialize", function()
+    BUI:Init()
+end)
