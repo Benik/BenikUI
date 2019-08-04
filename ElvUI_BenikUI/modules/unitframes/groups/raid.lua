@@ -1,14 +1,13 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
+﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
-local UFB = E:GetModule('BuiUnits');
+local BU = BUI:GetModule('Units');
 
 local select, unpack = select, unpack
 
 local UnitClass = UnitClass
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
-function UFB:Update_RaidFrames(frame, db)
+function BU:Update_RaidFrames(frame, db)
 	frame.db = db
 
 	do
@@ -16,7 +15,7 @@ function UFB:Update_RaidFrames(frame, db)
 	end
 
 	-- Role Icon
-	UFB:Configure_RoleIcons(frame)
+	BU:Configure_RoleIcons(frame)
 
 	if BUI.ShadowMode then
 		frame:CreateSoftShadow()
@@ -25,8 +24,8 @@ function UFB:Update_RaidFrames(frame, db)
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
-function UFB:InitRaid()
-	--hooksecurefunc(UF, 'Update_RaidFrames', UFB.Update_RaidFrames)
+function BU:InitRaid()
+	--hooksecurefunc(UF, 'Update_RaidFrames', BU.Update_RaidFrames)
 end
 
 -- raid, raid40 mouseover classcolor

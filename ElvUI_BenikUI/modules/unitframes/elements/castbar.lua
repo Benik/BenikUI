@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local BUIC = E:NewModule('BuiCastbar', 'AceTimer-3.0', 'AceEvent-3.0')
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:NewModule('Castbar', 'AceTimer-3.0', 'AceEvent-3.0')
 local UF = E:GetModule('UnitFrames');
 local LSM = LibStub("LibSharedMedia-3.0");
 
@@ -67,6 +66,8 @@ local function ConfigureCastbarShadow(unit, unitframe)
 	local db = E.db.unitframe.units[unit].castbar;
 	local castbar = unitframe.Castbar
 
+	if not castbar.backdrop.shadow then return end
+
 	if unitframe.USE_INFO_PANEL and db.insideInfoPanel then
 		castbar.backdrop.shadow:Hide()
 		castbar.ButtonIcon.bg.shadow:Hide()
@@ -109,7 +110,7 @@ local function ConfigureCastbar(unit, unitframe)
 end
 
 --Initiate update of unit
-function BUIC:UpdateSettings(unit)
+function mod:UpdateSettings(unit)
 	if unit == 'player' or unit == 'target' then
 		local unitFrameName = "ElvUF_"..E:StringTitle(unit)
 		local unitframe = _G[unitFrameName]
@@ -118,17 +119,17 @@ function BUIC:UpdateSettings(unit)
 end
 
 -- Function to be called when registered events fire
-function BUIC:UpdateAllCastbars()
-	BUIC:UpdateSettings("player")
-	BUIC:UpdateSettings("target")
-	BUIC:UpdateSettings("focus")
-	BUIC:UpdateSettings("pet")
-	BUIC:UpdateSettings("arena")
-	BUIC:UpdateSettings("boss")
+function mod:UpdateAllCastbars()
+	mod:UpdateSettings("player")
+	mod:UpdateSettings("target")
+	mod:UpdateSettings("focus")
+	mod:UpdateSettings("pet")
+	mod:UpdateSettings("arena")
+	mod:UpdateSettings("boss")
 end
 
 --Castbar texture
-function BUIC:PostCast(unit, unitframe)
+function mod:PostCast(unit, unitframe)
 	local db = E.db.benikui.unitframes.castbar.text
 
 	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
@@ -165,7 +166,7 @@ function BUIC:PostCast(unit, unitframe)
 	end
 end
 
-function BUIC:PostCastInterruptible(unit, unitframe)
+function mod:PostCastInterruptible(unit, unitframe)
 	if unit == "vehicle" or unit == "player" then return end
 
 	local db = E.db.benikui.unitframes.castbar.text
@@ -204,7 +205,7 @@ function BUIC:PostCastInterruptible(unit, unitframe)
 	end
 end
 
-function BUIC:CastBarHooks()
+function mod:CastBarHooks()
 	for _, unit in pairs(units) do
 		local unitframe = _G["ElvUF_"..unit];
 		local castbar = unitframe and unitframe.Castbar
@@ -213,8 +214,8 @@ function BUIC:CastBarHooks()
 				castbar.backdrop:CreateSoftShadow()
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
-			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
-			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCastInterruptible)
+			hooksecurefunc(castbar, "PostCastStart", mod.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", mod.PostCastInterruptible)
 		end
 	end
 
@@ -225,8 +226,8 @@ function BUIC:CastBarHooks()
 				castbar.backdrop:CreateSoftShadow()
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
-			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
-			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCastInterruptible)
+			hooksecurefunc(castbar, "PostCastStart", mod.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", mod.PostCastInterruptible)
 		end
 	end
 
@@ -237,13 +238,13 @@ function BUIC:CastBarHooks()
 				castbar.backdrop:CreateSoftShadow()
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
-			hooksecurefunc(castbar, "PostCastStart", BUIC.PostCast)
-			hooksecurefunc(castbar, "PostCastInterruptible", BUIC.PostCastInterruptible)
+			hooksecurefunc(castbar, "PostCastStart", mod.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", mod.PostCastInterruptible)
 		end
 	end
 end
 
-function BUIC:Initialize()
+function mod:Initialize()
 	--ElvUI UnitFrames are not enabled, stop right here!
 	if E.private.unitframe.enable ~= true then return end
 
@@ -259,15 +260,11 @@ function BUIC:Initialize()
 
 		local unit = frame.unitframeType
 		if unit and (unit == 'player' or unit == 'target') then
-			BUIC:UpdateSettings(unit)
+			mod:UpdateSettings(unit)
 		end
 	end)
 
-	BUIC:CastBarHooks()
+	mod:CastBarHooks()
 end
 
-local function InitializeCallback()
-	BUIC:Initialize()
-end
-
-E:RegisterModule(BUIC:GetName(), InitializeCallback)
+BUI:RegisterModule(mod:GetName())

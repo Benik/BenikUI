@@ -1,6 +1,5 @@
-local E, _, V, P, G, _ = unpack(ElvUI);
+local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-local BUI = E:GetModule('BenikUI');
 
 local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack

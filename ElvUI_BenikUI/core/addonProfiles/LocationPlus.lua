@@ -1,5 +1,4 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
+﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
 
 function BUI:LoadLocationPlusProfile()
 	if E.db.locplus == nil then E.db.locplus = {} end

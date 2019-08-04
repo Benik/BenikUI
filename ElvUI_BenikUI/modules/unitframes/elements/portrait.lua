@@ -1,9 +1,8 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local UFB = E:GetModule('BuiUnits');
+﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
-function UFB:Configure_Portrait(frame, isPlayer)
+function BU:Configure_Portrait(frame, isPlayer)
 	local portrait = frame.Portrait
 	local db = frame.db
 
