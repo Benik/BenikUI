@@ -1,6 +1,5 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-local UFB = E:GetModule('BuiUnits');
+local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
@@ -10,7 +9,7 @@ local UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction = UnitC
 
 -- GLOBALS: hooksecurefunc, ElvUF
 
-function UFB:Construct_TargetFrame()
+function BU:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
 
 	if not frame.Portrait.backdrop.shadow then
@@ -34,7 +33,7 @@ function UFB:Construct_TargetFrame()
 	self:ArrangeTarget()
 end
 
-function UFB:RecolorTargetDetachedPortraitStyle()
+function BU:RecolorTargetDetachedPortraitStyle()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
 
@@ -90,7 +89,7 @@ function UFB:RecolorTargetDetachedPortraitStyle()
 	end
 end
 
-function UFB:RecolorTargetInfoPanel()
+function BU:RecolorTargetInfoPanel()
 	local frame = _G["ElvUF_Target"]
 	if not frame.USE_INFO_PANEL then return end
 	local targetClass = select(2, UnitClass("target"));
@@ -123,7 +122,7 @@ function UFB:RecolorTargetInfoPanel()
 	end
 end
 
-function UFB:ArrangeTarget()
+function BU:ArrangeTarget()
 	local frame = _G["ElvUF_Target"]
 	local db = E.db['unitframe']['units'].target
 
@@ -143,39 +142,39 @@ function UFB:ArrangeTarget()
 	end
 
 	-- Power
-	UFB:Configure_Power(frame)
+	BU:Configure_Power(frame)
 
 	-- InfoPanel
-	UFB:Configure_Infopanel(frame)
+	BU:Configure_Infopanel(frame)
 
 	-- Portrait
-	UFB:Configure_Portrait(frame, false)
+	BU:Configure_Portrait(frame, false)
 
 	-- AuraBars shadows
-	UFB:Configure_AuraBars(frame)
+	BU:Configure_AuraBars(frame)
 
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
-function UFB:PLAYER_TARGET_CHANGED()
+function BU:PLAYER_TARGET_CHANGED()
 	self:ScheduleTimer('RecolorTargetDetachedPortraitStyle', 0.02)
 	self:ScheduleTimer('RecolorTargetInfoPanel', 0.02)
 end
 
-function UFB:InitTarget()
+function BU:InitTarget()
 	if not E.db.unitframe.units.target.enable then return end
 	self:Construct_TargetFrame()
-	hooksecurefunc(UF, 'Update_TargetFrame', UFB.ArrangeTarget)
+	hooksecurefunc(UF, 'Update_TargetFrame', BU.ArrangeTarget)
 	self:RegisterEvent('PLAYER_TARGET_CHANGED')
-	hooksecurefunc(UF, 'Update_TargetFrame', UFB.RecolorTargetDetachedPortraitStyle)
-	hooksecurefunc(UF, 'Update_TargetFrame', UFB.RecolorTargetInfoPanel)
+	hooksecurefunc(UF, 'Update_TargetFrame', BU.RecolorTargetDetachedPortraitStyle)
+	hooksecurefunc(UF, 'Update_TargetFrame', BU.RecolorTargetInfoPanel)
 
 	-- Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "target" then
-			UFB:Configure_Portrait(frame, false)
+			BU:Configure_Portrait(frame, false)
 		end
 	end)
 end

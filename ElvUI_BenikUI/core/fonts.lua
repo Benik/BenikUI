@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 local LSM = E.LSM
 
 -- GLOBALS: CHAT_FONT_HEIGHTS, GameTooltipHeader, NumberFont_OutlineThick_Mono_Small, SystemFont_Shadow_Large_Outline

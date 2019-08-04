@@ -1,6 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
-local BUI = E:GetModule('BenikUI');
-
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 local format, checkTable = format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 local _G = _G
@@ -228,7 +226,7 @@ local function SetupLayout(layout)
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Expressway"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
 		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
-		E:GetModule('BuiLayout'):MiddleDatatextDimensions()
+		BUI:GetModule('Layout'):MiddleDatatextDimensions()
 
 		E.db["benikui"]["general"]["shadows"] = true
 
@@ -327,7 +325,7 @@ local function SetupActionbars(layout)
 	E.db["benikui"]["datatexts"]["middle"]["transparent"] = false
 
 	E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
-	E:GetModule('BuiLayout'):MiddleDatatextLayout()
+	BUI:GetModule('Layout'):MiddleDatatextLayout()
 	E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
 
 	if layout == 'v1' then
@@ -524,8 +522,8 @@ local function SetupActionbars(layout)
 		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,65"
 		E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,116"
 	end
-	E:GetModule('BuiActionbars'):ToggleStyle()
-	E:GetModule('BuiLayout'):MiddleDatatextDimensions()
+	BUI:GetModule('Actionbars'):ToggleStyle()
+	BUI:GetModule('Layout'):MiddleDatatextDimensions()
 
 	PluginInstallStepComplete.message = BUI.Title..L['Actionbars Set']
 	PluginInstallStepComplete:Show()
