@@ -50,6 +50,4 @@ function BUI:Init()
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
-hooksecurefunc(E, "Initialize", function()
-    BUI:Init()
-end)
+E.Libs.NP:HookInitialize(BUI, BUI.Init)
