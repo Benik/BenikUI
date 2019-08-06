@@ -1,5 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local EP = LibStub('LibElvUIPlugin-1.0')
+local E, L, V, P, G = unpack(ElvUI)
+local EP = LibStub("LibElvUIPlugin-1.0")
 local addon, Engine = ...
 
 local BUI = E.Libs.AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0")
@@ -10,7 +10,7 @@ Engine[3] = L
 Engine[4] = V
 Engine[5] = P
 Engine[6] = G
-_G[addon] = Engine;
+_G[addon] = Engine
 
 BUI.Config = {}
 BUI["RegisteredModules"] = {}
@@ -32,7 +32,7 @@ function BUI:InitializeModules()
 		if mod.Initialize then
 			mod:Initialize()
 		else
-			BUI:Print("Module <"..moduleName.."> is not loaded.")
+			BUI:Print("Module <" .. moduleName .. "> is not loaded.")
 		end
 	end
 end
@@ -50,4 +50,4 @@ function BUI:Init()
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
-E.Libs.NP:HookInitialize(BUI, BUI.Init)
+E.Libs.EP:HookInitialize(BUI, BUI.Init)
