@@ -26,10 +26,6 @@ function CH:UpdateAnchors()
 		else
 			frame:SetAllPoints(LeftChatTab)
 		end
-
-		frame:SetScript('OnShow', function(self)
-			E:UIFrameFadeIn(self, .5, 0, 1)
-		end)
 	end
 
 	CH:PositionChat(true)
