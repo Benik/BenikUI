@@ -27,6 +27,7 @@ local function SetupLayout(layout)
 	E.db["bags"]["bankSize"] = 32
 	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
 	E.db["bags"]["bankWidth"] = 412
+	E.db["bags"]["transparent"] = true
 	E.db["chat"]["panelBackdrop"] = 'SHOWBOTH'
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["chat"]["panelWidth"] = 412
@@ -320,7 +321,7 @@ end
 local function SetupActionbars(layout)
 	-- Actionbars
 	E.db["actionbar"]["lockActionBars"] = true
-
+	E.db["actionbar"]["transparent"] = true
 	E.db["benikui"]["datatexts"]["middle"]["styled"] = false
 	E.db["benikui"]["datatexts"]["middle"]["transparent"] = false
 
