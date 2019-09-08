@@ -90,7 +90,6 @@ P['benikui'] = {
 	},
 
 	['actionbars'] = {
-		['transparent'] = true,
 		['toggleButtons'] = {
 			['enable'] = true,
 			['chooseAb'] = 'BAR2',

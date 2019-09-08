@@ -1,6 +1,5 @@
 local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-local B = E:GetModule('Bags')
 
 local tinsert = table.insert
 

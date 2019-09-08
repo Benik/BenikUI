@@ -1,3 +1,11 @@
+3.67
+*Remove the broken fade animation from Chat Edit Box. This will fix #75
+*Properly hide the SplashScreen
+*Remove Transparent Actionbars option. It's in ElvUI now
+*Added the Transparency setting in the installer
+*The Chat Edit box can now also be positioned on Middle Datatext or under Actionbar1 or Actionbar2 backdrops. By user request
+*Donor and coder list update
+
 3.66
 *Modules are back for good. (Credit: Nihilistic)
 
