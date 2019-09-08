@@ -51,6 +51,7 @@ end
 
 local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
 local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent)
+local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent)
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
@@ -209,6 +210,12 @@ function mod:MiddleDatatextDimensions()
 	Bui_mdtp:Width(db.width)
 	Bui_mdtp:Height(db.height)
 	DT:UpdateAllDimensions()
+end
+
+function mod:PositionEditBoxHolder(bar)
+	Bui_deb:ClearAllPoints()
+	Bui_deb:Point('TOPLEFT', bar.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+	Bui_deb:Point('BOTTOMRIGHT', bar.backdrop, 'BOTTOMRIGHT', 0, -(PANEL_HEIGHT + 6))
 end
 
 local function updateButtonFont()
