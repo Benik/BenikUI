@@ -328,15 +328,21 @@ local function ufPlayerTable()
 				desc = L['Apply transparency on the portrait backdrop.'],
 				disabled = function() return E.db.unitframe.units.player.portrait.overlay end,
 			},
-			portraitShadow = {
+			portraitBackdrop = {
 				order = 3,
+				type = 'toggle',
+				name = L['Backdrop'],
+				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
+			},
+			portraitShadow = {
+				order = 4,
 				type = 'toggle',
 				name = L['Shadow'],
 				desc = L['Apply shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 			},
 			portraitWidth = {
-				order = 4,
+				order = 5,
 				type = 'range',
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
@@ -344,7 +350,7 @@ local function ufPlayerTable()
 				min = 10, max = 500, step = 1,
 			},
 			portraitHeight = {
-				order = 5,
+				order = 6,
 				type = 'range',
 				name = L['Height'],
 				desc = L['Change the detached portrait height'],
@@ -352,14 +358,14 @@ local function ufPlayerTable()
 				min = 10, max = 250, step = 1,
 			},
 			portraitFrameStrata = {
-				order = 6,
+				order = 7,
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 				values = strataValues,
 			},
 			styleGroup = {
-				order = 7,
+				order = 8,
 				type = 'group',
 				name = L['BenikUI Style'],
 				args = {
@@ -425,22 +431,28 @@ local function ufTargetTable()
 				desc = L['Makes the portrait backdrop transparent'],
 				disabled = function() return E.db.unitframe.units.target.portrait.overlay end,
 			},
-			portraitShadow = {
+			portraitBackdrop = {
 				order = 3,
+				type = 'toggle',
+				name = L['Backdrop'],
+				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
+			},
+			portraitShadow = {
+				order = 4,
 				type = 'toggle',
 				name = L['Shadow'],
 				desc = L['Add shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
 			},
 			getPlayerPortraitSize = {
-				order = 4,
+				order = 5,
 				type = 'toggle',
 				name = L['Player Size'],
 				desc = L['Copy Player portrait width and height'],
 				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
 			},
 			portraitWidth = {
-				order = 5,
+				order = 6,
 				type = 'range',
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
@@ -448,7 +460,7 @@ local function ufTargetTable()
 				min = 10, max = 500, step = 1,
 			},
 			portraitHeight = {
-				order = 6,
+				order = 7,
 				type = 'range',
 				name = L['Height'],
 				desc = L['Change the detached portrait height'],
@@ -456,14 +468,14 @@ local function ufTargetTable()
 				min = 10, max = 250, step = 1,
 			},
 			portraitFrameStrata = {
-				order = 7,
+				order = 8,
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
 				values = strataValues,
 			},
 			styleGroup = {
-				order = 8,
+				order = 9,
 				type = 'group',
 				name = L['BenikUI Style'],
 				args = {
