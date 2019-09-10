@@ -50,6 +50,9 @@ local function Datatexts()
 						values = {
 							['BELOW_CHAT'] = L['Below Chat'],
 							['ABOVE_CHAT'] = L['Above Chat'],
+							['MIDDLE_DT'] = L['Middle Datatext'],
+							['EAB_1'] = L['Actionbar 1'],
+							['EAB_2'] = L['Actionbar 2'],
 						},
 						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
