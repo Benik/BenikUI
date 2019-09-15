@@ -59,8 +59,7 @@ function mod:UPDATE_BATTLEFIELD_SCORE()
 	for i=1, GetNumBattlefieldScores() do
 		name = GetBattlefieldScore(i)
 		if name == E.myname then
-			local val = select(pointIndex, GetBattlefieldScore(i))
-			self.text:SetFormattedText(displayString, dataStrings[pointIndex], E:ShortValue(val))
+			self.text:SetFormattedText(displayString, dataStrings[pointIndex], E:ShortValue(select(pointIndex, GetBattlefieldScore(i))))
 			break
 		end
 	end
