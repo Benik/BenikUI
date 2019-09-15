@@ -39,6 +39,7 @@ function BU:ArrangePlayer()
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.player.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.player.portraitTransparent
 		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.player.portraitShadow
+		frame.PORTRAIT_BACKDROP = E.db.benikui.unitframes.player.portraitBackdrop
 
 		frame.PORTRAIT_STYLING = E.db.benikui.unitframes.player.portraitStyle
 		frame.PORTRAIT_STYLING_HEIGHT = E.db.benikui.unitframes.player.portraitStyleHeight
