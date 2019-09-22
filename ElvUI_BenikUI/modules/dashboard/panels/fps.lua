@@ -43,7 +43,7 @@ end
 
 local function sortByMemory(a, b)
 	if a and b then
-		return a[3] > b[3]
+		return (a[3] == b[3] and a[2] < b[2]) or a[3] > b[3]
 	end
 end
 
@@ -115,10 +115,7 @@ function mod:CreateFps()
 	end)
 
 	boardName.Status:SetScript('OnUpdate', function(self, elapsed)
-		if LastUpdate > 0 then
-			LastUpdate = LastUpdate - elapsed
-			return
-		end
+		LastUpdate = LastUpdate - elapsed
 
 		if(LastUpdate < 0) then
 			self:SetMinMaxValues(0, 200)
