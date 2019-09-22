@@ -43,23 +43,22 @@ local dataLayout = {
 }
 
 local dataStrings = {
-	[10] = DAMAGE,
-	[5] = HONOR,
-	[2] = KILLING_BLOWS,
-	[4] = DEATHS,
-	[3] = HONORABLE_KILLS,
-	[11] = SHOW_COMBAT_HEALING,
+	[10] = _G.DAMAGE,
+	[5] = _G.HONOR,
+	[2] = _G.KILLING_BLOWS,
+	[4] = _G.DEATHS,
+	[3] = _G.KILLS,
+	[11] = _G.SHOW_COMBAT_HEALING,
 }
-
-local name
 
 function mod:UPDATE_BATTLEFIELD_SCORE()
 	lastPanel = self
 	local pointIndex = dataLayout[self:GetParent():GetName()][self.pointIndex]
 	for i=1, GetNumBattlefieldScores() do
-		name = GetBattlefieldScore(i)
+		local name = GetBattlefieldScore(i)
 		if name == E.myname then
-			self.text:SetFormattedText(displayString, dataStrings[pointIndex], E:ShortValue(select(pointIndex, GetBattlefieldScore(i))))
+			local val = select(pointIndex, GetBattlefieldScore(i))
+			self.text:SetFormattedText(displayString, dataStrings[pointIndex], E:ShortValue(val))
 			break
 		end
 	end
