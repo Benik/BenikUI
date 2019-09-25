@@ -296,9 +296,3 @@ hooksecurefunc(AS, 'AcceptFrame', function(self)
 		_G["AcceptFrame"]:Style('Outside')
 	end
 end)
-
-hooksecurefunc(AS, 'BugReportFrame', function(self)
-	if not _G["AddOnSkinsBugReportFrame"].style then
-		_G["AddOnSkinsBugReportFrame"]:Style('Outside')
-	end
-end)

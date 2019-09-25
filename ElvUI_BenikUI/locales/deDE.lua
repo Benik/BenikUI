@@ -98,7 +98,6 @@ L['Welcome'] = "Willkommen"
 L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = "Du hast den Installationsprozess jetzt abgeschlossen. Wenn du technische Unterstützung brauchst besuch uns bitte http://www.tukui.org."
 
 -- actionbar options
-L['Applies transparency in all actionbar backdrops and actionbar buttons.'] = "Aktiviert die Transparenz auf alle Aktionsleisten Hintergründe und Tasten."
 L['Bar 1'] = "Leiste 1"
 L['Bar 2'] = "Leiste 2"
 L['Choose Actionbar to show to'] = "Wähle Aktionsleiste zum Anzeigen"
@@ -106,7 +105,6 @@ L['Request Stop button'] = "Haltewunschtaste"
 L['Show in:'] = "Zeige in:"
 L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Zeigt kleine Tasten über Aktionsleiste 1 oder 2, um Aktionsleiste 3 oder 5 anzuzeigen/auszublenden."
 L['Switch Buttons (requires BenikUI Style)'] = "Tasten wechseln (benötigt BenikUI Stil)"
-L['Transparent Backdrops'] = "Transparente Hintergründe"
 
 -- Request stop button
 L['LeftClick to Request Stop'] = "Links-Klick um am nächsten Flugpunkt zu landen"

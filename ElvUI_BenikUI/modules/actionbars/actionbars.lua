@@ -116,54 +116,7 @@ function mod:ColorBackdrops()
 	end
 end
 
--- from ElvUI_TrasparentBackdrops plugin
-function mod:TransparentBackdrops()
-	-- Actionbar backdrops
-	local db = E.db.benikui.actionbars
-	for i = 1, availableActionbars do
-		local transBars = {_G['ElvUI_Bar'..i]}
-		for _, frame in pairs(transBars) do
-			if frame.backdrop then
-				if db.transparent then
-					frame.backdrop:SetTemplate('Transparent')
-				else
-					frame.backdrop:SetTemplate('Default')
-				end
-			end
-		end
-
-		-- Buttons
-		for k = 1, 12 do
-			local buttonBars = {_G['ElvUI_Bar'..i..'Button'..k]}
-			for _, button in pairs(buttonBars) do
-				if button.backdrop then
-					if BUI.ShadowMode then
-						if not button.backdrop.shadow then
-							button.backdrop:CreateSoftShadow()
-						end
-					end
-
-					if db.transparent then
-						button.backdrop:SetTemplate('Transparent')
-					else
-						button.backdrop:SetTemplate('Default', true)
-					end
-				end
-			end
-		end
-	end
-
-	-- Other bar backdrops
-	for _, frame in pairs(styleOtherBacks) do
-		if frame.backdrop then
-			if db.transparent then
-				frame.backdrop:SetTemplate('Transparent')
-			else
-				frame.backdrop:SetTemplate('Default')
-			end
-		end
-	end
-
+function mod:PetShadows()
 	-- Pet Buttons
 	for i = 1, NUM_PET_ACTION_SLOTS do
 		local petButtons = {_G['PetActionButton'..i]}
@@ -173,12 +126,6 @@ function mod:TransparentBackdrops()
 					if not button.backdrop.shadow then
 						button.backdrop:CreateSoftShadow()
 					end
-				end
-
-				if db.transparent then
-					button.backdrop:SetTemplate('Transparent')
-				else
-					button.backdrop:SetTemplate('Default', true)
 				end
 			end
 		end
@@ -198,6 +145,7 @@ function mod:TotemShadows()
 end
 
 function mod:FlyoutShadows()
+	if not BUI.ShadowMode then return end
 	for i=1, AB.FlyoutButtons do
 		if _G["SpellFlyoutButton"..i] then
 			if not _G["SpellFlyoutButton"..i].shadow then
@@ -210,7 +158,7 @@ end
 function mod:Initialize()
 	CheckExtraAB()
 	C_TimerAfter(1, mod.StyleBackdrops)
-	C_TimerAfter(1, mod.TransparentBackdrops)
+	C_TimerAfter(1, mod.PetShadows)
 	C_TimerAfter(2, mod.ColorBackdrops)
 	C_TimerAfter(2, mod.LoadToggleButtons)
 	C_TimerAfter(2, mod.ToggleStyle)

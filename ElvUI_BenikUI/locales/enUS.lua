@@ -99,7 +99,6 @@ L['Welcome'] = true
 L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = true
 
 -- actionbar options
-L['Applies transparency in all actionbar backdrops and actionbar buttons.'] = true
 L['Bar 1'] = true
 L['Bar 2'] = true
 L['Choose Actionbar to show to'] = true
@@ -107,7 +106,6 @@ L['Request Stop button'] = true
 L['Show in:'] = true
 L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = true
 L['Switch Buttons (requires BenikUI Style)'] = true
-L['Transparent Backdrops'] = true
 
 -- Request stop button
 L['LeftClick to Request Stop'] = true

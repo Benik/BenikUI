@@ -51,17 +51,8 @@ local function abTable()
 					},
 				},
 			},
-			transparent = {
-				order = 4,
-				type = 'toggle',
-				name = L['Transparent Backdrops'],
-				desc = L['Applies transparency in all actionbar backdrops and actionbar buttons.'],
-				disabled = function() return not E.private.actionbar.enable end,
-				get = function(info) return E.db.benikui.actionbars[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.actionbars[ info[#info] ] = value; mod:TransparentBackdrops() end,
-			},
 			requestStop = {
-				order = 5,
+				order = 4,
 				type = 'toggle',
 				name = L['Request Stop button'],
 				get = function(info) return E.db.benikui.actionbars[ info[#info] ] end,

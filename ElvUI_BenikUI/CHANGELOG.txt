@@ -1,3 +1,20 @@
+3.69
+*toc update for 8.2.5
+*Fixed 8.2.5 errors
+*Control the tooltip update
+
+3.68
+*Added Backdrop toggle option for Detached Portraits (Player/Target). This will close #41
+*fix bg dt error: invalid format (width or precision too long)
+
+3.67
+*Remove the broken fade animation from Chat Edit Box. This will fix #75
+*Properly hide the SplashScreen
+*Remove Transparent Actionbars option. It's in ElvUI now
+*Added the Transparency setting in the installer
+*The Chat Edit box can now also be positioned on Middle Datatext or under Actionbar1 or Actionbar2 backdrops. By user request
+*Donor and coder list update
+
 3.66
 *Modules are back for good. (Credit: Nihilistic)
 
