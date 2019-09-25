@@ -1,3 +1,8 @@
+3.69
+*toc update for 8.2.5
+*Fixed 8.2.5 errors
+*Control the tooltip update
+
 3.68
 *Added Backdrop toggle option for Detached Portraits (Player/Target). This will close #41
 *fix bg dt error: invalid format (width or precision too long)
