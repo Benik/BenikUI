@@ -84,7 +84,7 @@ local DONATOR_STRING = tconcat(DONATORS, ", ")
 
 local function Core()
 	E.Options.args.benikui = {
-		order = 9000,
+		order = -4,
 		type = 'group',
 		name = BUI.Title,
 		args = {
