@@ -658,6 +658,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 
 		if not E.db.unitframe.units.player.customTexts then E.db.unitframe.units.player.customTexts = {} end
 		if E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] then
@@ -712,6 +713,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxDuration"] = 120
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
 
 		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
@@ -1045,6 +1047,7 @@ local function SetupUnitframes(layout)
 
 		-- player
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 14
@@ -1120,6 +1123,7 @@ local function SetupUnitframes(layout)
 
 		-- target
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 26
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 1
@@ -1514,6 +1518,7 @@ local function SetupUnitframes(layout)
 			E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"]
 		end
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["buffs"]["noDuration"] = false
@@ -1584,6 +1589,7 @@ local function SetupUnitframes(layout)
 			E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]
 		end
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxDuration"] = 120
 		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 30
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 2
