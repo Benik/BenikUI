@@ -1927,12 +1927,6 @@ local function SetupAddons()
 		tinsert(addonNames, 'Project Azilroka')
 	end
 
-	-- ElvUI_VisualAuraTimers
-	if BUI:IsAddOnEnabled('ElvUI_VisualAuraTimers') then
-		BUI:LoadVATProfile()
-		tinsert(addonNames, 'ElvUI VisualAuraTimers')
-	end
-
 	-- AddOnSkins
 	if BUI.AS then
 		BUI:LoadAddOnSkinsProfile()
