@@ -577,8 +577,6 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = false
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
 		E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = false
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = -16
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = -16
 		E.db["benikui"]["colors"]["styleAlpha"] = 1
 		E.db["benikui"]["colors"]["abAlpha"] = 1
 
@@ -1002,8 +1000,6 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["portraitWidth"] = 110
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
 		E.db["benikui"]["unitframes"]["target"]["portraitShadow"] = false
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = -18
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = -18
 		E.db["benikui"]["colors"]["styleAlpha"] = 1
 		E.db["benikui"]["colors"]["abAlpha"] = 1
 
@@ -1462,9 +1458,6 @@ local function SetupUnitframes(layout)
 		E.db["auras"]["fontOutline"] = "OUTLINE"
 		E.db["auras"]["timeXOffset"] = -1
 
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = 0
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = 0
 		E.db["benikui"]["colors"]["styleAlpha"] = 0.7
 		E.db["benikui"]["colors"]["abAlpha"] = 0.7
 
