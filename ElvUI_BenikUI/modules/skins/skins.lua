@@ -96,8 +96,6 @@ local function styleFreeBlizzardFrames()
 		FriendsFrame:Style("Outside")
 		FriendsFriendsFrame.backdrop:Style("Outside")
 		RecruitAFriendFrame:Style("Outside")
-		RecruitAFriendSentFrame:Style("Outside")
-		RecruitAFriendSentFrame.MoreDetails.Text:FontTemplate()
 	end
 
 	if db.gossip then
@@ -203,7 +201,6 @@ local function styleFreeBlizzardFrames()
 	if db.quest then
 		QuestFrame.backdrop:Style("Outside")
 		QuestLogPopupDetailFrame:Style("Outside")
-		QuestNPCModel.backdrop:Style("Outside")
 
 		if BUI.AS then
 			QuestDetailScrollFrame:SetTemplate("Transparent")
