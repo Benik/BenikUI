@@ -8,6 +8,7 @@
 ## OptionalDeps: SharedMedia, AddOnSkins, ProjectAzilroka
 ## X-Tukui-ProjectID: 11
 ## X-Tukui-ProjectFolders: ElvUI_BenikUI
+## X-ElvuiVersion: 11.25
 
 libs\load_libs.xml
 locales\load_locales.xml

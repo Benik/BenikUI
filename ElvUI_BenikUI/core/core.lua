@@ -14,7 +14,6 @@ local GetAddOnEnableState = GetAddOnEnableState
 BUI["styles"] = {}
 BUI["softGlow"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
-BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.ShadowMode = false;
 BUI.AddonProfileKey = '';

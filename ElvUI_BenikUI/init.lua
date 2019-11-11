@@ -13,7 +13,10 @@ Engine[6] = G
 _G[addon] = Engine
 
 BUI.Config = {}
+BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI["RegisteredModules"] = {}
+BUI.Eversion = tonumber(E.version)
+BUI.Erelease = tonumber(GetAddOnMetadata("ElvUI_BenikUI", "X-ElvuiVersion"))
 
 function BUI:RegisterModule(name)
 	if self.initialized then
@@ -44,6 +47,11 @@ function BUI:AddOptions()
 end
 
 function BUI:Init()
+	--ElvUI's version check
+	if BUI.Eversion < 1 or (BUI.Eversion < BUI.Erelease) then
+		E:Delay(2, function() E:StaticPopup_Show("BENIKUI_VERSION_MISMATCH") end)
+		return
+	end
 	self.initialized = true
 	self:Initialize()
 	self:InitializeModules()
@@ -51,3 +59,41 @@ function BUI:Init()
 end
 
 E.Libs.EP:HookInitialize(BUI, BUI.Init)
+
+--Version check
+E.PopupDialogs["BENIKUI_VERSION_MISMATCH"] = {
+	text = format(L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"], BUI.Title, BUI.Eversion, BUI.Erelease),
+	button1 = CLOSE,
+	timeout = 0,
+	whileDead = 1,
+	preferredIndex = 3,
+	hasEditBox = 1,
+	OnShow = function(self)
+		self.editBox:SetAutoFocus(false)
+		self.editBox.width = self.editBox:GetWidth()
+		self.editBox:Width(280)
+		self.editBox:AddHistoryLine("text")
+		self.editBox.temptxt = "https://www.tukui.org/download.php?ui=elvui"
+		self.editBox:SetText("https://www.tukui.org/download.php?ui=elvui")
+		self.editBox:HighlightText()
+		self.editBox:SetJustifyH("CENTER")
+	end,
+	OnHide = function(self)
+		self.editBox:Width(self.editBox.width or 50)
+		self.editBox.width = nil
+		self.temptxt = nil
+	end,
+	EditBoxOnEnterPressed = function(self)
+		self:GetParent():Hide();
+	end,
+	EditBoxOnEscapePressed = function(self)
+		self:GetParent():Hide();
+	end,
+	EditBoxOnTextChanged = function(self)
+		if(self:GetText() ~= self.temptxt) then
+			self:SetText(self.temptxt)
+		end
+		self:HighlightText()
+		self:ClearFocus()
+	end,
+}
