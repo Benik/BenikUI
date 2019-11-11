@@ -145,14 +145,6 @@ local function Core()
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					auras = {
-						order = 4,
-						type = 'toggle',
-						name = L['Style Auras'],
-						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
-						get = function(info) return E.db.benikui.general[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
 					spacer = {
 						order = 5,
 						type = 'header',
