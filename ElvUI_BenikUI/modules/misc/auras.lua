@@ -13,5 +13,9 @@ function A:CreateIcon(button)
 		if not button.shadow then
 			button:CreateSoftShadow()
 		end
+
+		if not button.statusBar.backdrop.shadow then
+			button.statusBar.backdrop:CreateSoftShadow()
+		end
 	end
 end
