@@ -61,15 +61,7 @@ local function abTable()
 		},
 	}
 
-	local available = available or 6
-
-	if IsAddOnLoaded('ElvUI_ExtraActionBars') then
-		available = 10
-	else
-		available = 6
-	end
-
-	for i = 1, available do
+	for i = 1, 10 do
 		local name = L["Bar "]..i
 		E.Options.args.benikui.args.actionbars.args.style.args['bar'..i] = {
 			order = i,
