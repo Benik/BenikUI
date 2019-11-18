@@ -200,6 +200,20 @@ function mod:ChangeDefaultOptions()
 	E.Options.args.unitframe.args.target.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
 end
 
+function mod:Hooks()
+	hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidHealthBarTexture)
+	hooksecurefunc(UF, 'Update_Raid40Frames', mod.ChangeRaid40HealthBarTexture)
+	hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyHealthBarTexture)
+
+	hooksecurefunc(UF, "Update_AllFrames", mod.ChangeUnitPowerBarTexture)
+	hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidPowerBarTexture)
+	hooksecurefunc(UF, 'Update_Raid40Frames', mod.ChangeRaid40PowerBarTexture)
+	hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyPowerBarTexture)
+	hooksecurefunc(UF, 'Update_ArenaFrames', mod.ChangeArenaPowerBarTexture)
+	hooksecurefunc(UF, 'Update_BossFrames', mod.ChangeBossPowerBarTexture)
+	hooksecurefunc(UF, 'Update_StatusBars', mod.ChangePowerBarTexture)
+end
+
 function mod:Initialize()
 	if E.private.unitframe.enable ~= true then return end
 	self:UnitDefaults()
@@ -212,7 +226,7 @@ function mod:Initialize()
 	self:InitParty()
 	self:InitRaid()
 	self:InitRaid40()
-	
+
 	self:ChangePowerBarTexture()
 	self:ChangeHealthBarTexture()
 	self:InfoPanelColor()
@@ -228,7 +242,10 @@ function mod:Initialize()
 		self:TankTargetShadows()
 	end
 
+	hooksecurefunc(UF, 'Update_StatusBars', mod.ChangePowerBarTexture)
+	hooksecurefunc(UF, 'Update_StatusBars', mod.ChangeHealthBarTexture)
 	hooksecurefunc(UF, "Configure_ReadyCheckIcon", mod.Configure_ReadyCheckIcon)
+	self:Hooks()
 	self:RegisterEvent("ADDON_LOADED")
 end
 

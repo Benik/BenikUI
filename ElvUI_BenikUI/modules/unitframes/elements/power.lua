@@ -38,7 +38,6 @@ function BU:ChangeUnitPowerBarTexture()
 		if unitframe and unitframe.Power and not unitframe.Power.isTransparent then unitframe.Power:SetStatusBarTexture(bar) end
 	end
 end
-hooksecurefunc(UF, "Update_AllFrames", BU.ChangeUnitPowerBarTexture)
 
 -- Raid
 function BU:ChangeRaidPowerBarTexture()
@@ -55,7 +54,6 @@ function BU:ChangeRaidPowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_RaidFrames', BU.ChangeRaidPowerBarTexture)
 
 -- Raid-40
 function BU:ChangeRaid40PowerBarTexture()
@@ -72,7 +70,6 @@ function BU:ChangeRaid40PowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_Raid40Frames', BU.ChangeRaid40PowerBarTexture)
 
 -- Party
 function BU:ChangePartyPowerBarTexture()
@@ -89,7 +86,6 @@ function BU:ChangePartyPowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_PartyFrames', BU.ChangePartyPowerBarTexture)
 
 -- Arena
 function BU:ChangeArenaPowerBarTexture()
@@ -101,7 +97,6 @@ function BU:ChangeArenaPowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_ArenaFrames', BU.ChangeArenaPowerBarTexture)
 
 -- Boss
 function BU:ChangeBossPowerBarTexture()
@@ -113,8 +108,6 @@ function BU:ChangeBossPowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_BossFrames', BU.ChangeBossPowerBarTexture)
-
 
 function BU:ChangePowerBarTexture()
 	BU:ChangeUnitPowerBarTexture()
@@ -124,4 +117,3 @@ function BU:ChangePowerBarTexture()
 	BU:ChangeArenaPowerBarTexture()
 	BU:ChangeBossPowerBarTexture()
 end
-hooksecurefunc(UF, 'Update_StatusBars', BU.ChangePowerBarTexture)

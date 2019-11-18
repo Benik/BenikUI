@@ -23,7 +23,6 @@ function BU:ChangeRaidHealthBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_RaidFrames', BU.ChangeRaidHealthBarTexture)
 
 -- Raid-40
 function BU:ChangeRaid40HealthBarTexture()
@@ -42,7 +41,6 @@ function BU:ChangeRaid40HealthBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_Raid40Frames', BU.ChangeRaid40HealthBarTexture)
 
 -- Party
 function BU:ChangePartyHealthBarTexture()
@@ -61,11 +59,9 @@ function BU:ChangePartyHealthBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_PartyFrames', BU.ChangePartyHealthBarTexture)
 
 function BU:ChangeHealthBarTexture()
 	BU:ChangeRaidHealthBarTexture()
 	BU:ChangeRaid40HealthBarTexture()
 	BU:ChangePartyHealthBarTexture()
 end
-hooksecurefunc(UF, 'Update_StatusBars', BU.ChangeHealthBarTexture)
