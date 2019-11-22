@@ -15,9 +15,6 @@ function BU:Configure_Portrait(frame, isPlayer)
 			end
 
 			portrait:SetAlpha(0.35)
-			if not dontHide then
-				portrait:Show()
-			end
 			portrait.backdrop:Hide()
 
 			portrait:ClearAllPoints()
@@ -45,7 +42,7 @@ function BU:Configure_Portrait(frame, isPlayer)
 			else
 				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
 			end
-			
+
 			if frame.PORTRAIT_TRANSPARENCY then
 				portrait.backdrop:SetTemplate('Transparent')
 			else
@@ -58,7 +55,7 @@ function BU:Configure_Portrait(frame, isPlayer)
 					portrait.backdrop.style:Point('TOPLEFT', portrait, 'TOPLEFT', (E.PixelMode and -1 or -2), frame.PORTRAIT_STYLING_HEIGHT)
 					portrait.backdrop.style:Point('BOTTOMRIGHT', portrait, 'TOPRIGHT', (E.PixelMode and 1 or 2), (E.PixelMode and 0 or 2))
 					portrait.backdrop.style:Show()
-					
+
 					if isPlayer then
 						if frame.USE_POWERBAR then
 							local r, g, b = frame.Power:GetStatusBarColor()
@@ -71,29 +68,6 @@ function BU:Configure_Portrait(frame, isPlayer)
 			end
 
 			if frame.PORTRAIT_DETACHED then
-				frame.portraitmover:Width(frame.DETACHED_PORTRAIT_WIDTH)
-				frame.portraitmover:Height(frame.DETACHED_PORTRAIT_HEIGHT)
-				portrait.backdrop:SetAllPoints(frame.portraitmover)
-				
-				if portrait.backdrop.shadow then
-					if frame.PORTRAIT_SHADOW then
-						portrait.backdrop.shadow:Show()
-					else
-						portrait.backdrop.shadow:Hide()
-					end
-				end
-
-				if frame.PORTRAIT_BACKDROP then
-					portrait.backdrop:Show()
-				else
-					portrait.backdrop:Hide()
-				end
-
-				if db.portrait.style == '3D' then
-					portrait.backdrop:SetFrameStrata(frame.DETACHED_PORTRAIT_STRATA)
-					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
-				end
-				
 				if not frame.portraitmover.mover then
 					frame.portraitmover:ClearAllPoints()
 					if frame.unit == "player" then
@@ -117,6 +91,29 @@ function BU:Configure_Portrait(frame, isPlayer)
 				else
 					frame.portraitmover:ClearAllPoints()
 					frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")
+				end
+
+				frame.portraitmover:Width(frame.DETACHED_PORTRAIT_WIDTH)
+				frame.portraitmover:Height(frame.DETACHED_PORTRAIT_HEIGHT)
+				portrait.backdrop:SetAllPoints(frame.portraitmover)
+
+				if portrait.backdrop.shadow then
+					if frame.PORTRAIT_SHADOW then
+						portrait.backdrop.shadow:Show()
+					else
+						portrait.backdrop.shadow:Hide()
+					end
+				end
+
+				if frame.PORTRAIT_BACKDROP then
+					portrait.backdrop:Show()
+				else
+					portrait.backdrop:Hide()
+				end
+
+				if db.portrait.style == '3D' then
+					portrait.backdrop:SetFrameStrata(frame.DETACHED_PORTRAIT_STRATA)
+					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
 				end
 			else
 				portrait:SetAlpha(1)
@@ -216,4 +213,4 @@ f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent(event)
 	ResetPostUpdate()
-end) 
+end)
