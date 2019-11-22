@@ -10,7 +10,7 @@ local UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction = UnitC
 -- GLOBALS: hooksecurefunc, ElvUF
 
 function BU:Construct_TargetFrame()
-	local frame = _G["ElvUF_Target"]
+	local frame = UF.target
 
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateSoftShadow()
@@ -30,13 +30,10 @@ function BU:Construct_TargetFrame()
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
-	self:ArrangeTarget()
+	self:ArrangeTarget(frame, frame.db)
 end
 
-function BU:RecolorTargetDetachedPortraitStyle()
-	local frame = _G["ElvUF_Target"]
-	local db = E.db['unitframe']['units'].target
-
+function BU:RecolorTargetDetachedPortraitStyle(frame, db)
 	if E.db.benikui.unitframes.target.portraitStyle ~= true or db.portrait.overlay == true then return end
 
 	local targetClass = select(2, UnitClass("target"));
@@ -89,8 +86,7 @@ function BU:RecolorTargetDetachedPortraitStyle()
 	end
 end
 
-function BU:RecolorTargetInfoPanel()
-	local frame = _G["ElvUF_Target"]
+function BU:RecolorTargetInfoPanel(frame, db)
 	if not frame.USE_INFO_PANEL then return end
 	local targetClass = select(2, UnitClass("target"));
 
@@ -122,23 +118,20 @@ function BU:RecolorTargetInfoPanel()
 	end
 end
 
-function BU:ArrangeTarget()
-	local frame = _G["ElvUF_Target"]
-	local db = E.db['unitframe']['units'].target
-
+function BU:ArrangeTarget(frame, db)
 	do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.target.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.target.portraitTransparent
 		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.target.portraitShadow
 		frame.PORTRAIT_BACKDROP = E.db.benikui.unitframes.target.portraitBackdrop
-		
+
 		frame.PORTRAIT_STYLING = E.db.benikui.unitframes.target.portraitStyle
 		frame.PORTRAIT_STYLING_HEIGHT = E.db.benikui.unitframes.target.portraitStyleHeight
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.target.getPlayerPortraitSize and E.db.benikui.unitframes.player.portraitWidth or E.db.benikui.unitframes.target.portraitWidth
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.target.getPlayerPortraitSize and E.db.benikui.unitframes.player.portraitHeight or E.db.benikui.unitframes.target.portraitHeight
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.target.portraitFrameStrata
 
-		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
+		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH
 		frame.POWER_VERTICAL = db.power.vertical
 	end
 
