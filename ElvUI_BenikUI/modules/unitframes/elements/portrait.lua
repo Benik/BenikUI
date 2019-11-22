@@ -149,25 +149,6 @@ function BU:Configure_Portrait(frame, isPlayer)
 	end
 end
 
--- Portrait Alpha setting. Idea: Vxt, Credit: Blazeflack
-local function OnConfigure_Portrait(self, frame)
-	local db = frame.db
-	if not db then return end
-
-	if BUI.SLE then return end
-	if frame.USE_PORTRAIT then
-		local portrait = frame.Portrait
-		if frame.USE_PORTRAIT_OVERLAY and not db.portrait.fullOverlay then
-			portrait:SetAlpha(E.db.benikui.unitframes.misc.portraitTransparency)
-		else
-			portrait:SetAlpha(0.35)
-		end
-	end
-end
-
-hooksecurefunc(UF, "Configure_Portrait", OnConfigure_Portrait)
-hooksecurefunc(UF, "PortraitUpdate", OnConfigure_Portrait)
-
 local function ResetPostUpdate()
 	for _, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)

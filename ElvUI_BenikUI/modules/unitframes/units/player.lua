@@ -60,9 +60,6 @@ function BU:ArrangePlayer(frame, db)
 	-- Rest Icon
 	BU:Configure_RestingIndicator(frame)
 
-	-- AuraBars shadows
-	BU:Configure_AuraBars(frame)
-
 	-- ClassBar shadows
 	BU:Configure_ClassBar(frame)
 
