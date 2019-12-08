@@ -8,7 +8,7 @@ local CreateFrame = CreateFrame
 -- GLOBALS: hooksecurefunc
 
 function BU:Construct_FocusFrame()
-	local frame = UF.focus
+	local frame = _G["ElvUF_Focus"]
 
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateSoftShadow()
@@ -18,10 +18,12 @@ function BU:Construct_FocusFrame()
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
-	self:ArrangeFocus(frame, frame.db)
+	self:ArrangeFocus()
 end
 
-function BU:ArrangeFocus(frame, db)
+function BU:ArrangeFocus()
+	local frame = _G["ElvUF_Focus"]
+
 	do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.focus.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.focus.portraitTransparent
@@ -29,15 +31,15 @@ function BU:ArrangeFocus(frame, db)
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.focus.portraitFrameStrata
 
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.focus.portraitWidth
-		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.focus.portraitHeight
+		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.focus.portraitHeight	
 	end
-
+	
 	-- Portrait
 	BU:Configure_Portrait(frame)
-
+	
 	-- AuraBars shadows
 	BU:Configure_AuraBars(frame)
-
+	
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 

@@ -7,7 +7,7 @@ local CreateFrame = CreateFrame
 -- GLOBALS: hooksecurefunc
 
 function BU:Construct_PetFrame()
-	local frame = UF.pet
+	local frame = _G["ElvUF_Pet"]
 
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateSoftShadow()
@@ -17,10 +17,12 @@ function BU:Construct_PetFrame()
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
-	self:ArrangePet(frame, frame.db)
+	self:ArrangePet()
 end
 
-function BU:ArrangePet(frame, db)
+function BU:ArrangePet()
+	local frame = _G["ElvUF_Pet"]
+
 	do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.pet.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.pet.portraitTransparent
@@ -28,7 +30,7 @@ function BU:ArrangePet(frame, db)
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.pet.portraitFrameStrata
 
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.pet.portraitWidth
-		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.pet.portraitHeight
+		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.pet.portraitHeight	
 	end
 
 	-- Portrait

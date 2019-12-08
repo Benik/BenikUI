@@ -4,6 +4,12 @@ local BU = BUI:GetModule('Units');
 -- GLOBALS: hooksecurefunc
 
 function BU:Update_Raid40Frames(frame, db)
+	frame.db = db
+
+	do
+
+	end
+
 	if BUI.ShadowMode then
 		frame:CreateSoftShadow()
 	end

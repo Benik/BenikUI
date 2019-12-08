@@ -7,7 +7,7 @@ local CreateFrame = CreateFrame
 -- GLOBALS: hooksecurefunc
 
 function BU:Construct_TargetTargetFrame()
-	local frame = UF.targettarget
+	local frame = _G["ElvUF_TargetTarget"]
 
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateSoftShadow()
@@ -20,7 +20,9 @@ function BU:Construct_TargetTargetFrame()
 	self:ArrangeTargetTarget()
 end
 
-function BU:ArrangeTargetTarget(frame, db)
+function BU:ArrangeTargetTarget()
+	local frame = _G["ElvUF_TargetTarget"]
+
 	do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.targettarget.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.targettarget.portraitTransparent
@@ -28,7 +30,7 @@ function BU:ArrangeTargetTarget(frame, db)
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.targettarget.portraitFrameStrata
 
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.targettarget.portraitWidth
-		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.targettarget.portraitHeight
+		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.targettarget.portraitHeight	
 	end
 
 	-- Portrait

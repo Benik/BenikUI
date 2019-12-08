@@ -8,6 +8,12 @@ local UnitClass = UnitClass
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 function BU:Update_RaidFrames(frame, db)
+	frame.db = db
+
+	do
+
+	end
+
 	-- Role Icon
 	BU:Configure_RoleIcons(frame)
 
