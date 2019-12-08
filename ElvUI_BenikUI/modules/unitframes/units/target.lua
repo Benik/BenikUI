@@ -34,10 +34,6 @@ function BU:Construct_TargetFrame()
 end
 
 function BU:RecolorTargetDetachedPortraitStyle(frame, db)
-	if not frame then
-		frame, db = UF.target, UF.target.db
-	end
-
 	if E.db.benikui.unitframes.target.portraitStyle ~= true or db.portrait.overlay == true then return end
 
 	local targetClass = select(2, UnitClass("target"));
@@ -91,9 +87,6 @@ function BU:RecolorTargetDetachedPortraitStyle(frame, db)
 end
 
 function BU:RecolorTargetInfoPanel(frame, db)
-	if not frame then
-		frame, db = UF.target, UF.target.db
-	end
 	if not frame.USE_INFO_PANEL then return end
 	local targetClass = select(2, UnitClass("target"));
 

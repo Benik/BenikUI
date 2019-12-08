@@ -17,7 +17,7 @@ function BU:Construct_TargetTargetFrame()
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
-	self:ArrangeTargetTarget(frame, frame.db)
+	self:ArrangeTargetTarget()
 end
 
 function BU:ArrangeTargetTarget(frame, db)
