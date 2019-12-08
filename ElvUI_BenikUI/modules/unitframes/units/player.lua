@@ -8,7 +8,7 @@ local CreateFrame = CreateFrame
 -- GLOBALS: hooksecurefunc
 
 function BU:Construct_PlayerFrame()
-	local frame = UF['player']
+	local frame = _G["ElvUF_Player"]
 
 	if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateSoftShadow()
@@ -28,10 +28,13 @@ function BU:Construct_PlayerFrame()
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
-	self:ArrangePlayer(frame, frame.db)
+	self:ArrangePlayer()
 end
 
-function BU:ArrangePlayer(frame, db)
+function BU:ArrangePlayer()
+	local frame = _G["ElvUF_Player"]
+	local db = E.db['unitframe']['units'].player
+
 	do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.player.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.player.portraitTransparent
@@ -44,7 +47,7 @@ function BU:ArrangePlayer(frame, db)
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.player.portraitHeight
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.player.portraitFrameStrata
 
-		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH
+		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
 		frame.POWER_VERTICAL = db.power.vertical
 	end
 
@@ -71,7 +74,7 @@ end
 
 function BU:InitPlayer()
 	if not E.db.unitframe.units.player.enable then return end
-	BU:Construct_PlayerFrame()
+	self:Construct_PlayerFrame()
 	hooksecurefunc(UF, 'Update_PlayerFrame', BU.ArrangePlayer)
 
 	-- Needed for some post updates
