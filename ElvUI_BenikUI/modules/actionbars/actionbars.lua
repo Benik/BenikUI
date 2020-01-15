@@ -9,7 +9,7 @@ local pairs = pairs
 local C_TimerAfter = C_Timer.After
 local MAX_TOTEMS = MAX_TOTEMS
 
--- GLOBALS: NUM_PET_ACTION_SLOTS, DisableAddOn
+-- GLOBALS: NUM_PET_ACTION_SLOTS
 -- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
