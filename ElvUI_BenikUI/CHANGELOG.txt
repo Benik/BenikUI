@@ -1,3 +1,12 @@
+3.72 (Jan 15, 2020)
+*Bump toc for patch 8.3
+*Added the new 8.3 Currencies on Tokens Dashboard
+*Prevent a Totem Bar error
+*Fix HelpFrame error
+*Removed 'Overlayed Portraits Alpha' option. It's in ElvUI now
+*Remove outdated stuff
+*Updated the sound-low texture. It looks better, if it placed in the middle. (Merathilis)
+
 3.71
 *Fix incompatibility with SLE Armory. This should deal with #84
 *Removed ExtraActionbars addon support and enable styling for 10 ElvUI Actionbars
