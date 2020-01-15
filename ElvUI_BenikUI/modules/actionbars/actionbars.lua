@@ -124,12 +124,13 @@ end
 
 function mod:TotemShadows()
 	if not BUI.ShadowMode then return end
-	local button
 
 	for i=1, MAX_TOTEMS do
-		button = _G["ElvUI_TotemBarTotem"..i];
-		if not button.shadow then
-			button:CreateSoftShadow()
+		local button = _G["ElvUI_TotemBarTotem"..i];
+		if button then
+			if not button.shadow then
+				button:CreateSoftShadow()
+			end
 		end
 	end
 end
