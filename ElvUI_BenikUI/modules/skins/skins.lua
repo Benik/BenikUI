@@ -108,8 +108,8 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.help then
-		HelpFrame.backdrop:Style("Outside")
-		HelpFrameHeader.backdrop:Style("Outside")
+		_G.HelpFrame.backdrop:Style("Outside")
+		_G.HelpFrame.Header.backdrop:Style("Outside")
 	end
 
 	if db.lfg then
