@@ -138,7 +138,7 @@ function mod:PLAYER_ENTERING_WORLD()
 end
 
 function mod:Initialize()
-	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.Armory.Character.Enable ~= false) then return end
+	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.armory.character.enable ~= false) then return end
 
 	mod.f = CreateFrame("Frame", nil, PaperDollFrame)
 	mod:CreateString()

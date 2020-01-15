@@ -1,3 +1,7 @@
+3.71
+*Fix incompatibility with SLE Armory. This should deal with #84
+*Removed ExtraActionbars addon support and enable styling for 10 ElvUI Actionbars
+
 3.70
 *BenikUI Options are now at the very bottom of ElvUI Options.
 *Fix install for UnitFrames castbar: insideInfoPanel = > overlayOnFrame = "InfoPanel"
