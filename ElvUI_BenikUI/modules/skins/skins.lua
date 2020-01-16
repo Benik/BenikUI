@@ -593,10 +593,13 @@ local function VehicleExit()
 	if E.private.actionbar.enable ~= true then
 		return
 	end
-	local f = _G.LeaveVehicleButton
+	local f = _G.MainMenuBarVehicleLeaveButton
 	f:SetNormalTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
 	f:SetPushedTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
 	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	if MasqueGroup and E.private.actionbar.masque.actionbars then return end
+	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
 end
 
 function mod:StyleAdibagsBank()
