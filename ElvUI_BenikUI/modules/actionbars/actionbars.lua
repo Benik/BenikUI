@@ -6,29 +6,19 @@ if E.private.actionbar.enable ~= true then return; end
 
 local _G = _G
 local pairs = pairs
-local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 local MAX_TOTEMS = MAX_TOTEMS
 
--- GLOBALS: NUM_PET_ACTION_SLOTS, DisableAddOn
+-- GLOBALS: NUM_PET_ACTION_SLOTS
 -- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-local availableActionbars = availableActionbars or 6
 
 local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar}
 
-local function CheckExtraAB()
-	if IsAddOnLoaded('ElvUI_ExtraActionBars') then
-		availableActionbars = 10
-	else
-		availableActionbars = 6
-	end
-end
-
 function mod:StyleBackdrops()
 	-- Actionbar backdrops
-	for i = 1, availableActionbars do
+	for i = 1, 10 do
 		local styleBacks = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(styleBacks) do
 			if frame.backdrop then
@@ -47,7 +37,7 @@ end
 
 function mod:ToggleStyle()
 	-- Actionbar backdrops
-	for i = 1, availableActionbars do
+	for i = 1, 10 do
 		if _G['ElvUI_Bar'..i].backdrop.style then
 			if E.db.benikui.actionbars.style['bar'..i] then
 				_G['ElvUI_Bar'..i].backdrop.style:Show()
@@ -81,7 +71,7 @@ function mod:ColorBackdrops()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local db = E.db.benikui.colors
 
-	for i = 1, availableActionbars do
+	for i = 1, 10 do
 		local styleBacks = {_G['ElvUI_Bar'..i].backdrop.style}
 
 		for _, frame in pairs(styleBacks) do
@@ -134,12 +124,13 @@ end
 
 function mod:TotemShadows()
 	if not BUI.ShadowMode then return end
-	local button
 
 	for i=1, MAX_TOTEMS do
-		button = _G["ElvUI_TotemBarTotem"..i];
-		if not button.shadow then
-			button:CreateSoftShadow()
+		local button = _G["ElvUI_TotemBarTotem"..i];
+		if button then
+			if not button.shadow then
+				button:CreateSoftShadow()
+			end
 		end
 	end
 end
@@ -156,7 +147,6 @@ function mod:FlyoutShadows()
 end
 
 function mod:Initialize()
-	CheckExtraAB()
 	C_TimerAfter(1, mod.StyleBackdrops)
 	C_TimerAfter(1, mod.PetShadows)
 	C_TimerAfter(2, mod.ColorBackdrops)

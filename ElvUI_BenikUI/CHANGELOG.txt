@@ -1,3 +1,30 @@
+3.73 (Jan 16, 2020)
+*Fix LeaveVehicleButton eror
+*Set ElvUI min version to 11.301
+
+3.72 (Jan 15, 2020)
+*Bump toc for patch 8.3
+*Added the new 8.3 Currencies on Tokens Dashboard
+*Prevent a Totem Bar error
+*Fix HelpFrame error
+*Removed 'Overlayed Portraits Alpha' option. It's in ElvUI now
+*Remove outdated stuff
+*Updated the sound-low texture. It looks better, if it placed in the middle. (Merathilis)
+
+3.71
+*Fix incompatibility with SLE Armory. This should deal with #84
+*Removed ExtraActionbars addon support and enable styling for 10 ElvUI Actionbars
+
+3.70
+*BenikUI Options are now at the very bottom of ElvUI Options.
+*Fix install for UnitFrames castbar: insideInfoPanel = > overlayOnFrame = "InfoPanel"
+*Aurabars fix (dirty)
+*Removed VisualAuraTimers profile
+*Added ElvUI compatibility check. Min ElvUI version is 11.25
+*Removed Style Auras option
+*Added Auras Statusbar shadow
+*Removed all Castbar Text edits (offset, color, etc). They are all part of ElvUI now
+
 3.69
 *toc update for 8.2.5
 *Fixed 8.2.5 errors

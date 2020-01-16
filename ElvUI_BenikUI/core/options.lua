@@ -84,7 +84,7 @@ local DONATOR_STRING = tconcat(DONATORS, ", ")
 
 local function Core()
 	E.Options.args.benikui = {
-		order = 9000,
+		order = 6,
 		type = 'group',
 		name = BUI.Title,
 		args = {
@@ -141,14 +141,6 @@ local function Core()
 						order = 3,
 						type = 'toggle',
 						name = L['Shadows'],
-						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
-						get = function(info) return E.db.benikui.general[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
-					auras = {
-						order = 4,
-						type = 'toggle',
-						name = L['Style Auras'],
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,

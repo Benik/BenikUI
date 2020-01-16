@@ -108,7 +108,9 @@ local Currency = {
 	1716,	-- Honorbound Service Medal (Horde)
 	1717,	-- 7th Legion Service Medal (Alliance)
 	1718,	-- Titan Residuum
+	1719,	-- Corrupted Memento
 	1721,	-- Prismatic Manapearl
+	1755,	-- Coalescing Visions
 }
 
 local function Icon_OnEnter(self)

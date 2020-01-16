@@ -32,7 +32,7 @@ local function TaxiButton_OnEvent(self, event)
 	local forbiddenArea = BUI:CheckFlightMapID()
 
 	if (UnitOnTaxi("player") and not IsInInstance() and not forbiddenArea) then
-		LeaveVehicleButton:Hide() -- Hide ElvUI minimap button
+		_G.MainMenuBarVehicleLeaveButton:Hide() -- Hide ElvUI minimap button
 		E:UIFrameFadeIn(self, 1, 0, 1)
 		self:Show()
 		self.textHolder.Text:SetFormattedText("%s", TAXI_CANCEL)

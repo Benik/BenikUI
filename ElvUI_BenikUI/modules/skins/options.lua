@@ -35,7 +35,6 @@ local SupportedProfiles = {
 	{'BigWigs', 'BigWigs'},
 	{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
-	{'ElvUI_VisualAuraTimers', 'ElvUI VisualAuraTimers'},
 	{'ElvUI_LocPlus', 'Location Plus'},
 	{'InFlight_Load', 'InFlight'},
 	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
@@ -208,8 +207,6 @@ local function SkinTable()
 					BUI:LoadRecountProfile()
 				elseif addon == 'Skada' then
 					BUI:LoadSkadaProfile()
-				elseif addon == 'ElvUI_VisualAuraTimers' then
-					BUI:LoadVATProfile()
 				elseif addon == 'AddOnSkins' then
 					BUI:LoadAddOnSkinsProfile()
 				elseif addon == 'ProjectAzilroka' then

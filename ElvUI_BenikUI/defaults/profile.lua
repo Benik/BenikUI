@@ -33,7 +33,6 @@ P['benikui'] = {
 		['benikuiStyle'] = true,
 		['hideStyle'] = false,
 		['shadows'] = true,
-		['auras'] = true,
 		['loginMessage'] = true,
 		['splashScreen'] = true,
 	},
@@ -168,16 +167,6 @@ P['benikui'] = {
 		['castbar'] = {
 			['text'] = {
 				['ShowInfoText'] = true,
-				['castText'] = true,
-				['forceTargetText'] = false,
-				['player'] = {
-					['yOffset'] = 0,
-					['textColor'] = {r = 1, g = 1, b = 1, a = 1},
-				},
-				['target'] = {
-					['yOffset'] = 0,
-					['textColor'] = {r = 1, g = 1, b = 1, a = 1},
-				},
 			},
 		},
 		['textures'] = {

@@ -89,7 +89,7 @@ local function SetupLayout(layout)
 	E.db["general"]["itemLevel"]["displayInspectInfo"] = true
 	E.db["general"]["itemLevel"]["itemLevelFontSize"] = 12
 	E.db["general"]["itemLevel"]["itemLevelFontOutline"] = 'OUTLINE'
-	
+
 	E.db["hideTutorial"] = true
 	E.private["skins"]["blizzard"]["alertframes"] = true
 	E.private["skins"]["blizzard"]["questChoice"] = true
@@ -109,7 +109,7 @@ local function SetupLayout(layout)
 	E.private["general"]["normTex"] = "BuiFlat"
 	E.private["general"]["glossTex"] = "BuiFlat"
 	E.private["general"]["chatBubbles"] = 'backdrop'
-	
+
 	-- common movers
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
@@ -577,8 +577,6 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = false
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
 		E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = false
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = -16
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = -16
 		E.db["benikui"]["colors"]["styleAlpha"] = 1
 		E.db["benikui"]["colors"]["abAlpha"] = 1
 
@@ -626,7 +624,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 300
-		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["player"]["castbar"]["overlayOnFrame"] = "InfoPanel"
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 140
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "spaced"
@@ -658,6 +656,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 
 		if not E.db.unitframe.units.player.customTexts then E.db.unitframe.units.player.customTexts = {} end
 		if E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] then
@@ -674,7 +673,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 2
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 300
-		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["target"]["castbar"]["overlayOnFrame"] = "InfoPanel"
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = 'TOPRIGHT'
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 10
@@ -712,6 +711,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxDuration"] = 120
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
 
 		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
@@ -1000,8 +1000,6 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["portraitWidth"] = 110
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
 		E.db["benikui"]["unitframes"]["target"]["portraitShadow"] = false
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = -18
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = -18
 		E.db["benikui"]["colors"]["styleAlpha"] = 1
 		E.db["benikui"]["colors"]["abAlpha"] = 1
 
@@ -1045,6 +1043,7 @@ local function SetupUnitframes(layout)
 
 		-- player
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 14
@@ -1052,7 +1051,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 26
 		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false
-		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["player"]["castbar"]["overlayOnFrame"] = "InfoPanel"
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 240
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 140
@@ -1120,11 +1119,12 @@ local function SetupUnitframes(layout)
 
 		-- target
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 26
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = false
-		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["target"]["castbar"]["overlayOnFrame"] = "InfoPanel"
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 240
 
 		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
@@ -1458,9 +1458,6 @@ local function SetupUnitframes(layout)
 		E.db["auras"]["fontOutline"] = "OUTLINE"
 		E.db["auras"]["timeXOffset"] = -1
 
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = 0
-		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = 0
 		E.db["benikui"]["colors"]["styleAlpha"] = 0.7
 		E.db["benikui"]["colors"]["abAlpha"] = 0.7
 
@@ -1514,6 +1511,7 @@ local function SetupUnitframes(layout)
 			E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"]
 		end
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["buffs"]["noDuration"] = false
@@ -1522,7 +1520,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 28
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 258
-		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["player"]["castbar"]["overlayOnFrame"] = "InfoPanel"
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 140
 		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "spaced"
@@ -1584,6 +1582,7 @@ local function SetupUnitframes(layout)
 			E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]
 		end
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxDuration"] = 120
 		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 30
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 2
@@ -1591,7 +1590,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["castbar"]["iconPosition"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["castbar"]["iconXOffset"] = 10
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 258
-		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["target"]["castbar"]["overlayOnFrame"] = "InfoPanel"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["fontOutline"] = "NONE"
@@ -1919,12 +1918,6 @@ local function SetupAddons()
 	if BUI.PA then
 		BUI:LoadPAProfile()
 		tinsert(addonNames, 'Project Azilroka')
-	end
-
-	-- ElvUI_VisualAuraTimers
-	if BUI:IsAddOnEnabled('ElvUI_VisualAuraTimers') then
-		BUI:LoadVATProfile()
-		tinsert(addonNames, 'ElvUI VisualAuraTimers')
 	end
 
 	-- AddOnSkins
