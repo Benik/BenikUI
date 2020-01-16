@@ -1,3 +1,7 @@
+3.73 (Jan 16, 2020)
+*Fix LeaveVehicleButton eror
+*Set ElvUI min version to 11.301
+
 3.72 (Jan 15, 2020)
 *Bump toc for patch 8.3
 *Added the new 8.3 Currencies on Tokens Dashboard
