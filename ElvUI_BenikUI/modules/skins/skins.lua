@@ -469,7 +469,7 @@ local function skinDecursive()
 		"Close"
 	}
 	for _, classBtn in pairs(classPop) do
-		local btnName = _G.DecursivePopulateListFrame .. classBtn
+		local btnName = _G['DecursivePopulateListFrame' .. classBtn]
 		S:HandleButton(btnName)
 	end
 
