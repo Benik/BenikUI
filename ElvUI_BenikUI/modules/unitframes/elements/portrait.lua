@@ -3,21 +3,19 @@ local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
 function BU:Configure_Portrait(frame, isPlayer)
-	local portrait = frame.Portrait
 	local db = frame.db
+	frame.Portrait = (db.portrait.style == '3D' and frame.Portrait3D) or frame.Portrait2D
+	local portrait = frame.Portrait
 
 	if frame.USE_PORTRAIT then
 		if frame.USE_PORTRAIT_OVERLAY then
-			if db.portrait.style == '2D' then
-				portrait:SetParent(frame.Health)
-			else
+			if db.portrait.style == '3D' then
 				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
+			else
+				portrait:SetParent(frame.Health)
 			end
 
-			portrait:SetAlpha(0.35)
-			if not dontHide then
-				portrait:Show()
-			end
+			portrait:SetAlpha(db.portrait.overlayAlpha)
 			portrait.backdrop:Hide()
 
 			portrait:ClearAllPoints()
@@ -40,10 +38,10 @@ function BU:Configure_Portrait(frame, isPlayer)
 			portrait.backdrop:ClearAllPoints()
 			portrait.backdrop:Show()
 
-			if db.portrait.style == '2D' then
-				portrait:SetParent(frame)
-			else
+			if db.portrait.style == '3D' then
 				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
+			else
+				portrait:SetParent(frame)
 			end
 			
 			if frame.PORTRAIT_TRANSPARENCY then
@@ -121,10 +119,10 @@ function BU:Configure_Portrait(frame, isPlayer)
 			else
 				portrait:SetAlpha(1)
 				portrait.backdrop:Show()
-				if db.portrait.style == '2D' then
-					portrait:SetParent(frame)
-				else
+				if db.portrait.style == '3D' then
 					portrait:SetFrameLevel(frame.Health:GetFrameLevel())
+				else
+					portrait:SetParent(frame)
 				end
 
 				if frame.ORIENTATION == "LEFT" then
@@ -197,4 +195,5 @@ f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent(event)
 	ResetPostUpdate()
+	hooksecurefunc(UF, "PortraitUpdate", BU.Configure_Portrait)
 end) 
