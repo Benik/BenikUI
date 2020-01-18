@@ -622,6 +622,18 @@ local function style_InspectUI()
 end
 S:AddCallbackForAddon("Blizzard_InspectUI", "BenikUI_InspectUI", style_InspectUI)
 
+-- ItemInteractionUI
+local function style_ItemInteractionUI()
+	if E.private.skins.blizzard.ItemInteraction ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ItemInteractionFrame:Style("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ItemInteractionUI", "BenikUI_ItemInteractionUI", style_ItemInteractionUI)
+
 -- ItemSocketingUI
 local function style_ItemSocketingUI()
 	if
