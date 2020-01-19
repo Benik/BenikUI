@@ -27,7 +27,7 @@ local tooltips = {
 	FloatingBattlePetTooltip,
 	FloatingPetBattleAbilityTooltip,
 	FloatingGarrisonFollowerAbilityTooltip,
-	WarCampaignTooltip
+	WarCampaignTooltip,
 }
 
 local overlayedTooltips = {
@@ -39,6 +39,10 @@ local overlayedTooltips = {
 
 local function tooltipOverlay(tt) -- Create a blank frame to position the GameTooltip.TopOverlay texture
 	if not tt.style then
+		return
+	end
+
+	if tt.style.blank then
 		return
 	end
 
@@ -527,15 +531,6 @@ local function StyleDBM_Options()
 	)
 end
 
-local function StyleAltPowerBar()
-	if E.db.general.altPowerBar.enable ~= true then
-		return
-	end
-
-	local bar = _G.ElvUI_AltPowerBar
-	bar.backdrop:Style("Outside")
-end
-
 local function ObjectiveTrackerQuests()
 	local function QuestNumString()
 		local questNum, q, o
@@ -668,14 +663,8 @@ function mod:Initialize()
 	VehicleExit()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-	if E.db.benikui.general.benikuiStyle ~= true then
-		return
-	end
-
 	skinDecursive()
 	skinStoryline()
-	StyleAltPowerBar()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
