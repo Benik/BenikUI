@@ -28,6 +28,7 @@ local tooltips = {
 	FloatingPetBattleAbilityTooltip,
 	FloatingGarrisonFollowerAbilityTooltip,
 	WarCampaignTooltip,
+	GameTooltip
 }
 
 local overlayedTooltips = {
