@@ -533,6 +533,16 @@ local function StyleDBM_Options()
 	)
 end
 
+local function StyleAltPowerBar()
+	if E.db.general.altPowerBar.enable ~= true then
+		return
+	end
+
+	local bar = _G.ElvUI_AltPowerBar
+	bar.backdrop:Style("Outside")
+	bar:StripTextures(true)
+end
+
 local function ObjectiveTrackerQuests()
 	local function QuestNumString()
 		local questNum, q, o
@@ -667,6 +677,7 @@ function mod:Initialize()
 
 	skinDecursive()
 	skinStoryline()
+	StyleAltPowerBar()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
