@@ -540,7 +540,9 @@ local function StyleAltPowerBar()
 
 	local bar = _G.ElvUI_AltPowerBar
 	bar.backdrop:Style("Outside")
-	bar:StripTextures(true)
+	if bar.textures then
+		bar:StripTextures(true)
+	end
 end
 
 local function ObjectiveTrackerQuests()
