@@ -166,7 +166,7 @@ P['benikui'] = {
 		},
 		['castbar'] = {
 			['text'] = {
-				['ShowInfoText'] = true,
+				['ShowInfoText'] = false,
 			},
 		},
 		['textures'] = {
