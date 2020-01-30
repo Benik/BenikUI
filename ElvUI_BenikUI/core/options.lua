@@ -87,6 +87,7 @@ local function Core()
 		order = 6,
 		type = 'group',
 		name = BUI.Title,
+		childGroups = "tab",
 		args = {
 			name = {
 				order = 1,
@@ -98,7 +99,7 @@ local function Core()
 				type = 'description',
 				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.']),
 				fontSize = 'medium',
-				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 256, 64 end,
+				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 384, 96 end,
 			},
 			install = {
 				order = 3,
@@ -116,7 +117,6 @@ local function Core()
 				order = 5,
 				type = 'group',
 				name = L['General'],
-				guiInline = true,
 				get = function(info) return E.db.benikui.general[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.general[ info[#info] ] = value; end,
 				args = {
@@ -166,12 +166,12 @@ local function Core()
 				order = 6,
 				type = 'group',
 				name = L.COLORS,
-				guiInline = true,
 				args = {
 					themes = {
 						order = 1,
 						type = 'group',
 						name = L['Color Themes'],
+						guiInline = true,
 						args = {
 							colorTheme = {
 								order = 1,
@@ -210,6 +210,7 @@ local function Core()
 						order = 2,
 						type = 'group',
 						name = L['Style Color'],
+						guiInline = true,
 						args = {
 							StyleColor = {
 								order = 1,
@@ -257,6 +258,7 @@ local function Core()
 						order = 3,
 						type = 'group',
 						name = L['ActionBar Style Color'],
+						guiInline = true,
 						args = {
 							abStyleColor = {
 								order = 1,
@@ -304,6 +306,7 @@ local function Core()
 						order = 4,
 						type = 'group',
 						name = L['Game Menu Color'],
+						guiInline = true,
 						args = {
 							gameMenuColor = {
 								order = 1,
