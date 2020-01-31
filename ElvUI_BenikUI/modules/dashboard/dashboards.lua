@@ -41,10 +41,19 @@ function mod:ToggleTransparency(holder, option)
 	local db = E.db.dashboards[option]
 	if not db.backdrop then
 		holder.backdrop:SetTemplate("NoBackdrop")
+		if holder.backdrop.shadow then
+			holder.backdrop.shadow:Hide()
+		end
 	elseif db.transparency then
 		holder.backdrop:SetTemplate("Transparent")
+		if holder.backdrop.shadow then
+			holder.backdrop.shadow:Show()
+		end
 	else
 		holder.backdrop:SetTemplate("Default", true)
+		if holder.backdrop.shadow then
+			holder.backdrop.shadow:Show()
+		end
 	end
 end
 
