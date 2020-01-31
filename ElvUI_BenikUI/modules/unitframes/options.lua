@@ -208,7 +208,7 @@ end
 tinsert(BUI.Config, ufTable)
 
 local function ufPlayerTable()
-	E.Options.args.unitframe.args.individualUnitOptiionsGroup.args.player.args.portrait.args.benikui = {
+	E.Options.args.unitframe.args.individualUnitOptionsGroup.args.player.args.portrait.args.benikui = {
 		order = 10,
 		type = 'group',
 		name = BUI.Title,
@@ -300,7 +300,7 @@ local function ufPlayerTable()
 		},
 	}
 
-	E.Options.args.unitframe.args.individualUnitOptiionsGroup.args.player.args.power.args.vertical = {
+	E.Options.args.unitframe.args.individualUnitOptionsGroup.args.player.args.power.args.vertical = {
 		order = 15,
 		type = "toggle",
 		name = BUI:cOption(L['Vertical']),
@@ -311,7 +311,7 @@ end
 tinsert(BUI.Config, ufPlayerTable)
 
 local function ufTargetTable()
-	E.Options.args.unitframe.args.individualUnitOptiionsGroup.args.target.args.portrait.args.benikui = {
+	E.Options.args.unitframe.args.individualUnitOptionsGroup.args.target.args.portrait.args.benikui = {
 		order = 10,
 		type = 'group',
 		name = BUI.Title,
@@ -410,7 +410,7 @@ local function ufTargetTable()
 		},
 	}
 
-	E.Options.args.unitframe.args.individualUnitOptiionsGroup.args.target.args.power.args.vertical = {
+	E.Options.args.unitframe.args.individualUnitOptionsGroup.args.target.args.power.args.vertical = {
 		order = 15,
 		type = "toggle",
 		name = BUI:cOption(L['Vertical']),
@@ -421,7 +421,7 @@ end
 tinsert(BUI.Config, ufTargetTable)
 
 local function ufTargetTargetTable()
-	E.Options.args.unitframe.args.individualUnitOptiionsGroup.args.targettarget.args.portrait.args.benikui = {
+	E.Options.args.unitframe.args.individualUnitOptionsGroup.args.targettarget.args.portrait.args.benikui = {
 		order = 10,
 		type = 'group',
 		name = BUI.Title,
@@ -491,7 +491,7 @@ end
 tinsert(BUI.Config, ufTargetTargetTable)
 
 local function ufFocusTable()
-	E.Options.args.unitframe.args.individualUnitOptiionsGroup.args.focus.args.portrait.args.benikui = {
+	E.Options.args.unitframe.args.individualUnitOptionsGroup.args.focus.args.portrait.args.benikui = {
 		order = 10,
 		type = 'group',
 		name = BUI.Title,
@@ -561,7 +561,7 @@ end
 tinsert(BUI.Config, ufFocusTable)
 
 local function ufPetTable()
-	E.Options.args.unitframe.args.individualUnitOptiionsGroup.args.pet.args.portrait.args.benikui = {
+	E.Options.args.unitframe.args.individualUnitOptionsGroup.args.pet.args.portrait.args.benikui = {
 		order = 10,
 		type = 'group',
 		name = BUI.Title,
