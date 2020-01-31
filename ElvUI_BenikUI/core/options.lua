@@ -120,8 +120,13 @@ local function Core()
 				get = function(info) return E.db.benikui.general[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.general[ info[#info] ] = value; end,
 				args = {
-					benikuiStyle = {
+					name = {
 						order = 1,
+						type = 'header',
+						name = BUI:cOption(L['General']),
+					},
+					benikuiStyle = {
+						order = 2,
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						desc = L['Enable/Disable the decorative bars from UI elements'],
@@ -129,7 +134,7 @@ local function Core()
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					hideStyle = {
-						order = 2,
+						order = 3,
 						type = 'toggle',
 						name = L['Hide BenikUI Style'],
 						desc = L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility options.|r'],
@@ -138,7 +143,7 @@ local function Core()
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateStyleVisibility(); end,
 					},
 					shadows = {
-						order = 3,
+						order = 4,
 						type = 'toggle',
 						name = L['Shadows'],
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
@@ -167,8 +172,13 @@ local function Core()
 				type = 'group',
 				name = L.COLORS,
 				args = {
-					themes = {
+					name = {
 						order = 1,
+						type = 'header',
+						name = BUI:cOption(L.COLORS),
+					},
+					themes = {
+						order = 2,
 						type = 'group',
 						name = L['Color Themes'],
 						guiInline = true,
@@ -207,7 +217,7 @@ local function Core()
 						},
 					},
 					style = {
-						order = 2,
+						order = 3,
 						type = 'group',
 						name = L['Style Color'],
 						guiInline = true,
@@ -255,7 +265,7 @@ local function Core()
 						},
 					},
 					abStyle = {
-						order = 3,
+						order = 4,
 						type = 'group',
 						name = L['ActionBar Style Color'],
 						guiInline = true,
@@ -303,7 +313,7 @@ local function Core()
 						},
 					},
 					gameMenu = {
-						order = 4,
+						order = 5,
 						type = 'group',
 						name = L['Game Menu Color'],
 						guiInline = true,
@@ -348,7 +358,7 @@ local function Core()
 					name = {
 						order = 1,
 						type = 'header',
-						name = BUI.Title,
+						name = BUI:cOption(L['Information']),
 					},
 					support = {
 						order = 2,
