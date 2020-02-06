@@ -1,3 +1,22 @@
+3.75 (Feb 6, 2020)
+*Set min ElvUI version to 11.351
+*Changed the options tabs and buttons a bit
+*Fix up these options to the latest ElvUI changes (NihilisticPandemonium)
+*Fixed shadows not hiding when disabling dashboard backdrop
+*Don't style the tooltip when TinyTooltip is loaded
+*Added shadows on Actionbar Buttons
+
+3.74 (Jan 21, 2020)
+*Removed the Sanity tentacles from ElvUI AltPowerBar
+*Styled the QuestModelScene frame
+*Fixed the tooltip style strata for corrupted and azerite items
+*Styled the ItemInteraction frame
+*Set middle datatext max width to screen resolution width
+*Disable 'Show InfoPanel text' by default
+*Fixed an error in Decursive skin
+*Fixed the portraits
+*Set ElvUI min version to 11.312
+
 3.73 (Jan 16, 2020)
 *Fix LeaveVehicleButton eror
 *Set ElvUI min version to 11.301

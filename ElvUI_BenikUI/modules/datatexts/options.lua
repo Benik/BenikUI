@@ -118,7 +118,7 @@ local function Datatexts()
 						order = 5,
 						type = "range",
 						name = L["Width"],
-						min = 200, max = 1400, step = 1,
+						min = 200, max = E.screenwidth, step = 1,
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextDimensions(); end,

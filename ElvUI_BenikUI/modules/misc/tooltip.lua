@@ -2,12 +2,14 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:NewModule('Tooltip', 'AceHook-3.0');
 local TT = E:GetModule('Tooltip');
 
-local GameTooltip, GameTooltipStatusBar = _G["GameTooltip"], _G["GameTooltipStatusBar"]
+local _G = _G
+local GameTooltip, GameTooltipStatusBar = _G.GameTooltip, _G.GameTooltipStatusBar
 local IsAddOnLoaded = IsAddOnLoaded
 
 -- GLOBALS: hooksecurefunc
 
 local function StyleTooltip()
+	if GameTooltip.style then return end
 	GameTooltip:Style('Outside')
 	GameTooltip.style:SetClampedToScreen(true)
 
@@ -59,6 +61,7 @@ end
 function mod:Initialize()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
 	if E.db.benikui.general.benikuiStyle ~= true then return end
+	if BUI:IsAddOnEnabled('TinyTooltip') then return end
 
 	StyleTooltip()
 

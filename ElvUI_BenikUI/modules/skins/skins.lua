@@ -27,7 +27,8 @@ local tooltips = {
 	FloatingBattlePetTooltip,
 	FloatingPetBattleAbilityTooltip,
 	FloatingGarrisonFollowerAbilityTooltip,
-	WarCampaignTooltip
+	WarCampaignTooltip,
+	GameTooltip
 }
 
 local overlayedTooltips = {
@@ -39,6 +40,10 @@ local overlayedTooltips = {
 
 local function tooltipOverlay(tt) -- Create a blank frame to position the GameTooltip.TopOverlay texture
 	if not tt.style then
+		return
+	end
+
+	if tt.style.blank then
 		return
 	end
 
@@ -201,6 +206,7 @@ local function styleFreeBlizzardFrames()
 	if db.quest then
 		_G.QuestFrame.backdrop:Style("Outside")
 		_G.QuestLogPopupDetailFrame:Style("Outside")
+		_G.QuestModelScene.backdrop:Style("Outside")
 
 		if BUI.AS then
 			_G.QuestDetailScrollFrame:SetTemplate("Transparent")
@@ -469,7 +475,7 @@ local function skinDecursive()
 		"Close"
 	}
 	for _, classBtn in pairs(classPop) do
-		local btnName = _G.DecursivePopulateListFrame .. classBtn
+		local btnName = _G['DecursivePopulateListFrame' .. classBtn]
 		S:HandleButton(btnName)
 	end
 
@@ -534,6 +540,9 @@ local function StyleAltPowerBar()
 
 	local bar = _G.ElvUI_AltPowerBar
 	bar.backdrop:Style("Outside")
+	if bar.textures then
+		bar:StripTextures(true)
+	end
 end
 
 local function ObjectiveTrackerQuests()
@@ -651,7 +660,7 @@ end
 local function StyleElvUIConfig()
 	if not E.private.skins.ace3.enable then return end
 
-	local frame = _G.ElvUIGUIFrame
+	local frame = E:Config_GetWindow()
 	if not frame.style then
 		frame:Style("Outside")
 	end
@@ -667,11 +676,6 @@ end
 function mod:Initialize()
 	VehicleExit()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-	if E.db.benikui.general.benikuiStyle ~= true then
-		return
-	end
 
 	skinDecursive()
 	skinStoryline()

@@ -87,6 +87,7 @@ local function Core()
 		order = 6,
 		type = 'group',
 		name = BUI.Title,
+		childGroups = "tab",
 		args = {
 			name = {
 				order = 1,
@@ -98,7 +99,7 @@ local function Core()
 				type = 'description',
 				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.']),
 				fontSize = 'medium',
-				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 256, 64 end,
+				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 384, 96 end,
 			},
 			install = {
 				order = 3,
@@ -116,12 +117,16 @@ local function Core()
 				order = 5,
 				type = 'group',
 				name = L['General'],
-				guiInline = true,
 				get = function(info) return E.db.benikui.general[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.general[ info[#info] ] = value; end,
 				args = {
-					benikuiStyle = {
+					name = {
 						order = 1,
+						type = 'header',
+						name = BUI:cOption(L['General']),
+					},
+					benikuiStyle = {
+						order = 2,
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						desc = L['Enable/Disable the decorative bars from UI elements'],
@@ -129,7 +134,7 @@ local function Core()
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					hideStyle = {
-						order = 2,
+						order = 3,
 						type = 'toggle',
 						name = L['Hide BenikUI Style'],
 						desc = L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility options.|r'],
@@ -138,7 +143,7 @@ local function Core()
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateStyleVisibility(); end,
 					},
 					shadows = {
-						order = 3,
+						order = 4,
 						type = 'toggle',
 						name = L['Shadows'],
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
@@ -166,12 +171,17 @@ local function Core()
 				order = 6,
 				type = 'group',
 				name = L.COLORS,
-				guiInline = true,
 				args = {
-					themes = {
+					name = {
 						order = 1,
+						type = 'header',
+						name = BUI:cOption(L.COLORS),
+					},
+					themes = {
+						order = 2,
 						type = 'group',
 						name = L['Color Themes'],
+						guiInline = true,
 						args = {
 							colorTheme = {
 								order = 1,
@@ -207,9 +217,10 @@ local function Core()
 						},
 					},
 					style = {
-						order = 2,
+						order = 3,
 						type = 'group',
 						name = L['Style Color'],
+						guiInline = true,
 						args = {
 							StyleColor = {
 								order = 1,
@@ -254,9 +265,10 @@ local function Core()
 						},
 					},
 					abStyle = {
-						order = 3,
+						order = 4,
 						type = 'group',
 						name = L['ActionBar Style Color'],
+						guiInline = true,
 						args = {
 							abStyleColor = {
 								order = 1,
@@ -301,9 +313,10 @@ local function Core()
 						},
 					},
 					gameMenu = {
-						order = 4,
+						order = 5,
 						type = 'group',
 						name = L['Game Menu Color'],
+						guiInline = true,
 						args = {
 							gameMenuColor = {
 								order = 1,
@@ -345,7 +358,7 @@ local function Core()
 					name = {
 						order = 1,
 						type = 'header',
-						name = BUI.Title,
+						name = BUI:cOption(L['Information']),
 					},
 					support = {
 						order = 2,

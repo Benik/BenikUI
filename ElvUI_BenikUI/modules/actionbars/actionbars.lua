@@ -24,6 +24,18 @@ function mod:StyleBackdrops()
 			if frame.backdrop then
 				frame.backdrop:Style('Outside', nil, true, true)
 			end
+
+			-- Button Shadows
+			if BUI.ShadowMode then
+				for k = 1, 12 do
+					local buttonBars = {_G["ElvUI_Bar"..i.."Button"..k]}
+					for _, button in pairs(buttonBars) do
+						if button.backdrop and not button.backdrop.shadow then
+							button.backdrop:CreateSoftShadow()
+						end
+					end
+				end
+			end
 		end
 	end
 
