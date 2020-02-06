@@ -1,3 +1,11 @@
+3.75 (Feb 6, 2020)
+*Set min ElvUI version to 11.351
+*Changed the options tabs and buttons a bit
+*Fix up these options to the latest ElvUI changes (NihilisticPandemonium)
+*Fixed shadows not hiding when disabling dashboard backdrop
+*Don't style the tooltip when TinyTooltip is loaded
+*Added shadows on Actionbar Buttons
+
 3.74 (Jan 21, 2020)
 *Removed the Sanity tentacles from ElvUI AltPowerBar
 *Styled the QuestModelScene frame
