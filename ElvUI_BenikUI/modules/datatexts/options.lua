@@ -75,6 +75,20 @@ local function Datatexts()
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ToggleTransparency(); end,
 					},
+					showChatDt = {
+						order = 6,
+						type = 'select',
+						name = L["Visibility"],
+						values = {
+							['HIDEBOTH'] = L["Hide Both"],
+							['SHOWBOTH'] = L["Show Both"],
+							['LEFT'] = L["Left Only"],
+							['RIGHT'] = L["Right Only"],
+						},
+						disabled = function() return E.db.benikui.datatexts.chat.enable ~= true end,
+						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateAnchors(); end,
+					},
 				},
 			},
 			middle = {

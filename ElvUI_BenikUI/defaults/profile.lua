@@ -70,6 +70,7 @@ P['benikui'] = {
 			['editBoxPosition'] = 'BELOW_CHAT',
 			['styled'] = false,
 			['backdrop'] = true,
+			['showChatDt'] = 'SHOWBOTH',
 		},
 		['middle'] = {
 			['enable'] = true,
