@@ -63,19 +63,19 @@ local function style_ArtifactUI()
 end
 S:AddCallbackForAddon("Blizzard_ArtifactUI", "BenikUI_ArtifactUI", style_ArtifactUI)
 
--- AuctionUI
-local function style_AuctionUI()
+-- AuctionHouseUI
+local function style_AuctionHouseUI()
 	if E.private.skins.blizzard.auctionhouse ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
 	end
 
-	_G.AuctionFrame.backdrop:Style("Outside")
-	_G.AuctionProgressFrame:Style("Outside")
-	_G.WowTokenGameTimeTutorial:Style("Small")
+	local Frame = _G.AuctionHouseFrame
+	Frame:Style("Outside")
+	Frame.WoWTokenResults.GameTimeTutorial.backdrop:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_AuctionUI", "BenikUI_AuctionUI", style_AuctionUI)
+S:AddCallbackForAddon("Blizzard_AuctionHouseUI", "BenikUI_AuctionHouseUI", style_AuctionHouseUI)
 
 -- AzeriteEssenceUI
 local function style_AzeriteEssenceUI()
