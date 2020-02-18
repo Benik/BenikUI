@@ -223,11 +223,11 @@ local function ufPlayerTable()
 				set = function(info, value)
 					E.db.benikui.unitframes.player[ info[#info] ] = value;
 					if value == true then
-						E.Options.args.unitframe.args.player.args.portrait.args.width.min = 0
+						E.Options.args.unitframe.args.individualUnits.args.player.args.portrait.args.width.min = 0
 						E.db.unitframe.units.player.portrait.width = 0
 						E.db.unitframe.units.player.orientation = "LEFT"
 					else
-						E.Options.args.unitframe.args.player.args.portrait.args.width.min = 15
+						E.Options.args.unitframe.args.individualUnits.args.player.args.portrait.args.width.min = 15
 						E.db.unitframe.units.player.portrait.width = 45
 					end
 					UF:CreateAndUpdateUF('player')
@@ -326,11 +326,11 @@ local function ufTargetTable()
 				set = function(info, value)
 					E.db.benikui.unitframes.target[ info[#info] ] = value;
 					if value == true then
-						E.Options.args.unitframe.args.target.args.portrait.args.width.min = 0
+						E.Options.args.unitframe.args.individualUnits.args.target.args.portrait.args.width.min = 0
 						E.db.unitframe.units.target.portrait.width = 0
 						E.db.unitframe.units.target.orientation = "RIGHT"
 					else
-						E.Options.args.unitframe.args.target.args.portrait.args.width.min = 15
+						E.Options.args.unitframe.args.individualUnits.args.target.args.portrait.args.width.min = 15
 						E.db.unitframe.units.target.portrait.width = 45
 					end
 					UF:CreateAndUpdateUF('target')
@@ -436,11 +436,11 @@ local function ufTargetTargetTable()
 				set = function(info, value)
 					E.db.benikui.unitframes.targettarget[ info[#info] ] = value;
 					if value == true then
-						E.Options.args.unitframe.args.targettarget.args.portrait.args.width.min = 0
+						E.Options.args.unitframe.args.individualUnits.args.targettarget.args.portrait.args.width.min = 0
 						E.db.unitframe.units.targettarget.portrait.width = 0
 						E.db.unitframe.units.targettarget.orientation = "RIGHT"
 					else
-						E.Options.args.unitframe.args.targettarget.args.portrait.args.width.min = 15
+						E.Options.args.unitframe.args.individualUnits.args.targettarget.args.portrait.args.width.min = 15
 						E.db.unitframe.units.targettarget.portrait.width = 45
 						E.db.unitframe.units.targettarget.orientation = "MIDDLE"
 					end
@@ -506,11 +506,11 @@ local function ufFocusTable()
 				set = function(info, value)
 					E.db.benikui.unitframes.focus[ info[#info] ] = value;
 					if value == true then
-						E.Options.args.unitframe.args.focus.args.portrait.args.width.min = 0
+						E.Options.args.unitframe.args.individualUnits.args.focus.args.portrait.args.width.min = 0
 						E.db.unitframe.units.focus.portrait.width = 0
 						E.db.unitframe.units.focus.orientation = "RIGHT"
 					else
-						E.Options.args.unitframe.args.focus.args.portrait.args.width.min = 15
+						E.Options.args.unitframe.args.individualUnits.args.focus.args.portrait.args.width.min = 15
 						E.db.unitframe.units.focus.portrait.width = 45
 						E.db.unitframe.units.focus.orientation = "MIDDLE"
 					end
@@ -576,11 +576,11 @@ local function ufPetTable()
 				set = function(info, value)
 					E.db.benikui.unitframes.pet[ info[#info] ] = value;
 					if value == true then
-						E.Options.args.unitframe.args.pet.args.portrait.args.width.min = 0
+						E.Options.args.unitframe.args.individualUnits.args.pet.args.portrait.args.width.min = 0
 						E.db.unitframe.units.pet.portrait.width = 0
 						E.db.unitframe.units.pet.orientation = "RIGHT"
 					else
-						E.Options.args.unitframe.args.pet.args.portrait.args.width.min = 15
+						E.Options.args.unitframe.args.individualUnits.args.pet.args.portrait.args.width.min = 15
 						E.db.unitframe.units.pet.portrait.width = 45
 						E.db.unitframe.units.pet.orientation = "MIDDLE"
 					end
