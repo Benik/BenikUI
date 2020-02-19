@@ -455,15 +455,21 @@ local function ufTargetTargetTable()
 				desc = L['Makes the portrait backdrop transparent'],
 				disabled = function() return E.db.unitframe.units.targettarget.portrait.overlay end,
 			},
-			portraitShadow = {
+			portraitBackdrop = {
 				order = 3,
+				type = 'toggle',
+				name = L['Backdrop'],
+				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
+			},
+			portraitShadow = {
+				order = 4,
 				type = 'toggle',
 				name = L['Shadow'],
 				desc = L['Add shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
 			},
 			portraitWidth = {
-				order = 4,
+				order = 5,
 				type = 'range',
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
@@ -471,7 +477,7 @@ local function ufTargetTargetTable()
 				min = 10, max = 500, step = 1,
 			},
 			portraitHeight = {
-				order = 5,
+				order = 6,
 				type = 'range',
 				name = L['Height'],
 				desc = L['Change the detached portrait height'],
@@ -479,7 +485,7 @@ local function ufTargetTargetTable()
 				min = 10, max = 250, step = 1,
 			},
 			portraitFrameStrata = {
-				order = 6,
+				order = 7,
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
@@ -525,15 +531,21 @@ local function ufFocusTable()
 				desc = L['Makes the portrait backdrop transparent'],
 				disabled = function() return E.db.unitframe.units.focus.portrait.overlay end,
 			},
-			portraitShadow = {
+			portraitBackdrop = {
 				order = 3,
+				type = 'toggle',
+				name = L['Backdrop'],
+				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
+			},
+			portraitShadow = {
+				order = 4,
 				type = 'toggle',
 				name = L['Shadow'],
 				desc = L['Add shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
 			},
 			portraitWidth = {
-				order = 4,
+				order = 5,
 				type = 'range',
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
@@ -541,7 +553,7 @@ local function ufFocusTable()
 				min = 10, max = 500, step = 1,
 			},
 			portraitHeight = {
-				order = 5,
+				order = 6,
 				type = 'range',
 				name = L['Height'],
 				desc = L['Change the detached portrait height'],
@@ -549,7 +561,7 @@ local function ufFocusTable()
 				min = 10, max = 250, step = 1,
 			},
 			portraitFrameStrata = {
-				order = 6,
+				order = 7,
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
@@ -595,15 +607,21 @@ local function ufPetTable()
 				desc = L['Makes the portrait backdrop transparent'],
 				disabled = function() return E.db.unitframe.units.pet.portrait.overlay end,
 			},
-			portraitShadow = {
+			portraitBackdrop = {
 				order = 3,
+				type = 'toggle',
+				name = L['Backdrop'],
+				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
+			},
+			portraitShadow = {
+				order = 4,
 				type = 'toggle',
 				name = L['Shadow'],
 				desc = L['Add shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
 			},
 			portraitWidth = {
-				order = 4,
+				order = 5,
 				type = 'range',
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
@@ -611,7 +629,7 @@ local function ufPetTable()
 				min = 10, max = 500, step = 1,
 			},
 			portraitHeight = {
-				order = 5,
+				order = 6,
 				type = 'range',
 				name = L['Height'],
 				desc = L['Change the detached portrait height'],
@@ -619,7 +637,7 @@ local function ufPetTable()
 				min = 10, max = 250, step = 1,
 			},
 			portraitFrameStrata = {
-				order = 6,
+				order = 7,
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
