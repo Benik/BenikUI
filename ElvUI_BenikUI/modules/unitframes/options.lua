@@ -209,7 +209,7 @@ tinsert(BUI.Config, ufTable)
 
 local function ufPlayerTable()
 	E.Options.args.unitframe.args.individualUnits.args.player.args.portrait.args.benikui = {
-		order = 10,
+		order = 100,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -312,7 +312,7 @@ tinsert(BUI.Config, ufPlayerTable)
 
 local function ufTargetTable()
 	E.Options.args.unitframe.args.individualUnits.args.target.args.portrait.args.benikui = {
-		order = 10,
+		order = 100,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -422,7 +422,7 @@ tinsert(BUI.Config, ufTargetTable)
 
 local function ufTargetTargetTable()
 	E.Options.args.unitframe.args.individualUnits.args.targettarget.args.portrait.args.benikui = {
-		order = 10,
+		order = 100,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -498,7 +498,7 @@ tinsert(BUI.Config, ufTargetTargetTable)
 
 local function ufFocusTable()
 	E.Options.args.unitframe.args.individualUnits.args.focus.args.portrait.args.benikui = {
-		order = 10,
+		order = 100,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -574,7 +574,7 @@ tinsert(BUI.Config, ufFocusTable)
 
 local function ufPetTable()
 	E.Options.args.unitframe.args.individualUnits.args.pet.args.portrait.args.benikui = {
-		order = 10,
+		order = 100,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
