@@ -59,7 +59,10 @@ P['benikui'] = {
 			['color'] = {r = 1, g = 1, b = 0},
 			['position'] = 'INSIDE',
 		},
-		['flightMode'] = true,
+		['flightMode'] = {
+			['enable'] = true,
+			['logo'] = 'WOW',
+		},
 		['afkMode'] = true,
 	},
 

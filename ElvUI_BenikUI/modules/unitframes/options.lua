@@ -140,7 +140,7 @@ local function ufTable()
 			castbarColor = {
 				order = 5,
 				type = 'group',
-				name = L['Castbar Backdrop Color']..E.NewSign,
+				name = L['Castbar Backdrop Color'],
 				guiInline = true,
 				args = {
 					enable = {
