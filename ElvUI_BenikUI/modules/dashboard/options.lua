@@ -18,6 +18,7 @@ local dungeonTokens = {
 
 local pvpTokens = {
 	391,	-- Tol Barad Commendation
+	1602,	-- Conquest
 }
 
 local secondaryTokens = {
