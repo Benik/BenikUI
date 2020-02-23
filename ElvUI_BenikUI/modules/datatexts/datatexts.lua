@@ -71,45 +71,56 @@ function mod:HideBattlegroundTexts()
 end
 
 function DT:LoadDataTexts()
-	self.db = E.db.datatexts
-	for name, obj in LDB:DataObjectIterator() do
+	for _, _ in LDB:DataObjectIterator() do
 		LDB:UnregisterAllCallbacks(self)
 	end
 
-	local inInstance, instanceType = IsInInstance()
 	local fontTemplate = LSM:Fetch("font", self.db.font)
+	local inInstance, instanceType = IsInInstance()
+	local isInPVP = inInstance and instanceType == "pvp"
+	local pointIndex, isBGPanel, enableBGPanel
 	for panelName, panel in pairs(DT.RegisteredPanels) do
+		isBGPanel = isInPVP and (panelName == 'LeftChatDataPanel' or panelName == 'RightChatDataPanel' or panelName == 'BuiLeftChatDTPanel' or panelName == 'BuiRightChatDTPanel')
+		enableBGPanel = isBGPanel and (not DT.ForceHideBGStats and E.db.datatexts.battleground)
+
 		--Restore Panels
 		for i=1, panel.numPoints do
-			local pointIndex = DT.PointLocation[i]
-			panel.dataPanels[pointIndex]:UnregisterAllEvents()
-			panel.dataPanels[pointIndex]:SetScript('OnUpdate', nil)
-			panel.dataPanels[pointIndex]:SetScript('OnEnter', nil)
-			panel.dataPanels[pointIndex]:SetScript('OnLeave', nil)
-			panel.dataPanels[pointIndex]:SetScript('OnClick', nil)
-			panel.dataPanels[pointIndex].text:FontTemplate(fontTemplate, self.db.fontSize, self.db.fontOutline)
-			panel.dataPanels[pointIndex].text:SetWordWrap(self.db.wordWrap)
-			panel.dataPanels[pointIndex].text:SetText(nil)
-			panel.dataPanels[pointIndex].pointIndex = pointIndex
+			pointIndex = DT.PointLocation[i]
+			local dt = panel.dataPanels[pointIndex]
+			dt:UnregisterAllEvents()
+			dt:SetScript('OnUpdate', nil)
+			dt:SetScript('OnEnter', nil)
+			dt:SetScript('OnLeave', nil)
+			dt:SetScript('OnClick', nil)
+			dt.text:FontTemplate(fontTemplate, self.db.fontSize, self.db.fontOutline)
+			dt.text:SetWordWrap(self.db.wordWrap)
+			dt.text:SetText('')
+			dt.pointIndex = pointIndex
 
-			if (panelName == 'LeftChatDataPanel' or panelName == 'RightChatDataPanel' or panelName == 'BuiLeftChatDTPanel' or panelName == 'BuiRightChatDTPanel') and (inInstance and (instanceType == "pvp")) and not DT.ForceHideBGStats and E.db.datatexts.battleground then
-				panel.dataPanels[pointIndex]:RegisterEvent('UPDATE_BATTLEFIELD_SCORE')
-				panel.dataPanels[pointIndex]:SetScript('OnEvent', mod.UPDATE_BATTLEFIELD_SCORE)
-				panel.dataPanels[pointIndex]:SetScript('OnEnter', DT.BattlegroundStats)
-				panel.dataPanels[pointIndex]:SetScript('OnLeave', DT.Data_OnLeave)
-				panel.dataPanels[pointIndex]:SetScript('OnClick', mod.HideBattlegroundTexts)
-				mod.UPDATE_BATTLEFIELD_SCORE(panel.dataPanels[pointIndex])
+			if enableBGPanel then
+				dt:RegisterEvent('UPDATE_BATTLEFIELD_SCORE')
+				dt:SetScript('OnEvent', mod.UPDATE_BATTLEFIELD_SCORE)
+				dt:SetScript('OnEnter', DT.BattlegroundStats)
+				dt:SetScript('OnLeave', DT.Data_OnLeave)
+				dt:SetScript('OnClick', mod.HideBattlegroundTexts)
+				DT.UPDATE_BATTLEFIELD_SCORE(dt)
+				DT.ShowingBGStats = true
 			else
+				-- we aren't showing BGStats anymore
+				if (isBGPanel or not isInPVP) and DT.ShowingBGStats then
+					DT.ShowingBGStats = nil
+				end
+
 				--Register Panel to Datatext
 				for name, data in pairs(DT.RegisteredDataTexts) do
 					for option, value in pairs(self.db.panels) do
 						if value and type(value) == 'table' then
 							if option == panelName and self.db.panels[option][pointIndex] and self.db.panels[option][pointIndex] == name then
-								DT:AssignPanelToDataText(panel.dataPanels[pointIndex], data)
+								DT:AssignPanelToDataText(dt, data)
 							end
 						elseif value and type(value) == 'string' and value == name then
 							if self.db.panels[option] == name and option == panelName then
-								DT:AssignPanelToDataText(panel.dataPanels[pointIndex], data)
+								DT:AssignPanelToDataText(dt, data)
 							end
 						end
 					end
@@ -119,7 +130,7 @@ function DT:LoadDataTexts()
 	end
 
 	if DT.ForceHideBGStats then
-		DT.ForceHideBGStats = nil;
+		DT.ForceHideBGStats = nil
 	end
 end
 
