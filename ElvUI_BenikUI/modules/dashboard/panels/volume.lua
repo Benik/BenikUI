@@ -22,6 +22,12 @@ local function GetVolumePercent(cat)
 	return volume;
 end
 
+local function RoundVolume(cat)
+	local volume = tonumber(GetCVar(cat));
+	volume = tonumber(E:Round(volume, 1));
+	return volume;
+end
+
 local function iconBG_OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, -20)
 	GameTooltip:ClearAllPoints()
@@ -52,7 +58,7 @@ local function iconBG_OnLeave(self)
 end
 
 local function Sound_MasterVolumeUp()
-	local volume = (GetCVar('Sound_MasterVolume'));
+	local volume = RoundVolume('Sound_MasterVolume')
 
 	volume = tonumber(E:Round(volume, 1));
 	if (volume and volume <= 0.9) then
@@ -61,7 +67,7 @@ local function Sound_MasterVolumeUp()
 end
 
 local function Sound_MasterVolumeDown()
-	local volume = (GetCVar('Sound_MasterVolume'));
+	local volume = RoundVolume('Sound_MasterVolume')
 
 	volume = tonumber(E:Round(volume, 1));
 	if (volume and volume >= 0.1) then
