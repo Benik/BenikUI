@@ -116,6 +116,10 @@ function BUI:DasOptions()
 	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
+function BUI:SetupBenikUI()
+	E:GetModule("PluginInstaller"):Queue(BUI.installTable)
+end
+
 function BUI:LoadCommands()
 	self:RegisterChatCommand("benikui", "DasOptions")
 	self:RegisterChatCommand("benikuisetup", "SetupBenikUI")
@@ -128,15 +132,11 @@ function BUI:Initialize()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
-	-- run install when ElvUI install finishes
-	if E.private.install_complete == E.version and E.db.benikui.installed == nil then
-		E:GetModule("PluginInstaller"):Queue(BUI.installTable)
-	end
-
-	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
-	if ElvDB.profileKeys and profileKey == nil then
-		E:GetModule("PluginInstaller"):Queue(BUI.installTable)
+
+	-- run install when ElvUI install finishes or run the setup again when a profile gets deleted.
+	if (E.private.install_complete == E.version and E.db.benikui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
+		BUI:SetupBenikUI()
 	end
 
 	if E.db.benikui.general.loginMessage then

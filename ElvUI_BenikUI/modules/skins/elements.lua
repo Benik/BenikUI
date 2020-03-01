@@ -41,3 +41,34 @@ function mod:HandleButton(button, _, isDeclineButton)
 	button.isEdited = true
 end
 hooksecurefunc(S, "HandleButton", mod.HandleButton)
+
+local function Style_Ace3TabSelected(self, selected)
+	local bd = self.backdrop
+	if not bd then return end
+
+	if selected then
+		bd:SetBackdropBorderColor(0, 0, 0)
+	else
+		local r, g, b = unpack(E.media.bordercolor)
+		bd:SetBackdropBorderColor(r, g, b, 1)
+	end
+end
+hooksecurefunc(S, 'Ace3_TabSetSelected', Style_Ace3TabSelected)
+
+local function Style_SetButtonColor(self, btn, disabled)
+	if disabled then
+		btn:Disable()
+		btn:SetBackdropBorderColor(0, 0, 0)
+		btn:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		btn.Text:SetTextColor(1, 1, 1)
+		E:Config_SetButtonText(btn, true)
+	else
+		btn:Enable()
+		btn:SetBackdropColor(0, 0, 0, 1)
+		local r, g, b = unpack(E.media.bordercolor)
+		btn:SetBackdropBorderColor(r, g, b, 1)
+		btn.Text:SetTextColor(.9, .8, 0)
+		E:Config_SetButtonText(btn)
+	end
+end
+hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)

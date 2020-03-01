@@ -360,8 +360,27 @@ function mod:OnEvent(event, ...)
 	end
 end
 
+function mod:ToggleLogo()
+	if E.db.benikui.misc.flightMode.enable ~= true then return end
+	local db = E.db.benikui.misc.flightMode.logo
+
+	if db == 'WOW' then
+		self.FlightMode.bottom.wowlogo:Show()
+		self.FlightMode.bottom.benikui:Hide()
+		self.FlightMode.bottom.logo:Hide()
+	elseif db == 'BENIKUI' then
+		self.FlightMode.bottom.wowlogo:Hide()
+		self.FlightMode.bottom.benikui:Show()
+		self.FlightMode.bottom.logo:Show()
+	else
+		self.FlightMode.bottom.wowlogo:Hide()
+		self.FlightMode.bottom.benikui:Hide()
+		self.FlightMode.bottom.logo:Hide()	
+	end
+end
+
 function mod:Toggle()
-	if(E.db.benikui.misc.flightMode) then
+	if(E.db.benikui.misc.flightMode.enable) then
 		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
 		self:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
@@ -518,6 +537,21 @@ function mod:Initialize()
 	self.FlightMode.bottom.logo:Size(420, 105)
 	self.FlightMode.bottom.logo:Point("BOTTOM", self.FlightMode.bottom, "CENTER", 0, -20)
 	self.FlightMode.bottom.logo:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga')
+	self.FlightMode.bottom.logo:Hide()
+
+	-- WoW logo
+	self.FlightMode.bottom.wowlogo = CreateFrame('Frame', nil, mod.FlightMode) -- need this to upper the logo layer
+	self.FlightMode.bottom.wowlogo:SetPoint("BOTTOM", self.FlightMode.bottom, "CENTER", 0, -20)
+	self.FlightMode.bottom.wowlogo:SetFrameStrata("MEDIUM")
+	self.FlightMode.bottom.wowlogo:SetSize(300, 150)
+	self.FlightMode.bottom.wowlogo.tex = self.FlightMode.bottom.wowlogo:CreateTexture(nil, 'OVERLAY')
+	local currentExpansionLevel = GetClampedCurrentExpansionLevel();
+	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel);
+	if expansionDisplayInfo then
+		self.FlightMode.bottom.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
+	end
+	self.FlightMode.bottom.wowlogo.tex:SetInside()
+	self.FlightMode.bottom.wowlogo:Hide()
 
 	-- BenikUI version
 	self.FlightMode.bottom.benikui = self.FlightMode.bottom:CreateFontString(nil, 'OVERLAY')
@@ -525,6 +559,7 @@ function mod:Initialize()
 	self.FlightMode.bottom.benikui:SetFormattedText("v%s", BUI.Version)
 	self.FlightMode.bottom.benikui:SetPoint("TOP", self.FlightMode.bottom.logo, "BOTTOM", 0, 12)
 	self.FlightMode.bottom.benikui:SetTextColor(1, 1, 1)
+	self.FlightMode.bottom.benikui:Hide()
 
 	-- Message frame. Shows when request stop is pressed
 	self.FlightMode.message = CreateFrame("Frame", nil, self.FlightMode)
@@ -733,6 +768,7 @@ function mod:Initialize()
 	LeftChatPanel.backdrop.wideshadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
 
 	self:Toggle()
+	self:ToggleLogo()
 	ToggleWorldMap()
 	ToggleWorldMap()
 end

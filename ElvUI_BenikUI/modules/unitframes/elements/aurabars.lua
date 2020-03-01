@@ -34,7 +34,6 @@ end
 function BU:Configure_AuraBars(frame)
 	if not BUI.ShadowMode then return end
 
-	if not frame.VARIABLES_SET then return end
 	local auraBars = frame.AuraBars
 	local db = frame.db
 	auraBars.db = db.aurabar

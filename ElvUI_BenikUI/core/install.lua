@@ -12,7 +12,6 @@ local FCF_StopDragging = FCF_StopDragging
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 local ADDONS, LOOT, TRADE, TANK, HEALER = ADDONS, LOOT, TRADE, TANK, HEALER
-
 -- GLOBALS: LeftChatToggleButton
 
 local function SetupLayout(layout)
@@ -111,6 +110,7 @@ local function SetupLayout(layout)
 	E.private["general"]["chatBubbles"] = 'backdrop'
 
 	-- common movers
+	if E.db["movers"] == nil then E.db["movers"] = {} end
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-192"
@@ -328,7 +328,7 @@ local function SetupActionbars(layout)
 	E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
 	BUI:GetModule('Layout'):MiddleDatatextLayout()
 	E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
-
+	if E.db["movers"] == nil then E.db["movers"] = {} end
 	if layout == 'v1' then
 		E.db["actionbar"]["font"] = "Bui Visitor1"
 		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
@@ -534,6 +534,7 @@ end
 
 local function SetupUnitframes(layout)
 	E.db["general"]["decimalLength"] = 2
+	if E.db["movers"] == nil then E.db["movers"] = {} end
 	if layout == 'v1' then
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "Bui Prototype"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Bui Prototype"
