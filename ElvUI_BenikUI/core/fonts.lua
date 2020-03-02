@@ -124,6 +124,8 @@ function E:UpdateBlizzardFonts()
 		SetFont(Fancy18Font, 						NORMAL, 16);								 -- Allied Races Blizzard tryout font
 		SetFont(Fancy16Font, 						NORMAL, 14);								 -- Allied Races Blizzard tryout font
 		SetFont(Fancy20Font, 						NORMAL, 18);								 -- Mythic Chest
+		SetFont(SystemFont_Shadow_Large2,			NORMAL, 18);								 -- Auction House ItemDisplay
+		SetFont(GameFontNormalMed1,					NORMAL, 14);								 -- WoW Token Info
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
 		--SetFont(GameFontHighlightSmall, 			NORMAL, 10);
 		--SetFont(GameFontHighlight, 					NORMAL, self.db.general.fontSize);
