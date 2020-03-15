@@ -98,6 +98,8 @@ function mod:UpdateProfessions()
 							CastSpellByID(193290) -- herbalism skills
 						elseif skillLine == 393 then
 							CastSpellByID(194174) -- skinning skills
+						elseif skillLine == 202 then
+							CastSpellByID(158739) -- engineering
 						elseif skillLine == 356 then
 							CastSpellByID(271990) -- fishing
 						else
@@ -138,6 +140,8 @@ function mod:UpdateProfessions()
 							CastSpellByID(193290) -- herbalism skills
 						elseif skillLine == 393 then
 							CastSpellByID(194174) -- skinning skills
+						elseif skillLine == 202 then
+							CastSpellByID(158739) -- engineering
 						elseif skillLine == 356 then
 							CastSpellByID(271990) -- fishing
 						else
