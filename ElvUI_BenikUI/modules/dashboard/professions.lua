@@ -60,7 +60,7 @@ function mod:UpdateProfessions()
 		local proftable = { GetProfessions() }
 
 		for _, id in pairs(proftable) do
-			local name, icon, rank, maxRank, _, _, skillLine, rankModifier = GetProfessionInfo(id)
+			local name, icon, rank, maxRank, _, offset, skillLine, rankModifier = GetProfessionInfo(id)
 
 			if name and (rank < maxRank or (not db.capped)) then
 				if E.private.dashboards.professions.choosePofessions[id] == true then
@@ -91,19 +91,10 @@ function mod:UpdateProfessions()
 						end
 					end)
 
+					local SetOffset = offset or 0
 					self.ProFrame:SetScript('OnClick', function(self)
-						if skillLine == 186 then
-							CastSpellByID(2656) -- mining skills
-						elseif skillLine == 182 then
-							CastSpellByID(193290) -- herbalism skills
-						elseif skillLine == 393 then
-							CastSpellByID(194174) -- skinning skills
-						elseif skillLine == 202 then
-							CastSpellByID(158739) -- engineering
-						elseif skillLine == 356 then
-							CastSpellByID(271990) -- fishing
-						else
-							CastSpellByName(name)
+						if SetOffset > 0 then
+							CastSpell(SetOffset + 1, name)
 						end
 					end)
 
@@ -134,18 +125,8 @@ function mod:UpdateProfessions()
 					end
 
 					self.ProFrame.IconBG:SetScript('OnClick', function(self)
-						if skillLine == 186 then
-							CastSpellByID(2656) -- mining skills
-						elseif skillLine == 182 then
-							CastSpellByID(193290) -- herbalism skills
-						elseif skillLine == 393 then
-							CastSpellByID(194174) -- skinning skills
-						elseif skillLine == 202 then
-							CastSpellByID(158739) -- engineering
-						elseif skillLine == 356 then
-							CastSpellByID(271990) -- fishing
-						else
-							CastSpellByName(name)
+						if SetOffset > 0 then
+							CastSpell(SetOffset + 1, name)
 						end
 					end)
 
