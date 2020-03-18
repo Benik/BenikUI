@@ -24,6 +24,15 @@ local function sortFunction(a, b)
 	return a.name < b.name
 end
 
+local function OnClick(frame)
+	local SetOffset = frame.SetOffset
+	local name = frame.name
+
+	if SetOffset > 0 then
+		CastSpell(SetOffset + 1, name)
+	end
+end
+
 function mod:UpdateProfessions()
 	local db = E.db.dashboards.professions
 	local holder = BUI_ProfessionsDashboard
@@ -91,13 +100,6 @@ function mod:UpdateProfessions()
 						end
 					end)
 
-					local SetOffset = offset or 0
-					self.ProFrame:SetScript('OnClick', function(self)
-						if SetOffset > 0 then
-							CastSpell(SetOffset + 1, name)
-						end
-					end)
-
 					if (rankModifier and rankModifier > 0) then
 						self.ProFrame.Status:SetMinMaxValues(1, maxRank + rankModifier)
 						self.ProFrame.Status:SetValue(rank + rankModifier)
@@ -124,15 +126,15 @@ function mod:UpdateProfessions()
 						self.ProFrame.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 					end
 
-					self.ProFrame.IconBG:SetScript('OnClick', function(self)
-						if SetOffset > 0 then
-							CastSpell(SetOffset + 1, name)
-						end
-					end)
-
 					self.ProFrame.IconBG.Icon:SetTexture(icon)
 
+					local SetOffset = offset or 0
 					self.ProFrame.name = name
+					self.ProFrame.SetOffset = SetOffset
+					self.ProFrame.IconBG.SetOffset = SetOffset
+					self.ProFrame.IconBG.name = name
+					self.ProFrame:SetScript('OnClick', OnClick)
+					self.ProFrame.IconBG:SetScript('OnClick', OnClick)
 
 					tinsert(BUI.ProfessionsDB, self.ProFrame)
 				end
