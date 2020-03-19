@@ -112,6 +112,7 @@ local Currency = {
 	1719,	-- Corrupted Memento
 	1721,	-- Prismatic Manapearl
 	1755,	-- Coalescing Visions
+	1803,	-- Echoes of Ny'alotha
 }
 
 local function Icon_OnEnter(self)
