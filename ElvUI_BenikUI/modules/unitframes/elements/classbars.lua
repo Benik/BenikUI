@@ -5,7 +5,6 @@ local BU = BUI:GetModule('Units');
 function BU:Configure_ClassBar(frame)
 	if not BUI.ShadowMode then return end
 
-	if not frame.VARIABLES_SET then return end
 	local bars = frame[frame.ClassBar]
 	if not bars then return end
 

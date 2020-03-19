@@ -289,7 +289,7 @@ if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers') and AS:Ch
 if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 2) end
-AS:RegisterSkin('Libraries', LibrariesDecor, 2)
+LibrariesDecor()
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
 	if not _G["AcceptFrame"].style then

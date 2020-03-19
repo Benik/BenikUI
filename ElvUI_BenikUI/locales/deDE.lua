@@ -33,7 +33,7 @@ L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 
 -- Misc
-L['Camera rotation'] = "Kamerarotation"
+L['Shown Logo'] = true
 L['iLevel'] = true --No need to translate
 L['Show item level per slot, on the character info frame'] = "Zeigt das Itemlevel pro Slot, im Spielerfenster"
 L['Inside the item slot'] = "Innerhalb des Ausrüstungsplatz"

@@ -24,6 +24,15 @@ local function sortFunction(a, b)
 	return a.name < b.name
 end
 
+local function OnClick(frame)
+	local SetOffset = frame.SetOffset
+	local name = frame.name
+
+	if SetOffset > 0 then
+		CastSpell(SetOffset + 1, name)
+	end
+end
+
 function mod:UpdateProfessions()
 	local db = E.db.dashboards.professions
 	local holder = BUI_ProfessionsDashboard
@@ -60,7 +69,7 @@ function mod:UpdateProfessions()
 		local proftable = { GetProfessions() }
 
 		for _, id in pairs(proftable) do
-			local name, icon, rank, maxRank, _, _, skillLine, rankModifier = GetProfessionInfo(id)
+			local name, icon, rank, maxRank, _, offset, skillLine, rankModifier = GetProfessionInfo(id)
 
 			if name and (rank < maxRank or (not db.capped)) then
 				if E.private.dashboards.professions.choosePofessions[id] == true then
@@ -91,20 +100,6 @@ function mod:UpdateProfessions()
 						end
 					end)
 
-					self.ProFrame:SetScript('OnClick', function(self)
-						if skillLine == 186 then
-							CastSpellByID(2656) -- mining skills
-						elseif skillLine == 182 then
-							CastSpellByID(193290) -- herbalism skills
-						elseif skillLine == 393 then
-							CastSpellByID(194174) -- skinning skills
-						elseif skillLine == 356 then
-							CastSpellByID(271990) -- fishing
-						else
-							CastSpellByName(name)
-						end
-					end)
-
 					if (rankModifier and rankModifier > 0) then
 						self.ProFrame.Status:SetMinMaxValues(1, maxRank + rankModifier)
 						self.ProFrame.Status:SetValue(rank + rankModifier)
@@ -131,23 +126,15 @@ function mod:UpdateProfessions()
 						self.ProFrame.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 					end
 
-					self.ProFrame.IconBG:SetScript('OnClick', function(self)
-						if skillLine == 186 then
-							CastSpellByID(2656) -- mining skills
-						elseif skillLine == 182 then
-							CastSpellByID(193290) -- herbalism skills
-						elseif skillLine == 393 then
-							CastSpellByID(194174) -- skinning skills
-						elseif skillLine == 356 then
-							CastSpellByID(271990) -- fishing
-						else
-							CastSpellByName(name)
-						end
-					end)
-
 					self.ProFrame.IconBG.Icon:SetTexture(icon)
 
+					local SetOffset = offset or 0
 					self.ProFrame.name = name
+					self.ProFrame.SetOffset = SetOffset
+					self.ProFrame.IconBG.SetOffset = SetOffset
+					self.ProFrame.IconBG.name = name
+					self.ProFrame:SetScript('OnClick', OnClick)
+					self.ProFrame.IconBG:SetScript('OnClick', OnClick)
 
 					tinsert(BUI.ProfessionsDB, self.ProFrame)
 				end

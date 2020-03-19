@@ -33,7 +33,7 @@ L['ShiftClick to toggle chat'] = true
 L['Click to show the Addon List'] = true
 
 -- Misc
-L['Camera rotation'] = true
+L['Shown Logo'] = true
 L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = true
 L['Inside the item slot'] = true

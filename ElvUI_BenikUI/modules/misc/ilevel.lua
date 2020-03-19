@@ -153,6 +153,7 @@ function mod:Initialize()
 
 	mod:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", mod.UpdateItemLevel)
 	mod:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE", mod.UpdateItemLevel)
+	mod:RegisterEvent("PLAYER_AVG_ITEM_LEVEL_UPDATE", mod.UpdateItemLevel)
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 

@@ -1,3 +1,26 @@
+3.77 (Mar 19, 2020)
+*Fix ilevel update after a Timewalking dungeon
+*Added 'Echoes of Ny'alotha' in the Tokens Dashboard. Also 'War Resources' will show only for Alliance and 'War Supplies' for Horde
+*Use one OnClick for both frames and icon Profession Dashboard
+*Permanently fix clicking the professions dashboard
+*Prevent a skin error
+*Fixed Volume up/down mouseover
+
+3.76 (Mar 1, 2020)
+*Follow ElvUI Datatext changes
+*Added Conquest currency in Tokens dashboard (PvP)
+*Added option in FlightMode, to toggle BenikUI logo or show WoW logo instead
+*Re arranged the misc options a bit
+*Make sure that BenikUI Portrait options are always after ElvUI ones
+*Fixed detached portrait backdrops for focus, targettarget and pet
+*Fixed individualUnits Portrait options
+*Fixed LibDBIcon-1.0 tooltip style
+*Prevent movers error, when the user installs BenikUI without going through ElvUI install steps first.
+*Fixed Auction House style
+*Added options to toggle separately the chat datatexts. Default setting is to Show Both. User request #87
+*Transparent buttons don't look that nice at the options
+*Fixed the /benikuisetup command and simplified when BenikUI install will pop
+
 3.75 (Feb 6, 2020)
 *Set min ElvUI version to 11.351
 *Changed the options tabs and buttons a bit

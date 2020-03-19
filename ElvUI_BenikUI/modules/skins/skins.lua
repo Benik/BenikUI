@@ -71,6 +71,18 @@ local function styleFreeBlizzardFrames()
 	if db.addonManager then
 		_G.AddonList:Style("Outside")
 	end
+	
+	if db.BlizzardOptions then
+		_G.AudioOptionsFrame:Style("Outside")
+		_G.ChatConfigFrame:Style("Outside")
+		_G.InterfaceOptionsFrame:Style("Outside")
+		_G.ReadyCheckFrame:Style("Outside")
+		_G.ReadyCheckListenerFrame:Style("Outside")
+		if _G.SplashFrame.backdrop then
+			_G.SplashFrame.backdrop:Style("Outside")
+		end
+		_G.VideoOptionsFrame:Style("Outside")
+	end
 
 	if db.bgscore then
 		if not _G.PVPMatchScoreboard then
@@ -161,9 +173,7 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.misc then
-		_G.AudioOptionsFrame:Style("Outside")
 		_G.BNToastFrame:Style("Outside")
-		_G.ChatConfigFrame:Style("Outside")
 		_G.ChatMenu:Style("Outside")
 		_G.CinematicFrameCloseDialog:Style("Outside")
 		_G.DropDownList1MenuBackdrop:Style("Outside")
@@ -172,21 +182,16 @@ local function styleFreeBlizzardFrames()
 		_G.GameMenuFrame:Style("Outside")
 		_G.GhostFrame:Style("Outside")
 		_G.GuildInviteFrame:Style("Outside")
-		_G.InterfaceOptionsFrame:Style("Outside")
 		_G.LanguageMenu:Style("Outside")
 		_G.LFDRoleCheckPopup:Style("Outside")
 		_G.QueueStatusFrame:Style("Outside")
-		_G.ReadyCheckFrame:Style("Outside")
-		_G.ReadyCheckListenerFrame:Style("Outside")
 		_G.SideDressUpFrame:Style("Outside")
-		_G.SplashFrame.backdrop:Style("Outside")
 		_G.StackSplitFrame:Style("Outside")
 		_G.StaticPopup1:Style("Outside")
 		_G.StaticPopup2:Style("Outside")
 		_G.StaticPopup3:Style("Outside")
 		_G.StaticPopup4:Style("Outside")
 		_G.TicketStatusFrameButton:Style("Outside")
-		_G.VideoOptionsFrame:Style("Outside")
 		_G.VoiceMacroMenu:Style("Outside")
 
 		for i = 1, MAX_STATIC_POPUPS do

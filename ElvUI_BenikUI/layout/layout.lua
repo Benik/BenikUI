@@ -17,16 +17,10 @@ local InCombatLockdown = InCombatLockdown
 local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
 local GameMenuButtonAddons = GameMenuButtonAddons
 
--- GLOBALS: hooksecurefunc, GarrisonLandingPageMinimapButton_OnClick, CloseMenus, CloseAllWindows, selectioncolor
--- GLOBALS: MainMenuMicroButton_SetNormal, AddOnSkins, MAINMENU_BUTTON, ADDONS, LFG_TITLE, BuiLeftChatDTPanel
+-- GLOBALS: hooksecurefunc, selectioncolor
+-- GLOBALS: AddOnSkins, MAINMENU_BUTTON, LFG_TITLE, BuiLeftChatDTPanel
 -- GLOBALS: BuiMiddleDTPanel, BuiRightChatDTPanel, BuiGameClickMenu
--- GLOBALS: SpellBookFrame, PlayerTalentFrame, TalentFrame_LoadUI
--- GLOBALS: GlyphFrame, GlyphFrame_LoadUI, PlayerTalentFrame, TimeManagerFrame
--- GLOBALS: GameTimeFrame, GuildFrame, GuildFrame_LoadUI, EncounterJournal_LoadUI, EncounterJournal
--- GLOBALS: LookingForGuildFrame, LookingForGuildFrame_LoadUI, LookingForGuildFrame_Toggle
--- GLOBALS: GameMenuFrame, VideoOptionsFrame, VideoOptionsFrameCancel, AudioOptionsFrame, AudioOptionsFrameCancel
--- GLOBALS: InterfaceOptionsFrame, InterfaceOptionsFrameCancel, GuildFrame_Toggle
--- GLOBALS: LibStub, StoreMicroButton
+-- GLOBALS: EncounterJournal_LoadUI, EncounterJournal
 -- GLOBALS: LeftMiniPanel, RightMiniPanel, Minimap
 -- GLOBALS: LeftChatPanel, RightChatPanel, CopyChatFrame
 
@@ -83,27 +77,42 @@ end
 local bbuttons = {}
 
 function mod:ToggleBuiDts()
-	if not E.db.benikui.datatexts.chat.enable or E.db.datatexts.leftChatPanel then
+	local db = E.db.benikui.datatexts.chat
+	local edb = E.db.datatexts
+
+	if not db.enable or edb.leftChatPanel then
 		BuiLeftChatDTPanel:Hide()
-		for i = 3, 4 do
-			bbuttons[i]:Hide()
-		end
 	else
 		BuiLeftChatDTPanel:Show()
-		for i = 3, 4 do
-			bbuttons[i]:Show()
-		end
 	end
 
-	if not E.db.benikui.datatexts.chat.enable or E.db.datatexts.rightChatPanel then
+	if not db.enable or edb.rightChatPanel then
 		BuiRightChatDTPanel:Hide()
-		for i = 1, 2 do
-			bbuttons[i]:Hide()
-		end
 	else
 		BuiRightChatDTPanel:Show()
-		for i = 1, 2 do
-			bbuttons[i]:Show()
+	end
+
+	if db.enable then
+		if db.showChatDt == 'SHOWBOTH' then
+			if not edb.leftChatPanel then
+				BuiLeftChatDTPanel:Show()
+			end
+			if not edb.rightChatPanel then
+				BuiRightChatDTPanel:Show()
+			end
+		elseif db.showChatDt == 'HIDEBOTH' then
+			BuiLeftChatDTPanel:Hide()
+			BuiRightChatDTPanel:Hide()
+		elseif db.showChatDt == 'LEFT' then
+			if not edb.leftChatPanel then
+				BuiLeftChatDTPanel:Show()
+			end
+			BuiRightChatDTPanel:Hide()
+		elseif db.showChatDt == 'RIGHT' then
+			BuiLeftChatDTPanel:Hide()
+			if not edb.rightChatPanel then
+				BuiRightChatDTPanel:Show()
+			end
 		end
 	end
 end
@@ -269,7 +278,7 @@ function mod:ChangeLayout()
 
 	-- Buttons
 	for i = 1, BUTTON_NUM do
-		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i, E.UIParent)
+		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i)
 		bbuttons[i]:RegisterForClicks('AnyUp')
 		bbuttons[i]:SetFrameStrata('BACKGROUND')
 		bbuttons[i]:CreateSoftGlow()
@@ -285,7 +294,7 @@ function mod:ChangeLayout()
 		if i == 1 then
 			bbuttons[i]:Point('TOPLEFT', Bui_rdtp, 'TOPRIGHT', SPACING, 0)
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
-			bbuttons[i].parent = RightChatPanel
+			bbuttons[i]:SetParent(Bui_rdtp)
 			bbuttons[i].text:SetText('C')
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
@@ -343,6 +352,7 @@ function mod:ChangeLayout()
 		elseif i == 2 then
 			bbuttons[i]:Point('TOPRIGHT', Bui_rdtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_rdtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
+			bbuttons[i]:SetParent(Bui_rdtp)
 			bbuttons[i].text:SetText('G')
 
 			bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
@@ -367,7 +377,7 @@ function mod:ChangeLayout()
 		elseif i == 3 then
 			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
-			bbuttons[i].parent = LeftChatPanel
+			bbuttons[i]:SetParent(Bui_ldtp)
 			bbuttons[i].text:SetText('A')
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
@@ -400,6 +410,7 @@ function mod:ChangeLayout()
 		elseif i == 4 then
 			bbuttons[i]:Point('TOPLEFT', Bui_ldtp, 'TOPRIGHT', SPACING, 0)
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
+			bbuttons[i]:SetParent(Bui_ldtp)
 			bbuttons[i].text:SetText('L')
 
 			bbuttons[i]:SetScript('OnClick', function(self, btn)

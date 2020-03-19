@@ -59,7 +59,10 @@ P['benikui'] = {
 			['color'] = {r = 1, g = 1, b = 0},
 			['position'] = 'INSIDE',
 		},
-		['flightMode'] = true,
+		['flightMode'] = {
+			['enable'] = true,
+			['logo'] = 'WOW',
+		},
 		['afkMode'] = true,
 	},
 
@@ -70,6 +73,7 @@ P['benikui'] = {
 			['editBoxPosition'] = 'BELOW_CHAT',
 			['styled'] = false,
 			['backdrop'] = true,
+			['showChatDt'] = 'SHOWBOTH',
 		},
 		['middle'] = {
 			['enable'] = true,
@@ -141,6 +145,7 @@ P['benikui'] = {
 			['portraitShadow'] = false,
 			['portraitTransparent'] = true,
 			['portraitFrameStrata'] = "MEDIUM",
+			['portraitBackdrop'] = true,
 		},
 		['focus'] = {
 			['detachPortrait'] = false,
@@ -149,6 +154,7 @@ P['benikui'] = {
 			['portraitShadow'] = false,
 			['portraitTransparent'] = true,
 			['portraitFrameStrata'] = "MEDIUM",
+			['portraitBackdrop'] = true,
 		},
 		['pet'] = {
 			['detachPortrait'] = false,
@@ -157,6 +163,7 @@ P['benikui'] = {
 			['portraitShadow'] = false,
 			['portraitTransparent'] = true,
 			['portraitFrameStrata'] = "MEDIUM",
+			['portraitBackdrop'] = true,
 		},
 		['infoPanel'] = {
 			['fixInfoPanel'] = true,
