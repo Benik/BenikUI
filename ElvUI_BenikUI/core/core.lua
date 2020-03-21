@@ -151,8 +151,8 @@ function BUI:Initialize()
 		BUI.ShadowMode = true
 	end
 
-	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BenikUI")
-	E.ConfigModeLocalizedStrings["BenikUI"] = BUI.Title
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BENIKUI")
+	E.ConfigModeLocalizedStrings["BENIKUI"] = BUI.Title
 
 	BUI.AddonProfileKey = BUI.Title..E.myname.." - "..E.myrealm
 
