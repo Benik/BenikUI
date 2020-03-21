@@ -3,7 +3,7 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local LSM = E.LSM
 
 local _G = _G
-local pairs, print, tinsert = pairs, print, table.insert
+local pairs, print, tinsert, strjoin = pairs, print, table.insert, strjoin
 local format = string.format
 local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
@@ -51,6 +51,10 @@ local function RegisterMedia()
 	E['media'].BuiMelli = LSM:Fetch('statusbar', 'BuiMelli')
 	E['media'].BuiMelliDark = LSM:Fetch('statusbar', 'BuiMelliDark')
 	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
+end
+
+function BUI:Print(...)
+	(_G.DEFAULT_CHAT_FRAME):AddMessage(strjoin('', '|cff00c0fa', 'BenikUI:|r ', ...))
 end
 
 function BUI:cOption(name)
