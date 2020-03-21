@@ -33,6 +33,18 @@ L['RightClick: Toggle Embedded Addon'] = true
 L['ShiftClick to toggle chat'] = true
 L['Click to show the Addon List'] = true
 
+-- Custom Panels
+L['Create'] = true
+L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = true
+L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = true
+L['Shadows'] = true
+L["Hide in Pet Battle"] = true
+L["Hide In Combat"] = true
+L["Name Tooltip"] = true
+L["Enable tooltip to reveal the panel name"] = true
+L["Your new Custom Panel is ready to be created.\n|cff00c0faNote: This action will require a reload.|r\nContinue?"] = true
+L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = true
+
 -- Misc
 L['Shown Logo'] = true
 L['iLevel'] = true

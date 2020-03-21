@@ -114,7 +114,7 @@ local function miscTable()
 					logo = {
 						order = 2,
 						type = 'select',
-						name = L['Shown Logo']..E.NewSign,
+						name = L['Shown Logo'],
 						values = {
 							['BENIKUI'] = L['BenikUI'],
 							['WOW'] = L['WoW'],

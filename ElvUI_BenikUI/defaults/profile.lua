@@ -191,6 +191,10 @@ P['benikui'] = {
 			['portraitTransparency'] = 0.70,
 		},
 	},
+
+	['panels'] = {
+
+	},
 }
 
 -- Datatexts
@@ -349,4 +353,10 @@ P['dashboards'] = {
 	['customBarColor'] = {r = 255/255,g = 128/255,b = 0/255},
 	['textColor'] = 2,
 	['customTextColor'] = {r = 255/255,g = 255/255,b = 255/255},
+}
+
+G['benikui'] = {
+	['CustomPanels'] = {
+		['createButton'] = false,
+	},
 }

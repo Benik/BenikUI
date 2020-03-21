@@ -57,7 +57,7 @@ function mod:CreatePanel()
 			panel:SetScript("OnEnter", OnEnter)
 			panel:SetScript("OnLeave", OnLeave)
 			if not _G[name.."_Mover"] then
-				E:CreateMover(_G[name], name.."_Mover", name, nil, nil, nil, "ALL,MISC,BenikUI")
+				E:CreateMover(_G[name], name.."_Mover", name, nil, nil, nil, "ALL,MISC,BENIKUI")
 			end
 
 			panel.Name = name
@@ -111,15 +111,6 @@ function mod:SetupPanels()
 				end
 			end
 			
-		end
-	end
-end
-
-function mod:CreateMover()
-	if not E.db.benikui.panels then E.db.benikui.panels = {} end
-	for name in pairs(E.db.benikui.panels) do
-		if name and not _G[name.."_Mover"] then
-			E:CreateMover(_G[name], name.."_Mover", name, nil, nil, nil, "ALL,GENERAL,BENIKUI")
 		end
 	end
 end
