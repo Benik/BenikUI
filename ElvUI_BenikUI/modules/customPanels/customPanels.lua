@@ -133,7 +133,7 @@ function mod:OnEvent(event, unit)
 	for name in pairs(E.db.benikui.panels) do
 		if name then
 			local db = E.db.benikui.panels[name]
-			if db.enable ~= true or (inCombat and db.combatHide) or (inVehicle and db.vehicleHide) then
+			if (db.enable ~= true) or (inCombat and db.combatHide) or (inVehicle and db.vehicleHide) then
 				_G[name]:Hide()
 			else
 				_G[name]:Show()
