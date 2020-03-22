@@ -5,8 +5,6 @@ if E.db.benikui == nil then E.db.benikui = {} end
 local format = string.format
 local tinsert, tsort, tconcat = table.insert, table.sort, table.concat
 
-local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
-local COLORS, COLOR_PICKER = COLORS, COLOR_PICKER
 local StaticPopup_Show = StaticPopup_Show
 
 local DONATORS = {

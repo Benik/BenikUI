@@ -3,11 +3,9 @@ local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
 
 local getn = getn
-local pairs, ipairs = pairs, ipairs
 local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 
 local GameTooltip = _G["GameTooltip"]
-local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local GetCurrencyInfo = GetCurrencyInfo
 local IsShiftKeyDown = IsShiftKeyDown
 

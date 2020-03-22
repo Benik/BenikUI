@@ -6,7 +6,7 @@ local BC = BUI:GetModule('Castbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
-local PLAYER, TARGET, MISCELLANEOUS = PLAYER, TARGET, MISCELLANEOUS
+local PLAYER, TARGET = PLAYER, TARGET
 
 -- GLOBALS: AceGUIWidgetLSMlists
 

@@ -1,12 +1,10 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:NewModule('Dashboards', 'AceEvent-3.0', 'AceHook-3.0')
 local LSM = E.LSM
-local DT = E:GetModule('DataTexts')
 
 local CreateFrame = CreateFrame
 
 local DASH_HEIGHT = 20
-local DASH_SPACING = 3
 local SPACING = 1
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])

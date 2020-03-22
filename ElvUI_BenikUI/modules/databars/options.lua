@@ -4,7 +4,7 @@ local mod = BUI:GetModule('Databars');
 
 local tinsert = table.insert
 
-local REPUTATION, ENABLE, DEFAULT = REPUTATION, ENABLE, DEFAULT
+local REPUTATION, DEFAULT = REPUTATION, DEFAULT
 
 local backdropValues = {
 	TRANSPARENT = L['Transparent'],

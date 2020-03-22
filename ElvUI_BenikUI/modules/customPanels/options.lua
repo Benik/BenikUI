@@ -87,7 +87,7 @@ local function panelsTable()
 		},
 	}
 	
-	for panelname, data in pairs(E.db.benikui.panels) do
+	for panelname in pairs(E.db.benikui.panels) do
 		E.Options.args.benikui.args.panels.args[panelname] = {
 			order = 1,
 			name = panelname,

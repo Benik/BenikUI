@@ -17,7 +17,6 @@ local IsInInstance = IsInInstance
 local GetUnitName = GetUnitName
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitIsConnected = UnitIsConnected
-local IsAddOnLoaded = IsAddOnLoaded
 
 local rolePaths = {
 	TANK = [[Interface\AddOns\ElvUI_BenikUI\media\textures\roleIcons\tank.tga]],
@@ -87,7 +86,6 @@ end
 
 local function SetRoleIcons()
 	for _, header in pairs(UF.headers) do
-		local name = header.groupName
 
 		for i = 1, header:GetNumChildren() do
 			local group = select(i, header:GetChildren())

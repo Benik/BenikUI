@@ -46,7 +46,6 @@ end
 --Initiate update/reset of castbar
 local function ConfigureCastbar(unit, unitframe)
 	local db = E.db.unitframe.units[unit].castbar;
-	local castbar = unitframe.Castbar
 
 	if unit == 'player' or unit == 'target' then
 		ConfigureCastbarShadow(unit, unitframe)

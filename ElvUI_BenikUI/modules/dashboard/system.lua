@@ -7,7 +7,6 @@ local tinsert, twipe, getn, pairs, ipairs = table.insert, table.wipe, getn, pair
 -- GLOBALS: hooksecurefunc
 
 local CreateFrame = CreateFrame
-local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3

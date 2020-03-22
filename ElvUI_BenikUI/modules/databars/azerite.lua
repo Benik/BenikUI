@@ -101,7 +101,6 @@ end
 
 function mod:UpdateAzeriteNotifier()
 	local bar = ElvUI_AzeriteBar.statusBar
-	local db = E.db.benikuiDatabars.azerite.notifiers
 	local azeriteItemLocation = C_AzeriteItem_FindActiveAzeriteItem()
 
 	if not azeriteItemLocation or E.db.databars.azerite.orientation ~= 'VERTICAL' then
@@ -110,7 +109,6 @@ function mod:UpdateAzeriteNotifier()
 		bar.f:Show()
 
 		local xp, totalLevelXP = C_AzeriteItem_GetAzeriteItemXPInfo(azeriteItemLocation)
-		local xpToNextLevel = totalLevelXP - xp
 
 		bar.f.txt:SetFormattedText('%s%%', floor(xp / totalLevelXP * 100))
 

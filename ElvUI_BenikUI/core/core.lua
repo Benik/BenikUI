@@ -5,7 +5,6 @@ local LSM = E.LSM
 local _G = _G
 local pairs, print, tinsert, strjoin = pairs, print, table.insert, strjoin
 local format = string.format
-local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
 local GetAddOnEnableState = GetAddOnEnableState
 

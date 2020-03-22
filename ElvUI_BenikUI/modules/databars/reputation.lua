@@ -148,8 +148,8 @@ end
 function mod:SetWatchedFactionOnReputationBar(event, msg)
 	if not E.db.benikuiDatabars.reputation.autotrack then return end
 
-	local _, _, faction, amount = find(msg, incpat)
-	if not faction then _, _, faction, amount = find(msg, changedpat) or find(msg, decpat) end
+	local _, _, faction = find(msg, incpat)
+	if not faction then _, _, faction = find(msg, changedpat) or find(msg, decpat) end
 	if faction then
 		if faction == GUILD_REPUTATION then
 			faction = GetGuildInfo("player")
