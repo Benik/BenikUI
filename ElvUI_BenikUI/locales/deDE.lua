@@ -10,6 +10,7 @@ L["WORLD"] = "Welt";
 
 --core
 L[' is loaded. For any issues or suggestions, please visit '] = " ist geladen. Für Fehler oder Vorschläge besucht bitte: "
+L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = true
 
 -- General options
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = "BenikUI ist ein komplett externer ElvUI Mod. Weitere verfügbare Optionen findest Du in den ElvUI Optionen (z.B. Aktionsleisten, Einheitenfenster, Spieler und Ziel Portrait), markiert in "
@@ -36,7 +37,6 @@ L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 L['Create'] = "Erstelle"
 L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Gib einen einzigartigen Namen für das neue Panel ein. \n|cff00c0faHinweis: 'BenikUI_' wird am Anfang hinzugefügt um die Einzigarigkeit zu gewährleisten|r"
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = true
-L['Shadows'] = "Schatten"
 L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
 L["Hide In Combat"] = "Verstecke im Kampf"
 L["Name Tooltip"] = "Namenstooltip"
@@ -111,7 +111,7 @@ L['UnitFrames'] = "Einheitenfenster"
 L['Unitframes Set'] = "Einheitenfenster setzen"
 L['Welcome to BenikUI version %s, for ElvUI %s.'] = "Willkommen zu BenikUI Version %s, für ElvUI %s."
 L['Welcome'] = "Willkommen"
-L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = "Du hast den Installationsprozess jetzt abgeschlossen. Wenn du technische Unterstützung brauchst besuch uns bitte http://www.tukui.org."
+L['You are now finished with the installation process. If you are in need of technical support please visit us at https://www.tukui.org.'] = "Du hast den Installationsprozess jetzt abgeschlossen. Wenn du technische Unterstützung brauchst besuch uns bitte https://www.tukui.org."
 
 -- actionbar options
 L['Bar 1'] = "Leiste 1"
@@ -133,13 +133,17 @@ L["remaining till level"] = "verbleibend bis zum Level"
 
 -- Dashboards
 L['Bar Color'] = "Leistenfarbe"
+L["Change the Professions Dashboard width."] = true
 L['Change the System Dashboard width.'] = "Ändert die Dashboard Breite"
+L["Change the Tokens Dashboard width."] = true
 L['Choose font for all dashboards.'] = "Wähle Schriftart für alle Dashboards."
 L['Click :'] = "Klick :"
 L['Dashboards'] = true --No need to translate
+L["Enable the Professions Dashboard."] = true
 L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
 L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
 L['Enable/Disable '] = "Aktivieren/Deaktivieren"
+L["Filter Capped"] = true
 L['Latency (MS)'] = "Latenz (MS)"
 L['MouseWheel :'] = "Mausrad :"
 L['RightClick :'] = "Rechtsklick :"
@@ -198,7 +202,6 @@ L['Health statusbar texture. Applies only on Group Frames'] = "Gesundheit Status
 L['Ignore Transparency'] = "Ignoriere Transparenz"
 L['Lower InfoPanel width when potraits are enabled.'] = "Verringert die InfoPanel Breite, wenn Portraits aktiviert sind."
 L['Makes the portrait backdrop transparent'] = "Dadurch wird der Portrait Hintergrund transparent"
-L['Overlayed Portraits Alpha'] = "Überlappende Portrait Alpha"
 L['Player Size'] = "Spieler Größe"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
 L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rollen Symbole mit denen von SVUI."
@@ -207,6 +210,7 @@ L['Style Height'] = "Stil Höhe"
 L['SVUI Icons'] = "SVUI Symbole"
 L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = "Dieses ignoriert die ElvUI Gesundheit Transparenz Einstellung auf allen Gruppenfenstern."
 L['Vertical power statusbar'] = "Vertikale Kraft Statusleiste"
+
 -- Castbar
 L['Force show any text placed on the InfoPanel, while casting.'] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
 L['Show Castbar text'] = "Zeige Zauberleisten Text"

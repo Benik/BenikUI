@@ -118,7 +118,7 @@ local function panelsTable()
 				},
 				shadow = {
 					order = 4,
-					name = L['Shadows'],
+					name = L['Shadow'],
 					type = 'toggle',
 					disabled = function() return not BUI.ShadowMode end,
 					get = function() return E.db.benikui.panels[panelname].shadow end,

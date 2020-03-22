@@ -354,7 +354,7 @@ local function ufTargetTable()
 				order = 4,
 				type = 'toggle',
 				name = L['Shadow'],
-				desc = L['Add shadow under the portrait'],
+				desc = L['Apply shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
 			},
 			getPlayerPortraitSize = {

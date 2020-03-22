@@ -11,6 +11,7 @@ L["WORLD"] = "World";
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true
+L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = true
 
 -- General options
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = true
@@ -37,7 +38,6 @@ L['Click to show the Addon List'] = true
 L['Create'] = true
 L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = true
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = true
-L['Shadows'] = true
 L["Hide in Pet Battle"] = true
 L["Hide In Combat"] = true
 L["Name Tooltip"] = true
@@ -112,7 +112,7 @@ L['UnitFrames'] = true
 L['Unitframes Set'] = true
 L['Welcome to BenikUI version %s, for ElvUI %s.'] = true
 L['Welcome'] = true
-L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = true
+L['You are now finished with the installation process. If you are in need of technical support please visit us at https://www.tukui.org.'] = true
 
 -- actionbar options
 L['Bar 1'] = true
@@ -134,13 +134,17 @@ L["remaining till level"] = true
 
 -- Dashboards
 L['Bar Color'] = true
+L["Change the Professions Dashboard width."] = true
 L['Change the System Dashboard width.'] = true
+L["Change the Tokens Dashboard width."] = true
 L['Choose font for all dashboards.'] = true
 L['Click :'] = true
 L['Dashboards'] = true
+L["Enable the Professions Dashboard."] = true
 L['Enable the System Dashboard.'] = true
 L['Enable the Tokens Dashboard.'] = true
 L['Enable/Disable '] = true
+L["Filter Capped"] = true
 L['Latency (MS)'] = true
 L['MouseWheel :'] = true
 L['RightClick :'] = true
@@ -199,7 +203,6 @@ L['Health statusbar texture. Applies only on Group Frames'] = true
 L['Ignore Transparency'] = true
 L['Lower InfoPanel width when potraits are enabled.'] = true
 L['Makes the portrait backdrop transparent'] = true
-L['Overlayed Portraits Alpha'] = true
 L['Player Size'] = true
 L['Power statusbar texture.'] = true
 L['Replaces the default role icons with SVUI ones.'] = true
