@@ -33,19 +33,19 @@ L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 
 -- Custom Panels
-L['Create'] = true
-L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = true
+L['Create'] = "Erstelle"
+L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Gib einen einzigartigen Namen für das neue Panel ein. \n|cff00c0faHinweis: 'BenikUI_' wird am Anfang hinzugefügt um die Einzigarigkeit zu gewährleisten|r"
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = true
-L['Shadows'] = true
-L["Hide in Pet Battle"] = true
-L["Hide In Combat"] = true
-L["Name Tooltip"] = true
-L["Enable tooltip to reveal the panel name"] = true
-L["Your new Custom Panel is ready to be created.\n|cff00c0faNote: This action will require a reload.|r\nContinue?"] = true
-L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = true
+L['Shadows'] = "Schatten"
+L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
+L["Hide In Combat"] = "Verstecke im Kampf"
+L["Name Tooltip"] = "Namenstooltip"
+L["Enable tooltip to reveal the panel name"] = "Aktiviere den Tooltip um den Panel Namen zu erfahren"
+L["Your new Custom Panel is ready to be created.\n|cff00c0faNote: This action will require a reload.|r\nContinue?"] = "Dein Benutzerdefiniertes Panel ist fertig um erstellt zu werden.\n|cff00c0faHinweis: Diese Aktion erfordert einen Reload.|r\nFortfahren?"
+L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = "Dieses wird das Benutzerdefiniertes Panel mit dem Namen |cff00c0fa%s|r löschen. Dieses erfordert einen Reload.\nFortfahren?"
 
 -- Misc
-L['Shown Logo'] = true
+L['Shown Logo'] = "Zeige Logo"
 L['iLevel'] = true --No need to translate
 L['Show item level per slot, on the character info frame'] = "Zeigt das Itemlevel pro Slot, im Spielerfenster"
 L['Inside the item slot'] = "Innerhalb des Ausrüstungsplatz"
@@ -161,7 +161,7 @@ L['AutoTrack'] = "Automatische Verfolgung"
 L['Change the tracked Faction automatically when reputation changes'] = "Ändert automatisch die Rufverfolgung wenn sich der Ruf verändert"
 L['Notifiers'] = "Benachrichtigungen"
 L['Show BenikUI decorative bars on the default ElvUI XP bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Erfahrungsleiste"
-L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = true
+L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Azeritleiste"
 L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Rufleiste"
 L['Show BenikUI decorative bars on the default ElvUI Honor bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Ehrenleiste"
 L['Button Backdrop'] = "Tasten Hintergrund"
