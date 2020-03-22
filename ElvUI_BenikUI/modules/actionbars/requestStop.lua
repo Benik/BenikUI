@@ -127,7 +127,7 @@ function mod:TaxiButton()
 	tbtn.textHolder:Point('TOPLEFT', tbtn.IconBG, 'TOPRIGHT', 4, 0)
 	tbtn.textHolder:Point('BOTTOMRIGHT', tbtn, 'BOTTOMRIGHT', -4, 4)
 
-	tbtn.textHolder.Text = tbtn.textHolder:CreateFontString(nil, 'LOW')
+	tbtn.textHolder.Text = tbtn.textHolder:CreateFontString(nil, 'OVERLAY')
 	tbtn.textHolder.Text:FontTemplate()
 	tbtn.textHolder.Text:Point('CENTER')
 	tbtn.textHolder.Text:SetJustifyH('CENTER')
