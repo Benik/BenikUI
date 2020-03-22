@@ -44,6 +44,10 @@ L["Enable tooltip to reveal the panel name"] = true
 L["Your new Custom Panel is ready to be created.\n|cff00c0faNote: This action will require a reload.|r\nContinue?"] = true
 L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = true
 
+-- Profiles
+L['Successfully created and applied profile(s) for |cffffff00%s|r'] = true -- %s is the addon name
+L['|cffffff00%s|r profile for this character already exists. Aborting.'] = true -- %s is the addon name
+
 -- Misc
 L['Shown Logo'] = true
 L['iLevel'] = true

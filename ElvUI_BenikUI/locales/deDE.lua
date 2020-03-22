@@ -44,6 +44,10 @@ L["Enable tooltip to reveal the panel name"] = "Aktiviere den Tooltip um den Pan
 L["Your new Custom Panel is ready to be created.\n|cff00c0faNote: This action will require a reload.|r\nContinue?"] = "Dein Benutzerdefiniertes Panel ist fertig um erstellt zu werden.\n|cff00c0faHinweis: Diese Aktion erfordert einen Reload.|r\nFortfahren?"
 L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = "Dieses wird das Benutzerdefiniertes Panel mit dem Namen |cff00c0fa%s|r löschen. Dieses erfordert einen Reload.\nFortfahren?"
 
+-- Profiles
+L['Successfully created and applied profile(s) for |cffffff00%s|r'] = true -- %s is the addon name
+L['|cffffff00%s|r profile for this character already exists. Aborting.'] = true -- %s is the addon name
+
 -- Misc
 L['Shown Logo'] = "Zeige Logo"
 L['iLevel'] = true --No need to translate
