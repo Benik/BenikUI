@@ -53,7 +53,7 @@ local pa = L['Project Azilroka']
 
 local function SkinTable()
 	E.Options.args.benikui.args.skins = {
-		order = 40,
+		order = 100,
 		type = 'group',
 		name = ADDONS,
 		args = {

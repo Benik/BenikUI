@@ -23,7 +23,7 @@ local function panelsTable()
 	E.Options.args.benikui.args.panels = {
 		type = "group",
 		name = E.NewSign..L["Custom Panels"],
-		order = 31,
+		order = 70,
 		childGroups = "select",
 		args = {
 			createButton = {

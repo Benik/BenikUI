@@ -21,7 +21,7 @@ local strataValues = {
 
 local function ufTable()
 	E.Options.args.benikui.args.unitframes = {
-		order = 10,
+		order = 40,
 		type = 'group',
 		name = L['UnitFrames'],
 		disabled = function() return not E.private.unitframe.enable end,

@@ -5,7 +5,7 @@ local tinsert = table.insert
 
 local function miscTable()
 	E.Options.args.benikui.args.misc = {
-		order = 35,
+		order = 90,
 		type = 'group',
 		name = L["Miscellaneous"],
 		args = {

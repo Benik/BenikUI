@@ -282,7 +282,7 @@ end
 
 local function dashboardsTable()
 	E.Options.args.benikui.args.dashboards = {
-		order = 20,
+		order = 60,
 		type = 'group',
 		name = L['Dashboards'],
 		args = {

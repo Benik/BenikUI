@@ -6,7 +6,7 @@ local tinsert = table.insert
 
 local function abTable()
 	E.Options.args.benikui.args.actionbars = {
-		order = 7,
+		order = 30,
 		type = 'group',
 		name = L['ActionBars'],
 		args = {

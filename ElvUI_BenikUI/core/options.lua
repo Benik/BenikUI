@@ -112,7 +112,7 @@ local function Core()
 				name = '',
 			},
 			general = {
-				order = 5,
+				order = 10,
 				type = 'group',
 				name = L['General'],
 				get = function(info) return E.db.benikui.general[ info[#info] ] end,
@@ -166,7 +166,7 @@ local function Core()
 				},
 			},
 			colors = {
-				order = 6,
+				order = 20,
 				type = 'group',
 				name = L.COLORS,
 				args = {
