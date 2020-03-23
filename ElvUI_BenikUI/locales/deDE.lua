@@ -10,7 +10,7 @@ L["WORLD"] = "Welt";
 
 --core
 L[' is loaded. For any issues or suggestions, please visit '] = " ist geladen. Für Fehler oder Vorschläge besucht bitte: "
-L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = true
+L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = "%s\n\nDeine Version von ElvUI %.2f ist nicht kompatibel mit BenikUI.\nAktuellste Version ist %.2f. Bitte lade sie hier runter:\n"
 
 -- General options
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = "BenikUI ist ein komplett externer ElvUI Mod. Weitere verfügbare Optionen findest Du in den ElvUI Optionen (z.B. Aktionsleisten, Einheitenfenster, Spieler und Ziel Portrait), markiert in "
@@ -36,7 +36,7 @@ L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 -- Custom Panels
 L['Create'] = "Erstelle"
 L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Gib einen einzigartigen Namen für das neue Panel ein. \n|cff00c0faHinweis: 'BenikUI_' wird am Anfang hinzugefügt um die Einzigarigkeit zu gewährleisten|r"
-L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = true
+L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Der Name |cff00c0fa%s|r von einem Benutzerdefiniertem Panel existiert bereits. Bitte wähle einen anderen."
 L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
 L["Hide In Combat"] = "Verstecke im Kampf"
 L["Name Tooltip"] = "Namenstooltip"
@@ -45,8 +45,8 @@ L["Your new Custom Panel is ready to be created.\n|cff00c0faNote: This action wi
 L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = "Dieses wird das Benutzerdefiniertes Panel mit dem Namen |cff00c0fa%s|r löschen. Dieses erfordert einen Reload.\nFortfahren?"
 
 -- Profiles
-L['Successfully created and applied profile(s) for |cffffff00%s|r'] = true -- %s is the addon name
-L['|cffffff00%s|r profile for this character already exists. Aborting.'] = true -- %s is the addon name
+L['Successfully created and applied profile(s) for |cffffff00%s|r'] = "Erfolgreich ein Profil erstellt und angewandt für |cffffff00%s|r" -- %s is the addon name
+L['|cffffff00%s|r profile for this character already exists. Aborting.'] = "|cffffff00%s|r Profil für diesen Charakter besteht bereits. Abbruch." -- %s is the addon name
 
 -- Misc
 L['Shown Logo'] = "Zeige Logo"
@@ -133,17 +133,17 @@ L["remaining till level"] = "verbleibend bis zum Level"
 
 -- Dashboards
 L['Bar Color'] = "Leistenfarbe"
-L["Change the Professions Dashboard width."] = true
-L['Change the System Dashboard width.'] = "Ändert die Dashboard Breite"
-L["Change the Tokens Dashboard width."] = true
+L["Change the Professions Dashboard width."] = "Ändert die Beruf-Dashboard Breite."
+L['Change the System Dashboard width.'] = "Ändert die System-Dashboard Breite."
+L["Change the Tokens Dashboard width."] = "Ändert die Token-Dashboard Breite."
 L['Choose font for all dashboards.'] = "Wähle Schriftart für alle Dashboards."
 L['Click :'] = "Klick :"
 L['Dashboards'] = true --No need to translate
-L["Enable the Professions Dashboard."] = true
+L["Enable the Professions Dashboard."] = "Aktiviert das Berufe Dashboard."
 L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
 L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
 L['Enable/Disable '] = "Aktivieren/Deaktivieren"
-L["Filter Capped"] = true
+L["Filter Capped"] = "Filtere am Cap"
 L['Latency (MS)'] = "Latenz (MS)"
 L['MouseWheel :'] = "Mausrad :"
 L['RightClick :'] = "Rechtsklick :"
