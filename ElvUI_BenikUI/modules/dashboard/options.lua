@@ -74,9 +74,9 @@ local legionTokens = {
 }
 
 local bfaTokens = {
-	--1560, -- War Resources
+	1560, -- War Resources
 	1580,	-- Seal of Wartorn Fate
-	--1587,	-- War Supplies
+	1587,	-- War Supplies
 	1710,	-- Seafarer's Dubloon
 	--1716,	-- Honorbound Service Medal (Horde)
 	--1717,	-- 7th Legion Service Medal (Alliance)
@@ -175,10 +175,8 @@ end
 -- these options must be updated when the player discovers a new token.
 local function UpdateTokenOptions()
 	if E.myfaction == 'Alliance' then
-		tinsert(bfaTokens, 1560) -- War Resources
 		tinsert(bfaTokens, 1717) -- 7th Legion Service Medal (Alliance)
 	elseif E.myfaction == 'Horde' then
-		tinsert(bfaTokens, 1587) -- War Supplies
 		tinsert(bfaTokens, 1716) -- Honorbound Service Medal (Horde)
 	end
 
