@@ -16,14 +16,14 @@ function BU:Configure_ClassBar(frame)
 	if frame.shadow then
 		frame.shadow:ClearAllPoints()
 		if frame.USE_MINI_CLASSBAR and not frame.CLASSBAR_DETACHED then
-			frame.shadow:Point('TOPLEFT', frame.Health.backdrop, 'TOPLEFT', -(db.shadowsSize -1) or -2, (db.shadowsSize -1) or 2)
-			frame.shadow:Point('BOTTOMRIGHT', frame, 'BOTTOMRIGHT', (db.shadowsSize -1) or 2, -(db.shadowsSize -1) or -2)
+			frame.shadow:Point('TOPLEFT', frame.Health.backdrop, 'TOPLEFT', -(db.shadowSize -1) or -2, (db.shadowSize -1) or 2)
+			frame.shadow:Point('BOTTOMRIGHT', frame, 'BOTTOMRIGHT', (db.shadowSize -1) or 2, -(db.shadowSize -1) or -2)
 			bars.backdrop.shadow:Show()
 		elseif not frame.CLASSBAR_DETACHED then
-			frame.shadow:SetOutside(frame, (db.shadowsSize - 1) or 2, (db.shadowsSize - 1) or 2)
+			frame.shadow:SetOutside(frame, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
 			bars.backdrop.shadow:Hide()
 		else
-			frame.shadow:SetOutside(frame, (db.shadowsSize - 1) or 2, (db.shadowsSize - 1) or 2)
+			frame.shadow:SetOutside(frame, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
 			bars.backdrop.shadow:Show()
 		end
 	end

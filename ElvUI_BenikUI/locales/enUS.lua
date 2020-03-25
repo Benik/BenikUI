@@ -26,7 +26,8 @@ L['Style Color'] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = true
 L['Splash Screen'] = true
-L['Style Auras'] = true
+L['Shadow'] = true
+L['Shadow Size'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = true
@@ -206,7 +207,6 @@ L['Makes the portrait backdrop transparent'] = true
 L['Player Size'] = true
 L['Power statusbar texture.'] = true
 L['Replaces the default role icons with SVUI ones.'] = true
-L['Shadow'] = true
 L['Style Height'] = true
 L['SVUI Icons'] = true
 L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = true

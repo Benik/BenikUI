@@ -25,7 +25,8 @@ L['Style Color'] = "Stil Farbe"
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
 L['light blue color.'] = "hell blau"
 L['Splash Screen'] = "Startbildschirm"
-L['Style Auras'] = "Aura Stil"
+L['Shadow'] = "Schatten"
+L['Shadow Size'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
@@ -205,7 +206,6 @@ L['Makes the portrait backdrop transparent'] = "Dadurch wird der Portrait Hinter
 L['Player Size'] = "Spieler Größe"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
 L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rollen Symbole mit denen von SVUI."
-L['Shadow'] = "Schatten"
 L['Style Height'] = "Stil Höhe"
 L['SVUI Icons'] = "SVUI Symbole"
 L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = "Dieses ignoriert die ElvUI Gesundheit Transparenz Einstellung auf allen Gruppenfenstern."
