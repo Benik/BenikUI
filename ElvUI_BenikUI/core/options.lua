@@ -148,18 +148,27 @@ local function Core()
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer = {
+					shadowsSize = {
 						order = 5,
+						type = "range",
+						name = L["Shadows Size"],
+						min = 1, max = 10, step = 1,
+						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+						get = function(info) return E.db.benikui.general[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					spacer = {
+						order = 6,
 						type = 'header',
 						name = '',
 					},
 					loginMessage = {
-						order = 6,
+						order = 7,
 						type = 'toggle',
 						name = L['Login Message'],
 					},
 					splashScreen = {
-						order = 7,
+						order = 8,
 						type = 'toggle',
 						name = L['Splash Screen'],
 					},

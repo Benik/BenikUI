@@ -23,12 +23,13 @@ end
 local function CreateSoftShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
+	local db = E.db.benikui.general
 
 	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
-	shadow:SetOutside(f, 2, 2)
-	shadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3)})
+	shadow:SetOutside(f, (db.shadowsSize - 1) or 2, (db.shadowsSize - 1) or 2)
+	shadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(db.shadowsSize or 3)})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
 	f.shadow = shadow
