@@ -140,8 +140,13 @@ local function Core()
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateStyleVisibility(); end,
 					},
+					spacer = {
+						order = 10,
+						type = 'description',
+						name = '',
+					},
 					shadows = {
-						order = 4,
+						order = 11,
 						type = 'toggle',
 						name = L['Shadows'],
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
@@ -149,26 +154,26 @@ local function Core()
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					shadowsSize = {
-						order = 5,
+						order = 12,
 						type = "range",
 						name = L["Shadows Size"],
-						min = 1, max = 10, step = 1,
-						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+						min = 3, max = 10, step = 1,
+						disabled = function() return E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer = {
-						order = 6,
+					spacer2 = {
+						order = 20,
 						type = 'header',
 						name = '',
 					},
 					loginMessage = {
-						order = 7,
+						order = 21,
 						type = 'toggle',
 						name = L['Login Message'],
 					},
 					splashScreen = {
-						order = 8,
+						order = 22,
 						type = 'toggle',
 						name = L['Splash Screen'],
 					},
