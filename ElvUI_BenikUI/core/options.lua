@@ -156,7 +156,7 @@ local function Core()
 					shadowSize = {
 						order = 12,
 						type = "range",
-						name = L['Shadow Size'],
+						name = E.NewSign..L['Shadow Size'],
 						min = 3, max = 10, step = 1,
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
