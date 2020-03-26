@@ -186,7 +186,6 @@ L['ElvUI AddOns'] = true
 L['decor.'] = true
 L['This will create and apply profile for '] = true
 L['Profiles'] = true
-L[': Profile for this character already exists. Aborting.'] = true
 
 -- UnitFrame Options
 L['Apply shadow under the portrait'] = true

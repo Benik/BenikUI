@@ -185,7 +185,6 @@ L['ElvUI AddOns'] = true --No need to translate
 L['decor.'] = "dekor."
 L['This will create and apply profile for '] = "Dieses wird ein Profil erstellen und anwenden für "
 L['Profiles'] = "Profile"
-L[': Profile for this character already exists. Aborting.'] = ": ein Profil für den Charakter existiert bereits. Abgebrochen."
 
 -- UnitFrame Options
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
