@@ -38,13 +38,11 @@ end
 
 local function ConfigureCastbarShadow(unit, unitframe)
 	if not BUI.ShadowMode then return end
-
-	local db = E.db.unitframe.units[unit].castbar;
 	local castbar = unitframe.Castbar
 
 	if not castbar.backdrop.shadow then return end
 
-	if unitframe.USE_INFO_PANEL and db.insideInfoPanel then
+	if unitframe.USE_INFO_PANEL then
 		castbar.backdrop.shadow:Hide()
 		castbar.ButtonIcon.bg.shadow:Hide()
 	else
