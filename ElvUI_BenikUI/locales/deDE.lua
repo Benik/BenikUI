@@ -188,7 +188,6 @@ L['Profiles'] = "Profile"
 L[': Profile for this character already exists. Aborting.'] = ": ein Profil für den Charakter existiert bereits. Abgebrochen."
 
 -- UnitFrame Options
-L['Adjust castbar text Y Offset'] = "Passe Zauberleisten Text Y-Versatz an"
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
 L['Apply transparency on the portrait backdrop.'] = "Wende Transparenz auf den Portrait Hintergrund an."
 L['BenikUI Style on Portrait'] = "BenikUI Stil auf dem Portrait"

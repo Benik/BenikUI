@@ -189,7 +189,6 @@ L['Profiles'] = true
 L[': Profile for this character already exists. Aborting.'] = true
 
 -- UnitFrame Options
-L['Adjust castbar text Y Offset'] = true
 L['Apply shadow under the portrait'] = true
 L['Apply transparency on the portrait backdrop.'] = true
 L['BenikUI Style on Portrait'] = true
