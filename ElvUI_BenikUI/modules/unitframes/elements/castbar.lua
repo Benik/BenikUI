@@ -17,22 +17,26 @@ local units = {"Player", "Target", "Focus", "Pet"}
 -- GLOBALS: hooksecurefunc
 
 local function changeCastbarLevel(unit, unitframe)
-	unitframe.Castbar:SetFrameStrata("LOW")
-	unitframe.Castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel() + 10)
+	local castbar = unitframe.Castbar
+
+	castbar:SetFrameStrata("LOW")
+	castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel() + 10)
 end
 
 local function resetCastbarLevel(unit, unitframe)
 	local db = E.db.unitframe.units[unit].castbar;
+	local castbar = unitframe.Castbar
+
 	if db.strataAndLevel and db.strataAndLevel.useCustomStrata then
 		castbar:SetFrameStrata(db.strataAndLevel.frameStrata)
 	else
-		unitframe.Castbar:SetFrameStrata("HIGH")
+		castbar:SetFrameStrata("HIGH")
 	end
 
 	if db.strataAndLevel and db.strataAndLevel.useCustomLevel then
 		castbar:SetFrameLevel(db.strataAndLevel.frameLevel)
 	else
-		unitframe.Castbar:SetFrameLevel(6)
+		castbar:SetFrameLevel(6)
 	end
 end
 
