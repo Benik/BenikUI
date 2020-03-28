@@ -119,7 +119,7 @@ local function Icon_OnEnter(self)
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 		GameTooltip:SetCurrencyByID(id)
 		GameTooltip:AddLine(' ')
-		GameTooltip:AddLine(L['Shift+RightClick to remove'], 0.7, 0.7, 1)
+		GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
 		GameTooltip:Show()
 	end
 

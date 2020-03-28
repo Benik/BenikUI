@@ -184,7 +184,7 @@ local function UpdateTokenOptions()
 		local tableName, optionName = unpack(v)
 		local optionOrder = 1
 		for _, id in ipairs(tableName) do
-			local tname, _, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
+			local tname, amount, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
 			if id and tname then
 				E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[optionName].args.desc = {
 					order = optionOrder + 1,
@@ -195,7 +195,7 @@ local function UpdateTokenOptions()
 					order = optionOrder + 1,
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..tname,
-					desc = L['Enable/Disable ']..tname,
+					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
 					get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 					set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 					disabled = function() return not isDiscovered end,
@@ -216,13 +216,13 @@ local function UpdateTokenOptions()
 				},
 			}
 			for _, id in ipairs(tableName) do
-				local tname, _, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
+				local tname, amount, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
 				if id and tname then
 					E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args.archyGroup.args[option].args[tname] = {
 						order = optionOrder + 1,
 						type = 'toggle',
 						name = '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
-						desc = L['Enable/Disable ']..tname,
+						desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
 						get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 						set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 						disabled = function() return not isDiscovered end,
@@ -254,7 +254,7 @@ local function UpdateProfessionOptions()
 					order = optionOrder + 1,
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..pname,
-					desc = L['Enable/Disable ']..pname,
+					desc = format('%s %s', L['Enable/Disable'], pname),
 					get = function(info) return E.private.dashboards.professions.choosePofessions[id] end,
 					set = function(info, value) E.private.dashboards.professions.choosePofessions[id] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
 				}
