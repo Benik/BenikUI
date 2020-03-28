@@ -29,7 +29,7 @@ menuFrame:SetTemplate('Transparent', true)
 menuFrame:CreateWideShadow()
 
 local LOCATION_WIDTH = 399
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E:ClassColor(E.myclass, true)
 
 local function AutoColoring()
 	local pvpType = GetZonePVPInfo()

@@ -23,6 +23,8 @@ local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_L
 local LEVEL, NONE = LEVEL, NONE
 local ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY
 
+local classColor = E:ClassColor(E.myclass, true)
+
 -- GLOBALS: CreateAnimationGroup, UIParent
 
 -- Source wowhead.com
@@ -282,15 +284,13 @@ end
 
 local function prank(self, status)
 	if(InCombatLockdown()) then return end
-	if not IsFoolsDay() then return end
+	--if not IsFoolsDay() then return end
 
 	if(status) then
-
+		self.AFKMode.bottom.model:SetModelByCreatureDisplayID(24173)
 	end
 end
---hooksecurefunc(AFK, "SetAFK", prank)
-
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+hooksecurefunc(AFK, "SetAFK", prank)
 
 local function Initialize()
 	if E.db.benikui.misc.afkMode ~= true then return end

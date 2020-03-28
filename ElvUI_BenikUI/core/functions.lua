@@ -4,7 +4,7 @@ local LSM = E.LSM
 local CreateFrame = CreateFrame
 local getmetatable = getmetatable
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E:ClassColor(E.myclass, true)
 
 local function CreateWideShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
