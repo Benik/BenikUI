@@ -133,6 +133,7 @@ L["Random Stats"] = true
 L["remaining till level"] = true
 
 -- Dashboards
+L['Amount'] = true
 L['Bar Color'] = true
 L["Change the Professions Dashboard width."] = true
 L['Change the System Dashboard width.'] = true
@@ -143,7 +144,7 @@ L['Dashboards'] = true
 L["Enable the Professions Dashboard."] = true
 L['Enable the System Dashboard.'] = true
 L['Enable the Tokens Dashboard.'] = true
-L['Enable/Disable '] = true
+L['Enable/Disable'] = true
 L["Filter Capped"] = true
 L['Latency (MS)'] = true
 L['MouseWheel :'] = true
