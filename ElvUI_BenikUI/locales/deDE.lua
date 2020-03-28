@@ -133,6 +133,7 @@ L["Random Stats"] = "Zufällige Werte"
 L["remaining till level"] = "verbleibend bis zum Level"
 
 -- Dashboards
+L['Amount'] = true
 L['Bar Color'] = "Leistenfarbe"
 L["Change the Professions Dashboard width."] = "Ändert die Beruf-Dashboard Breite."
 L['Change the System Dashboard width.'] = "Ändert die System-Dashboard Breite."
@@ -143,7 +144,7 @@ L['Dashboards'] = true --No need to translate
 L["Enable the Professions Dashboard."] = "Aktiviert das Berufe Dashboard."
 L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
 L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
-L['Enable/Disable '] = "Aktivieren/Deaktivieren"
+L['Enable/Disable'] = "Aktivieren/Deaktivieren"
 L["Filter Capped"] = "Filtere am Cap"
 L['Latency (MS)'] = "Latenz (MS)"
 L['MouseWheel :'] = "Mausrad :"
