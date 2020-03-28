@@ -179,7 +179,7 @@ function mod:UpdateTokens()
 		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
 
 		if name then
-			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = false end
+			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = nil end
 
 			if E.private.dashboards.tokens.chooseTokens[id] == true then
 				if db.zeroamount or amount > 0 then

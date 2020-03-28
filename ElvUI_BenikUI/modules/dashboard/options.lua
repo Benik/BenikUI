@@ -185,7 +185,7 @@ local function UpdateTokenOptions()
 		local optionOrder = 1
 		for _, id in ipairs(tableName) do
 			local tname, _, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
-			if tname then
+			if id and tname then
 				E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[optionName].args.desc = {
 					order = optionOrder + 1,
 					name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered']),
@@ -217,7 +217,7 @@ local function UpdateTokenOptions()
 			}
 			for _, id in ipairs(tableName) do
 				local tname, _, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
-				if tname then
+				if id and tname then
 					E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args.archyGroup.args[option].args[tname] = {
 						order = optionOrder + 1,
 						type = 'toggle',
