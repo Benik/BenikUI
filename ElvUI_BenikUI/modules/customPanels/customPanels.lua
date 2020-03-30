@@ -158,6 +158,7 @@ end
 function mod:Initialize()
 	mod:CreatePanel()
 	mod:SetupPanels()
+	mod:Resize()
 	mod:RegisterHide()
 	mod:RegisterEvent("PLAYER_REGEN_DISABLED", "OnEvent")
 	mod:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
