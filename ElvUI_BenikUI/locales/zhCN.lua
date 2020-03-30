@@ -10,6 +10,7 @@ L["WORLD"] = "世界";
 
 -- core
 L[' is loaded. For any issues or suggestions, please visit '] = true
+L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = true
 
 -- General options
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = true
@@ -24,13 +25,29 @@ L['Style Color'] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = true
 L['Splash Screen'] = true
-L['Style Auras'] = true
+L['Shadow'] = true
+L['Shadow Size'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = true
 L['RightClick: Toggle Embedded Addon'] = true
 L['ShiftClick to toggle chat'] = true
 L['Click to show the Addon List'] = true
+
+-- Custom Panels
+L['Create'] = true
+L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = true
+L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = true
+L["Hide in Pet Battle"] = true
+L["Hide In Combat"] = true
+L["Name Tooltip"] = true
+L["Enable tooltip to reveal the panel name"] = true
+L["Your new Custom Panel is ready to be created.\n|cff00c0faNote: This action will require a reload.|r\nContinue?"] = true
+L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = true
+
+-- Profiles
+L['Successfully created and applied profile(s) for |cffffff00%s|r'] = true -- %s is the addon name
+L['|cffffff00%s|r profile for this character already exists. Aborting.'] = true -- %s is the addon name
 
 -- Misc
 L['Shown Logo'] = true
@@ -95,7 +112,7 @@ L['UnitFrames'] = true
 L['Unitframes Set'] = true
 L['Welcome to BenikUI version %s, for ElvUI %s.'] = true
 L['Welcome'] = true
-L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = true
+L['You are now finished with the installation process. If you are in need of technical support please visit us at https://www.tukui.org.'] = true
 
 -- actionbar options
 L['Bar 1'] = true
@@ -116,14 +133,19 @@ L["Random Stats"] = true
 L["remaining till level"] = true
 
 -- Dashboards
+L['Amount'] = true
 L['Bar Color'] = true
+L["Change the Professions Dashboard width."] = true
 L['Change the System Dashboard width.'] = true
+L["Change the Tokens Dashboard width."] = true
 L['Choose font for all dashboards.'] = true
 L['Click :'] = true
 L['Dashboards'] = true
+L["Enable the Professions Dashboard."] = true
 L['Enable the System Dashboard.'] = true
 L['Enable the Tokens Dashboard.'] = true
-L['Enable/Disable '] = true
+L['Enable/Disable'] = true
+L["Filter Capped"] = true
 L['Latency (MS)'] = true
 L['MouseWheel :'] = true
 L['RightClick :'] = true
@@ -164,10 +186,8 @@ L['ElvUI AddOns'] = true
 L['decor.'] = true
 L['This will create and apply profile for '] = true
 L['Profiles'] = true
-L[': Profile for this character already exists. Aborting.'] = true
 
 -- UnitFrame Options
-L['Adjust castbar text Y Offset'] = true
 L['Apply shadow under the portrait'] = true
 L['Apply transparency on the portrait backdrop.'] = true
 L['BenikUI Style on Portrait'] = true
@@ -182,11 +202,9 @@ L['Health statusbar texture. Applies only on Group Frames'] = true
 L['Ignore Transparency'] = true
 L['Lower InfoPanel width when potraits are enabled.'] = true
 L['Makes the portrait backdrop transparent'] = true
-L['Overlayed Portraits Alpha'] = true
 L['Player Size'] = true
 L['Power statusbar texture.'] = true
 L['Replaces the default role icons with SVUI ones.'] = true
-L['Shadow'] = true
 L['Style Height'] = true
 L['SVUI Icons'] = true
 L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = true

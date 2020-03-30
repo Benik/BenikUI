@@ -8,7 +8,6 @@ local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local LoadAddOn = LoadAddOn
 local InCombatLockdown = InCombatLockdown
-local GetQuestLogTitle = GetQuestLogTitle
 
 -- GLOBALS: hooksecurefunc
 

@@ -74,9 +74,9 @@ local legionTokens = {
 }
 
 local bfaTokens = {
-	--1560, -- War Resources
+	1560, -- War Resources
 	1580,	-- Seal of Wartorn Fate
-	--1587,	-- War Supplies
+	1587,	-- War Supplies
 	1710,	-- Seafarer's Dubloon
 	--1716,	-- Honorbound Service Medal (Horde)
 	--1717,	-- 7th Legion Service Medal (Alliance)
@@ -175,10 +175,8 @@ end
 -- these options must be updated when the player discovers a new token.
 local function UpdateTokenOptions()
 	if E.myfaction == 'Alliance' then
-		tinsert(bfaTokens, 1560) -- War Resources
 		tinsert(bfaTokens, 1717) -- 7th Legion Service Medal (Alliance)
 	elseif E.myfaction == 'Horde' then
-		tinsert(bfaTokens, 1587) -- War Supplies
 		tinsert(bfaTokens, 1716) -- Honorbound Service Medal (Horde)
 	end
 
@@ -186,8 +184,8 @@ local function UpdateTokenOptions()
 		local tableName, optionName = unpack(v)
 		local optionOrder = 1
 		for _, id in ipairs(tableName) do
-			local tname, _, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
-			if tname then
+			local tname, amount, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
+			if id and tname then
 				E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[optionName].args.desc = {
 					order = optionOrder + 1,
 					name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered']),
@@ -197,7 +195,7 @@ local function UpdateTokenOptions()
 					order = optionOrder + 1,
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..tname,
-					desc = L['Enable/Disable ']..tname,
+					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
 					get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 					set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 					disabled = function() return not isDiscovered end,
@@ -218,13 +216,13 @@ local function UpdateTokenOptions()
 				},
 			}
 			for _, id in ipairs(tableName) do
-				local tname, _, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
-				if tname then
+				local tname, amount, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
+				if id and tname then
 					E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args.archyGroup.args[option].args[tname] = {
 						order = optionOrder + 1,
 						type = 'toggle',
 						name = '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
-						desc = L['Enable/Disable ']..tname,
+						desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
 						get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 						set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 						disabled = function() return not isDiscovered end,
@@ -256,7 +254,7 @@ local function UpdateProfessionOptions()
 					order = optionOrder + 1,
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..pname,
-					desc = L['Enable/Disable ']..pname,
+					desc = format('%s %s', L['Enable/Disable'], pname),
 					get = function(info) return E.private.dashboards.professions.choosePofessions[id] end,
 					set = function(info, value) E.private.dashboards.professions.choosePofessions[id] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
 				}
@@ -282,7 +280,7 @@ end
 
 local function dashboardsTable()
 	E.Options.args.benikui.args.dashboards = {
-		order = 20,
+		order = 60,
 		type = 'group',
 		name = L['Dashboards'],
 		args = {

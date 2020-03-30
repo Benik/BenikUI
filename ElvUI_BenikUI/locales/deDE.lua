@@ -10,6 +10,7 @@ L["WORLD"] = "Welt";
 
 --core
 L[' is loaded. For any issues or suggestions, please visit '] = " ist geladen. Für Fehler oder Vorschläge besucht bitte: "
+L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = "%s\n\nDeine Version von ElvUI %.2f ist nicht kompatibel mit BenikUI.\nAktuellste Version ist %.2f. Bitte lade sie hier runter:\n"
 
 -- General options
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = "BenikUI ist ein komplett externer ElvUI Mod. Weitere verfügbare Optionen findest Du in den ElvUI Optionen (z.B. Aktionsleisten, Einheitenfenster, Spieler und Ziel Portrait), markiert in "
@@ -24,7 +25,8 @@ L['Style Color'] = "Stil Farbe"
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
 L['light blue color.'] = "hell blau"
 L['Splash Screen'] = "Startbildschirm"
-L['Style Auras'] = "Aura Stil"
+L['Shadow'] = "Schatten"
+L['Shadow Size'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
@@ -32,8 +34,23 @@ L['RightClick: Toggle Embedded Addon'] = "Rechts Klick: Einbettung Addon umschal
 L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 
+-- Custom Panels
+L['Create'] = "Erstelle"
+L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Gib einen einzigartigen Namen für das neue Panel ein. \n|cff00c0faHinweis: 'BenikUI_' wird am Anfang hinzugefügt um die Einzigarigkeit zu gewährleisten|r"
+L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Der Name |cff00c0fa%s|r von einem Benutzerdefiniertem Panel existiert bereits. Bitte wähle einen anderen."
+L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
+L["Hide In Combat"] = "Verstecke im Kampf"
+L["Name Tooltip"] = "Namenstooltip"
+L["Enable tooltip to reveal the panel name"] = "Aktiviere den Tooltip um den Panel Namen zu erfahren"
+L["Your new Custom Panel is ready to be created.\n|cff00c0faNote: This action will require a reload.|r\nContinue?"] = "Dein Benutzerdefiniertes Panel ist fertig um erstellt zu werden.\n|cff00c0faHinweis: Diese Aktion erfordert einen Reload.|r\nFortfahren?"
+L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = "Dieses wird das Benutzerdefiniertes Panel mit dem Namen |cff00c0fa%s|r löschen. Dieses erfordert einen Reload.\nFortfahren?"
+
+-- Profiles
+L['Successfully created and applied profile(s) for |cffffff00%s|r'] = "Erfolgreich ein Profil erstellt und angewandt für |cffffff00%s|r" -- %s is the addon name
+L['|cffffff00%s|r profile for this character already exists. Aborting.'] = "|cffffff00%s|r Profil für diesen Charakter besteht bereits. Abbruch." -- %s is the addon name
+
 -- Misc
-L['Shown Logo'] = true
+L['Shown Logo'] = "Zeige Logo"
 L['iLevel'] = true --No need to translate
 L['Show item level per slot, on the character info frame'] = "Zeigt das Itemlevel pro Slot, im Spielerfenster"
 L['Inside the item slot'] = "Innerhalb des Ausrüstungsplatz"
@@ -95,7 +112,7 @@ L['UnitFrames'] = "Einheitenfenster"
 L['Unitframes Set'] = "Einheitenfenster setzen"
 L['Welcome to BenikUI version %s, for ElvUI %s.'] = "Willkommen zu BenikUI Version %s, für ElvUI %s."
 L['Welcome'] = "Willkommen"
-L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = "Du hast den Installationsprozess jetzt abgeschlossen. Wenn du technische Unterstützung brauchst besuch uns bitte http://www.tukui.org."
+L['You are now finished with the installation process. If you are in need of technical support please visit us at https://www.tukui.org.'] = "Du hast den Installationsprozess jetzt abgeschlossen. Wenn du technische Unterstützung brauchst besuch uns bitte https://www.tukui.org."
 
 -- actionbar options
 L['Bar 1'] = "Leiste 1"
@@ -116,14 +133,19 @@ L["Random Stats"] = "Zufällige Werte"
 L["remaining till level"] = "verbleibend bis zum Level"
 
 -- Dashboards
+L['Amount'] = true
 L['Bar Color'] = "Leistenfarbe"
-L['Change the System Dashboard width.'] = "Ändert die Dashboard Breite"
+L["Change the Professions Dashboard width."] = "Ändert die Beruf-Dashboard Breite."
+L['Change the System Dashboard width.'] = "Ändert die System-Dashboard Breite."
+L["Change the Tokens Dashboard width."] = "Ändert die Token-Dashboard Breite."
 L['Choose font for all dashboards.'] = "Wähle Schriftart für alle Dashboards."
 L['Click :'] = "Klick :"
 L['Dashboards'] = true --No need to translate
+L["Enable the Professions Dashboard."] = "Aktiviert das Berufe Dashboard."
 L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
 L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
-L['Enable/Disable '] = "Aktivieren/Deaktivieren"
+L['Enable/Disable'] = "Aktivieren/Deaktivieren"
+L["Filter Capped"] = "Filtere am Cap"
 L['Latency (MS)'] = "Latenz (MS)"
 L['MouseWheel :'] = "Mausrad :"
 L['RightClick :'] = "Rechtsklick :"
@@ -149,7 +171,7 @@ L['AutoTrack'] = "Automatische Verfolgung"
 L['Change the tracked Faction automatically when reputation changes'] = "Ändert automatisch die Rufverfolgung wenn sich der Ruf verändert"
 L['Notifiers'] = "Benachrichtigungen"
 L['Show BenikUI decorative bars on the default ElvUI XP bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Erfahrungsleiste"
-L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = true
+L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Azeritleiste"
 L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Rufleiste"
 L['Show BenikUI decorative bars on the default ElvUI Honor bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Ehrenleiste"
 L['Button Backdrop'] = "Tasten Hintergrund"
@@ -164,10 +186,8 @@ L['ElvUI AddOns'] = true --No need to translate
 L['decor.'] = "dekor."
 L['This will create and apply profile for '] = "Dieses wird ein Profil erstellen und anwenden für "
 L['Profiles'] = "Profile"
-L[': Profile for this character already exists. Aborting.'] = ": ein Profil für den Charakter existiert bereits. Abgebrochen."
 
 -- UnitFrame Options
-L['Adjust castbar text Y Offset'] = "Passe Zauberleisten Text Y-Versatz an"
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
 L['Apply transparency on the portrait backdrop.'] = "Wende Transparenz auf den Portrait Hintergrund an."
 L['BenikUI Style on Portrait'] = "BenikUI Stil auf dem Portrait"
@@ -182,15 +202,14 @@ L['Health statusbar texture. Applies only on Group Frames'] = "Gesundheit Status
 L['Ignore Transparency'] = "Ignoriere Transparenz"
 L['Lower InfoPanel width when potraits are enabled.'] = "Verringert die InfoPanel Breite, wenn Portraits aktiviert sind."
 L['Makes the portrait backdrop transparent'] = "Dadurch wird der Portrait Hintergrund transparent"
-L['Overlayed Portraits Alpha'] = "Überlappende Portrait Alpha"
 L['Player Size'] = "Spieler Größe"
 L['Power statusbar texture.'] = "Kraft Statusleiste Textur."
 L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rollen Symbole mit denen von SVUI."
-L['Shadow'] = "Schatten"
 L['Style Height'] = "Stil Höhe"
 L['SVUI Icons'] = "SVUI Symbole"
 L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = "Dieses ignoriert die ElvUI Gesundheit Transparenz Einstellung auf allen Gruppenfenstern."
 L['Vertical power statusbar'] = "Vertikale Kraft Statusleiste"
+
 -- Castbar
 L['Force show any text placed on the InfoPanel, while casting.'] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
 L['Show Castbar text'] = "Zeige Zauberleisten Text"

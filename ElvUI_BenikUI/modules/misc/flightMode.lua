@@ -3,15 +3,13 @@ local mod = BUI:NewModule('FlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
 
 local _G = _G
 local GetTime = GetTime
-local tonumber, unpack = tonumber, unpack
-local floor = floor
+local unpack, floor = unpack, floor
 local join = string.join
 
 local GameTooltip = _G["GameTooltip"]
 local C_TimerAfter = C_Timer.After
 local CreateFrame = CreateFrame
 local UnitOnTaxi, IsAddOnLoaded = UnitOnTaxi, IsAddOnLoaded
-local MoveViewLeftStart, MoveViewLeftStop = MoveViewLeftStart, MoveViewLeftStop
 local GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
@@ -31,7 +29,7 @@ menuFrame:SetTemplate('Transparent', true)
 menuFrame:CreateWideShadow()
 
 local LOCATION_WIDTH = 399
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E:ClassColor(E.myclass, true)
 
 local function AutoColoring()
 	local pvpType = GetZonePVPInfo()
@@ -249,7 +247,6 @@ function mod:SetFlightMode(status)
 			Minimap:Show()
 		end
 		self.FlightMode:Hide()
-		MoveViewLeftStop();
 
 		-- Enable Blizz location messsages.
 		-- Added support for LocationPlus & NutsAndBolts LocationLite

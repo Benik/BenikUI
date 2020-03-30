@@ -7,7 +7,6 @@ local tinsert, twipe, getn, pairs, ipairs = table.insert, table.wipe, getn, pair
 -- GLOBALS: hooksecurefunc
 
 local CreateFrame = CreateFrame
-local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -96,7 +95,7 @@ function mod:CreateSystemDashboard()
 	mod:ToggleStyle(self.sysHolder, 'system')
 	mod:ToggleTransparency(self.sysHolder, 'system')
 
-	E:CreateMover(self.sysHolder, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BenikUI', nil, 'benikui,dashboards,system')
+	E:CreateMover(self.sysHolder, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI')
 end
 
 function mod:LoadSystem()

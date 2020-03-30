@@ -96,19 +96,19 @@ function BU:Configure_Portrait(frame, isPlayer)
 					frame.portraitmover:ClearAllPoints()
 					if frame.unit == "player" then
 						frame.portraitmover:Point('TOPRIGHT', frame, 'TOPLEFT', -frame.BORDER, 0)
-						E:CreateMover(frame.portraitmover, 'PlayerPortraitMover', 'Player Portrait', nil, nil, nil, 'ALL,SOLO', nil, 'unitframe,player,generalGroup')
+						E:CreateMover(frame.portraitmover, 'PlayerPortraitMover', 'Player Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,player,generalGroup')
 					elseif frame.unit == "target" then
 						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
-						E:CreateMover(frame.portraitmover, 'TargetPortraitMover', 'Target Portrait', nil, nil, nil, 'ALL,SOLO', nil, 'unitframe,target,generalGroup')
+						E:CreateMover(frame.portraitmover, 'TargetPortraitMover', 'Target Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,target,generalGroup')
 					elseif frame.unit == "targettarget" then
 						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
-						E:CreateMover(frame.portraitmover, 'TargetTargetPortraitMover', 'TargetTarget Portrait', nil, nil, nil, 'ALL,SOLO', nil, 'unitframe,targettarget,generalGroup')
+						E:CreateMover(frame.portraitmover, 'TargetTargetPortraitMover', 'TargetTarget Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,targettarget,generalGroup')
 					elseif frame.unit == "focus" then
 						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
-						E:CreateMover(frame.portraitmover, 'FocusPortraitMover', 'Focus Portrait', nil, nil, nil, 'ALL,SOLO', nil, 'unitframe,focus,generalGroup')
+						E:CreateMover(frame.portraitmover, 'FocusPortraitMover', 'Focus Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,focus,generalGroup')
 					elseif frame.unit == "pet" then
 						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
-						E:CreateMover(frame.portraitmover, 'PetPortraitMover', 'Pet Portrait', nil, nil, nil, 'ALL,SOLO', nil, 'unitframe,pet,generalGroup')
+						E:CreateMover(frame.portraitmover, 'PetPortraitMover', 'Pet Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,pet,generalGroup')
 					end
 					frame.portraitmover:ClearAllPoints()
 					frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")

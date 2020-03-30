@@ -3,9 +3,9 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local LSM = E.LSM
 
 local _G = _G
-local pairs, print, tinsert = pairs, print, table.insert
+local pairs, print, tinsert, strjoin = pairs, print, table.insert, strjoin
 local format = string.format
-local CreateFrame = CreateFrame
+local find = string.find
 local GetAddOnMetadata = GetAddOnMetadata
 local GetAddOnEnableState = GetAddOnEnableState
 
@@ -32,7 +32,7 @@ BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
 BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
 BUI.ZG = BUI:IsAddOnEnabled('ZygorGuidesViewer')
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E:ClassColor(E.myclass, true)
 
 local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
@@ -51,6 +51,10 @@ local function RegisterMedia()
 	E['media'].BuiMelli = LSM:Fetch('statusbar', 'BuiMelli')
 	E['media'].BuiMelliDark = LSM:Fetch('statusbar', 'BuiMelliDark')
 	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
+end
+
+function BUI:Print(...)
+	(_G.DEFAULT_CHAT_FRAME):AddMessage(strjoin('', '|cff00c0fa', 'BenikUI:|r ', ...))
 end
 
 function BUI:cOption(name)
@@ -125,13 +129,28 @@ function BUI:LoadCommands()
 	self:RegisterChatCommand("benikuisetup", "SetupBenikUI")
 end
 
+function BUI:CheckNiceDate() -- for testing purposes
+	if find(date(), '04/01/') then
+		return true;
+	else
+		return false;
+	end
+end
+
+local function test()
+	if not BUI:CheckNiceDate() then return end
+	E.Options.args.benikui.args.logo.name = format("|cffffff00%s|r\n\n%s", "Happy April 1st!!", "From BenikUI dev team, have fun, be safe, stay at home.\n\n...and avoid buying a lot of toilet papers :P")
+	E.Options.args.benikui.args.logo.fontSize = 'large'
+	E.Options.args.benikui.args.logo.image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\tp.tga', 220, 220 end
+end
+
 function BUI:Initialize()
 	RegisterMedia()
 	self:LoadCommands()
 	self:SplashScreen()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
-
+	tinsert(BUI.Config, test) -- test
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 
 	-- run install when ElvUI install finishes or run the setup again when a profile gets deleted.
@@ -147,8 +166,8 @@ function BUI:Initialize()
 		BUI.ShadowMode = true
 	end
 
-	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BenikUI")
-	E.ConfigModeLocalizedStrings["BenikUI"] = BUI.Title
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BENIKUI")
+	E.ConfigModeLocalizedStrings["BENIKUI"] = BUI.Title
 
 	BUI.AddonProfileKey = BUI.Title..E.myname.." - "..E.myrealm
 

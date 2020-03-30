@@ -11,7 +11,7 @@ local MAIL_LABEL, GARRISON_LOCATION_TOOLTIP =MAIL_LABEL, GARRISON_LOCATION_TOOLT
 
 local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {
-		order = 9,
+		order = 50,
 		type = 'group',
 		name = L['DataTexts'],
 		args = {
@@ -21,7 +21,7 @@ local function Datatexts()
 				name = BUI:cOption(L['DataTexts']),
 			},
 			chat = {
-				order = 2,
+				order = 10,
 				type = 'group',
 				name = L["Chat"],
 				guiInline = true,
@@ -34,29 +34,18 @@ local function Datatexts()
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateAnchors(); end,
 					},
-					transparent = {
+					spacer1 = {
 						order = 2,
+						type = 'description',
+						name = '',
+					},
+					transparent = {
+						order = 3,
 						type = 'toggle',
 						name = L['Panel Transparency'],
 						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ToggleTransparency(); end,
-					},
-					editBoxPosition = {
-						order = 3,
-						type = 'select',
-						name = L['Chat EditBox Position'],
-						desc = L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'],
-						values = {
-							['BELOW_CHAT'] = L['Below Chat'],
-							['ABOVE_CHAT'] = L['Above Chat'],
-							['MIDDLE_DT'] = L['Middle Datatext'],
-							['EAB_1'] = L['Actionbar 1'],
-							['EAB_2'] = L['Actionbar 2'],
-						},
-						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
-						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('Chat'):UpdateAnchors() end,
 					},
 					styled = {
 						order = 4,
@@ -75,8 +64,29 @@ local function Datatexts()
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ToggleTransparency(); end,
 					},
-					showChatDt = {
+					spacer2 = {
 						order = 6,
+						type = 'description',
+						name = '',
+					},
+					editBoxPosition = {
+						order = 7,
+						type = 'select',
+						name = L['Chat EditBox Position'],
+						desc = L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'],
+						values = {
+							['BELOW_CHAT'] = L['Below Chat'],
+							['ABOVE_CHAT'] = L['Above Chat'],
+							['MIDDLE_DT'] = L['Middle Datatext'],
+							['EAB_1'] = L['Actionbar 1'],
+							['EAB_2'] = L['Actionbar 2'],
+						},
+						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
+						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('Chat'):UpdateAnchors() end,
+					},
+					showChatDt = {
+						order = 8,
 						type = 'select',
 						name = L["Visibility"],
 						values = {
@@ -92,7 +102,7 @@ local function Datatexts()
 				},
 			},
 			middle = {
-				order = 3,
+				order = 20,
 				type = 'group',
 				name = L['Middle'],
 				guiInline = true,
@@ -103,6 +113,11 @@ local function Datatexts()
 						name = L["Enable"],
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
+					},
+					spacer1 = {
+						order = 2,
+						type = 'description',
+						name = '',
 					},
 					transparent = {
 						order = 2,
@@ -128,8 +143,13 @@ local function Datatexts()
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
 					},
-					width = {
+					spacer2 = {
 						order = 5,
+						type = 'description',
+						name = '',
+					},
+					width = {
+						order = 6,
 						type = "range",
 						name = L["Width"],
 						min = 200, max = E.screenwidth, step = 1,
@@ -138,7 +158,7 @@ local function Datatexts()
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextDimensions(); end,
 					},
 					height = {
-						order = 6,
+						order = 7,
 						type = "range",
 						name = L["Height"],
 						min = 10, max = 32, step = 1,
@@ -149,7 +169,7 @@ local function Datatexts()
 				},
 			},
 			mail = {
-				order = 4,
+				order = 30,
 				type = 'group',
 				name = MAIL_LABEL,
 				guiInline = true,
@@ -165,7 +185,7 @@ local function Datatexts()
 				},
 			},
 			garrison = {
-				order = 5,
+				order = 40,
 				type = 'group',
 				name = GARRISON_LOCATION_TOOLTIP,
 				guiInline = true,

@@ -12,7 +12,7 @@ local MAX_TOTEMS = MAX_TOTEMS
 -- GLOBALS: NUM_PET_ACTION_SLOTS
 -- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E:ClassColor(E.myclass, true)
 
 local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar}
 

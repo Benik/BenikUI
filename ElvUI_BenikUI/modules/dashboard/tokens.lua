@@ -3,11 +3,9 @@ local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
 
 local getn = getn
-local pairs, ipairs = pairs, ipairs
 local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 
 local GameTooltip = _G["GameTooltip"]
-local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local GetCurrencyInfo = GetCurrencyInfo
 local IsShiftKeyDown = IsShiftKeyDown
 
@@ -17,7 +15,7 @@ local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E:ClassColor(E.myclass, true)
 
 local Currency = {
 	-- unused/old
@@ -121,7 +119,7 @@ local function Icon_OnEnter(self)
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 		GameTooltip:SetCurrencyByID(id)
 		GameTooltip:AddLine(' ')
-		GameTooltip:AddLine(L['Shift+RightClick to remove'], 0.7, 0.7, 1)
+		GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
 		GameTooltip:Show()
 	end
 
@@ -181,7 +179,7 @@ function mod:UpdateTokens()
 		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
 
 		if name then
-			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = false end
+			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = nil end
 
 			if E.private.dashboards.tokens.chooseTokens[id] == true then
 				if db.zeroamount or amount > 0 then
@@ -305,7 +303,7 @@ function mod:CreateTokensDashboard()
 	mod:ToggleStyle(self.tokenHolder, 'tokens')
 	mod:ToggleTransparency(self.tokenHolder, 'tokens')
 
-	E:CreateMover(self.tokenHolder, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BenikUI', nil, 'benikui,dashboards,tokens')
+	E:CreateMover(self.tokenHolder, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI')
 end
 
 function mod:LoadTokens()

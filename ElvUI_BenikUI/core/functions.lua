@@ -4,7 +4,7 @@ local LSM = E.LSM
 local CreateFrame = CreateFrame
 local getmetatable = getmetatable
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E:ClassColor(E.myclass, true)
 
 local function CreateWideShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
@@ -23,12 +23,13 @@ end
 local function CreateSoftShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
+	local db = E.db.benikui.general
 
 	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
-	shadow:SetOutside(f, 2, 2)
-	shadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3)})
+	shadow:SetOutside(f, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
+	shadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(db.shadowSize or 3)})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
 	f.shadow = shadow

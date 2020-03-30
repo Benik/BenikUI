@@ -5,7 +5,7 @@ local tinsert = table.insert
 
 local function miscTable()
 	E.Options.args.benikui.args.misc = {
-		order = 35,
+		order = 90,
 		type = 'group',
 		name = L["Miscellaneous"],
 		args = {
@@ -114,7 +114,7 @@ local function miscTable()
 					logo = {
 						order = 2,
 						type = 'select',
-						name = L['Shown Logo']..E.NewSign,
+						name = L['Shown Logo'],
 						values = {
 							['BENIKUI'] = L['BenikUI'],
 							['WOW'] = L['WoW'],

@@ -1,19 +1,16 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins');
 
 local _G = _G
-local pairs, unpack = pairs, unpack
-local strlower, strfind = strlower, strfind
+local unpack = unpack
 
 local CreateFrame = CreateFrame
-local IsAddOnLoaded = IsAddOnLoaded
 
 -- GLOBALS: hooksecurefunc, Skada, Recount, oRA3, RC, RCnotify, RCminimized
 
 if not BUI.AS then return end
 local AS = unpack(AddOnSkins)
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E:ClassColor(E.myclass, true)
 
 local function SkadaDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.skada then return end

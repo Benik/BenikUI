@@ -10,8 +10,6 @@ local _G = _G
 local GetPetExperience = GetPetExperience
 local HideUIPanel, ShowUIPanel = HideUIPanel, ShowUIPanel
 local InCombatLockdown = InCombatLockdown
-local IsXPUserDisabled = IsXPUserDisabled
-local UnitLevel = UnitLevel
 local UnitXP, UnitXPMax = UnitXP, UnitXPMax
 
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ExperienceBar, SpellBookFrame

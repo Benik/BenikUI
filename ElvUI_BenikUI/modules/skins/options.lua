@@ -45,15 +45,15 @@ local SupportedProfiles = {
 }
 
 BUI.profileStrings = {
-	[1] = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:']),
-	[2] = format('|cfffff400%s |r', L[': Profile for this character already exists. Aborting.']),
+	[1] = L['Successfully created and applied profile(s) for |cffffff00%s|r'],
+	[2] = L['|cffffff00%s|r profile for this character already exists. Aborting.'],
 }
 
 local pa = L['Project Azilroka']
 
 local function SkinTable()
 	E.Options.args.benikui.args.skins = {
-		order = 40,
+		order = 100,
 		type = 'group',
 		name = ADDONS,
 		args = {

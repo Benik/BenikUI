@@ -1,0 +1,4 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<script file="customPanels.lua"/>
+	<script file="options.lua"/>
+</Ui>

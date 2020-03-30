@@ -17,24 +17,36 @@ local units = {"Player", "Target", "Focus", "Pet"}
 -- GLOBALS: hooksecurefunc
 
 local function changeCastbarLevel(unit, unitframe)
-	unitframe.Castbar:SetFrameStrata("LOW")
-	unitframe.Castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel() + 10)
+	local castbar = unitframe.Castbar
+
+	castbar:SetFrameStrata("LOW")
+	castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel() + 10)
 end
 
 local function resetCastbarLevel(unit, unitframe)
-	unitframe.Castbar:SetFrameStrata("HIGH")
-	unitframe.Castbar:SetFrameLevel(6)
+	local db = E.db.unitframe.units[unit].castbar;
+	local castbar = unitframe.Castbar
+
+	if db.strataAndLevel and db.strataAndLevel.useCustomStrata then
+		castbar:SetFrameStrata(db.strataAndLevel.frameStrata)
+	else
+		castbar:SetFrameStrata("HIGH")
+	end
+
+	if db.strataAndLevel and db.strataAndLevel.useCustomLevel then
+		castbar:SetFrameLevel(db.strataAndLevel.frameLevel)
+	else
+		castbar:SetFrameLevel(6)
+	end
 end
 
 local function ConfigureCastbarShadow(unit, unitframe)
 	if not BUI.ShadowMode then return end
-
-	local db = E.db.unitframe.units[unit].castbar;
 	local castbar = unitframe.Castbar
 
 	if not castbar.backdrop.shadow then return end
 
-	if unitframe.USE_INFO_PANEL and db.insideInfoPanel then
+	if unitframe.USE_INFO_PANEL then
 		castbar.backdrop.shadow:Hide()
 		castbar.ButtonIcon.bg.shadow:Hide()
 	else
@@ -46,7 +58,6 @@ end
 --Initiate update/reset of castbar
 local function ConfigureCastbar(unit, unitframe)
 	local db = E.db.unitframe.units[unit].castbar;
-	local castbar = unitframe.Castbar
 
 	if unit == 'player' or unit == 'target' then
 		ConfigureCastbarShadow(unit, unitframe)

@@ -6,7 +6,7 @@ local BC = BUI:GetModule('Castbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
-local PLAYER, TARGET, MISCELLANEOUS = PLAYER, TARGET, MISCELLANEOUS
+local PLAYER, TARGET = PLAYER, TARGET
 
 -- GLOBALS: AceGUIWidgetLSMlists
 
@@ -21,7 +21,7 @@ local strataValues = {
 
 local function ufTable()
 	E.Options.args.benikui.args.unitframes = {
-		order = 10,
+		order = 40,
 		type = 'group',
 		name = L['UnitFrames'],
 		disabled = function() return not E.private.unitframe.enable end,
@@ -354,7 +354,7 @@ local function ufTargetTable()
 				order = 4,
 				type = 'toggle',
 				name = L['Shadow'],
-				desc = L['Add shadow under the portrait'],
+				desc = L['Apply shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
 			},
 			getPlayerPortraitSize = {

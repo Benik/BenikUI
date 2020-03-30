@@ -1,6 +1,5 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:NewModule('Tooltip', 'AceHook-3.0');
-local TT = E:GetModule('Tooltip');
 
 local _G = _G
 local GameTooltip, GameTooltipStatusBar = _G.GameTooltip, _G.GameTooltipStatusBar

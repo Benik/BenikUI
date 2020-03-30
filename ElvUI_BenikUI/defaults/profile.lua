@@ -33,6 +33,7 @@ P['benikui'] = {
 		['benikuiStyle'] = true,
 		['hideStyle'] = false,
 		['shadows'] = true,
+		['shadowSize'] = 4,
 		['loginMessage'] = true,
 		['splashScreen'] = true,
 	},
@@ -191,6 +192,10 @@ P['benikui'] = {
 			['portraitTransparency'] = 0.70,
 		},
 	},
+
+	['panels'] = {
+
+	},
 }
 
 -- Datatexts
@@ -207,9 +212,9 @@ P.datatexts.panels.BuiRightChatDTPanel = {
 }
 
 P.datatexts.panels.BuiMiddleDTPanel = {
-	left = 'Multistrike',
-	middle = 'Garrison+ (BenikUI)',
-	right = 'Spec Switch (BenikUI)',
+	left = 'Haste',
+	middle = 'Mastery',
+	right = 'Crit Chance',
 }
 
 -- Skins and ElvUI addons Styling
@@ -349,4 +354,10 @@ P['dashboards'] = {
 	['customBarColor'] = {r = 255/255,g = 128/255,b = 0/255},
 	['textColor'] = 2,
 	['customTextColor'] = {r = 255/255,g = 255/255,b = 255/255},
+}
+
+G['benikui'] = {
+	['CustomPanels'] = {
+		['createButton'] = false,
+	},
 }

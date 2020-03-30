@@ -9,4 +9,5 @@
 	<Include file="databars\load_databars.xml"/>
 	<Include file="skins\load_skins.xml"/>
 	<Include file="shadows\load_shadows.xml"/>
+	<Include file="customPanels\load_customPanels.xml"/>
 </Ui>

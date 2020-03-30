@@ -115,7 +115,7 @@ local function OnClick(self, button)
 		end
 		EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
 	else
-		local specID, specName = GetSpecializationInfo(specIndex);
+		local _, specName = GetSpecializationInfo(specIndex);
 		menuList[2].text = format(LOOT_SPECIALIZATION_DEFAULT, specName);
 
 		for index = 1, 4 do

@@ -5,8 +5,6 @@ if E.db.benikui == nil then E.db.benikui = {} end
 local format = string.format
 local tinsert, tsort, tconcat = table.insert, table.sort, table.concat
 
-local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
-local COLORS, COLOR_PICKER = COLORS, COLOR_PICKER
 local StaticPopup_Show = StaticPopup_Show
 
 local DONATORS = {
@@ -114,7 +112,7 @@ local function Core()
 				name = '',
 			},
 			general = {
-				order = 5,
+				order = 10,
 				type = 'group',
 				name = L['General'],
 				get = function(info) return E.db.benikui.general[ info[#info] ] end,
@@ -142,33 +140,47 @@ local function Core()
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateStyleVisibility(); end,
 					},
+					spacer = {
+						order = 10,
+						type = 'description',
+						name = '',
+					},
 					shadows = {
-						order = 4,
+						order = 11,
 						type = 'toggle',
 						name = L['Shadows'],
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer = {
-						order = 5,
+					shadowSize = {
+						order = 12,
+						type = "range",
+						name = E.NewSign..L['Shadow Size'],
+						min = 3, max = 10, step = 1,
+						disabled = function() return E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true end,
+						get = function(info) return E.db.benikui.general[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					spacer2 = {
+						order = 20,
 						type = 'header',
 						name = '',
 					},
 					loginMessage = {
-						order = 6,
+						order = 21,
 						type = 'toggle',
 						name = L['Login Message'],
 					},
 					splashScreen = {
-						order = 7,
+						order = 22,
 						type = 'toggle',
 						name = L['Splash Screen'],
 					},
 				},
 			},
 			colors = {
-				order = 6,
+				order = 20,
 				type = 'group',
 				name = L.COLORS,
 				args = {
