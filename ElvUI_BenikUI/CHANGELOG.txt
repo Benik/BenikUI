@@ -1,3 +1,13 @@
+3.78 (Mar 30, 2020)
+*NEW: Custom Panels. Create as many movable, resizable, etc panels as you want.
+*German locales update. Credit: Merathilis
+*Fixed War Resources not showing for Horde
+*Added Shadow Size option
+*Set default Shadow size to 4 (was 3 by default)
+*Fixed Castbar to use ElvUI strata level
+*Improved per char tokens saving
+*Tokens options tooltip will now show the currency ammount
+
 3.77 (Mar 19, 2020)
 *Fix ilevel update after a Timewalking dungeon
 *Added 'Echoes of Ny'alotha' in the Tokens Dashboard. Also 'War Resources' will show only for Alliance and 'War Supplies' for Horde
