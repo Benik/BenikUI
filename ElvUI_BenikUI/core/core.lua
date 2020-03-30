@@ -5,6 +5,7 @@ local LSM = E.LSM
 local _G = _G
 local pairs, print, tinsert, strjoin = pairs, print, table.insert, strjoin
 local format = string.format
+local find = string.find
 local GetAddOnMetadata = GetAddOnMetadata
 local GetAddOnEnableState = GetAddOnEnableState
 
@@ -128,13 +129,28 @@ function BUI:LoadCommands()
 	self:RegisterChatCommand("benikuisetup", "SetupBenikUI")
 end
 
+function BUI:CheckNiceDate() -- for testing purposes
+	if find(date(), '04/01/') then
+		return true;
+	else
+		return false;
+	end
+end
+
+local function test()
+	if not BUI:CheckNiceDate() then return end
+	E.Options.args.benikui.args.logo.name = format("|cffffff00%s|r\n\n%s", "Happy April 1st!!", "From BenikUI dev team, have fun, be safe, stay at home.\n\n...and avoid buying a lot of toilet papers :P")
+	E.Options.args.benikui.args.logo.fontSize = 'large'
+	E.Options.args.benikui.args.logo.image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\tp.tga', 220, 220 end
+end
+
 function BUI:Initialize()
 	RegisterMedia()
 	self:LoadCommands()
 	self:SplashScreen()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
-
+	tinsert(BUI.Config, test) -- test
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 
 	-- run install when ElvUI install finishes or run the setup again when a profile gets deleted.
