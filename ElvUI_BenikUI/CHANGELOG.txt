@@ -1,3 +1,6 @@
+3.781 (Mar 30, 2020)
+*Fixed Custom Panels not keeping their size after a reload
+
 3.78 (Mar 30, 2020)
 *NEW: Custom Panels. Create as many movable, resizable, etc panels as you want.
 *German locales update. Credit: Merathilis
