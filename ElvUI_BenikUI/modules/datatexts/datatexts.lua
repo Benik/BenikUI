@@ -103,7 +103,7 @@ function DT:LoadDataTexts()
 				dt:SetScript('OnEnter', DT.BattlegroundStats)
 				dt:SetScript('OnLeave', DT.Data_OnLeave)
 				dt:SetScript('OnClick', mod.HideBattlegroundTexts)
-				DT.UPDATE_BATTLEFIELD_SCORE(dt)
+				mod.UPDATE_BATTLEFIELD_SCORE(dt)
 				DT.ShowingBGStats = true
 			else
 				-- we aren't showing BGStats anymore
