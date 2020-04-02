@@ -12,6 +12,18 @@ local LSM = LibStub("LibSharedMedia-3.0");
 
 local _G = _G
 
+local INVERT_ANCHORPOINT = {
+	TOPLEFT = 'BOTTOMRIGHT',
+	LEFT = 'RIGHT',
+	BOTTOMLEFT = 'TOPRIGHT',
+	RIGHT = 'LEFT',
+	TOPRIGHT = 'BOTTOMLEFT',
+	BOTTOMRIGHT = 'TOPLEFT',
+	CENTER = 'CENTER',
+	TOP = 'BOTTOM',
+	BOTTOM = 'TOP',
+}
+
 local units = {"Player", "Target", "Focus", "Pet"}
 
 -- GLOBALS: hooksecurefunc
@@ -43,15 +55,33 @@ end
 local function ConfigureCastbarShadow(unit, unitframe)
 	if not BUI.ShadowMode then return end
 	local castbar = unitframe.Castbar
+	local db = E.db.unitframe.units[unit].castbar;
 
 	if not castbar.backdrop.shadow then return end
-
-	if unitframe.USE_INFO_PANEL then
-		castbar.backdrop.shadow:Hide()
-		castbar.ButtonIcon.bg.shadow:Hide()
-	else
+	
+	if db.overlayOnFrame == 'None' then
 		castbar.backdrop.shadow:Show()
-		castbar.ButtonIcon.bg.shadow:Show()
+	else
+		castbar.backdrop.shadow:Hide()
+		if not db.iconAttached then
+			castbar.ButtonIcon.bg.shadow:Show()
+		else
+			castbar.ButtonIcon.bg.shadow:Hide()
+		end
+	end
+	
+	if not db.iconAttached and db.icon then
+		local attachPoint = db.iconAttachedTo == "Frame" and unitframe or unitframe.Castbar
+		local anchorPoint = db.iconPosition
+		castbar.Icon.bg:ClearAllPoints()
+		castbar.Icon.bg:Point(INVERT_ANCHORPOINT[anchorPoint], attachPoint, anchorPoint, db.iconXOffset, db.iconYOffset)
+	elseif(db.icon) then
+		castbar.Icon.bg:ClearAllPoints()
+		if unitframe.ORIENTATION == "RIGHT" then
+			castbar.Icon.bg:Point("LEFT", castbar, "RIGHT", (unitframe.SPACING*3) +3, 0)
+		else
+			castbar.Icon.bg:Point("RIGHT", castbar, "LEFT", -(unitframe.SPACING*3) -3, 0)
+		end
 	end
 end
 
