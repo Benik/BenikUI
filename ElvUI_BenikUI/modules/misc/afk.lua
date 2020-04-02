@@ -287,10 +287,10 @@ local function prank(self, status)
 	--if not IsFoolsDay() then return end
 
 	if(status) then
-		self.AFKMode.bottom.model:SetModelByCreatureDisplayID(24173)
+
 	end
 end
-hooksecurefunc(AFK, "SetAFK", prank)
+--hooksecurefunc(AFK, "SetAFK", prank)
 
 local function Initialize()
 	if E.db.benikui.misc.afkMode ~= true then return end
