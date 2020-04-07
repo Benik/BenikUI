@@ -58,7 +58,7 @@ local function ObjectiveTrackerShadows()
 
 	local function ItemButtonShadows(self, block)
 		local item = block.itemButton
-		if item and not item.shadow then
+		if item and not item.shadow then -- this seems that doesn't keep the shadow. Keep an eye
 			item:CreateSoftShadow()
 		end
 	end
