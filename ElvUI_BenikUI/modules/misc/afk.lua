@@ -272,19 +272,25 @@ function AFK:SetAFK(status)
 	end
 end
 
-local function prank(self, status)
-	if(InCombatLockdown()) then return end
-	if not BUI:CheckNiceDate() then return end
+local find = string.find
 
-	if(status) then	
-		AFK.AFKMode.bottom.faction:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\tp.tga')
-		E:Shake(AFK.AFKMode.top.wowlogo)
-		E:Shake(AFK.AFKMode.bottom.faction)
-		AFK.AFKMode.bottom.name:SetText("Happy April 1st!!\nFrom BenikUI dev team, have fun, be safe, stay at home")
-		AFK.AFKMode.bottom.guild:SetText("This will show only today :)")
+local function IsFoolsDay()
+	if find(date(), '04/01/') then
+		return true;
+	else
+		return false;
 	end
 end
-hooksecurefunc(AFK, "SetAFK", prank)
+
+local function prank(self, status)
+	if(InCombatLockdown()) then return end
+	--if not IsFoolsDay() then return end
+
+	if(status) then
+
+	end
+end
+--hooksecurefunc(AFK, "SetAFK", prank)
 
 local function Initialize()
 	if E.db.benikui.misc.afkMode ~= true then return end

@@ -1,6 +1,7 @@
 ﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
 local CH = E:GetModule('Chat')
 local BL = BUI:GetModule('Layout')
+local FM = BUI:GetModule('FlightMode')
 
 local _G = _G
 local pairs = pairs
@@ -52,8 +53,7 @@ local PixelOff = E.PixelMode and 33 or 27
 local function PositionChat(self, override)
 	if ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
 	if not RightChatPanel or not LeftChatPanel then return; end
-	if not self.db.lockPositions or E.private.chat.enable ~= true then return end
-	if not E.db.benikui.datatexts.chat.styled then return end
+	if E.private.chat.enable ~= true then return end
 
 	local BASE_OFFSET = 60
 	if E.PixelMode then
@@ -80,7 +80,11 @@ local function PositionChat(self, override)
 				chat:Size((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 10, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
 			end
 		elseif not isDocked and chat:IsShown() then
-
+			if FM.inFlightMode == true then
+				chat:SetAlpha(0)
+			else
+				chat:SetAlpha(1)
+			end
 		else
 			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
 				BASE_OFFSET = BASE_OFFSET - 24
@@ -93,3 +97,4 @@ end
 
 hooksecurefunc(CH, "PositionChat", PositionChat)
 hooksecurefunc(CH, "StyleChat", Style)
+hooksecurefunc(FM, "SetFlightMode", PositionChat)

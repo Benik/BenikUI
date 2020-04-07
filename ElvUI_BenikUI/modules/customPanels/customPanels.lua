@@ -104,13 +104,15 @@ function mod:SetupPanels()
 					end
 				end
 
-				if db.style then
-					_G[name].style:Show()
-				else
-					_G[name].style:Hide()
+				if _G[name].style then
+					if db.style then
+						_G[name].style:Show()
+					else
+						_G[name].style:Hide()
+					end
 				end
 			end
-			
+
 		end
 	end
 end
