@@ -1,3 +1,12 @@
+3.79 (Apr 7, 2020)
+*Hide undocked Chat tabs while in FlightMode
+*Disable Custom Panels options when the selected panel is not Enabled
+*Fixed an error when entering/leaving battlegrounds
+*Fixed Castbar shadow not showing when not attached on the uf. Also tweaked the icon position to pop its shadow
+*Dashboard Bags module will now get red text when above 90% full (was 80%)
+*Prevent a Custom Panels error when BenikUI Style is disabled
+*Don't create Aura shadows when Style is disabled
+
 3.781 (Mar 30, 2020)
 *Fixed Custom Panels not keeping their size after a reload
 
