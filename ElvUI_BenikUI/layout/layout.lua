@@ -80,29 +80,16 @@ function mod:ToggleBuiDts()
 	local db = E.db.benikui.datatexts.chat
 	local edb = E.db.datatexts
 
-	if not db.enable or edb.leftChatPanel then
+	if edb.leftChatPanel or edb.rightChatPanel then
+		db.enable = false
 		BuiLeftChatDTPanel:Hide()
-	else
-		BuiLeftChatDTPanel:Show()
-	end
-
-	if not db.enable or edb.rightChatPanel then
 		BuiRightChatDTPanel:Hide()
-	else
-		BuiRightChatDTPanel:Show()
 	end
 
 	if db.enable then
 		if db.showChatDt == 'SHOWBOTH' then
-			if not edb.leftChatPanel then
-				BuiLeftChatDTPanel:Show()
-			end
-			if not edb.rightChatPanel then
-				BuiRightChatDTPanel:Show()
-			end
-		elseif db.showChatDt == 'HIDEBOTH' then
-			BuiLeftChatDTPanel:Hide()
-			BuiRightChatDTPanel:Hide()
+			BuiLeftChatDTPanel:Show()
+			BuiRightChatDTPanel:Show()
 		elseif db.showChatDt == 'LEFT' then
 			if not edb.leftChatPanel then
 				BuiLeftChatDTPanel:Show()
@@ -114,6 +101,9 @@ function mod:ToggleBuiDts()
 				BuiRightChatDTPanel:Show()
 			end
 		end
+	else
+		BuiLeftChatDTPanel:Hide()
+		BuiRightChatDTPanel:Hide()
 	end
 end
 
