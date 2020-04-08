@@ -1,3 +1,6 @@
+3.791 (Apr 8, 2020)
+*Better handling on Chat Datatexts toggle
+
 3.79 (Apr 7, 2020)
 *Hide undocked Chat tabs while in FlightMode
 *Disable Custom Panels options when the selected panel is not Enabled
