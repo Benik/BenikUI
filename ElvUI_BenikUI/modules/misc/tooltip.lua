@@ -1,5 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:NewModule('Tooltip', 'AceHook-3.0');
+local TT = E:GetModule('Tooltip')
 
 local _G = _G
 local GameTooltip, GameTooltipStatusBar = _G.GameTooltip, _G.GameTooltipStatusBar
@@ -19,12 +20,6 @@ local function StyleTooltip()
 		GameTooltip.style:ClearAllPoints()
 		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
 		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
-	end
-
-	if not BUI.ShadowMode then return end
-
-	if not GameTooltipStatusBar.backdrop.shadow then
-		GameTooltipStatusBar.backdrop:CreateSoftShadow()
 	end
 end
 
@@ -57,6 +52,22 @@ function mod:RecolorTooltipStyle()
 	end
 end
 
+function mod:SetupStyleAndShadow(tt)
+	if tt.style then
+		if tt.StatusBar.anchoredToTop then
+			tt.style:Hide()
+		else
+			tt.style:Show()
+		end
+	end
+
+	if BUI.ShadowMode then
+		if not tt.StatusBar.backdrop.shadow then
+			tt.StatusBar.backdrop:CreateSoftShadow()
+		end
+	end
+end
+
 function mod:Initialize()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -67,6 +78,7 @@ function mod:Initialize()
 	mod:CheckTooltipStyleColor()
 	mod:SecureHookScript(GameTooltip, 'OnTooltipCleared', 'GameTooltip_OnTooltipCleared')
 	mod:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
+	hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", mod.SetupStyleAndShadow)
 end
 
 BUI:RegisterModule(mod:GetName())
