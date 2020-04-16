@@ -16,7 +16,7 @@ local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
 function mod:UpdateSystem()
 	local db = E.db.dashboards.system
-	local holder = BUI_SystemDashboard
+	local holder = _G['BUI_SystemDashboard']
 	local DASH_WIDTH = E.db.dashboards.system.width or 150
 
 	if(BUI.SystemDB[1]) then
@@ -95,7 +95,7 @@ function mod:CreateSystemDashboard()
 	mod:ToggleStyle(self.sysHolder, 'system')
 	mod:ToggleTransparency(self.sysHolder, 'system')
 
-	E:CreateMover(self.sysHolder, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(_G['BUI_SystemDashboard'], 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI')
 end
 
 function mod:LoadSystem()

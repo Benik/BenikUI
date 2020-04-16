@@ -151,7 +151,7 @@ end
 
 function mod:UpdateTokens()
 	local db = E.db.dashboards.tokens
-	local holder = BUI_TokensDashboard
+	local holder = _G['BUI_TokensDashboard']
 
 	if(BUI.TokensDB[1]) then
 		for i = 1, getn(BUI.TokensDB) do
@@ -303,7 +303,7 @@ function mod:CreateTokensDashboard()
 	mod:ToggleStyle(self.tokenHolder, 'tokens')
 	mod:ToggleTransparency(self.tokenHolder, 'tokens')
 
-	E:CreateMover(self.tokenHolder, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(_G['BUI_TokensDashboard'], 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI')
 end
 
 function mod:LoadTokens()

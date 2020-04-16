@@ -34,7 +34,7 @@ end
 
 function mod:UpdateProfessions()
 	local db = E.db.dashboards.professions
-	local holder = BUI_ProfessionsDashboard
+	local holder = _G['BUI_ProfessionsDashboard']
 
 	if(BUI.ProfessionsDB[1]) then
 		for i = 1, getn(BUI.ProfessionsDB) do
@@ -183,7 +183,7 @@ function mod:CreateProfessionsDashboard()
 	mod:ToggleStyle(self.proHolder, 'professions')
 	mod:ToggleTransparency(self.proHolder, 'professions')
 
-	E:CreateMover(self.proHolder, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(_G['BUI_ProfessionsDashboard'], 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI')
 end
 
 function mod:LoadProfessions()
