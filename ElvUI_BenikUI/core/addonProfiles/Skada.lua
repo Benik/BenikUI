@@ -127,9 +127,9 @@ function BUI:LoadSkadaProfile()
 		Skada.db:SetProfile(key) -- set automatically the profile
 
 		if BUI.isInstallerRunning == false then -- don't print during Install, when applying profile that doesn't exist
-			BUI:Print(BUI.profileStrings[1], L['Skada'])
+			BUI:Print(format(BUI.profileStrings[1], L['Skada']))
 		end
 	else
-		BUI:Print(BUI.profileStrings[2], L['Skada'])
+		BUI:Print(format(BUI.profileStrings[2], L['Skada']))
 	end
 end
