@@ -2,10 +2,11 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
 
+local _G = _G
 local getn = getn
 local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 
-local GameTooltip = _G["GameTooltip"]
+local GameTooltip = _G.GameTooltip
 local GetCurrencyInfo = GetCurrencyInfo
 local IsShiftKeyDown = IsShiftKeyDown
 
@@ -151,7 +152,7 @@ end
 
 function mod:UpdateTokens()
 	local db = E.db.dashboards.tokens
-	local holder = BUI_TokensDashboard
+	local holder = _G.BUI_TokensDashboard
 
 	if(BUI.TokensDB[1]) then
 		for i = 1, getn(BUI.TokensDB) do
@@ -286,16 +287,9 @@ function mod:TokenEvents()
 end
 
 function mod:CreateTokensDashboard()
-	local DASH_WIDTH = E.db.dashboards.tokens.width or 150
-
 	self.tokenHolder = self:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
-
-	if E.db.dashboards.system.enableSystem and BUI_SystemDashboard then
-		self.tokenHolder:Point('TOPLEFT', BUI_SystemDashboard, 'BOTTOMLEFT', 0, -10)
-	else
-		self.tokenHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
-	end
-	self.tokenHolder:Width(DASH_WIDTH)
+	self.tokenHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
+	self.tokenHolder:Width(E.db.dashboards.tokens.width or 150)
 
 	mod:UpdateTokens()
 	mod:UpdateTokenSettings()
@@ -303,7 +297,7 @@ function mod:CreateTokensDashboard()
 	mod:ToggleStyle(self.tokenHolder, 'tokens')
 	mod:ToggleTransparency(self.tokenHolder, 'tokens')
 
-	E:CreateMover(self.tokenHolder, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(_G.BUI_TokensDashboard, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI')
 end
 
 function mod:LoadTokens()

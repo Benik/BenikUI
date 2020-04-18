@@ -1,3 +1,16 @@
+3.80 (Apr 18, 2020)
+*Added '/buierror on' and '/buierror off' commands
+*Eliminate the chances of error when the System Dashboard is disabled
+*Fixed chat messages when applying addon profiles
+*Fixed enabling Chat Datatexts during install. This should deal with #96
+*Fixed the /estatus report. Thanks @Repooc
+*Fixed Tooltip Statusbar Shadow not showing. 
+*The tooltip style will now hide if the tooltip statusbar is placed on top
+*Style shadow should obey to the shadow size option
+
+3.791 (Apr 8, 2020)
+*Better handling on Chat Datatexts toggle
+
 3.79 (Apr 7, 2020)
 *Hide undocked Chat tabs while in FlightMode
 *Disable Custom Panels options when the selected panel is not Enabled

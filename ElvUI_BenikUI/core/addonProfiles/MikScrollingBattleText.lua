@@ -38,9 +38,9 @@ function BUI:LoadMSBTProfile()
 		MikSBT.Profiles.SelectProfile(key)
 
 		if BUI.isInstallerRunning == false then -- don't print during Install, when applying profile that doesn't exist
-			BUI:Print(BUI.profileStrings[1], addonName)
+			BUI:Print(format(BUI.profileStrings[1], addonName))
 		end
 	else
-		BUI:Print(BUI.profileStrings[2], addonName)
+		BUI:Print(format(BUI.profileStrings[2], addonName))
 	end
 end

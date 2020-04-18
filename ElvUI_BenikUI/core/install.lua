@@ -102,6 +102,7 @@ local function SetupLayout(layout)
 	E.db["benikuiDatabars"]["honor"]["notifiers"]["position"] = "LEFT"
 	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
 	E.db["benikui"]["general"]["auras"] = false
+	E.db["benikui"]["datatexts"]["chat"]["enable"] = true
 
 	if E.screenheight == 1080 then E.db["general"]["UIScale"] = 0.711 end
 

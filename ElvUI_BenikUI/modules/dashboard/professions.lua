@@ -2,6 +2,7 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
 
+local _G = _G
 local getn = getn
 local pairs, ipairs = pairs, ipairs
 local tinsert, tsort = table.insert, table.sort
@@ -34,7 +35,7 @@ end
 
 function mod:UpdateProfessions()
 	local db = E.db.dashboards.professions
-	local holder = BUI_ProfessionsDashboard
+	local holder = _G.BUI_ProfessionsDashboard
 
 	if(BUI.ProfessionsDB[1]) then
 		for i = 1, getn(BUI.ProfessionsDB) do
@@ -165,15 +166,15 @@ function mod:ProfessionsEvents()
 end
 
 function mod:CreateProfessionsDashboard()
-	local mapholderWidth = E.private.general.minimap.enable and MMHolder:GetWidth() or 150
+	local mapholderWidth = E.private.general.minimap.enable and _G.MMHolder:GetWidth() or 150
 	local DASH_WIDTH = E.db.dashboards.professions.width or 150
 
 	self.proHolder = self:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
 
 	if E.private.general.minimap.enable then
-		self.proHolder:Point('TOPLEFT', MMHolder, 'BOTTOMLEFT', 0, -5)
+		self.proHolder:Point('TOPLEFT', _G.MMHolder, 'BOTTOMLEFT', 0, -5)
 	else
-		self.proHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -120)
+		self.proHolder:Point('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
 	end
 	self.proHolder:Width(mapholderWidth or DASH_WIDTH)
 
@@ -183,7 +184,7 @@ function mod:CreateProfessionsDashboard()
 	mod:ToggleStyle(self.proHolder, 'professions')
 	mod:ToggleTransparency(self.proHolder, 'professions')
 
-	E:CreateMover(self.proHolder, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(_G.BUI_ProfessionsDashboard, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI')
 end
 
 function mod:LoadProfessions()

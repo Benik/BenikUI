@@ -32,7 +32,7 @@ local function Datatexts()
 						name = L["Enable"],
 						desc = L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'],
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateAnchors(); end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ToggleBuiDts(); LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateAnchors(); end,
 					},
 					spacer1 = {
 						order = 2,
@@ -90,7 +90,6 @@ local function Datatexts()
 						type = 'select',
 						name = L["Visibility"],
 						values = {
-							['HIDEBOTH'] = L["Hide Both"],
 							['SHOWBOTH'] = L["Show Both"],
 							['LEFT'] = L["Left Only"],
 							['RIGHT'] = L["Right Only"],

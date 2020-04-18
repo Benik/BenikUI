@@ -3,7 +3,7 @@ local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
 
 local tinsert, twipe, getn, pairs, ipairs = table.insert, table.wipe, getn, pairs, ipairs
-
+local _G = _G
 -- GLOBALS: hooksecurefunc
 
 local CreateFrame = CreateFrame
@@ -16,8 +16,7 @@ local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
 function mod:UpdateSystem()
 	local db = E.db.dashboards.system
-	local holder = BUI_SystemDashboard
-	local DASH_WIDTH = E.db.dashboards.system.width or 150
+	local holder = _G.BUI_SystemDashboard
 
 	if(BUI.SystemDB[1]) then
 		for i = 1, getn(BUI.SystemDB) do
@@ -34,7 +33,7 @@ function mod:UpdateSystem()
 
 			local sysFrame = CreateFrame('Frame', 'BUI_'..name, holder)
 			sysFrame:Height(DASH_HEIGHT)
-			sysFrame:Width(DASH_WIDTH)
+			sysFrame:Width(E.db.dashboards.system.width or 150)
 			sysFrame:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
 
@@ -84,18 +83,16 @@ function mod:UpdateSystemSettings()
 end
 
 function mod:CreateSystemDashboard()
-	local DASH_WIDTH = E.db.dashboards.system.width or 150
-
 	self.sysHolder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
-	self.sysHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
-	self.sysHolder:Width(DASH_WIDTH)
+	self.sysHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
+	self.sysHolder:Width(E.db.dashboards.system.width or 150)
 
 	mod:UpdateSystem()
 	mod:UpdateHolderDimensions(self.sysHolder, 'system', BUI.SystemDB)
 	mod:ToggleStyle(self.sysHolder, 'system')
 	mod:ToggleTransparency(self.sysHolder, 'system')
 
-	E:CreateMover(self.sysHolder, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(_G.BUI_SystemDashboard, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI')
 end
 
 function mod:LoadSystem()

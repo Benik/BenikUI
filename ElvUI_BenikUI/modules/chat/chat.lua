@@ -54,6 +54,7 @@ local function PositionChat(self, override)
 	if ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
 	if not RightChatPanel or not LeftChatPanel then return; end
 	if E.private.chat.enable ~= true then return end
+	if not E.db.benikui.datatexts.chat.enable then return end
 
 	local BASE_OFFSET = 60
 	if E.PixelMode then
