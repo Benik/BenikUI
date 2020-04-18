@@ -3,10 +3,16 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local LSM = E.LSM
 
 local _G = _G
-local pairs, print, tinsert, strjoin = pairs, print, table.insert, strjoin
+local pairs, print, tinsert, strjoin, lower, next, wipe = pairs, print, table.insert, strjoin, strlower, next, wipe
 local format = string.format
 local GetAddOnMetadata = GetAddOnMetadata
 local GetAddOnEnableState = GetAddOnEnableState
+local DisableAddOn = DisableAddOn
+local EnableAddOn = EnableAddOn
+local GetAddOnInfo = GetAddOnInfo
+local GetNumAddOns = GetNumAddOns
+local ReloadUI = ReloadUI
+local SetCVar = SetCVar
 
 -- GLOBALS: LibStub, ElvDB
 
@@ -64,6 +70,38 @@ end
 local color = { r = 1, g = 1, b = 1, a = 1 }
 function BUI:unpackColor(color)
 	return color.r, color.g, color.b, color.a
+end
+
+function BUI:LuaError(msg)
+	local switch = lower(msg)
+	if switch == 'on' or switch == '1' then
+		for i=1, GetNumAddOns() do
+			local name = GetAddOnInfo(i)
+			if (name ~= 'ElvUI' and name ~= 'ElvUI_OptionsUI' and name ~= 'ElvUI_BenikUI') and E:IsAddOnEnabled(name) then
+				DisableAddOn(name, E.myname)
+				ElvDB.BuiErrorDisabledAddOns[name] = i
+			end
+		end
+
+		SetCVar('scriptErrors', 1)
+		ReloadUI()
+	elseif switch == 'off' or switch == '0' then
+		if switch == 'off' then
+			SetCVar('scriptErrors', 0)
+			BUI:Print('Lua errors off.')
+		end
+
+		if next(ElvDB.BuiErrorDisabledAddOns) then
+			for name in pairs(ElvDB.BuiErrorDisabledAddOns) do
+				EnableAddOn(name, E.myname)
+			end
+
+			wipe(ElvDB.BuiErrorDisabledAddOns)
+			ReloadUI()
+		end
+	else
+		BUI:Print('/buierror on - /buierror off')
+	end
 end
 
 local r, g, b = 0, 0, 0
@@ -126,6 +164,7 @@ end
 function BUI:LoadCommands()
 	self:RegisterChatCommand("benikui", "DasOptions")
 	self:RegisterChatCommand("benikuisetup", "SetupBenikUI")
+	self:RegisterChatCommand("buierror", "LuaError")
 end
 
 function BUI:Initialize()
@@ -134,6 +173,12 @@ function BUI:Initialize()
 	self:SplashScreen()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
+	
+	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
+		if initLogin or not ElvDB.BuiErrorDisabledAddOns then
+			ElvDB.BuiErrorDisabledAddOns = {}
+		end
+	end)
 
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 
