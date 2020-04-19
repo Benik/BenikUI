@@ -53,6 +53,8 @@ function mod:RecolorTooltipStyle()
 end
 
 function mod:SetupStyleAndShadow(tt)
+	if not tt.StatusBar then return end
+
 	if tt.style then
 		if tt.StatusBar.anchoredToTop or E.db.benikui.general.hideStyle then
 			tt.style:Hide()
