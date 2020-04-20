@@ -1,3 +1,7 @@
+3.801 (Apr 20, 2020)
+*Fixed Style not correctly hiding from tooltip
+*Prevent an unconfirmed error when the tooltip has no statusbar. This should deal with #97
+
 3.80 (Apr 18, 2020)
 *Added '/buierror on' and '/buierror off' commands
 *Eliminate the chances of error when the System Dashboard is disabled
