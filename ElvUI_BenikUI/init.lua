@@ -47,6 +47,11 @@ function BUI:AddOptions()
 end
 
 function BUI:Init()
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		E:Delay(2, function() E:StaticPopup_Show("BENIKUI_CLASSIC") end)
+		return	
+	end
+
 	--ElvUI's version check
 	if BUI.Eversion < 1 or (BUI.Eversion < BUI.Erelease) then
 		E:Delay(2, function() E:StaticPopup_Show("BENIKUI_VERSION_MISMATCH") end)
@@ -59,6 +64,16 @@ function BUI:Init()
 end
 
 E.Libs.EP:HookInitialize(BUI, BUI.Init)
+
+-- BenikUI retail on classic
+E.PopupDialogs["BENIKUI_CLASSIC"] = {
+	button1 = CLOSE,
+	OnAccept = E.noop,
+	text = (format(L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"])),
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
 
 --Version check
 E.PopupDialogs["BENIKUI_VERSION_MISMATCH"] = {
