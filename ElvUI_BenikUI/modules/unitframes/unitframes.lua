@@ -185,7 +185,7 @@ function mod:PostUpdateAura(_, button)
 end
 
 function mod:ADDON_LOADED(event, addon)
-	if addon ~= "ElvUI_Config" then return end
+	if addon ~= "ElvUI_OptionsUI" then return end
 	mod:UnregisterEvent(event)
 	mod:ChangeDefaultOptions()
 end
