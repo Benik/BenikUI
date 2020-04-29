@@ -22,7 +22,8 @@ local function CreateStatusFrame()
 	StatusFrame.backdrop:Style('Outside')
 
 	-- hide the logo. Sorry Elv :P
-	StatusFrame.TitleLogoFrame.Texture:SetTexture(nil)
+	StatusFrame.TitleLogoFrame.LogoTop:SetTexture(nil)
+	StatusFrame.TitleLogoFrame.LogoBottom:SetTexture(nil)
 
 	-- create the report title
 	StatusFrame.TitleLogoFrame.Title = StatusFrame.TitleLogoFrame:CreateFontString(nil, "ARTWORK")
