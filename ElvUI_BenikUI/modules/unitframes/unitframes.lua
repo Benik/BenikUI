@@ -184,17 +184,17 @@ function mod:PostUpdateAura(_, button)
 	end
 end
 
-function mod:ADDON_LOADED(event, addon)
-	if addon ~= "ElvUI_Config" then return end
-	mod:UnregisterEvent(event)
-	mod:ChangeDefaultOptions()
+function mod:ChangeDefaultOptions()
+	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.height.max = 300
+	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
+	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.height.max = 300
+	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
 end
 
-function mod:ChangeDefaultOptions()
-	E.Options.args.unitframe.args.player.args.power.args.height.max = 300
-	E.Options.args.unitframe.args.player.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
-	E.Options.args.unitframe.args.target.args.power.args.height.max = 300
-	E.Options.args.unitframe.args.target.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
+function mod:ADDON_LOADED(event, addon)
+	if addon ~= "ElvUI_OptionsUI" then return end
+	mod:UnregisterEvent(event)
+	mod:ChangeDefaultOptions()
 end
 
 function mod:Initialize()

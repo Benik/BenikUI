@@ -4,11 +4,6 @@ local GetAddOnEnableState = GetAddOnEnableState
 local GetAddOnInfo = GetAddOnInfo
 local GetNumAddOns = GetNumAddOns
 
--- ported from ElvUI
-local function IsAddOnEnabled(addon)
-	return GetAddOnEnableState(E.myname, addon) == 2
-end
-
 local function AreOtherAddOnsEnabled()
 	local name
 	for i = 1, GetNumAddOns() do
@@ -27,7 +22,8 @@ local function CreateStatusFrame()
 	StatusFrame.backdrop:Style('Outside')
 
 	-- hide the logo. Sorry Elv :P
-	StatusFrame.TitleLogoFrame.Texture:SetTexture(nil)
+	StatusFrame.TitleLogoFrame.LogoTop:SetTexture(nil)
+	StatusFrame.TitleLogoFrame.LogoBottom:SetTexture(nil)
 
 	-- create the report title
 	StatusFrame.TitleLogoFrame.Title = StatusFrame.TitleLogoFrame:CreateFontString(nil, "ARTWORK")
@@ -38,7 +34,10 @@ local function CreateStatusFrame()
 	StatusFrame.TitleLogoFrame.Title:SetFormattedText("|cfffe7b2c- ElvUI Status Report -|r")
 
 	-- Content lines
-	StatusFrame.Section1.Content.Line1.Text:SetFormattedText("Versions: ElvUI |cff4beb2cv%s|r, BenikUI |cff4beb2cv%s|r", E.version, BUI.Version)
+	local versiontext = StatusFrame.Section1.Content.Line1.Text:GetText()
+	versiontext = versiontext..", BenikUI "..format(" |cff4beb2cv%s|r", BUI.Version)
+
+	StatusFrame.Section1.Content.Line1.Text:SetFormattedText(versiontext)
 	StatusFrame.Section1.Content.Line2.Text:SetFormattedText("Other AddOns Enabled: |cff4beb2c%s|r", AreOtherAddOnsEnabled())
 end
 

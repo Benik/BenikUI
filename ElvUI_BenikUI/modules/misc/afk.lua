@@ -412,7 +412,8 @@ local function Initialize()
 	AFK.AFKMode.bottom.etext:SetPoint("TOP", AFK.AFKMode.bottom.logotxt, "BOTTOM")
 	AFK.AFKMode.bottom.etext:SetTextColor(0.7, 0.7, 0.7)
 	-- Hide ElvUI logo
-	AFK.AFKMode.bottom.logo:Hide()
+	AFK.AFKMode.bottom.LogoTop:Hide()
+	AFK.AFKMode.bottom.LogoBottom:Hide()
 
 	-- Add BenikUI name
 	AFK.AFKMode.bottom.benikui = AFK.AFKMode.bottom:CreateFontString(nil, 'OVERLAY')

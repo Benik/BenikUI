@@ -1,3 +1,9 @@
+3.81 (Apr 29, 2020)
+*Added a popup that will show when BenikUI Retail version is installed on WoW Classic
+*Various fixes. Credit: Repooc
+*Follow ElvUI "threat.glow" and logo renaming.
+*Set Elvui min version to 11.38
+
 3.801 (Apr 20, 2020)
 *Fixed Style not correctly hiding from tooltip
 *Prevent an unconfirmed error when the tooltip has no statusbar. This should deal with #97
