@@ -1,3 +1,8 @@
+3.811 (Apr 30, 2020)
+*Follow the overnight ElvUI Datatext changes. Credit: Repooc
+*Fix statusreport. Credit: Repooc
+*Set min ElvUI version to 11.40
+
 3.81 (Apr 29, 2020)
 *Added a popup that will show when BenikUI Retail version is installed on WoW Classic
 *Various fixes. Credit: Repooc

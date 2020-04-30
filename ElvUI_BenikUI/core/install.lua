@@ -2000,6 +2000,7 @@ BUI.installTable = {
 			PluginInstallTitleFrame:Style('Outside')
 			PluginInstallTutorialImage:Size(384, 96)
 			PluginInstallTutorialImage:Point('BOTTOM', 0, 100)
+			PluginInstallTutorialImage2:SetTexture(nil)
 			PluginInstallTitleFrame.text:SetFont(E["media"].normFont, 16, "OUTLINE")
 			PluginInstallFrame.SubTitle:SetFormattedText(L["Welcome to BenikUI version %s, for ElvUI %s."], BUI.Version, E.version)
 			PluginInstallFrame.Desc1:SetText(L["By pressing the Continue button, BenikUI will be applied on your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
