@@ -455,7 +455,7 @@ local function Core()
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', 'Merathilis, Roxanne, BuG, Semprini, Vxt, V4NT0M, Obscurrium, ElvUI community'),
+								name = format('|cffffd200%s|r', 'Merathilis, Kringel, Roxanne, BuG, Semprini, Vxt, V4NT0M, Obscurrium, ElvUI community'),
 							},
 						},
 					},
