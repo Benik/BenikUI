@@ -41,6 +41,13 @@ local DONATORS = {
 tsort(DONATORS, function(a, b) return a < b end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
 
+local PATRONS = {
+	'thurin',
+	'Ric F.',
+}
+tsort(PATRONS, function(a, b) return a < b end)
+local PATRONS_STRING = tconcat(PATRONS, ", ")
+
 	StaticPopupDialogs["BENIKUI_CREDITS"] = {
 		text = BUI.Title,
 		button1 = OKAY,
@@ -458,11 +465,17 @@ local function Core()
 						name = BUI:cOption(L['Donations']),
 						guiInline = true,
 						args = {
-							tukui = {
+							patreon = {
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', DONATOR_STRING)
+								name = format('|cffff005aPatrons: |r|cffffd200%s\n|r', PATRONS_STRING)
+							},
+							paypal = {
+								order = 2,
+								type = 'description',
+								fontSize = 'medium',
+								name = format('|cff009fffPayPal: |r|cffffd200%s|r', DONATOR_STRING)
 							},
 						},
 					},
