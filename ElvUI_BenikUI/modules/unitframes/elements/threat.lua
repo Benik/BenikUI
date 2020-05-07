@@ -51,8 +51,8 @@ function BU:Configure_Threat(frame)
 			local point = db.threatStyle
 			point = point:gsub("ICON", "")
 
-			threat.texIcon:ClearAllPoints()
-			threat.texIcon:Point(point, frame.Health, point)
+			threat.TextureIcon:ClearAllPoints()
+			threat.TextureIcon:Point(point, frame.Health, point)
 		end
 	end
 end
