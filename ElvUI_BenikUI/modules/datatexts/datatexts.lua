@@ -70,7 +70,7 @@ function mod:HideBattlegroundTexts()
 	E:Print(L["Battleground datatexts temporarily hidden, to show type /bgstats or right click the 'C' icon near the minimap."])
 end
 
-function DT:LoadDataTexts(...)
+--[[function DT:LoadDataTexts(...)
 	local font, fontSize, fontOutline = LSM:Fetch("font", DT.db.font), DT.db.fontSize, DT.db.fontOutline
 	local inInstance, instanceType = IsInInstance()
 	local isInPVP = inInstance and instanceType == "pvp"
@@ -128,7 +128,7 @@ function DT:LoadDataTexts(...)
 	if DT.ForceHideBGStats then
 		DT.ForceHideBGStats = nil
 	end
-end
+end]]
 
 local function ValueColorUpdate(hex)
 	displayString = join("", "%s: ", hex, "%s|r")
@@ -140,7 +140,7 @@ end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
 function mod:Initialize()
-	DT:LoadDataTexts()
+	--DT:LoadDataTexts()
 end
 
 BUI:RegisterModule(mod:GetName())
