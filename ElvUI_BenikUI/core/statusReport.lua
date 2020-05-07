@@ -20,7 +20,7 @@ local function CreateStatusFrame()
 
 	-- style
 	StatusFrame.backdrop:Style('Outside')
-
+	StatusFrame.PluginFrame.backdrop:Style('Outside')
 	-- hide the logo. Sorry Elv :P
 	StatusFrame.TitleLogoFrame.LogoTop:SetTexture(nil)
 	StatusFrame.TitleLogoFrame.LogoBottom:SetTexture(nil)

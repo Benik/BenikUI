@@ -70,12 +70,8 @@ function mod:HideBattlegroundTexts()
 	E:Print(L["Battleground datatexts temporarily hidden, to show type /bgstats or right click the 'C' icon near the minimap."])
 end
 
-function DT:LoadDataTexts()
-	for _, _ in LDB:DataObjectIterator() do
-		LDB:UnregisterAllCallbacks(self)
-	end
-
-	local fontTemplate = LSM:Fetch("font", self.db.font)
+function DT:LoadDataTexts(...)
+	local font, fontSize, fontOutline = LSM:Fetch("font", DT.db.font), DT.db.fontSize, DT.db.fontOutline
 	local inInstance, instanceType = IsInInstance()
 	local isInPVP = inInstance and instanceType == "pvp"
 	local pointIndex, isBGPanel, enableBGPanel
@@ -92,9 +88,9 @@ function DT:LoadDataTexts()
 			dt:SetScript('OnEnter', nil)
 			dt:SetScript('OnLeave', nil)
 			dt:SetScript('OnClick', nil)
-			dt.text:FontTemplate(fontTemplate, self.db.fontSize, self.db.fontOutline)
+			dt.text:FontTemplate(font, fontSize, fontOutline)
 			dt.text:SetWordWrap(self.db.wordWrap)
-			dt.text:SetText('')
+			dt.text:SetText(' ')
 			dt.pointIndex = pointIndex
 
 			if enableBGPanel then
@@ -113,14 +109,14 @@ function DT:LoadDataTexts()
 
 				--Register Panel to Datatext
 				for name, data in pairs(DT.RegisteredDataTexts) do
-					for option, value in pairs(self.db.panels) do
+					for option, value in pairs(DT.db.panels) do
 						if value and type(value) == 'table' then
-							if option == panelName and self.db.panels[option][pointIndex] and self.db.panels[option][pointIndex] == name then
-								DT:AssignPanelToDataText(dt, data)
+							if option == panelName and DT.db.panels[option][pointIndex] and DT.db.panels[option][pointIndex] == name then
+								DT:AssignPanelToDataText(dt, data, ...)
 							end
 						elseif value and type(value) == 'string' and value == name then
-							if self.db.panels[option] == name and option == panelName then
-								DT:AssignPanelToDataText(dt, data)
+							if DT.db.panels[option] == name and option == panelName then
+								DT:AssignPanelToDataText(dt, data, ...)
 							end
 						end
 					end

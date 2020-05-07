@@ -57,18 +57,18 @@ function BuiGameMenu_OnMouseUp(self)
 end
 
 local function ChatButton_OnClick(self)
-	GameTooltip:Hide()
+	_G.GameTooltip:Hide()
 
 	if E.db[self.parent:GetName()..'Faded'] then
 		E.db[self.parent:GetName()..'Faded'] = nil
-		UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
+		E:UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
 		if BUI.AS then
 			local AS = unpack(AddOnSkins) or nil
 			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
 		end
 	else
 		E.db[self.parent:GetName()..'Faded'] = true
-		UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
+		E:UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
 		self.parent.fadeInfo.finishedFunc = self.parent.fadeFunc
 	end
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
@@ -209,7 +209,6 @@ function mod:MiddleDatatextDimensions()
 	Bui_mdtp:Width(db.width)
 	Bui_mdtp:Height(db.height)
 	DT.UpdatePanelDimensions(Bui_mdtp)
-	--DT:UpdateAllDimensions()
 end
 
 function mod:PositionEditBoxHolder(bar)
@@ -287,6 +286,7 @@ function mod:ChangeLayout()
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i]:SetParent(Bui_rdtp)
 			bbuttons[i].text:SetText('C')
+			bbuttons[i].parent = _G.RightChatPanel
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
@@ -370,6 +370,7 @@ function mod:ChangeLayout()
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i]:SetParent(Bui_ldtp)
 			bbuttons[i].text:SetText('A')
+			bbuttons[i].parent = _G.LeftChatPanel
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
