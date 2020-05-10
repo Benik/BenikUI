@@ -233,18 +233,21 @@ function mod:ChangeLayout()
 	MinimapPanel:Height(PANEL_HEIGHT)
 
 	-- Left dt panel
+	Bui_ldtp:SetTemplate('Default', true)
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
 	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_ldtp:Style('Outside', nil, false, true)
 
 	-- Right dt panel
+	Bui_rdtp:SetTemplate('Default', true)
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_rdtp:Style('Outside', nil, false, true)
 
 	-- Middle dt panel
+	Bui_mdtp:SetTemplate('Default', true)
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
 	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
 	Bui_mdtp:Width(E.db.benikui.datatexts.middle.width or 400)

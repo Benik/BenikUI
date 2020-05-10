@@ -54,8 +54,8 @@ local function SetupLayout(layout)
 	E.db["databars"]["reputation"]["textFormat"] = 'NONE'
 	E.db["databars"]["reputation"]["textSize"] = 9
 	E.db["databars"]["reputation"]["width"] = 8
-	E.db["datatexts"]["leftChatPanel"] = false
-	E.db["datatexts"]["panelTransparency"] = true
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["rightChatPanel"] = false
 	E.db["general"]["backdropcolor"]["b"] = 0.025
 	E.db["general"]["backdropcolor"]["g"] = 0.025
@@ -1946,7 +1946,16 @@ local function SetupAddons()
 end
 
 local function SetupDataTexts(role)
-	-- Data Texts
+	--[[ Data Texts
+	local db = E.DataTexts:Panel_DefaultGlobalSettings('BuiLeftChatDTPanel')
+	E.DataTexts:BuildPanelFrame('BuiLeftChatDTPanel', db)
+	
+	db = E.DataTexts:Panel_DefaultGlobalSettings('BuiRightChatDTPanel')
+	E.DataTexts:BuildPanelFrame('BuiRightChatDTPanel', db)
+	
+	db = E.DataTexts:Panel_DefaultGlobalSettings('BuiMiddleDTPanel')
+	E.DataTexts:BuildPanelFrame('BuiMiddleDTPanel', db)]]
+
 	if BUI.LP then
 		E.db["datatexts"]["panels"]["RightCoordDtPanel"] = 'Time'
 		E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Quick Join'
