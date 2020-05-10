@@ -1,8 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:NewModule('Layout', 'AceHook-3.0', 'AceEvent-3.0');
 local LO = E:GetModule('Layout');
-local DT = E:GetModule('DataTexts');
-local CH = E:GetModule('Chat');
+local DT = E:GetModule('DataTexts')
 local M = E:GetModule('Minimap');
 local LSM = E.LSM
 
@@ -22,17 +21,16 @@ local GameMenuButtonAddons = GameMenuButtonAddons
 -- GLOBALS: AddOnSkins, MAINMENU_BUTTON, LFG_TITLE, BuiLeftChatDTPanel
 -- GLOBALS: BuiMiddleDTPanel, BuiRightChatDTPanel, BuiGameClickMenu
 -- GLOBALS: EncounterJournal_LoadUI, EncounterJournal
--- GLOBALS: LeftMiniPanel, RightMiniPanel, Minimap
+-- GLOBALS: MinimapPanel, Minimap
 -- GLOBALS: LeftChatPanel, RightChatPanel, CopyChatFrame
 
 local PANEL_HEIGHT = 19;
 local SPACING = (E.PixelMode and 1 or 3)
-local SIDE_BUTTON_WIDTH = 18
 local BUTTON_NUM = 4
 
---local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
---local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
---local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
+local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
+local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
+local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
 
 local function RegDataTexts()
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
@@ -110,7 +108,8 @@ function mod:ToggleBuiDts()
 end
 
 function mod:ResizeMinimapPanels()
-	_G.MinimapPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+	MinimapPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+	MinimapPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', -SPACING, -(SPACING + PANEL_HEIGHT))
 end
 
 function mod:ToggleTransparency()
@@ -207,7 +206,7 @@ function mod:MiddleDatatextDimensions()
 	local db = E.db.benikui.datatexts.middle
 	Bui_mdtp:Width(db.width)
 	Bui_mdtp:Height(db.height)
-	DT.UpdatePanelDimensions(Bui_mdtp)
+	--DT.UpdatePanelDimensions(Bui_mdtp)
 end
 
 function mod:PositionEditBoxHolder(bar)
@@ -229,66 +228,23 @@ local function Panel_OnShow(self)
 	self:SetFrameLevel(0)
 end
 
-function mod:RepositionChatDataPanels()
-	print('HOOOK')
-	local LeftChatTab = _G.LeftChatTab
-	local RightChatTab = _G.RightChatTab
-	local LeftChatPanel = _G.LeftChatPanel
-	local RightChatPanel = _G.RightChatPanel
-	local LeftChatDataPanel = _G.LeftChatDataPanel
-	local RightChatDataPanel = _G.RightChatDataPanel
-	local LeftChatToggleButton = _G.LeftChatToggleButton
-	local RightChatToggleButton = _G.RightChatToggleButton
-
-	LeftChatTab:ClearAllPoints()
-	RightChatTab:ClearAllPoints()
-	LeftChatDataPanel:ClearAllPoints()
-	RightChatDataPanel:ClearAllPoints()
-
-	LeftChatTab:Point('TOPLEFT', LeftChatPanel, 'TOPLEFT', 2, -2)
-	LeftChatTab:Point('BOTTOMRIGHT', LeftChatPanel, 'TOPRIGHT', -2, -PANEL_HEIGHT-2)
-	RightChatTab:Point('TOPRIGHT', RightChatPanel, 'TOPRIGHT', -2, -2)
-	RightChatTab:Point('BOTTOMLEFT', RightChatPanel, 'TOPLEFT', 2, -PANEL_HEIGHT-2)
-
-	local SPACING = E.PixelMode and 1 or -1
-	local SIDE_BUTTON = E.db.chat.hideChatToggles and 0 or (SIDE_BUTTON_WIDTH+1)
-	if E.db.chat.LeftChatDataPanelAnchor == 'ABOVE_CHAT' then
-		LeftChatDataPanel:Point('BOTTOMRIGHT', LeftChatPanel, 'TOPRIGHT', 0, -SPACING)
-		LeftChatDataPanel:Point('TOPLEFT', LeftChatPanel, 'TOPLEFT', SIDE_BUTTON, 1 + PANEL_HEIGHT)
-		LeftChatToggleButton:Point('BOTTOMRIGHT', LeftChatDataPanel, 'BOTTOMLEFT', 1, 0)
-		LeftChatToggleButton:Point('TOPLEFT', LeftChatDataPanel, 'TOPLEFT', -(SIDE_BUTTON_WIDTH + 1), 0)
-	else
-		LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMRIGHT', 0, SPACING)
-		LeftChatDataPanel:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', SIDE_BUTTON, -(1 + PANEL_HEIGHT))
-		LeftChatToggleButton:Point('TOPRIGHT', LeftChatDataPanel, 'TOPLEFT', 1, 0)
-		LeftChatToggleButton:Point('BOTTOMLEFT', LeftChatDataPanel, 'BOTTOMLEFT', -(SIDE_BUTTON_WIDTH + 1), 0)
-	end
-
-	if E.db.chat.RightChatDataPanelAnchor == 'ABOVE_CHAT' then
-		RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'TOPLEFT', 0, -SPACING)
-		RightChatDataPanel:Point('TOPRIGHT', RightChatPanel, 'TOPRIGHT', -SIDE_BUTTON, 1 + PANEL_HEIGHT)
-		RightChatToggleButton:Point('BOTTOMLEFT', RightChatDataPanel, 'BOTTOMRIGHT', -1, 0)
-		RightChatToggleButton:Point('TOPRIGHT', RightChatDataPanel, 'TOPRIGHT', SIDE_BUTTON_WIDTH + 1, 0)
-	else
-		RightChatDataPanel:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, SPACING)
-		RightChatDataPanel:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -SIDE_BUTTON, -(1 + PANEL_HEIGHT))
-		RightChatToggleButton:Point('TOPLEFT', RightChatDataPanel, 'TOPRIGHT', -1, 0)
-		RightChatToggleButton:Point('BOTTOMRIGHT', RightChatDataPanel, 'BOTTOMRIGHT', SIDE_BUTTON_WIDTH + 1, 0)
-	end
-end
-
 function mod:ChangeLayout()
-	local mPanel = _G.MinimapPanel
-	local leftPanel = _G.LeftChatDataPanel
-	local rightPanel = _G.RightChatDataPanel
-	local lcButton = _G.LeftChatToggleButton
-	local rcButton = _G.RightChatToggleButton
 
-	mPanel:Height(PANEL_HEIGHT)
-	leftPanel:Height(PANEL_HEIGHT)
-	rightPanel:Height(PANEL_HEIGHT)
-	
-	--[[ Middle dt panel
+	MinimapPanel:Height(PANEL_HEIGHT)
+
+	-- Left dt panel
+	Bui_ldtp:SetFrameStrata('BACKGROUND')
+	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
+	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
+	Bui_ldtp:Style('Outside', nil, false, true)
+
+	-- Right dt panel
+	Bui_rdtp:SetFrameStrata('BACKGROUND')
+	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
+	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
+	Bui_rdtp:Style('Outside', nil, false, true)
+
+	-- Middle dt panel
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
 	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
 	Bui_mdtp:Width(E.db.benikui.datatexts.middle.width or 400)
@@ -305,7 +261,7 @@ function mod:ChangeLayout()
 	-- dummy frame for threat (right)
 	Bui_dthreat:SetFrameStrata('LOW')
 	Bui_dthreat:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, -SPACING)
-	Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)]]
+	Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
 
 	-- Buttons
 	for i = 1, BUTTON_NUM do
@@ -486,7 +442,7 @@ function mod:ChangeLayout()
 	RightChatPanel.backdrop:Style('Outside', 'RightChatPanel_Bui')
 
 	if BUI.ShadowMode then
-		mPanel:CreateSoftShadow()
+		MinimapPanel:CreateSoftShadow()
 		LeftChatDataPanel:CreateSoftShadow()
 		LeftChatToggleButton:CreateSoftShadow()
 		RightChatDataPanel:CreateSoftShadow()
@@ -499,8 +455,7 @@ function mod:ChangeLayout()
 	if CopyChatFrame then CopyChatFrame:Style('Outside') end
 
 	self:ResizeMinimapPanels()
-	self:RepositionChatDataPanels()
-	--self:ToggleTransparency()
+	self:ToggleTransparency()
 end
 
 -- Add minimap styling option in ElvUI minimap options
@@ -528,22 +483,20 @@ end
 function mod:regEvents()
 	self:MiddleDatatextLayout()
 	self:MiddleDatatextDimensions()
-	--self:ToggleTransparency()
+	self:ToggleTransparency()
 end
 
 function mod:PLAYER_ENTERING_WORLD(...)
-	--self:ToggleBuiDts()
-	--self:regEvents()
+	self:ToggleBuiDts()
+	self:regEvents()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function mod:Initialize()
-	--RegDataTexts()
+	RegDataTexts()
 	self:ChangeLayout()
-	--self:ChatStyles()
+	self:ChatStyles()
 	self:ToggleMinimapStyle()
-	hooksecurefunc(LO, 'RepositionChatDataPanels', mod.RepositionChatDataPanels)
-	hooksecurefunc(CH, 'PositionChat', mod.RepositionChatDataPanels)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ResizeMinimapPanels)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ChatStyles)
