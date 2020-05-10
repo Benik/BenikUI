@@ -28,9 +28,9 @@ local PANEL_HEIGHT = 19;
 local SPACING = (E.PixelMode and 1 or 3)
 local BUTTON_NUM = 4
 
-local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
-local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
-local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
+--local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
+--local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
+--local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
 
 local function RegDataTexts()
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
@@ -108,10 +108,7 @@ function mod:ToggleBuiDts()
 end
 
 function mod:ResizeMinimapPanels()
-	LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-	LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
-	RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
-	RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
+	_G.MinimapPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
 end
 
 function mod:ToggleTransparency()
@@ -232,22 +229,9 @@ end
 
 function mod:ChangeLayout()
 
-	LeftMiniPanel:Height(PANEL_HEIGHT)
-	RightMiniPanel:Height(PANEL_HEIGHT)
+	_G.MinimapPanel:Height(PANEL_HEIGHT)
 
-	-- Left dt panel
-	Bui_ldtp:SetFrameStrata('BACKGROUND')
-	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
-	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
-	Bui_ldtp:Style('Outside', nil, false, true)
-
-	-- Right dt panel
-	Bui_rdtp:SetFrameStrata('BACKGROUND')
-	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
-	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
-	Bui_rdtp:Style('Outside', nil, false, true)
-
-	-- Middle dt panel
+	--[[ Middle dt panel
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
 	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
 	Bui_mdtp:Width(E.db.benikui.datatexts.middle.width or 400)
@@ -264,7 +248,7 @@ function mod:ChangeLayout()
 	-- dummy frame for threat (right)
 	Bui_dthreat:SetFrameStrata('LOW')
 	Bui_dthreat:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, -SPACING)
-	Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
+	Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)]]
 
 	-- Buttons
 	for i = 1, BUTTON_NUM do
@@ -445,8 +429,7 @@ function mod:ChangeLayout()
 	RightChatPanel.backdrop:Style('Outside', 'RightChatPanel_Bui')
 
 	if BUI.ShadowMode then
-		LeftMiniPanel:CreateSoftShadow()
-		RightMiniPanel:CreateSoftShadow()
+		_G.MinimapPanel:CreateSoftShadow()
 		LeftChatDataPanel:CreateSoftShadow()
 		LeftChatToggleButton:CreateSoftShadow()
 		RightChatDataPanel:CreateSoftShadow()
@@ -459,7 +442,7 @@ function mod:ChangeLayout()
 	if CopyChatFrame then CopyChatFrame:Style('Outside') end
 
 	self:ResizeMinimapPanels()
-	self:ToggleTransparency()
+	--self:ToggleTransparency()
 end
 
 -- Add minimap styling option in ElvUI minimap options
@@ -487,19 +470,19 @@ end
 function mod:regEvents()
 	self:MiddleDatatextLayout()
 	self:MiddleDatatextDimensions()
-	self:ToggleTransparency()
+	--self:ToggleTransparency()
 end
 
 function mod:PLAYER_ENTERING_WORLD(...)
-	self:ToggleBuiDts()
-	self:regEvents()
+	--self:ToggleBuiDts()
+	--self:regEvents()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function mod:Initialize()
-	RegDataTexts()
+	--RegDataTexts()
 	self:ChangeLayout()
-	self:ChatStyles()
+	--self:ChatStyles()
 	self:ToggleMinimapStyle()
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ResizeMinimapPanels)
