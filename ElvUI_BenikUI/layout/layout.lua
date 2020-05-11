@@ -37,9 +37,6 @@ local function RegDataTexts()
 	DT:RegisterPanel(BuiMiddleDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
-	L['BuiLeftChatDTPanel'] = BUI.Title..BUI:cOption(L['Left Chat Panel']);
-	L['BuiRightChatDTPanel'] = BUI.Title..BUI:cOption(L['Right Chat Panel']);
-	L['BuiMiddleDTPanel'] = BUI.Title..BUI:cOption(L['Middle Panel']);
 	E.FrameLocks['BuiMiddleDTPanel'] = true;
 end
 
@@ -508,11 +505,64 @@ function mod:PLAYER_ENTERING_WORLD(...)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+local function InjectDatatextOptions()
+	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel = {
+		type = "group",
+		name = BUI.Title..BUI:cOption(L['Left Chat Panel']),
+		desc = L["Display data panels below the chat, used for datatexts."],
+		order = 1000,
+		get = function(info) return E.db.datatexts.panels.BuiLeftChatDTPanel[info[#info]] end,
+		set = function(info, value) E.db.datatexts.panels.BuiLeftChatDTPanel[info[#info]] = value DT:UpdatePanelInfo('BuiLeftChatDTPanel') end,
+		args = {
+			enable = {
+				order = 0,
+				name = L['Enable'],
+				type = 'toggle',
+				set = function(info, value)
+					E.db.datatexts.panels[info[#info - 1]][info[#info]] = value
+					--if E.db.RightChatPanelFaded then
+						--E.db.RightChatPanelFaded = true;
+						--_G.HideRightChat()
+					--end
+
+					--Chat:UpdateEditboxAnchors()
+					--Layout:ToggleChatPanels()
+					--Layout:SetDataPanelStyle()
+					DT:UpdatePanelInfo('BuiLeftChatDTPanel')
+				end,
+			},
+		},
+	}
+
+	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel = {
+		type = "group",
+		name = BUI.Title..BUI:cOption(L['Right Chat Panel']),
+		desc = L["Display data panels below the chat, used for datatexts."],
+		order = 1001,
+		get = function(info) return E.db.datatexts.panels.BuiRightChatDTPanel[info[#info]] end,
+		set = function(info, value) E.db.datatexts.panels.BuiRightChatDTPanel[info[#info]] = value DT:UpdatePanelInfo('BuiRightChatDTPanel') end,
+		args = {
+		},
+	}
+
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel = {
+		type = "group",
+		name = BUI.Title..BUI:cOption(L['Middle Panel']),
+		desc = L["Display data panels below the chat, used for datatexts."],
+		order = 1002,
+		get = function(info) return E.db.datatexts.panels.BuiMiddleDTPanel[info[#info]] end,
+		set = function(info, value) E.db.datatexts.panels.BuiMiddleDTPanel[info[#info]] = value DT:UpdatePanelInfo('BuiMiddleDTPanel') end,
+		args = {
+		},
+	}
+end
+
 function mod:Initialize()
 	RegDataTexts()
 	self:ChangeLayout()
 	self:ChatStyles()
 	self:ToggleMinimapStyle()
+	tinsert(BUI.Config, InjectDatatextOptions)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ResizeMinimapPanels)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ChatStyles)

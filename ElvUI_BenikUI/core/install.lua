@@ -1946,15 +1946,7 @@ local function SetupAddons()
 end
 
 local function SetupDataTexts(role)
-	--[[ Data Texts
-	local db = E.DataTexts:Panel_DefaultGlobalSettings('BuiLeftChatDTPanel')
-	E.DataTexts:BuildPanelFrame('BuiLeftChatDTPanel', db)
-	
-	db = E.DataTexts:Panel_DefaultGlobalSettings('BuiRightChatDTPanel')
-	E.DataTexts:BuildPanelFrame('BuiRightChatDTPanel', db)
-	
-	db = E.DataTexts:Panel_DefaultGlobalSettings('BuiMiddleDTPanel')
-	E.DataTexts:BuildPanelFrame('BuiMiddleDTPanel', db)]]
+	-- Data Texts
 
 	if BUI.LP then
 		E.db["datatexts"]["panels"]["RightCoordDtPanel"] = 'Time'
@@ -1983,6 +1975,10 @@ local function SetupDataTexts(role)
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][2] = 'Bags'
 
 	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][2] = 'Mastery'
+
+	E.DataTexts:UpdatePanelInfo('BuiLeftChatDTPanel')
+	E.DataTexts:UpdatePanelInfo('BuiRightChatDTPanel')
+	E.DataTexts:UpdatePanelInfo('BuiMiddleDTPanel')
 
 	PluginInstallStepComplete.message = BUI.Title..L['DataTexts Set']
 	PluginInstallStepComplete:Show()
