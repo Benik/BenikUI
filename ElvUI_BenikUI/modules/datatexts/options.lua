@@ -83,7 +83,7 @@ local function Datatexts()
 						},
 						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('Chat'):UpdateAnchors() end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('Chat'):UpdateEditboxAnchors() end,
 					},
 					showChatDt = {
 						order = 8,
@@ -96,7 +96,7 @@ local function Datatexts()
 						},
 						disabled = function() return E.db.benikui.datatexts.chat.enable ~= true end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateAnchors(); end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateEditboxAnchors(); end,
 					},
 				},
 			},

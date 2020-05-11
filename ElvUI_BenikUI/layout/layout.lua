@@ -279,6 +279,13 @@ function mod:ChangeLayout()
 		bbuttons[i].text:SetPoint('CENTER', 1, 0)
 		bbuttons[i].text:SetJustifyH('CENTER')
 		bbuttons[i].text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
+		bbuttons[i].arrow = bbuttons[i]:CreateTexture(nil, 'OVERLAY')
+		bbuttons[i].arrow:SetTexture(E.Media.Textures.ArrowUp)
+		bbuttons[i].arrow:ClearAllPoints()
+		bbuttons[i].arrow:Point('CENTER')
+		bbuttons[i].arrow:Size(12)
+		bbuttons[i].arrow:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+		bbuttons[i].arrow:Hide()
 
 		-- ElvUI Config
 		if i == 1 then
@@ -286,6 +293,7 @@ function mod:ChangeLayout()
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i]:SetParent(Bui_rdtp)
 			bbuttons[i].text:SetText('C')
+			bbuttons[i].arrow:SetRotation(E.Skins.ArrowRotation.right)
 			bbuttons[i].parent = _G.RightChatPanel
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
@@ -302,9 +310,11 @@ function mod:ChangeLayout()
 				end
 
 				if IsShiftKeyDown() then
-					self.text:SetText('>')
+					self.text:SetText('')
+					self.arrow:Show()
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
+					self.arrow:Hide()
 					self.text:SetText('C')
 					self:SetScript('OnClick', function(self, btn)
 						if btn == 'LeftButton' then
@@ -370,6 +380,7 @@ function mod:ChangeLayout()
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i]:SetParent(Bui_ldtp)
 			bbuttons[i].text:SetText('A')
+			bbuttons[i].arrow:SetRotation(E.Skins.ArrowRotation.left)
 			bbuttons[i].parent = _G.LeftChatPanel
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
@@ -377,7 +388,8 @@ function mod:ChangeLayout()
 					self.sglow:Show()
 				end
 				if IsShiftKeyDown() then
-					self.text:SetText('<')
+					self.arrow:Show()
+					self.text:SetText('')
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
 					self:SetScript('OnClick', function(self)
@@ -394,6 +406,7 @@ function mod:ChangeLayout()
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
 				self.text:SetText('A')
+				self.arrow:Hide()
 				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
