@@ -15,9 +15,7 @@ local IsMouseButtonDown = IsMouseButtonDown
 -- GLOBALS: CHAT_FRAMES, RightChatDataPanel, LeftChatDataPanel, BuiDummyChat, RightChatPanel, LeftChatPanel, LeftChatTab
 
 -- Place the new chat frame
-CH.BUIUpdateAnchors = CH.UpdateAnchors
-function CH:UpdateAnchors()
-	self:BUIUpdateAnchors()
+local function UpdateEditboxAnchors()
 	for _, frameName in pairs(CHAT_FRAMES) do
 		local frame = _G[frameName..'EditBox']
 		if not frame then break; end
@@ -38,7 +36,7 @@ function CH:UpdateAnchors()
 		end
 	end
 
-	CH:PositionChat(true)
+	--CH:PositionChat(true)
 end
 
 local CreatedFrames = 0;
@@ -96,6 +94,8 @@ local function PositionChat(self, override)
 	end
 end
 
+
 hooksecurefunc(CH, "PositionChat", PositionChat)
-hooksecurefunc(CH, "StyleChat", Style)
+hooksecurefunc(CH, "UpdateEditboxAnchors", UpdateEditboxAnchors)
+hooksecurefunc(CH, "PositionChat", PositionChat)
 hooksecurefunc(FM, "SetFlightMode", PositionChat)
