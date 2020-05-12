@@ -219,21 +219,21 @@ P['benikui'] = {
 
 -- Datatexts
 P.datatexts.panels.BuiLeftChatDTPanel = {
-	left = E.db.datatexts.panels.LeftChatDataPanel.left,
-	middle = E.db.datatexts.panels.LeftChatDataPanel.middle,
-	right = E.db.datatexts.panels.LeftChatDataPanel.right,
+	[1] = 'Attack Power',
+	[2] = 'BfA Missions (BenikUI)',
+	[3] = 'BuiMail',
 }
 
 P.datatexts.panels.BuiRightChatDTPanel = {
-	left = E.db.datatexts.panels.RightChatDataPanel.left,
-	middle = E.db.datatexts.panels.RightChatDataPanel.middle,
-	right = E.db.datatexts.panels.RightChatDataPanel.right,
+	[1] = 'Spec Switch (BenikUI)',
+	[2] = 'Gold',
+	[3] = 'Bags',
 }
 
 P.datatexts.panels.BuiMiddleDTPanel = {
-	left = 'Haste',
-	middle = 'Mastery',
-	right = 'Crit Chance',
+	[1] = 'Haste',
+	[2] = 'Mastery',
+	[3] = 'Crit Chance',
 }
 
 -- Skins and ElvUI addons Styling
