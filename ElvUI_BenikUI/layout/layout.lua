@@ -203,7 +203,7 @@ function mod:MiddleDatatextDimensions()
 	local db = E.db.benikui.datatexts.middle
 	Bui_mdtp:Width(db.width)
 	Bui_mdtp:Height(db.height)
-	--DT.UpdatePanelDimensions(Bui_mdtp)
+	DT:UpdatePanelInfo('BuiMiddleDTPanel')
 end
 
 function mod:PositionEditBoxHolder(bar)
