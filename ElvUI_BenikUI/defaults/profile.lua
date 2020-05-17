@@ -102,6 +102,7 @@ P['benikui'] = {
 			['width'] = 400,
 			['height'] = 19,
 			['styled'] = false,
+			['numPoints'] = 3,
 		},
 		['mail'] = {
 			['toggle'] = true,
