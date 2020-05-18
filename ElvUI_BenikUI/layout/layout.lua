@@ -28,19 +28,6 @@ local PANEL_HEIGHT = 19;
 local SPACING = (E.PixelMode and 1 or 3)
 local BUTTON_NUM = 4
 
-local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
-local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
-local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
-
-local function RegDataTexts()
-	local db = E.db.benikui.datatexts
-	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(BuiMiddleDTPanel, (db.middle.numPoints or 3), 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
-
-	E.FrameLocks['BuiMiddleDTPanel'] = true;
-end
-
 local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
 local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent)
 local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent)
@@ -112,6 +99,9 @@ end
 
 function mod:ToggleTransparency()
 	local db = E.db.benikui.datatexts.chat
+	local Bui_ldtp = _G.BuiLeftChatDTPanel
+	local Bui_rdtp = _G.BuiRightChatDTPanel
+
 	if not db.backdrop then
 		Bui_ldtp:SetTemplate('NoBackdrop')
 		Bui_rdtp:SetTemplate('NoBackdrop')
@@ -151,6 +141,7 @@ end
 
 function mod:MiddleDatatextLayout()
 	local db = E.db.benikui.datatexts.middle
+	local Bui_mdtp = _G.BuiMiddleDTPanel
 
 	if db.enable then
 		Bui_mdtp:Show()
@@ -185,6 +176,9 @@ end
 
 function mod:ChatStyles()
 	if not E.db.benikui.general.benikuiStyle then return end
+	local Bui_ldtp = _G.BuiLeftChatDTPanel
+	local Bui_rdtp = _G.BuiRightChatDTPanel
+
 	if E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH' then
 		Bui_rdtp.style:Show()
 		Bui_ldtp.style:Show()
@@ -202,6 +196,8 @@ end
 
 function mod:MiddleDatatextDimensions()
 	local db = E.db.benikui.datatexts.middle
+	local Bui_mdtp = _G.BuiMiddleDTPanel
+
 	Bui_mdtp:Width(db.width)
 	Bui_mdtp:Height(db.height)
 	DT:UpdatePanelInfo('BuiMiddleDTPanel')
@@ -226,33 +222,39 @@ local function Panel_OnShow(self)
 	self:SetFrameLevel(0)
 end
 
-function mod:ChangeLayout()
-
-	MinimapPanel:Height(PANEL_HEIGHT)
+function mod:CreateLayout()
+	local db = E.db.benikui.datatexts
 
 	-- Left dt panel
+	local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
 	Bui_ldtp:SetTemplate('Default', true)
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
 	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_ldtp:Style('Outside', nil, false, true)
+	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- Right dt panel
+	local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
 	Bui_rdtp:SetTemplate('Default', true)
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_rdtp:Style('Outside', nil, false, true)
+	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- Middle dt panel
+	local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
 	Bui_mdtp:SetTemplate('Default', true)
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
 	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
-	Bui_mdtp:Width(E.db.benikui.datatexts.middle.width or 400)
-	Bui_mdtp:Height(E.db.benikui.datatexts.middle.height or PANEL_HEIGHT)
+	Bui_mdtp:Width(db.middle.width or 400)
+	Bui_mdtp:Height(db.middle.height or PANEL_HEIGHT)
 	Bui_mdtp:Style('Outside', nil, false, true)
+	DT:RegisterPanel(BuiMiddleDTPanel, (db.middle.numPoints or 3), 'ANCHOR_BOTTOM', 0, -4)
 
 	E:CreateMover(Bui_mdtp, "BuiMiddleDtMover", L['BenikUI Middle DataText'], nil, nil, nil, 'ALL,BENIKUI')
+	E.FrameLocks['BuiMiddleDTPanel'] = true;
 
 	-- dummy frame for chat/threat (left)
 	Bui_dchat:SetFrameStrata('LOW')
@@ -446,7 +448,8 @@ function mod:ChangeLayout()
 			end)
 		end
 	end
-	
+
+	MinimapPanel:Height(PANEL_HEIGHT)
 	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
 	ElvUI_BottomPanel:SetFrameLevel(0)
 	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
@@ -518,8 +521,7 @@ local function InjectDatatextOptions()
 end
 
 function mod:Initialize()
-	RegDataTexts()
-	self:ChangeLayout()
+	self:CreateLayout()
 	self:ChatStyles()
 	self:ToggleMinimapStyle()
 	tinsert(BUI.Config, InjectDatatextOptions)
