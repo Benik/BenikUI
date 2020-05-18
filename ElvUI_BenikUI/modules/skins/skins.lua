@@ -330,8 +330,8 @@ local function styleAddons()
 	-- LocationPlus
 	if BUI.LP and E.db.benikuiSkins.elvuiAddons.locplus then
 		local framestoskin = {
-			_G.LeftCoordDtPanel,
-			_G.RightCoordDtPanel,
+			_G.LocPlusLeftDT,
+			_G.LocPlusRightDT,
 			_G.LocationPlusPanel,
 			_G.XCoordsPanel,
 			_G.YCoordsPanel

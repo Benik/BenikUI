@@ -1949,10 +1949,10 @@ local function SetupDataTexts(role)
 	-- Data Texts
 
 	if BUI.LP then
-		E.db["datatexts"]["panels"]["RightCoordDtPanel"][1] = 'Time'
-		E.db["datatexts"]["panels"]["LeftCoordDtPanel"][2] = 'Primary Stat'
-		E.DataTexts:UpdatePanelInfo('RightCoordDtPanel')
-		E.DataTexts:UpdatePanelInfo('LeftCoordDtPanel')
+		E.db["datatexts"]["panels"]["LocPlusRightDT"][1] = 'Time'
+		E.db["datatexts"]["panels"]["LocPlusLeftDT"][1] = 'Primary Stat'
+		E.DataTexts:UpdatePanelInfo('LocPlusRightDT')
+		E.DataTexts:UpdatePanelInfo('LocPlusLeftDT')
 	end
 
 	if role == 'tank' then
