@@ -1950,7 +1950,7 @@ local function SetupDataTexts(role)
 
 	if BUI.LP then
 		E.db["datatexts"]["panels"]["RightCoordDtPanel"][1] = 'Time'
-		E.db["datatexts"]["panels"]["LeftCoordDtPanel"][2] = 'Quick Join'
+		E.db["datatexts"]["panels"]["LeftCoordDtPanel"][2] = 'Primary Stat'
 		E.DataTexts:UpdatePanelInfo('RightCoordDtPanel')
 		E.DataTexts:UpdatePanelInfo('LeftCoordDtPanel')
 	end
