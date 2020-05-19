@@ -350,14 +350,6 @@ local function styleAddons()
 			_G.SLE_BG_2,
 			_G.SLE_BG_3,
 			_G.SLE_BG_4,
-			_G.SLE_DataPanel_1,
-			_G.SLE_DataPanel_2,
-			_G.SLE_DataPanel_3,
-			_G.SLE_DataPanel_4,
-			_G.SLE_DataPanel_5,
-			_G.SLE_DataPanel_6,
-			_G.SLE_DataPanel_7,
-			_G.SLE_DataPanel_8,
 			_G.SLE_RaidMarkerBar.backdrop,
 			_G.SLE_SquareMinimapButtonBar,
 			_G.SLE_LocationPanel,
@@ -390,15 +382,6 @@ local function styleAddons()
 
 		if _G.RaidMarkerBar.backdrop then
 			_G.RaidMarkerBar.backdrop:Style("Outside")
-		end
-	end
-
-	-- ElvUI_DTBars2
-	if IsAddOnLoaded("ElvUI_DTBars2") and E.db.benikuiSkins.elvuiAddons.dtb2 then
-		for panelname, data in pairs(E.global.dtbars) do
-			if panelname then
-				_G[panelname]:Style("Outside")
-			end
 		end
 	end
 

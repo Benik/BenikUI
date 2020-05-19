@@ -244,7 +244,6 @@ P['benikuiSkins'] = {
 		['locplus'] = true,
 		['sle'] = true,
 		['enh'] = true,
-		['dtb2'] = true,
 		['pa'] = true,
 	},
 	
