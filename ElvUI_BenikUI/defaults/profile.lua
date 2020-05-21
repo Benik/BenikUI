@@ -380,3 +380,5 @@ G['benikui'] = {
 		['createButton'] = false,
 	},
 }
+
+G.datatexts.newPanelInfo.benikuiStyle = true
