@@ -221,11 +221,19 @@ end
 tinsert(BUI.Config, Datatexts)
 
 local DTPanelOptions = {
-	benikuiStyle = {
+	benikuiGroup = {
 		order = 6,
-		type = 'toggle',
-		name = BUI:cOption(L['BenikUI Style']),
-	}
+		type = 'group',
+		name = BUI.Title,
+		guiInline = true,
+		args = {
+			benikuiStyle = {
+				order = 1,
+				type = 'toggle',
+				name = L['BenikUI Style'],
+			},
+		},
+	},
 }
 
 local function PanelGroup_Create(panel)
