@@ -51,9 +51,14 @@ function mod:UpdatePanelInfo(panelName, panel, ...)
 	end
 end
 
+function mod:SetupTooltip(panel)
+	DT.tooltip:Style('Outside')
+end
+
 function mod:Initialize()
 	hooksecurefunc(DT, "BuildPanelFrame", mod.BuildPanelFrame)
 	hooksecurefunc(DT, "UpdatePanelInfo", mod.UpdatePanelInfo)
+	hooksecurefunc(DT, "SetupTooltip", mod.SetupTooltip)
 end
 
 BUI:RegisterModule(mod:GetName())
