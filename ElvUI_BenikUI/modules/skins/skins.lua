@@ -645,7 +645,7 @@ function mod:PLAYER_ENTERING_WORLD(...)
 end
 
 local function StyleElvUIConfig()
-	if not E.private.skins.ace3.enable then return end
+	if not E.private.skins.ace3Enable then return end
 
 	local frame = E:Config_GetWindow()
 	if not frame.style then
