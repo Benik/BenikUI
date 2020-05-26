@@ -92,7 +92,7 @@ local function SetupLayout(layout)
 	E.db["hideTutorial"] = true
 	E.private["skins"]["blizzard"]["alertframes"] = true
 	E.private["skins"]["blizzard"]["questChoice"] = true
-	E.private["skins"]["parchmentRemover"]["enable"] = true
+	E.private["skins"]["parchmentRemoverEnable"] = true
 
 	E.db["benikuiDatabars"]["azerite"]["buttonStyle"] = "DEFAULT"
 	E.db["benikuiDatabars"]["azerite"]["notifiers"]["position"] = "RIGHT"
