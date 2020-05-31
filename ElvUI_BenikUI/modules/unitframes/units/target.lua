@@ -158,8 +158,8 @@ function BU:ArrangeTarget()
 end
 
 function BU:PLAYER_TARGET_CHANGED()
-	self:ScheduleTimer('RecolorTargetDetachedPortraitStyle', 0.02)
-	self:ScheduleTimer('RecolorTargetInfoPanel', 0.02)
+	self:RecolorTargetDetachedPortraitStyle()
+	self:RecolorTargetInfoPanel()
 end
 
 function BU:InitTarget()
