@@ -31,18 +31,18 @@ end
 
 local function GetClassColor(unit)
 	local unitReaction = UnitReaction(unit, 'player')
-	local _, targetClass = UnitClass(unit)
-	local r, g, b
-	if (UnitIsPlayer(unit)) then
-		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
-		if not targetClass then return "" end
-		r, g, b = classColor.r, classColor.g, classColor.b
+	local unitPlayer = UnitIsPlayer(unit)
+
+	if (unitPlayer) then
+		local _, unitClass = UnitClass(unit)
+		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[unitClass] or RAID_CLASS_COLORS[unitClass])
+		return classColor.r, classColor.g, classColor.b
 	elseif (unitReaction) then
 		local reaction = ElvUF.colors.reaction[unitReaction]
-		r, g, b = reaction[1], reaction[2], reaction[3]
+		return reaction[1], reaction[2], reaction[3]
+	else
+		return 255, 128, 128
 	end
-
-	return r, g, b
 end
 
 -- Units
@@ -164,11 +164,19 @@ function BU:BossInfoPanelColor()
 	end
 end
 
-function BU:InfoPanelColor()
+function BU:UpdateUnitInfoPanelColor()
 	BU:UnitInfoPanelColor()
 	BU:RaidInfoPanelColor()
 	BU:Raid40InfoPanelColor()
 	BU:PartyInfoPanelColor()
 	BU:ArenaInfoPanelColor()
 	BU:BossInfoPanelColor()
+end
+
+function BU:InfoPanelColor()
+	--self:UpdateUnitInfoPanelColor()
+	self:RegisterEvent('UNIT_NAME_UPDATE', BU.UpdateUnitInfoPanelColor)
+	self:RegisterEvent('UNIT_FACTION', BU.UpdateUnitInfoPanelColor)
+	self:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT', BU.UpdateUnitInfoPanelColor)
+	hooksecurefunc(UF, 'Update_TargetFrame', BU.UnitInfoPanelColor)
 end
