@@ -19,5 +19,5 @@ LSM:Register('statusbar','BuiKait1', [[Interface\AddOns\ElvUI_BenikUI\media\text
 LSM:Register('statusbar','BuiKait2', [[Interface\AddOns\ElvUI_BenikUI\media\textures\Kait2.tga]])
 LSM:Register('statusbar','Bui-pHish1', [[Interface\AddOns\ElvUI_BenikUI\media\textures\pHishTex5.tga]])
 LSM:Register('statusbar','Bui-pHish2', [[Interface\AddOns\ElvUI_BenikUI\media\textures\pHishTex29.tga]])
-LSM:Register('statusbar','Bui-pHish3-Shadow', [[Interface\AddOns\ElvUI_BenikUI\media\textures\pHishTex35.tga]])
-LSM:Register('statusbar','Bui-Kringel-Shadow', [[Interface\AddOns\ElvUI_BenikUI\media\textures\KMT32.tga]])
+LSM:Register('statusbar','Bui-pHish3Shadow', [[Interface\AddOns\ElvUI_BenikUI\media\textures\pHishTex35.tga]])
+LSM:Register('statusbar','BuiKringelShadow', [[Interface\AddOns\ElvUI_BenikUI\media\textures\KMT32.tga]])
