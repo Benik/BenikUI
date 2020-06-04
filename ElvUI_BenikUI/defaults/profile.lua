@@ -191,6 +191,7 @@ P['benikui'] = {
 			['texture'] = 'BuiEmpty',
 			['customColor'] = 2,
 			['color'] = {r = .9, g = .7, b = 0, a = .7},
+			['groupColor'] = {r = .9, g = .7, b = 0, a = .7},
 		},
 		['castbar'] = {
 			['text'] = {
