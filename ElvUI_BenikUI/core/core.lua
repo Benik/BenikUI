@@ -56,7 +56,7 @@ local function RegisterMedia()
 	E['media'].BuiMelli = LSM:Fetch('statusbar', 'BuiMelli')
 	E['media'].BuiMelliDark = LSM:Fetch('statusbar', 'BuiMelliDark')
 	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
-	E['media'].BuiShadow = LSM:Fetch('statusbar', 'Bui-pHish3-Shadow')
+	E['media'].BuiShadow = LSM:Fetch('statusbar', 'Bui-Kringel-Shadow')
 end
 
 function BUI:Print(...)
