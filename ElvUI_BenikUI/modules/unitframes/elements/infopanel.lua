@@ -47,6 +47,8 @@ end
 
 -- Units
 function BU:UnitInfoPanelColor()
+	if not E.db.benikui.unitframes.infoPanel.enableColor then return end
+
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
 	for unit, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
@@ -165,6 +167,7 @@ function BU:BossInfoPanelColor()
 end
 
 function BU:UpdateGroupInfoPanelColor()
+	if not E.db.benikui.unitframes.infoPanel.enableColor then return end
 	self:RaidInfoPanelColor()
 	self:Raid40InfoPanelColor()
 	self:PartyInfoPanelColor()
@@ -173,6 +176,7 @@ function BU:UpdateGroupInfoPanelColor()
 end
 
 function BU:InfoPanelColor()
+	if not E.db.benikui.unitframes.infoPanel.enableColor then return end
 	self:UnitInfoPanelColor()
 	self:UpdateGroupInfoPanelColor()
 	self:RegisterEvent('UNIT_NAME_UPDATE', BU.UnitInfoPanelColor)

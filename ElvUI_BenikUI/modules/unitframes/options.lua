@@ -52,10 +52,19 @@ local function ufTable()
 						name = L['Colors'],
 						guiInline = true,
 						args = {
-							customColor = {
+							enableColor = {
+								type = 'toggle',
 								order = 1,
+								name = L["Enable"],
+								width = "full", 
+								get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+							},
+							customColor = {
+								order = 2,
 								type = "select",
 								name = format("%s (%s)", L.COLOR, L["Individual Units"]),
+								disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
 								values = {
 									[1] = L.CLASS_COLORS,
 									[2] = L["Custom Color"],
@@ -64,11 +73,11 @@ local function ufTable()
 								set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UnitInfoPanelColor() end,
 							},
 							color = {
-								order = 2,
+								order = 3,
 								type = "color",
 								name = L["Custom Color"],
 								hasAlpha = true,
-								disabled = function() return E.db.benikui.unitframes.infoPanel.customColor == 1 end,
+								disabled = function() return E.db.benikui.unitframes.infoPanel.customColor == 1 or not E.db.benikui.unitframes.infoPanel.enableColor end,
 								get = function(info)
 									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
 									local d = P.benikui.unitframes.infoPanel[info[#info]]
@@ -82,14 +91,15 @@ local function ufTable()
 								end,
 							},
 							spacer = {
-								order = 3,
+								order = 4,
 								type = 'header',
 								name = '',
 							},
 							groupColor = {
-								order = 4,
+								order = 5,
 								type = "color",
 								name = format("%s (%s)", L["Custom Color"], L["Group Units"]),
+								disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
 								hasAlpha = true,
 								get = function(info)
 									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
@@ -109,6 +119,7 @@ local function ufTable()
 						type = 'select', dialogControl = 'LSM30_Statusbar',
 						order = 3,
 						name = L["Texture"],
+						disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UnitInfoPanelColor() BU:UpdateGroupInfoPanelColor() end,
