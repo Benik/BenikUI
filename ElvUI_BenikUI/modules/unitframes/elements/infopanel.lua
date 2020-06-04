@@ -84,7 +84,7 @@ function BU:RaidInfoPanelColor()
 					unitbutton.InfoPanel.color:SetAllPoints()
 				end
 				unitbutton.InfoPanel.color:SetTexture(bar)
-				unitbutton.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color))
+				unitbutton.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.groupColor))
 			end
 		end
 	end
@@ -105,7 +105,7 @@ function BU:Raid40InfoPanelColor()
 					unitbutton.InfoPanel.color:SetAllPoints()
 				end
 				unitbutton.InfoPanel.color:SetTexture(bar)
-				unitbutton.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color))
+				unitbutton.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.groupColor))
 			end
 		end
 	end
@@ -126,7 +126,7 @@ function BU:PartyInfoPanelColor()
 					unitbutton.InfoPanel.color:SetAllPoints()
 				end
 				unitbutton.InfoPanel.color:SetTexture(bar)
-				unitbutton.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color))
+				unitbutton.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.groupColor))
 			end
 		end
 	end
@@ -143,7 +143,7 @@ function BU:ArenaInfoPanelColor()
 				unitbutton.InfoPanel.color:SetAllPoints()
 			end
 			unitbutton.InfoPanel.color:SetTexture(bar)
-			unitbutton.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color))
+			unitbutton.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.groupColor))
 		end
 	end
 end
@@ -159,24 +159,24 @@ function BU:BossInfoPanelColor()
 				unitbutton.InfoPanel.color:SetAllPoints()
 			end
 			unitbutton.InfoPanel.color:SetTexture(bar)
-			unitbutton.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color))
+			unitbutton.InfoPanel.color:SetVertexColor(BUI:unpackColor(E.db.benikui.unitframes.infoPanel.groupColor))
 		end
 	end
 end
 
-function BU:UpdateUnitInfoPanelColor()
-	BU:UnitInfoPanelColor()
-	BU:RaidInfoPanelColor()
-	BU:Raid40InfoPanelColor()
-	BU:PartyInfoPanelColor()
-	BU:ArenaInfoPanelColor()
-	BU:BossInfoPanelColor()
+function BU:UpdateGroupInfoPanelColor()
+	self:RaidInfoPanelColor()
+	self:Raid40InfoPanelColor()
+	self:PartyInfoPanelColor()
+	self:ArenaInfoPanelColor()
+	self:BossInfoPanelColor()
 end
 
 function BU:InfoPanelColor()
-	--self:UpdateUnitInfoPanelColor()
-	self:RegisterEvent('UNIT_NAME_UPDATE', BU.UpdateUnitInfoPanelColor)
-	self:RegisterEvent('UNIT_FACTION', BU.UpdateUnitInfoPanelColor)
-	self:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT', BU.UpdateUnitInfoPanelColor)
+	self:UnitInfoPanelColor()
+	self:UpdateGroupInfoPanelColor()
+	self:RegisterEvent('UNIT_NAME_UPDATE', BU.UnitInfoPanelColor)
+	self:RegisterEvent('UNIT_FACTION', BU.UnitInfoPanelColor)
+	self:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT', BU.UnitInfoPanelColor)
 	hooksecurefunc(UF, 'Update_TargetFrame', BU.UnitInfoPanelColor)
 end
