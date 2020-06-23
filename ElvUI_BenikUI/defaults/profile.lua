@@ -134,7 +134,7 @@ P['benikui'] = {
 			['stancebar'] = true,
 		},
 	},
-	
+
 	['unitframes'] = {
 		['player'] = {
 			['detachPortrait'] = false,
@@ -248,7 +248,7 @@ P['benikuiSkins'] = {
 		['enh'] = true,
 		['pa'] = true,
 	},
-	
+
 	['addonSkins'] = {
 		['skada'] = true,
 		['recount'] = true,
@@ -264,7 +264,7 @@ P['benikuiSkins'] = {
 		['immersion'] = true,
 		['adibags'] = true,
 	},
-	
+
 	['variousSkins'] = {
 		['talkingHead'] = true,
 		['decursive'] = true,
@@ -285,19 +285,18 @@ P['benikuiDatabars'] = {
 			['position'] = 'RIGHT',
 		},
 	},
-	
+
 	['reputation'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
-		['autotrack'] = false,
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
 			['position'] = 'LEFT',
 		},
 	},
-	
+
 	['azerite'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
@@ -308,7 +307,7 @@ P['benikuiDatabars'] = {
 			['position'] = 'LEFT',
 		},
 	},
-	
+
 	['honor'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
@@ -339,7 +338,7 @@ P['dashboards'] = {
 		},
 		['latency'] = 2,
 	},
-	
+
 	['tokens'] = {
 		['enableTokens'] = true,
 		['combat'] = true,
@@ -352,7 +351,7 @@ P['dashboards'] = {
 		['zeroamount'] = false,
 		['weekly'] = true,
 	},
-	
+
 	['professions'] = {
 		['enableProfessions'] = true,
 		['combat'] = true,
@@ -370,7 +369,7 @@ P['dashboards'] = {
 		['dbfontsize'] = E.db.datatexts.fontSize,
 		['dbfontflags'] = E.db.datatexts.fontOutline,
 	},
-	
+
 	['barColor'] = 1,
 	['customBarColor'] = {r = 255/255,g = 128/255,b = 0/255},
 	['textColor'] = 2,

@@ -218,14 +218,6 @@ local function databarsTable()
 						get = function(info) return E.db.benikuiDatabars.reputation.buttonStyle end,
 						set = function(info, value) E.db.benikuiDatabars.reputation.buttonStyle = value; mod:ToggleRepBackdrop(); end,
 					},
-					autotrack = {
-						order = 5,
-						type = 'toggle',
-						name = L['AutoTrack'],
-						desc = L['Change the tracked Faction automatically when reputation changes'],
-						get = function(info) return E.db.benikuiDatabars.reputation.autotrack end,
-						set = function(info, value) E.db.benikuiDatabars.reputation.autotrack = value; mod:ToggleRepAutotrack(); end,
-					},
 					notifiers = {
 						order = 6,
 						type = 'group',
