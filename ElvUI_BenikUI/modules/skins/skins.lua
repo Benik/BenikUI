@@ -330,8 +330,8 @@ local function styleAddons()
 	-- LocationPlus
 	if BUI.LP and E.db.benikuiSkins.elvuiAddons.locplus then
 		local framestoskin = {
-			_G.LeftCoordDtPanel,
-			_G.RightCoordDtPanel,
+			_G.LocPlusLeftDT,
+			_G.LocPlusRightDT,
 			_G.LocationPlusPanel,
 			_G.XCoordsPanel,
 			_G.YCoordsPanel
@@ -350,14 +350,6 @@ local function styleAddons()
 			_G.SLE_BG_2,
 			_G.SLE_BG_3,
 			_G.SLE_BG_4,
-			_G.SLE_DataPanel_1,
-			_G.SLE_DataPanel_2,
-			_G.SLE_DataPanel_3,
-			_G.SLE_DataPanel_4,
-			_G.SLE_DataPanel_5,
-			_G.SLE_DataPanel_6,
-			_G.SLE_DataPanel_7,
-			_G.SLE_DataPanel_8,
 			_G.SLE_RaidMarkerBar.backdrop,
 			_G.SLE_SquareMinimapButtonBar,
 			_G.SLE_LocationPanel,
@@ -390,15 +382,6 @@ local function styleAddons()
 
 		if _G.RaidMarkerBar.backdrop then
 			_G.RaidMarkerBar.backdrop:Style("Outside")
-		end
-	end
-
-	-- ElvUI_DTBars2
-	if IsAddOnLoaded("ElvUI_DTBars2") and E.db.benikuiSkins.elvuiAddons.dtb2 then
-		for panelname, data in pairs(E.global.dtbars) do
-			if panelname then
-				_G[panelname]:Style("Outside")
-			end
 		end
 	end
 
@@ -662,7 +645,7 @@ function mod:PLAYER_ENTERING_WORLD(...)
 end
 
 local function StyleElvUIConfig()
-	if not E.private.skins.ace3.enable then return end
+	if not E.private.skins.ace3Enable then return end
 
 	local frame = E:Config_GetWindow()
 	if not frame.style then

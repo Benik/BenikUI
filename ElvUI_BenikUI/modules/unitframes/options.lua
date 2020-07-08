@@ -42,45 +42,87 @@ local function ufTable()
 						order = 1,
 						name = L['Fix InfoPanel width'],
 						desc = L['Lower InfoPanel width when potraits are enabled.'],
+						width = "full", 
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UpdateUF() end,
 					},
-					customColor = {
+					colors = {
 						order = 2,
-						type = "select",
-						name = L.COLOR,
-						values = {
-							[1] = L.CLASS_COLORS,
-							[2] = L.CUSTOM,
+						type = 'group',
+						name = L['Colors'],
+						guiInline = true,
+						args = {
+							enableColor = {
+								type = 'toggle',
+								order = 1,
+								name = L["Enable"],
+								width = "full", 
+								get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+							},
+							customColor = {
+								order = 2,
+								type = "select",
+								name = format("%s (%s)", L.COLOR, L["Individual Units"]),
+								disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
+								values = {
+									[1] = L.CLASS_COLORS,
+									[2] = L["Custom Color"],
+								},
+								get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UnitInfoPanelColor() end,
+							},
+							color = {
+								order = 3,
+								type = "color",
+								name = L["Custom Color"],
+								hasAlpha = true,
+								disabled = function() return E.db.benikui.unitframes.infoPanel.customColor == 1 or not E.db.benikui.unitframes.infoPanel.enableColor end,
+								get = function(info)
+									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
+									local d = P.benikui.unitframes.infoPanel[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+									end,
+								set = function(info, r, g, b, a)
+									E.db.benikui.unitframes.infoPanel[ info[#info] ] = {}
+									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									BU:UnitInfoPanelColor()
+								end,
+							},
+							spacer = {
+								order = 4,
+								type = 'header',
+								name = '',
+							},
+							groupColor = {
+								order = 5,
+								type = "color",
+								name = format("%s (%s)", L["Custom Color"], L["Group Units"]),
+								disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
+								hasAlpha = true,
+								get = function(info)
+									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
+									local d = P.benikui.unitframes.infoPanel[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+									end,
+								set = function(info, r, g, b, a)
+									E.db.benikui.unitframes.infoPanel[ info[#info] ] = {}
+									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									BU:UpdateGroupInfoPanelColor()
+								end,
+							},
 						},
-						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:InfoPanelColor() BU:RecolorTargetInfoPanel() end,
-					},
-					color = {
-						order = 3,
-						type = "color",
-						name = L.COLOR_PICKER,
-						hasAlpha = true,
-						disabled = function() return E.db.benikui.unitframes.infoPanel.customColor == 1 end,
-						get = function(info)
-							local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
-							local d = P.benikui.unitframes.infoPanel[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-							end,
-						set = function(info, r, g, b, a)
-							E.db.benikui.unitframes.infoPanel[ info[#info] ] = {}
-							local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
-							t.r, t.g, t.b, t.a = r, g, b, a
-							BU:InfoPanelColor()
-						end,
 					},
 					texture = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 4,
-						name = L['Textures'],
+						order = 3,
+						name = L["Texture"],
+						disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:InfoPanelColor() end,
+						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UnitInfoPanelColor() BU:UpdateGroupInfoPanelColor() end,
 					},
 				},
 			},

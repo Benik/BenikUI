@@ -168,8 +168,6 @@ L['Tip: Click to free memory'] = "Tip: Klicken um den Speicher zu bereinigen"
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
 
 -- Databars Options
-L['AutoTrack'] = "Automatische Verfolgung"
-L['Change the tracked Faction automatically when reputation changes'] = "Ändert automatisch die Rufverfolgung wenn sich der Ruf verändert"
 L['Notifiers'] = "Benachrichtigungen"
 L['Show BenikUI decorative bars on the default ElvUI XP bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Erfahrungsleiste"
 L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Azeritleiste"

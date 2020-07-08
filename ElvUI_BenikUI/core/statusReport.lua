@@ -34,10 +34,6 @@ local function CreateStatusFrame()
 	StatusFrame.TitleLogoFrame.Title:SetFormattedText("|cfffe7b2c- ElvUI Status Report -|r")
 
 	-- Content lines
-	local versiontext = StatusFrame.Section1.Content.Line1.Text:GetText()
-	versiontext = versiontext..", BenikUI "..format(" |cff4beb2cv%s|r", BUI.Version)
-
-	StatusFrame.Section1.Content.Line1.Text:SetFormattedText(versiontext)
 	StatusFrame.Section1.Content.Line2.Text:SetFormattedText("Other AddOns Enabled: |cff4beb2c%s|r", AreOtherAddOnsEnabled())
 end
 

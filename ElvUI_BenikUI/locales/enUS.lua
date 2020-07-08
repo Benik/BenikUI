@@ -169,8 +169,6 @@ L['Tip: Click to free memory'] = true
 L['Use DataTexts font'] = true
 
 -- Databars Options
-L['AutoTrack'] = true
-L['Change the tracked Faction automatically when reputation changes'] = true
 L['Notifiers'] = true
 L['Show BenikUI decorative bars on the default ElvUI XP bar'] = true
 L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = true
