@@ -94,6 +94,6 @@ local function PositionChat(self, override)
 	end
 end
 
-hooksecurefunc(CH, "PositionChat", PositionChat)
+hooksecurefunc(CH, "PositionChats", PositionChat)
 hooksecurefunc(CH, "UpdateEditboxAnchors", UpdateEditboxAnchors)
 hooksecurefunc(FM, "SetFlightMode", PositionChat)
