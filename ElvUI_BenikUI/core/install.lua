@@ -1956,17 +1956,17 @@ local function SetupDataTexts(role)
 	end
 
 	if role == 'tank' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Attack Power'
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Avoidance'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Armor'
-	elseif role == 'dpsMelee' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Attack Power'
+	elseif role == 'dpsMelee' or 'dpsCaster' then
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit Chance'
-	elseif role == 'healer' or 'dpsCaster' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Spell/Heal Power'
+	elseif role == 'healer' then
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit Chance'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Mana Regen'
 	end
 
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Missions'

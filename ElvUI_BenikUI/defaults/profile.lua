@@ -222,7 +222,7 @@ P['benikui'] = {
 
 -- Datatexts
 P.datatexts.panels.BuiLeftChatDTPanel = {
-	[1] = 'Attack Power',
+	[1] = 'Primary Stat',
 	[2] = 'Missions',
 	[3] = 'BuiMail',
 }
