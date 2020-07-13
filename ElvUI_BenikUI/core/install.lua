@@ -1950,7 +1950,7 @@ local function SetupDataTexts(role)
 
 	if BUI.LP then
 		E.db["datatexts"]["panels"]["LocPlusRightDT"][1] = 'Time'
-		E.db["datatexts"]["panels"]["LocPlusLeftDT"][1] = 'Primary Stat'
+		E.db["datatexts"]["panels"]["LocPlusLeftDT"][1] = 'Movement Speed'
 		E.DataTexts:UpdatePanelInfo('LocPlusRightDT')
 		E.DataTexts:UpdatePanelInfo('LocPlusLeftDT')
 	end
