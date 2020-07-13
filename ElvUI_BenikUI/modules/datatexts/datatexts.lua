@@ -19,10 +19,12 @@ function mod:UpdatePanelInfo(panelName, panel, ...)
 
 	if not locPanel then
 		panel:Style('Outside')
-		if panel.style and db.benikuiStyle then
-			panel.style:Show()
-		else
-			panel.style:Hide()
+		if db.benikuiStyle then
+			if panel.style then
+				panel.style:Show()
+			else
+				panel.style:Hide()
+			end
 		end
 		
 		if BUI.ShadowMode then
