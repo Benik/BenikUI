@@ -2,8 +2,5 @@
 	<script file="datatexts.lua"/>
 	<script file="options.lua"/>
 	<script file="mail.lua"/>
-	<script file="garrison.lua"/>
-	<script file="orderhall.lua"/>
-	<script file="bfamissions.lua"/>
 	<script file="specswitch.lua"/>
 </Ui>

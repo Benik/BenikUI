@@ -1969,7 +1969,7 @@ local function SetupDataTexts(role)
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit Chance'
 	end
 
-	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'BfA Missions (BenikUI)'
+	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Missions'
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][3] = 'BuiMail'
 
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][1] = 'Spec Switch (BenikUI)'
