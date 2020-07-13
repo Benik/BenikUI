@@ -27,8 +27,8 @@ P['general']['minimap']['benikuiStyle'] = true
 
 -- Datatexts
 P['datatexts']['panels']['BuiLeftChatDTPanel'] = {
-	[1] = 'Spell/Heal Power',
-	[2] = 'Missions',
+	[1] = 'Primary Stat',
+	[2] = 'Missions (BenikUI)',
 	[3] = 'BuiMail',
 }
 
