@@ -342,9 +342,9 @@ local function OnEvent(self, event, ...)
 	end
 
 	if (CountInProgress > 0) then
-		self.text:SetFormattedText("%s: %d/%d", GARRISON_MISSIONS, CountCompleted, #inProgressMissions)
-	elseif (CountInProgress == 0) and CountCompleted > 0 then
-		self.text:SetFormattedText("|cff00ff00%s |r"..DATE_COMPLETED, GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, numMissions) -- green text when there are completed missions , numMissions
+		self.text:SetFormattedText("|cff00ff00%s: %d/%d|r", GARRISON_MISSIONS, numMissions, #inProgressMissions)
+	elseif (CountInProgress == 0) and numMissions > 0 then
+		self.text:SetFormattedText("|cff00ff00%s (%d)|r", GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, numMissions)
 	else
 		self.text:SetFormattedText(GARRISON_TYPE_8_0_LANDING_PAGE_TITLE)
 	end
