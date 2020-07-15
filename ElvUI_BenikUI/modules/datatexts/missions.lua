@@ -307,7 +307,6 @@ end
 local inProgressMissions = {};
 local CountInProgress = 0
 local CountCompleted = 0
-local numMissions = 0
 
 local function OnEvent(self, event, ...)
 
@@ -322,7 +321,7 @@ local function OnEvent(self, event, ...)
 	end
 
 	if event == 'GARRISON_LANDINGPAGE_SHIPMENTS' or event == 'GARRISON_MISSION_FINISHED' or event == 'GARRISON_MISSION_NPC_CLOSED' or event == 'GARRISON_MISSION_LIST_UPDATE' then
-		numMissions = #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_8_0)
+		CountCompleted = #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_8_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2)
@@ -334,17 +333,15 @@ local function OnEvent(self, event, ...)
 
 				if (TimeLeft ~= "0") then
 					CountInProgress = CountInProgress + 1
-				else
-					CountCompleted = CountCompleted + 1
 				end
 			end
 		end
 	end
 
 	if (CountInProgress > 0) then
-		self.text:SetFormattedText("|cff00ff00%s: %d/%d|r", GARRISON_MISSIONS, numMissions, #inProgressMissions)
-	elseif (CountInProgress == 0) and numMissions > 0 then
-		self.text:SetFormattedText("|cff00ff00%s (%d)|r", GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, numMissions)
+		self.text:SetFormattedText("|cff00ff00%s: %d/%d|r", GARRISON_MISSIONS, CountCompleted, #inProgressMissions)
+	elseif (CountInProgress == 0) and CountCompleted > 0 then
+		self.text:SetFormattedText("|cff00ff00%s (%d)|r", GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, CountCompleted)
 	else
 		self.text:SetFormattedText(GARRISON_TYPE_8_0_LANDING_PAGE_TITLE)
 	end
