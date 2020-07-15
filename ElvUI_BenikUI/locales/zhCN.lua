@@ -70,6 +70,7 @@ L['Hide Mail Icon'] = true
 L['Middle'] = true
 L['New Mail'] = true
 L['No Mail'] = true
+L['Show'] = true
 L['Show Garrison Currency'] = true
 L['Show Oil'] = true
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = true

@@ -70,6 +70,7 @@ L['Hide Mail Icon'] = "Verstecke das Postsymbol"
 L['Middle'] = "Mittlerer"
 L['New Mail'] = "Neue Post"
 L['No Mail'] = "Keine Post"
+L['Show'] = true
 L['Show Garrison Currency'] = "Zeige Garnisonsresourcen"
 L['Show Oil'] = "Zeige Öl"
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Chat Infotexte anzeigen/ausblenden. ElvUI Infotexte müssen dafür deaktiviert sein"
