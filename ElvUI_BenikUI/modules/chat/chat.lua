@@ -96,7 +96,7 @@ end
 
 function mod:Initialize()
 	hooksecurefunc(CH, "PositionChats", PositionChat)
-	hooksecurefunc(CH, "UpdateEditboxAnchors", UpdateEditboxAnchors)
+	hooksecurefunc(CH, "UpdateEditboxAnchors", mod.UpdateEditboxAnchors)
 	hooksecurefunc(CH, "StyleChat", Style)
 	hooksecurefunc(FM, "SetFlightMode", PositionChat)
 	mod.UpdateEditboxAnchors()
