@@ -193,6 +193,10 @@ function mod:SetFlightMode(status)
 			LeftChatPanel:ClearAllPoints()
 			LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
 			_G.LeftChatDataPanel:Hide()
+				local achatlevel = LeftChatPanel:GetFrameLevel()
+				local achatstrata = LeftChatPanel:GetFrameStrata()
+				print(achatlevel)
+				print(achatstrata)
 		end
 
 		-- Hide SquareMinimapButtonBar
@@ -304,12 +308,26 @@ function mod:SetFlightMode(status)
 			LeftChatPanel:SetParent(E.UIParent)
 			if LeftChatPanel.backdrop.shadow then
 				LeftChatPanel.backdrop.shadow:Show()
+				LeftChatPanel.backdrop.shadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
+				LeftChatPanel.backdrop.shadow:SetFrameLevel(0)
+				LeftChatPanel.backdrop.style:SetFrameStrata('BACKGROUND')
+				LeftChatPanel.backdrop.style:SetFrameLevel(9999)
+				local chatlevel = LeftChatPanel:GetFrameLevel()
+				local chatstrata = LeftChatPanel:GetFrameStrata()
+				print(chatlevel)
+				print(chatstrata)
 			end
 			LeftChatPanel.backdrop.wideshadow:Hide()
 			LeftChatPanel:ClearAllPoints()
-			LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
-			LO:RepositionChatDataPanels()
-			LO:ToggleChatPanels()
+			--LeftChatPanel:SetAllPoints(LeftChatMover)
+			
+			--LO:RepositionChatDataPanels()
+			--LO:ToggleChatPanels()
+				local chatlevel = LeftChatPanel:GetFrameLevel()
+				local chatstrata = LeftChatPanel:GetFrameStrata()
+				print(chatlevel)
+				print(chatstrata)
+				LeftChatPanel:SetFrameStrata('BACKGROUND')
 		end
 
 		-- Show SquareMinimapButtonBar
@@ -400,6 +418,7 @@ function mod:Initialize()
 	local db = E.db.benikui.colors
 	self.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", UIParent)
 	self.FlightMode:SetFrameLevel(1)
+	self.FlightMode:SetFrameStrata('BACKGROUND')
 	self.FlightMode:SetAllPoints(UIParent)
 	self.FlightMode:Hide()
 
