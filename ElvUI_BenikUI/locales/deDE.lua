@@ -39,6 +39,7 @@ L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 L['Create'] = "Erstelle"
 L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Gib einen einzigartigen Namen für das neue Panel ein. \n|cff00c0faHinweis: 'BenikUI_' wird am Anfang hinzugefügt um die Einzigarigkeit zu gewährleisten|r"
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Der Name |cff00c0fa%s|r von einem Benutzerdefiniertem Panel existiert bereits. Bitte wähle einen anderen."
+L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = true
 L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
 L["Hide In Combat"] = "Verstecke im Kampf"
 L["Name Tooltip"] = "Namenstooltip"

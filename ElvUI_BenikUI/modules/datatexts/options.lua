@@ -33,7 +33,7 @@ local function Datatexts()
 						name = L["Enable"],
 						desc = L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'],
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ToggleBuiDts(); LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateEditboxAnchors(); end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ToggleBuiDts(); LO:ToggleChatPanels(); end,
 					},
 					spacer1 = {
 						order = 2,
@@ -55,7 +55,7 @@ local function Datatexts()
 						desc = L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'],
 						disabled = function() return E.db.benikui.datatexts.chat.enable ~= true or E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ChatStyles(); E:GetModule('Layout'):ToggleChatPanels(); E.Chat:PositionChat(true); end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ChatStyles(); E:GetModule('Layout'):ToggleChatPanels(); E.Chat:PositionChats(); end,
 					},
 					backdrop = {
 						order = 5,

@@ -1,5 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:NewModule('FlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
+local LO = E:GetModule('Layout')
 
 local _G = _G
 local GetTime = GetTime
@@ -191,6 +192,13 @@ function mod:SetFlightMode(status)
 			LeftChatPanel.backdrop.wideshadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
 			LeftChatPanel:ClearAllPoints()
 			LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
+			if LeftChatPanel.backdrop.style then
+				LeftChatPanel.backdrop.style:SetFrameStrata('BACKGROUND')
+				LeftChatPanel.backdrop.style:SetFrameLevel(2)
+				LeftChatPanel.backdrop.style.styleShadow:SetFrameStrata('BACKGROUND')
+				LeftChatPanel.backdrop.style.styleShadow:SetFrameLevel(0)
+			end
+			_G.LeftChatDataPanel:Hide()
 		end
 
 		-- Hide SquareMinimapButtonBar
@@ -302,10 +310,21 @@ function mod:SetFlightMode(status)
 			LeftChatPanel:SetParent(E.UIParent)
 			if LeftChatPanel.backdrop.shadow then
 				LeftChatPanel.backdrop.shadow:Show()
+				LeftChatPanel.backdrop.shadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
+				LeftChatPanel.backdrop.shadow:SetFrameLevel(0)
+			end
+			if LeftChatPanel.backdrop.style then
+				LeftChatPanel.backdrop.style:SetFrameStrata('BACKGROUND')
+				LeftChatPanel.backdrop.style:SetFrameLevel(2)
+				LeftChatPanel.backdrop.style.styleShadow:SetFrameStrata('BACKGROUND')
+				LeftChatPanel.backdrop.style.styleShadow:SetFrameLevel(0)
 			end
 			LeftChatPanel.backdrop.wideshadow:Hide()
 			LeftChatPanel:ClearAllPoints()
-			LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
+			LeftChatPanel:SetAllPoints(LeftChatMover)
+			LeftChatPanel:SetFrameStrata('BACKGROUND')
+			LO:RepositionChatDataPanels()
+			LO:ToggleChatPanels()
 		end
 
 		-- Show SquareMinimapButtonBar
@@ -396,6 +415,7 @@ function mod:Initialize()
 	local db = E.db.benikui.colors
 	self.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", UIParent)
 	self.FlightMode:SetFrameLevel(1)
+	self.FlightMode:SetFrameStrata('BACKGROUND')
 	self.FlightMode:SetAllPoints(UIParent)
 	self.FlightMode:Hide()
 

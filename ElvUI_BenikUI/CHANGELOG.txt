@@ -1,3 +1,16 @@
+3.91 (Jul 18, 2020)
+*Added custom visibility option for the Custom Panels
+*Fixed Custom Panels creation
+*Fixed Chat strata issue after leaving flightMode
+*Fixed Chat EditBox when assigned on the Middle Datatext
+*Blacklisted some DTs that shouldn't be styled
+*Removed my own BfA Missions, OrderHall and Garrison datatexts
+*Added Missions (BenikUI) datatext. It's an edited ElvUI version and has the previous looks
+*Install and profile adjustments after altering BenikUI Missions datatexts
+*Fixed a datatext error when Style is disabled
+*Fixed ElvUI Chat Datatext glitch when leaving flightMode
+*Fixed chat datatext style error
+
 3.9 (Jul 9, 2020)
 *Fix Role Icons
 *Added my favorite Kringel texture. Credit: Kringel <3 - under permission
