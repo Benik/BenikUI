@@ -37,8 +37,7 @@ function mod:InsertPanel(name)
 	name = "BenikUI_"..name
 	local db = E.db.benikui.panels
 	if not db[name] then
-		-- db[name] = tcopy(PanelDefault)
-		E:CopyTable(db[name], PanelDefault)
+		db[name] = PanelDefault
 	else
 		E:StaticPopup_Show("BUI_Panel_Name")
 	end
