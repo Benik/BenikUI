@@ -186,6 +186,23 @@ local function panelsTable()
 					get = function() return E.db.benikui.panels[panelname].vehicleHide end,
 					set = function(info, value) E.db.benikui.panels[panelname].vehicleHide = value; end,
 				},
+				visibility = {
+					type = 'input',
+					order = 24,
+					name = L["Visibility State"],
+					desc = L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"],
+					width = 'full',
+					disabled = function() return not E.db.benikui.panels[panelname].enable end,
+					multiline = true,
+					get = function() return E.db.benikui.panels[panelname].visibility end,
+					set = function(info, value)
+						if value and value:match('[\n\r]') then
+							value = value:gsub('[\n\r]','')
+						end
+						E.db.benikui.panels[panelname].visibility = value;
+						BP:SetupPanels()
+					end,
+				},
 				spacer3 = {
 					order = 30,
 					type = 'description',

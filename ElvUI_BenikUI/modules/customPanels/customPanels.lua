@@ -16,6 +16,7 @@ local PanelDefault = {
 	['petHide'] = true,
 	['vehicleHide'] = true,
 	['tooltip'] = true,
+	['visibility'] = "",
 }
 
 local function OnEnter(self)
@@ -80,12 +81,20 @@ function mod:SetupPanels()
 	for name in pairs(E.db.benikui.panels) do
 		if name then
 			local db = E.db.benikui.panels[name]
+
+			local visibility = db.visibility
+			if visibility and visibility:match('[\n\r]') then
+				visibility = visibility:gsub('[\n\r]','')
+			end
+
 			if db.enable then
 				_G[name]:Show()
 				E:EnableMover(_G[name].mover:GetName())
+				RegisterStateDriver(_G[name], "visibility", visibility)
 			else
 				_G[name]:Hide()
 				E:DisableMover(_G[name].mover:GetName())
+				UnregisterStateDriver(_G[name], "visibility")
 			end
 
 			if not E.db.benikui.panels[name].hide then
