@@ -1,3 +1,7 @@
+3.911 (Jul 18, 2020)
+*Avoid another chat glitch after leaving flightMode
+*Added a clickThrough option in Custom Panels
+
 3.91 (Jul 18, 2020)
 *Added custom visibility option for the Custom Panels
 *Fixed Custom Panels creation
