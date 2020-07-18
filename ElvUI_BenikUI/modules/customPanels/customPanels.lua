@@ -100,28 +100,26 @@ function mod:SetupPanels()
 				UnregisterStateDriver(_G[panel], "visibility")
 			end
 
-			if not E.db.benikui.panels[panel].hide then
-				_G[panel]:SetFrameStrata(db.strata or 'LOW')
-				if db.transparency then
-					_G[panel]:SetTemplate("Transparent")
+			_G[panel]:SetFrameStrata(db.strata or 'LOW')
+			if db.transparency then
+				_G[panel]:SetTemplate("Transparent")
+			else
+				_G[panel]:SetTemplate("Default", true)
+			end
+
+			if BUI.ShadowMode then
+				if db.shadow then
+					_G[panel].shadow:Show()
 				else
-					_G[panel]:SetTemplate("Default", true)
+					_G[panel].shadow:Hide()
 				end
+			end
 
-				if BUI.ShadowMode then
-					if db.shadow then
-						_G[panel].shadow:Show()
-					else
-						_G[panel].shadow:Hide()
-					end
-				end
-
-				if _G[panel].style then
-					if db.style then
-						_G[panel].style:Show()
-					else
-						_G[panel].style:Hide()
-					end
+			if _G[panel].style then
+				if db.style then
+					_G[panel].style:Show()
+				else
+					_G[panel].style:Hide()
 				end
 			end
 

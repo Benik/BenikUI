@@ -105,6 +105,7 @@ local function panelsTable()
 					order = 2,
 					type = 'multiselect',
 					name = '',
+					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function(info, key) return E.db.benikui.panels[panelname][key] end,
 					set = function(info, key, value) E.db.benikui.panels[panelname][key] = value; BP:SetupPanels() end,
 					values = {
