@@ -11,6 +11,7 @@ local PanelDefault = {
 	['transparency'] = true,
 	['style'] = true,
 	['shadow'] = true,
+	['clickThrough'] = false,
 	['strata'] = "LOW",
 	['combatHide'] = true,
 	['petHide'] = true,
@@ -78,46 +79,48 @@ function mod:Resize()
 end
 
 function mod:SetupPanels()
-	for name in pairs(E.db.benikui.panels) do
-		if name then
-			local db = E.db.benikui.panels[name]
+	for panel in pairs(E.db.benikui.panels) do
+		if panel then
+			local db = E.db.benikui.panels[panel]
 
 			local visibility = db.visibility
 			if visibility and visibility:match('[\n\r]') then
 				visibility = visibility:gsub('[\n\r]','')
 			end
 
+			_G[panel]:EnableMouse(not db.clickThrough)
+
 			if db.enable then
-				_G[name]:Show()
-				E:EnableMover(_G[name].mover:GetName())
-				RegisterStateDriver(_G[name], "visibility", visibility)
+				_G[panel]:Show()
+				E:EnableMover(_G[panel].mover:GetName())
+				RegisterStateDriver(_G[panel], "visibility", visibility)
 			else
-				_G[name]:Hide()
-				E:DisableMover(_G[name].mover:GetName())
-				UnregisterStateDriver(_G[name], "visibility")
+				_G[panel]:Hide()
+				E:DisableMover(_G[panel].mover:GetName())
+				UnregisterStateDriver(_G[panel], "visibility")
 			end
 
-			if not E.db.benikui.panels[name].hide then
-				_G[name]:SetFrameStrata(db.strata or 'LOW')
+			if not E.db.benikui.panels[panel].hide then
+				_G[panel]:SetFrameStrata(db.strata or 'LOW')
 				if db.transparency then
-					_G[name]:SetTemplate("Transparent")
+					_G[panel]:SetTemplate("Transparent")
 				else
-					_G[name]:SetTemplate("Default", true)
+					_G[panel]:SetTemplate("Default", true)
 				end
 
 				if BUI.ShadowMode then
 					if db.shadow then
-						_G[name].shadow:Show()
+						_G[panel].shadow:Show()
 					else
-						_G[name].shadow:Hide()
+						_G[panel].shadow:Hide()
 					end
 				end
 
-				if _G[name].style then
+				if _G[panel].style then
 					if db.style then
-						_G[name].style:Show()
+						_G[panel].style:Show()
 					else
-						_G[name].style:Hide()
+						_G[panel].style:Hide()
 					end
 				end
 			end
