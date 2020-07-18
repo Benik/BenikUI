@@ -192,11 +192,13 @@ function mod:SetFlightMode(status)
 			LeftChatPanel.backdrop.wideshadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
 			LeftChatPanel:ClearAllPoints()
 			LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
+			if LeftChatPanel.backdrop.style then
+				LeftChatPanel.backdrop.style:SetFrameStrata('BACKGROUND')
+				LeftChatPanel.backdrop.style:SetFrameLevel(2)
+				LeftChatPanel.backdrop.style.styleShadow:SetFrameStrata('BACKGROUND')
+				LeftChatPanel.backdrop.style.styleShadow:SetFrameLevel(0)
+			end
 			_G.LeftChatDataPanel:Hide()
-				local achatlevel = LeftChatPanel:GetFrameLevel()
-				local achatstrata = LeftChatPanel:GetFrameStrata()
-				print(achatlevel)
-				print(achatstrata)
 		end
 
 		-- Hide SquareMinimapButtonBar
@@ -310,24 +312,19 @@ function mod:SetFlightMode(status)
 				LeftChatPanel.backdrop.shadow:Show()
 				LeftChatPanel.backdrop.shadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
 				LeftChatPanel.backdrop.shadow:SetFrameLevel(0)
+			end
+			if LeftChatPanel.backdrop.style then
 				LeftChatPanel.backdrop.style:SetFrameStrata('BACKGROUND')
-				LeftChatPanel.backdrop.style:SetFrameLevel(9999)
-				local chatlevel = LeftChatPanel:GetFrameLevel()
-				local chatstrata = LeftChatPanel:GetFrameStrata()
-				print(chatlevel)
-				print(chatstrata)
+				LeftChatPanel.backdrop.style:SetFrameLevel(2)
+				LeftChatPanel.backdrop.style.styleShadow:SetFrameStrata('BACKGROUND')
+				LeftChatPanel.backdrop.style.styleShadow:SetFrameLevel(0)
 			end
 			LeftChatPanel.backdrop.wideshadow:Hide()
 			LeftChatPanel:ClearAllPoints()
-			--LeftChatPanel:SetAllPoints(LeftChatMover)
-			
-			--LO:RepositionChatDataPanels()
-			--LO:ToggleChatPanels()
-				local chatlevel = LeftChatPanel:GetFrameLevel()
-				local chatstrata = LeftChatPanel:GetFrameStrata()
-				print(chatlevel)
-				print(chatstrata)
-				LeftChatPanel:SetFrameStrata('BACKGROUND')
+			LeftChatPanel:SetAllPoints(LeftChatMover)
+			LeftChatPanel:SetFrameStrata('BACKGROUND')
+			LO:RepositionChatDataPanels()
+			LO:ToggleChatPanels()
 		end
 
 		-- Show SquareMinimapButtonBar
