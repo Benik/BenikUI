@@ -8,8 +8,6 @@ local PanelSetup = {
 	['name'] = "",
 }
 
-local deleteName = ""
-
 local strataValues = {
 	["BACKGROUND"] = "BACKGROUND",
 	["LOW"] = "LOW",
@@ -146,9 +144,8 @@ local function updateOptions()
 					type = 'execute',
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					func = function()
-						deleteName = panelname
 						E.PopupDialogs["BUI_Panel_Delete"].OnAccept = function() BP:DeletePanel(panelname) end
-						E.PopupDialogs["BUI_Panel_Delete"].text = (format(L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"], deleteName))
+						E.PopupDialogs["BUI_Panel_Delete"].text = (format(L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"], panelname))
 						E:StaticPopup_Show("BUI_Panel_Delete")
 					end,
 				},
