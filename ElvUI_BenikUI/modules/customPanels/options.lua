@@ -19,74 +19,7 @@ local strataValues = {
 	["TOOLTIP"] = "TOOLTIP",
 }
 
-local function panelsTable()
-	E.Options.args.benikui.args.panels = {
-		type = "group",
-		name = E.NewSign..L["Custom Panels"],
-		order = 70,
-		childGroups = "select",
-		args = {
-			createButton = {
-				order = 1,
-				name = L["Create"],
-				type = 'execute',
-				func = function()
-					if E.global.benikui.CustomPanels.createButton == true then
-						E.global.benikui.CustomPanels.createButton = false
-					else
-						E.global.benikui.CustomPanels.createButton = true
-					end
-				end,
-			},
-			spacer1 = {
-				order = 2,
-				type = 'description',
-				name = '',
-			},
-			name = {
-				order = 3,
-				type = 'input',
-				width = 'double',
-				name = L["Name"],
-				desc = L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"],
-				hidden = function() return not E.global.benikui.CustomPanels.createButton end,
-				get = function(info) return PanelSetup.name end,
-				set = function(info, textName)
-					local name = 'BenikUI_'..textName
-					for object in pairs(E.db.benikui.panels) do
-						if object:lower() == name:lower() then
-							E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."], name))
-							E:StaticPopup_Show("BUI_Panel_Name")
-							return
-						end
-					end
-					PanelSetup.name = textName
-				end,
-			},
-			spacer2 = {
-				order = 4,
-				type = 'description',
-				name = '',
-			},
-			add = {
-				order = 5,
-				name = ADD,
-				type = 'execute',
-				disabled = function() return PanelSetup.name == "" end,
-				hidden = function() return not E.global.benikui.CustomPanels.createButton end,
-				func = function()
-					E.PopupDialogs["BUI_Add_Panel"].text = (format(L["Your new Custom Panel named |cff00c0fa%s|r is ready to be created.\n|cff00c0faNote: This action will require a reload.|r\nContinue?"], 'BenikUI_'..PanelSetup.name))
-					E:StaticPopup_Show("BUI_Add_Panel")
-				end,
-			},
-			spacer3 = {
-				order = 6,
-				type = 'description',
-				name = '',
-			},
-		},
-	}
-	
+local function updateOptions()
 	for panelname in pairs(E.db.benikui.panels) do
 		E.Options.args.benikui.args.panels.args[panelname] = {
 			order = 1,
@@ -223,16 +156,80 @@ local function panelsTable()
 		}
 	end
 end
-tinsert(BUI.Config, panelsTable)
 
-E.PopupDialogs["BUI_Add_Panel"] = {
-	button1 = ACCEPT,
-	button2 = CANCEL,
-	OnAccept = function() BP:InsertPanel(PanelSetup.name); E.global.benikui.CustomPanels.createButton = false; ReloadUI() end,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
-}
+local function panelsTable()
+	E.Options.args.benikui.args.panels = {
+		type = "group",
+		name = E.NewSign..L["Custom Panels"],
+		order = 70,
+		childGroups = "select",
+		args = {
+			createButton = {
+				order = 1,
+				name = L["Create"],
+				type = 'execute',
+				func = function()
+					if E.global.benikui.CustomPanels.createButton == true then
+						E.global.benikui.CustomPanels.createButton = false
+					else
+						E.global.benikui.CustomPanels.createButton = true
+					end
+				end,
+			},
+			spacer1 = {
+				order = 2,
+				type = 'description',
+				name = '',
+			},
+			name = {
+				order = 3,
+				type = 'input',
+				width = 'double',
+				name = L["Name"],
+				desc = L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"],
+				hidden = function() return not E.global.benikui.CustomPanels.createButton end,
+				get = function(info) return PanelSetup.name end,
+				set = function(info, textName)
+					local name = 'BenikUI_'..textName
+					for object in pairs(E.db.benikui.panels) do
+						if object:lower() == name:lower() then
+							E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."], name))
+							E:StaticPopup_Show("BUI_Panel_Name")
+							return
+						end
+					end
+					PanelSetup.name = textName
+				end,
+			},
+			spacer2 = {
+				order = 4,
+				type = 'description',
+				name = '',
+			},
+			add = {
+				order = 5,
+				name = ADD,
+				type = 'execute',
+				disabled = function() return PanelSetup.name == "" end,
+				hidden = function() return not E.global.benikui.CustomPanels.createButton end,
+				func = function()
+					BP:InsertPanel(PanelSetup.name)
+					BP:UpdatePanels()
+					updateOptions()
+					E.global.benikui.CustomPanels.createButton = false;
+				end,
+			},
+			spacer3 = {
+				order = 6,
+				type = 'description',
+				name = '',
+			},
+		},
+	}
+	
+	updateOptions()
+end
+tinsert(BUI.Config, panelsTable)
 
 E.PopupDialogs["BUI_Panel_Delete"] = {
 	button1 = ACCEPT,

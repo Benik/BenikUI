@@ -167,11 +167,15 @@ function mod:RegisterHide()
 	end
 end
 
-function mod:Initialize()
+function mod:UpdatePanels()
 	mod:CreatePanel()
 	mod:SetupPanels()
 	mod:Resize()
 	mod:RegisterHide()
+end
+
+function mod:Initialize()
+	mod:UpdatePanels()
 	mod:RegisterEvent("PLAYER_REGEN_DISABLED", "OnEvent")
 	mod:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
 	mod:RegisterEvent("UNIT_ENTERING_VEHICLE", "OnEvent")

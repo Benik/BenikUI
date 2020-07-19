@@ -44,7 +44,6 @@ L["Hide in Pet Battle"] = true
 L["Hide In Combat"] = true
 L["Name Tooltip"] = true
 L["Enable tooltip to reveal the panel name"] = true
-L["Your new Custom Panel is ready to be created.\n|cff00c0faNote: This action will require a reload.|r\nContinue?"] = true
 L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = true
 
 -- Profiles
