@@ -110,8 +110,10 @@ function mod:SetupPanels()
 			if BUI.ShadowMode then
 				if db.shadow then
 					_G[panel].shadow:Show()
+					_G[panel].style.styleShadow:Show()
 				else
 					_G[panel].shadow:Hide()
+					_G[panel].style.styleShadow:Hide()
 				end
 			end
 
