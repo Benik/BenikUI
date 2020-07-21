@@ -105,18 +105,16 @@ local function AddInProgressMissions(garrisonType)
 		sort(info, sortFunction) --Sort by time left, lowest first
 
 		for _, mission in ipairs(info) do
-			local timeLeft = mission.timeLeftSeconds
+			local timeLeft = mission.timeLeft:match("%d")
 			local r, g, b = 1, 1, 1
 			if mission.isRare then
 				r, g, b = 0.09, 0.51, 0.81
 			end
 
-			if timeLeft and timeLeft == 0 then
+			if(timeLeft and timeLeft == "0") then
 				DT.tooltip:AddDoubleLine(mission.name, GOAL_COMPLETED, r, g, b, GREEN_FONT_COLOR:GetRGB())
 			else
-				local time, _, _, remainder = E:GetTimeInfo(timeLeft, 0, HOUR)
-				local id = timeLeft and timeLeft > HOUR and 8 or 7
-				DT.tooltip:AddDoubleLine(mission.name, format(E.TimeFormats[id][1], time, remainder), r, g, b, 1, 1, 1)
+				DT.tooltip:AddDoubleLine(mission.name, mission.timeLeft, r, g, b)
 			end
 		end
 	else
