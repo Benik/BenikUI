@@ -54,8 +54,8 @@ local function SetupLayout(layout)
 	E.db["databars"]["reputation"]["textFormat"] = 'NONE'
 	E.db["databars"]["reputation"]["textSize"] = 9
 	E.db["databars"]["reputation"]["width"] = 8
-	E.db["datatexts"]["leftChatPanel"] = false
-	E.db["datatexts"]["panelTransparency"] = true
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["rightChatPanel"] = false
 	E.db["general"]["backdropcolor"]["b"] = 0.025
 	E.db["general"]["backdropcolor"]["g"] = 0.025
@@ -92,7 +92,7 @@ local function SetupLayout(layout)
 	E.db["hideTutorial"] = true
 	E.private["skins"]["blizzard"]["alertframes"] = true
 	E.private["skins"]["blizzard"]["questChoice"] = true
-	E.private["skins"]["parchmentRemover"]["enable"] = true
+	E.private["skins"]["parchmentRemoverEnable"] = true
 
 	E.db["benikuiDatabars"]["azerite"]["buttonStyle"] = "DEFAULT"
 	E.db["benikuiDatabars"]["azerite"]["notifiers"]["position"] = "RIGHT"
@@ -1947,33 +1947,40 @@ end
 
 local function SetupDataTexts(role)
 	-- Data Texts
+
 	if BUI.LP then
-		E.db["datatexts"]["panels"]["RightCoordDtPanel"] = 'Time'
-		E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Quick Join'
+		E.db["datatexts"]["panels"]["LocPlusRightDT"][1] = 'Time'
+		E.db["datatexts"]["panels"]["LocPlusLeftDT"][1] = 'Movement Speed'
+		E.DataTexts:UpdatePanelInfo('LocPlusRightDT')
+		E.DataTexts:UpdatePanelInfo('LocPlusLeftDT')
 	end
 
 	if role == 'tank' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Attack Power'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Avoidance'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Armor'
-	elseif role == 'dpsMelee' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Attack Power'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Haste'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Crit Chance'
-	elseif role == 'healer' or 'dpsCaster' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Spell/Heal Power'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Haste'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Crit Chance'
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Avoidance'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Armor'
+	elseif role == 'dpsMelee' or 'dpsCaster' then
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit Chance'
+	elseif role == 'healer' then
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Mana Regen'
 	end
 
-	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = 'BfA Missions (BenikUI)'
-	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = 'BuiMail'
+	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Missions (BenikUI)'
+	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][3] = 'BuiMail'
 
-	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Spec Switch (BenikUI)'
-	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = 'Gold'
-	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = 'Bags'
+	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][1] = 'Spec Switch (BenikUI)'
+	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][3] = 'Gold'
+	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][2] = 'Bags'
 
-	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = 'Mastery'
+	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][2] = 'Mastery'
+
+	E.DataTexts:UpdatePanelInfo('BuiLeftChatDTPanel')
+	E.DataTexts:UpdatePanelInfo('BuiRightChatDTPanel')
+	E.DataTexts:UpdatePanelInfo('BuiMiddleDTPanel')
 
 	PluginInstallStepComplete.message = BUI.Title..L['DataTexts Set']
 	PluginInstallStepComplete:Show()

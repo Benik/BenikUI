@@ -21,27 +21,12 @@ local GameMenuButtonAddons = GameMenuButtonAddons
 -- GLOBALS: AddOnSkins, MAINMENU_BUTTON, LFG_TITLE, BuiLeftChatDTPanel
 -- GLOBALS: BuiMiddleDTPanel, BuiRightChatDTPanel, BuiGameClickMenu
 -- GLOBALS: EncounterJournal_LoadUI, EncounterJournal
--- GLOBALS: LeftMiniPanel, RightMiniPanel, Minimap
+-- GLOBALS: MinimapPanel, Minimap
 -- GLOBALS: LeftChatPanel, RightChatPanel, CopyChatFrame
 
 local PANEL_HEIGHT = 19;
 local SPACING = (E.PixelMode and 1 or 3)
 local BUTTON_NUM = 4
-
-local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
-local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
-local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
-
-local function RegDataTexts()
-	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(BuiMiddleDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
-
-	L['BuiLeftChatDTPanel'] = BUI.Title..BUI:cOption(L['Left Chat Panel']);
-	L['BuiRightChatDTPanel'] = BUI.Title..BUI:cOption(L['Right Chat Panel']);
-	L['BuiMiddleDTPanel'] = BUI.Title..BUI:cOption(L['Middle Panel']);
-	E.FrameLocks['BuiMiddleDTPanel'] = true;
-end
 
 local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
 local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent)
@@ -57,18 +42,18 @@ function BuiGameMenu_OnMouseUp(self)
 end
 
 local function ChatButton_OnClick(self)
-	GameTooltip:Hide()
+	_G.GameTooltip:Hide()
 
 	if E.db[self.parent:GetName()..'Faded'] then
 		E.db[self.parent:GetName()..'Faded'] = nil
-		UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
+		E:UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
 		if BUI.AS then
 			local AS = unpack(AddOnSkins) or nil
 			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
 		end
 	else
 		E.db[self.parent:GetName()..'Faded'] = true
-		UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
+		E:UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
 		self.parent.fadeInfo.finishedFunc = self.parent.fadeFunc
 	end
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
@@ -78,29 +63,10 @@ local bbuttons = {}
 
 function mod:ToggleBuiDts()
 	local db = E.db.benikui.datatexts.chat
-	local edb = E.db.datatexts
-
-	if edb.leftChatPanel or edb.rightChatPanel then
-		db.enable = false
-		BuiLeftChatDTPanel:Hide()
-		BuiRightChatDTPanel:Hide()
-	end
 
 	if db.enable then
-		if db.showChatDt == 'SHOWBOTH' then
-			BuiLeftChatDTPanel:Show()
-			BuiRightChatDTPanel:Show()
-		elseif db.showChatDt == 'LEFT' then
-			if not edb.leftChatPanel then
-				BuiLeftChatDTPanel:Show()
-			end
-			BuiRightChatDTPanel:Hide()
-		elseif db.showChatDt == 'RIGHT' then
-			BuiLeftChatDTPanel:Hide()
-			if not edb.rightChatPanel then
-				BuiRightChatDTPanel:Show()
-			end
-		end
+		BuiLeftChatDTPanel:Show()
+		BuiRightChatDTPanel:Show()
 	else
 		BuiLeftChatDTPanel:Hide()
 		BuiRightChatDTPanel:Hide()
@@ -108,14 +74,15 @@ function mod:ToggleBuiDts()
 end
 
 function mod:ResizeMinimapPanels()
-	LeftMiniPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-	LeftMiniPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOM', -SPACING, -(SPACING + PANEL_HEIGHT))
-	RightMiniPanel:Point('TOPRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', 0, -SPACING)
-	RightMiniPanel:Point('BOTTOMLEFT', LeftMiniPanel, 'BOTTOMRIGHT', SPACING, 0)
+	MinimapPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+	MinimapPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', -SPACING, -(SPACING + PANEL_HEIGHT))
 end
 
 function mod:ToggleTransparency()
 	local db = E.db.benikui.datatexts.chat
+	local Bui_ldtp = _G.BuiLeftChatDTPanel
+	local Bui_rdtp = _G.BuiRightChatDTPanel
+
 	if not db.backdrop then
 		Bui_ldtp:SetTemplate('NoBackdrop')
 		Bui_rdtp:SetTemplate('NoBackdrop')
@@ -155,6 +122,7 @@ end
 
 function mod:MiddleDatatextLayout()
 	local db = E.db.benikui.datatexts.middle
+	local Bui_mdtp = _G.BuiMiddleDTPanel
 
 	if db.enable then
 		Bui_mdtp:Show()
@@ -189,6 +157,9 @@ end
 
 function mod:ChatStyles()
 	if not E.db.benikui.general.benikuiStyle then return end
+	local Bui_ldtp = _G.BuiLeftChatDTPanel
+	local Bui_rdtp = _G.BuiRightChatDTPanel
+
 	if E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH' then
 		Bui_rdtp.style:Show()
 		Bui_ldtp.style:Show()
@@ -206,10 +177,11 @@ end
 
 function mod:MiddleDatatextDimensions()
 	local db = E.db.benikui.datatexts.middle
+	local Bui_mdtp = _G.BuiMiddleDTPanel
+
 	Bui_mdtp:Width(db.width)
 	Bui_mdtp:Height(db.height)
-	DT.UpdatePanelDimensions(Bui_mdtp)
-	--DT:UpdateAllDimensions()
+	DT:UpdatePanelInfo('BuiMiddleDTPanel')
 end
 
 function mod:PositionEditBoxHolder(bar)
@@ -231,31 +203,39 @@ local function Panel_OnShow(self)
 	self:SetFrameLevel(0)
 end
 
-function mod:ChangeLayout()
-
-	LeftMiniPanel:Height(PANEL_HEIGHT)
-	RightMiniPanel:Height(PANEL_HEIGHT)
+function mod:CreateLayout()
+	local db = E.db.benikui.datatexts
 
 	-- Left dt panel
+	local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
+	Bui_ldtp:SetTemplate('Default', true)
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
 	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_ldtp:Style('Outside', nil, false, true)
+	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- Right dt panel
+	local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
+	Bui_rdtp:SetTemplate('Default', true)
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_rdtp:Style('Outside', nil, false, true)
+	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- Middle dt panel
+	local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
+	Bui_mdtp:SetTemplate('Default', true)
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
 	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
-	Bui_mdtp:Width(E.db.benikui.datatexts.middle.width or 400)
-	Bui_mdtp:Height(E.db.benikui.datatexts.middle.height or PANEL_HEIGHT)
+	Bui_mdtp:Width(db.middle.width or 400)
+	Bui_mdtp:Height(db.middle.height or PANEL_HEIGHT)
 	Bui_mdtp:Style('Outside', nil, false, true)
+	DT:RegisterPanel(BuiMiddleDTPanel, (db.middle.numPoints or 3), 'ANCHOR_BOTTOM', 0, -4)
 
 	E:CreateMover(Bui_mdtp, "BuiMiddleDtMover", L['BenikUI Middle DataText'], nil, nil, nil, 'ALL,BENIKUI')
+	E.FrameLocks['BuiMiddleDTPanel'] = true;
 
 	-- dummy frame for chat/threat (left)
 	Bui_dchat:SetFrameStrata('LOW')
@@ -280,6 +260,13 @@ function mod:ChangeLayout()
 		bbuttons[i].text:SetPoint('CENTER', 1, 0)
 		bbuttons[i].text:SetJustifyH('CENTER')
 		bbuttons[i].text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
+		bbuttons[i].arrow = bbuttons[i]:CreateTexture(nil, 'OVERLAY')
+		bbuttons[i].arrow:SetTexture(E.Media.Textures.ArrowUp)
+		bbuttons[i].arrow:ClearAllPoints()
+		bbuttons[i].arrow:Point('CENTER')
+		bbuttons[i].arrow:Size(12)
+		bbuttons[i].arrow:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+		bbuttons[i].arrow:Hide()
 
 		-- ElvUI Config
 		if i == 1 then
@@ -287,6 +274,8 @@ function mod:ChangeLayout()
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i]:SetParent(Bui_rdtp)
 			bbuttons[i].text:SetText('C')
+			bbuttons[i].arrow:SetRotation(E.Skins.ArrowRotation.right)
+			bbuttons[i].parent = _G.RightChatPanel
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
@@ -302,9 +291,11 @@ function mod:ChangeLayout()
 				end
 
 				if IsShiftKeyDown() then
-					self.text:SetText('>')
+					self.text:SetText('')
+					self.arrow:Show()
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
+					self.arrow:Hide()
 					self.text:SetText('C')
 					self:SetScript('OnClick', function(self, btn)
 						if btn == 'LeftButton' then
@@ -370,13 +361,16 @@ function mod:ChangeLayout()
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i]:SetParent(Bui_ldtp)
 			bbuttons[i].text:SetText('A')
+			bbuttons[i].arrow:SetRotation(E.Skins.ArrowRotation.left)
+			bbuttons[i].parent = _G.LeftChatPanel
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
 				end
 				if IsShiftKeyDown() then
-					self.text:SetText('<')
+					self.arrow:Show()
+					self.text:SetText('')
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
 					self:SetScript('OnClick', function(self)
@@ -393,6 +387,7 @@ function mod:ChangeLayout()
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
 				self.text:SetText('A')
+				self.arrow:Hide()
 				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
@@ -434,18 +429,18 @@ function mod:ChangeLayout()
 			end)
 		end
 	end
-	
+
+	MinimapPanel:Height(PANEL_HEIGHT)
 	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
 	ElvUI_BottomPanel:SetFrameLevel(0)
 	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
 	ElvUI_TopPanel:SetFrameLevel(0)
 
-	LeftChatPanel.backdrop:Style('Outside', 'LeftChatPanel_Bui') -- keeping the names. Maybe use them as rep or xp bars... dunno... yet
-	RightChatPanel.backdrop:Style('Outside', 'RightChatPanel_Bui')
+	LeftChatPanel.backdrop:Style('Outside')
+	RightChatPanel.backdrop:Style('Outside')
 
 	if BUI.ShadowMode then
-		LeftMiniPanel:CreateSoftShadow()
-		RightMiniPanel:CreateSoftShadow()
+		MinimapPanel:CreateSoftShadow()
 		LeftChatDataPanel:CreateSoftShadow()
 		LeftChatToggleButton:CreateSoftShadow()
 		RightChatDataPanel:CreateSoftShadow()
@@ -495,17 +490,32 @@ function mod:PLAYER_ENTERING_WORLD(...)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+local function InjectDatatextOptions()
+	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.name = BUI.Title..BUI:cOption(L['Left Chat Panel'])
+	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.order = 1001
+
+	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.name = BUI.Title..BUI:cOption(L['Right Chat Panel'])
+	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.order = 1002
+
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'])
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.order = 1003
+end
+
 function mod:Initialize()
-	RegDataTexts()
-	self:ChangeLayout()
+	self:CreateLayout()
 	self:ChatStyles()
 	self:ToggleMinimapStyle()
+	tinsert(BUI.Config, InjectDatatextOptions)
+
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ResizeMinimapPanels)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ChatStyles)
 	hooksecurefunc(M, 'UpdateSettings', mod.ResizeMinimapPanels)
+	hooksecurefunc(DT, 'UpdatePanelInfo', mod.MiddleDatatextLayout)
+	hooksecurefunc(DT, 'UpdatePanelInfo', mod.ToggleTransparency)
 	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
 	hooksecurefunc(E, 'UpdateMedia', updateButtonFont)
+
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
 end

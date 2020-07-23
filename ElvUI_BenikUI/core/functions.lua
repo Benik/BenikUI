@@ -47,7 +47,7 @@ local function CreateStyleShadow(f)
 	styleShadow:Point('TOPLEFT', f, 'TOPLEFT', -2, 2)
 	styleShadow:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT', 2, 0)
 
-	styleShadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(db.shadowSize or 3)})
+	styleShadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3)})
 	styleShadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	styleShadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
 	f.styleShadow = styleShadow

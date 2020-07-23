@@ -78,9 +78,9 @@ local function ConfigureCastbarShadow(unit, unitframe)
 	elseif(db.icon) then
 		castbar.Icon.bg:ClearAllPoints()
 		if unitframe.ORIENTATION == "RIGHT" then
-			castbar.Icon.bg:Point("LEFT", castbar, "RIGHT", (unitframe.SPACING*3) +3, 0)
+			castbar.Icon.bg:Point("LEFT", castbar, "RIGHT", (unitframe.SPACING*3), 0)
 		else
-			castbar.Icon.bg:Point("RIGHT", castbar, "LEFT", -(unitframe.SPACING*3) -3, 0)
+			castbar.Icon.bg:Point("RIGHT", castbar, "LEFT", -(unitframe.SPACING*3), 0)
 		end
 	end
 end

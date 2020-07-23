@@ -2,6 +2,7 @@
 local CH = E:GetModule('Chat')
 local BL = BUI:GetModule('Layout')
 local FM = BUI:GetModule('FlightMode')
+local mod = BUI:NewModule('Chat', 'AceHook-3.0', 'AceEvent-3.0')
 
 local _G = _G
 local pairs = pairs
@@ -15,12 +16,11 @@ local IsMouseButtonDown = IsMouseButtonDown
 -- GLOBALS: CHAT_FRAMES, RightChatDataPanel, LeftChatDataPanel, BuiDummyChat, RightChatPanel, LeftChatPanel, LeftChatTab
 
 -- Place the new chat frame
-CH.BUIUpdateAnchors = CH.UpdateAnchors
-function CH:UpdateAnchors()
-	self:BUIUpdateAnchors()
+function mod:UpdateEditboxAnchors()
 	for _, frameName in pairs(CHAT_FRAMES) do
 		local frame = _G[frameName..'EditBox']
 		if not frame then break; end
+		frame:ClearAllPoints()
 		if E.db.datatexts.leftChatPanel and E.db.chat.editBoxPosition == 'BELOW_CHAT' then
 			frame:SetAllPoints(LeftChatDataPanel)
 		elseif E.db.benikui.datatexts.chat.enable and BuiDummyChat and E.db.benikui.datatexts.chat.editBoxPosition == 'BELOW_CHAT' then
@@ -37,8 +37,6 @@ function CH:UpdateAnchors()
 			frame:SetAllPoints(LeftChatTab)
 		end
 	end
-
-	CH:PositionChat(true)
 end
 
 local CreatedFrames = 0;
@@ -96,6 +94,12 @@ local function PositionChat(self, override)
 	end
 end
 
-hooksecurefunc(CH, "PositionChat", PositionChat)
-hooksecurefunc(CH, "StyleChat", Style)
-hooksecurefunc(FM, "SetFlightMode", PositionChat)
+function mod:Initialize()
+	hooksecurefunc(CH, "PositionChats", PositionChat)
+	hooksecurefunc(CH, "UpdateEditboxAnchors", mod.UpdateEditboxAnchors)
+	hooksecurefunc(CH, "StyleChat", Style)
+	hooksecurefunc(FM, "SetFlightMode", PositionChat)
+	mod.UpdateEditboxAnchors()
+end
+
+BUI:RegisterModule(mod:GetName())

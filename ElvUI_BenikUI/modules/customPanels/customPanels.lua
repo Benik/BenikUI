@@ -11,11 +11,13 @@ local PanelDefault = {
 	['transparency'] = true,
 	['style'] = true,
 	['shadow'] = true,
+	['clickThrough'] = false,
 	['strata'] = "LOW",
 	['combatHide'] = true,
 	['petHide'] = true,
 	['vehicleHide'] = true,
 	['tooltip'] = true,
+	['visibility'] = "",
 }
 
 local function OnEnter(self)
@@ -37,7 +39,7 @@ function mod:InsertPanel(name)
 	name = "BenikUI_"..name
 	local db = E.db.benikui.panels
 	if not db[name] then
-		db[name] = tcopy(PanelDefault)
+		db[name] = PanelDefault
 	else
 		E:StaticPopup_Show("BUI_Panel_Name")
 	end
@@ -77,39 +79,47 @@ function mod:Resize()
 end
 
 function mod:SetupPanels()
-	for name in pairs(E.db.benikui.panels) do
-		if name then
-			local db = E.db.benikui.panels[name]
-			if db.enable then
-				_G[name]:Show()
-				E:EnableMover(_G[name].mover:GetName())
-			else
-				_G[name]:Hide()
-				E:DisableMover(_G[name].mover:GetName())
+	for panel in pairs(E.db.benikui.panels) do
+		if panel then
+			local db = E.db.benikui.panels[panel]
+
+			local visibility = db.visibility
+			if visibility and visibility:match('[\n\r]') then
+				visibility = visibility:gsub('[\n\r]','')
 			end
 
-			if not E.db.benikui.panels[name].hide then
-				_G[name]:SetFrameStrata(db.strata or 'LOW')
-				if db.transparency then
-					_G[name]:SetTemplate("Transparent")
+			_G[panel]:EnableMouse(not db.clickThrough)
+
+			if db.enable then
+				_G[panel]:Show()
+				E:EnableMover(_G[panel].mover:GetName())
+				RegisterStateDriver(_G[panel], "visibility", visibility)
+			else
+				_G[panel]:Hide()
+				E:DisableMover(_G[panel].mover:GetName())
+				UnregisterStateDriver(_G[panel], "visibility")
+			end
+
+			_G[panel]:SetFrameStrata(db.strata or 'LOW')
+			if db.transparency then
+				_G[panel]:SetTemplate("Transparent")
+			else
+				_G[panel]:SetTemplate("Default", true)
+			end
+
+			if BUI.ShadowMode then
+				if db.shadow then
+					_G[panel].shadow:Show()
 				else
-					_G[name]:SetTemplate("Default", true)
+					_G[panel].shadow:Hide()
 				end
+			end
 
-				if BUI.ShadowMode then
-					if db.shadow then
-						_G[name].shadow:Show()
-					else
-						_G[name].shadow:Hide()
-					end
-				end
-
-				if _G[name].style then
-					if db.style then
-						_G[name].style:Show()
-					else
-						_G[name].style:Hide()
-					end
+			if _G[panel].style then
+				if db.style then
+					_G[panel].style:Show()
+				else
+					_G[panel].style:Hide()
 				end
 			end
 

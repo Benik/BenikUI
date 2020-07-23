@@ -25,6 +25,25 @@ P['databars']['honor']['textYoffset'] = 0
 -- Add Minimap styling toggle default
 P['general']['minimap']['benikuiStyle'] = true
 
+-- Datatexts
+P['datatexts']['panels']['BuiLeftChatDTPanel'] = {
+	[1] = 'Primary Stat',
+	[2] = 'Missions (BenikUI)',
+	[3] = 'BuiMail',
+}
+
+P['datatexts']['panels']['BuiRightChatDTPanel'] = {
+	[1] = 'Spec Switch (BenikUI)',
+	[2] = 'Gold',
+	[3] = 'Bags',
+}
+
+P['datatexts']['panels']['BuiMiddleDTPanel'] = {
+	[1] = 'Haste',
+	[2] = 'Mastery',
+	[3] = 'Crit Chance',
+}
+
 -- Core
 P['benikui'] = {
 	['installed'] = nil,
@@ -83,6 +102,7 @@ P['benikui'] = {
 			['width'] = 400,
 			['height'] = 19,
 			['styled'] = false,
+			['numPoints'] = 3,
 		},
 		['mail'] = {
 			['toggle'] = true,
@@ -114,7 +134,7 @@ P['benikui'] = {
 			['stancebar'] = true,
 		},
 	},
-	
+
 	['unitframes'] = {
 		['player'] = {
 			['detachPortrait'] = false,
@@ -169,8 +189,10 @@ P['benikui'] = {
 		['infoPanel'] = {
 			['fixInfoPanel'] = true,
 			['texture'] = 'BuiEmpty',
+			['enableColor'] = false,
 			['customColor'] = 2,
 			['color'] = {r = .9, g = .7, b = 0, a = .7},
+			['groupColor'] = {r = .9, g = .7, b = 0, a = .7},
 		},
 		['castbar'] = {
 			['text'] = {
@@ -200,21 +222,21 @@ P['benikui'] = {
 
 -- Datatexts
 P.datatexts.panels.BuiLeftChatDTPanel = {
-	left = E.db.datatexts.panels.LeftChatDataPanel.left,
-	middle = E.db.datatexts.panels.LeftChatDataPanel.middle,
-	right = E.db.datatexts.panels.LeftChatDataPanel.right,
+	[1] = 'Primary Stat',
+	[2] = 'Missions',
+	[3] = 'BuiMail',
 }
 
 P.datatexts.panels.BuiRightChatDTPanel = {
-	left = E.db.datatexts.panels.RightChatDataPanel.left,
-	middle = E.db.datatexts.panels.RightChatDataPanel.middle,
-	right = E.db.datatexts.panels.RightChatDataPanel.right,
+	[1] = 'Spec Switch (BenikUI)',
+	[2] = 'Gold',
+	[3] = 'Bags',
 }
 
 P.datatexts.panels.BuiMiddleDTPanel = {
-	left = 'Haste',
-	middle = 'Mastery',
-	right = 'Crit Chance',
+	[1] = 'Haste',
+	[2] = 'Mastery',
+	[3] = 'Crit Chance',
 }
 
 -- Skins and ElvUI addons Styling
@@ -224,10 +246,9 @@ P['benikuiSkins'] = {
 		['locplus'] = true,
 		['sle'] = true,
 		['enh'] = true,
-		['dtb2'] = true,
 		['pa'] = true,
 	},
-	
+
 	['addonSkins'] = {
 		['skada'] = true,
 		['recount'] = true,
@@ -243,7 +264,7 @@ P['benikuiSkins'] = {
 		['immersion'] = true,
 		['adibags'] = true,
 	},
-	
+
 	['variousSkins'] = {
 		['talkingHead'] = true,
 		['decursive'] = true,
@@ -264,19 +285,18 @@ P['benikuiDatabars'] = {
 			['position'] = 'RIGHT',
 		},
 	},
-	
+
 	['reputation'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
-		['autotrack'] = false,
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
 			['position'] = 'LEFT',
 		},
 	},
-	
+
 	['azerite'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
@@ -287,7 +307,7 @@ P['benikuiDatabars'] = {
 			['position'] = 'LEFT',
 		},
 	},
-	
+
 	['honor'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
@@ -318,7 +338,7 @@ P['dashboards'] = {
 		},
 		['latency'] = 2,
 	},
-	
+
 	['tokens'] = {
 		['enableTokens'] = true,
 		['combat'] = true,
@@ -331,7 +351,7 @@ P['dashboards'] = {
 		['zeroamount'] = false,
 		['weekly'] = true,
 	},
-	
+
 	['professions'] = {
 		['enableProfessions'] = true,
 		['combat'] = true,
@@ -349,7 +369,7 @@ P['dashboards'] = {
 		['dbfontsize'] = E.db.datatexts.fontSize,
 		['dbfontflags'] = E.db.datatexts.fontOutline,
 	},
-	
+
 	['barColor'] = 1,
 	['customBarColor'] = {r = 255/255,g = 128/255,b = 0/255},
 	['textColor'] = 2,
@@ -361,3 +381,5 @@ G['benikui'] = {
 		['createButton'] = false,
 	},
 }
+
+G.datatexts.newPanelInfo.benikuiStyle = true

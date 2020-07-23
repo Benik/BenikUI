@@ -144,42 +144,11 @@ function mod:RepTextOffset()
 	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset or 0)
 end
 
--- Credit: Feraldin, ElvUI Enhanced (Legion)
-function mod:SetWatchedFactionOnReputationBar(event, msg)
-	if not E.db.benikuiDatabars.reputation.autotrack then return end
-
-	local _, _, faction = find(msg, incpat)
-	if not faction then _, _, faction = find(msg, changedpat) or find(msg, decpat) end
-	if faction then
-		if faction == GUILD_REPUTATION then
-			faction = GetGuildInfo("player")
-		end
-
-		local active = GetWatchedFactionInfo()
-		for factionIndex = 1, GetNumFactions() do
-			local name = GetFactionInfo(factionIndex)
-			if name == faction and name ~= active then
-				SetWatchedFactionIndex(factionIndex)
-				break
-			end
-		end
-	end
-end
-
-function mod:ToggleRepAutotrack()
-	if E.db.benikuiDatabars.reputation.autotrack then
-		self:RegisterEvent('CHAT_MSG_COMBAT_FACTION_CHANGE', 'SetWatchedFactionOnReputationBar')
-	else
-		self:UnregisterEvent('CHAT_MSG_COMBAT_FACTION_CHANGE')
-	end
-end
-
 function mod:LoadRep()
 	local bar = ElvUI_ReputationBar
 
 	self:RepTextOffset()
 	hooksecurefunc(M, 'UpdateReputation', mod.RepTextOffset)
-	self:ToggleRepAutotrack()
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
 

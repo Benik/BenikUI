@@ -39,6 +39,7 @@ L['Click to show the Addon List'] = true
 L['Create'] = true
 L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = true
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = true
+L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = true
 L["Hide in Pet Battle"] = true
 L["Hide In Combat"] = true
 L["Name Tooltip"] = true
@@ -168,8 +169,6 @@ L['Tip: Click to free memory'] = true
 L['Use DataTexts font'] = true
 
 -- Databars Options
-L['AutoTrack'] = true
-L['Change the tracked Faction automatically when reputation changes'] = true
 L['Notifiers'] = true
 L['Show BenikUI decorative bars on the default ElvUI XP bar'] = true
 L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = true

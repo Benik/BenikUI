@@ -101,34 +101,19 @@ local function panelsTable()
 					get = function(info) return E.db.benikui.panels[panelname].enable end,
 					set = function(info, value) E.db.benikui.panels[panelname].enable = value; BP:SetupPanels() end,
 				},
-				transparency = {
+				generalOptions = {
 					order = 2,
-					name = L['Panel Transparency'],
-					type = 'toggle',
-					disabled = function() return not E.db.benikui.panels[panelname].enable end,
-					get = function() return E.db.benikui.panels[panelname].transparency end,
-					set = function(info, value) E.db.benikui.panels[panelname].transparency = value; BP:SetupPanels() end,
-				},
-				style = {
-					order = 3,
-					name = L['BenikUI Style'],
-					type = 'toggle',
-					disabled = function() return not E.db.benikui.panels[panelname].enable or not E.db.benikui.general.benikuiStyle end,
-					get = function() return E.db.benikui.panels[panelname].style end,
-					set = function(info, value) E.db.benikui.panels[panelname].style = value; BP:SetupPanels() end,
-				},
-				shadow = {
-					order = 4,
-					name = L['Shadow'],
-					type = 'toggle',
-					disabled = function() return not BUI.ShadowMode or not E.db.benikui.panels[panelname].enable end,
-					get = function() return E.db.benikui.panels[panelname].shadow end,
-					set = function(info, value) E.db.benikui.panels[panelname].shadow = value; BP:SetupPanels() end,
-				},
-				spacer1 = {
-					order = 10,
-					type = 'description',
+					type = 'multiselect',
 					name = '',
+					disabled = function() return not E.db.benikui.panels[panelname].enable end,
+					get = function(info, key) return E.db.benikui.panels[panelname][key] end,
+					set = function(info, key, value) E.db.benikui.panels[panelname][key] = value; BP:SetupPanels() end,
+					values = {
+						transparency = L["Panel Transparency"],
+						style = L["BenikUI Style"],
+						shadow = L["Shadow"],
+						clickThrough = L["Click Through"],
+					}
 				},
 				width = {
 					order = 11,
@@ -185,6 +170,23 @@ local function panelsTable()
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function() return E.db.benikui.panels[panelname].vehicleHide end,
 					set = function(info, value) E.db.benikui.panels[panelname].vehicleHide = value; end,
+				},
+				visibility = {
+					type = 'input',
+					order = 24,
+					name = L["Visibility State"],
+					desc = L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"],
+					width = 'full',
+					disabled = function() return not E.db.benikui.panels[panelname].enable end,
+					multiline = true,
+					get = function() return E.db.benikui.panels[panelname].visibility end,
+					set = function(info, value)
+						if value and value:match('[\n\r]') then
+							value = value:gsub('[\n\r]','')
+						end
+						E.db.benikui.panels[panelname].visibility = value;
+						BP:SetupPanels()
+					end,
 				},
 				spacer3 = {
 					order = 30,

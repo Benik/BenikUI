@@ -1,3 +1,54 @@
+3.911 (Jul 18, 2020)
+*Avoid another chat glitch after leaving flightMode
+*Added a clickThrough option in Custom Panels
+
+3.91 (Jul 18, 2020)
+*Added custom visibility option for the Custom Panels
+*Fixed Custom Panels creation
+*Fixed Chat strata issue after leaving flightMode
+*Fixed Chat EditBox when assigned on the Middle Datatext
+*Blacklisted some DTs that shouldn't be styled
+*Removed my own BfA Missions, OrderHall and Garrison datatexts
+*Added Missions (BenikUI) datatext. It's an edited ElvUI version and has the previous looks
+*Install and profile adjustments after altering BenikUI Missions datatexts
+*Fixed a datatext error when Style is disabled
+*Fixed ElvUI Chat Datatext glitch when leaving flightMode
+*Fixed chat datatext style error
+
+3.9 (Jul 9, 2020)
+*Fix Role Icons
+*Added my favorite Kringel texture. Credit: Kringel <3 - under permission
+*Added an Enable/disable option for Info Panel colors/textures
+*Since it's a pain (or even impossible) to grab the group unit class, Infopanel color options have been separated. They still share the same texture. This will close #17.
+*Make the power statusbar option more flexible
+*Fixed Castbar Icon position
+*Fixed parchment remover option
+*Added some textures I really like
+*Fixed a tiny mini ace3 error
+*Fixed DataText tooltip Style
+*Removed BenikUI version from Status Report main frame. It's now in the plugins frame
+*Adding options in Custom Datatexts works fine now. Thanks @Simpy for the addition <3
+*Added BenikUI Style in the Custom Datatext options
+*Removed S&L and DTBars_2 datatext styling
+*Followed LocationPlus dt renaming
+*Added option to change the datatext points to the Middle Datatext. Not sure if I'm gonna keep it tho :P
+*Removed rep autotrack. It's part of ElvUI now
+*Fixed LocationPlus defaults in the installer
+*Fixed dt points while resizing the Middle Datatext
+*Made BenikUI Datatexts names more friendly (and nice looking)
+*Replaced the A and C button arrows with texture
+*Fixed Chat EditBox
+*Update BenikUI datatexts
+
+3.812 (May 7, 2020)
+*Missed a rename (Repooc)
+*Styled StatusFrame.PluginFrame
+*Fixed an error when shift+Click to hide Left or Right chat panels
+*Added our mvp Kringel in Credits <3
+*Added Patron info. Thanks Ric and thurin
+*Update datatexts creation
+*Missed another rename. Thanks David. ticket #101
+
 3.811 (Apr 30, 2020)
 *Follow the overnight ElvUI Datatext changes. Credit: Repooc
 *Fix statusreport. Credit: Repooc
