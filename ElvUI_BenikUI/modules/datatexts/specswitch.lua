@@ -23,7 +23,7 @@ local activeString = join("", "|cff00FF00" , ACTIVE_PETS, "|r")
 local inactiveString = join("", "|cffFF0000", FACTION_INACTIVE, "|r")
 
 local menuFrame = CreateFrame("Frame", "BenikUI_LootSpecializationDatatextClickMenu", E.UIParent, "UIDropDownMenuTemplate")
-menuFrame:SetTemplate('Transparent')
+--menuFrame:SetTemplate('Transparent')
 
 local menuList = {
 	{ text = SELECT_LOOT_SPECIALIZATION, isTitle = true, notCheckable = true },

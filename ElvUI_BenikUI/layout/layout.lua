@@ -28,11 +28,11 @@ local PANEL_HEIGHT = 19;
 local SPACING = (E.PixelMode and 1 or 3)
 local BUTTON_NUM = 4
 
-local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
-local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent)
-local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent)
+local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent, 'BackdropTemplate')
+local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent, 'BackdropTemplate')
+local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent, 'BackdropTemplate')
 
-local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
+local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent, 'BackdropTemplate')
 menuFrame:SetTemplate('Transparent', true)
 
 function BuiGameMenu_OnMouseUp(self)
@@ -226,7 +226,7 @@ function mod:CreateLayout()
 	local db = E.db.benikui.datatexts
 
 	-- Left dt panel
-	local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
+	local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent, 'BackdropTemplate')
 	Bui_ldtp:SetTemplate('Default', true)
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
@@ -235,7 +235,7 @@ function mod:CreateLayout()
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- Right dt panel
-	local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
+	local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent, 'BackdropTemplate')
 	Bui_rdtp:SetTemplate('Default', true)
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
@@ -244,7 +244,7 @@ function mod:CreateLayout()
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- Middle dt panel
-	local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
+	local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent, 'BackdropTemplate')
 	Bui_mdtp:SetTemplate('Default', true)
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
 	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
@@ -268,7 +268,7 @@ function mod:CreateLayout()
 
 	-- Buttons
 	for i = 1, BUTTON_NUM do
-		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i)
+		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i, E.UIParent, 'BackdropTemplate')
 		bbuttons[i]:RegisterForClicks('AnyUp')
 		bbuttons[i]:SetFrameStrata('BACKGROUND')
 		bbuttons[i]:CreateSoftGlow()

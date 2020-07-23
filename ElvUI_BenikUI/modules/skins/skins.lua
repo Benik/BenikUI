@@ -261,7 +261,7 @@ local function styleFreeBlizzardFrames()
 	
 	_G.ColorPickerFrame:Style("Outside")
 end
-S:AddCallback("BenikUI_styleFreeBlizzardFrames", styleFreeBlizzardFrames)
+--S:AddCallback("BenikUI_styleFreeBlizzardFrames", styleFreeBlizzardFrames)
 
 local function StyleCagedBattlePetTooltip(tooltipFrame)
 	if not tooltipFrame.style then
@@ -553,7 +553,7 @@ local function ObjectiveTrackerQuests()
 	end
 	hooksecurefunc("ObjectiveTracker_Update", QuestNumString)
 end
-S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
+--S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
 
 local function StyleInFlight()
 	if E.db.benikuiSkins.variousSkins.inflight ~= true or E.db.benikui.misc.flightMode == true then
@@ -638,7 +638,7 @@ end
 function mod:PLAYER_ENTERING_WORLD(...)
 	self:styleAlertFrames()
 	styleAddons()
-	styleWorldMap()
+	--styleWorldMap()
 	StyleAdibags()
 
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")

@@ -10,7 +10,7 @@ local function CreateWideShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
-	local wideshadow = f.wideshadow or CreateFrame('Frame', nil, f)
+	local wideshadow = f.wideshadow or CreateFrame('Frame', nil, f, 'BackdropTemplate')
 	wideshadow:SetFrameLevel(1)
 	wideshadow:SetFrameStrata('BACKGROUND')
 	wideshadow:SetOutside(f, 6, 6)
@@ -25,7 +25,7 @@ local function CreateSoftShadow(f)
 	local backdropr, backdropg, backdropb = 0, 0, 0
 	local db = E.db.benikui.general
 
-	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
+	local shadow = f.shadow or CreateFrame('Frame', nil, f, 'BackdropTemplate') -- This way you can replace current shadows.
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
@@ -40,7 +40,7 @@ local function CreateStyleShadow(f)
 	local backdropr, backdropg, backdropb = 0, 0, 0
 	local db = E.db.benikui.general
 
-	local styleShadow = f.styleShadow or CreateFrame('Frame', nil, f)
+	local styleShadow = f.styleShadow or CreateFrame('Frame', nil, f, 'BackdropTemplate')
 	styleShadow:SetFrameLevel(1)
 	styleShadow:SetFrameStrata(f:GetFrameStrata())
 
@@ -57,7 +57,7 @@ local function CreateSoftGlow(f)
 	if f.sglow then return end
 
 	local r, g, b = BUI:unpackColor(E.db.general.valuecolor)
-	local sglow = CreateFrame('Frame', nil, f)
+	local sglow = CreateFrame('Frame', nil, f, 'BackdropTemplate')
 
 	sglow:SetFrameLevel(1)
 	sglow:SetFrameStrata(f:GetFrameStrata())
@@ -75,7 +75,7 @@ local r, g, b = 0, 0, 0
 local function Style(f, template, name, ignoreColor, ignoreVisibility)
 	if f.style or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	local style = CreateFrame('Frame', name or nil, f)
+	local style = CreateFrame('Frame', name or nil, f, 'BackdropTemplate')
 	if not template then
 		style:CreateBackdrop('Transparent', true)
 	else

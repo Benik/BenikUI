@@ -157,7 +157,7 @@ function mod:CreateDashboard(name, barHolder, option)
 	bar.Text:Width(bar:GetWidth() - 20)
 	bar.Text:SetWordWrap(false)
 
-	bar.IconBG = CreateFrame('Button', nil, bar)
+	bar.IconBG = CreateFrame('Button', nil, bar, 'BackdropTemplate')
 	bar.IconBG:SetTemplate('Transparent')
 	bar.IconBG:Size(E.PixelMode and 18 or 20)
 	bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
@@ -172,7 +172,7 @@ end
 function mod:Initialize()
 	mod:LoadSystem()
 	mod:LoadProfessions()
-	mod:LoadTokens()
+	--mod:LoadTokens()
 end
 
 BUI:RegisterModule(mod:GetName())

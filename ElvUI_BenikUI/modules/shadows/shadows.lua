@@ -145,7 +145,7 @@ function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
 	raidUtilityShadows()
-	mirrorTimersShadows()
+	--mirrorTimersShadows()
 	ObjectiveTrackerShadows()
 	miscShadows()
 	MicroBarShadows()

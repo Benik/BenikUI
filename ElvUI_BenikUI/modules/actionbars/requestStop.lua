@@ -104,7 +104,7 @@ local fly_icon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\
 function mod:TaxiButton()
 	if not E.db.benikui.actionbars.requestStop then return end
 
-	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent)
+	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent, 'BackdropTemplate')
 	tbtn:Size(240, 40)
 	tbtn:SetPoint('TOP', E.UIParent, 'TOP', 0, -150)
 	tbtn:SetTemplate("Transparent")

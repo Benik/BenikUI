@@ -216,7 +216,7 @@ local function style_Channels()
 	_G.ChannelFrame.backdrop:Style("Outside")
 	_G.CreateChannelPopup:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
+--S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
 
 -- Collections
 local function style_Collections()
@@ -763,7 +763,7 @@ f:SetScript(
 	"OnEvent",
 	function(self, event)
 		self:UnregisterEvent(event)
-		style_TimeManager()
+		--style_TimeManager()
 	end
 )
 

@@ -19,7 +19,7 @@ local GetAverageItemLevel = GetAverageItemLevel
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 
-local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE
+local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME
 local LEVEL, NONE = LEVEL, NONE
 local ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY
 
@@ -225,7 +225,7 @@ hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 -- XP string
 local M = E:GetModule('DataBars');
 local function GetXPinfo()
-	local maxLevel = MAX_PLAYER_LEVEL_TABLE[GetExpansionLevel()];
+	local maxLevel = UnitXPMax('player')
 	if(UnitLevel('player') == maxLevel) or IsXPUserDisabled() then return end
 
 	local cur, max = M:GetXP('player')
@@ -303,7 +303,7 @@ local function Initialize()
 	local ilvl = getItemLevel()
 
 	-- Create Top frame
-	AFK.AFKMode.top = CreateFrame('Frame', nil, AFK.AFKMode)
+	AFK.AFKMode.top = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
 	AFK.AFKMode.top:SetFrameLevel(0)
 	AFK.AFKMode.top:SetTemplate('Transparent', true, true)
 	AFK.AFKMode.top:SetBackdropBorderColor(.3, .3, .3, 1)

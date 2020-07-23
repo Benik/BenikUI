@@ -136,7 +136,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 
 	for i=1, #list do
 		if not frame.buttons[i] then
-			frame.buttons[i] = CreateFrame('Button', nil, frame)
+			frame.buttons[i] = CreateFrame('Button', nil, frame 'BackdropTemplate')
 
 			frame.buttons[i].hoverTex = frame.buttons[i]:CreateTexture(nil, 'OVERLAY')
 			frame.buttons[i].hoverTex:SetAllPoints()
