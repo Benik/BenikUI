@@ -75,12 +75,12 @@ function mod:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	if BUI:IsAddOnEnabled('TinyTooltip') then return end
 
-	--StyleTooltip()
+	StyleTooltip()
 
-	--mod:CheckTooltipStyleColor()
-	--mod:SecureHookScript(GameTooltip, 'OnTooltipCleared', 'GameTooltip_OnTooltipCleared')
-	--mod:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
-	--hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", mod.SetupStyleAndShadow)
+	mod:CheckTooltipStyleColor()
+	mod:SecureHookScript(GameTooltip, 'OnTooltipCleared', 'GameTooltip_OnTooltipCleared')
+	mod:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
+	hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", mod.SetupStyleAndShadow)
 end
 
 BUI:RegisterModule(mod:GetName())
