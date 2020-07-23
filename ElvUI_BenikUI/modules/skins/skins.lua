@@ -77,8 +77,8 @@ local function styleFreeBlizzardFrames()
 		_G.InterfaceOptionsFrame:Style("Outside")
 		_G.ReadyCheckFrame:Style("Outside")
 		_G.ReadyCheckListenerFrame:Style("Outside")
-		if _G.SplashFrame.backdrop then
-			_G.SplashFrame.backdrop:Style("Outside")
+		if _G.SplashFrame then
+			_G.SplashFrame:Style("Outside")
 		end
 		_G.VideoOptionsFrame:Style("Outside")
 	end
@@ -100,7 +100,7 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.dressingroom then
-		_G.DressUpFrame.backdrop:Style("Outside")
+		_G.DressUpFrame:Style("Outside")
 
 		if not _G.WardrobeOutfitEditFrame.style then
 			_G.WardrobeOutfitEditFrame:Style("Outside")
@@ -110,7 +110,7 @@ local function styleFreeBlizzardFrames()
 	if db.friends then
 		_G.AddFriendFrame:Style("Outside")
 		_G.FriendsFrame:Style("Outside")
-		_G.FriendsFriendsFrame.backdrop:Style("Outside")
+		_G.FriendsFriendsFrame:Style("Outside")
 		_G.RecruitAFriendFrame:Style("Outside")
 	end
 
@@ -124,8 +124,8 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.help then
-		_G.HelpFrame.backdrop:Style("Outside")
-		_G.HelpFrame.Header.backdrop:Style("Outside")
+		_G.HelpFrame:Style("Outside")
+		_G.HelpFrame.Header:Style("Outside")
 	end
 
 	if db.lfg then
@@ -134,9 +134,9 @@ local function styleFreeBlizzardFrames()
 		_G.LFGDungeonReadyStatus:Style("Outside")
 		_G.LFGListApplicationDialog:Style("Outside")
 		_G.LFGListInviteDialog:Style("Outside")
-		_G.PVEFrame.backdrop:Style("Outside")
+		_G.PVEFrame:Style("Outside")
 		_G.PVPReadyDialog:Style("Outside")
-		_G.RaidBrowserFrame.backdrop:Style("Outside")
+		_G.RaidBrowserFrame:Style("Outside")
 		_G.QuickJoinRoleSelectionFrame:Style("Outside")
 
 		local function forceTabFont(button)
@@ -166,8 +166,8 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.merchant then
-		if _G.MerchantFrame.backdrop then
-			_G.MerchantFrame.backdrop:Style("Outside")
+		if _G.MerchantFrame then
+			_G.MerchantFrame:Style("Outside")
 		end
 	end
 
@@ -208,9 +208,9 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.quest then
-		_G.QuestFrame.backdrop:Style("Outside")
+		_G.QuestFrame:Style("Outside")
 		_G.QuestLogPopupDetailFrame:Style("Outside")
-		_G.QuestModelScene.backdrop:Style("Outside")
+		_G.QuestModelScene:Style("Outside")
 
 		if BUI.AS then
 			_G.QuestDetailScrollFrame:SetTemplate("Transparent")
@@ -238,7 +238,7 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.taxi then
-		_G.TaxiFrame.backdrop:Style("Outside")
+		_G.TaxiFrame:Style("Outside")
 	end
 
 	if db.tooltip then
@@ -261,7 +261,7 @@ local function styleFreeBlizzardFrames()
 	
 	_G.ColorPickerFrame:Style("Outside")
 end
---S:AddCallback("BenikUI_styleFreeBlizzardFrames", styleFreeBlizzardFrames)
+S:AddCallback("BenikUI_styleFreeBlizzardFrames", styleFreeBlizzardFrames)
 
 local function StyleCagedBattlePetTooltip(tooltipFrame)
 	if not tooltipFrame.style then
@@ -304,8 +304,8 @@ local function styleWorldMap()
 	end
 
 	local mapFrame = _G.WorldMapFrame
-	if not mapFrame.backdrop.style then
-		mapFrame.backdrop:Style("Outside")
+	if not mapFrame.style then
+		mapFrame:Style("Outside")
 	end
 
 	if E.private.skins.blizzard.tooltip ~= true then
@@ -350,7 +350,7 @@ local function styleAddons()
 			_G.SLE_BG_2,
 			_G.SLE_BG_3,
 			_G.SLE_BG_4,
-			_G.SLE_RaidMarkerBar.backdrop,
+			_G.SLE_RaidMarkerBar,
 			_G.SLE_SquareMinimapButtonBar,
 			_G.SLE_LocationPanel,
 			_G.SLE_LocationPanel_X,
@@ -377,11 +377,11 @@ local function styleAddons()
 	-- ElvUI_Enhanced
 	if IsAddOnLoaded("ElvUI_Enhanced") and E.db.benikuiSkins.elvuiAddons.enh then
 		if _G.MinimapButtonBar then
-			_G.MinimapButtonBar.backdrop:Style("Outside")
+			_G.MinimapButtonBar:Style("Outside")
 		end
 
-		if _G.RaidMarkerBar.backdrop then
-			_G.RaidMarkerBar.backdrop:Style("Outside")
+		if _G.RaidMarkerBar then
+			_G.RaidMarkerBar:Style("Outside")
 		end
 	end
 
@@ -526,7 +526,7 @@ local function StyleAltPowerBar()
 	end
 
 	local bar = _G.ElvUI_AltPowerBar
-	bar.backdrop:Style("Outside")
+	bar:Style("Outside")
 	if bar.textures then
 		bar:StripTextures(true)
 	end
