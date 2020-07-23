@@ -19,7 +19,7 @@ local function style_AchievementUI()
 		frame.backdrop:Style("Outside")
 	end
 end
-S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
+--S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
 
 -- AlliedRacesUI
 local function style_AlliedRacesUI()
@@ -34,7 +34,7 @@ local function style_AlliedRacesUI()
 		frame.backdrop:Style("Outside")
 	end
 end
-S:AddCallbackForAddon("Blizzard_AlliedRacesUI", "BenikUI_AlliedRaces", style_AlliedRacesUI)
+--S:AddCallbackForAddon("Blizzard_AlliedRacesUI", "BenikUI_AlliedRaces", style_AlliedRacesUI)
 
 -- ArchaeologyUI
 local function style_ArchaeologyUI()
@@ -46,7 +46,7 @@ local function style_ArchaeologyUI()
 
 	_G.ArchaeologyFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_ArchaeologyUI", "BenikUI_ArchaeologyUI", style_ArchaeologyUI)
+--S:AddCallbackForAddon("Blizzard_ArchaeologyUI", "BenikUI_ArchaeologyUI", style_ArchaeologyUI)
 
 -- ArtifactUI
 local function style_ArtifactUI()
@@ -61,7 +61,7 @@ local function style_ArtifactUI()
 	frame.CloseButton:ClearAllPoints()
 	frame.CloseButton:SetPoint("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
 end
-S:AddCallbackForAddon("Blizzard_ArtifactUI", "BenikUI_ArtifactUI", style_ArtifactUI)
+--S:AddCallbackForAddon("Blizzard_ArtifactUI", "BenikUI_ArtifactUI", style_ArtifactUI)
 
 -- AuctionHouseUI
 local function style_AuctionHouseUI()
@@ -75,7 +75,7 @@ local function style_AuctionHouseUI()
 	Frame:Style("Outside")
 	Frame.WoWTokenResults.GameTimeTutorial.backdrop:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_AuctionHouseUI", "BenikUI_AuctionHouseUI", style_AuctionHouseUI)
+--S:AddCallbackForAddon("Blizzard_AuctionHouseUI", "BenikUI_AuctionHouseUI", style_AuctionHouseUI)
 
 -- AzeriteEssenceUI
 local function style_AzeriteEssenceUI()
@@ -83,7 +83,7 @@ local function style_AzeriteEssenceUI()
 
 	_G.AzeriteEssenceUI:Style('Outside')
 end
-S:AddCallbackForAddon("Blizzard_AzeriteEssenceUI", "BenikUI_AzeriteEssenceUI", style_AzeriteEssenceUI)
+--S:AddCallbackForAddon("Blizzard_AzeriteEssenceUI", "BenikUI_AzeriteEssenceUI", style_AzeriteEssenceUI)
 
 -- AzeriteUI
 local function style_AzeriteUI()
@@ -95,7 +95,7 @@ local function style_AzeriteUI()
 
 	_G.AzeriteEmpoweredItemUI.backdrop:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_AzeriteUI", "BenikUI_AzeriteUI", style_AzeriteUI)
+--S:AddCallbackForAddon("Blizzard_AzeriteUI", "BenikUI_AzeriteUI", style_AzeriteUI)
 
 -- AzeriteRespecFrame
 local function style_AzeriteRespecUI()
@@ -118,7 +118,7 @@ local function style_AzeriteRespecUI()
 	frame.ButtonFrame.AzeriteRespecButton:ClearAllPoints()
 	frame.ButtonFrame.AzeriteRespecButton:Point("TOP", frame.ItemSlot, "BOTTOM", 0, -20)
 end
-S:AddCallbackForAddon("Blizzard_AzeriteRespecUI", "BenikUI_AzeriteRespecUI", style_AzeriteRespecUI)
+--S:AddCallbackForAddon("Blizzard_AzeriteRespecUI", "BenikUI_AzeriteRespecUI", style_AzeriteRespecUI)
 
 -- BarbershopUI
 local function style_BarbershopUI()
@@ -131,7 +131,7 @@ local function style_BarbershopUI()
 	_G.BarberShopFrame:Style("Outside")
 	_G.BarberShopAltFormFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_BarbershopUI", "BenikUI_BarbershopUI", style_BarbershopUI)
+--S:AddCallbackForAddon("Blizzard_BarbershopUI", "BenikUI_BarbershopUI", style_BarbershopUI)
 
 -- BattlefieldMap
 local function style_BattlefieldMap()
@@ -143,7 +143,7 @@ local function style_BattlefieldMap()
 
 	_G.BattlefieldMapFrame.backdrop:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_BattlefieldMap", "BenikUI_BattlefieldMap", style_BattlefieldMap)
+--S:AddCallbackForAddon("Blizzard_BattlefieldMap", "BenikUI_BattlefieldMap", style_BattlefieldMap)
 
 -- BindingUI
 local function style_BindingUI()
@@ -155,7 +155,7 @@ local function style_BindingUI()
 
 	_G.KeyBindingFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_BindingUI", "BenikUI_BindingUI", style_BindingUI)
+--S:AddCallbackForAddon("Blizzard_BindingUI", "BenikUI_BindingUI", style_BindingUI)
 
 -- BlackMarketUI
 local function style_BlackMarketUI()
@@ -167,7 +167,7 @@ local function style_BlackMarketUI()
 
 	_G.BlackMarketFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_BlackMarketUI", "BenikUI_BlackMarketUI", style_BlackMarketUI)
+--S:AddCallbackForAddon("Blizzard_BlackMarketUI", "BenikUI_BlackMarketUI", style_BlackMarketUI)
 
 -- Calendar
 local function style_Calendar()
@@ -191,7 +191,7 @@ local function style_Calendar()
 		_G["CalendarDayButton" .. i]:SetTemplate("Transparent")
 	end
 end
-S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_Calendar", style_Calendar)
+--S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_Calendar", style_Calendar)
 
 -- ChallengesUI
 local function style_ChallengesUI()
@@ -203,7 +203,7 @@ local function style_ChallengesUI()
 
 	_G.ChallengesKeystoneFrame.backdrop:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_ChallengesUI", "BenikUI_ChallengesUI", style_ChallengesUI)
+--S:AddCallbackForAddon("Blizzard_ChallengesUI", "BenikUI_ChallengesUI", style_ChallengesUI)
 
 -- Channels
 local function style_Channels()
@@ -233,7 +233,7 @@ local function style_Collections()
 		PetJournalPrimaryAbilityTooltip:Style("Outside")
 	end
 end
-S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
+--S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
 
 -- Communities
 local function style_Communities()
@@ -251,7 +251,7 @@ local function style_Communities()
 	end
 	_G.CommunitiesGuildLogFrame.backdrop:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Communities", style_Communities)
+--S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Communities", style_Communities)
 
 -- Contribution
 local function style_Contribution()
@@ -276,7 +276,7 @@ local function style_Contribution()
 	end
 	ContributionBuffTooltip:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_Contribution", "BenikUI_Contribution", style_Contribution)
+--S:AddCallbackForAddon("Blizzard_Contribution", "BenikUI_Contribution", style_Contribution)
 
 -- DeathRecap
 local function style_DeathRecap()
@@ -288,7 +288,7 @@ local function style_DeathRecap()
 
 	_G.DeathRecapFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_DeathRecap", "BenikUI_DeathRecap", style_DeathRecap)
+--S:AddCallbackForAddon("Blizzard_DeathRecap", "BenikUI_DeathRecap", style_DeathRecap)
 
 -- EncounterJournal
 local function style_EncounterJournal()
@@ -323,7 +323,7 @@ local function style_EncounterJournal()
 	end
 	_G.EncounterJournalTooltip:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_EncounterJournal", "BenikUI_EncounterJournal", style_EncounterJournal)
+--S:AddCallbackForAddon("Blizzard_EncounterJournal", "BenikUI_EncounterJournal", style_EncounterJournal)
 
 -- FlightMap
 local function style_FlightMap()
@@ -335,7 +335,7 @@ local function style_FlightMap()
 
 	_G.FlightMapFrame.backdrop:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_FlightMap", "BenikUI_FlightMap", style_FlightMap)
+--S:AddCallbackForAddon("Blizzard_FlightMap", "BenikUI_FlightMap", style_FlightMap)
 
 -- Garrison Style
 local fRecruits = {}
@@ -454,7 +454,7 @@ local function style_GarrisonUI()
 	S:HandleButton(GRecruitSelect.FollowerSelection.Recruit2.HireRecruits)
 	S:HandleButton(GRecruitSelect.FollowerSelection.Recruit3.HireRecruits)
 end
-S:AddCallbackForAddon("Blizzard_GarrisonUI", "BenikUI_GarrisonUI", style_GarrisonUI)
+--S:AddCallbackForAddon("Blizzard_GarrisonUI", "BenikUI_GarrisonUI", style_GarrisonUI)
 
 -- GuildBankUI
 local function style_GuildBankUI()
@@ -472,7 +472,7 @@ local function style_GuildBankUI()
 		texture:SetTexCoord(unpack(BUI.TexCoords))
 	end
 end
-S:AddCallbackForAddon("Blizzard_GuildBankUI", "BenikUI_GuildBankUI", style_GuildBankUI)
+--S:AddCallbackForAddon("Blizzard_GuildBankUI", "BenikUI_GuildBankUI", style_GuildBankUI)
 
 -- GuildUI
 local function style_GuildUI()
@@ -495,7 +495,7 @@ local function style_GuildUI()
 		end
 	end
 end
-S:AddCallbackForAddon("Blizzard_GuildUI", "BenikUI_GuildUI", style_GuildUI)
+--S:AddCallbackForAddon("Blizzard_GuildUI", "BenikUI_GuildUI", style_GuildUI)
 
 -- GuildControlUI
 local function style_GuildControlUI()
@@ -507,7 +507,7 @@ local function style_GuildControlUI()
 
 	_G.GuildControlUI:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_GuildControlUI", "BenikUI_GuildControlUI", style_GuildControlUI)
+--S:AddCallbackForAddon("Blizzard_GuildControlUI", "BenikUI_GuildControlUI", style_GuildControlUI)
 
 -- IslandsQueueUI
 local function style_IslandsQueueUI()
@@ -532,7 +532,7 @@ local function style_IslandsQueueUI()
 		end
 	)
 end
-S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "BenikUI_IslandsQueueUI", style_IslandsQueueUI)
+--S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "BenikUI_IslandsQueueUI", style_IslandsQueueUI)
 
 -- InspectUI
 local function style_InspectUI()
@@ -544,7 +544,7 @@ local function style_InspectUI()
 
 	_G.InspectFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_InspectUI", "BenikUI_InspectUI", style_InspectUI)
+--S:AddCallbackForAddon("Blizzard_InspectUI", "BenikUI_InspectUI", style_InspectUI)
 
 -- ItemInteractionUI
 local function style_ItemInteractionUI()
@@ -556,7 +556,7 @@ local function style_ItemInteractionUI()
 
 	_G.ItemInteractionFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_ItemInteractionUI", "BenikUI_ItemInteractionUI", style_ItemInteractionUI)
+--S:AddCallbackForAddon("Blizzard_ItemInteractionUI", "BenikUI_ItemInteractionUI", style_ItemInteractionUI)
 
 -- ItemSocketingUI
 local function style_ItemSocketingUI()
@@ -568,7 +568,7 @@ local function style_ItemSocketingUI()
 
 	_G.ItemSocketingFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_ItemSocketingUI", "BenikUI_ItemSocketingUI", style_ItemSocketingUI)
+--S:AddCallbackForAddon("Blizzard_ItemSocketingUI", "BenikUI_ItemSocketingUI", style_ItemSocketingUI)
 
 -- ItemUpgradeUI
 local function style_ItemUpgradeUI()
@@ -580,7 +580,7 @@ local function style_ItemUpgradeUI()
 
 	_G.ItemUpgradeFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_ItemUpgradeUI", "BenikUI_ItemUpgradeUI", style_ItemUpgradeUI)
+--S:AddCallbackForAddon("Blizzard_ItemUpgradeUI", "BenikUI_ItemUpgradeUI", style_ItemUpgradeUI)
 
 -- LookingForGuildUI
 local function style_LookingForGuildUI()
@@ -602,7 +602,7 @@ local function LoadStyle()
 		hooksecurefunc("LookingForGuildFrame_CreateUIElements", style_LookingForGuildUI)
 	end
 end
-S:AddCallbackForAddon("Blizzard_LookingForGuildUI", "BenikUI_LookingForGuildUI", LoadStyle)
+--S:AddCallbackForAddon("Blizzard_LookingForGuildUI", "BenikUI_LookingForGuildUI", LoadStyle)
 
 -- MacroUI
 local function style_MacroUI()
@@ -615,7 +615,7 @@ local function style_MacroUI()
 	_G.MacroFrame:Style("Outside")
 	_G.MacroPopupFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_MacroUI", "BenikUI_MacroUI", style_MacroUI)
+--S:AddCallbackForAddon("Blizzard_MacroUI", "BenikUI_MacroUI", style_MacroUI)
 
 -- ObliterumUI
 local function style_ObliterumUI()
@@ -627,7 +627,7 @@ local function style_ObliterumUI()
 
 	_G.ObliterumForgeFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_ObliterumUI", "BenikUI_ObliterumUI", style_ObliterumUI)
+--S:AddCallbackForAddon("Blizzard_ObliterumUI", "BenikUI_ObliterumUI", style_ObliterumUI)
 
 -- OrderHallUI
 local function style_OrderHallUI()
@@ -648,7 +648,7 @@ local function style_OrderHallUI()
 		end
 	)
 end
-S:AddCallbackForAddon("Blizzard_OrderHallUI", "BenikUI_OrderHallUI", style_OrderHallUI)
+--S:AddCallbackForAddon("Blizzard_OrderHallUI", "BenikUI_OrderHallUI", style_OrderHallUI)
 
 -- PVPUI
 local function style_PVPUI()
@@ -661,7 +661,7 @@ local function style_PVPUI()
 
 	_G.ConquestTooltip:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_PVPUI", "BenikUI_PVPUI", style_PVPUI)
+--S:AddCallbackForAddon("Blizzard_PVPUI", "BenikUI_PVPUI", style_PVPUI)
 
 -- QuestChoice
 local function style_QuestChoice()
@@ -673,7 +673,7 @@ local function style_QuestChoice()
 
 	_G.QuestChoiceFrame:Style("Small")
 end
-S:AddCallbackForAddon("Blizzard_QuestChoice", "BenikUI_QuestChoice", style_QuestChoice)
+--S:AddCallbackForAddon("Blizzard_QuestChoice", "BenikUI_QuestChoice", style_QuestChoice)
 
 -- ScrappingMachine
 local function style_ScrappingMachineUI()
@@ -685,7 +685,7 @@ local function style_ScrappingMachineUI()
 
 	_G.ScrappingMachineFrame.backdrop:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_ScrappingMachineUI", "BenikUI_ScrappingMachineUI", style_ScrappingMachineUI)
+--S:AddCallbackForAddon("Blizzard_ScrappingMachineUI", "BenikUI_ScrappingMachineUI", style_ScrappingMachineUI)
 
 -- TalentUI
 local function style_TalentUI()
@@ -743,7 +743,7 @@ local function style_TalkingHeadUI()
 		end
 	end
 end
-S:AddCallbackForAddon("Blizzard_TalkingHeadUI", "BenikUI_TalkingHeadUI", style_TalkingHeadUI)
+--S:AddCallbackForAddon("Blizzard_TalkingHeadUI", "BenikUI_TalkingHeadUI", style_TalkingHeadUI)
 
 -- TimeManager (although is LOD in ElvUI, the style color doesn't apply)
 local function style_TimeManager()
@@ -779,7 +779,7 @@ local function style_TradeSkillUI()
 	frame:Style("Outside")
 	frame.DetailsFrame.GuildFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_TradeSkillUI", "BenikUI_TradeSkillUI", style_TradeSkillUI)
+--S:AddCallbackForAddon("Blizzard_TradeSkillUI", "BenikUI_TradeSkillUI", style_TradeSkillUI)
 
 -- TrainerUI
 local function style_TrainerUI()
@@ -791,7 +791,7 @@ local function style_TrainerUI()
 
 	_G.ClassTrainerFrame:Style("Outside")
 end
-S:AddCallbackForAddon("Blizzard_TrainerUI", "BenikUI_TrainerUI", style_TrainerUI)
+--S:AddCallbackForAddon("Blizzard_TrainerUI", "BenikUI_TrainerUI", style_TrainerUI)
 
 -- VoidStorageUI
 local function style_VoidStorageUI()
@@ -812,7 +812,7 @@ local function style_VoidStorageUI()
 		end
 	end
 end
-S:AddCallbackForAddon("Blizzard_VoidStorageUI", "BenikUI_VoidStorageUI", style_VoidStorageUI)
+--S:AddCallbackForAddon("Blizzard_VoidStorageUI", "BenikUI_VoidStorageUI", style_VoidStorageUI)
 
 -- WarboardUI
 local function style_WarboardUI()
@@ -826,7 +826,7 @@ local function style_WarboardUI()
 	frame.backdrop:Style("Outside")
 	frame.backdrop.style:SetFrameLevel(1)
 end
-S:AddCallbackForAddon("Blizzard_WarboardUI", "BenikUI_WarboardUI", style_WarboardUI)
+--S:AddCallbackForAddon("Blizzard_WarboardUI", "BenikUI_WarboardUI", style_WarboardUI)
 
 -- UIWidgets
 local function style_UIWidgets()
@@ -836,4 +836,4 @@ local function style_UIWidgets()
 		return
 	end
 end
-S:AddCallbackForAddon("Blizzard_UIWidgets", "BenikUI_UIWidgets", style_UIWidgets)
+--S:AddCallbackForAddon("Blizzard_UIWidgets", "BenikUI_UIWidgets", style_UIWidgets)
