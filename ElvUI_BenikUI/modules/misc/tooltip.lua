@@ -25,7 +25,7 @@ end
 
 local ttr, ttg, ttb = 0, 0, 0
 function mod:CheckTooltipStyleColor()
-	local r, g, b = GameTooltip.style.pixelBorders.CENTER:GetVertexColor()
+	local r, g, b = GameTooltip.style:GetBackdropColor()
 	ttr, ttg, ttb = r, g, b
 end
 
