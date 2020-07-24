@@ -126,6 +126,7 @@ local function styleFreeBlizzardFrames()
 	if db.help then
 		_G.HelpFrame:Style("Outside")
 		_G.HelpFrame.Header:Style("Outside")
+		_G.HelpFrame.Header:SetFrameLevel(_G.HelpFrame:GetFrameLevel() + 4)
 	end
 
 	if db.lfg then
@@ -638,7 +639,7 @@ end
 function mod:PLAYER_ENTERING_WORLD(...)
 	self:styleAlertFrames()
 	styleAddons()
-	--styleWorldMap()
+	styleWorldMap()
 	StyleAdibags()
 
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
