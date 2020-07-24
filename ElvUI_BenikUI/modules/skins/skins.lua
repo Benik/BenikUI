@@ -108,7 +108,7 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.friends then
-		_G.AddFriendFrame:Style("Outside")
+		_G.AddFriendFrame.backdrop:Style("Outside")
 		_G.FriendsFrame:Style("Outside")
 		_G.FriendsFriendsFrame:Style("Outside")
 		_G.RecruitAFriendFrame:Style("Outside")
@@ -187,10 +187,10 @@ local function styleFreeBlizzardFrames()
 		_G.QueueStatusFrame:Style("Outside")
 		_G.SideDressUpFrame:Style("Outside")
 		_G.StackSplitFrame:Style("Outside")
-		_G.StaticPopup1:Style("Outside")
-		_G.StaticPopup2:Style("Outside")
-		_G.StaticPopup3:Style("Outside")
-		_G.StaticPopup4:Style("Outside")
+		_G.StaticPopup1.backdrop:Style("Outside")
+		_G.StaticPopup2.backdrop:Style("Outside")
+		_G.StaticPopup3.backdrop:Style("Outside")
+		_G.StaticPopup4.backdrop:Style("Outside")
 		_G.TicketStatusFrameButton:Style("Outside")
 		_G.VoiceMacroMenu:Style("Outside")
 
