@@ -227,7 +227,7 @@ local function SetupLayout(layout)
 
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Expressway"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
 		BUI:GetModule('Layout'):MiddleDatatextDimensions()
 
 		E.db["benikui"]["general"]["shadows"] = true
@@ -377,8 +377,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
-		E.db["databars"]["experience"]["width"] = 415
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
+		E.db["databars"]["experience"]["width"] = 414
 
 		-- movers
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,97"
@@ -504,8 +504,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
-		E.db["databars"]["experience"]["width"] = 415
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
+		E.db["databars"]["experience"]["width"] = 414
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
@@ -521,7 +521,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,85"
 		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,141"
 		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,65"
+		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,67"
 		E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,116"
 	end
 	BUI:GetModule('Actionbars'):ToggleStyle()
@@ -649,7 +649,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["player"]["power"]["width"] = 'fill'
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
@@ -1556,7 +1556,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 7
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
