@@ -430,7 +430,7 @@ local function style_GarrisonUI()
 	GRecruitSelect.FollowerSelection.Recruit3:Point("LEFT", GRecruitSelect.FollowerSelection.Recruit2, "RIGHT", 6, 0)
 
 	for i = 1, 3 do
-		fRecruits[i] = CreateFrame("Frame", nil, E.UIParent)
+		fRecruits[i] = CreateFrame("Frame", nil, E.UIParent, 'BackdropTemplate')
 		fRecruits[i]:SetTemplate("Default", true)
 		fRecruits[i]:Size(190, 60)
 		if i == 1 then
