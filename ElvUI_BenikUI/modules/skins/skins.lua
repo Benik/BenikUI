@@ -124,8 +124,8 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.help then
-		_G.HelpFrame:Style("Outside")
-		_G.HelpFrame.Header:Style("Outside")
+		_G.HelpFrame.backdrop:Style("Outside")
+		_G.HelpFrame.Header.backdrop:Style("Outside")
 		_G.HelpFrame.Header:SetFrameLevel(_G.HelpFrame:GetFrameLevel() + 4)
 	end
 
@@ -660,6 +660,20 @@ local function StyleAceTooltip(self)
 		self:Style('Outside')
 	end
 end
+
+local function StyleScriptErrorsFrame()
+	local frame = _G.ScriptErrorsFrame
+	if not frame.backdrop.style then
+		frame.backdrop:Style('Outside')
+	end
+end
+
+local function ScriptErrorsFrame()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.debug) then return end
+
+	mod:SecureHookScript(_G.ScriptErrorsFrame, 'OnShow', StyleScriptErrorsFrame)
+end
+S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
 
 function mod:Initialize()
 	VehicleExit()

@@ -298,7 +298,7 @@ local function style_EncounterJournal()
 		return
 	end
 
-	_G.EncounterJournal:Style("Small")
+	_G.EncounterJournal:Style("Outside")
 
 	local Buttons = {
 		_G.EncounterJournalInstanceSelectSuggestTab,
