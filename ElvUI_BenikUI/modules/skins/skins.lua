@@ -272,29 +272,17 @@ end
 
 -- SpellBook tabs
 local function styleSpellbook()
-	if
-		E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true or
-			E.private.skins.blizzard.spellbook ~= true
-	 then
+	if E.private.skins.blizzard.enable ~= true or BUI.ShadowMode ~= true or E.private.skins.blizzard.spellbook ~= true then
 		return
 	end
 
-	hooksecurefunc(
-		"SpellBookFrame_UpdateSkillLineTabs",
+	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
 		function()
 			for i = 1, MAX_SKILLLINE_TABS do
 				local tab = _G['SpellBookSkillLineTab'..i]
-				if not tab.style then
-					tab:Style("Inside")
-					tab.style:SetFrameLevel(5)
-					if tab:GetNormalTexture() then
-						tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-						tab:GetNormalTexture():SetInside()
-					end
-				end
+				tab.backdrop:CreateSoftShadow()
 			end
-		end
-	)
+		end)
 end
 S:AddCallback("BenikUI_Spellbook", styleSpellbook)
 
