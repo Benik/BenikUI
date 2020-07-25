@@ -598,33 +598,6 @@ local function VehicleExit()
 	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
 end
 
-function mod:StyleAdibagsBank()
-	if not E.db.benikuiSkins.addonSkins.adibags or not BUI.AS then
-		return
-	end
-	E:Delay(
-		0.2,
-		function()
-			if AdiBagsContainer2 then
-				AdiBagsContainer2:Style("Inside")
-			end
-		end
-	)
-end
-
-local function StyleAdibags()
-	if not E.db.benikuiSkins.addonSkins.adibags or not BUI.AS then
-		return
-	end
-	E:Delay(
-		1.1,
-		function()
-			if AdiBagsContainer1 then
-				AdiBagsContainer1:Style("Outside")
-			end
-		end
-	)
-end
 
 function mod:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
@@ -639,7 +612,6 @@ function mod:PLAYER_ENTERING_WORLD(...)
 	self:styleAlertFrames()
 	styleAddons()
 	styleWorldMap()
-	StyleAdibags()
 
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
@@ -670,7 +642,6 @@ function mod:Initialize()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
-	self:RegisterEvent("BANKFRAME_OPENED", "StyleAdibagsBank")
 
 	if E.private.skins.blizzard.tooltip ~= true then
 		return
