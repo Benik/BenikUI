@@ -340,7 +340,9 @@ function mod:SetFlightMode(status)
 			XIV_Databar:Show()
 		end
 
-		BuiTaxiButton:SetParent(E.UIParent)
+		if _G.BuiTaxiButton then
+			_G.BuiTaxiButton:SetParent(E.UIParent)
+		end
 
 		self.inFlightMode = false
 	end
