@@ -7,7 +7,7 @@ local getn = getn
 local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 
 local GameTooltip = _G.GameTooltip
-local GetCurrencyInfo = GetCurrencyInfo
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local IsShiftKeyDown = IsShiftKeyDown
 
 -- GLOBALS: hooksecurefunc
@@ -112,6 +112,9 @@ local Currency = {
 	1721,	-- Prismatic Manapearl
 	1755,	-- Coalescing Visions
 	1803,	-- Echoes of Ny'alotha
+
+	-- Shadowlands
+	1813,	-- Reservoir Anima
 }
 
 local function Icon_OnEnter(self)
@@ -150,6 +153,11 @@ local function sortFunction(a, b)
 	return a.name < b.name
 end
 
+function mod:GetTokenInfo(id)
+	local info = C_CurrencyInfo_GetCurrencyInfo(id)
+	return info.name, info.quantity, info.iconFileID, info.quality
+end
+
 function mod:UpdateTokens()
 	local db = E.db.dashboards.tokens
 	local holder = _G.BUI_TokensDashboard
@@ -177,10 +185,10 @@ function mod:UpdateTokens()
 	end)
 
 	for _, id in pairs(Currency) do
-		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
-
+		--local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = mod:GetTokenInfo(id)
+		local name, amount, icon = mod:GetTokenInfo(id)
 		if name then
-			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = nil end
+			--if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = nil end
 
 			if E.private.dashboards.tokens.chooseTokens[id] == true then
 				if db.zeroamount or amount > 0 then
@@ -193,15 +201,15 @@ function mod:UpdateTokens()
 
 					self.tokenFrame = self:CreateDashboard(nil, holder, 'tokens')
 
-					if totalMax == 0 then
+					--if totalMax == 0 then
 						self.tokenFrame.Status:SetMinMaxValues(0, amount)
-					else
+					--[[else
 						if db.weekly and weeklyMax > 0 then
 							self.tokenFrame.Status:SetMinMaxValues(0, weeklyMax)
 						else
 							self.tokenFrame.Status:SetMinMaxValues(0, totalMax)
 						end
-					end
+					end]]
 					self.tokenFrame.Status:SetValue(amount)
 
 					if E.db.dashboards.barColor == 1 then
@@ -210,15 +218,15 @@ function mod:UpdateTokens()
 						self.tokenFrame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
 					end
 
-					if totalMax == 0 then
+					--if totalMax == 0 then
 						self.tokenFrame.Text:SetFormattedText('%s', amount)
-					else
+					--[[else
 						if db.weekly and weeklyMax > 0 then
 							self.tokenFrame.Text:SetFormattedText('%s / %s', amount, weeklyMax)
 						else
 							self.tokenFrame.Text:SetFormattedText('%s / %s', amount, totalMax)
 						end
-					end
+					end]]
 
 					if E.db.dashboards.textColor == 1 then
 						self.tokenFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
@@ -240,15 +248,15 @@ function mod:UpdateTokens()
 					end)
 
 					self.tokenFrame:SetScript('OnLeave', function(self)
-						if totalMax == 0 then
+						--if totalMax == 0 then
 							self.Text:SetFormattedText('%s', amount)
-						else
+						--[[else
 							if db.weekly and weeklyMax > 0 then
 								self.Text:SetFormattedText('%s / %s', amount, weeklyMax)
 							else
 								self.Text:SetFormattedText('%s / %s', amount, totalMax)
 							end
-						end
+						end]]
 						GameTooltip:Hide()
 						if db.mouseover then
 							E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)

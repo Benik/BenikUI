@@ -3,7 +3,6 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local BUID = BUI:GetModule('Dashboards');
 
 local tinsert, pairs, ipairs, gsub, unpack, format = table.insert, pairs, ipairs, gsub, unpack, string.format
-local GetCurrencyInfo = GetCurrencyInfo
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
 
@@ -87,6 +86,10 @@ local bfaTokens = {
 	1803,	-- Echoes of Ny'alotha
 }
 
+local slTokens = {
+	1813,	-- Reservoir Anima
+}
+
 -- Archaeology tokens
 local archyClassic = {
 	384,	-- Dwarf Archaeology Fragment
@@ -132,6 +135,7 @@ local currencyTables = {
 	{wodTokens, 'wodTokens'},
 	{legionTokens, 'legionTokens'},
 	{bfaTokens, 'bfaTokens'},
+	{slTokens, 'slTokens'},
 }
 
 local archyTables = {
@@ -184,8 +188,8 @@ local function UpdateTokenOptions()
 		local tableName, optionName = unpack(v)
 		local optionOrder = 1
 		for _, id in ipairs(tableName) do
-			local tname, amount, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
-			if id and tname then
+			local tname, amount, icon = BUID:GetTokenInfo(id)
+			if tname then
 				E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[optionName].args.desc = {
 					order = optionOrder + 1,
 					name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered']),
@@ -198,7 +202,7 @@ local function UpdateTokenOptions()
 					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
 					get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 					set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
-					disabled = function() return not isDiscovered end,
+					--disabled = function() return not isDiscovered end,
 				}
 			end
 		end
@@ -216,7 +220,7 @@ local function UpdateTokenOptions()
 				},
 			}
 			for _, id in ipairs(tableName) do
-				local tname, amount, icon, _, _, _, isDiscovered = GetCurrencyInfo(id)
+				local tname, amount, icon = BUID:GetTokenInfo(id)
 				if id and tname then
 					E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args.archyGroup.args[option].args[tname] = {
 						order = optionOrder + 1,
@@ -225,7 +229,7 @@ local function UpdateTokenOptions()
 						desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
 						get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 						set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
-						disabled = function() return not isDiscovered end,
+						--disabled = function() return not isDiscovered end,
 					}
 				end
 			end
@@ -611,50 +615,57 @@ local function dashboardsTable()
 								args = {
 								},
 							},
-							bfaTokens = {
+							slTokens = {
 								order = 23,
+								type = 'group',
+								name = format('%s', EXPANSION_NAME8),
+								args = {
+								},
+							},
+							bfaTokens = {
+								order = 24,
 								type = 'group',
 								name = format('%s', EXPANSION_NAME7),
 								args = {
 								},
 							},
 							legionTokens = {
-								order = 24,
+								order = 25,
 								type = 'group',
 								name = format('%s', EXPANSION_NAME6),
 								args = {
 								},
 							},
 							wodTokens = {
-								order = 25,
+								order = 26,
 								type = 'group',
 								name = format('%s', EXPANSION_NAME5),
 								args = {
 								},
 							},
 							mopTokens = {
-								order = 26,
+								order = 27,
 								type = 'group',
 								name = format('%s', EXPANSION_NAME4),
 								args = {
 								},
 							},
 							miscTokens = {
-								order = 27,
+								order = 28,
 								type = 'group',
 								name = format('%s', MISCELLANEOUS),
 								args = {
 								},
 							},
 							secondaryTokens = {
-								order = 28,
+								order = 29,
 								type = 'group',
 								name = format('%s', (SECONDARY_SKILLS:gsub(':', ''))),
 								args = {
 								},
 							},
 							archyGroup = {
-								order = 29,
+								order = 30,
 								type = 'group',
 								name = format('%s', PROFESSIONS_ARCHAEOLOGY),
 								args = {
@@ -754,11 +765,11 @@ local function dashboardsTable()
 		},
 	}
 	-- update the options, when ElvUI Config fires
-	--hooksecurefunc(E, "ToggleOptionsUI", UpdateTokenOptions)
+	hooksecurefunc(E, "ToggleOptionsUI", UpdateTokenOptions)
 	hooksecurefunc(E, "ToggleOptionsUI", UpdateProfessionOptions)
 end
 
 tinsert(BUI.Config, dashboardsTable)
 tinsert(BUI.Config, UpdateSystemOptions)
---tinsert(BUI.Config, UpdateTokenOptions)
+tinsert(BUI.Config, UpdateTokenOptions)
 tinsert(BUI.Config, UpdateProfessionOptions)
