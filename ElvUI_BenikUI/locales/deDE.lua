@@ -260,7 +260,6 @@ L["Fri"] = "Fr"
 L["Sat"] = "Sa"
 
 -- Addon friendly names (no need to translate)
-L['AdiBags'] = true
 L['Altoholic'] = true
 L['AtlasLoot'] = true
 L['Clique'] = true
