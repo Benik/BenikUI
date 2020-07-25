@@ -280,6 +280,24 @@ local function style_Contribution()
 end
 S:AddCallbackForAddon("Blizzard_Contribution", "BenikUI_Contribution", style_Contribution)
 
+-- CovenantPreviewUI
+local function style_CovenantPreviewUI()
+	if E.private.skins.blizzard.CovenantPreview ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.CovenantPreviewFrame
+	hooksecurefunc(frame, 'TryShow', function(self)
+		if not self.IsStyled then
+			self.backdrop:Style("Outside")
+			self.IsStyled = true
+		end
+	end)
+end
+S:AddCallbackForAddon("Blizzard_CovenantPreviewUI", "BenikUI_CovenantPreviewUI", style_CovenantPreviewUI)
+
 -- DeathRecap
 local function style_DeathRecap()
 	if E.private.skins.blizzard.deathRecap ~= true or E.private.skins.blizzard.enable ~= true or
