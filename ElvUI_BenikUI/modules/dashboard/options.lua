@@ -131,17 +131,19 @@ local archyBfa = {
 	1535,	-- Drust Archaeology Fragment
 }
 
+local secondaryTokensName = SECONDARY_SKILLS:gsub(':', '')
+
 local currencyTables = {
-	-- table, option
-	{dungeonTokens, 'dungeonTokens'},
-	{pvpTokens, 'pvpTokens'},
-	{secondaryTokens, 'secondaryTokens'},
-	{miscTokens, 'miscTokens'},
-	{mopTokens, 'mopTokens'},
-	{wodTokens, 'wodTokens'},
-	{legionTokens, 'legionTokens'},
-	{bfaTokens, 'bfaTokens'},
-	{slTokens, 'slTokens'},
+	-- table, option, name
+	{dungeonTokens, 'dungeonTokens', GROUP_FINDER},
+	{pvpTokens, 'pvpTokens', PLAYER_V_PLAYER},
+	{slTokens, 'slTokens', EXPANSION_NAME8},
+	{bfaTokens, 'bfaTokens', EXPANSION_NAME7},
+	{legionTokens, 'legionTokens', EXPANSION_NAME6},
+	{wodTokens, 'wodTokens', EXPANSION_NAME5},
+	{mopTokens, 'mopTokens', EXPANSION_NAME4},
+	{secondaryTokens, 'secondaryTokens', secondaryTokensName},
+	{miscTokens, 'miscTokens', MISCELLANEOUS},
 }
 
 local archyTables = {
@@ -190,26 +192,35 @@ local function UpdateTokenOptions()
 		tinsert(bfaTokens, 1716) -- Honorbound Service Medal (Horde)
 	end
 
-	for _, v in ipairs(currencyTables) do
-		local tableName, optionName = unpack(v)
+	for i, v in ipairs(currencyTables) do
+		local tableName, option, optionName = unpack(v)
 		local optionOrder = 1
 		for _, id in ipairs(tableName) do
-			local tname, amount, icon, _, _, isDiscovered = BUID:GetTokenInfo(id)
-			if tname then
-				E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[optionName].args.desc = {
-					order = optionOrder + 1,
-					name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered']),
-					type = 'header',
-				}
-				E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[optionName].args[tname] = {
-					order = optionOrder + 1,
-					type = 'toggle',
-					name = '|T'..icon..':18|t '..tname,
-					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
-					get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
-					set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
-					disabled = function() return not isDiscovered end,
-				}
+			E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[option] = {
+				order = i,
+				type = 'group',
+				name = optionName,
+				args = {
+				},
+			}
+			for _, id in ipairs(tableName) do
+				local tname, amount, icon, _, _, isDiscovered = BUID:GetTokenInfo(id)
+				if tname then
+					E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[option].args.desc = {
+						order = optionOrder + 1,
+						name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered']),
+						type = 'header',
+					}
+					E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[option].args[tname] = {
+						order = optionOrder + 1,
+						type = 'toggle',
+						name = '|T'..icon..':18|t '..tname,
+						desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
+						get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
+						set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+						disabled = function() return not isDiscovered end,
+					}
+				end
 			end
 		end
 	end
@@ -607,71 +618,8 @@ local function dashboardsTable()
 								type = 'header',
 								name = '',
 							},
-							dungeonTokens = {
-								order = 21,
-								type = 'group',
-								name = format('%s & %s', CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID),
-								args = {
-								},
-							},
-							pvpTokens = {
-								order = 22,
-								type = 'group',
-								name = format('%s', PLAYER_V_PLAYER),
-								args = {
-								},
-							},
-							slTokens = {
-								order = 23,
-								type = 'group',
-								name = format('%s', EXPANSION_NAME8),
-								args = {
-								},
-							},
-							bfaTokens = {
-								order = 24,
-								type = 'group',
-								name = format('%s', EXPANSION_NAME7),
-								args = {
-								},
-							},
-							legionTokens = {
-								order = 25,
-								type = 'group',
-								name = format('%s', EXPANSION_NAME6),
-								args = {
-								},
-							},
-							wodTokens = {
-								order = 26,
-								type = 'group',
-								name = format('%s', EXPANSION_NAME5),
-								args = {
-								},
-							},
-							mopTokens = {
-								order = 27,
-								type = 'group',
-								name = format('%s', EXPANSION_NAME4),
-								args = {
-								},
-							},
-							miscTokens = {
-								order = 28,
-								type = 'group',
-								name = format('%s', MISCELLANEOUS),
-								args = {
-								},
-							},
-							secondaryTokens = {
-								order = 29,
-								type = 'group',
-								name = format('%s', (SECONDARY_SKILLS:gsub(':', ''))),
-								args = {
-								},
-							},
 							archyGroup = {
-								order = 30,
+								order = 100,
 								type = 'group',
 								name = format('%s', PROFESSIONS_ARCHAEOLOGY),
 								args = {
