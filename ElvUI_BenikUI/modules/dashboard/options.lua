@@ -87,7 +87,13 @@ local bfaTokens = {
 }
 
 local slTokens = {
+	1751,	-- Free Soul
+	1810,	-- Artisan slaves
+	1811,	-- Architect slaves
+	1812,	-- Weaver slaves
 	1813,	-- Reservoir Anima
+	1822,	-- Renown
+	1828, 	-- Carcerus 
 }
 
 -- Archaeology tokens
@@ -188,7 +194,7 @@ local function UpdateTokenOptions()
 		local tableName, optionName = unpack(v)
 		local optionOrder = 1
 		for _, id in ipairs(tableName) do
-			local tname, amount, icon = BUID:GetTokenInfo(id)
+			local tname, amount, icon, _, _, isDiscovered = BUID:GetTokenInfo(id)
 			if tname then
 				E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[optionName].args.desc = {
 					order = optionOrder + 1,
@@ -202,7 +208,7 @@ local function UpdateTokenOptions()
 					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
 					get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 					set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
-					--disabled = function() return not isDiscovered end,
+					disabled = function() return not isDiscovered end,
 				}
 			end
 		end
@@ -220,7 +226,7 @@ local function UpdateTokenOptions()
 				},
 			}
 			for _, id in ipairs(tableName) do
-				local tname, amount, icon = BUID:GetTokenInfo(id)
+				local tname, amount, icon, _, _, isDiscovered = BUID:GetTokenInfo(id)
 				if id and tname then
 					E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args.archyGroup.args[option].args[tname] = {
 						order = optionOrder + 1,
@@ -229,7 +235,7 @@ local function UpdateTokenOptions()
 						desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
 						get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 						set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
-						--disabled = function() return not isDiscovered end,
+						disabled = function() return not isDiscovered end,
 					}
 				end
 			end
