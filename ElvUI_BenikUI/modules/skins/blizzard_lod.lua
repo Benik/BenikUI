@@ -725,6 +725,18 @@ local function style_ScrappingMachineUI()
 end
 S:AddCallbackForAddon("Blizzard_ScrappingMachineUI", "BenikUI_ScrappingMachineUI", style_ScrappingMachineUI)
 
+-- Soulbinds
+local function style_Soulbinds()
+	if E.private.skins.blizzard.soulbinds ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.SoulbindViewer.backdrop:Style("Outside")
+end
+S:AddCallbackForAddon("Blizzard_Soulbinds", "BenikUI_Soulbinds", style_Soulbinds)
+
 -- TalentUI
 local function style_TalentUI()
 	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or
