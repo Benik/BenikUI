@@ -618,6 +618,12 @@ function mod:StyleAceTooltip(tt)
 	end
 end
 
+function mod:StyleAcePopup()
+	if not self.backdrop.style then
+		self.backdrop:Style('Outside')
+	end
+end
+
 local function StyleScriptErrorsFrame()
 	local frame = _G.ScriptErrorsFrame
 	if not frame.backdrop.style then
@@ -642,6 +648,7 @@ function mod:Initialize()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
+	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
 
 	if E.private.skins.blizzard.tooltip ~= true then
 		return
