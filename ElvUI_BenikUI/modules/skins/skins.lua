@@ -631,7 +631,7 @@ local function ScriptErrorsFrame()
 
 	mod:SecureHookScript(_G.ScriptErrorsFrame, 'OnShow', StyleScriptErrorsFrame)
 end
-S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
+--S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
 
 function mod:Initialize()
 	VehicleExit()
