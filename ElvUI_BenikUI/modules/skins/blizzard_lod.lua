@@ -298,6 +298,23 @@ local function style_CovenantPreviewUI()
 end
 S:AddCallbackForAddon("Blizzard_CovenantPreviewUI", "BenikUI_CovenantPreviewUI", style_CovenantPreviewUI)
 
+-- CovenantSanctum
+local function style_CovenantSanctum()
+	if E.private.skins.blizzard.covenantSanctum ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.CovenantSanctumFrame
+	frame:HookScript('OnShow', function()
+		if not frame.backdrop.style then
+			frame.backdrop:Style("Outside")
+		end
+	end)
+end
+S:AddCallbackForAddon("Blizzard_CovenantSanctum", "BenikUI_CovenantSanctum", style_CovenantSanctum)
+
 -- DeathRecap
 local function style_DeathRecap()
 	if E.private.skins.blizzard.deathRecap ~= true or E.private.skins.blizzard.enable ~= true or
