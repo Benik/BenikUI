@@ -17,24 +17,26 @@ local SPACING = (E.PixelMode and 1 or 3)
 local WarCampaignTooltip = QuestScrollFrame.WarCampaignTooltip
 
 local tooltips = {
-	EmbeddedItemTooltip,
-	FriendsTooltip,
-	ItemRefTooltip,
-	ShoppingTooltip1,
-	ShoppingTooltip2,
-	ShoppingTooltip3,
-	FloatingBattlePetTooltip,
-	FloatingPetBattleAbilityTooltip,
-	FloatingGarrisonFollowerAbilityTooltip,
-	WarCampaignTooltip,
-	GameTooltip
+	_G.EmbeddedItemTooltip,
+	_G.FriendsTooltip,
+	_G.ItemRefTooltip,
+	_G.ShoppingTooltip1,
+	_G.ShoppingTooltip2,
+	_G.ShoppingTooltip3,
+	_G.FloatingBattlePetTooltip,
+	_G.FloatingPetBattleAbilityTooltip,
+	_G.FloatingGarrisonFollowerAbilityTooltip,
+	_G.WarCampaignTooltip,
+	_G.GameTooltip,
+	_G.ElvUIConfigTooltip,
+	_G.ElvUISpellBookTooltip
 }
 
 local overlayedTooltips = {
-	GameTooltip,
-	ShoppingTooltip1,
-	ShoppingTooltip2,
-	ShoppingTooltip3
+	_G.GameTooltip,
+	_G.ShoppingTooltip1,
+	_G.ShoppingTooltip2,
+	_G.ShoppingTooltip3
 }
 
 local function tooltipOverlay(tt) -- Create a blank frame to position the GameTooltip.TopOverlay texture
@@ -243,9 +245,9 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.tooltip then
-		for _, frame in pairs(tooltips) do
-			if frame and not frame.style then
-				frame:Style("Outside")
+		for _, tt in pairs(tooltips) do
+			if tt and not tt.style then
+				tt:Style("Outside")
 			end
 		end
 
@@ -270,7 +272,7 @@ local function StyleCagedBattlePetTooltip(tooltipFrame)
 	end
 end
 
--- SpellBook tabs
+-- SpellBook tabs shadow
 local function styleSpellbook()
 	if E.private.skins.blizzard.enable ~= true or BUI.ShadowMode ~= true or E.private.skins.blizzard.spellbook ~= true then
 		return
