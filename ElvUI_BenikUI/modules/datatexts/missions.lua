@@ -183,12 +183,18 @@ local function AddInfo(id)
 	return format('%s %s', icon, BreakUpLargeNumbers(num))
 end
 
-local function OnEnter(self)
-	DT:SetupTooltip(self)
+local function OnEnter()
+	DT.tooltip:ClearLines()
 
 	DT.tooltip:AddLine(EXPANSION_NAME8, 1, .5, 0)
-	DT.tooltip:AddLine(L["Mission(s) Report:"], nil, nil, nil)
+	DT.tooltip:AddDoubleLine(L["Mission(s) Report:"], AddInfo(1813), nil, nil, nil, 1, 1, 1)
 	AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_9_0)
+
+	-- TODO - Probably not needed in this expansion - Not sure yet.
+	-- AddFollowerInfo(LE_GARRISON_TYPE_9_0)
+	-- TODO - Every sanctum have 5 separate garrision talent trees that would be nice to monitor but for now I don't know a way to get talent tree IDs without talking to upgrade NPC. We always can hardcode all 20 ids.
+	-- C_CovenantSanctumUI.GetFeatures() -> C_Garrison.GetTalentTreeInfo(). C_Garrison.GetCurrentGarrTalentTreeID() return ID only of the Reservoir upgrades.
+	-- AddTalentInfo(LE_FOLLOWER_TYPE_GARRISON_9_0)
 
 	if IsShiftKeyDown() then
 		-- Battle for Azeroth
@@ -196,6 +202,7 @@ local function OnEnter(self)
 		DT.tooltip:AddLine(EXPANSION_NAME7, 1, .5, 0)
 		DT.tooltip:AddDoubleLine(L["Mission(s) Report:"], AddInfo(1560), nil, nil, nil, 1, 1, 1)
 		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_8_0)
+
 		-- Island Expeditions
 		if E.mylevel >= GetMaxLevelForExpansionLevel(LE_EXPANSION_BATTLE_FOR_AZEROTH) then
 			local questID = C_IslandsQueue_GetIslandsWeeklyQuestID()
@@ -234,7 +241,6 @@ local function OnEnter(self)
 		AddFollowerInfo(LE_GARRISON_TYPE_7_0)
 		AddTalentInfo(LE_GARRISON_TYPE_7_0)
 
-
 		-- Legion
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddLine(EXPANSION_NAME6, 1, .5, 0)
@@ -243,22 +249,20 @@ local function OnEnter(self)
 		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
 		AddFollowerInfo(LE_GARRISON_TYPE_7_0)
 
-		local serverTime = GetServerTime()
-
 		-- "Loose Work Orders" (i.e. research, equipment)
-		wipe(info)
-		info = C_Garrison_GetLooseShipments(LE_GARRISON_TYPE_7_0)
-		if #info > 0 then
+		wipe(data)
+		data = C_Garrison_GetLooseShipments(LE_GARRISON_TYPE_7_0)
+		if #data > 0 then
 			DT.tooltip:AddLine(CAPACITANCE_WORK_ORDERS) -- "Work Orders"
 
-			for _, looseShipments in ipairs(info) do
-				local name, _, _, shipmentsReady, shipmentsTotal, timeStart, duration, timeleftString = C_Garrison_GetLandingPageShipmentInfoByContainerID(looseShipments)
+			for _, looseShipments in ipairs(data) do
+				local name, _, _, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison_GetLandingPageShipmentInfoByContainerID(looseShipments)
 				if name then
-					local timeLeft = duration - (serverTime - timeStart)
-					local time, _, _, remainder = E:GetTimeInfo(timeLeft, 0, HOUR)
-					local id = timeLeft and timeLeft > HOUR and 8 or 7
-					timeleftString = (timeleftString and " "..format(GARRISON_LANDING_NEXT,format(E.TimeFormats[id][1], time, remainder))) or ""
-					DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal)..timeleftString, 1, 1, 1, 1, 1, 1)
+					if timeleftString then
+						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal) .. " " .. format(GARRISON_LANDING_NEXT,timeleftString), 1, 1, 1, 1, 1, 1)
+					else
+						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal), 1, 1, 1, 1, 1, 1)
+					end
 				end
 			end
 		end
@@ -273,26 +277,27 @@ local function OnEnter(self)
 
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddDoubleLine(L["Naval Mission(s) Report:"], AddInfo(1101), nil, nil, nil, 1, 1 , 1)
-		AddInProgressMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2)
+		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_6_2)
 
 		--Buildings
-		wipe(info)
-		info = C_Garrison_GetBuildings(LE_GARRISON_TYPE_6_0)
-		if #info > 0 then
+		wipe(data)
+		data = C_Garrison_GetBuildings(LE_GARRISON_TYPE_6_0)
+		if #data > 0 then
 			local AddLine = true
-			for _, buildings in ipairs(info) do
-				local name, _, _, shipmentsReady, shipmentsTotal, timeStart, duration, timeleftString = C_Garrison_GetLandingPageShipmentInfo(buildings.buildingID)
+			for _, buildings in ipairs(data) do
+				local name, _, _, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison_GetLandingPageShipmentInfo(buildings.buildingID)
 				if name and shipmentsTotal then
 					if AddLine then
 						DT.tooltip:AddLine(' ')
 						DT.tooltip:AddLine(L["Building(s) Report:"])
 						AddLine = false
 					end
-					local timeLeft = duration - (serverTime - timeStart)
-					local time, _, _, remainder = E:GetTimeInfo(timeLeft, 0, HOUR)
-					local id = timeLeft and timeLeft > HOUR and 8 or 7
-					timeleftString = (timeleftString and " "..format(GARRISON_LANDING_NEXT,format(E.TimeFormats[id][1], time, remainder))) or ""
-					DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal)..timeleftString, 1, 1, 1, 1, 1, 1)
+
+					if timeleftString then
+						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal) .. " " .. format(GARRISON_LANDING_NEXT,timeleftString), 1, 1, 1, 1, 1, 1)
+					else
+						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal), 1, 1, 1, 1, 1, 1)
+					end
 				end
 			end
 		end
@@ -307,7 +312,6 @@ end
 local function OnClick(self)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
 
-	DT.tooltip:Hide()
 	DT:SetEasyMenuAnchor(DT.EasyMenu, self)
 	_G.EasyMenu(menuList, DT.EasyMenu, nil, nil, nil, "MENU")
 end
