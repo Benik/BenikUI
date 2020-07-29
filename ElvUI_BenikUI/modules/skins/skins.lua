@@ -301,11 +301,9 @@ local function styleWorldMap()
 		return
 	end
 
-	local questFrame = _G.QuestMapFrame
-	questFrame.QuestsFrame.StoryTooltip:SetTemplate("Transparent")
-	if not questFrame.QuestsFrame.StoryTooltip.style then
-		questFrame.QuestsFrame.StoryTooltip:Style("Outside")
-	end
+	_G.QuestMapFrame.QuestsFrame.StoryTooltip:Style("Outside")
+	_G.QuestScrollFrame.StoryTooltip:Style("Outside")
+	_G.QuestScrollFrame.CampaignTooltip:Style("Outside")
 
 	local shoppingTooltips = {_G.WorldMapCompareTooltip1, _G.WorldMapCompareTooltip2}
 	for i, tooltip in pairs(shoppingTooltips) do
