@@ -209,10 +209,12 @@ function mod:Initialize()
 	self:InitParty()
 	self:InitRaid()
 	self:InitRaid40()
-	
+
 	self:ChangePowerBarTexture()
 	self:ChangeHealthBarTexture()
 	self:InfoPanelColor()
+
+	self:Configure_RoleIcons()
 
 	if BUI.ShadowMode then
 		self:UnitShadows()

@@ -14,7 +14,7 @@ local GetNumAddOns = GetNumAddOns
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
 
--- GLOBALS: LibStub, ElvDB
+-- GLOBALS: LibStub, ElvDB, test
 
 BUI["styles"] = {}
 BUI["softGlow"] = {}

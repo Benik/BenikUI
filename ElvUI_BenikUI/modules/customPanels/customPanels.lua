@@ -53,7 +53,7 @@ function mod:CreatePanel()
 			panel:Width(name.width or 200)
 			panel:Height(name.height or 200)
 			panel:SetTemplate('Transparent')
-			panel:Point('CENTER', E.UIParent, 'CENTER')
+			panel:Point('CENTER', E.UIParent, 'CENTER', -600, 0)
 			panel:Style('Outside')
 			if BUI.ShadowMode then panel:CreateSoftShadow() end
 			panel:SetScript("OnEnter", OnEnter)
@@ -110,8 +110,10 @@ function mod:SetupPanels()
 			if BUI.ShadowMode then
 				if db.shadow then
 					_G[panel].shadow:Show()
+					_G[panel].style.styleShadow:Show()
 				else
 					_G[panel].shadow:Hide()
+					_G[panel].style.styleShadow:Hide()
 				end
 			end
 
@@ -130,7 +132,7 @@ end
 function mod:DeletePanel(name)
 	if E.db.benikui.panels[name] then
 		E.db.benikui.panels[name] = nil
-		if E.db.benikui.panels[name] then E.db.benikui.panels[name] = nil end
+
 		for _, data in pairs(ElvDB.profiles) do
 			if data.movers and data.movers[name.."_Mover"] then data.movers[name.."_Mover"] = nil end
 		end
@@ -167,11 +169,15 @@ function mod:RegisterHide()
 	end
 end
 
-function mod:Initialize()
+function mod:UpdatePanels()
 	mod:CreatePanel()
 	mod:SetupPanels()
 	mod:Resize()
 	mod:RegisterHide()
+end
+
+function mod:Initialize()
+	mod:UpdatePanels()
 	mod:RegisterEvent("PLAYER_REGEN_DISABLED", "OnEvent")
 	mod:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
 	mod:RegisterEvent("UNIT_ENTERING_VEHICLE", "OnEvent")

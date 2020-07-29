@@ -4,8 +4,13 @@ local BU = BUI:GetModule('Units');
 
 -- GLOBALS: hooksecurefunc
 
-UF.RoleIconTextures = {
-	TANK = [[Interface\AddOns\ElvUI_BenikUI\media\textures\roleIcons\tank.tga]],
-	HEALER = [[Interface\AddOns\ElvUI_BenikUI\media\textures\roleIcons\healer.tga]],
-	DAMAGER = [[Interface\AddOns\ElvUI_BenikUI\media\textures\roleIcons\dps.tga]]
-}
+function BU:Configure_RoleIcons()
+	if E.db.benikui.unitframes.misc.svui ~= true then return end
+
+	-- Replace Role Icons
+	UF.RoleIconTextures = {
+		TANK = [[Interface\AddOns\ElvUI_BenikUI\media\textures\roleIcons\tank.tga]],
+		HEALER = [[Interface\AddOns\ElvUI_BenikUI\media\textures\roleIcons\healer.tga]],
+		DAMAGER = [[Interface\AddOns\ElvUI_BenikUI\media\textures\roleIcons\dps.tga]]
+	}
+end

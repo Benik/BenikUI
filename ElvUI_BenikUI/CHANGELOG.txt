@@ -1,3 +1,15 @@
+3.92 (Jul 29, 2020)
+*Create a Custom Panel on the fly (without a reload)
+*A new Custom Panel will now show to the left upon creation
+*Fixed Custom Panels Style shadow toggle
+*Fixed a shadow error during flightMode
+*Make the option for Role Icons on UF work again. (Merathilis)
+*Fixed Mission timer in mission Datatext
+*Fixed the chat datatexts toggle
+*Fixed the Threat toggle
+*Removed Adibags style
+*Added Sumidian in the donors list. Thank you <3
+
 3.911 (Jul 18, 2020)
 *Avoid another chat glitch after leaving flightMode
 *Added a clickThrough option in Custom Panels
