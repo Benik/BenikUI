@@ -612,10 +612,9 @@ local function StyleElvUIConfig()
 	end
 end
 
-local function StyleAceTooltip(self)
-	if not self or self:IsForbidden() then return end
-	if not self.style then
-		self:Style('Outside')
+function mod:StyleAceTooltip(tt)
+	if not tt.style then
+		tt:Style('Outside')
 	end
 end
 
@@ -649,7 +648,7 @@ function mod:Initialize()
 	end
 	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)
 	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
-	hooksecurefunc(S, "Ace3_StyleTooltip", StyleAceTooltip)
+	hooksecurefunc(S, "Ace3_StyleTooltip", mod.StyleAceTooltip)
 end
 
 BUI:RegisterModule(mod:GetName())
