@@ -372,6 +372,7 @@ local function style_GarrisonUI()
 	end
 
 	_G.BFAMissionFrame.backdrop:Style("Outside")
+	_G.CovenantMissionFrame.backdrop:Style("Outside")
 
 	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
 	GarrisonCapacitiveDisplayFrame.IncrementButton:Point("LEFT", GarrisonCapacitiveDisplayFrame.Count, "RIGHT", 4, 0)
