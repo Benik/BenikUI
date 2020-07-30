@@ -59,7 +59,8 @@ local function Style_SetButtonColor(self, btn, disabled)
 	if disabled then
 		btn:Disable()
 		btn:SetBackdropBorderColor(0, 0, 0)
-		btn:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		local ar, ag, ab = unpack(E.media.rgbvaluecolor)
+		btn:SetBackdropColor(ar, ag, ab, .7)
 		btn.Text:SetTextColor(1, 1, 1)
 		E:Config_SetButtonText(btn, true)
 	else
