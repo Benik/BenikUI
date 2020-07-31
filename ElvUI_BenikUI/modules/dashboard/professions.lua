@@ -69,7 +69,7 @@ function mod:UpdateProfessions()
 		local proftable = { GetProfessions() }
 
 		for _, id in pairs(proftable) do
-			local name, icon, rank, maxRank, _, offset, _, rankModifier = GetProfessionInfo(id)
+			local name, icon, rank, maxRank, _, offset, _, rankModifier, _, _, skillLineName = GetProfessionInfo(id)
 
 			if name and (rank < maxRank or (not db.capped)) then
 				if E.private.dashboards.professions.choosePofessions[id] == true then
@@ -79,6 +79,8 @@ function mod:UpdateProfessions()
 						ProfessionsMover:Size(holder:GetSize())
 						holder:Point('TOPLEFT', ProfessionsMover, 'TOPLEFT')
 					end
+
+					if skillLineName then name = skillLineName end
 
 					self.ProFrame = self:CreateDashboard(nil, holder, 'professions')
 
