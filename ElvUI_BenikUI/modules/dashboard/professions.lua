@@ -80,12 +80,13 @@ function mod:UpdateProfessions()
 						holder:Point('TOPLEFT', ProfessionsMover, 'TOPLEFT')
 					end
 
-					if skillLineName then name = skillLineName end
-
 					self.ProFrame = self:CreateDashboard(nil, holder, 'professions')
 
 					self.ProFrame:SetScript('OnEnter', function(self)
 						self.Text:SetFormattedText('%s', name)
+						GameTooltip:SetOwner(self, 'ANCHOR_CURSOR');
+						GameTooltip:AddLine(format('%s', skillLineName), 0.7, 0.7, 1)
+						GameTooltip:Show()
 						if db.mouseover then
 							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 						end
@@ -97,6 +98,7 @@ function mod:UpdateProfessions()
 						else
 							self.Text:SetFormattedText('%s / %s', rank, maxRank)
 						end
+						GameTooltip:Hide()
 						if db.mouseover then
 							E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 						end
