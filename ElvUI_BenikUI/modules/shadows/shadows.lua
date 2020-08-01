@@ -67,6 +67,8 @@ local function ObjectiveTrackerShadows()
 	hooksecurefunc(WORLD_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(SCENARIO_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(CAMPAIGN_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
 	hooksecurefunc(QUEST_TRACKER_MODULE,"SetBlockHeader",ItemButtonShadows)
 	hooksecurefunc(WORLD_QUEST_TRACKER_MODULE,"AddObjective",ItemButtonShadows)
 
