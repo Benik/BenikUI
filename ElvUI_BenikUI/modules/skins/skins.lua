@@ -295,8 +295,8 @@ local function styleWorldMap()
 	end
 
 	local mapFrame = _G.WorldMapFrame
-	if not mapFrame.style then
-		mapFrame:Style("Outside")
+	if not mapFrame.backdrop.style then
+		mapFrame.backdrop:Style("Outside")
 	end
 
 	if E.private.skins.blizzard.tooltip ~= true then
