@@ -225,6 +225,7 @@ hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 -- XP string
 local M = E:GetModule('DataBars');
 local function GetXPinfo()
+	if E.mylevel == 60 then return end
 	local maxLevel = UnitXPMax('player')
 	if(UnitLevel('player') == maxLevel) or IsXPUserDisabled() then return end
 
