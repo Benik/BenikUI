@@ -84,9 +84,11 @@ function mod:UpdateProfessions()
 
 					self.ProFrame:SetScript('OnEnter', function(self)
 						self.Text:SetFormattedText('%s', name)
-						GameTooltip:SetOwner(self, 'ANCHOR_CURSOR');
-						GameTooltip:AddLine(format('%s', skillLineName), 0.7, 0.7, 1)
-						GameTooltip:Show()
+						if skillLineName then
+							GameTooltip:SetOwner(self, 'ANCHOR_CURSOR');
+							GameTooltip:AddLine(format('%s', skillLineName), 0.7, 0.7, 1)
+							GameTooltip:Show()
+						end
 						if db.mouseover then
 							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 						end
