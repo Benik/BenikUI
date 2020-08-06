@@ -69,7 +69,7 @@ function mod:UpdateProfessions()
 		local proftable = { GetProfessions() }
 
 		for _, id in pairs(proftable) do
-			local name, icon, rank, maxRank, _, offset, _, rankModifier = GetProfessionInfo(id)
+			local name, icon, rank, maxRank, _, offset, _, rankModifier, _, _, skillLineName = GetProfessionInfo(id)
 
 			if name and (rank < maxRank or (not db.capped)) then
 				if E.private.dashboards.professions.choosePofessions[id] == true then
@@ -84,6 +84,11 @@ function mod:UpdateProfessions()
 
 					self.ProFrame:SetScript('OnEnter', function(self)
 						self.Text:SetFormattedText('%s', name)
+						if skillLineName then
+							GameTooltip:SetOwner(self, 'ANCHOR_CURSOR');
+							GameTooltip:AddLine(format('%s', skillLineName), 0.7, 0.7, 1)
+							GameTooltip:Show()
+						end
 						if db.mouseover then
 							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 						end
@@ -95,6 +100,7 @@ function mod:UpdateProfessions()
 						else
 							self.Text:SetFormattedText('%s / %s', rank, maxRank)
 						end
+						GameTooltip:Hide()
 						if db.mouseover then
 							E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 						end
