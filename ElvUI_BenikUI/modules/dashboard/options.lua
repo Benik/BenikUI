@@ -92,6 +92,7 @@ local slTokens = {
 	1811,	-- Architect slaves
 	1812,	-- Weaver slaves
 	1813,	-- Reservoir Anima
+	1820,	-- Infused Ruby
 	1822,	-- Renown
 	1828, 	-- Carcerus 
 }
