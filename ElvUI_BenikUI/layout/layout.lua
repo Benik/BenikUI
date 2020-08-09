@@ -137,6 +137,8 @@ function mod:ToggleTransparency()
 			end
 		end
 	end
+	E:TogglePixelBorders(Bui_ldtp, db.backdrop)
+	E:TogglePixelBorders(Bui_rdtp, db.backdrop)
 end
 
 function mod:MiddleDatatextLayout()
@@ -150,7 +152,7 @@ function mod:MiddleDatatextLayout()
 	end
 
 	if not db.backdrop then
-		Bui_mdtp:SetTemplate('NoBackdrop')
+		Bui_mdtp:SetTemplate('NoBackdrop', true)
 		if BUI.ShadowMode then
 			Bui_mdtp.shadow:Hide()
 		end
@@ -172,6 +174,8 @@ function mod:MiddleDatatextLayout()
 			Bui_mdtp.style:Hide()
 		end
 	end
+
+	E:TogglePixelBorders(Bui_mdtp, db.backdrop)
 end
 
 function mod:ChatStyles()
