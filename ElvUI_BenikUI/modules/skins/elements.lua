@@ -34,7 +34,7 @@ function mod:HandleButton(button, _, isDeclineButton)
 		if button.Icon then
 			button.Icon:SetTexture(CloseButton)
 			button.Icon:Size(12, 12)
-			button.Icon:Point("CENTER")
+			button.Icon:SetPoint("CENTER")
 		end
 	end
 

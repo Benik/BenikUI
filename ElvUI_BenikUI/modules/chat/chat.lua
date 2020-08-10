@@ -70,7 +70,7 @@ local function PositionChat(self, override)
 		if chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == CH.RightChatWindowID then
 			chat:ClearAllPoints()
 			if E.db.datatexts.rightChatPanel then
-				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
+				chat:SetPoint("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
 			else
 				BASE_OFFSET = BASE_OFFSET - 24
 				chat:SetPoint("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)

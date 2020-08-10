@@ -18,8 +18,8 @@ local function StyleTooltip()
 	-- FreebTip support
 	if IsAddOnLoaded('FreebTip') then
 		GameTooltip.style:ClearAllPoints()
-		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
-		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
+		GameTooltip.style:SetPoint('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
+		GameTooltip.style:SetPoint('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
 	end
 end
 

@@ -116,7 +116,7 @@ function mod:TaxiButton()
 
 	tbtn.IconBG = CreateFrame('Frame', nil, tbtn)
 	tbtn.IconBG:Size(32, 32)
-	tbtn.IconBG:Point('LEFT', tbtn, 'LEFT', 4, 0)
+	tbtn.IconBG:SetPoint('LEFT', tbtn, 'LEFT', 4, 0)
 
 	tbtn.IconBG.Icon = tbtn.IconBG:CreateTexture(nil, 'OVERLAY')
 	tbtn.IconBG.Icon:SetInside()
@@ -124,12 +124,12 @@ function mod:TaxiButton()
 	tbtn.IconBG.Icon:SetVertexColor(1, 1, 1)
 
 	tbtn.textHolder = CreateFrame('Frame', nil, tbtn)
-	tbtn.textHolder:Point('TOPLEFT', tbtn.IconBG, 'TOPRIGHT', 4, 0)
-	tbtn.textHolder:Point('BOTTOMRIGHT', tbtn, 'BOTTOMRIGHT', -4, 4)
+	tbtn.textHolder:SetPoint('TOPLEFT', tbtn.IconBG, 'TOPRIGHT', 4, 0)
+	tbtn.textHolder:SetPoint('BOTTOMRIGHT', tbtn, 'BOTTOMRIGHT', -4, 4)
 
 	tbtn.textHolder.Text = tbtn.textHolder:CreateFontString(nil, 'OVERLAY')
 	tbtn.textHolder.Text:FontTemplate()
-	tbtn.textHolder.Text:Point('CENTER')
+	tbtn.textHolder.Text:SetPoint('CENTER')
 	tbtn.textHolder.Text:SetJustifyH('CENTER')
 
 	tbtn:SetScript("OnClick", TaxiButton_OnClick)
