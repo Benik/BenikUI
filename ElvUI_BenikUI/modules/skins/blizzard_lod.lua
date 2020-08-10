@@ -59,7 +59,7 @@ local function style_ArtifactUI()
 	local frame = _G.ArtifactFrame
 	frame.backdrop:Style("Outside")
 	frame.CloseButton:ClearAllPoints()
-	frame.CloseButton:SetPoint("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
+	frame.CloseButton:Point("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
 end
 S:AddCallbackForAddon("Blizzard_ArtifactUI", "BenikUI_ArtifactUI", style_ArtifactUI)
 

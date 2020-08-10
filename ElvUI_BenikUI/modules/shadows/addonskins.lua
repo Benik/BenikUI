@@ -30,7 +30,7 @@ function mod:DBMShadows()
 						icon1.overlay = CreateFrame('Frame', '$parentIcon1Overlay', tbar)
 						AS:SetTemplate(icon1.overlay)
 						icon1.overlay:SetFrameLevel(0)
-						icon1.overlay:SetPoint('BOTTOMRIGHT', frame, 'BOTTOMLEFT', -(AS.PixelMode and 2 or 3), 0)
+						icon1.overlay:Point('BOTTOMRIGHT', frame, 'BOTTOMLEFT', -(AS.PixelMode and 2 or 3), 0)
 						icon1.overlay:CreateSoftShadow()
 					end
 
@@ -38,7 +38,7 @@ function mod:DBMShadows()
 						icon2.overlay = CreateFrame('Frame', '$parentIcon2Overlay', tbar)
 						AS:SetTemplate(icon2.overlay)
 						icon2.overlay:SetFrameLevel(0)
-						icon2.overlay:SetPoint('BOTTOMLEFT', frame, 'BOTTOMRIGHT', (AS.PixelMode and 2 or 3), 0)
+						icon2.overlay:Point('BOTTOMLEFT', frame, 'BOTTOMRIGHT', (AS.PixelMode and 2 or 3), 0)
 						icon2.overlay:CreateSoftShadow()
 					end
 
@@ -69,12 +69,12 @@ function mod:DBMShadows()
 
 					if AS:CheckOption('DBMSkinHalf') then
 						frame:SetHeight(bar.owner.options.Height / 3)
-						name:SetPoint('BOTTOMLEFT', frame, 'TOPLEFT', 0, 3)
-						timer:SetPoint('BOTTOMRIGHT', frame, 'TOPRIGHT', -1, 1)
+						name:Point('BOTTOMLEFT', frame, 'TOPLEFT', 0, 3)
+						timer:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', -1, 1)
 					else
 						frame:SetHeight(bar.owner.options.Height)
-						name:SetPoint('LEFT', frame, 'LEFT', 4, 0)
-						timer:SetPoint('RIGHT', frame, 'RIGHT', -4, 0)
+						name:Point('LEFT', frame, 'LEFT', 4, 0)
+						timer:Point('RIGHT', frame, 'RIGHT', -4, 0)
 					end
 
 					timer:SetFont(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
