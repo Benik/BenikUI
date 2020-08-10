@@ -307,7 +307,7 @@ local function ufPlayerTable()
 			portraitHeight = {
 				order = 6,
 				type = 'range',
-				name = L['Height'],
+				name = L['SetHeight'],
 				desc = L['Change the detached portrait height'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 				min = 10, max = 250, step = 1,
@@ -333,7 +333,7 @@ local function ufPlayerTable()
 					portraitStyleHeight = {
 						order = 2,
 						type = 'range',
-						name = L['Style Height'],
+						name = L['Style SetHeight'],
 						disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.player.portraitStyle end,
 						min = 3, max = 20, step = 1,
 					},
@@ -417,7 +417,7 @@ local function ufTargetTable()
 			portraitHeight = {
 				order = 7,
 				type = 'range',
-				name = L['Height'],
+				name = L['SetHeight'],
 				desc = L['Change the detached portrait height'],
 				disabled = function() return E.db.benikui.unitframes.target.getPlayerPortraitSize or not E.db.benikui.unitframes.target.detachPortrait end,
 				min = 10, max = 250, step = 1,
@@ -443,7 +443,7 @@ local function ufTargetTable()
 					portraitStyleHeight = {
 						order = 2,
 						type = 'range',
-						name = L['Style Height'],
+						name = L['Style SetHeight'],
 						disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.target.portraitStyle end,
 						min = 4, max = 20, step = 1,
 					},
@@ -521,7 +521,7 @@ local function ufTargetTargetTable()
 			portraitHeight = {
 				order = 6,
 				type = 'range',
-				name = L['Height'],
+				name = L['SetHeight'],
 				desc = L['Change the detached portrait height'],
 				disabled = function() return E.db.benikui.unitframes.targettarget.getPlayerPortraitSize or not E.db.benikui.unitframes.targettarget.detachPortrait end,
 				min = 10, max = 250, step = 1,
@@ -597,7 +597,7 @@ local function ufFocusTable()
 			portraitHeight = {
 				order = 6,
 				type = 'range',
-				name = L['Height'],
+				name = L['SetHeight'],
 				desc = L['Change the detached portrait height'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
 				min = 10, max = 250, step = 1,
@@ -673,7 +673,7 @@ local function ufPetTable()
 			portraitHeight = {
 				order = 6,
 				type = 'range',
-				name = L['Height'],
+				name = L['SetHeight'],
 				desc = L['Change the detached portrait height'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
 				min = 10, max = 250, step = 1,
@@ -694,7 +694,7 @@ local function injectPartyOptions()
 	E.Options.args.unitframe.args.groupUnits.args.party.args.portrait.args.height = {
 		type = 'range',
 		order = 15,
-		name = BUI:cOption("+ "..L["Height"]),
+		name = BUI:cOption("+ "..L["SetHeight"]),
 		min = 0, max = 150, step = 1,
 	}
 

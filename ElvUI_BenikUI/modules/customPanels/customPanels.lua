@@ -51,7 +51,7 @@ function mod:CreatePanel()
 		if name and not _G[name] then
 			local panel = CreateFrame("Frame", name, E.UIParent)
 			panel:SetWidth(name.width or 200)
-			panel:Height(name.height or 200)
+			panel:SetHeight(name.height or 200)
 			panel:SetTemplate('Transparent')
 			panel:Point('CENTER', E.UIParent, 'CENTER', -600, 0)
 			panel:Style('Outside')

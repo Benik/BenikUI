@@ -29,10 +29,10 @@ function mod:UpdateSystem()
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
 			holder:Show()
-			holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB + 1)) + DASH_SPACING)
+			holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB + 1)) + DASH_SPACING)
 
 			local sysFrame = CreateFrame('Frame', 'BUI_'..name, holder)
-			sysFrame:Height(DASH_HEIGHT)
+			sysFrame:SetHeight(DASH_HEIGHT)
 			sysFrame:SetWidth(E.db.dashboards.system.width or 150)
 			sysFrame:SetPoint('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
@@ -40,7 +40,7 @@ function mod:UpdateSystem()
 			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
 			sysFrame.dummy:SetPoint('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 2)
 			sysFrame.dummy:SetPoint('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
-			sysFrame.dummy:Height(E.PixelMode and 3 or 5)
+			sysFrame.dummy:SetHeight(E.PixelMode and 3 or 5)
 
 			sysFrame.dummy.dummyStatus = sysFrame.dummy:CreateTexture(nil, 'OVERLAY')
 			sysFrame.dummy.dummyStatus:SetInside()

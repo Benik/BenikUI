@@ -126,7 +126,7 @@ end
 
 function mod:CreateDashboard(name, barHolder, option)
 	local bar = CreateFrame('Button', nil, barHolder)
-	bar:Height(DASH_HEIGHT)
+	bar:SetHeight(DASH_HEIGHT)
 	bar:SetWidth(E.db.dashboards[option].width or 150)
 	bar:SetPoint('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
 	bar:EnableMouse(true)
@@ -134,7 +134,7 @@ function mod:CreateDashboard(name, barHolder, option)
 	bar.dummy = CreateFrame('Frame', nil, bar)
 	bar.dummy:SetPoint('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
 	bar.dummy:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
-	bar.dummy:Height(E.PixelMode and 3 or 5)
+	bar.dummy:SetHeight(E.PixelMode and 3 or 5)
 
 	bar.dummy.dummyStatus = bar.dummy:CreateTexture(nil, 'OVERLAY')
 	bar.dummy.dummyStatus:SetInside()

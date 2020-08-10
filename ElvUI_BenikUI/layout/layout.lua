@@ -199,7 +199,7 @@ function mod:MiddleDatatextDimensions()
 	local Bui_mdtp = _G.BuiMiddleDTPanel
 
 	Bui_mdtp:SetWidth(db.width)
-	Bui_mdtp:Height(db.height)
+	Bui_mdtp:SetHeight(db.height)
 	DT:UpdatePanelInfo('BuiMiddleDTPanel')
 end
 
@@ -249,7 +249,7 @@ function mod:CreateLayout()
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
 	Bui_mdtp:SetPoint('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
 	Bui_mdtp:SetWidth(db.middle.width or 400)
-	Bui_mdtp:Height(db.middle.height or PANEL_HEIGHT)
+	Bui_mdtp:SetHeight(db.middle.height or PANEL_HEIGHT)
 	Bui_mdtp:Style('Outside', nil, false, true)
 	DT:RegisterPanel(BuiMiddleDTPanel, (db.middle.numPoints or 3), 'ANCHOR_BOTTOM', 0, -4)
 
@@ -449,7 +449,7 @@ function mod:CreateLayout()
 		end
 	end
 
-	MinimapPanel:Height(PANEL_HEIGHT)
+	MinimapPanel:SetHeight(PANEL_HEIGHT)
 	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
 	ElvUI_BottomPanel:SetFrameLevel(0)
 	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)

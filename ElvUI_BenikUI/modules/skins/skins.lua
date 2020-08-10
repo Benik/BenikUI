@@ -392,7 +392,7 @@ local function skinDecursive()
 	-- Main Buttons
 	_G.DecursiveMainBar:StripTextures()
 	_G.DecursiveMainBar:SetTemplate("Default", true)
-	_G.DecursiveMainBar:Height(20)
+	_G.DecursiveMainBar:SetHeight(20)
 
 	local mainButtons = {_G.DecursiveMainBarPriority, _G.DecursiveMainBarSkip, _G.DecursiveMainBarHide}
 	for i, button in pairs(mainButtons) do

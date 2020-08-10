@@ -434,7 +434,7 @@ local function style_GarrisonUI()
 	GMonument:Style("Small")
 	GMonument:ClearAllPoints()
 	GMonument:SetPoint("CENTER", E.UIParent, "CENTER", 0, -200)
-	GMonument:Height(70)
+	GMonument:SetHeight(70)
 	GMonument.RightBtn:Size(25, 25)
 	GMonument.LeftBtn:Size(25, 25)
 

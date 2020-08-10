@@ -169,7 +169,7 @@ local function Datatexts()
 					height = {
 						order = 9,
 						type = "range",
-						name = L["Height"],
+						name = L["SetHeight"],
 						min = 10, max = 32, step = 1,
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
