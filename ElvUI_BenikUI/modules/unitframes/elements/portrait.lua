@@ -111,10 +111,10 @@ function BU:Configure_Portrait(frame, isPlayer)
 						E:CreateMover(frame.portraitmover, 'PetPortraitMover', 'Pet Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,pet,generalGroup')
 					end
 					frame.portraitmover:ClearAllPoints()
-					frame.portraitmover:Point("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")
+					frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")
 				else
 					frame.portraitmover:ClearAllPoints()
-					frame.portraitmover:Point("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")
+					frame.portraitmover:SetPoint("BOTTOMLEFT", frame.portraitmover.mover, "BOTTOMLEFT")
 				end
 			else
 				portrait:SetAlpha(1)

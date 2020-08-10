@@ -169,9 +169,9 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 		frame.buttons[i]:SetScript('OnClick', OnClick)
 
 		if i == 1 then
-			frame.buttons[i]:Point('TOPLEFT', frame, 'TOPLEFT', PADDING, -PADDING)
+			frame.buttons[i]:SetPoint('TOPLEFT', frame, 'TOPLEFT', PADDING, -PADDING)
 		else
-			frame.buttons[i]:Point('TOPLEFT', frame.buttons[i-1], 'BOTTOMLEFT')
+			frame.buttons[i]:SetPoint('TOPLEFT', frame.buttons[i-1], 'BOTTOMLEFT')
 		end
 	end
 
@@ -194,13 +194,13 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 	frame:Style('Outside')
 	frame:ClearAllPoints()
 	if pos == 'tLeft' then
-		frame:Point('BOTTOMRIGHT', parent, 'TOPLEFT', xOffset, yOffset)
+		frame:SetPoint('BOTTOMRIGHT', parent, 'TOPLEFT', xOffset, yOffset)
 	elseif pos == 'tRight' then
-		frame:Point('BOTTOMLEFT', parent, 'TOPRIGHT', xOffset, yOffset)
+		frame:SetPoint('BOTTOMLEFT', parent, 'TOPRIGHT', xOffset, yOffset)
 	elseif pos == 'bLeft' then
-		frame:Point('TOPRIGHT', parent, 'BOTTOMLEFT', xOffset, yOffset)
+		frame:SetPoint('TOPRIGHT', parent, 'BOTTOMLEFT', xOffset, yOffset)
 	elseif pos == 'bRight' then
-		frame:Point('TOPLEFT', parent, 'BOTTOMRIGHT', xOffset, yOffset)
+		frame:SetPoint('TOPLEFT', parent, 'BOTTOMRIGHT', xOffset, yOffset)
 	end
 
 	ToggleFrame(frame)

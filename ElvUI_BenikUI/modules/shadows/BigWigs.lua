@@ -12,7 +12,7 @@ function AS:BigWigs(event, addon)
 				if name == "QueueTimer" then
 					AS:SkinStatusBar(frame)
 					frame:ClearAllPoints()
-					frame:Point('TOP', '$parent', 'BOTTOM', 0, -(AS.PixelPerfect and 2 or 4))
+					frame:SetPoint('TOP', '$parent', 'BOTTOM', 0, -(AS.PixelPerfect and 2 or 4))
 					frame:SetHeight(16)
 					if BUI.ShadowMode and E.db.benikuiSkins.addonSkins.bigwigs then
 						frame:CreateSoftShadow()
@@ -59,13 +59,13 @@ function AS:BigWigs(event, addon)
 			end
 
 			bar.candyBarIconFrame:ClearAllPoints()
-			bar.candyBarIconFrame:Point('TOPLEFT')
-			bar.candyBarIconFrame:Point('BOTTOMLEFT')
+			bar.candyBarIconFrame:SetPoint('TOPLEFT')
+			bar.candyBarIconFrame:SetPoint('BOTTOMLEFT')
 
 			bar.candyBarBar:ClearAllPoints()
-			bar.candyBarBar.Point = nil
-			bar.candyBarBar:Point('TOPRIGHT')
-			bar.candyBarBar:Point('BOTTOMRIGHT')
+			bar.candyBarBar.SetPoint = nil
+			bar.candyBarBar:SetPoint('TOPRIGHT')
+			bar.candyBarBar:SetPoint('BOTTOMRIGHT')
 		end
 
 		local function GetBG(FreeBackgrounds)
@@ -106,22 +106,22 @@ function AS:BigWigs(event, addon)
 
 			bar.candyBarBar:ClearAllPoints()
 			bar.candyBarBar:SetAllPoints(bar)
-			bar.candyBarBar.Point = AS.Noop
+			bar.candyBarBar.SetPoint = AS.Noop
 			bar.candyBarBar:SetStatusBarTexture(AS.NormTex)
 			bar.candyBarBackground:SetTexture(AS.NormTex)
 
 			bar.candyBarIconFrame:ClearAllPoints()
-			bar.candyBarIconFrame:Point('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
+			bar.candyBarIconFrame:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
 			bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
 			AS:SkinTexture(bar.candyBarIconFrame)
 
 			bar.candyBarLabel:ClearAllPoints()
-			bar.candyBarLabel:Point("LEFT", bar, "LEFT", 2, 0)
-			bar.candyBarLabel:Point("RIGHT", bar, "RIGHT", -2, 0)
+			bar.candyBarLabel:SetPoint("LEFT", bar, "LEFT", 2, 0)
+			bar.candyBarLabel:SetPoint("RIGHT", bar, "RIGHT", -2, 0)
 
 			bar.candyBarDuration:ClearAllPoints()
-			bar.candyBarDuration:Point("LEFT", bar, "LEFT", 2, 0)
-			bar.candyBarDuration:Point("RIGHT", bar, "RIGHT", -2, 0)
+			bar.candyBarDuration:SetPoint("LEFT", bar, "LEFT", 2, 0)
+			bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", -2, 0)
 		end
 
 		local function ApplyStyleHalfBar(bar, FreeBackgrounds, buttonsize)
@@ -139,22 +139,22 @@ function AS:BigWigs(event, addon)
 
 			bar.candyBarBar:ClearAllPoints()
 			bar.candyBarBar:SetAllPoints(bar)
-			bar.candyBarBar.Point = AS.Noop
+			bar.candyBarBar.SetPoint = AS.Noop
 			bar.candyBarBar:SetStatusBarTexture(AS.NormTex)
 			bar.candyBarBackground:SetTexture(unpack(AS.BackdropColor))
 
 			bar.candyBarIconFrame:ClearAllPoints()
-			bar.candyBarIconFrame:Point('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
+			bar.candyBarIconFrame:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
 			bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
 			AS:SkinTexture(bar.candyBarIconFrame)
 
 			bar.candyBarLabel:ClearAllPoints()
-			bar.candyBarLabel:Point("LEFT", bar, "LEFT", 2, AS:AdjustForTheme(10))
-			bar.candyBarLabel:Point("RIGHT", bar, "RIGHT", -2, AS:AdjustForTheme(10))
+			bar.candyBarLabel:SetPoint("LEFT", bar, "LEFT", 2, AS:AdjustForTheme(10))
+			bar.candyBarLabel:SetPoint("RIGHT", bar, "RIGHT", -2, AS:AdjustForTheme(10))
 
 			bar.candyBarDuration:ClearAllPoints()
-			bar.candyBarDuration:Point("LEFT", bar, "LEFT", 2, AS:AdjustForTheme(10))
-			bar.candyBarDuration:Point("RIGHT", bar, "RIGHT", -2, AS:AdjustForTheme(10))
+			bar.candyBarDuration:SetPoint("LEFT", bar, "LEFT", 2, AS:AdjustForTheme(10))
+			bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", -2, AS:AdjustForTheme(10))
 
 			AS:SkinTexture(bar.candyBarIconFrame)
 		end

@@ -149,7 +149,7 @@ function mod:CreateDashboard(name, barHolder, option)
 	bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
 	bar.spark:Size(12, 6);
 	bar.spark:SetBlendMode('ADD');
-	bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
+	bar.spark:SetPoint('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
 	bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
 	bar.Text:FontTemplate()

@@ -106,7 +106,7 @@ function mod:TaxiButton()
 
 	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent, 'BackdropTemplate')
 	tbtn:Size(240, 40)
-	tbtn:Point('TOP', E.UIParent, 'TOP', 0, -150)
+	tbtn:SetPoint('TOP', E.UIParent, 'TOP', 0, -150)
 	tbtn:SetTemplate("Transparent")
 	tbtn:Style('Outside')
 	tbtn:RegisterForClicks("AnyUp")
