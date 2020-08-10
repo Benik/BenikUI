@@ -299,7 +299,7 @@ local function ufPlayerTable()
 			portraitWidth = {
 				order = 5,
 				type = 'range',
-				name = L['Width'],
+				name = L['SetWidth'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 				min = 10, max = 500, step = 1,
@@ -409,7 +409,7 @@ local function ufTargetTable()
 			portraitWidth = {
 				order = 6,
 				type = 'range',
-				name = L['Width'],
+				name = L['SetWidth'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return E.db.benikui.unitframes.target.getPlayerPortraitSize or not E.db.benikui.unitframes.target.detachPortrait end,
 				min = 10, max = 500, step = 1,
@@ -513,7 +513,7 @@ local function ufTargetTargetTable()
 			portraitWidth = {
 				order = 5,
 				type = 'range',
-				name = L['Width'],
+				name = L['SetWidth'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
 				min = 10, max = 500, step = 1,
@@ -589,7 +589,7 @@ local function ufFocusTable()
 			portraitWidth = {
 				order = 5,
 				type = 'range',
-				name = L['Width'],
+				name = L['SetWidth'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
 				min = 10, max = 500, step = 1,
@@ -665,7 +665,7 @@ local function ufPetTable()
 			portraitWidth = {
 				order = 5,
 				type = 'range',
-				name = L['Width'],
+				name = L['SetWidth'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
 				min = 10, max = 500, step = 1,

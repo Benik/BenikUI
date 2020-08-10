@@ -160,7 +160,7 @@ local function Datatexts()
 					width = {
 						order = 8,
 						type = "range",
-						name = L["Width"],
+						name = L["SetWidth"],
 						min = 200, max = E.screenwidth, step = 1,
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,

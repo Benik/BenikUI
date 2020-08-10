@@ -49,7 +49,7 @@ local function updateOptions()
 				width = {
 					order = 11,
 					type = "range",
-					name = L['Width'],
+					name = L['SetWidth'],
 					min = 50, max = E.screenwidth, step = 1,
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function(info, value) return E.db.benikui.panels[panelname].width end,

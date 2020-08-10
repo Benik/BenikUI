@@ -69,7 +69,7 @@ function BU:Configure_Portrait(frame, isPlayer)
 			end
 
 			if frame.PORTRAIT_DETACHED then
-				frame.portraitmover:Width(frame.DETACHED_PORTRAIT_WIDTH)
+				frame.portraitmover:SetWidth(frame.DETACHED_PORTRAIT_WIDTH)
 				frame.portraitmover:Height(frame.DETACHED_PORTRAIT_HEIGHT)
 				portrait.backdrop:SetAllPoints(frame.portraitmover)
 				

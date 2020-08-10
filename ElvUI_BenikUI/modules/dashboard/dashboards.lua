@@ -28,10 +28,10 @@ end
 
 function mod:UpdateHolderDimensions(holder, option, tableName)
 	local db = E.db.dashboards[option]
-	holder:Width(db.width)
+	holder:SetWidth(db.width)
 
 	for _, frame in pairs(tableName) do
-		frame:Width(db.width)
+		frame:SetWidth(db.width)
 	end
 end
 
@@ -127,7 +127,7 @@ end
 function mod:CreateDashboard(name, barHolder, option)
 	local bar = CreateFrame('Button', nil, barHolder)
 	bar:Height(DASH_HEIGHT)
-	bar:Width(E.db.dashboards[option].width or 150)
+	bar:SetWidth(E.db.dashboards[option].width or 150)
 	bar:SetPoint('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
 	bar:EnableMouse(true)
 
@@ -154,7 +154,7 @@ function mod:CreateDashboard(name, barHolder, option)
 	bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
 	bar.Text:FontTemplate()
 	bar.Text:SetPoint('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
-	bar.Text:Width(bar:GetWidth() - 20)
+	bar.Text:SetWidth(bar:GetWidth() - 20)
 	bar.Text:SetWordWrap(false)
 
 	bar.IconBG = CreateFrame('Button', nil, bar, 'BackdropTemplate')

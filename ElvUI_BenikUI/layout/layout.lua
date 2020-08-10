@@ -198,7 +198,7 @@ function mod:MiddleDatatextDimensions()
 	local db = E.db.benikui.datatexts.middle
 	local Bui_mdtp = _G.BuiMiddleDTPanel
 
-	Bui_mdtp:Width(db.width)
+	Bui_mdtp:SetWidth(db.width)
 	Bui_mdtp:Height(db.height)
 	DT:UpdatePanelInfo('BuiMiddleDTPanel')
 end
@@ -248,7 +248,7 @@ function mod:CreateLayout()
 	Bui_mdtp:SetTemplate('Default', true)
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
 	Bui_mdtp:SetPoint('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
-	Bui_mdtp:Width(db.middle.width or 400)
+	Bui_mdtp:SetWidth(db.middle.width or 400)
 	Bui_mdtp:Height(db.middle.height or PANEL_HEIGHT)
 	Bui_mdtp:Style('Outside', nil, false, true)
 	DT:RegisterPanel(BuiMiddleDTPanel, (db.middle.numPoints or 3), 'ANCHOR_BOTTOM', 0, -4)

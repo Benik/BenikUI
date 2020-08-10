@@ -303,7 +303,7 @@ end
 function mod:CreateTokensDashboard()
 	self.tokenHolder = self:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
 	self.tokenHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
-	self.tokenHolder:Width(E.db.dashboards.tokens.width or 150)
+	self.tokenHolder:SetWidth(E.db.dashboards.tokens.width or 150)
 
 	mod:UpdateTokens()
 	mod:UpdateTokenSettings()

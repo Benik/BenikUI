@@ -33,7 +33,7 @@ function mod:UpdateSystem()
 
 			local sysFrame = CreateFrame('Frame', 'BUI_'..name, holder)
 			sysFrame:Height(DASH_HEIGHT)
-			sysFrame:Width(E.db.dashboards.system.width or 150)
+			sysFrame:SetWidth(E.db.dashboards.system.width or 150)
 			sysFrame:SetPoint('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
 
@@ -85,7 +85,7 @@ end
 function mod:CreateSystemDashboard()
 	self.sysHolder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
 	self.sysHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
-	self.sysHolder:Width(E.db.dashboards.system.width or 150)
+	self.sysHolder:SetWidth(E.db.dashboards.system.width or 150)
 
 	mod:UpdateSystem()
 	mod:UpdateHolderDimensions(self.sysHolder, 'system', BUI.SystemDB)

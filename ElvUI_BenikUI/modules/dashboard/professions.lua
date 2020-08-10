@@ -182,7 +182,7 @@ function mod:CreateProfessionsDashboard()
 	else
 		self.proHolder:SetPoint('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
 	end
-	self.proHolder:Width(mapholderWidth or DASH_WIDTH)
+	self.proHolder:SetWidth(mapholderWidth or DASH_WIDTH)
 
 	mod:UpdateProfessions()
 	mod:UpdateProfessionSettings()

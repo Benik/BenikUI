@@ -50,7 +50,7 @@ function mod:CreatePanel()
 	for name in pairs(E.db.benikui.panels) do
 		if name and not _G[name] then
 			local panel = CreateFrame("Frame", name, E.UIParent)
-			panel:Width(name.width or 200)
+			panel:SetWidth(name.width or 200)
 			panel:Height(name.height or 200)
 			panel:SetTemplate('Transparent')
 			panel:Point('CENTER', E.UIParent, 'CENTER', -600, 0)
