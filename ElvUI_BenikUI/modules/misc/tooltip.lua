@@ -67,6 +67,11 @@ function mod:SetupStyleAndShadow(tt)
 		if not tt.StatusBar.backdrop.shadow then
 			tt.StatusBar.backdrop:CreateSoftShadow()
 		end
+		if TT.db.healthBar.statusPosition == 'BOTTOM' then
+			tt.StatusBar:ClearAllPoints()
+			tt.StatusBar:SetPoint('TOPLEFT', tt, 'BOTTOMLEFT', E.Border, -(E.Spacing * 3)-3)
+			tt.StatusBar:SetPoint('TOPRIGHT', tt, 'BOTTOMRIGHT', -E.Border, -(E.Spacing * 3)-3)
+		end
 	end
 end
 
