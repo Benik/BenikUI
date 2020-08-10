@@ -50,7 +50,7 @@ local function ObjectiveTrackerShadows()
 					bar.dummy:CreateSoftShadow()
 					bar.dummy:SetShown(icon:IsShown())
 				end
-				icon:Size(18) -- I like this better
+				icon:SetSize(18, 18) -- I like this better
 			end
 			progressBar.hasShadow = true
 		end

@@ -430,7 +430,7 @@ function mod:Initialize()
 
 	-- Menu button
 	self.FlightMode.top.menuButton = CreateFrame('Button', 'FlightModeMenuBtn', self.FlightMode.top)
-	self.FlightMode.top.menuButton:Size(32)
+	self.FlightMode.top.menuButton:SetSize(32, 32)
 	self.FlightMode.top.menuButton:SetPoint("LEFT", self.FlightMode.top, "LEFT", 6, 0)
 
 	self.FlightMode.top.menuButton.img = self.FlightMode.top.menuButton:CreateTexture(nil, 'OVERLAY')
@@ -464,7 +464,7 @@ function mod:Initialize()
 
 	-- Close button
 	self.FlightMode.top.closeButton = CreateFrame('Button', nil, self.FlightMode.top)
-	self.FlightMode.top.closeButton:Size(32)
+	self.FlightMode.top.closeButton:SetSize(32, 32)
 	self.FlightMode.top.closeButton:SetPoint("RIGHT", self.FlightMode.top, "RIGHT", -6, 0)
 
 	self.FlightMode.top.closeButton.img = self.FlightMode.top.closeButton:CreateTexture(nil, 'OVERLAY')
@@ -549,7 +549,7 @@ function mod:Initialize()
 
 	-- BenikUI logo
 	self.FlightMode.bottom.logo = self.FlightMode:CreateTexture(nil, 'OVERLAY')
-	self.FlightMode.bottom.logo:Size(420, 105)
+	self.FlightMode.bottom.logo:SetSize(420, 105)
 	self.FlightMode.bottom.logo:SetPoint("BOTTOM", self.FlightMode.bottom, "CENTER", 0, -20)
 	self.FlightMode.bottom.logo:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga')
 	self.FlightMode.bottom.logo:Hide()
@@ -582,7 +582,7 @@ function mod:Initialize()
 	self.FlightMode.message:SetTemplate("Transparent")
 	self.FlightMode.message:CreateWideShadow()
 	self.FlightMode.message:SetPoint("BOTTOM", self.FlightMode.bottom.logo, "TOP", 0, (E.PixelMode and 8 or 10))
-	self.FlightMode.message:Size(10, 30)
+	self.FlightMode.message:SetSize(10, 30)
 	self.FlightMode.message:Hide()
 	-- Create animation
 	self.FlightMode.message.anim = CreateAnimationGroup(self.FlightMode.message)
@@ -597,7 +597,7 @@ function mod:Initialize()
 
 	-- Request Stop button
 	self.FlightMode.bottom.requestStop = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.requestStop:Size(32)
+	self.FlightMode.bottom.requestStop:SetSize(32, 32)
 	self.FlightMode.bottom.requestStop:SetPoint("LEFT", self.FlightMode.bottom, "LEFT", 10, 0)
 	self.FlightMode.bottom.requestStop:EnableMouse(true)
 
@@ -644,7 +644,7 @@ function mod:Initialize()
 
 	-- Toggle Location button
 	self.FlightMode.bottom.info = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.info:Size(32)
+	self.FlightMode.bottom.info:SetSize(32, 32)
 	self.FlightMode.bottom.info:SetPoint("LEFT", self.FlightMode.bottom.requestStop, "RIGHT", 10, 0)
 
 	self.FlightMode.bottom.info.img = self.FlightMode.bottom.info:CreateTexture(nil, 'OVERLAY')
@@ -682,7 +682,7 @@ function mod:Initialize()
 
 	-- Toggle Map button
 	self.FlightMode.bottom.map = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.map:Size(32)
+	self.FlightMode.bottom.map:SetSize(32, 32)
 	self.FlightMode.bottom.map:SetPoint("LEFT", self.FlightMode.bottom.info, "RIGHT", 10, 0)
 
 	self.FlightMode.bottom.map.img = self.FlightMode.bottom.map:CreateTexture(nil, 'OVERLAY')
@@ -716,7 +716,7 @@ function mod:Initialize()
 
 	-- Toggle bags button
 	self.FlightMode.bottom.bags = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.bags:Size(32)
+	self.FlightMode.bottom.bags:SetSize(32, 32)
 	self.FlightMode.bottom.bags:SetPoint("LEFT", self.FlightMode.bottom.map, "RIGHT", 10, 0)
 
 	self.FlightMode.bottom.bags.img = self.FlightMode.bottom.bags:CreateTexture(nil, 'OVERLAY')
@@ -753,7 +753,7 @@ function mod:Initialize()
 	self.FlightMode.bottom.timeFlying:SetPoint("RIGHT", self.FlightMode.bottom, "RIGHT", -10, 0)
 	self.FlightMode.bottom.timeFlying:SetTemplate("Default", true, true)
 	self.FlightMode.bottom.timeFlying:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.bottom.timeFlying:Size(70,30)
+	self.FlightMode.bottom.timeFlying:SetSize(70,30)
 	self.FlightMode.bottom.timeFlying.txt = self.FlightMode.bottom.timeFlying:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.bottom.timeFlying.txt:FontTemplate(nil, 14)
 	self.FlightMode.bottom.timeFlying.txt:SetText("00:00")
@@ -765,7 +765,7 @@ function mod:Initialize()
 	self.FlightMode.bottom.fps:SetPoint('RIGHT', self.FlightMode.bottom.timeFlying, 'LEFT', -10, 0)
 	self.FlightMode.bottom.fps:SetTemplate("Default", true, true)
 	self.FlightMode.bottom.fps:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.bottom.fps:Size(70,30)
+	self.FlightMode.bottom.fps:SetSize(70,30)
 	self.FlightMode.bottom.fps.txt = self.FlightMode.bottom.fps:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.bottom.fps.txt:FontTemplate(nil, 14)
 	self.FlightMode.bottom.fps.txt:SetPoint('CENTER', self.FlightMode.bottom.fps, 'CENTER')

@@ -8,7 +8,7 @@ local bars = {'experience', 'reputation', 'artifact', 'honor'}
 
 function mod:CreateNotifier(bar)
 	bar.f = CreateFrame('Frame', nil, bar)
-	bar.f:Size(2, 10)
+	bar.f:SetSize(2, 10)
 	bar.f.txt = bar.f:CreateFontString(nil, 'OVERLAY')
 	bar.f.arrow = bar.f:CreateFontString(nil, 'OVERLAY')
 	bar.f.arrow:SetFont(LSM:Fetch("font", 'Bui Visitor1'), 10, 'MONOCHROMEOUTLINE')

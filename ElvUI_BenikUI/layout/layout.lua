@@ -283,7 +283,7 @@ function mod:CreateLayout()
 		bbuttons[i].arrow:SetTexture(E.Media.Textures.ArrowUp)
 		bbuttons[i].arrow:ClearAllPoints()
 		bbuttons[i].arrow:SetPoint('CENTER')
-		bbuttons[i].arrow:Size(12)
+		bbuttons[i].arrow:SetSize(12, 12)
 		bbuttons[i].arrow:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 		bbuttons[i].arrow:Hide()
 

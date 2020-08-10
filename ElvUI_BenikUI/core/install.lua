@@ -2005,7 +2005,7 @@ BUI.installTable = {
 		[1] = function()
 			PluginInstallFrame:Style('Outside')
 			PluginInstallTitleFrame:Style('Outside')
-			PluginInstallTutorialImage:Size(384, 96)
+			PluginInstallTutorialImage:SetSize(384, 96)
 			PluginInstallTutorialImage:SetPoint('BOTTOM', 0, 100)
 			PluginInstallTutorialImage2:SetTexture(nil)
 			PluginInstallTitleFrame.text:SetFont(E["media"].normFont, 16, "OUTLINE")

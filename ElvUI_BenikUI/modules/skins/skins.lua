@@ -49,7 +49,7 @@ local function tooltipOverlay(tt) -- Create a blank frame to position the GameTo
 	end
 
 	tt.style.blank = CreateFrame("Frame", nil, tt.style)
-	tt.style.blank:Size(6, 6)
+	tt.style.blank:SetSize(6, 6)
 	tt.style.blank:SetPoint("BOTTOM", tt.style, "TOP")
 
 	if tt.TopOverlay then

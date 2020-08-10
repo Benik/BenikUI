@@ -147,7 +147,7 @@ function mod:CreateDashboard(name, barHolder, option)
 
 	bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);
 	bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-	bar.spark:Size(12, 6);
+	bar.spark:SetSize(12, 6);
 	bar.spark:SetBlendMode('ADD');
 	bar.spark:SetPoint('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
@@ -159,7 +159,7 @@ function mod:CreateDashboard(name, barHolder, option)
 
 	bar.IconBG = CreateFrame('Button', nil, bar, 'BackdropTemplate')
 	bar.IconBG:SetTemplate('Transparent')
-	bar.IconBG:Size(E.PixelMode and 18 or 20)
+	bar.IconBG:SetSize(E.PixelMode and 18 or 20, E.PixelMode and 18 or 20)
 	bar.IconBG:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 
 	bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')

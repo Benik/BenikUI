@@ -76,7 +76,7 @@ function mod:UpdateProfessions()
 					holder:Show()
 					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if ProfessionsMover then
-						ProfessionsMover:Size(holder:GetSize())
+						ProfessionsMover:SetSize(holder:GetSize())
 						holder:SetPoint('TOPLEFT', ProfessionsMover, 'TOPLEFT')
 					end
 

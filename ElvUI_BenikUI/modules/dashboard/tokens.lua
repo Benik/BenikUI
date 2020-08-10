@@ -201,7 +201,7 @@ function mod:UpdateTokens()
 					holder:Show()
 					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if tokenHolderMover then
-						tokenHolderMover:Size(holder:GetSize())
+						tokenHolderMover:SetSize(holder:GetSize())
 						holder:SetPoint('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
 

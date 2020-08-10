@@ -105,7 +105,7 @@ function mod:TaxiButton()
 	if not E.db.benikui.actionbars.requestStop then return end
 
 	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent, 'BackdropTemplate')
-	tbtn:Size(240, 40)
+	tbtn:SetSize(240, 40)
 	tbtn:SetPoint('TOP', E.UIParent, 'TOP', 0, -150)
 	tbtn:SetTemplate("Transparent")
 	tbtn:Style('Outside')
@@ -115,7 +115,7 @@ function mod:TaxiButton()
 	tbtn.anim.sizing = tbtn.anim:CreateAnimation("SetWidth")
 
 	tbtn.IconBG = CreateFrame('Frame', nil, tbtn)
-	tbtn.IconBG:Size(32, 32)
+	tbtn.IconBG:SetSize(32, 32)
 	tbtn.IconBG:SetPoint('LEFT', tbtn, 'LEFT', 4, 0)
 
 	tbtn.IconBG.Icon = tbtn.IconBG:CreateTexture(nil, 'OVERLAY')
