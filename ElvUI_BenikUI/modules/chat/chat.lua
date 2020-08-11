@@ -95,11 +95,11 @@ local function PositionChat(self, override)
 end
 
 function mod:Initialize()
+	mod.UpdateEditboxAnchors()
 	hooksecurefunc(CH, "PositionChats", PositionChat)
 	hooksecurefunc(CH, "UpdateEditboxAnchors", mod.UpdateEditboxAnchors)
 	hooksecurefunc(CH, "StyleChat", Style)
 	hooksecurefunc(FM, "SetFlightMode", PositionChat)
-	mod.UpdateEditboxAnchors()
 end
 
 BUI:RegisterModule(mod:GetName())
