@@ -176,6 +176,14 @@ function mod:Initialize()
 
 	if not BUI.ShadowMode then return end
 	hooksecurefunc(_G.SpellFlyout, 'Show', mod.FlyoutShadows)
+	hooksecurefunc(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", function(button)
+		for spellButton in button.SpellButtonContainer:EnumerateActive() do
+			if spellButton and not spellButton.hasShadow then
+				spellButton.backdrop:CreateSoftShadow()
+				spellButton.hasShadow = true
+			end
+		end
+	end)
 end
 
 BUI:RegisterModule(mod:GetName())
