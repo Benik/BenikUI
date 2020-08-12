@@ -163,6 +163,24 @@ function mod:FlyoutShadows()
 	end
 end
 
+function mod:ExtraAB() -- shadows
+	hooksecurefunc(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", function(button)
+		for spellButton in button.SpellButtonContainer:EnumerateActive() do
+			if spellButton and not spellButton.hasShadow then
+				spellButton.backdrop:CreateSoftShadow()
+				spellButton.hasShadow = true
+			end
+		end
+	end)
+
+	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
+		local button = _G["ExtraActionButton"..i]
+		if button then
+			button.backdrop:CreateSoftShadow()
+		end
+	end
+end
+
 function mod:Initialize()
 	C_TimerAfter(1, mod.StyleBackdrops)
 	C_TimerAfter(1, mod.PetShadows)
@@ -176,14 +194,7 @@ function mod:Initialize()
 
 	if not BUI.ShadowMode then return end
 	hooksecurefunc(_G.SpellFlyout, 'Show', mod.FlyoutShadows)
-	hooksecurefunc(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", function(button)
-		for spellButton in button.SpellButtonContainer:EnumerateActive() do
-			if spellButton and not spellButton.hasShadow then
-				spellButton.backdrop:CreateSoftShadow()
-				spellButton.hasShadow = true
-			end
-		end
-	end)
+	mod:ExtraAB()
 end
 
 BUI:RegisterModule(mod:GetName())
