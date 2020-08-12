@@ -173,6 +173,7 @@ function mod:ExtraAB() -- shadows
 		end
 	end)
 
+	if E.private.skins.cleanBossButton ~= true then return end
 	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
 		local button = _G["ExtraActionButton"..i]
 		if button then
