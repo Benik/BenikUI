@@ -160,6 +160,7 @@ function mod:SetFlightMode(status)
 
 	if(status) then
 		self.FlightMode:Show()
+		_G.MainMenuBarVehicleLeaveButton:SetParent(E.UIParent)
 		E.UIParent:Hide()
 
 		-- Hide some frames
@@ -246,6 +247,7 @@ function mod:SetFlightMode(status)
 
 		self.inFlightMode = true
 	elseif(self.inFlightMode) then
+		_G.MainMenuBarVehicleLeaveButton:SetParent(_G.UIParent)
 		E.UIParent:Show()
 
 		-- Show hidden frames
