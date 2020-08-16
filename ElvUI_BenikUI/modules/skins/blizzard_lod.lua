@@ -890,6 +890,19 @@ local function style_WarboardUI()
 end
 S:AddCallbackForAddon("Blizzard_WarboardUI", "BenikUI_WarboardUI", style_WarboardUI)
 
+-- WeeklyRewards
+local function style_WeeklyRewards()
+	if E.private.skins.blizzard.weeklyRewards ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.WeeklyRewardsFrame
+	frame.backdrop:Style("Outside")
+end
+S:AddCallbackForAddon("Blizzard_WeeklyRewards", "BenikUI_WeeklyRewards", style_WeeklyRewards)
+
 -- UIWidgets
 local function style_UIWidgets()
 	if E.private.skins.blizzard.Warboard ~= true or E.private.skins.blizzard.enable ~= true or
