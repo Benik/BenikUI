@@ -41,8 +41,8 @@ local headers = {
 local function ObjectiveTrackerShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true then return end
 
-	ObjectiveTrackerFrame.HeaderMenu.MinimizeButton:CreateSoftShadow()
-	ObjectiveTrackerFrame.HeaderMenu.MinimizeButton.shadow:SetOutside()
+	_G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton:CreateSoftShadow()
+	_G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton.shadow:SetOutside()
 
 	local function ProgressBarsShadows(_, _, line)
 		local progressBar = line and line.ProgressBar
