@@ -28,6 +28,16 @@ local function raidUtilityShadows()
 	end
 end
 
+local headers = {
+	_G.ObjectiveTrackerBlocksFrame.QuestHeader,
+	_G.ObjectiveTrackerBlocksFrame.AchievementHeader,
+	_G.ObjectiveTrackerBlocksFrame.ScenarioHeader,
+	_G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader,
+	_G.BONUS_OBJECTIVE_TRACKER_MODULE.Header,
+	_G.WORLD_QUEST_TRACKER_MODULE.Header,
+	_G.ObjectiveTrackerFrame.BlocksFrame.UIWidgetsHeader
+}
+
 local function ObjectiveTrackerShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true then return end
 
@@ -83,6 +93,14 @@ local function ObjectiveTrackerShadows()
 		end
 	end
 	hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup",FindGroupButtonShadows)
+
+	for _, header in pairs(headers) do
+		local minimize = header.MinimizeButton
+		if minimize then
+			minimize:CreateSoftShadow()
+			minimize.shadow:SetOutside()
+		end
+	end
 end
 
 -- Calendar Event Class Buttons
