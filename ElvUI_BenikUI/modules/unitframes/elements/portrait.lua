@@ -24,13 +24,13 @@ function BU:Configure_Portrait(frame, isPlayer)
 			else
 				local healthTex = frame.Health:GetStatusBarTexture()
 				if db.health.reverseFill then
-					portrait:Point("TOPLEFT", healthTex, "TOPLEFT")
-					portrait:Point("BOTTOMLEFT", healthTex, "BOTTOMLEFT")
-					portrait:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT")
+					portrait:SetPoint("TOPLEFT", healthTex, "TOPLEFT")
+					portrait:SetPoint("BOTTOMLEFT", healthTex, "BOTTOMLEFT")
+					portrait:SetPoint("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT")
 				else
-					portrait:Point("TOPLEFT", frame.Health, "TOPLEFT")
-					portrait:Point("BOTTOMRIGHT", healthTex, "BOTTOMRIGHT")
-					portrait:Point("BOTTOMLEFT", healthTex, "BOTTOMLEFT")
+					portrait:SetPoint("TOPLEFT", frame.Health, "TOPLEFT")
+					portrait:SetPoint("BOTTOMRIGHT", healthTex, "BOTTOMRIGHT")
+					portrait:SetPoint("BOTTOMLEFT", healthTex, "BOTTOMLEFT")
 				end
 			end
 		else
@@ -53,8 +53,8 @@ function BU:Configure_Portrait(frame, isPlayer)
 			if portrait.backdrop.style then
 				if frame.PORTRAIT_STYLING then
 					portrait.backdrop.style:ClearAllPoints()
-					portrait.backdrop.style:Point('TOPLEFT', portrait, 'TOPLEFT', (E.PixelMode and -1 or -2), frame.PORTRAIT_STYLING_HEIGHT)
-					portrait.backdrop.style:Point('BOTTOMRIGHT', portrait, 'TOPRIGHT', (E.PixelMode and 1 or 2), (E.PixelMode and 0 or 2))
+					portrait.backdrop.style:SetPoint('TOPLEFT', portrait, 'TOPLEFT', (E.PixelMode and -1 or -2), frame.PORTRAIT_STYLING_HEIGHT)
+					portrait.backdrop.style:SetPoint('BOTTOMRIGHT', portrait, 'TOPRIGHT', (E.PixelMode and 1 or 2), (E.PixelMode and 0 or 2))
 					portrait.backdrop.style:Show()
 					
 					if isPlayer then
@@ -69,8 +69,8 @@ function BU:Configure_Portrait(frame, isPlayer)
 			end
 
 			if frame.PORTRAIT_DETACHED then
-				frame.portraitmover:Width(frame.DETACHED_PORTRAIT_WIDTH)
-				frame.portraitmover:Height(frame.DETACHED_PORTRAIT_HEIGHT)
+				frame.portraitmover:SetWidth(frame.DETACHED_PORTRAIT_WIDTH)
+				frame.portraitmover:SetHeight(frame.DETACHED_PORTRAIT_HEIGHT)
 				portrait.backdrop:SetAllPoints(frame.portraitmover)
 				
 				if portrait.backdrop.shadow then
@@ -95,19 +95,19 @@ function BU:Configure_Portrait(frame, isPlayer)
 				if not frame.portraitmover.mover then
 					frame.portraitmover:ClearAllPoints()
 					if frame.unit == "player" then
-						frame.portraitmover:Point('TOPRIGHT', frame, 'TOPLEFT', -frame.BORDER, 0)
+						frame.portraitmover:SetPoint('TOPRIGHT', frame, 'TOPLEFT', -frame.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'PlayerPortraitMover', 'Player Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,player,generalGroup')
 					elseif frame.unit == "target" then
-						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
+						frame.portraitmover:SetPoint('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'TargetPortraitMover', 'Target Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,target,generalGroup')
 					elseif frame.unit == "targettarget" then
-						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
+						frame.portraitmover:SetPoint('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'TargetTargetPortraitMover', 'TargetTarget Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,targettarget,generalGroup')
 					elseif frame.unit == "focus" then
-						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
+						frame.portraitmover:SetPoint('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'FocusPortraitMover', 'Focus Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,focus,generalGroup')
 					elseif frame.unit == "pet" then
-						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
+						frame.portraitmover:SetPoint('TOPLEFT', frame, 'TOPRIGHT', frame.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'PetPortraitMover', 'Pet Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,pet,generalGroup')
 					end
 					frame.portraitmover:ClearAllPoints()
@@ -126,22 +126,22 @@ function BU:Configure_Portrait(frame, isPlayer)
 				end
 
 				if frame.ORIENTATION == "LEFT" then
-					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", frame.SPACING, frame.PORTRAIT_HEIGHT or frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+frame.SPACING) or -frame.SPACING)
+					portrait.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT", frame.SPACING, frame.PORTRAIT_HEIGHT or frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+frame.SPACING) or -frame.SPACING)
 					if frame.PORTRAIT_AND_INFOPANEL then
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.InfoPanel, "BOTTOMLEFT", - frame.SPACING*3, -frame.BORDER)
+						portrait.backdrop:SetPoint("BOTTOMRIGHT", frame.InfoPanel, "BOTTOMLEFT", - frame.SPACING*3, -frame.BORDER)
 					elseif frame.USE_MINI_POWERBAR or frame.USE_POWERBAR_OFFSET or not frame.USE_POWERBAR or frame.USE_INSET_POWERBAR or frame.POWERBAR_DETACHED then
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)
+						portrait.backdrop:SetPoint("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)
 					else
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)
+						portrait.backdrop:SetPoint("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", frame.BORDER - frame.SPACING*3, 0)
 					end
 				elseif frame.ORIENTATION == "RIGHT" then
-					portrait.backdrop:Point("TOPRIGHT", frame, "TOPRIGHT", -frame.SPACING, frame.PORTRAIT_HEIGHT or frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+frame.SPACING) or -frame.SPACING)
+					portrait.backdrop:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -frame.SPACING, frame.PORTRAIT_HEIGHT or frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+frame.SPACING) or -frame.SPACING)
 					if frame.PORTRAIT_AND_INFOPANEL then
-						portrait.backdrop:Point("BOTTOMLEFT", frame.InfoPanel, "BOTTOMRIGHT", frame.SPACING*3, -frame.BORDER)
+						portrait.backdrop:SetPoint("BOTTOMLEFT", frame.InfoPanel, "BOTTOMRIGHT", frame.SPACING*3, -frame.BORDER)
 					elseif frame.USE_MINI_POWERBAR or frame.USE_POWERBAR_OFFSET or not frame.USE_POWERBAR or frame.USE_INSET_POWERBAR or frame.POWERBAR_DETACHED then
-						portrait.backdrop:Point("BOTTOMLEFT", frame.Health.backdrop, "BOTTOMRIGHT", -frame.BORDER + frame.SPACING*3, 0)
+						portrait.backdrop:SetPoint("BOTTOMLEFT", frame.Health.backdrop, "BOTTOMRIGHT", -frame.BORDER + frame.SPACING*3, 0)
 					else
-						portrait.backdrop:Point("BOTTOMLEFT", frame.Power.backdrop, "BOTTOMRIGHT", -frame.BORDER + frame.SPACING*3, 0)
+						portrait.backdrop:SetPoint("BOTTOMLEFT", frame.Power.backdrop, "BOTTOMRIGHT", -frame.BORDER + frame.SPACING*3, 0)
 					end
 				end
 			end

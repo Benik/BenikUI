@@ -83,21 +83,21 @@ function mod:UpdateXpNotifierPositions()
 
 	if db.position == 'LEFT' then
 		if not E.db.databars.experience.reverseFill then
-			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+			bar.f.arrow:SetPoint('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
 		else
-			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
+			bar.f.arrow:SetPoint('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
 		end
-		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
-		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
+		bar.f:SetPoint('RIGHT', bar.f.arrow, 'LEFT')
+		bar.f.txt:SetPoint('RIGHT', bar.f, 'LEFT')
 		arrow = ">"
 	else
 		if not E.db.databars.experience.reverseFill then
-			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+			bar.f.arrow:SetPoint('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
 		else
-			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
+			bar.f.arrow:SetPoint('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
 		end
-		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
-		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
+		bar.f:SetPoint('LEFT', bar.f.arrow, 'RIGHT')
+		bar.f.txt:SetPoint('LEFT', bar.f, 'RIGHT')
 		arrow = "<"
 	end
 
@@ -134,7 +134,7 @@ end
 
 function mod:XpTextOffset()
 	local text = ElvUI_ExperienceBar.text
-	text:Point('CENTER', 0, E.db.databars.experience.textYoffset or 0)
+	text:SetPoint('CENTER', 0, E.db.databars.experience.textYoffset or 0)
 end
 
 function mod:LoadXP()

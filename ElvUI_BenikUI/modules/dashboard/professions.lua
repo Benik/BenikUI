@@ -74,10 +74,10 @@ function mod:UpdateProfessions()
 			if name and (rank < maxRank or (not db.capped)) then
 				if E.private.dashboards.professions.choosePofessions[id] == true then
 					holder:Show()
-					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if ProfessionsMover then
-						ProfessionsMover:Size(holder:GetSize())
-						holder:Point('TOPLEFT', ProfessionsMover, 'TOPLEFT')
+						ProfessionsMover:SetSize(holder:GetSize())
+						holder:SetPoint('TOPLEFT', ProfessionsMover, 'TOPLEFT')
 					end
 
 					self.ProFrame = self:CreateDashboard(nil, holder, 'professions')
@@ -153,9 +153,9 @@ function mod:UpdateProfessions()
 	for key, frame in ipairs(BUI.ProfessionsDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:SetPoint( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', BUI.ProfessionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			frame:SetPoint('TOP', BUI.ProfessionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
@@ -178,11 +178,11 @@ function mod:CreateProfessionsDashboard()
 	self.proHolder = self:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
 
 	if E.private.general.minimap.enable then
-		self.proHolder:Point('TOPLEFT', _G.MMHolder, 'BOTTOMLEFT', 0, -5)
+		self.proHolder:SetPoint('TOPLEFT', _G.MMHolder, 'BOTTOMLEFT', 0, -5)
 	else
-		self.proHolder:Point('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
+		self.proHolder:SetPoint('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
 	end
-	self.proHolder:Width(mapholderWidth or DASH_WIDTH)
+	self.proHolder:SetWidth(mapholderWidth or DASH_WIDTH)
 
 	mod:UpdateProfessions()
 	mod:UpdateProfessionSettings()
