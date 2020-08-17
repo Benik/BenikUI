@@ -7,6 +7,7 @@ local GameTooltip = _G["GameTooltip"]
 local CreateFrame = CreateFrame
 local UnitOnTaxi = UnitOnTaxi
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
+local C_TimerAfter = C_Timer.After
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION = TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION
 
@@ -28,11 +29,11 @@ function BUI:CheckFlightMapID()
 	end
 end
 
-local function TaxiButton_OnEvent(self, event)
+local function TaxiButton_OnEvent(self)
 	local forbiddenArea = BUI:CheckFlightMapID()
 
 	if (UnitOnTaxi("player") and not IsInInstance() and not forbiddenArea) then
-		_G.MainMenuBarVehicleLeaveButton:Hide() -- Hide ElvUI minimap button
+		C_TimerAfter(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
 		E:UIFrameFadeIn(self, 1, 0, 1)
 		self:Show()
 		self.textHolder.Text:SetFormattedText("%s", TAXI_CANCEL)
@@ -112,7 +113,7 @@ function mod:TaxiButton()
 	tbtn:RegisterForClicks("AnyUp")
 
 	tbtn.anim = CreateAnimationGroup(tbtn)
-	tbtn.anim.sizing = tbtn.anim:CreateAnimation("SetWidth")
+	tbtn.anim.sizing = tbtn.anim:CreateAnimation("Width")
 
 	tbtn.IconBG = CreateFrame('Frame', nil, tbtn)
 	tbtn.IconBG:SetSize(32, 32)
