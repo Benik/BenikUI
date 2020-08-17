@@ -14,6 +14,7 @@ local UnitOnTaxi, IsAddOnLoaded = UnitOnTaxi, IsAddOnLoaded
 local GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
+local C_TimerAfter = C_Timer.After
 local GetScreenWidth = GetScreenWidth
 local InCombatLockdown = InCombatLockdown
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
@@ -160,7 +161,6 @@ function mod:SetFlightMode(status)
 
 	if(status) then
 		self.FlightMode:Show()
-		_G.MainMenuBarVehicleLeaveButton:SetParent(E.UIParent)
 		E.UIParent:Hide()
 
 		-- Hide some frames
@@ -168,6 +168,9 @@ function mod:SetFlightMode(status)
 		if E.private.general.minimap.enable then
 			Minimap:Hide()
 		end
+
+		C_TimerAfter(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
+
 		self.FlightMode.bottom.map:EnableMouse(true)
 		self.FlightMode.top.menuButton:EnableMouse(true)
 
@@ -255,6 +258,7 @@ function mod:SetFlightMode(status)
 		if E.private.general.minimap.enable then
 			Minimap:Show()
 		end
+		_G.MainMenuBarVehicleLeaveButton:SetScript('OnShow', nil)
 		self.FlightMode:Hide()
 
 		-- Enable Blizz location messsages.
