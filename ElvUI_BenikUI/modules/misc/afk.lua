@@ -10,6 +10,7 @@ local C_Calendar_GetDate = C_Calendar.GetDate
 local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic
 local IsXPUserDisabled = IsXPUserDisabled
+local IsPlayerAtEffectiveMaxLevel = IsPlayerAtEffectiveMaxLevel
 local UnitLevel = UnitLevel
 local InCombatLockdown = InCombatLockdown
 local GetSpecialization = GetSpecialization
@@ -225,7 +226,7 @@ hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 -- XP string
 local M = E:GetModule('DataBars');
 local function GetXPinfo()
-	if (E.mylevel == 60) or IsXPUserDisabled() then return end
+	if IsPlayerAtEffectiveMaxLevel() or IsXPUserDisabled() then return end
 
 	local cur, max = M:GetXP('player')
 	local curlvl = UnitLevel('player')
