@@ -690,7 +690,7 @@ S:AddCallbackForAddon("Blizzard_OrderHallUI", "BenikUI_OrderHallUI", style_Order
 
 -- PlayerChoiceUI
 local function style_PlayerChoiceUI()
-	if E.private.skins.blizzard.PlayerChoice ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.playerChoice ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
