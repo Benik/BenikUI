@@ -282,17 +282,17 @@ S:AddCallbackForAddon("Blizzard_Contribution", "BenikUI_Contribution", style_Con
 
 -- CovenantPreviewUI
 local function style_CovenantPreviewUI()
-	if E.private.skins.blizzard.CovenantPreview ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.covenantPreview ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
 	end
 
 	local frame = _G.CovenantPreviewFrame
-	hooksecurefunc(frame, 'TryShow', function(self)
-		if not self.IsStyled then
-			self.backdrop:Style("Outside")
-			self.IsStyled = true
+	hooksecurefunc(frame, 'TryShow', function(covenantInfo)
+		if covenantInfo and not frame.IsStyled then
+			frame.backdrop:Style("Outside")
+			frame.IsStyled = true
 		end
 	end)
 end
