@@ -170,7 +170,7 @@ local function styleFreeBlizzardFrames()
 
 	if db.merchant then
 		if _G.MerchantFrame then
-			_G.MerchantFrame:Style("Outside")
+			_G.MerchantFrame.backdrop:Style("Outside")
 		end
 	end
 
