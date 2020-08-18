@@ -114,14 +114,14 @@ local Currency = {
 	1803,	-- Echoes of Ny'alotha
 
 	-- Shadowlands
-	1751,	-- Free Soul
-	1810,	-- Artisan slaves
-	1811,	-- Architect slaves
-	1812,	-- Weaver slaves
+	1751,	-- Freed Soul
+	1810,	-- Willing Soul
+	--1811,	-- Architect slaves -- this seems to be removed(?)
+	--1812,	-- Weaver slaves -- this seems to be removed(?)
 	1813,	-- Reservoir Anima
 	1820,	-- Infused Ruby
 	1822,	-- Renown
-	1828, 	-- Carcerus 
+	1828, 	-- Soul Ash
 }
 
 local function Icon_OnEnter(self)
