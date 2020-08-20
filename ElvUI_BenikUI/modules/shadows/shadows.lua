@@ -28,13 +28,23 @@ local function raidUtilityShadows()
 	end
 end
 
+local headers = {
+	_G.ObjectiveTrackerBlocksFrame.QuestHeader,
+	_G.ObjectiveTrackerBlocksFrame.AchievementHeader,
+	_G.ObjectiveTrackerBlocksFrame.ScenarioHeader,
+	_G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader,
+	_G.BONUS_OBJECTIVE_TRACKER_MODULE.Header,
+	_G.WORLD_QUEST_TRACKER_MODULE.Header,
+	_G.ObjectiveTrackerFrame.BlocksFrame.UIWidgetsHeader
+}
+
 local function ObjectiveTrackerShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true then return end
 
-	ObjectiveTrackerFrame.HeaderMenu.MinimizeButton:CreateSoftShadow()
-	ObjectiveTrackerFrame.HeaderMenu.MinimizeButton.shadow:SetOutside()
+	_G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton:CreateSoftShadow()
+	_G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton.shadow:SetOutside()
 
-	local function ProgressBarsShadows(self, _, line)
+	local function ProgressBarsShadows(_, _, line)
 		local progressBar = line and line.ProgressBar
 		local bar = progressBar and progressBar.Bar
 		if not bar then return end
@@ -50,25 +60,28 @@ local function ObjectiveTrackerShadows()
 					bar.dummy:CreateSoftShadow()
 					bar.dummy:SetShown(icon:IsShown())
 				end
-				icon:Size(18) -- I like this better
+				icon:SetSize(18, 18) -- I like this better
 			end
 			progressBar.hasShadow = true
 		end
 	end
 
-	local function ItemButtonShadows(self, block)
+	local function ItemButtonShadows(_, block)
 		local item = block.itemButton
-		if item and not item.shadow then
+		if item and not item.shadow then -- this seems that doesn't keep the shadow. Keep an eye
 			item:CreateSoftShadow()
 		end
 	end
 
-	hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	hooksecurefunc(WORLD_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	hooksecurefunc(SCENARIO_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	hooksecurefunc(QUEST_TRACKER_MODULE,"SetBlockHeader",ItemButtonShadows)
-	hooksecurefunc(WORLD_QUEST_TRACKER_MODULE,"AddObjective",ItemButtonShadows)
+	hooksecurefunc(_G.BONUS_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(_G.WORLD_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(_G.DEFAULT_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(_G.SCENARIO_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(_G.CAMPAIGN_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(_G.QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	hooksecurefunc(_G.QUEST_TRACKER_MODULE,"SetBlockHeader",ItemButtonShadows)
+	hooksecurefunc(_G.WORLD_QUEST_TRACKER_MODULE,"AddObjective",ItemButtonShadows)
+	hooksecurefunc(_G.CAMPAIGN_QUEST_TRACKER_MODULE,"AddObjective",ItemButtonShadows)
 
 	local function FindGroupButtonShadows(block)
 		if block.hasGroupFinderButton and block.groupFinderButton then
@@ -80,6 +93,14 @@ local function ObjectiveTrackerShadows()
 		end
 	end
 	hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup",FindGroupButtonShadows)
+
+	for _, header in pairs(headers) do
+		local minimize = header.MinimizeButton
+		if minimize then
+			minimize:CreateSoftShadow()
+			minimize.shadow:SetOutside()
+		end
+	end
 end
 
 -- Calendar Event Class Buttons
@@ -145,7 +166,7 @@ function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
 	raidUtilityShadows()
-	mirrorTimersShadows()
+	--mirrorTimersShadows()
 	ObjectiveTrackerShadows()
 	miscShadows()
 	MicroBarShadows()

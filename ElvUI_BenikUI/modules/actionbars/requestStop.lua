@@ -7,6 +7,7 @@ local GameTooltip = _G["GameTooltip"]
 local CreateFrame = CreateFrame
 local UnitOnTaxi = UnitOnTaxi
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
+local C_TimerAfter = C_Timer.After
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION = TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION
 
@@ -28,17 +29,17 @@ function BUI:CheckFlightMapID()
 	end
 end
 
-local function TaxiButton_OnEvent(self, event)
+local function TaxiButton_OnEvent(self)
 	local forbiddenArea = BUI:CheckFlightMapID()
 
 	if (UnitOnTaxi("player") and not IsInInstance() and not forbiddenArea) then
-		LeaveVehicleButton:Hide() -- Hide ElvUI minimap button
+		C_TimerAfter(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
 		E:UIFrameFadeIn(self, 1, 0, 1)
 		self:Show()
 		self.textHolder.Text:SetFormattedText("%s", TAXI_CANCEL)
-		self:Width(self.textHolder.Text:GetStringWidth() + 48)
+		self:SetWidth(self.textHolder.Text:GetStringWidth() + 48)
 		self.textHolder.Text:SetTextColor(1, 1, 1, .7)
-		self.IconBG:SetBackdropColor(unpack(E['media'].backdropcolor))
+		--self.IconBG:SetBackdropColor(unpack(E['media'].backdropcolor))
 		self.IconBG.Icon:SetVertexColor(1, 1, 1, .7)
 		self:EnableMouse(true)
 		BuiTaxiButton:SetWidth(self:GetWidth() + 42)
@@ -104,8 +105,8 @@ local fly_icon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\
 function mod:TaxiButton()
 	if not E.db.benikui.actionbars.requestStop then return end
 
-	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent)
-	tbtn:Size(240, 40)
+	local tbtn = CreateFrame('Button', 'BuiTaxiButton', E.UIParent, 'BackdropTemplate')
+	tbtn:SetSize(240, 40)
 	tbtn:SetPoint('TOP', E.UIParent, 'TOP', 0, -150)
 	tbtn:SetTemplate("Transparent")
 	tbtn:Style('Outside')
@@ -115,8 +116,8 @@ function mod:TaxiButton()
 	tbtn.anim.sizing = tbtn.anim:CreateAnimation("Width")
 
 	tbtn.IconBG = CreateFrame('Frame', nil, tbtn)
-	tbtn.IconBG:Size(32, 32)
-	tbtn.IconBG:Point('LEFT', tbtn, 'LEFT', 4, 0)
+	tbtn.IconBG:SetSize(32, 32)
+	tbtn.IconBG:SetPoint('LEFT', tbtn, 'LEFT', 4, 0)
 
 	tbtn.IconBG.Icon = tbtn.IconBG:CreateTexture(nil, 'OVERLAY')
 	tbtn.IconBG.Icon:SetInside()
@@ -124,12 +125,12 @@ function mod:TaxiButton()
 	tbtn.IconBG.Icon:SetVertexColor(1, 1, 1)
 
 	tbtn.textHolder = CreateFrame('Frame', nil, tbtn)
-	tbtn.textHolder:Point('TOPLEFT', tbtn.IconBG, 'TOPRIGHT', 4, 0)
-	tbtn.textHolder:Point('BOTTOMRIGHT', tbtn, 'BOTTOMRIGHT', -4, 4)
+	tbtn.textHolder:SetPoint('TOPLEFT', tbtn.IconBG, 'TOPRIGHT', 4, 0)
+	tbtn.textHolder:SetPoint('BOTTOMRIGHT', tbtn, 'BOTTOMRIGHT', -4, 4)
 
-	tbtn.textHolder.Text = tbtn.textHolder:CreateFontString(nil, 'LOW')
+	tbtn.textHolder.Text = tbtn.textHolder:CreateFontString(nil, 'OVERLAY')
 	tbtn.textHolder.Text:FontTemplate()
-	tbtn.textHolder.Text:Point('CENTER')
+	tbtn.textHolder.Text:SetPoint('CENTER')
 	tbtn.textHolder.Text:SetJustifyH('CENTER')
 
 	tbtn:SetScript("OnClick", TaxiButton_OnClick)
@@ -141,7 +142,7 @@ function mod:TaxiButton()
 
 	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
 
-	E:CreateMover(BuiTaxiButton, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS,BenikUI', nil, 'benikui,actionbars')
+	E:CreateMover(BuiTaxiButton, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS,BENIKUI')
 end
 
 function mod:LoadRequestButton()

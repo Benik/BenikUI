@@ -1,9 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:NewModule('Units', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 local UF = E:GetModule('UnitFrames');
-local LSM = E.LSM
-
-local find = string.find
 
 function mod:UnitDefaults()
 	if E.db.benikui.unitframes.player.portraitWidth == nil then
@@ -156,20 +153,20 @@ function mod:TankTargetShadows()
 	end
 end
 
-function mod:PostUpdateAura(unit, button)
+function mod:PostUpdateAura(_, button)
 	if not button.shadow then
 		button:CreateSoftShadow()
 	end
 
 	if button.isDebuff then
-		if(not button.isFriend and not button.isPlayer) then
+		if(not button.isFriend and not button.isPlayer) then --[[and (not E.isDebuffWhiteList[name])]]
 			button:SetBackdropBorderColor(0.9, 0.1, 0.1)
-			button.icon:SetDesaturated((unit and not strfind(unit, 'arena%d')) and true or false)
+			button.icon:SetDesaturated(button.canDesaturate)
 		else
-			local color = (button.dtype and _G.DebuffTypeColor[button.dtype]) or _G.DebuffTypeColor.none
-			if button.name and (button.name == "Unstable Affliction" or button.name == "Vampiric Touch") and E.myclass ~= "WARLOCK" then
+			if E.BadDispels[button.spellID] and button.dtype and E:IsDispellableByMe(button.dtype) then
 				button:SetBackdropBorderColor(0.05, 0.85, 0.94)
 			else
+				local color = (button.dtype and _G.DebuffTypeColor[button.dtype]) or _G.DebuffTypeColor.none
 				button:SetBackdropBorderColor(color.r * 0.6, color.g * 0.6, color.b * 0.6)
 			end
 			button.icon:SetDesaturated(false)
@@ -187,17 +184,17 @@ function mod:PostUpdateAura(unit, button)
 	end
 end
 
-function mod:ADDON_LOADED(event, addon)
-	if addon ~= "ElvUI_Config" then return end
-	mod:UnregisterEvent(event)
-	mod:ChangeDefaultOptions()
+function mod:ChangeDefaultOptions()
+	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.height.max = 300
+	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
+	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.height.max = 300
+	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
 end
 
-function mod:ChangeDefaultOptions()
-	E.Options.args.unitframe.args.player.args.power.args.height.max = 300
-	E.Options.args.unitframe.args.player.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
-	E.Options.args.unitframe.args.target.args.power.args.height.max = 300
-	E.Options.args.unitframe.args.target.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
+function mod:ADDON_LOADED(event, addon)
+	if addon ~= "ElvUI_OptionsUI" then return end
+	mod:UnregisterEvent(event)
+	mod:ChangeDefaultOptions()
 end
 
 function mod:Initialize()
@@ -212,10 +209,12 @@ function mod:Initialize()
 	self:InitParty()
 	self:InitRaid()
 	self:InitRaid40()
-	
+
 	self:ChangePowerBarTexture()
 	self:ChangeHealthBarTexture()
 	self:InfoPanelColor()
+
+	self:Configure_RoleIcons()
 
 	if BUI.ShadowMode then
 		self:UnitShadows()

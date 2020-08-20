@@ -8,7 +8,6 @@ local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local LoadAddOn = LoadAddOn
 local InCombatLockdown = InCombatLockdown
-local GetQuestLogTitle = GetQuestLogTitle
 
 -- GLOBALS: hooksecurefunc
 
@@ -18,23 +17,26 @@ local SPACING = (E.PixelMode and 1 or 3)
 local WarCampaignTooltip = QuestScrollFrame.WarCampaignTooltip
 
 local tooltips = {
-	EmbeddedItemTooltip,
-	FriendsTooltip,
-	ItemRefTooltip,
-	ShoppingTooltip1,
-	ShoppingTooltip2,
-	ShoppingTooltip3,
-	FloatingBattlePetTooltip,
-	FloatingPetBattleAbilityTooltip,
-	FloatingGarrisonFollowerAbilityTooltip,
-	WarCampaignTooltip
+	_G.EmbeddedItemTooltip,
+	_G.FriendsTooltip,
+	_G.ItemRefTooltip,
+	_G.ShoppingTooltip1,
+	_G.ShoppingTooltip2,
+	_G.ShoppingTooltip3,
+	_G.FloatingBattlePetTooltip,
+	_G.FloatingPetBattleAbilityTooltip,
+	_G.FloatingGarrisonFollowerAbilityTooltip,
+	_G.WarCampaignTooltip,
+	_G.GameTooltip,
+	_G.ElvUIConfigTooltip,
+	_G.ElvUISpellBookTooltip
 }
 
 local overlayedTooltips = {
-	GameTooltip,
-	ShoppingTooltip1,
-	ShoppingTooltip2,
-	ShoppingTooltip3
+	_G.GameTooltip,
+	_G.ShoppingTooltip1,
+	_G.ShoppingTooltip2,
+	_G.ShoppingTooltip3
 }
 
 local function tooltipOverlay(tt) -- Create a blank frame to position the GameTooltip.TopOverlay texture
@@ -42,14 +44,18 @@ local function tooltipOverlay(tt) -- Create a blank frame to position the GameTo
 		return
 	end
 
+	if tt.style.blank then
+		return
+	end
+
 	tt.style.blank = CreateFrame("Frame", nil, tt.style)
-	tt.style.blank:Size(6, 6)
-	tt.style.blank:Point("BOTTOM", tt.style, "TOP")
+	tt.style.blank:SetSize(6, 6)
+	tt.style.blank:SetPoint("BOTTOM", tt.style, "TOP")
 
 	if tt.TopOverlay then
 		tt.TopOverlay:SetParent(tt.style.blank)
 		tt.TopOverlay:ClearAllPoints()
-		tt.TopOverlay:Point("CENTER", tt.style.blank, "CENTER")
+		tt.TopOverlay:SetPoint("CENTER", tt.style.blank, "CENTER")
 	end
 end
 
@@ -64,66 +70,77 @@ local function styleFreeBlizzardFrames()
 	local db = E.private.skins.blizzard
 
 	if db.addonManager then
-		AddonList:Style("Outside")
+		_G.AddonList:Style("Outside")
+	end
+	
+	if db.BlizzardOptions then
+		_G.AudioOptionsFrame:Style("Outside")
+		_G.ChatConfigFrame:Style("Outside")
+		_G.InterfaceOptionsFrame:Style("Outside")
+		_G.ReadyCheckFrame:Style("Outside")
+		_G.ReadyCheckListenerFrame:Style("Outside")
+		if _G.SplashFrame then
+			_G.SplashFrame:Style("Outside")
+		end
+		_G.VideoOptionsFrame:Style("Outside")
 	end
 
 	if db.bgscore then
-		if not PVPMatchScoreboard then
+		if not _G.PVPMatchScoreboard then
 			LoadAddOn("Blizzard_PVPMatch")
 		end
-		PVPMatchScoreboard:Style("Outside")
-		PVPMatchResults:Style("Outside")
+		_G.PVPMatchScoreboard:Style("Outside")
+		_G.PVPMatchResults:Style("Outside")
 	end
 	if db.character then
-		GearManagerDialogPopup:Style("Outside")
-		PaperDollFrame:Style("Outside")
-		ReputationDetailFrame:Style("Outside")
-		ReputationFrame:Style("Outside")
-		TokenFrame:Style("Outside")
-		TokenFramePopup:Style("Outside")
+		_G.GearManagerDialogPopup:Style("Outside")
+		_G.PaperDollFrame:Style("Outside")
+		_G.ReputationDetailFrame:Style("Outside")
+		_G.ReputationFrame:Style("Outside")
+		_G.TokenFrame:Style("Outside")
+		_G.TokenFramePopup:Style("Outside")
 	end
 
 	if db.dressingroom then
-		DressUpFrame.backdrop:Style("Outside")
+		_G.DressUpFrame:Style("Outside")
 
-		if not WardrobeOutfitEditFrame.style then
-			WardrobeOutfitEditFrame:Style("Outside")
+		if not _G.WardrobeOutfitEditFrame.style then
+			_G.WardrobeOutfitEditFrame:Style("Outside")
 		end
 	end
 
 	if db.friends then
-		AddFriendFrame:Style("Outside")
-		FriendsFrame:Style("Outside")
-		FriendsFriendsFrame.backdrop:Style("Outside")
-		RecruitAFriendFrame:Style("Outside")
-		RecruitAFriendSentFrame:Style("Outside")
-		RecruitAFriendSentFrame.MoreDetails.Text:FontTemplate()
+		_G.AddFriendFrame.backdrop:Style("Outside")
+		_G.FriendsFrame:Style("Outside")
+		_G.FriendsFriendsFrame:Style("Outside")
+		_G.RecruitAFriendFrame:Style("Outside")
 	end
 
 	if db.gossip then
-		GossipFrame:Style("Outside")
-		ItemTextFrame:Style("Outside")
+		_G.GossipFrame:Style("Outside")
+		_G.ItemTextFrame:Style("Outside")
 	end
 
 	if db.guildregistrar then
-		GuildRegistrarFrame:Style("Outside")
+		_G.GuildRegistrarFrame:Style("Outside")
 	end
 
 	if db.help then
-		HelpFrame.backdrop:Style("Outside")
-		HelpFrameHeader.backdrop:Style("Outside")
+		_G.HelpFrame.backdrop:Style("Outside")
+		_G.HelpFrame.Header.backdrop:Style("Outside")
+		_G.HelpFrame.Header:SetFrameLevel(_G.HelpFrame:GetFrameLevel() + 4)
 	end
 
 	if db.lfg then
-		LFGInvitePopup:Style("Outside")
-		LFGDungeonReadyDialog:Style("Outside")
-		LFGDungeonReadyStatus:Style("Outside")
-		LFGListApplicationDialog:Style("Outside")
-		LFGListInviteDialog:Style("Outside")
-		PVEFrame.backdrop:Style("Outside")
-		PVPReadyDialog:Style("Outside")
-		RaidBrowserFrame.backdrop:Style("Outside")
-		QuickJoinRoleSelectionFrame:Style("Outside")
+		_G.LFGInvitePopup:Style("Outside")
+		_G.LFGDungeonReadyDialog:Style("Outside")
+		_G.LFGDungeonReadyStatus:Style("Outside")
+		_G.LFGListApplicationDialog:Style("Outside")
+		_G.LFGListInviteDialog:Style("Outside")
+		_G.PVEFrame:Style("Outside")
+		_G.PVPReadyDialog:Style("Outside")
+		_G.RaidBrowserFrame:Style("Outside")
+		_G.QuickJoinRoleSelectionFrame:Style("Outside")
 
 		local function forceTabFont(button)
 			if button.isSkinned then
@@ -135,109 +152,102 @@ local function styleFreeBlizzardFrames()
 			end
 			button.isSkinned = true
 		end
-		forceTabFont(LFGListFrame.ApplicationViewer.NameColumnHeader)
-		forceTabFont(LFGListFrame.ApplicationViewer.RoleColumnHeader)
-		forceTabFont(LFGListFrame.ApplicationViewer.ItemLevelColumnHeader)
+		forceTabFont(_G.LFGListFrame.ApplicationViewer.NameColumnHeader)
+		forceTabFont(_G.LFGListFrame.ApplicationViewer.RoleColumnHeader)
+		forceTabFont(_G.LFGListFrame.ApplicationViewer.ItemLevelColumnHeader)
 	end
 
 	if db.loot then
-		LootFrame:Style("Outside")
-		MasterLooterFrame:Style("Outside")
-		BonusRollFrame:Style("Outside")
+		_G.LootFrame:Style("Outside")
+		_G.MasterLooterFrame:Style("Outside")
+		_G.BonusRollFrame:Style("Outside")
 	end
 
 	if db.mail then
-		MailFrame:Style("Outside")
-		OpenMailFrame:Style("Outside")
+		_G.MailFrame:Style("Outside")
+		_G.OpenMailFrame:Style("Outside")
 	end
 
 	if db.merchant then
-		if MerchantFrame.backdrop then
-			MerchantFrame.backdrop:Style("Outside")
+		if _G.MerchantFrame then
+			_G.MerchantFrame.backdrop:Style("Outside")
 		end
 	end
 
 	if db.misc then
-		AudioOptionsFrame:Style("Outside")
-		BNToastFrame:Style("Outside")
-		ChatConfigFrame:Style("Outside")
-		ChatMenu:Style("Outside")
-		CinematicFrameCloseDialog:Style("Outside")
-		DropDownList1MenuBackdrop:Style("Outside")
-		DropDownList2MenuBackdrop:Style("Outside")
-		EmoteMenu:Style("Outside")
-		GameMenuFrame:Style("Outside")
-		GhostFrame:Style("Outside")
-		GuildInviteFrame:Style("Outside")
-		InterfaceOptionsFrame:Style("Outside")
-		LanguageMenu:Style("Outside")
-		LFDRoleCheckPopup:Style("Outside")
-		QueueStatusFrame:Style("Outside")
-		ReadyCheckFrame:Style("Outside")
-		ReadyCheckListenerFrame:Style("Outside")
-		SideDressUpFrame:Style("Outside")
-		SplashFrame.backdrop:Style("Outside")
-		StackSplitFrame:Style("Outside")
-		StaticPopup1:Style("Outside")
-		StaticPopup2:Style("Outside")
-		StaticPopup3:Style("Outside")
-		StaticPopup4:Style("Outside")
-		TicketStatusFrameButton:Style("Outside")
-		VideoOptionsFrame:Style("Outside")
-		VoiceMacroMenu:Style("Outside")
+		_G.BNToastFrame:Style("Outside")
+		_G.ChatMenu:Style("Outside")
+		_G.CinematicFrameCloseDialog:Style("Outside")
+		_G.DropDownList1MenuBackdrop:Style("Outside")
+		_G.DropDownList2MenuBackdrop:Style("Outside")
+		_G.EmoteMenu:Style("Outside")
+		_G.GameMenuFrame.backdrop:Style("Outside")
+		_G.GhostFrame:Style("Outside")
+		_G.GuildInviteFrame:Style("Outside")
+		_G.LanguageMenu:Style("Outside")
+		_G.LFDRoleCheckPopup:Style("Outside")
+		_G.QueueStatusFrame:Style("Outside")
+		_G.SideDressUpFrame:Style("Outside")
+		_G.StackSplitFrame:Style("Outside")
+		_G.StaticPopup1.backdrop:Style("Outside")
+		_G.StaticPopup2.backdrop:Style("Outside")
+		_G.StaticPopup3.backdrop:Style("Outside")
+		_G.StaticPopup4.backdrop:Style("Outside")
+		_G.TicketStatusFrameButton:Style("Outside")
+		_G.VoiceMacroMenu:Style("Outside")
 
 		for i = 1, MAX_STATIC_POPUPS do
-			local frame = _G["ElvUI_StaticPopup" .. i]
+			local frame = _G['ElvUI_StaticPopup'..i]
 			frame:Style("Outside")
 		end
 	end
 
 	if db.nonraid then
-		RaidInfoFrame:Style("Outside")
+		_G.RaidInfoFrame:Style("Outside")
 	end
 
 	if db.petition then
-		PetitionFrame:Style("Outside")
+		_G.PetitionFrame:Style("Outside")
 	end
 
 	if db.quest then
-		QuestFrame.backdrop:Style("Outside")
-		QuestLogPopupDetailFrame:Style("Outside")
-		QuestNPCModel.backdrop:Style("Outside")
+		_G.QuestFrame:Style("Outside")
+		_G.QuestLogPopupDetailFrame:Style("Outside")
+		_G.QuestModelScene:Style("Outside")
 
 		if BUI.AS then
-			QuestDetailScrollFrame:SetTemplate("Transparent")
-			QuestProgressScrollFrame:SetTemplate("Transparent")
-			QuestRewardScrollFrame:HookScript(
+			_G.QuestDetailScrollFrame:SetTemplate("Transparent")
+			_G.QuestProgressScrollFrame:SetTemplate("Transparent")
+			_G.QuestRewardScrollFrame:HookScript(
 				"OnUpdate",
 				function(self)
 					self:SetTemplate("Transparent")
 				end
 			)
-			GossipGreetingScrollFrame:SetTemplate("Transparent")
+			_G.GossipGreetingScrollFrame:SetTemplate("Transparent")
 		end
 	end
 
 	if db.stable then
-		PetStableFrame:Style("Outside")
+		_G.PetStableFrame:Style("Outside")
 	end
 
 	if db.spellbook then
-		SpellBookFrame:Style("Outside")
+		_G.SpellBookFrame:Style("Outside")
 	end
 
 	if db.tabard then
-		TabardFrame:Style("Outside")
+		_G.TabardFrame:Style("Outside")
 	end
 
 	if db.taxi then
-		TaxiFrame.backdrop:Style("Outside")
+		_G.TaxiFrame:Style("Outside")
 	end
 
 	if db.tooltip then
-		for _, frame in pairs(tooltips) do
-			if frame and not frame.style then
-				frame:Style("Outside")
+		for _, tt in pairs(tooltips) do
+			if tt and not tt.style then
+				tt:Style("Outside")
 			end
 		end
 
@@ -249,10 +259,10 @@ local function styleFreeBlizzardFrames()
 	end
 
 	if db.trade then
-		TradeFrame:Style("Outside")
+		_G.TradeFrame:Style("Outside")
 	end
 	
-	ColorPickerFrame:Style("Outside")
+	_G.ColorPickerFrame:Style("Outside")
 end
 S:AddCallback("BenikUI_styleFreeBlizzardFrames", styleFreeBlizzardFrames)
 
@@ -262,31 +272,19 @@ local function StyleCagedBattlePetTooltip(tooltipFrame)
 	end
 end
 
--- SpellBook tabs
+-- SpellBook tabs shadow
 local function styleSpellbook()
-	if
-		E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true or
-			E.private.skins.blizzard.spellbook ~= true
-	 then
+	if E.private.skins.blizzard.enable ~= true or BUI.ShadowMode ~= true or E.private.skins.blizzard.spellbook ~= true then
 		return
 	end
 
-	hooksecurefunc(
-		"SpellBookFrame_UpdateSkillLineTabs",
+	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
 		function()
 			for i = 1, MAX_SKILLLINE_TABS do
-				local tab = _G["SpellBookSkillLineTab" .. i]
-				if not tab.style then
-					tab:Style("Inside")
-					tab.style:SetFrameLevel(5)
-					if tab:GetNormalTexture() then
-						tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-						tab:GetNormalTexture():SetInside()
-					end
-				end
+				local tab = _G['SpellBookSkillLineTab'..i]
+				tab.backdrop:CreateSoftShadow()
 			end
-		end
-	)
+		end)
 end
 S:AddCallback("BenikUI_Spellbook", styleSpellbook)
 
@@ -296,7 +294,7 @@ local function styleWorldMap()
 		return
 	end
 
-	local mapFrame = _G["WorldMapFrame"]
+	local mapFrame = _G.WorldMapFrame
 	if not mapFrame.backdrop.style then
 		mapFrame.backdrop:Style("Outside")
 	end
@@ -305,13 +303,11 @@ local function styleWorldMap()
 		return
 	end
 
-	local questFrame = _G["QuestMapFrame"]
-	questFrame.QuestsFrame.StoryTooltip:SetTemplate("Transparent")
-	if not questFrame.QuestsFrame.StoryTooltip.style then
-		questFrame.QuestsFrame.StoryTooltip:Style("Outside")
-	end
+	_G.QuestMapFrame.QuestsFrame.StoryTooltip:Style("Outside")
+	_G.QuestScrollFrame.StoryTooltip:Style("Outside")
+	_G.QuestScrollFrame.CampaignTooltip:Style("Outside")
 
-	local shoppingTooltips = {_G["WorldMapCompareTooltip1"], _G["WorldMapCompareTooltip2"]}
+	local shoppingTooltips = {_G.WorldMapCompareTooltip1, _G.WorldMapCompareTooltip2}
 	for i, tooltip in pairs(shoppingTooltips) do
 		if not tooltip.style then
 			tooltip:Style("Outside")
@@ -323,11 +319,11 @@ local function styleAddons()
 	-- LocationPlus
 	if BUI.LP and E.db.benikuiSkins.elvuiAddons.locplus then
 		local framestoskin = {
-			_G["LeftCoordDtPanel"],
-			_G["RightCoordDtPanel"],
-			_G["LocationPlusPanel"],
-			_G["XCoordsPanel"],
-			_G["YCoordsPanel"]
+			_G.LocPlusLeftDT,
+			_G.LocPlusRightDT,
+			_G.LocationPlusPanel,
+			_G.XCoordsPanel,
+			_G.YCoordsPanel
 		}
 		for _, frame in pairs(framestoskin) do
 			if frame then
@@ -339,26 +335,18 @@ local function styleAddons()
 	-- Shadow & Light
 	if BUI.SLE and E.db.benikuiSkins.elvuiAddons.sle then
 		local sleFrames = {
-			_G["SLE_BG_1"],
-			_G["SLE_BG_2"],
-			_G["SLE_BG_3"],
-			_G["SLE_BG_4"],
-			_G["SLE_DataPanel_1"],
-			_G["SLE_DataPanel_2"],
-			_G["SLE_DataPanel_3"],
-			_G["SLE_DataPanel_4"],
-			_G["SLE_DataPanel_5"],
-			_G["SLE_DataPanel_6"],
-			_G["SLE_DataPanel_7"],
-			_G["SLE_DataPanel_8"],
-			_G["SLE_RaidMarkerBar"].backdrop,
-			_G["SLE_SquareMinimapButtonBar"],
-			_G["SLE_LocationPanel"],
-			_G["SLE_LocationPanel_X"],
-			_G["SLE_LocationPanel_Y"],
-			_G["SLE_LocationPanel_RightClickMenu1"],
-			_G["SLE_LocationPanel_RightClickMenu2"],
-			_G["InspectArmory"]
+			_G.SLE_BG_1,
+			_G.SLE_BG_2,
+			_G.SLE_BG_3,
+			_G.SLE_BG_4,
+			_G.SLE_RaidMarkerBar,
+			_G.SLE_SquareMinimapButtonBar,
+			_G.SLE_LocationPanel,
+			_G.SLE_LocationPanel_X,
+			_G.SLE_LocationPanel_Y,
+			_G.SLE_LocationPanel_RightClickMenu1,
+			_G.SLE_LocationPanel_RightClickMenu2,
+			_G.InspectArmory
 		}
 		for _, frame in pairs(sleFrames) do
 			if frame then
@@ -369,7 +357,7 @@ local function styleAddons()
 
 	-- SquareMinimapButtons
 	if BUI.PA and E.db.benikuiSkins.elvuiAddons.pa then
-		local smbFrame = _G["SquareMinimapButtonBar"]
+		local smbFrame = _G.SquareMinimapButtonBar
 		if smbFrame then
 			smbFrame:Style("Outside")
 		end
@@ -377,27 +365,18 @@ local function styleAddons()
 
 	-- ElvUI_Enhanced
 	if IsAddOnLoaded("ElvUI_Enhanced") and E.db.benikuiSkins.elvuiAddons.enh then
-		if _G["MinimapButtonBar"] then
-			_G["MinimapButtonBar"].backdrop:Style("Outside")
+		if _G.MinimapButtonBar then
+			_G.MinimapButtonBar:Style("Outside")
 		end
 
-		if _G["RaidMarkerBar"].backdrop then
-			_G["RaidMarkerBar"].backdrop:Style("Outside")
-		end
-	end
-
-	-- ElvUI_DTBars2
-	if IsAddOnLoaded("ElvUI_DTBars2") and E.db.benikuiSkins.elvuiAddons.dtb2 then
-		for panelname, data in pairs(E.global.dtbars) do
-			if panelname then
-				_G[panelname]:Style("Outside")
-			end
+		if _G.RaidMarkerBar then
+			_G.RaidMarkerBar:Style("Outside")
 		end
 	end
 
 	-- stAddonManager
 	if BUI.PA and E.db.benikuiSkins.elvuiAddons.pa then
-		local stFrame = _G["stAMFrame"]
+		local stFrame = _G.stAMFrame
 		if stFrame then
 			stFrame:Style("Outside")
 			stAMAddOns:SetTemplate("Transparent")
@@ -411,49 +390,49 @@ local function skinDecursive()
 	end
 
 	-- Main Buttons
-	_G["DecursiveMainBar"]:StripTextures()
-	_G["DecursiveMainBar"]:SetTemplate("Default", true)
-	_G["DecursiveMainBar"]:Height(20)
+	_G.DecursiveMainBar:StripTextures()
+	_G.DecursiveMainBar:SetTemplate("Default", true)
+	_G.DecursiveMainBar:SetHeight(20)
 
-	local mainButtons = {_G["DecursiveMainBarPriority"], _G["DecursiveMainBarSkip"], _G["DecursiveMainBarHide"]}
+	local mainButtons = {_G.DecursiveMainBarPriority, _G.DecursiveMainBarSkip, _G.DecursiveMainBarHide}
 	for i, button in pairs(mainButtons) do
 		S:HandleButton(button)
 		button:SetTemplate("Default", true)
 		button:ClearAllPoints()
 		if (i == 1) then
-			button:Point("LEFT", _G["DecursiveMainBar"], "RIGHT", SPACING, 0)
+			button:SetPoint("LEFT", _G.DecursiveMainBar, "RIGHT", SPACING, 0)
 		else
-			button:Point("LEFT", mainButtons[i - 1], "RIGHT", SPACING, 0)
+			button:SetPoint("LEFT", mainButtons[i - 1], "RIGHT", SPACING, 0)
 		end
 	end
 
 	-- Priority List Frame
-	_G["DecursivePriorityListFrame"]:StripTextures()
-	_G["DecursivePriorityListFrame"]:CreateBackdrop("Transparent")
-	_G["DecursivePriorityListFrame"].backdrop:Style("Outside")
+	_G.DecursivePriorityListFrame:StripTextures()
+	_G.DecursivePriorityListFrame:CreateBackdrop("Transparent")
+	_G.DecursivePriorityListFrame.backdrop:Style("Outside")
 
 	local priorityButton = {
-		_G["DecursivePriorityListFrameAdd"],
-		_G["DecursivePriorityListFramePopulate"],
-		_G["DecursivePriorityListFrameClear"],
-		_G["DecursivePriorityListFrameClose"]
+		_G.DecursivePriorityListFrameAdd,
+		_G.DecursivePriorityListFramePopulate,
+		_G.DecursivePriorityListFrameClear,
+		_G.DecursivePriorityListFrameClose
 	}
 	for i, button in pairs(priorityButton) do
 		S:HandleButton(button)
 		button:ClearAllPoints()
 		if (i == 1) then
-			button:Point("TOP", _G["DecursivePriorityListFrame"], "TOPLEFT", 54, -20)
+			button:SetPoint("TOP", _G.DecursivePriorityListFrame, "TOPLEFT", 54, -20)
 		else
-			button:Point("LEFT", priorityButton[i - 1], "RIGHT", SPACING, 0)
+			button:SetPoint("LEFT", priorityButton[i - 1], "RIGHT", SPACING, 0)
 		end
 	end
 
-	_G["DecursivePopulateListFrame"]:StripTextures()
-	_G["DecursivePopulateListFrame"]:CreateBackdrop("Transparent")
-	_G["DecursivePopulateListFrame"].backdrop:Style("Outside")
+	_G.DecursivePopulateListFrame:StripTextures()
+	_G.DecursivePopulateListFrame:CreateBackdrop("Transparent")
+	_G.DecursivePopulateListFrame.backdrop:Style("Outside")
 
 	for i = 1, 8 do
-		local groupButton = _G["DecursivePopulateListFrameGroup" .. i]
+		local groupButton = _G['DecursivePopulateListFrameGroup'..i]
 		S:HandleButton(groupButton)
 	end
 
@@ -472,36 +451,36 @@ local function skinDecursive()
 		"Close"
 	}
 	for _, classBtn in pairs(classPop) do
-		local btnName = _G["DecursivePopulateListFrame" .. classBtn]
+		local btnName = _G['DecursivePopulateListFrame' .. classBtn]
 		S:HandleButton(btnName)
 	end
 
 	-- Skip List Frame
-	_G["DecursiveSkipListFrame"]:StripTextures()
-	_G["DecursiveSkipListFrame"]:CreateBackdrop("Transparent")
-	_G["DecursiveSkipListFrame"].backdrop:Style("Outside")
+	_G.DecursiveSkipListFrame:StripTextures()
+	_G.DecursiveSkipListFrame:CreateBackdrop("Transparent")
+	_G.DecursiveSkipListFrame.backdrop:Style("Outside")
 
 	local skipButton = {
-		_G["DecursiveSkipListFrameAdd"],
-		_G["DecursiveSkipListFramePopulate"],
-		_G["DecursiveSkipListFrameClear"],
-		_G["DecursiveSkipListFrameClose"]
+		_G.DecursiveSkipListFrameAdd,
+		_G.DecursiveSkipListFramePopulate,
+		_G.DecursiveSkipListFrameClear,
+		_G.DecursiveSkipListFrameClose
 	}
 	for i, button in pairs(skipButton) do
 		S:HandleButton(button)
 		button:ClearAllPoints()
 		if (i == 1) then
-			button:Point("TOP", _G["DecursiveSkipListFrame"], "TOPLEFT", 54, -20)
+			button:SetPoint("TOP", _G.DecursiveSkipListFrame, "TOPLEFT", 54, -20)
 		else
-			button:Point("LEFT", skipButton[i - 1], "RIGHT", SPACING, 0)
+			button:SetPoint("LEFT", skipButton[i - 1], "RIGHT", SPACING, 0)
 		end
 	end
 
 	-- Tooltip
 	if E.private.skins.blizzard.tooltip then
-		_G["DcrDisplay_Tooltip"]:StripTextures()
-		_G["DcrDisplay_Tooltip"]:CreateBackdrop("Transparent")
-		_G["DcrDisplay_Tooltip"].backdrop:Style("Outside")
+		_G.DcrDisplay_Tooltip:StripTextures()
+		_G.DcrDisplay_Tooltip:CreateBackdrop("Transparent")
+		_G.DcrDisplay_Tooltip.backdrop:Style("Outside")
 	end
 end
 
@@ -509,12 +488,12 @@ local function skinStoryline()
 	if not IsAddOnLoaded("Storyline") or not E.db.benikuiSkins.variousSkins.storyline then
 		return
 	end
-	_G["Storyline_NPCFrame"]:StripTextures()
-	_G["Storyline_NPCFrame"]:CreateBackdrop("Transparent")
-	_G["Storyline_NPCFrame"].backdrop:Style("Outside")
-	S:HandleCloseButton(_G["Storyline_NPCFrameClose"])
-	_G["Storyline_NPCFrameChat"]:StripTextures()
-	_G["Storyline_NPCFrameChat"]:CreateBackdrop("Transparent")
+	_G.Storyline_NPCFrame:StripTextures()
+	_G.Storyline_NPCFrame:CreateBackdrop("Transparent")
+	_G.Storyline_NPCFrame.backdrop:Style("Outside")
+	S:HandleCloseButton(_G.Storyline_NPCFrameClose)
+	_G.Storyline_NPCFrameChat:StripTextures()
+	_G.Storyline_NPCFrameChat:CreateBackdrop("Transparent")
 end
 
 local function StyleDBM_Options()
@@ -535,15 +514,18 @@ local function StyleAltPowerBar()
 		return
 	end
 
-	local bar = _G["ElvUI_AltPowerBar"]
-	bar.backdrop:Style("Outside")
+	local bar = _G.ElvUI_AltPowerBar
+	bar:Style("Outside")
+	if bar.textures then
+		bar:StripTextures(true)
+	end
 end
 
 local function ObjectiveTrackerQuests()
 	local function QuestNumString()
 		local questNum, q, o
-		local block = _G["ObjectiveTrackerBlocksFrame"]
-		local frame = _G["ObjectiveTrackerFrame"]
+		local block = _G.ObjectiveTrackerBlocksFrame
+		local frame = _G.ObjectiveTrackerFrame
 
 		if not InCombatLockdown() then
 			questNum = select(2, GetNumQuestLogEntries())
@@ -560,14 +542,14 @@ local function ObjectiveTrackerQuests()
 	end
 	hooksecurefunc("ObjectiveTracker_Update", QuestNumString)
 end
-S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
+--S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
 
 local function StyleInFlight()
 	if E.db.benikuiSkins.variousSkins.inflight ~= true or E.db.benikui.misc.flightMode == true then
 		return
 	end
 
-	local frame = _G["InFlightBar"]
+	local frame = _G.InFlightBar
 	if frame then
 		if not frame.isStyled then
 			frame:CreateBackdrop("Transparent")
@@ -596,39 +578,15 @@ local function VehicleExit()
 	if E.private.actionbar.enable ~= true then
 		return
 	end
-	local f = _G["LeaveVehicleButton"]
+	local f = _G.MainMenuBarVehicleLeaveButton
 	f:SetNormalTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
 	f:SetPushedTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
 	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	if MasqueGroup and E.private.actionbar.masque.actionbars then return end
+	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
 end
 
-function mod:StyleAdibagsBank()
-	if not E.db.benikuiSkins.addonSkins.adibags or not BUI.AS then
-		return
-	end
-	E:Delay(
-		0.2,
-		function()
-			if AdiBagsContainer2 then
-				AdiBagsContainer2:Style("Inside")
-			end
-		end
-	)
-end
-
-local function StyleAdibags()
-	if not E.db.benikuiSkins.addonSkins.adibags or not BUI.AS then
-		return
-	end
-	E:Delay(
-		1.1,
-		function()
-			if AdiBagsContainer1 then
-				AdiBagsContainer1:Style("Outside")
-			end
-		end
-	)
-end
 
 function mod:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
@@ -643,35 +601,48 @@ function mod:PLAYER_ENTERING_WORLD(...)
 	self:styleAlertFrames()
 	styleAddons()
 	styleWorldMap()
-	StyleAdibags()
 
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 local function StyleElvUIConfig()
-	if not E.private.skins.ace3.enable then return end
+	if not E.private.skins.ace3Enable then return end
 
-	local frame = _G.ElvUIGUIFrame
+	local frame = E:Config_GetWindow()
 	if not frame.style then
 		frame:Style("Outside")
 	end
 end
 
-local function StyleAceTooltip(self)
-	if not self or self:IsForbidden() then return end
-	if not self.style then
-		self:Style('Outside')
+function mod:StyleAceTooltip(tt)
+	if not tt.style then
+		tt:Style('Outside')
 	end
 end
+
+function mod:StyleAcePopup()
+	if not self.backdrop.style then
+		self.backdrop:Style('Outside')
+	end
+end
+
+local function StyleScriptErrorsFrame()
+	local frame = _G.ScriptErrorsFrame
+	if not frame.backdrop.style then
+		frame.backdrop:Style('Outside')
+	end
+end
+
+local function ScriptErrorsFrame()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.debug) then return end
+
+	mod:SecureHookScript(_G.ScriptErrorsFrame, 'OnShow', StyleScriptErrorsFrame)
+end
+--S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
 
 function mod:Initialize()
 	VehicleExit()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-	if E.db.benikui.general.benikuiStyle ~= true then
-		return
-	end
 
 	skinDecursive()
 	skinStoryline()
@@ -679,14 +650,14 @@ function mod:Initialize()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
-	self:RegisterEvent("BANKFRAME_OPENED", "StyleAdibagsBank")
+	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
 
 	if E.private.skins.blizzard.tooltip ~= true then
 		return
 	end
 	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)
 	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
-	hooksecurefunc(S, "Ace3_StyleTooltip", StyleAceTooltip)
+	hooksecurefunc(S, "Ace3_StyleTooltip", mod.StyleAceTooltip)
 end
 
 BUI:RegisterModule(mod:GetName())

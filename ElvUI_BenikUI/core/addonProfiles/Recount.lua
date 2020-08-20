@@ -48,9 +48,9 @@ function BUI:LoadRecountProfile()
 		Recount.db:SetProfile(key)
 
 		if BUI.isInstallerRunning == false then -- don't print during Install, when applying profile that doesn't exist
-			print(BUI.profileStrings[1]..L['Recount'])
+			BUI:Print(format(BUI.profileStrings[1], L['Recount']))
 		end
 	else
-		print(BUI.Title.."- "..L['Recount']..BUI.profileStrings[2])
+		BUI:Print(format(BUI.profileStrings[2], L['Recount']))
 	end
 end

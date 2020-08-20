@@ -1,3 +1,190 @@
+3.911 (Jul 18, 2020)
+*Avoid another chat glitch after leaving flightMode
+*Added a clickThrough option in Custom Panels
+
+3.91 (Jul 18, 2020)
+*Added custom visibility option for the Custom Panels
+*Fixed Custom Panels creation
+*Fixed Chat strata issue after leaving flightMode
+*Fixed Chat EditBox when assigned on the Middle Datatext
+*Blacklisted some DTs that shouldn't be styled
+*Removed my own BfA Missions, OrderHall and Garrison datatexts
+*Added Missions (BenikUI) datatext. It's an edited ElvUI version and has the previous looks
+*Install and profile adjustments after altering BenikUI Missions datatexts
+*Fixed a datatext error when Style is disabled
+*Fixed ElvUI Chat Datatext glitch when leaving flightMode
+*Fixed chat datatext style error
+
+3.9 (Jul 9, 2020)
+*Fix Role Icons
+*Added my favorite Kringel texture. Credit: Kringel <3 - under permission
+*Added an Enable/disable option for Info Panel colors/textures
+*Since it's a pain (or even impossible) to grab the group unit class, Infopanel color options have been separated. They still share the same texture. This will close #17.
+*Make the power statusbar option more flexible
+*Fixed Castbar Icon position
+*Fixed parchment remover option
+*Added some textures I really like
+*Fixed a tiny mini ace3 error
+*Fixed DataText tooltip Style
+*Removed BenikUI version from Status Report main frame. It's now in the plugins frame
+*Adding options in Custom Datatexts works fine now. Thanks @Simpy for the addition <3
+*Added BenikUI Style in the Custom Datatext options
+*Removed S&L and DTBars_2 datatext styling
+*Followed LocationPlus dt renaming
+*Added option to change the datatext points to the Middle Datatext. Not sure if I'm gonna keep it tho :P
+*Removed rep autotrack. It's part of ElvUI now
+*Fixed LocationPlus defaults in the installer
+*Fixed dt points while resizing the Middle Datatext
+*Made BenikUI Datatexts names more friendly (and nice looking)
+*Replaced the A and C button arrows with texture
+*Fixed Chat EditBox
+*Update BenikUI datatexts
+
+3.812 (May 7, 2020)
+*Missed a rename (Repooc)
+*Styled StatusFrame.PluginFrame
+*Fixed an error when shift+Click to hide Left or Right chat panels
+*Added our mvp Kringel in Credits <3
+*Added Patron info. Thanks Ric and thurin
+*Update datatexts creation
+*Missed another rename. Thanks David. ticket #101
+
+3.811 (Apr 30, 2020)
+*Follow the overnight ElvUI Datatext changes. Credit: Repooc
+*Fix statusreport. Credit: Repooc
+*Set min ElvUI version to 11.40
+
+3.81 (Apr 29, 2020)
+*Added a popup that will show when BenikUI Retail version is installed on WoW Classic
+*Various fixes. Credit: Repooc
+*Follow ElvUI "threat.glow" and logo renaming.
+*Set Elvui min version to 11.38
+
+3.801 (Apr 20, 2020)
+*Fixed Style not correctly hiding from tooltip
+*Prevent an unconfirmed error when the tooltip has no statusbar. This should deal with #97
+
+3.80 (Apr 18, 2020)
+*Added '/buierror on' and '/buierror off' commands
+*Eliminate the chances of error when the System Dashboard is disabled
+*Fixed chat messages when applying addon profiles
+*Fixed enabling Chat Datatexts during install. This should deal with #96
+*Fixed the /estatus report. Thanks @Repooc
+*Fixed Tooltip Statusbar Shadow not showing. 
+*The tooltip style will now hide if the tooltip statusbar is placed on top
+*Style shadow should obey to the shadow size option
+
+3.791 (Apr 8, 2020)
+*Better handling on Chat Datatexts toggle
+
+3.79 (Apr 7, 2020)
+*Hide undocked Chat tabs while in FlightMode
+*Disable Custom Panels options when the selected panel is not Enabled
+*Fixed an error when entering/leaving battlegrounds
+*Fixed Castbar shadow not showing when not attached on the uf. Also tweaked the icon position to pop its shadow
+*Dashboard Bags module will now get red text when above 90% full (was 80%)
+*Prevent a Custom Panels error when BenikUI Style is disabled
+*Don't create Aura shadows when Style is disabled
+
+3.781 (Mar 30, 2020)
+*Fixed Custom Panels not keeping their size after a reload
+
+3.78 (Mar 30, 2020)
+*NEW: Custom Panels. Create as many movable, resizable, etc panels as you want.
+*German locales update. Credit: Merathilis
+*Fixed War Resources not showing for Horde
+*Added Shadow Size option
+*Set default Shadow size to 4 (was 3 by default)
+*Fixed Castbar to use ElvUI strata level
+*Improved per char tokens saving
+*Tokens options tooltip will now show the currency ammount
+
+3.77 (Mar 19, 2020)
+*Fix ilevel update after a Timewalking dungeon
+*Added 'Echoes of Ny'alotha' in the Tokens Dashboard. Also 'War Resources' will show only for Alliance and 'War Supplies' for Horde
+*Use one OnClick for both frames and icon Profession Dashboard
+*Permanently fix clicking the professions dashboard
+*Prevent a skin error
+*Fixed Volume up/down mouseover
+
+3.76 (Mar 1, 2020)
+*Follow ElvUI Datatext changes
+*Added Conquest currency in Tokens dashboard (PvP)
+*Added option in FlightMode, to toggle BenikUI logo or show WoW logo instead
+*Re arranged the misc options a bit
+*Make sure that BenikUI Portrait options are always after ElvUI ones
+*Fixed detached portrait backdrops for focus, targettarget and pet
+*Fixed individualUnits Portrait options
+*Fixed LibDBIcon-1.0 tooltip style
+*Prevent movers error, when the user installs BenikUI without going through ElvUI install steps first.
+*Fixed Auction House style
+*Added options to toggle separately the chat datatexts. Default setting is to Show Both. User request #87
+*Transparent buttons don't look that nice at the options
+*Fixed the /benikuisetup command and simplified when BenikUI install will pop
+
+3.75 (Feb 6, 2020)
+*Set min ElvUI version to 11.351
+*Changed the options tabs and buttons a bit
+*Fix up these options to the latest ElvUI changes (NihilisticPandemonium)
+*Fixed shadows not hiding when disabling dashboard backdrop
+*Don't style the tooltip when TinyTooltip is loaded
+*Added shadows on Actionbar Buttons
+
+3.74 (Jan 21, 2020)
+*Removed the Sanity tentacles from ElvUI AltPowerBar
+*Styled the QuestModelScene frame
+*Fixed the tooltip style strata for corrupted and azerite items
+*Styled the ItemInteraction frame
+*Set middle datatext max width to screen resolution width
+*Disable 'Show InfoPanel text' by default
+*Fixed an error in Decursive skin
+*Fixed the portraits
+*Set ElvUI min version to 11.312
+
+3.73 (Jan 16, 2020)
+*Fix LeaveVehicleButton eror
+*Set ElvUI min version to 11.301
+
+3.72 (Jan 15, 2020)
+*Bump toc for patch 8.3
+*Added the new 8.3 Currencies on Tokens Dashboard
+*Prevent a Totem Bar error
+*Fix HelpFrame error
+*Removed 'Overlayed Portraits Alpha' option. It's in ElvUI now
+*Remove outdated stuff
+*Updated the sound-low texture. It looks better, if it placed in the middle. (Merathilis)
+
+3.71
+*Fix incompatibility with SLE Armory. This should deal with #84
+*Removed ExtraActionbars addon support and enable styling for 10 ElvUI Actionbars
+
+3.70
+*BenikUI Options are now at the very bottom of ElvUI Options.
+*Fix install for UnitFrames castbar: insideInfoPanel = > overlayOnFrame = "InfoPanel"
+*Aurabars fix (dirty)
+*Removed VisualAuraTimers profile
+*Added ElvUI compatibility check. Min ElvUI version is 11.25
+*Removed Style Auras option
+*Added Auras Statusbar shadow
+*Removed all Castbar Text edits (offset, color, etc). They are all part of ElvUI now
+
+3.69
+*toc update for 8.2.5
+*Fixed 8.2.5 errors
+*Control the tooltip update
+
+3.68
+*Added Backdrop toggle option for Detached Portraits (Player/Target). This will close #41
+*fix bg dt error: invalid format (width or precision too long)
+
+3.67
+*Remove the broken fade animation from Chat Edit Box. This will fix #75
+*Properly hide the SplashScreen
+*Remove Transparent Actionbars option. It's in ElvUI now
+*Added the Transparency setting in the installer
+*The Chat Edit box can now also be positioned on Middle Datatext or under Actionbar1 or Actionbar2 backdrops. By user request
+*Donor and coder list update
+
 3.66
 *Modules are back for good. (Credit: Nihilistic)
 

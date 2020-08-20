@@ -3,11 +3,10 @@ local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
 
 local tinsert, twipe, getn, pairs, ipairs = table.insert, table.wipe, getn, pairs, ipairs
-
+local _G = _G
 -- GLOBALS: hooksecurefunc
 
 local CreateFrame = CreateFrame
-local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -17,8 +16,7 @@ local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
 function mod:UpdateSystem()
 	local db = E.db.dashboards.system
-	local holder = BUI_SystemDashboard
-	local DASH_WIDTH = E.db.dashboards.system.width or 150
+	local holder = _G.BUI_SystemDashboard
 
 	if(BUI.SystemDB[1]) then
 		for i = 1, getn(BUI.SystemDB) do
@@ -31,18 +29,18 @@ function mod:UpdateSystem()
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
 			holder:Show()
-			holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB + 1)) + DASH_SPACING)
+			holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB + 1)) + DASH_SPACING)
 
 			local sysFrame = CreateFrame('Frame', 'BUI_'..name, holder)
-			sysFrame:Height(DASH_HEIGHT)
-			sysFrame:Width(DASH_WIDTH)
-			sysFrame:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
+			sysFrame:SetHeight(DASH_HEIGHT)
+			sysFrame:SetWidth(E.db.dashboards.system.width or 150)
+			sysFrame:SetPoint('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
 
 			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
-			sysFrame.dummy:Point('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 2)
-			sysFrame.dummy:Point('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
-			sysFrame.dummy:Height(E.PixelMode and 3 or 5)
+			sysFrame.dummy:SetPoint('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 2)
+			sysFrame.dummy:SetPoint('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
+			sysFrame.dummy:SetHeight(E.PixelMode and 3 or 5)
 
 			sysFrame.dummy.dummyStatus = sysFrame.dummy:CreateTexture(nil, 'OVERLAY')
 			sysFrame.dummy.dummyStatus:SetInside()
@@ -61,7 +59,7 @@ function mod:UpdateSystem()
 			sysFrame.spark:SetPoint('CENTER', sysFrame.Status:GetStatusBarTexture(), 'RIGHT')
 
 			sysFrame.Text = sysFrame.Status:CreateFontString(nil, 'OVERLAY')
-			sysFrame.Text:Point('LEFT', sysFrame, 'LEFT', 6, (E.PixelMode and 2 or 3))
+			sysFrame.Text:SetPoint('LEFT', sysFrame, 'LEFT', 6, (E.PixelMode and 2 or 3))
 			sysFrame.Text:SetJustifyH('LEFT')
 
 			tinsert(BUI.SystemDB, sysFrame)
@@ -71,9 +69,9 @@ function mod:UpdateSystem()
 	for key, frame in ipairs(BUI.SystemDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:SetPoint( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', BUI.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			frame:SetPoint('TOP', BUI.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
@@ -85,18 +83,16 @@ function mod:UpdateSystemSettings()
 end
 
 function mod:CreateSystemDashboard()
-	local DASH_WIDTH = E.db.dashboards.system.width or 150
-
 	self.sysHolder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
-	self.sysHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
-	self.sysHolder:Width(DASH_WIDTH)
+	self.sysHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
+	self.sysHolder:SetWidth(E.db.dashboards.system.width or 150)
 
 	mod:UpdateSystem()
 	mod:UpdateHolderDimensions(self.sysHolder, 'system', BUI.SystemDB)
 	mod:ToggleStyle(self.sysHolder, 'system')
 	mod:ToggleTransparency(self.sysHolder, 'system')
 
-	E:CreateMover(self.sysHolder, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BenikUI', nil, 'benikui,dashboards,system')
+	E:CreateMover(_G.BUI_SystemDashboard, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI')
 end
 
 function mod:LoadSystem()

@@ -1,9 +1,8 @@
-local E, L, V, P, G = unpack(ElvUI);
-local EP = LibStub('LibElvUIPlugin-1.0')
+local E, L, V, P, G = unpack(ElvUI)
+local EP = LibStub("LibElvUIPlugin-1.0")
 local addon, Engine = ...
 
-local BUI = LibStub("AceAddon-3.0"):NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0", "AceHook-3.0")
-BUI.callbacks = BUI.callbacks or LibStub("CallbackHandler-1.0"):New(BUI)
+local BUI = E.Libs.AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0")
 
 Engine[1] = BUI
 Engine[2] = E
@@ -11,12 +10,14 @@ Engine[3] = L
 Engine[4] = V
 Engine[5] = P
 Engine[6] = G
-_G[addon] = Engine;
+_G[addon] = Engine
 
 BUI.Config = {}
-
+BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI["RegisteredModules"] = {}
-local modules = {}
+BUI.Eversion = tonumber(E.version)
+BUI.Erelease = tonumber(GetAddOnMetadata("ElvUI_BenikUI", "X-ElvuiVersion"))
+
 function BUI:RegisterModule(name)
 	if self.initialized then
 		local mod = self:GetModule(name)
@@ -34,11 +35,9 @@ function BUI:InitializeModules()
 		if mod.Initialize then
 			mod:Initialize()
 		else
-			BUI:Print("Module <"..moduleName.."> is not loaded.")
+			BUI:Print("Module <" .. moduleName .. "> is not loaded.")
 		end
 	end
-
-	BUI.Modules = modules
 end
 
 function BUI:AddOptions()
@@ -48,12 +47,68 @@ function BUI:AddOptions()
 end
 
 function BUI:Init()
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		E:Delay(2, function() E:StaticPopup_Show("BENIKUI_CLASSIC") end)
+		return	
+	end
+
+	--ElvUI's version check
+	if BUI.Eversion < 1 or (BUI.Eversion < BUI.Erelease) then
+		E:Delay(2, function() E:StaticPopup_Show("BENIKUI_VERSION_MISMATCH") end)
+		return
+	end
 	self.initialized = true
 	self:Initialize()
 	self:InitializeModules()
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
-hooksecurefunc(E, "Initialize", function()
-    BUI:Init()
-end)
+E.Libs.EP:HookInitialize(BUI, BUI.Init)
+
+-- BenikUI retail on classic
+E.PopupDialogs["BENIKUI_CLASSIC"] = {
+	button1 = CLOSE,
+	OnAccept = E.noop,
+	text = (format(L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"])),
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
+
+--Version check
+E.PopupDialogs["BENIKUI_VERSION_MISMATCH"] = {
+	text = format(L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"], BUI.Title, BUI.Eversion, BUI.Erelease),
+	button1 = CLOSE,
+	timeout = 0,
+	whileDead = 1,
+	preferredIndex = 3,
+	hasEditBox = 1,
+	OnShow = function(self)
+		self.editBox:SetAutoFocus(false)
+		self.editBox.width = self.editBox:GetWidth()
+		self.editBox:Width(280)
+		self.editBox:AddHistoryLine("text")
+		self.editBox.temptxt = "https://www.tukui.org/download.php?ui=elvui"
+		self.editBox:SetText("https://www.tukui.org/download.php?ui=elvui")
+		self.editBox:HighlightText()
+		self.editBox:SetJustifyH("CENTER")
+	end,
+	OnHide = function(self)
+		self.editBox:Width(self.editBox.width or 50)
+		self.editBox.width = nil
+		self.temptxt = nil
+	end,
+	EditBoxOnEnterPressed = function(self)
+		self:GetParent():Hide();
+	end,
+	EditBoxOnEscapePressed = function(self)
+		self:GetParent():Hide();
+	end,
+	EditBoxOnTextChanged = function(self)
+		if(self:GetText() ~= self.temptxt) then
+			self:SetText(self.temptxt)
+		end
+		self:HighlightText()
+		self:ClearFocus()
+	end,
+}

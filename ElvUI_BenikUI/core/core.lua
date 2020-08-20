@@ -3,18 +3,22 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local LSM = E.LSM
 
 local _G = _G
-local pairs, print, tinsert = pairs, print, table.insert
+local pairs, print, tinsert, strjoin, lower, next, wipe = pairs, print, table.insert, strjoin, strlower, next, wipe
 local format = string.format
-local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
 local GetAddOnEnableState = GetAddOnEnableState
+local DisableAddOn = DisableAddOn
+local EnableAddOn = EnableAddOn
+local GetAddOnInfo = GetAddOnInfo
+local GetNumAddOns = GetNumAddOns
+local ReloadUI = ReloadUI
+local SetCVar = SetCVar
 
--- GLOBALS: LibStub, ElvDB
+-- GLOBALS: LibStub, ElvDB, test
 
 BUI["styles"] = {}
 BUI["softGlow"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
-BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
 BUI.ShadowMode = false;
 BUI.AddonProfileKey = '';
@@ -33,7 +37,7 @@ BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
 BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
 BUI.ZG = BUI:IsAddOnEnabled('ZygorGuidesViewer')
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E:ClassColor(E.myclass, true)
 
 local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
@@ -52,6 +56,11 @@ local function RegisterMedia()
 	E['media'].BuiMelli = LSM:Fetch('statusbar', 'BuiMelli')
 	E['media'].BuiMelliDark = LSM:Fetch('statusbar', 'BuiMelliDark')
 	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
+	E['media'].BuiShadow = LSM:Fetch('statusbar', 'BuiKringelShadow')
+end
+
+function BUI:Print(...)
+	(_G.DEFAULT_CHAT_FRAME):AddMessage(strjoin('', '|cff00c0fa', 'BenikUI:|r ', ...))
 end
 
 function BUI:cOption(name)
@@ -62,6 +71,38 @@ end
 local color = { r = 1, g = 1, b = 1, a = 1 }
 function BUI:unpackColor(color)
 	return color.r, color.g, color.b, color.a
+end
+
+function BUI:LuaError(msg)
+	local switch = lower(msg)
+	if switch == 'on' or switch == '1' then
+		for i=1, GetNumAddOns() do
+			local name = GetAddOnInfo(i)
+			if (name ~= 'ElvUI' and name ~= 'ElvUI_OptionsUI' and name ~= 'ElvUI_BenikUI') and E:IsAddOnEnabled(name) then
+				DisableAddOn(name, E.myname)
+				ElvDB.BuiErrorDisabledAddOns[name] = i
+			end
+		end
+
+		SetCVar('scriptErrors', 1)
+		ReloadUI()
+	elseif switch == 'off' or switch == '0' then
+		if switch == 'off' then
+			SetCVar('scriptErrors', 0)
+			BUI:Print('Lua errors off.')
+		end
+
+		if next(ElvDB.BuiErrorDisabledAddOns) then
+			for name in pairs(ElvDB.BuiErrorDisabledAddOns) do
+				EnableAddOn(name, E.myname)
+			end
+
+			wipe(ElvDB.BuiErrorDisabledAddOns)
+			ReloadUI()
+		end
+	else
+		BUI:Print('/buierror on - /buierror off')
+	end
 end
 
 local r, g, b = 0, 0, 0
@@ -117,9 +158,14 @@ function BUI:DasOptions()
 	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
+function BUI:SetupBenikUI()
+	E:GetModule("PluginInstaller"):Queue(BUI.installTable)
+end
+
 function BUI:LoadCommands()
 	self:RegisterChatCommand("benikui", "DasOptions")
 	self:RegisterChatCommand("benikuisetup", "SetupBenikUI")
+	self:RegisterChatCommand("buierror", "LuaError")
 end
 
 function BUI:Initialize()
@@ -128,16 +174,18 @@ function BUI:Initialize()
 	self:SplashScreen()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
+	
+	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
+		if initLogin or not ElvDB.BuiErrorDisabledAddOns then
+			ElvDB.BuiErrorDisabledAddOns = {}
+		end
+	end)
 
-	-- run install when ElvUI install finishes
-	if E.private.install_complete == E.version and E.db.benikui.installed == nil then
-		E:GetModule("PluginInstaller"):Queue(BUI.installTable)
-	end
-
-	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
-	if ElvDB.profileKeys and profileKey == nil then
-		E:GetModule("PluginInstaller"):Queue(BUI.installTable)
+
+	-- run install when ElvUI install finishes or run the setup again when a profile gets deleted.
+	if (E.private.install_complete == E.version and E.db.benikui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
+		BUI:SetupBenikUI()
 	end
 
 	if E.db.benikui.general.loginMessage then
@@ -148,8 +196,8 @@ function BUI:Initialize()
 		BUI.ShadowMode = true
 	end
 
-	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BenikUI")
-	E.ConfigModeLocalizedStrings["BenikUI"] = BUI.Title
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BENIKUI")
+	E.ConfigModeLocalizedStrings["BENIKUI"] = BUI.Title
 
 	BUI.AddonProfileKey = BUI.Title..E.myname.." - "..E.myrealm
 
