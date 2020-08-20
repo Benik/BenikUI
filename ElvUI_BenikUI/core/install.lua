@@ -12,6 +12,7 @@ local FCF_StopDragging = FCF_StopDragging
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 local ADDONS, LOOT, TRADE, TANK, HEALER = ADDONS, LOOT, TRADE, TANK, HEALER
+
 -- GLOBALS: LeftChatToggleButton
 
 local function SetupLayout(layout)
@@ -26,7 +27,6 @@ local function SetupLayout(layout)
 	E.db["bags"]["bankSize"] = 32
 	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
 	E.db["bags"]["bankWidth"] = 412
-	E.db["bags"]["transparent"] = true
 	E.db["chat"]["panelBackdrop"] = 'SHOWBOTH'
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["chat"]["panelWidth"] = 412
@@ -54,8 +54,8 @@ local function SetupLayout(layout)
 	E.db["databars"]["reputation"]["textFormat"] = 'NONE'
 	E.db["databars"]["reputation"]["textSize"] = 9
 	E.db["databars"]["reputation"]["width"] = 8
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
+	E.db["datatexts"]["leftChatPanel"] = false
+	E.db["datatexts"]["panelTransparency"] = true
 	E.db["datatexts"]["rightChatPanel"] = false
 	E.db["general"]["backdropcolor"]["b"] = 0.025
 	E.db["general"]["backdropcolor"]["g"] = 0.025
@@ -88,11 +88,11 @@ local function SetupLayout(layout)
 	E.db["general"]["itemLevel"]["displayInspectInfo"] = true
 	E.db["general"]["itemLevel"]["itemLevelFontSize"] = 12
 	E.db["general"]["itemLevel"]["itemLevelFontOutline"] = 'OUTLINE'
-
+	
 	E.db["hideTutorial"] = true
 	E.private["skins"]["blizzard"]["alertframes"] = true
 	E.private["skins"]["blizzard"]["questChoice"] = true
-	E.private["skins"]["parchmentRemoverEnable"] = true
+	E.private["skins"]["parchmentRemover"]["enable"] = true
 
 	E.db["benikuiDatabars"]["azerite"]["buttonStyle"] = "DEFAULT"
 	E.db["benikuiDatabars"]["azerite"]["notifiers"]["position"] = "RIGHT"
@@ -102,16 +102,14 @@ local function SetupLayout(layout)
 	E.db["benikuiDatabars"]["honor"]["notifiers"]["position"] = "LEFT"
 	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
 	E.db["benikui"]["general"]["auras"] = false
-	E.db["benikui"]["datatexts"]["chat"]["enable"] = true
 
 	if E.screenheight == 1080 then E.db["general"]["UIScale"] = 0.711 end
 
 	E.private["general"]["normTex"] = "BuiFlat"
 	E.private["general"]["glossTex"] = "BuiFlat"
 	E.private["general"]["chatBubbles"] = 'backdrop'
-
+	
 	-- common movers
-	if E.db["movers"] == nil then E.db["movers"] = {} end
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-192"
@@ -227,7 +225,7 @@ local function SetupLayout(layout)
 
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Expressway"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
 		BUI:GetModule('Layout'):MiddleDatatextDimensions()
 
 		E.db["benikui"]["general"]["shadows"] = true
@@ -304,7 +302,7 @@ local function SetupChat()
 		if i == 3 and chatName == LOOT..' / '..TRADE then
 			FCF_UnDockFrame(frame)
 			frame:ClearAllPoints()
-			frame:SetPoint('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
+			frame:Point('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
 			FCF_DockFrame(frame)
 			FCF_SetLocked(frame, 1)
 			frame:Show()
@@ -322,14 +320,14 @@ end
 local function SetupActionbars(layout)
 	-- Actionbars
 	E.db["actionbar"]["lockActionBars"] = true
-	E.db["actionbar"]["transparent"] = true
+
 	E.db["benikui"]["datatexts"]["middle"]["styled"] = false
 	E.db["benikui"]["datatexts"]["middle"]["transparent"] = false
 
 	E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
 	BUI:GetModule('Layout'):MiddleDatatextLayout()
 	E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
-	if E.db["movers"] == nil then E.db["movers"] = {} end
+
 	if layout == 'v1' then
 		E.db["actionbar"]["font"] = "Bui Visitor1"
 		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
@@ -377,8 +375,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
-		E.db["databars"]["experience"]["width"] = 414
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
+		E.db["databars"]["experience"]["width"] = 415
 
 		-- movers
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,97"
@@ -504,8 +502,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 414
-		E.db["databars"]["experience"]["width"] = 414
+		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
+		E.db["databars"]["experience"]["width"] = 415
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
@@ -521,7 +519,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,85"
 		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,141"
 		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,67"
+		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,65"
 		E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,116"
 	end
 	BUI:GetModule('Actionbars'):ToggleStyle()
@@ -535,7 +533,6 @@ end
 
 local function SetupUnitframes(layout)
 	E.db["general"]["decimalLength"] = 2
-	if E.db["movers"] == nil then E.db["movers"] = {} end
 	if layout == 'v1' then
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "Bui Prototype"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Bui Prototype"
@@ -579,6 +576,8 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = false
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
 		E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = false
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = -16
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = -16
 		E.db["benikui"]["colors"]["styleAlpha"] = 1
 		E.db["benikui"]["colors"]["abAlpha"] = 1
 
@@ -626,7 +625,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 300
-		E.db["unitframe"]["units"]["player"]["castbar"]["overlayOnFrame"] = "InfoPanel"
+		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 140
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "spaced"
@@ -649,7 +648,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["player"]["power"]["width"] = 'fill'
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
@@ -658,7 +657,6 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
-		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 
 		if not E.db.unitframe.units.player.customTexts then E.db.unitframe.units.player.customTexts = {} end
 		if E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] then
@@ -675,7 +673,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 2
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 300
-		E.db["unitframe"]["units"]["target"]["castbar"]["overlayOnFrame"] = "InfoPanel"
+		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = 'TOPRIGHT'
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 10
@@ -713,7 +711,6 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxDuration"] = 120
-		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
 
 		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
@@ -1002,6 +999,8 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["portraitWidth"] = 110
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
 		E.db["benikui"]["unitframes"]["target"]["portraitShadow"] = false
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = -18
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = -18
 		E.db["benikui"]["colors"]["styleAlpha"] = 1
 		E.db["benikui"]["colors"]["abAlpha"] = 1
 
@@ -1045,7 +1044,6 @@ local function SetupUnitframes(layout)
 
 		-- player
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
-		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 14
@@ -1053,7 +1051,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 26
 		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false
-		E.db["unitframe"]["units"]["player"]["castbar"]["overlayOnFrame"] = "InfoPanel"
+		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 240
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 140
@@ -1121,12 +1119,11 @@ local function SetupUnitframes(layout)
 
 		-- target
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
-		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 14
 		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 26
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = false
-		E.db["unitframe"]["units"]["target"]["castbar"]["overlayOnFrame"] = "InfoPanel"
+		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 240
 
 		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
@@ -1460,6 +1457,9 @@ local function SetupUnitframes(layout)
 		E.db["auras"]["fontOutline"] = "OUTLINE"
 		E.db["auras"]["timeXOffset"] = -1
 
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = 0
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = 0
 		E.db["benikui"]["colors"]["styleAlpha"] = 0.7
 		E.db["benikui"]["colors"]["abAlpha"] = 0.7
 
@@ -1513,7 +1513,6 @@ local function SetupUnitframes(layout)
 			E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"]
 		end
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
-		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["buffs"]["noDuration"] = false
@@ -1522,7 +1521,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 28
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 258
-		E.db["unitframe"]["units"]["player"]["castbar"]["overlayOnFrame"] = "InfoPanel"
+		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 140
 		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "spaced"
@@ -1556,7 +1555,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 7
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
@@ -1584,7 +1583,6 @@ local function SetupUnitframes(layout)
 			E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]
 		end
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
-		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxDuration"] = 120
 		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 30
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 2
@@ -1592,7 +1590,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["castbar"]["iconPosition"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["castbar"]["iconXOffset"] = 10
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 258
-		E.db["unitframe"]["units"]["target"]["castbar"]["overlayOnFrame"] = "InfoPanel"
+		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["fontOutline"] = "NONE"
@@ -1922,6 +1920,12 @@ local function SetupAddons()
 		tinsert(addonNames, 'Project Azilroka')
 	end
 
+	-- ElvUI_VisualAuraTimers
+	if BUI:IsAddOnEnabled('ElvUI_VisualAuraTimers') then
+		BUI:LoadVATProfile()
+		tinsert(addonNames, 'ElvUI VisualAuraTimers')
+	end
+
 	-- AddOnSkins
 	if BUI.AS then
 		BUI:LoadAddOnSkinsProfile()
@@ -1947,40 +1951,33 @@ end
 
 local function SetupDataTexts(role)
 	-- Data Texts
-
 	if BUI.LP then
-		E.db["datatexts"]["panels"]["LocPlusRightDT"][1] = 'Time'
-		E.db["datatexts"]["panels"]["LocPlusLeftDT"][1] = 'Movement Speed'
-		E.DataTexts:UpdatePanelInfo('LocPlusRightDT')
-		E.DataTexts:UpdatePanelInfo('LocPlusLeftDT')
+		E.db["datatexts"]["panels"]["RightCoordDtPanel"] = 'Time'
+		E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = 'Quick Join'
 	end
 
 	if role == 'tank' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Avoidance'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Armor'
-	elseif role == 'dpsMelee' or 'dpsCaster' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit Chance'
-	elseif role == 'healer' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Mana Regen'
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Attack Power'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Avoidance'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Armor'
+	elseif role == 'dpsMelee' then
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Attack Power'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Haste'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Crit Chance'
+	elseif role == 'healer' or 'dpsCaster' then
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = 'Spell/Heal Power'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = 'Haste'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = 'Crit Chance'
 	end
 
-	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Missions (BenikUI)'
-	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][3] = 'BuiMail'
+	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = 'BfA Missions (BenikUI)'
+	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = 'BuiMail'
 
-	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][1] = 'Spec Switch (BenikUI)'
-	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][3] = 'Gold'
-	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][2] = 'Bags'
+	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = 'Spec Switch (BenikUI)'
+	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = 'Gold'
+	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = 'Bags'
 
-	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][2] = 'Mastery'
-
-	E.DataTexts:UpdatePanelInfo('BuiLeftChatDTPanel')
-	E.DataTexts:UpdatePanelInfo('BuiRightChatDTPanel')
-	E.DataTexts:UpdatePanelInfo('BuiMiddleDTPanel')
+	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = 'Mastery'
 
 	PluginInstallStepComplete.message = BUI.Title..L['DataTexts Set']
 	PluginInstallStepComplete:Show()
@@ -2005,9 +2002,8 @@ BUI.installTable = {
 		[1] = function()
 			PluginInstallFrame:Style('Outside')
 			PluginInstallTitleFrame:Style('Outside')
-			PluginInstallTutorialImage:SetSize(384, 96)
-			PluginInstallTutorialImage:SetPoint('BOTTOM', 0, 100)
-			PluginInstallTutorialImage2:SetTexture(nil)
+			PluginInstallTutorialImage:Size(384, 96)
+			PluginInstallTutorialImage:Point('BOTTOM', 0, 100)
 			PluginInstallTitleFrame.text:SetFont(E["media"].normFont, 16, "OUTLINE")
 			PluginInstallFrame.SubTitle:SetFormattedText(L["Welcome to BenikUI version %s, for ElvUI %s."], BUI.Version, E.version)
 			PluginInstallFrame.Desc1:SetText(L["By pressing the Continue button, BenikUI will be applied on your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])

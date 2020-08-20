@@ -6,7 +6,7 @@ local tinsert = table.insert
 
 local function abTable()
 	E.Options.args.benikui.args.actionbars = {
-		order = 30,
+		order = 7,
 		type = 'group',
 		name = L['ActionBars'],
 		args = {
@@ -51,8 +51,17 @@ local function abTable()
 					},
 				},
 			},
-			requestStop = {
+			transparent = {
 				order = 4,
+				type = 'toggle',
+				name = L['Transparent Backdrops'],
+				desc = L['Applies transparency in all actionbar backdrops and actionbar buttons.'],
+				disabled = function() return not E.private.actionbar.enable end,
+				get = function(info) return E.db.benikui.actionbars[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.actionbars[ info[#info] ] = value; mod:TransparentBackdrops() end,
+			},
+			requestStop = {
+				order = 5,
 				type = 'toggle',
 				name = L['Request Stop button'],
 				get = function(info) return E.db.benikui.actionbars[ info[#info] ] end,
@@ -61,7 +70,15 @@ local function abTable()
 		},
 	}
 
-	for i = 1, 10 do
+	local available = available or 6
+
+	if IsAddOnLoaded('ElvUI_ExtraActionBars') then
+		available = 10
+	else
+		available = 6
+	end
+
+	for i = 1, available do
 		local name = L["Bar "]..i
 		E.Options.args.benikui.args.actionbars.args.style.args['bar'..i] = {
 			order = i,

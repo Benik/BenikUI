@@ -88,21 +88,21 @@ function mod:UpdateRepNotifierPositions()
 
 	if db.position == 'LEFT' then
 		if not E.db.databars.reputation.reverseFill then
-			bar.f.arrow:SetPoint('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
+			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
 		else
-			bar.f.arrow:SetPoint('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
+			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
 		end
-		bar.f:SetPoint('RIGHT', bar.f.arrow, 'LEFT')
-		bar.f.txt:SetPoint('RIGHT', bar.f, 'LEFT')
+		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
+		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
 		arrow = ">"
 	else
 		if not E.db.databars.reputation.reverseFill then
-			bar.f.arrow:SetPoint('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
+			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
 		else
-			bar.f.arrow:SetPoint('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
+			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
 		end
-		bar.f:SetPoint('LEFT', bar.f.arrow, 'RIGHT')
-		bar.f.txt:SetPoint('LEFT', bar.f, 'RIGHT')
+		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
+		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
 		arrow = "<"
 	end
 
@@ -141,7 +141,37 @@ end
 
 function mod:RepTextOffset()
 	local text = ElvUI_ReputationBar.text
-	text:SetPoint('CENTER', 0, E.db.databars.reputation.textYoffset or 0)
+	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset or 0)
+end
+
+-- Credit: Feraldin, ElvUI Enhanced (Legion)
+function mod:SetWatchedFactionOnReputationBar(event, msg)
+	if not E.db.benikuiDatabars.reputation.autotrack then return end
+
+	local _, _, faction, amount = find(msg, incpat)
+	if not faction then _, _, faction, amount = find(msg, changedpat) or find(msg, decpat) end
+	if faction then
+		if faction == GUILD_REPUTATION then
+			faction = GetGuildInfo("player")
+		end
+
+		local active = GetWatchedFactionInfo()
+		for factionIndex = 1, GetNumFactions() do
+			local name = GetFactionInfo(factionIndex)
+			if name == faction and name ~= active then
+				SetWatchedFactionIndex(factionIndex)
+				break
+			end
+		end
+	end
+end
+
+function mod:ToggleRepAutotrack()
+	if E.db.benikuiDatabars.reputation.autotrack then
+		self:RegisterEvent('CHAT_MSG_COMBAT_FACTION_CHANGE', 'SetWatchedFactionOnReputationBar')
+	else
+		self:UnregisterEvent('CHAT_MSG_COMBAT_FACTION_CHANGE')
+	end
 end
 
 function mod:LoadRep()
@@ -149,6 +179,7 @@ function mod:LoadRep()
 
 	self:RepTextOffset()
 	hooksecurefunc(M, 'UpdateReputation', mod.RepTextOffset)
+	self:ToggleRepAutotrack()
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
 

@@ -25,25 +25,6 @@ P['databars']['honor']['textYoffset'] = 0
 -- Add Minimap styling toggle default
 P['general']['minimap']['benikuiStyle'] = true
 
--- Datatexts
-P['datatexts']['panels']['BuiLeftChatDTPanel'] = {
-	[1] = 'Primary Stat',
-	[2] = 'Missions (BenikUI)',
-	[3] = 'BuiMail',
-}
-
-P['datatexts']['panels']['BuiRightChatDTPanel'] = {
-	[1] = 'Spec Switch (BenikUI)',
-	[2] = 'Gold',
-	[3] = 'Bags',
-}
-
-P['datatexts']['panels']['BuiMiddleDTPanel'] = {
-	[1] = 'Haste',
-	[2] = 'Mastery',
-	[3] = 'Crit Chance',
-}
-
 -- Core
 P['benikui'] = {
 	['installed'] = nil,
@@ -52,7 +33,7 @@ P['benikui'] = {
 		['benikuiStyle'] = true,
 		['hideStyle'] = false,
 		['shadows'] = true,
-		['shadowSize'] = 4,
+		['auras'] = true,
 		['loginMessage'] = true,
 		['splashScreen'] = true,
 	},
@@ -79,10 +60,7 @@ P['benikui'] = {
 			['color'] = {r = 1, g = 1, b = 0},
 			['position'] = 'INSIDE',
 		},
-		['flightMode'] = {
-			['enable'] = true,
-			['logo'] = 'WOW',
-		},
+		['flightMode'] = true,
 		['afkMode'] = true,
 	},
 
@@ -93,7 +71,6 @@ P['benikui'] = {
 			['editBoxPosition'] = 'BELOW_CHAT',
 			['styled'] = false,
 			['backdrop'] = true,
-			['showChatDt'] = 'SHOWBOTH',
 		},
 		['middle'] = {
 			['enable'] = true,
@@ -102,7 +79,6 @@ P['benikui'] = {
 			['width'] = 400,
 			['height'] = 19,
 			['styled'] = false,
-			['numPoints'] = 3,
 		},
 		['mail'] = {
 			['toggle'] = true,
@@ -114,6 +90,7 @@ P['benikui'] = {
 	},
 
 	['actionbars'] = {
+		['transparent'] = true,
 		['toggleButtons'] = {
 			['enable'] = true,
 			['chooseAb'] = 'BAR2',
@@ -134,7 +111,7 @@ P['benikui'] = {
 			['stancebar'] = true,
 		},
 	},
-
+	
 	['unitframes'] = {
 		['player'] = {
 			['detachPortrait'] = false,
@@ -145,7 +122,6 @@ P['benikui'] = {
 			['portraitStyle'] = false,
 			['portraitStyleHeight'] = 6,
 			['portraitFrameStrata'] = "MEDIUM",
-			['portraitBackdrop'] = true,
 		},
 		['target'] = {
 			['detachPortrait'] = false,
@@ -157,7 +133,6 @@ P['benikui'] = {
 			['portraitStyle'] = false,
 			['portraitStyleHeight'] = 6,
 			['portraitFrameStrata'] = "MEDIUM",
-			['portraitBackdrop'] = true,
 		},
 		['targettarget'] = {
 			['detachPortrait'] = false,
@@ -166,7 +141,6 @@ P['benikui'] = {
 			['portraitShadow'] = false,
 			['portraitTransparent'] = true,
 			['portraitFrameStrata'] = "MEDIUM",
-			['portraitBackdrop'] = true,
 		},
 		['focus'] = {
 			['detachPortrait'] = false,
@@ -175,7 +149,6 @@ P['benikui'] = {
 			['portraitShadow'] = false,
 			['portraitTransparent'] = true,
 			['portraitFrameStrata'] = "MEDIUM",
-			['portraitBackdrop'] = true,
 		},
 		['pet'] = {
 			['detachPortrait'] = false,
@@ -184,19 +157,26 @@ P['benikui'] = {
 			['portraitShadow'] = false,
 			['portraitTransparent'] = true,
 			['portraitFrameStrata'] = "MEDIUM",
-			['portraitBackdrop'] = true,
 		},
 		['infoPanel'] = {
 			['fixInfoPanel'] = true,
 			['texture'] = 'BuiEmpty',
-			['enableColor'] = false,
 			['customColor'] = 2,
 			['color'] = {r = .9, g = .7, b = 0, a = .7},
-			['groupColor'] = {r = .9, g = .7, b = 0, a = .7},
 		},
 		['castbar'] = {
 			['text'] = {
-				['ShowInfoText'] = false,
+				['ShowInfoText'] = true,
+				['castText'] = true,
+				['forceTargetText'] = false,
+				['player'] = {
+					['yOffset'] = 0,
+					['textColor'] = {r = 1, g = 1, b = 1, a = 1},
+				},
+				['target'] = {
+					['yOffset'] = 0,
+					['textColor'] = {r = 1, g = 1, b = 1, a = 1},
+				},
 			},
 		},
 		['textures'] = {
@@ -214,29 +194,25 @@ P['benikui'] = {
 			['portraitTransparency'] = 0.70,
 		},
 	},
-
-	['panels'] = {
-
-	},
 }
 
 -- Datatexts
 P.datatexts.panels.BuiLeftChatDTPanel = {
-	[1] = 'Primary Stat',
-	[2] = 'Missions',
-	[3] = 'BuiMail',
+	left = E.db.datatexts.panels.LeftChatDataPanel.left,
+	middle = E.db.datatexts.panels.LeftChatDataPanel.middle,
+	right = E.db.datatexts.panels.LeftChatDataPanel.right,
 }
 
 P.datatexts.panels.BuiRightChatDTPanel = {
-	[1] = 'Spec Switch (BenikUI)',
-	[2] = 'Gold',
-	[3] = 'Bags',
+	left = E.db.datatexts.panels.RightChatDataPanel.left,
+	middle = E.db.datatexts.panels.RightChatDataPanel.middle,
+	right = E.db.datatexts.panels.RightChatDataPanel.right,
 }
 
 P.datatexts.panels.BuiMiddleDTPanel = {
-	[1] = 'Haste',
-	[2] = 'Mastery',
-	[3] = 'Crit Chance',
+	left = 'Multistrike',
+	middle = 'Garrison+ (BenikUI)',
+	right = 'Spec Switch (BenikUI)',
 }
 
 -- Skins and ElvUI addons Styling
@@ -246,9 +222,10 @@ P['benikuiSkins'] = {
 		['locplus'] = true,
 		['sle'] = true,
 		['enh'] = true,
+		['dtb2'] = true,
 		['pa'] = true,
 	},
-
+	
 	['addonSkins'] = {
 		['skada'] = true,
 		['recount'] = true,
@@ -262,8 +239,9 @@ P['benikuiSkins'] = {
 		['bigwigs'] = true,
 		['zygor'] = true,
 		['immersion'] = true,
+		['adibags'] = true,
 	},
-
+	
 	['variousSkins'] = {
 		['talkingHead'] = true,
 		['decursive'] = true,
@@ -284,18 +262,19 @@ P['benikuiDatabars'] = {
 			['position'] = 'RIGHT',
 		},
 	},
-
+	
 	['reputation'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
 		['buttonStyle'] = "TRANSPARENT",
+		['autotrack'] = false,
 		['notifiers'] = {
 			['enable'] = true,
 			['combat'] = false,
 			['position'] = 'LEFT',
 		},
 	},
-
+	
 	['azerite'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
@@ -306,7 +285,7 @@ P['benikuiDatabars'] = {
 			['position'] = 'LEFT',
 		},
 	},
-
+	
 	['honor'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
@@ -337,7 +316,7 @@ P['dashboards'] = {
 		},
 		['latency'] = 2,
 	},
-
+	
 	['tokens'] = {
 		['enableTokens'] = true,
 		['combat'] = true,
@@ -350,7 +329,7 @@ P['dashboards'] = {
 		['zeroamount'] = false,
 		['weekly'] = true,
 	},
-
+	
 	['professions'] = {
 		['enableProfessions'] = true,
 		['combat'] = true,
@@ -368,17 +347,9 @@ P['dashboards'] = {
 		['dbfontsize'] = E.db.datatexts.fontSize,
 		['dbfontflags'] = E.db.datatexts.fontOutline,
 	},
-
+	
 	['barColor'] = 1,
 	['customBarColor'] = {r = 255/255,g = 128/255,b = 0/255},
 	['textColor'] = 2,
 	['customTextColor'] = {r = 255/255,g = 255/255,b = 255/255},
 }
-
-G['benikui'] = {
-	['CustomPanels'] = {
-		['createButton'] = false,
-	},
-}
-
-G.datatexts.newPanelInfo.benikuiStyle = true

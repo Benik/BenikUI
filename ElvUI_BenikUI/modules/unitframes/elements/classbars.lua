@@ -5,7 +5,7 @@ local BU = BUI:GetModule('Units');
 function BU:Configure_ClassBar(frame)
 	if not BUI.ShadowMode then return end
 
-	local db = E.db.benikui.general
+	if not frame.VARIABLES_SET then return end
 	local bars = frame[frame.ClassBar]
 	if not bars then return end
 
@@ -16,14 +16,14 @@ function BU:Configure_ClassBar(frame)
 	if frame.shadow then
 		frame.shadow:ClearAllPoints()
 		if frame.USE_MINI_CLASSBAR and not frame.CLASSBAR_DETACHED then
-			frame.shadow:SetPoint('TOPLEFT', frame.Health.backdrop, 'TOPLEFT', -(db.shadowSize -1) or -2, (db.shadowSize -1) or 2)
-			frame.shadow:SetPoint('BOTTOMRIGHT', frame, 'BOTTOMRIGHT', (db.shadowSize -1) or 2, -(db.shadowSize -1) or -2)
+			frame.shadow:Point('TOPLEFT', frame.Health.backdrop, 'TOPLEFT', -2, 2)
+			frame.shadow:Point('BOTTOMRIGHT', frame, 'BOTTOMRIGHT', 2, -2)
 			bars.backdrop.shadow:Show()
 		elseif not frame.CLASSBAR_DETACHED then
-			frame.shadow:SetOutside(frame, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
+			frame.shadow:SetOutside(frame, 2, 2)
 			bars.backdrop.shadow:Hide()
 		else
-			frame.shadow:SetOutside(frame, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
+			frame.shadow:SetOutside(frame, 2, 2)
 			bars.backdrop.shadow:Show()
 		end
 	end

@@ -74,10 +74,10 @@ function BUI:LoadBigWigsProfile()
 		}
 
 		if BUI.isInstallerRunning == false then -- don't print during Install, when applying profile that doesn't exist
-			BUI:Print(format(BUI.profileStrings[1], L['BigWigs']))
+			print(BUI.profileStrings[1]..L['BigWigs'])
 		end
 	else
-		BUI:Print(format(BUI.profileStrings[2], L['BigWigs']))
+		print(BUI.Title.."- "..L['BigWigs']..BUI.profileStrings[2])
 	end
 
 	BigWigs.db:SetProfile(key)

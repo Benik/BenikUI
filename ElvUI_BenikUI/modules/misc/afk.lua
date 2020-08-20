@@ -10,7 +10,6 @@ local C_Calendar_GetDate = C_Calendar.GetDate
 local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic
 local IsXPUserDisabled = IsXPUserDisabled
-local IsPlayerAtEffectiveMaxLevel = IsPlayerAtEffectiveMaxLevel
 local UnitLevel = UnitLevel
 local InCombatLockdown = InCombatLockdown
 local GetSpecialization = GetSpecialization
@@ -20,11 +19,9 @@ local GetAverageItemLevel = GetAverageItemLevel
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 
-local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME
+local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME, MAX_PLAYER_LEVEL_TABLE
 local LEVEL, NONE = LEVEL, NONE
 local ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY
-
-local classColor = E:ClassColor(E.myclass, true)
 
 -- GLOBALS: CreateAnimationGroup, UIParent
 
@@ -226,7 +223,8 @@ hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 -- XP string
 local M = E:GetModule('DataBars');
 local function GetXPinfo()
-	if IsPlayerAtEffectiveMaxLevel() or IsXPUserDisabled() then return end
+	local maxLevel = MAX_PLAYER_LEVEL_TABLE[GetExpansionLevel()];
+	if(UnitLevel('player') == maxLevel) or IsXPUserDisabled() then return end
 
 	local cur, max = M:GetXP('player')
 	local curlvl = UnitLevel('player')
@@ -284,13 +282,15 @@ end
 
 local function prank(self, status)
 	if(InCombatLockdown()) then return end
-	--if not IsFoolsDay() then return end
+	if not IsFoolsDay() then return end
 
 	if(status) then
 
 	end
 end
 --hooksecurefunc(AFK, "SetAFK", prank)
+
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function Initialize()
 	if E.db.benikui.misc.afkMode ~= true then return end
@@ -303,7 +303,7 @@ local function Initialize()
 	local ilvl = getItemLevel()
 
 	-- Create Top frame
-	AFK.AFKMode.top = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
+	AFK.AFKMode.top = CreateFrame('Frame', nil, AFK.AFKMode)
 	AFK.AFKMode.top:SetFrameLevel(0)
 	AFK.AFKMode.top:SetTemplate('Transparent', true, true)
 	AFK.AFKMode.top:SetBackdropBorderColor(.3, .3, .3, 1)
@@ -358,8 +358,8 @@ local function Initialize()
 	AFK.AFKMode.top.Status:SetMinMaxValues(0, 1800)
 	AFK.AFKMode.top.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b, 1)
 	AFK.AFKMode.top.Status:SetFrameLevel(2)
-	AFK.AFKMode.top.Status:SetPoint('TOPRIGHT', AFK.AFKMode.top, 'BOTTOMRIGHT', 0, E.PixelMode and 3 or 5)
-	AFK.AFKMode.top.Status:SetPoint('BOTTOMLEFT', AFK.AFKMode.top, 'BOTTOMLEFT', 0, E.PixelMode and 1 or 2)
+	AFK.AFKMode.top.Status:Point('TOPRIGHT', AFK.AFKMode.top, 'BOTTOMRIGHT', 0, E.PixelMode and 3 or 5)
+	AFK.AFKMode.top.Status:Point('BOTTOMLEFT', AFK.AFKMode.top, 'BOTTOMLEFT', 0, E.PixelMode and 1 or 2)
 	AFK.AFKMode.top.Status:SetValue(0)
 
 	AFK.AFKMode.bottom:SetTemplate('Transparent', true, true)
@@ -412,8 +412,7 @@ local function Initialize()
 	AFK.AFKMode.bottom.etext:SetPoint("TOP", AFK.AFKMode.bottom.logotxt, "BOTTOM")
 	AFK.AFKMode.bottom.etext:SetTextColor(0.7, 0.7, 0.7)
 	-- Hide ElvUI logo
-	AFK.AFKMode.bottom.LogoTop:Hide()
-	AFK.AFKMode.bottom.LogoBottom:Hide()
+	AFK.AFKMode.bottom.logo:Hide()
 
 	-- Add BenikUI name
 	AFK.AFKMode.bottom.benikui = AFK.AFKMode.bottom:CreateFontString(nil, 'OVERLAY')
@@ -430,13 +429,13 @@ local function Initialize()
 
 	-- Random stats decor (taken from install routine)
 	AFK.AFKMode.statMsg = CreateFrame("Frame", nil, AFK.AFKMode)
-	AFK.AFKMode.statMsg:SetSize(418, 72)
-	AFK.AFKMode.statMsg:SetPoint("CENTER", 0, 200)
+	AFK.AFKMode.statMsg:Size(418, 72)
+	AFK.AFKMode.statMsg:Point("CENTER", 0, 200)
 
 	AFK.AFKMode.statMsg.bg = AFK.AFKMode.statMsg:CreateTexture(nil, 'BACKGROUND')
 	AFK.AFKMode.statMsg.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	AFK.AFKMode.statMsg.bg:SetPoint('BOTTOM')
-	AFK.AFKMode.statMsg.bg:SetSize(326, 103)
+	AFK.AFKMode.statMsg.bg:Size(326, 103)
 	AFK.AFKMode.statMsg.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	AFK.AFKMode.statMsg.bg:SetVertexColor(1, 1, 1, 0.7)
 
@@ -444,25 +443,25 @@ local function Initialize()
 	AFK.AFKMode.statMsg.lineTop:SetDrawLayer('BACKGROUND', 2)
 	AFK.AFKMode.statMsg.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	AFK.AFKMode.statMsg.lineTop:SetPoint("TOP")
-	AFK.AFKMode.statMsg.lineTop:SetSize(418, 7)
+	AFK.AFKMode.statMsg.lineTop:Size(418, 7)
 	AFK.AFKMode.statMsg.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
 	AFK.AFKMode.statMsg.lineBottom = AFK.AFKMode.statMsg:CreateTexture(nil, 'BACKGROUND')
 	AFK.AFKMode.statMsg.lineBottom:SetDrawLayer('BACKGROUND', 2)
 	AFK.AFKMode.statMsg.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	AFK.AFKMode.statMsg.lineBottom:SetPoint("BOTTOM")
-	AFK.AFKMode.statMsg.lineBottom:SetSize(418, 7)
+	AFK.AFKMode.statMsg.lineBottom:Size(418, 7)
 	AFK.AFKMode.statMsg.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
 	-- Countdown decor
 	AFK.AFKMode.countd = CreateFrame("Frame", nil, AFK.AFKMode)
-	AFK.AFKMode.countd:SetSize(418, 36)
-	AFK.AFKMode.countd:SetPoint("TOP", AFK.AFKMode.statMsg.lineBottom, "BOTTOM")
+	AFK.AFKMode.countd:Size(418, 36)
+	AFK.AFKMode.countd:Point("TOP", AFK.AFKMode.statMsg.lineBottom, "BOTTOM")
 
 	AFK.AFKMode.countd.bg = AFK.AFKMode.countd:CreateTexture(nil, 'BACKGROUND')
 	AFK.AFKMode.countd.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	AFK.AFKMode.countd.bg:SetPoint('BOTTOM')
-	AFK.AFKMode.countd.bg:SetSize(326, 56)
+	AFK.AFKMode.countd.bg:Size(326, 56)
 	AFK.AFKMode.countd.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	AFK.AFKMode.countd.bg:SetVertexColor(1, 1, 1, 0.7)
 
@@ -470,7 +469,7 @@ local function Initialize()
 	AFK.AFKMode.countd.lineBottom:SetDrawLayer('BACKGROUND', 2)
 	AFK.AFKMode.countd.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	AFK.AFKMode.countd.lineBottom:SetPoint('BOTTOM')
-	AFK.AFKMode.countd.lineBottom:SetSize(418, 7)
+	AFK.AFKMode.countd.lineBottom:Size(418, 7)
 	AFK.AFKMode.countd.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
 	-- 30 mins countdown text
@@ -486,19 +485,19 @@ local function Initialize()
 	local xptxt = GetXPinfo()
 	-- XP info
 	AFK.AFKMode.xp = CreateFrame("Frame", nil, AFK.AFKMode)
-	AFK.AFKMode.xp:SetSize(418, 36)
-	AFK.AFKMode.xp:SetPoint("TOP", AFK.AFKMode.countd.lineBottom, "BOTTOM")
+	AFK.AFKMode.xp:Size(418, 36)
+	AFK.AFKMode.xp:Point("TOP", AFK.AFKMode.countd.lineBottom, "BOTTOM")
 	AFK.AFKMode.xp.bg = AFK.AFKMode.xp:CreateTexture(nil, 'BACKGROUND')
 	AFK.AFKMode.xp.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	AFK.AFKMode.xp.bg:SetPoint('BOTTOM')
-	AFK.AFKMode.xp.bg:SetSize(326, 56)
+	AFK.AFKMode.xp.bg:Size(326, 56)
 	AFK.AFKMode.xp.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	AFK.AFKMode.xp.bg:SetVertexColor(1, 1, 1, 0.7)
 	AFK.AFKMode.xp.lineBottom = AFK.AFKMode.xp:CreateTexture(nil, 'BACKGROUND')
 	AFK.AFKMode.xp.lineBottom:SetDrawLayer('BACKGROUND', 2)
 	AFK.AFKMode.xp.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	AFK.AFKMode.xp.lineBottom:SetPoint('BOTTOM')
-	AFK.AFKMode.xp.lineBottom:SetSize(418, 7)
+	AFK.AFKMode.xp.lineBottom:Size(418, 7)
 	AFK.AFKMode.xp.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 	AFK.AFKMode.xp.text = AFK.AFKMode.xp:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.xp.text:FontTemplate(nil, 12)
@@ -510,7 +509,7 @@ local function Initialize()
 	-- Random stats frame
 	AFK.AFKMode.statMsg.info = AFK.AFKMode.statMsg:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.statMsg.info:FontTemplate(nil, 18)
-	AFK.AFKMode.statMsg.info:SetPoint("CENTER", AFK.AFKMode.statMsg, "CENTER", 0, -2)
+	AFK.AFKMode.statMsg.info:Point("CENTER", AFK.AFKMode.statMsg, "CENTER", 0, -2)
 	AFK.AFKMode.statMsg.info:SetText(format("|cffb3b3b3%s|r", L["Random Stats"]))
 	AFK.AFKMode.statMsg.info:SetJustifyH("CENTER")
 	AFK.AFKMode.statMsg.info:SetTextColor(0.7, 0.7, 0.7)

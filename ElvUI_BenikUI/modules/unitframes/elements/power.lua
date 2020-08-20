@@ -35,9 +35,7 @@ function BU:ChangeUnitPowerBarTexture()
 		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
 
 		local unitframe = _G["ElvUF_"..frameNameUnit]
-		if unitframe and unitframe.Power then
-			unitframe.Power:SetStatusBarTexture(bar)
-		end
+		if unitframe and unitframe.Power and not unitframe.Power.isTransparent then unitframe.Power:SetStatusBarTexture(bar) end
 	end
 end
 hooksecurefunc(UF, "Update_AllFrames", BU.ChangeUnitPowerBarTexture)
@@ -51,7 +49,7 @@ function BU:ChangeRaidPowerBarTexture()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Power then
+			if unitbutton.Power and not unitbutton.Power.isTransparent then
 				unitbutton.Power:SetStatusBarTexture(bar)
 			end
 		end
@@ -68,7 +66,7 @@ function BU:ChangeRaid40PowerBarTexture()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Power then
+			if unitbutton.Power and not unitbutton.Power.isTransparent then
 				unitbutton.Power:SetStatusBarTexture(bar)
 			end
 		end
@@ -85,7 +83,7 @@ function BU:ChangePartyPowerBarTexture()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Power then
+			if unitbutton.Power and not unitbutton.Power.isTransparent then
 				unitbutton.Power:SetStatusBarTexture(bar)
 			end
 		end
@@ -98,7 +96,7 @@ function BU:ChangeArenaPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
-		if unitbutton.Power then
+		if unitbutton.Power and not unitbutton.Power.isTransparent then
 			unitbutton.Power:SetStatusBarTexture(bar)
 		end
 	end
@@ -110,7 +108,7 @@ function BU:ChangeBossPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Boss"..i]
-		if unitbutton.Power then
+		if unitbutton.Power and not unitbutton.Power.isTransparent then
 			unitbutton.Power:SetStatusBarTexture(bar)
 		end
 	end

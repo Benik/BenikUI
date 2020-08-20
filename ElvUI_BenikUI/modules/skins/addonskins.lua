@@ -1,16 +1,19 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
+local S = E:GetModule('Skins');
 
 local _G = _G
-local unpack = unpack
+local pairs, unpack = pairs, unpack
+local strlower, strfind = strlower, strfind
 
 local CreateFrame = CreateFrame
+local IsAddOnLoaded = IsAddOnLoaded
 
 -- GLOBALS: hooksecurefunc, Skada, Recount, oRA3, RC, RCnotify, RCminimized
 
 if not BUI.AS then return end
 local AS = unpack(AddOnSkins)
 
-local classColor = E:ClassColor(E.myclass, true)
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function SkadaDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.skada then return end
@@ -37,11 +40,11 @@ end
 
 local function StyleRecount(name, parent, ...)
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	local recountdecor = CreateFrame('Frame', name, E.UIParent, 'BackdropTemplate')
+	local recountdecor = CreateFrame('Frame', name, E.UIParent)
 	recountdecor:SetTemplate('Default', true)
 	recountdecor:SetParent(parent)
-	recountdecor:SetPoint('TOPLEFT', parent, 'TOPLEFT', 0, -2)
-	recountdecor:SetPoint('BOTTOMRIGHT', parent, 'TOPRIGHT', 0, -7)
+	recountdecor:Point('TOPLEFT', parent, 'TOPLEFT', 0, -2)
+	recountdecor:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', 0, -7)
 
 	return recountdecor
 end
@@ -241,15 +244,15 @@ function AS:SkinCloseButton(Button, Reposition)
 
 	AS:SkinBackdropFrame(Button)
 
-	Button.Backdrop:SetPoint('TOPLEFT', 7, -8)
-	Button.Backdrop:SetPoint('BOTTOMRIGHT', -7, 8)
+	Button.Backdrop:Point('TOPLEFT', 7, -8)
+	Button.Backdrop:Point('BOTTOMRIGHT', -7, 8)
 	Button.Backdrop:SetTemplate('NoBackdrop')
 
 	Button:SetHitRectInsets(6, 6, 7, 7)
 	
 	Button.Backdrop.img = Button.Backdrop:CreateTexture(nil, 'OVERLAY')
 	Button.Backdrop.img:SetSize(12, 12)
-	Button.Backdrop.img:SetPoint("CENTER")
+	Button.Backdrop.img:Point("CENTER")
 	Button.Backdrop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Close.tga')
 	Button.Backdrop.img:SetVertexColor(1, 1, 1)
 
@@ -270,7 +273,7 @@ function AS:SkinCloseButton(Button, Reposition)
 	end)
 
 	if Reposition then
-		Button:SetPoint('TOPRIGHT', Reposition, 'TOPRIGHT', 2, 2)
+		Button:Point('TOPRIGHT', Reposition, 'TOPRIGHT', 2, 2)
 	end
 end
 
@@ -286,10 +289,16 @@ if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers') and AS:Ch
 if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 2) end
-LibrariesDecor()
+AS:RegisterSkin('Libraries', LibrariesDecor, 2)
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
 	if not _G["AcceptFrame"].style then
 		_G["AcceptFrame"]:Style('Outside')
+	end
+end)
+
+hooksecurefunc(AS, 'BugReportFrame', function(self)
+	if not _G["AddOnSkinsBugReportFrame"].style then
+		_G["AddOnSkinsBugReportFrame"]:Style('Outside')
 	end
 end)

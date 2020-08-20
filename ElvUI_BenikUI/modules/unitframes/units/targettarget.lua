@@ -28,7 +28,6 @@ function BU:ArrangeTargetTarget()
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.targettarget.portraitTransparent
 		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.targettarget.portraitShadow
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.targettarget.portraitFrameStrata
-		frame.PORTRAIT_BACKDROP = E.db.benikui.unitframes.targettarget.portraitBackdrop
 
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.targettarget.portraitWidth
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.targettarget.portraitHeight	

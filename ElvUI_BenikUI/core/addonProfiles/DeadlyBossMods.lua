@@ -29,9 +29,9 @@ function BUI:LoadDBMProfile()
 
 		DBM:ApplyProfile(profileName)
 		if BUI.isInstallerRunning == false then
-			BUI:Print(format(BUI.profileStrings[1], L['Deadly Boss Mods']))
+			print(BUI.profileStrings[1]..L['Deadly Boss Mods'])
 		end
 	else
-		BUI:Print(format(BUI.profileStrings[2], L['Deadly Boss Mods']))
+		print(BUI.Title.."- "..L['Deadly Boss Mods']..BUI.profileStrings[2])
 	end
 end

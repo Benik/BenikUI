@@ -50,8 +50,8 @@ function mod:DBMShadows()
 					icon2:ClearAllPoints()
 					icon2:SetInside(icon2.overlay)
 
-					icon1.overlay:SetSize(bar.owner.options.SetHeight, bar.owner.options.SetHeight)
-					icon2.overlay:SetSize(bar.owner.options.SetHeight, bar.owner.options.SetHeight)
+					icon1.overlay:SetSize(bar.owner.options.Height, bar.owner.options.Height)
+					icon2.overlay:SetSize(bar.owner.options.Height, bar.owner.options.Height)
 					tbar:SetInside(frame)
 
 					frame:SetTemplate('Transparent')
@@ -68,11 +68,11 @@ function mod:DBMShadows()
 					timer:SetShadowColor(0, 0, 0, 0)
 
 					if AS:CheckOption('DBMSkinHalf') then
-						frame:SetHeight(bar.owner.options.SetHeight / 3)
+						frame:SetHeight(bar.owner.options.Height / 3)
 						name:SetPoint('BOTTOMLEFT', frame, 'TOPLEFT', 0, 3)
 						timer:SetPoint('BOTTOMRIGHT', frame, 'TOPRIGHT', -1, 1)
 					else
-						frame:SetHeight(bar.owner.options.SetHeight)
+						frame:SetHeight(bar.owner.options.Height)
 						name:SetPoint('LEFT', frame, 'LEFT', 4, 0)
 						timer:SetPoint('RIGHT', frame, 'RIGHT', -4, 0)
 					end

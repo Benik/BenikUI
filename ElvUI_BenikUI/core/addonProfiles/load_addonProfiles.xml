@@ -8,6 +8,7 @@
 	<script file="Recount.lua"/>
 	<script file="Skada.lua"/>
 	<script file="ProjectAzilroka.lua"/>
+	<script file="VisualAuraTimers.lua"/>
 	<script file="BigWigs.lua"/>
 	<script file="InFlight.lua"/>
 </Ui>

@@ -6,7 +6,7 @@ local BC = BUI:GetModule('Castbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
-local PLAYER, TARGET = PLAYER, TARGET
+local PLAYER, TARGET, MISCELLANEOUS = PLAYER, TARGET, MISCELLANEOUS
 
 -- GLOBALS: AceGUIWidgetLSMlists
 
@@ -21,7 +21,7 @@ local strataValues = {
 
 local function ufTable()
 	E.Options.args.benikui.args.unitframes = {
-		order = 40,
+		order = 10,
 		type = 'group',
 		name = L['UnitFrames'],
 		disabled = function() return not E.private.unitframe.enable end,
@@ -42,87 +42,45 @@ local function ufTable()
 						order = 1,
 						name = L['Fix InfoPanel width'],
 						desc = L['Lower InfoPanel width when potraits are enabled.'],
-						width = "full", 
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UpdateUF() end,
 					},
-					colors = {
+					customColor = {
 						order = 2,
-						type = 'group',
-						name = L['Colors'],
-						guiInline = true,
-						args = {
-							enableColor = {
-								type = 'toggle',
-								order = 1,
-								name = L["Enable"],
-								width = "full", 
-								get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-							},
-							customColor = {
-								order = 2,
-								type = "select",
-								name = format("%s (%s)", L.COLOR, L["Individual Units"]),
-								disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
-								values = {
-									[1] = L.CLASS_COLORS,
-									[2] = L["Custom Color"],
-								},
-								get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UnitInfoPanelColor() end,
-							},
-							color = {
-								order = 3,
-								type = "color",
-								name = L["Custom Color"],
-								hasAlpha = true,
-								disabled = function() return E.db.benikui.unitframes.infoPanel.customColor == 1 or not E.db.benikui.unitframes.infoPanel.enableColor end,
-								get = function(info)
-									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
-									local d = P.benikui.unitframes.infoPanel[info[#info]]
-									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-									end,
-								set = function(info, r, g, b, a)
-									E.db.benikui.unitframes.infoPanel[ info[#info] ] = {}
-									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
-									t.r, t.g, t.b, t.a = r, g, b, a
-									BU:UnitInfoPanelColor()
-								end,
-							},
-							spacer = {
-								order = 4,
-								type = 'header',
-								name = '',
-							},
-							groupColor = {
-								order = 5,
-								type = "color",
-								name = format("%s (%s)", L["Custom Color"], L["Group Units"]),
-								disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
-								hasAlpha = true,
-								get = function(info)
-									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
-									local d = P.benikui.unitframes.infoPanel[info[#info]]
-									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-									end,
-								set = function(info, r, g, b, a)
-									E.db.benikui.unitframes.infoPanel[ info[#info] ] = {}
-									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
-									t.r, t.g, t.b, t.a = r, g, b, a
-									BU:UpdateGroupInfoPanelColor()
-								end,
-							},
+						type = "select",
+						name = L.COLOR,
+						values = {
+							[1] = L.CLASS_COLORS,
+							[2] = L.CUSTOM,
 						},
+						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:InfoPanelColor() BU:RecolorTargetInfoPanel() end,
+					},
+					color = {
+						order = 3,
+						type = "color",
+						name = L.COLOR_PICKER,
+						hasAlpha = true,
+						disabled = function() return E.db.benikui.unitframes.infoPanel.customColor == 1 end,
+						get = function(info)
+							local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
+							local d = P.benikui.unitframes.infoPanel[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+							end,
+						set = function(info, r, g, b, a)
+							E.db.benikui.unitframes.infoPanel[ info[#info] ] = {}
+							local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
+							BU:InfoPanelColor()
+						end,
 					},
 					texture = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 3,
-						name = L["Texture"],
-						disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
+						order = 4,
+						name = L['Textures'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UnitInfoPanelColor() BU:UpdateGroupInfoPanelColor() end,
+						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:InfoPanelColor() end,
 					},
 				},
 			},
@@ -182,7 +140,7 @@ local function ufTable()
 			castbarColor = {
 				order = 5,
 				type = 'group',
-				name = L['Castbar Backdrop Color'],
+				name = L['Castbar Backdrop Color']..E.NewSign,
 				guiInline = true,
 				args = {
 					enable = {
@@ -226,6 +184,83 @@ local function ufTable()
 						name = L['Show InfoPanel text'],
 						desc = L['Force show any text placed on the InfoPanel, while casting.'],
 					},
+					castText = {
+						type = 'toggle',
+						order = 2,
+						name = L['Show Castbar text'],
+					},
+					forceTargetText = {
+						type = 'toggle',
+						order = 3,
+						name = L['Show on Target'],
+						disabled = function() return E.db.benikui.unitframes.castbar.text.castText end,
+					},
+					player = {
+						order = 4,
+						type = 'group',
+						name = L["Player"],
+						args = {
+							yOffset = {
+								order = 1,
+								type = 'range',
+								name = L['Y Offset'],
+								desc = L['Adjust castbar text Y Offset'],
+								min = -40, max = 40, step = 1,
+								get = function(info) return E.db.benikui.unitframes.castbar.text.player[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.unitframes.castbar.text.player[ info[#info] ] = value; BC:UpdateAllCastbars(); end,
+							},
+							textColor = {
+								order = 2,
+								type = "color",
+								name = L["Text Color"],
+								hasAlpha = true,
+								get = function(info)
+									local t = E.db.benikui.unitframes.castbar.text.player[ info[#info] ]
+									local d = P.benikui.unitframes.castbar.text.player[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+									end,
+								set = function(info, r, g, b, a)
+									E.db.benikui.unitframes.castbar.text.player[ info[#info] ] = {}
+									local t = E.db.benikui.unitframes.castbar.text.player[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									BC:CastBarHooks();
+								end,
+							},
+						},
+					},
+					target = {
+						order = 5,
+						type = 'group',
+						name = L["Target"],
+						args = {
+							yOffset = {
+								order = 1,
+								type = 'range',
+								name = L['Y Offset'],
+								desc = L['Adjust castbar text Y Offset'],
+								min = -40, max = 40, step = 1,
+								get = function(info) return E.db.benikui.unitframes.castbar.text.target[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.unitframes.castbar.text.target[ info[#info] ] = value; BC:UpdateAllCastbars(); end,
+							},
+							textColor = {
+								order = 2,
+								type = "color",
+								name = L["Text Color"],
+								hasAlpha = true,
+								get = function(info)
+									local t = E.db.benikui.unitframes.castbar.text.target[ info[#info] ]
+									local d = P.benikui.unitframes.castbar.text.target[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+									end,
+								set = function(info, r, g, b, a)
+									E.db.benikui.unitframes.castbar.text.target[ info[#info] ] = {}
+									local t = E.db.benikui.unitframes.castbar.text.target[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									BC:CastBarHooks();
+								end,
+							},
+						},
+					},
 				},
 			},
 			misc = {
@@ -242,6 +277,16 @@ local function ufTable()
 						get = function(info) return E.db.benikui.unitframes.misc[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.misc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
+					portraitTransparency = {
+						order = 2,
+						type = 'range',
+						name = L['Overlayed Portraits Alpha'],
+						isPercent = true,
+						min = 0.2, max = 1, step = 0.05,
+						disabled = function() return BUI.SLE end,
+						get = function(info) return E.db.benikui.unitframes.misc[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.misc[ info[#info] ] = value; UF:Update_AllFrames(); end,
+					},
 				},
 			},
 		},
@@ -250,8 +295,8 @@ end
 tinsert(BUI.Config, ufTable)
 
 local function ufPlayerTable()
-	E.Options.args.unitframe.args.individualUnits.args.player.args.portrait.args.benikui = {
-		order = 100,
+	E.Options.args.unitframe.args.player.args.portrait.args.benikui = {
+		order = 10,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -265,11 +310,11 @@ local function ufPlayerTable()
 				set = function(info, value)
 					E.db.benikui.unitframes.player[ info[#info] ] = value;
 					if value == true then
-						E.Options.args.unitframe.args.individualUnits.args.player.args.portrait.args.width.min = 0
+						E.Options.args.unitframe.args.player.args.portrait.args.width.min = 0
 						E.db.unitframe.units.player.portrait.width = 0
 						E.db.unitframe.units.player.orientation = "LEFT"
 					else
-						E.Options.args.unitframe.args.individualUnits.args.player.args.portrait.args.width.min = 15
+						E.Options.args.unitframe.args.player.args.portrait.args.width.min = 15
 						E.db.unitframe.units.player.portrait.width = 45
 					end
 					UF:CreateAndUpdateUF('player')
@@ -283,44 +328,38 @@ local function ufPlayerTable()
 				desc = L['Apply transparency on the portrait backdrop.'],
 				disabled = function() return E.db.unitframe.units.player.portrait.overlay end,
 			},
-			portraitBackdrop = {
-				order = 3,
-				type = 'toggle',
-				name = L['Backdrop'],
-				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
-			},
 			portraitShadow = {
-				order = 4,
+				order = 3,
 				type = 'toggle',
 				name = L['Shadow'],
 				desc = L['Apply shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 			},
 			portraitWidth = {
-				order = 5,
+				order = 4,
 				type = 'range',
-				name = L['SetWidth'],
+				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 				min = 10, max = 500, step = 1,
 			},
 			portraitHeight = {
-				order = 6,
+				order = 5,
 				type = 'range',
-				name = L['SetHeight'],
+				name = L['Height'],
 				desc = L['Change the detached portrait height'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 				min = 10, max = 250, step = 1,
 			},
 			portraitFrameStrata = {
-				order = 7,
+				order = 6,
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
 				values = strataValues,
 			},
 			styleGroup = {
-				order = 8,
+				order = 7,
 				type = 'group',
 				name = L['BenikUI Style'],
 				args = {
@@ -333,7 +372,7 @@ local function ufPlayerTable()
 					portraitStyleHeight = {
 						order = 2,
 						type = 'range',
-						name = L['Style SetHeight'],
+						name = L['Style Height'],
 						disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.player.portraitStyle end,
 						min = 3, max = 20, step = 1,
 					},
@@ -342,7 +381,7 @@ local function ufPlayerTable()
 		},
 	}
 
-	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.vertical = {
+	E.Options.args.unitframe.args.player.args.power.args.vertical = {
 		order = 15,
 		type = "toggle",
 		name = BUI:cOption(L['Vertical']),
@@ -353,8 +392,8 @@ end
 tinsert(BUI.Config, ufPlayerTable)
 
 local function ufTargetTable()
-	E.Options.args.unitframe.args.individualUnits.args.target.args.portrait.args.benikui = {
-		order = 100,
+	E.Options.args.unitframe.args.target.args.portrait.args.benikui = {
+		order = 10,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -368,11 +407,11 @@ local function ufTargetTable()
 				set = function(info, value)
 					E.db.benikui.unitframes.target[ info[#info] ] = value;
 					if value == true then
-						E.Options.args.unitframe.args.individualUnits.args.target.args.portrait.args.width.min = 0
+						E.Options.args.unitframe.args.target.args.portrait.args.width.min = 0
 						E.db.unitframe.units.target.portrait.width = 0
 						E.db.unitframe.units.target.orientation = "RIGHT"
 					else
-						E.Options.args.unitframe.args.individualUnits.args.target.args.portrait.args.width.min = 15
+						E.Options.args.unitframe.args.target.args.portrait.args.width.min = 15
 						E.db.unitframe.units.target.portrait.width = 45
 					end
 					UF:CreateAndUpdateUF('target')
@@ -386,51 +425,45 @@ local function ufTargetTable()
 				desc = L['Makes the portrait backdrop transparent'],
 				disabled = function() return E.db.unitframe.units.target.portrait.overlay end,
 			},
-			portraitBackdrop = {
+			portraitShadow = {
 				order = 3,
 				type = 'toggle',
-				name = L['Backdrop'],
-				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
-			},
-			portraitShadow = {
-				order = 4,
-				type = 'toggle',
 				name = L['Shadow'],
-				desc = L['Apply shadow under the portrait'],
+				desc = L['Add shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
 			},
 			getPlayerPortraitSize = {
-				order = 5,
+				order = 4,
 				type = 'toggle',
 				name = L['Player Size'],
 				desc = L['Copy Player portrait width and height'],
 				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
 			},
 			portraitWidth = {
-				order = 6,
+				order = 5,
 				type = 'range',
-				name = L['SetWidth'],
+				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return E.db.benikui.unitframes.target.getPlayerPortraitSize or not E.db.benikui.unitframes.target.detachPortrait end,
 				min = 10, max = 500, step = 1,
 			},
 			portraitHeight = {
-				order = 7,
+				order = 6,
 				type = 'range',
-				name = L['SetHeight'],
+				name = L['Height'],
 				desc = L['Change the detached portrait height'],
 				disabled = function() return E.db.benikui.unitframes.target.getPlayerPortraitSize or not E.db.benikui.unitframes.target.detachPortrait end,
 				min = 10, max = 250, step = 1,
 			},
 			portraitFrameStrata = {
-				order = 8,
+				order = 7,
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.target.detachPortrait end,
 				values = strataValues,
 			},
 			styleGroup = {
-				order = 9,
+				order = 8,
 				type = 'group',
 				name = L['BenikUI Style'],
 				args = {
@@ -443,7 +476,7 @@ local function ufTargetTable()
 					portraitStyleHeight = {
 						order = 2,
 						type = 'range',
-						name = L['Style SetHeight'],
+						name = L['Style Height'],
 						disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.target.portraitStyle end,
 						min = 4, max = 20, step = 1,
 					},
@@ -452,7 +485,7 @@ local function ufTargetTable()
 		},
 	}
 
-	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.vertical = {
+	E.Options.args.unitframe.args.target.args.power.args.vertical = {
 		order = 15,
 		type = "toggle",
 		name = BUI:cOption(L['Vertical']),
@@ -463,8 +496,8 @@ end
 tinsert(BUI.Config, ufTargetTable)
 
 local function ufTargetTargetTable()
-	E.Options.args.unitframe.args.individualUnits.args.targettarget.args.portrait.args.benikui = {
-		order = 100,
+	E.Options.args.unitframe.args.targettarget.args.portrait.args.benikui = {
+		order = 10,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -478,11 +511,11 @@ local function ufTargetTargetTable()
 				set = function(info, value)
 					E.db.benikui.unitframes.targettarget[ info[#info] ] = value;
 					if value == true then
-						E.Options.args.unitframe.args.individualUnits.args.targettarget.args.portrait.args.width.min = 0
+						E.Options.args.unitframe.args.targettarget.args.portrait.args.width.min = 0
 						E.db.unitframe.units.targettarget.portrait.width = 0
 						E.db.unitframe.units.targettarget.orientation = "RIGHT"
 					else
-						E.Options.args.unitframe.args.individualUnits.args.targettarget.args.portrait.args.width.min = 15
+						E.Options.args.unitframe.args.targettarget.args.portrait.args.width.min = 15
 						E.db.unitframe.units.targettarget.portrait.width = 45
 						E.db.unitframe.units.targettarget.orientation = "MIDDLE"
 					end
@@ -497,37 +530,31 @@ local function ufTargetTargetTable()
 				desc = L['Makes the portrait backdrop transparent'],
 				disabled = function() return E.db.unitframe.units.targettarget.portrait.overlay end,
 			},
-			portraitBackdrop = {
-				order = 3,
-				type = 'toggle',
-				name = L['Backdrop'],
-				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
-			},
 			portraitShadow = {
-				order = 4,
+				order = 3,
 				type = 'toggle',
 				name = L['Shadow'],
 				desc = L['Add shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
 			},
 			portraitWidth = {
-				order = 5,
+				order = 4,
 				type = 'range',
-				name = L['SetWidth'],
+				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
 				min = 10, max = 500, step = 1,
 			},
 			portraitHeight = {
-				order = 6,
+				order = 5,
 				type = 'range',
-				name = L['SetHeight'],
+				name = L['Height'],
 				desc = L['Change the detached portrait height'],
 				disabled = function() return E.db.benikui.unitframes.targettarget.getPlayerPortraitSize or not E.db.benikui.unitframes.targettarget.detachPortrait end,
 				min = 10, max = 250, step = 1,
 			},
 			portraitFrameStrata = {
-				order = 7,
+				order = 6,
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
@@ -539,8 +566,8 @@ end
 tinsert(BUI.Config, ufTargetTargetTable)
 
 local function ufFocusTable()
-	E.Options.args.unitframe.args.individualUnits.args.focus.args.portrait.args.benikui = {
-		order = 100,
+	E.Options.args.unitframe.args.focus.args.portrait.args.benikui = {
+		order = 10,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -554,11 +581,11 @@ local function ufFocusTable()
 				set = function(info, value)
 					E.db.benikui.unitframes.focus[ info[#info] ] = value;
 					if value == true then
-						E.Options.args.unitframe.args.individualUnits.args.focus.args.portrait.args.width.min = 0
+						E.Options.args.unitframe.args.focus.args.portrait.args.width.min = 0
 						E.db.unitframe.units.focus.portrait.width = 0
 						E.db.unitframe.units.focus.orientation = "RIGHT"
 					else
-						E.Options.args.unitframe.args.individualUnits.args.focus.args.portrait.args.width.min = 15
+						E.Options.args.unitframe.args.focus.args.portrait.args.width.min = 15
 						E.db.unitframe.units.focus.portrait.width = 45
 						E.db.unitframe.units.focus.orientation = "MIDDLE"
 					end
@@ -573,37 +600,31 @@ local function ufFocusTable()
 				desc = L['Makes the portrait backdrop transparent'],
 				disabled = function() return E.db.unitframe.units.focus.portrait.overlay end,
 			},
-			portraitBackdrop = {
-				order = 3,
-				type = 'toggle',
-				name = L['Backdrop'],
-				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
-			},
 			portraitShadow = {
-				order = 4,
+				order = 3,
 				type = 'toggle',
 				name = L['Shadow'],
 				desc = L['Add shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
 			},
 			portraitWidth = {
-				order = 5,
+				order = 4,
 				type = 'range',
-				name = L['SetWidth'],
+				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
 				min = 10, max = 500, step = 1,
 			},
 			portraitHeight = {
-				order = 6,
+				order = 5,
 				type = 'range',
-				name = L['SetHeight'],
+				name = L['Height'],
 				desc = L['Change the detached portrait height'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
 				min = 10, max = 250, step = 1,
 			},
 			portraitFrameStrata = {
-				order = 7,
+				order = 6,
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
@@ -615,8 +636,8 @@ end
 tinsert(BUI.Config, ufFocusTable)
 
 local function ufPetTable()
-	E.Options.args.unitframe.args.individualUnits.args.pet.args.portrait.args.benikui = {
-		order = 100,
+	E.Options.args.unitframe.args.pet.args.portrait.args.benikui = {
+		order = 10,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -630,11 +651,11 @@ local function ufPetTable()
 				set = function(info, value)
 					E.db.benikui.unitframes.pet[ info[#info] ] = value;
 					if value == true then
-						E.Options.args.unitframe.args.individualUnits.args.pet.args.portrait.args.width.min = 0
+						E.Options.args.unitframe.args.pet.args.portrait.args.width.min = 0
 						E.db.unitframe.units.pet.portrait.width = 0
 						E.db.unitframe.units.pet.orientation = "RIGHT"
 					else
-						E.Options.args.unitframe.args.individualUnits.args.pet.args.portrait.args.width.min = 15
+						E.Options.args.unitframe.args.pet.args.portrait.args.width.min = 15
 						E.db.unitframe.units.pet.portrait.width = 45
 						E.db.unitframe.units.pet.orientation = "MIDDLE"
 					end
@@ -649,37 +670,31 @@ local function ufPetTable()
 				desc = L['Makes the portrait backdrop transparent'],
 				disabled = function() return E.db.unitframe.units.pet.portrait.overlay end,
 			},
-			portraitBackdrop = {
-				order = 3,
-				type = 'toggle',
-				name = L['Backdrop'],
-				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
-			},
 			portraitShadow = {
-				order = 4,
+				order = 3,
 				type = 'toggle',
 				name = L['Shadow'],
 				desc = L['Add shadow under the portrait'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
 			},
 			portraitWidth = {
-				order = 5,
+				order = 4,
 				type = 'range',
-				name = L['SetWidth'],
+				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
 				min = 10, max = 500, step = 1,
 			},
 			portraitHeight = {
-				order = 6,
+				order = 5,
 				type = 'range',
-				name = L['SetHeight'],
+				name = L['Height'],
 				desc = L['Change the detached portrait height'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
 				min = 10, max = 250, step = 1,
 			},
 			portraitFrameStrata = {
-				order = 7,
+				order = 6,
 				type = "select",
 				name = L['Frame Strata'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
@@ -691,14 +706,14 @@ end
 tinsert(BUI.Config, ufPetTable)
 
 local function injectPartyOptions()
-	E.Options.args.unitframe.args.groupUnits.args.party.args.portrait.args.height = {
+	E.Options.args.unitframe.args.party.args.portrait.args.height = {
 		type = 'range',
 		order = 15,
-		name = BUI:cOption("+ "..L["SetHeight"]),
+		name = BUI:cOption("+ "..L["Height"]),
 		min = 0, max = 150, step = 1,
 	}
 
-	E.Options.args.unitframe.args.groupUnits.args.party.args.portrait.args.transparent = {
+	E.Options.args.unitframe.args.party.args.portrait.args.transparent = {
 		order = 16,
 		type = "toggle",
 		name = BUI:cOption(L['Transparent']),
@@ -709,7 +724,7 @@ end
 tinsert(BUI.Config, injectPartyOptions)
 
 local function injectRaidOptions()
-	E.Options.args.unitframe.args.groupUnits.args.raid.args.generalGroup.args.classHover = {
+	E.Options.args.unitframe.args.raid.args.generalGroup.args.classHover = {
 		order = 7,
 		type = "toggle",
 		name = BUI:cOption(L['Class Hover']),
@@ -720,7 +735,7 @@ end
 tinsert(BUI.Config, injectRaidOptions)
 
 local function injectRaid40Options()
-	E.Options.args.unitframe.args.groupUnits.args.raid40.args.generalGroup.args.classHover = {
+	E.Options.args.unitframe.args.raid40.args.generalGroup.args.classHover = {
 		order = 7,
 		type = "toggle",
 		name = BUI:cOption(L['Class Hover']),

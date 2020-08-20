@@ -4,7 +4,7 @@ local mod = BUI:GetModule('Databars');
 
 local tinsert = table.insert
 
-local REPUTATION, DEFAULT = REPUTATION, DEFAULT
+local REPUTATION, ENABLE, DEFAULT = REPUTATION, ENABLE, DEFAULT
 
 local backdropValues = {
 	TRANSPARENT = L['Transparent'],
@@ -14,7 +14,7 @@ local backdropValues = {
 
 local function databarsTable()
 	E.Options.args.benikui.args.benikuiDatabars = {
-		order = 80,
+		order = 30,
 		type = 'group',
 		name = L['DataBars'],
 		childGroups = 'tab',
@@ -36,13 +36,8 @@ local function databarsTable()
 						get = function(info) return E.db.benikuiDatabars.experience.enable end,
 						set = function(info, value) E.db.benikuiDatabars.experience.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer1 = {
-						order = 2,
-						type = 'description',
-						name = '',
-					},
 					buiStyle = {
-						order = 3,
+						order = 2,
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						disabled = function() return not E.db.benikuiDatabars.experience.enable end,
@@ -51,7 +46,7 @@ local function databarsTable()
 						set = function(info, value) E.db.benikuiDatabars.experience.buiStyle = value; mod:ApplyXpStyling(); end,
 					},
 					buttonStyle = {
-						order = 4,
+						order = 3,
 						type = 'select',
 						name = L['Button Backdrop'],
 						disabled = function() return not E.db.benikuiDatabars.experience.enable end,
@@ -60,7 +55,7 @@ local function databarsTable()
 						set = function(info, value) E.db.benikuiDatabars.experience.buttonStyle = value; mod:ToggleXPBackdrop(); end,
 					},
 					notifiers = {
-						order = 5,
+						order = 4,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,
@@ -72,20 +67,15 @@ local function databarsTable()
 								get = function(info) return E.db.benikuiDatabars.experience.notifiers.enable end,
 								set = function(info, value) E.db.benikuiDatabars.experience.notifiers.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 							},
-							spacer1 = {
-								order = 2,
-								type = 'description',
-								name = '',
-							},
 							combat = {
-								order = 3,
+								order = 2,
 								type = 'toggle',
 								name = L["Combat Fade"],
 								get = function(info) return E.db.benikuiDatabars.experience.notifiers.combat end,
 								set = function(info, value) E.db.benikuiDatabars.experience.notifiers.combat = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 							},
 							position = {
-								order = 4,
+								order = 3,
 								type = 'select',
 								name = L['Position'],
 								disabled = function() return not E.db.benikuiDatabars.experience.notifiers.enable end,
@@ -118,13 +108,8 @@ local function databarsTable()
 						get = function(info) return E.db.benikuiDatabars.azerite.enable end,
 						set = function(info, value) E.db.benikuiDatabars.azerite.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer1 = {
-						order = 2,
-						type = 'description',
-						name = '',
-					},
 					buiStyle = {
-						order = 3,
+						order = 2,
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						disabled = function() return not E.db.benikuiDatabars.azerite.enable end,
@@ -133,7 +118,7 @@ local function databarsTable()
 						set = function(info, value) E.db.benikuiDatabars.azerite.buiStyle = value; mod:ApplyAzeriteStyling(); end,
 					},
 					buttonStyle = {
-						order = 4,
+						order = 3,
 						type = 'select',
 						name = L['Button Backdrop'],
 						disabled = function() return not E.db.benikuiDatabars.azerite.enable end,
@@ -142,7 +127,7 @@ local function databarsTable()
 						set = function(info, value) E.db.benikuiDatabars.azerite.buttonStyle = value; mod:ToggleAzeriteBackdrop(); end,
 					},
 					notifiers = {
-						order = 5,
+						order = 4,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,
@@ -195,13 +180,8 @@ local function databarsTable()
 						get = function(info) return E.db.benikuiDatabars.reputation.enable end,
 						set = function(info, value) E.db.benikuiDatabars.reputation.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer1 = {
-						order = 2,
-						type = 'description',
-						name = '',
-					},
 					buiStyle = {
-						order = 3,
+						order = 2,
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						disabled = function() return not E.db.benikuiDatabars.reputation.enable end,
@@ -210,7 +190,7 @@ local function databarsTable()
 						set = function(info, value) E.db.benikuiDatabars.reputation.buiStyle = value; mod:ApplyRepStyling(); end,
 					},
 					buttonStyle = {
-						order = 4,
+						order = 3,
 						type = 'select',
 						name = L['Button Backdrop'],
 						disabled = function() return not E.db.benikuiDatabars.reputation.enable end,
@@ -218,8 +198,16 @@ local function databarsTable()
 						get = function(info) return E.db.benikuiDatabars.reputation.buttonStyle end,
 						set = function(info, value) E.db.benikuiDatabars.reputation.buttonStyle = value; mod:ToggleRepBackdrop(); end,
 					},
+					autotrack = {
+						order = 4,
+						type = 'toggle',
+						name = L['AutoTrack'],
+						desc = L['Change the tracked Faction automatically when reputation changes'],
+						get = function(info) return E.db.benikuiDatabars.reputation.autotrack end,
+						set = function(info, value) E.db.benikuiDatabars.reputation.autotrack = value; mod:ToggleRepAutotrack(); end,
+					},
 					notifiers = {
-						order = 6,
+						order = 5,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,
@@ -272,13 +260,8 @@ local function databarsTable()
 						get = function(info) return E.db.benikuiDatabars.honor.enable end,
 						set = function(info, value) E.db.benikuiDatabars.honor.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer1 = {
-						order = 2,
-						type = 'description',
-						name = '',
-					},
 					buiStyle = {
-						order = 3,
+						order = 2,
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						disabled = function() return not E.db.benikuiDatabars.honor.enable end,
@@ -287,7 +270,7 @@ local function databarsTable()
 						set = function(info, value) E.db.benikuiDatabars.honor.buiStyle = value; mod:ApplyHonorStyling(); end,
 					},
 					buttonStyle = {
-						order = 4,
+						order = 3,
 						type = 'select',
 						name = L['Button Backdrop'],
 						disabled = function() return not E.db.benikuiDatabars.honor.enable end,
@@ -296,7 +279,7 @@ local function databarsTable()
 						set = function(info, value) E.db.benikuiDatabars.honor.buttonStyle = value; mod:ToggleHonorBackdrop(); end,
 					},
 					notifiers = {
-						order = 5,
+						order = 4,
 						type = 'group',
 						name = L['Notifiers'],
 						guiInline = true,
@@ -345,7 +328,7 @@ tinsert(BUI.Config, databarsTable)
 local function injectElvUIDatabarOptions()
 	-- xp
 	E.Options.args.databars.args.experience.args.textYoffset = {
-		order = 100,
+		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
 		name = BUI:cOption(L['Text yOffset']),
@@ -354,18 +337,18 @@ local function injectElvUIDatabarOptions()
 	}
 
 	E.Options.args.databars.args.experience.args.spacer1 = {
-		order = 101,
+		order = 21,
 		type = 'description',
 		name = '',
 	}
 	E.Options.args.databars.args.experience.args.spacer2 = {
-		order = 102,
+		order = 22,
 		type = 'header',
 		name = '',
 	}
 
 	E.Options.args.databars.args.experience.args.gotobenikui = {
-		order = 103,
+		order = 23,
 		type = "execute",
 		name = BUI.Title..XPBAR_LABEL,
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "experience") end,
@@ -373,7 +356,7 @@ local function injectElvUIDatabarOptions()
 
 	-- azerite
 	E.Options.args.databars.args.azerite.args.textYoffset = {
-		order = 100,
+		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
 		name = BUI:cOption(L['Text yOffset']),
@@ -382,19 +365,19 @@ local function injectElvUIDatabarOptions()
 	}
 
 	E.Options.args.databars.args.azerite.args.spacer1 = {
-		order = 101,
+		order = 21,
 		type = 'description',
 		name = '',
 	}
 
 	E.Options.args.databars.args.azerite.args.spacer2 = {
-		order = 102,
+		order = 22,
 		type = 'header',
 		name = '',
 	}
 
 	E.Options.args.databars.args.azerite.args.gotobenikui = {
-		order = 103,
+		order = 23,
 		type = "execute",
 		name = BUI.Title..L["Azerite Bar"],
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "azerite") end,
@@ -402,7 +385,7 @@ local function injectElvUIDatabarOptions()
 
 	-- reputation
 	E.Options.args.databars.args.reputation.args.textYoffset = {
-		order = 100,
+		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
 		name = BUI:cOption(L['Text yOffset']),
@@ -411,19 +394,19 @@ local function injectElvUIDatabarOptions()
 	}
 
 	E.Options.args.databars.args.reputation.args.spacer1 = {
-		order = 101,
+		order = 21,
 		type = 'description',
 		name = '',
 	}
 
 	E.Options.args.databars.args.reputation.args.spacer2 = {
-		order = 102,
+		order = 22,
 		type = 'header',
 		name = '',
 	}
 
 	E.Options.args.databars.args.reputation.args.gotobenikui = {
-		order = 103,
+		order = 23,
 		type = "execute",
 		name = BUI.Title..REPUTATION,
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "reputation") end,
@@ -431,7 +414,7 @@ local function injectElvUIDatabarOptions()
 
 	-- honor
 	E.Options.args.databars.args.honor.args.textYoffset = {
-		order = 100,
+		order = 20,
 		type = "range",
 		min = -30, max = 30, step = 1,
 		name = BUI:cOption(L['Text yOffset']),
@@ -440,19 +423,19 @@ local function injectElvUIDatabarOptions()
 	}
 
 	E.Options.args.databars.args.honor.args.spacer1 = {
-		order = 101,
+		order = 21,
 		type = 'description',
 		name = '',
 	}
 
 	E.Options.args.databars.args.honor.args.spacer2 = {
-		order = 102,
+		order = 22,
 		type = 'header',
 		name = '',
 	}
 
 	E.Options.args.databars.args.honor.args.gotobenikui = {
-		order = 103,
+		order = 23,
 		type = "execute",
 		name = BUI.Title..HONOR,
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "honor") end,

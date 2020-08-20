@@ -2,43 +2,55 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
 local BU = BUI:GetModule('Units');
 
-function BU:Create_AuraBarsWithShadow(statusBar)
-	statusBar:CreateBackdrop(nil, nil, nil, UF.thinBorders, true)
-	statusBar:CreateSoftShadow()
-	statusBar:SetScript('OnMouseDown', OnClick)
-	statusBar:SetPoint("LEFT")
-	statusBar:SetPoint("RIGHT")
+--Replace ElvUI AuraBars creation. Don't want to create shadows on PostUpdate
+function BU:Create_AuraBarsWithShadow()
+	local bar = self.statusBar
 
-	statusBar.icon:CreateBackdrop(nil, nil, nil, UF.thinBorders, true)
-	statusBar.icon.backdrop:CreateSoftShadow()
-	UF.statusbars[statusBar] = true
-	UF:Update_StatusBar(statusBar)
+	self:SetTemplate('Default', nil, nil, UF.thinBorders, true)
+	self:CreateSoftShadow()
+	local inset = UF.thinBorders and E.mult or nil
+	bar:SetInside(self, inset, inset)
+	UF.statusbars[bar] = true
+	UF:Update_StatusBar(bar)
 
-	UF:Configure_FontString(statusBar.timeText)
-	UF:Configure_FontString(statusBar.nameText)
+	UF:Configure_FontString(bar.spelltime)
+	UF:Configure_FontString(bar.spellname)
+	UF:Update_FontString(bar.spelltime)
+	UF:Update_FontString(bar.spellname)
 
-	UF:Update_FontString(statusBar.timeText)
-	UF:Update_FontString(statusBar.nameText)
+	bar.spellname:ClearAllPoints()
+	bar.spellname:Point('LEFT', bar, 'LEFT', 2, 0)
+	bar.spellname:Point('RIGHT', bar.spelltime, 'LEFT', -4, 0)
+	bar.spellname:SetWordWrap(false)
 
-	statusBar.nameText:SetJustifyH('LEFT')
-	statusBar.nameText:SetJustifyV('MIDDLE')
-	statusBar.nameText:SetPoint("RIGHT", statusBar.timeText, "LEFT", -4, 0)
+	bar.iconHolder:SetTemplate(nil, nil, nil, UF.thinBorders, true)
+	bar.iconHolder:CreateSoftShadow()
+	bar.icon:SetInside(bar.iconHolder, inset, inset)
+	bar.icon:SetDrawLayer('OVERLAY')
 
-	statusBar.bg = statusBar:CreateTexture(nil, 'BORDER')
-	statusBar.bg:Show()
+	bar.bg = bar:CreateTexture(nil, 'BORDER')
+	bar.bg:Show()
 
-	local frame = statusBar:GetParent()
-	statusBar.db = frame.db and frame.db.aurabar
+	bar.iconHolder:RegisterForClicks('RightButtonUp')
+	bar.iconHolder:SetScript('OnClick', function(self)
+		if E.db.unitframe.auraBlacklistModifier == "NONE" or not ((E.db.unitframe.auraBlacklistModifier == "SHIFT" and IsShiftKeyDown()) or (E.db.unitframe.auraBlacklistModifier == "ALT" and IsAltKeyDown()) or (E.db.unitframe.auraBlacklistModifier == "CTRL" and IsControlKeyDown())) then return; end
+		local auraName = self:GetParent().aura.name
+
+		if auraName then
+			E:Print(format(L["The spell '%s' has been added to the Blacklist unitframe aura filter."], auraName))
+			E.global.unitframe.aurafilters.Blacklist.spells[auraName] = { enable = true, priority = 0 }
+			UF:Update_AllFrames()
+		end
+	end)
 end
 
 function BU:Configure_AuraBars(frame)
 	if not BUI.ShadowMode then return end
 
+	if not frame.VARIABLES_SET then return end
 	local auraBars = frame.AuraBars
-	local db = frame.db
-	auraBars.db = db.aurabar
 
-	if db.aurabar.enable then
-		auraBars.PostCreateBar = BU.Create_AuraBarsWithShadow
-	end
+	auraBars.PostCreateBar = BU.Create_AuraBarsWithShadow
+	auraBars.gap = frame.BORDER*2
+	auraBars.spacing = frame.BORDER*2
 end

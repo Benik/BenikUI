@@ -6,35 +6,33 @@ if E.private.actionbar.enable ~= true then return; end
 
 local _G = _G
 local pairs = pairs
+local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 local MAX_TOTEMS = MAX_TOTEMS
 
--- GLOBALS: NUM_PET_ACTION_SLOTS
+-- GLOBALS: NUM_PET_ACTION_SLOTS, DisableAddOn
 -- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar
 
-local classColor = E:ClassColor(E.myclass, true)
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local availableActionbars = availableActionbars or 6
 
 local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar}
 
+local function CheckExtraAB()
+	if IsAddOnLoaded('ElvUI_ExtraActionBars') then
+		availableActionbars = 10
+	else
+		availableActionbars = 6
+	end
+end
+
 function mod:StyleBackdrops()
 	-- Actionbar backdrops
-	for i = 1, 10 do
+	for i = 1, availableActionbars do
 		local styleBacks = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(styleBacks) do
 			if frame.backdrop then
 				frame.backdrop:Style('Outside', nil, true, true)
-			end
-
-			-- Button Shadows
-			if BUI.ShadowMode then
-				for k = 1, 12 do
-					local buttonBars = {_G["ElvUI_Bar"..i.."Button"..k]}
-					for _, button in pairs(buttonBars) do
-						if button.backdrop and not button.backdrop.shadow then
-							button.backdrop:CreateSoftShadow()
-						end
-					end
-				end
 			end
 		end
 	end
@@ -49,7 +47,7 @@ end
 
 function mod:ToggleStyle()
 	-- Actionbar backdrops
-	for i = 1, 10 do
+	for i = 1, availableActionbars do
 		if _G['ElvUI_Bar'..i].backdrop.style then
 			if E.db.benikui.actionbars.style['bar'..i] then
 				_G['ElvUI_Bar'..i].backdrop.style:Show()
@@ -83,7 +81,7 @@ function mod:ColorBackdrops()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local db = E.db.benikui.colors
 
-	for i = 1, 10 do
+	for i = 1, availableActionbars do
 		local styleBacks = {_G['ElvUI_Bar'..i].backdrop.style}
 
 		for _, frame in pairs(styleBacks) do
@@ -118,7 +116,54 @@ function mod:ColorBackdrops()
 	end
 end
 
-function mod:PetShadows()
+-- from ElvUI_TrasparentBackdrops plugin
+function mod:TransparentBackdrops()
+	-- Actionbar backdrops
+	local db = E.db.benikui.actionbars
+	for i = 1, availableActionbars do
+		local transBars = {_G['ElvUI_Bar'..i]}
+		for _, frame in pairs(transBars) do
+			if frame.backdrop then
+				if db.transparent then
+					frame.backdrop:SetTemplate('Transparent')
+				else
+					frame.backdrop:SetTemplate('Default')
+				end
+			end
+		end
+
+		-- Buttons
+		for k = 1, 12 do
+			local buttonBars = {_G['ElvUI_Bar'..i..'Button'..k]}
+			for _, button in pairs(buttonBars) do
+				if button.backdrop then
+					if BUI.ShadowMode then
+						if not button.backdrop.shadow then
+							button.backdrop:CreateSoftShadow()
+						end
+					end
+
+					if db.transparent then
+						button.backdrop:SetTemplate('Transparent')
+					else
+						button.backdrop:SetTemplate('Default', true)
+					end
+				end
+			end
+		end
+	end
+
+	-- Other bar backdrops
+	for _, frame in pairs(styleOtherBacks) do
+		if frame.backdrop then
+			if db.transparent then
+				frame.backdrop:SetTemplate('Transparent')
+			else
+				frame.backdrop:SetTemplate('Default')
+			end
+		end
+	end
+
 	-- Pet Buttons
 	for i = 1, NUM_PET_ACTION_SLOTS do
 		local petButtons = {_G['PetActionButton'..i]}
@@ -129,6 +174,12 @@ function mod:PetShadows()
 						button.backdrop:CreateSoftShadow()
 					end
 				end
+
+				if db.transparent then
+					button.backdrop:SetTemplate('Transparent')
+				else
+					button.backdrop:SetTemplate('Default', true)
+				end
 			end
 		end
 	end
@@ -136,55 +187,30 @@ end
 
 function mod:TotemShadows()
 	if not BUI.ShadowMode then return end
+	local button
 
 	for i=1, MAX_TOTEMS do
-		local button = _G["ElvUI_TotemBarTotem"..i];
-		if button then
-			if not button.shadow then
-				button:CreateSoftShadow()
-			end
+		button = _G["ElvUI_TotemBarTotem"..i];
+		if not button.shadow then
+			button:CreateSoftShadow()
 		end
-	end
-end
-
-function mod:ApplyFlyoutShadows(btn)
-	if not btn.shadow then
-		btn:CreateSoftShadow()
 	end
 end
 
 function mod:FlyoutShadows()
-	local btn, i = _G['SpellFlyoutButton1'], 1
-	while btn do
-		mod:ApplyFlyoutShadows(btn)
-
-		i = i + 1
-		btn = _G['SpellFlyoutButton'..i]
-	end
-end
-
-function mod:ExtraAB() -- shadows
-	hooksecurefunc(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", function(button)
-		for spellButton in button.SpellButtonContainer:EnumerateActive() do
-			if spellButton and not spellButton.hasShadow then
-				spellButton.backdrop:CreateSoftShadow()
-				spellButton.hasShadow = true
+	for i=1, AB.FlyoutButtons do
+		if _G["SpellFlyoutButton"..i] then
+			if not _G["SpellFlyoutButton"..i].shadow then
+				_G["SpellFlyoutButton"..i]:CreateSoftShadow()
 			end
-		end
-	end)
-
-	if E.private.skins.cleanBossButton ~= true then return end
-	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
-		local button = _G["ExtraActionButton"..i]
-		if button then
-			button.backdrop:CreateSoftShadow()
 		end
 	end
 end
 
 function mod:Initialize()
+	CheckExtraAB()
 	C_TimerAfter(1, mod.StyleBackdrops)
-	C_TimerAfter(1, mod.PetShadows)
+	C_TimerAfter(1, mod.TransparentBackdrops)
 	C_TimerAfter(2, mod.ColorBackdrops)
 	C_TimerAfter(2, mod.LoadToggleButtons)
 	C_TimerAfter(2, mod.ToggleStyle)
@@ -194,8 +220,7 @@ function mod:Initialize()
 	hooksecurefunc(BUI, "SetupColorThemes", mod.ColorBackdrops)
 
 	if not BUI.ShadowMode then return end
-	hooksecurefunc(_G.SpellFlyout, 'Show', mod.FlyoutShadows)
-	mod:ExtraAB()
+	_G.SpellFlyout:HookScript("OnShow", mod.FlyoutShadows)
 end
 
 BUI:RegisterModule(mod:GetName())

@@ -16,19 +16,19 @@ function BUI:LoadAddOnSkinsProfile()
 	if BUI:IsAddOnEnabled('Recount') then
 		AS.db['EmbedSystem'] = true
 		AS.db['EmbedSystemDual'] = false
-		AS.db['EmbedBackdrop'] = false
+		AS.db['RecountBackdrop'] = false
 		AS.db['TransparentEmbed'] = true
 	end
 
 	if BUI:IsAddOnEnabled('Skada') then
 		AS.db['EmbedSystem'] = false
 		AS.db['EmbedSystemDual'] = true
-		AS.db['EmbedBackdrop'] = false
+		AS.db['SkadaBackdrop'] = false
 		AS.db['TransparentEmbed'] = true
 	end
 
 	if BUI:IsAddOnEnabled('Details') then
-		AS.db['EmbedBackdrop'] = false
+		AS.db['DetailsBackdrop'] = false
 		AS.db['EmbedSystem'] = false
 		AS.db['EmbedSystemDual'] = true
 		AS.db['TransparentEmbed'] = true

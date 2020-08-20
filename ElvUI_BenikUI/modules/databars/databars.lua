@@ -8,7 +8,7 @@ local bars = {'experience', 'reputation', 'artifact', 'honor'}
 
 function mod:CreateNotifier(bar)
 	bar.f = CreateFrame('Frame', nil, bar)
-	bar.f:SetSize(2, 10)
+	bar.f:Size(2, 10)
 	bar.f.txt = bar.f:CreateFontString(nil, 'OVERLAY')
 	bar.f.arrow = bar.f:CreateFontString(nil, 'OVERLAY')
 	bar.f.arrow:SetFont(LSM:Fetch("font", 'Bui Visitor1'), 10, 'MONOCHROMEOUTLINE')
@@ -35,9 +35,9 @@ function mod:CreateNotifier(bar)
 end
 
 function mod:StyleBar(bar, onClick)
-	bar.fb = CreateFrame('Button', nil, bar, 'BackdropTemplate')
-	bar.fb:SetPoint('TOPLEFT', bar, 'BOTTOMLEFT', 0, -SPACING)
-	bar.fb:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
+	bar.fb = CreateFrame('Button', nil, bar)
+	bar.fb:Point('TOPLEFT', bar, 'BOTTOMLEFT', 0, -SPACING)
+	bar.fb:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
 
 	bar.fb:SetScript('OnClick', onClick)
 

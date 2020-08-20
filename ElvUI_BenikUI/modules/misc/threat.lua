@@ -9,20 +9,20 @@ function mod:UpdateThreatPosition()
 	local bar = ElvUI_ThreatBar
 	bar:SetStatusBarTexture(E['media'].BuiFlat)
 	if E.db.general.threat.position == 'RIGHTCHAT' then
-		if E.db.datatexts.panels.RightChatDataPanel.enable then
-			bar:SetInside(_G.RightChatDataPanel)
-			bar:SetParent(_G.RightChatDataPanel)
+		if E.db.datatexts.rightChatPanel then
+			bar:SetInside(RightChatDataPanel)
+			bar:SetParent(RightChatDataPanel)
 		else
-			bar:SetInside(_G.BuiDummyThreat)
-			bar:SetParent(_G.BuiDummyThreat)
+			bar:SetInside(BuiDummyThreat)
+			bar:SetParent(BuiDummyThreat)
 		end
 	else
-		if E.db.datatexts.panels.LeftChatDataPanel.enable then
-			bar:SetInside(_G.LeftChatDataPanel)
-			bar:SetParent(_G.LeftChatDataPanel)
+		if E.db.datatexts.leftChatPanel then
+			bar:SetInside(LeftChatDataPanel)
+			bar:SetParent(LeftChatDataPanel)
 		else
-			bar:SetInside(_G.BuiDummyChat)
-			bar:SetParent(_G.BuiDummyChat)
+			bar:SetInside(BuiDummyChat)
+			bar:SetParent(BuiDummyChat)
 		end
 	end
 	bar:SetFrameStrata('MEDIUM')

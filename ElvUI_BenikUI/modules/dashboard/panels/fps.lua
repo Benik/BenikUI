@@ -13,7 +13,7 @@ local GetAddOnInfo = GetAddOnInfo
 local IsAddOnLoaded = IsAddOnLoaded
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local GetAddOnMemoryUsage = GetAddOnMemoryUsage
-local InCombatLockdown = InCombatLockdown
+local InCombatLockdown, IsInInstance = InCombatLockdown, IsInInstance
 local GameTooltip = _G["GameTooltip"]
 
 local kiloByteString = '|cfff6a01a %d|r'..' kb'
@@ -43,7 +43,7 @@ end
 
 local function sortByMemory(a, b)
 	if a and b then
-		return (a[3] == b[3] and a[2] < b[2]) or a[3] > b[3]
+		return a[3] > b[3]
 	end
 end
 
@@ -115,7 +115,10 @@ function mod:CreateFps()
 	end)
 
 	boardName.Status:SetScript('OnUpdate', function(self, elapsed)
-		LastUpdate = LastUpdate - elapsed
+		if LastUpdate > 0 then
+			LastUpdate = LastUpdate - elapsed
+			return
+		end
 
 		if(LastUpdate < 0) then
 			self:SetMinMaxValues(0, 200)

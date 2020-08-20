@@ -29,7 +29,6 @@ function BU:ArrangeFocus()
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.focus.portraitTransparent
 		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.focus.portraitShadow
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.focus.portraitFrameStrata
-		frame.PORTRAIT_BACKDROP = E.db.benikui.unitframes.focus.portraitBackdrop
 
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.focus.portraitWidth
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.focus.portraitHeight	

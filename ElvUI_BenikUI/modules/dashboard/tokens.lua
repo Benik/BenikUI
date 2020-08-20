@@ -2,12 +2,13 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
 
-local _G = _G
 local getn = getn
+local pairs, ipairs = pairs, ipairs
 local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 
-local GameTooltip = _G.GameTooltip
-local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local GameTooltip = _G["GameTooltip"]
+local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
+local GetCurrencyInfo = GetCurrencyInfo
 local IsShiftKeyDown = IsShiftKeyDown
 
 -- GLOBALS: hooksecurefunc
@@ -16,7 +17,7 @@ local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
 
-local classColor = E:ClassColor(E.myclass, true)
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local Currency = {
 	-- unused/old
@@ -51,7 +52,6 @@ local Currency = {
 
 	-- pvp
 	391,	-- Tol Barad Commendation
-	--1602,	-- Conquest
 
 	-- secondary
 	81,		-- Epicurean's Award
@@ -108,20 +108,7 @@ local Currency = {
 	1716,	-- Honorbound Service Medal (Horde)
 	1717,	-- 7th Legion Service Medal (Alliance)
 	1718,	-- Titan Residuum
-	1719,	-- Corrupted Memento
 	1721,	-- Prismatic Manapearl
-	1755,	-- Coalescing Visions
-	1803,	-- Echoes of Ny'alotha
-
-	-- Shadowlands
-	1751,	-- Freed Soul
-	1810,	-- Willing Soul
-	--1811,	-- Architect slaves -- this seems to be removed(?)
-	--1812,	-- Weaver slaves -- this seems to be removed(?)
-	1813,	-- Reservoir Anima
-	1820,	-- Infused Ruby
-	1822,	-- Renown
-	1828, 	-- Soul Ash
 }
 
 local function Icon_OnEnter(self)
@@ -130,7 +117,7 @@ local function Icon_OnEnter(self)
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 		GameTooltip:SetCurrencyByID(id)
 		GameTooltip:AddLine(' ')
-		GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
+		GameTooltip:AddLine(L['Shift+RightClick to remove'], 0.7, 0.7, 1)
 		GameTooltip:Show()
 	end
 
@@ -160,14 +147,9 @@ local function sortFunction(a, b)
 	return a.name < b.name
 end
 
-function mod:GetTokenInfo(id)
-	local info = C_CurrencyInfo_GetCurrencyInfo(id)
-	return info.name, info.quantity, info.iconFileID, info.maxWeeklyQuantity, info.maxQuantity, info.discovered
-end
-
 function mod:UpdateTokens()
 	local db = E.db.dashboards.tokens
-	local holder = _G.BUI_TokensDashboard
+	local holder = BUI_TokensDashboard
 
 	if(BUI.TokensDB[1]) then
 		for i = 1, getn(BUI.TokensDB) do
@@ -192,17 +174,18 @@ function mod:UpdateTokens()
 	end)
 
 	for _, id in pairs(Currency) do
-		local name, amount, icon, weeklyMax, totalMax, isDiscovered = mod:GetTokenInfo(id)
+		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
+
 		if name then
-			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = nil end
+			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = false end
 
 			if E.private.dashboards.tokens.chooseTokens[id] == true then
 				if db.zeroamount or amount > 0 then
 					holder:Show()
-					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if tokenHolderMover then
-						tokenHolderMover:SetSize(holder:GetSize())
-						holder:SetPoint('TOPLEFT', tokenHolderMover, 'TOPLEFT')
+						tokenHolderMover:Size(holder:GetSize())
+						holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
 
 					self.tokenFrame = self:CreateDashboard(nil, holder, 'tokens')
@@ -283,9 +266,9 @@ function mod:UpdateTokens()
 	for key, frame in pairs(BUI.TokensDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:SetPoint('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:SetPoint('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			frame:Point('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
@@ -301,9 +284,16 @@ function mod:TokenEvents()
 end
 
 function mod:CreateTokensDashboard()
+	local DASH_WIDTH = E.db.dashboards.tokens.width or 150
+
 	self.tokenHolder = self:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
-	self.tokenHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
-	self.tokenHolder:SetWidth(E.db.dashboards.tokens.width or 150)
+
+	if E.db.dashboards.system.enableSystem and BUI_SystemDashboard then
+		self.tokenHolder:Point('TOPLEFT', BUI_SystemDashboard, 'BOTTOMLEFT', 0, -10)
+	else
+		self.tokenHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -30)
+	end
+	self.tokenHolder:Width(DASH_WIDTH)
 
 	mod:UpdateTokens()
 	mod:UpdateTokenSettings()
@@ -311,7 +301,7 @@ function mod:CreateTokensDashboard()
 	mod:ToggleStyle(self.tokenHolder, 'tokens')
 	mod:ToggleTransparency(self.tokenHolder, 'tokens')
 
-	E:CreateMover(_G.BUI_TokensDashboard, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(self.tokenHolder, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BenikUI', nil, 'benikui,dashboards,tokens')
 end
 
 function mod:LoadTokens()
