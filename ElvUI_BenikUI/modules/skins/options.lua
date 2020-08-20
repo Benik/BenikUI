@@ -11,7 +11,6 @@ local DecorElvUIAddons = {
 	{'ElvUI_LocPlus', L['LocationPlus'], 'locplus'},
 	{'ElvUI_SLE', L['Shadow & Light'], 'sle'},
 	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
-	{'ElvUI_DTBars2', L['DT Bars 2'], 'dtb2'},
 }
 
 local DecorAddons = {
@@ -27,7 +26,6 @@ local DecorAddons = {
 	{'BigWigs', L['BigWigs'], 'bigwigs'},
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
 	{'Immersion', L['Immersion'], 'immersion'},
-	{'AdiBags', L['AdiBags'], 'adibags'},
 }
 
 local SupportedProfiles = {
@@ -35,7 +33,6 @@ local SupportedProfiles = {
 	{'BigWigs', 'BigWigs'},
 	{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
-	{'ElvUI_VisualAuraTimers', 'ElvUI VisualAuraTimers'},
 	{'ElvUI_LocPlus', 'Location Plus'},
 	{'InFlight_Load', 'InFlight'},
 	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
@@ -46,15 +43,15 @@ local SupportedProfiles = {
 }
 
 BUI.profileStrings = {
-	[1] = format('|cfffff400%s |r', L['BenikUI successfully created and applied profile(s) for:']),
-	[2] = format('|cfffff400%s |r', L[': Profile for this character already exists. Aborting.']),
+	[1] = L['Successfully created and applied profile(s) for |cffffff00%s|r'],
+	[2] = L['|cffffff00%s|r profile for this character already exists. Aborting.'],
 }
 
 local pa = L['Project Azilroka']
 
 local function SkinTable()
 	E.Options.args.benikui.args.skins = {
-		order = 40,
+		order = 100,
 		type = 'group',
 		name = ADDONS,
 		args = {
@@ -184,7 +181,6 @@ local function SkinTable()
 			type = 'execute',
 			name = addonName,
 			desc = L['This will create and apply profile for ']..addonName,
-			buttonElvUI = true,
 			func = function()
 				if addon == 'DBM-Core' then
 					BUI:LoadDBMProfile()
@@ -208,8 +204,6 @@ local function SkinTable()
 					BUI:LoadRecountProfile()
 				elseif addon == 'Skada' then
 					BUI:LoadSkadaProfile()
-				elseif addon == 'ElvUI_VisualAuraTimers' then
-					BUI:LoadVATProfile()
 				elseif addon == 'AddOnSkins' then
 					BUI:LoadAddOnSkinsProfile()
 				elseif addon == 'ProjectAzilroka' then

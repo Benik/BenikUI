@@ -48,77 +48,30 @@ function BU:RecolorTargetDetachedPortraitStyle()
 
 		if frame.USE_PORTRAIT and portrait.backdrop.style and E.db.benikui.unitframes.target.portraitStyle then
 			local maxValue = UnitPowerMax("target")
-			local _, pToken, altR, altG, altB = UnitPowerType("target")
+			local _, _, altR, altG, altB = UnitPowerType("target")
 			local mu = power.BG.multiplier or 1
-			local color = ElvUF['colors'].power[pToken]
 			local isPlayer = UnitIsPlayer("target")
 			local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
 
-			if not power.colorClass then
-				if maxValue > 0 then
-					if color then
-						r, g, b = color[1], color[2], color[3]
-					else
-						r, g, b = altR, altG, altB
-					end
+			local reaction = UnitReaction('target', 'player')
+			if maxValue > 0 then
+				if isPlayer then
+					r, g, b = classColor.r, classColor.g, classColor.b
 				else
-					if color and mu then
-						r, g, b = color[1] * mu, color[2] * mu, color[3] * mu
+					if reaction then
+						local tpet = ElvUF.colors.reaction[reaction]
+						r, g, b = tpet[1], tpet[2], tpet[3]
 					end
 				end
 			else
-				local reaction = UnitReaction('target', 'player')
-				if maxValue > 0 then
-					if isPlayer then
-						r, g, b = classColor.r, classColor.g, classColor.b
-					else
-						if reaction then
-							local tpet = ElvUF.colors.reaction[reaction]
-							r, g, b = tpet[1], tpet[2], tpet[3]
-						end
-					end
-				else
-					if reaction and mu then
-						local t = ElvUF.colors.reaction[reaction]
-						r, g, b = t[1] * mu, t[2] * mu, t[3] * mu
-					end
+				if reaction and mu then
+					local t = ElvUF.colors.reaction[reaction]
+					r, g, b = t[1] * mu, t[2] * mu, t[3] * mu
 				end
 			end
+
 			portrait.backdrop.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
 		end
-	end
-end
-
-function BU:RecolorTargetInfoPanel()
-	local frame = _G["ElvUF_Target"]
-	if not frame.USE_INFO_PANEL then return end
-	local targetClass = select(2, UnitClass("target"));
-
-	do
-		local panel = frame.InfoPanel
-		local isPlayer = UnitIsPlayer("target")
-		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
-		local reaction = UnitReaction('target', 'player')
-		local r, g, b
-
-		if isPlayer then
-			if E.db.benikui.unitframes.infoPanel.customColor == 1 then
-				r, g, b = classColor.r, classColor.g, classColor.b
-			else
-				r, g, b = BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color)
-			end
-		else
-			if reaction then
-				local tpet = ElvUF.colors.reaction[reaction]
-				if E.db.benikui.unitframes.infoPanel.customColor == 1 then
-					r, g, b = tpet[1], tpet[2], tpet[3]
-				else
-					r, g, b = BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color)
-				end
-			end
-		end
-
-		panel.color:SetVertexColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
 	end
 end
 
@@ -130,6 +83,7 @@ function BU:ArrangeTarget()
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.target.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.target.portraitTransparent
 		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.target.portraitShadow
+		frame.PORTRAIT_BACKDROP = E.db.benikui.unitframes.target.portraitBackdrop
 		
 		frame.PORTRAIT_STYLING = E.db.benikui.unitframes.target.portraitStyle
 		frame.PORTRAIT_STYLING_HEIGHT = E.db.benikui.unitframes.target.portraitStyleHeight
@@ -157,17 +111,17 @@ function BU:ArrangeTarget()
 end
 
 function BU:PLAYER_TARGET_CHANGED()
-	self:ScheduleTimer('RecolorTargetDetachedPortraitStyle', 0.02)
-	self:ScheduleTimer('RecolorTargetInfoPanel', 0.02)
+	BU:RecolorTargetDetachedPortraitStyle()
+	BU:UnitInfoPanelColor()
 end
 
 function BU:InitTarget()
 	if not E.db.unitframe.units.target.enable then return end
 	self:Construct_TargetFrame()
 	hooksecurefunc(UF, 'Update_TargetFrame', BU.ArrangeTarget)
-	self:RegisterEvent('PLAYER_TARGET_CHANGED')
 	hooksecurefunc(UF, 'Update_TargetFrame', BU.RecolorTargetDetachedPortraitStyle)
-	hooksecurefunc(UF, 'Update_TargetFrame', BU.RecolorTargetInfoPanel)
+	
+	self:RegisterEvent('PLAYER_TARGET_CHANGED')
 
 	-- Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)

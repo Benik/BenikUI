@@ -22,6 +22,12 @@ local function GetVolumePercent(cat)
 	return volume;
 end
 
+local function RoundVolume(cat)
+	local volume = tonumber(GetCVar(cat))
+	volume = E:Round(volume, 1)
+	return volume;
+end
+
 local function iconBG_OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, -20)
 	GameTooltip:ClearAllPoints()
@@ -52,18 +58,16 @@ local function iconBG_OnLeave(self)
 end
 
 local function Sound_MasterVolumeUp()
-	local volume = (GetCVar('Sound_MasterVolume'));
+	local volume = RoundVolume('Sound_MasterVolume')
 
-	volume = tonumber(E:Round(volume, 1));
 	if (volume and volume <= 0.9) then
 		SetCVar('Sound_MasterVolume', volume + 0.1);
 	end
 end
 
 local function Sound_MasterVolumeDown()
-	local volume = (GetCVar('Sound_MasterVolume'));
+	local volume = RoundVolume('Sound_MasterVolume')
 
-	volume = tonumber(E:Round(volume, 1));
 	if (volume and volume >= 0.1) then
 		SetCVar('Sound_MasterVolume', volume - 0.1);
 	end
@@ -103,7 +107,7 @@ function mod:CreateVolume()
 	local boardName = _G['BUI_Volume']
 
 	local iconBG = CreateFrame('Frame', nil, boardName)
-	iconBG:Size(16,16)
+	iconBG:SetSize(16, 16)
 	iconBG:Point('BOTTOMRIGHT', boardName, 'BOTTOMRIGHT', 0, (E.PixelMode and 4 or 6))
 	iconBG:SetFrameStrata('LOW')
 	iconBG.text = iconBG:CreateFontString(nil, 'OVERLAY')

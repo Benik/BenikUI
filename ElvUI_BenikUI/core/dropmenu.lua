@@ -12,6 +12,9 @@ local hoverVisible = false
 
 local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
 local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
+local C_Garrison_HasGarrison = C_Garrison.HasGarrison
+
+local classColor = E:ClassColor(E.myclass, true)
 
 BUI.MenuList = {
 	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
@@ -45,7 +48,11 @@ BUI.MenuList = {
 	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
 	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
-	{text = GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, func = function() GarrisonLandingPageMinimapButton_OnClick() end},
+	{text = GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = function()
+		if (C_Garrison.HasGarrison(Enum.GarrisonType.Type_9_0)) then
+			ShowGarrisonLandingPage(Enum.GarrisonType.Type_9_0) -- errors the ElvUI Skin
+		end
+	end},
 	{text = COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
 	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
 	{text = MOUNTS, func = function() ToggleCollectionsJournal(1) end},
@@ -102,8 +109,6 @@ local function OnLeave(btn)
 	hoverVisible = false
 end
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
 -- added parent, removed the mouse x,y and set menu frame position to any parent corners.
 -- Also added delay to autohide
 function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSize)
@@ -136,7 +141,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 
 	for i=1, #list do
 		if not frame.buttons[i] then
-			frame.buttons[i] = CreateFrame('Button', nil, frame)
+			frame.buttons[i] = CreateFrame('Button', nil, frame, 'BackdropTemplate')
 
 			frame.buttons[i].hoverTex = frame.buttons[i]:CreateTexture(nil, 'OVERLAY')
 			frame.buttons[i].hoverTex:SetAllPoints()

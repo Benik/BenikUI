@@ -5,8 +5,6 @@ if E.db.benikui == nil then E.db.benikui = {} end
 local format = string.format
 local tinsert, tsort, tconcat = table.insert, table.sort, table.concat
 
-local CLASS_COLORS, CUSTOM, DEFAULT = CLASS_COLORS, CUSTOM, DEFAULT
-local COLORS, COLOR_PICKER = COLORS, COLOR_PICKER
 local StaticPopup_Show = StaticPopup_Show
 
 local DONATORS = {
@@ -37,9 +35,19 @@ local DONATORS = {
 	'Kevin G.',
 	'Ahmed A.',
 	'Christopher S-C.',
+	'George McC.',
+	'Christian S.',
+	'Sumidian',
 }
 tsort(DONATORS, function(a, b) return a < b end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
+
+local PATRONS = {
+	'thurin',
+	'Ric F.',
+}
+tsort(PATRONS, function(a, b) return a < b end)
+local PATRONS_STRING = tconcat(PATRONS, ", ")
 
 	StaticPopupDialogs["BENIKUI_CREDITS"] = {
 		text = BUI.Title,
@@ -48,7 +56,7 @@ local DONATOR_STRING = tconcat(DONATORS, ", ")
 		OnShow = function(self, data)
 			self.editBox:SetAutoFocus(false)
 			self.editBox.width = self.editBox:GetWidth()
-			self.editBox:Width(280)
+			self.editBox:SetWidth(280)
 			self.editBox:AddHistoryLine("text")
 			self.editBox.temptxt = data
 			self.editBox:SetText(data)
@@ -56,7 +64,7 @@ local DONATOR_STRING = tconcat(DONATORS, ", ")
 			self.editBox:SetJustifyH("CENTER")
 		end,
 		OnHide = function(self)
-			self.editBox:Width(self.editBox.width or 50)
+			self.editBox:SetWidth(self.editBox.width or 50)
 			self.editBox.width = nil
 			self.temptxt = nil
 		end,
@@ -82,9 +90,10 @@ local DONATOR_STRING = tconcat(DONATORS, ", ")
 
 local function Core()
 	E.Options.args.benikui = {
-		order = 9000,
+		order = 6,
 		type = 'group',
 		name = BUI.Title,
+		childGroups = "tab",
 		args = {
 			name = {
 				order = 1,
@@ -96,7 +105,7 @@ local function Core()
 				type = 'description',
 				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.']),
 				fontSize = 'medium',
-				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 256, 64 end,
+				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 384, 96 end,
 			},
 			install = {
 				order = 3,
@@ -111,15 +120,19 @@ local function Core()
 				name = '',
 			},
 			general = {
-				order = 5,
+				order = 10,
 				type = 'group',
 				name = L['General'],
-				guiInline = true,
 				get = function(info) return E.db.benikui.general[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.general[ info[#info] ] = value; end,
 				args = {
-					benikuiStyle = {
+					name = {
 						order = 1,
+						type = 'header',
+						name = BUI:cOption(L['General']),
+					},
+					benikuiStyle = {
+						order = 2,
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						desc = L['Enable/Disable the decorative bars from UI elements'],
@@ -127,7 +140,7 @@ local function Core()
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					hideStyle = {
-						order = 2,
+						order = 3,
 						type = 'toggle',
 						name = L['Hide BenikUI Style'],
 						desc = L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility options.|r'],
@@ -135,49 +148,60 @@ local function Core()
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateStyleVisibility(); end,
 					},
+					spacer = {
+						order = 10,
+						type = 'description',
+						name = '',
+					},
 					shadows = {
-						order = 3,
+						order = 11,
 						type = 'toggle',
 						name = L['Shadows'],
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					auras = {
-						order = 4,
-						type = 'toggle',
-						name = L['Style Auras'],
-						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+					shadowSize = {
+						order = 12,
+						type = "range",
+						name = E.NewSign..L['Shadow Size'],
+						min = 3, max = 10, step = 1,
+						disabled = function() return E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer = {
-						order = 5,
+					spacer2 = {
+						order = 20,
 						type = 'header',
 						name = '',
 					},
 					loginMessage = {
-						order = 6,
+						order = 21,
 						type = 'toggle',
 						name = L['Login Message'],
 					},
 					splashScreen = {
-						order = 7,
+						order = 22,
 						type = 'toggle',
 						name = L['Splash Screen'],
 					},
 				},
 			},
 			colors = {
-				order = 6,
+				order = 20,
 				type = 'group',
 				name = L.COLORS,
-				guiInline = true,
 				args = {
-					themes = {
+					name = {
 						order = 1,
+						type = 'header',
+						name = BUI:cOption(L.COLORS),
+					},
+					themes = {
+						order = 2,
 						type = 'group',
 						name = L['Color Themes'],
+						guiInline = true,
 						args = {
 							colorTheme = {
 								order = 1,
@@ -213,9 +237,10 @@ local function Core()
 						},
 					},
 					style = {
-						order = 2,
+						order = 3,
 						type = 'group',
 						name = L['Style Color'],
+						guiInline = true,
 						args = {
 							StyleColor = {
 								order = 1,
@@ -260,9 +285,10 @@ local function Core()
 						},
 					},
 					abStyle = {
-						order = 3,
+						order = 4,
 						type = 'group',
 						name = L['ActionBar Style Color'],
+						guiInline = true,
 						args = {
 							abStyleColor = {
 								order = 1,
@@ -307,9 +333,10 @@ local function Core()
 						},
 					},
 					gameMenu = {
-						order = 4,
+						order = 5,
 						type = 'group',
 						name = L['Game Menu Color'],
+						guiInline = true,
 						args = {
 							gameMenuColor = {
 								order = 1,
@@ -351,7 +378,7 @@ local function Core()
 					name = {
 						order = 1,
 						type = 'header',
-						name = BUI.Title,
+						name = BUI:cOption(L['Information']),
 					},
 					support = {
 						order = 2,
@@ -415,7 +442,7 @@ local function Core()
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', 'Elv, Tukz, Blazeflack, Azilroka, Darth Predator, Sinaris, Hydra, Merathilis'),
+								name = format('|cffffd200%s|r', 'Elv, Tukz, Blazeflack, Azilroka, Darth Predator, Sinaris, Hydra, Merathilis, NihilisticPandemonium, Repooc'),
 							},
 						},
 					},
@@ -429,7 +456,7 @@ local function Core()
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', 'Merathilis, Roxanne, BuG, Semprini, Vxt, V4NT0M, Obscurrium, Klix, ElvUI community'),
+								name = format('|cffffd200%s|r', 'Merathilis, Kringel, Roxanne, BuG, Semprini, Vxt, V4NT0M, Obscurrium, ElvUI community'),
 							},
 						},
 					},
@@ -439,11 +466,17 @@ local function Core()
 						name = BUI:cOption(L['Donations']),
 						guiInline = true,
 						args = {
-							tukui = {
+							patreon = {
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', DONATOR_STRING)
+								name = format('|cffff005aPatrons: |r|cffffd200%s\n|r', PATRONS_STRING)
+							},
+							paypal = {
+								order = 2,
+								type = 'description',
+								fontSize = 'medium',
+								name = format('|cff009fffPayPal: |r|cffffd200%s|r', DONATOR_STRING)
 							},
 						},
 					},

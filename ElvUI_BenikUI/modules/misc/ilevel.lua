@@ -112,13 +112,13 @@ function mod:UpdateItemLevelPosition()
 		local parent = _G["Character"..slotIDs[id]]
 		local myPoint, parentPoint, x, y = returnPoints(id)
 		mod.f[id]:ClearAllPoints()
-		mod.f[id]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
+		mod.f[id]:SetPoint(myPoint, parent, parentPoint, x or 0, y or 0)
 	end
 
 	CharacterNeckSlot.RankFrame:ClearAllPoints()
 	CharacterNeckSlot.RankFrame.Label:ClearAllPoints()
-	CharacterNeckSlot.RankFrame:Point('TOPRIGHT', CharacterNeckSlot, 'TOPRIGHT', 0, 4)
-	CharacterNeckSlot.RankFrame.Label:Point('RIGHT')
+	CharacterNeckSlot.RankFrame:SetPoint('TOPRIGHT', CharacterNeckSlot, 'TOPRIGHT', 0, 4)
+	CharacterNeckSlot.RankFrame.Label:SetPoint('RIGHT')
 end
 
 function mod:CreateString()
@@ -138,7 +138,7 @@ function mod:PLAYER_ENTERING_WORLD()
 end
 
 function mod:Initialize()
-	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.Armory.Character.Enable ~= false) then return end
+	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.armory.character.enable ~= false) then return end
 
 	mod.f = CreateFrame("Frame", nil, PaperDollFrame)
 	mod:CreateString()
@@ -153,6 +153,7 @@ function mod:Initialize()
 
 	mod:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", mod.UpdateItemLevel)
 	mod:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE", mod.UpdateItemLevel)
+	mod:RegisterEvent("PLAYER_AVG_ITEM_LEVEL_UPDATE", mod.UpdateItemLevel)
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 

@@ -28,6 +28,7 @@ function BU:ArrangePet()
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.pet.portraitTransparent
 		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.pet.portraitShadow
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.pet.portraitFrameStrata
+		frame.PORTRAIT_BACKDROP = E.db.benikui.unitframes.pet.portraitBackdrop
 
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.pet.portraitWidth
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.pet.portraitHeight	

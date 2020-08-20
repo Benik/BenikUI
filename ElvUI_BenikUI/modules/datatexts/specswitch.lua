@@ -23,7 +23,7 @@ local activeString = join("", "|cff00FF00" , ACTIVE_PETS, "|r")
 local inactiveString = join("", "|cffFF0000", FACTION_INACTIVE, "|r")
 
 local menuFrame = CreateFrame("Frame", "BenikUI_LootSpecializationDatatextClickMenu", E.UIParent, "UIDropDownMenuTemplate")
-menuFrame:SetTemplate('Transparent')
+--menuFrame:SetTemplate('Transparent')
 
 local menuList = {
 	{ text = SELECT_LOOT_SPECIALIZATION, isTitle = true, notCheckable = true },
@@ -115,7 +115,7 @@ local function OnClick(self, button)
 		end
 		EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
 	else
-		local specID, specName = GetSpecializationInfo(specIndex);
+		local _, specName = GetSpecializationInfo(specIndex);
 		menuList[2].text = format(LOOT_SPECIALIZATION_DEFAULT, specName);
 
 		for index = 1, 4 do
@@ -140,4 +140,4 @@ local function ValueColorUpdate(hex)
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
-DT:RegisterDatatext('Spec Switch (BenikUI)',{"PLAYER_ENTERING_WORLD", "CHARACTER_POINTS_CHANGED", "PLAYER_TALENT_UPDATE", "ACTIVE_TALENT_GROUP_CHANGED"}, OnEvent, nil, OnClick, OnEnter)
+DT:RegisterDatatext('Spec Switch (BenikUI)', 'BenikUI', {"PLAYER_ENTERING_WORLD", "CHARACTER_POINTS_CHANGED", "PLAYER_TALENT_UPDATE", "ACTIVE_TALENT_GROUP_CHANGED"}, OnEvent, nil, OnClick, OnEnter)
