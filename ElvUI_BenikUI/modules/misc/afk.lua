@@ -37,16 +37,22 @@ local stats = {
 	107,	-- Creatures killed
 	112,	-- Deaths from drowning
 	114,	-- Deaths from falling
+	115,	-- Deaths from fire and lava
 	319,	-- Duels won
 	320,	-- Duels lost
 	326,	-- Gold from quest rewards
 	328,	-- Total gold acquired
+	329,	-- Auctions posted
+	331,	-- Most expensive bid on auction
+	332,	-- Most expensive auction sold
 	333,	-- Gold looted
 	334,	-- Most gold ever owned
 	338,	-- Vanity pets owned
+	345,	-- Health potions consumed
 	349,	-- Flight paths taken
 	353,	-- Number of times hearthed
 	588,	-- Total Honorable Kills
+	812,	-- Healthstones used
 	837,	-- Arenas won
 	838,	-- Arenas played
 	839,	-- Battlegrounds played
@@ -62,12 +68,16 @@ local stats = {
 	1066,	-- Total times LOL'd
 	1197,	-- Total kills
 	1198,	-- Total kills that grant experience or honor
+	1336,	-- Creature type killed the most
 	1339,	-- Mage portal taken most
 	1487,	-- Killing Blows
 	1491,	-- Battleground Killing Blows
 	1518,	-- Fish caught
 	1716,	-- Battleground with the most Killing Blows
+	1776,	-- Food eaten most
 	2277,	-- Summons accepted
+	2396,	-- Battleground played the most
+	2397,	-- Battleground won the most
 	5692,	-- Rated battlegrounds played
 	5694,	-- Rated battlegrounds won
 	7399,	-- Challenge mode dungeons completed
