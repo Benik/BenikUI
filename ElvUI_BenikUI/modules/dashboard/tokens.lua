@@ -9,6 +9,7 @@ local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 local GameTooltip = _G.GameTooltip
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local IsShiftKeyDown = IsShiftKeyDown
+local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 -- GLOBALS: hooksecurefunc
 
@@ -225,12 +226,12 @@ function mod:UpdateTokens()
 					end
 
 					if totalMax == 0 then
-						self.tokenFrame.Text:SetFormattedText('%s', amount)
+						self.tokenFrame.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
 					else
 						if db.weekly and weeklyMax > 0 then
-							self.tokenFrame.Text:SetFormattedText('%s / %s', amount, weeklyMax)
+							self.tokenFrame.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
 						else
-							self.tokenFrame.Text:SetFormattedText('%s / %s', amount, totalMax)
+							self.tokenFrame.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
 						end
 					end
 
@@ -255,12 +256,12 @@ function mod:UpdateTokens()
 
 					self.tokenFrame:SetScript('OnLeave', function(self)
 						if totalMax == 0 then
-							self.Text:SetFormattedText('%s', amount)
+							self.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
 						else
 							if db.weekly and weeklyMax > 0 then
-								self.Text:SetFormattedText('%s / %s', amount, weeklyMax)
+								self.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
 							else
-								self.Text:SetFormattedText('%s / %s', amount, totalMax)
+								self.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
 							end
 						end
 						GameTooltip:Hide()
