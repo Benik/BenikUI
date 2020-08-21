@@ -73,7 +73,7 @@ local function styleFreeBlizzardFrames()
 		_G.AddonList:Style("Outside")
 	end
 	
-	if db.BlizzardOptions then
+	if db.blizzardOptions then
 		_G.AudioOptionsFrame:Style("Outside")
 		_G.ChatConfigFrame:Style("Outside")
 		_G.InterfaceOptionsFrame:Style("Outside")

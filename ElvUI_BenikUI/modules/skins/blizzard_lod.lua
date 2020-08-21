@@ -23,7 +23,7 @@ S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_A
 
 -- AlliedRacesUI
 local function style_AlliedRacesUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.AlliedRaces ~= true or
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alliedRaces ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -79,7 +79,7 @@ S:AddCallbackForAddon("Blizzard_AuctionHouseUI", "BenikUI_AuctionHouseUI", style
 
 -- AzeriteEssenceUI
 local function style_AzeriteEssenceUI()
-	if E.private.skins.blizzard.AzeriteEssence ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.private.skins.blizzard.azeriteEssence ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	_G.AzeriteEssenceUI:Style('Outside')
 end
@@ -87,7 +87,7 @@ S:AddCallbackForAddon("Blizzard_AzeriteEssenceUI", "BenikUI_AzeriteEssenceUI", s
 
 -- AzeriteUI
 local function style_AzeriteUI()
-	if E.private.skins.blizzard.AzeriteUI ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.azerite ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -99,7 +99,7 @@ S:AddCallbackForAddon("Blizzard_AzeriteUI", "BenikUI_AzeriteUI", style_AzeriteUI
 
 -- AzeriteRespecFrame
 local function style_AzeriteRespecUI()
-	if E.private.skins.blizzard.AzeriteRespec ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.azeriteRespec ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -207,7 +207,7 @@ S:AddCallbackForAddon("Blizzard_ChallengesUI", "BenikUI_ChallengesUI", style_Cha
 
 -- Channels
 local function style_Channels()
-	if E.private.skins.blizzard.Channels ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.channels ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -237,7 +237,7 @@ S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Colle
 
 -- Communities
 local function style_Communities()
-	if E.private.skins.blizzard.Communities ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.communities ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -257,7 +257,7 @@ S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Communities", style_Commu
 
 -- Contribution
 local function style_Contribution()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Contribution ~= true or
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.contribution ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -549,7 +549,7 @@ S:AddCallbackForAddon("Blizzard_GuildControlUI", "BenikUI_GuildControlUI", style
 
 -- IslandsQueueUI
 local function style_IslandsQueueUI()
-	if E.private.skins.blizzard.IslandQueue ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.islandQueue ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -586,7 +586,7 @@ S:AddCallbackForAddon("Blizzard_InspectUI", "BenikUI_InspectUI", style_InspectUI
 
 -- ItemInteractionUI
 local function style_ItemInteractionUI()
-	if E.private.skins.blizzard.ItemInteraction ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.itemInteraction ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -657,7 +657,7 @@ S:AddCallbackForAddon("Blizzard_MacroUI", "BenikUI_MacroUI", style_MacroUI)
 
 -- ObliterumUI
 local function style_ObliterumUI()
-	if E.private.skins.blizzard.Obliterum ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.obliterum ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -733,7 +733,7 @@ S:AddCallbackForAddon("Blizzard_QuestChoice", "BenikUI_QuestChoice", style_Quest
 
 -- ScrappingMachine
 local function style_ScrappingMachineUI()
-	if E.private.skins.blizzard.Scrapping ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.scrapping ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -878,7 +878,7 @@ S:AddCallbackForAddon("Blizzard_VoidStorageUI", "BenikUI_VoidStorageUI", style_V
 
 -- WarboardUI
 local function style_WarboardUI()
-	if E.private.skins.blizzard.Warboard ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.warboard ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
