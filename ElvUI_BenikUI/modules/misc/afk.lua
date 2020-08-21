@@ -39,24 +39,19 @@ local stats = {
 	114,	-- Deaths from falling
 	319,	-- Duels won
 	320,	-- Duels lost
-	321,	-- Total raid and dungeon deaths
 	326,	-- Gold from quest rewards
 	328,	-- Total gold acquired
 	333,	-- Gold looted
 	334,	-- Most gold ever owned
 	338,	-- Vanity pets owned
-	339,	-- Mounts owned
-	342,	-- Epic items acquired
 	349,	-- Flight paths taken
 	353,	-- Number of times hearthed
-	377,	-- Most factions at Exalted
 	588,	-- Total Honorable Kills
 	837,	-- Arenas won
 	838,	-- Arenas played
 	839,	-- Battlegrounds played
 	840,	-- Battlegrounds won
 	919,	-- Gold earned from auctions
-	931,	-- Total factions encountered
 	932,	-- Total 5-player dungeons entered
 	933,	-- Total 10-player raids entered
 	934,	-- Total 25-player raids entered
@@ -65,7 +60,6 @@ local stats = {
 	1047,	-- Total facepalms
 	1065,	-- Total waves
 	1066,	-- Total times LOL'd
-	1149,	-- Talent tree respecs
 	1197,	-- Total kills
 	1198,	-- Total kills that grant experience or honor
 	1339,	-- Mage portal taken most
@@ -78,13 +72,6 @@ local stats = {
 	5694,	-- Rated battlegrounds won
 	7399,	-- Challenge mode dungeons completed
 	8278,	-- Pet Battles won at max level
-	10060,	-- Garrison Followers recruited
-	10181,	-- Garrision Missions completed
-	10184,	-- Garrision Rare Missions completed
-	11234,	-- Class Hall Champions recruited
-	11235,	-- Class Hall Troops recruited
-	11236,	-- Class Hall Missions completed
-	11237,	-- Class Hall Rare Missions completed
 }
 
 -- Create Time
