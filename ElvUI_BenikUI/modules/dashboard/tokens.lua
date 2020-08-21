@@ -51,7 +51,7 @@ local Currency = {
 
 	-- pvp
 	391,	-- Tol Barad Commendation
-	--1602,	-- Conquest
+	1602,	-- Conquest
 
 	-- secondary
 	81,		-- Epicurean's Award
