@@ -49,7 +49,7 @@ function mod:CreatePanel()
 	if not E.db.benikui.panels then E.db.benikui.panels = {} end
 	for name in pairs(E.db.benikui.panels) do
 		if name and not _G[name] then
-			local panel = CreateFrame("Frame", name, E.UIParent)
+			local panel = CreateFrame("Frame", name, E.UIParent, 'BackdropTemplate')
 			panel:SetWidth(name.width or 200)
 			panel:SetHeight(name.height or 200)
 			panel:SetTemplate('Transparent')
