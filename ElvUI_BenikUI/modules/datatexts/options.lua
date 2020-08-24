@@ -99,6 +99,12 @@ local function Datatexts()
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateEditboxAnchors(); end,
 					},
+					elvuiOption = {
+						order = 10,
+						type = "execute",
+						name = L['Set Datatext Values'],
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "datatexts", "panels") end,
+					},
 				},
 			},
 			middle = {
@@ -114,8 +120,13 @@ local function Datatexts()
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
 					},
-					numPoints = {
+					spacer1 = {
 						order = 2,
+						type = 'description',
+						name = '',
+					},
+					numPoints = {
+						order = 3,
 						type = 'range',
 						name = L["Number of DataTexts"],
 						min = 1, max = 20, step = 1,
@@ -123,13 +134,19 @@ local function Datatexts()
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer1 = {
-						order = 3,
+					elvuiOption = {
+						order = 4,
+						type = "execute",
+						name = L['Set Datatext Values'],
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "datatexts", "panels", "BuiMiddleDTPanel") end,
+					},
+					spacer2 = {
+						order = 6,
 						type = 'description',
 						name = '',
 					},
 					transparent = {
-						order = 4,
+						order = 7,
 						type = 'toggle',
 						name = L['Panel Transparency'],
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
@@ -137,7 +154,7 @@ local function Datatexts()
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
 					},
 					backdrop = {
-						order = 5,
+						order = 8,
 						type = 'toggle',
 						name = L['Backdrop'],
 						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
@@ -145,20 +162,20 @@ local function Datatexts()
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
 					},
 					styled = {
-						order = 6,
+						order = 9,
 						type = 'toggle',
 						name = L['BenikUI Style'],
 						disabled = function() return E.db.benikui.datatexts.middle.enable ~= true or E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
 					},
-					spacer2 = {
-						order = 7,
+					spacer3 = {
+						order = 10,
 						type = 'description',
 						name = '',
 					},
 					width = {
-						order = 8,
+						order = 11,
 						type = "range",
 						name = L["Width"],
 						min = 200, max = E.screenwidth, step = 1,
@@ -167,7 +184,7 @@ local function Datatexts()
 						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextDimensions(); end,
 					},
 					height = {
-						order = 9,
+						order = 12,
 						type = "range",
 						name = L["Height"],
 						min = 10, max = 32, step = 1,

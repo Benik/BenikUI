@@ -70,6 +70,7 @@ L['Hide Mail Icon'] = "Masquer l'icône du courrier"
 L['Middle'] = "Milieu"
 L['New Mail'] = "Nouveau courrier"
 L['No Mail'] = "Pas de courrier"
+L['Set Datatext Values'] = true
 L['Show Garrison Currency'] = "Affiche la monnaie du fief"
 L['Show Oil'] = "Afficher le carburant"
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Affiche/masque les textes de données de discussion. Les textes de données de chat ElvUI doivent être désactivés"
