@@ -214,9 +214,9 @@ local function UpdateTokenOptions()
 						type = 'header',
 					}
 					E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args[option].args[tname] = {
-						order = optionOrder + 1,
+						order = optionOrder + 2,
 						type = 'toggle',
-						name = '|T'..icon..':18|t '..tname,
+						name = (icon and '|T'..icon..':18|t '..tname) or tname,
 						desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], BreakUpLargeNumbers(amount)),
 						get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 						set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
@@ -244,7 +244,7 @@ local function UpdateTokenOptions()
 					E.Options.args.benikui.args.dashboards.args.panels.args.tokens.args.archyGroup.args[option].args[tname] = {
 						order = optionOrder + 1,
 						type = 'toggle',
-						name = '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
+						name = (icon and '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' '))) or (tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
 						desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
 						get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 						set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
