@@ -694,7 +694,7 @@ local function injectPartyOptions()
 	E.Options.args.unitframe.args.groupUnits.args.party.args.portrait.args.height = {
 		type = 'range',
 		order = 15,
-		name = BUI:cOption("+ "..L["SetHeight"]),
+		name = BUI:cOption("+ "..L["Height"]),
 		min = 0, max = 150, step = 1,
 	}
 
