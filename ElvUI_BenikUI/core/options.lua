@@ -39,14 +39,14 @@ local DONATORS = {
 	'Christian S.',
 	'Sumidian',
 }
-tsort(DONATORS, function(a, b) return a < b end)
+tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
 
 local PATRONS = {
 	'thurin',
 	'Ric F.',
 }
-tsort(PATRONS, function(a, b) return a < b end)
+tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
 
 local CODING = {
@@ -62,8 +62,14 @@ local CODING = {
 	'Repooc',
 	'Pristie',
 }
-tsort(CODING, function(a, b) return a < b end)
+tsort(CODING, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local CODING_STRING = tconcat(CODING, ", ")
+
+local NITRO = {
+	'Runew0lf',
+}
+tsort(NITRO, function(a, b) return E:StripString(a) < E:StripString(b) end)
+local NITRO_STRING = tconcat(NITRO, ", ")
 
 	StaticPopupDialogs["BENIKUI_CREDITS"] = {
 		text = BUI.Title,
@@ -492,7 +498,13 @@ local function Core()
 								order = 2,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cff009fffPayPal: |r|cffffd200%s|r', DONATOR_STRING)
+								name = format('|cff009fffPayPal: |r|cffffd200%s\n|r', DONATOR_STRING)
+							},
+							nitro = {
+								order = 3,
+								type = 'description',
+								fontSize = 'medium',
+								name = format('|cfff47fffDiscord Nitro Booster: |r|cffffd200%s|r', NITRO_STRING)
 							},
 						},
 					},
