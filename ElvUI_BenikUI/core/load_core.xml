@@ -8,5 +8,6 @@
 	<script file="statusReport.lua"/>
 	<script file="splashScreen.lua"/>
 	<script file="dev.lua"/>
+	<script file="optionsInfo.lua"/>
 	<Include file="addonProfiles\load_addonProfiles.xml"/>
 </Ui>
