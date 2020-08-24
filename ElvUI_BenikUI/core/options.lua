@@ -71,6 +71,19 @@ local NITRO = {
 tsort(NITRO, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local NITRO_STRING = tconcat(NITRO, ", ")
 
+local TESTERS = {
+	'Kringel',
+	'Roxanne',
+	'BuG',
+	'Semprini',
+	'Vxt',
+	'V4NT0M',
+	'Obscurrium',
+	'ElvUI community'
+}
+tsort(TESTERS, function(a, b) return E:StripString(a) < E:StripString(b) end)
+local TESTERS_STRING = tconcat(TESTERS, ", ")
+
 	StaticPopupDialogs["BENIKUI_CREDITS"] = {
 		text = BUI.Title,
 		button1 = OKAY,
@@ -478,7 +491,7 @@ local function Core()
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', 'Merathilis, Kringel, Roxanne, BuG, Semprini, Vxt, V4NT0M, Obscurrium, ElvUI community'),
+								name = format('|cffffd200%s|r', TESTERS_STRING),
 							},
 						},
 					},
