@@ -49,6 +49,22 @@ local PATRONS = {
 tsort(PATRONS, function(a, b) return a < b end)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
 
+local CODING = {
+	'Elv',
+	'Tukz',
+	'Blazeflack',
+	'Azilroka',
+	'Darth Predator',
+	'Sinaris',
+	'Hydra',
+	'Merathilis',
+	'NihilisticPandemonium',
+	'Repooc',
+	'Pristie',
+}
+tsort(CODING, function(a, b) return a < b end)
+local CODING_STRING = tconcat(CODING, ", ")
+
 	StaticPopupDialogs["BENIKUI_CREDITS"] = {
 		text = BUI.Title,
 		button1 = OKAY,
@@ -438,11 +454,11 @@ local function Core()
 						name = BUI:cOption(L['Coding']),
 						guiInline = true,
 						args = {
-							tukui = {
+							str = {
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format('|cffffd200%s|r', 'Elv, Tukz, Blazeflack, Azilroka, Darth Predator, Sinaris, Hydra, Merathilis, NihilisticPandemonium, Repooc'),
+								name = format('|cffffd200%s|r', CODING_STRING),
 							},
 						},
 					},
@@ -452,7 +468,7 @@ local function Core()
 						name = BUI:cOption(L['Testing & Inspiration']),
 						guiInline = true,
 						args = {
-							tukui = {
+							test = {
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
