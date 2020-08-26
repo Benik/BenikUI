@@ -12,7 +12,7 @@ function mod:UpdatePanelInfo(panelName, panel)
 	local db = panel.db or P.datatexts.panels[panelName] and DT.db.panels[panelName]
 	if not db then return end
 
-	if not (panelName == _G.LocPlusLeftDT or panelName == _G.LocPlusRightDT or panelName == _G.MinimapPanel or panelName == _G.LeftChatDataPanel or panelName == _G.RightChatDataPanel) then
+	if not (panel == _G.LocPlusLeftDT or panel == _G.LocPlusRightDT or panel == _G.MinimapPanel or panel == _G.LeftChatDataPanel or panel == _G.RightChatDataPanel) then
 		panel:Style('Outside')
 		if db.benikuiStyle then
 			if panel.style then
