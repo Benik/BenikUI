@@ -248,6 +248,7 @@ local DTPanelOptions = {
 				order = 1,
 				type = 'toggle',
 				name = L['BenikUI Style'],
+				disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 			},
 		},
 	},
