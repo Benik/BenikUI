@@ -9,9 +9,8 @@ local _G = _G
 local unpack = unpack
 local tinsert = table.insert
 local CreateFrame = CreateFrame
-local GameTooltip = _G["GameTooltip"]
+local GameTooltip = GameTooltip
 local PlaySound = PlaySound
-local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
 local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
@@ -118,7 +117,7 @@ function mod:ToggleTransparency()
 	else
 		if db.transparent then
 			Bui_ldtp:SetTemplate('Transparent')
-			Bui_rdtp:SetTemplate('Transparent')	
+			Bui_rdtp:SetTemplate('Transparent')
 			for i = 1, BUTTON_NUM do
 				bbuttons[i]:SetTemplate('Transparent')
 			end
@@ -167,7 +166,7 @@ function mod:MiddleDatatextLayout()
 		end
 	end
 
-	if Bui_mdtp.style then 
+	if Bui_mdtp.style then
 		if db.styled and db.backdrop then
 			Bui_mdtp.style:Show()
 		else
@@ -433,7 +432,7 @@ function mod:CreateLayout()
 				end
 				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 			end)
-			
+
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
@@ -510,6 +509,11 @@ end
 function mod:PLAYER_ENTERING_WORLD(...)
 	self:ToggleBuiDts()
 	self:regEvents()
+
+	DT:UpdatePanelInfo('BuiLeftChatDTPanel')
+	DT:UpdatePanelInfo('BuiRightChatDTPanel')
+	DT:UpdatePanelInfo('BuiMiddleDTPanel')
+
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
