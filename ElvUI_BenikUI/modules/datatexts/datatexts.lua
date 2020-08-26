@@ -14,8 +14,8 @@ function mod:UpdatePanelInfo(panelName, panel)
 
 	if not (panel == _G.LocPlusLeftDT or panel == _G.LocPlusRightDT or panel == _G.MinimapPanel or panel == _G.LeftChatDataPanel or panel == _G.RightChatDataPanel) then
 		panel:Style('Outside')
-		if db.benikuiStyle then
-			if panel.style then
+		if panel.style then
+			if db.benikuiStyle then
 				panel.style:Show()
 			else
 				panel.style:Hide()
