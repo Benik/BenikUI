@@ -78,6 +78,9 @@ L['Show/Hide Mail Icon on minimap'] = "Affiche/masque l'icône de courrier sur l
 L['Show/Hide garrison currency on the datatext tooltip'] = "Affiche/masque la monnaie du fief dans les textes de données de l'info-bulle"
 L['Show/Hide oil on the datatext tooltip'] = "Affiche/masque le carburant dans les textes de données de l'info-bulle"
 L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = "Stylise les textes de date et les boutons du chat que si les deux arrière-plans du chat sont réglés sur 'Cacher les deux'."
+L['Left Chat Panel'] = true
+L['Right Chat Panel'] = true
+L['Middle Panel'] = true
 
 -- install
 L["BenikUI didn't find any supported addons for profile creation"] = "BenikUI n'a pas trouvé d'addons pris en charge pour la création de profil"
