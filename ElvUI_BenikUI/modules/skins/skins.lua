@@ -632,6 +632,12 @@ local function StyleAceTooltip(self)
 	end
 end
 
+function mod:StyleAcePopup()
+	if not self.style then
+		self:Style('Outside')
+	end
+end
+
 function mod:Initialize()
 	VehicleExit()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -642,6 +648,7 @@ function mod:Initialize()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
+	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
 
 	if E.private.skins.blizzard.tooltip ~= true then
 		return
