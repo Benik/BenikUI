@@ -92,8 +92,8 @@ function mod:ToggleBuiDts()
 end
 
 function mod:ResizeMinimapPanels()
-	_G.MinimapPanel:SetPoint('TOPLEFT', _G.Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-	_G.MinimapPanel:SetPoint('BOTTOMRIGHT', _G.Minimap.backdrop, 'BOTTOMRIGHT', 0, -(SPACING + PANEL_HEIGHT))
+	_G.MinimapPanel:SetPoint('TOPLEFT', _G.Minimap.backdrop or _G.Minimap, 'BOTTOMLEFT', 0, -SPACING)
+	_G.MinimapPanel:SetPoint('BOTTOMRIGHT', _G.Minimap.backdrop or _G.Minimap, 'BOTTOMRIGHT', 0, -(SPACING + PANEL_HEIGHT))
 end
 
 function mod:ToggleTransparency()
