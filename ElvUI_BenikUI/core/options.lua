@@ -80,11 +80,11 @@ local function Core()
 					shadowSize = {
 						order = 12,
 						type = "range",
-						name = E.NewSign..L['Shadow Size'],
+						name = L['Shadow Size'],
 						min = 3, max = 10, step = 1,
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateShadowSize(); end,
 					},
 					spacer2 = {
 						order = 20,

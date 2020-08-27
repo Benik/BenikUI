@@ -33,6 +33,7 @@ local function CreateSoftShadow(f)
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
 	f.shadow = shadow
+	BUI["shadows"][shadow] = true
 end
 
 local function CreateStyleShadow(f)
