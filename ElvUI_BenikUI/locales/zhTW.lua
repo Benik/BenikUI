@@ -70,6 +70,7 @@ L['Hide Mail Icon'] = true
 L['Middle'] = true
 L['New Mail'] = true
 L['No Mail'] = true
+L['Set Datatext Values'] = true
 L['Show Garrison Currency'] = true
 L['Show Oil'] = true
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = true
@@ -77,6 +78,9 @@ L['Show/Hide Mail Icon on minimap'] = true
 L['Show/Hide garrison currency on the datatext tooltip'] = true
 L['Show/Hide oil on the datatext tooltip'] = true
 L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = true
+L['Left Chat Panel'] = true
+L['Right Chat Panel'] = true
+L['Middle Panel'] = true
 
 -- install
 L["BenikUI didn't find any supported addons for profile creation"] = true

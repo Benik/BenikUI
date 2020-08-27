@@ -9,9 +9,8 @@ local _G = _G
 local unpack = unpack
 local tinsert = table.insert
 local CreateFrame = CreateFrame
-local GameTooltip = _G["GameTooltip"]
+local GameTooltip = GameTooltip
 local PlaySound = PlaySound
-local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
 local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
@@ -93,8 +92,8 @@ function mod:ToggleBuiDts()
 end
 
 function mod:ResizeMinimapPanels()
-	MinimapPanel:Point('TOPLEFT', Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-	MinimapPanel:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOMRIGHT', -SPACING, -(SPACING + PANEL_HEIGHT))
+	_G.MinimapPanel:SetPoint('TOPLEFT', _G.Minimap.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+	_G.MinimapPanel:SetPoint('BOTTOMRIGHT', _G.Minimap.backdrop, 'BOTTOMRIGHT', 0, -(SPACING + PANEL_HEIGHT))
 end
 
 function mod:ToggleTransparency()
@@ -118,7 +117,7 @@ function mod:ToggleTransparency()
 	else
 		if db.transparent then
 			Bui_ldtp:SetTemplate('Transparent')
-			Bui_rdtp:SetTemplate('Transparent')	
+			Bui_rdtp:SetTemplate('Transparent')
 			for i = 1, BUTTON_NUM do
 				bbuttons[i]:SetTemplate('Transparent')
 			end
@@ -137,6 +136,8 @@ function mod:ToggleTransparency()
 			end
 		end
 	end
+	E:TogglePixelBorders(Bui_ldtp, db.backdrop)
+	E:TogglePixelBorders(Bui_rdtp, db.backdrop)
 end
 
 function mod:MiddleDatatextLayout()
@@ -150,7 +151,7 @@ function mod:MiddleDatatextLayout()
 	end
 
 	if not db.backdrop then
-		Bui_mdtp:SetTemplate('NoBackdrop')
+		Bui_mdtp:SetTemplate('NoBackdrop', true)
 		if BUI.ShadowMode then
 			Bui_mdtp.shadow:Hide()
 		end
@@ -165,13 +166,15 @@ function mod:MiddleDatatextLayout()
 		end
 	end
 
-	if Bui_mdtp.style then 
+	if Bui_mdtp.style then
 		if db.styled and db.backdrop then
 			Bui_mdtp.style:Show()
 		else
 			Bui_mdtp.style:Hide()
 		end
 	end
+
+	E:TogglePixelBorders(Bui_mdtp, db.backdrop)
 end
 
 function mod:ChatStyles()
@@ -198,15 +201,15 @@ function mod:MiddleDatatextDimensions()
 	local db = E.db.benikui.datatexts.middle
 	local Bui_mdtp = _G.BuiMiddleDTPanel
 
-	Bui_mdtp:Width(db.width)
-	Bui_mdtp:Height(db.height)
+	Bui_mdtp:SetWidth(db.width)
+	Bui_mdtp:SetHeight(db.height)
 	DT:UpdatePanelInfo('BuiMiddleDTPanel')
 end
 
 function mod:PositionEditBoxHolder(bar)
 	Bui_deb:ClearAllPoints()
-	Bui_deb:Point('TOPLEFT', bar.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-	Bui_deb:Point('BOTTOMRIGHT', bar.backdrop, 'BOTTOMRIGHT', 0, -(PANEL_HEIGHT + 6))
+	Bui_deb:SetPoint('TOPLEFT', bar.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+	Bui_deb:SetPoint('BOTTOMRIGHT', bar.backdrop, 'BOTTOMRIGHT', 0, -(PANEL_HEIGHT + 6))
 end
 
 local function updateButtonFont()
@@ -229,8 +232,8 @@ function mod:CreateLayout()
 	local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
 	Bui_ldtp:SetTemplate('Default', true)
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
-	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
-	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
+	Bui_ldtp:SetPoint('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
+	Bui_ldtp:SetPoint('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_ldtp:Style('Outside', nil, false, true)
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
@@ -238,8 +241,8 @@ function mod:CreateLayout()
 	local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
 	Bui_rdtp:SetTemplate('Default', true)
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
-	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
-	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
+	Bui_rdtp:SetPoint('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
+	Bui_rdtp:SetPoint('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_rdtp:Style('Outside', nil, false, true)
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
@@ -247,9 +250,9 @@ function mod:CreateLayout()
 	local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent)
 	Bui_mdtp:SetTemplate('Default', true)
 	Bui_mdtp:SetFrameStrata('BACKGROUND')
-	Bui_mdtp:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
-	Bui_mdtp:Width(db.middle.width or 400)
-	Bui_mdtp:Height(db.middle.height or PANEL_HEIGHT)
+	Bui_mdtp:SetPoint('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
+	Bui_mdtp:SetWidth(db.middle.width or 400)
+	Bui_mdtp:SetHeight(db.middle.height or PANEL_HEIGHT)
 	Bui_mdtp:Style('Outside', nil, false, true)
 	DT:RegisterPanel(BuiMiddleDTPanel, (db.middle.numPoints or 3), 'ANCHOR_BOTTOM', 0, -4)
 
@@ -258,13 +261,13 @@ function mod:CreateLayout()
 
 	-- dummy frame for chat/threat (left)
 	Bui_dchat:SetFrameStrata('LOW')
-	Bui_dchat:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -SPACING)
-	Bui_dchat:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
+	Bui_dchat:SetPoint('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -SPACING)
+	Bui_dchat:SetPoint('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
 
 	-- dummy frame for threat (right)
 	Bui_dthreat:SetFrameStrata('LOW')
-	Bui_dthreat:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, -SPACING)
-	Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
+	Bui_dthreat:SetPoint('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, -SPACING)
+	Bui_dthreat:SetPoint('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
 
 	-- Buttons
 	for i = 1, BUTTON_NUM do
@@ -282,15 +285,15 @@ function mod:CreateLayout()
 		bbuttons[i].arrow = bbuttons[i]:CreateTexture(nil, 'OVERLAY')
 		bbuttons[i].arrow:SetTexture(E.Media.Textures.ArrowUp)
 		bbuttons[i].arrow:ClearAllPoints()
-		bbuttons[i].arrow:Point('CENTER')
-		bbuttons[i].arrow:Size(12)
+		bbuttons[i].arrow:SetPoint('CENTER')
+		bbuttons[i].arrow:SetSize(12, 12)
 		bbuttons[i].arrow:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 		bbuttons[i].arrow:Hide()
 
 		-- ElvUI Config
 		if i == 1 then
-			bbuttons[i]:Point('TOPLEFT', Bui_rdtp, 'TOPRIGHT', SPACING, 0)
-			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
+			bbuttons[i]:SetPoint('TOPLEFT', Bui_rdtp, 'TOPRIGHT', SPACING, 0)
+			bbuttons[i]:SetPoint('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i]:SetParent(Bui_rdtp)
 			bbuttons[i].text:SetText('C')
 			bbuttons[i].arrow:SetRotation(E.Skins.ArrowRotation.right)
@@ -351,8 +354,8 @@ function mod:CreateLayout()
 
 		-- Game menu button
 		elseif i == 2 then
-			bbuttons[i]:Point('TOPRIGHT', Bui_rdtp, 'TOPLEFT', -SPACING, 0)
-			bbuttons[i]:Point('BOTTOMLEFT', Bui_rdtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
+			bbuttons[i]:SetPoint('TOPRIGHT', Bui_rdtp, 'TOPLEFT', -SPACING, 0)
+			bbuttons[i]:SetPoint('BOTTOMLEFT', Bui_rdtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i]:SetParent(Bui_rdtp)
 			bbuttons[i].text:SetText('G')
 
@@ -376,8 +379,8 @@ function mod:CreateLayout()
 
 		-- AddOns Button
 		elseif i == 3 then
-			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
-			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
+			bbuttons[i]:SetPoint('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
+			bbuttons[i]:SetPoint('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i]:SetParent(Bui_ldtp)
 			bbuttons[i].text:SetText('A')
 			bbuttons[i].arrow:SetRotation(E.Skins.ArrowRotation.left)
@@ -413,8 +416,8 @@ function mod:CreateLayout()
 
 		-- LFG Button
 		elseif i == 4 then
-			bbuttons[i]:Point('TOPLEFT', Bui_ldtp, 'TOPRIGHT', SPACING, 0)
-			bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
+			bbuttons[i]:SetPoint('TOPLEFT', Bui_ldtp, 'TOPRIGHT', SPACING, 0)
+			bbuttons[i]:SetPoint('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i]:SetParent(Bui_ldtp)
 			bbuttons[i].text:SetText('L')
 
@@ -429,7 +432,7 @@ function mod:CreateLayout()
 				end
 				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 			end)
-			
+
 			bbuttons[i]:SetScript('OnEnter', function(self)
 				if not E.db.benikui.datatexts.chat.styled then
 					self.sglow:Show()
@@ -449,7 +452,7 @@ function mod:CreateLayout()
 		end
 	end
 
-	MinimapPanel:Height(PANEL_HEIGHT)
+	MinimapPanel:SetHeight(PANEL_HEIGHT)
 	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
 	ElvUI_BottomPanel:SetFrameLevel(0)
 	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
@@ -467,11 +470,13 @@ function mod:CreateLayout()
 	end
 
 	-- Minimap elements styling
-	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end
+	if E.private.general.minimap.enable then
+		Minimap.backdrop:Style('Outside')
+		mod:ResizeMinimapPanels()
+	end
 
 	if CopyChatFrame then CopyChatFrame:Style('Outside') end
 
-	self:ResizeMinimapPanels()
 	self:ToggleTransparency()
 end
 
@@ -506,6 +511,11 @@ end
 function mod:PLAYER_ENTERING_WORLD(...)
 	self:ToggleBuiDts()
 	self:regEvents()
+
+	DT:UpdatePanelInfo('BuiLeftChatDTPanel')
+	DT:UpdatePanelInfo('BuiRightChatDTPanel')
+	DT:UpdatePanelInfo('BuiMiddleDTPanel')
+
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 

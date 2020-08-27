@@ -185,10 +185,10 @@ function mod:UpdateTokens()
 			if E.private.dashboards.tokens.chooseTokens[id] == true then
 				if db.zeroamount or amount > 0 then
 					holder:Show()
-					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if tokenHolderMover then
-						tokenHolderMover:Size(holder:GetSize())
-						holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
+						tokenHolderMover:SetSize(holder:GetSize())
+						holder:SetPoint('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
 
 					self.tokenFrame = self:CreateDashboard(nil, holder, 'tokens')
@@ -269,9 +269,9 @@ function mod:UpdateTokens()
 	for key, frame in pairs(BUI.TokensDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:SetPoint('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			frame:SetPoint('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
@@ -288,8 +288,8 @@ end
 
 function mod:CreateTokensDashboard()
 	self.tokenHolder = self:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
-	self.tokenHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
-	self.tokenHolder:Width(E.db.dashboards.tokens.width or 150)
+	self.tokenHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
+	self.tokenHolder:SetWidth(E.db.dashboards.tokens.width or 150)
 
 	mod:UpdateTokens()
 	mod:UpdateTokenSettings()

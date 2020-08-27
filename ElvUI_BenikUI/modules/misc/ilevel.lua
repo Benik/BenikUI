@@ -112,13 +112,13 @@ function mod:UpdateItemLevelPosition()
 		local parent = _G["Character"..slotIDs[id]]
 		local myPoint, parentPoint, x, y = returnPoints(id)
 		mod.f[id]:ClearAllPoints()
-		mod.f[id]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
+		mod.f[id]:SetPoint(myPoint, parent, parentPoint, x or 0, y or 0)
 	end
 
 	CharacterNeckSlot.RankFrame:ClearAllPoints()
 	CharacterNeckSlot.RankFrame.Label:ClearAllPoints()
-	CharacterNeckSlot.RankFrame:Point('TOPRIGHT', CharacterNeckSlot, 'TOPRIGHT', 0, 4)
-	CharacterNeckSlot.RankFrame.Label:Point('RIGHT')
+	CharacterNeckSlot.RankFrame:SetPoint('TOPRIGHT', CharacterNeckSlot, 'TOPRIGHT', 0, 4)
+	CharacterNeckSlot.RankFrame.Label:SetPoint('RIGHT')
 end
 
 function mod:CreateString()

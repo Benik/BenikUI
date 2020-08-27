@@ -14,7 +14,7 @@ local function CreateWideShadow(f)
 	wideshadow:SetFrameLevel(1)
 	wideshadow:SetFrameStrata('BACKGROUND')
 	wideshadow:SetOutside(f, 6, 6)
-	wideshadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(6)})
+	wideshadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = 6})
 	wideshadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	wideshadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.5)
 	f.wideshadow = wideshadow
@@ -29,10 +29,11 @@ local function CreateSoftShadow(f)
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
-	shadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(db.shadowSize or 3)})
+	shadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.shadowSize or 3})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
 	f.shadow = shadow
+	BUI["shadows"][shadow] = true
 end
 
 local function CreateStyleShadow(f)
@@ -44,10 +45,10 @@ local function CreateStyleShadow(f)
 	styleShadow:SetFrameLevel(1)
 	styleShadow:SetFrameStrata(f:GetFrameStrata())
 
-	styleShadow:Point('TOPLEFT', f, 'TOPLEFT', -2, 2)
-	styleShadow:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT', 2, 0)
+	styleShadow:SetPoint('TOPLEFT', f, 'TOPLEFT', -2, 2)
+	styleShadow:SetPoint('BOTTOMRIGHT', f, 'BOTTOMRIGHT', 2, 0)
 
-	styleShadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3)})
+	styleShadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = 3})
 	styleShadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	styleShadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
 	f.styleShadow = styleShadow
@@ -62,7 +63,7 @@ local function CreateSoftGlow(f)
 	sglow:SetFrameLevel(1)
 	sglow:SetFrameStrata(f:GetFrameStrata())
 	sglow:SetOutside(f, 3, 3)
-	sglow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3)})
+	sglow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = 3})
 
 	sglow:SetBackdropBorderColor(r, g, b, 0.6)
 
@@ -107,11 +108,11 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 	end
 
 	if template == 'Under' then
-		style:Point('TOPRIGHT', f, 'BOTTOMRIGHT', tlx, tly)
-		style:Point('BOTTOMLEFT', f, 'BOTTOMLEFT', brx, bry)
+		style:SetPoint('TOPRIGHT', f, 'BOTTOMRIGHT', tlx, tly)
+		style:SetPoint('BOTTOMLEFT', f, 'BOTTOMLEFT', brx, bry)
 	else
-		style:Point('TOPLEFT', f, 'TOPLEFT', tlx, tly)
-		style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
+		style:SetPoint('TOPLEFT', f, 'TOPLEFT', tlx, tly)
+		style:SetPoint('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
 	end
 
 	if not ignoreColor then

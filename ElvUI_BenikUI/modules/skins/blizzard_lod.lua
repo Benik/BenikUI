@@ -110,13 +110,13 @@ local function style_AzeriteRespecUI()
 
 	local CloseButton = frame.CloseButton
 	CloseButton:ClearAllPoints()
-	CloseButton:Point("TOPRIGHT", frame, "TOPRIGHT", -2, -6)
+	CloseButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -2, -6)
 
 	AzeriteRespecFrameTitleText:ClearAllPoints()
-	AzeriteRespecFrameTitleText:Point("TOP", frame, "TOP", 0, -12)
+	AzeriteRespecFrameTitleText:SetPoint("TOP", frame, "TOP", 0, -12)
 
 	frame.ButtonFrame.AzeriteRespecButton:ClearAllPoints()
-	frame.ButtonFrame.AzeriteRespecButton:Point("TOP", frame.ItemSlot, "BOTTOM", 0, -20)
+	frame.ButtonFrame.AzeriteRespecButton:SetPoint("TOP", frame.ItemSlot, "BOTTOM", 0, -20)
 end
 S:AddCallbackForAddon("Blizzard_AzeriteRespecUI", "BenikUI_AzeriteRespecUI", style_AzeriteRespecUI)
 
@@ -312,7 +312,7 @@ local function style_EncounterJournal()
 			local text = Button:GetFontString()
 			if text then
 				text:ClearAllPoints()
-				text:Point("CENTER", Button, "CENTER", 0, 2)
+				text:SetPoint("CENTER", Button, "CENTER", 0, 2)
 				text:FontTemplate(nil, 12)
 			end
 		end
@@ -354,7 +354,7 @@ local function style_GarrisonUI()
 	_G.BFAMissionFrame.backdrop:Style("Outside")
 
 	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
-	GarrisonCapacitiveDisplayFrame.IncrementButton:Point("LEFT", GarrisonCapacitiveDisplayFrame.Count, "RIGHT", 4, 0)
+	GarrisonCapacitiveDisplayFrame.IncrementButton:SetPoint("LEFT", GarrisonCapacitiveDisplayFrame.Count, "RIGHT", 4, 0)
 	if E.private.skins.blizzard.tooltip then
 		_G.GarrisonFollowerAbilityWithoutCountersTooltip:Style("Outside")
 		_G.GarrisonFollowerMissionAbilityWithoutCountersTooltip:Style("Outside")
@@ -395,17 +395,17 @@ local function style_GarrisonUI()
 	GMonument:CreateBackdrop("Transparent")
 	GMonument:Style("Small")
 	GMonument:ClearAllPoints()
-	GMonument:Point("CENTER", E.UIParent, "CENTER", 0, -200)
-	GMonument:Height(70)
-	GMonument.RightBtn:Size(25, 25)
-	GMonument.LeftBtn:Size(25, 25)
+	GMonument:SetPoint("CENTER", E.UIParent, "CENTER", 0, -200)
+	GMonument:SetHeight(70)
+	GMonument.RightBtn:SetSize(25, 25)
+	GMonument.LeftBtn:SetSize(25, 25)
 
 	-- Follower recruiting (available at the Inn)
 	_G.GarrisonRecruiterFrame.backdrop:Style("Outside")
 	S:HandleDropDownBox(_G.GarrisonRecruiterFramePickThreatDropDown)
 	local rBtn = _G.GarrisonRecruiterFrame.Pick.ChooseRecruits
 	rBtn:ClearAllPoints()
-	rBtn:Point("BOTTOM", _G.GarrisonRecruiterFrame.backdrop, "BOTTOM", 0, 30)
+	rBtn:SetPoint("BOTTOM", _G.GarrisonRecruiterFrame.backdrop, "BOTTOM", 0, 30)
 	S:HandleButton(rBtn)
 
 	local GRecruitSelect = _G.GarrisonRecruitSelectFrame
@@ -421,33 +421,33 @@ local function style_GarrisonUI()
 
 	GRecruitSelect.FollowerSelection.Recruit1:CreateBackdrop()
 	GRecruitSelect.FollowerSelection.Recruit1:ClearAllPoints()
-	GRecruitSelect.FollowerSelection.Recruit1:Point("LEFT", GRecruitSelect.FollowerSelection, "LEFT", 6, 0)
+	GRecruitSelect.FollowerSelection.Recruit1:SetPoint("LEFT", GRecruitSelect.FollowerSelection, "LEFT", 6, 0)
 	GRecruitSelect.FollowerSelection.Recruit2:CreateBackdrop()
 	GRecruitSelect.FollowerSelection.Recruit2:ClearAllPoints()
-	GRecruitSelect.FollowerSelection.Recruit2:Point("LEFT", GRecruitSelect.FollowerSelection.Recruit1, "RIGHT", 6, 0)
+	GRecruitSelect.FollowerSelection.Recruit2:SetPoint("LEFT", GRecruitSelect.FollowerSelection.Recruit1, "RIGHT", 6, 0)
 	GRecruitSelect.FollowerSelection.Recruit3:CreateBackdrop()
 	GRecruitSelect.FollowerSelection.Recruit3:ClearAllPoints()
-	GRecruitSelect.FollowerSelection.Recruit3:Point("LEFT", GRecruitSelect.FollowerSelection.Recruit2, "RIGHT", 6, 0)
+	GRecruitSelect.FollowerSelection.Recruit3:SetPoint("LEFT", GRecruitSelect.FollowerSelection.Recruit2, "RIGHT", 6, 0)
 
 	for i = 1, 3 do
 		fRecruits[i] = CreateFrame("Frame", nil, E.UIParent)
 		fRecruits[i]:SetTemplate("Default", true)
-		fRecruits[i]:Size(190, 60)
+		fRecruits[i]:SetSize(190, 60)
 		if i == 1 then
 			fRecruits[i]:SetParent(GRecruitSelect.FollowerSelection.Recruit1)
-			fRecruits[i]:Point("TOP", GRecruitSelect.FollowerSelection.Recruit1.backdrop, "TOP")
+			fRecruits[i]:SetPoint("TOP", GRecruitSelect.FollowerSelection.Recruit1.backdrop, "TOP")
 			fRecruits[i]:SetFrameLevel(GRecruitSelect.FollowerSelection.Recruit1:GetFrameLevel())
-			GRecruitSelect.FollowerSelection.Recruit1.Class:Size(60, 58)
+			GRecruitSelect.FollowerSelection.Recruit1.Class:SetSize(60, 58)
 		elseif i == 2 then
 			fRecruits[i]:SetParent(GRecruitSelect.FollowerSelection.Recruit2)
-			fRecruits[i]:Point("TOP", GRecruitSelect.FollowerSelection.Recruit2.backdrop, "TOP")
+			fRecruits[i]:SetPoint("TOP", GRecruitSelect.FollowerSelection.Recruit2.backdrop, "TOP")
 			fRecruits[i]:SetFrameLevel(GRecruitSelect.FollowerSelection.Recruit2:GetFrameLevel())
-			GRecruitSelect.FollowerSelection.Recruit2.Class:Size(60, 58)
+			GRecruitSelect.FollowerSelection.Recruit2.Class:SetSize(60, 58)
 		elseif i == 3 then
 			fRecruits[i]:SetParent(GRecruitSelect.FollowerSelection.Recruit3)
-			fRecruits[i]:Point("TOP", GRecruitSelect.FollowerSelection.Recruit3.backdrop, "TOP")
+			fRecruits[i]:SetPoint("TOP", GRecruitSelect.FollowerSelection.Recruit3.backdrop, "TOP")
 			fRecruits[i]:SetFrameLevel(GRecruitSelect.FollowerSelection.Recruit3:GetFrameLevel())
-			GRecruitSelect.FollowerSelection.Recruit3.Class:Size(60, 58)
+			GRecruitSelect.FollowerSelection.Recruit3.Class:SetSize(60, 58)
 		end
 	end
 	S:HandleButton(GRecruitSelect.FollowerSelection.Recruit1.HireRecruits)
@@ -732,8 +732,8 @@ local function style_TalkingHeadUI()
 		frame.BackgroundFrame:Style("Inside")
 		if frame.BackgroundFrame.style then
 			frame.BackgroundFrame.style:ClearAllPoints()
-			frame.BackgroundFrame.style:Point("TOPLEFT", frame, "TOPLEFT", -(E.PixelMode and 0 or 2), (E.PixelMode and -5 or -7))
-			frame.BackgroundFrame.style:Point(
+			frame.BackgroundFrame.style:SetPoint("TOPLEFT", frame, "TOPLEFT", -(E.PixelMode and 0 or 2), (E.PixelMode and -5 or -7))
+			frame.BackgroundFrame.style:SetPoint(
 				"BOTTOMRIGHT",
 				frame,
 				"TOPRIGHT",

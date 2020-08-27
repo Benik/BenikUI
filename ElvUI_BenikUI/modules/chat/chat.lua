@@ -70,13 +70,13 @@ local function PositionChat(self, override)
 		if chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == CH.RightChatWindowID then
 			chat:ClearAllPoints()
 			if E.db.datatexts.rightChatPanel then
-				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
+				chat:SetPoint("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
 			else
 				BASE_OFFSET = BASE_OFFSET - 24
 				chat:SetPoint("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)
 			end
 			if id ~= 2 then
-				chat:Size((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 10, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
+				chat:SetSize((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 10, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
 			end
 		elseif not isDocked and chat:IsShown() then
 			if FM.inFlightMode == true then
@@ -88,7 +88,7 @@ local function PositionChat(self, override)
 			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
 				BASE_OFFSET = BASE_OFFSET - 24
 				chat:SetPoint("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 4, 4)
-				chat:Size(E.db.chat.panelWidth - 10, E.db.chat.panelHeight - PixelOff)
+				chat:SetSize(E.db.chat.panelWidth - 10, E.db.chat.panelHeight - PixelOff)
 			end
 		end
 	end
