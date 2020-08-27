@@ -161,8 +161,8 @@ function BUI:UpdateShadowSize()
 
 	for shadow, _ in pairs(BUI["shadows"]) do
 		if shadow then
-			shadow:SetOutside(f, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
-			shadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(db.shadowSize or 3)})
+			shadow:SetOutside(shadow:GetParent(), (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
+			shadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.shadowSize or 3})
 			shadow:SetBackdropColor(0, 0, 0, 0)
 			shadow:SetBackdropBorderColor(0, 0, 0, 0.6)
 		else
