@@ -1,3 +1,18 @@
+3.93 (Aug 28, 2020)
+*Fixed Datatexts borders not properly hiding
+*Fixed Minimap Panel Width
+*Added buttons that go to ElvUI Datatexts Panels, to set their values
+*Added Pristie in the Coders list for the French translation <3
+*Runew0lf has his own category :D
+*Fixed not styling the blacklisted frames. Credit: Simpy
+*Trigger UpdatePanelInfo for each panels on PLAYER_ENTERING_WORLD. Credit: Simpy
+*Fixed Custom Datatexts style toggle
+*Disable Custom Datatexts style option when BenikUI style is disabled
+*Change Shadow size on the fly (without a reload)
+*Style Ace3 Popup
+*Prevent an error if Minimap is disabled
+*Added missing locales
+
 3.921 (Aug 8, 2020)
 *The Professions dashboard will now show in a tooltip the Skill Name, e.g. KulTiran Alchemy, etc
 *Fixed Flyout buttons shadow error. This should close #116
