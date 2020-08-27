@@ -470,11 +470,13 @@ function mod:CreateLayout()
 	end
 
 	-- Minimap elements styling
-	if E.private.general.minimap.enable then Minimap.backdrop:Style('Outside') end
+	if E.private.general.minimap.enable then
+		Minimap.backdrop:Style('Outside')
+		mod:ResizeMinimapPanels()
+	end
 
 	if CopyChatFrame then CopyChatFrame:Style('Outside') end
 
-	self:ResizeMinimapPanels()
 	self:ToggleTransparency()
 end
 
