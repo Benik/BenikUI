@@ -6,7 +6,7 @@ local format, random, lower, tonumber, date, floor = string.format, random, stri
 local CreateFrame = CreateFrame
 local GetGameTime = GetGameTime
 local GetScreenHeight, GetScreenWidth = GetScreenHeight, GetScreenWidth
-local C_Calendar_GetDate = C_Calendar.GetDate
+local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic
 local IsXPUserDisabled = IsXPUserDisabled
@@ -136,7 +136,7 @@ local daysAbr = {
 
 -- Create Date
 local function createDate()
-	local date = C_Calendar_GetDate();
+	local date = C_DateAndTime_GetCurrentCalendarTime();
 	local presentWeekday = date.weekday;
 	local presentMonth = date.month;
 	local presentDay = date.monthDay;
