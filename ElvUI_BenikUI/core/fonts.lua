@@ -34,6 +34,7 @@ function BUI:UpdateBlizzardFonts()
 		SetFont(_G.Fancy30Font, 						NORMAL, 28);								-- Allied Races Blizzard tryout font
 		SetFont(_G.Fancy32Font, 						NORMAL, 30);								-- Allied Races Blizzard tryout font
 		SetFont(_G.Game20Font, 							NORMAL, 20);								-- WarboardUI Options
+		SetFont(_G.GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET)	-- Used at the install steps
 		SetFont(_G.WhiteNormalNumberFont,				NORMAL, E.db.general.fontSize);				-- Statusbar Numbers on TradeSkill frame
 	end
 end
