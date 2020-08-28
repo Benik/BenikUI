@@ -3,7 +3,7 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 -- GLOBALS: BenikUISplashScreen
 
 local C_TimerAfter = C_Timer.After
-local C_Calendar_GetDate = C_Calendar.GetDate
+local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 
 local function HideSplashScreen()
 	BenikUISplashScreen:Hide()
@@ -66,8 +66,8 @@ function BUI:SplashScreen()
 	CreateSplashScreen()
 
 	local db = E.private.benikui.session
-	local date = C_Calendar_GetDate()
-	local presentWeekday = date.weekday;
+	local today = C_DateAndTime_GetCurrentCalendarTime()
+	local presentWeekday = today.monthDay;
 
 	if presentWeekday == db.day then return end
 
