@@ -1,7 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:NewModule('Layout', 'AceHook-3.0', 'AceEvent-3.0');
 local LO = E:GetModule('Layout');
-local DT = E:GetModule('DataTexts')
+local DT = E:GetModule('DataTexts');
 local M = E:GetModule('Minimap');
 local LSM = E.LSM
 
@@ -138,41 +138,6 @@ function mod:ToggleTransparency()
 	end
 end
 
-function mod:MiddleDatatextLayout()
-	local db = E.db.benikui.datatexts.middle
-	local Bui_mdtp = _G.BuiMiddleDTPanel
-
-	if db.enable then
-		Bui_mdtp:Show()
-	else
-		Bui_mdtp:Hide()
-	end
-
-	if not db.backdrop then
-		Bui_mdtp:SetTemplate('NoBackdrop')
-		if BUI.ShadowMode then
-			Bui_mdtp.shadow:Hide()
-		end
-	else
-		if db.transparent then
-			Bui_mdtp:SetTemplate('Transparent')
-		else
-			Bui_mdtp:SetTemplate('Default', true)
-		end
-		if BUI.ShadowMode then
-			Bui_mdtp.shadow:Show()
-		end
-	end
-
-	if Bui_mdtp.style then
-		if db.styled and db.backdrop then
-			Bui_mdtp.style:Show()
-		else
-			Bui_mdtp.style:Hide()
-		end
-	end
-end
-
 function mod:ChatStyles()
 	if not E.db.benikui.general.benikuiStyle then return end
 	local Bui_ldtp = _G.BuiLeftChatDTPanel
@@ -191,15 +156,6 @@ function mod:ChatStyles()
 			bbuttons[i].style:Hide()
 		end
 	end
-end
-
-function mod:MiddleDatatextDimensions()
-	local db = E.db.benikui.datatexts.middle
-	local Bui_mdtp = _G.BuiMiddleDTPanel
-
-	Bui_mdtp:SetWidth(db.width)
-	Bui_mdtp:SetHeight(db.height)
-	DT:UpdatePanelInfo('BuiMiddleDTPanel')
 end
 
 function mod:PositionEditBoxHolder(bar)
@@ -241,19 +197,6 @@ function mod:CreateLayout()
 	Bui_rdtp:SetPoint('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
 	Bui_rdtp:Style('Outside', nil, false, true)
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
-
-	-- Middle dt panel
-	local Bui_mdtp = CreateFrame('Frame', 'BuiMiddleDTPanel', E.UIParent, 'BackdropTemplate')
-	Bui_mdtp:SetTemplate('Default', true)
-	Bui_mdtp:SetFrameStrata('BACKGROUND')
-	Bui_mdtp:SetPoint('BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
-	Bui_mdtp:SetWidth(db.middle.width or 400)
-	Bui_mdtp:SetHeight(db.middle.height or PANEL_HEIGHT)
-	Bui_mdtp:Style('Outside', nil, false, true)
-	DT:RegisterPanel(BuiMiddleDTPanel, (db.middle.numPoints or 3), 'ANCHOR_BOTTOM', 0, -4)
-
-	E:CreateMover(Bui_mdtp, "BuiMiddleDtMover", L['BenikUI Middle DataText'], nil, nil, nil, 'ALL,BENIKUI')
-	E.FrameLocks['BuiMiddleDTPanel'] = true;
 
 	-- dummy frame for chat/threat (left)
 	Bui_dchat:SetFrameStrata('LOW')
@@ -489,6 +432,36 @@ local function InjectMinimapOption()
 end
 tinsert(BUI.Config, InjectMinimapOption)
 
+function mod:CreateMiddlePanel()
+	--if E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] then return end
+
+	DT:BuildPanelFrame("BuiMiddleDTPanel")
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["enable"] = true
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["border"] = true
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] = 4
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["numPoints"] = 3
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipAnchor"] = "ANCHOR_TOPLEFT"
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["backdrop"] = true
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["height"] = PANEL_HEIGHT
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipXOffset"] = 3
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["panelTransparency"] = false
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] = false
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["growth"] = 'HORIZONTAL'
+	
+	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
+		[1] = "Haste",
+		[2] = "Mastery",
+		[3] = "Crit Chance",
+		["enable"] = true,
+	}
+
+	if E.db["movers"] == nil then E.db["movers"] = {} end
+	E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
+	local dt = DT:FetchFrame("BuiMiddleDTPanel")
+	dt:SetPoint("CENTER", dt.mover, "CENTER", 0, 0) -- just in case
+end
+
 function mod:ToggleMinimapStyle()
 	if E.private.general.minimap.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 	if E.db.general.minimap.benikuiStyle then
@@ -499,20 +472,18 @@ function mod:ToggleMinimapStyle()
 end
 
 function mod:regEvents()
-	self:MiddleDatatextLayout()
-	self:MiddleDatatextDimensions()
-	self:ToggleTransparency()
+	mod:ToggleTransparency()
 end
 
 function mod:PLAYER_ENTERING_WORLD(...)
-	self:ToggleBuiDts()
-	self:regEvents()
+	mod:ToggleBuiDts()
+	mod:regEvents()
 
 	DT:UpdatePanelInfo('BuiLeftChatDTPanel')
 	DT:UpdatePanelInfo('BuiRightChatDTPanel')
 	DT:UpdatePanelInfo('BuiMiddleDTPanel')
 
-	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 local function InjectDatatextOptions()
@@ -524,25 +495,28 @@ local function InjectDatatextOptions()
 
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'])
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.order = 1003
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.delete.hidden = true
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.height.hidden = true
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.growth.hidden = true
 end
 
 function mod:Initialize()
-	self:CreateLayout()
-	self:ChatStyles()
-	self:ToggleMinimapStyle()
+	mod:CreateLayout()
+	mod:CreateMiddlePanel()
+	mod:ChatStyles()
+	mod:ToggleMinimapStyle()
 	tinsert(BUI.Config, InjectDatatextOptions)
 
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ResizeMinimapPanels)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ChatStyles)
 	hooksecurefunc(M, 'UpdateSettings', mod.ResizeMinimapPanels)
-	hooksecurefunc(DT, 'UpdatePanelInfo', mod.MiddleDatatextLayout)
 	hooksecurefunc(DT, 'UpdatePanelInfo', mod.ToggleTransparency)
 	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
 	hooksecurefunc(E, 'UpdateMedia', updateButtonFont)
 
-	self:RegisterEvent('PLAYER_ENTERING_WORLD')
-	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
+	mod:RegisterEvent('PLAYER_ENTERING_WORLD')
+	mod:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
 end
 
 BUI:RegisterModule(mod:GetName())

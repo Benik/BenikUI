@@ -25,8 +25,9 @@ function mod:UpdateEditboxAnchors()
 			frame:SetAllPoints(LeftChatDataPanel)
 		elseif E.db.benikui.datatexts.chat.enable and BuiDummyChat and E.db.benikui.datatexts.chat.editBoxPosition == 'BELOW_CHAT' then
 			frame:SetAllPoints(BuiDummyChat)
-		elseif E.db.benikui.datatexts.middle.enable and E.db.benikui.datatexts.chat.editBoxPosition == 'MIDDLE_DT' then
-			frame:SetAllPoints(BuiMiddleDTPanel)
+		elseif E.db.datatexts.panels.BuiMiddleDTPanel.enable and E.db.benikui.datatexts.chat.editBoxPosition == 'MIDDLE_DT' then
+			local dt = E.DataTexts:FetchFrame("BuiMiddleDTPanel")
+			frame:SetAllPoints(dt)
 		elseif E.ActionBars.Initialized and E.db.actionbar.bar1.backdrop == true and E.db.benikui.datatexts.chat.editBoxPosition == 'EAB_1' then
 			BL:PositionEditBoxHolder(ElvUI_Bar1)
 			frame:SetAllPoints(BuiDummyEditBoxHolder)
