@@ -5,7 +5,6 @@ local join = string.join
 
 local GetContainerNumFreeSlots = GetContainerNumFreeSlots
 local GetContainerNumSlots = GetContainerNumSlots
-local ToggleAllBags = ToggleAllBags
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 
 local statusColors = {
@@ -40,7 +39,7 @@ local function OnEvent(self)
 end
 
 local function OnClick()
-	ToggleAllBags()
+	_G.ToggleAllBags()
 end
 
 function mod:CreateBags()

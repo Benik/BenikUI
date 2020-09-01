@@ -18,7 +18,6 @@ local C_TimerAfter = C_Timer.After
 local GetScreenWidth = GetScreenWidth
 local InCombatLockdown = InCombatLockdown
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
-local ToggleAllBags = ToggleAllBags
 local UIFrameFadeIn, UIFrameFadeOut, PlaySound = UIFrameFadeIn, UIFrameFadeOut, PlaySound
 local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 
@@ -751,7 +750,7 @@ function mod:Initialize()
 
 	self.FlightMode.bottom.bags:SetScript('OnClick', function()
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
-		ToggleAllBags()
+		_G.ToggleAllBags()
 	end)
 
 	-- Time flying
