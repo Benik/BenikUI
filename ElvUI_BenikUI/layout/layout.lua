@@ -435,7 +435,7 @@ end
 tinsert(BUI.Config, InjectMinimapOption)
 
 function mod:CreateMiddlePanel()
-	--if E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] then return end
+	if E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] then return end
 
 	DT:BuildPanelFrame("BuiMiddleDTPanel")
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["enable"] = true
@@ -462,6 +462,7 @@ function mod:CreateMiddlePanel()
 	E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 	local dt = DT:FetchFrame("BuiMiddleDTPanel")
 	dt:SetPoint("CENTER", dt.mover, "CENTER", 0, 0) -- just in case
+	E:SaveMoverPosition("DTPanelBuiMiddleDTPanelMover")
 end
 
 function mod:ToggleMinimapStyle()
