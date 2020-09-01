@@ -28,7 +28,7 @@ local function CreateStatusFrame()
 	-- create the report title
 	StatusFrame.TitleLogoFrame.Title = StatusFrame.TitleLogoFrame:CreateFontString(nil, "ARTWORK")
 	StatusFrame.TitleLogoFrame.Title:FontTemplate(nil, 18, "OUTLINE")
-	StatusFrame.TitleLogoFrame.Title:SetPoint("BOTTOM", 0, 7)
+	StatusFrame.TitleLogoFrame.Title:Point("BOTTOM", 0, 7)
 	StatusFrame.TitleLogoFrame.Title:SetJustifyH("CENTER")
 	StatusFrame.TitleLogoFrame.Title:SetJustifyV("MIDDLE")
 	StatusFrame.TitleLogoFrame.Title:SetFormattedText("|cfffe7b2c- ElvUI Status Report -|r")

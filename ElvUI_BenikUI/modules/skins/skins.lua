@@ -49,13 +49,13 @@ local function tooltipOverlay(tt) -- Create a blank frame to position the GameTo
 	end
 
 	tt.style.blank = CreateFrame("Frame", nil, tt.style)
-	tt.style.blank:SetSize(6, 6)
-	tt.style.blank:SetPoint("BOTTOM", tt.style, "TOP")
+	tt.style.blank:Size(6, 6)
+	tt.style.blank:Point("BOTTOM", tt.style, "TOP")
 
 	if tt.TopOverlay then
 		tt.TopOverlay:SetParent(tt.style.blank)
 		tt.TopOverlay:ClearAllPoints()
-		tt.TopOverlay:SetPoint("CENTER", tt.style.blank, "CENTER")
+		tt.TopOverlay:Point("CENTER", tt.style.blank, "CENTER")
 	end
 end
 
@@ -392,7 +392,7 @@ local function skinDecursive()
 	-- Main Buttons
 	_G.DecursiveMainBar:StripTextures()
 	_G.DecursiveMainBar:SetTemplate("Default", true)
-	_G.DecursiveMainBar:SetHeight(20)
+	_G.DecursiveMainBar:Height(20)
 
 	local mainButtons = {_G.DecursiveMainBarPriority, _G.DecursiveMainBarSkip, _G.DecursiveMainBarHide}
 	for i, button in pairs(mainButtons) do
@@ -400,9 +400,9 @@ local function skinDecursive()
 		button:SetTemplate("Default", true)
 		button:ClearAllPoints()
 		if (i == 1) then
-			button:SetPoint("LEFT", _G.DecursiveMainBar, "RIGHT", SPACING, 0)
+			button:Point("LEFT", _G.DecursiveMainBar, "RIGHT", SPACING, 0)
 		else
-			button:SetPoint("LEFT", mainButtons[i - 1], "RIGHT", SPACING, 0)
+			button:Point("LEFT", mainButtons[i - 1], "RIGHT", SPACING, 0)
 		end
 	end
 
@@ -421,9 +421,9 @@ local function skinDecursive()
 		S:HandleButton(button)
 		button:ClearAllPoints()
 		if (i == 1) then
-			button:SetPoint("TOP", _G.DecursivePriorityListFrame, "TOPLEFT", 54, -20)
+			button:Point("TOP", _G.DecursivePriorityListFrame, "TOPLEFT", 54, -20)
 		else
-			button:SetPoint("LEFT", priorityButton[i - 1], "RIGHT", SPACING, 0)
+			button:Point("LEFT", priorityButton[i - 1], "RIGHT", SPACING, 0)
 		end
 	end
 
@@ -470,9 +470,9 @@ local function skinDecursive()
 		S:HandleButton(button)
 		button:ClearAllPoints()
 		if (i == 1) then
-			button:SetPoint("TOP", _G.DecursiveSkipListFrame, "TOPLEFT", 54, -20)
+			button:Point("TOP", _G.DecursiveSkipListFrame, "TOPLEFT", 54, -20)
 		else
-			button:SetPoint("LEFT", skipButton[i - 1], "RIGHT", SPACING, 0)
+			button:Point("LEFT", skipButton[i - 1], "RIGHT", SPACING, 0)
 		end
 	end
 

@@ -45,8 +45,8 @@ local function CreateStyleShadow(f)
 	styleShadow:SetFrameLevel(1)
 	styleShadow:SetFrameStrata(f:GetFrameStrata())
 
-	styleShadow:SetPoint('TOPLEFT', f, 'TOPLEFT', -2, 2)
-	styleShadow:SetPoint('BOTTOMRIGHT', f, 'BOTTOMRIGHT', 2, 0)
+	styleShadow:Point('TOPLEFT', f, 'TOPLEFT', -2, 2)
+	styleShadow:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT', 2, 0)
 
 	styleShadow:SetBackdrop({edgeFile = E.Media.Textures.GlowTex, edgeSize = 3})
 	styleShadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
@@ -108,11 +108,11 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 	end
 
 	if template == 'Under' then
-		style:SetPoint('TOPRIGHT', f, 'BOTTOMRIGHT', tlx, tly)
-		style:SetPoint('BOTTOMLEFT', f, 'BOTTOMLEFT', brx, bry)
+		style:Point('TOPRIGHT', f, 'BOTTOMRIGHT', tlx, tly)
+		style:Point('BOTTOMLEFT', f, 'BOTTOMLEFT', brx, bry)
 	else
-		style:SetPoint('TOPLEFT', f, 'TOPLEFT', tlx, tly)
-		style:SetPoint('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
+		style:Point('TOPLEFT', f, 'TOPLEFT', tlx, tly)
+		style:Point('BOTTOMRIGHT', f, 'TOPRIGHT', brx, bry)
 	end
 
 	if not ignoreColor then

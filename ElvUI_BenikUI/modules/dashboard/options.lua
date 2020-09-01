@@ -474,7 +474,7 @@ local function dashboardsTable()
 							width = {
 								order = 3,
 								type = 'range',
-								name = L['SetWidth'],
+								name = L['Width'],
 								desc = L['Change the System Dashboard width.'],
 								min = 120, max = 520, step = 1,
 								disabled = function() return not E.db.dashboards.system.enableSystem end,
@@ -557,7 +557,7 @@ local function dashboardsTable()
 							width = {
 								order = 4,
 								type = 'range',
-								name = L['SetWidth'],
+								name = L['Width'],
 								desc = L['Change the Tokens Dashboard width.'],
 								min = 120, max = 520, step = 1,
 								disabled = function() return not E.db.dashboards.tokens.enableTokens end,
@@ -669,7 +669,7 @@ local function dashboardsTable()
 							width = {
 								order = 4,
 								type = 'range',
-								name = L['SetWidth'],
+								name = L['Width'],
 								desc = L['Change the Professions Dashboard width.'],
 								min = 120, max = 520, step = 1,
 								disabled = function() return not E.db.dashboards.professions.enableProfessions end,

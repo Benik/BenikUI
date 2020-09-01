@@ -28,10 +28,10 @@ end
 
 function mod:UpdateHolderDimensions(holder, option, tableName)
 	local db = E.db.dashboards[option]
-	holder:SetWidth(db.width)
+	holder:Width(db.width)
 
 	for _, frame in pairs(tableName) do
-		frame:SetWidth(db.width)
+		frame:Width(db.width)
 	end
 end
 
@@ -126,15 +126,15 @@ end
 
 function mod:CreateDashboard(name, barHolder, option)
 	local bar = CreateFrame('Button', nil, barHolder)
-	bar:SetHeight(DASH_HEIGHT)
-	bar:SetWidth(E.db.dashboards[option].width or 150)
-	bar:SetPoint('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
+	bar:Height(DASH_HEIGHT)
+	bar:Width(E.db.dashboards[option].width or 150)
+	bar:Point('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
 	bar:EnableMouse(true)
 
 	bar.dummy = CreateFrame('Frame', nil, bar)
-	bar.dummy:SetPoint('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
-	bar.dummy:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
-	bar.dummy:SetHeight(E.PixelMode and 3 or 5)
+	bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
+	bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
+	bar.dummy:Height(E.PixelMode and 3 or 5)
 
 	bar.dummy.dummyStatus = bar.dummy:CreateTexture(nil, 'OVERLAY')
 	bar.dummy.dummyStatus:SetInside()
@@ -147,20 +147,20 @@ function mod:CreateDashboard(name, barHolder, option)
 
 	bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);
 	bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-	bar.spark:SetSize(12, 6);
+	bar.spark:Size(12, 6);
 	bar.spark:SetBlendMode('ADD');
-	bar.spark:SetPoint('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
+	bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
 	bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
 	bar.Text:FontTemplate()
-	bar.Text:SetPoint('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
-	bar.Text:SetWidth(bar:GetWidth() - 20)
+	bar.Text:Point('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
+	bar.Text:Width(bar:GetWidth() - 20)
 	bar.Text:SetWordWrap(false)
 
 	bar.IconBG = CreateFrame('Button', nil, bar, 'BackdropTemplate')
 	bar.IconBG:SetTemplate('Transparent')
-	bar.IconBG:SetSize(E.PixelMode and 18 or 20, E.PixelMode and 18 or 20)
-	bar.IconBG:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
+	bar.IconBG:Size(E.PixelMode and 18 or 20, E.PixelMode and 18 or 20)
+	bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 
 	bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
 	bar.IconBG.Icon:SetInside()

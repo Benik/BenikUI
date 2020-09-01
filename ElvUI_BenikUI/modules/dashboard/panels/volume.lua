@@ -107,7 +107,7 @@ function mod:CreateVolume()
 	local boardName = _G['BUI_Volume']
 
 	local iconBG = CreateFrame('Frame', nil, boardName)
-	iconBG:SetSize(16, 16)
+	iconBG:Size(16, 16)
 	iconBG:Point('BOTTOMRIGHT', boardName, 'BOTTOMRIGHT', 0, (E.PixelMode and 4 or 6))
 	iconBG:SetFrameStrata('LOW')
 	iconBG.text = iconBG:CreateFontString(nil, 'OVERLAY')
