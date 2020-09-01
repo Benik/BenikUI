@@ -432,35 +432,38 @@ local function InjectMinimapOption()
 end
 tinsert(BUI.Config, InjectMinimapOption)
 
-function mod:CreateMiddlePanel()
-	if E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] then return end
+function mod:CreateMiddlePanel(forceReset)
+	if forceReset and E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] or not E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] then
+		DT:BuildPanelFrame("BuiMiddleDTPanel")
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["enable"] = true
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["border"] = true
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] = 4
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["numPoints"] = 3
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipAnchor"] = "ANCHOR_TOPLEFT"
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["backdrop"] = true
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["height"] = PANEL_HEIGHT
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipXOffset"] = 3
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["panelTransparency"] = false
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] = false
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["growth"] = 'HORIZONTAL'
+		
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
+			[1] = "Haste",
+			[2] = "Mastery",
+			[3] = "Crit Chance",
+			["enable"] = true,
+		}
 
-	DT:BuildPanelFrame("BuiMiddleDTPanel")
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["enable"] = true
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["border"] = true
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] = 4
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["numPoints"] = 3
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipAnchor"] = "ANCHOR_TOPLEFT"
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["backdrop"] = true
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["height"] = PANEL_HEIGHT
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipXOffset"] = 3
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["panelTransparency"] = false
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] = false
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["growth"] = 'HORIZONTAL'
-	
-	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
-		[1] = "Haste",
-		[2] = "Mastery",
-		[3] = "Crit Chance",
-		["enable"] = true,
-	}
-
-	if E.db["movers"] == nil then E.db["movers"] = {} end
-	E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-	local dt = DT:FetchFrame("BuiMiddleDTPanel")
-	dt:Point("CENTER", dt.mover, "CENTER", 0, 0) -- just in case
-	E:SaveMoverPosition("DTPanelBuiMiddleDTPanelMover")
+		if E.db["movers"] == nil then E.db["movers"] = {} end
+		
+		local dt = DT:FetchFrame("BuiMiddleDTPanel")
+		dt.mover:ClearAllPoints()
+		dt.mover:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 2)
+		dt:SetPoint("CENTER", dt.mover, "CENTER", 0, 0) -- just in case
+		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
+		E:SaveMoverPosition("DTPanelBuiMiddleDTPanelMover")
+	end
 end
 
 function mod:ToggleMinimapStyle()

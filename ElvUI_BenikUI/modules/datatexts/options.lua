@@ -119,6 +119,14 @@ local function Datatexts()
 						name = L['Set Datatext Values'],
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "datatexts", "panels", "BuiMiddleDTPanel") end,
 					},
+					restore = {
+						order = 2,
+						type = "execute",
+						name = L['Restore Defaults'],
+						func = function() BL:CreateMiddlePanel(true) DT:UpdatePanelInfo('BuiMiddleDTPanel') end,
+						confirmText = L['Restore Defaults'].."?",
+						confirm = true,
+					},
 				},
 			},
 			mail = {
