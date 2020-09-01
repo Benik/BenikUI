@@ -59,7 +59,7 @@ local CODING = {
 	'NihilisticPandemonium',
 	'Repooc',
 	'Pristie',
-	'thurin',
+	'|cffff005athurin|r',
 }
 tsort(CODING, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local CODING_STRING = tconcat(CODING, ", ")
