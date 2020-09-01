@@ -78,8 +78,6 @@ local bfaTokens = {
 	1580,	-- Seal of Wartorn Fate
 	1587,	-- War Supplies
 	1710,	-- Seafarer's Dubloon
-	--1716,	-- Honorbound Service Medal (Horde)
-	--1717,	-- 7th Legion Service Medal (Alliance)
 	1718,	-- Titan Residuum
 	1719,	-- Corrupted Memento
 	1721,	-- Prismatic Manapearl
@@ -89,9 +87,8 @@ local bfaTokens = {
 
 local slTokens = {
 	1751,	-- Freed Soul
+	1754,	-- Argent Commendation
 	1810,	-- Willing Soul
-	--1811,	-- Architect slaves -- this seems to be removed(?)
-	--1812,	-- Weaver slaves -- this seems to be removed(?)
 	1813,	-- Reservoir Anima
 	1820,	-- Infused Ruby
 	1822,	-- Renown

@@ -116,9 +116,8 @@ local Currency = {
 
 	-- Shadowlands
 	1751,	-- Freed Soul
+	1754,	-- Argent Commendation
 	1810,	-- Willing Soul
-	--1811,	-- Architect slaves -- this seems to be removed(?)
-	--1812,	-- Weaver slaves -- this seems to be removed(?)
 	1813,	-- Reservoir Anima
 	1820,	-- Infused Ruby
 	1822,	-- Renown
