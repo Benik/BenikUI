@@ -1,6 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('FlightMode', 'AceTimer-3.0', 'AceEvent-3.0');
+local mod = BUI:NewModule('FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0');
 local LO = E:GetModule('Layout')
+local M = E:GetModule('WorldMap')
 
 local _G = _G
 local GetTime = GetTime
@@ -130,6 +131,17 @@ function mod:UpdateFps()
 	self.FlightMode.bottom.fps.txt:SetFormattedText(displayFormat, value)
 end
 
+function mod:SetWorldMapParent()
+	if E.db.benikui.misc.flightMode.enable ~= true then return end
+
+	local WorldMapFrame = _G.WorldMapFrame
+	if mod.inFlightMode == true then
+		WorldMapFrame:SetParent(_G.UIParent)
+	else
+		WorldMapFrame:SetParent(E.UIParent)
+	end
+end
+
 local isInFlightLoaded = false
 
 function mod:SkinInFlight()
@@ -158,7 +170,10 @@ function mod:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
 
 	if(status) then
+		self.inFlightMode = true
 		self.FlightMode:Show()
+		mod:SetWorldMapParent()
+
 		E.UIParent:Hide()
 
 		-- Hide some frames
@@ -242,9 +257,11 @@ function mod:SetFlightMode(status)
 		self.fpsTimer = self:ScheduleRepeatingTimer('UpdateFps', 1)
 
 		self:SkinInFlight()
-
-		self.inFlightMode = true
 	elseif(self.inFlightMode) then
+		self.inFlightMode = false
+		_G.MainMenuBarVehicleLeaveButton:SetParent(_G.UIParent)
+		mod:SetWorldMapParent()
+
 		E.UIParent:Show()
 
 		-- Show hidden frames
@@ -340,8 +357,6 @@ function mod:SetFlightMode(status)
 		end
 
 		BuiTaxiButton:SetParent(E.UIParent)
-
-		self.inFlightMode = false
 	end
 end
 
@@ -781,8 +796,9 @@ function mod:Initialize()
 
 	self:Toggle()
 	self:ToggleLogo()
-	ToggleWorldMap()
-	ToggleWorldMap()
+
+	hooksecurefunc(M, "SetLargeWorldMap", mod.SetWorldMapParent)
+	hooksecurefunc(M, "SetSmallWorldMap", mod.SetWorldMapParent)
 end
 
 BUI:RegisterModule(mod:GetName())
