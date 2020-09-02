@@ -165,7 +165,16 @@ function mod:SkinInFlight()
 	end
 end
 
-local zygorVisible
+local AddonsToHide = {
+	-- addon, frame
+	{'ZygorGuidesViewer', 'ZygorGuidesViewerFrame'},
+	{'ZygorGuidesViewer', 'Zygor_Notification_Center'},
+	{'WorldQuestTracker', 'WorldQuestTrackerScreenPanel'},
+	{'XIV_Databar', 'XIV_Databar'},
+	{'VuhDo', 'VuhDoBuffWatchMainFrame'}
+}
+
+local VisibleFrames = {}
 
 function mod:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
@@ -230,29 +239,28 @@ function mod:SetFlightMode(status)
 			end
 		end
 
-		-- Hide Zygor
-		if BUI.ZG then
-			if ZygorGuidesViewer.db.profile.visible then
-				if _G['ZygorGuidesViewerFrame']:IsVisible() then
-					zygorVisible = true
-				else
-					zygorVisible = false
+		for i, v in ipairs(AddonsToHide) do
+			local addon, frame = unpack(v)
+			if IsAddOnLoaded(addon) then
+				if _G[frame] then
+					if _G[frame]:IsVisible() then
+						VisibleFrames[frame] = true
+						_G[frame]:Hide()
+					end
 				end
-
-				if _G['ZygorGuidesViewerFrame'] then _G['ZygorGuidesViewerFrame']:Hide() end
 			end
+		end
 
-			if ZygorGuidesViewer.db.profile.n_nc_enabled then
-				if _G['Zygor_Notification_Center'] then _G['Zygor_Notification_Center']:Hide() end
+		-- special handling for VuhDo panels
+		if IsAddOnLoaded('VuhDo') then
+			if VUHDO_CONFIG["SHOW_PANELS"] then
+				VisibleFrames['VuhDoHealPanels'] = true
+				VUHDO_slashCmd('hide')
 			end
 		end
 
 		-- Disable Blizz location messsages
 		ZoneTextFrame:UnregisterAllEvents()
-
-		if IsAddOnLoaded("XIV_Databar") then
-			XIV_Databar:Hide()
-		end
 
 		self.startTime = GetTime()
 		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
@@ -312,15 +320,21 @@ function mod:SetFlightMode(status)
 			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
 		end
 
-		-- Show Zygor
-		if BUI.ZG then
-			if ZygorGuidesViewer.db.profile.visible then
-				if zygorVisible then
-					if _G['ZygorGuidesViewerFrame'] then _G['ZygorGuidesViewerFrame']:Show() end
+		for i, v in ipairs(AddonsToHide) do
+			local addon, frame = unpack(v)
+			if IsAddOnLoaded(addon) then
+				if _G[frame] then
+					if VisibleFrames[frame] then
+						_G[frame]:Show()
+					end
 				end
 			end
-			if ZygorGuidesViewer.db.profile.n_nc_enabled then
-				if _G['Zygor_Notification_Center'] then _G['Zygor_Notification_Center']:Show() end
+		end
+
+		-- special handling for VuhDo panels
+		if IsAddOnLoaded('VuhDo') then
+			if VisibleFrames['VuhDoHealPanels'] then
+				VUHDO_slashCmd('show')
 			end
 		end
 
@@ -355,10 +369,6 @@ function mod:SetFlightMode(status)
 				_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
 				SquareMinimapButtonBar:SetAlpha(1)
 			end
-		end
-
-		if IsAddOnLoaded("XIV_Databar") then
-			XIV_Databar:Show()
 		end
 
 		if _G.BuiTaxiButton then
