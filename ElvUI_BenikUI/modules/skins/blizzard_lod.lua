@@ -120,19 +120,6 @@ local function style_AzeriteRespecUI()
 end
 S:AddCallbackForAddon("Blizzard_AzeriteRespecUI", "BenikUI_AzeriteRespecUI", style_AzeriteRespecUI)
 
--- BarbershopUI
-local function style_BarbershopUI()
-	if E.private.skins.blizzard.barber ~= true or E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true
-	then
-		return
-	end
-
-	_G.BarberShopFrame:Style("Outside")
-	_G.BarberShopAltFormFrame:Style("Outside")
-end
-S:AddCallbackForAddon("Blizzard_BarbershopUI", "BenikUI_BarbershopUI", style_BarbershopUI)
-
 -- BattlefieldMap
 local function style_BattlefieldMap()
 	if E.private.skins.blizzard.bgmap ~= true or E.private.skins.blizzard.enable ~= true or
