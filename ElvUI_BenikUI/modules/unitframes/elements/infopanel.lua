@@ -11,9 +11,9 @@ function BU:Configure_Infopanel(frame)
 			frame.InfoPanel:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -UF.BORDER - UF.SPACING, UF.BORDER + UF.SPACING)
 		end
 		if(frame.USE_POWERBAR and not frame.USE_INSET_POWERBAR and not frame.POWERBAR_DETACHED) then
-			frame.InfoPanel:Point("TOPLEFT", frame.Power.backdrop, "BOTTOMLEFT", UF.BORDER, -(frame.SPACING*3))
+			frame.InfoPanel:Point("TOPLEFT", frame.Power.backdrop, "BOTTOMLEFT", UF.BORDER, -(UF.SPACING*3))
 		else
-			frame.InfoPanel:Point("TOPLEFT", frame.Health.backdrop, "BOTTOMLEFT", UF.BORDER, -(frame.SPACING*3))
+			frame.InfoPanel:Point("TOPLEFT", frame.Health.backdrop, "BOTTOMLEFT", UF.BORDER, -(UF.SPACING*3))
 		end
 	else
 		if frame.PORTRAIT_AND_INFOPANEL then

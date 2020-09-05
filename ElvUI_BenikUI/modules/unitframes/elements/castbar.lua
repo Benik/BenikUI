@@ -58,7 +58,7 @@ local function ConfigureCastbarShadow(unit, unitframe)
 	local db = E.db.unitframe.units[unit].castbar;
 
 	if not castbar.backdrop.shadow then return end
-	
+
 	if db.overlayOnFrame == 'None' then
 		castbar.backdrop.shadow:Show()
 	else
@@ -69,7 +69,7 @@ local function ConfigureCastbarShadow(unit, unitframe)
 			castbar.ButtonIcon.bg.shadow:Hide()
 		end
 	end
-	
+
 	if not db.iconAttached and db.icon then
 		local attachPoint = db.iconAttachedTo == "Frame" and unitframe or unitframe.Castbar
 		local anchorPoint = db.iconPosition
@@ -78,9 +78,9 @@ local function ConfigureCastbarShadow(unit, unitframe)
 	elseif(db.icon) then
 		castbar.Icon.bg:ClearAllPoints()
 		if unitframe.ORIENTATION == "RIGHT" then
-			castbar.Icon.bg:Point("LEFT", castbar, "RIGHT", (unitframe.SPACING*3), 0)
+			castbar.Icon.bg:Point("LEFT", castbar, "RIGHT", (UF.SPACING*3), 0)
 		else
-			castbar.Icon.bg:Point("RIGHT", castbar, "LEFT", -(unitframe.SPACING*3), 0)
+			castbar.Icon.bg:Point("RIGHT", castbar, "LEFT", -(UF.SPACING*3), 0)
 		end
 	end
 end
