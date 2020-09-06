@@ -31,29 +31,29 @@ local function SetupLayout(layout)
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["chat"]["panelWidth"] = 412
 	E.db["databars"]["azerite"]["enable"] = true
-	E.db["databars"]["azerite"]["height"] = 150
+	E.db["databars"]["azerite"]["height"] = 148
 	E.db["databars"]["azerite"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["azerite"]["textFormat"] = 'NONE'
-	E.db["databars"]["azerite"]["textSize"] = 9
-	E.db["databars"]["azerite"]["width"] = 8
+	E.db["databars"]["azerite"]["fontSize"] = 9
+	E.db["databars"]["azerite"]["width"] = 7
 	E.db["databars"]["experience"]["font"] = "Expressway"
 	E.db["databars"]["experience"]["textYoffset"] = 10
 	E.db["databars"]["experience"]["textFormat"] = "CURPERC"
-	E.db["databars"]["experience"]["height"] = 6
+	E.db["databars"]["experience"]["height"] = 5
 	E.db["databars"]["experience"]["orientation"] = "HORIZONTAL"
-	E.db["databars"]["experience"]["textSize"] = 10
+	E.db["databars"]["experience"]["fontSize"] = 10
 	E.db["databars"]["honor"]["enable"] = true
 	E.db["databars"]["honor"]["height"] = 152
 	E.db["databars"]["honor"]["textFormat"] = 'NONE'
-	E.db["databars"]["honor"]["textSize"] = 9
-	E.db["databars"]["honor"]["width"] = 8
+	E.db["databars"]["honor"]["fontSize"] = 9
+	E.db["databars"]["honor"]["width"] = 7
 	E.db["databars"]["honor"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["reputation"]["enable"] = true
-	E.db["databars"]["reputation"]["height"] = 150
+	E.db["databars"]["reputation"]["height"] = 148
 	E.db["databars"]["reputation"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["reputation"]["textFormat"] = 'NONE'
-	E.db["databars"]["reputation"]["textSize"] = 9
-	E.db["databars"]["reputation"]["width"] = 8
+	E.db["databars"]["reputation"]["fontSize"] = 9
+	E.db["databars"]["reputation"]["width"] = 7
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["rightChatPanel"] = false
@@ -115,7 +115,7 @@ local function SetupLayout(layout)
 	-- common movers
 	if E.db["movers"] == nil then E.db["movers"] = {} end
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
-	E.db["movers"]["AzeriteBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
+	E.db["movers"]["AzeriteBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,416,23"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-192"
 	E.db["movers"]["BNETMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-156,-200"
 	E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
@@ -129,7 +129,7 @@ local function SetupLayout(layout)
 	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-210,-176"
 	E.db["movers"]["PlayerNameplate"] = "BOTTOM,ElvUIParent,BOTTOM,0,359"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-184"
-	E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-415,22"
+	E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-416,23"
 	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,22"
 	E.db["movers"]["SquareMinimapButtonBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-303"
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-34"
@@ -379,7 +379,7 @@ local function SetupActionbars(layout)
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
-		E.db["databars"]["experience"]["width"] = 414
+		E.db["databars"]["experience"]["width"] = 412
 
 		-- movers
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,97"
@@ -506,7 +506,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
-		E.db["databars"]["experience"]["width"] = 414
+		E.db["databars"]["experience"]["width"] = 412
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
@@ -522,7 +522,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,85"
 		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,141"
 		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,65"
+		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,68"
 		E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,116"
 	end
 	BUI:GetModule('Actionbars'):ToggleStyle()

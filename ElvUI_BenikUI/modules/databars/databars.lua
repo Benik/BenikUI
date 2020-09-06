@@ -36,20 +36,17 @@ end
 
 function mod:StyleBar(bar, onClick)
 	bar.fb = CreateFrame('Button', nil, bar, 'BackdropTemplate')
-	bar.fb:Point('TOPLEFT', bar, 'BOTTOMLEFT', 0, -SPACING)
-	bar.fb:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
+	bar.fb:Point('TOPLEFT', bar.backdrop, 'BOTTOMLEFT', 0, -SPACING)
+	bar.fb:Point('BOTTOMRIGHT', bar.backdrop, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
 
 	bar.fb:SetScript('OnClick', onClick)
 
 	if BUI.ShadowMode then
 		bar.fb:CreateSoftShadow()
-		if not bar.style then
-			bar:CreateSoftShadow()
-		end
 	end
 
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	bar:Style('Outside', nil, false, true)
+	bar.backdrop:Style('Outside', nil, false, true)
 end
 
 function mod:Initialize()

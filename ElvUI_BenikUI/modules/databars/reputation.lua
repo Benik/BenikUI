@@ -41,12 +41,12 @@ function mod:ApplyRepStyling()
 	end
 
 	if E.db.benikuiDatabars.reputation.buiStyle then
-		if bar.style then
-			bar.style:Show()
+		if bar.backdrop.style then
+			bar.backdrop.style:Show()
 		end
 	else
-		if bar.style then
-			bar.style:Hide()
+		if bar.backdrop.style then
+			bar.backdrop.style:Hide()
 		end
 	end
 end
@@ -145,7 +145,7 @@ function mod:RepTextOffset()
 end
 
 function mod:LoadRep()
-	local bar = ElvUI_ReputationBar
+	local bar = _G.ElvUI_ReputationBar
 
 	self:RepTextOffset()
 	hooksecurefunc(DB, 'ReputationBar_Update', mod.RepTextOffset)

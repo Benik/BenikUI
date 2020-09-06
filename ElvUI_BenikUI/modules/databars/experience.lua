@@ -20,28 +20,28 @@ local function OnClick(self)
 end
 
 function mod:ApplyXpStyling()
-	local xp = ElvUI_ExperienceBar
+	local bar = ElvUI_ExperienceBar
 	if E.db.databars.experience.enable then
-		if xp.fb then
+		if bar.fb then
 			if E.db.databars.experience.orientation == 'VERTICAL' then
 				if E.db.benikui.datatexts.chat.enable then
-					xp.fb:Show()
+					bar.fb:Show()
 				else
-					xp.fb:Hide()
+					bar.fb:Hide()
 				end
 			else
-				xp.fb:Hide()
+				bar.fb:Hide()
 			end
 		end
 	end
 
 	if E.db.benikuiDatabars.experience.buiStyle then
-		if xp.style then
-			xp.style:Show()
+		if bar.backdrop.style then
+			bar.backdrop.style:Show()
 		end
 	else
-		if xp.style then
-			xp.style:Hide()
+		if bar.backdrop.style then
+			bar.backdrop.style:Hide()
 		end
 	end
 end

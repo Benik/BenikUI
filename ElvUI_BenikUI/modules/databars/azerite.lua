@@ -24,12 +24,12 @@ function mod:ApplyAzeriteStyling()
 	end
 
 	if E.db.benikuiDatabars.azerite.buiStyle then
-		if bar.style then
-			bar.style:Show()
+		if bar.backdrop.style then
+			bar.backdrop.style:Show()
 		end
 	else
-		if bar.style then
-			bar.style:Hide()
+		if bar.backdrop.style then
+			bar.backdrop.style:Hide()
 		end
 	end
 end
