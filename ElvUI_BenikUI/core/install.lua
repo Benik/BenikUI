@@ -43,7 +43,7 @@ local function SetupLayout(layout)
 	E.db["databars"]["experience"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["experience"]["fontSize"] = 10
 	E.db["databars"]["honor"]["enable"] = true
-	E.db["databars"]["honor"]["height"] = 152
+	E.db["databars"]["honor"]["height"] = 150
 	E.db["databars"]["honor"]["textFormat"] = 'NONE'
 	E.db["databars"]["honor"]["fontSize"] = 9
 	E.db["databars"]["honor"]["width"] = 7
@@ -121,7 +121,7 @@ local function SetupLayout(layout)
 	E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
 	E.db["movers"]["DigSiteProgressBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,315"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-38"
-	E.db["movers"]["HonorBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-157,-6"
+	E.db["movers"]["HonorBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-7"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
 	E.db["movers"]["LocationMover"] = "TOP,ElvUIParent,TOP,0,-7"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-5"
