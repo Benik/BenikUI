@@ -29,9 +29,9 @@ function mod:UpdateThreatPosition()
 end
 
 function mod:Initialize()
-	self:UpdateThreatPosition()
-	hooksecurefunc(LO, 'ToggleChatPanels', mod.UpdateThreatPosition)
-	hooksecurefunc(T, 'UpdatePosition', mod.UpdateThreatPosition)
+	--self:UpdateThreatPosition()
+	--hooksecurefunc(LO, 'ToggleChatPanels', mod.UpdateThreatPosition)
+	--hooksecurefunc(T, 'UpdatePosition', mod.UpdateThreatPosition)
 end
 
 BUI:RegisterModule(mod:GetName())
