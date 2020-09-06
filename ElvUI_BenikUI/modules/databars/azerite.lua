@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Databars');
-local M = E:GetModule('DataBars');
+local DB = E:GetModule('DataBars');
 local DT = E:GetModule('DataTexts');
 local LSM = E.LSM;
 
@@ -60,7 +60,7 @@ function mod:ToggleAzeriteBackdrop()
 end
 
 function mod:UpdateAzeriteNotifierPositions()
-	local bar = ElvUI_AzeriteBar.statusBar
+	local bar = DB.StatusBars.Azerite
 
 	local db = E.db.benikuiDatabars.azerite.notifiers
 	local arrow = ""
@@ -100,7 +100,7 @@ function mod:UpdateAzeriteNotifierPositions()
 end
 
 function mod:UpdateAzeriteNotifier()
-	local bar = ElvUI_AzeriteBar.statusBar
+	local bar = DB.StatusBars.Azerite
 	local azeriteItemLocation = C_AzeriteItem_FindActiveAzeriteItem()
 
 	if not azeriteItemLocation or E.db.databars.azerite.orientation ~= 'VERTICAL' then
@@ -117,7 +117,7 @@ function mod:UpdateAzeriteNotifier()
 end
 
 function mod:AzeriteTextOffset()
-	local text = ElvUI_AzeriteBar.text
+	local text = DB.StatusBars.Azerite.text
 	text:Point('CENTER', 0, E.db.databars.azerite.textYoffset or 0)
 end
 
@@ -125,18 +125,18 @@ function mod:LoadAzerite()
 	local bar = ElvUI_AzeriteBar
 
 	self:AzeriteTextOffset()
-	hooksecurefunc(M, 'UpdateAzerite', mod.AzeriteTextOffset)
+	hooksecurefunc(DB, 'AzeriteBar_Update', mod.AzeriteTextOffset)
 
 	local db = E.db.benikuiDatabars.azerite.notifiers
 
 	if db.enable then
-		self:CreateNotifier(bar.statusBar)
+		self:CreateNotifier(bar)
 		self:UpdateAzeriteNotifierPositions()
 		self:UpdateAzeriteNotifier()
-		hooksecurefunc(M, 'UpdateAzerite', mod.UpdateAzeriteNotifier)
+		hooksecurefunc(DB, 'AzeriteBar_Update', mod.UpdateAzeriteNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateAzeriteNotifierPositions)
-		hooksecurefunc(M, 'UpdateAzeriteDimensions', mod.UpdateAzeriteNotifierPositions)
-		hooksecurefunc(M, 'UpdateAzeriteDimensions', mod.UpdateAzeriteNotifier)
+		hooksecurefunc(DB, 'UpdateAll', mod.UpdateAzeriteNotifierPositions)
+		hooksecurefunc(DB, 'UpdateAll', mod.UpdateAzeriteNotifier)
 	end
 
 	if E.db.benikuiDatabars.azerite.enable ~= true then return end
@@ -145,5 +145,5 @@ function mod:LoadAzerite()
 	self:ToggleAzeriteBackdrop()
 	self:ApplyAzeriteStyling()
 
-	hooksecurefunc(M, 'UpdateAzeriteDimensions', mod.ApplyAzeriteStyling)
+	hooksecurefunc(DB, 'UpdateAll', mod.ApplyAzeriteStyling)
 end

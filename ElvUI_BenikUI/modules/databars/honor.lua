@@ -1,7 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Databars');
 local DT = E:GetModule('DataTexts');
-local M = E:GetModule('DataBars');
+local DB = E:GetModule('DataBars');
 local LSM = E.LSM;
 
 local _G = _G
@@ -62,7 +62,7 @@ function mod:ToggleHonorBackdrop()
 end
 
 function mod:UpdateHonorNotifierPositions()
-	local bar = ElvUI_HonorBar.statusBar
+	local bar = DB.StatusBars.Honor
 
 	local db = E.db.benikuiDatabars.honor.notifiers
 	local arrow = ""
@@ -102,7 +102,7 @@ function mod:UpdateHonorNotifierPositions()
 end
 
 function mod:UpdateHonorNotifier()
-	local bar = ElvUI_HonorBar.statusBar
+	local bar = DB.StatusBars.Honor
 
 	if E.db.databars.honor.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
@@ -121,7 +121,7 @@ function mod:UpdateHonorNotifier()
 end
 
 function mod:HonorTextOffset()
-	local text = ElvUI_HonorBar.text
+	local text = DB.StatusBars.Honor.text
 	text:Point('CENTER', 0, E.db.databars.honor.textYoffset or 0)
 end
 
@@ -129,18 +129,18 @@ function mod:LoadHonor()
 	local bar = ElvUI_HonorBar
 
 	self:HonorTextOffset()
-	hooksecurefunc(M, 'UpdateHonor', mod.HonorTextOffset)
+	hooksecurefunc(DB, 'HonorBar_Update', mod.HonorTextOffset)
 
 	local db = E.db.benikuiDatabars.honor.notifiers
 
 	if db.enable then
-		self:CreateNotifier(bar.statusBar)
+		self:CreateNotifier(bar)
 		self:UpdateHonorNotifierPositions()
 		self:UpdateHonorNotifier()
-		hooksecurefunc(M, 'UpdateHonor', mod.UpdateHonorNotifier)
+		hooksecurefunc(DB, 'HonorBar_Update', mod.UpdateHonorNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateHonorNotifierPositions)
-		hooksecurefunc(M, 'UpdateHonorDimensions', mod.UpdateHonorNotifierPositions)
-		hooksecurefunc(M, 'UpdateHonorDimensions', mod.UpdateHonorNotifier)
+		hooksecurefunc(DB, 'UpdateAll', mod.UpdateHonorNotifierPositions)
+		hooksecurefunc(DB, 'UpdateAll', mod.UpdateHonorNotifier)
 	end
 
 	if E.db.benikuiDatabars.honor.enable ~= true then return end
@@ -149,5 +149,5 @@ function mod:LoadHonor()
 	self:ToggleHonorBackdrop()
 	self:ApplyHonorStyling()
 
-	hooksecurefunc(M, 'UpdateHonorDimensions', mod.ApplyHonorStyling)
+	hooksecurefunc(DB, 'UpdateAll', mod.ApplyHonorStyling)
 end

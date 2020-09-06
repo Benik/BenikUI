@@ -1,7 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Databars');
 local DT = E:GetModule('DataTexts');
-local M = E:GetModule('DataBars');
+local DB = E:GetModule('DataBars');
 local LSM = E.LSM;
 
 local _G = _G
@@ -77,7 +77,7 @@ function mod:ToggleRepBackdrop()
 end
 
 function mod:UpdateRepNotifierPositions()
-	local bar = ElvUI_ReputationBar.statusBar
+	local bar = DB.StatusBars.Reputation
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
 	local arrow = ""
@@ -117,7 +117,7 @@ function mod:UpdateRepNotifierPositions()
 end
 
 function mod:UpdateRepNotifier()
-	local bar = ElvUI_ReputationBar.statusBar
+	local bar = DB.StatusBars.Reputation
 	local name, reaction, min, max, value, factionID = GetWatchedFactionInfo()
 
 	if (C_Reputation_IsFactionParagon(factionID)) then
@@ -140,7 +140,7 @@ function mod:UpdateRepNotifier()
 end
 
 function mod:RepTextOffset()
-	local text = ElvUI_ReputationBar.text
+	local text = DB.StatusBars.Reputation.text
 	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset or 0)
 end
 
@@ -148,18 +148,18 @@ function mod:LoadRep()
 	local bar = ElvUI_ReputationBar
 
 	self:RepTextOffset()
-	hooksecurefunc(M, 'UpdateReputation', mod.RepTextOffset)
+	hooksecurefunc(DB, 'ReputationBar_Update', mod.RepTextOffset)
 
 	local db = E.db.benikuiDatabars.reputation.notifiers
 
 	if db.enable then
-		self:CreateNotifier(bar.statusBar)
+		self:CreateNotifier(bar)
 		self:UpdateRepNotifierPositions()
 
-		hooksecurefunc(M, 'UpdateReputation', mod.UpdateRepNotifier)
+		hooksecurefunc(DB, 'ReputationBar_Update', mod.UpdateRepNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateRepNotifierPositions)
-		hooksecurefunc(M, 'UpdateReputationDimensions', mod.UpdateRepNotifierPositions)
-		hooksecurefunc(M, 'UpdateReputationDimensions', mod.UpdateRepNotifier)
+		hooksecurefunc(DB, 'UpdateAll', mod.UpdateRepNotifierPositions)
+		hooksecurefunc(DB, 'UpdateAll', mod.UpdateRepNotifier)
 
 		C_TimerAfter(1, mod.UpdateRepNotifier)
 	end
@@ -170,5 +170,5 @@ function mod:LoadRep()
 	self:ToggleRepBackdrop()
 	self:ApplyRepStyling()
 
-	hooksecurefunc(M, 'UpdateReputationDimensions', mod.ApplyRepStyling)
+	hooksecurefunc(DB, 'UpdateAll', mod.ApplyRepStyling)
 end

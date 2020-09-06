@@ -1,7 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Databars');
 local DT = E:GetModule('DataTexts');
-local M = E:GetModule('DataBars');
+local DB = E:GetModule('DataBars');
 local LSM = E.LSM;
 
 
@@ -72,7 +72,7 @@ function mod:ToggleXPBackdrop()
 end
 
 function mod:UpdateXpNotifierPositions()
-	local bar = ElvUI_ExperienceBar.statusBar
+	local bar = DB.StatusBars.Experience
 
 	local db = E.db.benikuiDatabars.experience.notifiers
 	local arrow = ""
@@ -120,7 +120,7 @@ function mod:GetXP(unit)
 end
 
 function mod:UpdateXpNotifier()
-	local bar = ElvUI_ExperienceBar.statusBar
+	local bar = DB.StatusBars.Experience
 
 	if E.db.databars.experience.orientation ~= 'VERTICAL' then
 		bar.f:Hide()
@@ -133,7 +133,7 @@ function mod:UpdateXpNotifier()
 end
 
 function mod:XpTextOffset()
-	local text = ElvUI_ExperienceBar.text
+	local text = DB.StatusBars.Experience.text
 	text:Point('CENTER', 0, E.db.databars.experience.textYoffset or 0)
 end
 
@@ -141,18 +141,18 @@ function mod:LoadXP()
 	local bar = ElvUI_ExperienceBar
 
 	self:XpTextOffset()
-	hooksecurefunc(M, 'UpdateExperience', mod.XpTextOffset)
+	hooksecurefunc(DB, 'ExperienceBar_Update', mod.XpTextOffset)
 
 	local db = E.db.benikuiDatabars.experience.notifiers
 
 	if db.enable then
-		self:CreateNotifier(bar.statusBar)
+		self:CreateNotifier(bar)
 		self:UpdateXpNotifierPositions()
 		self:UpdateXpNotifier()
-		hooksecurefunc(M, 'UpdateExperience', mod.UpdateXpNotifier)
+		hooksecurefunc(DB, 'ExperienceBar_Update', mod.UpdateXpNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateXpNotifierPositions)
-		hooksecurefunc(M, 'UpdateExperienceDimensions', mod.UpdateXpNotifierPositions)
-		hooksecurefunc(M, 'UpdateExperienceDimensions', mod.UpdateXpNotifier)
+		hooksecurefunc(DB, 'UpdateAll', mod.UpdateXpNotifierPositions)
+		hooksecurefunc(DB, 'UpdateAll', mod.UpdateXpNotifier)
 	end
 
 	if E.db.benikuiDatabars.experience.enable ~= true then return end
@@ -161,5 +161,5 @@ function mod:LoadXP()
 	self:ToggleXPBackdrop()
 	self:ApplyXpStyling()
 
-	hooksecurefunc(M, 'UpdateExperienceDimensions', mod.ApplyXpStyling)
+	hooksecurefunc(DB, 'UpdateAll', mod.ApplyXpStyling)
 end
