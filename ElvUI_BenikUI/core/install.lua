@@ -30,6 +30,7 @@ local function SetupLayout(layout)
 	E.db["chat"]["panelBackdrop"] = 'SHOWBOTH'
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["chat"]["panelWidth"] = 412
+	E.db["databars"]["statusbar"] = "BuiFlat"
 	E.db["databars"]["azerite"]["enable"] = true
 	E.db["databars"]["azerite"]["height"] = 148
 	E.db["databars"]["azerite"]["orientation"] = 'VERTICAL'
