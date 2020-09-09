@@ -451,10 +451,10 @@ function mod:CreateMiddlePanel(forceReset)
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["growth"] = 'HORIZONTAL'
 		
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
+			["enable"] = true,
 			[1] = "Haste",
 			[2] = "Mastery",
 			[3] = "Crit Chance",
-			["enable"] = true,
 		}
 
 		if E.db["movers"] == nil then E.db["movers"] = {} end
@@ -465,6 +465,7 @@ function mod:CreateMiddlePanel(forceReset)
 		dt:SetPoint("CENTER", dt.mover, "CENTER", 0, 0) -- just in case
 		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 		E:SaveMoverPosition("DTPanelBuiMiddleDTPanelMover")
+		DT:UpdatePanelAttributes("BuiMiddleDTPanel", E.global.datatexts.customPanels["BuiMiddleDTPanel"])
 	end
 end
 

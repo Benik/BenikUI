@@ -110,7 +110,7 @@ local function SetupLayout(layout)
 	E.private["general"]["glossTex"] = "BuiFlat"
 	E.private["general"]["chatBubbles"] = 'backdrop'
 
-	BUI:GetModule('Layout'):CreateMiddlePanel()
+	BUI:GetModule('Layout'):CreateMiddlePanel(true)
 
 	-- common movers
 	if E.db["movers"] == nil then E.db["movers"] = {} end
