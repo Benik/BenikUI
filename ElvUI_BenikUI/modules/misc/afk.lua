@@ -151,7 +151,8 @@ local function createStats()
 	local _, name = GetAchievementInfo(id)
 	local result = GetStatistic(id)
 	if result == "--" then result = NONE end
-	return format("%s: |cfff0ff00%s|r", name, result)
+	--return format("%s: |cfff0ff00%s|r", name, result)
+	return format("|cfff0ff00BenikUI:\nRandom stats are currently broken on beta|r")
 end
 
 local active
