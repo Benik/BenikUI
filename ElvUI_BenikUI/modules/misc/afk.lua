@@ -11,6 +11,7 @@ local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic
 local IsXPUserDisabled = IsXPUserDisabled
 local IsPlayerAtEffectiveMaxLevel = IsPlayerAtEffectiveMaxLevel
+local UnitXP, UnitXPMax = UnitXP, UnitXPMax
 local UnitLevel = UnitLevel
 local InCombatLockdown = InCombatLockdown
 local GetSpecialization = GetSpecialization
@@ -221,11 +222,11 @@ end
 hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 
 -- XP string
-local M = E:GetModule('DataBars');
 local function GetXPinfo()
 	if IsPlayerAtEffectiveMaxLevel() or IsXPUserDisabled() then return end
 
-	local cur, max = M:GetXP('player')
+	local cur, max = UnitXP('player'), UnitXPMax('player')
+	if max <= 0 then max = 1 end
 	local curlvl = UnitLevel('player')
 	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
 end
