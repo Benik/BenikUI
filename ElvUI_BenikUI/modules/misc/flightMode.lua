@@ -169,8 +169,11 @@ local AddonsToHide = {
 	{'ZygorGuidesViewer', 'ZygorGuidesViewerFrame'},
 	{'ZygorGuidesViewer', 'Zygor_Notification_Center'},
 	{'WorldQuestTracker', 'WorldQuestTrackerScreenPanel'},
+	{'WorldQuestTracker', 'WorldQuestTrackerFinderFrame'},
 	{'XIV_Databar', 'XIV_Databar'},
-	{'VuhDo', 'VuhDoBuffWatchMainFrame'}
+	{'VuhDo', 'VuhDoBuffWatchMainFrame'},
+	{'WeakAuras', 'WeakAurasFrame'},
+	{'HeroRotation','HeroRotation_ToggleIconFrame'}
 }
 
 local VisibleFrames = {}
