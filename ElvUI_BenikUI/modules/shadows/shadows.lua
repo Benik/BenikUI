@@ -5,12 +5,11 @@ local S = E:GetModule('Skins');
 local _G = _G
 
 local CLASS_SORT_ORDER = CLASS_SORT_ORDER
--- GLOBALS: MIRRORTIMER_NUMTIMERS
 
 local function mirrorTimersShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mirrorTimers ~= true then return end
 
-	for i = 1, MIRRORTIMER_NUMTIMERS do
+	for i = 1, _G.MIRRORTIMER_NUMTIMERS do
 		local statusBar = _G['MirrorTimer'..i..'StatusBar']
 		statusBar.backdrop:CreateSoftShadow()
 	end
@@ -166,7 +165,7 @@ function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
 	raidUtilityShadows()
-	--mirrorTimersShadows()
+	mirrorTimersShadows()
 	ObjectiveTrackerShadows()
 	miscShadows()
 	MicroBarShadows()
