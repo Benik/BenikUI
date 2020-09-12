@@ -145,28 +145,6 @@ local function Datatexts()
 					},
 				},
 			},
-			garrison = {
-				order = 40,
-				type = 'group',
-				name = GARRISON_LOCATION_TOOLTIP,
-				guiInline = true,
-				get = function(info) return E.db.benikui.datatexts.garrison[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.datatexts.garrison[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-				args = {
-					currency = {
-						order = 1,
-						type = 'toggle',
-						name = L['Show Garrison Currency'],
-						desc = L['Show/Hide garrison currency on the datatext tooltip'],
-					},
-					oil = {
-						order = 2,
-						type = 'toggle',
-						name = L['Show Oil'],
-						desc = L['Show/Hide oil on the datatext tooltip'],
-					},
-				},
-			},
 		},
 	}
 end

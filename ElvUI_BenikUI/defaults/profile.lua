@@ -98,10 +98,6 @@ P['benikui'] = {
 		['mail'] = {
 			['toggle'] = true,
 		},
-		['garrison'] = {
-			['currency'] = false,
-			['oil'] = false,
-		},
 	},
 
 	['actionbars'] = {
