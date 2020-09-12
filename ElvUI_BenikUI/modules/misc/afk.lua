@@ -71,15 +71,14 @@ local stats = {
 	1198,	-- Total kills that grant experience or honor
 	1336,	-- Creature type killed the most
 	1339,	-- Mage portal taken most
-	1487,	-- Killing Blows
+	1487,	-- Total Killing Blows
 	1491,	-- Battleground Killing Blows
 	1518,	-- Fish caught
-	1716,	-- Battleground with the most Killing Blows
 	1776,	-- Food eaten most
 	2277,	-- Summons accepted
-	2396,	-- Battleground played the most
-	2397,	-- Battleground won the most
 	5692,	-- Rated battlegrounds played
+	5693,	-- Rated battleground played the most
+	5695,	-- Rated battleground won the most
 	5694,	-- Rated battlegrounds won
 	7399,	-- Challenge mode dungeons completed
 	8278,	-- Pet Battles won at max level
@@ -151,8 +150,7 @@ local function createStats()
 	local _, name = GetAchievementInfo(id)
 	local result = GetStatistic(id)
 	if result == "--" then result = NONE end
-	--return format("%s: |cfff0ff00%s|r", name, result)
-	return format("|cfff0ff00BenikUI:\nRandom stats are currently broken on beta|r")
+	return format("%s: |cfff0ff00%s|r", name, result)
 end
 
 local active
