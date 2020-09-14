@@ -10,7 +10,6 @@
 ## X-Tukui-ProjectFolders: ElvUI_BenikUI
 ## X-ElvuiVersion: 11.42
 
-libs\load_libs.xml
 locales\load_locales.xml
 media\load_media.xml
 defaults\load_defaults.xml
