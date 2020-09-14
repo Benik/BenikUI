@@ -272,6 +272,11 @@ function mod:SetFlightMode(status)
 			end
 		end
 
+		-- StanceBar needs a little extra check
+		if _G.ElvUI_StanceBar then
+			_G.ElvUI_StanceBar:SetAlpha(0)
+		end
+
 		-- Disable Blizz location messsages
 		ZoneTextFrame:UnregisterAllEvents()
 
@@ -381,6 +386,10 @@ function mod:SetFlightMode(status)
 			if bar then
 				bar:SetAlpha(1)
 			end
+		end
+
+		if _G.ElvUI_StanceBar then
+			_G.ElvUI_StanceBar:SetAlpha(1)
 		end
 
 		-- Show SquareMinimapButtonBar
