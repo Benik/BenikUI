@@ -1,11 +1,12 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0');
+local mod = BUI:NewModule('FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
+local AB = E:GetModule('ActionBars')
 local LO = E:GetModule('Layout')
 local M = E:GetModule('WorldMap')
 
 local _G = _G
 local GetTime = GetTime
-local unpack, floor = unpack, floor
+local unpack, floor, pairs = unpack, floor, pairs
 local join = string.join
 
 local GameTooltip = _G["GameTooltip"]
@@ -262,6 +263,15 @@ function mod:SetFlightMode(status)
 			end
 		end
 
+		-- Handle ActionBars. This needs to be done if Global Fade is active
+		for _, bar in pairs(AB.handledBars) do
+			if bar then
+				if bar:GetParent() == AB.fadeParent then
+					bar:SetAlpha(0)
+				end
+			end
+		end
+
 		-- Disable Blizz location messsages
 		ZoneTextFrame:UnregisterAllEvents()
 
@@ -366,6 +376,13 @@ function mod:SetFlightMode(status)
 			LO:ToggleChatPanels()
 		end
 
+		-- Revert ActionBars
+		for _, bar in pairs(AB.handledBars) do
+			if bar then
+				bar:SetAlpha(1)
+			end
+		end
+
 		-- Show SquareMinimapButtonBar
 		if (BUI.PA and not BUI.SLE) then
 			if SquareMinimapButtonBar then
@@ -421,7 +438,7 @@ function mod:ToggleLogo()
 	else
 		self.FlightMode.bottom.wowlogo:Hide()
 		self.FlightMode.bottom.benikui:Hide()
-		self.FlightMode.bottom.logo:Hide()	
+		self.FlightMode.bottom.logo:Hide()
 	end
 end
 
