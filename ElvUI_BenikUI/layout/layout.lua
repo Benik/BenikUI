@@ -28,7 +28,6 @@ local SPACING = (E.PixelMode and 1 or 3)
 local BUTTON_NUM = 4
 
 local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent, 'BackdropTemplate')
-local Bui_dthreat = CreateFrame('Frame', 'BuiDummyThreat', E.UIParent, 'BackdropTemplate')
 local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent, 'BackdropTemplate')
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent, 'BackdropTemplate')
@@ -202,11 +201,6 @@ function mod:CreateLayout()
 	Bui_dchat:SetFrameStrata('LOW')
 	Bui_dchat:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -SPACING)
 	Bui_dchat:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
-
-	-- dummy frame for threat (right)
-	Bui_dthreat:SetFrameStrata('LOW')
-	Bui_dthreat:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', 0, -SPACING)
-	Bui_dthreat:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -PANEL_HEIGHT -SPACING)
 
 	-- Buttons
 	for i = 1, BUTTON_NUM do
