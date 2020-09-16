@@ -332,6 +332,73 @@ local function databarsTable()
 					},
 				},
 			},
+			threat = {
+				order = 5,
+				type = 'group',
+				name = L["Threat"],
+				args = {
+					enable = {
+						order = 1,
+						type = 'toggle',
+						name = L["Enable"],
+						get = function(info) return E.db.benikuiDatabars.threat.enable end,
+						set = function(info, value) E.db.benikuiDatabars.threat.enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					spacer1 = {
+						order = 2,
+						type = 'description',
+						name = '',
+					},
+					buiStyle = {
+						order = 3,
+						type = 'toggle',
+						name = L['BenikUI Style'],
+						disabled = function() return not E.db.benikuiDatabars.threat.enable end,
+						--desc = L['Show BenikUI decorative bars on the default ElvUI Honor bar'],
+						get = function(info) return E.db.benikuiDatabars.threat.buiStyle end,
+						set = function(info, value) E.db.benikuiDatabars.threat.buiStyle = value; mod:ApplyThreatStyling(); end,
+					},
+					buttonStyle = {
+						order = 4,
+						type = 'select',
+						name = L['Button Backdrop'],
+						disabled = function() return not E.db.benikuiDatabars.threat.enable end,
+						values = backdropValues,
+						get = function(info) return E.db.benikuiDatabars.threat.buttonStyle end,
+						set = function(info, value) E.db.benikuiDatabars.threat.buttonStyle = value; mod:ToggleThreatBackdrop(); end,
+					},
+					notifiers = {
+						order = 5,
+						type = 'group',
+						name = L['Notifiers'],
+						guiInline = true,
+						args = {
+							enable = {
+								order = 1,
+								type = 'toggle',
+								name = L["Enable"],
+								get = function(info) return E.db.benikuiDatabars.threat.notifiers.enable end,
+								set = function(info, value) E.db.benikuiDatabars.threat.notifiers.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+							},
+							position = {
+								order = 3,
+								type = 'select',
+								name = L['Position'],
+								disabled = function() return not E.db.benikuiDatabars.threat.notifiers.enable end,
+								values = positionValues,
+								get = function(info) return E.db.benikuiDatabars.threat.notifiers.position end,
+								set = function(info, value) E.db.benikuiDatabars.threat.notifiers.position = value; mod:UpdateThreatNotifierPositions(); end,
+							},
+						},
+					},
+					elvuiOption = {
+						order = 10,
+						type = "execute",
+						name = L["ElvUI"].." "..L["Threat"],
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "databars", "threat") end,
+					},
+				},
+			},
 		},
 	}
 end
@@ -404,6 +471,23 @@ local function injectElvUIDatabarOptions()
 		type = "execute",
 		name = BUI.Title..HONOR,
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "honor") end,
+	}
+
+	-- threat
+	E.Options.args.databars.args.threat.args.fontGroup.args.textYoffset = {
+		order = 100,
+		type = "range",
+		min = -30, max = 30, step = 1,
+		name = BUI:cOption(L['Text yOffset']),
+		get = function(info) return E.db.databars.threat[ info[#info] ] end,
+		set = function(info, value) E.db.databars.threat[ info[#info] ] = value; mod:ThreatTextOffset() end,
+	}
+
+	E.Options.args.databars.args.threat.args.gotobenikui = {
+		order = -1,
+		type = "execute",
+		name = BUI.Title..HONOR,
+		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "threat") end,
 	}
 end
 tinsert(BUI.Config, injectElvUIDatabarOptions)

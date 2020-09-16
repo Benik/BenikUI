@@ -304,6 +304,16 @@ P['benikuiDatabars'] = {
 			['position'] = 'RIGHT',
 		},
 	},
+
+	['threat'] = {
+		['enable'] = true,
+		['buiStyle'] = false,
+		['buttonStyle'] = "TRANSPARENT",
+		['notifiers'] = {
+			['enable'] = true,
+			['position'] = 'BELOW',
+		},
+	},
 }
 
 -- Dashboards

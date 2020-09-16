@@ -164,6 +164,7 @@ function mod:Initialize()
 	self:LoadRep()
 	self:LoadAzerite()
 	self:LoadHonor()
+	self:LoadThreat()
 end
 
 BUI:RegisterModule(mod:GetName())
