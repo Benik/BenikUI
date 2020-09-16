@@ -6,7 +6,7 @@ local LSM = E.LSM;
 
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local SPACING = (E.PixelMode and 1 or 3)
-local bars = {'experience', 'reputation', 'artifact', 'honor'}
+local bars = {'experience', 'reputation', 'azerite', 'honor'}
 
 function mod:CreateNotifier(bar)
 	bar.f = CreateFrame('Frame', nil, bar)
