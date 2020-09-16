@@ -12,57 +12,22 @@ local C_AzeriteItem_GetAzeriteItemXPInfo = C_AzeriteItem.GetAzeriteItemXPInfo
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_AzeriteBar
 
 function mod:ApplyAzeriteStyling()
-	local bar = ElvUI_AzeriteBar
-	if E.db.databars.azerite.enable then
-		if bar.fb then
-			if E.db.databars.azerite.orientation == 'VERTICAL' then
-				bar.fb:Show()
-			else
-				bar.fb:Hide()
-			end
-		end
-	end
+	local bar = _G.ElvUI_AzeriteBar
 
-	if E.db.benikuiDatabars.azerite.buiStyle then
-		if bar.backdrop.style then
-			bar.backdrop.style:Show()
-		end
-	else
-		if bar.backdrop.style then
-			bar.backdrop.style:Hide()
-		end
-	end
+	mod:ApplyStyle(bar, "azerite")
 end
 
 function mod:ToggleAzeriteBackdrop()
 	if E.db.benikuiDatabars.azerite.enable ~= true then return end
-	local bar = ElvUI_AzeriteBar
-	local db = E.db.benikuiDatabars.azerite
+	local bar = _G.ElvUI_AzeriteBar
 
-	if bar.fb then
-		if db.buttonStyle == 'DEFAULT' then
-			bar.fb:SetTemplate('Default', true)
-			if bar.fb.shadow then
-				bar.fb.shadow:Show()
-			end
-		elseif db.buttonStyle == 'TRANSPARENT' then
-			bar.fb:SetTemplate('Transparent')
-			if bar.fb.shadow then
-				bar.fb.shadow:Show()
-			end
-		else
-			bar.fb:SetTemplate('NoBackdrop')
-			if bar.fb.shadow then
-				bar.fb.shadow:Hide()
-			end
-		end
-	end
+	mod:ToggleBackdrop(bar, "azerite")
 end
 
 function mod:UpdateAzeriteNotifierPositions()
-	local databar = DB.StatusBars.Azerite
+	local bar = DB.StatusBars.Azerite
 
-	mod:UpdateNotifierPositions(databar, "azerite")
+	mod:UpdateNotifierPositions(bar, "azerite")
 end
 
 function mod:UpdateAzeriteNotifier()

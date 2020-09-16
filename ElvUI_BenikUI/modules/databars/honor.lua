@@ -14,57 +14,22 @@ local function OnClick(self)
 end
 
 function mod:ApplyHonorStyling()
-	local bar = ElvUI_HonorBar
-	if E.db.databars.honor.enable then
-		if bar.fb then
-			if E.db.databars.honor.orientation == 'VERTICAL' then
-				bar.fb:Show()
-			else
-				bar.fb:Hide()
-			end
-		end
-	end
-
-	if E.db.benikuiDatabars.honor.buiStyle then
-		if bar.backdrop.style then
-			bar.backdrop.style:Show()
-		end
-	else
-		if bar.backdrop.style then
-			bar.backdrop.style:Hide()
-		end
-	end
+	local bar = _G.ElvUI_HonorBar
+	
+	mod:ApplyStyle(bar, "honor")
 end
 
 function mod:ToggleHonorBackdrop()
 	if E.db.benikuiDatabars.honor.enable ~= true then return end
-	local bar = ElvUI_HonorBar
-	local db = E.db.benikuiDatabars.honor
+	local bar = _G.ElvUI_HonorBar
 
-	if bar.fb then
-		if db.buttonStyle == 'DEFAULT' then
-			bar.fb:SetTemplate('Default', true)
-			if bar.fb.shadow then
-				bar.fb.shadow:Show()
-			end
-		elseif db.buttonStyle == 'TRANSPARENT' then
-			bar.fb:SetTemplate('Transparent')
-			if bar.fb.shadow then
-				bar.fb.shadow:Show()
-			end
-		else
-			bar.fb:SetTemplate('NoBackdrop')
-			if bar.fb.shadow then
-				bar.fb.shadow:Hide()
-			end
-		end
-	end
+	mod:ToggleBackdrop(bar, "honor")
 end
 
 function mod:UpdateHonorNotifierPositions()
-	local databar = DB.StatusBars.Honor
+	local bar = DB.StatusBars.Honor
 
-	mod:UpdateNotifierPositions(databar, "honor")
+	mod:UpdateNotifierPositions(bar, "honor")
 end
 
 function mod:UpdateHonorNotifier()

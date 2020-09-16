@@ -29,57 +29,22 @@ local function OnClick(self)
 end
 
 function mod:ApplyRepStyling()
-	local bar = ElvUI_ReputationBar
-	if E.db.databars.reputation.enable then
-		if bar.fb then
-			if E.db.databars.reputation.orientation == 'VERTICAL' then
-				bar.fb:Show()
-			else
-				bar.fb:Hide()
-			end
-		end
-	end
+	local bar = _G.ElvUI_ReputationBar
 
-	if E.db.benikuiDatabars.reputation.buiStyle then
-		if bar.backdrop.style then
-			bar.backdrop.style:Show()
-		end
-	else
-		if bar.backdrop.style then
-			bar.backdrop.style:Hide()
-		end
-	end
+	mod:ApplyStyle(bar, "reputation")
 end
 
 function mod:ToggleRepBackdrop()
 	if E.db.benikuiDatabars.reputation.enable ~= true then return end
-	local bar = ElvUI_ReputationBar
-	local db = E.db.benikuiDatabars.reputation
-
-	if bar.fb then
-		if db.buttonStyle == 'DEFAULT' then
-			bar.fb:SetTemplate('Default', true)
-			if bar.fb.shadow then
-				bar.fb.shadow:Show()
-			end
-		elseif db.buttonStyle == 'TRANSPARENT' then
-			bar.fb:SetTemplate('Transparent')
-			if bar.fb.shadow then
-				bar.fb.shadow:Show()
-			end
-		else
-			bar.fb:SetTemplate('NoBackdrop')
-			if bar.fb.shadow then
-				bar.fb.shadow:Hide()
-			end
-		end
-	end
+	local bar = _G.ElvUI_ReputationBar
+	
+	mod:ToggleBackdrop(bar, "reputation")
 end
 
 function mod:UpdateRepNotifierPositions()
-	local databar = DB.StatusBars.Reputation
+	local bar = DB.StatusBars.Reputation
 	
-	mod:UpdateNotifierPositions(databar, "reputation")
+	mod:UpdateNotifierPositions(bar, "reputation")
 end
 
 function mod:UpdateRepNotifier()

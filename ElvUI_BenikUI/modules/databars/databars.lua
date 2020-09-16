@@ -90,6 +90,52 @@ function mod:UpdateNotifierPositions(bar, option)
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 end
 
+function mod:ToggleBackdrop(bar, option)
+	local db = E.db.benikuiDatabars[option]
+	
+	if bar.fb then
+		if db.buttonStyle == 'DEFAULT' then
+			bar.fb:SetTemplate('Default', true)
+			if bar.fb.shadow then
+				bar.fb.shadow:Show()
+			end
+		elseif db.buttonStyle == 'TRANSPARENT' then
+			bar.fb:SetTemplate('Transparent')
+			if bar.fb.shadow then
+				bar.fb.shadow:Show()
+			end
+		else
+			bar.fb:SetTemplate('NoBackdrop')
+			if bar.fb.shadow then
+				bar.fb.shadow:Hide()
+			end
+		end
+	end
+end
+
+function mod:ApplyStyle(bar, option)
+
+	if E.db.databars[option].enable then
+		if bar.fb then
+			if E.db.databars[option].orientation == 'VERTICAL' then
+				bar.fb:Show()
+			else
+				bar.fb:Hide()
+			end
+		end
+	end
+
+	if E.db.benikuiDatabars[option].buiStyle then
+		if bar.backdrop.style then
+			bar.backdrop.style:Show()
+		end
+	else
+		if bar.backdrop.style then
+			bar.backdrop.style:Hide()
+		end
+	end
+end
+
 function mod:StyleBar(bar, onClick)
 	bar.fb = CreateFrame('Button', nil, bar, 'BackdropTemplate')
 	bar.fb:Point('TOPLEFT', bar.backdrop, 'BOTTOMLEFT', 0, -SPACING)

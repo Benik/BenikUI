@@ -20,61 +20,22 @@ local function OnClick(self)
 end
 
 function mod:ApplyXpStyling()
-	local bar = ElvUI_ExperienceBar
-	if E.db.databars.experience.enable then
-		if bar.fb then
-			if E.db.databars.experience.orientation == 'VERTICAL' then
-				if E.db.benikui.datatexts.chat.enable then
-					bar.fb:Show()
-				else
-					bar.fb:Hide()
-				end
-			else
-				bar.fb:Hide()
-			end
-		end
-	end
-
-	if E.db.benikuiDatabars.experience.buiStyle then
-		if bar.backdrop.style then
-			bar.backdrop.style:Show()
-		end
-	else
-		if bar.backdrop.style then
-			bar.backdrop.style:Hide()
-		end
-	end
+	local bar = _G.ElvUI_ExperienceBar
+	
+	mod:ApplyStyle(bar, "experience")
 end
 
 function mod:ToggleXPBackdrop()
 	if E.db.benikuiDatabars.experience.enable ~= true then return end
-	local bar = ElvUI_ExperienceBar
-	local db = E.db.benikuiDatabars.experience
+	local bar = _G.ElvUI_ExperienceBar
 
-	if bar.fb then
-		if db.buttonStyle == 'DEFAULT' then
-			bar.fb:SetTemplate('Default', true)
-			if bar.fb.shadow then
-				bar.fb.shadow:Show()
-			end
-		elseif db.buttonStyle == 'TRANSPARENT' then
-			bar.fb:SetTemplate('Transparent')
-			if bar.fb.shadow then
-				bar.fb.shadow:Show()
-			end
-		else
-			bar.fb:SetTemplate('NoBackdrop')
-			if bar.fb.shadow then
-				bar.fb.shadow:Hide()
-			end
-		end
-	end
+	mod:ToggleBackdrop(bar, "experience")
 end
 
 function mod:UpdateXpNotifierPositions()
-	local databar = DB.StatusBars.Experience
+	local bar = DB.StatusBars.Experience
 
-	mod:UpdateNotifierPositions(databar, "experience")
+	mod:UpdateNotifierPositions(bar, "experience")
 end
 
 function mod:GetXP(unit)
