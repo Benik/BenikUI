@@ -62,43 +62,9 @@ function mod:ToggleHonorBackdrop()
 end
 
 function mod:UpdateHonorNotifierPositions()
-	local bar = DB.StatusBars.Honor
+	local databar = DB.StatusBars.Honor
 
-	local db = E.db.benikuiDatabars.honor.notifiers
-	local arrow = ""
-
-	bar.f:ClearAllPoints()
-	bar.f.arrow:ClearAllPoints()
-	bar.f.txt:ClearAllPoints()
-
-	if db.position == 'LEFT' then
-		if not E.db.databars.honor.reverseFill then
-			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
-		else
-			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
-		end
-		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
-		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
-		arrow = ">"
-	else
-		if not E.db.databars.honor.reverseFill then
-			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
-		else
-			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
-		end
-		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
-		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
-		arrow = "<"
-	end
-
-	bar.f.arrow:SetText(arrow)
-	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-
-	if E.db.databars.honor.orientation ~= 'VERTICAL' then
-		bar.f:Hide()
-	else
-		bar.f:Show()
-	end
+	mod:UpdateNotifierPositions(databar, "honor")
 end
 
 function mod:UpdateHonorNotifier()

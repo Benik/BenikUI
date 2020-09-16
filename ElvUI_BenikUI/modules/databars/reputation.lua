@@ -77,43 +77,9 @@ function mod:ToggleRepBackdrop()
 end
 
 function mod:UpdateRepNotifierPositions()
-	local bar = DB.StatusBars.Reputation
-
-	local db = E.db.benikuiDatabars.reputation.notifiers
-	local arrow = ""
-
-	bar.f:ClearAllPoints()
-	bar.f.arrow:ClearAllPoints()
-	bar.f.txt:ClearAllPoints()
-
-	if db.position == 'LEFT' then
-		if not E.db.databars.reputation.reverseFill then
-			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'TOPLEFT', E.PixelMode and 2 or 0, 1)
-		else
-			bar.f.arrow:Point('RIGHT', bar:GetStatusBarTexture(), 'BOTTOMLEFT', E.PixelMode and 2 or 0, 1)
-		end
-		bar.f:Point('RIGHT', bar.f.arrow, 'LEFT')
-		bar.f.txt:Point('RIGHT', bar.f, 'LEFT')
-		arrow = ">"
-	else
-		if not E.db.databars.reputation.reverseFill then
-			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'TOPRIGHT', E.PixelMode and 2 or 4, 1)
-		else
-			bar.f.arrow:Point('LEFT', bar:GetStatusBarTexture(), 'BOTTOMRIGHT', E.PixelMode and 2 or 4, 1)
-		end
-		bar.f:Point('LEFT', bar.f.arrow, 'RIGHT')
-		bar.f.txt:Point('LEFT', bar.f, 'RIGHT')
-		arrow = "<"
-	end
-
-	bar.f.arrow:SetText(arrow)
-	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-
-	if E.db.databars.reputation.orientation ~= 'VERTICAL' then
-		bar.f:Hide()
-	else
-		bar.f:Show()
-	end
+	local databar = DB.StatusBars.Reputation
+	
+	mod:UpdateNotifierPositions(databar, "reputation")
 end
 
 function mod:UpdateRepNotifier()
@@ -131,7 +97,7 @@ function mod:UpdateRepNotifier()
 		end
 	end
 
-	if not name or E.db.databars.reputation.orientation ~= 'VERTICAL' or (reaction == MAX_REPUTATION_REACTION and not C_Reputation_IsFactionParagon(factionID)) then
+	if not name or (reaction == MAX_REPUTATION_REACTION and not C_Reputation_IsFactionParagon(factionID)) then
 		bar.f:Hide()
 	else
 		bar.f:Show()

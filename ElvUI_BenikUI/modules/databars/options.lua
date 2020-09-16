@@ -12,6 +12,13 @@ local backdropValues = {
 	NO_BACK = L['Without Backdrop'],
 }
 
+local positionValues = {
+	['LEFT'] = L['Left'],
+	['RIGHT'] = L['Right'],
+	['TOP'] = L['Top'],
+	['BOTTOM'] = L['Bottom'],
+}
+
 local function databarsTable()
 	E.Options.args.benikui.args.benikuiDatabars = {
 		order = 80,
@@ -89,10 +96,7 @@ local function databarsTable()
 								type = 'select',
 								name = L['Position'],
 								disabled = function() return not E.db.benikuiDatabars.experience.notifiers.enable end,
-								values = {
-									['LEFT'] = L['Left'],
-									['RIGHT'] = L['Right'],
-								},
+								values = positionValues,
 								get = function(info) return E.db.benikuiDatabars.experience.notifiers.position end,
 								set = function(info, value) E.db.benikuiDatabars.experience.notifiers.position = value; mod:UpdateXpNotifierPositions(); end,
 							},
@@ -166,10 +170,7 @@ local function databarsTable()
 								type = 'select',
 								name = L['Position'],
 								disabled = function() return not E.db.benikuiDatabars.azerite.notifiers.enable end,
-								values = {
-									['LEFT'] = L['Left'],
-									['RIGHT'] = L['Right'],
-								},
+								values = positionValues,
 								get = function(info) return E.db.benikuiDatabars.azerite.notifiers.position end,
 								set = function(info, value) E.db.benikuiDatabars.azerite.notifiers.position = value; mod:UpdateAzeriteNotifier(); end,
 							},
@@ -243,10 +244,7 @@ local function databarsTable()
 								type = 'select',
 								name = L['Position'],
 								disabled = function() return not E.db.benikuiDatabars.reputation.notifiers.enable end,
-								values = {
-									['LEFT'] = L['Left'],
-									['RIGHT'] = L['Right'],
-								},
+								values = positionValues,
 								get = function(info) return E.db.benikuiDatabars.reputation.notifiers.position end,
 								set = function(info, value) E.db.benikuiDatabars.reputation.notifiers.position = value; mod:UpdateRepNotifierPositions(); end,
 							},
@@ -320,10 +318,7 @@ local function databarsTable()
 								type = 'select',
 								name = L['Position'],
 								disabled = function() return not E.db.benikuiDatabars.honor.notifiers.enable end,
-								values = {
-									['LEFT'] = L['Left'],
-									['RIGHT'] = L['Right'],
-								},
+								values = positionValues,
 								get = function(info) return E.db.benikuiDatabars.honor.notifiers.position end,
 								set = function(info, value) E.db.benikuiDatabars.honor.notifiers.position = value; mod:UpdateHonorNotifierPositions(); end,
 							},
