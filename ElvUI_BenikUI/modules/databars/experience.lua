@@ -4,13 +4,10 @@ local DT = E:GetModule('DataTexts');
 local DB = E:GetModule('DataBars');
 local LSM = E.LSM;
 
-
 local _G = _G
 
-local GetPetExperience = GetPetExperience
 local HideUIPanel, ShowUIPanel = HideUIPanel, ShowUIPanel
 local InCombatLockdown = InCombatLockdown
-local UnitXP, UnitXPMax = UnitXP, UnitXPMax
 
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ExperienceBar, SpellBookFrame
 
@@ -33,39 +30,27 @@ function mod:ToggleXPBackdrop()
 end
 
 function mod:UpdateXpNotifierPositions()
-	local bar = DB.StatusBars.Experience
+	local bar = _G.ElvUI_ExperienceBar
 
 	mod:UpdateNotifierPositions(bar, "experience")
 end
 
-function mod:GetXP(unit)
-	if(unit == 'pet') then
-		return GetPetExperience()
-	else
-		return UnitXP(unit), UnitXPMax(unit)
-	end
-end
-
 function mod:UpdateXpNotifier()
-	local bar = DB.StatusBars.Experience
+	local bar = _G.ElvUI_ExperienceBar
 
-	if E.db.databars.experience.orientation ~= 'VERTICAL' then
-		bar.f:Hide()
-	else
-		bar.f:Show()
-		local cur, max = mod:GetXP('player')
-		if max == 0 then max = 1 end
-		bar.f.txt:SetFormattedText('%d%%', cur / max * 100)
-	end
+	local _, max = bar:GetMinMaxValues()
+	if max == 0 then max = 1 end
+	local value = bar:GetValue()
+	bar.f.txt:SetFormattedText('%d%%', value / max * 100)
 end
 
 function mod:XpTextOffset()
-	local text = DB.StatusBars.Experience.text
+	local text = _G.ElvUI_ExperienceBar.text
 	text:Point('CENTER', 0, E.db.databars.experience.textYoffset or 0)
 end
 
 function mod:LoadXP()
-	local bar = ElvUI_ExperienceBar
+	local bar = _G.ElvUI_ExperienceBar
 
 	self:XpTextOffset()
 	hooksecurefunc(DB, 'ExperienceBar_Update', mod.XpTextOffset)

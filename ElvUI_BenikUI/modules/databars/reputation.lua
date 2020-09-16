@@ -5,23 +5,7 @@ local DB = E:GetModule('DataBars');
 local LSM = E.LSM;
 
 local _G = _G
-
-local find, gsub = string.find, string.gsub
-
-local incpat = gsub(gsub(FACTION_STANDING_INCREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
-local changedpat = gsub(gsub(FACTION_STANDING_CHANGED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
-local decpat = gsub(gsub(FACTION_STANDING_DECREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
-local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
-local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
-local C_TimerAfter = C_Timer.After
-
-local GetWatchedFactionInfo = GetWatchedFactionInfo
-local SetWatchedFactionIndex = SetWatchedFactionIndex
-local GetNumFactions = GetNumFactions
-local GetGuildInfo = GetGuildInfo
-local GetFactionInfo = GetFactionInfo
-
--- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ReputationBar, SpellBookFrame, ToggleCharacter
+-- GLOBALS: hooksecurefunc, ElvUI_ReputationBar, ToggleCharacter
 
 local function OnClick(self)
 	if self.template == 'NoBackdrop' then return end
@@ -42,36 +26,21 @@ function mod:ToggleRepBackdrop()
 end
 
 function mod:UpdateRepNotifierPositions()
-	local bar = DB.StatusBars.Reputation
+	local bar = _G.ElvUI_ReputationBar
 	
 	mod:UpdateNotifierPositions(bar, "reputation")
 end
 
 function mod:UpdateRepNotifier()
-	local bar = DB.StatusBars.Reputation
-	local name, reaction, min, max, value, factionID = GetWatchedFactionInfo()
+	local bar = _G.ElvUI_ReputationBar
 
-	if (C_Reputation_IsFactionParagon(factionID)) then
-		local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
-		if currentValue and threshold then
-			min, max = 0, threshold
-			value = currentValue % threshold
-			if hasRewardPending then
-				value = value + threshold
-			end
-		end
-	end
-
-	if not name or (reaction == MAX_REPUTATION_REACTION and not C_Reputation_IsFactionParagon(factionID)) then
-		bar.f:Hide()
-	else
-		bar.f:Show()
-		bar.f.txt:SetFormattedText('%d%%', ((value - min) / ((max - min == 0) and max or (max - min)) * 100))
-	end
+	local min, max = bar:GetMinMaxValues()
+	local value = bar:GetValue()
+	bar.f.txt:SetFormattedText('%d%%', ((value - min) / ((max - min == 0) and max or (max - min)) * 100))
 end
 
 function mod:RepTextOffset()
-	local text = DB.StatusBars.Reputation.text
+	local text = _G.ElvUI_ReputationBar.text
 	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset or 0)
 end
 
@@ -86,13 +55,12 @@ function mod:LoadRep()
 	if db.enable then
 		self:CreateNotifier(bar)
 		self:UpdateRepNotifierPositions()
+		self:UpdateRepNotifier()
 
 		hooksecurefunc(DB, 'ReputationBar_Update', mod.UpdateRepNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateRepNotifierPositions)
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateRepNotifierPositions)
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateRepNotifier)
-
-		C_TimerAfter(1, mod.UpdateRepNotifier)
 	end
 
 	if E.db.benikuiDatabars.reputation.enable ~= true then return end

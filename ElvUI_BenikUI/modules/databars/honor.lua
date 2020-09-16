@@ -27,37 +27,27 @@ function mod:ToggleHonorBackdrop()
 end
 
 function mod:UpdateHonorNotifierPositions()
-	local bar = DB.StatusBars.Honor
+	local bar = _G.ElvUI_HonorBar
 
 	mod:UpdateNotifierPositions(bar, "honor")
 end
 
 function mod:UpdateHonorNotifier()
-	local bar = DB.StatusBars.Honor
+	local bar = _G.ElvUI_HonorBar
 
-	if E.db.databars.honor.orientation ~= 'VERTICAL' then
-		bar.f:Hide()
-	else
-		bar.f:Show()
-		local text = ''
-		local current = UnitHonor("player");
-		local max = UnitHonorMax("player");
-
-		if max == 0 then max = 1 end
-
-		text = format('%d%%', current / max * 100)
-
-		bar.f.txt:SetText(text)
-	end
+	local _, max = bar:GetMinMaxValues()
+	if max == 0 then max = 1 end
+	local value = bar:GetValue()
+	bar.f.txt:SetFormattedText('%d%%', value / max * 100)
 end
 
 function mod:HonorTextOffset()
-	local text = DB.StatusBars.Honor.text
+	local text = _G.ElvUI_HonorBar.text
 	text:Point('CENTER', 0, E.db.databars.honor.textYoffset or 0)
 end
 
 function mod:LoadHonor()
-	local bar = ElvUI_HonorBar
+	local bar = _G.ElvUI_HonorBar
 
 	self:HonorTextOffset()
 	hooksecurefunc(DB, 'HonorBar_Update', mod.HonorTextOffset)

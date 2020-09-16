@@ -6,8 +6,6 @@ local LSM = E.LSM;
 
 local _G = _G
 local floor = floor
-local C_AzeriteItem_FindActiveAzeriteItem = C_AzeriteItem.FindActiveAzeriteItem
-local C_AzeriteItem_GetAzeriteItemXPInfo = C_AzeriteItem.GetAzeriteItemXPInfo
 
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_AzeriteBar
 
@@ -25,35 +23,27 @@ function mod:ToggleAzeriteBackdrop()
 end
 
 function mod:UpdateAzeriteNotifierPositions()
-	local bar = DB.StatusBars.Azerite
+	local bar = _G.ElvUI_AzeriteBar
 
 	mod:UpdateNotifierPositions(bar, "azerite")
 end
 
 function mod:UpdateAzeriteNotifier()
-	local bar = DB.StatusBars.Azerite
-	local azeriteItemLocation = C_AzeriteItem_FindActiveAzeriteItem()
+	local bar = _G.ElvUI_AzeriteBar
 
-	if not azeriteItemLocation or E.db.databars.azerite.orientation ~= 'VERTICAL' then
-		bar.f:Hide()
-	else
-		bar.f:Show()
-
-		local xp, totalLevelXP = C_AzeriteItem_GetAzeriteItemXPInfo(azeriteItemLocation)
-
-		bar.f.txt:SetFormattedText('%s%%', floor(xp / totalLevelXP * 100))
-
-		mod.UpdateAzeriteNotifierPositions()
-	end
+	local _, max = bar:GetMinMaxValues()
+	if max == 0 then max = 1 end
+	local value = bar:GetValue()
+	bar.f.txt:SetFormattedText('%d%%', floor(value / max * 100))
 end
 
 function mod:AzeriteTextOffset()
-	local text = DB.StatusBars.Azerite.text
+	local text = _G.ElvUI_AzeriteBar.text
 	text:Point('CENTER', 0, E.db.databars.azerite.textYoffset or 0)
 end
 
 function mod:LoadAzerite()
-	local bar = ElvUI_AzeriteBar
+	local bar = _G.ElvUI_AzeriteBar
 
 	self:AzeriteTextOffset()
 	hooksecurefunc(DB, 'AzeriteBar_Update', mod.AzeriteTextOffset)
