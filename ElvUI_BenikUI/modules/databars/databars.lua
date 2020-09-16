@@ -1,6 +1,5 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:NewModule('Databars', 'AceHook-3.0', 'AceEvent-3.0');
-local DB = E:GetModule('DataBars');
 local S = E:GetModule('Skins');
 local LSM = E.LSM;
 
