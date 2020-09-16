@@ -86,6 +86,16 @@ function mod:UpdateNotifierPositions(bar, option)
 			bar.f.arrow:SetRotation(S.ArrowRotation.down)
 		end
 	end
+	
+	if (E.db.databars[option].orientation == 'VERTICAL' and (db.position == 'TOP' or db.position == 'BOTTOM')) or
+		(E.db.databars[option].orientation == 'HORIZONTAL' and (db.position == 'LEFT' or db.position == 'RIGHT'))
+	then
+		bar.f.arrow:Hide()
+		bar.f.txt:Hide()
+	else
+		bar.f.arrow:Show()
+		bar.f.txt:Show()
+	end
 
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 end
