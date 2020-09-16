@@ -66,7 +66,7 @@ function mod:UpdateNotifierPositions(bar, option)
 			bar.f.arrow:SetRotation(S.ArrowRotation.right)
 		end
 	else
-		if db.position == 'TOP' then
+		if db.position == 'ABOVE' then
 			if not E.db.databars[option].reverseFill then
 				bar.f.arrow:Point('BOTTOM', bar:GetStatusBarTexture(), 'TOPRIGHT')
 			else
@@ -75,7 +75,7 @@ function mod:UpdateNotifierPositions(bar, option)
 			bar.f:Point('BOTTOM', bar.f.arrow, 'TOP')
 			bar.f.txt:Point('BOTTOM', bar.f, 'TOP', 4, -10)
 			bar.f.arrow:SetRotation(S.ArrowRotation.up)
-		elseif db.position == 'BOTTOM' then
+		elseif db.position == 'BELOW' then
 			if not E.db.databars[option].reverseFill then
 				bar.f.arrow:Point('TOP', bar:GetStatusBarTexture(), 'BOTTOMRIGHT')
 			else
@@ -87,7 +87,7 @@ function mod:UpdateNotifierPositions(bar, option)
 		end
 	end
 	
-	if (E.db.databars[option].orientation == 'VERTICAL' and (db.position == 'TOP' or db.position == 'BOTTOM')) or
+	if (E.db.databars[option].orientation == 'VERTICAL' and (db.position == 'ABOVE' or db.position == 'BELOW')) or
 		(E.db.databars[option].orientation == 'HORIZONTAL' and (db.position == 'LEFT' or db.position == 'RIGHT'))
 	then
 		bar.f.arrow:Hide()
@@ -124,7 +124,6 @@ function mod:ToggleBackdrop(bar, option)
 end
 
 function mod:ApplyStyle(bar, option)
-
 	if E.db.databars[option].enable then
 		if bar.fb then
 			if E.db.databars[option].orientation == 'VERTICAL' then

@@ -13,10 +13,10 @@ local backdropValues = {
 }
 
 local positionValues = {
+	['ABOVE'] = L['Above'],
+	['BELOW'] = L['Below'],
 	['LEFT'] = L['Left'],
 	['RIGHT'] = L['Right'],
-	['TOP'] = L['Top'],
-	['BOTTOM'] = L['Bottom'],
 }
 
 local function databarsTable()
