@@ -5,7 +5,6 @@ local LSM = E.LSM;
 
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local SPACING = (E.PixelMode and 1 or 3)
-local bars = {'experience', 'reputation', 'azerite', 'honor'}
 
 function mod:CreateNotifier(bar)
 	bar.f = CreateFrame('Frame', nil, bar)
@@ -15,26 +14,6 @@ function mod:CreateNotifier(bar)
 	bar.f.arrow:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\arrowOutlined.tga')
 	bar.f.arrow:SetVertexColor(1, 1, 1)
 	bar.f.arrow:Size(13, 13)
-
-	for _, barname in pairs(bars) do
-		if E.db.benikuiDatabars[barname] == nil then E.db.benikuiDatabars[barname] = {} end
-		if E.db.benikuiDatabars[barname].notifiers == nil then E.db.benikuiDatabars[barname].notifiers = {} end
-
-		if E.db.benikuiDatabars[barname].notifiers.combat then
-			bar.f:RegisterEvent("PLAYER_REGEN_DISABLED")
-			bar.f:RegisterEvent("PLAYER_REGEN_ENABLED")
-
-			bar.f:SetScript("OnEvent",function(self, event)
-				if event == "PLAYER_REGEN_DISABLED" then
-					UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-					self:Hide()
-				elseif event == "PLAYER_REGEN_ENABLED" then
-					UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-					self:Show()
-				end
-			end)
-		end
-	end
 end
 
 function mod:UpdateNotifierPositions(bar, option)

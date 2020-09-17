@@ -267,7 +267,6 @@ P['benikuiDatabars'] = {
 		['buttonStyle'] = "TRANSPARENT",
 		['notifiers'] = {
 			['enable'] = true,
-			['combat'] = false,
 			['position'] = 'RIGHT',
 		},
 	},
@@ -278,7 +277,6 @@ P['benikuiDatabars'] = {
 		['buttonStyle'] = "TRANSPARENT",
 		['notifiers'] = {
 			['enable'] = true,
-			['combat'] = false,
 			['position'] = 'LEFT',
 		},
 	},
@@ -289,7 +287,6 @@ P['benikuiDatabars'] = {
 		['buttonStyle'] = "TRANSPARENT",
 		['notifiers'] = {
 			['enable'] = true,
-			['combat'] = false,
 			['position'] = 'LEFT',
 		},
 	},
@@ -300,7 +297,6 @@ P['benikuiDatabars'] = {
 		['buttonStyle'] = "TRANSPARENT",
 		['notifiers'] = {
 			['enable'] = true,
-			['combat'] = false,
 			['position'] = 'RIGHT',
 		},
 	},
