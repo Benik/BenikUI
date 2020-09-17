@@ -17,6 +17,7 @@ local noFlightMapIDs = {
 	830, -- Krokuun
 	831,
 	882, -- Mac'Aree
+	883,
 	885, -- Antoran Wastes
 	887, -- The Vindicaar
 }
