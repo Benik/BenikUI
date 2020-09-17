@@ -169,10 +169,6 @@ L['Use DataTexts font'] = "Utiliser la police pour les textes de données"
 
 -- Databars Options
 L['Notifiers'] = "Notificateurs"
-L['Show BenikUI decorative bars on the default ElvUI XP bar'] = "Affiche les barres décoratives BenikUI sur la barre par défaut d'ElvUI XP"
-L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = "Afficher les barres décoratives BenikUI sur la barre par défaut d'azérite d'ElvUI"
-L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = "Afficher les barres décoratives BenikUI sur la barre par défaut de réputation d'ElvUI"
-L['Show BenikUI decorative bars on the default ElvUI Honor bar'] = "Afficher les barres décoratives BenikUI sur la barre par défaut d'honneur d'ElvUI"
 L['Button Backdrop'] = "Fond de bouton"
 L['Without Backdrop'] = "Sans arrière-plan"
 

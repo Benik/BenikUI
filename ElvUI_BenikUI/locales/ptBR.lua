@@ -169,10 +169,6 @@ L['Use DataTexts font'] = true
 
 -- Databars Options
 L['Notifiers'] = true
-L['Show BenikUI decorative bars on the default ElvUI XP bar'] = true
-L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = true
-L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = true
-L['Show BenikUI decorative bars on the default ElvUI Honor bar'] = true
 L['Button Backdrop'] = true
 L['Without Backdrop'] = true
 
