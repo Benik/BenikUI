@@ -35,6 +35,7 @@ function mod:UpdateRepNotifier()
 	local bar = _G.ElvUI_ReputationBar
 
 	local min, max = bar:GetMinMaxValues()
+	if max == 0 then max = 1 end
 	local value = bar:GetValue()
 	bar.f.txt:SetFormattedText('%d%%', ((value - min) / ((max - min == 0) and max or (max - min)) * 100))
 end

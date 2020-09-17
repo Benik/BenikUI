@@ -19,7 +19,7 @@ local positionValues = {
 	['RIGHT'] = L['Right'],
 }
 
-local databarsTable = {
+local databarsTbl = {
 	-- bar, option, name
 	{'ElvUI_ExperienceBar', 'experience', L['XP Bar']},
 	{'ElvUI_AzeriteBar', 'azerite', L['Azerite Bar']},
@@ -42,7 +42,7 @@ local function databarsTable()
 			},
 		},
 	}
-	for i, v in ipairs(databarsTable) do
+	for i, v in ipairs(databarsTbl) do
 		local barname, option, optionName = unpack(v)
 		local bar = _G[barname]
 			E.Options.args.benikui.args.benikuiDatabars.args[option] = {
