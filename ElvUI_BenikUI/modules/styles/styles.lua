@@ -561,7 +561,6 @@ end
 S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)]]
 
 function mod:Initialize()
-	mod:InitializeTooltipStyle()
 	mod:InitializeObjectiveTracker()
 	--[[VehicleExit()
 	
