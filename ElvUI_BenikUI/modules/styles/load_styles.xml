@@ -2,4 +2,5 @@
 	<script file="styles.lua"/>
 	<script file="blizzard.lua"/>
 	<script file="blizzard_lod.lua"/>
+	<script file="elvuiPlugins.lua"/>
 </Ui>
