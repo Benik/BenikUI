@@ -606,10 +606,10 @@ function mod:PLAYER_ENTERING_WORLD(...)
 end
 
 local function StyleElvUIConfig()
-	if not E.private.skins.ace3Enable then return end
+	if not E.private.skins.ace3Enable or InCombatLockdown() then return end
 
 	local frame = E:Config_GetWindow()
-	if not frame.style then
+	if frame and not frame.style then
 		frame:Style("Outside")
 	end
 end
