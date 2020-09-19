@@ -5,5 +5,6 @@
 	<script file="alerts.lua"/>
 	<script file="addonskins.lua"/>
 	<script file="decursive.lua"/>
+	<script file="storyline.lua"/>
 	<script file="options.lua"/>
 </Ui>

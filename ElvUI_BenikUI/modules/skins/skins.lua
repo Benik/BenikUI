@@ -302,17 +302,7 @@ local function styleAddons()
 	end
 end
 
-local function skinStoryline()
-	if not IsAddOnLoaded("Storyline") or not E.db.benikuiSkins.variousSkins.storyline then
-		return
-	end
-	_G.Storyline_NPCFrame:StripTextures()
-	_G.Storyline_NPCFrame:CreateBackdrop("Transparent")
-	_G.Storyline_NPCFrame.backdrop:Style("Outside")
-	S:HandleCloseButton(_G.Storyline_NPCFrameClose)
-	_G.Storyline_NPCFrameChat:StripTextures()
-	_G.Storyline_NPCFrameChat:CreateBackdrop("Transparent")
-end
+
 
 local function StyleDBM_Options()
 	if not E.db.benikuiSkins.addonSkins.dbm or not BUI.AS then
@@ -435,7 +425,8 @@ function mod:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
 	mod:SkinDecursive()
-	skinStoryline()
+	mod:SkinStoryline()
+
 	StyleAltPowerBar()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")

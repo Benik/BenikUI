@@ -99,7 +99,7 @@ local function LoadSkin()
 end
 
 function mod:SkinDecursive()
-	if not IsAddOnLoaded("Decursive") or E.db.benikuiSkins.variousSkins.decursive ~= true or E.db.benikui.general.benikuiStyle ~= true then
+	if not IsAddOnLoaded("Decursive") or E.db.benikuiSkins.variousSkins.decursive ~= true then
 		return
 	end
 	LoadSkin()
