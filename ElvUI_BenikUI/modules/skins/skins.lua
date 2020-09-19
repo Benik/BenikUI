@@ -519,29 +519,6 @@ local function StyleAltPowerBar()
 	end
 end
 
-local function ObjectiveTrackerQuests()
-	local function QuestNumString()
-		local questNum, q, o
-		local block = _G.ObjectiveTrackerBlocksFrame
-		local frame = _G.ObjectiveTrackerFrame
-
-		if not InCombatLockdown() then
-			questNum = select(2, C_QuestLog.GetNumQuestLogEntries())
-			if questNum >= (MAX_QUESTS - 5) then -- go red
-				q = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
-				o = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
-			else
-				q = format("%d/%d %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
-				o = format("%d/%d %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
-			end
-			block.QuestHeader.Text:SetText(q)
-			frame.HeaderMenu.Title:SetText(o)
-		end
-	end
-	hooksecurefunc("ObjectiveTracker_Update", QuestNumString)
-end
-S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
-
 local function StyleInFlight()
 	if E.db.benikuiSkins.variousSkins.inflight ~= true or E.db.benikui.misc.flightMode == true then
 		return
@@ -640,6 +617,7 @@ end
 
 function mod:Initialize()
 	VehicleExit()
+	mod:InitializeObjectiveTracker()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
 	skinDecursive()
