@@ -1,8 +1,8 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:GetModule('Skins')
+local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 
-local _G = _G
+--[[local _G = _G
 local pairs, unpack = pairs, unpack
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
@@ -13,6 +13,8 @@ local InCombatLockdown = InCombatLockdown
 
 local MAX_STATIC_POPUPS = 4
 local SPACING = (E.PixelMode and 1 or 3)
+
+
 
 -- Blizzard Styles
 local function styleFreeBlizzardFrames()
@@ -197,6 +199,8 @@ local function styleFreeBlizzardFrames()
 		_G.TaxiFrame:Style("Outside")
 	end
 
+
+
 	if db.trade then
 		_G.TradeFrame:Style("Outside")
 	end
@@ -204,6 +208,12 @@ local function styleFreeBlizzardFrames()
 	_G.ColorPickerFrame:Style("Outside")
 end
 S:AddCallback("BenikUI_styleFreeBlizzardFrames", styleFreeBlizzardFrames)
+
+local function StyleCagedBattlePetTooltip(tooltipFrame)
+	if not tooltipFrame.style then
+		tooltipFrame:Style("Outside")
+	end
+end
 
 -- SpellBook tabs shadow
 local function styleSpellbook()
@@ -230,6 +240,21 @@ local function styleWorldMap()
 	local mapFrame = _G.WorldMapFrame
 	if not mapFrame.backdrop.style then
 		mapFrame.backdrop:Style("Outside")
+	end
+
+	if E.private.skins.blizzard.tooltip ~= true then
+		return
+	end
+
+	_G.QuestMapFrame.QuestsFrame.StoryTooltip:Style("Outside")
+	_G.QuestScrollFrame.StoryTooltip:Style("Outside")
+	_G.QuestScrollFrame.CampaignTooltip:Style("Outside")
+
+	local shoppingTooltips = {_G.WorldMapCompareTooltip1, _G.WorldMapCompareTooltip2}
+	for i, tooltip in pairs(shoppingTooltips) do
+		if not tooltip.style then
+			tooltip:Style("Outside")
+		end
 	end
 end
 
@@ -509,6 +534,12 @@ local function StyleElvUIConfig()
 	end
 end
 
+function mod:StyleAceTooltip(tt)
+	if not tt.style then
+		tt:Style('Outside')
+	end
+end
+
 function mod:StyleAcePopup()
 	if not self.backdrop.style then
 		self.backdrop:Style('Outside')
@@ -527,11 +558,13 @@ local function ScriptErrorsFrame()
 
 	mod:SecureHookScript(_G.ScriptErrorsFrame, 'OnShow', StyleScriptErrorsFrame)
 end
---S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
+S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)]]
 
 function mod:Initialize()
-	VehicleExit()
-
+	mod:InitializeTooltipStyle()
+	mod:InitializeObjectiveTracker()
+	--[[VehicleExit()
+	
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
 	skinDecursive()
@@ -541,7 +574,13 @@ function mod:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
 	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
+
+	if E.private.skins.blizzard.tooltip ~= true then
+		return
+	end
 	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)
+	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
+	hooksecurefunc(S, "Ace3_StyleTooltip", mod.StyleAceTooltip)]]
 end
 
 BUI:RegisterModule(mod:GetName())

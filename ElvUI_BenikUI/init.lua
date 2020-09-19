@@ -31,9 +31,9 @@ BUI.Layout = BUI:NewModule('Layout', 'AceHook-3.0', 'AceEvent-3.0')
 BUI.Nameplates = BUI:NewModule('Nameplates', 'AceHook-3.0')
 BUI.Shadows = BUI:NewModule('Shadows', 'AceHook-3.0', 'AceEvent-3.0')
 BUI.Skins = BUI:NewModule('Skins', 'AceHook-3.0', 'AceEvent-3.0')
+BUI.Styles = BUI:NewModule('Styles', 'AceHook-3.0', 'AceEvent-3.0')
 BUI.Tooltip = BUI:NewModule('Tooltip', 'AceHook-3.0')
 BUI.Units = BUI:NewModule('Units', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
-
 
 function BUI:RegisterModule(name)
 	if self.initialized then
