@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule("Skins", "AceHook-3.0", "AceEvent-3.0")
-local S = E:GetModule("Skins")
+local mod = BUI:GetModule('Skins')
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, unpack = pairs, unpack

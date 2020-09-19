@@ -1,5 +1,5 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
+local mod = BUI:GetModule('FlightMode')
 local AB = E:GetModule('ActionBars')
 local LO = E:GetModule('Layout')
 local M = E:GetModule('WorldMap')

@@ -1,6 +1,6 @@
 local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
-local BP = BUI:GetModule('customPanels');
+local mod = BUI:GetModule('CustomPanels');
 
 local tinsert = table.insert
 
@@ -30,7 +30,7 @@ local function updateOptions()
 					name = ENABLE,
 					width = 'full',
 					get = function(info) return E.db.benikui.panels[panelname].enable end,
-					set = function(info, value) E.db.benikui.panels[panelname].enable = value; BP:SetupPanels() end,
+					set = function(info, value) E.db.benikui.panels[panelname].enable = value; mod:SetupPanels() end,
 				},
 				generalOptions = {
 					order = 2,
@@ -38,7 +38,7 @@ local function updateOptions()
 					name = '',
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function(info, key) return E.db.benikui.panels[panelname][key] end,
-					set = function(info, key, value) E.db.benikui.panels[panelname][key] = value; BP:SetupPanels() end,
+					set = function(info, key, value) E.db.benikui.panels[panelname][key] = value; mod:SetupPanels() end,
 					values = {
 						transparency = L["Panel Transparency"],
 						style = L["BenikUI Style"],
@@ -53,7 +53,7 @@ local function updateOptions()
 					min = 50, max = E.screenwidth, step = 1,
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function(info, value) return E.db.benikui.panels[panelname].width end,
-					set = function(info, value) E.db.benikui.panels[panelname].width = value; BP:Resize() end,
+					set = function(info, value) E.db.benikui.panels[panelname].width = value; mod:Resize() end,
 				},
 				height = {
 					order = 12,
@@ -62,7 +62,7 @@ local function updateOptions()
 					min = 10, max = E.screenheight, step = 1,
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function(info, value) return E.db.benikui.panels[panelname].height end,
-					set = function(info, value) E.db.benikui.panels[panelname].height = value; BP:Resize() end,
+					set = function(info, value) E.db.benikui.panels[panelname].height = value; mod:Resize() end,
 				},
 				strata = {
 					order = 13,
@@ -70,7 +70,7 @@ local function updateOptions()
 					name = L["Frame Strata"],
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function(info) return E.db.benikui.panels[panelname].strata end,
-					set = function(info, value) E.db.benikui.panels[panelname].strata = value; BP:SetupPanels() end,
+					set = function(info, value) E.db.benikui.panels[panelname].strata = value; mod:SetupPanels() end,
 					values = strataValues,
 				},
 				spacer2 = {
@@ -84,7 +84,7 @@ local function updateOptions()
 					type = 'toggle',
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function() return E.db.benikui.panels[panelname].petHide end,
-					set = function(info, value) E.db.benikui.panels[panelname].petHide = value; BP:RegisterHide() end,
+					set = function(info, value) E.db.benikui.panels[panelname].petHide = value; mod:RegisterHide() end,
 				},
 				combatHide = {
 					order = 22,
@@ -116,7 +116,7 @@ local function updateOptions()
 							value = value:gsub('[\n\r]','')
 						end
 						E.db.benikui.panels[panelname].visibility = value;
-						BP:SetupPanels()
+						mod:SetupPanels()
 					end,
 				},
 				spacer3 = {
@@ -144,7 +144,7 @@ local function updateOptions()
 					type = 'execute',
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					func = function()
-						E.PopupDialogs["BUI_Panel_Delete"].OnAccept = function() BP:DeletePanel(panelname) end
+						E.PopupDialogs["BUI_Panel_Delete"].OnAccept = function() mod:DeletePanel(panelname) end
 						E.PopupDialogs["BUI_Panel_Delete"].text = (format(L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"], panelname))
 						E:StaticPopup_Show("BUI_Panel_Delete")
 					end,
@@ -210,8 +210,8 @@ local function panelsTable()
 				disabled = function() return PanelSetup.name == "" end,
 				hidden = function() return not E.global.benikui.CustomPanels.createButton end,
 				func = function()
-					BP:InsertPanel(PanelSetup.name)
-					BP:UpdatePanels()
+					mod:InsertPanel(PanelSetup.name)
+					mod:UpdatePanels()
 					updateOptions()
 					E.global.benikui.CustomPanels.createButton = false;
 				end,

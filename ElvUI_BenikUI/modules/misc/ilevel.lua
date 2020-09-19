@@ -1,7 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('iLevel')
 local LSM = E.LSM
-local mod = BUI:NewModule('iLevel', 'AceEvent-3.0');
--- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
 local _G = _G
 local match, gsub = string.match, gsub

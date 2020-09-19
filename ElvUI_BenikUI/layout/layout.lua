@@ -1,8 +1,8 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Layout', 'AceHook-3.0', 'AceEvent-3.0');
-local LO = E:GetModule('Layout');
-local DT = E:GetModule('DataTexts');
-local M = E:GetModule('Minimap');
+local mod = BUI:GetModule('Layout')
+local LO = E:GetModule('Layout')
+local DT = E:GetModule('DataTexts')
+local M = E:GetModule('Minimap')
 local LSM = E.LSM
 
 local _G = _G

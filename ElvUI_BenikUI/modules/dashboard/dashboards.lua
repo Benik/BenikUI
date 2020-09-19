@@ -1,5 +1,5 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Dashboards', 'AceEvent-3.0', 'AceHook-3.0')
+local mod = BUI:GetModule('Dashboards')
 local LSM = E.LSM
 
 local CreateFrame = CreateFrame

@@ -2,7 +2,7 @@
 local CH = E:GetModule('Chat')
 local BL = BUI:GetModule('Layout')
 local FM = BUI:GetModule('FlightMode')
-local mod = BUI:NewModule('Chat', 'AceHook-3.0', 'AceEvent-3.0')
+local mod = BUI:GetModule('Chat')
 
 local _G = _G
 local pairs = pairs

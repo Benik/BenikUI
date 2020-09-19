@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Units', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
-local UF = E:GetModule('UnitFrames');
+local mod = BUI:GetModule('Units')
+local UF = E:GetModule('UnitFrames')
 
 function mod:UnitDefaults()
 	if E.db.benikui.unitframes.player.portraitWidth == nil then

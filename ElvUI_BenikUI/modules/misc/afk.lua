@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...)) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local BUI, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E:GetModule('AFK')
 
 local format, random, lower, tonumber, date, floor = string.format, random, string.lower, tonumber, date, floor

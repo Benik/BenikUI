@@ -1,5 +1,5 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('customPanels', 'AceEvent-3.0')
+local mod = BUI:GetModule('CustomPanels')
 
 local tcopy = table.copy
 

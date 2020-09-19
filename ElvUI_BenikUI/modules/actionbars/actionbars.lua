@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Actionbars', 'AceEvent-3.0');
-local AB = E:GetModule('ActionBars');
+local mod = BUI:GetModule('Actionbars')
+local AB = E:GetModule('ActionBars')
 
 if E.private.actionbar.enable ~= true then return; end
 

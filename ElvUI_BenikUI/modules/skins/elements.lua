@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Skins')
-local S = E:GetModule('Skins');
+local S = E:GetModule('Skins')
 
 local classColor = E:ClassColor(E.myclass, true)
 local CloseButton = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Close.tga'
