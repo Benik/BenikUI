@@ -128,35 +128,6 @@ function mod:PLAYER_ENTERING_WORLD(...)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-local function StyleElvUIConfig()
-	if not E.private.skins.ace3Enable or InCombatLockdown() then return end
-
-	local frame = E:Config_GetWindow()
-	if frame and not frame.style then
-		frame:Style("Outside")
-	end
-end
-
-function mod:StyleAcePopup()
-	if not self.backdrop.style then
-		self.backdrop:Style('Outside')
-	end
-end
-
-local function StyleScriptErrorsFrame()
-	local frame = _G.ScriptErrorsFrame
-	if not frame.backdrop.style then
-		frame.backdrop:Style('Outside')
-	end
-end
-
-local function ScriptErrorsFrame()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.debug) then return end
-
-	mod:SecureHookScript(_G.ScriptErrorsFrame, 'OnShow', StyleScriptErrorsFrame)
-end
---S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
-
 function mod:Initialize()
 	VehicleExit()
 
@@ -169,8 +140,6 @@ function mod:Initialize()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
-	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
-	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)
 end
 
 BUI:RegisterModule(mod:GetName())
