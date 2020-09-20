@@ -198,7 +198,7 @@ function BUI:Initialize()
 		end
 	end)
 
-	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
+	local profileKey = ElvDB.profileKeys[E.mynameRealm]
 
 	-- run install when ElvUI install finishes or run the setup again when a profile gets deleted.
 	if (E.private.install_complete == E.version and E.db.benikui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
@@ -216,7 +216,7 @@ function BUI:Initialize()
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BENIKUI")
 	E.ConfigModeLocalizedStrings["BENIKUI"] = BUI.Title
 
-	BUI.AddonProfileKey = BUI.Title..E.myname.." - "..E.myrealm
+	BUI.AddonProfileKey = BUI.Title..E.mynameRealm
 
 	hooksecurefunc(E, "UpdateMedia", BUI.UpdateSoftGlowColor)
 	hooksecurefunc(BUI, "SetupColorThemes", BUI.UpdateStyleColors)
