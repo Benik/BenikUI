@@ -182,6 +182,19 @@ function mod:ExtraAB() -- shadows
 	end
 end
 
+local function VehicleExit()
+	if E.private.actionbar.enable ~= true then
+		return
+	end
+	local f = _G.MainMenuBarVehicleLeaveButton
+	f:SetNormalTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	f:SetPushedTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	if MasqueGroup and E.private.actionbar.masque.actionbars then return end
+	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
+end
+
 function mod:Initialize()
 	C_TimerAfter(1, mod.StyleBackdrops)
 	C_TimerAfter(1, mod.PetShadows)
@@ -189,6 +202,7 @@ function mod:Initialize()
 	C_TimerAfter(2, mod.LoadToggleButtons)
 	C_TimerAfter(2, mod.ToggleStyle)
 	C_TimerAfter(2, mod.TotemShadows)
+	VehicleExit()
 	self:LoadRequestButton()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
 	hooksecurefunc(BUI, "SetupColorThemes", mod.ColorBackdrops)
