@@ -122,7 +122,7 @@ function mod:LoD_AddOns(_, addon)
 end
 
 function mod:PLAYER_ENTERING_WORLD(...)
-	self:styleAlertFrames()
+
 	styleWorldMap()
 
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")

@@ -35,7 +35,7 @@ end
 S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
 
 function mod:PLAYER_ENTERING_WORLD(...)
-	--self:styleAlertFrames()
+	mod:styleAlertFrames()
 	mod:stylePlugins()
 	--styleWorldMap()
 
