@@ -27,8 +27,6 @@ local function raidUtilityShadows()
 	end
 end
 
-
-
 -- Calendar Event Class Buttons
 local function CalendarEventButtonShadows()
 	if E.private.skins.blizzard.calendar ~= true or E.private.skins.blizzard.enable ~= true then return end
@@ -45,13 +43,9 @@ local function CalendarEventButtonShadows()
 end
 
 local function miscShadows()
-	if E.private.skins.blizzard.enable ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or BUI.ShadowMode ~= true then return end
 
-	local db = E.private.skins.blizzard
-
-	if db.character then
-		EquipmentFlyoutFrameButtons:CreateSoftShadow()
-	end
+	_G.EquipmentFlyoutFrameButtons:CreateSoftShadow()
 end
 
 -- ElvUI tabs
@@ -65,6 +59,22 @@ function mod:TabShadows(tab)
 	end
 end
 hooksecurefunc(S, "HandleTab", mod.TabShadows)
+
+-- SpellBook tabs shadow
+local function SpellbookTabShadows()
+	if E.private.skins.blizzard.enable ~= true or BUI.ShadowMode ~= true or E.private.skins.blizzard.spellbook ~= true then
+		return
+	end
+
+	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
+		function()
+			for i = 1, MAX_SKILLLINE_TABS do
+				local tab = _G['SpellBookSkillLineTab'..i]
+				tab.backdrop:CreateSoftShadow()
+			end
+		end)
+end
+S:AddCallback("BenikUI_Spellbook", SpellbookTabShadows)
 
 -- MicroBar
 local function MicroBarShadows()

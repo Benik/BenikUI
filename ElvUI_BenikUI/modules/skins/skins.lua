@@ -4,27 +4,6 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 
-
-
-
--- GLOBALS: hooksecurefunc
-
--- SpellBook tabs shadow
-local function styleSpellbook()
-	if E.private.skins.blizzard.enable ~= true or BUI.ShadowMode ~= true or E.private.skins.blizzard.spellbook ~= true then
-		return
-	end
-
-	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
-		function()
-			for i = 1, MAX_SKILLLINE_TABS do
-				local tab = _G['SpellBookSkillLineTab'..i]
-				tab.backdrop:CreateSoftShadow()
-			end
-		end)
-end
-S:AddCallback("BenikUI_Spellbook", styleSpellbook)
-
 local function VehicleExit()
 	if E.private.actionbar.enable ~= true then
 		return
@@ -38,13 +17,6 @@ local function VehicleExit()
 	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
 end
 
-function mod:PLAYER_ENTERING_WORLD(...)
-
-
-
-	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end
-
 function mod:Initialize()
 	VehicleExit()
 
@@ -52,8 +24,6 @@ function mod:Initialize()
 
 	mod:SkinDecursive()
 	mod:SkinStoryline()
-
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 BUI:RegisterModule(mod:GetName())
