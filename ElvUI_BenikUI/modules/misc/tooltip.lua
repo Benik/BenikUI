@@ -4,6 +4,7 @@ local TT = E:GetModule('Tooltip')
 local S = E:GetModule('Skins')
 
 local _G = _G
+local pairs = pairs
 local GameTooltip, GameTooltipStatusBar = _G.GameTooltip, _G.GameTooltipStatusBar
 local IsAddOnLoaded = IsAddOnLoaded
 

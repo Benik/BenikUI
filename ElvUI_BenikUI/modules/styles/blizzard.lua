@@ -1,6 +1,9 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 
+local _G = _G
+local LoadAddOn = LoadAddOn
 local MAX_STATIC_POPUPS = 4
 
 local function LoadSkin()
@@ -192,3 +195,27 @@ local function LoadSkin()
 	_G.ColorPickerFrame:Style("Outside")
 end
 S:AddCallback("BenikUI_styleFreeBlizzardFrames", LoadSkin)
+
+-- WorldMap
+function mod:styleWorldMap()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.db.benikui.general.benikuiStyle ~= true then
+		return
+	end
+
+	local mapFrame = _G.WorldMapFrame
+	if not mapFrame.backdrop.style then
+		mapFrame.backdrop:Style("Outside")
+	end
+end
+
+function mod:StyleAltPowerBar()
+	if E.db.general.altPowerBar.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then
+		return
+	end
+
+	local bar = _G.ElvUI_AltPowerBar
+	bar:Style("Outside")
+	if bar.textures then
+		bar:StripTextures(true)
+	end
+end

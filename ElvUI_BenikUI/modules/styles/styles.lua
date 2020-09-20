@@ -2,6 +2,9 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 
+local _G = _G
+local InCombatLockdown = InCombatLockdown
+
 local function StyleElvUIConfig()
 	if E.private.skins.ace3Enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 	if InCombatLockdown() then return end
@@ -28,7 +31,7 @@ local function StyleScriptErrorsFrame()
 end
 
 local function ScriptErrorsFrame()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.debug) then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.debug) or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	mod:SecureHookScript(_G.ScriptErrorsFrame, 'OnShow', StyleScriptErrorsFrame)
 end
@@ -37,13 +40,14 @@ S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
 function mod:PLAYER_ENTERING_WORLD(...)
 	mod:styleAlertFrames()
 	mod:stylePlugins()
-	--styleWorldMap()
+	mod:styleWorldMap()
 
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function mod:Initialize()
 	mod:InitializeObjectiveTracker()
+	mod:StyleAltPowerBar()
 	
 	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
 	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)

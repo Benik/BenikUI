@@ -3,11 +3,9 @@ local mod = BUI:GetModule('Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
-local pairs, unpack = pairs, unpack
-local CreateFrame = CreateFrame
-local IsAddOnLoaded = IsAddOnLoaded
-local LoadAddOn = LoadAddOn
-local InCombatLockdown = InCombatLockdown
+
+
+
 
 -- GLOBALS: hooksecurefunc
 
@@ -27,36 +25,6 @@ local function styleSpellbook()
 end
 S:AddCallback("BenikUI_Spellbook", styleSpellbook)
 
--- WorldMap
-local function styleWorldMap()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then
-		return
-	end
-
-	local mapFrame = _G.WorldMapFrame
-	if not mapFrame.backdrop.style then
-		mapFrame.backdrop:Style("Outside")
-	end
-end
-
-
-
-
-
-local function StyleAltPowerBar()
-	if E.db.general.altPowerBar.enable ~= true then
-		return
-	end
-
-	local bar = _G.ElvUI_AltPowerBar
-	bar:Style("Outside")
-	if bar.textures then
-		bar:StripTextures(true)
-	end
-end
-
-
-
 local function VehicleExit()
 	if E.private.actionbar.enable ~= true then
 		return
@@ -70,10 +38,9 @@ local function VehicleExit()
 	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
 end
 
-
 function mod:PLAYER_ENTERING_WORLD(...)
 
-	styleWorldMap()
+
 
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
@@ -85,8 +52,6 @@ function mod:Initialize()
 
 	mod:SkinDecursive()
 	mod:SkinStoryline()
-
-	StyleAltPowerBar()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
