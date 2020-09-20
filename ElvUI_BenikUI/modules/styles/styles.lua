@@ -48,7 +48,8 @@ function mod:Initialize()
 	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
 	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)
 
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
+	mod:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
 end
 
 BUI:RegisterModule(mod:GetName())

@@ -2,6 +2,8 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Skins')
 local S = E:GetModule('Skins')
 
+local SPACING = (E.PixelMode and 1 or 3)
+
 local function LoadSkin()
 	-- Main Buttons
 	_G.DecursiveMainBar:StripTextures()
