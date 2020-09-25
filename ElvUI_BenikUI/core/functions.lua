@@ -125,7 +125,7 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 		else
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
-		style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
+		style:SetBackdropColor(r, g, b, ((E.db.benikui.general.shadows and 1) or (E.db.benikui.colors.styleAlpha or 1)))
 	else
 		style:SetBackdropColor(unpack(E["media"].backdropcolor))
 	end
