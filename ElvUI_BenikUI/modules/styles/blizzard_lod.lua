@@ -17,6 +17,7 @@ local function style_AchievementUI()
 	local frame = _G.AchievementFrame
 	if frame.backdrop then
 		frame.backdrop:Style("Outside")
+		frame.searchResults.backdrop:Style("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
@@ -217,7 +218,7 @@ local function style_Collections()
 	_G.WardrobeFrame:Style("Outside")
 	_G.WardrobeOutfitEditFrame.backdrop:Style("Outside")
 	if E.private.skins.blizzard.tooltip then
-		PetJournalPrimaryAbilityTooltip:Style("Outside")
+		_G.PetJournalPrimaryAbilityTooltip.backdrop:Style("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
