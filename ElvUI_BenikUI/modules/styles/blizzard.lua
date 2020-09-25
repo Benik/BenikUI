@@ -176,11 +176,11 @@ local function LoadSkin()
 	end
 
 	if db.nonraid then
-		_G.RaidInfoFrame:Style("Outside")
+		_G.RaidInfoFrame.backdrop:Style("Outside")
 	end
 
 	if db.petition then
-		_G.PetitionFrame:Style("Outside")
+		_G.PetitionFrame.backdrop:Style("Outside")
 	end
 
 	if db.quest then
@@ -220,8 +220,13 @@ local function LoadSkin()
 	if db.trade then
 		_G.TradeFrame:Style("Outside")
 	end
-	
-	_G.ColorPickerFrame:Style("Outside")
+
+	if IsAddOnLoaded('ColorPickerPlus') then return end
+	_G.ColorPickerFrame:HookScript('OnShow', function(frame)
+		if frame.backdrop and not frame.backdrop.style then
+			frame.backdrop:Style("Outside")
+		end
+	end)
 end
 S:AddCallback("BenikUI_styleFreeBlizzardFrames", LoadSkin)
 
