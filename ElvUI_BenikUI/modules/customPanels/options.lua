@@ -230,7 +230,7 @@ tinsert(BUI.Config, panelsTable)
 
 local D = E:GetModule('Distributor')
 if D.GeneratedKeys.profile.benikui == nil then D.GeneratedKeys.profile.benikui = {} end
-D.GeneratedKeys.profile.benikui.panels = true
+D.GeneratedKeys.profile.benikui.panels = true -- needed to export the custom panels
 
 E.PopupDialogs["BUI_Panel_Delete"] = {
 	button1 = ACCEPT,
