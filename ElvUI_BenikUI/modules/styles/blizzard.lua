@@ -21,22 +21,14 @@ local function LoadSkin()
 	
 	if db.blizzardOptions then
 		_G.AudioOptionsFrame:Style("Outside")
-		_G.ChatConfigFrame:Style("Outside")
-		_G.InterfaceOptionsFrame:Style("Outside")
+		_G.ChatConfigFrame.backdrop:Style("Outside")
+		_G.InterfaceOptionsFrame.backdrop:Style("Outside")
 		_G.ReadyCheckFrame:Style("Outside")
 		_G.ReadyCheckListenerFrame:Style("Outside")
-		if _G.SplashFrame then
-			_G.SplashFrame:Style("Outside")
+		if _G.SplashFrame.backdrop then
+			_G.SplashFrame.backdrop:Style("Outside")
 		end
-		_G.VideoOptionsFrame:Style("Outside")
-	end
-
-	if db.bgscore then
-		if not _G.PVPMatchScoreboard then
-			LoadAddOn("Blizzard_PVPMatch")
-		end
-		_G.PVPMatchScoreboard:Style("Outside")
-		_G.PVPMatchResults:Style("Outside")
+		_G.VideoOptionsFrame.backdrop:Style("Outside")
 	end
 	
 	local function repUpdate()

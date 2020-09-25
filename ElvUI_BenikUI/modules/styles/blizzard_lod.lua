@@ -706,6 +706,19 @@ local function style_PVPUI()
 end
 S:AddCallbackForAddon("Blizzard_PVPUI", "BenikUI_PVPUI", style_PVPUI)
 
+-- PVPMatch
+local function style_PVPMatch()
+	if E.private.skins.blizzard.bgscore ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.PVPMatchScoreboard.backdrop:Style("Outside")
+	_G.PVPMatchResults.backdrop:Style("Outside")
+end
+S:AddCallbackForAddon("Blizzard_PVPMatch", "BenikUI_PVPMatch", style_PVPMatch)
+
 -- QuestChoice
 local function style_QuestChoice()
 	if E.private.skins.blizzard.questChoice ~= true or E.private.skins.blizzard.enable ~= true or
