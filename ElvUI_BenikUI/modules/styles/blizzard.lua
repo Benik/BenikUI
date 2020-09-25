@@ -56,20 +56,21 @@ local function LoadSkin()
 		_G.DressUpFrame:Style("Outside")
 
 		if not _G.WardrobeOutfitEditFrame.style then
-			_G.WardrobeOutfitEditFrame:Style("Outside")
+			_G.WardrobeOutfitEditFrame.backdrop:Style("Outside")
 		end
 	end
 
 	if db.friends then
 		_G.AddFriendFrame.backdrop:Style("Outside")
 		_G.FriendsFrame:Style("Outside")
-		_G.FriendsFriendsFrame:Style("Outside")
+		_G.FriendsFriendsFrame.backdrop:Style("Outside")
+		_G.QuickJoinRoleSelectionFrame.backdrop:Style("Outside")
 		_G.RecruitAFriendFrame:Style("Outside")
 	end
 
 	if db.gossip then
-		_G.GossipFrame:Style("Outside")
-		_G.ItemTextFrame:Style("Outside")
+		_G.GossipFrame.backdrop:Style("Outside")
+		_G.ItemTextFrame.backdrop:Style("Outside")
 	end
 
 	if db.guild then
@@ -85,15 +86,13 @@ local function LoadSkin()
 	end
 
 	if db.lfg then
-		_G.LFGInvitePopup:Style("Outside")
-		_G.LFGDungeonReadyDialog:Style("Outside")
-		_G.LFGDungeonReadyStatus:Style("Outside")
-		_G.LFGListApplicationDialog:Style("Outside")
-		_G.LFGListInviteDialog:Style("Outside")
+		_G.LFGInvitePopup.backdrop:Style("Outside")
+		_G.LFGDungeonReadyDialog.backdrop:Style("Outside")
+		_G.LFGDungeonReadyStatus.backdrop:Style("Outside")
+		_G.LFGListApplicationDialog.backdrop:Style("Outside")
+		_G.LFGListInviteDialog.backdrop:Style("Outside")
 		_G.PVEFrame:Style("Outside")
-		_G.PVPReadyDialog:Style("Outside")
-		_G.RaidBrowserFrame:Style("Outside")
-		_G.QuickJoinRoleSelectionFrame:Style("Outside")
+		_G.RaidBrowserFrame.backdrop:Style("Outside")
 
 		local function forceTabFont(button)
 			if button.isSkinned then
@@ -112,8 +111,8 @@ local function LoadSkin()
 
 	if db.loot then
 		_G.LootFrame:Style("Outside")
-		_G.MasterLooterFrame:Style("Outside")
-		_G.BonusRollFrame:Style("Outside")
+		_G.MasterLooterFrame.backdrop:Style("Outside")
+		_G.BonusRollFrame.backdrop:Style("Outside")
 	end
 
 	if db.mail then
@@ -181,6 +180,10 @@ local function LoadSkin()
 
 	if db.petition then
 		_G.PetitionFrame.backdrop:Style("Outside")
+	end
+
+	if db.pvp then
+		_G.PVPReadyDialog.backdrop:Style("Outside")
 	end
 
 	if db.quest then

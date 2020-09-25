@@ -72,9 +72,9 @@ local function style_AuctionHouseUI()
 		return
 	end
 
-	local Frame = _G.AuctionHouseFrame
-	Frame:Style("Outside")
-	Frame.WoWTokenResults.GameTimeTutorial.backdrop:Style("Outside")
+	local frame = _G.AuctionHouseFrame
+	frame:Style("Outside")
+	frame.WoWTokenResults.GameTimeTutorial.backdrop:Style("Outside")
 end
 S:AddCallbackForAddon("Blizzard_AuctionHouseUI", "BenikUI_AuctionHouseUI", style_AuctionHouseUI)
 
@@ -141,7 +141,7 @@ local function style_BindingUI()
 		return
 	end
 
-	_G.KeyBindingFrame:Style("Outside")
+	_G.KeyBindingFrame.backdrop:Style("Outside")
 end
 S:AddCallbackForAddon("Blizzard_BindingUI", "BenikUI_BindingUI", style_BindingUI)
 
@@ -153,7 +153,7 @@ local function style_BlackMarketUI()
 		return
 	end
 
-	_G.BlackMarketFrame:Style("Outside")
+	_G.BlackMarketFrame.backdrop:Style("Outside")
 end
 S:AddCallbackForAddon("Blizzard_BlackMarketUI", "BenikUI_BlackMarketUI", style_BlackMarketUI)
 
@@ -165,12 +165,12 @@ local function style_Calendar()
 		return
 	end
 
-	_G.CalendarFrame:Style("Outside")
-	_G.CalendarViewEventFrame:Style("Outside")
-	_G.CalendarViewHolidayFrame:Style("Outside")
-	_G.CalendarCreateEventFrame:Style("Outside")
+	_G.CalendarFrame.backdrop:Style("Outside")
+	_G.CalendarViewEventFrame.backdrop:Style("Outside")
+	_G.CalendarViewHolidayFrame.backdrop:Style("Outside")
+	_G.CalendarCreateEventFrame.backdrop:Style("Outside")
 	_G.CalendarContextMenu:Style("Outside")
-	_G.CalendarViewRaidFrame:Style("Outside")
+	_G.CalendarViewRaidFrame.backdrop:Style("Outside")
 
 	if not BUI.AS then
 		return
@@ -311,7 +311,7 @@ local function style_DeathRecap()
 		return
 	end
 
-	_G.DeathRecapFrame:Style("Outside")
+	_G.DeathRecapFrame.backdrop:Style("Outside")
 end
 S:AddCallbackForAddon("Blizzard_DeathRecap", "BenikUI_DeathRecap", style_DeathRecap)
 
@@ -508,16 +508,17 @@ local function style_GuildUI()
 		return
 	end
 
+	_G.GuildFrame:Style("Outside")
+
 	local GuildFrames = {
-		_G.GuildFrame,
 		_G.GuildMemberDetailFrame,
 		_G.GuildTextEditFrame,
 		_G.GuildLogFrame,
 		_G.GuildNewsFiltersFrame
 	}
 	for _, frame in pairs(GuildFrames) do
-		if frame and not frame.style then
-			frame:Style("Outside")
+		if frame and frame.backdrop and not frame.backdrop.style then
+			frame.backdrop:Style("Outside")
 		end
 	end
 end
@@ -531,7 +532,7 @@ local function style_GuildControlUI()
 		return
 	end
 
-	_G.GuildControlUI:Style("Outside")
+	_G.GuildControlUI.backdrop:Style("Outside")
 end
 S:AddCallbackForAddon("Blizzard_GuildControlUI", "BenikUI_GuildControlUI", style_GuildControlUI)
 
@@ -808,7 +809,6 @@ local function style_TalkingHeadUI()
 end
 S:AddCallbackForAddon("Blizzard_TalkingHeadUI", "BenikUI_TalkingHeadUI", style_TalkingHeadUI)
 
--- TimeManager (although is LOD in ElvUI, the style color doesn't apply)
 local function style_TimeManager()
 	if E.private.skins.blizzard.timemanager ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
@@ -817,22 +817,13 @@ local function style_TimeManager()
 	end
 
 	_G.TimeManagerFrame:Style("Outside")
-	_G.StopwatchFrame:Style("Outside")
+	_G.StopwatchFrame.backdrop:Style("Outside")
 end
-
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript(
-	"OnEvent",
-	function(self, event)
-		self:UnregisterEvent(event)
-		style_TimeManager()
-	end
-)
+S:AddCallbackForAddon("Blizzard_TimeManager", "BenikUI_TimeManager", style_TimeManager)
 
 -- TradeSkillUI
 local function style_TradeSkillUI()
-	if E.private.skins.blizzard.trade ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.tradeskill ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -840,7 +831,7 @@ local function style_TradeSkillUI()
 
 	local frame = _G.TradeSkillFrame
 	frame:Style("Outside")
-	frame.DetailsFrame.GuildFrame:Style("Outside")
+	frame.DetailsFrame.GuildFrame.backdrop:Style("Outside")
 end
 S:AddCallbackForAddon("Blizzard_TradeSkillUI", "BenikUI_TradeSkillUI", style_TradeSkillUI)
 
@@ -865,7 +856,7 @@ local function style_VoidStorageUI()
 	end
 
 	local frame = _G.VoidStorageFrame
-	frame:Style("Outside")
+	frame.backdrop:Style("Outside")
 	for i = 1, 2 do
 		local tab = frame["Page" .. i]
 		if not tab.style then
@@ -903,13 +894,3 @@ local function style_WeeklyRewards()
 	frame.backdrop:Style("Outside")
 end
 S:AddCallbackForAddon("Blizzard_WeeklyRewards", "BenikUI_WeeklyRewards", style_WeeklyRewards)
-
--- UIWidgets
-local function style_UIWidgets()
-	if E.private.skins.blizzard.Warboard ~= true or E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true
-	then
-		return
-	end
-end
-S:AddCallbackForAddon("Blizzard_UIWidgets", "BenikUI_UIWidgets", style_UIWidgets)

@@ -30,6 +30,12 @@ local function StyleScriptErrorsFrame()
 	end
 end
 
+local function StyleElvUIBindPopup()
+	local bind = _G.ElvUIBindPopupWindow
+	bind:Style("Outside")
+	bind.header:SetFrameLevel(bind.style:GetFrameLevel() + 1)
+end
+
 local function ScriptErrorsFrame()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.debug) or E.db.benikui.general.benikuiStyle ~= true then return end
 
@@ -48,7 +54,9 @@ end
 function mod:Initialize()
 	mod:InitializeObjectiveTracker()
 	mod:StyleAltPowerBar()
-	
+
+	StyleElvUIBindPopup()
+
 	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
 	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)
 
