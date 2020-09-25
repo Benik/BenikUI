@@ -72,6 +72,10 @@ local function LoadSkin()
 		_G.ItemTextFrame:Style("Outside")
 	end
 
+	if db.guild then
+		_G.GuildInviteFrame.backdrop:Style("Outside")
+	end
+
 	if db.guildregistrar then
 		_G.GuildRegistrarFrame:Style("Outside")
 	end
@@ -124,26 +128,46 @@ local function LoadSkin()
 	end
 
 	if db.misc then
+		local ChatMenus = {
+			'ChatMenu',
+			'EmoteMenu',
+			'LanguageMenu',
+			'VoiceMacroMenu',
+		}
+
+		for i = 1, #ChatMenus do
+			_G[ChatMenus[i]]:HookScript('OnShow', function(s)
+				if not s.backdrop.style then
+					s.backdrop:Style("Outside")
+				end
+			end)
+		end
+
 		_G.BNToastFrame:Style("Outside")
-		_G.ChatMenu:Style("Outside")
-		_G.CinematicFrameCloseDialog:Style("Outside")
-		_G.DropDownList1MenuBackdrop:Style("Outside")
-		_G.DropDownList2MenuBackdrop:Style("Outside")
-		_G.EmoteMenu:Style("Outside")
+		--_G.CinematicFrameCloseDialog:Style("Outside")
 		_G.GameMenuFrame.backdrop:Style("Outside")
 		_G.GhostFrame:Style("Outside")
-		_G.GuildInviteFrame:Style("Outside")
-		_G.LanguageMenu:Style("Outside")
-		_G.LFDRoleCheckPopup:Style("Outside")
-		_G.QueueStatusFrame:Style("Outside")
-		_G.SideDressUpFrame:Style("Outside")
+		_G.LFDRoleCheckPopup.backdrop:Style("Outside")
+		_G.PlayerReportFrame.backdrop:Style("Outside")
+		_G.QueueStatusFrame.backdrop:Style("Outside")
+		_G.ReportCheatingDialog.backdrop:Style("Outside")
+		_G.SideDressUpFrame.backdrop:Style("Outside")
 		_G.StackSplitFrame.backdrop:Style("Outside")
 		_G.StaticPopup1.backdrop:Style("Outside")
 		_G.StaticPopup2.backdrop:Style("Outside")
 		_G.StaticPopup3.backdrop:Style("Outside")
 		_G.StaticPopup4.backdrop:Style("Outside")
 		_G.TicketStatusFrameButton:Style("Outside")
-		_G.VoiceMacroMenu:Style("Outside")
+
+		hooksecurefunc('UIDropDownMenu_CreateFrames', function(level, index)
+			local listFrame = _G['DropDownList'..level];
+			local listFrameName = listFrame:GetName();
+			local Backdrop = _G[listFrameName..'Backdrop']
+			Backdrop.backdrop:Style("Outside")
+
+			local menuBackdrop = _G[listFrameName..'MenuBackdrop']
+			menuBackdrop.backdrop:Style("Outside")
+		end)
 
 		for i = 1, MAX_STATIC_POPUPS do
 			local frame = _G['ElvUI_StaticPopup'..i]

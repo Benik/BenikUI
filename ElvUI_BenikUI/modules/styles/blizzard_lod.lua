@@ -202,7 +202,7 @@ local function style_Channels()
 	end
 
 	_G.ChannelFrame.backdrop:Style("Outside")
-	_G.CreateChannelPopup:Style("Outside")
+	_G.CreateChannelPopup.backdrop:Style("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
 
