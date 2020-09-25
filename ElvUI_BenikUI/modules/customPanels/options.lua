@@ -228,17 +228,9 @@ local function panelsTable()
 end
 tinsert(BUI.Config, panelsTable)
 
-local function exportTable() -- needed to export the custom panels
-	local D = E:GetModule('Distributor')
-	D.GeneratedKeys = {
-		profile = {
-			benikui = {
-				panels = true,
-			},
-		},
-	}
-end
-tinsert(BUI.Config, exportTable)
+local D = E:GetModule('Distributor')
+if D.GeneratedKeys.profile.benikui == nil then D.GeneratedKeys.profile.benikui = {} end
+D.GeneratedKeys.profile.benikui.panels = true
 
 E.PopupDialogs["BUI_Panel_Delete"] = {
 	button1 = ACCEPT,
