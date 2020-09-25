@@ -157,7 +157,7 @@ end
 local function panelsTable()
 	E.Options.args.benikui.args.panels = {
 		type = "group",
-		name = E.NewSign..L["Custom Panels"],
+		name = L["Custom Panels"],
 		order = 70,
 		childGroups = "select",
 		args = {
