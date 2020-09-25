@@ -38,13 +38,26 @@ local function LoadSkin()
 		_G.PVPMatchScoreboard:Style("Outside")
 		_G.PVPMatchResults:Style("Outside")
 	end
+	
+	local function repUpdate()
+		if _G.ReputationDetailFrame.backdrop then
+			_G.ReputationDetailFrame.backdrop:Style("Outside")
+		end
+	end
+
+	local function tokenUpdate()
+		if _G.TokenFramePopup.backdrop then
+			_G.TokenFramePopup.backdrop:Style("Outside")
+		end
+	end
+
 	if db.character then
-		_G.GearManagerDialogPopup:Style("Outside")
+		_G.GearManagerDialogPopup.backdrop:Style("Outside")
 		_G.PaperDollFrame:Style("Outside")
-		_G.ReputationDetailFrame:Style("Outside")
 		_G.ReputationFrame:Style("Outside")
 		_G.TokenFrame:Style("Outside")
-		_G.TokenFramePopup:Style("Outside")
+		hooksecurefunc('ReputationFrame_Update', repUpdate)
+		hooksecurefunc('TokenFrame_Update', tokenUpdate)
 	end
 
 	if db.dressingroom then
