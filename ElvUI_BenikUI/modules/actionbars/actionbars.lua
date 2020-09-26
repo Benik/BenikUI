@@ -96,7 +96,7 @@ function mod:ColorBackdrops()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
-			frame:SetBackdropColor(r, g, b, ((BUI.ShadowMode and 1) or (db.abAlpha or 1)))
+			frame:SetBackdropColor(r, g, b, db.abAlpha or 1)
 		end
 	end
 
@@ -113,7 +113,7 @@ function mod:ColorBackdrops()
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
 		if name then
-			name:SetBackdropColor(r, g, b, ((BUI.ShadowMode and 1) or (db.abAlpha or 1)))
+			name:SetBackdropColor(r, g, b, db.abAlpha or 1)
 		end
 	end
 end

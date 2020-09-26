@@ -120,7 +120,7 @@ function BUI:UpdateStyleColors()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
-			frame:SetBackdropColor(r, g, b, ((BUI.ShadowMode and 1) or (E.db.benikui.colors.styleAlpha or 1)))
+			frame:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 		else
 			BUI["styles"][frame] = nil;
 		end
@@ -162,7 +162,7 @@ function BUI:UpdateShadowSize()
 	for shadow, _ in pairs(BUI["shadows"]) do
 		if shadow then
 			shadow:SetOutside(shadow:GetParent(), (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
-			shadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(db.shadowSize or 3)})
+			shadow:SetBackdrop({edgeFile = E.Media.Textures.GlowTex, edgeSize = E:Scale(db.shadowSize or 3)})
 			shadow:SetBackdropColor(0, 0, 0, 0)
 			shadow:SetBackdropBorderColor(0, 0, 0, 0.6)
 		else

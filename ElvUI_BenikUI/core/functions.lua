@@ -46,7 +46,7 @@ local function CreateStyleShadow(f)
 	styleShadow:Point('TOPLEFT', f, 'TOPLEFT', -2, 2)
 	styleShadow:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT', 2, 0)
 
-	styleShadow:SetBackdrop({edgeFile = E.Media.Textures.GlowTex, edgeSize = E:Scale(3)})
+	styleShadow:SetBackdrop({edgeFile = [[Interface\AddOns\ElvUI_BenikUI\media\textures\GlowTexCut.tga]], edgeSize = E:Scale(3)})
 	styleShadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	styleShadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
 	f.styleShadow = styleShadow
@@ -123,7 +123,7 @@ local function Style(f, template, name, ignoreColor, ignoreVisibility)
 		else
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
-		style:SetBackdropColor(r, g, b, ((E.db.benikui.general.shadows and 1) or (E.db.benikui.colors.styleAlpha or 1)))
+		style:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 	else
 		style:SetBackdropColor(unpack(E["media"].backdropcolor))
 	end
