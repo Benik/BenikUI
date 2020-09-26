@@ -67,7 +67,6 @@ local function PositionChat(self, override)
 		tab = _G[format("ChatFrame%sTab", i)]
 		point = GetChatWindowSavedPosition(id)
 		isDocked = chat.isDocked
-		tab.flashTab = true
 
 		if chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == CH.RightChatWindowID then
 			chat:ClearAllPoints()
