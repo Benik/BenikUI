@@ -8,7 +8,7 @@ local GetProfessionInfo = GetProfessionInfo
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS = PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS
-local CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID, PLAYER_V_PLAYER, SECONDARY_SKILLS, TRADE_SKILLS = CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID, PLAYER_V_PLAYER, SECONDARY_SKILLS, TRADE_SKILLS
+local PLAYER_V_PLAYER, SECONDARY_SKILLS, TRADE_SKILLS = PLAYER_V_PLAYER, SECONDARY_SKILLS, TRADE_SKILLS
 
 -- GLOBALS: AceGUIWidgetLSMlists, hooksecurefunc
 
@@ -336,7 +336,6 @@ local function dashboardsTable()
 								end,
 							},
 							customBarColor = {
-								type = "select",
 								order = 2,
 								type = "color",
 								name = COLOR_PICKER,

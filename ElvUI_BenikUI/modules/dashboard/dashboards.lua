@@ -124,7 +124,7 @@ function mod:CreateDashboardHolder(holderName, option)
 	return holder
 end
 
-function mod:CreateDashboard(name, barHolder, option)
+function mod:CreateDashboard(barHolder, option)
 	local bar = CreateFrame('Button', nil, barHolder)
 	bar:Height(DASH_HEIGHT)
 	bar:Width(E.db.dashboards[option].width or 150)

@@ -2,12 +2,10 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Databars');
 local DT = E:GetModule('DataTexts');
 local DB = E:GetModule('DataBars');
-local LSM = E.LSM;
 
 local _G = _G
 
 local HideUIPanel, ShowUIPanel = HideUIPanel, ShowUIPanel
-local InCombatLockdown = InCombatLockdown
 
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ExperienceBar, SpellBookFrame
 

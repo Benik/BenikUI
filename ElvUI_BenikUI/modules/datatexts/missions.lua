@@ -28,7 +28,6 @@ local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQu
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local GetMaxLevelForExpansionLevel = GetMaxLevelForExpansionLevel
 local GetQuestObjectiveInfo = GetQuestObjectiveInfo
-local GetServerTime = GetServerTime
 local IsAltKeyDown = IsAltKeyDown
 
 local GARRISON_LANDING_NEXT = GARRISON_LANDING_NEXT
@@ -52,7 +51,6 @@ local LE_GARRISON_TYPE_7_0 = Enum.GarrisonType.Type_7_0
 local LE_GARRISON_TYPE_8_0 = Enum.GarrisonType.Type_8_0
 local LE_GARRISON_TYPE_9_0 = Enum.GarrisonType.Type_9_0
 local RESEARCH_TIME_LABEL = RESEARCH_TIME_LABEL
-local DATE_COMPLETED = DATE_COMPLETED:gsub('(%%s)', '|cFF33FF33%1|r') -- "Completed: |cFF33FF33%s|r"
 local TALENTS = TALENTS
 
 local BODYGUARD_LEVEL_XP_FORMAT = L["Rank"] .. " %d (%d/%d)"
@@ -62,7 +60,6 @@ local EXPANSION_NAME7 = EXPANSION_NAME7 -- "Battle for Azeroth"
 
 local NAZJATAR_MAP_ID = 1355
 local iconString = "|T%s:16:16:0:0:64:64:4:60:4:60|t"
-local HOUR = 3600
 
 local Widget_IDs = {
 	Alliance = {

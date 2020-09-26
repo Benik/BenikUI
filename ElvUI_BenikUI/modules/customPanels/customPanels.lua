@@ -1,8 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('CustomPanels')
 
-local tcopy = table.copy
-
 local PanelDefault = {
 	['enable'] = true,
 	['width'] = 200,

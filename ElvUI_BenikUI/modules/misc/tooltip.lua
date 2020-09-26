@@ -8,8 +8,6 @@ local pairs = pairs
 local GameTooltip, GameTooltipStatusBar = _G.GameTooltip, _G.GameTooltipStatusBar
 local IsAddOnLoaded = IsAddOnLoaded
 
-local WarCampaignTooltip = QuestScrollFrame.WarCampaignTooltip
-
 local function StyleTooltip()
 	if GameTooltip.style then return end
 	GameTooltip:Style('Outside')

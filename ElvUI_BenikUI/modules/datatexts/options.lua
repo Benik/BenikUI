@@ -8,7 +8,7 @@ local DT = E:GetModule('DataTexts')
 if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
 
-local MAIL_LABEL, GARRISON_LOCATION_TOOLTIP =MAIL_LABEL, GARRISON_LOCATION_TOOLTIP
+local MAIL_LABEL = MAIL_LABEL
 
 local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {

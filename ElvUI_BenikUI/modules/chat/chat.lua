@@ -60,12 +60,11 @@ local function PositionChat(self, override)
 	if E.PixelMode then
 		BASE_OFFSET = BASE_OFFSET - 3
 	end
-	local chat, id, tab, isDocked, point
+	local chat, id, tab, isDocked
 	for i=1, CreatedFrames do
 		chat = _G[format("ChatFrame%d", i)]
 		id = chat:GetID()
 		tab = _G[format("ChatFrame%sTab", i)]
-		point = GetChatWindowSavedPosition(id)
 		isDocked = chat.isDocked
 
 		if chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == CH.RightChatWindowID then

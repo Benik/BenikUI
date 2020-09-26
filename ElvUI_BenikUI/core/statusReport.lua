@@ -1,6 +1,5 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 
-local GetAddOnEnableState = GetAddOnEnableState
 local GetAddOnInfo = GetAddOnInfo
 local GetNumAddOns = GetNumAddOns
 

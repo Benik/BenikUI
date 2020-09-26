@@ -1,5 +1,4 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local LSM = E.LSM
 
 local CreateFrame = CreateFrame
 local getmetatable = getmetatable
@@ -39,7 +38,6 @@ end
 local function CreateStyleShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
-	local db = E.db.benikui.general
 
 	local styleShadow = f.styleShadow or CreateFrame('Frame', nil, f, 'BackdropTemplate')
 	styleShadow:SetFrameLevel(1)

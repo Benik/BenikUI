@@ -16,7 +16,6 @@ local UnitOnTaxi, IsAddOnLoaded = UnitOnTaxi, IsAddOnLoaded
 local GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
-local C_TimerAfter = C_Timer.After
 local GetScreenWidth = GetScreenWidth
 local InCombatLockdown = InCombatLockdown
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding

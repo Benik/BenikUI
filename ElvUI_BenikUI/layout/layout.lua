@@ -177,7 +177,6 @@ local function Panel_OnShow(self)
 end
 
 function mod:CreateLayout()
-	local db = E.db.benikui.datatexts
 
 	-- Left dt panel
 	local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent, 'BackdropTemplate')

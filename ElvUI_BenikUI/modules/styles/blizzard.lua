@@ -3,7 +3,6 @@ local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 
 local _G = _G
-local LoadAddOn = LoadAddOn
 local MAX_STATIC_POPUPS = 4
 
 local function LoadSkin()
@@ -158,7 +157,7 @@ local function LoadSkin()
 		_G.StaticPopup4.backdrop:Style("Outside")
 		_G.TicketStatusFrameButton:Style("Outside")
 
-		hooksecurefunc('UIDropDownMenu_CreateFrames', function(level, index)
+		hooksecurefunc('UIDropDownMenu_CreateFrames', function(level)
 			local listFrame = _G['DropDownList'..level];
 			local listFrameName = listFrame:GetName();
 			local Backdrop = _G[listFrameName..'Backdrop']

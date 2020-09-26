@@ -2,7 +2,6 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Actionbars');
 
 local _G = _G
-local unpack = unpack
 local GameTooltip = _G["GameTooltip"]
 local CreateFrame = CreateFrame
 local UnitOnTaxi = UnitOnTaxi
@@ -39,7 +38,6 @@ local function TaxiButton_OnEvent(self)
 		self.textHolder.Text:SetFormattedText("%s", TAXI_CANCEL)
 		self:Width(self.textHolder.Text:GetStringWidth() + 48)
 		self.textHolder.Text:SetTextColor(1, 1, 1, .7)
-		--self.IconBG:SetBackdropColor(unpack(E['media'].backdropcolor))
 		self.IconBG.Icon:SetVertexColor(1, 1, 1, .7)
 		self:EnableMouse(true)
 		BuiTaxiButton:Width(self:GetWidth() + 42)

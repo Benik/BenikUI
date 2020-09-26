@@ -16,9 +16,6 @@ end
 -- Add some more fonts
 function BUI:UpdateBlizzardFonts()
 	local NORMAL     = E["media"].normFont
-	local COMBAT     = LSM:Fetch('font', E.private.general.dmgfont)
-	local NUMBER     = E["media"].normFont
-	local MONOCHROME = ''
 	local SHADOWCOLOR = 0, 0, 0, .4 	-- add alpha for shadows
 	local NO_OFFSET = 0, 0
 	local NORMALOFFSET = 1.25, -1.25 	-- shadow offset for small fonts

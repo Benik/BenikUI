@@ -12,7 +12,6 @@ local hoverVisible = false
 
 local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
 local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
-local C_Garrison_HasGarrison = C_Garrison.HasGarrison
 
 local classColor = E:ClassColor(E.myclass, true)
 
