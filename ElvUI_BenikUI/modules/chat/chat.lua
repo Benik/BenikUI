@@ -17,6 +17,7 @@ local IsMouseButtonDown = IsMouseButtonDown
 
 -- Place the new chat frame
 function mod:UpdateEditboxAnchors()
+	if E.db.benikui.datatexts.chat.enable ~= true then return end
 	for _, frameName in pairs(CHAT_FRAMES) do
 		local frame = _G[frameName..'EditBox']
 		if not frame then break; end
