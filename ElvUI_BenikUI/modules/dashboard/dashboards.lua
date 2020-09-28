@@ -119,7 +119,7 @@ function mod:CreateDashboardHolder(holderName, option)
 	end
 	mod:EnableDisableCombat(holder, option)
 
-	E.FrameLocks[holder] = true;
+	E.FrameLocks[holder] = { parent = E.UIParent }
 
 	return holder
 end
