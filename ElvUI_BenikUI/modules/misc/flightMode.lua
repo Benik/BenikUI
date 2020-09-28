@@ -846,6 +846,12 @@ function mod:Initialize()
 
 	hooksecurefunc(M, "SetLargeWorldMap", mod.SetWorldMapParent)
 	hooksecurefunc(M, "SetSmallWorldMap", mod.SetWorldMapParent)
+	
+	-- force databars parent. This should fix databars showing after a Pet Battle
+	E.FrameLocks['ElvUI_ExperienceBar'] = { parent = E.UIParent }
+	E.FrameLocks['ElvUI_ReputationBar'] = { parent = E.UIParent }
+	E.FrameLocks['ElvUI_HonorBar'] = { parent = E.UIParent }
+	E.FrameLocks['ElvUI_AzeriteBar'] = { parent = E.UIParent }
 end
 
 BUI:RegisterModule(mod:GetName())
