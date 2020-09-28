@@ -99,7 +99,7 @@ end
 function mod:CreateDashboardHolder(holderName, option)
 	local db = E.db.dashboards[option]
 
-	local holder = CreateFrame('Frame', holderName, E.UIParent)
+	local holder = CreateFrame('Frame', holderName, UIParent)
 	holder:CreateBackdrop('Transparent')
 	holder:SetFrameStrata('BACKGROUND')
 	holder:SetFrameLevel(5)
@@ -119,7 +119,7 @@ function mod:CreateDashboardHolder(holderName, option)
 	end
 	mod:EnableDisableCombat(holder, option)
 
-	E.FrameLocks[holder] = true;
+	E.FrameLocks[holder] = { parent = UIParent }
 
 	return holder
 end
