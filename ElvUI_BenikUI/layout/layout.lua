@@ -267,8 +267,7 @@ function mod:CreateLayout()
 									end
 								end
 							else
-								--E:BGStats()
-								BUI:Print('Nothing to see are at moment! Move along.')
+								DT:ToggleBattleStats()
 							end
 						end
 						PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
