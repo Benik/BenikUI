@@ -1,6 +1,17 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('CustomPanels')
 
+local _G = _G
+local pairs = pairs
+local tcopy = table.copy
+
+local CreateFrame = CreateFrame
+local InCombatLockdown = InCombatLockdown
+local RegisterStateDriver = RegisterStateDriver
+local ReloadUI = ReloadUI
+local UnitInVehicle = UnitInVehicle
+local UnregisterStateDriver = UnregisterStateDriver
+
 local PanelDefault = {
 	['enable'] = true,
 	['width'] = 200,
@@ -20,20 +31,21 @@ local PanelDefault = {
 
 local function OnEnter(self)
 	if E.db.benikui.panels[self.Name].tooltip then
-		GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-		GameTooltip:AddLine(self.Name, 0.7, 0.7, 1)
-		GameTooltip:Show()
+		_G.GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+		_G.GameTooltip:AddLine(self.Name, 0.7, 0.7, 1)
+		_G.GameTooltip:Show()
 	end
 end
 
 local function OnLeave(self)
 	if E.db.benikui.panels[self.Name].tooltip then
-		GameTooltip:Hide()
+		_G.GameTooltip:Hide()
 	end
 end
 
 function mod:InsertPanel(name)
 	if name == "" then return end
+
 	name = "BenikUI_"..name
 	local db = E.db.benikui.panels
 	if not db[name] then
@@ -45,6 +57,7 @@ end
 
 function mod:CreatePanel()
 	if not E.db.benikui.panels then E.db.benikui.panels = {} end
+
 	for name in pairs(E.db.benikui.panels) do
 		if name and not _G[name] then
 			local panel = CreateFrame("Frame", name, E.UIParent, 'BackdropTemplate')
@@ -67,6 +80,7 @@ end
 
 function mod:Resize()
 	if not E.db.benikui.panels then E.db.benikui.panels = {} end
+
 	for name in pairs(E.db.benikui.panels) do
 		if name and _G[name] then
 			local db = E.db.benikui.panels[name]
@@ -140,6 +154,7 @@ end
 
 function mod:OnEvent(event, unit)
 	if unit and unit ~= "player" then return end
+
 	local inCombat = (event == "PLAYER_REGEN_DISABLED" and true) or (event == "PLAYER_REGEN_ENABLED" and false) or InCombatLockdown()
 	local inVehicle = (event == "UNIT_ENTERING_VEHICLE" and true) or (event == "UNIT_EXITING_VEHICLE" and false) or UnitInVehicle("player")
 	for name in pairs(E.db.benikui.panels) do
@@ -159,7 +174,7 @@ function mod:RegisterHide()
 		if name then
 			local db = E.db.benikui.panels[name]
 			if db.petHide then
-				E.FrameLocks[name] = { parent = E.UIParent }
+				E.FrameLocks[name] = true
 			else
 				E.FrameLocks[name] = nil
 			end
