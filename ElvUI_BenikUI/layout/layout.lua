@@ -267,7 +267,8 @@ function mod:CreateLayout()
 									end
 								end
 							else
-								E:BGStats()
+								--E:BGStats()
+								BUI:Print('Nothing to see are at moment! Move along.')
 							end
 						end
 						PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
@@ -440,7 +441,7 @@ function mod:CreateMiddlePanel(forceReset)
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["panelTransparency"] = false
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] = false
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["growth"] = 'HORIZONTAL'
-		
+
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
 			[1] = "Haste",
 			[2] = "Mastery",
@@ -449,7 +450,7 @@ function mod:CreateMiddlePanel(forceReset)
 		}
 
 		if E.db["movers"] == nil then E.db["movers"] = {} end
-		
+
 		local dt = DT:FetchFrame("BuiMiddleDTPanel")
 		dt.mover:ClearAllPoints()
 		dt.mover:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 2)
