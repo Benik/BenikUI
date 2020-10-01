@@ -174,7 +174,7 @@ function mod:RegisterHide()
 		if name then
 			local db = E.db.benikui.panels[name]
 			if db.petHide then
-				E.FrameLocks[name] = true
+				E.FrameLocks[name] = { parent = E.UIParent }
 			else
 				E.FrameLocks[name] = nil
 			end
