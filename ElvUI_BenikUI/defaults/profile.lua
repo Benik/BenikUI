@@ -84,6 +84,7 @@ P['benikui'] = {
 			['logo'] = 'WOW',
 		},
 		['afkMode'] = true,
+		['alternativePower'] = true,
 	},
 
 	['datatexts'] = {
