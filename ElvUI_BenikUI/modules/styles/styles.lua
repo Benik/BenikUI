@@ -31,6 +31,7 @@ local function StyleScriptErrorsFrame()
 end
 
 local function StyleElvUIBindPopup()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local bind = _G.ElvUIBindPopupWindow
 	bind:Style("Outside")
 	bind.header:SetFrameLevel(bind.style:GetFrameLevel() + 1)
