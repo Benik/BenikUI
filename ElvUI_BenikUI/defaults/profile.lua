@@ -216,6 +216,7 @@ P['benikuiSkins'] = {
 		['sle'] = true,
 		['enh'] = true,
 		['pa'] = true,
+		['mer'] = true,
 	},
 
 	['addonSkins'] = {

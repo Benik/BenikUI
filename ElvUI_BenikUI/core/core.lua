@@ -31,6 +31,7 @@ end
 
 -- Check other addons
 BUI.SLE = BUI:IsAddOnEnabled('ElvUI_SLE')
+BUI.MER = BUI:IsAddOnEnabled('ElvUI_MerathilisUI')
 BUI.PA = BUI:IsAddOnEnabled('ProjectAzilroka')
 BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')
@@ -191,7 +192,7 @@ function BUI:Initialize()
 	self:SplashScreen()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
-	
+
 	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
 		if initLogin or not ElvDB.BuiErrorDisabledAddOns then
 			ElvDB.BuiErrorDisabledAddOns = {}
