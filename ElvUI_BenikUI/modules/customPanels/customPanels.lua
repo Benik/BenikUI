@@ -1,5 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('CustomPanels')
+local LSM = E.Libs.LSM
 
 local _G = _G
 local pairs = pairs
@@ -18,7 +19,7 @@ local PanelDefault = {
 	['height'] = 200,
 	['point'] = "CENTER",
 	['transparency'] = true,
-	['style'] = true,
+	['style'] = false,
 	['shadow'] = true,
 	['clickThrough'] = false,
 	['strata'] = "LOW",
@@ -27,7 +28,44 @@ local PanelDefault = {
 	['vehicleHide'] = true,
 	['tooltip'] = true,
 	['visibility'] = "",
+	['title'] = {
+		['enable'] = true,
+		['text'] = 'Title',
+		['height'] = 26,
+		['position'] = 'TOP',
+		['textPosition'] = 'CENTER',
+		['panelTexture'] = "BuiMelli",
+		['panelColor'] = {r = .9, g = .7, b = 0, a = .7},
+		['useDTfont'] = true,
+		['font'] = E.db.datatexts.font,
+		['fontsize'] = E.db.datatexts.fontSize,
+		['fontflags'] = E.db.datatexts.fontOutline,
+		['fontColor'] = {r = .9, g = .9, b = .9},
+	}
 }
+
+local function InsertNewDefaults()
+	for name in pairs(E.db.benikui.panels) do
+		if name then
+			if E.db.benikui.panels[name].title == nil then
+				E.db.benikui.panels[name].title = {	
+					['enable'] = true,
+					['text'] = 'Title',
+					['height'] = 26,
+					['position'] = 'TOP',
+					['textPosition'] = 'CENTER',
+					['panelTexture'] = "BuiMelli",
+					['panelColor'] = {r = .9, g = .7, b = 0, a = .7},
+					['useDTfont'] = true,
+					['font'] = E.db.datatexts.font,
+					['fontsize'] = E.db.datatexts.fontSize,
+					['fontflags'] = E.db.datatexts.fontOutline,
+					['fontColor'] = {r = .9, g = .9, b = .9},
+				}
+			end
+		end
+	end
+end
 
 local function OnEnter(self)
 	if E.db.benikui.panels[self.Name].tooltip then
@@ -74,6 +112,25 @@ function mod:CreatePanel()
 			end
 
 			panel.Name = name
+			
+			local title = CreateFrame("Frame", nil, panel, 'BackdropTemplate')
+			title:SetTemplate('Transparent', false, true)
+			title:Point('TOPLEFT', panel, 'TOPLEFT', 0, (E.PixelMode and 0 or 2))
+			title:Point('BOTTOMRIGHT', panel, 'TOPRIGHT', 0, (E.PixelMode and -15 or -14))
+			panel.title = title
+
+			local titleText = title:CreateFontString(nil, 'OVERLAY')
+			titleText:FontTemplate(nil, 14)
+			titleText:SetText("Title")
+			titleText:Point("CENTER")
+			titleText:SetTextColor(1, 1, 0, .7)
+			panel.titleText = titleText
+			
+			local tex = title:CreateTexture(nil, "BACKGROUND")
+			tex:SetBlendMode("ADD")
+			tex:SetAllPoints()
+			tex:SetTexture(E.media.BuiFlat)
+			panel.tex = tex
 		end
 	end
 end
@@ -86,6 +143,51 @@ function mod:Resize()
 			local db = E.db.benikui.panels[name]
 			if not db.width and not db.height then return end
 			_G[name]:Size(db.width, db.height)
+		end
+	end
+end
+
+function mod:UpdatePanelTitle()
+	for panel in pairs(E.db.benikui.panels) do
+		if panel then
+			local db = E.db.benikui.panels[panel].title
+
+			-- Toggle
+			if db.enable then
+				_G[panel].title:Show()
+			else
+				_G[panel].title:Hide()
+			end
+
+			-- Set Text
+			_G[panel].titleText:SetText(db.text or 'Title')
+
+			-- Text Position
+			_G[panel].titleText:ClearAllPoints()
+			_G[panel].titleText:Point(db.textPosition or "CENTER")
+
+			-- Title bar position
+			_G[panel].title:ClearAllPoints()
+			if db.position == 'TOP' then
+				_G[panel].title:Point('TOPLEFT', _G[panel], 'TOPLEFT', 0, (E.PixelMode and 0 or 2))
+				_G[panel].title:Point('BOTTOMRIGHT', _G[panel], 'TOPRIGHT', 0, -(db.height) or (E.PixelMode and -15 or -14))
+			else
+				_G[panel].title:Point('BOTTOMLEFT', _G[panel], 'BOTTOMLEFT', 0, (E.PixelMode and 0 or 2))
+				_G[panel].title:Point('TOPRIGHT', _G[panel], 'BOTTOMRIGHT', 0, (db.height) or (E.PixelMode and -15 or -14))
+			end
+
+			-- Texture
+			_G[panel].tex:SetTexture(LSM:Fetch('statusbar', db.panelTexture))
+			_G[panel].tex:SetVertexColor(BUI:unpackColor(db.panelColor))
+			
+			-- Fonts
+			if db.useDTfont then
+				_G[panel].titleText:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+			else
+				_G[panel].titleText:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+			end
+			
+			_G[panel].titleText:SetTextColor(BUI:unpackColor(db.fontColor))
 		end
 	end
 end
@@ -183,10 +285,12 @@ function mod:RegisterHide()
 end
 
 function mod:UpdatePanels()
+	InsertNewDefaults()
 	mod:CreatePanel()
 	mod:SetupPanels()
 	mod:Resize()
 	mod:RegisterHide()
+	mod:UpdatePanelTitle()
 end
 
 function mod:Initialize()
