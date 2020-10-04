@@ -34,7 +34,7 @@ function AS:BigWigs(event, addon)
 		local CreateBG = function()
 			local BG = CreateFrame('Frame')
 			AS:SkinFrame(BG)
-			AS:SetTemplate(BG, "Transparent")
+			AS:SetTemplate(BG)
 			if BUI.ShadowMode and E.db.benikuiSkins.addonSkins.bigwigs then
 				BG:CreateSoftShadow()
 			end
