@@ -54,7 +54,7 @@ function mod:DBMShadows()
 					icon2.overlay:Size(bar.owner.options.Height, bar.owner.options.Height)
 					tbar:SetInside(frame)
 
-					frame:SetTemplate('Transparent')
+					AS:SetTemplate(frame, 'Transparent')
 					frame:CreateSoftShadow()
 
 					name:ClearAllPoints()
