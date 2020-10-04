@@ -163,7 +163,6 @@ local function DbmDecor(event)
 		end
 		
 		if DBMRangeCheck then
-			DBMRangeCheck:SetTemplate('Transparent')
 			if not DBMRangeCheck.style then
 				DBMRangeCheck:Style('Outside')
 			end

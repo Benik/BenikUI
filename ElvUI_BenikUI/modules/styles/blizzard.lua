@@ -192,17 +192,17 @@ local function LoadSkin()
 
 		if BUI.AS then
 			local AS = unpack(AddOnSkins)
-			AS:SetTemplate(_G.QuestDetailScrollFrame, "Transparent")
-			AS:SetTemplate(_G.QuestProgressScrollFrame, "Transparent")
+			AS:SetTemplate(_G.QuestDetailScrollFrame)
+			AS:SetTemplate(_G.QuestProgressScrollFrame)
 
 			_G.QuestRewardScrollFrame:HookScript(
 				"OnUpdate",
 				function(self)
-					AS:SetTemplate(self, "Transparent")
+					AS:SetTemplate(self)
 				end
 			)
 
-			AS:SetTemplate(_G.GossipGreetingScrollFrame, "Transparent")
+			AS:SetTemplate(_G.GossipGreetingScrollFrame)
 		end
 	end
 
