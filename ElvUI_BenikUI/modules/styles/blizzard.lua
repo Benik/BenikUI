@@ -135,8 +135,8 @@ local function LoadSkin()
 
 		for i = 1, #ChatMenus do
 			_G[ChatMenus[i]]:HookScript('OnShow', function(s)
-				if not s.backdrop.style then
-					s.backdrop:Style("Outside")
+				if not s.style then
+					s:Style("Outside")
 				end
 			end)
 		end
