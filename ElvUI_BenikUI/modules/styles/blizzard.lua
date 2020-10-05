@@ -3,6 +3,8 @@ local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 
 local _G = _G
+local pairs = pairs
+
 local MAX_STATIC_POPUPS = 4
 
 local function LoadSkin()
@@ -17,7 +19,7 @@ local function LoadSkin()
 	if db.addonManager then
 		_G.AddonList:Style("Outside")
 	end
-	
+
 	if db.blizzardOptions then
 		_G.AudioOptionsFrame:Style("Outside")
 		_G.ChatConfigFrame.backdrop:Style("Outside")
@@ -29,7 +31,7 @@ local function LoadSkin()
 		end
 		_G.VideoOptionsFrame.backdrop:Style("Outside")
 	end
-	
+
 	local function repUpdate()
 		if _G.ReputationDetailFrame.backdrop then
 			_G.ReputationDetailFrame.backdrop:Style("Outside")
@@ -127,18 +129,16 @@ local function LoadSkin()
 
 	if db.misc then
 		local ChatMenus = {
-			'ChatMenu',
-			'EmoteMenu',
-			'LanguageMenu',
-			'VoiceMacroMenu',
+			_G.ChatMenu,
+			_G.EmoteMenu,
+			_G.LanguageMenu,
+			_G.VoiceMacroMenu,
 		}
 
-		for i = 1, #ChatMenus do
-			_G[ChatMenus[i]]:HookScript('OnShow', function(s)
-				if not s.style then
-					s:Style("Outside")
-				end
-			end)
+		for _, menu in pairs(ChatMenus) do
+			if menu then
+				menu:Style('Outside')
+			end
 		end
 
 		_G.BNToastFrame:Style("Outside")
