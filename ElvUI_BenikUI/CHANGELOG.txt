@@ -1,3 +1,50 @@
+3.94 (Oct 5, 2020)
+*Let ElvUI handle the Middle Datatext
+*Fixed FlightMode and Dashboard ToggleAllBags. (thurin)
+*Fixed WorldMap toggle during flightMode
+*Added a "Restore Defaults" button in Middle Datatext options
+*Added AddonsToHide table for FlightMode. Add special support for VuhDo hiding. (thurin)
+*Keep the flightMode enabled when logging out/in
+*Fixed the customPanels not exporting
+*Added WeakAuras, HeroRotation and more WorldQuestFrames to Flightmode. (thurin)
+*Blacklisted one more spot in Argus
+*Prevent for a rare error in config styling
+*Fixed Chat Editbox positioning when BenikUI datatexts are disabled
+*Fixed elements that show during flightMode after a Pet Battle
+*Updated donators/patreons
+
+3.93 (Aug 28, 2020)
+*Fixed Datatexts borders not properly hiding
+*Fixed Minimap Panel Width
+*Added buttons that go to ElvUI Datatexts Panels, to set their values
+*Added Pristie in the Coders list for the French translation <3
+*Runew0lf has his own category :D
+*Fixed not styling the blacklisted frames. Credit: Simpy
+*Trigger UpdatePanelInfo for each panels on PLAYER_ENTERING_WORLD. Credit: Simpy
+*Fixed Custom Datatexts style toggle
+*Disable Custom Datatexts style option when BenikUI style is disabled
+*Change Shadow size on the fly (without a reload)
+*Style Ace3 Popup
+*Prevent an error if Minimap is disabled
+*Added missing locales
+
+3.921 (Aug 8, 2020)
+*The Professions dashboard will now show in a tooltip the Skill Name, e.g. KulTiran Alchemy, etc
+*Fixed Flyout buttons shadow error. This should close #116
+*Added French locales. Credits: Pristie
+
+3.92 (Jul 29, 2020)
+*Create a Custom Panel on the fly (without a reload)
+*A new Custom Panel will now show to the left upon creation
+*Fixed Custom Panels Style shadow toggle
+*Fixed a shadow error during flightMode
+*Make the option for Role Icons on UF work again. (Merathilis)
+*Fixed Mission timer in mission Datatext
+*Fixed the chat datatexts toggle
+*Fixed the Threat toggle
+*Removed Adibags style
+*Added Sumidian in the donors list. Thank you <3
+
 3.911 (Jul 18, 2020)
 *Avoid another chat glitch after leaving flightMode
 *Added a clickThrough option in Custom Panels
