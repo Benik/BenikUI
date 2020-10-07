@@ -56,20 +56,18 @@ end
 hooksecurefunc(S, 'Ace3_TabSetSelected', Style_Ace3TabSelected)
 
 local function Style_SetButtonColor(self, btn, disabled)
+	btn.dontReskin = true
+
 	if disabled then
-		btn:Disable()
-		btn:SetBackdropBorderColor(0, 0, 0)
-		local ar, ag, ab = unpack(E.media.rgbvaluecolor)
-		btn:SetBackdropColor(ar, ag, ab, .7)
+		local r, g, b = unpack(E.media.rgbvaluecolor)
+		btn:SetBackdropBorderColor(r, g, b)
+		btn:SetBackdropColor(r, g, b, 0.5)
 		btn.Text:SetTextColor(1, 1, 1)
-		E:Config_SetButtonText(btn, true)
 	else
-		btn:Enable()
-		btn:SetBackdropColor(0, 0, 0, 1)
+		btn:SetBackdropColor(0.1, 0.1, 0.1, 0.5)
 		local r, g, b = unpack(E.media.bordercolor)
 		btn:SetBackdropBorderColor(r, g, b, 1)
 		btn.Text:SetTextColor(.9, .8, 0)
-		E:Config_SetButtonText(btn)
 	end
 end
 hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)
