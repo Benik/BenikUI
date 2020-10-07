@@ -81,15 +81,17 @@ function BU:Configure_Portrait(frame, isPlayer)
 					end
 				end
 
+				portrait.backdrop:SetFrameStrata(frame.DETACHED_PORTRAIT_STRATA)
+				if db.portrait.style == '3D' then
+					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
+				else
+					portrait:SetParent(portrait.backdrop)
+				end
+
 				if frame.PORTRAIT_BACKDROP then
 					portrait.backdrop:Show()
 				else
 					portrait.backdrop:Hide()
-				end
-
-				if db.portrait.style == '3D' then
-					portrait.backdrop:SetFrameStrata(frame.DETACHED_PORTRAIT_STRATA)
-					portrait:SetFrameStrata(portrait.backdrop:GetFrameStrata())
 				end
 
 				if not frame.portraitmover.mover then
