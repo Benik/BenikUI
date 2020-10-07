@@ -34,6 +34,8 @@ local PanelDefault = {
 		['height'] = 26,
 		['position'] = 'TOP',
 		['textPosition'] = 'CENTER',
+		['textXoffset'] = 0,
+		['textYoffset'] = 0,
 		['panelTexture'] = "BuiMelli",
 		['panelColor'] = {r = .9, g = .7, b = 0, a = .7},
 		['useDTfont'] = true,
@@ -54,6 +56,8 @@ local function InsertNewDefaults()
 					['height'] = 26,
 					['position'] = 'TOP',
 					['textPosition'] = 'CENTER',
+					['textXoffset'] = 0,
+					['textYoffset'] = 0,
 					['panelTexture'] = "BuiMelli",
 					['panelColor'] = {r = .9, g = .7, b = 0, a = .7},
 					['useDTfont'] = true,
@@ -164,7 +168,7 @@ function mod:UpdatePanelTitle()
 
 			-- Text Position
 			_G[panel].titleText:ClearAllPoints()
-			_G[panel].titleText:Point(db.textPosition or "CENTER")
+			_G[panel].titleText:Point(db.textPosition or "CENTER", db.textXoffset or 0, db.textYoffset or 0)
 
 			-- Title bar position
 			_G[panel].title:ClearAllPoints()

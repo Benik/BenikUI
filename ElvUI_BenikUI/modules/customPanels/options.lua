@@ -111,23 +111,45 @@ local function updateOptions()
 								BOTTOM = L["Bottom"],
 							},
 						},
-						textPosition = {
-							order = 4,
-							type = 'select',
-							name = L["Title Text Position"], -- new
-							disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
-							values = {
-								LEFT = L["Left"],
-								RIGHT = L["Right"],
-								CENTER = L["Center"],
-							},
-						},
 						height = {
-							order = 5,
+							order = 4,
 							type = "range",
 							name = L['Height'],
 							min = 10, max = 30, step = 1,
 							disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
+						},
+						textPositionGroup = {
+							order = 10,
+							name = " ",
+							type = 'group',
+							guiInline = true,
+							disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
+							get = function(info) return E.db.benikui.panels[panelname].title[ info[#info] ] end,
+							set = function(info, value) E.db.benikui.panels[panelname].title[ info[#info] ] = value; mod:UpdatePanelTitle() end,
+							args = {
+								textPosition = {
+									order = 1,
+									type = 'select',
+									name = L["Title Text Position"], -- new
+									values = {
+										LEFT = L["Left"],
+										RIGHT = L["Right"],
+										CENTER = L["Center"],
+									},
+								},
+								textXoffset = {
+									order = 2,
+									type = "range",
+									name = L["X-Offset"],
+									min = -30, max = 30, step = 1,
+								},
+								textYoffset = {
+									order = 3,
+									type = "range",
+									name = L["Y-Offset"],
+									min = 1-30, max = 30, step = 1,
+								},
+							},
 						},
 						fontGroup = {
 							order = 20,
