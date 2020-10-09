@@ -205,7 +205,7 @@ function mod:UpdateTokens()
 						holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
 
-					self.tokenFrame = self:CreateDashboard(holder, 'tokens')
+					self.tokenFrame = self:CreateDashboard(holder, 'tokens', true)
 
 					if totalMax == 0 then
 						self.tokenFrame.Status:SetMinMaxValues(0, amount)

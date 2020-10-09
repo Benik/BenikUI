@@ -2,9 +2,9 @@ local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local BUID = BUI:GetModule('Dashboards');
 
-local tinsert, pairs, ipairs, gsub, unpack, format = table.insert, pairs, ipairs, gsub, unpack, string.format
-local GetProfessions = GetProfessions
-local GetProfessionInfo = GetProfessionInfo
+local tinsert, pairs, ipairs, gsub, unpack, format, tostring = table.insert, pairs, ipairs, gsub, unpack, string.format, tostring
+local GetProfessions, GetProfessionInfo = GetProfessions, GetProfessionInfo
+local GetNumFactions, GetFactionInfo = GetNumFactions, GetFactionInfo
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS = PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS
@@ -282,7 +282,7 @@ local function UpdateProfessionOptions()
 		end
 	else
 		E.Options.args.benikui.args.dashboards.args.panels.args.professions.args.choosePofessions = {
-			order = 5,
+			order = 50,
 			type = 'group',
 			guiInline = true,
 			name = L['Select Professions'],
@@ -295,6 +295,34 @@ local function UpdateProfessionOptions()
 				},
 			},
 		}
+	end
+end
+
+local function UpdateReputationOptions()
+	local numFactions = GetNumFactions()
+	local factionIndex = 1
+	local optionOrder = 1
+	
+	while (factionIndex <= numFactions) do
+		local tname, _, _, _, _, _, _, _, isHeader, isCollapsed, hasRep, _, _, factionID = GetFactionInfo(factionIndex);
+
+		if isHeader and isCollapsed then
+			ExpandFactionHeader(factionIndex)
+			numFactions = GetNumFactions()
+		end
+
+		local id = tostring(factionID)
+		if hasRep or not isHeader then
+		E.Options.args.benikui.args.dashboards.args.panels.args.reputations.args[id] = {
+			order = 100,
+			type = 'toggle',
+			name = tname,
+			get = function(info) return E.private.dashboards.reputations.chooseReputations[id] end,
+			set = function(info, value) E.private.dashboards.reputations.chooseReputations[id] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+		}
+		end
+
+		factionIndex = factionIndex + 1
 	end
 end
 
@@ -333,6 +361,7 @@ local function dashboardsTable()
 									if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
 									if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
 									if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+									if E.db.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
 								end,
 							},
 							customBarColor = {
@@ -352,6 +381,7 @@ local function dashboardsTable()
 									if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
 									if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
 									if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+									if E.db.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
 								end,
 							},
 							spacer = {
@@ -372,6 +402,7 @@ local function dashboardsTable()
 									if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
 									if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
 									if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+									if E.db.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
 								end,
 							},
 							customTextColor = {
@@ -391,6 +422,7 @@ local function dashboardsTable()
 									if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
 									if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
 									if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+									if E.db.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
 								end,
 							},
 						},
@@ -403,10 +435,11 @@ local function dashboardsTable()
 						disabled = function() return not E.db.dashboards.system.enableSystem and not E.db.dashboards.tokens.enableTokens and not E.db.dashboards.professions.enableProfessions end,
 						get = function(info) return E.db.dashboards.dashfont[ info[#info] ] end,
 						set = function(info, value) E.db.dashboards.dashfont[ info[#info] ] = value;
-							if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end;
-							if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end;
-							if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end;
-							end,
+							if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
+							if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
+							if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+							if E.db.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+						end,
 						args = {
 							useDTfont = {
 								order = 1,
@@ -712,6 +745,80 @@ local function dashboardsTable()
 							},
 						},
 					},
+					reputations = {
+						order = 6,
+						type = 'group',
+						name = format('%s |cff00c0fa%s|r', REPUTATION, '(WIP)'),
+						childGroups = 'select',
+						args = {
+							enableReputations = {
+								order = 1,
+								type = 'toggle',
+								name = L["Enable"],
+								width = 'full',
+								desc = L['Enable the Professions Dashboard.'],
+								get = function(info) return E.db.dashboards.reputations.enableReputations end,
+								set = function(info, value) E.db.dashboards.reputations.enableReputations = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+							},
+							combat = {
+								order = 2,
+								name = L['Combat Fade'],
+								desc = L['Show/Hide Professions Dashboard when in combat'],
+								type = 'toggle',
+								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+								get = function(info) return E.db.dashboards.reputations.combat end,
+								set = function(info, value) E.db.dashboards.reputations.combat = value; BUID:EnableDisableCombat(BUI_ReputationsDashboard, 'reputations'); end,
+							},
+							mouseover = {
+								order = 3,
+								name = L['Mouse Over'],
+								desc = L['The frame is not shown unless you mouse over the frame.'],
+								type = 'toggle',
+								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+								get = function(info) return E.db.dashboards.reputations.mouseover end,
+								set = function(info, value) E.db.dashboards.reputations.mouseover = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+							},
+							width = {
+								order = 4,
+								type = 'range',
+								name = L['Width'],
+								desc = L['Change the Professions Dashboard width.'],
+								min = 120, max = 520, step = 1,
+								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+								get = function(info) return E.db.dashboards.reputations.width end,
+								set = function(info, value) E.db.dashboards.reputations.width = value; BUID:UpdateHolderDimensions(BUI_ReputationsDashboard, 'reputations', BUI.FactionsDB); BUID:UpdateReputationSettings(); end,
+							},
+							style = {
+								order = 5,
+								name = L['BenikUI Style'],
+								type = 'toggle',
+								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+								get = function(info) return E.db.dashboards.reputations.style end,
+								set = function(info, value) E.db.dashboards.reputations.style = value; BUID:ToggleStyle(BUI_ReputationsDashboard, 'reputations'); end,
+							},
+							transparency = {
+								order = 6,
+								name = L['Panel Transparency'],
+								type = 'toggle',
+								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+								get = function(info) return E.db.dashboards.reputations.transparency end,
+								set = function(info, value) E.db.dashboards.reputations.transparency = value; BUID:ToggleTransparency(BUI_ReputationsDashboard, 'reputations'); end,
+							},
+							backdrop = {
+								order = 7,
+								name = L['Backdrop'],
+								type = 'toggle',
+								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+								get = function(info) return E.db.dashboards.reputations.backdrop end,
+								set = function(info, value) E.db.dashboards.reputations.backdrop = value; BUID:ToggleTransparency(BUI_ReputationsDashboard, 'reputations'); end,
+							},
+							spacer = {
+								order = 8,
+								type = 'header',
+								name = '',
+							},
+						},
+					},
 				},
 			},
 		},
@@ -719,9 +826,11 @@ local function dashboardsTable()
 	-- update the options, when ElvUI Config fires
 	hooksecurefunc(E, "ToggleOptionsUI", UpdateTokenOptions)
 	hooksecurefunc(E, "ToggleOptionsUI", UpdateProfessionOptions)
+	hooksecurefunc(E, "ToggleOptionsUI", UpdateReputationOptions)
 end
 
 tinsert(BUI.Config, dashboardsTable)
 tinsert(BUI.Config, UpdateSystemOptions)
 tinsert(BUI.Config, UpdateTokenOptions)
 tinsert(BUI.Config, UpdateProfessionOptions)
+tinsert(BUI.Config, UpdateReputationOptions)

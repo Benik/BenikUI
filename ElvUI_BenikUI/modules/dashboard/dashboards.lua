@@ -13,6 +13,7 @@ local classColor = E:ClassColor(E.myclass, true)
 BUI.SystemDB = {}
 BUI.TokensDB = {}
 BUI.ProfessionsDB = {}
+BUI.FactionsDB = {}
 
 function mod:EnableDisableCombat(holder, option)
 	local db = E.db.dashboards[option]
@@ -124,8 +125,9 @@ function mod:CreateDashboardHolder(holderName, option)
 	return holder
 end
 
-function mod:CreateDashboard(barHolder, option)
+function mod:CreateDashboard(barHolder, option, hasIcon)
 	local bar = CreateFrame('Button', nil, barHolder)
+	local barIconOffset = (hasIcon and -20) or -2
 	bar:Height(DASH_HEIGHT)
 	bar:Width(E.db.dashboards[option].width or 150)
 	bar:Point('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
@@ -133,7 +135,7 @@ function mod:CreateDashboard(barHolder, option)
 
 	bar.dummy = CreateFrame('Frame', nil, bar)
 	bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
-	bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
+	bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (hasIcon and (E.PixelMode and -24 or -28) or -2), 0)
 	bar.dummy:Height(E.PixelMode and 3 or 5)
 
 	bar.dummy.dummyStatus = bar.dummy:CreateTexture(nil, 'OVERLAY')
@@ -153,18 +155,20 @@ function mod:CreateDashboard(barHolder, option)
 
 	bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
 	bar.Text:FontTemplate()
-	bar.Text:Point('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
-	bar.Text:Width(bar:GetWidth() - 20)
+	bar.Text:Point('CENTER', bar, 'CENTER', (hasIcon and -10) or 0, (E.PixelMode and 1 or 3))
+	bar.Text:Width(bar:GetWidth() + barIconOffset)
 	bar.Text:SetWordWrap(false)
 
-	bar.IconBG = CreateFrame('Button', nil, bar, 'BackdropTemplate')
-	bar.IconBG:SetTemplate('Transparent')
-	bar.IconBG:Size(E.PixelMode and 18 or 20, E.PixelMode and 18 or 20)
-	bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
+	if hasIcon then
+		bar.IconBG = CreateFrame('Button', nil, bar, 'BackdropTemplate')
+		bar.IconBG:SetTemplate('Transparent')
+		bar.IconBG:Size(E.PixelMode and 18 or 20, E.PixelMode and 18 or 20)
+		bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 
-	bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
-	bar.IconBG.Icon:SetInside()
-	bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
+		bar.IconBG.Icon:SetInside()
+		bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	end
 
 	return bar
 end
@@ -173,6 +177,7 @@ function mod:Initialize()
 	mod:LoadSystem()
 	mod:LoadProfessions()
 	mod:LoadTokens()
+	mod:LoadReputations()
 end
 
 BUI:RegisterModule(mod:GetName())

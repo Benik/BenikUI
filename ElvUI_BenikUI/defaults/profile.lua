@@ -338,6 +338,16 @@ P['dashboards'] = {
 		['capped'] = false,
 	},
 
+	['reputations'] = {
+		['enableReputations'] = true,
+		['combat'] = true,
+		['mouseover'] = false,
+		['width'] = 150,
+		['style'] = true,
+		['transparency'] = true,
+		['backdrop'] = true,
+	},
+
 	['dashfont'] = {
 		['useDTfont'] = true,
 		['dbfont'] = E.db.datatexts.font,

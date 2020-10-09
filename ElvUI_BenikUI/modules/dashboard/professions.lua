@@ -80,7 +80,7 @@ function mod:UpdateProfessions()
 						holder:Point('TOPLEFT', ProfessionsMover, 'TOPLEFT')
 					end
 
-					self.ProFrame = self:CreateDashboard(holder, 'professions')
+					self.ProFrame = self:CreateDashboard(holder, 'professions', true)
 
 					self.ProFrame:SetScript('OnEnter', function(self)
 						self.Text:SetFormattedText('%s', name)
