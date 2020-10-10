@@ -812,8 +812,16 @@ local function dashboardsTable()
 								get = function(info) return E.db.dashboards.reputations.backdrop end,
 								set = function(info, value) E.db.dashboards.reputations.backdrop = value; BUID:ToggleTransparency(BUI_ReputationsDashboard, 'reputations'); end,
 							},
-							spacer = {
+							factionColors = {
 								order = 8,
+								name = L['Use Faction Colors'], -- new locale
+								type = 'toggle',
+								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+								get = function(info) return E.db.dashboards.reputations.factionColors end,
+								set = function(info, value) E.db.dashboards.reputations.factionColors = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+							},
+							spacer = {
+								order = 9,
 								type = 'header',
 								name = '',
 							},

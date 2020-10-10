@@ -93,13 +93,16 @@ function mod:UpdateReputations()
 				self.reputationFrame.Status:SetMinMaxValues(barMin, barMax)
 				self.reputationFrame.Status:SetValue(barValue)
 
-				--[[if E.db.dashboards.barColor == 1 then
-					self.reputationFrame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+				if db.factionColors then
+					local color = _G.FACTION_BAR_COLORS[standingID]
+					self.reputationFrame.Status:SetStatusBarColor(color.r, color.g, color.b)
 				else
-					self.reputationFrame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
-				end]]
-				local color = _G.FACTION_BAR_COLORS[standingID]
-				self.reputationFrame.Status:SetStatusBarColor(color.r, color.g, color.b)
+					if E.db.dashboards.barColor == 1 then
+						self.reputationFrame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+					else
+						self.reputationFrame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+					end
+				end
 
 				self.reputationFrame.Text:SetFormattedText('%s: %d%%', name, ((barValue - barMin) / (maxMinDiff) * 100))
 
@@ -157,7 +160,9 @@ end
 function mod:UpdateReputationSettings()
 	mod:FontStyle(BUI.FactionsDB)
 	mod:FontColor(BUI.FactionsDB)
-	--mod:BarColor(BUI.FactionsDB)
+	if not E.db.dashboards.reputations.factionColors then
+		mod:BarColor(BUI.FactionsDB)
+	end
 end
 
 function mod:ReputationEvents()
