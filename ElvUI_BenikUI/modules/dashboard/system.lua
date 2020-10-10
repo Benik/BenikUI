@@ -38,7 +38,7 @@ function mod:UpdateSystem()
 			sysFrame:EnableMouse(true)
 
 			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
-			sysFrame.dummy:Point('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 2)
+			sysFrame.dummy:Point('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 0)
 			sysFrame.dummy:Point('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
 			sysFrame.dummy:Height(E.PixelMode and 3 or 5)
 

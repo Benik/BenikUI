@@ -9,7 +9,12 @@ local tinsert, twipe, tsort, tostring = table.insert, table.wipe, table.sort, to
 
 local GameTooltip = _G.GameTooltip
 local GetNumFactions, GetFactionInfo = GetNumFactions, GetFactionInfo
+local IsPlayerAtEffectiveMaxLevel = IsPlayerAtEffectiveMaxLevel
+local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
+local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
+local GetFriendshipReputation = GetFriendshipReputation
 local IsShiftKeyDown = IsShiftKeyDown
+local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 -- GLOBALS: hooksecurefunc
 
@@ -81,13 +86,43 @@ function mod:UpdateReputations()
 					holder:SetPoint('TOPLEFT', reputationHolderMover, 'TOPLEFT')
 				end
 
+				local isCapped, isFriend, friendText
+				local friendshipID = GetFriendshipReputation(factionID)
+				local standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
+				
+				if friendshipID then
+					local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+					isFriend, reaction, friendText = true, 5, friendTextLevel
+					if nextFriendThreshold then
+						barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
+					else
+						barMin, barMax, barValue = 0, 1, 1
+						isCapped = true
+					end
+				elseif C_Reputation_IsFactionParagon(factionID) then
+					local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
+					if currentValue and threshold then
+						barMin, barMax = 0, threshold
+						barValue = currentValue % threshold
+						if hasRewardPending then
+							barValue = barValue + threshold
+						end
+					end
+				elseif reaction == _G.MAX_REPUTATION_REACTION then
+					barMin, barMax, barValue = 0, 1, 1
+					isCapped = true
+				end
+
+				--Normalize Values
+				barMax = barMax - barMin
+				barValue = barValue - barMin
+				barMin = 0
+
 				--Prevent a division by zero
 				local maxMinDiff = barMax - barMin
 				if maxMinDiff == 0 then
 					maxMinDiff = 1
 				end
-				
-				local standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 
 				self.reputationFrame = self:CreateDashboard(holder, 'reputations')
 				self.reputationFrame.Status:SetMinMaxValues(barMin, barMax)
@@ -113,7 +148,7 @@ function mod:UpdateReputations()
 				end
 
 				self.reputationFrame:SetScript('OnEnter', function(self)
-					self.Text:SetFormattedText('%s / %s [%s]', barValue, barMax, standingLabel)
+					self.Text:SetFormattedText('%s / %s (%s)', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), standingLabel)
 					if db.mouseover then
 						E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 					end
