@@ -134,7 +134,7 @@ function mod:CreateDashboard(barHolder, option, hasIcon)
 	bar:EnableMouse(true)
 
 	bar.dummy = CreateFrame('Frame', nil, bar)
-	bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, (E.PixelMode and 2 or 0))
+	bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, 0)
 	bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (hasIcon and (E.PixelMode and -24 or -28) or -2), 0)
 	bar.dummy:Height(E.PixelMode and 3 or 5)
 

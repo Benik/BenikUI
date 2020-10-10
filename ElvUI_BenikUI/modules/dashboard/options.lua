@@ -313,13 +313,14 @@ local function UpdateReputationOptions()
 
 		local id = tostring(factionID)
 		if hasRep or not isHeader then
-		E.Options.args.benikui.args.dashboards.args.panels.args.reputations.args[id] = {
-			order = 100,
-			type = 'toggle',
-			name = tname,
-			get = function(info) return E.private.dashboards.reputations.chooseReputations[id] end,
-			set = function(info, value) E.private.dashboards.reputations.chooseReputations[id] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
-		}
+			E.Options.args.benikui.args.dashboards.args.panels.args.reputations.args[id] = {
+				order = 100,
+				type = 'toggle',
+				name = tname,
+				disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+				get = function(info) return E.private.dashboards.reputations.chooseReputations[id] end,
+				set = function(info, value) E.private.dashboards.reputations.chooseReputations[id] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+			}
 		end
 
 		factionIndex = factionIndex + 1
