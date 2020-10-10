@@ -786,7 +786,7 @@ local function dashboardsTable()
 								min = 120, max = 520, step = 1,
 								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
 								get = function(info) return E.db.dashboards.reputations.width end,
-								set = function(info, value) E.db.dashboards.reputations.width = value; BUID:UpdateHolderDimensions(BUI_ReputationsDashboard, 'reputations', BUI.FactionsDB); BUID:UpdateReputationSettings(); end,
+								set = function(info, value) E.db.dashboards.reputations.width = value; BUID:UpdateHolderDimensions(BUI_ReputationsDashboard, 'reputations', BUI.FactionsDB); BUID:UpdateReputationSettings(); BUID:UpdateReputations(); end,
 							},
 							style = {
 								order = 5,
