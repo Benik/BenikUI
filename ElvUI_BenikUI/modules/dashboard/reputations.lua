@@ -91,7 +91,7 @@ function mod:UpdateReputations()
 				
 				if friendshipID then
 					local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
-					isFriend, reaction, friendText = true, 5, friendTextLevel
+					isFriend, standingID, friendText = true, 5, friendTextLevel
 					if nextFriendThreshold then
 						barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
 					else
@@ -107,7 +107,7 @@ function mod:UpdateReputations()
 							barValue = barValue + threshold
 						end
 					end
-				elseif reaction == _G.MAX_REPUTATION_REACTION then
+				elseif standingID == _G.MAX_REPUTATION_REACTION then
 					barMin, barMax, barValue = 0, 1, 1
 					isCapped = true
 				end
@@ -148,8 +148,12 @@ function mod:UpdateReputations()
 				end
 
 				self.reputationFrame:SetScript('OnEnter', function(self)
-					local coloredReaction
-					self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, standingLabel)
+					if isCapped then
+						self.Text:SetFormattedText('%s: %s(%s)|r', name, isFriend and friendText or hexColor, standingLabel)
+					else
+						self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, standingLabel)
+					end
+
 					if db.mouseover then
 						E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 					end
@@ -158,8 +162,8 @@ function mod:UpdateReputations()
 					_G.GameTooltip:AddLine(name)
 					_G.GameTooltip:AddLine(' ')
 					_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, standingLabel), 1, 1, 1)
-					if reaction ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
-						_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
+					if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
+						_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), ((barValue - barMin) / (maxMinDiff) * 100)), 1, 1, 1)
 					end
 					_G.GameTooltip:AddLine(' ')
 					_G.GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
