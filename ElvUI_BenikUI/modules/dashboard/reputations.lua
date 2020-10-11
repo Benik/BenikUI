@@ -68,8 +68,7 @@ function mod:UpdateReputations()
 	local factionIndex = 1
 
 	while (factionIndex <= numFactions) do
-		local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader,
-			isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex)
+		local name, _, standingID, barMin, barMax, barValue, _, _, isHeader, isCollapsed, hasRep, _, _, factionID = GetFactionInfo(factionIndex)
 
 		if isHeader and isCollapsed then
 			ExpandFactionHeader(factionIndex)
