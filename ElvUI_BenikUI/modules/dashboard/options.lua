@@ -815,7 +815,7 @@ local function dashboardsTable()
 							},
 							factionColors = {
 								order = 8,
-								name = L['Use Faction Colors'], -- new locale
+								name = L['Use Faction Colors on Bars'],
 								type = 'toggle',
 								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
 								get = function(info) return E.db.dashboards.reputations.factionColors end,

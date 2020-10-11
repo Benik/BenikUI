@@ -166,6 +166,7 @@ L['System'] = true
 L['Tip: Grayed tokens are not yet discovered'] = true
 L['Tip: Click to free memory'] = true
 L['Use DataTexts font'] = true
+L['Use Faction Colors on Bars'] = true
 
 -- Databars Options
 L['Notifiers'] = true

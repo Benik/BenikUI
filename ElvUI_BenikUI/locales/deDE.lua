@@ -166,6 +166,7 @@ L['System'] = true --No need to translate
 L['Tip: Grayed tokens are not yet discovered'] = "Tip: Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
 L['Tip: Click to free memory'] = "Tip: Klicken um den Speicher zu bereinigen"
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
+L['Use Faction Colors on Bars'] = true
 
 -- Databars Options
 L['Notifiers'] = "Benachrichtigungen"

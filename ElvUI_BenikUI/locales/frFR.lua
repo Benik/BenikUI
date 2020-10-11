@@ -166,6 +166,7 @@ L['System'] = "Système"
 L['Tip: Grayed tokens are not yet discovered'] = "Astuce: les jetons grisés ne sont pas encore découverts"
 L['Tip: Click to free memory'] = "Astuce: cliquez pour libérer de la mémoire"
 L['Use DataTexts font'] = "Utiliser la police pour les textes de données"
+L['Use Faction Colors on Bars'] = true
 
 -- Databars Options
 L['Notifiers'] = "Notificateurs"
