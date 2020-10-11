@@ -129,6 +129,7 @@ function mod:UpdateReputations()
 
 				local color = _G.FACTION_BAR_COLORS[standingID]
 				local hexColor = E:RGBToHex(color.r, color.g, color.b)
+
 				if db.factionColors then
 					self.reputationFrame.Status:SetStatusBarColor(color.r, color.g, color.b)
 				else
@@ -162,9 +163,11 @@ function mod:UpdateReputations()
 					_G.GameTooltip:AddLine(name)
 					_G.GameTooltip:AddLine(' ')
 					_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, standingLabel), 1, 1, 1)
+
 					if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
-						_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), ((barValue - barMin) / (maxMinDiff) * 100)), 1, 1, 1)
+						_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
 					end
+
 					_G.GameTooltip:AddLine(' ')
 					_G.GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
 					_G.GameTooltip:Show()
