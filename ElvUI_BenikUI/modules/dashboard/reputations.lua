@@ -128,8 +128,9 @@ function mod:UpdateReputations()
 				self.reputationFrame.Status:SetMinMaxValues(barMin, barMax)
 				self.reputationFrame.Status:SetValue(barValue)
 
+				local color = _G.FACTION_BAR_COLORS[standingID]
+				local hexColor = E:RGBToHex(color.r, color.g, color.b)
 				if db.factionColors then
-					local color = _G.FACTION_BAR_COLORS[standingID]
 					self.reputationFrame.Status:SetStatusBarColor(color.r, color.g, color.b)
 				else
 					if E.db.dashboards.barColor == 1 then
@@ -148,7 +149,8 @@ function mod:UpdateReputations()
 				end
 
 				self.reputationFrame:SetScript('OnEnter', function(self)
-					self.Text:SetFormattedText('%s / %s (%s)', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), standingLabel)
+					local coloredReaction
+					self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, standingLabel)
 					if db.mouseover then
 						E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 					end
@@ -156,7 +158,11 @@ function mod:UpdateReputations()
 					_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 					_G.GameTooltip:AddLine(name)
 					_G.GameTooltip:AddLine(' ')
-					_G.GameTooltip:AddLine('Add something usefull')
+					_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, standingLabel), 1, 1, 1)
+					if reaction ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
+						_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
+					end
+					_G.GameTooltip:AddLine(' ')
 					_G.GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
 					_G.GameTooltip:Show()
 				end)
