@@ -159,23 +159,26 @@ function mod:UpdateReputations()
 						E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 					end
 
-					_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
-					_G.GameTooltip:AddLine(name)
-					_G.GameTooltip:AddLine(' ')
-					_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, standingLabel), 1, 1, 1)
+					if db.tooltip then
+						_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
+						_G.GameTooltip:AddLine(name)
+						_G.GameTooltip:AddLine(' ')
+						_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, standingLabel), 1, 1, 1)
 
-					if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
-						_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
+						if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
+							_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
+						end
+
+						_G.GameTooltip:AddLine(' ')
+						_G.GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
+						_G.GameTooltip:Show()
 					end
-
-					_G.GameTooltip:AddLine(' ')
-					_G.GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
-					_G.GameTooltip:Show()
 				end)
 
 				self.reputationFrame:SetScript('OnLeave', function(self)
 					self.Text:SetFormattedText('%s: %d%%', name, ((barValue - barMin) / (maxMinDiff) * 100))
-					_G.GameTooltip:Hide()
+					if db.tooltip then _G.GameTooltip:Hide() end
+
 					if db.mouseover then
 						E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 					end

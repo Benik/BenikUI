@@ -821,8 +821,16 @@ local function dashboardsTable()
 								get = function(info) return E.db.dashboards.reputations.factionColors end,
 								set = function(info, value) E.db.dashboards.reputations.factionColors = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
 							},
-							spacer = {
+							tooltip = {
 								order = 9,
+								name = L['Tooltip'],
+								type = 'toggle',
+								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+								get = function(info) return E.db.dashboards.reputations.tooltip end,
+								set = function(info, value) E.db.dashboards.reputations.tooltip = value; BUID:UpdateReputations(); end,
+							},
+							spacer = {
+								order = 10,
 								type = 'header',
 								name = '',
 							},

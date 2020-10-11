@@ -347,6 +347,7 @@ P['dashboards'] = {
 		['transparency'] = true,
 		['backdrop'] = true,
 		['factionColors'] = true,
+		['tooltip'] = false,
 	},
 
 	['dashfont'] = {
