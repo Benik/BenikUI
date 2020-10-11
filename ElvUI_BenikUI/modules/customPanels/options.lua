@@ -80,7 +80,7 @@ local function updateOptions()
 				},
 				titleGroup = {
 					order = 21,
-					name = L["Title"], -- new
+					name = L["Title"],
 					type = 'group',
 					guiInline = true,
 					get = function(info) return E.db.benikui.panels[panelname].title[ info[#info] ] end,
@@ -104,7 +104,7 @@ local function updateOptions()
 						position = {
 							order = 3,
 							type = 'select',
-							name = L["Title Bar Position"], -- new
+							name = L["Title Bar Position"],
 							disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
 							values = {
 								TOP = L["Top"],
@@ -130,7 +130,7 @@ local function updateOptions()
 								textPosition = {
 									order = 1,
 									type = 'select',
-									name = L["Title Text Position"], -- new
+									name = L["Title Text Position"],
 									values = {
 										LEFT = L["Left"],
 										RIGHT = L["Right"],

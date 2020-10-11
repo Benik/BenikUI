@@ -37,14 +37,18 @@ L['Click to show the Addon List'] = true
 
 -- Custom Panels
 L['Create'] = true
-L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = true
-L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = true
-L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = true
-L["Hide in Pet Battle"] = true
-L["Hide In Combat"] = true
-L["Name Tooltip"] = true
-L["Enable tooltip to reveal the panel name"] = true
-L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = true
+L['Enable tooltip to reveal the panel name'] = true
+L['Hide In Combat'] = true
+L['Hide in Pet Battle'] = true
+L['Name Tooltip'] = true
+L['Texture Color'] = true
+L['The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one.'] = true
+L['This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?'] = true
+L['This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: "[combat] show;hide"'] = true
+L['Title Bar Position'] = true
+L['Title Text Position'] = true
+L['Title'] = true
+L['Type a unique name for the new panel. \n|cff00c0faNote: "BenikUI_" will be added at the beginning, to ensure uniqueness|r'] = true
 
 -- Profiles
 L['Successfully created and applied profile(s) for |cffffff00%s|r'] = true -- %s is the addon name
