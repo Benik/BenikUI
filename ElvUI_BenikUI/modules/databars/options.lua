@@ -197,7 +197,7 @@ local function injectElvUIDatabarOptions()
 	E.Options.args.databars.args.threat.args.gotobenikui = {
 		order = -1,
 		type = "execute",
-		name = BUI.Title..HONOR,
+		name = BUI.Title..L["Threat"],
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "threat") end,
 	}
 end
