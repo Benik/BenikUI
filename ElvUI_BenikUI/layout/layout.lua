@@ -135,6 +135,8 @@ function mod:ToggleTransparency()
 			end
 		end
 	end
+	Bui_ldtp.ignoreBorderColors = nil
+	Bui_rdtp.ignoreBorderColors = nil
 end
 
 function mod:ChatStyles()
