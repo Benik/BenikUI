@@ -171,6 +171,7 @@ L['Tip: Grayed tokens are not yet discovered'] = "Astuce: les jetons grisés ne 
 L['Tip: Click to free memory'] = "Astuce: cliquez pour libérer de la mémoire"
 L['Use DataTexts font'] = "Utiliser la police pour les textes de données"
 L['Use Faction Colors on Bars'] = true
+L['Use Faction Colors on Text'] = true
 
 -- Databars Options
 L['Notifiers'] = "Notificateurs"
