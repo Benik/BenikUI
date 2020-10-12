@@ -112,20 +112,20 @@ function mod:ApplyStyle(bar, option)
 	end
 
 	if E.db.benikuiDatabars[option].buiStyle then
-		if bar.backdrop.style then
-			bar.backdrop.style:Show()
+		if bar.holder.style then
+			bar.holder.style:Show()
 		end
 	else
-		if bar.backdrop.style then
-			bar.backdrop.style:Hide()
+		if bar.holder.style then
+			bar.holder.style:Hide()
 		end
 	end
 end
 
 function mod:StyleBar(bar, onClick)
 	bar.fb = CreateFrame('Button', nil, bar, 'BackdropTemplate')
-	bar.fb:Point('TOPLEFT', bar.backdrop, 'BOTTOMLEFT', 0, -SPACING)
-	bar.fb:Point('BOTTOMRIGHT', bar.backdrop, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
+	bar.fb:Point('TOPLEFT', bar.holder, 'BOTTOMLEFT', 0, -SPACING)
+	bar.fb:Point('BOTTOMRIGHT', bar.holder, 'BOTTOMRIGHT', 0, (E.PixelMode and -20 or -22))
 
 	bar.fb:SetScript('OnClick', onClick)
 
@@ -134,7 +134,7 @@ function mod:StyleBar(bar, onClick)
 	end
 
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	bar.backdrop:Style('Outside', nil, false, true)
+	bar.holder:Style('Outside', nil, false, true)
 end
 
 function mod:Initialize()
