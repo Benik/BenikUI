@@ -813,16 +813,24 @@ local function dashboardsTable()
 								get = function(info) return E.db.dashboards.reputations.backdrop end,
 								set = function(info, value) E.db.dashboards.reputations.backdrop = value; BUID:ToggleTransparency(BUI_ReputationsDashboard, 'reputations'); end,
 							},
-							factionColors = {
+							barFactionColors = {
 								order = 8,
 								name = L['Use Faction Colors on Bars'],
 								type = 'toggle',
 								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
-								get = function(info) return E.db.dashboards.reputations.factionColors end,
-								set = function(info, value) E.db.dashboards.reputations.factionColors = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+								get = function(info) return E.db.dashboards.reputations.barFactionColors end,
+								set = function(info, value) E.db.dashboards.reputations.barFactionColors = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+							},
+							textFactionColors = {
+								order = 9,
+								name = L['Use Faction Colors on Text'],
+								type = 'toggle',
+								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+								get = function(info) return E.db.dashboards.reputations.textFactionColors end,
+								set = function(info, value) E.db.dashboards.reputations.textFactionColors = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
 							},
 							tooltip = {
-								order = 9,
+								order = 10,
 								name = L['Tooltip'],
 								type = 'toggle',
 								disabled = function() return not E.db.dashboards.reputations.enableReputations end,
@@ -830,7 +838,7 @@ local function dashboardsTable()
 								set = function(info, value) E.db.dashboards.reputations.tooltip = value; BUID:UpdateReputations(); end,
 							},
 							spacer = {
-								order = 10,
+								order = 20,
 								type = 'header',
 								name = '',
 							},

@@ -140,7 +140,11 @@ function mod:UpdateReputations()
 					end
 				end
 
-				self.reputationFrame.Text:SetFormattedText('%s: %d%%', name, ((barValue - barMin) / (maxMinDiff) * 100))
+				if db.textFactionColors then
+					self.reputationFrame.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
+				else
+					self.reputationFrame.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
+				end
 
 				if E.db.dashboards.textColor == 1 then
 					self.reputationFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
@@ -176,7 +180,11 @@ function mod:UpdateReputations()
 				end)
 
 				self.reputationFrame:SetScript('OnLeave', function(self)
-					self.Text:SetFormattedText('%s: %d%%', name, ((barValue - barMin) / (maxMinDiff) * 100))
+					if db.textFactionColors then
+						self.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
+					else
+						self.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
+					end
 					if db.tooltip then _G.GameTooltip:Hide() end
 
 					if db.mouseover then
