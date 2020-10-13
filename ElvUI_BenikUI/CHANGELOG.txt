@@ -1,7 +1,7 @@
 3.95 (Oct 13, 2020)
 *Release for Shadowlands prepatch and ElvUI 12.00
 *Lots of changes to comply with WoW v9 and ElvUI 12.00
-*IMPRTANT: Deleting the previous BenikUI version from the AddOns folder is a must. New files have been added/removed. Settings will stay intact.
+*IMPORTANT: Deleting the previous BenikUI version from the AddOns folder is a must. New files have been added/removed. Settings will stay intact.
 *NEW: Reputations Dashboard. Track multiple rep for factions.
 *NEW: Title bars on the Custom Panels.
 *NEW: Added a new Outlined Arrow, so that all Databars can now show their Notifiers on Top and Bottom, along with Left and Right.
