@@ -2,7 +2,7 @@
 ## Author: Benik
 ## Version: 3.95
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
-## Notes: an ElvUI 11+ decorative/enhancement edit
+## Notes: an ElvUI 12+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia, AddOnSkins, ProjectAzilroka
