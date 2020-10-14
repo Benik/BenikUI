@@ -41,7 +41,7 @@ P['datatexts']['panels']['BuiRightChatDTPanel'] = {
 P['datatexts']['panels']['BuiMiddleDTPanel'] = {
 	[1] = 'Haste',
 	[2] = 'Mastery',
-	[3] = 'Crit Chance',
+	[3] = 'Crit',
 }
 
 -- Core
@@ -84,6 +84,7 @@ P['benikui'] = {
 			['logo'] = 'WOW',
 		},
 		['afkMode'] = true,
+		['alternativePower'] = true,
 	},
 
 	['datatexts'] = {
@@ -97,10 +98,6 @@ P['benikui'] = {
 		},
 		['mail'] = {
 			['toggle'] = true,
-		},
-		['garrison'] = {
-			['currency'] = false,
-			['oil'] = false,
 		},
 	},
 
@@ -211,25 +208,6 @@ P['benikui'] = {
 	},
 }
 
--- Datatexts
-P.datatexts.panels.BuiLeftChatDTPanel = {
-	[1] = 'Primary Stat',
-	[2] = 'Missions',
-	[3] = 'BuiMail',
-}
-
-P.datatexts.panels.BuiRightChatDTPanel = {
-	[1] = 'Spec Switch (BenikUI)',
-	[2] = 'Gold',
-	[3] = 'Bags',
-}
-
-P.datatexts.panels.BuiMiddleDTPanel = {
-	[1] = 'Haste',
-	[2] = 'Mastery',
-	[3] = 'Crit Chance',
-}
-
 -- Skins and ElvUI addons Styling
 P['benikuiSkins'] = {
 	['elvuiAddons'] = {
@@ -238,6 +216,7 @@ P['benikuiSkins'] = {
 		['sle'] = true,
 		['enh'] = true,
 		['pa'] = true,
+		['mer'] = true,
 	},
 
 	['addonSkins'] = {
@@ -271,7 +250,6 @@ P['benikuiDatabars'] = {
 		['buttonStyle'] = "TRANSPARENT",
 		['notifiers'] = {
 			['enable'] = true,
-			['combat'] = false,
 			['position'] = 'RIGHT',
 		},
 	},
@@ -282,7 +260,6 @@ P['benikuiDatabars'] = {
 		['buttonStyle'] = "TRANSPARENT",
 		['notifiers'] = {
 			['enable'] = true,
-			['combat'] = false,
 			['position'] = 'LEFT',
 		},
 	},
@@ -293,7 +270,6 @@ P['benikuiDatabars'] = {
 		['buttonStyle'] = "TRANSPARENT",
 		['notifiers'] = {
 			['enable'] = true,
-			['combat'] = false,
 			['position'] = 'LEFT',
 		},
 	},
@@ -304,8 +280,17 @@ P['benikuiDatabars'] = {
 		['buttonStyle'] = "TRANSPARENT",
 		['notifiers'] = {
 			['enable'] = true,
-			['combat'] = false,
 			['position'] = 'RIGHT',
+		},
+	},
+
+	['threat'] = {
+		['enable'] = true,
+		['buiStyle'] = false,
+		['buttonStyle'] = "TRANSPARENT",
+		['notifiers'] = {
+			['enable'] = true,
+			['position'] = 'BELOW',
 		},
 	},
 }
@@ -351,6 +336,19 @@ P['dashboards'] = {
 		['transparency'] = true,
 		['backdrop'] = true,
 		['capped'] = false,
+	},
+
+	['reputations'] = {
+		['enableReputations'] = true,
+		['combat'] = true,
+		['mouseover'] = false,
+		['width'] = 150,
+		['style'] = true,
+		['transparency'] = true,
+		['backdrop'] = true,
+		['barFactionColors'] = true,
+		['textFactionColors'] = true,
+		['tooltip'] = false,
 	},
 
 	['dashfont'] = {

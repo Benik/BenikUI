@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
-local mod = BUI:NewModule('DataTexts', 'AceEvent-3.0');
+local mod = BUI:GetModule('DataTexts')
 
 function mod:BuildPanelFrame(name)
 	local Panel = DT:FetchFrame(name)

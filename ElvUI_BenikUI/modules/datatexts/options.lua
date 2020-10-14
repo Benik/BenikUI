@@ -8,7 +8,7 @@ local DT = E:GetModule('DataTexts')
 if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
 
-local MAIL_LABEL, GARRISON_LOCATION_TOOLTIP =MAIL_LABEL, GARRISON_LOCATION_TOOLTIP
+local MAIL_LABEL = MAIL_LABEL
 
 local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {
@@ -142,28 +142,6 @@ local function Datatexts()
 						type = 'toggle',
 						name = L['Hide Mail Icon'],
 						desc = L['Show/Hide Mail Icon on minimap'],
-					},
-				},
-			},
-			garrison = {
-				order = 40,
-				type = 'group',
-				name = GARRISON_LOCATION_TOOLTIP,
-				guiInline = true,
-				get = function(info) return E.db.benikui.datatexts.garrison[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.datatexts.garrison[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-				args = {
-					currency = {
-						order = 1,
-						type = 'toggle',
-						name = L['Show Garrison Currency'],
-						desc = L['Show/Hide garrison currency on the datatext tooltip'],
-					},
-					oil = {
-						order = 2,
-						type = 'toggle',
-						name = L['Show Oil'],
-						desc = L['Show/Hide oil on the datatext tooltip'],
 					},
 				},
 			},

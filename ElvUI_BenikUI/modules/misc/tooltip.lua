@@ -1,12 +1,12 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Tooltip', 'AceHook-3.0');
+local mod = BUI:GetModule('Tooltip')
 local TT = E:GetModule('Tooltip')
+local S = E:GetModule('Skins')
 
 local _G = _G
+local pairs = pairs
 local GameTooltip, GameTooltipStatusBar = _G.GameTooltip, _G.GameTooltipStatusBar
 local IsAddOnLoaded = IsAddOnLoaded
-
--- GLOBALS: hooksecurefunc
 
 local function StyleTooltip()
 	if GameTooltip.style then return end
@@ -18,14 +18,92 @@ local function StyleTooltip()
 	-- FreebTip support
 	if IsAddOnLoaded('FreebTip') then
 		GameTooltip.style:ClearAllPoints()
-		GameTooltip.style:SetPoint('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
-		GameTooltip.style:SetPoint('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
+		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
+		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
 	end
 end
 
+local function StyleCagedBattlePetTooltip(tooltipFrame)
+	if not tooltipFrame.style then
+		tooltipFrame:Style("Outside")
+	end
+end
+
+local tooltips = {
+	_G.EmbeddedItemTooltip,
+	_G.FriendsTooltip,
+	_G.ItemRefTooltip,
+	_G.ShoppingTooltip1,
+	_G.ShoppingTooltip2,
+	_G.ShoppingTooltip3,
+	_G.FloatingBattlePetTooltip,
+	_G.FloatingPetBattleAbilityTooltip,
+	_G.FloatingGarrisonFollowerAbilityTooltip,
+	_G.WarCampaignTooltip,
+	_G.GameTooltip,
+	_G.ElvUIConfigTooltip,
+	_G.ElvUISpellBookTooltip
+}
+
+local overlayedTooltips = {
+	_G.GameTooltip,
+	_G.ShoppingTooltip1,
+	_G.ShoppingTooltip2,
+	_G.ShoppingTooltip3
+}
+
+local function tooltipOverlay(tt) -- Create a blank frame to position the GameTooltip.TopOverlay texture
+	if not tt.style then
+		return
+	end
+
+	if tt.style.blank then
+		return
+	end
+
+	tt.style.blank = CreateFrame("Frame", nil, tt.style)
+	tt.style.blank:Size(6, 6)
+	tt.style.blank:Point("BOTTOM", tt.style, "TOP")
+
+	if tt.TopOverlay then
+		tt.TopOverlay:SetParent(tt.style.blank)
+		tt.TopOverlay:ClearAllPoints()
+		tt.TopOverlay:Point("CENTER", tt.style.blank, "CENTER")
+	end
+end
+
+local function StyleBlizzardTooltips()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.private.skins.blizzard.tooltip then
+		for _, tt in pairs(tooltips) do
+			if tt and not tt.style then
+				tt:Style("Outside")
+			end
+		end
+
+		for _, tooltip in pairs(overlayedTooltips) do
+			if tooltip then
+				tooltipOverlay(tooltip)
+			end
+		end
+
+		_G.QuestMapFrame.QuestsFrame.StoryTooltip:Style("Outside")
+		_G.QuestScrollFrame.StoryTooltip:Style("Outside")
+		_G.QuestScrollFrame.CampaignTooltip:Style("Outside")
+
+		local shoppingTooltips = {_G.WorldMapCompareTooltip1, _G.WorldMapCompareTooltip2}
+		for _, tooltip in pairs(shoppingTooltips) do
+			if not tooltip.style then
+				tooltip:Style("Outside")
+			end
+		end
+	end
+end
+S:AddCallback("BenikUI_StyleBlizzardTooltips", StyleBlizzardTooltips)
+
 local ttr, ttg, ttb = 0, 0, 0
 function mod:CheckTooltipStyleColor()
-	local r, g, b = GameTooltip.style.pixelBorders.CENTER:GetVertexColor()
+	local r, g, b = GameTooltip.style:GetBackdropColor()
 	ttr, ttg, ttb = r, g, b
 end
 
@@ -67,12 +145,23 @@ function mod:SetupStyleAndShadow(tt)
 		if not tt.StatusBar.backdrop.shadow then
 			tt.StatusBar.backdrop:CreateSoftShadow()
 		end
+		if TT.db.healthBar.statusPosition == 'BOTTOM' then
+			tt.StatusBar:ClearAllPoints()
+			tt.StatusBar:Point('TOPLEFT', tt, 'BOTTOMLEFT', E.Border, -(E.Spacing * 3)-3)
+			tt.StatusBar:Point('TOPRIGHT', tt, 'BOTTOMRIGHT', -E.Border, -(E.Spacing * 3)-3)
+		end
+	end
+end
+
+function mod:StyleAceTooltip(tt)
+	if not tt.style then
+		tt:Style('Outside')
 	end
 end
 
 function mod:Initialize()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
-	if E.db.benikui.general.benikuiStyle ~= true then return end
+	if E.db.benikui.general.benikuiStyle ~= true or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
+
 	if BUI:IsAddOnEnabled('TinyTooltip') then return end
 
 	StyleTooltip()
@@ -81,6 +170,8 @@ function mod:Initialize()
 	mod:SecureHookScript(GameTooltip, 'OnTooltipCleared', 'GameTooltip_OnTooltipCleared')
 	mod:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
 	hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", mod.SetupStyleAndShadow)
+	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
+	hooksecurefunc(S, "Ace3_StyleTooltip", mod.StyleAceTooltip)
 end
 
 BUI:RegisterModule(mod:GetName())

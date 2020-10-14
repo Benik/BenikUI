@@ -1,5 +1,5 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Bags', 'AceHook-3.0', 'AceEvent-3.0');
+local mod = BUI:GetModule('Bags')
 local B = E:GetModule('Bags')
 
 local _G = _G
@@ -17,7 +17,7 @@ function mod:StyleBags()
 	end
 
 	if ElvUI_ContainerFrameContainerHolder then
-		ElvUI_ContainerFrameContainerHolder:SetPoint('BOTTOMLEFT', ElvUI_ContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
+		ElvUI_ContainerFrameContainerHolder:Point('BOTTOMLEFT', ElvUI_ContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
 	end
 
 	if ElvUIBags then
@@ -33,7 +33,7 @@ function mod:OpenBankBags()
 	end
 
 	if ElvUI_BankContainerFrameContainerHolder then
-		ElvUI_BankContainerFrameContainerHolder:SetPoint('BOTTOMLEFT', ElvUI_BankContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
+		ElvUI_BankContainerFrameContainerHolder:Point('BOTTOMLEFT', ElvUI_BankContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
 	end
 end
 

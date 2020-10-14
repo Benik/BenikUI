@@ -74,13 +74,13 @@ function mod:UpdateProfessions()
 			if name and (rank < maxRank or (not db.capped)) then
 				if E.private.dashboards.professions.choosePofessions[id] == true then
 					holder:Show()
-					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if ProfessionsMover then
-						ProfessionsMover:SetSize(holder:GetSize())
-						holder:SetPoint('TOPLEFT', ProfessionsMover, 'TOPLEFT')
+						ProfessionsMover:Size(holder:GetSize())
+						holder:Point('TOPLEFT', ProfessionsMover, 'TOPLEFT')
 					end
 
-					self.ProFrame = self:CreateDashboard(nil, holder, 'professions')
+					self.ProFrame = self:CreateDashboard(holder, 'professions', true)
 
 					self.ProFrame:SetScript('OnEnter', function(self)
 						self.Text:SetFormattedText('%s', name)
@@ -153,9 +153,9 @@ function mod:UpdateProfessions()
 	for key, frame in ipairs(BUI.ProfessionsDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:SetPoint( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:SetPoint('TOP', BUI.ProfessionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			frame:Point('TOP', BUI.ProfessionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
@@ -178,11 +178,11 @@ function mod:CreateProfessionsDashboard()
 	self.proHolder = self:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
 
 	if E.private.general.minimap.enable then
-		self.proHolder:SetPoint('TOPLEFT', _G.MMHolder, 'BOTTOMLEFT', 0, -5)
+		self.proHolder:Point('TOPLEFT', _G.MMHolder, 'BOTTOMLEFT', 0, -5)
 	else
-		self.proHolder:SetPoint('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
+		self.proHolder:Point('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
 	end
-	self.proHolder:SetWidth(mapholderWidth or DASH_WIDTH)
+	self.proHolder:Width(mapholderWidth or DASH_WIDTH)
 
 	mod:UpdateProfessions()
 	mod:UpdateProfessionSettings()

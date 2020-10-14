@@ -37,11 +37,11 @@ end
 
 local function StyleRecount(name, parent, ...)
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	local recountdecor = CreateFrame('Frame', name, E.UIParent)
+	local recountdecor = CreateFrame('Frame', name, E.UIParent, 'BackdropTemplate')
 	recountdecor:SetTemplate('Default', true)
 	recountdecor:SetParent(parent)
-	recountdecor:SetPoint('TOPLEFT', parent, 'TOPLEFT', 0, -2)
-	recountdecor:SetPoint('BOTTOMRIGHT', parent, 'TOPRIGHT', 0, -7)
+	recountdecor:Point('TOPLEFT', parent, 'TOPLEFT', 0, -2)
+	recountdecor:Point('BOTTOMRIGHT', parent, 'TOPRIGHT', 0, -7)
 
 	return recountdecor
 end
@@ -163,7 +163,6 @@ local function DbmDecor(event)
 		end
 		
 		if DBMRangeCheck then
-			DBMRangeCheck:SetTemplate('Transparent')
 			if not DBMRangeCheck.style then
 				DBMRangeCheck:Style('Outside')
 			end
@@ -241,15 +240,15 @@ function AS:SkinCloseButton(Button, Reposition)
 
 	AS:SkinBackdropFrame(Button)
 
-	Button.Backdrop:SetPoint('TOPLEFT', 7, -8)
-	Button.Backdrop:SetPoint('BOTTOMRIGHT', -7, 8)
+	Button.Backdrop:Point('TOPLEFT', 7, -8)
+	Button.Backdrop:Point('BOTTOMRIGHT', -7, 8)
 	Button.Backdrop:SetTemplate('NoBackdrop')
 
 	Button:SetHitRectInsets(6, 6, 7, 7)
 	
 	Button.Backdrop.img = Button.Backdrop:CreateTexture(nil, 'OVERLAY')
-	Button.Backdrop.img:SetSize(12, 12)
-	Button.Backdrop.img:SetPoint("CENTER")
+	Button.Backdrop.img:Size(12, 12)
+	Button.Backdrop.img:Point("CENTER")
 	Button.Backdrop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Close.tga')
 	Button.Backdrop.img:SetVertexColor(1, 1, 1)
 
@@ -270,7 +269,7 @@ function AS:SkinCloseButton(Button, Reposition)
 	end)
 
 	if Reposition then
-		Button:SetPoint('TOPRIGHT', Reposition, 'TOPRIGHT', 2, 2)
+		Button:Point('TOPRIGHT', Reposition, 'TOPRIGHT', 2, 2)
 	end
 end
 

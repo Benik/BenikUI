@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local NP = E:GetModule('NamePlates')
-local mod = BUI:NewModule('Nameplates', 'AceHook-3.0');
+local mod = BUI:GetModule('Nameplates');
 
 function mod:NameplateShadows(nameplate)
 	if not nameplate.Health.backdrop.shadow then

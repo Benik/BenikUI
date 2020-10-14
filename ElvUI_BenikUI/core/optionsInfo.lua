@@ -36,6 +36,7 @@ local DONATORS = {
 	'George McC.',
 	'Christian S.',
 	'Ric F.',
+	'LincGG',
 }
 tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -90,7 +91,7 @@ local TESTERS_STRING = tconcat(TESTERS, ", ")
 		OnShow = function(self, data)
 			self.editBox:SetAutoFocus(false)
 			self.editBox.width = self.editBox:GetWidth()
-			self.editBox:SetWidth(280)
+			self.editBox:Width(280)
 			self.editBox:AddHistoryLine("text")
 			self.editBox.temptxt = data
 			self.editBox:SetText(data)
@@ -98,7 +99,7 @@ local TESTERS_STRING = tconcat(TESTERS, ", ")
 			self.editBox:SetJustifyH("CENTER")
 		end,
 		OnHide = function(self)
-			self.editBox:SetWidth(self.editBox.width or 50)
+			self.editBox:Width(self.editBox.width or 50)
 			self.editBox.width = nil
 			self.temptxt = nil
 		end,

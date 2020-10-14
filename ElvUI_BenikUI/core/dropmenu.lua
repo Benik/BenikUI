@@ -47,7 +47,11 @@ BUI.MenuList = {
 	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
 	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
-	{text = GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, func = function() GarrisonLandingPageMinimapButton_OnClick() end},
+	{text = GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = function()
+		if (C_Garrison.HasGarrison(Enum.GarrisonType.Type_9_0)) then
+			ShowGarrisonLandingPage(Enum.GarrisonType.Type_9_0) -- errors the ElvUI Skin
+		end
+	end},
 	{text = COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
 	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
 	{text = MOUNTS, func = function() ToggleCollectionsJournal(1) end},
@@ -136,7 +140,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 
 	for i=1, #list do
 		if not frame.buttons[i] then
-			frame.buttons[i] = CreateFrame('Button', nil, frame)
+			frame.buttons[i] = CreateFrame('Button', nil, frame, 'BackdropTemplate')
 
 			frame.buttons[i].hoverTex = frame.buttons[i]:CreateTexture(nil, 'OVERLAY')
 			frame.buttons[i].hoverTex:SetAllPoints()
@@ -155,8 +159,8 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 		end
 
 		frame.buttons[i]:Show()
-		frame.buttons[i]:SetHeight(BUTTON_HEIGHT)
-		frame.buttons[i]:SetWidth(BUTTON_WIDTH + (addedSize or 0))
+		frame.buttons[i]:Height(BUTTON_HEIGHT)
+		frame.buttons[i]:Width(BUTTON_WIDTH + (addedSize or 0))
 		frame.buttons[i].text:SetText(list[i].text)
 		frame.buttons[i].text:SetTextColor(r, g, b)
 		frame.buttons[i].hoverTex:SetVertexColor(r, g, b)
@@ -164,9 +168,9 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 		frame.buttons[i]:SetScript('OnClick', OnClick)
 
 		if i == 1 then
-			frame.buttons[i]:SetPoint('TOPLEFT', frame, 'TOPLEFT', PADDING, -PADDING)
+			frame.buttons[i]:Point('TOPLEFT', frame, 'TOPLEFT', PADDING, -PADDING)
 		else
-			frame.buttons[i]:SetPoint('TOPLEFT', frame.buttons[i-1], 'BOTTOMLEFT')
+			frame.buttons[i]:Point('TOPLEFT', frame.buttons[i-1], 'BOTTOMLEFT')
 		end
 	end
 
@@ -184,18 +188,18 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 		end
 	end)
 
-	frame:SetHeight((#list * BUTTON_HEIGHT) + PADDING * 2)
-	frame:SetWidth(BUTTON_WIDTH + PADDING * 2 + (addedSize or 0))
+	frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2)
+	frame:Width(BUTTON_WIDTH + PADDING * 2 + (addedSize or 0))
 	frame:Style('Outside')
 	frame:ClearAllPoints()
 	if pos == 'tLeft' then
-		frame:SetPoint('BOTTOMRIGHT', parent, 'TOPLEFT', xOffset, yOffset)
+		frame:Point('BOTTOMRIGHT', parent, 'TOPLEFT', xOffset, yOffset)
 	elseif pos == 'tRight' then
-		frame:SetPoint('BOTTOMLEFT', parent, 'TOPRIGHT', xOffset, yOffset)
+		frame:Point('BOTTOMLEFT', parent, 'TOPRIGHT', xOffset, yOffset)
 	elseif pos == 'bLeft' then
-		frame:SetPoint('TOPRIGHT', parent, 'BOTTOMLEFT', xOffset, yOffset)
+		frame:Point('TOPRIGHT', parent, 'BOTTOMLEFT', xOffset, yOffset)
 	elseif pos == 'bRight' then
-		frame:SetPoint('TOPLEFT', parent, 'BOTTOMRIGHT', xOffset, yOffset)
+		frame:Point('TOPLEFT', parent, 'BOTTOMRIGHT', xOffset, yOffset)
 	end
 
 	ToggleFrame(frame)

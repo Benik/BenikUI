@@ -30,29 +30,30 @@ local function SetupLayout(layout)
 	E.db["chat"]["panelBackdrop"] = 'SHOWBOTH'
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["chat"]["panelWidth"] = 412
+	E.db["databars"]["statusbar"] = "BuiFlat"
 	E.db["databars"]["azerite"]["enable"] = true
 	E.db["databars"]["azerite"]["height"] = 150
 	E.db["databars"]["azerite"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["azerite"]["textFormat"] = 'NONE'
-	E.db["databars"]["azerite"]["textSize"] = 9
+	E.db["databars"]["azerite"]["fontSize"] = 9
 	E.db["databars"]["azerite"]["width"] = 8
 	E.db["databars"]["experience"]["font"] = "Expressway"
 	E.db["databars"]["experience"]["textYoffset"] = 10
 	E.db["databars"]["experience"]["textFormat"] = "CURPERC"
-	E.db["databars"]["experience"]["height"] = 6
+	E.db["databars"]["experience"]["height"] = 5
 	E.db["databars"]["experience"]["orientation"] = "HORIZONTAL"
-	E.db["databars"]["experience"]["textSize"] = 10
+	E.db["databars"]["experience"]["fontSize"] = 10
 	E.db["databars"]["honor"]["enable"] = true
 	E.db["databars"]["honor"]["height"] = 152
 	E.db["databars"]["honor"]["textFormat"] = 'NONE'
-	E.db["databars"]["honor"]["textSize"] = 9
+	E.db["databars"]["honor"]["fontSize"] = 9
 	E.db["databars"]["honor"]["width"] = 8
 	E.db["databars"]["honor"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["height"] = 150
 	E.db["databars"]["reputation"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["reputation"]["textFormat"] = 'NONE'
-	E.db["databars"]["reputation"]["textSize"] = 9
+	E.db["databars"]["reputation"]["fontSize"] = 9
 	E.db["databars"]["reputation"]["width"] = 8
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
@@ -110,7 +111,7 @@ local function SetupLayout(layout)
 	E.private["general"]["glossTex"] = "BuiFlat"
 	E.private["general"]["chatBubbles"] = 'backdrop'
 
-	BUI:GetModule('Layout'):CreateMiddlePanel(true)
+	BUI:GetModule('Layout'):CreateMiddlePanel()
 
 	-- common movers
 	if E.db["movers"] == nil then E.db["movers"] = {} end
@@ -121,7 +122,7 @@ local function SetupLayout(layout)
 	E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
 	E.db["movers"]["DigSiteProgressBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,315"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-38"
-	E.db["movers"]["HonorBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-157,-6"
+	E.db["movers"]["HonorBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-6"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
 	E.db["movers"]["LocationMover"] = "TOP,ElvUIParent,TOP,0,-7"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-5"
@@ -294,6 +295,9 @@ local function SetupColors()
 	PluginInstallStepComplete:Show()
 end
 
+local loot = LOOT:match"^.?[\128-\191]*"
+local trade = TRADE:match"^.?[\128-\191]*"
+
 local function SetupChat()
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format('ChatFrame%s', i)]
@@ -303,10 +307,11 @@ local function SetupChat()
 		FCF_SetChatWindowFontSize(nil, frame, 11)
 
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
-		if i == 3 and chatName == LOOT..' / '..TRADE then
+		if i == 3 and (chatName == (LOOT..' / '..TRADE) or chatName == (loot..' / '..trade)) then
 			FCF_UnDockFrame(frame)
 			frame:ClearAllPoints()
-			frame:SetPoint('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
+			frame:Point('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
+			FCF_SetWindowName(frame, loot..' / '..trade)
 			FCF_DockFrame(frame)
 			FCF_SetLocked(frame, 1)
 			frame:Show()
@@ -447,7 +452,7 @@ local function SetupActionbars(layout)
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 412
-		E.db["databars"]["experience"]["width"] = 412
+		E.db["databars"]["experience"]["width"] = 414
 
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
@@ -522,7 +527,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,85"
 		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,141"
 		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,65"
+		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,68"
 		E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,116"
 	end
 	BUI:GetModule('Actionbars'):ToggleStyle()
@@ -649,7 +654,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["player"]["power"]["width"] = 'fill'
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
@@ -1556,7 +1561,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 7
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
@@ -1962,7 +1967,7 @@ local function SetupDataTexts(role)
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Mana Regen'
 	elseif role == 'dpsMelee' or 'dpsCaster' then
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit Chance'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit'
 	end
 
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
@@ -2002,8 +2007,8 @@ BUI.installTable = {
 		[1] = function()
 			PluginInstallFrame:Style('Outside')
 			PluginInstallTitleFrame:Style('Outside')
-			PluginInstallTutorialImage:SetSize(384, 96)
-			PluginInstallTutorialImage:SetPoint('BOTTOM', 0, 100)
+			PluginInstallTutorialImage:Size(384, 96)
+			PluginInstallTutorialImage:Point('BOTTOM', 0, 100)
 			PluginInstallTutorialImage2:SetTexture(nil)
 			PluginInstallTitleFrame.text:SetFont(E["media"].normFont, 16, "OUTLINE")
 			PluginInstallFrame.SubTitle:SetFormattedText(L["Welcome to BenikUI version %s, for ElvUI %s."], BUI.Version, E.version)

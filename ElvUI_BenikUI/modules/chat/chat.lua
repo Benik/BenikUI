@@ -2,7 +2,7 @@
 local CH = E:GetModule('Chat')
 local BL = BUI:GetModule('Layout')
 local FM = BUI:GetModule('FlightMode')
-local mod = BUI:NewModule('Chat', 'AceHook-3.0', 'AceEvent-3.0')
+local mod = BUI:GetModule('Chat')
 
 local _G = _G
 local pairs = pairs
@@ -60,25 +60,23 @@ local function PositionChat(self, override)
 	if E.PixelMode then
 		BASE_OFFSET = BASE_OFFSET - 3
 	end
-	local chat, id, tab, isDocked, point
+	local chat, id, tab, isDocked
 	for i=1, CreatedFrames do
 		chat = _G[format("ChatFrame%d", i)]
 		id = chat:GetID()
 		tab = _G[format("ChatFrame%sTab", i)]
-		point = GetChatWindowSavedPosition(id)
 		isDocked = chat.isDocked
-		tab.flashTab = true
 
 		if chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == CH.RightChatWindowID then
 			chat:ClearAllPoints()
 			if E.db.datatexts.rightChatPanel then
-				chat:SetPoint("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
+				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
 			else
 				BASE_OFFSET = BASE_OFFSET - 24
-				chat:SetPoint("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)
+				chat:Point("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)
 			end
 			if id ~= 2 then
-				chat:SetSize((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 10, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
+				chat:Size((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 10, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
 			end
 		elseif not isDocked and chat:IsShown() then
 			if FM.inFlightMode == true then
@@ -89,19 +87,19 @@ local function PositionChat(self, override)
 		else
 			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
 				BASE_OFFSET = BASE_OFFSET - 24
-				chat:SetPoint("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 4, 4)
-				chat:SetSize(E.db.chat.panelWidth - 10, E.db.chat.panelHeight - PixelOff)
+				chat:Point("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 4, 4)
+				chat:Size(E.db.chat.panelWidth - 10, E.db.chat.panelHeight - PixelOff)
 			end
 		end
 	end
 end
 
 function mod:Initialize()
+	mod.UpdateEditboxAnchors()
 	hooksecurefunc(CH, "PositionChats", PositionChat)
 	hooksecurefunc(CH, "UpdateEditboxAnchors", mod.UpdateEditboxAnchors)
 	hooksecurefunc(CH, "StyleChat", Style)
 	hooksecurefunc(FM, "SetFlightMode", PositionChat)
-	mod.UpdateEditboxAnchors()
 end
 
 BUI:RegisterModule(mod:GetName())

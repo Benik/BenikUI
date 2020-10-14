@@ -31,6 +31,7 @@ end
 
 -- Check other addons
 BUI.SLE = BUI:IsAddOnEnabled('ElvUI_SLE')
+BUI.MER = BUI:IsAddOnEnabled('ElvUI_MerathilisUI')
 BUI.PA = BUI:IsAddOnEnabled('ProjectAzilroka')
 BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')
@@ -120,7 +121,7 @@ function BUI:UpdateStyleColors()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
-			frame:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
+			frame:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 		else
 			BUI["styles"][frame] = nil;
 		end
@@ -162,7 +163,7 @@ function BUI:UpdateShadowSize()
 	for shadow, _ in pairs(BUI["shadows"]) do
 		if shadow then
 			shadow:SetOutside(shadow:GetParent(), (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
-			shadow:SetBackdrop({edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.shadowSize or 3})
+			shadow:SetBackdrop({edgeFile = E.Media.Textures.GlowTex, edgeSize = E:Scale(db.shadowSize or 3)})
 			shadow:SetBackdropColor(0, 0, 0, 0)
 			shadow:SetBackdropBorderColor(0, 0, 0, 0.6)
 		else
@@ -191,14 +192,14 @@ function BUI:Initialize()
 	self:SplashScreen()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
-	
+
 	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
 		if initLogin or not ElvDB.BuiErrorDisabledAddOns then
 			ElvDB.BuiErrorDisabledAddOns = {}
 		end
 	end)
 
-	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
+	local profileKey = ElvDB.profileKeys[E.mynameRealm]
 
 	-- run install when ElvUI install finishes or run the setup again when a profile gets deleted.
 	if (E.private.install_complete == E.version and E.db.benikui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
@@ -216,7 +217,7 @@ function BUI:Initialize()
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BENIKUI")
 	E.ConfigModeLocalizedStrings["BENIKUI"] = BUI.Title
 
-	BUI.AddonProfileKey = BUI.Title..E.myname.." - "..E.myrealm
+	BUI.AddonProfileKey = BUI.Title..E.mynameRealm
 
 	hooksecurefunc(E, "UpdateMedia", BUI.UpdateSoftGlowColor)
 	hooksecurefunc(BUI, "SetupColorThemes", BUI.UpdateStyleColors)

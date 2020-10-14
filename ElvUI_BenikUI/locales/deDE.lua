@@ -36,15 +36,19 @@ L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 
 -- Custom Panels
-L['Create'] = "Erstelle"
-L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Gib einen einzigartigen Namen für das neue Panel ein. \n|cff00c0faHinweis: 'BenikUI_' wird am Anfang hinzugefügt um die Einzigarigkeit zu gewährleisten|r"
-L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Der Name |cff00c0fa%s|r von einem Benutzerdefiniertem Panel existiert bereits. Bitte wähle einen anderen."
-L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = true
-L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
-L["Hide In Combat"] = "Verstecke im Kampf"
-L["Name Tooltip"] = "Namenstooltip"
+L["Create"] = "Erstelle"
 L["Enable tooltip to reveal the panel name"] = "Aktiviere den Tooltip um den Panel Namen zu erfahren"
+L["Hide In Combat"] = "Verstecke im Kampf"
+L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
+L["Name Tooltip"] = "Namenstooltip"
+L["Texture Color"] = true
+L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Der Name |cff00c0fa%s|r von einem Benutzerdefiniertem Panel existiert bereits. Bitte wähle einen anderen."
 L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = "Dieses wird das Benutzerdefiniertes Panel mit dem Namen |cff00c0fa%s|r löschen. Dieses erfordert einen Reload.\nFortfahren?"
+L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = true
+L["Title Bar Position"] = true
+L["Title Text Position"] = true
+L["Title"] = true
+L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Gib einen einzigartigen Namen für das neue Panel ein. \n|cff00c0faHinweis: 'BenikUI_' wird am Anfang hinzugefügt um die Einzigarigkeit zu gewährleisten|r"
 
 -- Profiles
 L['Successfully created and applied profile(s) for |cffffff00%s|r'] = "Erfolgreich ein Profil erstellt und angewandt für |cffffff00%s|r" -- %s is the addon name
@@ -71,12 +75,8 @@ L['Middle'] = "Mittlerer"
 L['New Mail'] = "Neue Post"
 L['No Mail'] = "Keine Post"
 L['Set Datatext Values'] = true
-L['Show Garrison Currency'] = "Zeige Garnisonsresourcen"
-L['Show Oil'] = "Zeige Öl"
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Chat Infotexte anzeigen/ausblenden. ElvUI Infotexte müssen dafür deaktiviert sein"
 L['Show/Hide Mail Icon on minimap'] = "Postsymbol an der Minimap anzeigen/ausblenden"
-L['Show/Hide garrison currency on the datatext tooltip'] = "Garnisonsressourcen am Infotext Tooltip anzeigen/ausblenden"
-L['Show/Hide oil on the datatext tooltip'] = "Öl am Infotext Tooltip anzeigen/ausbenden"
 L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = "Passt die Chatinfotexte und Tasten an, wenn der Chathintergrund auf 'Verstecke Beide' gesetzt ist."
 L['Left Chat Panel'] = true
 L['Right Chat Panel'] = true
@@ -170,13 +170,11 @@ L['System'] = true --No need to translate
 L['Tip: Grayed tokens are not yet discovered'] = "Tip: Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
 L['Tip: Click to free memory'] = "Tip: Klicken um den Speicher zu bereinigen"
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
+L['Use Faction Colors on Bars'] = true
+L['Use Faction Colors on Text'] = true
 
 -- Databars Options
 L['Notifiers'] = "Benachrichtigungen"
-L['Show BenikUI decorative bars on the default ElvUI XP bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Erfahrungsleiste"
-L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Azeritleiste"
-L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Rufleiste"
-L['Show BenikUI decorative bars on the default ElvUI Honor bar'] = "Zeige BenikUI dekorative Leisten auf der standard ElvUI Ehrenleiste"
 L['Button Backdrop'] = "Tasten Hintergrund"
 L['Without Backdrop'] = "Ohne Hintergrund"
 

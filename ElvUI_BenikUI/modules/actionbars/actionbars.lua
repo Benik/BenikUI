@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Actionbars', 'AceEvent-3.0');
-local AB = E:GetModule('ActionBars');
+local mod = BUI:GetModule('Actionbars')
+local AB = E:GetModule('ActionBars')
 
 if E.private.actionbar.enable ~= true then return; end
 
@@ -96,7 +96,7 @@ function mod:ColorBackdrops()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
-			frame:SetBackdropColor(r, g, b, (db.abAlpha or 1))
+			frame:SetBackdropColor(r, g, b, db.abAlpha or 1)
 		end
 	end
 
@@ -113,7 +113,7 @@ function mod:ColorBackdrops()
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
 		if name then
-			name:SetBackdropColor(r, g, b, (db.abAlpha or 1))
+			name:SetBackdropColor(r, g, b, db.abAlpha or 1)
 		end
 	end
 end
@@ -163,6 +163,38 @@ function mod:FlyoutShadows()
 	end
 end
 
+function mod:ExtraAB() -- shadows
+	hooksecurefunc(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", function(button)
+		for spellButton in button.SpellButtonContainer:EnumerateActive() do
+			if spellButton and not spellButton.hasShadow then
+				spellButton.backdrop:CreateSoftShadow()
+				spellButton.hasShadow = true
+			end
+		end
+	end)
+
+	if E.private.skins.cleanBossButton ~= true then return end
+	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
+		local button = _G["ExtraActionButton"..i]
+		if button then
+			button.backdrop:CreateSoftShadow()
+		end
+	end
+end
+
+local function VehicleExit()
+	if E.private.actionbar.enable ~= true then
+		return
+	end
+	local f = _G.MainMenuBarVehicleLeaveButton
+	f:SetNormalTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	f:SetPushedTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	if MasqueGroup and E.private.actionbar.masque.actionbars then return end
+	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
+end
+
 function mod:Initialize()
 	C_TimerAfter(1, mod.StyleBackdrops)
 	C_TimerAfter(1, mod.PetShadows)
@@ -170,12 +202,14 @@ function mod:Initialize()
 	C_TimerAfter(2, mod.LoadToggleButtons)
 	C_TimerAfter(2, mod.ToggleStyle)
 	C_TimerAfter(2, mod.TotemShadows)
+	VehicleExit()
 	self:LoadRequestButton()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
 	hooksecurefunc(BUI, "SetupColorThemes", mod.ColorBackdrops)
 
 	if not BUI.ShadowMode then return end
 	hooksecurefunc(_G.SpellFlyout, 'Show', mod.FlyoutShadows)
+	mod:ExtraAB()
 end
 
 BUI:RegisterModule(mod:GetName())

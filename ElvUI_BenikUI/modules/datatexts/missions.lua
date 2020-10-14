@@ -2,10 +2,10 @@ local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
 local _G = _G
+local next = next
 local format, sort, select = format, sort, select
 local wipe, unpack, ipairs = wipe, unpack, ipairs
 local GetMouseFocus = GetMouseFocus
-local GetCurrencyInfo = GetCurrencyInfo
 local HideUIPanel = HideUIPanel
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
@@ -25,9 +25,9 @@ local C_Garrison_GetTalentTreeIDsByClassID = C_Garrison.GetTalentTreeIDsByClassI
 local C_Garrison_GetTalentTreeInfoForID = C_Garrison.GetTalentTreeInfoForID
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local GetMaxLevelForExpansionLevel = GetMaxLevelForExpansionLevel
 local GetQuestObjectiveInfo = GetQuestObjectiveInfo
-local GetServerTime = GetServerTime
 local IsAltKeyDown = IsAltKeyDown
 
 local GARRISON_LANDING_NEXT = GARRISON_LANDING_NEXT
@@ -41,15 +41,16 @@ local ISLANDS_HEADER = ISLANDS_HEADER
 local ISLANDS_QUEUE_FRAME_TITLE = ISLANDS_QUEUE_FRAME_TITLE
 local ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS = ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS
 local LE_EXPANSION_BATTLE_FOR_AZEROTH = LE_EXPANSION_BATTLE_FOR_AZEROTH
-local LE_FOLLOWER_TYPE_GARRISON_6_0 = LE_FOLLOWER_TYPE_GARRISON_6_0
-local LE_FOLLOWER_TYPE_GARRISON_7_0 = LE_FOLLOWER_TYPE_GARRISON_7_0
-local LE_FOLLOWER_TYPE_GARRISON_8_0 = LE_FOLLOWER_TYPE_GARRISON_8_0
-local LE_FOLLOWER_TYPE_SHIPYARD_6_2 = LE_FOLLOWER_TYPE_SHIPYARD_6_2
-local LE_GARRISON_TYPE_6_0 = LE_GARRISON_TYPE_6_0
-local LE_GARRISON_TYPE_7_0 = LE_GARRISON_TYPE_7_0
-local LE_GARRISON_TYPE_8_0 = LE_GARRISON_TYPE_8_0
+local LE_FOLLOWER_TYPE_GARRISON_6_0 = Enum.GarrisonFollowerType.FollowerType_6_0
+local LE_FOLLOWER_TYPE_GARRISON_7_0 = Enum.GarrisonFollowerType.FollowerType_7_0
+local LE_FOLLOWER_TYPE_GARRISON_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0
+local LE_FOLLOWER_TYPE_GARRISON_6_2 = Enum.GarrisonFollowerType.FollowerType_6_2
+local LE_FOLLOWER_TYPE_GARRISON_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0
+local LE_GARRISON_TYPE_6_0 = Enum.GarrisonType.Type_6_0
+local LE_GARRISON_TYPE_7_0 = Enum.GarrisonType.Type_7_0
+local LE_GARRISON_TYPE_8_0 = Enum.GarrisonType.Type_8_0
+local LE_GARRISON_TYPE_9_0 = Enum.GarrisonType.Type_9_0
 local RESEARCH_TIME_LABEL = RESEARCH_TIME_LABEL
-local DATE_COMPLETED = DATE_COMPLETED:gsub('(%%s)', '|cFF33FF33%1|r') -- "Completed: |cFF33FF33%s|r"
 local TALENTS = TALENTS
 
 local BODYGUARD_LEVEL_XP_FORMAT = L["Rank"] .. " %d (%d/%d)"
@@ -59,7 +60,6 @@ local EXPANSION_NAME7 = EXPANSION_NAME7 -- "Battle for Azeroth"
 
 local NAZJATAR_MAP_ID = 1355
 local iconString = "|T%s:16:16:0:0:64:64:4:60:4:60|t"
-local HOUR = 3600
 
 local Widget_IDs = {
 	Alliance = {
@@ -90,21 +90,22 @@ local function LandingPage(_, ...)
 end
 
 local menuList = {
-	{text = _G.GARRISON_LANDING_PAGE_TITLE,		func = LandingPage, arg1 = LE_GARRISON_TYPE_6_0, notCheckable = true},
-	{text = _G.ORDER_HALL_LANDING_PAGE_TITLE,	func = LandingPage, arg1 = LE_GARRISON_TYPE_7_0, notCheckable = true},
-	{text = _G.WAR_CAMPAIGN,					func = LandingPage, arg1 = LE_GARRISON_TYPE_8_0, notCheckable = true},
+	{text = _G.GARRISON_LANDING_PAGE_TITLE,			 func = LandingPage, arg1 = LE_GARRISON_TYPE_6_0, notCheckable = true},
+	{text = _G.ORDER_HALL_LANDING_PAGE_TITLE,		 func = LandingPage, arg1 = LE_GARRISON_TYPE_7_0, notCheckable = true},
+	{text = _G.WAR_CAMPAIGN,						 func = LandingPage, arg1 = LE_GARRISON_TYPE_8_0, notCheckable = true},
+	{text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = LandingPage, arg1 = LE_GARRISON_TYPE_9_0, notCheckable = true},
 }
 
-local info = {}
+local data = {}
 local function AddInProgressMissions(garrisonType)
-	wipe(info)
+	wipe(data)
 
-	C_Garrison_GetInProgressMissions(info, garrisonType)
+	C_Garrison_GetInProgressMissions(data, garrisonType)
 
-	if #info > 0 then
-		sort(info, sortFunction) --Sort by time left, lowest first
+	if next(data) then
+		sort(data, sortFunction) --Sort by time left, lowest first
 
-		for _, mission in ipairs(info) do
+		for _, mission in ipairs(data) do
 			local timeLeft = mission.timeLeft:match("%d")
 			local r, g, b = 1, 1, 1
 			if mission.isRare then
@@ -123,14 +124,14 @@ local function AddInProgressMissions(garrisonType)
 end
 
 local function AddFollowerInfo(garrisonType)
-	wipe(info)
+	wipe(data)
 
-	info = C_Garrison_GetFollowerShipments(garrisonType)
+	data = C_Garrison_GetFollowerShipments(garrisonType)
 
-	if #info > 0 then
+	if next(data) then
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddLine(FOLLOWERLIST_LABEL_TROOPS) -- "Troops"
-		for _, followerShipments in ipairs(info) do
+		for _, followerShipments in ipairs(data) do
 			local name, _, _, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison_GetLandingPageShipmentInfoByContainerID(followerShipments)
 			if (name and shipmentsReady and shipmentsTotal) then
 				timeleftString = (timeleftString and " "..timeleftString) or ""
@@ -141,18 +142,18 @@ local function AddFollowerInfo(garrisonType)
 end
 
 local function AddTalentInfo(garrisonType)
-	wipe(info)
+	wipe(data)
 
-	info = C_Garrison_GetTalentTreeIDsByClassID(garrisonType, E.myClassID)
+	data = C_Garrison_GetTalentTreeIDsByClassID(garrisonType, E.myClassID)
 
-	if #info > 0 then
+	if next(data) then
 		-- this is a talent that has completed, but has not been seen in the talent UI yet.
 		local completeTalentID = C_Garrison_GetCompleteTalent(garrisonType)
 		if completeTalentID > 0 then
 			DT.tooltip:AddLine(' ')
 			DT.tooltip:AddLine(TALENTS)
 
-			for _, treeID in ipairs(info) do
+			for _, treeID in ipairs(data) do
 				local _, _, tree = C_Garrison_GetTalentTreeInfoForID(treeID)
 				for _, talent in ipairs(tree) do
 					if talent.isBeingResearched or talent.id == completeTalentID then
@@ -170,8 +171,8 @@ local function AddTalentInfo(garrisonType)
 end
 
 local function GetInfo(id)
-	local name, num, icon = GetCurrencyInfo(id)
-	return num, name, (icon and format(iconString, icon)) or '136012'
+	local info = C_CurrencyInfo_GetCurrencyInfo(id)
+	return info.quantity, info.name, (info.iconFileID and format(iconString, info.iconFileID)) or '136012'
 end
 
 local function AddInfo(id)
@@ -179,52 +180,64 @@ local function AddInfo(id)
 	return format('%s %s', icon, BreakUpLargeNumbers(num))
 end
 
-local function OnEnter(self)
-	DT:SetupTooltip(self)
+local function OnEnter()
+	DT.tooltip:ClearLines()
 
-	DT.tooltip:AddLine(EXPANSION_NAME7, 1, .5, 0)
-	DT.tooltip:AddLine(L["Mission(s) Report:"], nil, nil, nil)
-	AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_8_0)
+	DT.tooltip:AddLine(EXPANSION_NAME8, 1, .5, 0)
+	DT.tooltip:AddDoubleLine(L["Mission(s) Report:"], AddInfo(1813), nil, nil, nil, 1, 1, 1)
+	AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_9_0)
 
-	-- Island Expeditions
-	if E.mylevel >= GetMaxLevelForExpansionLevel(LE_EXPANSION_BATTLE_FOR_AZEROTH) then
-		local questID = C_IslandsQueue_GetIslandsWeeklyQuestID()
-		if questID then
-			local _, _, finished, numFulfilled, numRequired = GetQuestObjectiveInfo(questID, 1, false)
-			local text, r1, g1, b1
-
-			if finished or C_QuestLog_IsQuestFlaggedCompleted(questID) then
-				text = GOAL_COMPLETED
-				r1, g1, b1 = GREEN_FONT_COLOR:GetRGB()
-			else
-				text = ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS:format(numFulfilled, numRequired)
-				r1, g1, b1 = 1, 1, 1
-			end
-
-			DT.tooltip:AddLine(" ")
-			DT.tooltip:AddLine(ISLANDS_HEADER .. ":")
-			DT.tooltip:AddDoubleLine(ISLANDS_QUEUE_FRAME_TITLE, text, 1, 1, 1, r1, g1, b1)
-		end
-	end
-
-	local widgetGroup = Widget_IDs[E.myfaction]
-	if E.MapInfo.mapID == NAZJATAR_MAP_ID and widgetGroup and C_QuestLog_IsQuestFlaggedCompleted(widgetGroup[1]) then
-		DT.tooltip:AddLine(" ")
-		DT.tooltip:AddLine(L["Nazjatar Follower XP"])
-
-		for i = 2, 4 do
-			local npcName, widgetID = unpack(widgetGroup[i])
-			local cur, toNext, _, rank, maxRank = E:GetWidgetInfoBase(widgetID)
-			if npcName and rank then
-				DT.tooltip:AddDoubleLine(npcName, (maxRank and L["Max Rank"]) or BODYGUARD_LEVEL_XP_FORMAT:format(rank, cur, toNext), 1, 1, 1)
-			end
-		end
-	end
-
-	AddFollowerInfo(LE_GARRISON_TYPE_8_0)
-	AddTalentInfo(LE_GARRISON_TYPE_8_0)
+	-- TODO - Probably not needed in this expansion - Not sure yet.
+	-- AddFollowerInfo(LE_GARRISON_TYPE_9_0)
+	-- TODO - Every sanctum have 5 separate garrision talent trees that would be nice to monitor but for now I don't know a way to get talent tree IDs without talking to upgrade NPC. We always can hardcode all 20 ids.
+	-- C_CovenantSanctumUI.GetFeatures() -> C_Garrison.GetTalentTreeInfo(). C_Garrison.GetCurrentGarrTalentTreeID() return ID only of the Reservoir upgrades.
+	-- AddTalentInfo(LE_FOLLOWER_TYPE_GARRISON_9_0)
 
 	if IsShiftKeyDown() then
+		-- Battle for Azeroth
+		DT.tooltip:AddLine(' ')
+		DT.tooltip:AddLine(EXPANSION_NAME7, 1, .5, 0)
+		DT.tooltip:AddDoubleLine(L["Mission(s) Report:"], AddInfo(1560), nil, nil, nil, 1, 1, 1)
+		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_8_0)
+
+		-- Island Expeditions
+		if E.mylevel >= GetMaxLevelForExpansionLevel(LE_EXPANSION_BATTLE_FOR_AZEROTH) then
+			local questID = C_IslandsQueue_GetIslandsWeeklyQuestID()
+			if questID then
+				local _, _, finished, numFulfilled, numRequired = GetQuestObjectiveInfo(questID, 1, false)
+				local text, r1, g1, b1
+
+				if finished or C_QuestLog_IsQuestFlaggedCompleted(questID) then
+					text = GOAL_COMPLETED
+					r1, g1, b1 = GREEN_FONT_COLOR:GetRGB()
+				else
+					text = ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS:format(numFulfilled, numRequired)
+					r1, g1, b1 = 1, 1, 1
+				end
+
+				DT.tooltip:AddLine(" ")
+				DT.tooltip:AddLine(ISLANDS_HEADER .. ":")
+				DT.tooltip:AddDoubleLine(ISLANDS_QUEUE_FRAME_TITLE, text, 1, 1, 1, r1, g1, b1)
+			end
+		end
+
+		local widgetGroup = Widget_IDs[E.myfaction]
+		if E.MapInfo.mapID == NAZJATAR_MAP_ID and widgetGroup and C_QuestLog_IsQuestFlaggedCompleted(widgetGroup[1]) then
+			DT.tooltip:AddLine(" ")
+			DT.tooltip:AddLine(L["Nazjatar Follower XP"])
+
+			for i = 2, 4 do
+				local npcName, widgetID = unpack(widgetGroup[i])
+				local cur, toNext, _, rank, maxRank = E:GetWidgetInfoBase(widgetID)
+				if npcName and rank then
+					DT.tooltip:AddDoubleLine(npcName, (maxRank and L["Max Rank"]) or BODYGUARD_LEVEL_XP_FORMAT:format(rank, cur, toNext), 1, 1, 1)
+				end
+			end
+		end
+
+		AddFollowerInfo(LE_GARRISON_TYPE_7_0)
+		AddTalentInfo(LE_GARRISON_TYPE_7_0)
+
 		-- Legion
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddLine(EXPANSION_NAME6, 1, .5, 0)
@@ -233,22 +246,20 @@ local function OnEnter(self)
 		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
 		AddFollowerInfo(LE_GARRISON_TYPE_7_0)
 
-		local serverTime = GetServerTime()
-
 		-- "Loose Work Orders" (i.e. research, equipment)
-		wipe(info)
-		info = C_Garrison_GetLooseShipments(LE_GARRISON_TYPE_7_0)
-		if #info > 0 then
+		wipe(data)
+		data = C_Garrison_GetLooseShipments(LE_GARRISON_TYPE_7_0)
+		if #data > 0 then
 			DT.tooltip:AddLine(CAPACITANCE_WORK_ORDERS) -- "Work Orders"
 
-			for _, looseShipments in ipairs(info) do
-				local name, _, _, shipmentsReady, shipmentsTotal, timeStart, duration, timeleftString = C_Garrison_GetLandingPageShipmentInfoByContainerID(looseShipments)
+			for _, looseShipments in ipairs(data) do
+				local name, _, _, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison_GetLandingPageShipmentInfoByContainerID(looseShipments)
 				if name then
-					local timeLeft = duration - (serverTime - timeStart)
-					local time, _, _, remainder = E:GetTimeInfo(timeLeft, 0, HOUR)
-					local id = timeLeft and timeLeft > HOUR and 8 or 7
-					timeleftString = (timeleftString and " "..format(GARRISON_LANDING_NEXT,format(E.TimeFormats[id][1], time, remainder))) or ""
-					DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal)..timeleftString, 1, 1, 1, 1, 1, 1)
+					if timeleftString then
+						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal) .. " " .. format(GARRISON_LANDING_NEXT,timeleftString), 1, 1, 1, 1, 1, 1)
+					else
+						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal), 1, 1, 1, 1, 1, 1)
+					end
 				end
 			end
 		end
@@ -263,26 +274,27 @@ local function OnEnter(self)
 
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddDoubleLine(L["Naval Mission(s) Report:"], AddInfo(1101), nil, nil, nil, 1, 1 , 1)
-		AddInProgressMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2)
+		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_6_2)
 
 		--Buildings
-		wipe(info)
-		info = C_Garrison_GetBuildings(LE_GARRISON_TYPE_6_0)
-		if #info > 0 then
+		wipe(data)
+		data = C_Garrison_GetBuildings(LE_GARRISON_TYPE_6_0)
+		if #data > 0 then
 			local AddLine = true
-			for _, buildings in ipairs(info) do
-				local name, _, _, shipmentsReady, shipmentsTotal, timeStart, duration, timeleftString = C_Garrison_GetLandingPageShipmentInfo(buildings.buildingID)
+			for _, buildings in ipairs(data) do
+				local name, _, _, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison_GetLandingPageShipmentInfo(buildings.buildingID)
 				if name and shipmentsTotal then
 					if AddLine then
 						DT.tooltip:AddLine(' ')
 						DT.tooltip:AddLine(L["Building(s) Report:"])
 						AddLine = false
 					end
-					local timeLeft = duration - (serverTime - timeStart)
-					local time, _, _, remainder = E:GetTimeInfo(timeLeft, 0, HOUR)
-					local id = timeLeft and timeLeft > HOUR and 8 or 7
-					timeleftString = (timeleftString and " "..format(GARRISON_LANDING_NEXT,format(E.TimeFormats[id][1], time, remainder))) or ""
-					DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal)..timeleftString, 1, 1, 1, 1, 1, 1)
+
+					if timeleftString then
+						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal) .. " " .. format(GARRISON_LANDING_NEXT,timeleftString), 1, 1, 1, 1, 1, 1)
+					else
+						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal), 1, 1, 1, 1, 1, 1)
+					end
 				end
 			end
 		end
@@ -297,7 +309,6 @@ end
 local function OnClick(self)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
 
-	DT.tooltip:Hide()
 	DT:SetEasyMenuAnchor(DT.EasyMenu, self)
 	_G.EasyMenu(menuList, DT.EasyMenu, nil, nil, nil, "MENU")
 end
@@ -319,10 +330,11 @@ local function OnEvent(self, event, ...)
 	end
 
 	if event == 'GARRISON_LANDINGPAGE_SHIPMENTS' or event == 'GARRISON_MISSION_FINISHED' or event == 'GARRISON_MISSION_NPC_CLOSED' or event == 'GARRISON_MISSION_LIST_UPDATE' then
-		CountCompleted = #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_8_0)
+		CountCompleted = #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_9_0)
+		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_8_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
-		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_SHIPYARD_6_2)
+		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_2)
 
 		C_Garrison_GetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_8_0)
 		for i = 1, #inProgressMissions do
