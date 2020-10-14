@@ -1,6 +1,5 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<script file="skins.lua"/>
-	<script file="decursive.lua"/>
 	<script file="storyline.lua"/>
 	<script file="options.lua"/>
 </Ui>

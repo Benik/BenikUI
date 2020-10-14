@@ -236,7 +236,6 @@ P['benikuiSkins'] = {
 
 	['variousSkins'] = {
 		['talkingHead'] = true,
-		['decursive'] = true,
 		['storyline'] = true,
 		['inflight'] = true,
 	},

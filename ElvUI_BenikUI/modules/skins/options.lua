@@ -136,20 +136,14 @@ local function SkinTable()
 				type = 'toggle',
 				name = L["TalkingHead"],
 			},
-			decursive = {
-				order = 2,
-				type = 'toggle',
-				name = L['Decursive'],
-				disabled = function() return not IsAddOnLoaded('Decursive') end,
-			},
 			storyline = {
-				order = 3,
+				order = 2,
 				type = 'toggle',
 				name = L['Storyline'],
 				disabled = function() return not IsAddOnLoaded('Storyline') end,
 			},
 			inflight = {
-				order = 4,
+				order = 3,
 				type = 'toggle',
 				name = L['InFlight'],
 				set = function(info, value) E.db.benikuiSkins.variousSkins[ info[#info] ] = value;
