@@ -1,3 +1,19 @@
+3.951 (Oct 15, 2020)
+*Prevent a rare Keybind popup frame error
+*Removed Decursive skin. Was buggy
+*Added bazooka in the donators list <3
+
+3.95 (Oct 13, 2020)
+*Release for Shadowlands prepatch and ElvUI 12.00
+*Lots of changes to comply with WoW v9 and ElvUI 12.00
+*IMPORTANT: Deleting the previous BenikUI version from the AddOns folder is a must. New files have been added/removed. Settings will stay intact.
+*NEW: Reputations Dashboard. Track multiple rep for factions.
+*NEW: Title bars on the Custom Panels.
+*NEW: Added a new Outlined Arrow, so that all Databars can now show their Notifiers on Top and Bottom, along with Left and Right.
+*Middle Datatext is now an ElvUI Custom Datatext.
+*Renamed 'Loot / Trade' to 'L / T' during install.
+*Added option to toggle BenikUI style on the Alternative Power Bar. Can be found in ElvUI Alternative Power settings.
+
 3.94 (Oct 5, 2020)
 *Let ElvUI handle the Middle Datatext
 *Fixed FlightMode and Dashboard ToggleAllBags. (thurin)

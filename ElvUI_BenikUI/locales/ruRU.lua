@@ -182,7 +182,6 @@ L['Without Backdrop'] = true
 L['AddOnSkins'] = true
 L['AddOns Decor'] = true
 L['Choose which addon you wish to be decorated to fit with BenikUI style'] = true
-L['Decursive'] = true
 L['ElvUI AddOns'] = true
 L['decor.'] = true
 L['This will create and apply profile for '] = true

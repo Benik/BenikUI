@@ -182,7 +182,6 @@ L['Without Backdrop'] = "Ohne Hintergrund"
 L['AddOnSkins'] = true --No need to translate
 L['AddOns Decor'] = "AddOns Dekor"
 L['Choose which addon you wish to be decorated to fit with BenikUI style'] = "Wähle aus, welches Addon du stylen möchtest so dass es am besten zu BenikUI passt"
-L['Decursive'] = true --No need to translate
 L['ElvUI AddOns'] = true --No need to translate
 L['decor.'] = "dekor."
 L['This will create and apply profile for '] = "Dieses wird ein Profil erstellen und anwenden für "
