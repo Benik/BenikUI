@@ -62,7 +62,7 @@ local function ObjectiveTrackerShadows()
 	local function FindGroupButtonShadows(block)
 		if block.hasGroupFinderButton and block.groupFinderButton then
 			if block.groupFinderButton and not block.groupFinderButton.hasShadow then
-				block.groupFinderButton:SetTemplate("Transparent")
+				--block.groupFinderButton:SetTemplate("Transparent")
 				block.groupFinderButton:CreateSoftShadow()
 				block.groupFinderButton.hasShadow = true
 			end
