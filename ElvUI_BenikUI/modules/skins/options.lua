@@ -1,5 +1,5 @@
 local BUI, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 
 local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack

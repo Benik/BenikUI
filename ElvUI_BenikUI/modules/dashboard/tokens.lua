@@ -7,8 +7,9 @@ local getn = getn
 local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 
 local GameTooltip = _G.GameTooltip
-local GetCurrencyInfo = GetCurrencyInfo
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local IsShiftKeyDown = IsShiftKeyDown
+local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 -- GLOBALS: hooksecurefunc
 
@@ -112,6 +113,15 @@ local Currency = {
 	1721,	-- Prismatic Manapearl
 	1755,	-- Coalescing Visions
 	1803,	-- Echoes of Ny'alotha
+
+	-- Shadowlands
+	1751,	-- Freed Soul
+	1754,	-- Argent Commendation
+	1810,	-- Willing Soul
+	1813,	-- Reservoir Anima
+	1820,	-- Infused Ruby
+	1822,	-- Renown
+	1828, 	-- Soul Ash
 }
 
 local function Icon_OnEnter(self)
@@ -150,6 +160,11 @@ local function sortFunction(a, b)
 	return a.name < b.name
 end
 
+function mod:GetTokenInfo(id)
+	local info = C_CurrencyInfo_GetCurrencyInfo(id)
+	return info.name, info.quantity, info.iconFileID, info.maxWeeklyQuantity, info.maxQuantity, info.discovered
+end
+
 function mod:UpdateTokens()
 	local db = E.db.dashboards.tokens
 	local holder = _G.BUI_TokensDashboard
@@ -177,21 +192,20 @@ function mod:UpdateTokens()
 	end)
 
 	for _, id in pairs(Currency) do
-		local name, amount, icon, _, weeklyMax, totalMax, isDiscovered = GetCurrencyInfo(id)
-
+		local name, amount, icon, weeklyMax, totalMax, isDiscovered = mod:GetTokenInfo(id)
 		if name then
 			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = nil end
 
 			if E.private.dashboards.tokens.chooseTokens[id] == true then
 				if db.zeroamount or amount > 0 then
 					holder:Show()
-					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if tokenHolderMover then
-						tokenHolderMover:SetSize(holder:GetSize())
-						holder:SetPoint('TOPLEFT', tokenHolderMover, 'TOPLEFT')
+						tokenHolderMover:Size(holder:GetSize())
+						holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
 
-					self.tokenFrame = self:CreateDashboard(nil, holder, 'tokens')
+					self.tokenFrame = self:CreateDashboard(holder, 'tokens', true)
 
 					if totalMax == 0 then
 						self.tokenFrame.Status:SetMinMaxValues(0, amount)
@@ -211,12 +225,12 @@ function mod:UpdateTokens()
 					end
 
 					if totalMax == 0 then
-						self.tokenFrame.Text:SetFormattedText('%s', amount)
+						self.tokenFrame.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
 					else
 						if db.weekly and weeklyMax > 0 then
-							self.tokenFrame.Text:SetFormattedText('%s / %s', amount, weeklyMax)
+							self.tokenFrame.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
 						else
-							self.tokenFrame.Text:SetFormattedText('%s / %s', amount, totalMax)
+							self.tokenFrame.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
 						end
 					end
 
@@ -241,12 +255,12 @@ function mod:UpdateTokens()
 
 					self.tokenFrame:SetScript('OnLeave', function(self)
 						if totalMax == 0 then
-							self.Text:SetFormattedText('%s', amount)
+							self.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
 						else
 							if db.weekly and weeklyMax > 0 then
-								self.Text:SetFormattedText('%s / %s', amount, weeklyMax)
+								self.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
 							else
-								self.Text:SetFormattedText('%s / %s', amount, totalMax)
+								self.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
 							end
 						end
 						GameTooltip:Hide()
@@ -269,9 +283,9 @@ function mod:UpdateTokens()
 	for key, frame in pairs(BUI.TokensDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:SetPoint('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:SetPoint('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			frame:Point('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
@@ -288,8 +302,8 @@ end
 
 function mod:CreateTokensDashboard()
 	self.tokenHolder = self:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
-	self.tokenHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
-	self.tokenHolder:SetWidth(E.db.dashboards.tokens.width or 150)
+	self.tokenHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
+	self.tokenHolder:Width(E.db.dashboards.tokens.width or 150)
 
 	mod:UpdateTokens()
 	mod:UpdateTokenSettings()

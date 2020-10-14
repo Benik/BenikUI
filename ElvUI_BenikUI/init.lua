@@ -18,6 +18,23 @@ BUI["RegisteredModules"] = {}
 BUI.Eversion = tonumber(E.version)
 BUI.Erelease = tonumber(GetAddOnMetadata("ElvUI_BenikUI", "X-ElvuiVersion"))
 
+BUI.Actionbars = BUI:NewModule('Actionbars', 'AceEvent-3.0')
+BUI.Bags = BUI:NewModule('Bags', 'AceHook-3.0', 'AceEvent-3.0')
+BUI.Chat = BUI:NewModule('Chat', 'AceHook-3.0', 'AceEvent-3.0')
+BUI.CustomPanels = BUI:NewModule('CustomPanels', 'AceEvent-3.0')
+BUI.Dashboards = BUI:NewModule('Dashboards', 'AceEvent-3.0', 'AceHook-3.0')
+BUI.Databars = BUI:NewModule('Databars', 'AceHook-3.0', 'AceEvent-3.0')
+BUI.DataTexts = BUI:NewModule('DataTexts', 'AceEvent-3.0')
+BUI.FlightMode = BUI:NewModule('FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
+BUI.iLevel = BUI:NewModule('iLevel', 'AceEvent-3.0')
+BUI.Layout = BUI:NewModule('Layout', 'AceHook-3.0', 'AceEvent-3.0')
+BUI.Nameplates = BUI:NewModule('Nameplates', 'AceHook-3.0')
+BUI.Shadows = BUI:NewModule('Shadows', 'AceHook-3.0', 'AceEvent-3.0')
+BUI.Skins = BUI:NewModule('Skins', 'AceHook-3.0', 'AceEvent-3.0')
+BUI.Styles = BUI:NewModule('Styles', 'AceHook-3.0', 'AceEvent-3.0')
+BUI.Tooltip = BUI:NewModule('Tooltip', 'AceHook-3.0')
+BUI.Units = BUI:NewModule('Units', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+
 function BUI:RegisterModule(name)
 	if self.initialized then
 		local mod = self:GetModule(name)

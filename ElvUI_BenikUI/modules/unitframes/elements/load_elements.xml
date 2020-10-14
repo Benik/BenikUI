@@ -7,7 +7,6 @@
 	<Script file='targetglow.lua'/>
 	<Script file='castbar.lua'/>
 	<Script file='restingindicator.lua'/>
-	<Script file='tags.lua'/>
 	<Script file='roleIcons.lua'/>
 	<Script file='classbars.lua'/>
 	<Script file='aurabars.lua'/>

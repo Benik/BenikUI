@@ -30,29 +30,30 @@ local function SetupLayout(layout)
 	E.db["chat"]["panelBackdrop"] = 'SHOWBOTH'
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["chat"]["panelWidth"] = 412
+	E.db["databars"]["statusbar"] = "BuiFlat"
 	E.db["databars"]["azerite"]["enable"] = true
 	E.db["databars"]["azerite"]["height"] = 150
 	E.db["databars"]["azerite"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["azerite"]["textFormat"] = 'NONE'
-	E.db["databars"]["azerite"]["textSize"] = 9
+	E.db["databars"]["azerite"]["fontSize"] = 9
 	E.db["databars"]["azerite"]["width"] = 8
 	E.db["databars"]["experience"]["font"] = "Expressway"
 	E.db["databars"]["experience"]["textYoffset"] = 10
 	E.db["databars"]["experience"]["textFormat"] = "CURPERC"
-	E.db["databars"]["experience"]["height"] = 6
+	E.db["databars"]["experience"]["height"] = 5
 	E.db["databars"]["experience"]["orientation"] = "HORIZONTAL"
-	E.db["databars"]["experience"]["textSize"] = 10
+	E.db["databars"]["experience"]["fontSize"] = 10
 	E.db["databars"]["honor"]["enable"] = true
 	E.db["databars"]["honor"]["height"] = 152
 	E.db["databars"]["honor"]["textFormat"] = 'NONE'
-	E.db["databars"]["honor"]["textSize"] = 9
+	E.db["databars"]["honor"]["fontSize"] = 9
 	E.db["databars"]["honor"]["width"] = 8
 	E.db["databars"]["honor"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["height"] = 150
 	E.db["databars"]["reputation"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["reputation"]["textFormat"] = 'NONE'
-	E.db["databars"]["reputation"]["textSize"] = 9
+	E.db["databars"]["reputation"]["fontSize"] = 9
 	E.db["databars"]["reputation"]["width"] = 8
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
@@ -110,6 +111,8 @@ local function SetupLayout(layout)
 	E.private["general"]["glossTex"] = "BuiFlat"
 	E.private["general"]["chatBubbles"] = 'backdrop'
 
+	BUI:GetModule('Layout'):CreateMiddlePanel()
+
 	-- common movers
 	if E.db["movers"] == nil then E.db["movers"] = {} end
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
@@ -119,7 +122,7 @@ local function SetupLayout(layout)
 	E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
 	E.db["movers"]["DigSiteProgressBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,315"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-38"
-	E.db["movers"]["HonorBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-157,-6"
+	E.db["movers"]["HonorBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-6"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
 	E.db["movers"]["LocationMover"] = "TOP,ElvUIParent,TOP,0,-7"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,158,-5"
@@ -227,8 +230,8 @@ local function SetupLayout(layout)
 
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Expressway"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
-		BUI:GetModule('Layout'):MiddleDatatextDimensions()
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
+
 
 		E.db["benikui"]["general"]["shadows"] = true
 
@@ -292,6 +295,9 @@ local function SetupColors()
 	PluginInstallStepComplete:Show()
 end
 
+local loot = LOOT:match"^.?[\128-\191]*"
+local trade = TRADE:match"^.?[\128-\191]*"
+
 local function SetupChat()
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format('ChatFrame%s', i)]
@@ -301,10 +307,11 @@ local function SetupChat()
 		FCF_SetChatWindowFontSize(nil, frame, 11)
 
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
-		if i == 3 and chatName == LOOT..' / '..TRADE then
+		if i == 3 and (chatName == (LOOT..' / '..TRADE) or chatName == (loot..' / '..trade)) then
 			FCF_UnDockFrame(frame)
 			frame:ClearAllPoints()
-			frame:SetPoint('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
+			frame:Point('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
+			FCF_SetWindowName(frame, loot..' / '..trade)
 			FCF_DockFrame(frame)
 			FCF_SetLocked(frame, 1)
 			frame:Show()
@@ -323,12 +330,11 @@ local function SetupActionbars(layout)
 	-- Actionbars
 	E.db["actionbar"]["lockActionBars"] = true
 	E.db["actionbar"]["transparent"] = true
-	E.db["benikui"]["datatexts"]["middle"]["styled"] = false
-	E.db["benikui"]["datatexts"]["middle"]["transparent"] = false
-
-	E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
-	BUI:GetModule('Layout'):MiddleDatatextLayout()
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] = false
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["panelTransparency"] = false
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["backdrop"] = true
 	E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
+
 	if E.db["movers"] == nil then E.db["movers"] = {} end
 	if layout == 'v1' then
 		E.db["actionbar"]["font"] = "Bui Visitor1"
@@ -377,8 +383,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
-		E.db["databars"]["experience"]["width"] = 415
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
+		E.db["databars"]["experience"]["width"] = 414
 
 		-- movers
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,97"
@@ -387,7 +393,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-296,58"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,137"
 		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,832,52"
-		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
+		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,283"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-56,-397"
@@ -445,15 +451,15 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 412
-		E.db["databars"]["experience"]["width"] = 412
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 412
+		E.db["databars"]["experience"]["width"] = 414
 
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,255"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-56,-397"
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-3"
-		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
+		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-128"
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,60"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,22"
@@ -504,8 +510,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
-		E.db["benikui"]["datatexts"]["middle"]["width"] = 415
-		E.db["databars"]["experience"]["width"] = 415
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
+		E.db["databars"]["experience"]["width"] = 414
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
@@ -520,12 +526,11 @@ local function SetupActionbars(layout)
 		E.db["movers"]["ElvAB_6"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-288,290"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,85"
 		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,141"
-		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,65"
+		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
+		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,68"
 		E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,116"
 	end
 	BUI:GetModule('Actionbars'):ToggleStyle()
-	BUI:GetModule('Layout'):MiddleDatatextDimensions()
 
 	PluginInstallStepComplete.message = BUI.Title..L['Actionbars Set']
 	PluginInstallStepComplete:Show()
@@ -649,7 +654,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["player"]["power"]["width"] = 'fill'
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
@@ -994,14 +999,14 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["player"]["portraitStyle"] = true
 		E.db["benikui"]["unitframes"]["player"]["portraitStyleHeight"] = 6
 		E.db["benikui"]["unitframes"]["player"]["portraitWidth"] = 110
-		E.db["benikui"]["unitframes"]["player"]["portraitShadow"] = false
+		E.db["benikui"]["unitframes"]["player"]["portraitShadow"] = true
 		E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = true
 		E.db["benikui"]["unitframes"]["target"]["portraitHeight"] = 47
 		E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = true
 		E.db["benikui"]["unitframes"]["target"]["portraitStyleHeight"] = 6
 		E.db["benikui"]["unitframes"]["target"]["portraitWidth"] = 110
 		E.db["benikui"]["unitframes"]["target"]["getPlayerPortraitSize"] = false
-		E.db["benikui"]["unitframes"]["target"]["portraitShadow"] = false
+		E.db["benikui"]["unitframes"]["target"]["portraitShadow"] = true
 		E.db["benikui"]["colors"]["styleAlpha"] = 1
 		E.db["benikui"]["colors"]["abAlpha"] = 1
 
@@ -1556,7 +1561,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 7
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
@@ -1947,7 +1952,6 @@ end
 
 local function SetupDataTexts(role)
 	-- Data Texts
-
 	if BUI.LP then
 		E.db["datatexts"]["panels"]["LocPlusRightDT"][1] = 'Time'
 		E.db["datatexts"]["panels"]["LocPlusLeftDT"][1] = 'Movement Speed'
@@ -1956,19 +1960,17 @@ local function SetupDataTexts(role)
 	end
 
 	if role == 'tank' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Avoidance'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Armor'
-	elseif role == 'dpsMelee' or 'dpsCaster' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit Chance'
 	elseif role == 'healer' then
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Mana Regen'
+	elseif role == 'dpsMelee' or 'dpsCaster' then
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit'
 	end
 
+	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Missions (BenikUI)'
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][3] = 'BuiMail'
 
@@ -1980,7 +1982,7 @@ local function SetupDataTexts(role)
 
 	E.DataTexts:UpdatePanelInfo('BuiLeftChatDTPanel')
 	E.DataTexts:UpdatePanelInfo('BuiRightChatDTPanel')
-	E.DataTexts:UpdatePanelInfo('BuiMiddleDTPanel')
+	E.DataTexts:UpdatePanelInfo("BuiMiddleDTPanel")
 
 	PluginInstallStepComplete.message = BUI.Title..L['DataTexts Set']
 	PluginInstallStepComplete:Show()
@@ -2005,8 +2007,8 @@ BUI.installTable = {
 		[1] = function()
 			PluginInstallFrame:Style('Outside')
 			PluginInstallTitleFrame:Style('Outside')
-			PluginInstallTutorialImage:SetSize(384, 96)
-			PluginInstallTutorialImage:SetPoint('BOTTOM', 0, 100)
+			PluginInstallTutorialImage:Size(384, 96)
+			PluginInstallTutorialImage:Point('BOTTOM', 0, 100)
 			PluginInstallTutorialImage2:SetTexture(nil)
 			PluginInstallTitleFrame.text:SetFont(E["media"].normFont, 16, "OUTLINE")
 			PluginInstallFrame.SubTitle:SetFormattedText(L["Welcome to BenikUI version %s, for ElvUI %s."], BUI.Version, E.version)
@@ -2092,16 +2094,16 @@ BUI.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your datatexts."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; SetupDataTexts("tank") end)
+			PluginInstallFrame.Option1:SetScript("OnClick", function() SetupDataTexts("tank") end)
 			PluginInstallFrame.Option1:SetText(TANK)
 			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript("OnClick", function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; SetupDataTexts("healer") end)
+			PluginInstallFrame.Option2:SetScript("OnClick", function() SetupDataTexts("healer") end)
 			PluginInstallFrame.Option2:SetText(HEALER)
 			PluginInstallFrame.Option3:Show()
-			PluginInstallFrame.Option3:SetScript("OnClick", function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; SetupDataTexts("dpsMelee") end)
+			PluginInstallFrame.Option3:SetScript("OnClick", function() SetupDataTexts("dpsMelee") end)
 			PluginInstallFrame.Option3:SetText(L["Physical DPS"])
 			PluginInstallFrame.Option4:Show()
-			PluginInstallFrame.Option4:SetScript("OnClick", function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; SetupDataTexts("dpsCaster") end)
+			PluginInstallFrame.Option4:SetScript("OnClick", function() SetupDataTexts("dpsCaster") end)
 			PluginInstallFrame.Option4:SetText(L["Caster DPS"])
 		end,
 		[8] = function()

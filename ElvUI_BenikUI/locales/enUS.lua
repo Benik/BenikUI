@@ -38,14 +38,18 @@ L['Click to show the Addon List'] = true
 
 -- Custom Panels
 L['Create'] = true
-L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = true
-L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = true
-L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = true
-L["Hide in Pet Battle"] = true
-L["Hide In Combat"] = true
-L["Name Tooltip"] = true
-L["Enable tooltip to reveal the panel name"] = true
-L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = true
+L['Enable tooltip to reveal the panel name'] = true
+L['Hide In Combat'] = true
+L['Hide in Pet Battle'] = true
+L['Name Tooltip'] = true
+L['Texture Color'] = true
+L['The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one.'] = true
+L['This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?'] = true
+L['This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: "[combat] show;hide"'] = true
+L['Title Bar Position'] = true
+L['Title Text Position'] = true
+L['Title'] = true
+L['Type a unique name for the new panel. \n|cff00c0faNote: "BenikUI_" will be added at the beginning, to ensure uniqueness|r'] = true
 
 -- Profiles
 L['Successfully created and applied profile(s) for |cffffff00%s|r'] = true -- %s is the addon name
@@ -72,12 +76,8 @@ L['Middle'] = true
 L['New Mail'] = true
 L['No Mail'] = true
 L['Set Datatext Values'] = true
-L['Show Garrison Currency'] = true
-L['Show Oil'] = true
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = true
 L['Show/Hide Mail Icon on minimap'] = true
-L['Show/Hide garrison currency on the datatext tooltip'] = true
-L['Show/Hide oil on the datatext tooltip'] = true
 L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = true
 L['Left Chat Panel'] = true
 L['Right Chat Panel'] = true
@@ -171,13 +171,11 @@ L['System'] = true
 L['Tip: Grayed tokens are not yet discovered'] = true
 L['Tip: Click to free memory'] = true
 L['Use DataTexts font'] = true
+L['Use Faction Colors on Bars'] = true
+L['Use Faction Colors on Text'] = true
 
 -- Databars Options
 L['Notifiers'] = true
-L['Show BenikUI decorative bars on the default ElvUI XP bar'] = true
-L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = true
-L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = true
-L['Show BenikUI decorative bars on the default ElvUI Honor bar'] = true
 L['Button Backdrop'] = true
 L['Without Backdrop'] = true
 

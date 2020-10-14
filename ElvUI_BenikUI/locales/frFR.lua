@@ -36,15 +36,19 @@ L['ShiftClick to toggle chat'] = "Shift Cliquez pour activer le chat"
 L['Click to show the Addon List'] = "Cliquez pour afficher la liste des addons complémentaires"
 
 -- Custom Panels
-L['Create'] = "Créer"
-L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Tapez un nom unique pour le nouveau panneau. \n|cff00c0faRemarque: 'BenikUI_' sera ajouté au début, pour garantir l'unicité|r"
-L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Le nom du panneau personnalisé |cff00c0fa%s|r existe déjà. Veuillez en choisir un autre."
-L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = "Cela fonctionne comme une macro, vous pouvez l'exécuter dans différentes situations pour que le panneau s'affiche/masque différemment.\n Exemple: '[combat] afficher;masquer"
-L["Hide in Pet Battle"] = "Cacher dans une bataille de mascottes"
-L["Hide In Combat"] = "Cacher au combat"
-L["Name Tooltip"] = "Info-bulle du nom"
+L["Create"] = "Créer"
 L["Enable tooltip to reveal the panel name"] = "Activer l'info-bulle pour révéler le nom du panneau"
+L["Hide In Combat"] = "Cacher au combat"
+L["Hide in Pet Battle"] = "Cacher dans une bataille de mascottes"
+L["Name Tooltip"] = "Info-bulle du nom"
+L["Texture Color"] = true
+L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Le nom du panneau personnalisé |cff00c0fa%s|r existe déjà. Veuillez en choisir un autre."
 L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = "Cela supprimera le panneau personnalisé nommé |cff00c0fa%s|r. Cette action nécessite un rechargement.\nContinuer?"
+L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = "Cela fonctionne comme une macro, vous pouvez l'exécuter dans différentes situations pour que le panneau s'affiche/masque différemment.\n Exemple: '[combat] afficher;masquer"
+L["Title Bar Position"] = true
+L["Title Text Position"] = true
+L["Title"] = true
+L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Tapez un nom unique pour le nouveau panneau. \n|cff00c0faRemarque: 'BenikUI_' sera ajouté au début, pour garantir l'unicité|r"
 
 -- Profiles
 L['Successfully created and applied profile(s) for |cffffff00%s|r'] = "Profil créé et appliqué avec succès pour |cffffff00%s|r"-- %s is the addon name
@@ -71,12 +75,8 @@ L['Middle'] = "Milieu"
 L['New Mail'] = "Nouveau courrier"
 L['No Mail'] = "Pas de courrier"
 L['Set Datatext Values'] = true
-L['Show Garrison Currency'] = "Affiche la monnaie du fief"
-L['Show Oil'] = "Afficher le carburant"
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Affiche/masque les textes de données de discussion. Les textes de données de chat ElvUI doivent être désactivés"
 L['Show/Hide Mail Icon on minimap'] = "Affiche/masque l'icône de courrier sur la minicarte"
-L['Show/Hide garrison currency on the datatext tooltip'] = "Affiche/masque la monnaie du fief dans les textes de données de l'info-bulle"
-L['Show/Hide oil on the datatext tooltip'] = "Affiche/masque le carburant dans les textes de données de l'info-bulle"
 L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = "Stylise les textes de date et les boutons du chat que si les deux arrière-plans du chat sont réglés sur 'Cacher les deux'."
 L['Left Chat Panel'] = true
 L['Right Chat Panel'] = true
@@ -170,13 +170,11 @@ L['System'] = "Système"
 L['Tip: Grayed tokens are not yet discovered'] = "Astuce: les jetons grisés ne sont pas encore découverts"
 L['Tip: Click to free memory'] = "Astuce: cliquez pour libérer de la mémoire"
 L['Use DataTexts font'] = "Utiliser la police pour les textes de données"
+L['Use Faction Colors on Bars'] = true
+L['Use Faction Colors on Text'] = true
 
 -- Databars Options
 L['Notifiers'] = "Notificateurs"
-L['Show BenikUI decorative bars on the default ElvUI XP bar'] = "Affiche les barres décoratives BenikUI sur la barre par défaut d'ElvUI XP"
-L['Show BenikUI decorative bars on the default ElvUI Azerite bar'] = "Afficher les barres décoratives BenikUI sur la barre par défaut d'azérite d'ElvUI"
-L['Show BenikUI decorative bars on the default ElvUI Reputation bar'] = "Afficher les barres décoratives BenikUI sur la barre par défaut de réputation d'ElvUI"
-L['Show BenikUI decorative bars on the default ElvUI Honor bar'] = "Afficher les barres décoratives BenikUI sur la barre par défaut d'honneur d'ElvUI"
 L['Button Backdrop'] = "Fond de bouton"
 L['Without Backdrop'] = "Sans arrière-plan"
 

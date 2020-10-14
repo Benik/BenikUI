@@ -1,6 +1,6 @@
-## Interface: 80300
+## Interface: 90002
 ## Author: Benik
-## Version: 3.93
+## Version: 3.95
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 11+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
@@ -8,9 +8,8 @@
 ## OptionalDeps: SharedMedia, AddOnSkins, ProjectAzilroka
 ## X-Tukui-ProjectID: 11
 ## X-Tukui-ProjectFolders: ElvUI_BenikUI
-## X-ElvuiVersion: 11.48
+## X-ElvuiVersion: 11.42
 
-libs\load_libs.xml
 locales\load_locales.xml
 media\load_media.xml
 defaults\load_defaults.xml

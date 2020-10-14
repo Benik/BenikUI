@@ -31,8 +31,8 @@ end
 local abtn = {}
 function mod:CreateButtons()
 	for i = 1, 2 do
-		abtn[i] = CreateFrame('Button', nil, E.UIParent)
-		abtn[i]:SetSize(12, 5)
+		abtn[i] = CreateFrame('Button', nil, E.UIParent, 'BackdropTemplate')
+		abtn[i]:Size(12, 5)
 		abtn[i]:SetTemplate('Default', true)
 		abtn[i]:SetAlpha(0)
 		abtn[i].tex = abtn[i]:CreateTexture(nil, 'OVERLAY')
@@ -77,16 +77,16 @@ function mod:ShowButtons()
 			if db.chooseAb == 'BAR2' then
 				abtn[i]:SetParent(bar2)
 				if i == 1 then
-					abtn[i]:SetPoint('RIGHT', bar2, 'RIGHT')
+					abtn[i]:Point('RIGHT', bar2, 'RIGHT')
 				else
-					abtn[i]:SetPoint('LEFT', bar2, 'LEFT')
+					abtn[i]:Point('LEFT', bar2, 'LEFT')
 				end
 			else
 				abtn[i]:SetParent(bar1)
 				if i == 1 then
-					abtn[i]:SetPoint('RIGHT', bar1, 'RIGHT')
+					abtn[i]:Point('RIGHT', bar1, 'RIGHT')
 				else
-					abtn[i]:SetPoint('LEFT', bar1, 'LEFT')
+					abtn[i]:Point('LEFT', bar1, 'LEFT')
 				end
 			end
 

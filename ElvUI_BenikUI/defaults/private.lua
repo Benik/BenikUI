@@ -27,4 +27,10 @@ V['dashboards'] = {
 			[10] = true,
 		},
 	},
+
+	['reputations'] = {
+		['chooseReputations'] = {
+
+		},
+	},
 }

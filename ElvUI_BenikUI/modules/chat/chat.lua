@@ -2,7 +2,7 @@
 local CH = E:GetModule('Chat')
 local BL = BUI:GetModule('Layout')
 local FM = BUI:GetModule('FlightMode')
-local mod = BUI:NewModule('Chat', 'AceHook-3.0', 'AceEvent-3.0')
+local mod = BUI:GetModule('Chat')
 
 local _G = _G
 local pairs = pairs
@@ -17,6 +17,7 @@ local IsMouseButtonDown = IsMouseButtonDown
 
 -- Place the new chat frame
 function mod:UpdateEditboxAnchors()
+	if E.db.benikui.datatexts.chat.enable ~= true then return end
 	for _, frameName in pairs(CHAT_FRAMES) do
 		local frame = _G[frameName..'EditBox']
 		if not frame then break; end
@@ -25,8 +26,9 @@ function mod:UpdateEditboxAnchors()
 			frame:SetAllPoints(LeftChatDataPanel)
 		elseif E.db.benikui.datatexts.chat.enable and BuiDummyChat and E.db.benikui.datatexts.chat.editBoxPosition == 'BELOW_CHAT' then
 			frame:SetAllPoints(BuiDummyChat)
-		elseif E.db.benikui.datatexts.middle.enable and E.db.benikui.datatexts.chat.editBoxPosition == 'MIDDLE_DT' then
-			frame:SetAllPoints(BuiMiddleDTPanel)
+		elseif E.db.datatexts.panels.BuiMiddleDTPanel.enable and E.db.benikui.datatexts.chat.editBoxPosition == 'MIDDLE_DT' then
+			local dt = E.DataTexts:FetchFrame("BuiMiddleDTPanel")
+			frame:SetAllPoints(dt)
 		elseif E.ActionBars.Initialized and E.db.actionbar.bar1.backdrop == true and E.db.benikui.datatexts.chat.editBoxPosition == 'EAB_1' then
 			BL:PositionEditBoxHolder(ElvUI_Bar1)
 			frame:SetAllPoints(BuiDummyEditBoxHolder)
@@ -58,25 +60,23 @@ local function PositionChat(self, override)
 	if E.PixelMode then
 		BASE_OFFSET = BASE_OFFSET - 3
 	end
-	local chat, id, tab, isDocked, point
+	local chat, id, tab, isDocked
 	for i=1, CreatedFrames do
 		chat = _G[format("ChatFrame%d", i)]
 		id = chat:GetID()
 		tab = _G[format("ChatFrame%sTab", i)]
-		point = GetChatWindowSavedPosition(id)
 		isDocked = chat.isDocked
-		tab.flashTab = true
 
 		if chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == CH.RightChatWindowID then
 			chat:ClearAllPoints()
 			if E.db.datatexts.rightChatPanel then
-				chat:SetPoint("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
+				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
 			else
 				BASE_OFFSET = BASE_OFFSET - 24
-				chat:SetPoint("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)
+				chat:Point("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)
 			end
 			if id ~= 2 then
-				chat:SetSize((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 10, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
+				chat:Size((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 10, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
 			end
 		elseif not isDocked and chat:IsShown() then
 			if FM.inFlightMode == true then
@@ -87,19 +87,19 @@ local function PositionChat(self, override)
 		else
 			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
 				BASE_OFFSET = BASE_OFFSET - 24
-				chat:SetPoint("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 4, 4)
-				chat:SetSize(E.db.chat.panelWidth - 10, E.db.chat.panelHeight - PixelOff)
+				chat:Point("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 4, 4)
+				chat:Size(E.db.chat.panelWidth - 10, E.db.chat.panelHeight - PixelOff)
 			end
 		end
 	end
 end
 
 function mod:Initialize()
+	mod.UpdateEditboxAnchors()
 	hooksecurefunc(CH, "PositionChats", PositionChat)
 	hooksecurefunc(CH, "UpdateEditboxAnchors", mod.UpdateEditboxAnchors)
 	hooksecurefunc(CH, "StyleChat", Style)
 	hooksecurefunc(FM, "SetFlightMode", PositionChat)
-	mod.UpdateEditboxAnchors()
 end
 
 BUI:RegisterModule(mod:GetName())

@@ -1,3 +1,18 @@
+3.94 (Oct 5, 2020)
+*Let ElvUI handle the Middle Datatext
+*Fixed FlightMode and Dashboard ToggleAllBags. (thurin)
+*Fixed WorldMap toggle during flightMode
+*Added a "Restore Defaults" button in Middle Datatext options
+*Added AddonsToHide table for FlightMode. Add special support for VuhDo hiding. (thurin)
+*Keep the flightMode enabled when logging out/in
+*Fixed the customPanels not exporting
+*Added WeakAuras, HeroRotation and more WorldQuestFrames to Flightmode. (thurin)
+*Blacklisted one more spot in Argus
+*Prevent for a rare error in config styling
+*Fixed Chat Editbox positioning when BenikUI datatexts are disabled
+*Fixed elements that show during flightMode after a Pet Battle
+*Updated donators/patreons
+
 3.93 (Aug 28, 2020)
 *Fixed Datatexts borders not properly hiding
 *Fixed Minimap Panel Width

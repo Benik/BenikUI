@@ -1,0 +1,9 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<script file="styles.lua"/>
+	<script file="blizzard.lua"/>
+	<script file="blizzard_lod.lua"/>
+	<script file="alerts.lua"/>
+	<script file="addonskins.lua"/>
+	<script file="addons.lua"/>
+	<script file="elvuiPlugins.lua"/>
+</Ui>

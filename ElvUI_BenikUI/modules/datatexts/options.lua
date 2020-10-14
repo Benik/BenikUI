@@ -8,7 +8,7 @@ local DT = E:GetModule('DataTexts')
 if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
 
-local MAIL_LABEL, GARRISON_LOCATION_TOOLTIP =MAIL_LABEL, GARRISON_LOCATION_TOOLTIP
+local MAIL_LABEL = MAIL_LABEL
 
 local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {
@@ -113,84 +113,19 @@ local function Datatexts()
 				name = L['Middle'],
 				guiInline = true,
 				args = {
-					enable = {
-						order = 1,
-						type = 'toggle',
-						name = L["Enable"],
-						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
-					},
-					spacer1 = {
-						order = 2,
-						type = 'description',
-						name = '',
-					},
-					numPoints = {
-						order = 3,
-						type = 'range',
-						name = L["Number of DataTexts"],
-						min = 1, max = 20, step = 1,
-						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
-						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
 					elvuiOption = {
-						order = 4,
+						order = 1,
 						type = "execute",
 						name = L['Set Datatext Values'],
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "datatexts", "panels", "BuiMiddleDTPanel") end,
 					},
-					spacer2 = {
-						order = 6,
-						type = 'description',
-						name = '',
-					},
-					transparent = {
-						order = 7,
-						type = 'toggle',
-						name = L['Panel Transparency'],
-						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
-						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
-					},
-					backdrop = {
-						order = 8,
-						type = 'toggle',
-						name = L['Backdrop'],
-						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
-						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
-					},
-					styled = {
-						order = 9,
-						type = 'toggle',
-						name = L['BenikUI Style'],
-						disabled = function() return E.db.benikui.datatexts.middle.enable ~= true or E.db.benikui.general.benikuiStyle ~= true end,
-						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextLayout(); end,
-					},
-					spacer3 = {
-						order = 10,
-						type = 'description',
-						name = '',
-					},
-					width = {
-						order = 11,
-						type = "range",
-						name = L["Width"],
-						min = 200, max = E.screenwidth, step = 1,
-						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
-						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextDimensions(); end,
-					},
-					height = {
-						order = 12,
-						type = "range",
-						name = L["Height"],
-						min = 10, max = 32, step = 1,
-						disabled = function() return not E.db.benikui.datatexts.middle.enable end,
-						get = function(info) return E.db.benikui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.middle[ info[#info] ] = value; BL:MiddleDatatextDimensions(); end,
+					restore = {
+						order = 2,
+						type = "execute",
+						name = L['Restore Defaults'],
+						func = function() BL:CreateMiddlePanel(true) DT:UpdatePanelInfo('BuiMiddleDTPanel') end,
+						confirmText = L['Restore Defaults'].."?",
+						confirm = true,
 					},
 				},
 			},
@@ -207,28 +142,6 @@ local function Datatexts()
 						type = 'toggle',
 						name = L['Hide Mail Icon'],
 						desc = L['Show/Hide Mail Icon on minimap'],
-					},
-				},
-			},
-			garrison = {
-				order = 40,
-				type = 'group',
-				name = GARRISON_LOCATION_TOOLTIP,
-				guiInline = true,
-				get = function(info) return E.db.benikui.datatexts.garrison[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.datatexts.garrison[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-				args = {
-					currency = {
-						order = 1,
-						type = 'toggle',
-						name = L['Show Garrison Currency'],
-						desc = L['Show/Hide garrison currency on the datatext tooltip'],
-					},
-					oil = {
-						order = 2,
-						type = 'toggle',
-						name = L['Show Oil'],
-						desc = L['Show/Hide oil on the datatext tooltip'],
 					},
 				},
 			},
@@ -262,6 +175,11 @@ local function PanelLayoutOptions()
 	for panel in pairs(E.global.datatexts.customPanels) do
 		PanelGroup_Create(panel)
 	end
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'])
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.order = 1003
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.delete.hidden = true
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.height.hidden = true
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.growth.hidden = true
 end
 
 local function initDataTexts()

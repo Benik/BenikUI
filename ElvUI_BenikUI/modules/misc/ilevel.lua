@@ -1,7 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
+local mod = BUI:GetModule('iLevel')
 local LSM = E.LSM
-local mod = BUI:NewModule('iLevel', 'AceEvent-3.0');
--- Based on iLevel addon by ahak. http://www.curse.com/addons/wow/ilevel
 
 local _G = _G
 local match, gsub = string.match, gsub
@@ -112,13 +111,13 @@ function mod:UpdateItemLevelPosition()
 		local parent = _G["Character"..slotIDs[id]]
 		local myPoint, parentPoint, x, y = returnPoints(id)
 		mod.f[id]:ClearAllPoints()
-		mod.f[id]:SetPoint(myPoint, parent, parentPoint, x or 0, y or 0)
+		mod.f[id]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
 	end
 
 	CharacterNeckSlot.RankFrame:ClearAllPoints()
 	CharacterNeckSlot.RankFrame.Label:ClearAllPoints()
-	CharacterNeckSlot.RankFrame:SetPoint('TOPRIGHT', CharacterNeckSlot, 'TOPRIGHT', 0, 4)
-	CharacterNeckSlot.RankFrame.Label:SetPoint('RIGHT')
+	CharacterNeckSlot.RankFrame:Point('TOPRIGHT', CharacterNeckSlot, 'TOPRIGHT', 0, 4)
+	CharacterNeckSlot.RankFrame.Label:Point('RIGHT')
 end
 
 function mod:CreateString()
