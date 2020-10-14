@@ -7,13 +7,13 @@ local SPACING = (E.PixelMode and 1 or 3)
 local function LoadSkin()
 	-- Main Buttons
 	_G.DecursiveMainBar:StripTextures()
-	_G.DecursiveMainBar:SetTemplate("Default", true)
+	_G.DecursiveMainBar:CreateBackdrop("Transparent")
 	_G.DecursiveMainBar:Height(20)
 
 	local mainButtons = {_G.DecursiveMainBarPriority, _G.DecursiveMainBarSkip, _G.DecursiveMainBarHide}
 	for i, button in pairs(mainButtons) do
 		S:HandleButton(button)
-		button:SetTemplate("Default", true)
+		button:CreateBackdrop("Default")
 		button:ClearAllPoints()
 		if (i == 1) then
 			button:Point("LEFT", _G.DecursiveMainBar, "RIGHT", SPACING, 0)
