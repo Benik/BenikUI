@@ -1,6 +1,6 @@
 ## Interface: 90001
 ## Author: Benik
-## Version: 3.95
+## Version: 3.951
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 12+ decorative/enhancement edit
 ## RequiredDeps: ElvUI

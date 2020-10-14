@@ -1,3 +1,8 @@
+3.951 (Oct 15, 2020)
+*Prevent a rare Keybind popup frame error
+*Removed Decursive skin. Was buggy
+*Added bazooka in the donators list <3
+
 3.95 (Oct 13, 2020)
 *Release for Shadowlands prepatch and ElvUI 12.00
 *Lots of changes to comply with WoW v9 and ElvUI 12.00
