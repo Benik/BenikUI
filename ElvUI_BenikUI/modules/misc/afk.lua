@@ -94,14 +94,14 @@ local function createTime()
 	local realmTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute, ampm)
 	local realmTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute)
 
-	if E.db.datatexts.localtime then
-		if E.db.datatexts.time24 then
+	if E.global.datatexts.settings.Time.localTime then
+		if E.global.datatexts.settings.Time.time24 == true then
 			return localTime24
 		else
 			return localTime
 		end
 	else
-		if E.db.datatexts.time24 then
+		if E.global.datatexts.settings.Time.time24 == true then
 			return realmTime24
 		else
 			return realmTime
