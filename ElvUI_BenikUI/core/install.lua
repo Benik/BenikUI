@@ -360,7 +360,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 5
 		E.db["actionbar"]["bar3"]["buttonsize"] = 30
 		E.db["actionbar"]["bar3"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar3"]["backdropSpacing"] = 5
+		E.db["actionbar"]["bar3"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar4"]["backdrop"] = true
 		E.db["actionbar"]["bar4"]["buttons"] = 12
 		E.db["actionbar"]["bar4"]["buttonsize"] = 26
@@ -373,7 +373,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 5
 		E.db["actionbar"]["bar5"]["buttonsize"] = 30
 		E.db["actionbar"]["bar5"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar5"]["backdropSpacing"] = 5
+		E.db["actionbar"]["bar5"]["backdropSpacing"] = 6
 		E.db["actionbar"]["barPet"]["backdrop"] = false
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["barPet"]["buttonsize"] = 22
@@ -1835,7 +1835,7 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,206"
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,360"
 		E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-66"
-		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,348"
+		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,350"
 		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,231,215"
 		E.db["movers"]["ZoneAbility"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,552,368"
 	end
