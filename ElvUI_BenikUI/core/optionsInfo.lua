@@ -82,7 +82,9 @@ local TESTERS = {
 	'Vxt',
 	'V4NT0M',
 	'Obscurrium',
-	'ElvUI community'
+	'ElvUI community',
+	'Botanica',
+	'Luckyone',
 }
 tsort(TESTERS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local TESTERS_STRING = tconcat(TESTERS, ", ")
