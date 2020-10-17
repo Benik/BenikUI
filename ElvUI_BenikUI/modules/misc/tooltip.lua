@@ -103,6 +103,8 @@ S:AddCallback("BenikUI_StyleBlizzardTooltips", StyleBlizzardTooltips)
 
 local ttr, ttg, ttb = 0, 0, 0
 function mod:CheckTooltipStyleColor()
+	if not GameTooltip.style then return end
+
 	local r, g, b = GameTooltip.style:GetBackdropColor()
 	ttr, ttg, ttb = r, g, b
 end
