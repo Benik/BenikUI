@@ -109,6 +109,8 @@ end
 
 local r, g, b = 0, 0, 0
 function BUI:UpdateStyleColors()
+	if not E.db.benikui.general.benikuiStyle then return end
+
 	local BTT = BUI:GetModule('Tooltip')
 	for frame, _ in pairs(BUI["styles"]) do
 		if frame and not frame.ignoreColor then

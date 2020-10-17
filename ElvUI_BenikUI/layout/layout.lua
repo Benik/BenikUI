@@ -149,10 +149,10 @@ function mod:ChatStyles()
 			bbuttons[i].style:Show()
 		end
 	else
-		Bui_rdtp.style:Hide()
-		Bui_ldtp.style:Hide()
+		if Bui_rdtp.style then Bui_rdtp.style:Hide() end
+		if Bui_ldtp.style then Bui_ldtp.style:Hide() end
 		for i = 1, BUTTON_NUM do
-			bbuttons[i].style:Hide()
+			if bbuttons[i].style then bbuttons[i].style:Hide() end
 		end
 	end
 end
