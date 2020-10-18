@@ -1,3 +1,11 @@
+3.952 (Oct 18, 2020)
+*Disable Storyline skin till the addon is fixed
+*Disable Quest counting on Objective Tracker when KalielsTracker is enabled
+*Avoid errors when creating a new profile while BenikUI style is disabled
+*Adjusted the install to the new backdrop spacing
+*Fix 24h format & local time option on AFK Mode (Merathilis)
+*Donators update. Thanks JackedNerd, Jaxx and Nightwalker559 <3
+
 3.951 (Oct 15, 2020)
 *Prevent a rare Keybind popup frame error
 *Removed Decursive skin. Was buggy
