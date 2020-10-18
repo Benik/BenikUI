@@ -80,6 +80,7 @@ local function ObjectiveTrackerShadows()
 end
 
 local function ObjectiveTrackerQuests()
+	if BUI:IsAddOnEnabled('!KalielsTracker') then return end
 	local function QuestNumString()
 		local questNum, q, o
 		local block = _G.ObjectiveTrackerBlocksFrame
