@@ -62,7 +62,6 @@ local function ObjectiveTrackerShadows()
 	local function FindGroupButtonShadows(block)
 		if block.hasGroupFinderButton and block.groupFinderButton then
 			if block.groupFinderButton and not block.groupFinderButton.hasShadow then
-				--block.groupFinderButton:SetTemplate("Transparent")
 				block.groupFinderButton:CreateSoftShadow()
 				block.groupFinderButton.hasShadow = true
 			end
@@ -82,12 +81,18 @@ end
 local function ObjectiveTrackerQuests()
 	if BUI:IsAddOnEnabled('!KalielsTracker') then return end
 	local function QuestNumString()
-		local questNum, q, o
+		local questNum = 0
+		local q, o
 		local block = _G.ObjectiveTrackerBlocksFrame
 		local frame = _G.ObjectiveTrackerFrame
 
 		if not InCombatLockdown() then
-			questNum = select(2, C_QuestLog.GetNumQuestLogEntries())
+			for questLogIndex = 1, C_QuestLog.GetNumQuestLogEntries() do
+				local info = C_QuestLog.GetInfo(questLogIndex)
+				if not info.isHeader and not info.isHidden then
+					questNum = questNum + 1
+				end
+			end
 			if questNum >= (MAX_QUESTS - 5) then -- go red
 				q = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
 				o = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
