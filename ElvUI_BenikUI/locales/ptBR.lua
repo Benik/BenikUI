@@ -1,4 +1,4 @@
-﻿-- Portuguese localization file for ptBR.
+﻿-- Portuguese localization file for ptBR. Credit: Cara
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "ptBR")
 
 -- WoW Locales
