@@ -63,9 +63,10 @@ local CODING = {
 	'Merathilis',
 	'NihilisticPandemonium',
 	'Repooc',
-	'Pristie',
+	'Pristie (frFR)',
 	'|cffff005athurin|r',
 	'|TInterface/AddOns/ElvUI/Media/ChatLogos/Hibiscus:15:15:0:0:64:64:5:59:5:59|t Simpy',
+	'Cara (ptBR)',
 }
 tsort(CODING, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local CODING_STRING = tconcat(CODING, ", ")
