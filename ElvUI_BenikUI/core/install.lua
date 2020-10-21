@@ -1,4 +1,5 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local format, checkTable = format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 local _G = _G
