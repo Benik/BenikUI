@@ -14,7 +14,7 @@ local function Core()
 			name = {
 				order = 1,
 				type = 'header',
-				name = BUI.Title..BUI:cOption(BUI.Version)..L['by Benik (EU-Emerald Dream)'],
+				name = format('%sv%s%s', BUI.Title, BUI:Option(BUI.Version), L['by Benik (EU-Emerald Dream)']),
 			},
 			logo = {
 				order = 2,
