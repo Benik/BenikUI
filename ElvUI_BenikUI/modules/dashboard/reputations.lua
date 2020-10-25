@@ -130,14 +130,14 @@ function mod:UpdateReputations()
 				local color = _G.FACTION_BAR_COLORS[standingID]
 				local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
-				if db.barFactionColors then
-					self.reputationFrame.Status:SetStatusBarColor(color.r, color.g, color.b)
-				else
+				if not db.barFactionColors then
 					if E.db.dashboards.barColor == 1 then
 						self.reputationFrame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 					else
 						self.reputationFrame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
 					end
+				else
+					self.reputationFrame.Status:SetStatusBarColor(color.r, color.g, color.b)
 				end
 
 				if db.textFactionColors then
@@ -218,7 +218,7 @@ end
 function mod:UpdateReputationSettings()
 	mod:FontStyle(BUI.FactionsDB)
 	mod:FontColor(BUI.FactionsDB)
-	if not E.db.dashboards.reputations.factionColors then
+	if not E.db.dashboards.reputations.barFactionColors then
 		mod:BarColor(BUI.FactionsDB)
 	end
 end
