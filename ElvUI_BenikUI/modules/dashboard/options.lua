@@ -525,13 +525,22 @@ local function dashboardsTable()
 						get = function(info) return E.db.dashboards.system.backdrop end,
 						set = function(info, value) E.db.dashboards.system.backdrop = value; BUID:ToggleTransparency(BUI_SystemDashboard, 'system'); end,
 					},
-					spacer = {
+					mouseover = {
 						order = 7,
+						name = L['Mouse Over'],
+						desc = L['The frame is not shown unless you mouse over the frame.'],
+						type = 'toggle',
+						disabled = function() return not E.db.dashboards.system.enableSystem end,
+						get = function(info) return E.db.dashboards.system.mouseover end,
+						set = function(info, value) E.db.dashboards.system.mouseover = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					spacer = {
+						order = 10,
 						type = 'header',
 						name = '',
 					},
 					chooseSystem = {
-						order = 8,
+						order = 20,
 						type = 'group',
 						guiInline = true,
 						name = L['Select System Board'],

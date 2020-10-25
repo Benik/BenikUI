@@ -304,6 +304,7 @@ P['dashboards'] = {
 		['style'] = true,
 		['transparency'] = true,
 		['backdrop'] = true,
+		['mouseover'] = false,
 		['chooseSystem'] = {
 			['FPS'] = true,
 			['MS'] = true,
