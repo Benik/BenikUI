@@ -23,14 +23,9 @@ local function ufTable()
 	E.Options.args.benikui.args.unitframes = {
 		order = 40,
 		type = 'group',
-		name = L['UnitFrames'],
+		name = BUI:cOption(L['UnitFrames']),
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
-			name = {
-				order = 1,
-				type = 'header',
-				name = BUI:cOption(L['UnitFrames']),
-			},
 			infoPanel = {
 				order = 2,
 				type = 'group',

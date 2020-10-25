@@ -9,7 +9,7 @@ local function Core()
 		order = 6,
 		type = 'group',
 		name = BUI.Title,
-		childGroups = "tab",
+		childGroups = "tree",
 		args = {
 			name = {
 				order = 1,
@@ -38,15 +38,10 @@ local function Core()
 			general = {
 				order = 10,
 				type = 'group',
-				name = L['General'],
+				name = BUI:cOption(L['General']),
 				get = function(info) return E.db.benikui.general[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.general[ info[#info] ] = value; end,
 				args = {
-					name = {
-						order = 1,
-						type = 'header',
-						name = BUI:cOption(L['General']),
-					},
 					benikuiStyle = {
 						order = 2,
 						type = 'toggle',
@@ -106,13 +101,8 @@ local function Core()
 			colors = {
 				order = 20,
 				type = 'group',
-				name = L.COLORS,
+				name = BUI:cOption(L.COLORS),
 				args = {
-					name = {
-						order = 1,
-						type = 'header',
-						name = BUI:cOption(L.COLORS),
-					},
 					themes = {
 						order = 2,
 						type = 'group',

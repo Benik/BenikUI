@@ -14,13 +14,8 @@ local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {
 		order = 50,
 		type = 'group',
-		name = L['DataTexts'],
+		name = BUI:cOption(L['DataTexts']),
 		args = {
-			name = {
-				order = 1,
-				type = 'header',
-				name = BUI:cOption(L['DataTexts']),
-			},
 			chat = {
 				order = 10,
 				type = 'group',
