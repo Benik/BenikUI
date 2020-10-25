@@ -232,6 +232,7 @@ P['benikuiSkins'] = {
 		['bigwigs'] = true,
 		['zygor'] = true,
 		['immersion'] = true,
+		['allthethings'] = true,
 	},
 
 	['variousSkins'] = {
