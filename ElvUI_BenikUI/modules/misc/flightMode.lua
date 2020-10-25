@@ -6,7 +6,7 @@ local M = E:GetModule('WorldMap')
 
 local _G = _G
 local GetTime = GetTime
-local unpack, floor, pairs = unpack, floor, pairs
+local unpack, floor, pairs, tinsert, twipe = unpack, floor, pairs, table.insert, table.wipe
 local join = string.join
 
 local GameTooltip = _G["GameTooltip"]
@@ -174,9 +174,10 @@ local AddonsToHide = {
 	{'XIV_Databar', 'XIV_Databar'},
 	{'VuhDo', 'VuhDoBuffWatchMainFrame'},
 	{'WeakAuras', 'WeakAurasFrame'},
-	{'HeroRotation','HeroRotation_ToggleIconFrame'}
+	{'HeroRotation','HeroRotation_ToggleIconFrame'},
 }
 
+local AllTheThingsFrames = {}
 local VisibleFrames = {}
 
 function mod:SetFlightMode(status)
@@ -259,6 +260,17 @@ function mod:SetFlightMode(status)
 			if VUHDO_CONFIG["SHOW_PANELS"] then
 				VisibleFrames['VuhDoHealPanels'] = true
 				VUHDO_slashCmd('hide')
+			end
+		end
+
+		--AllTheThings
+		if IsAddOnLoaded('AllTheThings') then
+			for _, Instance in pairs({ 'Prime', 'CurrentInstance' }) do
+				local Window = AllTheThings:GetWindow(Instance)
+				if Window:IsShown() then
+					tinsert(AllTheThingsFrames, Window)
+				end
+				Window:Hide()
 			end
 		end
 
@@ -353,6 +365,14 @@ function mod:SetFlightMode(status)
 			if VisibleFrames['VuhDoHealPanels'] then
 				VUHDO_slashCmd('show')
 			end
+		end
+
+		--AllTheThings
+		if IsAddOnLoaded('AllTheThings') then
+			for _, frame in pairs(AllTheThingsFrames) do
+				frame:Show()
+			end
+			twipe(AllTheThingsFrames)
 		end
 
 		-- revert Left Chat
