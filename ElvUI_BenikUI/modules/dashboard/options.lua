@@ -826,7 +826,7 @@ local function dashboardsTable()
 						type = 'toggle',
 						disabled = function() return not E.db.dashboards.reputations.enableReputations end,
 						get = function(info) return E.db.dashboards.reputations.textFactionColors end,
-						set = function(info, value) E.db.dashboards.reputations.textFactionColors = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+						set = function(info, value) E.db.dashboards.reputations.textFactionColors = value; BUID:UpdateReputationSettings(); BUID:UpdateReputations(); end,
 					},
 					tooltip = {
 						order = 10,
