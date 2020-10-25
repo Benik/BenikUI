@@ -491,8 +491,17 @@ local function dashboardsTable()
 						get = function(info) return E.db.dashboards.system.combat end,
 						set = function(info, value) E.db.dashboards.system.combat = value; BUID:EnableDisableCombat(BUI_SystemDashboard, 'system'); end,
 					},
-					width = {
+					mouseover = {
 						order = 3,
+						name = L['Mouse Over'],
+						desc = L['The frame is not shown unless you mouse over the frame.'],
+						type = 'toggle',
+						disabled = function() return not E.db.dashboards.system.enableSystem end,
+						get = function(info) return E.db.dashboards.system.mouseover end,
+						set = function(info, value) E.db.dashboards.system.mouseover = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					width = {
+						order = 4,
 						type = 'range',
 						name = L['Width'],
 						desc = L['Change the System Dashboard width.'],
@@ -502,7 +511,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.system.width = value; BUID:UpdateHolderDimensions(BUI_SystemDashboard, 'system', BUI.SystemDB); BUID:UpdateSystemSettings(); end,
 					},
 					style = {
-						order = 4,
+						order = 5,
 						name = L['BenikUI Style'],
 						type = 'toggle',
 						disabled = function() return not E.db.dashboards.system.enableSystem end,
@@ -510,7 +519,7 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.system.style = value; BUID:ToggleStyle(BUI_SystemDashboard, 'system'); end,
 					},
 					transparency = {
-						order = 5,
+						order = 6,
 						name = L['Panel Transparency'],
 						type = 'toggle',
 						disabled = function() return not E.db.dashboards.system.enableSystem end,
@@ -518,21 +527,12 @@ local function dashboardsTable()
 						set = function(info, value) E.db.dashboards.system.transparency = value; BUID:ToggleTransparency(BUI_SystemDashboard, 'system'); end,
 					},
 					backdrop = {
-						order = 6,
+						order = 7,
 						name = L['Backdrop'],
 						type = 'toggle',
 						disabled = function() return not E.db.dashboards.system.enableSystem end,
 						get = function(info) return E.db.dashboards.system.backdrop end,
 						set = function(info, value) E.db.dashboards.system.backdrop = value; BUID:ToggleTransparency(BUI_SystemDashboard, 'system'); end,
-					},
-					mouseover = {
-						order = 7,
-						name = L['Mouse Over'],
-						desc = L['The frame is not shown unless you mouse over the frame.'],
-						type = 'toggle',
-						disabled = function() return not E.db.dashboards.system.enableSystem end,
-						get = function(info) return E.db.dashboards.system.mouseover end,
-						set = function(info, value) E.db.dashboards.system.mouseover = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					spacer = {
 						order = 10,
