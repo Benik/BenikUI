@@ -234,6 +234,14 @@ local function ImmersionDecor()
 	end)
 end
 
+local function AllTheThingsDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.allthethings then return end
+	for _, Instance in pairs({ 'Prime', 'CurrentInstance' }) do
+		local Window = AllTheThings:GetWindow(Instance)
+		Window:Style('Outside')
+	end
+end
+
 -- Replace the close button
 function AS:SkinCloseButton(Button, Reposition)
 	if Button.Backdrop then return end
@@ -285,6 +293,7 @@ if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers') and AS:Ch
 if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 2) end
+if AS:CheckAddOn('AllTheThings') then AS:RegisterSkin('AllTheThings', AllTheThingsDecor, 2) end
 LibrariesDecor()
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
