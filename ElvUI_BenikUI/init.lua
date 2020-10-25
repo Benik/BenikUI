@@ -13,7 +13,7 @@ Engine[6] = G
 _G[addon] = Engine
 
 BUI.Config = {}
-BUI.Title = format('|cff00c0fa%s |r', 'BenikUI')
+BUI.Title = format('|cffffa500%s|r|cffffffff%s|r ', 'Benik', 'UI')
 BUI["RegisteredModules"] = {}
 BUI.Eversion = tonumber(E.version)
 BUI.Erelease = tonumber(GetAddOnMetadata("ElvUI_BenikUI", "X-ElvuiVersion"))
