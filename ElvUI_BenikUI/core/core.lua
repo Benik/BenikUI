@@ -65,8 +65,13 @@ function BUI:Print(...)
 	(_G.DEFAULT_CHAT_FRAME):AddMessage(strjoin('', '|cff00c0fa', 'BenikUI:|r ', ...))
 end
 
-function BUI:cOption(name)
+function BUI:cOption(name) -- light blue
 	local color = '|cff00c0fa%s |r'
+	return (color):format(name)
+end
+
+function BUI:Option(name) -- orange
+	local color = '|cffffa500%s |r'
 	return (color):format(name)
 end
 
