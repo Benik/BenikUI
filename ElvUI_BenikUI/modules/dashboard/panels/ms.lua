@@ -17,6 +17,8 @@ local statusColors = {
 
 function mod:CreateMs()
 	local boardName = _G['BUI_MS']
+	local db = E.db.dashboards.system
+	local holder = _G.BUI_SystemDashboard
 
 	boardName:SetScript('OnEnter', function(self)
 		if not InCombatLockdown() then
@@ -33,10 +35,17 @@ function mod:CreateMs()
 			end
 			GameTooltip:AddDoubleLine(text, value, 0.7, 0.7, 1, 0.84, 0.75, 0.65)
 			GameTooltip:Show()
+
+			if db.mouseover then
+				E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+			end
 		end
 	end)
 
 	boardName:SetScript('OnLeave', function(self)
+		if db.mouseover then
+			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+		end
 		GameTooltip:Hide()
 	end)
 

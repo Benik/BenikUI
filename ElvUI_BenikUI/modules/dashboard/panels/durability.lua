@@ -16,23 +16,6 @@ local totalDurability = 0
 local current, max
 local invDurability = {}
 
-local function OnEnter(self)
-	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
-	GameTooltip:ClearAllPoints()
-
-	GameTooltip:ClearLines()
-
-	for slot, durability in pairs(invDurability) do
-		GameTooltip:AddDoubleLine(slot, format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0))
-	end
-
-	GameTooltip:Show()
-end
-
-local function OnLeave(self)
-	GameTooltip:Hide()
-end
-
 local function Click()
 	ToggleCharacter('PaperDollFrame')
 end
@@ -58,6 +41,8 @@ local statusColors = {
 
 function mod:CreateDurability()
 	local boardName = _G['BUI_Durability']
+	local db = E.db.dashboards.system
+	local holder = _G.BUI_SystemDashboard
 
 	boardName.Status:SetScript('OnEvent', function(self)
 
@@ -93,8 +78,28 @@ function mod:CreateDurability()
 	end)
 
 	boardName:EnableMouse(true)
-	boardName:SetScript('OnEnter', OnEnter)
-	boardName:SetScript('OnLeave', OnLeave)
+	boardName:SetScript('OnEnter', function(self)
+		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
+		GameTooltip:ClearAllPoints()
+
+		GameTooltip:ClearLines()
+
+		for slot, durability in pairs(invDurability) do
+			GameTooltip:AddDoubleLine(slot, format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0))
+		end
+
+		GameTooltip:Show()
+
+		if db.mouseover then
+			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		end
+	end)
+	boardName:SetScript('OnLeave', function(self)
+		if db.mouseover then
+			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+		end
+		GameTooltip:Hide()
+	end)
 	boardName:SetScript('OnMouseUp', Click)
 
 	boardName.Status:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
