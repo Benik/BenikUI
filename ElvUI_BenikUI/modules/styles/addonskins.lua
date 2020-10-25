@@ -222,7 +222,7 @@ local function ImmersionDecor()
 		frame.TalkBox.Elements.Backdrop.Shadow:Hide()
 	end
 	
-	frame:HookScript('OnEvent', function(self)
+	frame:HookScript('OnUpdate', function(self)
 		for _, Button in ipairs(self.TitleButtons.Buttons) do
 			if Button.Backdrop and not Button.Backdrop.isStyled then
 				Button.Backdrop:Style('Inside')
