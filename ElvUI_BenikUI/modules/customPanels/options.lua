@@ -329,7 +329,7 @@ end
 local function panelsTable()
 	E.Options.args.benikui.args.panels = {
 		type = "group",
-		name = L["Custom Panels"],
+		name = BUI:cOption(L["Custom Panels"]),
 		order = 70,
 		childGroups = "select",
 		args = {

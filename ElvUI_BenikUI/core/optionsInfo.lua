@@ -135,13 +135,8 @@ local function Info()
 	E.Options.args.benikui.args.info = {
 		order = 2000,
 		type = 'group',
-		name = L['Information'],
+		name = BUI:cOption(L['Information']),
 		args = {
-			name = {
-				order = 1,
-				type = 'header',
-				name = BUI:cOption(L['Information']),
-			},
 			support = {
 				order = 2,
 				type = 'group',

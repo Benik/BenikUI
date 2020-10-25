@@ -32,14 +32,9 @@ local function databarsTable()
 	E.Options.args.benikui.args.benikuiDatabars = {
 		order = 80,
 		type = 'group',
-		name = L['DataBars'],
+		name = BUI:cOption(L['DataBars']),
 		childGroups = 'tab',
 		args = {
-			name = {
-				order = 1,
-				type = 'header',
-				name = BUI:cOption(L['DataBars']),
-			},
 		},
 	}
 	for i, v in ipairs(databarsTbl) do
