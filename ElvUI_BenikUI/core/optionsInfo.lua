@@ -137,12 +137,12 @@ local function Info()
 	E.Options.args.benikui.args.info = {
 		order = 2000,
 		type = 'group',
-		name = BUI:cOption(L['Information']),
+		name = BUI:cOption(L['Information'], "blue"),
 		args = {
 			support = {
 				order = 2,
 				type = 'group',
-				name = BUI:cOption(L['Support']),
+				name = BUI:cOption(L['Support'], "blue"),
 				guiInline = true,
 				args = {
 					tukui = {
@@ -168,7 +168,7 @@ local function Info()
 			download = {
 				order = 3,
 				type = 'group',
-				name = BUI:cOption(L['Download']),
+				name = BUI:cOption(L['Download'], "blue"),
 				guiInline = true,
 				args = {
 					tukui = {
@@ -194,7 +194,7 @@ local function Info()
 			coding = {
 				order = 4,
 				type = 'group',
-				name = BUI:cOption(L['Coding']),
+				name = BUI:cOption(L['Coding'], "blue"),
 				guiInline = true,
 				args = {
 					str = {
@@ -208,7 +208,7 @@ local function Info()
 			testing = {
 				order = 5,
 				type = 'group',
-				name = BUI:cOption(L['Testing & Inspiration']),
+				name = BUI:cOption(L['Testing & Inspiration'], "blue"),
 				guiInline = true,
 				args = {
 					test = {
@@ -222,7 +222,7 @@ local function Info()
 			donors = {
 				order = 6,
 				type = 'group',
-				name = BUI:cOption(L['Donations']),
+				name = BUI:cOption(L['Donations'], "blue"),
 				guiInline = true,
 				args = {
 					patreon = {
@@ -248,7 +248,7 @@ local function Info()
 			addons = {
 				order = 7,
 				type = 'group',
-				name = BUI:cOption(L['My other Addons']),
+				name = BUI:cOption(L['My other Addons'], "blue"),
 				guiInline = true,
 				args = {
 					locplus = {

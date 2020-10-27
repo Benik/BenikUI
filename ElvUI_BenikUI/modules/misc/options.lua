@@ -7,7 +7,7 @@ local function miscTable()
 	E.Options.args.benikui.args.misc = {
 		order = 90,
 		type = 'group',
-		name = BUI:cOption(L["Miscellaneous"]),
+		name = BUI:cOption(L["Miscellaneous"], "blue"),
 		args = {
 			ilevel = {
 				order = 2,
@@ -142,7 +142,7 @@ local function miscTable()
 	E.Options.args.general.args.alternativePowerGroup.args.benikuiStyle = {
 		order = 100,
 		type = "toggle",
-		name = BUI:cOption(L['BenikUI Style']),
+		name = BUI:cOption(L['BenikUI Style'], "blue"),
 		disabled = function() return not E.db.benikui.general.benikuiStyle end,
 		get = function(info) return E.db.benikui.misc.alternativePower end,
 		set = function(info, value) E.db.benikui.misc.alternativePower = value; E:StaticPopup_Show('PRIVATE_RL') end,

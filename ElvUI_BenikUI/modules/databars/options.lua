@@ -32,7 +32,7 @@ local function databarsTable()
 	E.Options.args.benikui.args.benikuiDatabars = {
 		order = 80,
 		type = 'group',
-		name = BUI:cOption(L['DataBars']),
+		name = BUI:cOption(L['DataBars'], "blue"),
 		childGroups = 'tab',
 		args = {
 		},
@@ -116,7 +116,7 @@ local function injectElvUIDatabarOptions()
 		order = 100,
 		type = "range",
 		min = -30, max = 30, step = 1,
-		name = BUI:cOption(L['Text yOffset']),
+		name = BUI:cOption(L['Text yOffset'], "blue"),
 		get = function(info) return E.db.databars.experience[ info[#info] ] end,
 		set = function(info, value) E.db.databars.experience[ info[#info] ] = value; mod:XpTextOffset() end,
 	}
@@ -133,7 +133,7 @@ local function injectElvUIDatabarOptions()
 		order = 100,
 		type = "range",
 		min = -30, max = 30, step = 1,
-		name = BUI:cOption(L['Text yOffset']),
+		name = BUI:cOption(L['Text yOffset'], "blue"),
 		get = function(info) return E.db.databars.azerite[ info[#info] ] end,
 		set = function(info, value) E.db.databars.azerite[ info[#info] ] = value; mod:AzeriteTextOffset() end,
 	}
@@ -150,7 +150,7 @@ local function injectElvUIDatabarOptions()
 		order = 100,
 		type = "range",
 		min = -30, max = 30, step = 1,
-		name = BUI:cOption(L['Text yOffset']),
+		name = BUI:cOption(L['Text yOffset'], "blue"),
 		get = function(info) return E.db.databars.reputation[ info[#info] ] end,
 		set = function(info, value) E.db.databars.reputation[ info[#info] ] = value; mod:RepTextOffset() end,
 	}
@@ -167,7 +167,7 @@ local function injectElvUIDatabarOptions()
 		order = 100,
 		type = "range",
 		min = -30, max = 30, step = 1,
-		name = BUI:cOption(L['Text yOffset']),
+		name = BUI:cOption(L['Text yOffset'], "blue"),
 		get = function(info) return E.db.databars.honor[ info[#info] ] end,
 		set = function(info, value) E.db.databars.honor[ info[#info] ] = value; mod:HonorTextOffset() end,
 	}
@@ -184,7 +184,7 @@ local function injectElvUIDatabarOptions()
 		order = 100,
 		type = "range",
 		min = -30, max = 30, step = 1,
-		name = BUI:cOption(L['Text yOffset']),
+		name = BUI:cOption(L['Text yOffset'], "blue"),
 		get = function(info) return E.db.databars.threat[ info[#info] ] end,
 		set = function(info, value) E.db.databars.threat[ info[#info] ] = value; mod:ThreatTextOffset() end,
 	}
