@@ -417,7 +417,7 @@ local function InjectMinimapOption()
 	E.Options.args.maps.args.minimap.args.generalGroup.args.benikuiStyle = {
 		order = 3,
 		type = "toggle",
-		name = BUI:cOption(L['BenikUI Style']),
+		name = BUI:cOption(L['BenikUI Style'], "blue"),
 		disabled = function() return not E.private.general.minimap.enable or not E.db.benikui.general.benikuiStyle end,
 		get = function(info) return E.db.general.minimap.benikuiStyle end,
 		set = function(info, value) E.db.general.minimap.benikuiStyle = value; mod:ToggleMinimapStyle(); end,
@@ -484,13 +484,13 @@ function mod:PLAYER_ENTERING_WORLD(...)
 end
 
 local function InjectDatatextOptions()
-	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.name = BUI.Title..BUI:cOption(L['Left Chat Panel'])
+	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.name = BUI.Title..BUI:cOption(L['Left Chat Panel'], "blue")
 	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.order = 1001
 
-	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.name = BUI.Title..BUI:cOption(L['Right Chat Panel'])
+	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.name = BUI.Title..BUI:cOption(L['Right Chat Panel'], "blue")
 	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.order = 1002
 
-	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'])
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'], "blue")
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.order = 1003
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.delete.hidden = true
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.height.hidden = true

@@ -9,7 +9,7 @@ L["HOME"] = "Accueil";
 L["WORLD"] = "Monde";
 
 -- core
-L[' is loaded. For any issues or suggestions, please visit '] = "est chargé. Pour toute question ou suggestion, veuillez consulter le site"
+L['is loaded. For any issues or suggestions, please visit'] = "est chargé. Pour toute question ou suggestion, veuillez consulter le site "
 L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = "%s\n\nVotre version ElvUI %.2f n'est pas compatible avec BenikUI.\nLa dernière version ElvUI est %.2f. Veuillez la télécharger ici :"
 L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"] = "|cffff0000BenikUI Erreur|r\n\n Il semble que la version BenikUI Retail soit installée sur WoW Classic. Veuillez installer la version BenikUI Classic. \n|cff00c0fa Astuce: Cela se produit généralement avec le client Twitch"
 
