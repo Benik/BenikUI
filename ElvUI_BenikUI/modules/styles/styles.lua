@@ -57,7 +57,7 @@ end
 function mod:Initialize()
 	mod:InitializeObjectiveTracker()
 	mod:StyleAltPowerBar()
-
+	mod:StyleAddons()
 	StyleElvUIBindPopup()
 
 	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)

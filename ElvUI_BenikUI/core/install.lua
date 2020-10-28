@@ -1921,6 +1921,11 @@ local function SetupAddons()
 		tinsert(addonNames, 'Skada')
 	end
 
+	-- Kaliels Tracker
+	if BUI:IsAddOnEnabled('!KalielsTracker') then
+		BUI:LoadKalielsProfile()
+		tinsert(addonNames, 'Kaliels Tracker')
+	end
 	-- Project Azilroka
 	if BUI.PA then
 		BUI:LoadPAProfile()

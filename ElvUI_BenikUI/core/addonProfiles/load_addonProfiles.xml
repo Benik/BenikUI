@@ -10,4 +10,5 @@
 	<script file="ProjectAzilroka.lua"/>
 	<script file="BigWigs.lua"/>
 	<script file="InFlight.lua"/>
+	<script file="KalielsTracker.lua"/>
 </Ui>

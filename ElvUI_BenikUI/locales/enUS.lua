@@ -278,3 +278,4 @@ L['BigWigs'] = true
 L['Zygor Guides'] = true
 L['Immersion'] = true
 L['Project Azilroka'] = true
+L['Kaliels Tracker'] = true

@@ -27,6 +27,7 @@ local DecorAddons = {
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
 	{'Immersion', L['Immersion'], 'immersion'},
 	{'AllTheThings', L['All The Things'], 'allthethings'},
+	{'!KalielsTracker', L['Kaliels Tracker'], 'kt'},
 }
 
 local SupportedProfiles = {
@@ -41,6 +42,7 @@ local SupportedProfiles = {
 	{'Recount', 'Recount'},
 	{'Skada', 'Skada'},
 	{'ProjectAzilroka', 'Project Azilroka'},
+	{'!KalielsTracker', 'Kaliels Tracker'},
 }
 
 BUI.profileStrings = {
@@ -198,6 +200,8 @@ local function SkinTable()
 					BUI:LoadAddOnSkinsProfile()
 				elseif addon == 'ProjectAzilroka' then
 					BUI:LoadPAProfile()
+				elseif addon == '!KalielsTracker' then
+					BUI:LoadKalielsProfile()
 				end
 				E:StaticPopup_Show('PRIVATE_RL')
 			end,
