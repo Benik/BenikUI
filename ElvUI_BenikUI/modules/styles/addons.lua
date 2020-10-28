@@ -43,10 +43,7 @@ end
 
 local function KalielsTracker()
 	if BUI:IsAddOnEnabled('!KalielsTracker') and E.db.benikui.general.benikuiStyle and E.db.benikuiSkins.addonSkins.kt then
-		local addonName = GetAddOnInfo('!KalielsTracker')
-		local addonFrame = addonName.."Frame"
-		local addonFrameName = _G[addonFrame]
-		addonFrameName:Style('Outside')
+		_G['!KalielsTrackerFrame']:Style('Outside')
 	end
 end
 
