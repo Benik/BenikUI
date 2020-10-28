@@ -175,6 +175,7 @@ local AddonsToHide = {
 	{'VuhDo', 'VuhDoBuffWatchMainFrame'},
 	{'WeakAuras', 'WeakAurasFrame'},
 	{'HeroRotation','HeroRotation_ToggleIconFrame'},
+	{'!KalielsTracker','!KalielsTrackerFrame'},
 }
 
 local AllTheThingsFrames = {}
