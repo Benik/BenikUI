@@ -41,6 +41,15 @@ local function LoadInFlight()
 	end)
 end
 
+local function KalielsTracker()
+	if BUI:IsAddOnEnabled('!KalielsTracker') and E.db.benikui.general.benikuiStyle and E.db.benikuiSkins.addonSkins.kt then
+		local addonName = GetAddOnInfo('!KalielsTracker')
+		local addonFrame = addonName.."Frame"
+		local addonFrameName = _G[addonFrame]
+		addonFrameName:Style('Outside')
+	end
+end
+
 function mod:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
@@ -49,4 +58,8 @@ function mod:LoD_AddOns(_, addon)
 	if addon == "InFlight" then
 		LoadInFlight()
 	end
+end
+
+function mod:StyleAddons()
+	KalielsTracker()
 end
