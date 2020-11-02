@@ -164,11 +164,22 @@ function mod:PositionEditBoxHolder(bar)
 end
 
 local function updateButtonFont()
+	local db = E.db.datatexts
 	for i = 1, BUTTON_NUM do
 		if bbuttons[i].text then
-			bbuttons[i].text:SetFont(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+			bbuttons[i].text:SetFont(LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
 			bbuttons[i].text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
 		end
+	end
+
+	local dts = {BuiLeftChatDTPanel, BuiRightChatDTPanel}
+	for panelName, panel in pairs(dts) do
+		for i = 1, panel.numPoints do
+			if panel.dataPanels[i] then
+				panel.dataPanels[i].text:FontTemplate(LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
+			end
+		end
+		DT:UpdatePanelInfo(panelName, panel)
 	end
 end
 
