@@ -1,7 +1,8 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
-local DB = E:GetModule('DataBars')
+local DB = E:GetModule('DataBars');
+local LSM = E.LSM;
 
 local _G = _G
 local getn = getn
@@ -130,6 +131,12 @@ function mod:UpdateReputations()
 				local color = _G.FACTION_BAR_COLORS[standingID]
 				local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
+				if E.db.dashboards.dashfont.useDTfont then
+					self.reputationFrame.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+				else
+					self.reputationFrame.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
+				end
+
 				if not db.barFactionColors then
 					if E.db.dashboards.barColor == 1 then
 						self.reputationFrame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
@@ -154,7 +161,7 @@ function mod:UpdateReputations()
 
 				self.reputationFrame:SetScript('OnEnter', function(self)
 					if isCapped then
-						self.Text:SetFormattedText('%s: %s(%s)|r', name, hexColor, isFriend and friendText or standingLabel)
+						self.Text:SetFormattedText('%s(%s)|r', hexColor, isFriend and friendText or standingLabel)
 					else
 						self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
 					end
