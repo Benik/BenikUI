@@ -1,3 +1,10 @@
+3.961 (Nov 4, 2020)
+*Let ElvUI deal with the font size
+*Don't open the game menu while in combat, to prevent errors (Bliz limitation)
+*Kaliels Tracker style can now be disabled regardless if AddonSkins is loaded
+*Style TinyInspect via AddonSkins
+*Style ArkInventory via AddonSkins
+
 3.96 (Nov 2, 2020)
 *Fixed a Calendar error when AddonSkins is loaded. This will close ticket #120
 *Fixed Missions datatext mouseover
