@@ -233,6 +233,7 @@ P['benikuiSkins'] = {
 		['zygor'] = true,
 		['immersion'] = true,
 		['allthethings'] = true,
+		['tinyinspect'] = true,
 	},
 
 	['variousSkins'] = {

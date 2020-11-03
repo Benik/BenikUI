@@ -13,7 +13,7 @@ local DecorElvUIAddons = {
 	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
 }
 
-local DecorAddons = {
+local DecorAddonSkins = {
 	{'Skada', L['Skada'], 'skada'},
 	{'Recount', L['Recount'], 'recount'},
 	{'TinyDPS', L['TinyDPS'], 'tinydps'},
@@ -27,6 +27,7 @@ local DecorAddons = {
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
 	{'Immersion', L['Immersion'], 'immersion'},
 	{'AllTheThings', L['All The Things'], 'allthethings'},
+	{'TinyInspect', L['TinyInspect'], 'tinyinspect'},
 }
 
 local SupportedProfiles = {
@@ -109,7 +110,7 @@ local function SkinTable()
 		}
 
 	local addorder = 0
-	for i, v in ipairs(DecorAddons) do
+	for i, v in ipairs(DecorAddonSkins) do
 		local addonName, addonString, addonOption = unpack( v )
 		E.Options.args.benikui.args.skins.args.addonskins.args[addonOption] = {
 			order = addorder + 1,

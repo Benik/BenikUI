@@ -242,6 +242,21 @@ local function AllTheThingsDecor()
 	end
 end
 
+local function TinyInspectDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.tinyinspect then return end
+	TinyInspectRaidFrame:Style('Outside') -- not tested
+	TinyInspectRaidFrame.panel:Style('Outside') -- not tested
+
+	PaperDollFrame:HookScript("OnShow", function(self)
+		if self.inspectFrame then
+			if not self.inspectFrame.style then
+				self.inspectFrame:Style('Outside')
+			end
+			self.inspectFrame:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		end
+	end)
+end
+
 -- Replace the close button
 function AS:SkinCloseButton(Button, Reposition)
 	if Button.Backdrop then return end
@@ -294,6 +309,7 @@ if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 2) end
 if AS:CheckAddOn('AllTheThings') then AS:RegisterSkin('AllTheThings', AllTheThingsDecor, 2) end
+if AS:CheckAddOn('TinyInspect') then AS:RegisterSkin('TinyInspect', TinyInspectDecor, 2) end
 LibrariesDecor()
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
