@@ -28,6 +28,7 @@ local DecorAddonSkins = {
 	{'Immersion', L['Immersion'], 'immersion'},
 	{'AllTheThings', L['All The Things'], 'allthethings'},
 	{'TinyInspect', L['TinyInspect'], 'tinyinspect'},
+	{'ArkInventory', L['Ark Inventory'], 'arkinventory'},
 }
 
 local SupportedProfiles = {
