@@ -27,7 +27,6 @@ local DecorAddons = {
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
 	{'Immersion', L['Immersion'], 'immersion'},
 	{'AllTheThings', L['All The Things'], 'allthethings'},
-	{'!KalielsTracker', L['Kaliels Tracker'], 'kt'},
 }
 
 local SupportedProfiles = {
@@ -152,6 +151,12 @@ local function SkinTable()
 					end
 					E:StaticPopup_Show('PRIVATE_RL') end,
 				disabled = function() return not IsAddOnLoaded('InFlight_Load') end,
+			},
+			kt = {
+				order = 4,
+				type = 'toggle',
+				name = L['Kaliels Tracker'],
+				disabled = function() return not IsAddOnLoaded('!KalielsTracker') end,
 			},
 		},
 	}
