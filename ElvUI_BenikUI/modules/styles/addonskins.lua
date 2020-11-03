@@ -257,6 +257,16 @@ local function TinyInspectDecor()
 	end)
 end
 
+local function ArkInventoryDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.arkinventory then return end
+	hooksecurefunc(ArkInventory, 'Frame_Main_Paint', function(frame)
+		if not ArkInventory.ValidFrame(frame, true) then return end
+		if not frame.style then
+			frame:Style('Outside')
+		end
+	end)
+end
+
 -- Replace the close button
 function AS:SkinCloseButton(Button, Reposition)
 	if Button.Backdrop then return end
@@ -310,6 +320,7 @@ if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 
 if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 2) end
 if AS:CheckAddOn('AllTheThings') then AS:RegisterSkin('AllTheThings', AllTheThingsDecor, 2) end
 if AS:CheckAddOn('TinyInspect') then AS:RegisterSkin('TinyInspect', TinyInspectDecor, 2) end
+if AS:CheckAddOn('ArkInventory') then AS:RegisterSkin('ArkInventory', ArkInventoryDecor, 2) end
 LibrariesDecor()
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
