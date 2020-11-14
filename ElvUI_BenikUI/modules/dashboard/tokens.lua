@@ -162,7 +162,11 @@ end
 
 function mod:GetTokenInfo(id)
 	local info = C_CurrencyInfo_GetCurrencyInfo(id)
-	return info.name, info.quantity, info.iconFileID, info.maxWeeklyQuantity, info.maxQuantity, info.discovered
+	if info then
+		return info.name, info.quantity, info.iconFileID, info.maxWeeklyQuantity, info.maxQuantity, info.discovered
+	else
+		return
+	end
 end
 
 function mod:UpdateTokens()
