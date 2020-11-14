@@ -273,6 +273,8 @@ function mod:UpdateTokens()
 					self.tokenFrame.name = name
 
 					tinsert(BUI.TokensDB, self.tokenFrame)
+				else
+					holder:Hide()
 				end
 			end
 		end
