@@ -1,4 +1,5 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local format, checkTable = format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 local _G = _G
@@ -230,7 +231,7 @@ local function SetupLayout(layout)
 
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Expressway"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 417
 
 
 		E.db["benikui"]["general"]["shadows"] = true
@@ -345,7 +346,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar1"]["buttons"] = 12
 		E.db["actionbar"]["bar1"]["buttonsize"] = 30
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar1"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 12
 		E.db["actionbar"]["bar2"]["enabled"] = true
 		E.db["actionbar"]["bar2"]["backdrop"] = true
@@ -353,27 +354,27 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar2"]["heightMult"] = 2
 		E.db["actionbar"]["bar2"]["buttonsize"] = 30
-		E.db["actionbar"]["bar2"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar2"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 		E.db["actionbar"]["bar3"]["backdrop"] = true
 		E.db["actionbar"]["bar3"]["buttons"] = 10
 		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 5
 		E.db["actionbar"]["bar3"]["buttonsize"] = 30
 		E.db["actionbar"]["bar3"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar3"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar3"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar4"]["backdrop"] = true
 		E.db["actionbar"]["bar4"]["buttons"] = 12
 		E.db["actionbar"]["bar4"]["buttonsize"] = 26
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
-		E.db["actionbar"]["bar4"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar4"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar5"]["enabled"] = true
 		E.db["actionbar"]["bar5"]["backdrop"] = true
 		E.db["actionbar"]["bar5"]["buttons"] = 10
 		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 5
 		E.db["actionbar"]["bar5"]["buttonsize"] = 30
 		E.db["actionbar"]["bar5"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar5"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar5"]["backdropSpacing"] = 6
 		E.db["actionbar"]["barPet"]["backdrop"] = false
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["barPet"]["buttonsize"] = 22
@@ -387,10 +388,10 @@ local function SetupActionbars(layout)
 		E.db["databars"]["experience"]["width"] = 414
 
 		-- movers
-		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,97"
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,98"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,58"
-		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,296,58"
-		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-296,58"
+		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,298,58"
+		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-298,58"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,137"
 		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,832,52"
 		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
@@ -411,7 +412,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar1"]["buttons"] = 12
 		E.db["actionbar"]["bar1"]["buttonsize"] = 30
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar1"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 12
 		E.db["actionbar"]["bar2"]["buttons"] = 12
 		E.db["actionbar"]["bar2"]["backdrop"] = true
@@ -419,7 +420,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar2"]["enabled"] = true
 		E.db["actionbar"]["bar2"]["heightMult"] = 2
-		E.db["actionbar"]["bar2"]["backdropSpacing"] = 3
+		E.db["actionbar"]["bar2"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 		E.db["actionbar"]["bar3"]["backdrop"] = false
 		E.db["actionbar"]["bar3"]["buttons"] = 5
@@ -433,7 +434,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
 		E.db["actionbar"]["bar5"]["enabled"] = true
-		E.db["actionbar"]["bar5"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar5"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar5"]["backdrop"] = false
 		E.db["actionbar"]["bar5"]["buttons"] = 5
 		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 5
@@ -451,8 +452,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 412
-		E.db["databars"]["experience"]["width"] = 414
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 417
+		E.db["databars"]["experience"]["width"] = 417
 
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
@@ -463,22 +464,21 @@ local function SetupActionbars(layout)
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-128"
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,60"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,22"
-		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,257,2"
-		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-256,2"
+		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,259,2"
+		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-259,2"
 		E.db["movers"]["PetAB"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-150,177"
 		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,832,128"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,97"
+		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,100"
 		E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-128"
 
 	elseif layout == 'v3' then
-		E.db["actionbar"]["backdropSpacingConverted"] = true
-		E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar1"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar1"]["buttons"] = 10
 		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar1"]["buttonsize"] = 32
 		E.db["actionbar"]["bar2"]["backdrop"] = true
-		E.db["actionbar"]["bar2"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar2"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar2"]["buttons"] = 10
 		E.db["actionbar"]["bar2"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
@@ -486,23 +486,23 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar2"]["heightMult"] = 2
 		E.db["actionbar"]["bar2"]["buttonsize"] = 32
 		E.db["actionbar"]["bar3"]["backdrop"] = true
-		E.db["actionbar"]["bar3"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar3"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar3"]["buttons"] = 12
 		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 12
 		E.db["actionbar"]["bar3"]["buttonsize"] = 30
 		E.db["actionbar"]["bar3"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar4"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar4"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar4"]["buttonsize"] = 26
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
-		E.db["actionbar"]["bar5"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar5"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar5"]["buttons"] = 7
 		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 7
 		E.db["actionbar"]["bar5"]["buttonsize"] = 30
 		E.db["actionbar"]["bar5"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar5"]["enabled"] = false
 		E.db["actionbar"]["bar6"]["buttonsize"] = 18
-		E.db["actionbar"]["barPet"]["backdropSpacing"] = 4
+		E.db["actionbar"]["barPet"]["backdropSpacing"] = 6
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["barPet"]["buttonsize"] = 23
 		E.db["actionbar"]["barPet"]["buttonspacing"] = 4
@@ -510,8 +510,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
-		E.db["databars"]["experience"]["width"] = 414
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 417
+		E.db["databars"]["experience"]["width"] = 417
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
@@ -654,7 +654,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["player"]["power"]["width"] = 'fill'
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 369
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
@@ -1561,7 +1561,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 366
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 369
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 7
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
@@ -1836,7 +1836,7 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,206"
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,360"
 		E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-66"
-		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,348"
+		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,350"
 		E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,231,215"
 		E.db["movers"]["ZoneAbility"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,552,368"
 	end
@@ -1921,6 +1921,11 @@ local function SetupAddons()
 		tinsert(addonNames, 'Skada')
 	end
 
+	-- Kaliels Tracker
+	if BUI:IsAddOnEnabled('!KalielsTracker') then
+		BUI:LoadKalielsProfile()
+		tinsert(addonNames, 'Kaliels Tracker')
+	end
 	-- Project Azilroka
 	if BUI.PA then
 		BUI:LoadPAProfile()
@@ -1954,7 +1959,7 @@ local function SetupDataTexts(role)
 	-- Data Texts
 	if BUI.LP then
 		E.db["datatexts"]["panels"]["LocPlusRightDT"][1] = 'Time'
-		E.db["datatexts"]["panels"]["LocPlusLeftDT"][1] = 'Movement Speed'
+		E.db["datatexts"]["panels"]["LocPlusLeftDT"][1] = 'MovementSpeed'
 		E.DataTexts:UpdatePanelInfo('LocPlusRightDT')
 		E.DataTexts:UpdatePanelInfo('LocPlusLeftDT')
 	end
@@ -2013,7 +2018,7 @@ BUI.installTable = {
 			PluginInstallTitleFrame.text:SetFont(E["media"].normFont, 16, "OUTLINE")
 			PluginInstallFrame.SubTitle:SetFormattedText(L["Welcome to BenikUI version %s, for ElvUI %s."], BUI.Version, E.version)
 			PluginInstallFrame.Desc1:SetText(L["By pressing the Continue button, BenikUI will be applied on your current ElvUI installation.\n\n|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
-			PluginInstallFrame.Desc2:SetText(BUI:cOption(L["BenikUI options are marked with light blue color, inside ElvUI options."]))
+			PluginInstallFrame.Desc2:SetText(BUI:cOption(L["BenikUI options are marked with light blue color, inside ElvUI options."], "blue"))
 			PluginInstallFrame.Desc3:SetText(L["Please press the continue button to go onto the next step."])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() InstallComplete() end)

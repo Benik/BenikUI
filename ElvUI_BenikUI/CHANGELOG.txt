@@ -1,3 +1,45 @@
+3.961 (Nov 4, 2020)
+*Let ElvUI deal with the font size
+*Don't open the game menu while in combat, to prevent errors (Bliz limitation)
+*Kaliels Tracker style can now be disabled regardless if AddonSkins is loaded
+*Style TinyInspect via AddonSkins
+*Style ArkInventory via AddonSkins
+
+3.96 (Nov 2, 2020)
+*Fixed a Calendar error when AddonSkins is loaded. This will close ticket #120
+*Fixed Missions datatext mouseover
+*Add ptBR translation. Credit: Cara
+*Fixed Objective Tracker quest counting
+*Fixed locales not showing during install
+*Fixed Immersion Style
+*Added Style for AllTheThings
+*Toggle AllTheThings frames while on flightMode. Update ticket #109
+*Changed the options from tabs to tree
+*Added an Orange option color
+*Added Mouse over option on the System Dashboard
+*Fixed Reputations bar color
+*Updated donators and patreons list
+*Added profile and style on KalielsTracker. The profile must be loaded manually
+*Bring my font settings back
+*Followed the Movement Speed dt rename
+*Fixed Friend standing label in the Reputations Dashboard
+*Hide KalielsTracker frame during flightMode
+*Fixed Chat Datatext font not following ElvUI Datatext font attributes
+*Fixed Reputations Dashboard font update
+
+3.952 (Oct 18, 2020)
+*Disable Storyline skin till the addon is fixed
+*Disable Quest counting on Objective Tracker when KalielsTracker is enabled
+*Avoid errors when creating a new profile while BenikUI style is disabled
+*Adjusted the install to the new backdrop spacing
+*Fix 24h format & local time option on AFK Mode (Merathilis)
+*Donators update. Thanks JackedNerd, Jaxx and Nightwalker559 <3
+
+3.951 (Oct 15, 2020)
+*Prevent a rare Keybind popup frame error
+*Removed Decursive skin. Was buggy
+*Added bazooka in the donators list <3
+
 3.95 (Oct 13, 2020)
 *Release for Shadowlands prepatch and ElvUI 12.00
 *Lots of changes to comply with WoW v9 and ElvUI 12.00

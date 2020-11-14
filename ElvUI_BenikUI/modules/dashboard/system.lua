@@ -26,6 +26,20 @@ function mod:UpdateSystem()
 		holder:Hide()
 	end
 
+	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
+
+	holder:SetScript('OnEnter', function(self)
+		if db.mouseover then
+			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		end
+	end)
+
+	holder:SetScript('OnLeave', function(self)
+		if db.mouseover then
+			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+		end
+	end)
+
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
 			holder:Show()
@@ -61,6 +75,18 @@ function mod:UpdateSystem()
 			sysFrame.Text = sysFrame.Status:CreateFontString(nil, 'OVERLAY')
 			sysFrame.Text:Point('LEFT', sysFrame, 'LEFT', 6, (E.PixelMode and 2 or 3))
 			sysFrame.Text:SetJustifyH('LEFT')
+
+			sysFrame:SetScript('OnEnter', function(self)
+				if db.mouseover then
+					E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+				end
+			end)
+
+			sysFrame:SetScript('OnLeave', function(self)
+				if db.mouseover then
+					E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+				end
+			end)
 
 			tinsert(BUI.SystemDB, sysFrame)
 		end

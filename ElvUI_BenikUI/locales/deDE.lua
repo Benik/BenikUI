@@ -9,7 +9,7 @@ L["HOME"] = "Heim"; -- Changed the Blizzard default, it would make no sense othe
 L["WORLD"] = "Welt";
 
 --core
-L[' is loaded. For any issues or suggestions, please visit '] = " ist geladen. Für Fehler oder Vorschläge besucht bitte: "
+L['is loaded. For any issues or suggestions, please visit'] = "ist geladen. Für Fehler oder Vorschläge besucht bitte:"
 L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = "%s\n\nDeine Version von ElvUI %.2f ist nicht kompatibel mit BenikUI.\nAktuellste Version ist %.2f. Bitte lade sie hier runter:\n"
 L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"] = true
 
@@ -182,7 +182,6 @@ L['Without Backdrop'] = "Ohne Hintergrund"
 L['AddOnSkins'] = true --No need to translate
 L['AddOns Decor'] = "AddOns Dekor"
 L['Choose which addon you wish to be decorated to fit with BenikUI style'] = "Wähle aus, welches Addon du stylen möchtest so dass es am besten zu BenikUI passt"
-L['Decursive'] = true --No need to translate
 L['ElvUI AddOns'] = true --No need to translate
 L['decor.'] = "dekor."
 L['This will create and apply profile for '] = "Dieses wird ein Profil erstellen und anwenden für "
@@ -278,3 +277,4 @@ L['BigWigs'] = true
 L['Zygor Guides'] = true
 L['Immersion'] = true
 L['Project Azilroka'] = true
+L['Kaliels Tracker'] = true

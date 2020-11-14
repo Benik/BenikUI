@@ -9,17 +9,17 @@ local function Core()
 		order = 6,
 		type = 'group',
 		name = BUI.Title,
-		childGroups = "tab",
+		childGroups = "tree",
 		args = {
 			name = {
 				order = 1,
 				type = 'header',
-				name = BUI.Title..BUI:cOption(BUI.Version)..L['by Benik (EU-Emerald Dream)'],
+				name = format('%s%s%s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['by Benik (EU-Emerald Dream)']),
 			},
 			logo = {
 				order = 2,
 				type = 'description',
-				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.']),
+				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.'], "blue"),
 				fontSize = 'medium',
 				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 384, 96 end,
 			},
@@ -38,15 +38,10 @@ local function Core()
 			general = {
 				order = 10,
 				type = 'group',
-				name = L['General'],
+				name = BUI:cOption(L['General'], "blue"),
 				get = function(info) return E.db.benikui.general[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.general[ info[#info] ] = value; end,
 				args = {
-					name = {
-						order = 1,
-						type = 'header',
-						name = BUI:cOption(L['General']),
-					},
 					benikuiStyle = {
 						order = 2,
 						type = 'toggle',
@@ -106,13 +101,8 @@ local function Core()
 			colors = {
 				order = 20,
 				type = 'group',
-				name = L.COLORS,
+				name = BUI:cOption(L.COLORS, "blue"),
 				args = {
-					name = {
-						order = 1,
-						type = 'header',
-						name = BUI:cOption(L.COLORS),
-					},
 					themes = {
 						order = 2,
 						type = 'group',

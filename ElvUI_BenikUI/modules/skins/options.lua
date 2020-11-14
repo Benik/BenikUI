@@ -13,7 +13,7 @@ local DecorElvUIAddons = {
 	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
 }
 
-local DecorAddons = {
+local DecorAddonSkins = {
 	{'Skada', L['Skada'], 'skada'},
 	{'Recount', L['Recount'], 'recount'},
 	{'TinyDPS', L['TinyDPS'], 'tinydps'},
@@ -26,6 +26,9 @@ local DecorAddons = {
 	{'BigWigs', L['BigWigs'], 'bigwigs'},
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
 	{'Immersion', L['Immersion'], 'immersion'},
+	{'AllTheThings', L['All The Things'], 'allthethings'},
+	{'TinyInspect', L['TinyInspect'], 'tinyinspect'},
+	{'ArkInventory', L['Ark Inventory'], 'arkinventory'},
 }
 
 local SupportedProfiles = {
@@ -40,6 +43,7 @@ local SupportedProfiles = {
 	{'Recount', 'Recount'},
 	{'Skada', 'Skada'},
 	{'ProjectAzilroka', 'Project Azilroka'},
+	{'!KalielsTracker', 'Kaliels Tracker'},
 }
 
 BUI.profileStrings = {
@@ -53,13 +57,8 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins = {
 		order = 100,
 		type = 'group',
-		name = ADDONS,
+		name = BUI:cOption(ADDONS, "blue"),
 		args = {
-			name = {
-				order = 1,
-				type = 'header',
-				name = BUI:cOption(ADDONS),
-			},
 			desc = {
 				order = 2,
 				type = 'description',
@@ -112,7 +111,7 @@ local function SkinTable()
 		}
 
 	local addorder = 0
-	for i, v in ipairs(DecorAddons) do
+	for i, v in ipairs(DecorAddonSkins) do
 		local addonName, addonString, addonOption = unpack( v )
 		E.Options.args.benikui.args.skins.args.addonskins.args[addonOption] = {
 			order = addorder + 1,
@@ -136,20 +135,14 @@ local function SkinTable()
 				type = 'toggle',
 				name = L["TalkingHead"],
 			},
-			decursive = {
-				order = 2,
-				type = 'toggle',
-				name = L['Decursive'],
-				disabled = function() return not IsAddOnLoaded('Decursive') end,
-			},
 			storyline = {
-				order = 3,
+				order = 2,
 				type = 'toggle',
 				name = L['Storyline'],
 				disabled = function() return not IsAddOnLoaded('Storyline') end,
 			},
 			inflight = {
-				order = 4,
+				order = 3,
 				type = 'toggle',
 				name = L['InFlight'],
 				set = function(info, value) E.db.benikuiSkins.variousSkins[ info[#info] ] = value;
@@ -160,6 +153,12 @@ local function SkinTable()
 					end
 					E:StaticPopup_Show('PRIVATE_RL') end,
 				disabled = function() return not IsAddOnLoaded('InFlight_Load') end,
+			},
+			kt = {
+				order = 4,
+				type = 'toggle',
+				name = L['Kaliels Tracker'],
+				disabled = function() return not IsAddOnLoaded('!KalielsTracker') end,
 			},
 		},
 	}
@@ -208,6 +207,8 @@ local function SkinTable()
 					BUI:LoadAddOnSkinsProfile()
 				elseif addon == 'ProjectAzilroka' then
 					BUI:LoadPAProfile()
+				elseif addon == '!KalielsTracker' then
+					BUI:LoadKalielsProfile()
 				end
 				E:StaticPopup_Show('PRIVATE_RL')
 			end,

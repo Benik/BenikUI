@@ -20,7 +20,7 @@ local strataValues = {
 local function updateOptions()
 	for panelname in pairs(E.db.benikui.panels) do
 		E.Options.args.benikui.args.panels.args[panelname] = {
-			order = 1,
+			order = 10,
 			name = panelname,
 			type = 'group',
 			args = {
@@ -76,7 +76,7 @@ local function updateOptions()
 				spacer2 = {
 					order = 20,
 					type = 'description',
-					name = '',
+					name = ' ',
 				},
 				titleGroup = {
 					order = 21,
@@ -214,7 +214,7 @@ local function updateOptions()
 							},
 						},
 						textureGroup = {
-							order = 20,
+							order = 30,
 							name = L["Texture"],
 							type = 'group',
 							guiInline = true,
@@ -250,51 +250,59 @@ local function updateOptions()
 						},
 					},
 				},
-				petHide = {
+				visibilityGroup = {
 					order = 25,
-					name = L["Hide in Pet Battle"],
-					type = 'toggle',
-					disabled = function() return not E.db.benikui.panels[panelname].enable end,
-					get = function() return E.db.benikui.panels[panelname].petHide end,
-					set = function(info, value) E.db.benikui.panels[panelname].petHide = value; mod:RegisterHide() end,
+					name = L["Visibility"],
+					type = 'group',
+					guiInline = true,
+					args = {
+						petHide = {
+							order = 1,
+							name = L["Hide in Pet Battle"],
+							type = 'toggle',
+							disabled = function() return not E.db.benikui.panels[panelname].enable end,
+							get = function() return E.db.benikui.panels[panelname].petHide end,
+							set = function(info, value) E.db.benikui.panels[panelname].petHide = value; mod:RegisterHide() end,
+						},
+						combatHide = {
+							order = 2,
+							name = L["Hide In Combat"],
+							type = 'toggle',
+							disabled = function() return not E.db.benikui.panels[panelname].enable end,
+							get = function() return E.db.benikui.panels[panelname].combatHide end,
+							set = function(info, value) E.db.benikui.panels[panelname].combatHide = value; end,
+						},
+						vehicleHide = {
+							order = 3,
+							name = L["Hide In Vehicle"],
+							type = 'toggle',
+							disabled = function() return not E.db.benikui.panels[panelname].enable end,
+							get = function() return E.db.benikui.panels[panelname].vehicleHide end,
+							set = function(info, value) E.db.benikui.panels[panelname].vehicleHide = value; end,
+						},
+						visibility = {
+							type = 'input',
+							order = 4,
+							name = L["Visibility State"],
+							desc = L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"],
+							width = 'full',
+							disabled = function() return not E.db.benikui.panels[panelname].enable end,
+							multiline = true,
+							get = function() return E.db.benikui.panels[panelname].visibility end,
+							set = function(info, value)
+								if value and value:match('[\n\r]') then
+									value = value:gsub('[\n\r]','')
+								end
+								E.db.benikui.panels[panelname].visibility = value;
+								mod:SetupPanels()
+							end,
+						},
+					},
 				},
-				combatHide = {
-					order = 26,
-					name = L["Hide In Combat"],
-					type = 'toggle',
-					disabled = function() return not E.db.benikui.panels[panelname].enable end,
-					get = function() return E.db.benikui.panels[panelname].combatHide end,
-					set = function(info, value) E.db.benikui.panels[panelname].combatHide = value; end,
-				},
-				vehicleHide = {
-					order = 27,
-					name = L["Hide In Vehicle"],
-					type = 'toggle',
-					disabled = function() return not E.db.benikui.panels[panelname].enable end,
-					get = function() return E.db.benikui.panels[panelname].vehicleHide end,
-					set = function(info, value) E.db.benikui.panels[panelname].vehicleHide = value; end,
-				},
-				visibility = {
-					type = 'input',
-					order = 28,
-					name = L["Visibility State"],
-					desc = L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"],
-					width = 'full',
-					disabled = function() return not E.db.benikui.panels[panelname].enable end,
-					multiline = true,
-					get = function() return E.db.benikui.panels[panelname].visibility end,
-					set = function(info, value)
-						if value and value:match('[\n\r]') then
-							value = value:gsub('[\n\r]','')
-						end
-						E.db.benikui.panels[panelname].visibility = value;
-						mod:SetupPanels()
-					end,
-				},
-				spacer3 = {
+				spacer4 = {
 					order = 30,
 					type = 'description',
-					name = '',
+					name = ' ',
 				},
 				tooltip = {
 					order = 31,
@@ -305,7 +313,7 @@ local function updateOptions()
 					get = function() return E.db.benikui.panels[panelname].tooltip end,
 					set = function(info, value) E.db.benikui.panels[panelname].tooltip = value; end,
 				},
-				spacer4 = {
+				spacer5 = {
 					order = 40,
 					type = 'header',
 					name = '',
@@ -329,7 +337,7 @@ end
 local function panelsTable()
 	E.Options.args.benikui.args.panels = {
 		type = "group",
-		name = L["Custom Panels"],
+		name = BUI:cOption(L["Custom Panels"], "blue"),
 		order = 70,
 		childGroups = "select",
 		args = {
@@ -348,7 +356,7 @@ local function panelsTable()
 			spacer1 = {
 				order = 2,
 				type = 'description',
-				name = '',
+				name = ' ',
 			},
 			name = {
 				order = 3,
@@ -373,7 +381,7 @@ local function panelsTable()
 			spacer2 = {
 				order = 4,
 				type = 'description',
-				name = '',
+				name = ' ',
 			},
 			add = {
 				order = 5,
@@ -391,7 +399,7 @@ local function panelsTable()
 			spacer3 = {
 				order = 6,
 				type = 'description',
-				name = '',
+				name = ' ',
 			},
 		},
 	}

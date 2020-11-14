@@ -222,7 +222,7 @@ local function ImmersionDecor()
 		frame.TalkBox.Elements.Backdrop.Shadow:Hide()
 	end
 	
-	frame:HookScript('OnEvent', function(self)
+	frame:HookScript('OnUpdate', function(self)
 		for _, Button in ipairs(self.TitleButtons.Buttons) do
 			if Button.Backdrop and not Button.Backdrop.isStyled then
 				Button.Backdrop:Style('Inside')
@@ -230,6 +230,39 @@ local function ImmersionDecor()
 				Button.Backdrop.Shadow:Hide()
 				Button.Backdrop.isStyled = true
 			end
+		end
+	end)
+end
+
+local function AllTheThingsDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.allthethings then return end
+	for _, Instance in pairs({ 'Prime', 'CurrentInstance' }) do
+		local Window = AllTheThings:GetWindow(Instance)
+		Window:Style('Outside')
+	end
+end
+
+local function TinyInspectDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.tinyinspect then return end
+	TinyInspectRaidFrame:Style('Outside') -- not tested
+	TinyInspectRaidFrame.panel:Style('Outside') -- not tested
+
+	PaperDollFrame:HookScript("OnShow", function(self)
+		if self.inspectFrame then
+			if not self.inspectFrame.style then
+				self.inspectFrame:Style('Outside')
+			end
+			self.inspectFrame:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		end
+	end)
+end
+
+local function ArkInventoryDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.arkinventory then return end
+	hooksecurefunc(ArkInventory, 'Frame_Main_Paint', function(frame)
+		if not ArkInventory.ValidFrame(frame, true) then return end
+		if not frame.style then
+			frame:Style('Outside')
 		end
 	end)
 end
@@ -285,6 +318,9 @@ if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers') and AS:Ch
 if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 2) end
+if AS:CheckAddOn('AllTheThings') then AS:RegisterSkin('AllTheThings', AllTheThingsDecor, 2) end
+if AS:CheckAddOn('TinyInspect') then AS:RegisterSkin('TinyInspect', TinyInspectDecor, 2) end
+if AS:CheckAddOn('ArkInventory') then AS:RegisterSkin('ArkInventory', ArkInventoryDecor, 2) end
 LibrariesDecor()
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)

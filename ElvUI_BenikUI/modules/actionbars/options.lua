@@ -8,13 +8,8 @@ local function abTable()
 	E.Options.args.benikui.args.actionbars = {
 		order = 30,
 		type = 'group',
-		name = L['ActionBars'],
+		name = BUI:cOption(L['ActionBars'], "blue"),
 		args = {
-			name = {
-				order = 1,
-				type = 'header',
-				name = BUI:cOption(L['ActionBars']),
-			},
 			style = {
 				order = 2,
 				type = 'group',

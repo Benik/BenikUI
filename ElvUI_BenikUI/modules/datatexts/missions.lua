@@ -26,6 +26,9 @@ local C_Garrison_GetTalentTreeInfoForID = C_Garrison.GetTalentTreeInfoForID
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
+local C_CovenantCallings_AreCallingsUnlocked = C_CovenantCallings.AreCallingsUnlocked
+local CovenantCalling_Create = CovenantCalling_Create
 local GetMaxLevelForExpansionLevel = GetMaxLevelForExpansionLevel
 local GetQuestObjectiveInfo = GetQuestObjectiveInfo
 local IsAltKeyDown = IsAltKeyDown
@@ -187,11 +190,24 @@ local function OnEnter()
 	DT.tooltip:AddDoubleLine(L["Mission(s) Report:"], AddInfo(1813), nil, nil, nil, 1, 1, 1)
 	AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_9_0)
 
-	-- TODO - Probably not needed in this expansion - Not sure yet.
-	-- AddFollowerInfo(LE_GARRISON_TYPE_9_0)
-	-- TODO - Every sanctum have 5 separate garrision talent trees that would be nice to monitor but for now I don't know a way to get talent tree IDs without talking to upgrade NPC. We always can hardcode all 20 ids.
-	-- C_CovenantSanctumUI.GetFeatures() -> C_Garrison.GetTalentTreeInfo(). C_Garrison.GetCurrentGarrTalentTreeID() return ID only of the Reservoir upgrades.
-	-- AddTalentInfo(LE_FOLLOWER_TYPE_GARRISON_9_0)
+	if C_CovenantCallings_AreCallingsUnlocked() then
+		local questNum = 0
+		for _, calling in ipairs(callingsData) do
+			local callingObj = CovenantCalling_Create(calling)
+			if callingObj:GetState() == 0 then
+				questNum = questNum + 1
+			end
+		end
+		if questNum > 0 then
+			DT.tooltip:AddLine(' ')
+			DT.tooltip:AddLine(format('%s %s', questNum, L["Calling Quest(s) available."]))
+		end
+	end
+
+	local currentCovenant = C_Covenants_GetActiveCovenantID()
+	if currentCovenant and currentCovenant > 0 then
+		AddTalentInfo(LE_GARRISON_TYPE_9_0, currentCovenant)
+	end
 
 	if IsShiftKeyDown() then
 		-- Battle for Azeroth
@@ -215,23 +231,9 @@ local function OnEnter()
 					r1, g1, b1 = 1, 1, 1
 				end
 
-				DT.tooltip:AddLine(" ")
-				DT.tooltip:AddLine(ISLANDS_HEADER .. ":")
+				DT.tooltip:AddLine(' ')
+				DT.tooltip:AddLine(ISLANDS_HEADER .. ':')
 				DT.tooltip:AddDoubleLine(ISLANDS_QUEUE_FRAME_TITLE, text, 1, 1, 1, r1, g1, b1)
-			end
-		end
-
-		local widgetGroup = Widget_IDs[E.myfaction]
-		if E.MapInfo.mapID == NAZJATAR_MAP_ID and widgetGroup and C_QuestLog_IsQuestFlaggedCompleted(widgetGroup[1]) then
-			DT.tooltip:AddLine(" ")
-			DT.tooltip:AddLine(L["Nazjatar Follower XP"])
-
-			for i = 2, 4 do
-				local npcName, widgetID = unpack(widgetGroup[i])
-				local cur, toNext, _, rank, maxRank = E:GetWidgetInfoBase(widgetID)
-				if npcName and rank then
-					DT.tooltip:AddDoubleLine(npcName, (maxRank and L["Max Rank"]) or BODYGUARD_LEVEL_XP_FORMAT:format(rank, cur, toNext), 1, 1, 1)
-				end
 			end
 		end
 
@@ -246,17 +248,16 @@ local function OnEnter()
 		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
 		AddFollowerInfo(LE_GARRISON_TYPE_7_0)
 
-		-- "Loose Work Orders" (i.e. research, equipment)
-		wipe(data)
+		-- 'Loose Work Orders' (i.e. research, equipment)
 		data = C_Garrison_GetLooseShipments(LE_GARRISON_TYPE_7_0)
-		if #data > 0 then
-			DT.tooltip:AddLine(CAPACITANCE_WORK_ORDERS) -- "Work Orders"
+		if next(data) then
+			DT.tooltip:AddLine(CAPACITANCE_WORK_ORDERS) -- 'Work Orders'
 
 			for _, looseShipments in ipairs(data) do
 				local name, _, _, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison_GetLandingPageShipmentInfoByContainerID(looseShipments)
 				if name then
 					if timeleftString then
-						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal) .. " " .. format(GARRISON_LANDING_NEXT,timeleftString), 1, 1, 1, 1, 1, 1)
+						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal) .. ' ' .. format(GARRISON_LANDING_NEXT,timeleftString), 1, 1, 1, 1, 1, 1)
 					else
 						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal), 1, 1, 1, 1, 1, 1)
 					end
@@ -277,9 +278,8 @@ local function OnEnter()
 		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_6_2)
 
 		--Buildings
-		wipe(data)
 		data = C_Garrison_GetBuildings(LE_GARRISON_TYPE_6_0)
-		if #data > 0 then
+		if next(data) then
 			local AddLine = true
 			for _, buildings in ipairs(data) do
 				local name, _, _, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison_GetLandingPageShipmentInfo(buildings.buildingID)
@@ -291,7 +291,7 @@ local function OnEnter()
 					end
 
 					if timeleftString then
-						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal) .. " " .. format(GARRISON_LANDING_NEXT,timeleftString), 1, 1, 1, 1, 1, 1)
+						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal) .. ' ' .. format(GARRISON_LANDING_NEXT,timeleftString), 1, 1, 1, 1, 1, 1)
 					else
 						DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal), 1, 1, 1, 1, 1, 1)
 					end
@@ -300,7 +300,7 @@ local function OnEnter()
 		end
 	else
 		DT.tooltip:AddLine(' ')
-		DT.tooltip:AddLine("Hold Shift - Show Previous Expansion", .66, .66, .66)
+		DT.tooltip:AddLine('Hold Shift - Show Previous Expansion', .66, .66, .66)
 	end
 
 	DT.tooltip:Show()

@@ -1,7 +1,8 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
-local DB = E:GetModule('DataBars')
+local DB = E:GetModule('DataBars');
+local LSM = E.LSM;
 
 local _G = _G
 local getn = getn
@@ -85,9 +86,8 @@ function mod:UpdateReputations()
 					holder:SetPoint('TOPLEFT', reputationHolderMover, 'TOPLEFT')
 				end
 
-				local isCapped, isFriend, friendText
+				local isCapped, isFriend, friendText, standingLabel
 				local friendshipID = GetFriendshipReputation(factionID)
-				local standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 				
 				if friendshipID then
 					local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
@@ -127,17 +127,24 @@ function mod:UpdateReputations()
 				self.reputationFrame.Status:SetMinMaxValues(barMin, barMax)
 				self.reputationFrame.Status:SetValue(barValue)
 
+				standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 				local color = _G.FACTION_BAR_COLORS[standingID]
 				local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
-				if db.barFactionColors then
-					self.reputationFrame.Status:SetStatusBarColor(color.r, color.g, color.b)
+				if E.db.dashboards.dashfont.useDTfont then
+					self.reputationFrame.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 				else
+					self.reputationFrame.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
+				end
+
+				if not db.barFactionColors then
 					if E.db.dashboards.barColor == 1 then
 						self.reputationFrame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 					else
 						self.reputationFrame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
 					end
+				else
+					self.reputationFrame.Status:SetStatusBarColor(color.r, color.g, color.b)
 				end
 
 				if db.textFactionColors then
@@ -154,9 +161,9 @@ function mod:UpdateReputations()
 
 				self.reputationFrame:SetScript('OnEnter', function(self)
 					if isCapped then
-						self.Text:SetFormattedText('%s: %s(%s)|r', name, isFriend and friendText or hexColor, standingLabel)
+						self.Text:SetFormattedText('%s(%s)|r', hexColor, isFriend and friendText or standingLabel)
 					else
-						self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, standingLabel)
+						self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
 					end
 
 					if db.mouseover then
@@ -167,7 +174,7 @@ function mod:UpdateReputations()
 						_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 						_G.GameTooltip:AddLine(name)
 						_G.GameTooltip:AddLine(' ')
-						_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, standingLabel), 1, 1, 1)
+						_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
 
 						if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
 							_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
@@ -218,7 +225,7 @@ end
 function mod:UpdateReputationSettings()
 	mod:FontStyle(BUI.FactionsDB)
 	mod:FontColor(BUI.FactionsDB)
-	if not E.db.dashboards.reputations.factionColors then
+	if not E.db.dashboards.reputations.barFactionColors then
 		mod:BarColor(BUI.FactionsDB)
 	end
 end

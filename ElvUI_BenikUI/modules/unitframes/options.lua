@@ -23,14 +23,9 @@ local function ufTable()
 	E.Options.args.benikui.args.unitframes = {
 		order = 40,
 		type = 'group',
-		name = L['UnitFrames'],
+		name = BUI:cOption(L['UnitFrames'], "blue"),
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
-			name = {
-				order = 1,
-				type = 'header',
-				name = BUI:cOption(L['UnitFrames']),
-			},
 			infoPanel = {
 				order = 2,
 				type = 'group',
@@ -345,7 +340,7 @@ local function ufPlayerTable()
 	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.vertical = {
 		order = 15,
 		type = "toggle",
-		name = BUI:cOption(L['Vertical']),
+		name = BUI:cOption(L['Vertical'], "blue"),
 		desc = L['Vertical power statusbar'],
 		disabled = function() return not E.db.unitframe.units.player.power.detachFromFrame end,
 	}
@@ -455,7 +450,7 @@ local function ufTargetTable()
 	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.vertical = {
 		order = 15,
 		type = "toggle",
-		name = BUI:cOption(L['Vertical']),
+		name = BUI:cOption(L['Vertical'], "blue"),
 		desc = L['Vertical power statusbar'],
 		disabled = function() return not E.db.unitframe.units.target.power.detachFromFrame end,
 	}
@@ -694,14 +689,14 @@ local function injectPartyOptions()
 	E.Options.args.unitframe.args.groupUnits.args.party.args.portrait.args.height = {
 		type = 'range',
 		order = 15,
-		name = BUI:cOption("+ "..L["Height"]),
+		name = BUI:cOption("+ "..L["Height"], "blue"),
 		min = 0, max = 150, step = 1,
 	}
 
 	E.Options.args.unitframe.args.groupUnits.args.party.args.portrait.args.transparent = {
 		order = 16,
 		type = "toggle",
-		name = BUI:cOption(L['Transparent']),
+		name = BUI:cOption(L['Transparent'], "blue"),
 		desc = L['Makes the portrait backdrop transparent'],
 		disabled = function() return E.db.unitframe.units.party.portrait.overlay end,
 	}
@@ -712,7 +707,7 @@ local function injectRaidOptions()
 	E.Options.args.unitframe.args.groupUnits.args.raid.args.generalGroup.args.classHover = {
 		order = 7,
 		type = "toggle",
-		name = BUI:cOption(L['Class Hover']),
+		name = BUI:cOption(L['Class Hover'], "blue"),
 		desc = L['Enable Class color on health border, when mouse over'],
 		set = function(info, value) E.db.unitframe.units['raid'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 	}
@@ -723,7 +718,7 @@ local function injectRaid40Options()
 	E.Options.args.unitframe.args.groupUnits.args.raid40.args.generalGroup.args.classHover = {
 		order = 7,
 		type = "toggle",
-		name = BUI:cOption(L['Class Hover']),
+		name = BUI:cOption(L['Class Hover'], "blue"),
 		desc = L['Enable Class color on health border, when mouse over'],
 		set = function(info, value) E.db.unitframe.units['raid40'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 	}

@@ -64,7 +64,7 @@ local function Style_SetButtonColor(self, btn, disabled)
 		btn:SetBackdropColor(r, g, b, 0.5)
 		btn.Text:SetTextColor(1, 1, 1)
 	else
-		btn:SetBackdropColor(0.1, 0.1, 0.1, 0.5)
+		btn:SetBackdropColor(0, 0, 0, .5)
 		local r, g, b = unpack(E.media.bordercolor)
 		btn:SetBackdropBorderColor(r, g, b, 1)
 		btn.Text:SetTextColor(.9, .8, 0)
@@ -75,7 +75,6 @@ hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)
 function mod:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
-	mod:SkinDecursive()
 	mod:SkinStoryline()
 end
 

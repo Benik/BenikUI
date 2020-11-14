@@ -33,8 +33,10 @@ end
 local function StyleElvUIBindPopup()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local bind = _G.ElvUIBindPopupWindow
-	bind:Style("Outside")
-	bind.header:SetFrameLevel(bind.style:GetFrameLevel() + 1)
+	if bind then
+		bind:Style("Outside")
+		bind.header:SetFrameLevel(bind.style:GetFrameLevel() + 1)
+	end
 end
 
 local function ScriptErrorsFrame()
@@ -55,7 +57,7 @@ end
 function mod:Initialize()
 	mod:InitializeObjectiveTracker()
 	mod:StyleAltPowerBar()
-
+	mod:StyleAddons()
 	StyleElvUIBindPopup()
 
 	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)

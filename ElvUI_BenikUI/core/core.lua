@@ -65,9 +65,17 @@ function BUI:Print(...)
 	(_G.DEFAULT_CHAT_FRAME):AddMessage(strjoin('', '|cff00c0fa', 'BenikUI:|r ', ...))
 end
 
-function BUI:cOption(name)
-	local color = '|cff00c0fa%s |r'
-	return (color):format(name)
+function BUI:cOption(name, color)
+	local hex
+	if color == "blue" then
+		hex = '|cff00c0fa%s |r'
+	elseif color == "orange" then
+		hex = '|cffffa500%s |r'
+	elseif color == "gradient" then
+		hex = E:TextGradient(name, 1, 0.65, 0, 1, 0.65, 0, 1, 1, 1)
+	end
+
+	return (hex):format(name)
 end
 
 local color = { r = 1, g = 1, b = 1, a = 1 }
@@ -109,6 +117,8 @@ end
 
 local r, g, b = 0, 0, 0
 function BUI:UpdateStyleColors()
+	if not E.db.benikui.general.benikuiStyle then return end
+
 	local BTT = BUI:GetModule('Tooltip')
 	for frame, _ in pairs(BUI["styles"]) do
 		if frame and not frame.ignoreColor then
@@ -207,7 +217,8 @@ function BUI:Initialize()
 	end
 
 	if E.db.benikui.general.loginMessage then
-		print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues'))
+		--print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues'))
+		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues')))
 	end
 
 	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then

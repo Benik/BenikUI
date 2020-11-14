@@ -14,13 +14,8 @@ local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {
 		order = 50,
 		type = 'group',
-		name = L['DataTexts'],
+		name = BUI:cOption(L['DataTexts'], "blue"),
 		args = {
-			name = {
-				order = 1,
-				type = 'header',
-				name = BUI:cOption(L['DataTexts']),
-			},
 			chat = {
 				order = 10,
 				type = 'group',
@@ -175,7 +170,7 @@ local function PanelLayoutOptions()
 	for panel in pairs(E.global.datatexts.customPanels) do
 		PanelGroup_Create(panel)
 	end
-	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'])
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'], "blue")
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.order = 1003
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.delete.hidden = true
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.height.hidden = true

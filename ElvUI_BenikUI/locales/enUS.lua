@@ -10,7 +10,7 @@ L["HOME"] = "Home";
 L["WORLD"] = "World";
 
 -- core
-L[' is loaded. For any issues or suggestions, please visit '] = true
+L['is loaded. For any issues or suggestions, please visit'] = true
 L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = true
 L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"] = true
 
@@ -183,7 +183,6 @@ L['Without Backdrop'] = true
 L['AddOnSkins'] = true
 L['AddOns Decor'] = true
 L['Choose which addon you wish to be decorated to fit with BenikUI style'] = true
-L['Decursive'] = true
 L['ElvUI AddOns'] = true
 L['decor.'] = true
 L['This will create and apply profile for '] = true
@@ -279,3 +278,4 @@ L['BigWigs'] = true
 L['Zygor Guides'] = true
 L['Immersion'] = true
 L['Project Azilroka'] = true
+L['Kaliels Tracker'] = true
