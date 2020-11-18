@@ -83,7 +83,7 @@ local function LoadSkin()
 	end
 
 	if db.help then
-		_G.HelpFrame.backdrop:Style("Outside")
+		--_G.HelpFrame.backdrop:Style("Outside")
 	end
 
 	if db.lfg then
