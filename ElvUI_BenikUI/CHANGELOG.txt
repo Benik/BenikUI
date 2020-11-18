@@ -1,3 +1,8 @@
+3.962 (Nov 18, 2020)
+*Comment out the HelpFrame style till SL launch
+*Prevent an error in tokens
+*Fix the tokens showing when currency has been spend
+
 3.961 (Nov 4, 2020)
 *Let ElvUI deal with the font size
 *Don't open the game menu while in combat, to prevent errors (Bliz limitation)
