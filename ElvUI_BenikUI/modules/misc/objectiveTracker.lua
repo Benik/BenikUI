@@ -109,5 +109,6 @@ end
 S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
 
 function mod:InitializeObjectiveTracker()
+	if BUI:IsAddOnEnabled('!KalielsTracker') then return end
 	ObjectiveTrackerShadows()
 end
