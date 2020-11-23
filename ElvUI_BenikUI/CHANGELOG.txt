@@ -1,3 +1,9 @@
+3.97 (Nov 23, 2020)
+*Don't edit the ObjectiveTracker if KalielsTracker is enabled
+*Load KalielsTracker profile on the fly
+*Re enable Help frame style
+*toc update for WoW 9.02
+
 3.962 (Nov 18, 2020)
 *Comment out the HelpFrame style till SL launch
 *Prevent an error in tokens
