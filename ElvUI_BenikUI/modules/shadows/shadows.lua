@@ -103,7 +103,7 @@ function mod:ChatBubbles(frame, holder)
 	if E.private.general.chatBubbles == 'backdrop' then
 		if holder.backdrop then
 			if not holder.backdrop.shadow then
-				holder.backdrop:CreateWideShadow()
+				holder.backdrop:CreateSoftShadow()
 			end
 		end
 	end
