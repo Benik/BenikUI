@@ -1,6 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Shadows')
 local S = E:GetModule('Skins')
+local M = E:GetModule('Misc')
 
 local _G = _G
 
@@ -98,6 +99,16 @@ function mod:START_TIMER()
 	end
 end
 
+function mod:ChatBubbles(frame, holder)
+	if E.private.general.chatBubbles == 'backdrop' then
+		if holder.backdrop then
+			if not holder.backdrop.shadow then
+				holder.backdrop:CreateWideShadow()
+			end
+		end
+	end
+end
+
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
@@ -113,6 +124,7 @@ function mod:Initialize()
 
 	-- Callbacks
 	S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_CalendarEventButtonShadows", CalendarEventButtonShadows)
+	hooksecurefunc(M, "SkinBubble", mod.ChatBubbles)
 end
 
 BUI:RegisterModule(mod:GetName())
