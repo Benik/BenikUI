@@ -189,21 +189,6 @@ local function LoadSkin()
 		_G.QuestFrame:Style("Outside")
 		_G.QuestLogPopupDetailFrame:Style("Outside")
 		_G.QuestModelScene:Style("Outside")
-
-		if BUI.AS then
-			local AS = unpack(AddOnSkins)
-			AS:SetTemplate(_G.QuestDetailScrollFrame)
-			AS:SetTemplate(_G.QuestProgressScrollFrame)
-
-			_G.QuestRewardScrollFrame:HookScript(
-				"OnUpdate",
-				function(self)
-					AS:SetTemplate(self)
-				end
-			)
-
-			AS:SetTemplate(_G.GossipGreetingScrollFrame)
-		end
 	end
 
 	if db.stable then
