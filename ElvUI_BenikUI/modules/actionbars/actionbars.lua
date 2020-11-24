@@ -164,6 +164,7 @@ function mod:FlyoutShadows()
 end
 
 function mod:ExtraAB() -- shadows
+	if not E.private.actionbar.enable then return end
 	hooksecurefunc(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", function(button)
 		for spellButton in button.SpellButtonContainer:EnumerateActive() do
 			if spellButton and not spellButton.hasShadow then
@@ -173,7 +174,6 @@ function mod:ExtraAB() -- shadows
 		end
 	end)
 
-	if E.private.skins.cleanBossButton ~= true then return end
 	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
 		local button = _G["ExtraActionButton"..i]
 		if button then
