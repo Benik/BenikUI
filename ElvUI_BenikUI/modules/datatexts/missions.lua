@@ -129,44 +129,54 @@ local function AddInProgressMissions(garrisonType)
 end
 
 local function AddFollowerInfo(garrisonType)
-	wipe(data)
-
 	data = C_Garrison_GetFollowerShipments(garrisonType)
 
 	if next(data) then
 		DT.tooltip:AddLine(' ')
-		DT.tooltip:AddLine(FOLLOWERLIST_LABEL_TROOPS) -- "Troops"
+		DT.tooltip:AddLine(FOLLOWERLIST_LABEL_TROOPS) -- 'Troops'
 		for _, followerShipments in ipairs(data) do
 			local name, _, _, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison_GetLandingPageShipmentInfoByContainerID(followerShipments)
-			if (name and shipmentsReady and shipmentsTotal) then
-				timeleftString = (timeleftString and " "..timeleftString) or ""
-				DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal)..timeleftString, 1, 1, 1)
+			if name and shipmentsReady and shipmentsTotal then
+				if timeleftString then
+					DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal) .. ' ' .. format(GARRISON_LANDING_NEXT,timeleftString), 1, 1, 1, 1, 1, 1)
+				else
+					DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal), 1, 1, 1, 1, 1, 1)
+				end
 			end
 		end
 	end
 end
 
-local function AddTalentInfo(garrisonType)
-	wipe(data)
-
-	data = C_Garrison_GetTalentTreeIDsByClassID(garrisonType, E.myClassID)
+local covenantInfo = {}
+local function AddTalentInfo(garrisonType, currentCovenant)
+	if garrisonType == LE_GARRISON_TYPE_9_0 then
+		local current = covenantTreeIDs[currentCovenant]
+		if current then
+			wipe(covenantInfo)
+			data = E:CopyTable(covenantInfo, current)
+		else
+			wipe(data)
+		end
+	else
+		data = C_Garrison_GetTalentTreeIDsByClassID(garrisonType, E.myClassID)
+	end
 
 	if next(data) then
-		-- this is a talent that has completed, but has not been seen in the talent UI yet.
+		-- This is a talent that has completed, but has not been seen in the talent UI yet.
+		-- No longer provide relevant output in SL. Still used by old content.
 		local completeTalentID = C_Garrison_GetCompleteTalent(garrisonType)
 		if completeTalentID > 0 then
 			DT.tooltip:AddLine(' ')
-			DT.tooltip:AddLine(TALENTS)
+			DT.tooltip:AddLine(RESEARCH_TIME_LABEL) -- 'Research Time:'
 
 			for _, treeID in ipairs(data) do
-				local _, _, tree = C_Garrison_GetTalentTreeInfoForID(treeID)
-				for _, talent in ipairs(tree) do
-					if talent.isBeingResearched or talent.id == completeTalentID then
-						DT.tooltip:AddLine(RESEARCH_TIME_LABEL) -- "Research Time:"
-						if talent.researchTimeRemaining and talent.researchTimeRemaining == 0 then
+				local treeInfo = C_Garrison_GetTalentTreeInfo(treeID)
+				for _, talent in ipairs(treeInfo.talents) do
+					if talent.isBeingResearched or (talent.id == completeTalentID and garrisonType ~= LE_GARRISON_TYPE_9_0)then
+						if talent.timeRemaining and talent.timeRemaining == 0 then
 							DT.tooltip:AddDoubleLine(talent.name, GOAL_COMPLETED, 1, 1, 1, GREEN_FONT_COLOR:GetRGB())
 						else
-							DT.tooltip:AddDoubleLine(talent.name, E:GetTimeInfo(talent.researchTimeRemaining), 1, 1, 1, 1, 1, 1)
+							DT.tooltip:AddDoubleLine(talent.name, SecondsToTime(talent.timeRemaining), 1, 1, 1, 1, 1, 1)
 						end
 					end
 				end
