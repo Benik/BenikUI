@@ -65,6 +65,12 @@ local NAZJATAR_MAP_ID = 1355
 local iconString = "|T%s:16:16:0:0:64:64:4:60:4:60|t"
 
 local callingsData = {}
+local covenantTreeIDs = {
+	[1] = {308, 312, 316, 320, 327},
+	[2] = {309, 314, 317, 324, 326},
+	[3] = {307, 311, 315, 319, 328},
+	[4] = {310, 313, 318, 321, 329}
+}
 
 local Widget_IDs = {
 	Alliance = {
