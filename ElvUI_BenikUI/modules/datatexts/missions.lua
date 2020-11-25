@@ -22,6 +22,7 @@ local C_Garrison_RequestLandingPageShipmentInfo = C_Garrison.RequestLandingPageS
 local C_Garrison_GetCompleteMissions = C_Garrison.GetCompleteMissions
 local C_Garrison_GetLooseShipments = C_Garrison.GetLooseShipments
 local C_Garrison_GetTalentTreeIDsByClassID = C_Garrison.GetTalentTreeIDsByClassID
+local C_Garrison_GetTalentTreeInfo = C_Garrison.GetTalentTreeInfo
 local C_Garrison_GetTalentTreeInfoForID = C_Garrison.GetTalentTreeInfoForID
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
