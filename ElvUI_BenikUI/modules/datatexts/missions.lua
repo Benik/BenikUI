@@ -64,6 +64,8 @@ local EXPANSION_NAME7 = EXPANSION_NAME7 -- "Battle for Azeroth"
 local NAZJATAR_MAP_ID = 1355
 local iconString = "|T%s:16:16:0:0:64:64:4:60:4:60|t"
 
+local callingsData = {}
+
 local Widget_IDs = {
 	Alliance = {
 		56156, -- A Tempered Blade
@@ -323,6 +325,11 @@ local function OnEvent(self, event, ...)
 		C_Garrison_RequestLandingPageShipmentInfo()
 	end
 
+	if event == 'COVENANT_CALLINGS_UPDATED' then
+		wipe(callingsData)
+		callingsData = ...
+	end
+
 	if event == 'GARRISON_MISSION_NPC_OPENED' then
 		self:RegisterEvent('GARRISON_MISSION_LIST_UPDATE')
 	elseif event == 'GARRISON_MISSION_NPC_CLOSED' then
@@ -361,4 +368,4 @@ local function OnEvent(self, event, ...)
 	end
 end
 
-DT:RegisterDatatext('Missions (BenikUI)', 'BenikUI', {'PLAYER_ENTERING_WORLD', 'GARRISON_LANDINGPAGE_SHIPMENTS', 'GARRISON_TALENT_UPDATE', 'GARRISON_TALENT_COMPLETE', 'GARRISON_SHIPMENT_RECEIVED', 'SHIPMENT_UPDATE', 'GARRISON_MISSION_FINISHED', 'GARRISON_MISSION_NPC_CLOSED', 'GARRISON_MISSION_NPC_OPENED', 'MODIFIER_STATE_CHANGED'}, OnEvent, nil, OnClick, OnEnter)
+DT:RegisterDatatext('Missions (BenikUI)', 'BenikUI', {'PLAYER_ENTERING_WORLD', 'GARRISON_LANDINGPAGE_SHIPMENTS', 'GARRISON_TALENT_UPDATE', 'GARRISON_TALENT_COMPLETE', 'GARRISON_SHIPMENT_RECEIVED', 'SHIPMENT_UPDATE', 'GARRISON_MISSION_FINISHED', 'GARRISON_MISSION_NPC_CLOSED', 'GARRISON_MISSION_NPC_OPENED', 'MODIFIER_STATE_CHANGED', 'COVENANT_CALLINGS_UPDATED'}, OnEvent, nil, OnClick, OnEnter)
