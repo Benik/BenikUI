@@ -1,6 +1,7 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<script file="datatexts.lua"/>
 	<script file="options.lua"/>
+	<script file="AchievementPoints.lua"/>
 	<script file="mail.lua"/>
 	<script file="specswitch.lua"/>
 	<script file="missions.lua"/>
