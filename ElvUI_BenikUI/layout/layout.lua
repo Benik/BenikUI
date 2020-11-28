@@ -136,6 +136,23 @@ function mod:ToggleTransparency()
 			end
 		end
 	end
+
+	if not BUI.ShadowMode then return end
+	if not E.db.datatexts.panels.LeftChatDataPanel.backdrop then
+		_G.LeftChatDataPanel.shadow:Hide()
+		_G.LeftChatToggleButton.shadow:Hide()
+	else
+		_G.LeftChatDataPanel.shadow:Show()
+		_G.LeftChatToggleButton.shadow:Show()
+	end
+
+	if not E.db.datatexts.panels.RightChatDataPanel.backdrop then
+		_G.RightChatDataPanel.shadow:Hide()
+		_G.RightChatToggleButton.shadow:Hide()
+	else
+		_G.RightChatDataPanel.shadow:Show()
+		_G.RightChatToggleButton.shadow:Show()
+	end
 end
 
 function mod:ChatStyles()
