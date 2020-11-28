@@ -1,3 +1,13 @@
+3.971 (Nov 28, 2020)
+*Added Honor Currency
+*Hide ElvUI Chat Datatexts shadows when their backdrop is disabled
+*NEW: Added Achievement points Datatext
+*Fixed Missions datatext
+*Fixed ExtraAB shadows
+*Added Shadows on the ChatBubbles
+*Removed the Quest Frame transparency
+*Add new Zygor Action Bar to flight mode (thurin)
+
 3.97 (Nov 23, 2020)
 *Don't edit the ObjectiveTracker if KalielsTracker is enabled
 *Load KalielsTracker profile on the fly
