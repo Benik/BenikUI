@@ -89,6 +89,7 @@ local bfaTokens = {
 local slTokens = {
 	1751,	-- Freed Soul
 	1754,	-- Argent Commendation
+	1767,   -- Stygia
 	1810,	-- Willing Soul
 	1813,	-- Reservoir Anima
 	1820,	-- Infused Ruby
