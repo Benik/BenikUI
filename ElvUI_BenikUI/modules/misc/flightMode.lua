@@ -198,6 +198,7 @@ function mod:SetFlightMode(status)
 			Minimap:Hide()
 		end
 
+		_G.ZoneAbilityFrame:GetParent():Hide()
 		C_TimerAfter(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
 
 		self.FlightMode.bottom.map:EnableMouse(true)
@@ -312,6 +313,7 @@ function mod:SetFlightMode(status)
 		if E.private.general.minimap.enable then
 			Minimap:Show()
 		end
+		_G.ZoneAbilityFrame:GetParent():Show()
 		_G.MainMenuBarVehicleLeaveButton:SetScript('OnShow', nil)
 		self.FlightMode:Hide()
 
