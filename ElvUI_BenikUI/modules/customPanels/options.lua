@@ -59,7 +59,7 @@ local function updateOptions()
 					order = 12,
 					type = "range",
 					name = L['Height'],
-					min = 10, max = E.screenheight, step = 1,
+					min = 1, max = E.screenheight, step = 1,
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function(info, value) return E.db.benikui.panels[panelname].height end,
 					set = function(info, value) E.db.benikui.panels[panelname].height = value; mod:Resize() end,
