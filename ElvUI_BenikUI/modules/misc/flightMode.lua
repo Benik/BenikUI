@@ -241,7 +241,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- Hide SquareMinimapButtonBar
-		if (BUI.PA and not BUI.SLE) then
+		if BUI.PA then
 			if SquareMinimapButtonBar then
 				_G.SquareMinimapButtons:CancelAllTimers()
 				SquareMinimapButtonBar:SetAlpha(0)
@@ -421,7 +421,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- Show SquareMinimapButtonBar
-		if (BUI.PA and not BUI.SLE) then
+		if BUI.PA then
 			if SquareMinimapButtonBar then
 				_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
 				SquareMinimapButtonBar:SetAlpha(1)
