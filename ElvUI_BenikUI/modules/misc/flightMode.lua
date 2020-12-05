@@ -881,8 +881,8 @@ function mod:Initialize()
 	self:Toggle()
 	self:ToggleLogo()
 
-	hooksecurefunc(M, "SetLargeWorldMap", mod.SetWorldMapParent)
-	hooksecurefunc(M, "SetSmallWorldMap", mod.SetWorldMapParent)
+	hooksecurefunc(M, "SetLargeWorldMap", mod.SetFrameParent)
+	hooksecurefunc(M, "SetSmallWorldMap", mod.SetFrameParent)
 	
 	-- force databars parent. This should fix databars showing after a Pet Battle
 	E.FrameLocks['ElvUI_ExperienceBar'] = { parent = E.UIParent }
