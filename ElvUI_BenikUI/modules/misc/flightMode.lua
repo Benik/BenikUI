@@ -132,14 +132,24 @@ function mod:UpdateFps()
 	self.FlightMode.bottom.fps.txt:SetFormattedText(displayFormat, value)
 end
 
-function mod:SetWorldMapParent()
+function mod:SetFrameParent()
 	if E.db.benikui.misc.flightMode.enable ~= true then return end
 
 	local WorldMapFrame = _G.WorldMapFrame
 	if mod.inFlightMode == true then
 		WorldMapFrame:SetParent(_G.UIParent)
+		if BUI.PA then
+			if SquareMinimapButtonBar then
+				SquareMinimapButtonBar:SetParent(E.UIParent)
+			end
+		end
 	else
 		WorldMapFrame:SetParent(E.UIParent)
+		if BUI.PA then
+			if SquareMinimapButtonBar then
+				SquareMinimapButtonBar:SetParent(_G.UIParent)
+			end
+		end
 	end
 end
 
@@ -188,7 +198,7 @@ function mod:SetFlightMode(status)
 	if(status) then
 		self.inFlightMode = true
 		self.FlightMode:Show()
-		mod:SetWorldMapParent()
+		mod:SetFrameParent()
 
 		E.UIParent:Hide()
 
@@ -243,8 +253,7 @@ function mod:SetFlightMode(status)
 		-- Hide SquareMinimapButtonBar
 		if BUI.PA then
 			if SquareMinimapButtonBar then
-				_G.SquareMinimapButtons:CancelAllTimers()
-				SquareMinimapButtonBar:SetAlpha(0)
+				SquareMinimapButtonBar:Hide()
 			end
 		end
 
@@ -423,8 +432,7 @@ function mod:SetFlightMode(status)
 		-- Show SquareMinimapButtonBar
 		if BUI.PA then
 			if SquareMinimapButtonBar then
-				_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
-				SquareMinimapButtonBar:SetAlpha(1)
+				SquareMinimapButtonBar:Show()
 			end
 		end
 
