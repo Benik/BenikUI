@@ -315,7 +315,7 @@ function mod:SetFlightMode(status)
 	elseif(self.inFlightMode) then
 		self.inFlightMode = false
 		_G.MainMenuBarVehicleLeaveButton:SetParent(_G.UIParent)
-		mod:SetWorldMapParent()
+		mod:SetFrameParent()
 
 		E.UIParent:Show()
 
