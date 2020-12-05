@@ -172,7 +172,7 @@ local function AddTalentInfo(garrisonType, currentCovenant)
 		-- This is a talent that has completed, but has not been seen in the talent UI yet.
 		-- No longer provide relevant output in SL. Still used by old content.
 		local completeTalentID = C_Garrison_GetCompleteTalent(garrisonType)
-		if completeTalentID > 0 then
+		if completeTalentID > 0 and garrisonType ~= LE_GARRISON_TYPE_9_0 then
 			DT.tooltip:AddLine(' ')
 			DT.tooltip:AddLine(RESEARCH_TIME_LABEL) -- 'Research Time:'
 
