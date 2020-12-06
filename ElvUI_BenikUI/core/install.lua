@@ -362,6 +362,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar3"]["buttonsize"] = 30
 		E.db["actionbar"]["bar3"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar3"]["backdropSpacing"] = 6
+		E.db["actionbar"]["bar4"]["enabled"] = true
 		E.db["actionbar"]["bar4"]["backdrop"] = true
 		E.db["actionbar"]["bar4"]["buttons"] = 12
 		E.db["actionbar"]["bar4"]["buttonsize"] = 26
@@ -428,6 +429,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar3"]["buttonsize"] = 19
 		E.db["actionbar"]["bar3"]["buttonspacing"] = 1
 		E.db["actionbar"]["bar3"]["backdropSpacing"] = 1
+		E.db["actionbar"]["bar4"]["enabled"] = true
 		E.db["actionbar"]["bar4"]["backdrop"] = true
 		E.db["actionbar"]["bar4"]["buttons"] = 12
 		E.db["actionbar"]["bar4"]["buttonsize"] = 26
@@ -491,6 +493,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 12
 		E.db["actionbar"]["bar3"]["buttonsize"] = 30
 		E.db["actionbar"]["bar3"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar4"]["enabled"] = true
 		E.db["actionbar"]["bar4"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar4"]["buttonsize"] = 26
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
