@@ -92,9 +92,11 @@ local slTokens = {
 	1767,   -- Stygia
 	1810,	-- Willing Soul
 	1813,	-- Reservoir Anima
+	1816,   -- Sinstone Fragments
 	1820,	-- Infused Ruby
 	1822,	-- Renown
 	1828, 	-- Soul Ash
+	1885,   -- Grateful Offering
 }
 
 -- Archaeology tokens
