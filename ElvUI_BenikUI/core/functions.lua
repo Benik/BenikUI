@@ -30,7 +30,7 @@ local function CreateSoftShadow(f)
 	shadow:SetOutside(f, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
 	shadow:SetBackdrop({edgeFile = E.Media.Textures.GlowTex, edgeSize = E:Scale(db.shadowSize or 3)})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
+	shadow:SetBackdropBorderColor(borderr, borderg, borderb, db.shadowAlpha or 0.6)
 	f.shadow = shadow
 	BUI["shadows"][shadow] = true
 end
@@ -38,6 +38,7 @@ end
 local function CreateStyleShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
+	local db = E.db.benikui.general
 
 	local styleShadow = f.styleShadow or CreateFrame('Frame', nil, f, 'BackdropTemplate')
 	styleShadow:SetFrameLevel(1)
@@ -48,7 +49,7 @@ local function CreateStyleShadow(f)
 
 	styleShadow:SetBackdrop({edgeFile = [[Interface\AddOns\ElvUI_BenikUI\media\textures\GlowTexCut.tga]], edgeSize = E:Scale(3)})
 	styleShadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	styleShadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
+	styleShadow:SetBackdropBorderColor(borderr, borderg, borderb, db.shadowAlpha or 0.6)
 	f.styleShadow = styleShadow
 end
 

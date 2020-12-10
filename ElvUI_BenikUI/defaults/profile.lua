@@ -53,6 +53,7 @@ P['benikui'] = {
 		['hideStyle'] = false,
 		['shadows'] = true,
 		['shadowSize'] = 4,
+		['shadowAlpha'] = 0.6,
 		['loginMessage'] = true,
 		['splashScreen'] = true,
 	},
