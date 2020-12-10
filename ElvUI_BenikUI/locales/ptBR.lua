@@ -27,6 +27,7 @@ L['by Benik (EU-Emerald Dream)'] = "por Benik (EU-Emerald Dream)"
 L['light blue color.'] = "cor azul claro"
 L['Splash Screen'] = "Tela de inicio"
 L['Shadow'] = "Sombra"
+L['Shadow Alpha'] = true
 
 L['Shadow Size'] = "Tamanho da Sombra"
 -- Layout

@@ -166,7 +166,7 @@ function BUI:UpdateSoftGlowColor()
 	end
 end
 
-function BUI:UpdateShadowSize()
+function BUI:UpdateShadows()
 	if BUI["shadows"] == nil then BUI["shadows"] = {} end
 	local db = E.db.benikui.general
 
@@ -175,7 +175,7 @@ function BUI:UpdateShadowSize()
 			shadow:SetOutside(shadow:GetParent(), (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
 			shadow:SetBackdrop({edgeFile = E.Media.Textures.GlowTex, edgeSize = E:Scale(db.shadowSize or 3)})
 			shadow:SetBackdropColor(0, 0, 0, 0)
-			shadow:SetBackdropBorderColor(0, 0, 0, 0.6)
+			shadow:SetBackdropBorderColor(0, 0, 0, db.shadowAlpha or 0.6)
 		else
 			BUI["shadows"][shadow] = nil;
 		end

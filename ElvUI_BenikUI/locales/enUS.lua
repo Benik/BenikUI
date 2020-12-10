@@ -29,6 +29,7 @@ L['light blue color.'] = true
 L['Splash Screen'] = true
 L['Shadow'] = true
 L['Shadow Size'] = true
+L['Shadow Alpha'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = true

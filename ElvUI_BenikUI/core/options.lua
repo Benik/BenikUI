@@ -61,7 +61,7 @@ local function Core()
 					},
 					spacer = {
 						order = 10,
-						type = 'description',
+						type = 'header',
 						name = '',
 					},
 					shadows = {
@@ -79,7 +79,16 @@ local function Core()
 						min = 3, max = 10, step = 1,
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateShadowSize(); end,
+						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateShadows(); end,
+					},
+					shadowAlpha = {
+						order = 13,
+						type = "range",
+						name = L['Shadow Alpha'],
+						min = 0.1, max = 1, step = 0.1,
+						disabled = function() return E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true end,
+						get = function(info) return E.db.benikui.general[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateShadows(); end,
 					},
 					spacer2 = {
 						order = 20,
