@@ -187,6 +187,7 @@ local AddonsToHide = {
 	{'WeakAuras', 'WeakAurasFrame'},
 	{'HeroRotation','HeroRotation_ToggleIconFrame'},
 	{'!KalielsTracker','!KalielsTrackerFrame'},
+	{'!KalielsTracker','!KalielsTrackerButtons'},
 }
 
 local AllTheThingsFrames = {}
