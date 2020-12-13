@@ -23,24 +23,46 @@ local function GetVolumePercent(cat)
 end
 
 local function RoundVolume(cat)
+	local digit
+	if IsShiftKeyDown() then
+		digit = 1
+	else
+		digit = 2
+	end
+
 	local volume = tonumber(GetCVar(cat))
-	volume = E:Round(volume, 1)
+	volume = E:Round(volume, digit)
 	return volume;
 end
 
 local function Sound_MasterVolumeUp()
+	local digit1, digit2
+	if IsShiftKeyDown() then
+		digit1 = 0.9
+		digit2 = 0.1
+	else
+		digit1 = 0.99
+		digit2 = 0.01
+	end
 	local volume = RoundVolume('Sound_MasterVolume')
 
-	if (volume and volume <= 0.9) then
-		SetCVar('Sound_MasterVolume', volume + 0.1);
+	if (volume and volume <= digit1) then
+		SetCVar('Sound_MasterVolume', volume + digit2);
 	end
 end
 
 local function Sound_MasterVolumeDown()
+	local digit
+	if IsShiftKeyDown() then
+		digit = 0.1
+	else
+		digit = 0.01
+	end
+
 	local volume = RoundVolume('Sound_MasterVolume')
 
-	if (volume and volume >= 0.1) then
-		SetCVar('Sound_MasterVolume', volume - 0.1);
+	if (volume and volume >= digit) then
+		SetCVar('Sound_MasterVolume', volume - digit);
 	end
 end
 
@@ -115,6 +137,7 @@ function mod:CreateVolume()
 		GameTooltip:AddDoubleLine(L['Click :'], BINDING_NAME_TOGGLESOUND, 0.7, 0.7, 1, 0.7, 0.7, 1)
 		GameTooltip:AddDoubleLine(L['RightClick :'], BINDING_NAME_TOGGLEMUSIC, 0.7, 0.7, 1, 0.7, 0.7, 1)
 		GameTooltip:AddDoubleLine(L['MouseWheel :'], VOLUME..' +/-', 0.7, 0.7, 1, 0.7, 0.7, 1)
+		GameTooltip:AddDoubleLine(L['Shift+MouseWheel :'], L['Fast Volume +/-'], 0.7, 0.7, 1, 0.7, 0.7, 1)
 		GameTooltip:Show()
 
 		if db.mouseover then
