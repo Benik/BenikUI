@@ -10,6 +10,7 @@ BUI.Expansions = {
 	{ ExpansionNumber = 7, FactionID = 1824, Option = 'legion', FullName = EXPANSION_NAME6 },
 	{ ExpansionNumber = 8, FactionID = 2104, Option = 'bfa', FullName = EXPANSION_NAME7 },
 	{ ExpansionNumber = 9, FactionID = 2414, Option = 'sl', FullName = EXPANSION_NAME8 },
+	{ ExpansionNumber = 20, FactionID = 1168, Option = 'guild', FullName = GUILD },
 }
 
 	
@@ -1239,5 +1240,12 @@ BUI.FactionList = {
 		subgroup  = "Steamwheedle Cartel",
 		isAlliance = true,
 		isHorde = true,
-	}
+	},
+	{
+		factionID = 1168, -- "Guild",
+		expansion = 20,
+		subgroup  = "",
+		isAlliance = true,
+		isHorde = true,
+	},
 }
