@@ -303,31 +303,42 @@ local function UpdateProfessionOptions()
 end
 
 local function UpdateReputationOptions()
-	local numFactions = GetNumFactions()
-	local factionIndex = 1
-	local optionOrder = 1
-	
-	while (factionIndex <= numFactions) do
-		local tname, _, _, _, _, _, _, _, isHeader, isCollapsed, hasRep, _, _, factionID = GetFactionInfo(factionIndex);
+	local optionOrder = 30
+	for i = 1, #BUI.Expansions do
+		local expansion = BUI.Expansions[i]
+		local expNum = expansion.ExpansionNumber
+		local option = expansion.Option
 
-		if isHeader and isCollapsed then
-			ExpandFactionHeader(factionIndex)
-			numFactions = GetNumFactions()
+		E.Options.args.benikui.args.dashboards.args.reputations.args[option] = {
+			order = optionOrder + 1,
+			type = 'group',
+			name = expansion.FullName,
+			disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+			args = {
+			},
+		}
+
+		for v = 1, #BUI.FactionList do
+			local faction = BUI.FactionList[v]
+			if(expNum == BUI.FactionList[v].expansion) then
+				local id = tostring(faction.factionID)
+				local name = GetFactionInfoByID(faction.factionID)
+				local option = expansion.Option
+				local oppFaction = E.myfaction == 'Alliance' and faction.isAlliance or E.myFaction == 'Horde' and faction.isHorde
+
+				if name and oppFaction then
+					E.Options.args.benikui.args.dashboards.args.reputations.args[option].args[id] = {
+						order = 100,
+						type = 'toggle',
+						name = name,
+						desc = format('%s %s', L['Enable/Disable'], name),
+						disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+						get = function(info) return E.private.dashboards.reputations.chooseReputations[id] end,
+						set = function(info, value) E.private.dashboards.reputations.chooseReputations[id] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+					}
+				end
+			end
 		end
-
-		local id = tostring(factionID)
-		if hasRep or not isHeader then
-			E.Options.args.benikui.args.dashboards.args.reputations.args[id] = {
-				order = 100,
-				type = 'toggle',
-				name = tname,
-				disabled = function() return not E.db.dashboards.reputations.enableReputations end,
-				get = function(info) return E.private.dashboards.reputations.chooseReputations[id] end,
-				set = function(info, value) E.private.dashboards.reputations.chooseReputations[id] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
-			}
-		end
-
-		factionIndex = factionIndex + 1
 	end
 end
 
