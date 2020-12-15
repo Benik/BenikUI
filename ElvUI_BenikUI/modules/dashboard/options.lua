@@ -326,8 +326,9 @@ local function UpdateReputationOptions()
 				local option = expansion.Option
 				local Ally = E.myfaction == 'Alliance' and faction.isAlliance
 				local Horde = E.myfaction == 'Horde' and faction.isHorde
+				local Neutral = E.myfaction == 'Neutral' and (faction.isAlliance or faction.isHorde)
 
-				if name and (Ally or Horde) then
+				if name and (Ally or Horde or Neutral) then
 					E.Options.args.benikui.args.dashboards.args.reputations.args[option].args[id] = {
 						order = 100,
 						type = 'toggle',
