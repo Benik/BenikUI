@@ -9,11 +9,12 @@ local getn = getn
 local tinsert, twipe, tsort, tostring = table.insert, table.wipe, table.sort, tostring
 
 local GameTooltip = _G.GameTooltip
-local GetNumFactions, GetFactionInfo = GetNumFactions, GetFactionInfo
+local GetFactionInfoByID = GetFactionInfoByID
 local IsPlayerAtEffectiveMaxLevel = IsPlayerAtEffectiveMaxLevel
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
 local GetFriendshipReputation = GetFriendshipReputation
+local InCombatLockdown = InCombatLockdown
 local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
@@ -26,11 +27,16 @@ local SPACING = 1
 local classColor = E:ClassColor(E.myclass, true)
 
 local function OnMouseUp(self, btn)
+	if InCombatLockdown() then return end
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
 			local id = self.id
 			E.private.dashboards.reputations.chooseReputations[id] = false
 			mod:UpdateReputations()
+		else
+			E:ToggleOptionsUI()
+			local ACD = E.Libs.AceConfigDialog
+			if ACD then ACD:SelectGroup("ElvUI", "benikui") end
 		end
 	end
 end
@@ -64,9 +70,6 @@ function mod:UpdateReputations()
 			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 		end
 	end)
-
-	local numFactions = GetNumFactions()
-	local factionIndex = 1
 
 	for i = 1, #BUI.FactionList do
 		local faction = BUI.FactionList[i]

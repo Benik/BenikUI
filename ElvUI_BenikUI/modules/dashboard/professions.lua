@@ -10,6 +10,7 @@ local tinsert, tsort = table.insert, table.sort
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
 local CastSpell = CastSpell
+local InCombatLockdown = InCombatLockdown
 local TRADE_SKILLS = TRADE_SKILLS
 
 -- GLOBALS: hooksecurefunc, MMHolder
@@ -24,12 +25,19 @@ local function sortFunction(a, b)
 	return a.name < b.name
 end
 
-local function OnClick(frame)
+local function OnMouseUp(frame, btn)
+	if InCombatLockdown() then return end
 	local SetOffset = frame.SetOffset
 	local name = frame.name
 
-	if SetOffset > 0 then
-		CastSpell(SetOffset + 1, name)
+	if btn == "RightButton" then
+		E:ToggleOptionsUI()
+		local ACD = E.Libs.AceConfigDialog
+		if ACD then ACD:SelectGroup("ElvUI", "benikui") end
+	else
+		if SetOffset > 0 then
+			CastSpell(SetOffset + 1, name)
+		end
 	end
 end
 
@@ -139,8 +147,8 @@ function mod:UpdateProfessions()
 					self.ProFrame.SetOffset = SetOffset
 					self.ProFrame.IconBG.SetOffset = SetOffset
 					self.ProFrame.IconBG.name = name
-					self.ProFrame:SetScript('OnClick', OnClick)
-					self.ProFrame.IconBG:SetScript('OnClick', OnClick)
+					self.ProFrame:SetScript('OnMouseUp', OnMouseUp)
+					self.ProFrame.IconBG:SetScript('OnMouseUp', OnMouseUp)
 
 					tinsert(BUI.ProfessionsDB, self.ProFrame)
 				end
