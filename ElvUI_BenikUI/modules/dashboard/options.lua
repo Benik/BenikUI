@@ -4,7 +4,7 @@ local BUID = BUI:GetModule('Dashboards');
 
 local tinsert, pairs, ipairs, gsub, unpack, format, tostring = table.insert, pairs, ipairs, gsub, unpack, string.format, tostring
 local GetProfessions, GetProfessionInfo = GetProfessions, GetProfessionInfo
-local GetNumFactions, GetFactionInfo = GetNumFactions, GetFactionInfo
+local GetFactionInfoByID = GetFactionInfoByID
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS = PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS

@@ -9,6 +9,7 @@ local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 local GameTooltip = _G.GameTooltip
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local IsShiftKeyDown = IsShiftKeyDown
+local InCombatLockdown = InCombatLockdown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 -- GLOBALS: hooksecurefunc
@@ -151,11 +152,16 @@ local function Icon_OnLeave(self)
 end
 
 local function Icon_OnMouseUp(self, btn)
+	if InCombatLockdown() then return end
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
 			local id = self:GetParent().id
 			E.private.dashboards.tokens.chooseTokens[id] = false
 			mod:UpdateTokens()
+		else
+			E:ToggleOptionsUI()
+			local ACD = E.Libs.AceConfigDialog
+			if ACD then ACD:SelectGroup("ElvUI", "benikui") end
 		end
 	end
 end
