@@ -1,4 +1,5 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Include file="Data\load_data.xml"/>
 	<script file="dashboards.lua"/>
 	<script file="system.lua"/>
 	<Script file="tokens.lua"/>

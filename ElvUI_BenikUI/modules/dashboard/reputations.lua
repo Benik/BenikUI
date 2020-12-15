@@ -68,16 +68,12 @@ function mod:UpdateReputations()
 	local numFactions = GetNumFactions()
 	local factionIndex = 1
 
-	while (factionIndex <= numFactions) do
-		local name, _, standingID, barMin, barMax, barValue, _, _, isHeader, isCollapsed, hasRep, _, _, factionID = GetFactionInfo(factionIndex)
+	for i = 1, #BUI.FactionList do
+		local faction = BUI.FactionList[i]
+		local name, _, standingID, barMin, barMax, barValue = GetFactionInfoByID(faction.factionID)
 
-		if isHeader and isCollapsed then
-			ExpandFactionHeader(factionIndex)
-			numFactions = GetNumFactions()
-		end
-
-		if hasRep or not isHeader then
-			local id = tostring(factionID)
+		if name then
+			local id = tostring(faction.factionID)
 			if E.private.dashboards.reputations.chooseReputations[id] == true then
 				holder:Show()
 				holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.FactionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
@@ -87,10 +83,10 @@ function mod:UpdateReputations()
 				end
 
 				local isCapped, isFriend, friendText, standingLabel
-				local friendshipID = GetFriendshipReputation(factionID)
+				local friendshipID = GetFriendshipReputation(faction.factionID)
 				
 				if friendshipID then
-					local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+					local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(faction.factionID)
 					isFriend, standingID, friendText = true, 5, friendTextLevel
 					if nextFriendThreshold then
 						barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
@@ -98,8 +94,8 @@ function mod:UpdateReputations()
 						barMin, barMax, barValue = 0, 1, 1
 						isCapped = true
 					end
-				elseif C_Reputation_IsFactionParagon(factionID) then
-					local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
+				elseif C_Reputation_IsFactionParagon(faction.factionID) then
+					local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(faction.factionID)
 					if currentValue and threshold then
 						barMin, barMax = 0, threshold
 						barValue = currentValue % threshold
@@ -176,7 +172,7 @@ function mod:UpdateReputations()
 						_G.GameTooltip:AddLine(' ')
 						_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
 
-						if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
+						if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(faction.factionID) then
 							_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
 						end
 
@@ -207,7 +203,6 @@ function mod:UpdateReputations()
 				tinsert(BUI.FactionsDB, self.reputationFrame)
 			end
 		end
-		factionIndex = factionIndex + 1
 	end
 
 	tsort(BUI.FactionsDB, sortFunction)
