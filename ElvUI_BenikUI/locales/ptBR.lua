@@ -42,6 +42,7 @@ L['Enable tooltip to reveal the panel name'] = "Mostra o nome do painel na dica 
 L['Hide In Combat'] = "Esconder Em Combate"
 L['Hide in Pet Battle'] = "Esconder Em Batalhas de Pet"
 L['Name Tooltip'] = "Nome na Dica de contexto"
+L['Style Position'] = true
 L['Texture Color'] = "Cor da Textura"
 L['The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one.'] = "O nome do painel personalizado |cff00c0fa%s|r já existe. Por favor escolha outro nome."
 L['This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?'] = "Isto vai apagar o painel personalizado com o nome |cff00c0fa%s|r. Esta ação precisa que recarregue a interface.\nContinuar?"

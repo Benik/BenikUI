@@ -17,6 +17,11 @@ local strataValues = {
 	["TOOLTIP"] = "TOOLTIP",
 }
 
+local positionValues = {
+	TOP = L["Top"],
+	BOTTOM = L["Bottom"],
+}
+
 local function updateOptions()
 	for panelname in pairs(E.db.benikui.panels) do
 		E.Options.args.benikui.args.panels.args[panelname] = {
@@ -32,8 +37,30 @@ local function updateOptions()
 					get = function(info) return E.db.benikui.panels[panelname].enable end,
 					set = function(info, value) E.db.benikui.panels[panelname].enable = value; mod:SetupPanels() end,
 				},
-				generalOptions = {
+				styleGroup = {
 					order = 2,
+					name = L["BenikUI Style"],
+					type = 'group',
+					guiInline = true,
+					disabled = function() return not E.db.benikui.panels[panelname].enable end,
+					get = function(info) return E.db.benikui.panels[panelname][ info[#info] ] end,
+					set = function(info, value) E.db.benikui.panels[panelname][ info[#info] ] = value; mod:SetupPanels() end,
+					args = {
+						style = {
+							order = 1,
+							type = "toggle",
+							name = SHOW,
+						},
+						stylePosition = {
+							order = 2,
+							type = 'select',
+							name = L["Style Position"],
+							values = positionValues,
+						},
+					},
+				},
+				generalOptions = {
+					order = 3,
 					type = 'multiselect',
 					name = '',
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
@@ -41,7 +68,6 @@ local function updateOptions()
 					set = function(info, key, value) E.db.benikui.panels[panelname][key] = value; mod:SetupPanels() end,
 					values = {
 						transparency = L["Panel Transparency"],
-						style = L["BenikUI Style"],
 						shadow = L["Shadow"],
 						clickThrough = L["Click Through"],
 					}
@@ -106,10 +132,7 @@ local function updateOptions()
 							type = 'select',
 							name = L["Title Bar Position"],
 							disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
-							values = {
-								TOP = L["Top"],
-								BOTTOM = L["Bottom"],
-							},
+							values = positionValues,
 						},
 						height = {
 							order = 4,
