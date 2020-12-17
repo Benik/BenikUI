@@ -42,6 +42,7 @@ L['Enable tooltip to reveal the panel name'] = true
 L['Hide In Combat'] = true
 L['Hide in Pet Battle'] = true
 L['Name Tooltip'] = true
+L['Style Position'] = true
 L['Texture Color'] = true
 L['The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one.'] = true
 L['This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?'] = true

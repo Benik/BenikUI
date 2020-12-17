@@ -42,6 +42,7 @@ L["Enable tooltip to reveal the panel name"] = "Aktiviere den Tooltip um den Pan
 L["Hide In Combat"] = "Verstecke im Kampf"
 L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
 L["Name Tooltip"] = "Namenstooltip"
+L['Style Position'] = true
 L["Texture Color"] = true
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Der Name |cff00c0fa%s|r von einem Benutzerdefiniertem Panel existiert bereits. Bitte wähle einen anderen."
 L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = "Dieses wird das Benutzerdefiniertes Panel mit dem Namen |cff00c0fa%s|r löschen. Dieses erfordert einen Reload.\nFortfahren?"

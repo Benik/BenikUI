@@ -20,6 +20,7 @@ local PanelDefault = {
 	['point'] = "CENTER",
 	['transparency'] = true,
 	['style'] = false,
+	['stylePosition'] = 'TOP',
 	['shadow'] = true,
 	['clickThrough'] = false,
 	['strata'] = "LOW",
@@ -241,8 +242,17 @@ function mod:SetupPanels()
 				else
 					_G[panel].style:Hide()
 				end
-			end
 
+				if db.stylePosition == 'BOTTOM' then
+					_G[panel].style:ClearAllPoints()
+					_G[panel].style:Point('TOPRIGHT', _G[panel], 'BOTTOMRIGHT', 0, (E.PixelMode and 4 or 7))
+					_G[panel].style:Point('BOTTOMLEFT', _G[panel], 'BOTTOMLEFT', 0, (E.PixelMode and -1 or 1))
+				else
+					_G[panel].style:ClearAllPoints()
+					_G[panel].style:Point('TOPLEFT', _G[panel], 'TOPLEFT', 0, (E.PixelMode and 4 or 7))
+					_G[panel].style:Point('BOTTOMRIGHT', _G[panel], 'TOPRIGHT', 0, (E.PixelMode and -1 or 1))
+				end
+			end
 		end
 	end
 end
