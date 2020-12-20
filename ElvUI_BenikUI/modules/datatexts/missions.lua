@@ -332,7 +332,14 @@ local function OnClick(self)
 	_G.EasyMenu(menuList, DT.EasyMenu, nil, nil, nil, "MENU")
 end
 
-local inProgressMissions = {};
+local inProgressMissions = {}
+local expansions = {
+	LE_FOLLOWER_TYPE_GARRISON_6_2,
+	LE_FOLLOWER_TYPE_GARRISON_6_0,
+	LE_FOLLOWER_TYPE_GARRISON_7_0,
+	LE_FOLLOWER_TYPE_GARRISON_8_0,
+	LE_FOLLOWER_TYPE_GARRISON_9_0
+}
 local CountInProgress = 0
 local CountCompleted = 0
 
@@ -359,23 +366,24 @@ local function OnEvent(self, event, ...)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_2)
-
-		C_Garrison_GetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_8_0)
-		for i = 1, #inProgressMissions do
-			if inProgressMissions[i].inProgress then
-				local TimeLeft = inProgressMissions[i].timeLeft:match("%d")
-
-				if (TimeLeft ~= "0") then
-					CountInProgress = CountInProgress + 1
+		
+		for _, expansion in ipairs(expansions) do
+			C_Garrison_GetInProgressMissions(inProgressMissions, expansion)
+			for _, mission in ipairs(inProgressMissions) do
+				local timeLeft = mission.timeLeftSeconds
+				if (timeLeft ~= 0) then
+					CountInProgress = #inProgressMissions
 				end
 			end
 		end
 	end
 
-	if (CountInProgress > 0) then
-		self.text:SetFormattedText("|cff00ff00%s: %d/%d|r", GARRISON_MISSIONS, CountCompleted, #inProgressMissions)
+	if (CountCompleted == 0) and CountInProgress > 0 then
+		self.text:SetFormattedText("%s: |cffffa500%d|r", GARRISON_MISSION_IN_PROGRESS_TOOLTIP, CountInProgress)
 	elseif (CountInProgress == 0) and CountCompleted > 0 then
-		self.text:SetFormattedText("|cff00ff00%s (%d)|r", GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, CountCompleted)
+		self.text:SetFormattedText("%s: %d", DATE_COMPLETED, CountCompleted)
+	elseif (CountInProgress > 0) then
+		self.text:SetFormattedText("%s: |cff00ff00%d|r/|cffffa500%d|r", GARRISON_MISSIONS, CountCompleted, CountInProgress)
 	else
 		self.text:SetFormattedText(GARRISON_TYPE_8_0_LANDING_PAGE_TITLE)
 	end
