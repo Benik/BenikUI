@@ -63,7 +63,6 @@ local EXPANSION_NAME5 = EXPANSION_NAME5 -- "Warlords of Draenor"
 local EXPANSION_NAME6 = EXPANSION_NAME6 -- "Legion"
 local EXPANSION_NAME7 = EXPANSION_NAME7 -- "Battle for Azeroth"
 
-local NAZJATAR_MAP_ID = 1355
 local iconString = "|T%s:16:16:0:0:64:64:4:60:4:60|t"
 
 local callingsData = {}
