@@ -533,7 +533,10 @@ local function SetupActionbars(layout)
 		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,68"
 		E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,116"
 	end
-	BUI:GetModule('Actionbars'):ToggleStyle()
+
+	if E.private.actionbar.enable ~= true then
+		BUI:GetModule('Actionbars'):ToggleStyle()
+	end
 
 	PluginInstallStepComplete.message = BUI.Title..L['Actionbars Set']
 	PluginInstallStepComplete:Show()
