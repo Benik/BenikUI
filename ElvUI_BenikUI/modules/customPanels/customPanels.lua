@@ -113,7 +113,7 @@ function mod:CreatePanel()
 			panel:SetScript("OnEnter", OnEnter)
 			panel:SetScript("OnLeave", OnLeave)
 			if not _G[name.."_Mover"] then
-				E:CreateMover(_G[name], name.."_Mover", name, nil, nil, nil, "ALL,MISC,BENIKUI")
+				E:CreateMover(_G[name], name.."_Mover", name, nil, nil, nil, "ALL,MISC,BENIKUI", nil, 'benikui,panels')
 			end
 
 			panel.Name = name

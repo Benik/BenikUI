@@ -198,7 +198,7 @@ function mod:CreateProfessionsDashboard()
 	mod:ToggleStyle(self.proHolder, 'professions')
 	mod:ToggleTransparency(self.proHolder, 'professions')
 
-	E:CreateMover(_G.BUI_ProfessionsDashboard, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(_G.BUI_ProfessionsDashboard, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,professions')
 end
 
 function mod:LoadProfessions()

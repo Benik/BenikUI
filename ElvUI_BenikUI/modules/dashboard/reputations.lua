@@ -244,7 +244,7 @@ function mod:CreateReputationsDashboard()
 	mod:ToggleStyle(self.reputationHolder, 'reputations')
 	mod:ToggleTransparency(self.reputationHolder, 'reputations')
 
-	E:CreateMover(_G.BUI_ReputationsDashboard, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(_G.BUI_ReputationsDashboard, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
 end
 
 function mod:LoadReputations()

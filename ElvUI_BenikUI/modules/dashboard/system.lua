@@ -118,7 +118,7 @@ function mod:CreateSystemDashboard()
 	mod:ToggleStyle(self.sysHolder, 'system')
 	mod:ToggleTransparency(self.sysHolder, 'system')
 
-	E:CreateMover(_G.BUI_SystemDashboard, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(_G.BUI_SystemDashboard, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,system')
 end
 
 function mod:LoadSystem()
