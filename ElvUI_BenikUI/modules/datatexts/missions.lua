@@ -40,7 +40,6 @@ local FOLLOWERLIST_LABEL_TROOPS = FOLLOWERLIST_LABEL_TROOPS
 local GARRISON_EMPTY_IN_PROGRESS_LIST = GARRISON_EMPTY_IN_PROGRESS_LIST
 local GARRISON_LANDING_SHIPMENT_COUNT = GARRISON_LANDING_SHIPMENT_COUNT
 local GOAL_COMPLETED = GOAL_COMPLETED
-local DATE_COMPLETED = DATE_COMPLETED
 local GARRISON_MISSION_IN_PROGRESS_TOOLTIP = GARRISON_MISSION_IN_PROGRESS_TOOLTIP
 local GREEN_FONT_COLOR = GREEN_FONT_COLOR
 local ISLANDS_HEADER = ISLANDS_HEADER
@@ -381,7 +380,7 @@ local function OnEvent(self, event, ...)
 	if (CountCompleted == 0) and CountInProgress > 0 then
 		self.text:SetFormattedText("%s: |cffffa500%d|r", GARRISON_MISSION_IN_PROGRESS_TOOLTIP, CountInProgress)
 	elseif (CountInProgress == 0) and CountCompleted > 0 then
-		self.text:SetFormattedText("%s: %d", DATE_COMPLETED, CountCompleted)
+		self.text:SetFormattedText("%s: |cff00ff00%d|r", GOAL_COMPLETED, CountCompleted)
 	elseif (CountInProgress > 0) then
 		self.text:SetFormattedText("%s: |cff00ff00%d|r/|cffffa500%d|r", GARRISON_MISSIONS, CountCompleted, CountInProgress)
 	else
