@@ -283,6 +283,9 @@ function mod:OnEvent(event, unit)
 			else
 				_G[name]:Show()
 			end
+			if event == "PET_BATTLE_CLOSE" then
+				_G[name]:SetFrameStrata(db.strata or 'LOW')
+			end
 		end
 	end
 end
@@ -315,6 +318,7 @@ function mod:Initialize()
 	mod:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
 	mod:RegisterEvent("UNIT_ENTERING_VEHICLE", "OnEvent")
 	mod:RegisterEvent("UNIT_EXITING_VEHICLE", "OnEvent")
+	mod:RegisterEvent("PET_BATTLE_CLOSE", "OnEvent")
 end
 
 BUI:RegisterModule(mod:GetName())
