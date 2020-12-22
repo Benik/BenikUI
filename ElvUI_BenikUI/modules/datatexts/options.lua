@@ -166,20 +166,21 @@ local function PanelGroup_Create(panel)
 	E:CopyTable(E.Options.args.datatexts.args.panels.args[panel].args.panelOptions.args, DTPanelOptions)
 end
 
-local function PanelLayoutOptions()
+local function SetupPanelOptions()
 	for panel in pairs(E.global.datatexts.customPanels) do
 		PanelGroup_Create(panel)
 	end
+end
+
+local function initDataTexts()
+	SetupPanelOptions()
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'], "blue")
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.order = 1003
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.delete.hidden = true
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.height.hidden = true
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.growth.hidden = true
-end
 
-local function initDataTexts()
-	PanelLayoutOptions()
 	E:CopyTable(E.Options.args.datatexts.args.panels.args.newPanel.args, DTPanelOptions)
-	hooksecurefunc(DT, "PanelLayoutOptions", PanelLayoutOptions)
+	hooksecurefunc(DT, "SetupPanelOptions", SetupPanelOptions)
 end
 tinsert(BUI.Config, initDataTexts)
