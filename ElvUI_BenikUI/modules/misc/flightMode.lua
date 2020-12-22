@@ -289,6 +289,11 @@ function mod:SetFlightMode(status)
 			end
 		end
 
+		-- special handling for Elkano Buff Bars
+		if IsAddOnLoaded('ElkBuffBars') then
+			ElkBuffBars:PET_BATTLE_OPENING_START()
+		end
+
 		-- Handle ActionBars. This needs to be done if Global Fade is active
 		for _, bar in pairs(AB.handledBars) do
 			if bar then
@@ -387,6 +392,11 @@ function mod:SetFlightMode(status)
 				frame:Show()
 			end
 			twipe(AllTheThingsFrames)
+		end
+
+		-- special handling for Elkano Buff Bars
+		if IsAddOnLoaded('ElkBuffBars') then
+			ElkBuffBars:PET_BATTLE_CLOSE()
 		end
 
 		-- revert Left Chat
