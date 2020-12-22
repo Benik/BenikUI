@@ -1,3 +1,35 @@
+3.98 (Dec 22, 2020)
+*Added Stygia to Tokens Dashboard (thurin)
+*Hide the ZoneAbility buttons while on flightMode
+*Custom Panel minimum height changed to 1
+*Missions DT: Don't show "Research Time" for SL
+*Hide SMB during flightMode for good this time
+*Added Apostolis in the donators list
+*Enable AB4 during install
+*Added Sinstone Fragments and Grateful Offering to Tokens Dashboard (thurin)
+*Added Shadow Alpha option for ticket #133 request
+*Added Kaliels Tracker Buttons to flight mode (thurin)
+*Fixed Actionbar visibility state after exiting flightMode
+*Using the Scroll Wheel in Volume dashboard will now +/- the volume in increments of 1 (Credit: viperous). Having Shift pressed the increments will be 10, as it was before.
+*Categorize Reputation Dashboard options by Expansion
+*Added Guild as a category in Rep Dashboard options
+*Right click on Dashboards except System, will bring up BenikUI options.
+*Fixed Rep options for Neutral faction Pandas
+*Custom panels minimum width/height is now 2
+*Custom Panels: Added Top/Bottom style option
+*Added Geert-Jan in the Donators list <3
+*Corrected ElvUI compatibility version message
+*Custom Panels: Improved the style shadow, when placed on bottom.
+*Prevent an Install error if ElvUI Actionbars are disabled. This will close #128
+*Fixed the missions in progress counting, in Missions datatext
+*Utilized ElvUI feature on Dashboards and Custom Panels, when in ToggleUI mode, right clicking a frame, opens its options
+*Updated BigWigs Shadows
+*BigWigs profile cleanup
+*Fix Custom Panels losing their strata after exiting Pet Battle
+*Fixed completed missions info
+*Added Covenant Crests in AFKmode
+*Added the player covenant in the AFKmode text at the bottom
+
 3.971 (Nov 28, 2020)
 *Added Honor Currency
 *Hide ElvUI Chat Datatexts shadows when their backdrop is disabled
