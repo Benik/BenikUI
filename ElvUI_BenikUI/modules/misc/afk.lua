@@ -232,6 +232,30 @@ local function GetXPinfo()
 	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
 end
 
+-- Get Covenant Crests and set their height and vertical offset
+local function GetCovenantCrest()
+	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
+	local kit = covenantData and covenantData.textureKit or nil
+
+	-- vertical position
+	local vky = kit == "Kyrian" and 0
+	local vve = kit == "Venthyr" and 18
+	local vni = kit == "NightFae" and 16
+	local vne = kit == "Necrolord" and 20
+
+	local vert = vky or vve or vni or vne
+	
+	-- Height
+	local hky = kit == "Kyrian" and 150
+	local hve = kit == "Venthyr" and 120
+	local hni = kit == "NightFae" and 134
+	local hne = kit == "Necrolord" and 120
+
+	local hei = hky or hve or hni or hne
+
+	return kit, vert, hei
+end
+
 AFK.SetAFKBui = AFK.SetAFK
 function AFK:SetAFK(status)
 	self:SetAFKBui(status)
@@ -244,6 +268,9 @@ function AFK:SetAFK(status)
 		local localizedClass = UnitClass('player')
 		local spec = getSpec()
 		local ilvl = getItemLevel()
+		local kit, vert, hei = GetCovenantCrest()
+		local adventuresEmblemFormat = "Adventures-EndCombat-%s"
+
 		self.AFKMode.top:Height(0)
 		self.AFKMode.top.anim.height:Play()
 		self.AFKMode.bottom:Height(0)
@@ -251,6 +278,7 @@ function AFK:SetAFK(status)
 		self.startTime = GetTime()
 		self.statsTimer = self:ScheduleRepeatingTimer("UpdateStatMessage", 5)
 		self.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
+
 		if xptxt then
 			self.AFKMode.xp:Show()
 			self.AFKMode.xp.text:SetText(xptxt)
@@ -258,6 +286,13 @@ function AFK:SetAFK(status)
 			self.AFKMode.xp:Hide()
 			self.AFKMode.xp.text:SetText("")
 		end
+
+		if kit then
+			self.AFKMode.statMsg.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
+			self.AFKMode.statMsg.crest:Point("BOTTOM", 0, vert or 14)
+			self.AFKMode.statMsg.crest:Size(300, hei)
+		end
+	
 		self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
 
 		self.isAFK = true
@@ -290,29 +325,6 @@ local function prank(self, status)
 	end
 end
 --hooksecurefunc(AFK, "SetAFK", prank)
-
-local function GetConvCrest()
-	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
-	local kit = covenantData and covenantData.textureKit or nil
-
-	-- vertical position
-	local vky = kit == "Kyrian" and 0
-	local vve = kit == "Venthyr" and 18
-	local vni = kit == "NightFae" and 16
-	local vne = kit == "Necrolord" and 20
-
-	local vert = vky or vve or vni or vne
-	
-	-- Height
-	local hky = kit == "Kyrian" and 150
-	local hve = kit == "Venthyr" and 120
-	local hni = kit == "NightFae" and 134
-	local hne = kit == "Necrolord" and 120
-
-	local hei = hky or hve or hni or hne
-
-	return kit, vert, hei
-end
 
 local function Initialize()
 	if E.db.benikui.misc.afkMode ~= true then return end
@@ -478,13 +490,6 @@ local function Initialize()
 
 	AFK.AFKMode.statMsg.crest = AFK.AFKMode.statMsg:CreateTexture(nil, 'BACKGROUND')
 	AFK.AFKMode.statMsg.crest:SetDrawLayer('BACKGROUND', 2)
-	local kit, vert, hei = GetConvCrest()
-	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
-	if kit then
-		AFK.AFKMode.statMsg.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
-		AFK.AFKMode.statMsg.crest:Point("BOTTOM", 0, vert or 14)
-		AFK.AFKMode.statMsg.crest:Size(300, hei)
-	end
 
 	-- Countdown decor
 	AFK.AFKMode.countd = CreateFrame("Frame", nil, AFK.AFKMode)
