@@ -20,6 +20,8 @@ local GetSpecializationInfo = GetSpecializationInfo
 local GetAverageItemLevel = GetAverageItemLevel
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
+local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
+local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 
 local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME
 local LEVEL, NONE = LEVEL, NONE
@@ -289,6 +291,29 @@ local function prank(self, status)
 end
 --hooksecurefunc(AFK, "SetAFK", prank)
 
+local function GetConvCrest()
+	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
+	local kit = covenantData and covenantData.textureKit or nil
+
+	-- vertical position
+	local vky = kit == "Kyrian" and 0
+	local vve = kit == "Venthyr" and 18
+	local vni = kit == "NightFae" and 16
+	local vne = kit == "Necrolord" and 20
+
+	local vert = vky or vve or vni or vne
+	
+	-- Height
+	local hky = kit == "Kyrian" and 150
+	local hve = kit == "Venthyr" and 120
+	local hni = kit == "NightFae" and 134
+	local hne = kit == "Necrolord" and 120
+
+	local hei = hky or hve or hni or hne
+
+	return kit, vert, hei
+end
+
 local function Initialize()
 	if E.db.benikui.misc.afkMode ~= true then return end
 
@@ -450,6 +475,16 @@ local function Initialize()
 	AFK.AFKMode.statMsg.lineBottom:Point("BOTTOM")
 	AFK.AFKMode.statMsg.lineBottom:Size(418, 7)
 	AFK.AFKMode.statMsg.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
+
+	AFK.AFKMode.statMsg.crest = AFK.AFKMode.statMsg:CreateTexture(nil, 'BACKGROUND')
+	AFK.AFKMode.statMsg.crest:SetDrawLayer('BACKGROUND', 2)
+	local kit, vert, hei = GetConvCrest()
+	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
+	if kit then
+		AFK.AFKMode.statMsg.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
+		AFK.AFKMode.statMsg.crest:Point("BOTTOM", 0, vert or 14)
+		AFK.AFKMode.statMsg.crest:Size(300, hei)
+	end
 
 	-- Countdown decor
 	AFK.AFKMode.countd = CreateFrame("Frame", nil, AFK.AFKMode)
