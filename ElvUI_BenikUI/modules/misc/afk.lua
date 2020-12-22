@@ -179,7 +179,7 @@ local function getItemLevel()
 	local _, equipped = GetAverageItemLevel()
 	local ilvl = ''
 	if (level >= MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY) then
-		ilvl = format('\n%s: %d', ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, equipped)
+		ilvl = format('%s: %d', ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, equipped)
 	end
 	return ilvl
 end
@@ -270,6 +270,7 @@ function AFK:SetAFK(status)
 		local ilvl = getItemLevel()
 		local kit, vert, hei = GetCovenantCrest()
 		local adventuresEmblemFormat = "Adventures-EndCombat-%s"
+		local displayline = ""
 
 		self.AFKMode.top:Height(0)
 		self.AFKMode.top.anim.height:Play()
@@ -291,10 +292,12 @@ function AFK:SetAFK(status)
 			self.AFKMode.statMsg.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
 			self.AFKMode.statMsg.crest:Point("BOTTOM", 0, vert or 14)
 			self.AFKMode.statMsg.crest:Size(300, hei)
+			displayline = (format("%s - %s\n%s %s %s %s %s\n%s - %s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, kit, ilvl))
+		else
+			displayline = (format("%s - %s\n%s %s %s %s %s\n%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl))
 		end
 	
-		self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
-
+		self.AFKMode.bottom.name:SetText(displayline)
 		self.isAFK = true
 	else
 		self:CancelTimer(self.statsTimer)
