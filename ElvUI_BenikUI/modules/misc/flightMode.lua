@@ -209,7 +209,7 @@ function mod:SetFlightMode(status)
 			Minimap:Hide()
 		end
 
-		if _G.ZoneAbilityFrame then
+		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:GetParent():Hide()
 		end
 		C_TimerAfter(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
@@ -326,7 +326,7 @@ function mod:SetFlightMode(status)
 			Minimap:Show()
 		end
 
-		if _G.ZoneAbilityFrame then
+		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:GetParent():Show()
 		end
 		_G.MainMenuBarVehicleLeaveButton:SetScript('OnShow', nil)
