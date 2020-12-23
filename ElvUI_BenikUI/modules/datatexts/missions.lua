@@ -27,6 +27,7 @@ local C_Garrison_GetTalentTreeInfoForID = C_Garrison.GetTalentTreeInfoForID
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
 local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 local C_CovenantCallings_AreCallingsUnlocked = C_CovenantCallings.AreCallingsUnlocked
 local CovenantCalling_Create = CovenantCalling_Create
@@ -104,7 +105,6 @@ local menuList = {
 	{text = _G.GARRISON_LANDING_PAGE_TITLE,			 func = LandingPage, arg1 = LE_GARRISON_TYPE_6_0, notCheckable = true},
 	{text = _G.ORDER_HALL_LANDING_PAGE_TITLE,		 func = LandingPage, arg1 = LE_GARRISON_TYPE_7_0, notCheckable = true},
 	{text = _G.WAR_CAMPAIGN,						 func = LandingPage, arg1 = LE_GARRISON_TYPE_8_0, notCheckable = true},
-	{text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = LandingPage, arg1 = LE_GARRISON_TYPE_9_0, notCheckable = true},
 }
 
 local data = {}
@@ -324,11 +324,18 @@ local function OnEnter()
 	DT.tooltip:Show()
 end
 
-local function OnClick(self)
+local function OnClick(self, btn)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
 
-	DT:SetEasyMenuAnchor(DT.EasyMenu, self)
-	_G.EasyMenu(menuList, DT.EasyMenu, nil, nil, nil, "MENU")
+	if btn == "LeftButton" then
+		if C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID()) then
+			HideUIPanel(_G.GarrisonLandingPage)
+			ShowGarrisonLandingPage(LE_GARRISON_TYPE_9_0)
+		end
+	elseif btn == "RightButton" then
+		DT:SetEasyMenuAnchor(DT.EasyMenu, self)
+		_G.EasyMenu(menuList, DT.EasyMenu, nil, nil, nil, "MENU")
+	end
 end
 
 local inProgressMissions = {}
