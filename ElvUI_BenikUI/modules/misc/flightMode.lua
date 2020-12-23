@@ -175,12 +175,13 @@ function mod:SkinInFlight()
 	end
 end
 
+local DCR = _G.LibStub('AceAddon-3.0'):GetAddon('Decursive', true)
 local function Decursive(hide)
-	local T = _G.LibStub('AceAddon-3.0'):GetAddon('Decursive', true)
-	if T then
-		if hide then
-			DcrMUFsContainer:Hide()
-		else
+	if not DCR then return end
+	if hide then
+		DcrMUFsContainer:Hide()
+	else
+		if DCR.profile.ShowDebuffsFrame == true then
 			DcrMUFsContainer:Show()
 		end
 	end
