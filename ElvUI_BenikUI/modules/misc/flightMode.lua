@@ -175,6 +175,17 @@ function mod:SkinInFlight()
 	end
 end
 
+local function Decursive(hide)
+	local T = _G.LibStub('AceAddon-3.0'):GetAddon('Decursive', true)
+	if T then
+		if hide then
+			DcrMUFsContainer:Hide()
+		else
+			DcrMUFsContainer:Show()
+		end
+	end
+end
+
 local AddonsToHide = {
 	-- addon, frame
 	{'ZygorGuidesViewer', 'ZygorGuidesViewerFrame'},
@@ -294,6 +305,9 @@ function mod:SetFlightMode(status)
 			ElkBuffBars:PET_BATTLE_OPENING_START()
 		end
 
+		-- Decursive
+		Decursive(true)
+
 		-- Handle ActionBars. This needs to be done if Global Fade is active
 		for _, bar in pairs(AB.handledBars) do
 			if bar then
@@ -398,6 +412,9 @@ function mod:SetFlightMode(status)
 		if IsAddOnLoaded('ElkBuffBars') then
 			ElkBuffBars:PET_BATTLE_CLOSE()
 		end
+
+		-- Decursive
+		Decursive(false)
 
 		-- revert Left Chat
 		if E.private.chat.enable then
