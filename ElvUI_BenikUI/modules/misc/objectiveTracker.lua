@@ -89,7 +89,7 @@ local function ObjectiveTrackerQuests()
 		if not InCombatLockdown() then
 			for questLogIndex = 1, C_QuestLog.GetNumQuestLogEntries() do
 				local info = C_QuestLog.GetInfo(questLogIndex)
-				if not info.isHeader and not info.isHidden then
+				if info and not info.isHeader and not info.isHidden then
 					questNum = questNum + 1
 				end
 			end
