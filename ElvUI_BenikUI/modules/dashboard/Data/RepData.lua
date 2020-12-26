@@ -17,6 +17,13 @@ BUI.Expansions = {
 
 BUI.FactionList = {
 	{
+		factionID = 2462, -- "Stitchmasters",
+		expansion = 9,
+		subgroup  = "",
+		isAlliance = true,
+		isHorde = true,
+	},
+	{
 		factionID = 2413, -- "Court of Harvesters",
 		expansion = 9,
 		subgroup  = "",
