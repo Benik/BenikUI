@@ -339,7 +339,7 @@ local function SetupActionbars(layout)
 	if E.db["movers"] == nil then E.db["movers"] = {} end
 	if layout == 'v1' then
 		E.db["actionbar"]["font"] = "Bui Visitor1"
-		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
+		--E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
 		E.db["actionbar"]["fontSize"] = 10
 
 		E.db["actionbar"]["bar1"]["backdrop"] = false
@@ -376,6 +376,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar5"]["buttonsize"] = 30
 		E.db["actionbar"]["bar5"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar5"]["backdropSpacing"] = 6
+		E.db["actionbar"]["bar5"]["heightMult"] = 1
+		E.db["actionbar"]["bar6"]["enabled"] = false
 		E.db["actionbar"]["barPet"]["backdrop"] = false
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["barPet"]["buttonsize"] = 22
@@ -393,7 +395,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,58"
 		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,298,58"
 		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,-298,58"
-		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,137"
+		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,147"
 		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,832,52"
 		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
