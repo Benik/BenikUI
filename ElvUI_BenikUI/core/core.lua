@@ -217,7 +217,6 @@ function BUI:Initialize()
 	end
 
 	if E.db.benikui.general.loginMessage then
-		--print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues'))
 		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues')))
 	end
 
