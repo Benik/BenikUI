@@ -445,7 +445,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar5"]["buttonsize"] = 19
 		E.db["actionbar"]["bar5"]["buttonspacing"] = 1
 		E.db["actionbar"]["bar5"]["backdropSpacing"] = 1
-
+		E.db["actionbar"]["bar6"]["enabled"] = false
 		E.db["actionbar"]["barPet"]["buttonspacing"] = 4
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["barPet"]["backdrop"] = false
@@ -1200,6 +1200,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["power"]["text_format"] = "[powercolor][power:current-percent]"
 		E.db["unitframe"]["units"]["target"]["power"]["xOffset"] = 4
 		E.db["unitframe"]["units"]["target"]["power"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["target"]["power"]["attachTextTo"] = 'InfoPanel'
 		E.db["unitframe"]["units"]["target"]["power"]["position"] = 'LEFT'
 		E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
