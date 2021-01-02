@@ -78,25 +78,24 @@ function mod:ToggleStyle()
 end
 
 local r, g, b = 0, 0, 0
-
-function mod:ColorBackdrops()
+function mod:StyleColor()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local db = E.db.benikui.colors
 
-	for i = 1, 10 do
-		local styleBacks = {_G['ElvUI_Bar'..i].backdrop.style}
-
-		for _, frame in pairs(styleBacks) do
+	for _, bar in pairs(AB.handledBars) do
+		if bar then
 			if db.abStyleColor == 1 then
 				r, g, b = classColor.r, classColor.g, classColor.b
 			elseif db.abStyleColor == 2 then
 				r, g, b = BUI:unpackColor(db.customAbStyleColor)
 			elseif db.abStyleColor == 3 then
 				r, g, b = BUI:unpackColor(E.db.general.valuecolor)
+			elseif db.abStyleColor == 5 then
+				r, g, b = BUI:getCovenantColor()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
-			frame:SetBackdropColor(r, g, b, db.abAlpha or 1)
+			bar.backdrop.style:SetBackdropColor(r, g, b, db.abAlpha or 1)
 		end
 	end
 
@@ -109,6 +108,8 @@ function mod:ColorBackdrops()
 			r, g, b = BUI:unpackColor(db.customAbStyleColor)
 		elseif db.abStyleColor == 3 then
 			r, g, b = BUI:unpackColor(E.db.general.valuecolor)
+		elseif db.abStyleColor == 5 then
+			r, g, b = BUI:getCovenantColor()
 		else
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 		end
@@ -198,14 +199,14 @@ end
 function mod:Initialize()
 	C_TimerAfter(1, mod.StyleBackdrops)
 	C_TimerAfter(1, mod.PetShadows)
-	C_TimerAfter(2, mod.ColorBackdrops)
+	C_TimerAfter(2, mod.StyleColor)
 	C_TimerAfter(2, mod.LoadToggleButtons)
 	C_TimerAfter(2, mod.ToggleStyle)
 	C_TimerAfter(2, mod.TotemShadows)
 	VehicleExit()
 	self:LoadRequestButton()
-	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "ColorBackdrops");
-	hooksecurefunc(BUI, "SetupColorThemes", mod.ColorBackdrops)
+	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "StyleColor");
+	hooksecurefunc(BUI, "SetupColorThemes", mod.StyleColor)
 
 	if not BUI.ShadowMode then return end
 	hooksecurefunc(_G.SpellFlyout, 'Show', mod.FlyoutShadows)
