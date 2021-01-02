@@ -231,7 +231,7 @@ local function SetupLayout(layout)
 
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Expressway"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 417
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
 
 
 		E.db["benikui"]["general"]["shadows"] = true
@@ -456,8 +456,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 417
-		E.db["databars"]["experience"]["width"] = 417
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
+		E.db["databars"]["experience"]["width"] = 416
 
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
@@ -507,6 +507,7 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["bar5"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar5"]["enabled"] = false
 		E.db["actionbar"]["bar6"]["buttonsize"] = 18
+		E.db["actionbar"]["bar6"]["enabled"] = false
 		E.db["actionbar"]["barPet"]["backdropSpacing"] = 6
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["barPet"]["buttonsize"] = 23
@@ -515,8 +516,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 417
-		E.db["databars"]["experience"]["width"] = 417
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
+		E.db["databars"]["experience"]["width"] = 416
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
@@ -524,7 +525,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-3"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-181,-128"
 		E.db["movers"]["DigSiteProgressBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,315"
-		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,309"
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,310"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,268"
 		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,0,22"
 		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,0,236"
