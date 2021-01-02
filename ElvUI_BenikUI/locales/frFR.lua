@@ -29,6 +29,7 @@ L['Splash Screen'] = "Écran de démarrage"
 L['Shadow'] = "Ombre"
 L['Shadow Size'] = "Taille de l'ombre"
 L['Shadow Alpha'] = true
+L['Covenant Color'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Clic gauche: active la configuration"

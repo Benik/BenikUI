@@ -115,6 +115,25 @@ function BUI:LuaError(msg)
 	end
 end
 
+function BUI:getCovenantColor()
+	local covenantData = C_Covenants.GetCovenantData(C_Covenants.GetActiveCovenantID())
+	local kit = covenantData and covenantData.textureKit or nil
+	if kit then
+		local r, g, b
+		if kit == "Kyrian" then
+			r, g, b = 0.1647, 0.6353, 1.0
+		elseif kit == "Venthyr" then
+			r, g, b = 0.8941, 0.0510, 0.0549
+		elseif kit == "NightFae" then
+			r, g, b = 0.5020, 0.7098, 0.9922
+		elseif kit == "Necrolord" then
+			r, g, b = 0.0902, 0.7843, 0.3922
+		end
+
+		return r, g, b
+	end
+end
+
 local r, g, b = 0, 0, 0
 function BUI:UpdateStyleColors()
 	if not E.db.benikui.general.benikuiStyle then return end
@@ -128,6 +147,8 @@ function BUI:UpdateStyleColors()
 				r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
 			elseif E.db.benikui.colors.StyleColor == 3 then
 				r, g, b = BUI:unpackColor(E.db.general.valuecolor)
+			elseif E.db.benikui.colors.StyleColor == 5 then
+				r, g, b = BUI:getCovenantColor()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end

@@ -28,8 +28,9 @@ L['light blue color.'] = "cor azul claro"
 L['Splash Screen'] = "Tela de inicio"
 L['Shadow'] = "Sombra"
 L['Shadow Alpha'] = true
-
 L['Shadow Size'] = "Tamanho da Sombra"
+L['Covenant Color'] = true
+
 -- Layout
 L['LeftClick: Toggle Configuration'] = "LeftClick: Alterna Configuração"
 L['RightClick: Toggle Embedded Addon'] = "RightClick: Alterna Addon Embutido"
