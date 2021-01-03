@@ -224,7 +224,7 @@ function mod:UpdateTokens()
 					-- cheat for Renown
 					if id == 1822 then
 						amount = amount + 1
-						totalMax = 40
+						totalMax = totalMax + 1
 					end
 
 					if totalMax == 0 then
