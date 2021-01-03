@@ -20,115 +20,6 @@ local SPACING = 1
 
 local classColor = E:ClassColor(E.myclass, true)
 
-local Currency = {
-	-- unused/old
-	614,	-- Mote of Darkness
-	615,	-- Essence of Corrupted Deathwing
-	752,	-- Mogu Rune of Fate
-
-	-- Archaeology
-	384,	-- Dwarf Archaeology Fragment
-	385,	-- Troll Archaeology Fragment
-	393,	-- Fossil Archaeology Fragment
-	394,	-- Night Elf Archaeology Fragment
-	397,	-- Orc Archaeology Fragment
-	398,	-- Draenei Archaeology Fragment
-	399,	-- Vrykul Archaeology Fragment
-	400,	-- Nerubian Archaeology Fragment
-	401,	-- Tol'vir Archaeology Fragment
-	676,	-- Pandaren Archaeology Fragment
-	677,	-- Mogu Archaeology Fragment
-	754,	-- Mantid Archaeology Fragment
-	821,	-- Draenor Clans Archaeology Fragment
-	828,	-- Ogre Archaeology Fragment
-	829,	-- Arakkoa Archaeology Fragment
-	1172,	-- Highborne Archaeology Fragment
-	1173,	-- Highmountain Tauren Archaeology Fragment
-	1174,	-- Demonic Archaeology Fragment
-	1534,	-- Zandalari Archaeology Fragment
-	1535,	-- Drust Archaeology Fragment
-
-	-- dungeon
-	1166, 	-- Timewarped Badge (6.22)
-
-	-- pvp
-	391,	-- Tol Barad Commendation
-	1602,	-- Conquest
-	1792,	-- Honor
-
-	-- secondary
-	81,		-- Epicurean's Award
-	402,	-- Ironpaw Token
-	61,		-- Dalaran Jewelcrafter's Token
-	361,	-- Illustrious Jewelcrafter's Token
-
-	-- misc
-	241,	-- Champion's Seal
-	416,	-- Mark of the World Tree
-	515,	-- Darkmoon Prize Ticket
-	789,	-- Bloody Coin
-
-	-- MoP
-	697,	-- Elder Charm of Good Fortune
-	738,	-- Lesser Charm of Good Fortune
-	776,	-- Warforged Seal
-	777,	-- Timeless Coin
-
-	-- WoD
-	824,	-- Garrison Resources
-	823,	-- Apexis Crystal (for gear, like the valors)
-	994,	-- Seal of Tempered Fate (Raid loot roll)
-	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
-	944,	-- Artifact Fragment (PvP)
-	1101,	-- Oil
-	1129,	-- Seal of Inevitable Fate
-	1191, 	-- Valor Points (6.23)
-
-	-- Legion
-	1155,	-- Ancient Mana
-	1220,	-- Order Resources
-	1275,	-- Curious Coin (Buy stuff :P)
-	1226,	-- Nethershard (Invasion scenarios)
-	1273,	-- Seal of Broken Fate (Raid)
-	1154,	-- Shadowy Coins
-	1149,	-- Sightless Eye (PvP)
-	1268,	-- Timeworn Artifact (Honor Points?)
-	1299,	-- Brawler's Gold
-	1314,	-- Lingering Soul Fragment (Good luck with this one :D)
-	1342,	-- Legionfall War Supplies (Construction at the Broken Shore)
-	1355,	-- Felessence (Craft Legentary items)
-	1356,	-- Echoes of Battle (PvP Gear)
-	1357,	-- Echoes of Domination (Elite PvP Gear)
-	1416,	-- Coins of Air
-	1508,	-- Veiled Argunite
-	1533,	-- Wakening Essence
-	
-	-- BfA
-	1560, 	-- War Resources
-	1580,	-- Seal of Wartorn Fate
-	1587,	-- War Supplies
-	1710,	-- Seafarer's Dubloon
-	1716,	-- Honorbound Service Medal (Horde)
-	1717,	-- 7th Legion Service Medal (Alliance)
-	1718,	-- Titan Residuum
-	1719,	-- Corrupted Memento
-	1721,	-- Prismatic Manapearl
-	1755,	-- Coalescing Visions
-	1803,	-- Echoes of Ny'alotha
-
-	-- Shadowlands
-	1751,	-- Freed Soul
-	1754,	-- Argent Commendation
-	1767,   -- Stygia
-	1810,	-- Willing Soul
-	1813,	-- Reservoir Anima
-	1816,   -- Sinstone Fragments
-	1820,	-- Infused Ruby
-	1822,	-- Renown
-	1828, 	-- Soul Ash
-	1885,   -- Grateful Offering
-}
-
 local function Icon_OnEnter(self)
 	local id = self:GetParent().id
 	if E.db.dashboards.tokens.tooltip then
@@ -205,7 +96,7 @@ function mod:UpdateTokens()
 		end
 	end)
 
-	for _, id in pairs(Currency) do
+	for _, id in pairs(BUI.Currency) do
 		local name, amount, icon, weeklyMax, totalMax, isDiscovered = mod:GetTokenInfo(id)
 		if name then
 			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = nil end
