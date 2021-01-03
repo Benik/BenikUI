@@ -732,7 +732,7 @@ local function dashboardsTable()
 			reputations = {
 				order = 6,
 				type = 'group',
-				name = format('%s |cff00c0fa%s|r', REPUTATION, '(WIP)'),
+				name = REPUTATION,
 				childGroups = 'select',
 				args = {
 					enableReputations = {
