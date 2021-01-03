@@ -88,9 +88,9 @@ function mod:UpdateProfessions()
 						holder:Point('TOPLEFT', ProfessionsMover, 'TOPLEFT')
 					end
 
-					self.ProFrame = self:CreateDashboard(holder, 'professions', true)
+					local bar = self:CreateDashboard(holder, 'professions', true)
 
-					self.ProFrame:SetScript('OnEnter', function(self)
+					bar:SetScript('OnEnter', function(self)
 						self.Text:SetFormattedText('%s', name)
 						if skillLineName then
 							GameTooltip:SetOwner(self, 'ANCHOR_CURSOR');
@@ -102,7 +102,7 @@ function mod:UpdateProfessions()
 						end
 					end)
 
-					self.ProFrame:SetScript('OnLeave', function(self)
+					bar:SetScript('OnLeave', function(self)
 						if (rankModifier and rankModifier > 0) then
 							self.Text:SetFormattedText('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
 						else
@@ -115,42 +115,42 @@ function mod:UpdateProfessions()
 					end)
 
 					if (rankModifier and rankModifier > 0) then
-						self.ProFrame.Status:SetMinMaxValues(1, maxRank + rankModifier)
-						self.ProFrame.Status:SetValue(rank + rankModifier)
+						bar.Status:SetMinMaxValues(1, maxRank + rankModifier)
+						bar.Status:SetValue(rank + rankModifier)
 					else
-						self.ProFrame.Status:SetMinMaxValues(1, maxRank)
-						self.ProFrame.Status:SetValue(rank)
+						bar.Status:SetMinMaxValues(1, maxRank)
+						bar.Status:SetValue(rank)
 					end
 
 					if E.db.dashboards.barColor == 1 then
-						self.ProFrame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+						bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 					else
-						self.ProFrame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+						bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
 					end
 
 					if (rankModifier and rankModifier > 0) then
-						self.ProFrame.Text:SetFormattedText('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
+						bar.Text:SetFormattedText('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
 					else
-						self.ProFrame.Text:SetFormattedText('%s / %s', rank, maxRank)
+						bar.Text:SetFormattedText('%s / %s', rank, maxRank)
 					end
 
 					if E.db.dashboards.textColor == 1 then
-						self.ProFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+						bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 					else
-						self.ProFrame.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
+						bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 					end
 
-					self.ProFrame.IconBG.Icon:SetTexture(icon)
+					bar.IconBG.Icon:SetTexture(icon)
 
 					local SetOffset = offset or 0
-					self.ProFrame.name = name
-					self.ProFrame.SetOffset = SetOffset
-					self.ProFrame.IconBG.SetOffset = SetOffset
-					self.ProFrame.IconBG.name = name
-					self.ProFrame:SetScript('OnMouseUp', OnMouseUp)
-					self.ProFrame.IconBG:SetScript('OnMouseUp', OnMouseUp)
+					bar.name = name
+					bar.SetOffset = SetOffset
+					bar.IconBG.SetOffset = SetOffset
+					bar.IconBG.name = name
+					bar:SetScript('OnMouseUp', OnMouseUp)
+					bar.IconBG:SetScript('OnMouseUp', OnMouseUp)
 
-					tinsert(BUI.ProfessionsDB, self.ProFrame)
+					tinsert(BUI.ProfessionsDB, bar)
 				end
 			end
 		end
@@ -183,20 +183,20 @@ function mod:CreateProfessionsDashboard()
 	local mapholderWidth = E.private.general.minimap.enable and _G.MMHolder:GetWidth() or 150
 	local DASH_WIDTH = E.db.dashboards.professions.width or 150
 
-	self.proHolder = self:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
+	local holder = self:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
 
 	if E.private.general.minimap.enable then
-		self.proHolder:Point('TOPLEFT', _G.MMHolder, 'BOTTOMLEFT', 0, -5)
+		holder:Point('TOPLEFT', _G.MMHolder, 'BOTTOMLEFT', 0, -5)
 	else
-		self.proHolder:Point('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
+		holder:Point('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
 	end
-	self.proHolder:Width(mapholderWidth or DASH_WIDTH)
+	holder:Width(mapholderWidth or DASH_WIDTH)
 
 	mod:UpdateProfessions()
 	mod:UpdateProfessionSettings()
-	mod:UpdateHolderDimensions(self.proHolder, 'professions', BUI.ProfessionsDB)
-	mod:ToggleStyle(self.proHolder, 'professions')
-	mod:ToggleTransparency(self.proHolder, 'professions')
+	mod:UpdateHolderDimensions(holder, 'professions', BUI.ProfessionsDB)
+	mod:ToggleStyle(holder, 'professions')
+	mod:ToggleTransparency(holder, 'professions')
 
 	E:CreateMover(_G.BUI_ProfessionsDashboard, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,professions')
 end

@@ -109,14 +109,14 @@ function mod:UpdateSystemSettings()
 end
 
 function mod:CreateSystemDashboard()
-	self.sysHolder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
-	self.sysHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
-	self.sysHolder:Width(E.db.dashboards.system.width or 150)
+	local holder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
+	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
+	holder:Width(E.db.dashboards.system.width or 150)
 
 	mod:UpdateSystem()
-	mod:UpdateHolderDimensions(self.sysHolder, 'system', BUI.SystemDB)
-	mod:ToggleStyle(self.sysHolder, 'system')
-	mod:ToggleTransparency(self.sysHolder, 'system')
+	mod:UpdateHolderDimensions(holder, 'system', BUI.SystemDB)
+	mod:ToggleStyle(holder, 'system')
+	mod:ToggleTransparency(holder, 'system')
 
 	E:CreateMover(_G.BUI_SystemDashboard, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,system')
 end

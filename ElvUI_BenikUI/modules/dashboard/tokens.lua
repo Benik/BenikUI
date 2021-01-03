@@ -110,7 +110,7 @@ function mod:UpdateTokens()
 						holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 					end
 
-					self.tokenFrame = self:CreateDashboard(holder, 'tokens', true)
+					local bar = self:CreateDashboard(holder, 'tokens', true)
 
 					-- cheat for Renown
 					if id == 1822 then
@@ -119,52 +119,52 @@ function mod:UpdateTokens()
 					end
 
 					if totalMax == 0 then
-						self.tokenFrame.Status:SetMinMaxValues(0, amount)
+						bar.Status:SetMinMaxValues(0, amount)
 					else
 						if db.weekly and weeklyMax > 0 then
-							self.tokenFrame.Status:SetMinMaxValues(0, weeklyMax)
+							bar.Status:SetMinMaxValues(0, weeklyMax)
 						else
-							self.tokenFrame.Status:SetMinMaxValues(0, totalMax)
+							bar.Status:SetMinMaxValues(0, totalMax)
 						end
 					end
-					self.tokenFrame.Status:SetValue(amount)
+					bar.Status:SetValue(amount)
 
 					if E.db.dashboards.barColor == 1 then
-						self.tokenFrame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+						bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 					else
-						self.tokenFrame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+						bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
 					end
 
 					if totalMax == 0 then
-						self.tokenFrame.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
+						bar.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
 					else
 						if db.weekly and weeklyMax > 0 then
-							self.tokenFrame.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
+							bar.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
 						else
-							self.tokenFrame.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
+							bar.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
 						end
 					end
 
 					if E.db.dashboards.textColor == 1 then
-						self.tokenFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+						bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 					else
-						self.tokenFrame.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
+						bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 					end
 
-					self.tokenFrame.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
-					self.tokenFrame.IconBG:SetScript('OnEnter', Icon_OnEnter)
-					self.tokenFrame.IconBG:SetScript('OnLeave', Icon_OnLeave)
+					bar.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
+					bar.IconBG:SetScript('OnEnter', Icon_OnEnter)
+					bar.IconBG:SetScript('OnLeave', Icon_OnLeave)
 
-					self.tokenFrame.IconBG.Icon:SetTexture(icon)
+					bar.IconBG.Icon:SetTexture(icon)
 
-					self.tokenFrame:SetScript('OnEnter', function(self)
+					bar:SetScript('OnEnter', function(self)
 						self.Text:SetFormattedText('%s', name)
 						if db.mouseover then
 							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 						end
 					end)
 
-					self.tokenFrame:SetScript('OnLeave', function(self)
+					bar:SetScript('OnLeave', function(self)
 						if totalMax == 0 then
 							self.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
 						else
@@ -180,10 +180,10 @@ function mod:UpdateTokens()
 						end
 					end)
 
-					self.tokenFrame.id = id
-					self.tokenFrame.name = name
+					bar.id = id
+					bar.name = name
 
-					tinsert(BUI.TokensDB, self.tokenFrame)
+					tinsert(BUI.TokensDB, bar)
 				else
 					holder:Hide()
 				end
@@ -214,15 +214,15 @@ function mod:TokenEvents()
 end
 
 function mod:CreateTokensDashboard()
-	self.tokenHolder = self:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
-	self.tokenHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
-	self.tokenHolder:Width(E.db.dashboards.tokens.width or 150)
+	local holder = self:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
+	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
+	holder:Width(E.db.dashboards.tokens.width or 150)
 
 	mod:UpdateTokens()
 	mod:UpdateTokenSettings()
-	mod:UpdateHolderDimensions(self.tokenHolder, 'tokens', BUI.TokensDB)
-	mod:ToggleStyle(self.tokenHolder, 'tokens')
-	mod:ToggleTransparency(self.tokenHolder, 'tokens')
+	mod:UpdateHolderDimensions(holder, 'tokens', BUI.TokensDB)
+	mod:ToggleStyle(holder, 'tokens')
+	mod:ToggleTransparency(holder, 'tokens')
 
 	E:CreateMover(_G.BUI_TokensDashboard, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,tokens')
 end
