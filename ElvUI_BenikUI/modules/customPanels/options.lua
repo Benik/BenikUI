@@ -64,8 +64,8 @@ local function updateOptions()
 					type = 'multiselect',
 					name = '',
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
-					get = function(info, key) return E.db.benikui.panels[panelname][key] end,
-					set = function(info, key, value) E.db.benikui.panels[panelname][key] = value; mod:SetupPanels() end,
+					get = function(_, key) return E.db.benikui.panels[panelname][key] end,
+					set = function(_, key, value) E.db.benikui.panels[panelname][key] = value; mod:SetupPanels() end,
 					values = {
 						transparency = L["Panel Transparency"],
 						shadow = L["Shadow"],

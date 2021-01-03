@@ -122,43 +122,46 @@ function mod:UpdateReputations()
 					maxMinDiff = 1
 				end
 
-				self.reputationFrame = self:CreateDashboard(holder, 'reputations')
-				self.reputationFrame.Status:SetMinMaxValues(barMin, barMax)
-				self.reputationFrame.Status:SetValue(barValue)
+				local bar = self:CreateDashboard(holder, 'reputations')
+				bar.Status:SetMinMaxValues(barMin, barMax)
+				bar.Status:SetValue(barValue)
 
 				standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 				local color = _G.FACTION_BAR_COLORS[standingID]
 				local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
 				if E.db.dashboards.dashfont.useDTfont then
-					self.reputationFrame.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+					bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 				else
-					self.reputationFrame.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
+					bar.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
 				end
 
 				if not db.barFactionColors then
 					if E.db.dashboards.barColor == 1 then
-						self.reputationFrame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+						bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 					else
-						self.reputationFrame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+						bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
 					end
 				else
-					self.reputationFrame.Status:SetStatusBarColor(color.r, color.g, color.b)
+					bar.Status:SetStatusBarColor(color.r, color.g, color.b)
 				end
 
 				if db.textFactionColors then
-					self.reputationFrame.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
+					bar.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
 				else
-					self.reputationFrame.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
+					bar.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
 				end
 
 				if E.db.dashboards.textColor == 1 then
-					self.reputationFrame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+					bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 				else
-					self.reputationFrame.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
+					bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 				end
 
-				self.reputationFrame:SetScript('OnEnter', function(self)
+				bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+				bar.Text:SetJustifyH(db.textAlign)
+
+				bar:SetScript('OnEnter', function(self)
 					if isCapped then
 						self.Text:SetFormattedText('%s(%s)|r', hexColor, isFriend and friendText or standingLabel)
 					else
@@ -185,7 +188,7 @@ function mod:UpdateReputations()
 					end
 				end)
 
-				self.reputationFrame:SetScript('OnLeave', function(self)
+				bar:SetScript('OnLeave', function(self)
 					if db.textFactionColors then
 						self.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
 					else
@@ -198,12 +201,12 @@ function mod:UpdateReputations()
 					end
 				end)
 				
-				self.reputationFrame:SetScript('OnMouseUp', OnMouseUp)
+				bar:SetScript('OnMouseUp', OnMouseUp)
 
-				self.reputationFrame.id = id
-				self.reputationFrame.name = name
+				bar.id = id
+				bar.name = name
 
-				tinsert(BUI.FactionsDB, self.reputationFrame)
+				tinsert(BUI.FactionsDB, bar)
 			end
 		end
 	end

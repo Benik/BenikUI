@@ -354,6 +354,7 @@ P['dashboards'] = {
 		['barFactionColors'] = true,
 		['textFactionColors'] = true,
 		['tooltip'] = false,
+		['textAlign'] = 'LEFT',
 	},
 
 	['dashfont'] = {
