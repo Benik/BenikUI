@@ -45,12 +45,12 @@ function AS:BigWigs(event, addon)
 
 			bd:Hide()
 			iconBd:Hide()
-			if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
+			--[[if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
 				bd.InsideBorder:Hide()
 				bd.OutsideBorder:Hide()
 				iconBd.InsideBorder:Hide()
 				iconBd.OutsideBorder:Hide()
-			end
+			end]]
 		end
 
 		local function ApplyStyle(bar)
@@ -76,17 +76,17 @@ function AS:BigWigs(event, addon)
 				iconBd:SetOutside(icon)
 
 				iconBd:Show()
-				if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
+				--[[if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
 					iconBd.InsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel')
 					iconBd.OutsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder')
-				end
+				end]]
 			end
 
 			bd:Show()
-			if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
+			--[[if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
 				bd.InsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel')
 				bd.OutsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder')
-			end
+			end]]
 		end
 
 		local function ApplyStyleHalfBar(bar)
@@ -114,25 +114,25 @@ function AS:BigWigs(event, addon)
 				iconBd:CreateSoftShadow()
 
 				iconBd:Show()
-				if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
+				--[[if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
 					iconBd.InsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel')
 					iconBd.OutsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder')
-				end
+				end]]
 			end
 
 			bar.candyBarLabel:ClearAllPoints()
-			bar.candyBarLabel:Point("LEFT", bar, "LEFT", 2, AS:AdjustForTheme(12))
-			bar.candyBarLabel:Point("RIGHT", bar, "RIGHT", -2, AS:AdjustForTheme(12))
+			bar.candyBarLabel:Point("LEFT", bar, "LEFT", 2, AS:AdjustForTheme(14))
+			bar.candyBarLabel:Point("RIGHT", bar, "RIGHT", -2, AS:AdjustForTheme(14))
 
 			bar.candyBarDuration:ClearAllPoints()
-			bar.candyBarDuration:Point("LEFT", bar, "LEFT", 2, AS:AdjustForTheme(12))
-			bar.candyBarDuration:Point("RIGHT", bar, "RIGHT", -2, AS:AdjustForTheme(12))
+			bar.candyBarDuration:Point("LEFT", bar, "LEFT", 2, AS:AdjustForTheme(14))
+			bar.candyBarDuration:Point("RIGHT", bar, "RIGHT", -2, AS:AdjustForTheme(14))
 
 			bd:Show()
-			if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
+			--[[if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
 				bd.InsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel')
 				bd.OutsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder')
-			end
+			end]]
 		end
 
 		BigWigsAPI:RegisterBarStyle('AddOnSkins', {
