@@ -8,7 +8,7 @@ local GetFactionInfoByID = GetFactionInfoByID
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS = PROFESSIONS_ARCHAEOLOGY, PROFESSIONS_MISSING_PROFESSION, TOKENS
-local PLAYER_V_PLAYER, TRADE_SKILLS = PLAYER_V_PLAYER, TRADE_SKILLS
+local TRADE_SKILLS = TRADE_SKILLS
 
 -- GLOBALS: AceGUIWidgetLSMlists, hooksecurefunc
 
@@ -43,35 +43,28 @@ end
 
 -- these options must be updated when the player discovers a new token.
 local function UpdateTokenOptions()
-	for i, v in ipairs(BUI.currencyTables) do
-		local tableName, option, optionName = unpack(v)
+	for i, info in ipairs(BUI.CurrencyList) do
 		local optionOrder = 1
-		for _, id in ipairs(tableName) do
-			E.Options.args.benikui.args.dashboards.args.tokens.args[option] = {
+		local name, id = unpack(info)
+		if not info[2] then
+			E.Options.args.benikui.args.dashboards.args.tokens.args[tostring(i)] = {
 				order = i,
 				type = 'group',
-				name = optionName,
+				name = name,
 				args = {
 				},
 			}
-			for _, id in ipairs(tableName) do
-				local tname, amount, icon, _, _, isDiscovered = BUID:GetTokenInfo(id)
-				if tname then
-					E.Options.args.benikui.args.dashboards.args.tokens.args[option].args.desc = {
-						order = optionOrder + 1,
-						name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered'], "blue"),
-						type = 'header',
-					}
-					E.Options.args.benikui.args.dashboards.args.tokens.args[option].args[tname] = {
-						order = optionOrder + 2,
-						type = 'toggle',
-						name = (icon and '|T'..icon..':18|t '..tname) or tname,
-						desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], BreakUpLargeNumbers(amount)),
-						get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
-						set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
-						disabled = function() return not isDiscovered end,
-					}
-				end
+		elseif info[3] then
+			local tname, amount, icon = BUID:GetTokenInfo(id)
+			if tname then
+				E.Options.args.benikui.args.dashboards.args.tokens.args[tostring(info[3])].args[tostring(i)] = {
+					order = optionOrder + 2,
+					type = 'toggle',
+					name = (icon and '|T'..icon..':18|t '..tname) or tname,
+					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], BreakUpLargeNumbers(amount)),
+					get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
+					set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+				}
 			end
 		end
 	end
