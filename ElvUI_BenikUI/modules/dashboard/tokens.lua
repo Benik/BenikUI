@@ -125,12 +125,6 @@ function mod:UpdateTokens()
 
 						local bar = self:CreateDashboard(holder, 'tokens', true)
 
-						-- cheat for Renown
-						if id == 1822 then
-							amount = amount + 1
-							totalMax = totalMax + 1
-						end
-
 						if totalMax == 0 then
 							bar.Status:SetMinMaxValues(0, amount)
 						else
