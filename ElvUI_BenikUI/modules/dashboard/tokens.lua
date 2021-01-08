@@ -8,9 +8,16 @@ local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
 
 local GameTooltip = _G.GameTooltip
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local C_CurrencyInfo_GetCurrencyListSize = C_CurrencyInfo.GetCurrencyListSize
+local C_CurrencyInfo_GetCurrencyListInfo = C_CurrencyInfo.GetCurrencyListInfo
+local C_CurrencyInfo_GetCurrencyListLink = C_CurrencyInfo.GetCurrencyListLink
+local C_CurrencyInfo_GetCurrencyIDFromLink = C_CurrencyInfo.GetCurrencyIDFromLink
+local C_CurrencyInfo_ExpandCurrencyList = C_CurrencyInfo.ExpandCurrencyList
+local GetExpansionLevel = GetExpansionLevel
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
+local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
 
 -- GLOBALS: hooksecurefunc
 
@@ -19,6 +26,9 @@ local DASH_SPACING = 3
 local SPACING = 1
 
 local classColor = E:ClassColor(E.myclass, true)
+local expansion = _G['EXPANSION_NAME'..GetExpansionLevel()]
+
+BUI.CurrencyList = {}
 
 local function Icon_OnEnter(self)
 	local id = self:GetParent().id
@@ -96,96 +106,100 @@ function mod:UpdateTokens()
 		end
 	end)
 
-	for _, id in pairs(BUI.Currency) do
-		local name, amount, icon, weeklyMax, totalMax, isDiscovered = mod:GetTokenInfo(id)
-		if name then
-			if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = nil end
+	for _, info in ipairs(BUI.CurrencyList) do
+		local _, id = unpack(info)
 
-			if E.private.dashboards.tokens.chooseTokens[id] == true then
-				if db.zeroamount or amount > 0 then
-					holder:Show()
-					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
-					if tokenHolderMover then
-						tokenHolderMover:Size(holder:GetSize())
-						holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
-					end
+		if id then
+			local name, amount, icon, weeklyMax, totalMax, isDiscovered = mod:GetTokenInfo(id)
+			if name then
+				if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = nil end
 
-					local bar = self:CreateDashboard(holder, 'tokens', true)
-
-					-- cheat for Renown
-					if id == 1822 then
-						amount = amount + 1
-						totalMax = totalMax + 1
-					end
-
-					if totalMax == 0 then
-						bar.Status:SetMinMaxValues(0, amount)
-					else
-						if db.weekly and weeklyMax > 0 then
-							bar.Status:SetMinMaxValues(0, weeklyMax)
-						else
-							bar.Status:SetMinMaxValues(0, totalMax)
+				if E.private.dashboards.tokens.chooseTokens[id] == true then
+					if db.zeroamount or amount > 0 then
+						holder:Show()
+						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+						if tokenHolderMover then
+							tokenHolderMover:Size(holder:GetSize())
+							holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
 						end
-					end
-					bar.Status:SetValue(amount)
 
-					if E.db.dashboards.barColor == 1 then
-						bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-					else
-						bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
-					end
+						local bar = self:CreateDashboard(holder, 'tokens', true)
 
-					if totalMax == 0 then
-						bar.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
-					else
-						if db.weekly and weeklyMax > 0 then
-							bar.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
-						else
-							bar.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
+						-- cheat for Renown
+						if id == 1822 then
+							amount = amount + 1
+							totalMax = totalMax + 1
 						end
-					end
 
-					if E.db.dashboards.textColor == 1 then
-						bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
-					else
-						bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
-					end
-
-					bar.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
-					bar.IconBG:SetScript('OnEnter', Icon_OnEnter)
-					bar.IconBG:SetScript('OnLeave', Icon_OnLeave)
-
-					bar.IconBG.Icon:SetTexture(icon)
-
-					bar:SetScript('OnEnter', function(self)
-						self.Text:SetFormattedText('%s', name)
-						if db.mouseover then
-							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-						end
-					end)
-
-					bar:SetScript('OnLeave', function(self)
 						if totalMax == 0 then
-							self.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
+							bar.Status:SetMinMaxValues(0, amount)
 						else
 							if db.weekly and weeklyMax > 0 then
-								self.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
+								bar.Status:SetMinMaxValues(0, weeklyMax)
 							else
-								self.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
+								bar.Status:SetMinMaxValues(0, totalMax)
 							end
 						end
-						GameTooltip:Hide()
-						if db.mouseover then
-							E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+						bar.Status:SetValue(amount)
+
+						if E.db.dashboards.barColor == 1 then
+							bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+						else
+							bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
 						end
-					end)
 
-					bar.id = id
-					bar.name = name
+						if totalMax == 0 then
+							bar.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
+						else
+							if db.weekly and weeklyMax > 0 then
+								bar.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
+							else
+								bar.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
+							end
+						end
 
-					tinsert(BUI.TokensDB, bar)
-				else
-					holder:Hide()
+						if E.db.dashboards.textColor == 1 then
+							bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+						else
+							bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
+						end
+
+						bar.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
+						bar.IconBG:SetScript('OnEnter', Icon_OnEnter)
+						bar.IconBG:SetScript('OnLeave', Icon_OnLeave)
+
+						bar.IconBG.Icon:SetTexture(icon)
+
+						bar:SetScript('OnEnter', function(self)
+							self.Text:SetFormattedText('%s', name)
+							if db.mouseover then
+								E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+							end
+						end)
+
+						bar:SetScript('OnLeave', function(self)
+							if totalMax == 0 then
+								self.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
+							else
+								if db.weekly and weeklyMax > 0 then
+									self.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
+								else
+									self.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
+								end
+							end
+							GameTooltip:Hide()
+							if db.mouseover then
+								E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+							end
+						end)
+
+						bar.id = id
+						bar.name = name
+
+						tinsert(BUI.TokensDB, bar)
+					else
+						holder:Hide()
+					end
 				end
 			end
 		end
@@ -209,8 +223,59 @@ function mod:UpdateTokenSettings()
 	mod:BarColor(BUI.TokensDB)
 end
 
+function mod:PopulateCurrencyData()
+	local Collapsed = {}
+	local listSize, i = C_CurrencyInfo_GetCurrencyListSize(), 1
+
+	local headerIndex
+	while listSize >= i do
+		local info = C_CurrencyInfo_GetCurrencyListInfo(i)
+		if info.isHeader and not info.isHeaderExpanded then
+			C_CurrencyInfo_ExpandCurrencyList(i, true)
+			listSize = C_CurrencyInfo_GetCurrencyListSize()
+			Collapsed[info.name] = true
+		end
+
+		if info.isHeader then
+			BUI.CurrencyList[i] = { info.name, nil, nil, (info.name == expansion or info.name == MISCELLANEOUS) or strfind(info.name, LFG_TYPE_DUNGEON) }
+			headerIndex = i
+		end
+
+		if not info.isHeader then
+			local currencyLink = C_CurrencyInfo_GetCurrencyListLink(i)
+			local currencyID = currencyLink and C_CurrencyInfo_GetCurrencyIDFromLink(currencyLink)
+			if currencyID then
+				BUI.CurrencyList[tostring(currencyID)] = info.name
+				BUI.CurrencyList[i] = { info.name, currencyID, headerIndex}
+			end
+		end
+		i = i + 1
+	end
+
+	for k = 1, listSize do
+		local info = C_CurrencyInfo_GetCurrencyListInfo(k)
+		if not info then
+			break
+		elseif info.isHeader and info.isHeaderExpanded and Collapsed[info.name] then
+			C_CurrencyInfo_ExpandCurrencyList(k, false)
+		end
+	end
+
+	wipe(Collapsed)
+end
+
+function mod:CURRENCY_DISPLAY_UPDATE(_, currencyID)
+	if currencyID and not BUI.CurrencyList[tostring(currencyID)] then
+		local info = C_CurrencyInfo_GetCurrencyInfo(currencyID)
+		if info then
+			mod:PopulateCurrencyData()
+		end
+	end
+	mod:UpdateTokens()
+end
+
 function mod:TokenEvents()
-	self:RegisterEvent('CURRENCY_DISPLAY_UPDATE', 'UpdateTokens')
+	self:RegisterEvent('CURRENCY_DISPLAY_UPDATE')
 end
 
 function mod:CreateTokensDashboard()
@@ -218,6 +283,7 @@ function mod:CreateTokensDashboard()
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
 	holder:Width(E.db.dashboards.tokens.width or 150)
 
+	mod:PopulateCurrencyData()
 	mod:UpdateTokens()
 	mod:UpdateTokenSettings()
 	mod:UpdateHolderDimensions(holder, 'tokens', BUI.TokensDB)
@@ -234,4 +300,5 @@ function mod:LoadTokens()
 	mod:TokenEvents()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokenSettings)
+	hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
 end
