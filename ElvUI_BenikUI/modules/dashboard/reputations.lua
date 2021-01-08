@@ -10,6 +10,7 @@ local tinsert, twipe, tsort, tostring = table.insert, table.wipe, table.sort, to
 
 local GameTooltip = _G.GameTooltip
 local GetFactionInfoByID = GetFactionInfoByID
+local GetFactionInfo = GetFactionInfo
 local IsPlayerAtEffectiveMaxLevel = IsPlayerAtEffectiveMaxLevel
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
@@ -19,6 +20,7 @@ local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 -- GLOBALS: hooksecurefunc
+BUI.ReputationsList = {}
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -71,142 +73,144 @@ function mod:UpdateReputations()
 		end
 	end)
 
-	for i = 1, #BUI.FactionList do
-		local faction = BUI.FactionList[i]
-		local name, _, standingID, barMin, barMax, barValue = GetFactionInfoByID(faction.factionID)
+	for _, info in ipairs(BUI.ReputationsList) do
+		local _, factionID = unpack(info)
 
-		if name then
-			local id = tostring(faction.factionID)
-			if E.private.dashboards.reputations.chooseReputations[id] == true then
-				holder:Show()
-				holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.FactionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
-				if reputationHolderMover then
-					reputationHolderMover:SetSize(holder:GetSize())
-					holder:SetPoint('TOPLEFT', reputationHolderMover, 'TOPLEFT')
-				end
+		if factionID then
+			local name, _, standingID, barMin, barMax, barValue = GetFactionInfoByID(factionID)
 
-				local isCapped, isFriend, friendText, standingLabel
-				local friendshipID = GetFriendshipReputation(faction.factionID)
-				
-				if friendshipID then
-					local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(faction.factionID)
-					isFriend, standingID, friendText = true, 5, friendTextLevel
-					if nextFriendThreshold then
-						barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
-					else
+			if name then
+				if E.private.dashboards.reputations.chooseReputations[factionID] == true then
+					holder:Show()
+					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.FactionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+					if reputationHolderMover then
+						reputationHolderMover:SetSize(holder:GetSize())
+						holder:SetPoint('TOPLEFT', reputationHolderMover, 'TOPLEFT')
+					end
+
+					local isCapped, isFriend, friendText, standingLabel
+					local friendshipID = GetFriendshipReputation(factionID)
+					
+					if friendshipID then
+						local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+						isFriend, standingID, friendText = true, 5, friendTextLevel
+						if nextFriendThreshold then
+							barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
+						else
+							barMin, barMax, barValue = 0, 1, 1
+							isCapped = true
+						end
+					elseif C_Reputation_IsFactionParagon(factionID) then
+						local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
+						if currentValue and threshold then
+							barMin, barMax = 0, threshold
+							barValue = currentValue % threshold
+							if hasRewardPending then
+								barValue = barValue + threshold
+							end
+						end
+					elseif standingID == _G.MAX_REPUTATION_REACTION then
 						barMin, barMax, barValue = 0, 1, 1
 						isCapped = true
 					end
-				elseif C_Reputation_IsFactionParagon(faction.factionID) then
-					local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(faction.factionID)
-					if currentValue and threshold then
-						barMin, barMax = 0, threshold
-						barValue = currentValue % threshold
-						if hasRewardPending then
-							barValue = barValue + threshold
-						end
+
+					--Normalize Values
+					barMax = barMax - barMin
+					barValue = barValue - barMin
+					barMin = 0
+
+					--Prevent a division by zero
+					local maxMinDiff = barMax - barMin
+					if maxMinDiff == 0 then
+						maxMinDiff = 1
 					end
-				elseif standingID == _G.MAX_REPUTATION_REACTION then
-					barMin, barMax, barValue = 0, 1, 1
-					isCapped = true
-				end
 
-				--Normalize Values
-				barMax = barMax - barMin
-				barValue = barValue - barMin
-				barMin = 0
+					local bar = self:CreateDashboard(holder, 'reputations')
+					bar.Status:SetMinMaxValues(barMin, barMax)
+					bar.Status:SetValue(barValue)
 
-				--Prevent a division by zero
-				local maxMinDiff = barMax - barMin
-				if maxMinDiff == 0 then
-					maxMinDiff = 1
-				end
+					standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
+					local color = _G.FACTION_BAR_COLORS[standingID]
+					local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
-				local bar = self:CreateDashboard(holder, 'reputations')
-				bar.Status:SetMinMaxValues(barMin, barMax)
-				bar.Status:SetValue(barValue)
-
-				standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
-				local color = _G.FACTION_BAR_COLORS[standingID]
-				local hexColor = E:RGBToHex(color.r, color.g, color.b)
-
-				if E.db.dashboards.dashfont.useDTfont then
-					bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-				else
-					bar.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
-				end
-
-				if not db.barFactionColors then
-					if E.db.dashboards.barColor == 1 then
-						bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+					if E.db.dashboards.dashfont.useDTfont then
+						bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 					else
-						bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
-					end
-				else
-					bar.Status:SetStatusBarColor(color.r, color.g, color.b)
-				end
-
-				if db.textFactionColors then
-					bar.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
-				else
-					bar.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
-				end
-
-				if E.db.dashboards.textColor == 1 then
-					bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
-				else
-					bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
-				end
-
-				bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
-				bar.Text:SetJustifyH(db.textAlign)
-
-				bar:SetScript('OnEnter', function(self)
-					if isCapped then
-						self.Text:SetFormattedText('%s(%s)|r', hexColor, isFriend and friendText or standingLabel)
-					else
-						self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
+						bar.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
 					end
 
-					if db.mouseover then
-						E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-					end
-
-					if db.tooltip then
-						_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
-						_G.GameTooltip:AddLine(name)
-						_G.GameTooltip:AddLine(' ')
-						_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
-
-						if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(faction.factionID) then
-							_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
+					if not db.barFactionColors then
+						if E.db.dashboards.barColor == 1 then
+							bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+						else
+							bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
 						end
-
-						_G.GameTooltip:AddLine(' ')
-						_G.GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
-						_G.GameTooltip:Show()
+					else
+						bar.Status:SetStatusBarColor(color.r, color.g, color.b)
 					end
-				end)
 
-				bar:SetScript('OnLeave', function(self)
 					if db.textFactionColors then
-						self.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
+						bar.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
 					else
-						self.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
+						bar.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
 					end
-					if db.tooltip then _G.GameTooltip:Hide() end
 
-					if db.mouseover then
-						E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+					if E.db.dashboards.textColor == 1 then
+						bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+					else
+						bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
 					end
-				end)
-				
-				bar:SetScript('OnMouseUp', OnMouseUp)
 
-				bar.id = id
-				bar.name = name
+					bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+					bar.Text:SetJustifyH(db.textAlign)
 
-				tinsert(BUI.FactionsDB, bar)
+					bar:SetScript('OnEnter', function(self)
+						if isCapped then
+							self.Text:SetFormattedText('%s(%s)|r', hexColor, isFriend and friendText or standingLabel)
+						else
+							self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
+						end
+
+						if db.mouseover then
+							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+						end
+
+						if db.tooltip then
+							_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
+							_G.GameTooltip:AddLine(name)
+							_G.GameTooltip:AddLine(' ')
+							_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
+
+							if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
+								_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
+							end
+
+							_G.GameTooltip:AddLine(' ')
+							_G.GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', factionID), 0.7, 0.7, 1)
+							_G.GameTooltip:Show()
+						end
+					end)
+
+					bar:SetScript('OnLeave', function(self)
+						if db.textFactionColors then
+							self.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
+						else
+							self.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
+						end
+						if db.tooltip then _G.GameTooltip:Hide() end
+
+						if db.mouseover then
+							E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+						end
+					end)
+					
+					bar:SetScript('OnMouseUp', OnMouseUp)
+
+					bar.id = id
+					bar.name = name
+
+					tinsert(BUI.FactionsDB, bar)
+				end
 			end
 		end
 	end
@@ -231,8 +235,58 @@ function mod:UpdateReputationSettings()
 	end
 end
 
+function mod:PopulateFactionData()
+	local Collapsed = {}
+	local numFactions = GetNumFactions()
+	local factionIndex = 1
+	local headerIndex
+
+	while (factionIndex <= numFactions) do
+		local name, _, _, _, _, _, _, _, isHeader, isCollapsed, hasRep, _, _, factionID = GetFactionInfo(factionIndex)
+		if isHeader and isCollapsed then
+			ExpandFactionHeader(factionIndex)
+			numFactions = GetNumFactions()
+			Collapsed[name] = true
+		end
+
+		if isHeader then
+			BUI.ReputationsList[factionIndex] = { name, nil, nil }
+			headerIndex = factionIndex
+		end
+
+		if not isHeader then -- hasRep needs to be passed here
+			if factionID then
+				BUI.ReputationsList[tostring(factionID)] = name
+				BUI.ReputationsList[factionIndex] = { name, factionID, headerIndex}
+			end
+		end
+		factionIndex = factionIndex + 1
+	end
+
+	for k = 1, numFactions do
+		local name, _, _, _, _, _, _, _, isHeader, isCollapsed = GetFactionInfo(k)
+		if not name then
+			break
+		elseif isHeader and not isCollapsed and Collapsed[name] then
+			ExpandFactionHeader(k, false)
+		end
+	end
+
+	wipe(Collapsed)
+end
+
+function mod:UPDATE_FACTION(_, factionID)
+	if factionID and not BUI.ReputationsList[tostring(factionID)] then
+		local name = GetFactionInfoByID(factionID)
+		if name then
+			mod:PopulateFactionData()
+		end
+	end
+	mod:UpdateReputations()
+end
+
 function mod:ReputationEvents()
-	self:RegisterEvent('UPDATE_FACTION', 'UpdateReputations')
+	self:RegisterEvent('UPDATE_FACTION')
 	self:RegisterEvent('QUEST_LOG_UPDATE', 'UpdateReputations')
 end
 
@@ -241,6 +295,7 @@ function mod:CreateReputationsDashboard()
 	self.reputationHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
 	self.reputationHolder:SetWidth(E.db.dashboards.reputations.width or 150)
 
+	mod:PopulateFactionData()
 	mod:UpdateReputations()
 	mod:UpdateReputationSettings()
 	mod:UpdateHolderDimensions(self.reputationHolder, 'reputations', BUI.FactionsDB)

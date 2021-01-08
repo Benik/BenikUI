@@ -41,7 +41,6 @@ local function UpdateSystemOptions()
 	}
 end
 
--- these options must be updated when the player discovers a new token.
 local function UpdateTokenOptions()
 	for i, info in ipairs(BUI.CurrencyList) do
 		local optionOrder = 1
@@ -145,42 +144,29 @@ end
 
 local function UpdateReputationOptions()
 	local optionOrder = 30
-	for i = 1, #BUI.Expansions do
-		local expansion = BUI.Expansions[i]
-		local expNum = expansion.ExpansionNumber
-		local option = expansion.Option
 
-		E.Options.args.benikui.args.dashboards.args.reputations.args[option] = {
-			order = optionOrder + 1,
-			type = 'group',
-			name = expansion.FullName,
-			disabled = function() return not E.db.dashboards.reputations.enableReputations end,
-			args = {
-			},
-		}
+	for i, info in ipairs(BUI.ReputationsList) do
+		local optionOrder = 1
+		local name, factionID, headerIndex = unpack(info)
 
-		for v = 1, #BUI.FactionList do
-			local faction = BUI.FactionList[v]
-			if(expNum == BUI.FactionList[v].expansion) then
-				local id = tostring(faction.factionID)
-				local name = GetFactionInfoByID(faction.factionID)
-				local option = expansion.Option
-				local Ally = E.myfaction == 'Alliance' and faction.isAlliance
-				local Horde = E.myfaction == 'Horde' and faction.isHorde
-				local Neutral = E.myfaction == 'Neutral' and (faction.isAlliance or faction.isHorde)
-
-				if name and (Ally or Horde or Neutral) then
-					E.Options.args.benikui.args.dashboards.args.reputations.args[option].args[id] = {
-						order = 100,
-						type = 'toggle',
-						name = name,
-						desc = format('%s %s', L['Enable/Disable'], name),
-						disabled = function() return not E.db.dashboards.reputations.enableReputations end,
-						get = function(info) return E.private.dashboards.reputations.chooseReputations[id] end,
-						set = function(info, value) E.private.dashboards.reputations.chooseReputations[id] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
-					}
-				end
-			end
+		if not factionID then
+			E.Options.args.benikui.args.dashboards.args.reputations.args[tostring(i)] = {
+				order = optionOrder + 1,
+				type = 'group',
+				name = name,
+				args = {
+				},
+			}
+		elseif headerIndex then
+			E.Options.args.benikui.args.dashboards.args.reputations.args[tostring(headerIndex)].args[tostring(i)] = {
+				order = optionOrder + 2,
+				type = 'toggle',
+				name = name,
+				desc = format('%s %s', L['Enable/Disable'], name),
+				disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+				get = function(info) return E.private.dashboards.reputations.chooseReputations[factionID] end,
+				set = function(info, value) E.private.dashboards.reputations.chooseReputations[factionID] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+			}
 		end
 	end
 end
