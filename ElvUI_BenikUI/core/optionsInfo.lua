@@ -77,6 +77,7 @@ local CODING_STRING = tconcat(CODING, ", ")
 
 local NITRO = {
 	'Runew0lf',
+	'Kullerkeks',
 }
 tsort(NITRO, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local NITRO_STRING = tconcat(NITRO, ", ")
