@@ -203,6 +203,7 @@ end
 
 local function Panel_OnShow(self)
 	self:SetFrameLevel(0)
+	self:SetFrameStrata('BACKGROUND')
 end
 
 function mod:CreateLayout()
@@ -416,8 +417,10 @@ function mod:CreateLayout()
 	MinimapPanel:Height(PANEL_HEIGHT)
 	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
 	ElvUI_BottomPanel:SetFrameLevel(0)
+	ElvUI_BottomPanel:SetFrameStrata('BACKGROUND')
 	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
 	ElvUI_TopPanel:SetFrameLevel(0)
+	ElvUI_TopPanel:SetFrameStrata('BACKGROUND')
 
 	LeftChatPanel.backdrop:Style('Outside')
 	RightChatPanel.backdrop:Style('Outside')
