@@ -147,17 +147,17 @@ local function UpdateReputationOptions()
 
 	for i, info in ipairs(BUI.ReputationsList) do
 		local optionOrder = 1
-		local name, factionID, headerIndex = unpack(info)
+		local name, factionID, headerIndex, isHeader, hasRep, isChild = unpack(info)
 
-		if not factionID then
-			E.Options.args.benikui.args.dashboards.args.reputations.args[tostring(i)] = {
+		if isHeader and not (hasRep or isChild) then
+			E.Options.args.benikui.args.dashboards.args.reputations.args[tostring(headerIndex)] = {
 				order = optionOrder + 1,
 				type = 'group',
 				name = name,
 				args = {
 				},
 			}
-		elseif headerIndex then
+		else
 			E.Options.args.benikui.args.dashboards.args.reputations.args[tostring(headerIndex)].args[tostring(i)] = {
 				order = optionOrder + 2,
 				type = 'toggle',

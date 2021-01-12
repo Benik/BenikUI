@@ -242,24 +242,25 @@ function mod:PopulateFactionData()
 	local headerIndex
 
 	while (factionIndex <= numFactions) do
-		local name, _, _, _, _, _, _, _, isHeader, isCollapsed, hasRep, _, _, factionID = GetFactionInfo(factionIndex)
+		local name, _, _, _, _, _, _, _, isHeader, isCollapsed, hasRep, _, isChild, factionID = GetFactionInfo(factionIndex)
 		if isHeader and isCollapsed then
 			ExpandFactionHeader(factionIndex)
 			numFactions = GetNumFactions()
 			Collapsed[name] = true
 		end
 
-		if isHeader then
-			BUI.ReputationsList[factionIndex] = { name, nil, nil }
+		if isHeader and not (hasRep or isChild) then
+			tinsert(BUI.ReputationsList, { name, factionID, factionIndex, isHeader, hasRep, isChild })
 			headerIndex = factionIndex
 		end
 
-		if not isHeader then -- hasRep needs to be passed here
+		if not isHeader or not isChild or hasRep then -- hasRep needs to be passed here
 			if factionID then
 				BUI.ReputationsList[tostring(factionID)] = name
-				BUI.ReputationsList[factionIndex] = { name, factionID, headerIndex}
+				tinsert(BUI.ReputationsList, { name, factionID, headerIndex, isHeader, hasRep, isChild })
 			end
 		end
+
 		factionIndex = factionIndex + 1
 	end
 
