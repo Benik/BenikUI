@@ -248,8 +248,6 @@ function mod:CreateLayout()
 		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i, E.UIParent, 'BackdropTemplate')
 		bbuttons[i]:RegisterForClicks('AnyUp')
 		bbuttons[i]:SetFrameStrata('BACKGROUND')
-		bbuttons[i]:CreateSoftGlow()
-		bbuttons[i].sglow:Hide()
 		bbuttons[i]:Style('Outside', nil, false, true)
 		bbuttons[i].btn = bbuttons[i]:CreateTexture(nil, 'OVERLAY')
 		bbuttons[i].btn:ClearAllPoints()
@@ -283,9 +281,7 @@ function mod:CreateLayout()
 				end
 				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 
-				if not E.db.benikui.datatexts.chat.styled then
-					self.sglow:Show()
-				end
+				self.btn:SetVertexColor(1, 1, 1, .7)
 
 				if IsShiftKeyDown() then
 					self.btn:Hide()
@@ -322,8 +318,9 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
+				self.btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+				self.arrow:Hide()
 				self.btn:Show()
-				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
 
@@ -337,9 +334,7 @@ function mod:CreateLayout()
 			bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				if not E.db.benikui.datatexts.chat.styled then
-					self.sglow:Show()
-				end
+				self.btn:SetVertexColor(1, 1, 1, .7)
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(MAINMENU_BUTTON, selectioncolor)
@@ -348,7 +343,7 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.sglow:Hide()
+				self.btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 				GameTooltip:Hide()
 			end)
 
@@ -362,9 +357,7 @@ function mod:CreateLayout()
 			bbuttons[i].parent = _G.LeftChatPanel
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				if not E.db.benikui.datatexts.chat.styled then
-					self.sglow:Show()
-				end
+				self.btn:SetVertexColor(1, 1, 1, .7)
 				if IsShiftKeyDown() then
 					self.arrow:Show()
 					self.btn:Hide()
@@ -383,9 +376,9 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
+				self.btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 				self.btn:Show()
 				self.arrow:Hide()
-				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
 
@@ -409,9 +402,7 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				if not E.db.benikui.datatexts.chat.styled then
-					self.sglow:Show()
-				end
+				self.btn:SetVertexColor(1, 1, 1, .7)
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2 )
 				GameTooltip:ClearLines()
 				GameTooltip:AddDoubleLine(L['Click :'], LFG_TITLE, 0.7, 0.7, 1)
@@ -421,7 +412,7 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.sglow:Hide()
+				self.btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 				GameTooltip:Hide()
 			end)
 		end
