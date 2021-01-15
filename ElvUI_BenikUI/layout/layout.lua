@@ -27,6 +27,11 @@ local PANEL_HEIGHT = 19;
 local SPACING = (E.PixelMode and 1 or 3)
 local BUTTON_NUM = 4
 
+local menuIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\menu.tga'
+local lfgIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\buttons\\eye.tga'
+local optionsIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\buttons\\options.tga'
+local addonsIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\buttons\\plugin.tga'
+
 local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent, 'BackdropTemplate')
 local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent, 'BackdropTemplate')
 
@@ -183,12 +188,6 @@ end
 
 local function updateButtonFont()
 	local db = E.db.datatexts
-	for i = 1, BUTTON_NUM do
-		if bbuttons[i].text then
-			bbuttons[i].text:SetFont(LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
-			bbuttons[i].text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
-		end
-	end
 
 	local dts = {BuiLeftChatDTPanel, BuiRightChatDTPanel}
 	for panelName, panel in pairs(dts) do
@@ -199,6 +198,19 @@ local function updateButtonFont()
 		end
 		DT:UpdatePanelInfo(panelName, panel)
 	end
+end
+
+local function updateButtonColor()
+	for i = 1, BUTTON_NUM do
+		if bbuttons[i].btn then
+			bbuttons[i].btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+		end
+	end
+end
+
+local function updateButtons()
+	updateButtonFont()
+	updateButtonColor()
 end
 
 local function Panel_OnShow(self)
@@ -239,11 +251,12 @@ function mod:CreateLayout()
 		bbuttons[i]:CreateSoftGlow()
 		bbuttons[i].sglow:Hide()
 		bbuttons[i]:Style('Outside', nil, false, true)
-		bbuttons[i].text = bbuttons[i]:CreateFontString(nil, 'OVERLAY')
-		bbuttons[i].text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-		bbuttons[i].text:Point('CENTER', 1, 0)
-		bbuttons[i].text:SetJustifyH('CENTER')
-		bbuttons[i].text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
+		bbuttons[i].btn = bbuttons[i]:CreateTexture(nil, 'OVERLAY')
+		bbuttons[i].btn:ClearAllPoints()
+		bbuttons[i].btn:Point('CENTER')
+		bbuttons[i].btn:Size(14, 14)
+		bbuttons[i].btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+		bbuttons[i].btn:Show()
 		bbuttons[i].arrow = bbuttons[i]:CreateTexture(nil, 'OVERLAY')
 		bbuttons[i].arrow:SetTexture(E.Media.Textures.ArrowUp)
 		bbuttons[i].arrow:ClearAllPoints()
@@ -257,7 +270,7 @@ function mod:CreateLayout()
 			bbuttons[i]:Point('TOPLEFT', Bui_rdtp, 'TOPRIGHT', SPACING, 0)
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i]:SetParent(Bui_rdtp)
-			bbuttons[i].text:SetText('C')
+			bbuttons[i].btn:SetTexture(optionsIcon)
 			bbuttons[i].arrow:SetRotation(E.Skins.ArrowRotation.right)
 			bbuttons[i].parent = _G.RightChatPanel
 
@@ -275,12 +288,12 @@ function mod:CreateLayout()
 				end
 
 				if IsShiftKeyDown() then
-					self.text:SetText('')
+					self.btn:Hide()
 					self.arrow:Show()
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
 					self.arrow:Hide()
-					self.text:SetText('C')
+					self.btn:Show()
 					self:SetScript('OnClick', function(self, btn)
 						if btn == 'LeftButton' then
 							E:ToggleOptionsUI()
@@ -309,7 +322,7 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.text:SetText('C')
+				self.btn:Show()
 				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
@@ -319,7 +332,7 @@ function mod:CreateLayout()
 			bbuttons[i]:Point('TOPRIGHT', Bui_rdtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_rdtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i]:SetParent(Bui_rdtp)
-			bbuttons[i].text:SetText('G')
+			bbuttons[i].btn:SetTexture(menuIcon)
 
 			bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
 
@@ -344,7 +357,7 @@ function mod:CreateLayout()
 			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i]:SetParent(Bui_ldtp)
-			bbuttons[i].text:SetText('A')
+			bbuttons[i].btn:SetTexture(addonsIcon)
 			bbuttons[i].arrow:SetRotation(E.Skins.ArrowRotation.left)
 			bbuttons[i].parent = _G.LeftChatPanel
 
@@ -354,7 +367,7 @@ function mod:CreateLayout()
 				end
 				if IsShiftKeyDown() then
 					self.arrow:Show()
-					self.text:SetText('')
+					self.btn:Hide()
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
 					self:SetScript('OnClick', function(self)
@@ -370,7 +383,7 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.text:SetText('A')
+				self.btn:Show()
 				self.arrow:Hide()
 				self.sglow:Hide()
 				GameTooltip:Hide()
@@ -381,7 +394,7 @@ function mod:CreateLayout()
 			bbuttons[i]:Point('TOPLEFT', Bui_ldtp, 'TOPRIGHT', SPACING, 0)
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i]:SetParent(Bui_ldtp)
-			bbuttons[i].text:SetText('L')
+			bbuttons[i].btn:SetTexture(lfgIcon)
 
 			bbuttons[i]:SetScript('OnClick', function(self, btn)
 				if btn == "LeftButton" then
@@ -542,7 +555,7 @@ function mod:Initialize()
 	hooksecurefunc(M, 'UpdateSettings', mod.ResizeMinimapPanels)
 	hooksecurefunc(DT, 'UpdatePanelInfo', mod.ToggleTransparency)
 	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
-	hooksecurefunc(E, 'UpdateMedia', updateButtonFont)
+	hooksecurefunc(E, 'UpdateMedia', updateButtons)
 
 	mod:RegisterEvent('PLAYER_ENTERING_WORLD')
 	mod:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
