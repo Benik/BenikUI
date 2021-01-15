@@ -227,7 +227,9 @@ local function ImmersionDecor()
 			if Button.Backdrop and not Button.Backdrop.isStyled then
 				Button.Backdrop:Style('Inside')
 				Button.Hilite:SetOutside(Button.Backdrop)
-				Button.Backdrop.Shadow:Hide()
+				if Button.Backdrop.Shadow then
+					Button.Backdrop.Shadow:Hide()
+				end
 				Button.Backdrop.isStyled = true
 			end
 		end
