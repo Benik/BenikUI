@@ -118,8 +118,10 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 		r, g, b = classColor.r, classColor.g, classColor.b
 	elseif db == 2 then
 		r, g, b = BUI:unpackColor(E.db.benikui.colors.customGameMenuColor)
-	else
+	elseif db == 3 then
 		r, g, b = unpack(E.media.rgbvaluecolor)
+	else
+		r, g, b = BUI:getCovenantColor()
 	end
 
 	if not frame.buttons then

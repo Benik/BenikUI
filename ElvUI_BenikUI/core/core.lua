@@ -118,8 +118,9 @@ end
 function BUI:getCovenantColor()
 	local covenantData = C_Covenants.GetCovenantData(C_Covenants.GetActiveCovenantID())
 	local kit = covenantData and covenantData.textureKit or nil
+	local r, g, b
+
 	if kit then
-		local r, g, b
 		if kit == "Kyrian" then
 			r, g, b = 0.1647, 0.6353, 1.0
 		elseif kit == "Venthyr" then
@@ -129,9 +130,11 @@ function BUI:getCovenantColor()
 		elseif kit == "Necrolord" then
 			r, g, b = 0.0902, 0.7843, 0.3922
 		end
-
-		return r, g, b
+	else
+		r, g, b = 1, 1, 1 -- fall back to white
 	end
+
+	return r, g, b
 end
 
 local r, g, b = 0, 0, 0
