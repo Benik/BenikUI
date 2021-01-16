@@ -7,7 +7,7 @@ local function miscTable()
 	E.Options.args.benikui.args.misc = {
 		order = 90,
 		type = 'group',
-		name = BUI:cOption(L["Miscellaneous"], "blue"),
+		name = BUI:cOption(L["Miscellaneous"], "orange"),
 		args = {
 			ilevel = {
 				order = 2,

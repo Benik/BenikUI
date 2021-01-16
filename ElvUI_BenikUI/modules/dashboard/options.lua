@@ -175,7 +175,7 @@ local function dashboardsTable()
 	E.Options.args.benikui.args.dashboards = {
 		order = 60,
 		type = 'group',
-		name = BUI:cOption(L['Dashboards'], "blue"),
+		name = BUI:cOption(L['Dashboards'], "orange"),
 		args = {
 			dashColor = {
 				order = 1,
@@ -478,7 +478,7 @@ local function dashboardsTable()
 						args = {
 							desc = {
 								order = 1,
-								name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered'], "blue"),
+								name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered'], "orange"),
 								type = 'header',
 							},
 						},

@@ -23,7 +23,7 @@ local function ufTable()
 	E.Options.args.benikui.args.unitframes = {
 		order = 40,
 		type = 'group',
-		name = BUI:cOption(L['UnitFrames'], "blue"),
+		name = BUI:cOption(L['UnitFrames'], "orange"),
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			infoPanel = {
