@@ -28,7 +28,7 @@ local function Core()
 			logo = {
 				order = 2,
 				type = 'description',
-				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.'], "blue"),
+				name = L['BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with ']..BUI:cOption(L['light blue color.'], "orange"),
 				fontSize = 'medium',
 				image = function() return 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga', 384, 96 end,
 			},
@@ -47,7 +47,7 @@ local function Core()
 			general = {
 				order = 10,
 				type = 'group',
-				name = BUI:cOption(L['General'], "blue"),
+				name = BUI:cOption(L['General'], "orange"),
 				get = function(info) return E.db.benikui.general[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.general[ info[#info] ] = value; end,
 				args = {
@@ -119,7 +119,7 @@ local function Core()
 			colors = {
 				order = 20,
 				type = 'group',
-				name = BUI:cOption(L.COLORS, "blue"),
+				name = BUI:cOption(L.COLORS, "orange"),
 				args = {
 					themes = {
 						order = 2,

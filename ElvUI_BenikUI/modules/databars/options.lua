@@ -32,7 +32,7 @@ local function databarsTable()
 	E.Options.args.benikui.args.benikuiDatabars = {
 		order = 80,
 		type = 'group',
-		name = BUI:cOption(L['DataBars'], "blue"),
+		name = BUI:cOption(L['DataBars'], "orange"),
 		childGroups = 'tab',
 		args = {
 		},

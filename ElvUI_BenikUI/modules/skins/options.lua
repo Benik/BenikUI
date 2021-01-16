@@ -57,7 +57,7 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins = {
 		order = 100,
 		type = 'group',
-		name = BUI:cOption(ADDONS, "blue"),
+		name = BUI:cOption(ADDONS, "orange"),
 		args = {
 			desc = {
 				order = 2,
