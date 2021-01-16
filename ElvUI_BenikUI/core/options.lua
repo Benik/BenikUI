@@ -260,6 +260,7 @@ local function Core()
 									[1] = L.CLASS_COLORS,
 									[2] = L.CUSTOM,
 									[3] = L["Value Color"],
+									[4] = L['Covenant Color'],
 								},
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
 								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; end,
@@ -268,7 +269,7 @@ local function Core()
 								order = 2,
 								type = "color",
 								name = L.COLOR_PICKER,
-								disabled = function() return E.db.benikui.colors.gameMenuColor == 1 or E.db.benikui.colors.gameMenuColor == 3 end,
+								disabled = function() return E.db.benikui.colors.gameMenuColor ~= 2 end,
 								get = function(info)
 									local t = E.db.benikui.colors[ info[#info] ]
 									local d = P.benikui.colors[info[#info]]
