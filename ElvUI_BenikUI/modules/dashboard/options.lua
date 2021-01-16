@@ -73,8 +73,9 @@ local function UpdateTokenOptions()
 		local optionOrder = 1
 		for _, id in ipairs(tableName) do
 			E.Options.args.benikui.args.dashboards.args.tokens.args.archyGroup.args[option] = {
-				order = i,
+				order = i + 1,
 				type = 'group',
+				guiInline = true,
 				name = optionName,
 				args = {
 				},
@@ -83,7 +84,7 @@ local function UpdateTokenOptions()
 				local tname, amount, icon, _, _, isDiscovered = BUID:GetTokenInfo(id)
 				if id and tname then
 					E.Options.args.benikui.args.dashboards.args.tokens.args.archyGroup.args[option].args[tname] = {
-						order = optionOrder + 1,
+						order = optionOrder + 2,
 						type = 'toggle',
 						name = (icon and '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' '))) or (tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
 						desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
@@ -654,10 +655,6 @@ local function dashboardsTable()
 			},
 		},
 	}
-	-- update the options, when ElvUI Config fires
-	hooksecurefunc(E, "ToggleOptionsUI", UpdateTokenOptions)
-	hooksecurefunc(E, "ToggleOptionsUI", UpdateProfessionOptions)
-	hooksecurefunc(E, "ToggleOptionsUI", UpdateReputationOptions)
 end
 
 tinsert(BUI.Config, dashboardsTable)
