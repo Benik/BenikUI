@@ -29,7 +29,6 @@ local classColor = E:ClassColor(E.myclass, true)
 local expansion = _G['EXPANSION_NAME'..GetExpansionLevel()]
 
 BUI.CurrencyList = {}
-local CurrencyIDs = {}
 
 local function Icon_OnEnter(self)
 	local id = self:GetParent().id
@@ -107,7 +106,9 @@ function mod:UpdateTokens()
 		end
 	end)
 
-	for _, id in ipairs(CurrencyIDs) do
+	for _, info in ipairs(BUI.CurrencyList) do
+		local _, id = unpack(info)
+
 		if id then
 			local name, amount, icon, weeklyMax, totalMax, isDiscovered = mod:GetTokenInfo(id)
 			if name then
@@ -218,7 +219,6 @@ end
 
 function mod:PopulateCurrencyData()
 	local Collapsed = {}
-	local CurrencyList = {}
 	local listSize, i = C_CurrencyInfo_GetCurrencyListSize(), 1
 
 	local headerIndex
@@ -231,7 +231,7 @@ function mod:PopulateCurrencyData()
 		end
 
 		if info.isHeader then
-			CurrencyList[i] = { info.name, nil, nil, (info.name == expansion or info.name == MISCELLANEOUS) or strfind(info.name, LFG_TYPE_DUNGEON) }
+			BUI.CurrencyList[i] = { info.name, nil, nil, (info.name == expansion or info.name == MISCELLANEOUS) or strfind(info.name, LFG_TYPE_DUNGEON) }
 			headerIndex = i
 		end
 
@@ -239,9 +239,8 @@ function mod:PopulateCurrencyData()
 			local currencyLink = C_CurrencyInfo_GetCurrencyListLink(i)
 			local currencyID = currencyLink and C_CurrencyInfo_GetCurrencyIDFromLink(currencyLink)
 			if currencyID then
-				CurrencyList[tostring(currencyID)] = info.name
-				CurrencyList[i] = { info.name, currencyID, headerIndex}
-				tinsert(CurrencyIDs, currencyID)
+				BUI.CurrencyList[tostring(currencyID)] = info.name
+				BUI.CurrencyList[i] = { info.name, currencyID, headerIndex}
 			end
 		end
 		i = i + 1
@@ -257,19 +256,20 @@ function mod:PopulateCurrencyData()
 	end
 
 	wipe(Collapsed)
+end
 
-	BUI.CurrencyList = CurrencyList
-
-	for _, v in ipairs(BUI.archyTables) do
-		local tableName = unpack(v)
-		for _, id in ipairs(tableName) do
-			tinsert(CurrencyIDs, id)
+function mod:CURRENCY_DISPLAY_UPDATE(_, currencyID)
+	if currencyID and not BUI.CurrencyList[tostring(currencyID)] then
+		local info = C_CurrencyInfo_GetCurrencyInfo(currencyID)
+		if info then
+			mod:PopulateCurrencyData()
 		end
 	end
+	mod:UpdateTokens()
 end
 
 function mod:TokenEvents()
-	self:RegisterEvent('CURRENCY_DISPLAY_UPDATE', mod.UpdateTokens)
+	self:RegisterEvent('CURRENCY_DISPLAY_UPDATE')
 end
 
 function mod:CreateTokensDashboard()
