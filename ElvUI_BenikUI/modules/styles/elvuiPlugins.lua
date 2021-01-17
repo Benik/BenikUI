@@ -70,6 +70,7 @@ function mod:stylePlugins()
 			stFrame:Style("Outside")
 			stAMAddOns:SetTemplate("Transparent")
 		end
+		_G.stAMProfileMenu:Style("Outside")
 	end
 
 	-- MerathilisUI
