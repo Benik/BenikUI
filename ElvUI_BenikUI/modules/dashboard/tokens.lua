@@ -295,4 +295,5 @@ function mod:LoadTokens()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokenSettings)
 	hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
+	if E.private.dashboards.tokens.chooseTokens[1822] == true then E.private.dashboards.tokens.chooseTokens[1822] = nil end -- remove renown from old profiles
 end
