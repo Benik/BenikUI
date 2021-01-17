@@ -67,34 +67,6 @@ local function UpdateTokenOptions()
 			end
 		end
 	end
-
-	for i, v in ipairs(BUI.archyTables) do
-		local tableName, option, optionName = unpack(v)
-		local optionOrder = 1
-		for _, id in ipairs(tableName) do
-			E.Options.args.benikui.args.dashboards.args.tokens.args.archyGroup.args[option] = {
-				order = i,
-				type = 'group',
-				name = optionName,
-				args = {
-				},
-			}
-			for _, id in ipairs(tableName) do
-				local tname, amount, icon, _, _, isDiscovered = BUID:GetTokenInfo(id)
-				if id and tname then
-					E.Options.args.benikui.args.dashboards.args.tokens.args.archyGroup.args[option].args[tname] = {
-						order = optionOrder + 1,
-						type = 'toggle',
-						name = (icon and '|T'..icon..':18|t '..(tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' '))) or (tname:gsub(' '..PROFESSIONS_ARCHAEOLOGY..' ', ' ')), -- remove 'Archaeology' from the name, to shorten the options a bit.
-						desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], amount),
-						get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
-						set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
-						disabled = function() return not isDiscovered end,
-					}
-				end
-			end
-		end
-	end
 end
 
 local function UpdateProfessionOptions()
@@ -470,18 +442,6 @@ local function dashboardsTable()
 						order = 11,
 						type = 'header',
 						name = '',
-					},
-					archyGroup = {
-						order = 100,
-						type = 'group',
-						name = format('%s', PROFESSIONS_ARCHAEOLOGY),
-						args = {
-							desc = {
-								order = 1,
-								name = BUI:cOption(L['Tip: Grayed tokens are not yet discovered'], "orange"),
-								type = 'header',
-							},
-						},
 					},
 				},
 			},
