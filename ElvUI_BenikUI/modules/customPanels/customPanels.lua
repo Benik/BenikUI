@@ -112,10 +112,11 @@ function mod:CreatePanel()
 			if BUI.ShadowMode then panel:CreateSoftShadow() end
 			panel:SetScript("OnEnter", OnEnter)
 			panel:SetScript("OnLeave", OnLeave)
-			if not _G[name.."_Mover"] then
-				E:CreateMover(_G[name], name.."_Mover", name, nil, nil, nil, "ALL,MISC,BENIKUI", nil, 'benikui,panels')
-			end
 
+			local moverName = name.."_Mover"
+			E:CreateMover(_G[name], moverName, name, nil, nil, nil, "ALL,MISC,BENIKUI", nil, 'benikui,panels')
+
+			panel.moverName = moverName
 			panel.Name = name
 			
 			local title = CreateFrame("Frame", nil, panel, 'BackdropTemplate')
@@ -211,11 +212,11 @@ function mod:SetupPanels()
 
 			if db.enable then
 				_G[panel]:Show()
-				E:EnableMover(_G[panel].mover:GetName())
+				E:EnableMover(_G[panel].moverName)
 				RegisterStateDriver(_G[panel], "visibility", visibility)
 			else
 				_G[panel]:Hide()
-				E:DisableMover(_G[panel].mover:GetName())
+				E:DisableMover(_G[panel].moverName)
 				UnregisterStateDriver(_G[panel], "visibility")
 			end
 
@@ -259,15 +260,24 @@ function mod:SetupPanels()
 	end
 end
 
-function mod:DeletePanel(name)
-	if E.db.benikui.panels[name] then
-		E.db.benikui.panels[name] = nil
+function mod:EmptyPanel(panel)
+	panel:Hide()
+	panel:UnregisterAllEvents()
+	panel:SetScript('OnEvent', nil)
+	panel:SetScript('OnEnter', nil)
+	panel:SetScript('OnLeave', nil)
 
-		for _, data in pairs(ElvDB.profiles) do
-			if data.movers and data.movers[name.."_Mover"] then data.movers[name.."_Mover"] = nil end
-		end
+	UnregisterStateDriver(panel, 'visibility')
+	E:DisableMover(panel.moverName)
+end
+
+function mod:DeletePanel(givenPanel)
+	if givenPanel then
+		local panel = _G[givenPanel]
+		mod:EmptyPanel(panel)
+		E.db.movers[panel.moverName] = nil
+		E.db.benikui.panels[givenPanel] = nil
 	end
-	ReloadUI()
 end
 
 function mod:OnEvent(event, unit)
