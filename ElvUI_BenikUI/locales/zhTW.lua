@@ -42,6 +42,7 @@ L['Create'] = true
 L['Enable tooltip to reveal the panel name'] = true
 L['Hide in Pet Battle'] = true
 L['Name Tooltip'] = true
+L['New Custom Panel'] = true
 L['Style Position'] = true
 L['Texture Color'] = true
 L['The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one.'] = true

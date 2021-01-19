@@ -42,6 +42,7 @@ L["Create"] = "Créer"
 L["Enable tooltip to reveal the panel name"] = "Activer l'info-bulle pour révéler le nom du panneau"
 L["Hide in Pet Battle"] = "Cacher dans une bataille de mascottes"
 L["Name Tooltip"] = "Info-bulle du nom"
+L['New Custom Panel'] = true
 L['Style Position'] = true
 L["Texture Color"] = true
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Le nom du panneau personnalisé |cff00c0fa%s|r existe déjà. Veuillez en choisir un autre."
