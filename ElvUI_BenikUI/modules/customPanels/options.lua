@@ -109,6 +109,7 @@ local function updateOptions()
 					name = L["Title"],
 					type = 'group',
 					guiInline = true,
+					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function(info) return E.db.benikui.panels[panelname].title[ info[#info] ] end,
 					set = function(info, value) E.db.benikui.panels[panelname].title[ info[#info] ] = value; mod:UpdatePanelTitle() end,
 					args = {
@@ -122,6 +123,7 @@ local function updateOptions()
 							order = 2,
 							type = 'input',
 							name = L["Name"],
+							disabled = function() return not E.db.benikui.panels[panelname].title.enable or not E.db.benikui.panels[panelname].enable end,
 							get = function(info) return E.db.benikui.panels[panelname].title.text end,
 							set = function(info, value)
 								E.db.benikui.panels[panelname].title.text = value; mod:UpdatePanelTitle()
@@ -131,7 +133,7 @@ local function updateOptions()
 							order = 3,
 							type = 'select',
 							name = L["Title Bar Position"],
-							disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
+							disabled = function() return not E.db.benikui.panels[panelname].title.enable or not E.db.benikui.panels[panelname].enable end,
 							values = positionValues,
 						},
 						height = {
@@ -139,14 +141,14 @@ local function updateOptions()
 							type = "range",
 							name = L['Height'],
 							min = 10, max = 30, step = 1,
-							disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
+							disabled = function() return not E.db.benikui.panels[panelname].title.enable or not E.db.benikui.panels[panelname].enable end,
 						},
 						textPositionGroup = {
 							order = 10,
 							name = " ",
 							type = 'group',
 							guiInline = true,
-							disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
+							disabled = function() return not E.db.benikui.panels[panelname].title.enable or not E.db.benikui.panels[panelname].enable end,
 							get = function(info) return E.db.benikui.panels[panelname].title[ info[#info] ] end,
 							set = function(info, value) E.db.benikui.panels[panelname].title[ info[#info] ] = value; mod:UpdatePanelTitle() end,
 							args = {
@@ -179,7 +181,7 @@ local function updateOptions()
 							name = L["Fonts"],
 							type = 'group',
 							guiInline = true,
-							disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
+							disabled = function() return not E.db.benikui.panels[panelname].title.enable or not E.db.benikui.panels[panelname].enable end,
 							get = function(info) return E.db.benikui.panels[panelname].title[ info[#info] ] end,
 							set = function(info, value) E.db.benikui.panels[panelname].title[ info[#info] ] = value; mod:UpdatePanelTitle() end,
 							args = {
@@ -241,7 +243,7 @@ local function updateOptions()
 							name = L["Texture"],
 							type = 'group',
 							guiInline = true,
-							disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
+							disabled = function() return not E.db.benikui.panels[panelname].title.enable or not E.db.benikui.panels[panelname].enable end,
 							get = function(info) return E.db.benikui.panels[panelname].title[ info[#info] ] end,
 							set = function(info, value) E.db.benikui.panels[panelname].title[ info[#info] ] = value; mod:UpdatePanelTitle() end,
 							args = {
@@ -249,14 +251,12 @@ local function updateOptions()
 									type = 'select', dialogControl = 'LSM30_Statusbar',
 									order = 1,
 									name = L["Texture"],
-									disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
 									values = AceGUIWidgetLSMlists.statusbar,
 								},
 								panelColor = {
 									order = 2,
 									type = "color",
 									name = L["Texture Color"],
-									disabled = function() return not E.db.benikui.panels[panelname].title.enable end,
 									hasAlpha = true,
 									get = function(info)
 										local t = E.db.benikui.panels[panelname].title.panelColor
@@ -278,12 +278,12 @@ local function updateOptions()
 					name = L["Visibility"],
 					type = 'group',
 					guiInline = true,
+					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					args = {
 						petHide = {
 							order = 1,
 							name = L["Hide in Pet Battle"],
 							type = 'toggle',
-							disabled = function() return not E.db.benikui.panels[panelname].enable end,
 							get = function() return E.db.benikui.panels[panelname].petHide end,
 							set = function(info, value) E.db.benikui.panels[panelname].petHide = value; mod:RegisterHide() end,
 						},
@@ -291,7 +291,6 @@ local function updateOptions()
 							order = 2,
 							name = L["Hide In Combat"],
 							type = 'toggle',
-							disabled = function() return not E.db.benikui.panels[panelname].enable end,
 							get = function() return E.db.benikui.panels[panelname].combatHide end,
 							set = function(info, value) E.db.benikui.panels[panelname].combatHide = value; end,
 						},
@@ -299,7 +298,6 @@ local function updateOptions()
 							order = 3,
 							name = L["Hide In Vehicle"],
 							type = 'toggle',
-							disabled = function() return not E.db.benikui.panels[panelname].enable end,
 							get = function() return E.db.benikui.panels[panelname].vehicleHide end,
 							set = function(info, value) E.db.benikui.panels[panelname].vehicleHide = value; end,
 						},
@@ -309,7 +307,6 @@ local function updateOptions()
 							name = L["Visibility State"],
 							desc = L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"],
 							width = 'full',
-							disabled = function() return not E.db.benikui.panels[panelname].enable end,
 							multiline = true,
 							get = function() return E.db.benikui.panels[panelname].visibility end,
 							set = function(info, value)
