@@ -348,7 +348,7 @@ local function updateOptions()
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					func = function()
 						E.PopupDialogs["BUI_Panel_Delete"].OnAccept = function() mod:Panel_Delete(panelname) end
-						E.PopupDialogs["BUI_Panel_Delete"].text = (format(L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"], panelname))
+						E.PopupDialogs["BUI_Panel_Delete"].text = (format(L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"], panelname))
 						E:StaticPopup_Show("BUI_Panel_Delete")
 					end,
 				},
