@@ -330,6 +330,7 @@ P['dashboards'] = {
 		['backdrop'] = true,
 		['zeroamount'] = false,
 		['weekly'] = true,
+		['iconPosition'] = 'RIGHT'
 	},
 
 	['professions'] = {

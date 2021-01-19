@@ -14,6 +14,11 @@ local TRADE_SKILLS = TRADE_SKILLS
 
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
+local iconOrientationValues = {
+	['LEFT'] = L['Left'],
+	['RIGHT'] = L['Right'],
+}
+
 local function UpdateSystemOptions()
 	for _, boardname in pairs(boards) do
 		local optionOrder = 1
@@ -370,15 +375,31 @@ local function dashboardsTable()
 						get = function(info) return E.db.dashboards.tokens.enableTokens end,
 						set = function(info, value) E.db.dashboards.tokens.enableTokens = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					width = {
+					sizeGroup = {
 						order = 2,
-						type = 'range',
-						name = L['Width'],
-						desc = L['Change the Tokens Dashboard width.'],
-						min = 120, max = 520, step = 1,
+						type = 'group',
+						name = ' ',
+						guiInline = true,
 						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
-						get = function(info) return E.db.dashboards.tokens.width end,
-						set = function(info, value) E.db.dashboards.tokens.width = value; BUID:UpdateHolderDimensions(BUI_TokensDashboard, 'tokens', BUI.TokensDB); BUID:UpdateTokenSettings(); end,
+						args = {
+							width = {
+								order = 1,
+								type = 'range',
+								name = L['Width'],
+								desc = L['Change the Tokens Dashboard width.'],
+								min = 120, max = 520, step = 1,
+								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_TokensDashboard, 'tokens', BUI.TokensDB); BUID:UpdateTokenSettings(); end,
+							},
+							iconPosition = {
+								order = 2,
+								type = 'select',
+								name = L['Icon Position'],
+								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+								values = iconOrientationValues,
+							},
+						},
 					},
 					layoutOptions = {
 						order = 3,
@@ -391,52 +412,56 @@ local function dashboardsTable()
 							style = L['BenikUI Style'],
 							transparency = L['Panel Transparency'],
 							backdrop = L['Backdrop'],
-						}
+						},
 					},
-					zeroamount = {
+					variousGroup = {
 						order = 4,
-						name = L['Show zero amount tokens'],
-						desc = L['Show the token, even if the amount is 0'],
-						type = 'toggle',
+						type = 'group',
+						name = ' ',
+						guiInline = true,
 						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
-						get = function(info) return E.db.dashboards.tokens.zeroamount end,
-						set = function(info, value) E.db.dashboards.tokens.zeroamount = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
-					},
-					weekly = {
-						order = 5,
-						name = L['Show Weekly max'],
-						desc = L['Show Weekly max tokens instead of total max'],
-						type = 'toggle',
-						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
-						get = function(info) return E.db.dashboards.tokens.weekly end,
-						set = function(info, value) E.db.dashboards.tokens.weekly = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
-					},
-					combat = {
-						order = 6,
-						name = L['Combat Fade'],
-						desc = L['Show/Hide Tokens Dashboard when in combat'],
-						type = 'toggle',
-						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
-						get = function(info) return E.db.dashboards.tokens.combat end,
-						set = function(info, value) E.db.dashboards.tokens.combat = value; BUID:EnableDisableCombat(BUI_TokensDashboard, 'tokens'); end,
-					},
-					mouseover = {
-						order = 7,
-						name = L['Mouse Over'],
-						desc = L['The frame is not shown unless you mouse over the frame.'],
-						type = 'toggle',
-						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
-						get = function(info) return E.db.dashboards.tokens.mouseover end,
-						set = function(info, value) E.db.dashboards.tokens.mouseover = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
-					},
-					tooltip = {
-						order = 8,
-						name = L['Tooltip'],
-						desc = L['Show/Hide Tooltips'],
-						type = 'toggle',
-						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
-						get = function(info) return E.db.dashboards.tokens.tooltip end,
-						set = function(info, value) E.db.dashboards.tokens.tooltip = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+						args = {
+							zeroamount = {
+								order = 4,
+								name = L['Show zero amount tokens'],
+								desc = L['Show the token, even if the amount is 0'],
+								type = 'toggle',
+								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+							},
+							weekly = {
+								order = 5,
+								name = L['Show Weekly max'],
+								desc = L['Show Weekly max tokens instead of total max'],
+								type = 'toggle',
+								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+							},
+							combat = {
+								order = 6,
+								name = L['Combat Fade'],
+								desc = L['Show/Hide Tokens Dashboard when in combat'],
+								type = 'toggle',
+								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:EnableDisableCombat(BUI_TokensDashboard, 'tokens'); end,
+							},
+							mouseover = {
+								order = 7,
+								name = L['Mouse Over'],
+								desc = L['The frame is not shown unless you mouse over the frame.'],
+								type = 'toggle',
+								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+							},
+							tooltip = {
+								order = 8,
+								name = L['Tooltip'],
+								desc = L['Show/Hide Tooltips'],
+								type = 'toggle',
+								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+							},
+						},
 					},
 					spacer = {
 						order = 11,
