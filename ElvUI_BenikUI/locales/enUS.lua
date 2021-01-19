@@ -39,6 +39,8 @@ L['ShiftClick to toggle chat'] = true
 L['Click to show the Addon List'] = true
 
 -- Custom Panels
+L['Clone'] = true
+L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L['Create'] = true
 L['Enable tooltip to reveal the panel name'] = true
 L['Hide in Pet Battle'] = true
