@@ -230,6 +230,8 @@ local function style_Communities()
 		frame.NotificationSettingsDialog.backdrop:Style("Outside")
 	end
 	_G.CommunitiesGuildLogFrame.backdrop:Style("Outside")
+	_G.CommunitiesSettingsDialog.backdrop:Style("Outside")
+	_G.CommunitiesAvatarPickerDialog.backdrop:Style("Outside")
 	_G.ClubFinderCommunityAndGuildFinderFrame.RequestToJoinFrame.backdrop:Style("Outside")
 	_G.ClubFinderGuildFinderFrame.RequestToJoinFrame.backdrop:Style("Outside")
 end
