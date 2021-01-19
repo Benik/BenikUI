@@ -330,7 +330,7 @@ P['dashboards'] = {
 		['backdrop'] = true,
 		['zeroamount'] = false,
 		['weekly'] = true,
-		['iconPosition'] = 'RIGHT'
+		['iconPosition'] = 'LEFT'
 	},
 
 	['professions'] = {
@@ -342,6 +342,7 @@ P['dashboards'] = {
 		['transparency'] = true,
 		['backdrop'] = true,
 		['capped'] = false,
+		['iconPosition'] = 'RIGHT'
 	},
 
 	['reputations'] = {
