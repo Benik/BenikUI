@@ -55,6 +55,7 @@ local function UpdateTokenOptions()
 				order = i,
 				type = 'group',
 				name = name,
+				disabled = function() return not E.db.dashboards.tokens.enableTokens end,
 				args = {
 				},
 			}
@@ -66,6 +67,7 @@ local function UpdateTokenOptions()
 					type = 'toggle',
 					name = (icon and '|T'..icon..':18|t '..tname) or tname,
 					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], BreakUpLargeNumbers(amount)),
+					disabled = function() return not E.db.dashboards.tokens.enableTokens end,
 					get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
 					set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 				}
@@ -303,15 +305,39 @@ local function dashboardsTable()
 						get = function(info) return E.db.dashboards.system.enableSystem end,
 						set = function(info, value) E.db.dashboards.system.enableSystem = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					width = {
+					variousGroup = {
 						order = 2,
-						type = 'range',
-						name = L['Width'],
-						desc = L['Change the System Dashboard width.'],
-						min = 120, max = 520, step = 1,
+						type = 'group',
+						name = ' ',
+						guiInline = true,
 						disabled = function() return not E.db.dashboards.system.enableSystem end,
-						get = function(info) return E.db.dashboards.system.width end,
-						set = function(info, value) E.db.dashboards.system.width = value; BUID:UpdateHolderDimensions(BUI_SystemDashboard, 'system', BUI.SystemDB); BUID:UpdateSystemSettings(); end,
+						args = {
+							width = {
+								order = 1,
+								type = 'range',
+								name = L['Width'],
+								desc = L['Change the System Dashboard width.'],
+								min = 120, max = 520, step = 1,
+								get = function(info) return E.db.dashboards.system[ info[#info] ] end,
+								set = function(info, value) E.db.dashboards.system[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_SystemDashboard, 'system', BUI.SystemDB); BUID:UpdateSystemSettings(); end,
+							},
+							combat = {
+								order = 2,
+								name = L['Combat Fade'],
+								desc = L['Show/Hide System Dashboard when in combat'],
+								type = 'toggle',
+								get = function(info) return E.db.dashboards.system[ info[#info] ] end,
+								set = function(info, value) E.db.dashboards.system[ info[#info] ] = value; BUID:EnableDisableCombat(BUI_SystemDashboard, 'system'); end,
+							},
+							mouseover = {
+								order = 3,
+								name = L['Mouse Over'],
+								desc = L['The frame is not shown unless you mouse over the frame.'],
+								type = 'toggle',
+								get = function(info) return E.db.dashboards.system[ info[#info] ] end,
+								set = function(info, value) E.db.dashboards.system[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+							},
+						},
 					},
 					layoutOptions = {
 						order = 3,
@@ -325,24 +351,6 @@ local function dashboardsTable()
 							transparency = L['Panel Transparency'],
 							backdrop = L['Backdrop'],
 						}
-					},
-					combat = {
-						order = 4,
-						name = L['Combat Fade'],
-						desc = L['Show/Hide System Dashboard when in combat'],
-						type = 'toggle',
-						disabled = function() return not E.db.dashboards.system.enableSystem end,
-						get = function(info) return E.db.dashboards.system.combat end,
-						set = function(info, value) E.db.dashboards.system.combat = value; BUID:EnableDisableCombat(BUI_SystemDashboard, 'system'); end,
-					},
-					mouseover = {
-						order = 5,
-						name = L['Mouse Over'],
-						desc = L['The frame is not shown unless you mouse over the frame.'],
-						type = 'toggle',
-						disabled = function() return not E.db.dashboards.system.enableSystem end,
-						get = function(info) return E.db.dashboards.system.mouseover end,
-						set = function(info, value) E.db.dashboards.system.mouseover = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					spacer = {
 						order = 10,
