@@ -38,6 +38,8 @@ L['ShiftClick to toggle chat'] = "ShiftClick para alternar bate-papo"
 L['Click to show the Addon List'] = "Clique para mostrar a lista de Addons"
 
 -- Custom Panels
+L['Clone'] = true
+L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L['Create'] = "Criar"
 L['Enable tooltip to reveal the panel name'] = "Mostra o nome do painel na dica de contexto"
 L['Hide in Pet Battle'] = "Esconder Em Batalhas de Pet"

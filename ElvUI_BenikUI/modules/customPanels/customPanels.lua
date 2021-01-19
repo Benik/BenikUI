@@ -280,6 +280,18 @@ function mod:DeletePanel(givenPanel)
 	end
 end
 
+function mod:ClonePanel(from, to)
+	if from == "" or to == "" then return end
+
+	local db = E.db.benikui.panels
+	if not db[to] then
+		db[to] = db[from]
+		mod:UpdatePanels()
+	else
+		E:StaticPopup_Show("BUI_Panel_Name")
+	end
+end
+
 function mod:OnEvent(event, unit)
 	if unit and unit ~= "player" then return end
 

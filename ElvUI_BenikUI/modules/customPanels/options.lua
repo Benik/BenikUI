@@ -6,6 +6,7 @@ local tinsert = table.insert
 
 local PanelSetup = {
 	['name'] = "",
+	['cloneName'] = "",
 }
 
 local strataValues = {
@@ -339,7 +340,7 @@ local function updateOptions()
 					name = '',
 				},
 				delete = {
-					order = 41,
+					order = -1,
 					name = DELETE,
 					type = 'execute',
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
@@ -347,6 +348,31 @@ local function updateOptions()
 						E.PopupDialogs["BUI_Panel_Delete"].OnAccept = function() mod:Panel_Delete(panelname) end
 						E.PopupDialogs["BUI_Panel_Delete"].text = (format(L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"], panelname))
 						E:StaticPopup_Show("BUI_Panel_Delete")
+					end,
+				},
+				clone = {
+					order = -2,
+					name = L["Clone"],
+					type = 'execute',
+					disabled = function() return not E.db.benikui.panels[panelname].enable end,
+					func = function()
+						local noBui = panelname:gsub('BenikUI_', '')
+						E.PopupDialogs["BUI_Panel_Clone"].OnAccept = function()
+							for object in pairs(E.db.benikui.panels) do
+								if object:lower() == PanelSetup.cloneName:lower() then
+									E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."], noBui))
+									E:StaticPopup_Show("BUI_Panel_Name")
+									PanelSetup.cloneName = nil
+									return
+								end
+							end
+
+							mod:ClonePanel(panelname, PanelSetup.cloneName)
+							updateOptions()
+							E.Libs.AceConfigDialog:SelectGroup("ElvUI", "benikui")
+						end
+						E.PopupDialogs["BUI_Panel_Clone"].text = (format(L["Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name"], panelname))
+						E:StaticPopup_Show("BUI_Panel_Clone", nil, nil, noBui)
 					end,
 				},
 			},
@@ -445,7 +471,7 @@ E.PopupDialogs["BUI_Panel_Delete"] = {
 	button2 = CANCEL,
 	timeout = 0,
 	whileDead = 1,
-	hideOnEscape = false,
+	hideOnEscape = 1,
 }
 
 E.PopupDialogs["BUI_Panel_Name"] = {
@@ -454,4 +480,40 @@ E.PopupDialogs["BUI_Panel_Name"] = {
 	timeout = 0,
 	whileDead = 1,
 	hideOnEscape = false,
+}
+
+E.PopupDialogs["BUI_Panel_Clone"] = {
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	hasEditBox = 1,
+	OnShow = function(self, data)
+		self.editBox:SetAutoFocus(false)
+		self.editBox.width = self.editBox:GetWidth()
+		self.editBox:Width(280)
+		self.editBox:AddHistoryLine("text")
+		self.editBox:SetText("")
+		self.editBox:HighlightText()
+		self.editBox:SetJustifyH("CENTER")
+		PanelSetup.cloneName = nil
+	end,
+	OnHide = function(self)
+		PanelSetup.cloneName = nil
+		self.editBox:Width(self.editBox.width or 50)
+		self.editBox.width = nil
+	end,
+	EditBoxOnEnterPressed = function(self)
+		E.noop()
+	end,
+	EditBoxOnEscapePressed = function(self)
+		PanelSetup.cloneName = nil
+		self:GetParent():Hide();
+	end,
+	EditBoxOnTextChanged = function(self)
+		local name = self:GetText()
+		PanelSetup.cloneName = "BenikUI_"..name
+	end,
+	timeout = 0,
+	whileDead = 1,
+	preferredIndex = 3,
+	hideOnEscape = 1,
 }
