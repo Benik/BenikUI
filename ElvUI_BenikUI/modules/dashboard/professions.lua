@@ -172,6 +172,7 @@ function mod:UpdateProfessionSettings()
 	mod:FontStyle(BUI.ProfessionsDB)
 	mod:FontColor(BUI.ProfessionsDB)
 	mod:BarColor(BUI.ProfessionsDB)
+	mod:IconPosition(BUI.ProfessionsDB, 'professions')
 end
 
 function mod:ProfessionsEvents()
