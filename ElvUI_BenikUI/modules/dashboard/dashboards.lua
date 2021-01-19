@@ -97,6 +97,26 @@ function mod:BarColor(tableName)
 	end
 end
 
+function mod:IconPosition(tableName, dashboard)
+	for _, bar in pairs(tableName) do
+		if not bar.hasIcon then return end
+
+		bar.IconBG:ClearAllPoints()
+		bar.dummy:ClearAllPoints()
+		if E.db.dashboards[dashboard].iconPosition == 'LEFT' then
+			bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', -2, 0)
+			bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', (E.PixelMode and 24 or 28), 0)
+			bar.IconBG:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', (E.PixelMode and 2 or 3), -SPACING)
+			bar.Text:Point('CENTER', bar, 'CENTER', 10, (E.PixelMode and -1 or -3))
+		else
+			bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, 0)
+			bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
+			bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
+			bar.Text:Point('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
+		end
+	end
+end
+
 function mod:CreateDashboardHolder(holderName, option)
 	local db = E.db.dashboards[option]
 
@@ -127,7 +147,8 @@ end
 
 function mod:CreateDashboard(barHolder, option, hasIcon)
 	local bar = CreateFrame('Button', nil, barHolder)
-	local barIconOffset = (hasIcon and -20) or -2
+	local barIconOffset = (hasIcon and -22) or -2
+
 	bar:Height(DASH_HEIGHT)
 	bar:Width(E.db.dashboards[option].width or 150)
 	bar:Point('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
@@ -168,6 +189,7 @@ function mod:CreateDashboard(barHolder, option, hasIcon)
 		bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
 		bar.IconBG.Icon:SetInside()
 		bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		bar.hasIcon = hasIcon
 	end
 
 	return bar

@@ -215,6 +215,7 @@ function mod:UpdateTokenSettings()
 	mod:FontStyle(BUI.TokensDB)
 	mod:FontColor(BUI.TokensDB)
 	mod:BarColor(BUI.TokensDB)
+	mod:IconPosition(BUI.TokensDB, 'tokens')
 end
 
 function mod:PopulateCurrencyData()
