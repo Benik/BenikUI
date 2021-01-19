@@ -23,7 +23,7 @@ function AS:BigWigs(event, addon)
 	if event == 'ADDON_LOADED' and addon == 'BigWigs_Plugins' then
 		if BUI.ShadowMode and E.db.benikuiSkins.addonSkins.bigwigs then
 			BigWigsInfoBox:CreateSoftShadow()
-			BigWigsAltPower:CreateSoftShadow()
+			--BigWigsAltPower:CreateSoftShadow()
 		end
 
 		local function FreeStyle(bar)
@@ -135,7 +135,7 @@ function AS:BigWigs(event, addon)
 			end]]
 		end
 
-		BigWigsAPI:RegisterBarStyle('AddOnSkins', {
+		_G.BigWigsAPI:RegisterBarStyle('AddOnSkins', {
 			apiVersion = 1, version = 10,
 			barSpacing = 3,
 			barHeight = 20,
@@ -143,7 +143,7 @@ function AS:BigWigs(event, addon)
 			BarStopped = function(bar) FreeStyle(bar) end,
 			GetStyleName = function() return 'AddOnSkins' end,
 		})
-		BigWigsAPI:RegisterBarStyle('AddOnSkins Half-Bar', {
+		_G.BigWigsAPI:RegisterBarStyle('AddOnSkins Half-Bar', {
 			apiVersion = 1, version = 10,
 			barSpacing = 13,
 			barHeight = 10,
