@@ -185,7 +185,7 @@ local function Info()
 						order = 2,
 						type = 'execute',
 						name = L['Curseforge'],
-						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.curseforge.com/wow/addons/benikui-v3") end,
+						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.curseforge.com/wow/addons/benikui") end,
 					},
 					beta = {
 						order = 3,
