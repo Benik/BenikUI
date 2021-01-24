@@ -180,6 +180,6 @@ end
 local function initDataTexts()
 	PanelLayoutOptions()
 	E:CopyTable(E.Options.args.datatexts.args.panels.args.newPanel.args, DTPanelOptions)
-	hooksecurefunc(DT, "PanelLayoutOptions", PanelLayoutOptions)
+	hooksecurefunc(DT, "SetupPanelOptions", PanelLayoutOptions)
 end
 tinsert(BUI.Config, initDataTexts)
