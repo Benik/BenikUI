@@ -166,7 +166,7 @@ local function PanelGroup_Create(panel)
 	E:CopyTable(E.Options.args.datatexts.args.panels.args[panel].args.panelOptions.args, DTPanelOptions)
 end
 
-local function SetupPanelOptions()
+local function PanelLayoutOptions()
 	for panel in pairs(E.global.datatexts.customPanels) do
 		PanelGroup_Create(panel)
 	end
@@ -178,8 +178,8 @@ local function SetupPanelOptions()
 end
 
 local function initDataTexts()
-	SetupPanelOptions()
+	PanelLayoutOptions()
 	E:CopyTable(E.Options.args.datatexts.args.panels.args.newPanel.args, DTPanelOptions)
-	hooksecurefunc(DT, "SetupPanelOptions", SetupPanelOptions)
+	hooksecurefunc(DT, "PanelLayoutOptions", PanelLayoutOptions)
 end
 tinsert(BUI.Config, initDataTexts)
