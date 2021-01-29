@@ -14,6 +14,7 @@ local PlaySound = PlaySound
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
 local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
+local C_TimerAfter = C_Timer.After
 local GameMenuButtonAddons = GameMenuButtonAddons
 
 -- GLOBALS: hooksecurefunc, selectioncolor
@@ -164,19 +165,12 @@ function mod:ChatStyles()
 	if not E.db.benikui.general.benikuiStyle then return end
 	local Bui_ldtp = _G.BuiLeftChatDTPanel
 	local Bui_rdtp = _G.BuiRightChatDTPanel
+	local showConditions = E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH'
 
-	if E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH' then
-		Bui_rdtp.style:Show()
-		Bui_ldtp.style:Show()
-		for i = 1, BUTTON_NUM do
-			bbuttons[i].style:Show()
-		end
-	else
-		if Bui_rdtp.style then Bui_rdtp.style:Hide() end
-		if Bui_ldtp.style then Bui_ldtp.style:Hide() end
-		for i = 1, BUTTON_NUM do
-			if bbuttons[i].style then bbuttons[i].style:Hide() end
-		end
+	Bui_rdtp.style:SetShown(showConditions)
+	Bui_ldtp.style:SetShown(showConditions)
+	for i = 1, BUTTON_NUM do
+		bbuttons[i].style:SetShown(showConditions)
 	end
 end
 
@@ -536,8 +530,8 @@ end
 function mod:Initialize()
 	mod:CreateLayout()
 	mod:CreateMiddlePanel()
-	mod:ChatStyles()
 	mod:ToggleMinimapStyle()
+	C_TimerAfter(0.5, mod.ChatStyles)
 	tinsert(BUI.Config, InjectDatatextOptions)
 
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
