@@ -13,6 +13,8 @@ local ReloadUI = ReloadUI
 local UnitInVehicle = UnitInVehicle
 local UnregisterStateDriver = UnregisterStateDriver
 
+local classColor = E:ClassColor(E.myclass, true)
+
 local PanelDefault = {
 	['enable'] = true,
 	['width'] = 200,
@@ -29,6 +31,8 @@ local PanelDefault = {
 	['vehicleHide'] = true,
 	['tooltip'] = true,
 	['visibility'] = "",
+	['styleColor'] = 1,
+	['customStyleColor'] = {r = .9, g = .7, b = 0},
 	['title'] = {
 		['enable'] = true,
 		['text'] = 'Title',
@@ -50,6 +54,9 @@ local PanelDefault = {
 local function InsertNewDefaults()
 	for name in pairs(E.db.benikui.panels) do
 		if name then
+			if E.db.benikui.panels[name].styleColor == nil then E.db.benikui.panels[name].styleColor = 1 end
+			if E.db.benikui.panels[name].customStyleColor == nil then E.db.benikui.panels[name].customStyleColor = {r = .9, g = .7, b = 0} end
+
 			if E.db.benikui.panels[name].title == nil then
 				E.db.benikui.panels[name].title = {	
 					['enable'] = true,
@@ -108,7 +115,7 @@ function mod:CreatePanel()
 			panel:Height(name.height or 200)
 			panel:SetTemplate('Transparent')
 			panel:Point('CENTER', E.UIParent, 'CENTER', -600, 0)
-			panel:Style('Outside')
+			panel:Style('Outside', nil, true, true)
 			if BUI.ShadowMode then panel:CreateSoftShadow() end
 			panel:SetScript("OnEnter", OnEnter)
 			panel:SetScript("OnLeave", OnLeave)
@@ -238,6 +245,7 @@ function mod:SetupPanels()
 			end
 
 			if _G[panel].style then
+				local r, g, b
 				if db.style then
 					_G[panel].style:Show()
 				else
@@ -255,6 +263,19 @@ function mod:SetupPanels()
 					_G[panel].style:Point('TOPLEFT', _G[panel], 'TOPLEFT', 0, (E.PixelMode and 4 or 7))
 					_G[panel].style:Point('BOTTOMRIGHT', _G[panel], 'TOPRIGHT', 0, (E.PixelMode and -1 or 1))
 				end
+
+				if db.styleColor == 1 then
+					r, g, b = classColor.r, classColor.g, classColor.b
+				elseif db.styleColor == 2 then
+					r, g, b = BUI:unpackColor(db.customStyleColor)
+				elseif db.styleColor == 3 then
+					r, g, b = BUI:unpackColor(E.db.general.valuecolor)
+				elseif db.styleColor == 5 then
+					r, g, b = BUI:getCovenantColor()
+				else
+					r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
+				end
+				_G[panel].style:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 			end
 		end
 	end

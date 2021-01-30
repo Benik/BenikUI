@@ -23,6 +23,14 @@ local positionValues = {
 	BOTTOM = L["Bottom"],
 }
 
+local colorValues = {
+	[1] = L.CLASS_COLORS,
+	[2] = CUSTOM,
+	[3] = L['Value Color'],
+	[4] = DEFAULT,
+	[5] = L['Covenant Color']
+}
+
 local function updateOptions()
 	for panelname in pairs(E.db.benikui.panels) do
 		E.Options.args.benikui.args.panels.args[panelname] = {
@@ -57,6 +65,36 @@ local function updateOptions()
 							type = 'select',
 							name = L["Style Position"],
 							values = positionValues,
+						},
+						colorGroup = {
+							order = 3,
+							name = COLOR,
+							type = 'group',
+							args = {
+								styleColor = {
+									order = 1,
+									type = "select",
+									name = "",
+									values = colorValues,
+									disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+								},
+								customStyleColor = {
+									order = 2,
+									type = "color",
+									name = L.COLOR_PICKER,
+									disabled = function() return E.db.benikui.panels[panelname].styleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
+									get = function(info)
+										local t = E.db.benikui.panels[panelname][ info[#info] ]
+										return t.r, t.g, t.b, t.a
+										end,
+									set = function(info, r, g, b)
+										E.db.benikui.panels[panelname][ info[#info] ] = {}
+										local t = E.db.benikui.panels[panelname][ info[#info] ]
+										t.r, t.g, t.b, t.a = r, g, b, a
+										mod:SetupPanels();
+									end,
+								},
+							}
 						},
 					},
 				},
