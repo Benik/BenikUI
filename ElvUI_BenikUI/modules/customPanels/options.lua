@@ -51,7 +51,7 @@ local function updateOptions()
 					name = L["BenikUI Style"],
 					type = 'group',
 					guiInline = true,
-					disabled = function() return not E.db.benikui.panels[panelname].enable end,
+					disabled = function() return E.db.benikui.general.benikuiStyle ~= true or not E.db.benikui.panels[panelname].enable end,
 					get = function(info) return E.db.benikui.panels[panelname][ info[#info] ] end,
 					set = function(info, value) E.db.benikui.panels[panelname][ info[#info] ] = value; mod:SetupPanels() end,
 					args = {
@@ -76,13 +76,12 @@ local function updateOptions()
 									type = "select",
 									name = "",
 									values = colorValues,
-									disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								},
 								customStyleColor = {
 									order = 2,
 									type = "color",
 									name = L.COLOR_PICKER,
-									disabled = function() return E.db.benikui.panels[panelname].styleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true end,
+									disabled = function() return E.db.benikui.panels[panelname].styleColor ~= 2 or E.db.benikui.general.benikuiStyle ~= true or not E.db.benikui.panels[panelname].enable end,
 									get = function(info)
 										local t = E.db.benikui.panels[panelname][ info[#info] ]
 										return t.r, t.g, t.b, t.a
