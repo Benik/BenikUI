@@ -166,11 +166,7 @@ function mod:UpdatePanelTitle()
 			local db = E.db.benikui.panels[panel].title
 
 			-- Toggle
-			if db.enable then
-				_G[panel].title:Show()
-			else
-				_G[panel].title:Hide()
-			end
+			_G[panel].title:SetShown(db.enable)
 
 			-- Set Text
 			_G[panel].titleText:SetText(db.text or 'Title')
@@ -235,22 +231,13 @@ function mod:SetupPanels()
 			end
 
 			if BUI.ShadowMode then
-				if db.shadow then
-					_G[panel].shadow:Show()
-					_G[panel].style.styleShadow:Show()
-				else
-					_G[panel].shadow:Hide()
-					_G[panel].style.styleShadow:Hide()
-				end
+				_G[panel].shadow:SetShown(db.shadow)
+				_G[panel].style.styleShadow:SetShown(db.shadow)
 			end
 
 			if _G[panel].style then
 				local r, g, b
-				if db.style then
-					_G[panel].style:Show()
-				else
-					_G[panel].style:Hide()
-				end
+				_G[panel].style:SetShown(db.style)
 
 				if db.stylePosition == 'BOTTOM' then
 					_G[panel].style:ClearAllPoints()
