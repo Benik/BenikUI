@@ -269,6 +269,11 @@ local function ArkInventoryDecor()
 	end)
 end
 
+local function StorylineDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.storyline then return end
+	_G.Storyline_NPCFrame:Style("Outside")
+end
+
 -- Replace the close button
 function AS:SkinCloseButton(Button, Reposition)
 	if Button.Backdrop then return end
@@ -323,6 +328,7 @@ if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 
 if AS:CheckAddOn('AllTheThings') then AS:RegisterSkin('AllTheThings', AllTheThingsDecor, 2) end
 if AS:CheckAddOn('TinyInspect') then AS:RegisterSkin('TinyInspect', TinyInspectDecor, 2) end
 if AS:CheckAddOn('ArkInventory') then AS:RegisterSkin('ArkInventory', ArkInventoryDecor, 2) end
+if AS:CheckAddOn('Storyline') then AS:RegisterSkin('Storyline', StorylineDecor, 2) end
 LibrariesDecor()
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)

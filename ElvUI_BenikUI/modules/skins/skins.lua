@@ -74,8 +74,6 @@ hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)
 
 function mod:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-
-	mod:SkinStoryline()
 end
 
 BUI:RegisterModule(mod:GetName())
