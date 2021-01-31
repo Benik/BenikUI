@@ -144,21 +144,13 @@ function mod:ToggleTransparency()
 	end
 
 	if not BUI.ShadowMode then return end
-	if not E.db.datatexts.panels.LeftChatDataPanel.backdrop then
-		_G.LeftChatDataPanel.shadow:Hide()
-		_G.LeftChatToggleButton.shadow:Hide()
-	else
-		_G.LeftChatDataPanel.shadow:Show()
-		_G.LeftChatToggleButton.shadow:Show()
-	end
+	local lchatToggle = E.db.datatexts.panels.LeftChatDataPanel.backdrop
+	_G.LeftChatDataPanel.shadow:SetShown(lchatToggle)
+	_G.LeftChatToggleButton.shadow:SetShown(lchatToggle)
 
-	if not E.db.datatexts.panels.RightChatDataPanel.backdrop then
-		_G.RightChatDataPanel.shadow:Hide()
-		_G.RightChatToggleButton.shadow:Hide()
-	else
-		_G.RightChatDataPanel.shadow:Show()
-		_G.RightChatToggleButton.shadow:Show()
-	end
+	local rchatToggle = E.db.datatexts.panels.RightChatDataPanel.backdrop
+	_G.RightChatDataPanel.shadow:SetShown(rchatToggle)
+	_G.RightChatToggleButton.shadow:SetShown(rchatToggle)
 end
 
 function mod:ChatStyles()
@@ -464,7 +456,7 @@ function mod:CreateMiddlePanel(forceReset)
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["numPoints"] = 3
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipAnchor"] = "ANCHOR_TOPLEFT"
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["backdrop"] = true
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["height"] = PANEL_HEIGHT
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipXOffset"] = 3
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["panelTransparency"] = false
@@ -491,10 +483,8 @@ end
 
 function mod:ToggleMinimapStyle()
 	if E.private.general.minimap.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
-	if E.db.general.minimap.benikuiStyle then
-		Minimap.backdrop.style:Show()
-	else
-		Minimap.backdrop.style:Hide()
+	if _G.Minimap.backdrop.style then
+		_G.Minimap.backdrop.style:SetShown(E.db.general.minimap.benikuiStyle)
 	end
 end
 

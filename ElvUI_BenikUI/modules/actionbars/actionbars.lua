@@ -51,29 +51,17 @@ function mod:ToggleStyle()
 	-- Actionbar backdrops
 	for i = 1, 10 do
 		if _G['ElvUI_Bar'..i].backdrop.style then
-			if E.db.benikui.actionbars.style['bar'..i] then
-				_G['ElvUI_Bar'..i].backdrop.style:Show()
-			else
-				_G['ElvUI_Bar'..i].backdrop.style:Hide()
-			end
+			_G['ElvUI_Bar'..i].backdrop.style:SetShown(E.db.benikui.actionbars.style['bar'..i])
 		end
 	end
 
 	-- Other bar backdrops
 	if _G['ElvUI_BarPet'].backdrop.style then
-		if E.db.benikui.actionbars.style.petbar then
-			_G['ElvUI_BarPet'].backdrop.style:Show()
-		else
-			_G['ElvUI_BarPet'].backdrop.style:Hide()
-		end
+		_G['ElvUI_BarPet'].backdrop.style:SetShown(E.db.benikui.actionbars.style.petbar)
 	end
 
 	if _G['ElvUI_StanceBar'].backdrop.style then
-		if E.db.benikui.actionbars.style.stancebar then
-			_G['ElvUI_StanceBar'].backdrop.style:Show()
-		else
-			_G['ElvUI_StanceBar'].backdrop.style:Hide()
-		end
+		_G['ElvUI_StanceBar'].backdrop.style:SetShown(E.db.benikui.actionbars.style.stancebar)
 	end
 end
 
@@ -188,9 +176,11 @@ local function VehicleExit()
 		return
 	end
 	local f = _G.MainMenuBarVehicleLeaveButton
-	f:SetNormalTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
-	f:SetPushedTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
-	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow")
+	local arrow = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow"
+	f:SetNormalTexture(arrow)
+	f:SetPushedTexture(arrow)
+	f:SetHighlightTexture(arrow)
+
 	if MasqueGroup and E.private.actionbar.masque.actionbars then return end
 	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
 	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
