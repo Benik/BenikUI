@@ -217,7 +217,6 @@ P['benikuiSkins'] = {
 		['sle'] = true,
 		['enh'] = true,
 		['pa'] = true,
-		['mer'] = true,
 	},
 
 	['addonSkins'] = {
@@ -236,11 +235,11 @@ P['benikuiSkins'] = {
 		['allthethings'] = true,
 		['tinyinspect'] = true,
 		['arkinventory'] = true,
+		['storyline'] = true,
 	},
 
 	['variousSkins'] = {
 		['talkingHead'] = true,
-		['storyline'] = true,
 		['inflight'] = true,
 		['kt'] = true,
 	},

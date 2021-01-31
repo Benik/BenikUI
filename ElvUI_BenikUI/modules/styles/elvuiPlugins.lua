@@ -76,18 +76,4 @@ function mod:stylePlugins()
 			profileFrame:Style("Outside")
 		end
 	end
-
-	-- MerathilisUI
-	if BUI.MER and E.db.benikuiSkins.elvuiAddons.mer then
-		local topPanel = _G.MER_TopPanel
-		local bottomPanel = _G.MER_BottomPanel
-
-		if topPanel then
-			topPanel:Style('Under')
-		end
-
-		if bottomPanel then
-			bottomPanel:Style('Outside')
-		end
-	end
 end
