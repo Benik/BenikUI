@@ -15,19 +15,11 @@ function mod:UpdatePanelInfo(panelName, panel)
 	if not (panel == _G.LocPlusLeftDT or panel == _G.LocPlusRightDT or panel == _G.MinimapPanel or panel == _G.LeftChatDataPanel or panel == _G.RightChatDataPanel) then
 		panel:Style('Outside')
 		if panel.style then
-			if db.benikuiStyle then
-				panel.style:Show()
-			else
-				panel.style:Hide()
-			end
+			panel.style:SetShown(db.benikuiStyle)
 		end
 
 		if BUI.ShadowMode then
-			if not (db.border and db.backdrop or db.backdrop) then
-				panel.shadow:Hide()
-			else
-				panel.shadow:Show()
-			end
+			panel.shadow:SetShown((db.border and db.backdrop or db.backdrop))
 		end
 	end
 end
