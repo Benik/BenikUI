@@ -64,16 +64,10 @@ function mod:UpdateNotifierPositions(bar, option)
 		end
 	end
 	
-	if (E.db.databars[option].orientation == 'VERTICAL' and (db.position == 'ABOVE' or db.position == 'BELOW')) or
+	local toggleCondition = not (E.db.databars[option].orientation == 'VERTICAL' and (db.position == 'ABOVE' or db.position == 'BELOW')) or
 		(E.db.databars[option].orientation == 'HORIZONTAL' and (db.position == 'LEFT' or db.position == 'RIGHT'))
-	then
-		bar.f.arrow:Hide()
-		bar.f.txt:Hide()
-	else
-		bar.f.arrow:Show()
-		bar.f.txt:Show()
-	end
-
+	bar.f.arrow:SetShown(toggleCondition)
+	bar.f.txt:SetShown(toggleCondition)
 	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 end
 
@@ -103,22 +97,12 @@ end
 function mod:ApplyStyle(bar, option)
 	if E.db.databars[option].enable then
 		if bar.fb then
-			if E.db.databars[option].orientation == 'VERTICAL' then
-				bar.fb:Show()
-			else
-				bar.fb:Hide()
-			end
+			bar.fb:SetShown(E.db.databars[option].orientation == 'VERTICAL')
 		end
 	end
 
-	if E.db.benikuiDatabars[option].buiStyle then
-		if bar.holder.style then
-			bar.holder.style:Show()
-		end
-	else
-		if bar.holder.style then
-			bar.holder.style:Hide()
-		end
+	if bar.holder.style then
+		bar.holder.style:SetShown(E.db.benikuiDatabars[option].buiStyle)
 	end
 end
 
