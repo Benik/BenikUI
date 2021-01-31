@@ -29,6 +29,7 @@ local DecorAddonSkins = {
 	{'AllTheThings', L['All The Things'], 'allthethings'},
 	{'TinyInspect', L['TinyInspect'], 'tinyinspect'},
 	{'ArkInventory', L['Ark Inventory'], 'arkinventory'},
+	{'Storyline', L['Storyline'], 'storyline'},
 }
 
 local SupportedProfiles = {
@@ -134,12 +135,6 @@ local function SkinTable()
 				order = 1,
 				type = 'toggle',
 				name = L["TalkingHead"],
-			},
-			storyline = {
-				order = 2,
-				type = 'toggle',
-				name = L['Storyline'],
-				disabled = function() return not IsAddOnLoaded('Storyline') end,
 			},
 			inflight = {
 				order = 3,
