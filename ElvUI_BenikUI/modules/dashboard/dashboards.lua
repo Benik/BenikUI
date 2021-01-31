@@ -60,11 +60,7 @@ function mod:ToggleStyle(holder, option)
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local db = E.db.dashboards[option]
-	if db.style then
-		holder.backdrop.style:Show()
-	else
-		holder.backdrop.style:Hide()
-	end
+	holder.backdrop.style:SetShown(db.style)
 end
 
 function mod:FontStyle(tableName)
