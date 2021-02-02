@@ -136,7 +136,7 @@ local function UpdateReputationOptions()
 				args = {
 				},
 			}
-		else
+		elseif headerIndex then
 			E.Options.args.benikui.args.dashboards.args.reputations.args[tostring(headerIndex)].args[tostring(i)] = {
 				order = optionOrder + 2,
 				type = 'toggle',
