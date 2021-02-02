@@ -1,3 +1,10 @@
+4.02 (Feb 22, 2021)
+*Fixed chat datatexts losing their style after a reload
+*Custom Panels: Added style color options
+*Prevent a rep error
+*Added 'shortvalue' on the health custom texts, in the install
+*Set minimum ElvUI version to 12.18
+
 4.011 (Jan 25, 2021)
 *Prevent a ProjectAzilroka error
 
