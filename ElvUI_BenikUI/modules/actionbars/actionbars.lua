@@ -14,7 +14,7 @@ local MAX_TOTEMS = MAX_TOTEMS
 
 local classColor = E:ClassColor(E.myclass, true)
 
-local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar}
+local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_MicroBar}
 
 function mod:StyleBackdrops()
 	-- Actionbar backdrops
@@ -56,12 +56,16 @@ function mod:ToggleStyle()
 	end
 
 	-- Other bar backdrops
-	if _G['ElvUI_BarPet'].backdrop.style then
-		_G['ElvUI_BarPet'].backdrop.style:SetShown(E.db.benikui.actionbars.style.petbar)
+	if _G.ElvUI_BarPet.backdrop.style then
+		_G.ElvUI_BarPet.backdrop.style:SetShown(E.db.benikui.actionbars.style.petbar)
 	end
 
-	if _G['ElvUI_StanceBar'].backdrop.style then
-		_G['ElvUI_StanceBar'].backdrop.style:SetShown(E.db.benikui.actionbars.style.stancebar)
+	if _G.ElvUI_StanceBar.backdrop.style then
+		_G.ElvUI_StanceBar.backdrop.style:SetShown(E.db.benikui.actionbars.style.stancebar)
+	end
+
+	if _G.ElvUI_MicroBar.backdrop.style then
+		_G.ElvUI_MicroBar.backdrop.style:SetShown(E.db.benikui.actionbars.style.microbar)
 	end
 end
 
