@@ -121,6 +121,7 @@ P['benikui'] = {
 			['bar10'] = true,
 			['petbar'] = true,
 			['stancebar'] = true,
+			['microbar'] = true,
 		},
 	},
 
