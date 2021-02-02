@@ -12,6 +12,7 @@ local DecorElvUIAddons = {
 	{'ElvUI_SLE', L['Shadow & Light'], 'sle'},
 	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
 	{'ElvUI_MerathilisUI', L['MerathilisUI'], 'mer'},
+	{'ElvUI_OptionsUI', L['ElvUI Options'], 'elv'},
 }
 
 local DecorAddonSkins = {

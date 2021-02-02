@@ -213,12 +213,12 @@ P['benikui'] = {
 -- Skins and ElvUI addons Styling
 P['benikuiSkins'] = {
 	['elvuiAddons'] = {
-		['loclite'] = true,
 		['locplus'] = true,
 		['sle'] = true,
 		['enh'] = true,
 		['pa'] = true,
 		['mer'] = true,
+		['elv'] = true,
 	},
 
 	['addonSkins'] = {
