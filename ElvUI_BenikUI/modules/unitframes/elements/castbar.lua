@@ -194,6 +194,7 @@ function mod:CastBarHooks()
 		if castbar then
 			if BUI.ShadowMode then
 				castbar.backdrop:CreateSoftShadow()
+				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
 			hooksecurefunc(castbar, "PostCastStart", mod.PostCast)
@@ -206,6 +207,7 @@ function mod:CastBarHooks()
 		if castbar then
 			if BUI.ShadowMode then
 				castbar.backdrop:CreateSoftShadow()
+				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
 			hooksecurefunc(castbar, "PostCastStart", mod.PostCast)
@@ -218,6 +220,7 @@ function mod:CastBarHooks()
 		if castbar then
 			if BUI.ShadowMode then
 				castbar.backdrop:CreateSoftShadow()
+				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
 			hooksecurefunc(castbar, "PostCastStart", mod.PostCast)
