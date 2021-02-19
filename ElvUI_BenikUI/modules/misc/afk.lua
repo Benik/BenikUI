@@ -339,9 +339,14 @@ local function Initialize()
 	local spec = getSpec()
 	local ilvl = getItemLevel()
 
+	-- Shadow overlay
+	AFK.AFKMode.screenShadow = AFK.AFKMode:CreateTexture()
+	AFK.AFKMode.screenShadow:SetTexture([[Interface\Addons\ElvUI_BenikUI\media\textures\screenShadow]])
+	AFK.AFKMode.screenShadow:SetAllPoints(AFK.AFKMode)
+
 	-- Create Top frame
 	AFK.AFKMode.top = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
-	AFK.AFKMode.top:SetFrameLevel(0)
+	AFK.AFKMode.top:SetFrameLevel(2)
 	AFK.AFKMode.top:SetTemplate('Transparent', true, true)
 	AFK.AFKMode.top:SetBackdropBorderColor(.3, .3, .3, 1)
 	AFK.AFKMode.top:CreateWideShadow()
@@ -394,13 +399,14 @@ local function Initialize()
 	AFK.AFKMode.top.Status:SetStatusBarTexture((E["media"].normTex))
 	AFK.AFKMode.top.Status:SetMinMaxValues(0, 1800)
 	AFK.AFKMode.top.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b, 1)
-	AFK.AFKMode.top.Status:SetFrameLevel(2)
+	AFK.AFKMode.top.Status:SetFrameLevel(3)
 	AFK.AFKMode.top.Status:Point('TOPRIGHT', AFK.AFKMode.top, 'BOTTOMRIGHT', 0, E.PixelMode and 3 or 5)
 	AFK.AFKMode.top.Status:Point('BOTTOMLEFT', AFK.AFKMode.top, 'BOTTOMLEFT', 0, E.PixelMode and 1 or 2)
 	AFK.AFKMode.top.Status:SetValue(0)
 
 	AFK.AFKMode.bottom:SetTemplate('Transparent', true, true)
 	AFK.AFKMode.bottom:SetBackdropBorderColor(.3, .3, .3, 1)
+	AFK.AFKMode.bottom:SetFrameLevel(2)
 	AFK.AFKMode.bottom:CreateWideShadow()
 	AFK.AFKMode.bottom.modelHolder:SetFrameLevel(7)
 
