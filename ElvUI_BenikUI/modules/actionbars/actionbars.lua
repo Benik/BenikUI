@@ -170,7 +170,7 @@ function mod:ExtraAB() -- shadows
 	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
 		local button = _G["ExtraActionButton"..i]
 		if button then
-			button.backdrop:CreateSoftShadow()
+			button:CreateSoftShadow()
 		end
 	end
 end
