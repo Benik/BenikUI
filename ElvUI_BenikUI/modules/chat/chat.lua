@@ -94,8 +94,28 @@ local function PositionChat(self, override)
 	end
 end
 
+function mod:ToggleChatStyle()
+	if not E.db.benikui.general.benikuiStyle then return end
+	local db = E.db.chat.benikuiStyle
+	LeftChatPanel.backdrop.style:SetShown(db)
+	RightChatPanel.backdrop.style:SetShown(db)
+end
+
+local function InjectChatPanelOption()
+	E.Options.args.chat.args.panels.args.panels.args.benikuiStyle = {
+		order = -1,
+		type = "toggle",
+		name = BUI:cOption(L['BenikUI Style'], "blue"),
+		disabled = function() return not E.private.chat.enable or not E.db.benikui.general.benikuiStyle end,
+		get = function(info) return E.db.chat.benikuiStyle end,
+		set = function(info, value) E.db.chat.benikuiStyle = value; mod:ToggleChatStyle(); end,
+	}
+end
+tinsert(BUI.Config, InjectChatPanelOption)
+
 function mod:Initialize()
-	mod.UpdateEditboxAnchors()
+	mod:UpdateEditboxAnchors()
+	mod:ToggleChatStyle()
 	hooksecurefunc(CH, "PositionChats", PositionChat)
 	hooksecurefunc(CH, "UpdateEditboxAnchors", mod.UpdateEditboxAnchors)
 	hooksecurefunc(CH, "StyleChat", Style)
