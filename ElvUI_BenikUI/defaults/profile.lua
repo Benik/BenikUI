@@ -25,6 +25,9 @@ P['databars']['honor']['textYoffset'] = 0
 -- Add Minimap styling toggle default
 P['general']['minimap']['benikuiStyle'] = true
 
+-- Add Chat styling toggle default
+P['chat']['benikuiStyle'] = true
+
 -- Datatexts
 P['datatexts']['panels']['BuiLeftChatDTPanel'] = {
 	[1] = 'Primary Stat',
