@@ -1,4 +1,12 @@
-4.02 (Feb 22, 2021)
+4.03 (Mar 4, 2021)
+*Added option to toggle style on Chat Panels. Injected in ElvUI Chat - Panels options
+*Added shadow overlay in afkMode
+*Fixed Castbar shadow frame level
+*Added option to enable/disable ElvUI Options buttons and tabs coloring
+*Added back style on Mera's top/bottom panels
+*Styled the ugly Micro bar
+
+4.02 (Feb 2, 2021)
 *Fixed chat datatexts losing their style after a reload
 *Custom Panels: Added style color options
 *Prevent a rep error
