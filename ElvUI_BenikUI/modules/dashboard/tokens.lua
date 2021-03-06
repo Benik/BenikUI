@@ -191,8 +191,6 @@ function mod:UpdateTokens()
 						bar.name = name
 
 						tinsert(BUI.TokensDB, bar)
-					else
-						holder:Hide()
 					end
 				end
 			end
