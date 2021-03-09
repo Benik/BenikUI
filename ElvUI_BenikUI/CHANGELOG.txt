@@ -1,3 +1,7 @@
+4.04 (Mar 9, 2021)
+*toc update for patch 9.05
+*Fixed Tokens Dashboard hiding bug, when a currency with zero amount is selected
+
 4.03 (Mar 4, 2021)
 *Added option to toggle style on Chat Panels. Injected in ElvUI Chat - Panels options
 *Added shadow overlay in afkMode
