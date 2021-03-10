@@ -80,6 +80,25 @@ end
 
 local function ObjectiveTrackerQuests()
 	if BUI:IsAddOnEnabled('!KalielsTracker') then return end
+	local header = _G.ObjectiveTrackerBlocksFrame.QuestHeader
+	header.buibar = CreateFrame('Frame', nil, header, 'BackdropTemplate')
+	header.buibar:SetTemplate('Transparent')
+	header.buibar:SetBackdropBorderColor(0, 0, 0, 0)
+	header.buibar:SetBackdropColor(1, 1, 1, .2)
+	header.buibar:Point('BOTTOMLEFT', header, 2, -2)
+	header.buibar:Size(header:GetWidth() -20, 1)
+
+	header.buibar.status = CreateFrame('StatusBar', nil, header.buibar)
+	header.buibar.status:SetStatusBarTexture(E.Media.Textures.White8x8)
+	header.buibar.status:SetAllPoints(header.buibar)
+	header.buibar.status:SetMinMaxValues(0, MAX_QUESTS)
+
+	header.buibar.status.spark = header.buibar.status:CreateTexture(nil, 'OVERLAY', nil)
+	header.buibar.status.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
+	header.buibar.status.spark:Size(12, 6)
+	header.buibar.status.spark:SetBlendMode('ADD')
+	header.buibar.status.spark:Point('CENTER', header.buibar.status:GetStatusBarTexture(), 'RIGHT')
+
 	local function QuestNumString()
 		local questNum = 0
 		local q, o
@@ -96,12 +115,17 @@ local function ObjectiveTrackerQuests()
 			if questNum >= (MAX_QUESTS - 5) then -- go red
 				q = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
 				o = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+				block.QuestHeader.buibar.status:SetStatusBarColor(1, 0, 0)
 			else
 				q = format("%d/%d %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
 				o = format("%d/%d %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+				block.QuestHeader.buibar.status:SetStatusBarColor(0.75, 0.61, 0)
 			end
 			block.QuestHeader.Text:SetText(q)
 			frame.HeaderMenu.Title:SetText(o)
+
+			--block.QuestHeader.buibar.status:SetMinMaxValues(0, MAX_QUESTS)
+			block.QuestHeader.buibar.status:SetValue(questNum)
 		end
 	end
 	hooksecurefunc("ObjectiveTracker_Update", QuestNumString)
