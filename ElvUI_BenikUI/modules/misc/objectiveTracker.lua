@@ -124,7 +124,6 @@ local function ObjectiveTrackerQuests()
 			block.QuestHeader.Text:SetText(q)
 			frame.HeaderMenu.Title:SetText(o)
 
-			--block.QuestHeader.buibar.status:SetMinMaxValues(0, MAX_QUESTS)
 			block.QuestHeader.buibar.status:SetValue(questNum)
 		end
 	end
