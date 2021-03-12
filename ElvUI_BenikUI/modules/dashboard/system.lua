@@ -58,11 +58,11 @@ function mod:UpdateSystem()
 
 			sysFrame.dummy.dummyStatus = sysFrame.dummy:CreateTexture(nil, 'OVERLAY')
 			sysFrame.dummy.dummyStatus:SetInside()
-			sysFrame.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
+			sysFrame.dummy.dummyStatus:SetTexture(E.Media.Textures.White8x8)
 			sysFrame.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
 
 			sysFrame.Status = CreateFrame('StatusBar', nil, sysFrame.dummy)
-			sysFrame.Status:SetStatusBarTexture(E['media'].BuiFlat)
+			sysFrame.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
 			sysFrame.Status:SetMinMaxValues(0, 100)
 			sysFrame.Status:SetInside()
 
