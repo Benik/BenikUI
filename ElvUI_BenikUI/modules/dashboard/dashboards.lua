@@ -157,11 +157,11 @@ function mod:CreateDashboard(barHolder, option, hasIcon)
 
 	bar.dummy.dummyStatus = bar.dummy:CreateTexture(nil, 'OVERLAY')
 	bar.dummy.dummyStatus:SetInside()
-	bar.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
+	bar.dummy.dummyStatus:SetTexture(E.Media.Textures.White8x8)
 	bar.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
 
 	bar.Status = CreateFrame('StatusBar', nil, bar.dummy)
-	bar.Status:SetStatusBarTexture(E['media'].BuiFlat)
+	bar.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
 	bar.Status:SetInside()
 
 	bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);

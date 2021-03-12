@@ -142,7 +142,7 @@ function mod:CreatePanel()
 			local tex = title:CreateTexture(nil, "BACKGROUND")
 			tex:SetBlendMode("ADD")
 			tex:SetAllPoints()
-			tex:SetTexture(E.media.BuiFlat)
+			tex:SetTexture(E.Media.Textures.White8x8)
 			panel.tex = tex
 		end
 	end

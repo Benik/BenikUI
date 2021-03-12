@@ -37,7 +37,7 @@ function mod:CreateButtons()
 		abtn[i]:SetAlpha(0)
 		abtn[i].tex = abtn[i]:CreateTexture(nil, 'OVERLAY')
 		abtn[i].tex:SetInside()
-		abtn[i].tex:SetTexture(E['media'].BuiFlat)
+		abtn[i].tex:SetTexture(E.Media.Textures.White8x8)
 		abtn[i].tex:SetVertexColor(unpack(E['media'].rgbvaluecolor))
 
 		abtn[i].anim = CreateAnimationGroup(abtn[i])

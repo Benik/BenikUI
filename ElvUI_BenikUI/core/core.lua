@@ -45,22 +45,6 @@ local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
-local function RegisterMedia()
-	--Fonts
-	E['media'].buiFont = LSM:Fetch('font', 'Bui Prototype')
-	E['media'].buiVisitor = LSM:Fetch('font', 'Bui Visitor1')
-	E['media'].buiVisitor2 = LSM:Fetch('font', 'Bui Visitor2')
-	E['media'].buiTuk = LSM:Fetch('font', 'Bui Tukui')
-
-	--Textures
-	E['media'].BuiEmpty = LSM:Fetch('statusbar', 'BuiEmpty')
-	E['media'].BuiFlat = LSM:Fetch('statusbar', 'BuiFlat')
-	E['media'].BuiMelli = LSM:Fetch('statusbar', 'BuiMelli')
-	E['media'].BuiMelliDark = LSM:Fetch('statusbar', 'BuiMelliDark')
-	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
-	E['media'].BuiShadow = LSM:Fetch('statusbar', 'BuiKringelShadow')
-end
-
 function BUI:Print(...)
 	(_G.DEFAULT_CHAT_FRAME):AddMessage(strjoin('', '|cff00c0fa', 'BenikUI:|r ', ...))
 end
@@ -221,7 +205,6 @@ function BUI:LoadCommands()
 end
 
 function BUI:Initialize()
-	RegisterMedia()
 	self:LoadCommands()
 	self:SplashScreen()
 
