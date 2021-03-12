@@ -138,6 +138,11 @@ local function SkinTable()
 				type = 'toggle',
 				name = L["TalkingHead"],
 			},
+			objectiveTracker = {
+				order = 2,
+				type = 'toggle',
+				name = OBJECTIVES_TRACKER_LABEL,
+			},
 			inflight = {
 				order = 3,
 				type = 'toggle',
