@@ -217,7 +217,7 @@ local function ImmersionDecor()
 	frame.TalkBox.Hilite:SetOutside(frame.TalkBox.BackgroundFrame.Backdrop)
 	frame.TalkBox.Elements.Backdrop:Style('Inside')
 
-	if BUI.ShadowMode then
+	if BUI.ShadowMode and AS:CheckOption('Shadows') then
 		frame.TalkBox.BackgroundFrame.Backdrop.Shadow:Hide()
 		frame.TalkBox.Elements.Backdrop.Shadow:Hide()
 	end
