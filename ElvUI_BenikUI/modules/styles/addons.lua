@@ -9,7 +9,7 @@ local function StyleDBM_Options()
 	end
 
 	DBM_GUI_OptionsFrame:HookScript("OnShow", function()
-		DBM_GUI_OptionsFrame:Style("Outside")
+		--DBM_GUI_OptionsFrame:Style("Outside")
 	end)
 end
 
