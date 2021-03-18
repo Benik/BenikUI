@@ -317,18 +317,18 @@ local function ufPlayerTable()
 			styleGroup = {
 				order = 8,
 				type = 'group',
-				name = L['BenikUI BuiStyle'],
+				name = L['BenikUI Style'],
 				args = {
 					portraitStyle = {
 						order = 1,
 						type = 'toggle',
-						name = L['BenikUI BuiStyle on Portrait'],
+						name = L['BenikUI Style on Portrait'],
 						disabled = function() return not E.db.benikui.general.benikuiStyle end,
 					},
 					portraitStyleHeight = {
 						order = 2,
 						type = 'range',
-						name = L['BuiStyle Height'],
+						name = L['Style Height'],
 						disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.player.portraitStyle end,
 						min = 3, max = 20, step = 1,
 					},
@@ -427,18 +427,18 @@ local function ufTargetTable()
 			styleGroup = {
 				order = 9,
 				type = 'group',
-				name = L['BenikUI BuiStyle'],
+				name = L['BenikUI Style'],
 				args = {
 					portraitStyle = {
 						order = 1,
 						type = 'toggle',
-						name = L['BenikUI BuiStyle on Portrait'],
+						name = L['BenikUI Style on Portrait'],
 						disabled = function() return not E.db.benikui.general.benikuiStyle end,
 					},
 					portraitStyleHeight = {
 						order = 2,
 						type = 'range',
-						name = L['BuiStyle Height'],
+						name = L['Style Height'],
 						disabled = function() return not E.db.benikui.general.benikuiStyle or not E.db.benikui.unitframes.target.portraitStyle end,
 						min = 4, max = 20, step = 1,
 					},

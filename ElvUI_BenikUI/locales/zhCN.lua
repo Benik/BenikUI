@@ -16,13 +16,13 @@ L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installe
 -- General options
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = true
 L["Credits:"] = true
-L['ActionBar BuiStyle Color'] = true
-L['BenikUI BuiStyle'] = true
+L['ActionBar Style Color'] = true
+L['BenikUI Style'] = true
 L['Enable/Disable the decorative bars from UI elements'] = true
-L['Hide BenikUI BuiStyle'] = true
-L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI BuiStyle must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own BuiStyle visibility options.|r'] = true
+L['Hide BenikUI Style'] = true
+L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility options.|r'] = true
 L['Game Menu Color'] = true
-L['BuiStyle Color'] = true
+L['Style Color'] = true
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = true
 L['Splash Screen'] = true
@@ -45,7 +45,7 @@ L['Enable tooltip to reveal the panel name'] = true
 L['Hide in Pet Battle'] = true
 L['Name Tooltip'] = true
 L['New Custom Panel'] = true
-L['BuiStyle Position'] = true
+L['Style Position'] = true
 L['Texture Color'] = true
 L['The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one.'] = true
 L['This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?'] = true
@@ -131,7 +131,7 @@ L['Choose Actionbar to show to'] = true
 L['Request Stop button'] = true
 L['Show in:'] = true
 L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = true
-L['Switch Buttons (requires BenikUI BuiStyle)'] = true
+L['Switch Buttons (requires BenikUI Style)'] = true
 
 -- Request stop button
 L['LeftClick to Request Stop'] = true
@@ -198,7 +198,7 @@ L['Profiles'] = true
 -- UnitFrame Options
 L['Apply shadow under the portrait'] = true
 L['Apply transparency on the portrait backdrop.'] = true
-L['BenikUI BuiStyle on Portrait'] = true
+L['BenikUI Style on Portrait'] = true
 L['Castbar Backdrop Color'] = true
 L['Castbar Text'] = true
 L['Change the detached portrait height'] = true
@@ -213,7 +213,7 @@ L['Makes the portrait backdrop transparent'] = true
 L['Player Size'] = true
 L['Power statusbar texture.'] = true
 L['Replaces the default role icons with SVUI ones.'] = true
-L['BuiStyle Height'] = true
+L['Style Height'] = true
 L['SVUI Icons'] = true
 L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = true
 L['Vertical power statusbar'] = true

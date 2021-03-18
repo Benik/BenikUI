@@ -13,7 +13,7 @@ local function abTable()
 			style = {
 				order = 2,
 				type = 'group',
-				name = L['BenikUI BuiStyle'],
+				name = L['BenikUI Style'],
 				guiInline = true,
 				args = {
 				},
@@ -21,7 +21,7 @@ local function abTable()
 			toggleButtons = {
 				order = 3,
 				type = 'group',
-				name = L['Switch Buttons (requires BenikUI BuiStyle)'],
+				name = L['Switch Buttons (requires BenikUI Style)'],
 				guiInline = true,
 				get = function(info) return E.db.benikui.actionbars.toggleButtons[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.actionbars.toggleButtons[ info[#info] ] = value; mod:ShowButtons() end,

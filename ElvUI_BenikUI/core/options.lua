@@ -54,7 +54,7 @@ local function Core()
 					benikuiStyle = {
 						order = 2,
 						type = 'toggle',
-						name = L['BenikUI BuiStyle'],
+						name = L['BenikUI Style'],
 						desc = L['Enable/Disable the decorative bars from UI elements'],
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
@@ -62,8 +62,8 @@ local function Core()
 					hideStyle = {
 						order = 3,
 						type = 'toggle',
-						name = L['Hide BenikUI BuiStyle'],
-						desc = L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI BuiStyle must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own BuiStyle visibility options.|r'],
+						name = L['Hide BenikUI Style'],
+						desc = L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility options.|r'],
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateStyleVisibility(); end,
@@ -163,7 +163,7 @@ local function Core()
 					style = {
 						order = 3,
 						type = 'group',
-						name = L['BuiStyle Color'],
+						name = L['Style Color'],
 						guiInline = true,
 						args = {
 							StyleColor = {
@@ -206,7 +206,7 @@ local function Core()
 					abStyle = {
 						order = 4,
 						type = 'group',
-						name = L['ActionBar BuiStyle Color'],
+						name = L['ActionBar Style Color'],
 						guiInline = true,
 						args = {
 							abStyleColor = {

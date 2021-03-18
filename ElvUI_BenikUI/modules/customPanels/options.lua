@@ -48,7 +48,7 @@ local function updateOptions()
 				},
 				styleGroup = {
 					order = 2,
-					name = L["BenikUI BuiStyle"],
+					name = L["BenikUI Style"],
 					type = 'group',
 					guiInline = true,
 					disabled = function() return E.db.benikui.general.benikuiStyle ~= true or not E.db.benikui.panels[panelname].enable end,
@@ -63,7 +63,7 @@ local function updateOptions()
 						stylePosition = {
 							order = 2,
 							type = 'select',
-							name = L["BuiStyle Position"],
+							name = L["Style Position"],
 							values = positionValues,
 						},
 						colorGroup = {

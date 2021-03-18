@@ -60,7 +60,7 @@ local function databarsTable()
 					buiStyle = {
 						order = 3,
 						type = 'toggle',
-						name = L['BenikUI BuiStyle'],
+						name = L['BenikUI Style'],
 						disabled = function() return not E.db.benikuiDatabars[option].enable end,
 						get = function(info) return E.db.benikuiDatabars[option].buiStyle end,
 						set = function(info, value) E.db.benikuiDatabars[option].buiStyle = value; mod:ApplyStyle(bar, option); end,
