@@ -22,7 +22,7 @@ function mod:StyleBackdrops()
 		local styleBacks = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(styleBacks) do
 			if frame.backdrop then
-				frame.backdrop:Style('Outside', nil, true, true)
+				frame.backdrop:BuiStyle('Outside', nil, true, true)
 			end
 
 			-- Button Shadows
@@ -42,7 +42,7 @@ function mod:StyleBackdrops()
 	-- Other bar backdrops
 	for _, frame in pairs(styleOtherBacks) do
 		if frame.backdrop then
-			frame.backdrop:Style('Outside', nil, true, true)
+			frame.backdrop:BuiStyle('Outside', nil, true, true)
 		end
 	end
 end

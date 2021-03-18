@@ -15,8 +15,8 @@ local function style_AchievementUI()
 
 	local frame = _G.AchievementFrame
 	if frame.backdrop then
-		frame.backdrop:Style("Outside")
-		frame.searchResults.backdrop:Style("Outside")
+		frame.backdrop:BuiStyle("Outside")
+		frame.searchResults.backdrop:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
@@ -31,7 +31,7 @@ local function style_AlliedRacesUI()
 
 	local frame = _G.AlliedRacesFrame
 	if frame.backdrop then
-		frame.backdrop:Style("Outside")
+		frame.backdrop:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_AlliedRacesUI", "BenikUI_AlliedRaces", style_AlliedRacesUI)
@@ -44,7 +44,7 @@ local function style_ArchaeologyUI()
 		return
 	end
 
-	_G.ArchaeologyFrame:Style("Outside")
+	_G.ArchaeologyFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ArchaeologyUI", "BenikUI_ArchaeologyUI", style_ArchaeologyUI)
 
@@ -57,7 +57,7 @@ local function style_ArtifactUI()
 	end
 
 	local frame = _G.ArtifactFrame
-	frame.backdrop:Style("Outside")
+	frame.backdrop:BuiStyle("Outside")
 	frame.CloseButton:ClearAllPoints()
 	frame.CloseButton:Point("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
 end
@@ -72,8 +72,8 @@ local function style_AuctionHouseUI()
 	end
 
 	local frame = _G.AuctionHouseFrame
-	frame:Style("Outside")
-	frame.WoWTokenResults.GameTimeTutorial.backdrop:Style("Outside")
+	frame:BuiStyle("Outside")
+	frame.WoWTokenResults.GameTimeTutorial.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_AuctionHouseUI", "BenikUI_AuctionHouseUI", style_AuctionHouseUI)
 
@@ -81,7 +81,7 @@ S:AddCallbackForAddon("Blizzard_AuctionHouseUI", "BenikUI_AuctionHouseUI", style
 local function style_AzeriteEssenceUI()
 	if E.private.skins.blizzard.azeriteEssence ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	_G.AzeriteEssenceUI:Style('Outside')
+	_G.AzeriteEssenceUI:BuiStyle('Outside')
 end
 S:AddCallbackForAddon("Blizzard_AzeriteEssenceUI", "BenikUI_AzeriteEssenceUI", style_AzeriteEssenceUI)
 
@@ -93,7 +93,7 @@ local function style_AzeriteUI()
 		return
 	end
 
-	_G.AzeriteEmpoweredItemUI.backdrop:Style("Outside")
+	_G.AzeriteEmpoweredItemUI.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_AzeriteUI", "BenikUI_AzeriteUI", style_AzeriteUI)
 
@@ -106,7 +106,7 @@ local function style_AzeriteRespecUI()
 	end
 
 	local frame = _G.AzeriteRespecFrame
-	frame:Style("Inside")
+	frame:BuiStyle("Inside")
 
 	local CloseButton = frame.CloseButton
 	CloseButton:ClearAllPoints()
@@ -128,7 +128,7 @@ local function style_BattlefieldMap()
 		return
 	end
 
-	_G.BattlefieldMapFrame.backdrop:Style("Outside")
+	_G.BattlefieldMapFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_BattlefieldMap", "BenikUI_BattlefieldMap", style_BattlefieldMap)
 
@@ -140,7 +140,7 @@ local function style_BindingUI()
 		return
 	end
 
-	_G.KeyBindingFrame.backdrop:Style("Outside")
+	_G.KeyBindingFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_BindingUI", "BenikUI_BindingUI", style_BindingUI)
 
@@ -152,7 +152,7 @@ local function style_BlackMarketUI()
 		return
 	end
 
-	_G.BlackMarketFrame.backdrop:Style("Outside")
+	_G.BlackMarketFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_BlackMarketUI", "BenikUI_BlackMarketUI", style_BlackMarketUI)
 
@@ -164,12 +164,12 @@ local function style_Calendar()
 		return
 	end
 
-	_G.CalendarFrame.backdrop:Style("Outside")
-	_G.CalendarViewEventFrame.backdrop:Style("Outside")
-	_G.CalendarViewHolidayFrame.backdrop:Style("Outside")
-	_G.CalendarCreateEventFrame.backdrop:Style("Outside")
-	_G.CalendarContextMenu:Style("Outside")
-	_G.CalendarViewRaidFrame.backdrop:Style("Outside")
+	_G.CalendarFrame.backdrop:BuiStyle("Outside")
+	_G.CalendarViewEventFrame.backdrop:BuiStyle("Outside")
+	_G.CalendarViewHolidayFrame.backdrop:BuiStyle("Outside")
+	_G.CalendarCreateEventFrame.backdrop:BuiStyle("Outside")
+	_G.CalendarContextMenu:BuiStyle("Outside")
+	_G.CalendarViewRaidFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_Calendar", style_Calendar)
 
@@ -181,7 +181,7 @@ local function style_ChallengesUI()
 		return
 	end
 
-	_G.ChallengesKeystoneFrame.backdrop:Style("Outside")
+	_G.ChallengesKeystoneFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ChallengesUI", "BenikUI_ChallengesUI", style_ChallengesUI)
 
@@ -193,8 +193,8 @@ local function style_Channels()
 		return
 	end
 
-	_G.ChannelFrame.backdrop:Style("Outside")
-	_G.CreateChannelPopup.backdrop:Style("Outside")
+	_G.ChannelFrame.backdrop:BuiStyle("Outside")
+	_G.CreateChannelPopup.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
 
@@ -206,11 +206,11 @@ local function style_Collections()
 		return
 	end
 
-	_G.CollectionsJournal:Style("Outside")
-	_G.WardrobeFrame:Style("Outside")
-	_G.WardrobeOutfitEditFrame.backdrop:Style("Outside")
+	_G.CollectionsJournal:BuiStyle("Outside")
+	_G.WardrobeFrame:BuiStyle("Outside")
+	_G.WardrobeOutfitEditFrame.backdrop:BuiStyle("Outside")
 	if E.private.skins.blizzard.tooltip then
-		_G.PetJournalPrimaryAbilityTooltip.backdrop:Style("Outside")
+		_G.PetJournalPrimaryAbilityTooltip.backdrop:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
@@ -225,15 +225,15 @@ local function style_Communities()
 
 	local frame = _G.CommunitiesFrame
 	if frame then
-		frame.backdrop:Style("Outside")
-		frame.GuildMemberDetailFrame.backdrop:Style("Outside")
-		frame.NotificationSettingsDialog.backdrop:Style("Outside")
+		frame.backdrop:BuiStyle("Outside")
+		frame.GuildMemberDetailFrame.backdrop:BuiStyle("Outside")
+		frame.NotificationSettingsDialog.backdrop:BuiStyle("Outside")
 	end
-	_G.CommunitiesGuildLogFrame.backdrop:Style("Outside")
-	_G.CommunitiesSettingsDialog.backdrop:Style("Outside")
-	_G.CommunitiesAvatarPickerDialog.backdrop:Style("Outside")
-	_G.ClubFinderCommunityAndGuildFinderFrame.RequestToJoinFrame.backdrop:Style("Outside")
-	_G.ClubFinderGuildFinderFrame.RequestToJoinFrame.backdrop:Style("Outside")
+	_G.CommunitiesGuildLogFrame.backdrop:BuiStyle("Outside")
+	_G.CommunitiesSettingsDialog.backdrop:BuiStyle("Outside")
+	_G.CommunitiesAvatarPickerDialog.backdrop:BuiStyle("Outside")
+	_G.ClubFinderCommunityAndGuildFinderFrame.RequestToJoinFrame.backdrop:BuiStyle("Outside")
+	_G.ClubFinderGuildFinderFrame.RequestToJoinFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Communities", style_Communities)
 
@@ -251,14 +251,14 @@ local function style_Contribution()
 	end
 
 	if frame.backdrop then
-		frame.backdrop:Style("Outside")
+		frame.backdrop:BuiStyle("Outside")
 	end
 
 	-- Not sure about this tooltip tho -- Merathilis
 	if E.private.skins.blizzard.tooltip ~= true then
 		return
 	end
-	ContributionBuffTooltip:Style("Outside")
+	ContributionBuffTooltip:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Contribution", "BenikUI_Contribution", style_Contribution)
 
@@ -273,7 +273,7 @@ local function style_CovenantPreviewUI()
 	local frame = _G.CovenantPreviewFrame
 	hooksecurefunc(frame, 'TryShow', function(covenantInfo)
 		if covenantInfo and not frame.IsStyled then
-			frame.backdrop:Style("Outside")
+			frame.backdrop:BuiStyle("Outside")
 			frame.IsStyled = true
 		end
 	end)
@@ -291,7 +291,7 @@ local function style_CovenantSanctum()
 	local frame = _G.CovenantSanctumFrame
 	frame:HookScript('OnShow', function()
 		if not frame.backdrop.style then
-			frame.backdrop:Style("Outside")
+			frame.backdrop:BuiStyle("Outside")
 		end
 	end)
 end
@@ -305,7 +305,7 @@ local function style_DeathRecap()
 		return
 	end
 
-	_G.DeathRecapFrame.backdrop:Style("Outside")
+	_G.DeathRecapFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_DeathRecap", "BenikUI_DeathRecap", style_DeathRecap)
 
@@ -317,7 +317,7 @@ local function style_EncounterJournal()
 		return
 	end
 
-	_G.EncounterJournal:Style("Outside")
+	_G.EncounterJournal:BuiStyle("Outside")
 
 	local Buttons = {
 		_G.EncounterJournalInstanceSelectSuggestTab,
@@ -340,7 +340,7 @@ local function style_EncounterJournal()
 	if E.private.skins.blizzard.tooltip ~= true then
 		return
 	end
-	_G.EncounterJournalTooltip:Style("Outside")
+	_G.EncounterJournalTooltip:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_EncounterJournal", "BenikUI_EncounterJournal", style_EncounterJournal)
 
@@ -352,11 +352,11 @@ local function style_FlightMap()
 		return
 	end
 
-	_G.FlightMapFrame.backdrop:Style("Outside")
+	_G.FlightMapFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_FlightMap", "BenikUI_FlightMap", style_FlightMap)
 
--- Garrison Style
+-- Garrison BuiStyle
 local fRecruits = {}
 local function style_GarrisonUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true or
@@ -365,55 +365,55 @@ local function style_GarrisonUI()
 		return
 	end
 
-	_G.OrderHallMissionFrame:Style("Small")
+	_G.OrderHallMissionFrame:BuiStyle("Small")
 	if _G.AdventureMapQuestChoiceDialog.backdrop then
-		_G.AdventureMapQuestChoiceDialog.backdrop:Style("Outside")
+		_G.AdventureMapQuestChoiceDialog.backdrop:BuiStyle("Outside")
 	end
 
-	_G.BFAMissionFrame.backdrop:Style("Outside")
-	_G.CovenantMissionFrame.backdrop:Style("Outside")
+	_G.BFAMissionFrame.backdrop:BuiStyle("Outside")
+	_G.CovenantMissionFrame.backdrop:BuiStyle("Outside")
 
 	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
 	GarrisonCapacitiveDisplayFrame.IncrementButton:Point("LEFT", GarrisonCapacitiveDisplayFrame.Count, "RIGHT", 4, 0)
 	if E.private.skins.blizzard.tooltip then
-		_G.GarrisonFollowerAbilityWithoutCountersTooltip:Style("Outside")
-		_G.GarrisonFollowerMissionAbilityWithoutCountersTooltip:Style("Outside")
+		_G.GarrisonFollowerAbilityWithoutCountersTooltip:BuiStyle("Outside")
+		_G.GarrisonFollowerMissionAbilityWithoutCountersTooltip:BuiStyle("Outside")
 	end
 
-	_G.GarrisonMissionFrame.backdrop:Style("Outside")
-	_G.GarrisonLandingPage.backdrop:Style("Outside")
-	_G.GarrisonBuildingFrame.backdrop:Style("Outside")
-	_G.GarrisonCapacitiveDisplayFrame.backdrop:Style("Outside")
+	_G.GarrisonMissionFrame.backdrop:BuiStyle("Outside")
+	_G.GarrisonLandingPage.backdrop:BuiStyle("Outside")
+	_G.GarrisonBuildingFrame.backdrop:BuiStyle("Outside")
+	_G.GarrisonCapacitiveDisplayFrame.backdrop:BuiStyle("Outside")
 
 	-- ShipYard
-	_G.GarrisonShipyardFrame.backdrop:Style("Outside")
+	_G.GarrisonShipyardFrame.backdrop:BuiStyle("Outside")
 	-- Tooltips
 	if E.private.skins.blizzard.tooltip then
-		_G.GarrisonShipyardMapMissionTooltip:Style("Outside")
+		_G.GarrisonShipyardMapMissionTooltip:BuiStyle("Outside")
 		_G.GarrisonBonusAreaTooltip:StripTextures()
 		_G.GarrisonBonusAreaTooltip:CreateBackdrop("Transparent")
-		_G.GarrisonBonusAreaTooltip.backdrop:Style("Outside")
-		_G.GarrisonMissionMechanicFollowerCounterTooltip:Style("Outside")
-		_G.GarrisonMissionMechanicTooltip:Style("Outside")
-		_G.FloatingGarrisonShipyardFollowerTooltip:Style("Outside")
-		_G.GarrisonShipyardFollowerTooltip:Style("Outside")
-		_G.GarrisonBuildingFrame.BuildingLevelTooltip:Style("Outside")
-		_G.GarrisonFollowerAbilityTooltip:Style("Outside")
+		_G.GarrisonBonusAreaTooltip.backdrop:BuiStyle("Outside")
+		_G.GarrisonMissionMechanicFollowerCounterTooltip:BuiStyle("Outside")
+		_G.GarrisonMissionMechanicTooltip:BuiStyle("Outside")
+		_G.FloatingGarrisonShipyardFollowerTooltip:BuiStyle("Outside")
+		_G.GarrisonShipyardFollowerTooltip:BuiStyle("Outside")
+		_G.GarrisonBuildingFrame.BuildingLevelTooltip:BuiStyle("Outside")
+		_G.GarrisonFollowerAbilityTooltip:BuiStyle("Outside")
 		_G.GarrisonMissionMechanicTooltip:StripTextures()
 		_G.GarrisonMissionMechanicTooltip:CreateBackdrop("Transparent")
-		_G.GarrisonMissionMechanicTooltip.backdrop:Style("Outside")
+		_G.GarrisonMissionMechanicTooltip.backdrop:BuiStyle("Outside")
 		_G.GarrisonMissionMechanicFollowerCounterTooltip:StripTextures()
 		_G.GarrisonMissionMechanicFollowerCounterTooltip:CreateBackdrop("Transparent")
-		_G.GarrisonMissionMechanicFollowerCounterTooltip.backdrop:Style("Outside")
-		_G.FloatingGarrisonFollowerTooltip:Style("Outside")
-		_G.GarrisonFollowerTooltip:Style("Outside")
+		_G.GarrisonMissionMechanicFollowerCounterTooltip.backdrop:BuiStyle("Outside")
+		_G.FloatingGarrisonFollowerTooltip:BuiStyle("Outside")
+		_G.GarrisonFollowerTooltip:BuiStyle("Outside")
 	end
 
 	-- Garrison Monument
 	local GMonument = _G.GarrisonMonumentFrame
 	GMonument:StripTextures()
 	GMonument:CreateBackdrop("Transparent")
-	GMonument:Style("Small")
+	GMonument:BuiStyle("Small")
 	GMonument:ClearAllPoints()
 	GMonument:Point("CENTER", E.UIParent, "CENTER", 0, -200)
 	GMonument:Height(70)
@@ -421,7 +421,7 @@ local function style_GarrisonUI()
 	GMonument.LeftBtn:Size(25, 25)
 
 	-- Follower recruiting (available at the Inn)
-	_G.GarrisonRecruiterFrame.backdrop:Style("Outside")
+	_G.GarrisonRecruiterFrame.backdrop:BuiStyle("Outside")
 	S:HandleDropDownBox(_G.GarrisonRecruiterFramePickThreatDropDown)
 	local rBtn = _G.GarrisonRecruiterFrame.Pick.ChooseRecruits
 	rBtn:ClearAllPoints()
@@ -431,7 +431,7 @@ local function style_GarrisonUI()
 	local GRecruitSelect = _G.GarrisonRecruitSelectFrame
 	GRecruitSelect:StripTextures()
 	GRecruitSelect:CreateBackdrop("Transparent")
-	GRecruitSelect.backdrop:Style("Outside")
+	GRecruitSelect.backdrop:BuiStyle("Outside")
 	S:HandleCloseButton(GRecruitSelect.CloseButton)
 	S:HandleEditBox(GRecruitSelect.FollowerList.SearchBox)
 
@@ -484,11 +484,11 @@ local function style_GuildBankUI()
 		return
 	end
 
-	_G.GuildBankFrame:Style("Outside")
+	_G.GuildBankFrame:BuiStyle("Outside")
 	for i = 1, 8 do
 		local button = _G["GuildBankTab" .. i .. "Button"]
 		local texture = _G["GuildBankTab" .. i .. "ButtonIconTexture"]
-		button:Style("Inside")
+		button:BuiStyle("Inside")
 		texture:SetTexCoord(unpack(BUI.TexCoords))
 	end
 end
@@ -502,7 +502,7 @@ local function style_GuildUI()
 		return
 	end
 
-	_G.GuildFrame:Style("Outside")
+	_G.GuildFrame:BuiStyle("Outside")
 
 	local GuildFrames = {
 		_G.GuildMemberDetailFrame,
@@ -512,7 +512,7 @@ local function style_GuildUI()
 	}
 	for _, frame in pairs(GuildFrames) do
 		if frame and frame.backdrop and not frame.backdrop.style then
-			frame.backdrop:Style("Outside")
+			frame.backdrop:BuiStyle("Outside")
 		end
 	end
 end
@@ -526,7 +526,7 @@ local function style_GuildControlUI()
 		return
 	end
 
-	_G.GuildControlUI.backdrop:Style("Outside")
+	_G.GuildControlUI.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_GuildControlUI", "BenikUI_GuildControlUI", style_GuildControlUI)
 
@@ -538,7 +538,7 @@ local function style_IslandsQueueUI()
 		return
 	end
 
-	_G.IslandsQueueFrame.backdrop:Style("Outside")
+	_G.IslandsQueueFrame.backdrop:BuiStyle("Outside")
 
 	-- tooltip
 	if E.private.skins.blizzard.tooltip ~= true then
@@ -548,7 +548,7 @@ local function style_IslandsQueueUI()
 		"OnShow",
 		function(self)
 			if not self.style then
-				self:Style("Outside")
+				self:BuiStyle("Outside")
 			end
 		end
 	)
@@ -563,7 +563,7 @@ local function style_InspectUI()
 		return
 	end
 
-	_G.InspectFrame:Style("Outside")
+	_G.InspectFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_InspectUI", "BenikUI_InspectUI", style_InspectUI)
 
@@ -575,7 +575,7 @@ local function style_ItemInteractionUI()
 		return
 	end
 
-	_G.ItemInteractionFrame:Style("Outside")
+	_G.ItemInteractionFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ItemInteractionUI", "BenikUI_ItemInteractionUI", style_ItemInteractionUI)
 
@@ -587,7 +587,7 @@ local function style_ItemSocketingUI()
 		return
 	end
 
-	_G.ItemSocketingFrame:Style("Outside")
+	_G.ItemSocketingFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ItemSocketingUI", "BenikUI_ItemSocketingUI", style_ItemSocketingUI)
 
@@ -599,7 +599,7 @@ local function style_ItemUpgradeUI()
 		return
 	end
 
-	_G.ItemUpgradeFrame:Style("Outside")
+	_G.ItemUpgradeFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ItemUpgradeUI", "BenikUI_ItemUpgradeUI", style_ItemUpgradeUI)
 
@@ -611,7 +611,7 @@ local function style_LookingForGuildUI()
 		return
 	end
 
-	_G.LookingForGuildFrame:Style("Outside")
+	_G.LookingForGuildFrame:BuiStyle("Outside")
 end
 
 local function LoadStyle()
@@ -633,8 +633,8 @@ local function style_MacroUI()
 		return
 	end
 
-	_G.MacroFrame:Style("Outside")
-	_G.MacroPopupFrame:Style("Outside")
+	_G.MacroFrame:BuiStyle("Outside")
+	_G.MacroPopupFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_MacroUI", "BenikUI_MacroUI", style_MacroUI)
 
@@ -646,7 +646,7 @@ local function style_ObliterumUI()
 		return
 	end
 
-	_G.ObliterumForgeFrame:Style("Outside")
+	_G.ObliterumForgeFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ObliterumUI", "BenikUI_ObliterumUI", style_ObliterumUI)
 
@@ -664,7 +664,7 @@ local function style_OrderHallUI()
 			if self.styled then
 				return
 			end
-			self:Style("Outside")
+			self:BuiStyle("Outside")
 			self.styled = true
 		end
 	)
@@ -682,7 +682,7 @@ local function style_PlayerChoiceUI()
 	local frame = _G.PlayerChoiceFrame
 	hooksecurefunc(frame, 'Update', function()
 		if not frame.IsStyled then
-			frame.backdrop:Style("Outside")
+			frame.backdrop:BuiStyle("Outside")
 			frame.IsStyled = true
 		end
 	end)
@@ -698,7 +698,7 @@ local function style_PVPUI()
 		return
 	end
 
-	_G.ConquestTooltip:Style("Outside")
+	_G.ConquestTooltip:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_PVPUI", "BenikUI_PVPUI", style_PVPUI)
 
@@ -710,8 +710,8 @@ local function style_PVPMatch()
 		return
 	end
 
-	_G.PVPMatchScoreboard.backdrop:Style("Outside")
-	_G.PVPMatchResults.backdrop:Style("Outside")
+	_G.PVPMatchScoreboard.backdrop:BuiStyle("Outside")
+	_G.PVPMatchResults.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_PVPMatch", "BenikUI_PVPMatch", style_PVPMatch)
 
@@ -723,7 +723,7 @@ local function style_QuestChoice()
 		return
 	end
 
-	_G.QuestChoiceFrame:Style("Small")
+	_G.QuestChoiceFrame:BuiStyle("Small")
 end
 S:AddCallbackForAddon("Blizzard_QuestChoice", "BenikUI_QuestChoice", style_QuestChoice)
 
@@ -735,7 +735,7 @@ local function style_ScrappingMachineUI()
 		return
 	end
 
-	_G.ScrappingMachineFrame.backdrop:Style("Outside")
+	_G.ScrappingMachineFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ScrappingMachineUI", "BenikUI_ScrappingMachineUI", style_ScrappingMachineUI)
 
@@ -747,7 +747,7 @@ local function style_Soulbinds()
 		return
 	end
 
-	_G.SoulbindViewer.backdrop:Style("Outside")
+	_G.SoulbindViewer.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Soulbinds", "BenikUI_Soulbinds", style_Soulbinds)
 
@@ -759,17 +759,17 @@ local function style_TalentUI()
 		return
 	end
 
-	_G.PlayerTalentFrame:Style("Outside")
+	_G.PlayerTalentFrame:BuiStyle("Outside")
 	for i = 1, 2 do
 		local tab = _G["PlayerSpecTab" .. i]
 		if tab then
-			tab:Style("Inside")
+			tab:BuiStyle("Inside")
 			tab.style:SetFrameLevel(5)
 			tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
 			tab:GetNormalTexture():SetInside()
 		end
 	end
-	PlayerTalentFrameTalents.PvpTalentFrame.TalentList.backdrop:Style("Outside")
+	PlayerTalentFrameTalents.PvpTalentFrame.TalentList.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_TalentUI", "BenikUI_TalentUI", style_TalentUI)
 
@@ -793,7 +793,7 @@ local function style_TalkingHeadUI()
 		frame.BackgroundFrame.backdrop:SetAllPoints()
 		frame.BackgroundFrame.backdrop:CreateWideShadow() -- to hide the borders not showing due to scaling
 
-		frame.BackgroundFrame:Style("Inside")
+		frame.BackgroundFrame:BuiStyle("Inside")
 		if frame.BackgroundFrame.style then
 			frame.BackgroundFrame.style:ClearAllPoints()
 			frame.BackgroundFrame.style:Point("TOPLEFT", frame, "TOPLEFT", -(E.PixelMode and 0 or 2), (E.PixelMode and -5 or -7))
@@ -810,8 +810,8 @@ local function style_TimeManager()
 		return
 	end
 
-	_G.TimeManagerFrame:Style("Outside")
-	_G.StopwatchFrame.backdrop:Style("Outside")
+	_G.TimeManagerFrame:BuiStyle("Outside")
+	_G.StopwatchFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_TimeManager", "BenikUI_TimeManager", style_TimeManager)
 
@@ -824,8 +824,8 @@ local function style_TradeSkillUI()
 	end
 
 	local frame = _G.TradeSkillFrame
-	frame:Style("Outside")
-	frame.DetailsFrame.GuildFrame.backdrop:Style("Outside")
+	frame:BuiStyle("Outside")
+	frame.DetailsFrame.GuildFrame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_TradeSkillUI", "BenikUI_TradeSkillUI", style_TradeSkillUI)
 
@@ -837,7 +837,7 @@ local function style_TrainerUI()
 		return
 	end
 
-	_G.ClassTrainerFrame:Style("Outside")
+	_G.ClassTrainerFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_TrainerUI", "BenikUI_TrainerUI", style_TrainerUI)
 
@@ -850,11 +850,11 @@ local function style_VoidStorageUI()
 	end
 
 	local frame = _G.VoidStorageFrame
-	frame.backdrop:Style("Outside")
+	frame.backdrop:BuiStyle("Outside")
 	for i = 1, 2 do
 		local tab = frame["Page" .. i]
 		if not tab.style then
-			tab:Style("Inside")
+			tab:BuiStyle("Inside")
 			tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
 			tab:GetNormalTexture():SetInside()
 		end
@@ -871,7 +871,7 @@ local function style_WarboardUI()
 	end
 
 	local frame = _G.WarboardQuestChoiceFrame
-	frame.backdrop:Style("Outside")
+	frame.backdrop:BuiStyle("Outside")
 	frame.backdrop.style:SetFrameLevel(1)
 end
 S:AddCallbackForAddon("Blizzard_WarboardUI", "BenikUI_WarboardUI", style_WarboardUI)
@@ -885,6 +885,6 @@ local function style_WeeklyRewards()
 	end
 
 	local frame = _G.WeeklyRewardsFrame
-	frame.backdrop:Style("Outside")
+	frame.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_WeeklyRewards", "BenikUI_WeeklyRewards", style_WeeklyRewards)

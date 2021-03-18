@@ -18,7 +18,7 @@ function BU:Construct_TargetFrame()
 	end
 
 	if E.db.benikui.general.benikuiStyle == true then
-		frame.Portrait.backdrop:Style('Inside')
+		frame.Portrait.backdrop:BuiStyle('Inside')
 		frame.Portrait.backdrop.style:Hide()
 	end
 

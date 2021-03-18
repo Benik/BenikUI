@@ -12,8 +12,8 @@ local BORDER = E.Border;
 
 function mod:StyleBags()
 	if ElvUI_ContainerFrame then
-		ElvUI_ContainerFrame:Style('Outside')
-		ElvUI_ContainerFrameContainerHolder:Style('Outside')
+		ElvUI_ContainerFrame:BuiStyle('Outside')
+		ElvUI_ContainerFrameContainerHolder:BuiStyle('Outside')
 	end
 
 	if ElvUI_ContainerFrameContainerHolder then
@@ -21,15 +21,15 @@ function mod:StyleBags()
 	end
 
 	if ElvUIBags then
-		ElvUIBags.backdrop:Style('Outside')
+		ElvUIBags.backdrop:BuiStyle('Outside')
 		ElvUIBags.backdrop:SetTemplate('Transparent')
 	end
 end
 
 function mod:OpenBankBags()
 	if ElvUI_BankContainerFrame then
-		ElvUI_BankContainerFrame:Style('Outside')
-		ElvUI_BankContainerFrameContainerHolder:Style('Outside')
+		ElvUI_BankContainerFrame:BuiStyle('Outside')
+		ElvUI_BankContainerFrameContainerHolder:BuiStyle('Outside')
 	end
 
 	if ElvUI_BankContainerFrameContainerHolder then
@@ -43,11 +43,11 @@ function mod:SkinBlizzBags()
 	for i = 1, NUM_CONTAINER_FRAMES, 1 do
 		local container = _G['ContainerFrame'..i]
 		if container.backdrop then
-			container.backdrop:Style('Inside')
+			container.backdrop:BuiStyle('Inside')
 		end
 	end
 	if BankFrame then
-		BankFrame:Style('Outside')
+		BankFrame:BuiStyle('Outside')
 	end
 end
 

@@ -72,7 +72,7 @@ end
 
 local r, g, b = 0, 0, 0
 
-local function Style(f, template, name, ignoreColor, ignoreVisibility)
+local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 	if f.style or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local style = CreateFrame('Frame', name or nil, f, 'BackdropTemplate')
@@ -157,7 +157,7 @@ local function addapi(object)
 	if not object.CreateWideShadow then mt.CreateWideShadow = CreateWideShadow end
 	if not object.CreateSoftGlow then mt.CreateSoftGlow = CreateSoftGlow end
 	if not object.CreateStyleShadow then mt.CreateStyleShadow = CreateStyleShadow end
-	if not object.Style then mt.Style = Style end
+	if not object.BuiStyle then mt.BuiStyle = BuiStyle end
 end
 
 local handled = {['Frame'] = true}

@@ -347,7 +347,7 @@ local function dashboardsTable()
 						get = function(_, key) return E.db.dashboards.system[key] end,
 						set = function(_, key, value) E.db.dashboards.system[key] = value; BUID:ToggleStyle(BUI_SystemDashboard, 'system') BUID:ToggleTransparency(BUI_SystemDashboard, 'system') end,
 						values = {
-							style = L['BenikUI Style'],
+							style = L['BenikUI BuiStyle'],
 							transparency = L['Panel Transparency'],
 							backdrop = L['Backdrop'],
 						}
@@ -417,7 +417,7 @@ local function dashboardsTable()
 						get = function(_, key) return E.db.dashboards.tokens[key] end,
 						set = function(_, key, value) E.db.dashboards.tokens[key] = value; BUID:ToggleStyle(BUI_TokensDashboard, 'tokens') BUID:ToggleTransparency(BUI_TokensDashboard, 'tokens') end,
 						values = {
-							style = L['BenikUI Style'],
+							style = L['BenikUI BuiStyle'],
 							transparency = L['Panel Transparency'],
 							backdrop = L['Backdrop'],
 						},
@@ -526,7 +526,7 @@ local function dashboardsTable()
 						get = function(_, key) return E.db.dashboards.professions[key] end,
 						set = function(_, key, value) E.db.dashboards.professions[key] = value; BUID:ToggleStyle(BUI_ProfessionsDashboard, 'professions') BUID:ToggleTransparency(BUI_ProfessionsDashboard, 'professions') end,
 						values = {
-							style = L['BenikUI Style'],
+							style = L['BenikUI BuiStyle'],
 							transparency = L['Panel Transparency'],
 							backdrop = L['Backdrop'],
 						}
@@ -624,7 +624,7 @@ local function dashboardsTable()
 						get = function(_, key) return E.db.dashboards.reputations[key] end,
 						set = function(_, key, value) E.db.dashboards.reputations[key] = value; BUID:ToggleStyle(BUI_ReputationsDashboard, 'reputations') BUID:ToggleTransparency(BUI_ReputationsDashboard, 'reputations') end,
 						values = {
-							style = L['BenikUI Style'],
+							style = L['BenikUI BuiStyle'],
 							transparency = L['Panel Transparency'],
 							backdrop = L['Backdrop'],
 						}
