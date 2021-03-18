@@ -16,7 +16,7 @@ function mod:stylePlugins()
 		}
 		for _, frame in pairs(framestoskin) do
 			if frame then
-				frame:Style("Outside")
+				frame:BuiStyle("Outside")
 			end
 		end
 	end
@@ -39,7 +39,7 @@ function mod:stylePlugins()
 		}
 		for _, frame in pairs(sleFrames) do
 			if frame then
-				frame:Style("Outside")
+				frame:BuiStyle("Outside")
 			end
 		end
 	end
@@ -48,18 +48,18 @@ function mod:stylePlugins()
 	if BUI.PA and E.db.benikuiSkins.elvuiAddons.pa then
 		local smbFrame = _G.SquareMinimapButtonBar
 		if smbFrame then
-			smbFrame:Style("Outside")
+			smbFrame:BuiStyle("Outside")
 		end
 	end
 
 	-- ElvUI_Enhanced
 	if IsAddOnLoaded("ElvUI_Enhanced") and E.db.benikuiSkins.elvuiAddons.enh then
 		if _G.MinimapButtonBar then
-			_G.MinimapButtonBar:Style("Outside")
+			_G.MinimapButtonBar:BuiStyle("Outside")
 		end
 
 		if _G.RaidMarkerBar then
-			_G.RaidMarkerBar:Style("Outside")
+			_G.RaidMarkerBar:BuiStyle("Outside")
 		end
 	end
 
@@ -67,13 +67,13 @@ function mod:stylePlugins()
 	if BUI.PA and E.db.benikuiSkins.elvuiAddons.pa then
 		local stFrame = _G.stAMFrame
 		if stFrame then
-			stFrame:Style("Outside")
+			stFrame:BuiStyle("Outside")
 			stAMAddOns:SetTemplate("Transparent")
 		end
 
 		local profileFrame = _G.stAMProfileMenu
 		if profileFrame then
-			profileFrame:Style("Outside")
+			profileFrame:BuiStyle("Outside")
 		end
 	end
 
@@ -83,11 +83,11 @@ function mod:stylePlugins()
 		local bottomPanel = _G.MER_BottomPanel
 
 		if topPanel then
-			topPanel:Style('Under')
+			topPanel:BuiStyle('Under')
 		end
 
 		if bottomPanel then
-			bottomPanel:Style('Outside')
+			bottomPanel:BuiStyle('Outside')
 		end
 	end
 end

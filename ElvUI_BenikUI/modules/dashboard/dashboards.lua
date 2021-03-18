@@ -120,7 +120,7 @@ function mod:CreateDashboardHolder(holderName, option)
 	holder:CreateBackdrop('Transparent')
 	holder:SetFrameStrata('BACKGROUND')
 	holder:SetFrameLevel(5)
-	holder.backdrop:Style('Outside')
+	holder.backdrop:BuiStyle('Outside')
 	holder:Hide()
 
 	if db.combat then

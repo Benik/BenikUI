@@ -118,7 +118,7 @@ function mod:StyleBar(bar, onClick)
 	end
 
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	bar.holder:Style('Outside', nil, false, true)
+	bar.holder:BuiStyle('Outside', nil, false, true)
 end
 
 function mod:Initialize()

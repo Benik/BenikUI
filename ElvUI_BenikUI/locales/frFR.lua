@@ -16,13 +16,13 @@ L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installe
 -- General options
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = "BenikUI est un mod pour ElvUI complètement externe. Plus d'options disponibles peuvent être trouvées dans les options ElvUI (par exemple les barres d'action, les unités, les portraits de joueur et cible), marquées par"
 L["Credits:"] = "Crédits :"
-L['ActionBar Style Color'] = "Couleur du style ActionBar"
-L['BenikUI Style'] = true
+L['ActionBar BuiStyle Color'] = "Couleur du style ActionBar"
+L['BenikUI BuiStyle'] = true
 L['Enable/Disable the decorative bars from UI elements'] = "Activer / désactiver les barres décoratives des éléments de l'interface utilisateur"
-L['Hide BenikUI Style'] = "Masquer le style BenikUI"
-L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility options.|r'] = "Afficher/masquer les barres décoratives des éléments de l'interface utilisateur. Utile lors de l'application des ombres, car le style BenikUI doit être activé. |cff00c0faRemarque: Certains éléments comme les barres d'actions, les Barres de données ou BenikUI Texte des données ont leurs propres options de visibilité et de style.|r"
+L['Hide BenikUI BuiStyle'] = "Masquer le style BenikUI"
+L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI BuiStyle must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own BuiStyle visibility options.|r'] = "Afficher/masquer les barres décoratives des éléments de l'interface utilisateur. Utile lors de l'application des ombres, car le style BenikUI doit être activé. |cff00c0faRemarque: Certains éléments comme les barres d'actions, les Barres de données ou BenikUI Texte des données ont leurs propres options de visibilité et de style.|r"
 L['Game Menu Color'] = "Couleur du menu du jeu"
-L['Style Color'] = "Couleur du style"
+L['BuiStyle Color'] = "Couleur du style"
 L['by Benik (EU-Emerald Dream)'] = true
 L['light blue color.'] = "couleur bleu clair."
 L['Splash Screen'] = "Écran de démarrage"
@@ -45,7 +45,7 @@ L["Enable tooltip to reveal the panel name"] = "Activer l'info-bulle pour révé
 L["Hide in Pet Battle"] = "Cacher dans une bataille de mascottes"
 L["Name Tooltip"] = "Info-bulle du nom"
 L['New Custom Panel'] = true
-L['Style Position'] = true
+L['BuiStyle Position'] = true
 L["Texture Color"] = true
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Le nom du panneau personnalisé |cff00c0fa%s|r existe déjà. Veuillez en choisir un autre."
 L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"] = "Cela supprimera le panneau personnalisé nommé |cff00c0fa%s|r.\nContinuer?"
@@ -131,7 +131,7 @@ L['Choose Actionbar to show to'] = "Choisissez la barre d'action pour l'afficher
 L['Request Stop button'] = "Bouton de demande d'arrêt"
 L['Show in:'] = "Afficher dans"
 L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Affiche des petits boutons au-dessus de la décoration de la barre d'action 1 ou 2, pour affiche/masque les barres d'action 3 ou 5."
-L['Switch Buttons (requires BenikUI Style)'] = "Change les Boutons (nécessite le style BenikUI)"
+L['Switch Buttons (requires BenikUI BuiStyle)'] = "Change les Boutons (nécessite le style BenikUI)"
 
 -- Request stop button
 L['LeftClick to Request Stop'] = "Clic gauche pour demander un arrêt"
@@ -201,7 +201,7 @@ L['Profiles'] = "Profils"
 -- UnitFrame Options
 L['Apply shadow under the portrait'] = "Appliquer une ombre sous le portrait"
 L['Apply transparency on the portrait backdrop.'] = "Appliquez de la transparence sur le fond du portrait."
-L['BenikUI Style on Portrait'] = "BenikUI Style sur Portrait"
+L['BenikUI BuiStyle on Portrait'] = "BenikUI BuiStyle sur Portrait"
 L['Castbar Backdrop Color'] = "Couleur de l'arrière-plan de la barre d'incant"
 L['Castbar Text'] = "Texte barre d'incant"
 L['Change the detached portrait height'] = "Modifier la hauteur du portrait détaché"
@@ -216,7 +216,7 @@ L['Makes the portrait backdrop transparent'] = "Rend le fond du portrait transpa
 L['Player Size'] = "Taille joueur"
 L['Power statusbar texture.'] = "Texture de la barre d'état."
 L['Replaces the default role icons with SVUI ones.'] = "Remplace les icônes de rôle par défaut par celles de SVUI."
-L['Style Height'] = "Hauteur du style"
+L['BuiStyle Height'] = "Hauteur du style"
 L['SVUI Icons'] = true
 L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = "Cela ignorera le paramètre de transparence de la santé ElvUI sur tous les cadres de groupe."
 L['Vertical power statusbar'] = "Barre d'état de puissance verticale"

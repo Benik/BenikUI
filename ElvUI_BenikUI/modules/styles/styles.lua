@@ -11,7 +11,7 @@ local function StyleElvUIConfig()
 
 	local frame = E:Config_GetWindow()
 	if frame and not frame.style then
-		frame:Style("Outside")
+		frame:BuiStyle("Outside")
 	end
 end
 
@@ -19,14 +19,14 @@ function mod:StyleAcePopup()
 	if E.private.skins.ace3Enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	if not self.backdrop.style then
-		self.backdrop:Style('Outside')
+		self.backdrop:BuiStyle('Outside')
 	end
 end
 
 local function StyleScriptErrorsFrame()
 	local frame = _G.ScriptErrorsFrame
 	if not frame.backdrop.style then
-		frame.backdrop:Style('Outside')
+		frame.backdrop:BuiStyle('Outside')
 	end
 end
 
@@ -34,7 +34,7 @@ local function StyleElvUIBindPopup()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local bind = _G.ElvUIBindPopupWindow
 	if bind then
-		bind:Style("Outside")
+		bind:BuiStyle("Outside")
 		bind.header:SetFrameLevel(bind.style:GetFrameLevel() + 1)
 	end
 end

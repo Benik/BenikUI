@@ -10,7 +10,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local function StyleTooltip()
 	if GameTooltip.style then return end
-	GameTooltip:Style('Outside')
+	GameTooltip:BuiStyle('Outside')
 	GameTooltip.style:SetClampedToScreen(true)
 
 	GameTooltipStatusBar:SetFrameLevel(GameTooltip.style:GetFrameLevel() +2)
@@ -25,7 +25,7 @@ end
 
 local function StyleCagedBattlePetTooltip(tooltipFrame)
 	if not tooltipFrame.style then
-		tooltipFrame:Style("Outside")
+		tooltipFrame:BuiStyle("Outside")
 	end
 end
 
@@ -77,7 +77,7 @@ local function StyleBlizzardTooltips()
 	if E.private.skins.blizzard.tooltip then
 		for _, tt in pairs(tooltips) do
 			if tt and not tt.style then
-				tt:Style("Outside")
+				tt:BuiStyle("Outside")
 			end
 		end
 
@@ -87,14 +87,14 @@ local function StyleBlizzardTooltips()
 			end
 		end
 
-		_G.QuestMapFrame.QuestsFrame.StoryTooltip:Style("Outside")
-		_G.QuestScrollFrame.StoryTooltip:Style("Outside")
-		_G.QuestScrollFrame.CampaignTooltip:Style("Outside")
+		_G.QuestMapFrame.QuestsFrame.StoryTooltip:BuiStyle("Outside")
+		_G.QuestScrollFrame.StoryTooltip:BuiStyle("Outside")
+		_G.QuestScrollFrame.CampaignTooltip:BuiStyle("Outside")
 
 		local shoppingTooltips = {_G.WorldMapCompareTooltip1, _G.WorldMapCompareTooltip2}
 		for _, tooltip in pairs(shoppingTooltips) do
 			if not tooltip.style then
-				tooltip:Style("Outside")
+				tooltip:BuiStyle("Outside")
 			end
 		end
 	end
@@ -157,7 +157,7 @@ end
 
 function mod:StyleAceTooltip(tt)
 	if not tt.style then
-		tt:Style('Outside')
+		tt:BuiStyle('Outside')
 	end
 end
 

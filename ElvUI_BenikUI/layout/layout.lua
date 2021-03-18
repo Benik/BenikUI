@@ -212,7 +212,7 @@ function mod:CreateLayout()
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
 	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
-	Bui_ldtp:Style('Outside', nil, false, true)
+	Bui_ldtp:BuiStyle('Outside', nil, false, true)
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- Right dt panel
@@ -221,7 +221,7 @@ function mod:CreateLayout()
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
-	Bui_rdtp:Style('Outside', nil, false, true)
+	Bui_rdtp:BuiStyle('Outside', nil, false, true)
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- dummy frame for chat/threat (left)
@@ -234,7 +234,7 @@ function mod:CreateLayout()
 		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i, E.UIParent, 'BackdropTemplate')
 		bbuttons[i]:RegisterForClicks('AnyUp')
 		bbuttons[i]:SetFrameStrata('BACKGROUND')
-		bbuttons[i]:Style('Outside', nil, false, true)
+		bbuttons[i]:BuiStyle('Outside', nil, false, true)
 		bbuttons[i].btn = bbuttons[i]:CreateTexture(nil, 'OVERLAY')
 		bbuttons[i].btn:ClearAllPoints()
 		bbuttons[i].btn:Point('CENTER')
@@ -412,8 +412,8 @@ function mod:CreateLayout()
 	ElvUI_TopPanel:SetFrameLevel(0)
 	ElvUI_TopPanel:SetFrameStrata('BACKGROUND')
 
-	LeftChatPanel.backdrop:Style('Outside')
-	RightChatPanel.backdrop:Style('Outside')
+	LeftChatPanel.backdrop:BuiStyle('Outside')
+	RightChatPanel.backdrop:BuiStyle('Outside')
 
 	if BUI.ShadowMode then
 		MinimapPanel:CreateSoftShadow()
@@ -425,11 +425,11 @@ function mod:CreateLayout()
 
 	-- Minimap elements styling
 	if E.private.general.minimap.enable then
-		Minimap.backdrop:Style('Outside')
+		Minimap.backdrop:BuiStyle('Outside')
 		mod:ResizeMinimapPanels()
 	end
 
-	if CopyChatFrame then CopyChatFrame:Style('Outside') end
+	if CopyChatFrame then CopyChatFrame:BuiStyle('Outside') end
 
 	self:ToggleTransparency()
 end
@@ -439,7 +439,7 @@ local function InjectMinimapOption()
 	E.Options.args.maps.args.minimap.args.generalGroup.args.benikuiStyle = {
 		order = 3,
 		type = "toggle",
-		name = BUI:cOption(L['BenikUI Style'], "blue"),
+		name = BUI:cOption(L['BenikUI BuiStyle'], "blue"),
 		disabled = function() return not E.private.general.minimap.enable or not E.db.benikui.general.benikuiStyle end,
 		get = function(info) return E.db.general.minimap.benikuiStyle end,
 		set = function(info, value) E.db.general.minimap.benikuiStyle = value; mod:ToggleMinimapStyle(); end,

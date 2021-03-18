@@ -9,7 +9,7 @@ local function StyleDBM_Options()
 	end
 
 	DBM_GUI_OptionsFrame:HookScript("OnShow", function()
-		DBM_GUI_OptionsFrame:Style("Outside")
+		DBM_GUI_OptionsFrame:BuiStyle("Outside")
 	end)
 end
 
@@ -22,7 +22,7 @@ local function StyleInFlight()
 	if frame then
 		if not frame.isStyled then
 			frame:CreateBackdrop("Transparent")
-			frame.backdrop:Style("Outside")
+			frame.backdrop:BuiStyle("Outside")
 			frame.isStyled = true
 		end
 	end
@@ -43,7 +43,7 @@ end
 
 local function KalielsTracker()
 	if BUI:IsAddOnEnabled('!KalielsTracker') and E.db.benikui.general.benikuiStyle and E.db.benikuiSkins.variousSkins.kt then
-		_G['!KalielsTrackerFrame']:Style('Outside')
+		_G['!KalielsTrackerFrame']:BuiStyle('Outside')
 	end
 end
 

@@ -43,7 +43,7 @@ end
 
 local CreatedFrames = 0;
 
-local function Style(self, frame)
+local function BuiStyle(self, frame)
 	CreatedFrames = frame:GetID()
 end
 
@@ -105,7 +105,7 @@ local function InjectChatPanelOption()
 	E.Options.args.chat.args.panels.args.panels.args.benikuiStyle = {
 		order = -1,
 		type = "toggle",
-		name = BUI:cOption(L['BenikUI Style'], "blue"),
+		name = BUI:cOption(L['BenikUI BuiStyle'], "blue"),
 		disabled = function() return not E.private.chat.enable or not E.db.benikui.general.benikuiStyle end,
 		get = function(info) return E.db.chat.benikuiStyle end,
 		set = function(info, value) E.db.chat.benikuiStyle = value; mod:ToggleChatStyle(); end,
@@ -118,7 +118,7 @@ function mod:Initialize()
 	mod:ToggleChatStyle()
 	hooksecurefunc(CH, "PositionChats", PositionChat)
 	hooksecurefunc(CH, "UpdateEditboxAnchors", mod.UpdateEditboxAnchors)
-	hooksecurefunc(CH, "StyleChat", Style)
+	hooksecurefunc(CH, "StyleChat", BuiStyle)
 	hooksecurefunc(FM, "SetFlightMode", PositionChat)
 end
 

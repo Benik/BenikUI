@@ -16,7 +16,7 @@ local function SkadaDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.skada then return end
 	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 		local skada = win.bargroup
-		skada.Backdrop:Style('Outside')
+		skada.Backdrop:BuiStyle('Outside')
 		if win.db.enabletitle then
 			skada.button:StripTextures()
 		end
@@ -77,7 +77,7 @@ local function TinyDPSDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.tinydps then return end
 	if _G["tdpsFrame"] then
 		if not _G["tdpsFrame"].style then
-			_G["tdpsFrame"]:Style('Outside')
+			_G["tdpsFrame"]:BuiStyle('Outside')
 		end
 	end
 end
@@ -87,7 +87,7 @@ local function AtlasLootDecor()
 	local AtlasLootFrame = _G["AtlasLoot_GUI-Frame"]
 	if AtlasLootFrame then
 		if not AtlasLootFrame.style then
-			AtlasLootFrame:Style('Outside')
+			AtlasLootFrame:BuiStyle('Outside')
 		end
 	end
 end
@@ -96,18 +96,18 @@ local function AltoholicDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.altoholic then return end
 	if _G["AltoholicFrame"] then
 		if not _G["AltoholicFrame"].style then
-			_G["AltoholicFrame"]:Style('Outside')
+			_G["AltoholicFrame"]:BuiStyle('Outside')
 		end
 	end
 end
 
 local function CliqueDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.clique then return end
-	_G["CliqueConfig"]:Style('Small')
-	_G["CliqueDialog"]:Style('Small')
+	_G["CliqueConfig"]:BuiStyle('Small')
+	_G["CliqueDialog"]:BuiStyle('Small')
 	local tab = _G["CliqueSpellTab"]
 	if not tab.style then
-		tab:Style('Inside')
+		tab:BuiStyle('Inside')
 		tab.style:SetFrameLevel(5)
 	end
 	tab:GetNormalTexture():SetTexCoord(.08, 0.92, 0.08, 0.92)
@@ -115,11 +115,11 @@ end
 
 local function oRA3Decor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.ora then return end
-	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"]:Style('Small'); end)
+	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"]:BuiStyle('Small'); end)
 
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")
 	if (ReadyCheckModule) then
-		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() _G["oRA3ReadyCheck"]:Style('Small'); end)
+		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() _G["oRA3ReadyCheck"]:BuiStyle('Small'); end)
 	end
 end
 
@@ -128,7 +128,7 @@ local function PawnDecor()
 	local frame = PawnUIFrame
 
 	if not frame.style then
-		frame:Style('Outside')
+		frame:BuiStyle('Outside')
 	end
 end
 
@@ -140,7 +140,7 @@ local function DbmDecor(event)
 
 		if DBMRangeCheckRadar then
 			if not DBMRangeCheckRadar.style then
-				DBMRangeCheckRadar:Style('Inside')
+				DBMRangeCheckRadar:BuiStyle('Inside')
 			end
 
 			if AS:CheckOption('DBMRadarTrans') then
@@ -164,7 +164,7 @@ local function DbmDecor(event)
 		
 		if DBMRangeCheck then
 			if not DBMRangeCheck.style then
-				DBMRangeCheck:Style('Outside')
+				DBMRangeCheck:BuiStyle('Outside')
 			end
 		end
 	end
@@ -173,7 +173,7 @@ local function DbmDecor(event)
 		if DBM.Options.DontShowInfoFrame and (event or 0) ~= "test" then return end
 
 		if DBMInfoFrame and not DBMInfoFrame.style then
-			DBMInfoFrame:Style('Inside')
+			DBMInfoFrame:BuiStyle('Inside')
 		end
 	end
 
@@ -187,7 +187,7 @@ local function BugSackDecor()
 	hooksecurefunc(BugSack, "OpenSack", function()
 		if BugSackFrame.IsStyled then return end
 		if not BugSackFrame.style then
-			BugSackFrame:Style('Outside')
+			BugSackFrame:BuiStyle('Outside')
 		end
 		BugSackFrame.IsStyled = true
 	end)
@@ -198,7 +198,7 @@ local function LibrariesDecor()
 	if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType('GameTooltip') then
 		DBIcon.tooltip:HookScript("OnShow", function(self)
 			if not self.style then
-				self:Style('Outside')
+				self:BuiStyle('Outside')
 			end
 		end)
 	end
@@ -207,15 +207,15 @@ end
 local function ZygorDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.zygor then return end
 
-	_G['ZygorGuidesViewerFrame_Border']:Style('Outside')
+	_G['ZygorGuidesViewerFrame_Border']:BuiStyle('Outside')
 end
 
 local function ImmersionDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.immersion then return end
 	local frame = _G['ImmersionFrame']
-	frame.TalkBox.BackgroundFrame.Backdrop:Style('Inside')
+	frame.TalkBox.BackgroundFrame.Backdrop:BuiStyle('Inside')
 	frame.TalkBox.Hilite:SetOutside(frame.TalkBox.BackgroundFrame.Backdrop)
-	frame.TalkBox.Elements.Backdrop:Style('Inside')
+	frame.TalkBox.Elements.Backdrop:BuiStyle('Inside')
 
 	if BUI.ShadowMode and AS:CheckOption('Shadows') then
 		frame.TalkBox.BackgroundFrame.Backdrop.Shadow:Hide()
@@ -225,7 +225,7 @@ local function ImmersionDecor()
 	frame:HookScript('OnUpdate', function(self)
 		for _, Button in ipairs(self.TitleButtons.Buttons) do
 			if Button.Backdrop and not Button.Backdrop.isStyled then
-				Button.Backdrop:Style('Inside')
+				Button.Backdrop:BuiStyle('Inside')
 				Button.Hilite:SetOutside(Button.Backdrop)
 				if Button.Backdrop.Shadow then
 					Button.Backdrop.Shadow:Hide()
@@ -240,19 +240,19 @@ local function AllTheThingsDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.allthethings then return end
 	for _, Instance in pairs({ 'Prime', 'CurrentInstance' }) do
 		local Window = AllTheThings:GetWindow(Instance)
-		Window:Style('Outside')
+		Window:BuiStyle('Outside')
 	end
 end
 
 local function TinyInspectDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.tinyinspect then return end
-	TinyInspectRaidFrame:Style('Outside') -- not tested
-	TinyInspectRaidFrame.panel:Style('Outside') -- not tested
+	TinyInspectRaidFrame:BuiStyle('Outside') -- not tested
+	TinyInspectRaidFrame.panel:BuiStyle('Outside') -- not tested
 
 	PaperDollFrame:HookScript("OnShow", function(self)
 		if self.inspectFrame then
 			if not self.inspectFrame.style then
-				self.inspectFrame:Style('Outside')
+				self.inspectFrame:BuiStyle('Outside')
 			end
 			self.inspectFrame:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		end
@@ -264,14 +264,14 @@ local function ArkInventoryDecor()
 	hooksecurefunc(ArkInventory, 'Frame_Main_Paint', function(frame)
 		if not ArkInventory.ValidFrame(frame, true) then return end
 		if not frame.style then
-			frame:Style('Outside')
+			frame:BuiStyle('Outside')
 		end
 	end)
 end
 
 local function StorylineDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.storyline then return end
-	_G.Storyline_NPCFrame:Style("Outside")
+	_G.Storyline_NPCFrame:BuiStyle("Outside")
 end
 
 -- Replace the close button
@@ -333,6 +333,6 @@ LibrariesDecor()
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
 	if not _G["AcceptFrame"].style then
-		_G["AcceptFrame"]:Style('Outside')
+		_G["AcceptFrame"]:BuiStyle('Outside')
 	end
 end)
