@@ -32,6 +32,7 @@ function mod:MawBar_Update()
 		bar:SetSize(db.width, db.height)
 		bar:SetStatusBarColor(db.barColor.r, db.barColor.g, db.barColor.b, db.barColor.a)
 		bar.text:SetTextColor(db.textColor.r, db.textColor.g, db.textColor.b)
+		bar.text:Point('CENTER', 0, db.textYoffset or 0)
 		if db.useDTfont then
 			bar.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
