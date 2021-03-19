@@ -5,5 +5,6 @@
 	<script file="honor.lua"/>
 	<script file="azerite.lua"/>
 	<script file="threat.lua"/>
+	<script file="maw.lua"/>
 	<script file="options.lua"/>
 </Ui>

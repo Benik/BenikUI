@@ -301,6 +301,23 @@ P['benikuiDatabars'] = {
 			['position'] = 'BELOW',
 		},
 	},
+
+	['mawBar'] = {
+		['enable'] = true,
+		--['buiStyle'] = false,
+		--['notifiers'] = {
+			--['enable'] = true,
+			--['position'] = 'BELOW',
+		--},
+		['width'] = 200,
+		['height'] = 20,
+		['barColor'] = {r = 0.192, g = 0.858, b = 0.858, a = 100},
+		['textColor'] = {r = 1, g = 1, b = 1},
+		['useDTfont'] = true,
+		['font'] = E.db.datatexts.font,
+		['fontsize'] = E.db.datatexts.fontSize,
+		['fontflags'] = E.db.datatexts.fontOutline,
+	},
 }
 
 -- Dashboards
