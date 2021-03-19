@@ -33,19 +33,24 @@ function mod:MawBar_Update()
 		bar:SetStatusBarColor(db.barColor.r, db.barColor.g, db.barColor.b, db.barColor.a)
 		bar.text:SetTextColor(db.textColor.r, db.textColor.g, db.textColor.b)
 		bar.text:Point('CENTER', 0, db.textYoffset or 0)
+
 		if db.useDTfont then
 			bar.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
 			bar.text:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
-
-		if tier == 5 then
-			bar.text:SetFormattedText('%s: %s', GARRISON_TIER, tier)
-			bar:SetValue(maxValue)
+		
+		if db.textFormat == 'PERCENT' then
+			if tier == 5 then
+				bar.text:SetFormattedText('%s: %s', GARRISON_TIER, tier)
+			else
+				bar.text:SetFormattedText('%s:  %s - %s%%', GARRISON_TIER, tier, floor(value/maxValue * 100))
+			end
 		else
-			bar.text:SetFormattedText('%s:  %s - %s%%', GARRISON_TIER, tier, floor(value/maxValue * 100))
-			bar:SetValue(value)
+			bar.text:SetText('')
 		end
+
+		bar:SetValue(value)
 		bar:Show()
 		_G.UIWidgetTopCenterContainerFrame:Hide()
 	else
