@@ -236,6 +236,12 @@ local function databarsTable()
 							MONOCHROMETHICKOUTLINE = '|cffaaaaaaMono|r Thick',
 						},
 					},
+					textYoffset = {
+						order = 5,
+						type = "range",
+						min = -30, max = 30, step = 1,
+						name = L['Text yOffset'],
+					},
 				},
 			},
 		},
