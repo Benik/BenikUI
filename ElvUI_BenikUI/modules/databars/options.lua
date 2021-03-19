@@ -28,6 +28,11 @@ local databarsTbl = {
 	{'ElvUI_ThreatBar', 'threat', L["Threat"]}
 }
 
+local textFormatValues = {
+	NONE = L["NONE"],
+	PERCENT = L["Percent"],
+}
+
 local function databarsTable()
 	E.Options.args.benikui.args.benikuiDatabars = {
 		order = 80,
@@ -126,8 +131,17 @@ local function databarsTable()
 				type = 'description',
 				name = '',
 			},
-			sizeGroup = {
+			textFormat = {
 				order = 3,
+				name = L["Text Format"],
+				disabled = function() return not E.db.benikuiDatabars.mawBar.enable end,
+				type = 'select',
+				values = textFormatValues,
+				get = function(info) return E.db.benikuiDatabars.mawBar[ info[#info] ] end,
+				set = function(info, value) E.db.benikuiDatabars.mawBar[ info[#info] ] = value mod:MawBar_Update() end,
+			},
+			sizeGroup = {
+				order = 4,
 				type = 'group',
 				name = L["Size"],
 				guiInline = true,
@@ -150,7 +164,7 @@ local function databarsTable()
 				},
 			},
 			colorGroup = {
-				order = 4,
+				order = 5,
 				type = 'group',
 				name = L.COLOR,
 				guiInline = true,
@@ -192,7 +206,7 @@ local function databarsTable()
 				},
 			},
 			fontGroup = {
-				order = 5,
+				order = 6,
 				type = 'group',
 				name = L['Fonts'],
 				guiInline = true,

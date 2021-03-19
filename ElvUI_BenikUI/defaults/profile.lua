@@ -318,6 +318,7 @@ P['benikuiDatabars'] = {
 		['font'] = E.db.datatexts.font,
 		['fontsize'] = E.db.datatexts.fontSize,
 		['fontflags'] = E.db.datatexts.fontOutline,
+		['textFormat'] = 'PERCENT',
 	},
 }
 
