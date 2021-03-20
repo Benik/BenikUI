@@ -369,6 +369,7 @@ local function Initialize()
 	AFK.AFKMode.top.wowlogo = CreateFrame('Frame', nil, AFK.AFKMode) -- need this to upper the logo layer
 	AFK.AFKMode.top.wowlogo:Point("TOP", AFK.AFKMode.top, "TOP", 0, -5)
 	AFK.AFKMode.top.wowlogo:SetFrameStrata("MEDIUM")
+	AFK.AFKMode.top.wowlogo:SetFrameLevel(10)
 	AFK.AFKMode.top.wowlogo:Size(300, 150)
 	AFK.AFKMode.top.wowlogo.tex = AFK.AFKMode.top.wowlogo:CreateTexture(nil, 'OVERLAY')
 	local currentExpansionLevel = GetClampedCurrentExpansionLevel();
