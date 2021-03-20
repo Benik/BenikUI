@@ -22,6 +22,15 @@ local function GetMawBarValue()
 	end
 end
 
+local MawTierColor = {
+	[0] = {.6, .8, 1},
+	[1] = {0, .7, .3},
+	[2] = {0, 1, 0},
+	[3] = {1, .8, 0},
+	[4] = {1, .5, 0},
+	[5] = {1, 0, 0}
+}
+
 function mod:MawBar_Update()
 	local bar = _G.BUIMawBar
 	local tier, value = GetMawBarValue()
@@ -30,7 +39,11 @@ function mod:MawBar_Update()
 
 	if tier then
 		bar:SetSize(db.width, db.height)
-		bar:SetStatusBarColor(db.barColor.r, db.barColor.g, db.barColor.b, db.barColor.a)
+		if db.barAutoColor then
+			bar:SetStatusBarColor(unpack(MawTierColor[tier]))
+		else
+			bar:SetStatusBarColor(db.barColor.r, db.barColor.g, db.barColor.b, db.barColor.a)
+		end
 		bar.text:SetTextColor(db.textColor.r, db.textColor.g, db.textColor.b)
 		bar.text:Point('CENTER', 0, db.textYoffset or 0)
 
