@@ -170,11 +170,19 @@ local function databarsTable()
 				guiInline = true,
 				disabled = function() return not E.db.benikuiDatabars.mawBar.enable end,
 				args = {
-					barColor = {
+					barAutoColor = {
 						order = 1,
+						name = L['Color by Tier'],
+						type = 'toggle',
+						get = function(info) return E.db.benikuiDatabars.mawBar[ info[#info] ] end,
+						set = function(info, value) E.db.benikuiDatabars.mawBar[ info[#info] ] = value mod:MawBar_Update() end,
+					},
+					barColor = {
+						order = 2,
 						type = "color",
 						name = L['Bar Color'],
 						hasAlpha = true,
+						disabled = function() return E.db.benikuiDatabars.mawBar.barAutoColor end,
 						get = function(info)
 							local t = E.db.benikuiDatabars.mawBar[ info[#info] ]
 							local d = P.benikuiDatabars.mawBar[info[#info]]
@@ -188,7 +196,7 @@ local function databarsTable()
 						end,
 					},
 					textColor = {
-						order = 2,
+						order = 3,
 						type = "color",
 						name = L['Text Color'],
 						get = function(info)

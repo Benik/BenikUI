@@ -313,6 +313,7 @@ P['benikuiDatabars'] = {
 		['height'] = 5,
 		['textYoffset'] = 13,
 		['barColor'] = {r = 0.192, g = 0.858, b = 0.858, a = 100},
+		['barAutoColor'] = true,
 		['textColor'] = {r = 1, g = 1, b = 1},
 		['useDTfont'] = true,
 		['font'] = E.db.datatexts.font,
