@@ -63,7 +63,7 @@ function mod:MawBar_Update()
 			bar.text:SetText('')
 		end
 
-		bar:SetValue(value)
+		bar:SetValue(tier == 5 and maxValue or value)
 		bar:Show()
 		_G.UIWidgetTopCenterContainerFrame:Hide()
 	else
