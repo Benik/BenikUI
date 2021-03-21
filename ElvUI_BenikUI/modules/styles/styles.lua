@@ -56,7 +56,6 @@ end
 
 function mod:Initialize()
 	mod:InitializeObjectiveTracker()
-	mod:StyleAltPowerBar()
 	mod:StyleAddons()
 	StyleElvUIBindPopup()
 

@@ -231,15 +231,3 @@ function mod:styleWorldMap()
 		mapFrame.backdrop:BuiStyle("Outside")
 	end
 end
-
-function mod:StyleAltPowerBar()
-	if E.db.general.altPowerBar.enable ~= true or E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.misc.alternativePower ~= true then
-		return
-	end
-
-	local bar = _G.ElvUI_AltPowerBar
-	bar.backdrop:BuiStyle("Outside")
-	if bar.textures then
-		bar:StripTextures(true)
-	end
-end
