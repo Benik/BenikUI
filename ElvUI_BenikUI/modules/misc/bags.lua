@@ -10,34 +10,42 @@ local NUM_CONTAINER_FRAMES = NUM_CONTAINER_FRAMES
 local SPACING = (E.PixelMode and 1 or 5)
 local BORDER = E.Border;
 
-function mod:StyleBags()
-	if ElvUI_ContainerFrame then
-		ElvUI_ContainerFrame:BuiStyle('Outside')
-		ElvUI_ContainerFrameContainerHolder:BuiStyle('Outside')
+local function SellFrame()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+	if _G.ElvUIVendorGraysFrame then
+		_G.ElvUIVendorGraysFrame:BuiStyle('Outside')
+	end
+end
+hooksecurefunc(B, "CreateSellFrame", SellFrame)
+
+local function StyleBags()
+	if _G.ElvUI_ContainerFrame then
+		_G.ElvUI_ContainerFrame:BuiStyle('Outside')
+		_G.ElvUI_ContainerFrameContainerHolder:BuiStyle('Outside')
 	end
 
-	if ElvUI_ContainerFrameContainerHolder then
-		ElvUI_ContainerFrameContainerHolder:Point('BOTTOMLEFT', ElvUI_ContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
+	if _G.ElvUI_ContainerFrameContainerHolder then
+		_G.ElvUI_ContainerFrameContainerHolder:Point('BOTTOMLEFT', _G.ElvUI_ContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
 	end
 
-	if ElvUIBags then
-		ElvUIBags.backdrop:BuiStyle('Outside')
-		ElvUIBags.backdrop:SetTemplate('Transparent')
+	if _G.ElvUIBags then
+		_G.ElvUIBags.backdrop:BuiStyle('Outside')
+		_G.ElvUIBags.backdrop:SetTemplate('Transparent')
 	end
 end
 
-function mod:OpenBankBags()
-	if ElvUI_BankContainerFrame then
-		ElvUI_BankContainerFrame:BuiStyle('Outside')
-		ElvUI_BankContainerFrameContainerHolder:BuiStyle('Outside')
+local function OpenBankBags()
+	if _G.ElvUI_BankContainerFrame then
+		_G.ElvUI_BankContainerFrame:BuiStyle('Outside')
+		_G.ElvUI_BankContainerFrameContainerHolder:BuiStyle('Outside')
 	end
 
-	if ElvUI_BankContainerFrameContainerHolder then
-		ElvUI_BankContainerFrameContainerHolder:Point('BOTTOMLEFT', ElvUI_BankContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
+	if _G.ElvUI_BankContainerFrameContainerHolder then
+		_G.ElvUI_BankContainerFrameContainerHolder:Point('BOTTOMLEFT', _G.ElvUI_BankContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
 	end
 end
 
-function mod:SkinBlizzBags()
+local function SkinBlizzBags()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bags ~= true or E.private.bags.enable then return end
 
 	for i = 1, NUM_CONTAINER_FRAMES, 1 do
@@ -46,21 +54,21 @@ function mod:SkinBlizzBags()
 			container.backdrop:BuiStyle('Inside')
 		end
 	end
-	if BankFrame then
-		BankFrame:BuiStyle('Outside')
+	if _G.BankFrame then
+		_G.BankFrame:BuiStyle('Outside')
 	end
 end
 
-function mod:AllInOneBags()
-	self:StyleBags()
-	hooksecurefunc(B, "OpenBank", mod.OpenBankBags)
+local function AllInOneBags()
+	StyleBags()
+	hooksecurefunc(B, "OpenBank", OpenBankBags)
 end
 
 function mod:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	self:AllInOneBags()
-	self:SkinBlizzBags()
-	self:OpenBankBags()
+	AllInOneBags()
+	SkinBlizzBags()
+	OpenBankBags()
 end
 
 BUI:RegisterModule(mod:GetName())
