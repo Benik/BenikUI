@@ -7,6 +7,16 @@ local _G = _G
 
 local CLASS_SORT_ORDER = CLASS_SORT_ORDER
 
+local function AltPowerBarShadows()
+	if E.db.general.altPowerBar.enable ~= true then return end
+	local bar = _G.ElvUI_AltPowerBar
+
+	bar.backdrop:CreateSoftShadow()
+	if bar.textures then
+		bar:StripTextures(true)
+	end
+end
+
 local function mirrorTimersShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mirrorTimers ~= true then return end
 
