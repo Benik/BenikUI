@@ -301,14 +301,12 @@ P['benikuiDatabars'] = {
 			['position'] = 'BELOW',
 		},
 	},
+}
 
+-- Widgetbars
+P['benikuiWidgetbars'] = {
 	['mawBar'] = {
 		['enable'] = true,
-		--['buiStyle'] = false,
-		--['notifiers'] = {
-			--['enable'] = true,
-			--['position'] = 'BELOW',
-		--},
 		['width'] = 200,
 		['height'] = 5,
 		['textYoffset'] = 13,
@@ -320,6 +318,10 @@ P['benikuiDatabars'] = {
 		['fontsize'] = E.db.datatexts.fontSize,
 		['fontflags'] = E.db.datatexts.fontOutline,
 		['textFormat'] = 'PERCENT',
+	},
+	['halfBar'] = {
+		['altbar'] = true,
+		['mirrorbar'] = true,
 	},
 }
 

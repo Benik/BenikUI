@@ -1,0 +1,5 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<script file="widgetbars.lua"/>
+	<script file="mawbar.lua"/>
+	<script file="options.lua"/>
+</Ui>
