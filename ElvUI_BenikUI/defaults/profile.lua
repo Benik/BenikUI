@@ -307,7 +307,7 @@ P['benikuiDatabars'] = {
 P['benikuiWidgetbars'] = {
 	['mawBar'] = {
 		['enable'] = true,
-		['width'] = 200,
+		['width'] = 222,
 		['height'] = 5,
 		['textYoffset'] = 13,
 		['barColor'] = {r = 0.192, g = 0.858, b = 0.858, a = 100},
