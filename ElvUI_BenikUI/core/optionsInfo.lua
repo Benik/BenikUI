@@ -66,7 +66,7 @@ local CODING = {
 	'Sinaris',
 	'Hydra',
 	'Merathilis',
-	'NihilisticPandemonium',
+	'Nihilistzsche',
 	'Repooc',
 	'Pristie (frFR)',
 	'|cffff005athurin|r',
