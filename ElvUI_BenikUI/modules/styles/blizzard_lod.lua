@@ -371,7 +371,21 @@ local function style_GarrisonUI()
 	end
 
 	_G.BFAMissionFrame.backdrop:BuiStyle("Outside")
-	_G.CovenantMissionFrame.backdrop:BuiStyle("Outside")
+	local CovenantMissionFrame = _G.CovenantMissionFrame
+	CovenantMissionFrame.backdrop:BuiStyle("Outside")
+
+	CovenantMissionFrame.Top:Hide()
+	CovenantMissionFrame.TopBorder:Hide()
+	CovenantMissionFrame.Bottom:Hide()
+	CovenantMissionFrame.BottomBorder:Hide()
+	CovenantMissionFrame.Left:Hide()
+	CovenantMissionFrame.LeftBorder:Hide()
+	CovenantMissionFrame.Right:Hide()
+	CovenantMissionFrame.RightBorder:Hide()
+	CovenantMissionFrame.TopLeftCorner:Hide()
+	CovenantMissionFrame.TopRightCorner:Hide()
+	CovenantMissionFrame.BotRightCorner:Hide()
+	CovenantMissionFrame.BotLeftCorner:Hide()
 
 	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
 	GarrisonCapacitiveDisplayFrame.IncrementButton:Point("LEFT", GarrisonCapacitiveDisplayFrame.Count, "RIGHT", 4, 0)
