@@ -1,6 +1,6 @@
 ## Interface: 90005
 ## Author: Benik
-## Version: 4.04
+## Version: 4.05
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 12+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
