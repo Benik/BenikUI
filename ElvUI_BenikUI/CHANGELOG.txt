@@ -1,3 +1,15 @@
+4.05 (Apr 4, 2021)
+*Added a Dashboard like statusbar on the Objective Tracker
+*Added option to toggle Objective Tracker edit
+*Prevent an error in Immersion, when AddonSkins Shadows are disabled
+*Fixed DBM Skin by following AddonSkins changes
+*Renamed the Style function to avoid conflicts.
+*Added Maw bar. Peeked on Mera's module :P
+*Fixed AfkMode statusbar frame level
+*Added new Widget Bar options. Maw bar will be there, along with Half Bar skin for Mirror Timers and Alternative Power bar
+*Style the Sell frame and cleaned up the bags module, making all its functions local
+*Cleared the CovenantMissionFrame skin from Blizz stuff
+
 4.04 (Mar 9, 2021)
 *toc update for patch 9.05
 *Fixed Tokens Dashboard hiding bug, when a currency with zero amount is selected
