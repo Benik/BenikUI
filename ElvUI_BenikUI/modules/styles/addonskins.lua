@@ -161,7 +161,7 @@ local function DbmDecor(event)
 				end
 			end
 		end
-		
+
 		if DBMRangeCheck then
 			if not DBMRangeCheck.style then
 				DBMRangeCheck:BuiStyle('Outside')
@@ -221,7 +221,7 @@ local function ImmersionDecor()
 		frame.TalkBox.BackgroundFrame.Backdrop.Shadow:Hide()
 		frame.TalkBox.Elements.Backdrop.Shadow:Hide()
 	end
-	
+
 	frame:HookScript('OnUpdate', function(self)
 		for _, Button in ipairs(self.TitleButtons.Buttons) do
 			if Button.Backdrop and not Button.Backdrop.isStyled then
@@ -285,7 +285,7 @@ function AS:SkinCloseButton(Button, Reposition)
 	Button.Backdrop:SetTemplate('NoBackdrop')
 
 	Button:SetHitRectInsets(6, 6, 7, 7)
-	
+
 	Button.Backdrop.img = Button.Backdrop:CreateTexture(nil, 'OVERLAY')
 	Button.Backdrop.img:Size(12, 12)
 	Button.Backdrop.img:Point("CENTER")
@@ -321,7 +321,7 @@ if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('Altoholic', AltoholicDecor, 
 if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
 if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
 if AS:CheckAddOn('Pawn') then AS:RegisterSkin('Pawn', PawnDecor, 2) end
-if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers')) then AS:RegisterSkin('DBM', DbmDecor, 'ADDON_LOADED') end
+if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers')) then AS:RegisterSkin('DBM-Core', DbmDecor, 'ADDON_LOADED') end
 if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 2) end
