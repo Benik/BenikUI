@@ -36,7 +36,7 @@ local DecorAddonSkins = {
 
 local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
-	{'BigWigs', 'BigWigs'},
+	--{'BigWigs', 'BigWigs'},
 	{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
 	{'ElvUI_LocPlus', 'Location Plus'},
@@ -186,7 +186,7 @@ local function SkinTable()
 				if addon == 'DBM-Core' then
 					BUI:LoadDBMProfile()
 				elseif addon == 'BigWigs' then
-					BUI:LoadBigWigsProfile()
+					--BUI:LoadBigWigsProfile()
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
 				elseif addon == 'InFlight_Load'then
