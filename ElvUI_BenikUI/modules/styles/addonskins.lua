@@ -276,6 +276,17 @@ local function StorylineDecor()
 	_G.Storyline_NPCFrame:BuiStyle("Outside")
 end
 
+local function ClassTactics()
+	local CT = _G.ClassTactics[1]
+	if not CT then return end
+	local function StyleCT()
+		if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.classTactics then return end
+		CT.TalentsFrames:BuiStyle('Outside')
+		CT.TalentsFrames.PvPTalents:BuiStyle('Outside')
+	end
+	hooksecurefunc(CT, 'SkinTalentManager', StyleCT)
+end
+
 -- Replace the close button
 function AS:SkinCloseButton(Button, Reposition)
 	if Button.Backdrop then return end
@@ -332,6 +343,7 @@ if AS:CheckAddOn('TinyInspect') then AS:RegisterSkin('TinyInspect', TinyInspectD
 if AS:CheckAddOn('ArkInventory') then AS:RegisterSkin('ArkInventory', ArkInventoryDecor, 2) end
 if AS:CheckAddOn('Storyline') then AS:RegisterSkin('Storyline', StorylineDecor, 2) end
 LibrariesDecor()
+ClassTactics()
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
 	if not _G["AcceptFrame"].style then

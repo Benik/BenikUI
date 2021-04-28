@@ -32,6 +32,7 @@ local DecorAddonSkins = {
 	{'TinyInspect', L['TinyInspect'], 'tinyinspect'},
 	{'ArkInventory', L['Ark Inventory'], 'arkinventory'},
 	{'Storyline', L['Storyline'], 'storyline'},
+	{'ClassTactics', L['ClassTactics'], 'classTactics'},
 }
 
 local SupportedProfiles = {
