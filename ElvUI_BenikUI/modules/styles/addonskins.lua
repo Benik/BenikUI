@@ -279,6 +279,7 @@ end
 local function ClassTactics()
 	local CT = _G.ClassTactics[1]
 	if not CT then return end
+
 	local function StyleCT()
 		if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.classTactics then return end
 		CT.TalentsFrames:BuiStyle('Outside')
@@ -342,8 +343,9 @@ if AS:CheckAddOn('AllTheThings') then AS:RegisterSkin('AllTheThings', AllTheThin
 if AS:CheckAddOn('TinyInspect') then AS:RegisterSkin('TinyInspect', TinyInspectDecor, 2) end
 if AS:CheckAddOn('ArkInventory') then AS:RegisterSkin('ArkInventory', ArkInventoryDecor, 2) end
 if AS:CheckAddOn('Storyline') then AS:RegisterSkin('Storyline', StorylineDecor, 2) end
+
+if BUI.CT then ClassTactics() end
 LibrariesDecor()
-ClassTactics()
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)
 	if not _G["AcceptFrame"].style then
