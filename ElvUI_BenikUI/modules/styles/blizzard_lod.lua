@@ -15,7 +15,7 @@ local function style_AchievementUI()
 
 	local frame = _G.AchievementFrame
 	if frame then
-		frame:BuiStyle("Outside")
+		frame.backdrop:BuiStyle("Outside")
 		frame.searchResults:BuiStyle("Outside")
 	end
 end
