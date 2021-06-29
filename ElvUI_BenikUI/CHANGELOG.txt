@@ -1,3 +1,16 @@
+4.06 (Jun 29, 2021)
+*More backdrop fixes
+*Achievements frame still has a backdrop
+*Fixed Actionbar errors
+*toc update for patch 9.1
+*Credits update
+*Removed all .backdrop from skins
+*Updated Patrons/Donators list
+*I thought I added Blom in the list. Getting old...
+*Prevent CT style
+*Style ClassTactics
+*Disable BigWigs profile till I permanently delete it. Fed up with it
+
 4.05 (Apr 4, 2021)
 *Added a Dashboard like statusbar on the Objective Tracker
 *Added option to toggle Objective Tracker edit

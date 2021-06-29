@@ -22,30 +22,26 @@ local function LoadSkin()
 
 	if db.blizzardOptions then
 		_G.AudioOptionsFrame:BuiStyle("Outside")
-		_G.ChatConfigFrame.backdrop:BuiStyle("Outside")
-		_G.InterfaceOptionsFrame.backdrop:BuiStyle("Outside")
+		_G.ChatConfigFrame:BuiStyle("Outside")
+		_G.InterfaceOptionsFrame:BuiStyle("Outside")
 		_G.ReadyCheckFrame:BuiStyle("Outside")
 		_G.ReadyCheckListenerFrame:BuiStyle("Outside")
-		if _G.SplashFrame.backdrop then
-			_G.SplashFrame.backdrop:BuiStyle("Outside")
-		end
-		_G.VideoOptionsFrame.backdrop:BuiStyle("Outside")
+		_G.SplashFrame:BuiStyle("Outside")
+		_G.VideoOptionsFrame:BuiStyle("Outside")
 	end
 
 	local function repUpdate()
-		if _G.ReputationDetailFrame.backdrop then
-			_G.ReputationDetailFrame.backdrop:BuiStyle("Outside")
+		if _G.ReputationDetailFrame then
+			_G.ReputationDetailFrame:BuiStyle("Outside")
 		end
 	end
 
 	local function tokenUpdate()
-		if _G.TokenFramePopup.backdrop then
-			_G.TokenFramePopup.backdrop:BuiStyle("Outside")
-		end
+		_G.TokenFramePopup:BuiStyle("Outside")
 	end
 
 	if db.character then
-		_G.GearManagerDialogPopup.backdrop:BuiStyle("Outside")
+		_G.GearManagerDialogPopup:BuiStyle("Outside")
 		_G.PaperDollFrame:BuiStyle("Outside")
 		_G.ReputationFrame:BuiStyle("Outside")
 		_G.TokenFrame:BuiStyle("Outside")
@@ -55,27 +51,24 @@ local function LoadSkin()
 
 	if db.dressingroom then
 		_G.DressUpFrame:BuiStyle("Outside")
-
-		if not _G.WardrobeOutfitEditFrame.style then
-			_G.WardrobeOutfitEditFrame.backdrop:BuiStyle("Outside")
-		end
+		_G.WardrobeOutfitEditFrame:BuiStyle("Outside")
 	end
 
 	if db.friends then
-		_G.AddFriendFrame.backdrop:BuiStyle("Outside")
+		_G.AddFriendFrame:BuiStyle("Outside")
 		_G.FriendsFrame:BuiStyle("Outside")
-		_G.FriendsFriendsFrame.backdrop:BuiStyle("Outside")
-		_G.QuickJoinRoleSelectionFrame.backdrop:BuiStyle("Outside")
+		_G.FriendsFriendsFrame:BuiStyle("Outside")
+		_G.QuickJoinRoleSelectionFrame:BuiStyle("Outside")
 		_G.RecruitAFriendFrame:BuiStyle("Outside")
 	end
 
 	if db.gossip then
-		_G.GossipFrame.backdrop:BuiStyle("Outside")
-		_G.ItemTextFrame.backdrop:BuiStyle("Outside")
+		_G.GossipFrame:BuiStyle("Outside")
+		_G.ItemTextFrame:BuiStyle("Outside")
 	end
 
 	if db.guild then
-		_G.GuildInviteFrame.backdrop:BuiStyle("Outside")
+		_G.GuildInviteFrame:BuiStyle("Outside")
 	end
 
 	if db.guildregistrar then
@@ -87,13 +80,13 @@ local function LoadSkin()
 	end
 
 	if db.lfg then
-		_G.LFGInvitePopup.backdrop:BuiStyle("Outside")
-		_G.LFGDungeonReadyDialog.backdrop:BuiStyle("Outside")
-		_G.LFGDungeonReadyStatus.backdrop:BuiStyle("Outside")
-		_G.LFGListApplicationDialog.backdrop:BuiStyle("Outside")
-		_G.LFGListInviteDialog.backdrop:BuiStyle("Outside")
+		_G.LFGInvitePopup:BuiStyle("Outside")
+		_G.LFGDungeonReadyDialog:BuiStyle("Outside")
+		_G.LFGDungeonReadyStatus:BuiStyle("Outside")
+		_G.LFGListApplicationDialog:BuiStyle("Outside")
+		_G.LFGListInviteDialog:BuiStyle("Outside")
 		_G.PVEFrame:BuiStyle("Outside")
-		_G.RaidBrowserFrame.backdrop:BuiStyle("Outside")
+		_G.RaidBrowserFrame:BuiStyle("Outside")
 
 		local function forceTabFont(button)
 			if button.isSkinned then
@@ -112,8 +105,8 @@ local function LoadSkin()
 
 	if db.loot then
 		_G.LootFrame:BuiStyle("Outside")
-		_G.MasterLooterFrame.backdrop:BuiStyle("Outside")
-		_G.BonusRollFrame.backdrop:BuiStyle("Outside")
+		_G.MasterLooterFrame:BuiStyle("Outside")
+		_G.BonusRollFrame:BuiStyle("Outside")
 	end
 
 	if db.mail then
@@ -123,7 +116,7 @@ local function LoadSkin()
 
 	if db.merchant then
 		if _G.MerchantFrame then
-			_G.MerchantFrame.backdrop:BuiStyle("Outside")
+			_G.MerchantFrame:BuiStyle("Outside")
 		end
 	end
 
@@ -143,28 +136,28 @@ local function LoadSkin()
 
 		_G.BNToastFrame:BuiStyle("Outside")
 		--_G.CinematicFrameCloseDialog:BuiStyle("Outside")
-		_G.GameMenuFrame.backdrop:BuiStyle("Outside")
+		_G.GameMenuFrame:BuiStyle("Outside")
 		_G.GhostFrame:BuiStyle("Outside")
-		_G.LFDRoleCheckPopup.backdrop:BuiStyle("Outside")
-		_G.PlayerReportFrame.backdrop:BuiStyle("Outside")
-		_G.QueueStatusFrame.backdrop:BuiStyle("Outside")
-		_G.ReportCheatingDialog.backdrop:BuiStyle("Outside")
-		_G.SideDressUpFrame.backdrop:BuiStyle("Outside")
-		_G.StackSplitFrame.backdrop:BuiStyle("Outside")
-		_G.StaticPopup1.backdrop:BuiStyle("Outside")
-		_G.StaticPopup2.backdrop:BuiStyle("Outside")
-		_G.StaticPopup3.backdrop:BuiStyle("Outside")
-		_G.StaticPopup4.backdrop:BuiStyle("Outside")
+		_G.LFDRoleCheckPopup:BuiStyle("Outside")
+		_G.PlayerReportFrame:BuiStyle("Outside")
+		_G.QueueStatusFrame:BuiStyle("Outside")
+		_G.ReportCheatingDialog:BuiStyle("Outside")
+		_G.SideDressUpFrame:BuiStyle("Outside")
+		_G.StackSplitFrame:BuiStyle("Outside")
+		_G.StaticPopup1:BuiStyle("Outside")
+		_G.StaticPopup2:BuiStyle("Outside")
+		_G.StaticPopup3:BuiStyle("Outside")
+		_G.StaticPopup4:BuiStyle("Outside")
 		_G.TicketStatusFrameButton:BuiStyle("Outside")
 
 		hooksecurefunc('UIDropDownMenu_CreateFrames', function(level)
 			local listFrame = _G['DropDownList'..level];
 			local listFrameName = listFrame:GetName();
 			local Backdrop = _G[listFrameName..'Backdrop']
-			Backdrop.backdrop:BuiStyle("Outside")
+			Backdrop:BuiStyle("Outside")
 
 			local menuBackdrop = _G[listFrameName..'MenuBackdrop']
-			menuBackdrop.backdrop:BuiStyle("Outside")
+			menuBackdrop:BuiStyle("Outside")
 		end)
 
 		for i = 1, MAX_STATIC_POPUPS do
@@ -174,15 +167,15 @@ local function LoadSkin()
 	end
 
 	if db.nonraid then
-		_G.RaidInfoFrame.backdrop:BuiStyle("Outside")
+		_G.RaidInfoFrame:BuiStyle("Outside")
 	end
 
 	if db.petition then
-		_G.PetitionFrame.backdrop:BuiStyle("Outside")
+		_G.PetitionFrame:BuiStyle("Outside")
 	end
 
 	if db.pvp then
-		_G.PVPReadyDialog.backdrop:BuiStyle("Outside")
+		_G.PVPReadyDialog:BuiStyle("Outside")
 	end
 
 	if db.quest then
@@ -213,8 +206,8 @@ local function LoadSkin()
 
 	if IsAddOnLoaded('ColorPickerPlus') then return end
 	_G.ColorPickerFrame:HookScript('OnShow', function(frame)
-		if frame.backdrop and not frame.backdrop.style then
-			frame.backdrop:BuiStyle("Outside")
+		if frame and not frame.style then
+			frame:BuiStyle("Outside")
 		end
 	end)
 end
@@ -227,7 +220,7 @@ function mod:styleWorldMap()
 	end
 
 	local mapFrame = _G.WorldMapFrame
-	if not mapFrame.backdrop.style then
-		mapFrame.backdrop:BuiStyle("Outside")
+	if not mapFrame.style then
+		mapFrame:BuiStyle("Outside")
 	end
 end

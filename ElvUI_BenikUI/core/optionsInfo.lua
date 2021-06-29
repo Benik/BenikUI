@@ -44,6 +44,9 @@ local DONATORS = {
 	'Travis J.',
 	'Apostolis',
 	'Geert-Jan',
+	'Lisa T.',
+	'Vlad P.',
+	'Esa L.',
 }
 tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -53,6 +56,10 @@ local PATRONS = {
 	'cry1n',
 	'Beleynn',
 	'Rezzurect',
+	'Blom',
+	'bazooka',
+	'Ascor',
+	'beyornd',
 }
 tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
@@ -72,6 +79,7 @@ local CODING = {
 	'|cffff005athurin|r',
 	'|TInterface/AddOns/ElvUI/Media/ChatLogos/Hibiscus:15:15:0:0:64:64:5:59:5:59|t Simpy',
 	'Cara (ptBR)',
+	'nadugi (koKR)',
 }
 tsort(CODING, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local CODING_STRING = tconcat(CODING, ", ")
@@ -79,6 +87,7 @@ local CODING_STRING = tconcat(CODING, ", ")
 local NITRO = {
 	'Runew0lf',
 	'Kullerkeks',
+	'Roxanne',
 }
 tsort(NITRO, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local NITRO_STRING = tconcat(NITRO, ", ")

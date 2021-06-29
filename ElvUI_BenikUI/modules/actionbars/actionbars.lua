@@ -30,8 +30,8 @@ function mod:StyleBackdrops()
 				for k = 1, 12 do
 					local buttonBars = {_G["ElvUI_Bar"..i.."Button"..k]}
 					for _, button in pairs(buttonBars) do
-						if button.backdrop and not button.backdrop.shadow then
-							button.backdrop:CreateSoftShadow()
+						if button and not button.shadow then
+							button:CreateSoftShadow()
 						end
 					end
 				end
@@ -161,7 +161,7 @@ function mod:ExtraAB() -- shadows
 	hooksecurefunc(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", function(button)
 		for spellButton in button.SpellButtonContainer:EnumerateActive() do
 			if spellButton and not spellButton.hasShadow then
-				spellButton.backdrop:CreateSoftShadow()
+				spellButton:CreateSoftShadow()
 				spellButton.hasShadow = true
 			end
 		end

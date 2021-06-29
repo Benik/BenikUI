@@ -36,6 +36,7 @@ BUI.PA = BUI:IsAddOnEnabled('ProjectAzilroka')
 BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')
 BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
+BUI.CT = BUI:IsAddOnEnabled('ClassTactics')
 BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
 BUI.ZG = BUI:IsAddOnEnabled('ZygorGuidesViewer')
 

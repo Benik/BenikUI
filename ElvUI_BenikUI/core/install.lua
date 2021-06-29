@@ -1879,8 +1879,8 @@ local function SetupAddons()
 
 	-- BigWigs
 	if BUI:IsAddOnEnabled('BigWigs') then
-		BUI:LoadBigWigsProfile()
-		tinsert(addonNames, 'BigWigs')
+		--BUI:LoadBigWigsProfile()
+		--tinsert(addonNames, 'BigWigs')
 	end
 
 	-- DBM

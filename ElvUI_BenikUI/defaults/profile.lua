@@ -240,6 +240,7 @@ P['benikuiSkins'] = {
 		['allthethings'] = true,
 		['tinyinspect'] = true,
 		['arkinventory'] = true,
+		['classTactics'] = true,
 	},
 
 	['variousSkins'] = {
