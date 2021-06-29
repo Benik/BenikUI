@@ -1,4 +1,4 @@
-## Interface: 90005
+## Interface: 90100
 ## Author: Benik
 ## Version: 4.05
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
@@ -8,7 +8,7 @@
 ## OptionalDeps: SharedMedia, AddOnSkins, ProjectAzilroka
 ## X-Tukui-ProjectID: 11
 ## X-Tukui-ProjectFolders: ElvUI_BenikUI
-## X-ElvuiVersion: 12.18
+## X-ElvuiVersion: 12.25
 
 locales\load_locales.xml
 media\load_media.xml
