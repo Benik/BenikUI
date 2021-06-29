@@ -164,7 +164,7 @@ local function style_Calendar()
 		return
 	end
 
-	_G.CalendarFrame:BuiStyle("Outside")
+	_G.CalendarFrame.backdrop:BuiStyle("Outside")
 	_G.CalendarViewEventFrame:BuiStyle("Outside")
 	_G.CalendarViewHolidayFrame:BuiStyle("Outside")
 	_G.CalendarCreateEventFrame:BuiStyle("Outside")
