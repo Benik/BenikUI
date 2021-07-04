@@ -25,8 +25,8 @@ end
 
 local function StyleScriptErrorsFrame()
 	local frame = _G.ScriptErrorsFrame
-	if not frame.backdrop.style then
-		frame.backdrop:BuiStyle('Outside')
+	if not frame.style then
+		frame:BuiStyle('Outside')
 	end
 end
 
