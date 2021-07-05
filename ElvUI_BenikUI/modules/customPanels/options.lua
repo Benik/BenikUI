@@ -121,7 +121,7 @@ local function updateOptions()
 							order = 11,
 							type = "range",
 							name = L['Width'],
-							min = 2, max = E.screenwidth, step = 1,
+							min = 2, max = ceil(E.screenWidth), step = 1,
 							get = function(info, value) return E.db.benikui.panels[panelname].width end,
 							set = function(info, value) E.db.benikui.panels[panelname].width = value; mod:Resize() end,
 						},
@@ -129,7 +129,7 @@ local function updateOptions()
 							order = 12,
 							type = "range",
 							name = L['Height'],
-							min = 2, max = E.screenheight, step = 1,
+							min = 2, max = ceil(E.screenHeight), step = 1,
 							get = function(info, value) return E.db.benikui.panels[panelname].height end,
 							set = function(info, value) E.db.benikui.panels[panelname].height = value; mod:Resize() end,
 						},
@@ -491,7 +491,7 @@ local function panelsTable()
 			},
 		},
 	}
-	
+
 	updateOptions()
 end
 tinsert(BUI.Config, panelsTable)
