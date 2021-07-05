@@ -18,8 +18,8 @@ end
 function mod:StyleAcePopup()
 	if E.private.skins.ace3Enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	if not self.backdrop.style then
-		self.backdrop:BuiStyle('Outside')
+	if not self.style then
+		self:BuiStyle('Outside')
 	end
 end
 
