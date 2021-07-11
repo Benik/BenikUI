@@ -276,16 +276,27 @@ local function StorylineDecor()
 	_G.Storyline_NPCFrame:BuiStyle("Outside")
 end
 
-local function ClassTactics()
+local function ClassTactics(event, addon)
 	local CT = _G.ClassTactics[1]
 	if not CT then return end
 
-	local function StyleCT()
+	hooksecurefunc(CT, 'TalentProfiles', function()
 		if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.classTactics then return end
+		
+		AS:SkinBackdropFrame(CT.TalentsFrames)
+		AS:SkinBackdropFrame(CT.TalentsFrames.PvPTalents)
+		AS:SkinButton(CT.TalentsFrames.NewButton)
+		AS:SkinButton(CT.TalentsFrames.PvPTalents.NewButton)
+		AS:SkinButton(CT.TalentsFrames.ToggleButton)
+		AS:SkinButton(CT.TalentsFrames.PvPTalents.ToggleButton)
+
+		CT.TalentsFrames:SetPoint('TOPLEFT', _G.PlayerTalentFrame, 'TOPRIGHT', 2, 0)
+		CT.TalentsFrames.TitleText:SetFont(CT.Libs.LSM:Fetch('font', 'Expressway'), 12, 'OUTLINE')
+		CT.TalentsFrames.PvPTalents.TitleText:SetFont(CT.Libs.LSM:Fetch('font', 'Expressway'), 12, 'OUTLINE')
 		CT.TalentsFrames:BuiStyle('Outside')
 		CT.TalentsFrames.PvPTalents:BuiStyle('Outside')
-	end
-	hooksecurefunc(CT, 'SkinTalentManager', StyleCT)
+	end)
+	
 end
 
 -- Replace the close button
@@ -343,8 +354,9 @@ if AS:CheckAddOn('AllTheThings') then AS:RegisterSkin('AllTheThings', AllTheThin
 if AS:CheckAddOn('TinyInspect') then AS:RegisterSkin('TinyInspect', TinyInspectDecor, 2) end
 if AS:CheckAddOn('ArkInventory') then AS:RegisterSkin('ArkInventory', ArkInventoryDecor, 2) end
 if AS:CheckAddOn('Storyline') then AS:RegisterSkin('Storyline', StorylineDecor, 2) end
+if AS:CheckAddOn('ClassTactics') then AS:RegisterSkin('ClassTactics', ClassTactics, 'ADDON_LOADED') end
 
-if BUI.CT then ClassTactics() end
+--if BUI.CT then ClassTactics() end
 LibrariesDecor()
 
 hooksecurefunc(AS, 'AcceptFrame', function(self)

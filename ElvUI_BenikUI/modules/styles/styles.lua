@@ -18,15 +18,15 @@ end
 function mod:StyleAcePopup()
 	if E.private.skins.ace3Enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 
-	if not self.backdrop.style then
-		self.backdrop:BuiStyle('Outside')
+	if not self.style then
+		self:BuiStyle('Outside')
 	end
 end
 
 local function StyleScriptErrorsFrame()
 	local frame = _G.ScriptErrorsFrame
-	if not frame.backdrop.style then
-		frame.backdrop:BuiStyle('Outside')
+	if not frame.style then
+		frame:BuiStyle('Outside')
 	end
 end
 

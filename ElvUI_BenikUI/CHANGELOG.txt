@@ -1,3 +1,9 @@
+4.07 (Jul 11, 2021)
+*More backdrop fixes
+*Updated Donators/Patrons
+*Fixed ClassTactics style
+*Screen size var update (Simpy)
+
 4.06 (Jun 29, 2021)
 *More backdrop fixes
 *Achievements frame still has a backdrop

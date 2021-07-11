@@ -57,17 +57,19 @@ local function Style_Ace3TabSelected(self, selected)
 end
 
 local function Style_SetButtonColor(self, btn, disabled)
-	btn.dontReskin = true
-
 	if disabled then
-		local r, g, b = unpack(E.media.rgbvaluecolor)
-		btn:SetBackdropBorderColor(r, g, b)
-		btn:SetBackdropColor(r, g, b, 0.5)
+		if btn.SetBackdropColor then
+			local r, g, b = unpack(E.media.rgbvaluecolor)
+			btn:SetBackdropBorderColor(r, g, b)
+			btn:SetBackdropColor(r, g, b, 0.5)
+		end
 		btn.Text:SetTextColor(1, 1, 1)
 	else
-		btn:SetBackdropColor(0, 0, 0, .5)
-		local r1, g1, b1 = unpack(E.media.bordercolor)
-		btn:SetBackdropBorderColor(r1, g1, b1, 1)
+		if btn.SetBackdropColor then
+			local r1, g1, b1 = unpack(E.media.bordercolor)
+			btn:SetBackdropBorderColor(r1, g1, b1, 1)
+			btn:SetBackdropColor(0, 0, 0, .5)
+		end
 		btn.Text:SetTextColor(.9, .8, 0)
 	end
 end
