@@ -436,7 +436,7 @@ end
 
 -- Add minimap styling option in ElvUI minimap options
 local function InjectMinimapOption()
-	E.Options.args.maps.args.minimap.args.generalGroup.args.benikuiStyle = {
+	E.Options.args.maps.args.minimap.args.benikuiStyle = {
 		order = 3,
 		type = "toggle",
 		name = BUI:cOption(L['BenikUI Style'], "blue"),

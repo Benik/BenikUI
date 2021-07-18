@@ -298,15 +298,15 @@ local loot = LOOT:match"^.?[\128-\191]*"
 local trade = TRADE:match"^.?[\128-\191]*"
 
 local function SetupChat()
-	for i = 1, NUM_CHAT_WINDOWS do
-		local frame = _G[format('ChatFrame%s', i)]
-		local chatFrameId = frame:GetID()
-		local chatName = FCF_GetChatWindowInfo(chatFrameId)
+	for _, name in ipairs(_G.CHAT_FRAMES) do
+		local frame = _G[name]
+		local id = frame:GetID()
+		local chatName = FCF_GetChatWindowInfo(id)
 
 		FCF_SetChatWindowFontSize(nil, frame, 11)
 
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
-		if i == 3 and (chatName == (LOOT..' / '..TRADE) or chatName == (loot..' / '..trade)) then
+		if id == 4 and (chatName == (LOOT..' / '..TRADE) or chatName == (loot..' / '..trade)) then
 			FCF_UnDockFrame(frame)
 			frame:ClearAllPoints()
 			frame:Point('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
