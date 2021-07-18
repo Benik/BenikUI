@@ -1,3 +1,8 @@
+4.08 (Jul 18, 2021)
+*Fixed broken options
+*Fixed Install Chat step not moving the Loot/Trade tab to the left chat panel
+*Set min ElvUI version to 12.35
+
 4.07 (Jul 11, 2021)
 *More backdrop fixes
 *Updated Donators/Patrons
