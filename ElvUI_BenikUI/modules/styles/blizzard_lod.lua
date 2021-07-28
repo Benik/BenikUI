@@ -36,6 +36,21 @@ local function style_AlliedRacesUI()
 end
 S:AddCallbackForAddon("Blizzard_AlliedRacesUI", "BenikUI_AlliedRaces", style_AlliedRacesUI)
 
+-- AnimaDiversionUI
+local function style_AnimaDiversionUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.animaDiversion ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.AnimaDiversionFrame
+	if frame then
+		frame:BuiStyle("Outside")
+	end
+end
+S:AddCallbackForAddon("Blizzard_AnimaDiversionUI", "BenikUI_AnimaDiversion", style_AnimaDiversionUI)
+
 -- ArchaeologyUI
 local function style_ArchaeologyUI()
 	if E.private.skins.blizzard.archaeology ~= true or E.private.skins.blizzard.enable ~= true or
