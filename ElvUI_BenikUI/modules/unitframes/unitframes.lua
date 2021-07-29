@@ -1,6 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Units')
 local UF = E:GetModule('UnitFrames')
+local AB = E:GetModule('ActionBars')
 
 function mod:UnitDefaults()
 	if E.db.benikui.unitframes.player.portraitWidth == nil then
@@ -154,29 +155,40 @@ function mod:TankTargetShadows()
 end
 
 function mod:PostUpdateAura(_, button)
+	local db = (self.isNameplate and NP.db.colors) or UF.db.colors
+	local enemyNPC = not button.isFriend and not button.isPlayer
+
 	if not button.shadow then
 		button:CreateSoftShadow()
 	end
 
+	local r, g, b
 	if button.isDebuff then
-		if(not button.isFriend and not button.isPlayer) then --[[and (not E.isDebuffWhiteList[name])]]
-			button:SetBackdropBorderColor(0.9, 0.1, 0.1)
-			button.icon:SetDesaturated(button.canDesaturate)
-		else
-			if E.BadDispels[button.spellID] and button.dtype and E:IsDispellableByMe(button.dtype) then
-				button:SetBackdropBorderColor(0.05, 0.85, 0.94)
-			else
-				local color = (button.dtype and _G.DebuffTypeColor[button.dtype]) or _G.DebuffTypeColor.none
-				button:SetBackdropBorderColor(color.r * 0.6, color.g * 0.6, color.b * 0.6)
+		if enemyNPC then
+			if db.auraByType then
+				r, g, b = .9, .1, .1
 			end
-			button.icon:SetDesaturated(false)
+		elseif db.auraByDispels and button.debuffType and E.BadDispels[button.spellID] and E:IsDispellableByMe(button.debuffType) then
+			r, g, b = .05, .85, .94
+		elseif db.auraByType then
+			local color = _G.DebuffTypeColor[button.debuffType] or _G.DebuffTypeColor.none
+			r, g, b = color.r * 0.6, color.g * 0.6, color.b * 0.6
 		end
-	else
-		if button.isStealable and not button.isFriend then
-			button:SetBackdropBorderColor(0.93, 0.91, 0.55, 1.0)
-		else
-			button:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
-		end
+	elseif db.auraByDispels and button.isStealable and not button.isFriend then
+		r, g, b = .93, .91, .55
+	end
+
+	if not r then
+		r, g, b = unpack((self.isNameplate and E.media.bordercolor) or E.media.unitframeBorderColor)
+	end
+
+	button:SetBackdropBorderColor(r, g, b)
+	button.icon:SetDesaturated(button.isDebuff and enemyNPC and button.canDesaturate)
+	button.matches = nil -- stackAuras
+
+	if button.needsIconTrim then
+		AB:TrimIcon(button)
+		button.needsIconTrim = nil
 	end
 
 	if button.needsUpdateCooldownPosition and (button.cd and button.cd.timer and button.cd.timer.text) then
