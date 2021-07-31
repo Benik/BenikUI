@@ -295,7 +295,7 @@ local function style_CovenantPreviewUI()
 end
 S:AddCallbackForAddon("Blizzard_CovenantPreviewUI", "BenikUI_CovenantPreviewUI", style_CovenantPreviewUI)
 
--- CovenantSanctum
+-- CovenantRenown
 local function style_CovenantRenown()
 	if E.private.skins.blizzard.covenantRenown ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true

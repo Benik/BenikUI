@@ -31,10 +31,10 @@ local function OnClick()
 end
 
 local function OnEvent(self)
-	local name, amount, totalMax = GetTokenInfo(RenownID)
+	local name, amount = GetTokenInfo(RenownID)
 	if C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID()) then
 		amount = amount + 1
-		totalMax = totalMax + 1
+		totalMax = 80
 	else
 		amount = "-"
 		totalMax = "-"
