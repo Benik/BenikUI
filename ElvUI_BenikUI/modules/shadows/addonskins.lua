@@ -33,14 +33,20 @@ function mod:DBMShadows()
 					local icon2 = _G[frame:GetName()..'BarIcon2']
 					local name = _G[frame:GetName()..'BarName']
 					local timer = _G[frame:GetName()..'BarTimer']
+					local iconSize = bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height
+					if AS:CheckOption('DBMSkinHalf') then
+						iconSize = iconSize * 3
+					end
 
 					AS:SkinTexture(icon1, true)
 					icon1:ClearAllPoints()
 					icon1:SetPoint('BOTTOMRIGHT', frame, 'BOTTOMLEFT', AS:AdjustForTheme(-2), 1)
+					icon1:SetSize(iconSize, iconSize)
 
 					AS:SkinTexture(icon2, true)
 					icon2:ClearAllPoints()
 					icon2:SetPoint('BOTTOMLEFT', frame, 'BOTTOMRIGHT', AS:AdjustForTheme(2), 1)
+					icon2:SetSize(iconSize, iconSize)
 
 					AS:SetInside(tbar, frame)
 
@@ -58,19 +64,9 @@ function mod:DBMShadows()
 					timer:SetShadowColor(0, 0, 0, 0)
 
 					if AS:CheckOption('DBMSkinHalf') then
-						if (not DBT.Options.BarYOffset or DBT.Options.BarYOffset and DBT.Options.BarYOffset < 13) then
-							DBT.Options.BarYOffset = 13
-						end
-
-						if (not DBT.Options.HugeBarYOffset or DBT.Options.HugeBarYOffset and DBT.Options.HugeBarYOffset < 13) then
-							DBT.Options.HugeBarYOffset = 13
-						end
-
-						frame:SetHeight(DBT.Options.Height / 3)
 						name:SetPoint('BOTTOMLEFT', frame, 'TOPLEFT', 0, 3)
 						timer:SetPoint('BOTTOMRIGHT', frame, 'TOPRIGHT', -1, 1)
 					else
-						frame:SetHeight(DBT.Options.Height + 2)
 						name:SetPoint('LEFT', frame, 'LEFT', 4, 0)
 						timer:SetPoint('RIGHT', frame, 'RIGHT', -4, 0)
 					end
