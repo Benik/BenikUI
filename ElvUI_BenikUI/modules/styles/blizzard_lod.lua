@@ -296,6 +296,23 @@ end
 S:AddCallbackForAddon("Blizzard_CovenantPreviewUI", "BenikUI_CovenantPreviewUI", style_CovenantPreviewUI)
 
 -- CovenantSanctum
+local function style_CovenantRenown()
+	if E.private.skins.blizzard.covenantRenown ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.CovenantRenownFrame
+	hooksecurefunc(frame, 'SetUpCovenantData', function(Frame)
+		if not Frame.style then
+			Frame:BuiStyle("Outside")
+		end
+	end)
+end
+S:AddCallbackForAddon("Blizzard_CovenantRenown", "BenikUI_CovenantRenown", style_CovenantRenown)
+
+-- CovenantSanctum
 local function style_CovenantSanctum()
 	if E.private.skins.blizzard.covenantSanctum ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
