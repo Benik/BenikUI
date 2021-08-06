@@ -248,8 +248,6 @@ function mod:Initialize()
 			mod:UpdateSettings(unit)
 		end
 	end)
-
-	mod:CastBarHooks()
 end
 
 BUI:RegisterModule(mod:GetName())

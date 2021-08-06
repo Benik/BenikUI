@@ -209,37 +209,44 @@ function mod:ADDON_LOADED(event, addon)
 	mod:ChangeDefaultOptions()
 end
 
-function mod:Initialize()
-	if E.private.unitframe.enable ~= true then return end
-	self:UnitDefaults()
-	self:InitPlayer()
-	self:InitTarget()
-	self:InitFocus()
-	self:InitPet()
-	self:InitTargetTarget()
+function mod:Setup()
+	mod:UnitDefaults()
+	mod:InitPlayer()
+	mod:InitTarget()
+	mod:InitFocus()
+	mod:InitPet()
+	mod:InitTargetTarget()
 
-	self:InitParty()
-	self:InitRaid()
-	self:InitRaid40()
+	mod:InitParty()
+	mod:InitRaid()
+	mod:InitRaid40()
 
-	self:ChangePowerBarTexture()
-	self:ChangeHealthBarTexture()
-	self:InfoPanelColor()
+	mod:CastBarHooks()
 
-	self:Configure_RoleIcons()
+	mod:ChangePowerBarTexture()
+	mod:ChangeHealthBarTexture()
+	mod:InfoPanelColor()
+
+	mod:Configure_RoleIcons()
 
 	if BUI.ShadowMode then
-		self:UnitShadows()
-		self:PartyShadows()
-		self:RaidShadows()
-		self:Raid40Shadows()
-		self:BossShadows()
-		self:ArenaShadows()
-		self:TankShadows()
-		self:TankTargetShadows()
+		mod:UnitShadows()
+		mod:PartyShadows()
+		mod:RaidShadows()
+		mod:Raid40Shadows()
+		mod:BossShadows()
+		mod:ArenaShadows()
+		mod:TankShadows()
+		mod:TankTargetShadows()
 	end
+end
 
+function mod:Initialize()
+	if E.private.unitframe.enable ~= true then return end
+
+	hooksecurefunc(UF, 'Setup', mod.Setup)
 	hooksecurefunc(UF, "Configure_ReadyCheckIcon", mod.Configure_ReadyCheckIcon)
+
 	self:RegisterEvent("ADDON_LOADED")
 end
 
