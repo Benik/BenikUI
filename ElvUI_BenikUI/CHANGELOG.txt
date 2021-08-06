@@ -1,3 +1,11 @@
+4.09 (Aug 4, 2021)
+*Hardcode Renown DT max to 80
+*Style CovenantRenown frame
+*Followed Azils fixes for DBM Bar icons
+*Added shadows on Nameplate buff/debuff icons
+*Fix buff/debuff border color
+*Style animaDiversionUI
+
 4.08 (Jul 18, 2021)
 *Fixed broken options
 *Fixed Install Chat step not moving the Loot/Trade tab to the left chat panel

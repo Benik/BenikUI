@@ -36,6 +36,21 @@ local function style_AlliedRacesUI()
 end
 S:AddCallbackForAddon("Blizzard_AlliedRacesUI", "BenikUI_AlliedRaces", style_AlliedRacesUI)
 
+-- AnimaDiversionUI
+local function style_AnimaDiversionUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.animaDiversion ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.AnimaDiversionFrame
+	if frame then
+		frame:BuiStyle("Outside")
+	end
+end
+S:AddCallbackForAddon("Blizzard_AnimaDiversionUI", "BenikUI_AnimaDiversion", style_AnimaDiversionUI)
+
 -- ArchaeologyUI
 local function style_ArchaeologyUI()
 	if E.private.skins.blizzard.archaeology ~= true or E.private.skins.blizzard.enable ~= true or
@@ -279,6 +294,23 @@ local function style_CovenantPreviewUI()
 	end)
 end
 S:AddCallbackForAddon("Blizzard_CovenantPreviewUI", "BenikUI_CovenantPreviewUI", style_CovenantPreviewUI)
+
+-- CovenantRenown
+local function style_CovenantRenown()
+	if E.private.skins.blizzard.covenantRenown ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.CovenantRenownFrame
+	hooksecurefunc(frame, 'SetUpCovenantData', function(Frame)
+		if not Frame.style then
+			Frame:BuiStyle("Outside")
+		end
+	end)
+end
+S:AddCallbackForAddon("Blizzard_CovenantRenown", "BenikUI_CovenantRenown", style_CovenantRenown)
 
 -- CovenantSanctum
 local function style_CovenantSanctum()
