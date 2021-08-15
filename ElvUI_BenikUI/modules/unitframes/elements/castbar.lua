@@ -202,7 +202,7 @@ function mod:CastBarHooks()
 		end
 	end
 
-	for i = 1, 5 do
+	--[[for i = 1, 5 do
 		local castbar = _G["ElvUF_Arena"..i].Castbar
 		if castbar then
 			if BUI.ShadowMode then
@@ -226,7 +226,7 @@ function mod:CastBarHooks()
 			hooksecurefunc(castbar, "PostCastStart", mod.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", mod.PostCastInterruptible)
 		end
-	end
+	end]]
 end
 
 function mod:Initialize()
@@ -248,6 +248,8 @@ function mod:Initialize()
 			mod:UpdateSettings(unit)
 		end
 	end)
+
+	mod:CastBarHooks()
 end
 
 BUI:RegisterModule(mod:GetName())
