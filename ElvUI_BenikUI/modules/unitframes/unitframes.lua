@@ -221,8 +221,6 @@ function mod:Setup()
 	mod:InitRaid()
 	mod:InitRaid40()
 
-	mod:CastBarHooks()
-
 	mod:ChangePowerBarTexture()
 	mod:ChangeHealthBarTexture()
 	mod:InfoPanelColor()
@@ -241,10 +239,11 @@ function mod:Setup()
 	end
 end
 
+
 function mod:Initialize()
 	if E.private.unitframe.enable ~= true then return end
 
-	hooksecurefunc(UF, 'Setup', mod.Setup)
+	hooksecurefunc(UF, "LoadUnits", mod.Setup)
 	hooksecurefunc(UF, "Configure_ReadyCheckIcon", mod.Configure_ReadyCheckIcon)
 
 	self:RegisterEvent("ADDON_LOADED")
