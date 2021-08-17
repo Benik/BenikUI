@@ -1,3 +1,6 @@
+4.10 (Aug 17, 2021)
+*Fixed all unitframes, following ElvUI changes
+
 4.09 (Aug 4, 2021)
 *Hardcode Renown DT max to 80
 *Style CovenantRenown frame
