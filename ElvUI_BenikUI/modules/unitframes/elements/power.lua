@@ -51,7 +51,7 @@ function BU:ChangeRaidPowerBarTexture()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Power then
+			if unitbutton and unitbutton.Power then
 				unitbutton.Power:SetStatusBarTexture(bar)
 			end
 		end
@@ -68,7 +68,7 @@ function BU:ChangeRaid40PowerBarTexture()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Power then
+			if unitbutton and unitbutton.Power then
 				unitbutton.Power:SetStatusBarTexture(bar)
 			end
 		end
@@ -85,7 +85,7 @@ function BU:ChangePartyPowerBarTexture()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Power then
+			if unitbutton and unitbutton.Power then
 				unitbutton.Power:SetStatusBarTexture(bar)
 			end
 		end
@@ -98,7 +98,7 @@ function BU:ChangeArenaPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
-		if unitbutton.Power then
+		if unitbutton and unitbutton.Power then
 			unitbutton.Power:SetStatusBarTexture(bar)
 		end
 	end
@@ -110,7 +110,7 @@ function BU:ChangeBossPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Boss"..i]
-		if unitbutton.Power then
+		if unitbutton and unitbutton.Power then
 			unitbutton.Power:SetStatusBarTexture(bar)
 		end
 	end

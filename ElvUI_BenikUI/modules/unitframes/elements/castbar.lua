@@ -249,7 +249,7 @@ function mod:Initialize()
 		end
 	end)
 
-	mod:CastBarHooks()
+	hooksecurefunc(UF, "LoadUnits", mod.CastBarHooks)
 end
 
 BUI:RegisterModule(mod:GetName())
