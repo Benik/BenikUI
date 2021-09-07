@@ -169,7 +169,7 @@ local function Info()
 						order = 2,
 						type = 'execute',
 						name = L['Git Ticket tracker'],
-						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://git.tukui.org/Benik/ElvUI_BenikUI/issues") end,
+						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://github.com/Benik/BenikUI/issues") end,
 					},
 					discord = {
 						order = 3,
@@ -201,7 +201,7 @@ local function Info()
 						order = 3,
 						type = 'execute',
 						name = L['Beta versions'],
-						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://git.tukui.org/Benik/ElvUI_BenikUI/repository/archive.zip?ref=development") end,
+						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://github.com/Benik/BenikUI/archive/refs/heads/development.zip") end,
 					},
 				},
 			},
