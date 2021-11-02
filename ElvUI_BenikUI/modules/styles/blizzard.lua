@@ -162,7 +162,9 @@ local function LoadSkin()
 
 		for i = 1, MAX_STATIC_POPUPS do
 			local frame = _G['ElvUI_StaticPopup'..i]
-			frame:BuiStyle("Outside")
+			if frame then
+				frame:BuiStyle("Outside")
+			end
 		end
 	end
 

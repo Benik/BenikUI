@@ -82,7 +82,6 @@ BUI.MenuList = {
 		end
 	end},
 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
-	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end}
 }
 
 local function sortFunction(a, b)

@@ -225,7 +225,7 @@ function BUI:Initialize()
 	end
 
 	if E.db.benikui.general.loginMessage then
-		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues')))
+		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('https://github.com/Benik/BenikUI/issues')))
 	end
 
 	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
