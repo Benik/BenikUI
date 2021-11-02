@@ -155,9 +155,9 @@ function mod:SetupStyleAndShadow(tt)
 	end
 end
 
-function mod:StyleAceTooltip(tt)
-	if not tt.style then
-		tt:BuiStyle('Outside')
+function mod:StyleAceTooltip()
+	if not self.style then
+		self:BuiStyle('Outside')
 	end
 end
 
