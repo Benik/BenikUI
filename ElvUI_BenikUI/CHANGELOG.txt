@@ -1,3 +1,13 @@
+4.11 (Nov 2, 2021)
+*Fixed Ace3 Tooltip error
+*Remove the Store from the game menu
+*Remove an outdated event
+*Prevent Static popup error
+*Bump toc version
+*Updated GitHub links
+*Updated issues link
+*Update Donators list with David <3
+
 4.10 (Aug 17, 2021)
 *Fixed all unitframes, following ElvUI changes
 
