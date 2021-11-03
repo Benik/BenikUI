@@ -26,7 +26,8 @@ local function LoadSkin()
 		_G.InterfaceOptionsFrame:BuiStyle("Outside")
 		_G.ReadyCheckFrame:BuiStyle("Outside")
 		_G.ReadyCheckListenerFrame:BuiStyle("Outside")
-		_G.SplashFrame:BuiStyle("Outside")
+		_G.SplashFrame:CreateBackdrop("Transparent")
+		_G.SplashFrame.backdrop:BuiStyle("Outside")
 		_G.VideoOptionsFrame:BuiStyle("Outside")
 	end
 
