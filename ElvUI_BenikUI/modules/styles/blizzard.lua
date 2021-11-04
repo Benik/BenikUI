@@ -161,12 +161,15 @@ local function LoadSkin()
 			menuBackdrop:BuiStyle("Outside")
 		end)
 
-		for i = 1, MAX_STATIC_POPUPS do
-			local frame = _G['ElvUI_StaticPopup'..i]
-			if frame then
-				frame:BuiStyle("Outside")
+		local function StylePopups()
+			for i = 1, MAX_STATIC_POPUPS do
+				local frame = _G['ElvUI_StaticPopup'..i]
+				if frame and not frame.style then
+					frame:BuiStyle("Outside")
+				end
 			end
 		end
+		hooksecurefunc(E, "StaticPopup_Show", StylePopups)
 	end
 
 	if db.nonraid then
