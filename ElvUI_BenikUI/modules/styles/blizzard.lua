@@ -4,6 +4,7 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
+local C_TimerAfter = C_Timer.After
 
 local MAX_STATIC_POPUPS = 4
 
@@ -169,7 +170,7 @@ local function LoadSkin()
 				end
 			end
 		end
-		hooksecurefunc(E, "StaticPopup_Show", StylePopups)
+		C_TimerAfter(1, StylePopups)
 	end
 
 	if db.nonraid then
