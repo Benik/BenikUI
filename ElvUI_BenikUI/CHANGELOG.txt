@@ -1,3 +1,11 @@
+4.12 (Nov 25, 2021)
+*Fixed Simpy's flower
+*Updated Donors/Patrons list
+*Fixed the options error
+*Popup Style needs a delay. This should fix it
+*Fixed Static Popup styling
+*Fixed Bliz Splash Frame
+
 4.11 (Nov 2, 2021)
 *Fixed Ace3 Tooltip error
 *Remove the Store from the game menu
