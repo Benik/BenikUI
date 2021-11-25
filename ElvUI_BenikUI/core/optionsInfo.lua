@@ -49,6 +49,7 @@ local DONATORS = {
 	'Esa L.',
 	'Ascor',
 	'David R.',
+	'Misaligned',
 }
 tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -61,6 +62,7 @@ local PATRONS = {
 	'Blom',
 	'bazooka',
 	'beyornd',
+	'bneusbaum',
 }
 tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
