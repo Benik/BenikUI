@@ -49,6 +49,7 @@ local DONATORS = {
 	'Esa L.',
 	'Ascor',
 	'David R.',
+	'Max M.',
 	'Misaligned',
 }
 tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
