@@ -33,7 +33,7 @@ local MawTierColor = {
 function mod:MawBar_Update()
 	local bar = _G.BUIMawBar
 	local tier, value = GetMawBarValue()
-	local db = E.db.benikuiWidgetbars.mawBar
+	local db = E.db.benikui.benikuiWidgetbars.mawBar
 	if not db then return end
 
 	if tier then
@@ -72,7 +72,7 @@ function mod:MawBar_Update()
 end
 
 function mod:LoadMaw()
-	if E.db.benikuiWidgetbars.mawBar.enable ~= true then return end
+	if E.db.benikui.benikuiWidgetbars.mawBar.enable ~= true then return end
 
 	local bar = CreateFrame("StatusBar", "BUIMawBar", E.UIParent)
 	bar:SetPoint("TOP", 0, -175)

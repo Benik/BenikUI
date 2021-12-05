@@ -6,7 +6,7 @@ local pairs = pairs
 
 function mod:stylePlugins()
 	-- LocationPlus
-	if BUI.LP and E.db.benikuiSkins.elvuiAddons.locplus then
+	if BUI.LP and E.db.benikui.benikuiSkins.elvuiAddons.locplus then
 		local framestoskin = {
 			_G.LocPlusLeftDT,
 			_G.LocPlusRightDT,
@@ -22,7 +22,7 @@ function mod:stylePlugins()
 	end
 
 	-- Shadow & Light
-	if BUI.SLE and E.db.benikuiSkins.elvuiAddons.sle then
+	if BUI.SLE and E.db.benikui.benikuiSkins.elvuiAddons.sle then
 		local sleFrames = {
 			_G.SLE_BG_1,
 			_G.SLE_BG_2,
@@ -45,7 +45,7 @@ function mod:stylePlugins()
 	end
 
 	-- SquareMinimapButtons
-	if BUI.PA and E.db.benikuiSkins.elvuiAddons.pa then
+	if BUI.PA and E.db.benikui.benikuiSkins.elvuiAddons.pa then
 		local smbFrame = _G.SquareMinimapButtonBar
 		if smbFrame then
 			smbFrame:BuiStyle("Outside")
@@ -53,7 +53,7 @@ function mod:stylePlugins()
 	end
 
 	-- ElvUI_Enhanced
-	if IsAddOnLoaded("ElvUI_Enhanced") and E.db.benikuiSkins.elvuiAddons.enh then
+	if IsAddOnLoaded("ElvUI_Enhanced") and E.db.benikui.benikuiSkins.elvuiAddons.enh then
 		if _G.MinimapButtonBar then
 			_G.MinimapButtonBar:BuiStyle("Outside")
 		end
@@ -64,7 +64,7 @@ function mod:stylePlugins()
 	end
 
 	-- stAddonManager
-	if BUI.PA and E.db.benikuiSkins.elvuiAddons.pa then
+	if BUI.PA and E.db.benikui.benikuiSkins.elvuiAddons.pa then
 		local stFrame = _G.stAMFrame
 		if stFrame then
 			stFrame:BuiStyle("Outside")
@@ -78,7 +78,7 @@ function mod:stylePlugins()
 	end
 
 	-- MerathilisUI
-	if BUI.MER and E.db.benikuiSkins.elvuiAddons.mer then
+	if BUI.MER and E.db.benikui.benikuiSkins.elvuiAddons.mer then
 		local topPanel = _G.MER_TopPanel
 		local bottomPanel = _G.MER_BottomPanel
 

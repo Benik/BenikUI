@@ -42,7 +42,7 @@ local function OnMouseUp(frame, btn)
 end
 
 function mod:UpdateProfessions()
-	local db = E.db.dashboards.professions
+	local db = E.db.benikui.dashboards.professions
 	local holder = _G.BUI_ProfessionsDashboard
 
 	if(BUI.ProfessionsDB[1]) then
@@ -80,7 +80,7 @@ function mod:UpdateProfessions()
 			local name, icon, rank, maxRank, _, offset, _, rankModifier, _, _, skillLineName = GetProfessionInfo(id)
 
 			if name and (rank < maxRank or (not db.capped)) then
-				if E.private.dashboards.professions.choosePofessions[id] == true then
+				if E.private.benikui.dashboards.professions.choosePofessions[id] == true then
 					holder:Show()
 					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if ProfessionsMover then
@@ -122,10 +122,10 @@ function mod:UpdateProfessions()
 						bar.Status:SetValue(rank)
 					end
 
-					if E.db.dashboards.barColor == 1 then
+					if E.db.benikui.dashboards.barColor == 1 then
 						bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 					else
-						bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+						bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
 					end
 
 					if (rankModifier and rankModifier > 0) then
@@ -134,10 +134,10 @@ function mod:UpdateProfessions()
 						bar.Text:SetFormattedText('%s / %s', rank, maxRank)
 					end
 
-					if E.db.dashboards.textColor == 1 then
+					if E.db.benikui.dashboards.textColor == 1 then
 						bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 					else
-						bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
+						bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
 					end
 
 					bar.IconBG.Icon:SetTexture(icon)
@@ -182,7 +182,7 @@ end
 
 function mod:CreateProfessionsDashboard()
 	local mapholderWidth = E.private.general.minimap.enable and _G.MMHolder:GetWidth() or 150
-	local DASH_WIDTH = E.db.dashboards.professions.width or 150
+	local DASH_WIDTH = E.db.benikui.dashboards.professions.width or 150
 
 	local holder = self:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
 
@@ -203,7 +203,7 @@ function mod:CreateProfessionsDashboard()
 end
 
 function mod:LoadProfessions()
-	if E.db.dashboards.professions.enableProfessions ~= true then return end
+	if E.db.benikui.dashboards.professions.enableProfessions ~= true then return end
 
 	mod:CreateProfessionsDashboard()
 	mod:ProfessionsEvents()

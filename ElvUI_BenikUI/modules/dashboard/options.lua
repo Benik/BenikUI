@@ -27,8 +27,8 @@ local function UpdateSystemOptions()
 			type = 'toggle',
 			name = boardname,
 			desc = L['Enable/Disable ']..boardname,
-			get = function(info) return E.db.dashboards.system.chooseSystem[boardname] end,
-			set = function(info, value) E.db.dashboards.system.chooseSystem[boardname] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+			get = function(info) return E.db.benikui.dashboards.system.chooseSystem[boardname] end,
+			set = function(info, value) E.db.benikui.dashboards.system.chooseSystem[boardname] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 		}
 	end
 
@@ -40,9 +40,9 @@ local function UpdateSystemOptions()
 			[1] = L.HOME,
 			[2] = L.WORLD,
 		},
-		disabled = function() return not E.db.dashboards.system.chooseSystem.MS end,
-		get = function(info) return E.db.dashboards.system.latency end,
-		set = function(info, value) E.db.dashboards.system.latency = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+		disabled = function() return not E.db.benikui.dashboards.system.chooseSystem.MS end,
+		get = function(info) return E.db.benikui.dashboards.system.latency end,
+		set = function(info, value) E.db.benikui.dashboards.system.latency = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 	}
 end
 
@@ -55,7 +55,7 @@ local function UpdateTokenOptions()
 				order = i,
 				type = 'group',
 				name = name,
-				disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+				disabled = function() return not E.db.benikui.dashboards.tokens.enableTokens end,
 				args = {
 				},
 			}
@@ -67,9 +67,9 @@ local function UpdateTokenOptions()
 					type = 'toggle',
 					name = (icon and '|T'..icon..':18|t '..tname) or tname,
 					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], BreakUpLargeNumbers(amount)),
-					disabled = function() return not E.db.dashboards.tokens.enableTokens end,
-					get = function(info) return E.private.dashboards.tokens.chooseTokens[id] end,
-					set = function(info, value) E.private.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+					disabled = function() return not E.db.benikui.dashboards.tokens.enableTokens end,
+					get = function(info) return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
+					set = function(info, value) E.private.benikui.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 				}
 			end
 		end
@@ -85,7 +85,7 @@ local function UpdateProfessionOptions()
 			type = 'group',
 			guiInline = true,
 			name = L['Select Professions'],
-			disabled = function() return not E.db.dashboards.professions.enableProfessions end,
+			disabled = function() return not E.db.benikui.dashboards.professions.enableProfessions end,
 			args = {
 			},
 		}
@@ -98,8 +98,8 @@ local function UpdateProfessionOptions()
 					type = 'toggle',
 					name = '|T'..icon..':18|t '..pname,
 					desc = format('%s %s', L['Enable/Disable'], pname),
-					get = function(info) return E.private.dashboards.professions.choosePofessions[id] end,
-					set = function(info, value) E.private.dashboards.professions.choosePofessions[id] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
+					get = function(info) return E.private.benikui.dashboards.professions.choosePofessions[id] end,
+					set = function(info, value) E.private.benikui.dashboards.professions.choosePofessions[id] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
 				}
 			end
 		end
@@ -109,7 +109,7 @@ local function UpdateProfessionOptions()
 			type = 'group',
 			guiInline = true,
 			name = L['Select Professions'],
-			disabled = function() return not E.db.dashboards.professions.enableProfessions end,
+			disabled = function() return not E.db.benikui.dashboards.professions.enableProfessions end,
 			args = {
 				noprof = {
 					order = 1,
@@ -142,9 +142,9 @@ local function UpdateReputationOptions()
 				type = 'toggle',
 				name = name,
 				desc = format('%s %s', L['Enable/Disable'], name),
-				disabled = function() return not E.db.dashboards.reputations.enableReputations end,
-				get = function(info) return E.private.dashboards.reputations.chooseReputations[factionID] end,
-				set = function(info, value) E.private.dashboards.reputations.chooseReputations[factionID] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+				disabled = function() return not E.db.benikui.dashboards.reputations.enableReputations end,
+				get = function(info) return E.private.benikui.dashboards.reputations.chooseReputations[factionID] end,
+				set = function(info, value) E.private.benikui.dashboards.reputations.chooseReputations[factionID] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
 			}
 		end
 	end
@@ -170,32 +170,32 @@ local function dashboardsTable()
 							[1] = L.CLASS_COLORS,
 							[2] = L.CUSTOM,
 						},
-						get = function(info) return E.db.dashboards[ info[#info] ] end,
-						set = function(info, value) E.db.dashboards[ info[#info] ] = value;
-							if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-							if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-							if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
-							if E.db.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+						get = function(info) return E.db.benikui.dashboards[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.dashboards[ info[#info] ] = value;
+							if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
+							if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
+							if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+							if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
 						end,
 					},
 					customBarColor = {
 						order = 2,
 						type = "color",
 						name = COLOR_PICKER,
-						disabled = function() return E.db.dashboards.barColor == 1 end,
+						disabled = function() return E.db.benikui.dashboards.barColor == 1 end,
 						get = function(info)
-							local t = E.db.dashboards[ info[#info] ]
+							local t = E.db.benikui.dashboards[ info[#info] ]
 							local d = P.dashboards[info[#info]]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 						end,
 						set = function(info, r, g, b, a)
-							E.db.dashboards[ info[#info] ] = {}
-							local t = E.db.dashboards[ info[#info] ]
+							E.db.benikui.dashboards[ info[#info] ] = {}
+							local t = E.db.benikui.dashboards[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
-							if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-							if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-							if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
-							if E.db.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+							if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
+							if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
+							if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+							if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
 						end,
 					},
 					spacer = {
@@ -211,32 +211,32 @@ local function dashboardsTable()
 							[1] = L.CLASS_COLORS,
 							[2] = L.CUSTOM,
 						},
-						get = function(info) return E.db.dashboards[ info[#info] ] end,
-						set = function(info, value) E.db.dashboards[ info[#info] ] = value;
-							if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-							if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-							if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
-							if E.db.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+						get = function(info) return E.db.benikui.dashboards[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.dashboards[ info[#info] ] = value;
+							if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
+							if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
+							if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+							if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
 						end,
 					},
 					customTextColor = {
 						order = 5,
 						type = "color",
 						name = L.COLOR_PICKER,
-						disabled = function() return E.db.dashboards.textColor == 1 end,
+						disabled = function() return E.db.benikui.dashboards.textColor == 1 end,
 						get = function(info)
-							local t = E.db.dashboards[ info[#info] ]
+							local t = E.db.benikui.dashboards[ info[#info] ]
 							local d = P.dashboards[info[#info]]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 							end,
 						set = function(info, r, g, b, a)
-							E.db.dashboards[ info[#info] ] = {}
-							local t = E.db.dashboards[ info[#info] ]
+							E.db.benikui.dashboards[ info[#info] ] = {}
+							local t = E.db.benikui.dashboards[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
-							if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-							if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-							if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
-							if E.db.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+							if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
+							if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
+							if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+							if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
 						end,
 					},
 				},
@@ -246,13 +246,13 @@ local function dashboardsTable()
 				type = 'group',
 				name = L['Fonts'],
 				guiInline = true,
-				disabled = function() return not E.db.dashboards.system.enableSystem and not E.db.dashboards.tokens.enableTokens and not E.db.dashboards.professions.enableProfessions end,
-				get = function(info) return E.db.dashboards.dashfont[ info[#info] ] end,
-				set = function(info, value) E.db.dashboards.dashfont[ info[#info] ] = value;
-					if E.db.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-					if E.db.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-					if E.db.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
-					if E.db.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+				disabled = function() return not E.db.benikui.dashboards.system.enableSystem and not E.db.benikui.dashboards.tokens.enableTokens and not E.db.benikui.dashboards.professions.enableProfessions end,
+				get = function(info) return E.db.benikui.dashboards.dashfont[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.dashboards.dashfont[ info[#info] ] = value;
+					if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
+					if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
+					if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+					if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
 				end,
 				args = {
 					useDTfont = {
@@ -266,21 +266,21 @@ local function dashboardsTable()
 						order = 2,
 						name = L['Font'],
 						desc = L['Choose font for all dashboards.'],
-						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
+						disabled = function() return E.db.benikui.dashboards.dashfont.useDTfont end,
 						values = AceGUIWidgetLSMlists.font,
 					},
 					dbfontsize = {
 						order = 3,
 						name = L.FONT_SIZE,
 						desc = L['Set the font size.'],
-						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
+						disabled = function() return E.db.benikui.dashboards.dashfont.useDTfont end,
 						type = 'range',
 						min = 6, max = 22, step = 1,
 					},
 					dbfontflags = {
 						order = 4,
 						name = L['Font Outline'],
-						disabled = function() return E.db.dashboards.dashfont.useDTfont end,
+						disabled = function() return E.db.benikui.dashboards.dashfont.useDTfont end,
 						type = 'select',
 						values = {
 							['NONE'] = L['None'],
@@ -302,15 +302,15 @@ local function dashboardsTable()
 						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the System Dashboard.'],
-						get = function(info) return E.db.dashboards.system.enableSystem end,
-						set = function(info, value) E.db.dashboards.system.enableSystem = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						get = function(info) return E.db.benikui.dashboards.system.enableSystem end,
+						set = function(info, value) E.db.benikui.dashboards.system.enableSystem = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					variousGroup = {
 						order = 2,
 						type = 'group',
 						name = ' ',
 						guiInline = true,
-						disabled = function() return not E.db.dashboards.system.enableSystem end,
+						disabled = function() return not E.db.benikui.dashboards.system.enableSystem end,
 						args = {
 							width = {
 								order = 1,
@@ -318,24 +318,24 @@ local function dashboardsTable()
 								name = L['Width'],
 								desc = L['Change the System Dashboard width.'],
 								min = 120, max = 520, step = 1,
-								get = function(info) return E.db.dashboards.system[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.system[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_SystemDashboard, 'system', BUI.SystemDB); BUID:UpdateSystemSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.system[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_SystemDashboard, 'system', BUI.SystemDB); BUID:UpdateSystemSettings(); end,
 							},
 							combat = {
 								order = 2,
 								name = L['Combat Fade'],
 								desc = L['Show/Hide System Dashboard when in combat'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.system[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.system[ info[#info] ] = value; BUID:EnableDisableCombat(BUI_SystemDashboard, 'system'); end,
+								get = function(info) return E.db.benikui.dashboards.system[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value; BUID:EnableDisableCombat(BUI_SystemDashboard, 'system'); end,
 							},
 							mouseover = {
 								order = 3,
 								name = L['Mouse Over'],
 								desc = L['The frame is not shown unless you mouse over the frame.'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.system[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.system[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+								get = function(info) return E.db.benikui.dashboards.system[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 							},
 						},
 					},
@@ -343,9 +343,9 @@ local function dashboardsTable()
 						order = 3,
 						type = 'multiselect',
 						name = L['Layout'],
-						disabled = function() return not E.db.dashboards.system.enableSystem end,
-						get = function(_, key) return E.db.dashboards.system[key] end,
-						set = function(_, key, value) E.db.dashboards.system[key] = value; BUID:ToggleStyle(BUI_SystemDashboard, 'system') BUID:ToggleTransparency(BUI_SystemDashboard, 'system') end,
+						disabled = function() return not E.db.benikui.dashboards.system.enableSystem end,
+						get = function(_, key) return E.db.benikui.dashboards.system[key] end,
+						set = function(_, key, value) E.db.benikui.dashboards.system[key] = value; BUID:ToggleStyle(BUI_SystemDashboard, 'system') BUID:ToggleTransparency(BUI_SystemDashboard, 'system') end,
 						values = {
 							style = L['BenikUI Style'],
 							transparency = L['Panel Transparency'],
@@ -362,7 +362,7 @@ local function dashboardsTable()
 						type = 'group',
 						guiInline = true,
 						name = L['Select System Board'],
-						disabled = function() return not E.db.dashboards.system.enableSystem end,
+						disabled = function() return not E.db.benikui.dashboards.system.enableSystem end,
 						args = {
 						},
 					},
@@ -380,15 +380,15 @@ local function dashboardsTable()
 						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the Tokens Dashboard.'],
-						get = function(info) return E.db.dashboards.tokens.enableTokens end,
-						set = function(info, value) E.db.dashboards.tokens.enableTokens = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						get = function(info) return E.db.benikui.dashboards.tokens.enableTokens end,
+						set = function(info, value) E.db.benikui.dashboards.tokens.enableTokens = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					sizeGroup = {
 						order = 2,
 						type = 'group',
 						name = ' ',
 						guiInline = true,
-						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+						disabled = function() return not E.db.benikui.dashboards.tokens.enableTokens end,
 						args = {
 							width = {
 								order = 1,
@@ -396,15 +396,15 @@ local function dashboardsTable()
 								name = L['Width'],
 								desc = L['Change the Tokens Dashboard width.'],
 								min = 120, max = 520, step = 1,
-								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_TokensDashboard, 'tokens', BUI.TokensDB); BUID:UpdateTokenSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.tokens[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_TokensDashboard, 'tokens', BUI.TokensDB); BUID:UpdateTokenSettings(); end,
 							},
 							iconPosition = {
 								order = 2,
 								type = 'select',
 								name = L['Icon Position'],
-								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 								values = iconOrientationValues,
 							},
 						},
@@ -413,9 +413,9 @@ local function dashboardsTable()
 						order = 3,
 						type = 'multiselect',
 						name = L['Layout'],
-						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
-						get = function(_, key) return E.db.dashboards.tokens[key] end,
-						set = function(_, key, value) E.db.dashboards.tokens[key] = value; BUID:ToggleStyle(BUI_TokensDashboard, 'tokens') BUID:ToggleTransparency(BUI_TokensDashboard, 'tokens') end,
+						disabled = function() return not E.db.benikui.dashboards.tokens.enableTokens end,
+						get = function(_, key) return E.db.benikui.dashboards.tokens[key] end,
+						set = function(_, key, value) E.db.benikui.dashboards.tokens[key] = value; BUID:ToggleStyle(BUI_TokensDashboard, 'tokens') BUID:ToggleTransparency(BUI_TokensDashboard, 'tokens') end,
 						values = {
 							style = L['BenikUI Style'],
 							transparency = L['Panel Transparency'],
@@ -427,47 +427,47 @@ local function dashboardsTable()
 						type = 'group',
 						name = ' ',
 						guiInline = true,
-						disabled = function() return not E.db.dashboards.tokens.enableTokens end,
+						disabled = function() return not E.db.benikui.dashboards.tokens.enableTokens end,
 						args = {
 							zeroamount = {
 								order = 1,
 								name = L['Show zero amount tokens'],
 								desc = L['Show the token, even if the amount is 0'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 							},
 							weekly = {
 								order =2,
 								name = L['Show Weekly max'],
 								desc = L['Show Weekly max tokens instead of total max'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 							},
 							combat = {
 								order = 3,
 								name = L['Combat Fade'],
 								desc = L['Show/Hide Tokens Dashboard when in combat'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:EnableDisableCombat(BUI_TokensDashboard, 'tokens'); end,
+								get = function(info) return E.db.benikui.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.tokens[ info[#info] ] = value; BUID:EnableDisableCombat(BUI_TokensDashboard, 'tokens'); end,
 							},
 							mouseover = {
 								order = 4,
 								name = L['Mouse Over'],
 								desc = L['The frame is not shown unless you mouse over the frame.'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 							},
 							tooltip = {
 								order = 5,
 								name = L['Tooltip'],
 								desc = L['Show/Hide Tooltips'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.tokens[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.tokens[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 							},
 						},
 					},
@@ -489,15 +489,15 @@ local function dashboardsTable()
 						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the Professions Dashboard.'],
-						get = function(info) return E.db.dashboards.professions[ info[#info] ] end,
-						set = function(info, value) E.db.dashboards.professions[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						get = function(info) return E.db.benikui.dashboards.professions[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.dashboards.professions[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					sizeGroup = {
 						order = 2,
 						type = 'group',
 						name = ' ',
 						guiInline = true,
-						disabled = function() return not E.db.dashboards.professions.enableProfessions end,
+						disabled = function() return not E.db.benikui.dashboards.professions.enableProfessions end,
 						args = {
 							width = {
 								order = 1,
@@ -505,15 +505,15 @@ local function dashboardsTable()
 								name = L['Width'],
 								desc = L['Change the Professions Dashboard width.'],
 								min = 120, max = 520, step = 1,
-								get = function(info) return E.db.dashboards.professions[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.professions[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_ProfessionsDashboard, 'professions', BUI.ProfessionsDB); BUID:UpdateProfessionSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.professions[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.professions[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_ProfessionsDashboard, 'professions', BUI.ProfessionsDB); BUID:UpdateProfessionSettings(); end,
 							},
 							iconPosition = {
 								order = 2,
 								type = 'select',
 								name = L['Icon Position'],
-								get = function(info) return E.db.dashboards.professions[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.professions[ info[#info] ] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.professions[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.professions[ info[#info] ] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
 								values = iconOrientationValues,
 							},
 						},
@@ -522,9 +522,9 @@ local function dashboardsTable()
 						order = 3,
 						type = 'multiselect',
 						name = L['Layout'],
-						disabled = function() return not E.db.dashboards.professions.enableProfessions end,
-						get = function(_, key) return E.db.dashboards.professions[key] end,
-						set = function(_, key, value) E.db.dashboards.professions[key] = value; BUID:ToggleStyle(BUI_ProfessionsDashboard, 'professions') BUID:ToggleTransparency(BUI_ProfessionsDashboard, 'professions') end,
+						disabled = function() return not E.db.benikui.dashboards.professions.enableProfessions end,
+						get = function(_, key) return E.db.benikui.dashboards.professions[key] end,
+						set = function(_, key, value) E.db.benikui.dashboards.professions[key] = value; BUID:ToggleStyle(BUI_ProfessionsDashboard, 'professions') BUID:ToggleTransparency(BUI_ProfessionsDashboard, 'professions') end,
 						values = {
 							style = L['BenikUI Style'],
 							transparency = L['Panel Transparency'],
@@ -536,31 +536,31 @@ local function dashboardsTable()
 						type = 'group',
 						name = ' ',
 						guiInline = true,
-						disabled = function() return not E.db.dashboards.professions.enableProfessions end,
+						disabled = function() return not E.db.benikui.dashboards.professions.enableProfessions end,
 						args = {
 							capped = {
 								order = 1,
 								name = L['Filter Capped'],
 								desc = L['Show/Hide Professions that are skill capped'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.professions[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.professions[ info[#info] ] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.professions[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.professions[ info[#info] ] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
 							},
 							combat = {
 								order = 2,
 								name = L['Combat Fade'],
 								desc = L['Show/Hide Professions Dashboard when in combat'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.professions[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.professions[ info[#info] ] = value; BUID:EnableDisableCombat(BUI_ProfessionsDashboard, 'professions'); end,
+								get = function(info) return E.db.benikui.dashboards.professions[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.professions[ info[#info] ] = value; BUID:EnableDisableCombat(BUI_ProfessionsDashboard, 'professions'); end,
 							},
 							mouseover = {
 								order = 3,
 								name = L['Mouse Over'],
 								desc = L['The frame is not shown unless you mouse over the frame.'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.professions[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.professions[ info[#info] ] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.professions[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.professions[ info[#info] ] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
 							},
 						},
 					},
@@ -583,15 +583,15 @@ local function dashboardsTable()
 						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the Professions Dashboard.'],
-						get = function(info) return E.db.dashboards.reputations[ info[#info] ] end,
-						set = function(info, value) E.db.dashboards.reputations[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						get = function(info) return E.db.benikui.dashboards.reputations[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.dashboards.reputations[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					sizeGroup = {
 						order = 2,
 						type = 'group',
 						name = ' ',
 						guiInline = true,
-						disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+						disabled = function() return not E.db.benikui.dashboards.reputations.enableReputations end,
 						args = {
 							width = {
 								order = 1,
@@ -599,8 +599,8 @@ local function dashboardsTable()
 								name = L['Width'],
 								desc = L['Change the Professions Dashboard width.'],
 								min = 120, max = 520, step = 1,
-								get = function(info) return E.db.dashboards.reputations[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.reputations[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_ReputationsDashboard, 'reputations', BUI.FactionsDB); BUID:UpdateReputationSettings(); BUID:UpdateReputations(); end,
+								get = function(info) return E.db.benikui.dashboards.reputations[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.reputations[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_ReputationsDashboard, 'reputations', BUI.FactionsDB); BUID:UpdateReputationSettings(); BUID:UpdateReputations(); end,
 							},
 							textAlign ={
 								order = 2,
@@ -611,8 +611,8 @@ local function dashboardsTable()
 									['LEFT'] = L['Left'],
 									['RIGHT'] = L['Right'],
 								},
-								get = function(info) return E.db.dashboards.reputations[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.reputations[ info[#info] ] = value; BUID:UpdateReputations(); end,
+								get = function(info) return E.db.benikui.dashboards.reputations[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.reputations[ info[#info] ] = value; BUID:UpdateReputations(); end,
 							},
 						},
 					},
@@ -620,9 +620,9 @@ local function dashboardsTable()
 						order = 3,
 						type = 'multiselect',
 						name = L['Layout'],
-						disabled = function() return not E.db.dashboards.reputations.enableReputations end,
-						get = function(_, key) return E.db.dashboards.reputations[key] end,
-						set = function(_, key, value) E.db.dashboards.reputations[key] = value; BUID:ToggleStyle(BUI_ReputationsDashboard, 'reputations') BUID:ToggleTransparency(BUI_ReputationsDashboard, 'reputations') end,
+						disabled = function() return not E.db.benikui.dashboards.reputations.enableReputations end,
+						get = function(_, key) return E.db.benikui.dashboards.reputations[key] end,
+						set = function(_, key, value) E.db.benikui.dashboards.reputations[key] = value; BUID:ToggleStyle(BUI_ReputationsDashboard, 'reputations') BUID:ToggleTransparency(BUI_ReputationsDashboard, 'reputations') end,
 						values = {
 							style = L['BenikUI Style'],
 							transparency = L['Panel Transparency'],
@@ -633,9 +633,9 @@ local function dashboardsTable()
 						order = 4,
 						type = 'multiselect',
 						name = L['Faction Colors'],
-						disabled = function() return not E.db.dashboards.reputations.enableReputations end,
-						get = function(_, key) return E.db.dashboards.reputations[key] end,
-						set = function(_, key, value) E.db.dashboards.reputations[key] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+						disabled = function() return not E.db.benikui.dashboards.reputations.enableReputations end,
+						get = function(_, key) return E.db.benikui.dashboards.reputations[key] end,
+						set = function(_, key, value) E.db.benikui.dashboards.reputations[key] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
 						values = {
 							barFactionColors = L['Use Faction Colors on Bars'],
 							textFactionColors = L['Use Faction Colors on Text'],
@@ -646,30 +646,30 @@ local function dashboardsTable()
 						type = 'group',
 						name = ' ',
 						guiInline = true,
-						disabled = function() return not E.db.dashboards.reputations.enableReputations end,
+						disabled = function() return not E.db.benikui.dashboards.reputations.enableReputations end,
 						args = {
 							combat = {
 								order = 1,
 								name = L['Hide In Combat'],
 								desc = L['Show/Hide Reputations Dashboard when in combat'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.reputations[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.reputations[ info[#info] ] = value; BUID:EnableDisableCombat(BUI_ReputationsDashboard, 'reputations'); end,
+								get = function(info) return E.db.benikui.dashboards.reputations[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.reputations[ info[#info] ] = value; BUID:EnableDisableCombat(BUI_ReputationsDashboard, 'reputations'); end,
 							},
 							mouseover = {
 								order = 2,
 								name = L['Mouse Over'],
 								desc = L['The frame is not shown unless you mouse over the frame.'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.reputations[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.reputations[ info[#info] ] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+								get = function(info) return E.db.benikui.dashboards.reputations[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.reputations[ info[#info] ] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
 							},
 							tooltip = {
 								order = 3,
 								name = L['Tooltip'],
 								type = 'toggle',
-								get = function(info) return E.db.dashboards.reputations[ info[#info] ] end,
-								set = function(info, value) E.db.dashboards.reputations[ info[#info] ] = value; BUID:UpdateReputations(); end,
+								get = function(info) return E.db.benikui.dashboards.reputations[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.reputations[ info[#info] ] = value; BUID:UpdateReputations(); end,
 							},
 						},
 					},

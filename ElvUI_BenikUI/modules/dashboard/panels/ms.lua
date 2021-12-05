@@ -17,7 +17,7 @@ local statusColors = {
 
 function mod:CreateMs()
 	local boardName = _G['BUI_MS']
-	local db = E.db.dashboards.system
+	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
 	boardName:SetScript('OnEnter', function(self)
@@ -26,7 +26,7 @@ function mod:CreateMs()
 			local text = ""
 			GameTooltip:SetOwner(boardName, 'ANCHOR_RIGHT', 5, 0)
 			GameTooltip:ClearLines()
-			if E.db.dashboards.system.latency == 2 then
+			if E.db.benikui.dashboards.system.latency == 2 then
 				value = (select(3, GetNetStats())) -- Home
 				text = "MS ("..HOME.."): "
 			else
@@ -60,7 +60,7 @@ function mod:CreateMs()
 			local value = 0
 			local displayFormat = ""
 
-			if E.db.dashboards.system.latency == 1 then
+			if E.db.benikui.dashboards.system.latency == 1 then
 				value = (select(3, GetNetStats())) -- Home
 			else
 				value = (select(4, GetNetStats())) -- World
@@ -79,7 +79,7 @@ function mod:CreateMs()
 				mscolor = 3
 			end
 
-			if E.db.dashboards.system.latency == 1 then
+			if E.db.benikui.dashboards.system.latency == 1 then
 				displayFormat = join('', 'MS (', HOME, '): ', statusColors[mscolor], '%d|r')
 			else
 				displayFormat = join('', 'MS (', WORLD, '): ', statusColors[mscolor], '%d|r')

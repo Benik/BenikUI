@@ -18,7 +18,7 @@ function mod:ApplyRepStyling()
 end
 
 function mod:ToggleRepBackdrop()
-	if E.db.benikuiDatabars.reputation.enable ~= true then return end
+	if E.db.benikui.benikuiDatabars.reputation.enable ~= true then return end
 	local bar = _G.ElvUI_ReputationBar
 	
 	mod:ToggleBackdrop(bar, "reputation")
@@ -50,7 +50,7 @@ function mod:LoadRep()
 	self:RepTextOffset()
 	hooksecurefunc(DB, 'ReputationBar_Update', mod.RepTextOffset)
 
-	local db = E.db.benikuiDatabars.reputation.notifiers
+	local db = E.db.benikui.benikuiDatabars.reputation.notifiers
 
 	if db.enable then
 		self:CreateNotifier(bar)
@@ -63,7 +63,7 @@ function mod:LoadRep()
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateRepNotifier)
 	end
 
-	if E.db.benikuiDatabars.reputation.enable ~= true then return end
+	if E.db.benikui.benikuiDatabars.reputation.enable ~= true then return end
 
 	self:StyleBar(bar, OnClick)
 	self:ToggleRepBackdrop()

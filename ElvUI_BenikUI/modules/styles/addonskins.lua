@@ -13,7 +13,7 @@ local AS = unpack(AddOnSkins)
 local classColor = E:ClassColor(E.myclass, true)
 
 local function SkadaDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.skada then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.skada then return end
 	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 		local skada = win.bargroup
 		skada.Backdrop:BuiStyle('Outside')
@@ -47,7 +47,7 @@ local function StyleRecount(name, parent, ...)
 end
 
 local function RecountDecor()
-	if not E.db.benikuiSkins.addonSkins.recount then return end
+	if not E.db.benikui.benikuiSkins.addonSkins.recount then return end
 	StyleRecount('recountMain', _G["Recount_MainWindow"])
 	_G["Recount_MainWindow"].TitleBackground:StripTextures()
 	_G["Recount_ConfigWindow"].TitleBackground:StripTextures()
@@ -74,7 +74,7 @@ local function RecountDecor()
 end
 
 local function TinyDPSDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.tinydps then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.tinydps then return end
 	if _G["tdpsFrame"] then
 		if not _G["tdpsFrame"].style then
 			_G["tdpsFrame"]:BuiStyle('Outside')
@@ -83,7 +83,7 @@ local function TinyDPSDecor()
 end
 
 local function AtlasLootDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.atlasloot then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.atlasloot then return end
 	local AtlasLootFrame = _G["AtlasLoot_GUI-Frame"]
 	if AtlasLootFrame then
 		if not AtlasLootFrame.style then
@@ -93,7 +93,7 @@ local function AtlasLootDecor()
 end
 
 local function AltoholicDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.altoholic then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.altoholic then return end
 	if _G["AltoholicFrame"] then
 		if not _G["AltoholicFrame"].style then
 			_G["AltoholicFrame"]:BuiStyle('Outside')
@@ -102,7 +102,7 @@ local function AltoholicDecor()
 end
 
 local function CliqueDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.clique then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.clique then return end
 	_G["CliqueConfig"]:BuiStyle('Small')
 	_G["CliqueDialog"]:BuiStyle('Small')
 	local tab = _G["CliqueSpellTab"]
@@ -114,7 +114,7 @@ local function CliqueDecor()
 end
 
 local function oRA3Decor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.ora then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.ora then return end
 	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"]:BuiStyle('Small'); end)
 
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")
@@ -124,7 +124,7 @@ local function oRA3Decor()
 end
 
 local function PawnDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.pawn then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.pawn then return end
 	local frame = PawnUIFrame
 
 	if not frame.style then
@@ -135,7 +135,7 @@ end
 local function DbmDecor(_, event)
 	if event ~= 'PLAYER_ENTERING_WORLD' then return end
 
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.dbm then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.dbm then return end
 
 	local function StyleRangeFrame(self, range, filter, forceshow, redCircleNumPlayers)
 		if DBM.Options.DontShowRangeFrame and not forceshow then return end
@@ -207,13 +207,13 @@ local function LibrariesDecor()
 end
 
 local function ZygorDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.zygor then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.zygor then return end
 
 	_G['ZygorGuidesViewerFrame_Border']:BuiStyle('Outside')
 end
 
 local function ImmersionDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.immersion then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.immersion then return end
 	local frame = _G['ImmersionFrame']
 	frame.TalkBox.BackgroundFrame.Backdrop:BuiStyle('Inside')
 	frame.TalkBox.Hilite:SetOutside(frame.TalkBox.BackgroundFrame.Backdrop)
@@ -239,7 +239,7 @@ local function ImmersionDecor()
 end
 
 local function AllTheThingsDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.allthethings then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.allthethings then return end
 	for _, Instance in pairs({ 'Prime', 'CurrentInstance' }) do
 		local Window = AllTheThings:GetWindow(Instance)
 		Window:BuiStyle('Outside')
@@ -247,7 +247,7 @@ local function AllTheThingsDecor()
 end
 
 local function TinyInspectDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.tinyinspect then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.tinyinspect then return end
 	TinyInspectRaidFrame:BuiStyle('Outside') -- not tested
 	TinyInspectRaidFrame.panel:BuiStyle('Outside') -- not tested
 
@@ -262,7 +262,7 @@ local function TinyInspectDecor()
 end
 
 local function ArkInventoryDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.arkinventory then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.arkinventory then return end
 	hooksecurefunc(ArkInventory, 'Frame_Main_Paint', function(frame)
 		if not ArkInventory.ValidFrame(frame, true) then return end
 		if not frame.style then
@@ -272,7 +272,7 @@ local function ArkInventoryDecor()
 end
 
 local function StorylineDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.storyline then return end
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.storyline then return end
 	_G.Storyline_NPCFrame:BuiStyle("Outside")
 end
 
@@ -281,7 +281,7 @@ local function ClassTactics(event, addon)
 	if not CT then return end
 
 	hooksecurefunc(CT, 'TalentProfiles', function()
-		if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.classTactics then return end
+		if not E.db.benikui.general.benikuiStyle or not E.db.benikui.benikuiSkins.addonSkins.classTactics then return end
 		
 		AS:SkinBackdropFrame(CT.TalentsFrames)
 		AS:SkinBackdropFrame(CT.TalentsFrames.PvPTalents)

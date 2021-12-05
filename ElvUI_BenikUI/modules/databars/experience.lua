@@ -21,7 +21,7 @@ function mod:ApplyXpStyling()
 end
 
 function mod:ToggleXPBackdrop()
-	if E.db.benikuiDatabars.experience.enable ~= true then return end
+	if E.db.benikui.benikuiDatabars.experience.enable ~= true then return end
 	local bar = _G.ElvUI_ExperienceBar
 
 	mod:ToggleBackdrop(bar, "experience")
@@ -53,7 +53,7 @@ function mod:LoadXP()
 	self:XpTextOffset()
 	hooksecurefunc(DB, 'ExperienceBar_Update', mod.XpTextOffset)
 
-	local db = E.db.benikuiDatabars.experience.notifiers
+	local db = E.db.benikui.benikuiDatabars.experience.notifiers
 
 	if db.enable then
 		self:CreateNotifier(bar)
@@ -65,7 +65,7 @@ function mod:LoadXP()
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateXpNotifier)
 	end
 
-	if E.db.benikuiDatabars.experience.enable ~= true then return end
+	if E.db.benikui.benikuiDatabars.experience.enable ~= true then return end
 
 	self:StyleBar(bar, OnClick)
 	self:ToggleXPBackdrop()

@@ -75,7 +75,7 @@ local function Style_SetButtonColor(self, btn, disabled)
 end
 
 function mod:Initialize()
-	if E.db.benikuiSkins.elvuiAddons.elv ~= true then return end
+	if E.db.benikui.benikuiSkins.elvuiAddons.elv ~= true then return end
 	hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)
 	hooksecurefunc(S, 'Ace3_TabSetSelected', Style_Ace3TabSelected)
 end

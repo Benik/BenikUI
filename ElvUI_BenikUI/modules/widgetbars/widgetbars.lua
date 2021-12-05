@@ -9,7 +9,7 @@ function mod:AltPowerBar()
 	local db = E.db.general.altPowerBar
 
 	bar.text:ClearAllPoints()
-	if E.db.benikuiWidgetbars.halfBar.altbar then
+	if E.db.benikui.benikuiWidgetbars.halfBar.altbar then
 		bar:Size(db.width or 250, 5)
 		bar.text:Point('BOTTOM', statusBar, 'TOP', 0, 4)
 	else
@@ -26,7 +26,7 @@ function mod:MirrorBar()
 		local statusBar = _G['MirrorTimer'..i..'StatusBar']
 
 		mirrorTimer.TimerText:ClearAllPoints()
-		if E.db.benikuiWidgetbars.halfBar.mirrorbar then
+		if E.db.benikui.benikuiWidgetbars.halfBar.mirrorbar then
 			mirrorTimer:Size(222, 24)
 			statusBar:Size(222, 5)
 			mirrorTimer.TimerText:Point('BOTTOM', statusBar, 'TOP', 0, 4)
