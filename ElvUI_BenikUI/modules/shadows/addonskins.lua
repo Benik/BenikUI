@@ -95,7 +95,7 @@ function mod:AddonSkins()
 
 	hooksecurefunc(AS, "SkinTab", mod.TabShadowsAS)
 
-	if BUI.ShadowMode and E.db.benikui.benikuiSkins.addonSkins.dbm then
+	if BUI.ShadowMode and E.db.benikui.skins.addonSkins.dbm then
 		mod:DBMShadows()
 	end
 end

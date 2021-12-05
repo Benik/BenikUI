@@ -207,23 +207,23 @@ end
 
 function BUI:ConvertDB()
 	if E.db.benikuiSkins then
-		E:CopyTable(E.db.benikui.benikuiSkins, E.db.benikuiSkins)
+		E:CopyTable(E.db.benikui.skins, E.db.benikuiSkins)
 		E.db.benikuiSkins = nil
 	end
 	if E.db.benikuiDatabars then
-		E:CopyTable(E.db.benikui.benikuiDatabars, E.db.benikuiDatabars)
-		E.db.benikuiSkins = nil
+		E:CopyTable(E.db.benikui.databars, E.db.benikuiDatabars)
+		E.db.benikuiDatabars = nil
 	end
 	if E.db.benikuiWidgetbars then
-		E:CopyTable(E.db.benikui.benikuiWidgetbars, E.db.benikuiWidgetbars)
-		E.db.benikuiSkins = nil
+		E:CopyTable(E.db.benikui.widgetbars, E.db.benikuiWidgetbars)
+		E.db.benikuiWidgetbars = nil
 	end
 	if E.db.dashboards then
 		E:CopyTable(E.db.benikui.dashboards, E.db.dashboards)
-		E.db.benikuiSkins = nil
+		E.db.dashboards = nil
 	end
-	if E.private.benikui.dashboards then
-		E:CopyTable(E.private.benikui.dashboards, E.private.benikui.dashboards)
+	if E.private.dashboards then
+		E:CopyTable(E.private.benikui.dashboards, E.private.dashboards)
 		E.private.dashboards = nil
 	end
 end

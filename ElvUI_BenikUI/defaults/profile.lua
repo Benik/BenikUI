@@ -214,7 +214,7 @@ P['benikui'] = {
 }
 
 -- Skins and ElvUI addons Styling
-P['benikui']['benikuiSkins'] = {
+P['benikui']['skins'] = {
 	['elvuiAddons'] = {
 		['locplus'] = true,
 		['sle'] = true,
@@ -252,7 +252,7 @@ P['benikui']['benikuiSkins'] = {
 }
 
 -- Databars
-P['benikui']['benikuiDatabars'] = {
+P['benikui']['databars'] = {
 	['experience'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
@@ -305,7 +305,7 @@ P['benikui']['benikuiDatabars'] = {
 }
 
 -- Widgetbars
-P['benikui']['benikuiWidgetbars'] = {
+P['benikui']['widgetbars'] = {
 	['mawBar'] = {
 		['enable'] = true,
 		['width'] = 222,

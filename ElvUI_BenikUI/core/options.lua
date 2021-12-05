@@ -119,7 +119,7 @@ local function Core()
 			colors = {
 				order = 20,
 				type = 'group',
-				name = BUI:cOption(L.COLORS, "orange"),
+				name = BUI:cOption(L["Colors"], "orange"),
 				args = {
 					themes = {
 						order = 2,

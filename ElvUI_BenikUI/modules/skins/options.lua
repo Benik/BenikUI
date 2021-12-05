@@ -76,8 +76,8 @@ local function SkinTable()
 		type = 'group',
 		guiInline = true,
 		name = L['ElvUI AddOns'],
-		get = function(info) return E.db.benikui.benikuiSkins.elvuiAddons[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.benikuiSkins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		get = function(info) return E.db.benikui.skins.elvuiAddons[ info[#info] ] end,
+		set = function(info, value) E.db.benikui.skins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			},
 		}
@@ -108,8 +108,8 @@ local function SkinTable()
 		type = 'group',
 		guiInline = true,
 		name = L['AddOnSkins'],
-		get = function(info) return E.db.benikui.benikuiSkins.addonSkins[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.benikuiSkins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		get = function(info) return E.db.benikui.skins.addonSkins[ info[#info] ] end,
+		set = function(info, value) E.db.benikui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			},
 		}
@@ -131,8 +131,8 @@ local function SkinTable()
 		type = 'group',
 		guiInline = true,
 		name = L['Skins'],
-		get = function(info) return E.db.benikui.benikuiSkins.variousSkins[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.benikuiSkins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
+		set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			talkingHead = {
 				order = 1,
@@ -148,8 +148,8 @@ local function SkinTable()
 				order = 3,
 				type = 'toggle',
 				name = L['InFlight'],
-				set = function(info, value) E.db.benikui.benikuiSkins.variousSkins[ info[#info] ] = value;
-					if E.db.benikui.benikuiSkins.variousSkins.inflight then
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value;
+					if E.db.benikui.skins.variousSkins.inflight then
 						BUI:LoadInFlightProfile(true)
 					else
 						BUI:LoadInFlightProfile(false)
@@ -191,7 +191,7 @@ local function SkinTable()
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
 				elseif addon == 'InFlight_Load'then
-					if E.db.benikui.benikuiSkins.variousSkins.inflight then
+					if E.db.benikui.skins.variousSkins.inflight then
 						BUI:LoadInFlightProfile(true)
 					else
 						BUI:LoadInFlightProfile(false)

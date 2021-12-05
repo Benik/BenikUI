@@ -19,7 +19,7 @@ function mod:ApplyHonorStyling()
 end
 
 function mod:ToggleHonorBackdrop()
-	if E.db.benikui.benikuiDatabars.honor.enable ~= true then return end
+	if E.db.benikui.databars.honor.enable ~= true then return end
 	local bar = _G.ElvUI_HonorBar
 
 	mod:ToggleBackdrop(bar, "honor")
@@ -51,7 +51,7 @@ function mod:LoadHonor()
 	self:HonorTextOffset()
 	hooksecurefunc(DB, 'HonorBar_Update', mod.HonorTextOffset)
 
-	local db = E.db.benikui.benikuiDatabars.honor.notifiers
+	local db = E.db.benikui.databars.honor.notifiers
 
 	if db.enable then
 		self:CreateNotifier(bar)
@@ -63,7 +63,7 @@ function mod:LoadHonor()
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateHonorNotifier)
 	end
 
-	if E.db.benikui.benikuiDatabars.honor.enable ~= true then return end
+	if E.db.benikui.databars.honor.enable ~= true then return end
 
 	self:StyleBar(bar, OnClick)
 	self:ToggleHonorBackdrop()
