@@ -12,8 +12,8 @@ V['benikui'] = {
 V['benikui']['dashboards'] = {
 	['tokens'] = {
 		['chooseTokens'] = {
-			[1560] = true, -- War Resources
-			[1580] = true, -- Seal of Wartorn Fate
+			[1191] = true, -- Valor
+			[1813] = true, -- Reservoir Anima
 		},
 	},
 
