@@ -229,8 +229,9 @@ function BUI:ConvertDB()
 end
 
 function BUI:Initialize()
-	self:LoadCommands()
-	self:SplashScreen()
+	BUI:LoadCommands()
+	BUI:SplashScreen()
+	BUI:ConvertDB()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
