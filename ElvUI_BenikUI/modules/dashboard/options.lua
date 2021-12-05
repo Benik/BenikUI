@@ -185,7 +185,7 @@ local function dashboardsTable()
 						disabled = function() return E.db.benikui.dashboards.barColor == 1 end,
 						get = function(info)
 							local t = E.db.benikui.dashboards[ info[#info] ]
-							local d = P.dashboards[info[#info]]
+							local d = P.benikui.dashboards[info[#info]]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 						end,
 						set = function(info, r, g, b, a)
@@ -226,7 +226,7 @@ local function dashboardsTable()
 						disabled = function() return E.db.benikui.dashboards.textColor == 1 end,
 						get = function(info)
 							local t = E.db.benikui.dashboards[ info[#info] ]
-							local d = P.dashboards[info[#info]]
+							local d = P.benikui.dashboards[info[#info]]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 							end,
 						set = function(info, r, g, b, a)
