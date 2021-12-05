@@ -224,7 +224,7 @@ function BUI:ConvertDB()
 	end
 	if E.private.benikui.dashboards then
 		E:CopyTable(E.private.benikui.dashboards, E.private.benikui.dashboards)
-		E.private.benikui.dashboards = nil
+		E.private.dashboards = nil
 	end
 end
 
