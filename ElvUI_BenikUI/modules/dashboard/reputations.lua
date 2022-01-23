@@ -33,7 +33,7 @@ local function OnMouseUp(self, btn)
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
 			local id = self.id
-			E.private.dashboards.reputations.chooseReputations[id] = false
+			E.private.benikui.dashboards.reputations.chooseReputations[id] = false
 			mod:UpdateReputations()
 		else
 			E:ToggleOptionsUI()
@@ -48,7 +48,7 @@ local function sortFunction(a, b)
 end
 
 function mod:UpdateReputations()
-	local db = E.db.dashboards.reputations
+	local db = E.db.benikui.dashboards.reputations
 	local holder = _G.BUI_ReputationsDashboard
 
 	if(BUI.FactionsDB[1]) then
@@ -80,7 +80,7 @@ function mod:UpdateReputations()
 			local name, _, standingID, barMin, barMax, barValue = GetFactionInfoByID(factionID)
 
 			if name then
-				if E.private.dashboards.reputations.chooseReputations[factionID] == true then
+				if E.private.benikui.dashboards.reputations.chooseReputations[factionID] == true then
 					holder:Show()
 					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.FactionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if reputationHolderMover then
@@ -133,17 +133,17 @@ function mod:UpdateReputations()
 					local color = _G.FACTION_BAR_COLORS[standingID]
 					local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
-					if E.db.dashboards.dashfont.useDTfont then
+					if E.db.benikui.dashboards.dashfont.useDTfont then
 						bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 					else
-						bar.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
+						bar.Text:FontTemplate(LSM:Fetch('font', E.db.benikui.dashboards.dashfont.dbfont), E.db.benikui.dashboards.dashfont.dbfontsize, E.db.benikui.dashboards.dashfont.dbfontflags)
 					end
 
 					if not db.barFactionColors then
-						if E.db.dashboards.barColor == 1 then
+						if E.db.benikui.dashboards.barColor == 1 then
 							bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 						else
-							bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+							bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
 						end
 					else
 						bar.Status:SetStatusBarColor(color.r, color.g, color.b)
@@ -155,10 +155,10 @@ function mod:UpdateReputations()
 						bar.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
 					end
 
-					if E.db.dashboards.textColor == 1 then
+					if E.db.benikui.dashboards.textColor == 1 then
 						bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 					else
-						bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
+						bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
 					end
 
 					bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
@@ -230,7 +230,7 @@ end
 function mod:UpdateReputationSettings()
 	mod:FontStyle(BUI.FactionsDB)
 	mod:FontColor(BUI.FactionsDB)
-	if not E.db.dashboards.reputations.barFactionColors then
+	if not E.db.benikui.dashboards.reputations.barFactionColors then
 		mod:BarColor(BUI.FactionsDB)
 	end
 end
@@ -294,7 +294,7 @@ end
 function mod:CreateReputationsDashboard()
 	self.reputationHolder = self:CreateDashboardHolder('BUI_ReputationsDashboard', 'reputations')
 	self.reputationHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
-	self.reputationHolder:SetWidth(E.db.dashboards.reputations.width or 150)
+	self.reputationHolder:SetWidth(E.db.benikui.dashboards.reputations.width or 150)
 
 	mod:PopulateFactionData()
 	mod:UpdateReputations()
@@ -307,7 +307,7 @@ function mod:CreateReputationsDashboard()
 end
 
 function mod:LoadReputations()
-	if E.db.dashboards.reputations.enableReputations ~= true then return end
+	if E.db.benikui.dashboards.reputations.enableReputations ~= true then return end
 
 	mod:CreateReputationsDashboard()
 	mod:ReputationEvents()

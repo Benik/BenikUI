@@ -205,9 +205,33 @@ function BUI:LoadCommands()
 	self:RegisterChatCommand("buierror", "LuaError")
 end
 
+function BUI:ConvertDB()
+	if E.db.benikuiSkins then
+		E:CopyTable(E.db.benikui.skins, E.db.benikuiSkins)
+		E.db.benikuiSkins = nil
+	end
+	if E.db.benikuiDatabars then
+		E:CopyTable(E.db.benikui.databars, E.db.benikuiDatabars)
+		E.db.benikuiDatabars = nil
+	end
+	if E.db.benikuiWidgetbars then
+		E:CopyTable(E.db.benikui.widgetbars, E.db.benikuiWidgetbars)
+		E.db.benikuiWidgetbars = nil
+	end
+	if E.db.dashboards then
+		E:CopyTable(E.db.benikui.dashboards, E.db.dashboards)
+		E.db.dashboards = nil
+	end
+	if E.private.dashboards then
+		E:CopyTable(E.private.benikui.dashboards, E.private.dashboards)
+		E.private.dashboards = nil
+	end
+end
+
 function BUI:Initialize()
-	self:LoadCommands()
-	self:SplashScreen()
+	BUI:LoadCommands()
+	BUI:SplashScreen()
+	BUI:ConvertDB()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
 

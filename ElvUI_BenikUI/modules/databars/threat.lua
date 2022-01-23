@@ -14,7 +14,7 @@ function mod:ApplyThreatStyling()
 end
 
 function mod:ToggleThreatBackdrop()
-	if E.db.benikuiDatabars.threat.enable ~= true then return end
+	if E.db.benikui.databars.threat.enable ~= true then return end
 	local bar = _G.ElvUI_ThreatBar
 
 	mod:ToggleBackdrop(bar, "threat")
@@ -46,7 +46,7 @@ function mod:LoadThreat()
 	self:ThreatTextOffset()
 	hooksecurefunc(DB, 'ThreatBar_Update', mod.ThreatTextOffset)
 
-	local db = E.db.benikuiDatabars.threat.notifiers
+	local db = E.db.benikui.databars.threat.notifiers
 
 	if db.enable then
 		self:CreateNotifier(bar)
@@ -58,7 +58,7 @@ function mod:LoadThreat()
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateThreatNotifier)
 	end
 
-	if E.db.benikuiDatabars.threat.enable ~= true then return end
+	if E.db.benikui.databars.threat.enable ~= true then return end
 
 	self:StyleBar(bar)
 	self:ToggleThreatBackdrop()

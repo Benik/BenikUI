@@ -15,7 +15,7 @@ local SPACING = 1
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
 function mod:UpdateSystem()
-	local db = E.db.dashboards.system
+	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
 	if(BUI.SystemDB[1]) then
@@ -47,7 +47,7 @@ function mod:UpdateSystem()
 
 			local sysFrame = CreateFrame('Frame', 'BUI_'..name, holder)
 			sysFrame:Height(DASH_HEIGHT)
-			sysFrame:Width(E.db.dashboards.system.width or 150)
+			sysFrame:Width(E.db.benikui.dashboards.system.width or 150)
 			sysFrame:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
 
@@ -109,7 +109,7 @@ end
 function mod:CreateSystemDashboard()
 	local holder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
-	holder:Width(E.db.dashboards.system.width or 150)
+	holder:Width(E.db.benikui.dashboards.system.width or 150)
 
 	mod:UpdateSystem()
 	mod:UpdateHolderDimensions(holder, 'system', BUI.SystemDB)
@@ -120,8 +120,8 @@ function mod:CreateSystemDashboard()
 end
 
 function mod:LoadSystem()
-	if E.db.dashboards.system.enableSystem ~= true then return end
-	local db = E.db.dashboards.system.chooseSystem
+	if E.db.benikui.dashboards.system.enableSystem ~= true then return end
+	local db = E.db.benikui.dashboards.system.chooseSystem
 
 	if (db.FPS ~= true and db.MS ~= true and db.Bags ~= true and db.Durability ~= true and db.Volume ~= true) then return end
 

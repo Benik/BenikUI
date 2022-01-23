@@ -21,7 +21,7 @@ function AS:BigWigs(event, addon)
 	end
 
 	if event == 'ADDON_LOADED' and addon == 'BigWigs_Plugins' then
-		if BUI.ShadowMode and E.db.benikuiSkins.addonSkins.bigwigs then
+		if BUI.ShadowMode and E.db.benikui.skins.addonSkins.bigwigs then
 			BigWigsInfoBox:CreateSoftShadow()
 			--BigWigsAltPower:CreateSoftShadow()
 		end

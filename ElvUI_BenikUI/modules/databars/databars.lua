@@ -16,7 +16,7 @@ function mod:CreateNotifier(bar)
 end
 
 function mod:UpdateNotifierPositions(bar, option)
-	local db = E.db.benikuiDatabars[option].notifiers
+	local db = E.db.benikui.databars[option].notifiers
 
 	bar.f:ClearAllPoints()
 	bar.f.arrow:ClearAllPoints()
@@ -72,7 +72,7 @@ function mod:UpdateNotifierPositions(bar, option)
 end
 
 function mod:ToggleBackdrop(bar, option)
-	local db = E.db.benikuiDatabars[option]
+	local db = E.db.benikui.databars[option]
 	
 	if bar.fb then
 		if db.buttonStyle == 'DEFAULT' then
@@ -102,7 +102,7 @@ function mod:ApplyStyle(bar, option)
 	end
 
 	if bar.holder.style then
-		bar.holder.style:SetShown(E.db.benikuiDatabars[option].buiStyle)
+		bar.holder.style:SetShown(E.db.benikui.databars[option].buiStyle)
 	end
 end
 

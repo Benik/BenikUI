@@ -32,7 +32,7 @@ BUI.CurrencyList = {}
 
 local function Icon_OnEnter(self)
 	local id = self:GetParent().id
-	if E.db.dashboards.tokens.tooltip then
+	if E.db.benikui.dashboards.tokens.tooltip then
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 		GameTooltip:SetCurrencyByID(id)
 		GameTooltip:AddLine(' ')
@@ -40,13 +40,13 @@ local function Icon_OnEnter(self)
 		GameTooltip:Show()
 	end
 
-	if E.db.dashboards.tokens.mouseover then
+	if E.db.benikui.dashboards.tokens.mouseover then
 		E:UIFrameFadeIn(BUI_TokensDashboard, 0.2, BUI_TokensDashboard:GetAlpha(), 1)
 	end
 end
 
 local function Icon_OnLeave(self)
-	if E.db.dashboards.tokens.mouseover then
+	if E.db.benikui.dashboards.tokens.mouseover then
 		E:UIFrameFadeIn(BUI_TokensDashboard, 0.2, BUI_TokensDashboard:GetAlpha(), 0)
 	end
 	GameTooltip:Hide()
@@ -57,7 +57,7 @@ local function Icon_OnMouseUp(self, btn)
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
 			local id = self:GetParent().id
-			E.private.dashboards.tokens.chooseTokens[id] = false
+			E.private.benikui.dashboards.tokens.chooseTokens[id] = false
 			mod:UpdateTokens()
 		else
 			E:ToggleOptionsUI()
@@ -81,7 +81,7 @@ function mod:GetTokenInfo(id)
 end
 
 function mod:UpdateTokens()
-	local db = E.db.dashboards.tokens
+	local db = E.db.benikui.dashboards.tokens
 	local holder = _G.BUI_TokensDashboard
 
 	if(BUI.TokensDB[1]) then
@@ -112,9 +112,9 @@ function mod:UpdateTokens()
 		if id then
 			local name, amount, icon, weeklyMax, totalMax, isDiscovered = mod:GetTokenInfo(id)
 			if name then
-				if isDiscovered == false then E.private.dashboards.tokens.chooseTokens[id] = nil end
+				if isDiscovered == false then E.private.benikui.dashboards.tokens.chooseTokens[id] = nil end
 
-				if E.private.dashboards.tokens.chooseTokens[id] == true then
+				if E.private.benikui.dashboards.tokens.chooseTokens[id] == true then
 					if db.zeroamount or amount > 0 then
 						holder:Show()
 						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
@@ -136,10 +136,10 @@ function mod:UpdateTokens()
 						end
 						bar.Status:SetValue(amount)
 
-						if E.db.dashboards.barColor == 1 then
+						if E.db.benikui.dashboards.barColor == 1 then
 							bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 						else
-							bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+							bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
 						end
 
 						if totalMax == 0 then
@@ -152,10 +152,10 @@ function mod:UpdateTokens()
 							end
 						end
 
-						if E.db.dashboards.textColor == 1 then
+						if E.db.benikui.dashboards.textColor == 1 then
 							bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 						else
-							bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
+							bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
 						end
 
 						bar.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
@@ -274,7 +274,7 @@ end
 function mod:CreateTokensDashboard()
 	local holder = self:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
-	holder:Width(E.db.dashboards.tokens.width or 150)
+	holder:Width(E.db.benikui.dashboards.tokens.width or 150)
 
 	mod:PopulateCurrencyData()
 	mod:UpdateTokens()
@@ -287,12 +287,12 @@ function mod:CreateTokensDashboard()
 end
 
 function mod:LoadTokens()
-	if E.db.dashboards.tokens.enableTokens ~= true then return end
+	if E.db.benikui.dashboards.tokens.enableTokens ~= true then return end
 
 	mod:CreateTokensDashboard()
 	mod:TokenEvents()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokenSettings)
 	hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
-	if E.private.dashboards.tokens.chooseTokens[1822] == true then E.private.dashboards.tokens.chooseTokens[1822] = nil end -- remove renown from old profiles
+	if E.private.benikui.dashboards.tokens.chooseTokens[1822] == true then E.private.benikui.dashboards.tokens.chooseTokens[1822] = nil end -- remove renown from old profiles
 end

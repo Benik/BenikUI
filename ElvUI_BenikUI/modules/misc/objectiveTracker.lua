@@ -79,7 +79,7 @@ local function ObjectiveTrackerShadows()
 end
 
 local function ObjectiveTrackerQuests()
-	if BUI:IsAddOnEnabled('!KalielsTracker') or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.benikuiSkins.variousSkins.objectiveTracker ~= true then return end
+	if BUI:IsAddOnEnabled('!KalielsTracker') or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.benikui.skins.variousSkins.objectiveTracker ~= true then return end
 	
 	local header = _G.ObjectiveTrackerBlocksFrame.QuestHeader
 	header.buibar = CreateFrame('Frame', nil, header, 'BackdropTemplate')

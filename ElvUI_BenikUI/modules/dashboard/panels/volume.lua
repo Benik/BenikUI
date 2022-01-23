@@ -98,7 +98,7 @@ local SOUND_MAX_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\\so
 
 function mod:CreateVolume()
 	local boardName = _G['BUI_Volume']
-	local db = E.db.dashboards.system
+	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
 	local iconBG = CreateFrame('Frame', nil, boardName)
