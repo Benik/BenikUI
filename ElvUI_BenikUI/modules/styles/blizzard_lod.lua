@@ -532,8 +532,9 @@ local function style_GuildBankUI()
 
 	_G.GuildBankFrame:BuiStyle("Outside")
 	for i = 1, 8 do
-		local button = _G["GuildBankTab" .. i .. "Button"]
-		local texture = _G["GuildBankTab" .. i .. "ButtonIconTexture"]
+		local tab = _G['GuildBankTab'..i]
+		local button = tab.Button
+		local texture = button.IconTexture
 		button:BuiStyle("Inside")
 		texture:SetTexCoord(unpack(BUI.TexCoords))
 	end
