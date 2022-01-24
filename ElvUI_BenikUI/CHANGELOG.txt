@@ -1,3 +1,7 @@
+4.14 (Jan 24, 2021)
+*Fixed notifiers error during install
+*Minor install adjustments
+
 4.13 (Jan 23, 2021)
 *fix GuildBankTab button style error - Thurin
 *Changed the default Currencies to Shadowlands
