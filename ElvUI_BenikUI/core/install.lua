@@ -96,13 +96,13 @@ local function SetupLayout(layout)
 	E.private["skins"]["blizzard"]["questChoice"] = true
 	E.private["skins"]["parchmentRemoverEnable"] = true
 
-	E.db["databars"]["azerite"]["buttonStyle"] = "DEFAULT"
-	E.db["databars"]["azerite"]["notifiers"]["position"] = "RIGHT"
-	E.db["databars"]["reputation"]["buttonStyle"] = "DEFAULT"
-	E.db["databars"]["reputation"]["notifiers"]["position"] = "LEFT"
-	E.db["databars"]["honor"]["buttonStyle"] = "TRANSPARENT"
-	E.db["databars"]["honor"]["notifiers"]["position"] = "LEFT"
-	E.db["databars"]["experience"]["buiStyle"] = false
+	E.db["benikui"]["databars"]["azerite"]["buttonStyle"] = "DEFAULT"
+	E.db["benikui"]["databars"]["azerite"]["notifiers"]["position"] = "RIGHT"
+	E.db["benikui"]["databars"]["reputation"]["buttonStyle"] = "DEFAULT"
+	E.db["benikui"]["databars"]["reputation"]["notifiers"]["position"] = "LEFT"
+	E.db["benikui"]["databars"]["honor"]["buttonStyle"] = "TRANSPARENT"
+	E.db["benikui"]["databars"]["honor"]["notifiers"]["position"] = "LEFT"
+	E.db["benikui"]["databars"]["experience"]["buiStyle"] = false
 	E.db["benikui"]["general"]["auras"] = false
 	E.db["benikui"]["datatexts"]["chat"]["enable"] = true
 
