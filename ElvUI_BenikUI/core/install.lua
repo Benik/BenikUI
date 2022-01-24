@@ -96,13 +96,13 @@ local function SetupLayout(layout)
 	E.private["skins"]["blizzard"]["questChoice"] = true
 	E.private["skins"]["parchmentRemoverEnable"] = true
 
-	E.db["databars"]["azerite"]["buttonStyle"] = "DEFAULT"
-	E.db["databars"]["azerite"]["notifiers"]["position"] = "RIGHT"
-	E.db["databars"]["reputation"]["buttonStyle"] = "DEFAULT"
-	E.db["databars"]["reputation"]["notifiers"]["position"] = "LEFT"
-	E.db["databars"]["honor"]["buttonStyle"] = "TRANSPARENT"
-	E.db["databars"]["honor"]["notifiers"]["position"] = "LEFT"
-	E.db["databars"]["experience"]["buiStyle"] = false
+	E.db["benikui"]["databars"]["azerite"]["buttonStyle"] = "DEFAULT"
+	E.db["benikui"]["databars"]["azerite"]["notifiers"]["position"] = "RIGHT"
+	E.db["benikui"]["databars"]["reputation"]["buttonStyle"] = "DEFAULT"
+	E.db["benikui"]["databars"]["reputation"]["notifiers"]["position"] = "LEFT"
+	E.db["benikui"]["databars"]["honor"]["buttonStyle"] = "TRANSPARENT"
+	E.db["benikui"]["databars"]["honor"]["notifiers"]["position"] = "LEFT"
+	E.db["benikui"]["databars"]["experience"]["buiStyle"] = false
 	E.db["benikui"]["general"]["auras"] = false
 	E.db["benikui"]["datatexts"]["chat"]["enable"] = true
 
@@ -454,8 +454,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonSize"] = 24
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
-		E.db["databars"]["experience"]["width"] = 416
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 409
+		E.db["databars"]["experience"]["width"] = 409
 
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
@@ -514,8 +514,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["stanceBar"]["buttonSize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
-		E.db["databars"]["experience"]["width"] = 416
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 409
+		E.db["databars"]["experience"]["width"] = 409
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
@@ -661,7 +661,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["player"]["power"]["width"] = 'fill'
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 369
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 360
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
@@ -1569,7 +1569,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 369
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 360
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 7
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
