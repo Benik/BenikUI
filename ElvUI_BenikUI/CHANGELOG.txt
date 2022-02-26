@@ -1,3 +1,9 @@
+4.15 (Feb 26, 2021)
+*Minor Install fix
+*Fixed WorldMap Style
+*toc update for patch 9.2
+*Update Aurabars shadows
+
 4.14 (Jan 24, 2021)
 *Fixed notifiers error during install
 *Minor install adjustments
