@@ -227,7 +227,7 @@ function mod:styleWorldMap()
 	end
 
 	local mapFrame = _G.WorldMapFrame
-	if not mapFrame.style then
-		mapFrame:BuiStyle("Outside")
+	if not mapFrame.backdrop.style then
+		mapFrame.backdrop:BuiStyle("Outside")
 	end
 end
