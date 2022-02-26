@@ -229,7 +229,7 @@ local function SetupLayout(layout)
 
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Expressway"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 409
 
 
 		E.db["benikui"]["general"]["shadows"] = true
