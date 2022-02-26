@@ -2,33 +2,40 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
 local BU = BUI:GetModule('Units');
 
-function BU:Create_AuraBarsWithShadow(statusBar)
-	statusBar:CreateBackdrop(nil, nil, nil, UF.thinBorders, true)
-	statusBar:CreateSoftShadow()
-	statusBar:SetScript('OnMouseDown', OnClick)
-	statusBar:Point("LEFT")
-	statusBar:Point("RIGHT")
+function BU:Create_AuraBarsWithShadow(bar)
+	bar:CreateBackdrop(nil, nil, nil, nil, true)
+	bar:CreateSoftShadow()
+	bar:SetScript('OnMouseDown', OnClick)
+	bar:Point("LEFT")
+	bar:Point("RIGHT")
 
-	statusBar.icon:CreateBackdrop(nil, nil, nil, UF.thinBorders, true)
-	statusBar.icon.backdrop:CreateSoftShadow()
-	UF.statusbars[statusBar] = true
-	UF:Update_StatusBar(statusBar)
+	bar.spark:SetTexture(E.media.blankTex)
+	bar.spark:SetVertexColor(1, 1, 1, 0.4)
+	bar.spark:Width(2)
 
-	UF:Configure_FontString(statusBar.timeText)
-	UF:Configure_FontString(statusBar.nameText)
+	bar.icon:CreateBackdrop(nil, nil, nil, nil, true)
+	bar.icon:ClearAllPoints()
+	bar.icon:Point('RIGHT', bar, 'LEFT', -self.barSpacing, 0)
+	bar.icon:SetTexCoord(unpack(E.TexCoords))
 
-	UF:Update_FontString(statusBar.timeText)
-	UF:Update_FontString(statusBar.nameText)
+	UF.statusbars[bar] = true
+	UF:Update_StatusBar(bar)
 
-	statusBar.nameText:SetJustifyH('LEFT')
-	statusBar.nameText:SetJustifyV('MIDDLE')
-	statusBar.nameText:Point("RIGHT", statusBar.timeText, "LEFT", -4, 0)
+	UF:Configure_FontString(bar.timeText)
+	UF:Configure_FontString(bar.nameText)
 
-	statusBar.bg = statusBar:CreateTexture(nil, 'BORDER')
-	statusBar.bg:Show()
+	UF:AuraBars_UpdateBar(bar)
 
-	local frame = statusBar:GetParent()
-	statusBar.db = frame.db and frame.db.aurabar
+	bar.nameText:SetJustifyH('LEFT')
+	bar.nameText:SetJustifyV('MIDDLE')
+	bar.nameText:Point('RIGHT', bar.timeText, 'LEFT', -4, 0)
+	bar.nameText:SetWordWrap(false)
+
+	bar.bg = bar:CreateTexture(nil, 'BORDER')
+	bar.bg:Show()
+
+	local frame = bar:GetParent()
+	bar.db = frame.db and frame.db.aurabar
 end
 
 function BU:Configure_AuraBars(frame)
