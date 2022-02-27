@@ -89,6 +89,8 @@ local function style_AuctionHouseUI()
 	local frame = _G.AuctionHouseFrame
 	frame:BuiStyle("Outside")
 	frame.WoWTokenResults.GameTimeTutorial:BuiStyle("Outside")
+	frame.BuyDialog:BuiStyle("Outside")
+
 end
 S:AddCallbackForAddon("Blizzard_AuctionHouseUI", "BenikUI_AuctionHouseUI", style_AuctionHouseUI)
 
