@@ -32,8 +32,8 @@ local function OnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
-			local id = self.id
-			E.private.benikui.dashboards.reputations.chooseReputations[id] = false
+			local factionID = self.factionID
+			E.private.benikui.dashboards.reputations.chooseReputations[factionID] = false
 			mod:UpdateReputations()
 		else
 			E:ToggleOptionsUI()
@@ -206,7 +206,7 @@ function mod:UpdateReputations()
 					
 					bar:SetScript('OnMouseUp', OnMouseUp)
 
-					bar.id = id
+					bar.factionID = factionID
 					bar.name = name
 
 					tinsert(BUI.FactionsDB, bar)
