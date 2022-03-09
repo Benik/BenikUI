@@ -124,12 +124,13 @@ function mod:UpdateReputations()
 						maxMinDiff = 1
 					end
 
-					local bar = self:CreateDashboard(holder, 'reputations')
+					local bar = mod:CreateDashboard(holder, 'reputations')
 					bar.Status:SetMinMaxValues(barMin, barMax)
 					bar.Status:SetValue(barValue)
 
 					standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
-					local color = _G.FACTION_BAR_COLORS[standingID]
+					local customColors = E.db.databars.colors.useCustomFactionColors
+					local color = (customColors or standingID == 9) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID] -- reaction 9 is Paragon
 					local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
 					if E.db.benikui.dashboards.dashfont.useDTfont then
@@ -312,4 +313,5 @@ function mod:LoadReputations()
 	mod:ReputationEvents()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateReputationSettings)
+	hooksecurefunc(DB, 'ReputationBar_Update', mod.UpdateReputations)
 end
