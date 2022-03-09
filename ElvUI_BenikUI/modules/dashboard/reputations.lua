@@ -88,8 +88,9 @@ function mod:UpdateReputations()
 						holder:SetPoint('TOPLEFT', reputationHolderMover, 'TOPLEFT')
 					end
 
-					local isCapped, isFriend, friendText, standingLabel
+					local isFriend, friendText, standingLabel
 					local friendshipID = GetFriendshipReputation(factionID)
+					local isParagon = C_Reputation_IsFactionParagon(factionID)
 					
 					if friendshipID then
 						local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
@@ -98,9 +99,8 @@ function mod:UpdateReputations()
 							barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
 						else
 							barMin, barMax, barValue = 0, 1, 1
-							isCapped = true
 						end
-					elseif C_Reputation_IsFactionParagon(factionID) then
+					elseif isParagon then
 						local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
 						if currentValue and threshold then
 							barMin, barMax = 0, threshold
@@ -111,7 +111,6 @@ function mod:UpdateReputations()
 						end
 					elseif standingID == _G.MAX_REPUTATION_REACTION then
 						barMin, barMax, barValue = 0, 1, 1
-						isCapped = true
 					end
 
 					--Normalize Values
@@ -165,11 +164,11 @@ function mod:UpdateReputations()
 					bar.Text:SetJustifyH(db.textAlign)
 
 					bar:SetScript('OnEnter', function(self)
-						if isCapped then
-							self.Text:SetFormattedText('%s(%s)|r', hexColor, isFriend and friendText or standingLabel)
-						else
-							self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
+						if isParagon then
+							standingLabel = L["Paragon"]
 						end
+
+						self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
 
 						if db.mouseover then
 							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
@@ -181,7 +180,7 @@ function mod:UpdateReputations()
 							_G.GameTooltip:AddLine(' ')
 							_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
 
-							if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
+							if standingID ~= _G.MAX_REPUTATION_REACTION or isParagon then
 								_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
 							end
 
