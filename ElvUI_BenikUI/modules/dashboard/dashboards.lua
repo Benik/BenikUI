@@ -141,7 +141,7 @@ function mod:CreateDashboardHolder(holderName, option)
 	return holder
 end
 
-function mod:CreateDashboard(barHolder, option, hasIcon)
+function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 	local bar = CreateFrame('Button', nil, barHolder)
 	local barIconOffset = (hasIcon and -22) or -2
 
@@ -184,6 +184,24 @@ function mod:CreateDashboard(barHolder, option, hasIcon)
 		bar.IconBG.Icon:SetInside()
 		bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 		bar.hasIcon = hasIcon
+	end
+
+	if isRep then
+		bar.bag = bar:CreateTexture(nil, 'ARTWORK')
+		bar.bag:SetAtlas("ParagonReputation_Bag", true)
+		bar.bag:Point('RIGHT', bar, 'RIGHT', -4, 0)
+
+		bar.bagGlow = bar:CreateTexture(nil, 'BACKGROUND')
+		bar.bagGlow:SetAtlas("ParagonReputation_Glow", true)
+		bar.bagGlow:Point('CENTER', bar.bag, 'CENTER')
+		bar.bagGlow:SetAlpha(0.6)
+		bar.bagGlow:SetBlendMode('ADD')
+
+		bar.bagCheck = bar:CreateTexture(nil, 'OVERLAY')
+		bar.bagCheck:SetAtlas("ParagonReputation_Checkmark", true)
+		bar.bagCheck:Point('CENTER', bar.bag, 'CENTER', 5, -4)
+
+		bar.isRep = isRep
 	end
 
 	return bar

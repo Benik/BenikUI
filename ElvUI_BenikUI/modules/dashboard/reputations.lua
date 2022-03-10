@@ -101,7 +101,7 @@ function mod:UpdateReputations()
 							barMin, barMax, barValue = 0, 1, 1
 						end
 					elseif isParagon then
-						local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
+						local currentValue, threshold, _, hasRewardPending, tooLowLevelForParagon = C_Reputation_GetFactionParagonInfo(factionID)
 						if currentValue and threshold then
 							barMin, barMax = 0, threshold
 							barValue = currentValue % threshold
@@ -124,7 +124,7 @@ function mod:UpdateReputations()
 						maxMinDiff = 1
 					end
 
-					local bar = mod:CreateDashboard(holder, 'reputations')
+					local bar = mod:CreateDashboard(holder, 'reputations', false, true)
 					bar.Status:SetMinMaxValues(barMin, barMax)
 					bar.Status:SetValue(barValue)
 
@@ -163,6 +163,10 @@ function mod:UpdateReputations()
 
 					bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
 					bar.Text:SetJustifyH(db.textAlign)
+
+					bar.bag:SetShown(isParagon)
+					bar.bagGlow:SetShown(not tooLowLevelForParagon and hasRewardPending)
+					bar.bagCheck:SetShown(not tooLowLevelForParagon and hasRewardPending)
 
 					bar:SetScript('OnEnter', function(self)
 						if isParagon then
