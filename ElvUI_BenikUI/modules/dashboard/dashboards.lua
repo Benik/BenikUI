@@ -188,11 +188,13 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 
 	if isRep then
 		bar.bag = bar:CreateTexture(nil, 'ARTWORK')
-		bar.bag:SetAtlas("ParagonReputation_Bag", true)
+		bar.bag:SetAtlas("ParagonReputation_Bag")
+		bar.bag:Size(12, 16)
 		bar.bag:Point('RIGHT', bar, 'RIGHT', -4, 0)
 
 		bar.bagGlow = bar:CreateTexture(nil, 'BACKGROUND')
-		bar.bagGlow:SetAtlas("ParagonReputation_Glow", true)
+		bar.bagGlow:SetAtlas("ParagonReputation_Glow")
+		bar.bagGlow:Size(32, 32)
 		bar.bagGlow:Point('CENTER', bar.bag, 'CENTER')
 		bar.bagGlow:SetAlpha(0.6)
 		bar.bagGlow:SetBlendMode('ADD')
