@@ -168,6 +168,15 @@ function mod:UpdateReputations()
 					bar.bagGlow:SetShown(not tooLowLevelForParagon and hasRewardPending)
 					bar.bagCheck:SetShown(not tooLowLevelForParagon and hasRewardPending)
 
+					if isParagon then
+						bar.bag:ClearAllPoints()
+						if db.textAlign == 'LEFT' or db.textAlign == 'CENTER' then
+							bar.bag:Point('RIGHT', bar, 'RIGHT', -4, 0)
+						elseif db.textAlign == 'RIGHT' then
+							bar.bag:Point('LEFT', bar, 'LEFT', 4, 0)
+						end
+					end
+
 					bar:SetScript('OnEnter', function(self)
 						if isParagon then
 							standingLabel = L["Paragon"]
