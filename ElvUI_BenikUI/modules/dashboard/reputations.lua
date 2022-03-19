@@ -192,6 +192,12 @@ function mod:UpdateReputations()
 							_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 							_G.GameTooltip:AddLine(name)
 							_G.GameTooltip:AddLine(' ')
+
+							if isParagon then
+								_G.GameTooltip:AddLine(format(PARAGON_REPUTATION_TOOLTIP_TEXT, '\n'..name), selectioncolor)
+								_G.GameTooltip:AddLine(' ')
+							end
+
 							_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
 
 							if standingID ~= _G.MAX_REPUTATION_REACTION or isParagon then
