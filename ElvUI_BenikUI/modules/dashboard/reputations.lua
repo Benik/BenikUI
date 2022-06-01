@@ -32,8 +32,8 @@ local function OnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
-			local id = self.id
-			E.private.benikui.dashboards.reputations.chooseReputations[id] = false
+			local factionID = self.factionID
+			E.private.benikui.dashboards.reputations.chooseReputations[factionID] = false
 			mod:UpdateReputations()
 		else
 			E:ToggleOptionsUI()
@@ -88,8 +88,9 @@ function mod:UpdateReputations()
 						holder:SetPoint('TOPLEFT', reputationHolderMover, 'TOPLEFT')
 					end
 
-					local isCapped, isFriend, friendText, standingLabel
+					local isFriend, friendText, standingLabel
 					local friendshipID = GetFriendshipReputation(factionID)
+					local isParagon = C_Reputation_IsFactionParagon(factionID)
 					
 					if friendshipID then
 						local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
@@ -98,10 +99,9 @@ function mod:UpdateReputations()
 							barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
 						else
 							barMin, barMax, barValue = 0, 1, 1
-							isCapped = true
 						end
-					elseif C_Reputation_IsFactionParagon(factionID) then
-						local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
+					elseif isParagon then
+						local currentValue, threshold, _, hasRewardPending, tooLowLevelForParagon = C_Reputation_GetFactionParagonInfo(factionID)
 						if currentValue and threshold then
 							barMin, barMax = 0, threshold
 							barValue = currentValue % threshold
@@ -111,7 +111,6 @@ function mod:UpdateReputations()
 						end
 					elseif standingID == _G.MAX_REPUTATION_REACTION then
 						barMin, barMax, barValue = 0, 1, 1
-						isCapped = true
 					end
 
 					--Normalize Values
@@ -125,12 +124,13 @@ function mod:UpdateReputations()
 						maxMinDiff = 1
 					end
 
-					local bar = self:CreateDashboard(holder, 'reputations')
+					local bar = mod:CreateDashboard(holder, 'reputations', false, true)
 					bar.Status:SetMinMaxValues(barMin, barMax)
 					bar.Status:SetValue(barValue)
 
 					standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
-					local color = _G.FACTION_BAR_COLORS[standingID]
+					local customColors = E.db.databars.colors.useCustomFactionColors
+					local color = (customColors or standingID == 9) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID] -- reaction 9 is Paragon
 					local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
 					if E.db.benikui.dashboards.dashfont.useDTfont then
@@ -164,12 +164,25 @@ function mod:UpdateReputations()
 					bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
 					bar.Text:SetJustifyH(db.textAlign)
 
-					bar:SetScript('OnEnter', function(self)
-						if isCapped then
-							self.Text:SetFormattedText('%s(%s)|r', hexColor, isFriend and friendText or standingLabel)
-						else
-							self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
+					bar.bag:SetShown(isParagon)
+					bar.bagGlow:SetShown(not tooLowLevelForParagon and hasRewardPending)
+					bar.bagCheck:SetShown(not tooLowLevelForParagon and hasRewardPending)
+
+					if isParagon then
+						bar.bag:ClearAllPoints()
+						if db.textAlign == 'LEFT' or db.textAlign == 'CENTER' then
+							bar.bag:Point('RIGHT', bar, 'RIGHT', -4, 0)
+						elseif db.textAlign == 'RIGHT' then
+							bar.bag:Point('LEFT', bar, 'LEFT', 4, 0)
 						end
+					end
+
+					bar:SetScript('OnEnter', function(self)
+						if isParagon then
+							standingLabel = L["Paragon"]
+						end
+
+						self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
 
 						if db.mouseover then
 							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
@@ -179,9 +192,15 @@ function mod:UpdateReputations()
 							_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
 							_G.GameTooltip:AddLine(name)
 							_G.GameTooltip:AddLine(' ')
+
+							if isParagon then
+								_G.GameTooltip:AddLine(format(PARAGON_REPUTATION_TOOLTIP_TEXT, '\n'..name), selectioncolor)
+								_G.GameTooltip:AddLine(' ')
+							end
+
 							_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
 
-							if standingID ~= _G.MAX_REPUTATION_REACTION or C_Reputation_IsFactionParagon(factionID) then
+							if standingID ~= _G.MAX_REPUTATION_REACTION or isParagon then
 								_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
 							end
 
@@ -206,7 +225,7 @@ function mod:UpdateReputations()
 					
 					bar:SetScript('OnMouseUp', OnMouseUp)
 
-					bar.id = id
+					bar.factionID = factionID
 					bar.name = name
 
 					tinsert(BUI.FactionsDB, bar)
@@ -313,4 +332,5 @@ function mod:LoadReputations()
 	mod:ReputationEvents()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateReputationSettings)
+	hooksecurefunc(DB, 'ReputationBar_Update', mod.UpdateReputations)
 end

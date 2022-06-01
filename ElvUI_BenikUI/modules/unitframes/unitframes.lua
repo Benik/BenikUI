@@ -109,8 +109,9 @@ function mod:Raid40Shadows()
 end
 
 -- Boss shadows
+local MAX_BOSS_FRAMES = 8
 function mod:BossShadows()
-	for i = 1, 5 do
+	for i = 1, MAX_BOSS_FRAMES do
 		local unitbutton = _G["ElvUF_Boss"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
