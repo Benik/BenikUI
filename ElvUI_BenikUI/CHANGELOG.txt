@@ -1,3 +1,8 @@
+4.17 (Jun 1st, 2022)
+*toc update for patch 9.2.5
+*PlayerReportFrame is now ReportFrame (credit: thurin)
+*Boss Frames are now 8 (credit: Merathilis)
+
 4.16 (Apr 5, 2022)
 *Move the Objective Tracker quest icon a bit for Roxanne :P
 *Added option for Statusbar height for all Dashboards
