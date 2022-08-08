@@ -33,6 +33,7 @@ local DecorAddonSkins = {
 	{'ArkInventory', L['Ark Inventory'], 'arkinventory'},
 	{'Storyline', L['Storyline'], 'storyline'},
 	{'ClassTactics', L['ClassTactics'], 'classTactics'},
+	{'Hekili', L['Hekili'], 'hekili'},
 }
 
 local SupportedProfiles = {
