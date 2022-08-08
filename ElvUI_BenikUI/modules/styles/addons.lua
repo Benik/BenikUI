@@ -47,6 +47,12 @@ local function KalielsTracker()
 	end
 end
 
+local function RareTracker()
+	if BUI:IsAddOnEnabled('RareTrackerCore') and E.db.benikui.general.benikuiStyle and E.db.benikui.skins.variousSkins.rt then
+		_G['RT']:BuiStyle('Outside')
+	end
+end
+
 function mod:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
@@ -59,4 +65,5 @@ end
 
 function mod:StyleAddons()
 	KalielsTracker()
+	RareTracker()
 end

@@ -249,6 +249,7 @@ P['benikui']['skins'] = {
 		['objectiveTracker'] = true,
 		['inflight'] = true,
 		['kt'] = true,
+		['rt'] = true,
 	},
 }
 

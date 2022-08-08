@@ -164,6 +164,12 @@ local function SkinTable()
 				name = L['Kaliels Tracker'],
 				disabled = function() return not IsAddOnLoaded('!KalielsTracker') end,
 			},
+			rt = {
+				order = 5,
+				type = 'toggle',
+				name = L['Rare Tracker'],
+				disabled = function() return not IsAddOnLoaded('RareTrackerCore') end,
+			},
 		},
 	}
 
