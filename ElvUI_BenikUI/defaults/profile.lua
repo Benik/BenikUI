@@ -242,6 +242,7 @@ P['benikui']['skins'] = {
 		['arkinventory'] = true,
 		['classTactics'] = true,
 		['hekili'] = true,
+		['wowpro'] = true,
 	},
 
 	['variousSkins'] = {
