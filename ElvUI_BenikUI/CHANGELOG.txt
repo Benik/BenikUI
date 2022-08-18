@@ -1,3 +1,13 @@
+4.18 (Aug 18th, 2022)
+*Big thanks to thurin for the updates <3
+*Follow ElvUI aurabar changes
+*Update toc
+*Hide RareTracker in Flightmode
+*Style WoW-Pro
+*Style RareTracker
+*Style Hekili buttons
+*Fix power offset in party frames due to missing UF in threat
+
 4.17 (Jun 1st, 2022)
 *toc update for patch 9.2.5
 *PlayerReportFrame is now ReportFrame (credit: thurin)
