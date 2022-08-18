@@ -1,14 +1,39 @@
-4.15 (Feb 26, 2021)
+4.18 (Aug 18th, 2022)
+*Big thanks to thurin for the updates <3
+*Follow ElvUI aurabar changes
+*Update toc
+*Hide RareTracker in Flightmode
+*Style WoW-Pro
+*Style RareTracker
+*Style Hekili buttons
+*Fix power offset in party frames due to missing UF in threat
+
+4.17 (Jun 1st, 2022)
+*toc update for patch 9.2.5
+*PlayerReportFrame is now ReportFrame (credit: thurin)
+*Boss Frames are now 8 (credit: Merathilis)
+
+4.16 (Apr 5, 2022)
+*Move the Objective Tracker quest icon a bit for Roxanne :P
+*Added option for Statusbar height for all Dashboards
+*Reputation Dashboard: Added Paragon bag icon with glow and check
+*Reputation Dashboard: It can now utilize ElvUI Custom Faction Color options
+*Reputation Dashboard: Fixed Paragon rep not showing on mouseover and on tooltip
+*Styled the BuyDialog frame in Auctions
+*Fixed Reputation Dashboard error, when a rep gets disabled with Shift Right Click
+*Styled OutfitDetailsPanel
+
+4.15 (Feb 26, 2022)
 *Minor Install fix
 *Fixed WorldMap Style
 *toc update for patch 9.2
 *Update Aurabars shadows
 
-4.14 (Jan 24, 2021)
+4.14 (Jan 24, 2022)
 *Fixed notifiers error during install
 *Minor install adjustments
 
-4.13 (Jan 23, 2021)
+4.13 (Jan 23, 2022)
 *fix GuildBankTab button style error - Thurin
 *Changed the default Currencies to Shadowlands
 *License

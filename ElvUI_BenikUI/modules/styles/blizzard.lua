@@ -53,6 +53,7 @@ local function LoadSkin()
 
 	if db.dressingroom then
 		_G.DressUpFrame:BuiStyle("Outside")
+		_G.DressUpFrame.OutfitDetailsPanel:BuiStyle("Outside")
 		_G.WardrobeOutfitEditFrame:BuiStyle("Outside")
 	end
 
@@ -141,7 +142,7 @@ local function LoadSkin()
 		_G.GameMenuFrame:BuiStyle("Outside")
 		_G.GhostFrame:BuiStyle("Outside")
 		_G.LFDRoleCheckPopup:BuiStyle("Outside")
-		_G.PlayerReportFrame:BuiStyle("Outside")
+		_G.ReportFrame:BuiStyle("Outside")
 		_G.QueueStatusFrame:BuiStyle("Outside")
 		_G.ReportCheatingDialog:BuiStyle("Outside")
 		_G.SideDressUpFrame:BuiStyle("Outside")

@@ -64,32 +64,40 @@ function mod:ToggleStyle(holder, option)
 end
 
 function mod:FontStyle(tableName)
-	for _, frame in pairs(tableName) do
+	for _, bar in pairs(tableName) do
 		if E.db.benikui.dashboards.dashfont.useDTfont then
-			frame.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+			bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
-			frame.Text:FontTemplate(LSM:Fetch('font', E.db.benikui.dashboards.dashfont.dbfont), E.db.benikui.dashboards.dashfont.dbfontsize, E.db.benikui.dashboards.dashfont.dbfontflags)
+			bar.Text:FontTemplate(LSM:Fetch('font', E.db.benikui.dashboards.dashfont.dbfont), E.db.benikui.dashboards.dashfont.dbfontsize, E.db.benikui.dashboards.dashfont.dbfontflags)
 		end
 	end
 end
 
 function mod:FontColor(tableName)
-	for _, frame in pairs(tableName) do
+	for _, bar in pairs(tableName) do
 		if E.db.benikui.dashboards.textColor == 1 then
-			frame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+			bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		else
-			frame.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
+			bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
 		end
 	end
 end
 
 function mod:BarColor(tableName)
-	for _, frame in pairs(tableName) do
+	for _, bar in pairs(tableName) do
 		if E.db.benikui.dashboards.barColor == 1 then
-			frame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+			bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		else
-			frame.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
+			bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
 		end
+	end
+end
+
+function mod:BarHeight(option, tableName)
+	local db = E.db.benikui.dashboards[option]
+	for _, bar in pairs(tableName) do
+		bar.dummy:Height(db.barHeight)
+		bar.spark:Height(5 + db.barHeight)
 	end
 end
 
@@ -141,12 +149,13 @@ function mod:CreateDashboardHolder(holderName, option)
 	return holder
 end
 
-function mod:CreateDashboard(barHolder, option, hasIcon)
+function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 	local bar = CreateFrame('Button', nil, barHolder)
 	local barIconOffset = (hasIcon and -22) or -2
+	local db = E.db.benikui.dashboards[option]
 
 	bar:Height(DASH_HEIGHT)
-	bar:Width(E.db.benikui.dashboards[option].width or 150)
+	bar:Width(db.width or 150)
 	bar:Point('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
 	bar:EnableMouse(true)
 
@@ -156,16 +165,16 @@ function mod:CreateDashboard(barHolder, option, hasIcon)
 	bar.dummy:SetBackdropColor(1, 1, 1, .2)
 	bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, 0)
 	bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (hasIcon and (E.PixelMode and -24 or -28) or -2), 0)
-	bar.dummy:Height(E.PixelMode and 1 or 3)
+	bar.dummy:Height(db.barHeight or (E.PixelMode and 1 or 3))
 
 	bar.Status = CreateFrame('StatusBar', nil, bar.dummy)
 	bar.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
-	bar.Status:SetInside()
+	bar.Status:SetAllPoints()
 
-	bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);
-	bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-	bar.spark:Size(12, 6);
-	bar.spark:SetBlendMode('ADD');
+	bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil)
+	bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
+	bar.spark:Size(12, ((db.barHeight + 5) or 6))
+	bar.spark:SetBlendMode('ADD')
 	bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
 	bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
@@ -184,6 +193,26 @@ function mod:CreateDashboard(barHolder, option, hasIcon)
 		bar.IconBG.Icon:SetInside()
 		bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 		bar.hasIcon = hasIcon
+	end
+
+	if isRep then
+		bar.bag = bar:CreateTexture(nil, 'ARTWORK')
+		bar.bag:SetAtlas("ParagonReputation_Bag")
+		bar.bag:Size(12, 16)
+		bar.bag:Point('RIGHT', bar, 'RIGHT', -4, 0)
+
+		bar.bagGlow = bar:CreateTexture(nil, 'BACKGROUND')
+		bar.bagGlow:SetAtlas("ParagonReputation_Glow")
+		bar.bagGlow:Size(32, 32)
+		bar.bagGlow:Point('CENTER', bar.bag, 'CENTER')
+		bar.bagGlow:SetAlpha(0.6)
+		bar.bagGlow:SetBlendMode('ADD')
+
+		bar.bagCheck = bar:CreateTexture(nil, 'OVERLAY')
+		bar.bagCheck:SetAtlas("ParagonReputation_Checkmark", true)
+		bar.bagCheck:Point('CENTER', bar.bag, 'CENTER', 5, -4)
+
+		bar.isRep = isRep
 	end
 
 	return bar

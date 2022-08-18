@@ -241,6 +241,8 @@ P['benikui']['skins'] = {
 		['tinyinspect'] = true,
 		['arkinventory'] = true,
 		['classTactics'] = true,
+		['hekili'] = true,
+		['wowpro'] = true,
 	},
 
 	['variousSkins'] = {
@@ -248,6 +250,7 @@ P['benikui']['skins'] = {
 		['objectiveTracker'] = true,
 		['inflight'] = true,
 		['kt'] = true,
+		['rt'] = true,
 	},
 }
 
@@ -332,6 +335,7 @@ P['benikui']['dashboards'] = {
 		['enableSystem'] = true,
 		['combat'] = false,
 		['width'] = 150,
+		['barHeight'] = 1,
 		['style'] = true,
 		['transparency'] = true,
 		['backdrop'] = true,
@@ -352,6 +356,7 @@ P['benikui']['dashboards'] = {
 		['mouseover'] = false,
 		['tooltip'] = true,
 		['width'] = 150,
+		['barHeight'] = 1,
 		['style'] = true,
 		['transparency'] = true,
 		['backdrop'] = true,
@@ -365,6 +370,7 @@ P['benikui']['dashboards'] = {
 		['combat'] = true,
 		['mouseover'] = false,
 		['width'] = 150,
+		['barHeight'] = 1,
 		['style'] = true,
 		['transparency'] = true,
 		['backdrop'] = true,
@@ -377,6 +383,7 @@ P['benikui']['dashboards'] = {
 		['combat'] = true,
 		['mouseover'] = false,
 		['width'] = 200,
+		['barHeight'] = 1,
 		['style'] = true,
 		['transparency'] = true,
 		['backdrop'] = true,

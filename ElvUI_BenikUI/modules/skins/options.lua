@@ -33,6 +33,8 @@ local DecorAddonSkins = {
 	{'ArkInventory', L['Ark Inventory'], 'arkinventory'},
 	{'Storyline', L['Storyline'], 'storyline'},
 	{'ClassTactics', L['ClassTactics'], 'classTactics'},
+	{'Hekili', L['Hekili'], 'hekili'},
+	{'WoWPro', L['WoWPro'], 'wowpro'},
 }
 
 local SupportedProfiles = {
@@ -162,6 +164,12 @@ local function SkinTable()
 				type = 'toggle',
 				name = L['Kaliels Tracker'],
 				disabled = function() return not IsAddOnLoaded('!KalielsTracker') end,
+			},
+			rt = {
+				order = 5,
+				type = 'toggle',
+				name = L['Rare Tracker'],
+				disabled = function() return not IsAddOnLoaded('RareTrackerCore') end,
 			},
 		},
 	}

@@ -200,6 +200,7 @@ local AddonsToHide = {
 	{'HeroRotation','HeroRotation_ToggleIconFrame'},
 	{'!KalielsTracker','!KalielsTrackerFrame'},
 	{'!KalielsTracker','!KalielsTrackerButtons'},
+	{'RareTrackerCore','RT'},
 }
 
 local AllTheThingsFrames = {}

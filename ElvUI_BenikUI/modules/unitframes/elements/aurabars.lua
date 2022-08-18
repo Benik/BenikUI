@@ -3,6 +3,7 @@ local UF = E:GetModule('UnitFrames');
 local BU = BUI:GetModule('Units');
 
 function BU:Create_AuraBarsWithShadow(bar)
+	bar.auraInfo = {}
 	bar:CreateBackdrop(nil, nil, nil, nil, true)
 	bar:CreateSoftShadow()
 	bar:SetScript('OnMouseDown', OnClick)

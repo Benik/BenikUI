@@ -1,5 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local BU = BUI:GetModule('Units');
+local UF = E:GetModule('UnitFrames');
 
 function BU:Configure_Threat(frame)
 	local threat = frame.ThreatIndicator

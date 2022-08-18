@@ -299,6 +299,28 @@ local function ClassTactics(event, addon)
 	
 end
 
+local function HekiliDecor()
+	local Hekili = _G.Hekili
+	if not Hekili then return end
+
+	hooksecurefunc(Hekili, "CreateButton", function(self, dispID, id)
+		if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.hekili then return end
+		local b = Hekili.DisplayPool[dispID].Buttons[id]
+		if b then
+			b.Backdrop:BuiStyle('Outside')
+		end
+	end)
+
+end
+
+local function WoWProDecor()
+	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.wowpro then return end
+	local frame = _G['WoWPro.MainFrame']
+	if not frame.style then
+		frame:BuiStyle('Outside')
+	end
+end
+
 -- Replace the close button
 function AS:SkinCloseButton(Button, Reposition)
 	if Button.Backdrop then return end
@@ -355,6 +377,8 @@ if AS:CheckAddOn('TinyInspect') then AS:RegisterSkin('TinyInspect', TinyInspectD
 if AS:CheckAddOn('ArkInventory') then AS:RegisterSkin('ArkInventory', ArkInventoryDecor, 2) end
 if AS:CheckAddOn('Storyline') then AS:RegisterSkin('Storyline', StorylineDecor, 2) end
 if AS:CheckAddOn('ClassTactics') then AS:RegisterSkin('ClassTactics', ClassTactics, 'ADDON_LOADED') end
+if AS:CheckAddOn('Hekili') then AS:RegisterSkin('Hekili', HekiliDecor, 2) end
+if AS:CheckAddOn('WoWPro') then AS:RegisterSkin('WoWPro', WoWProDecor, 2) end
 
 --if BUI.CT then ClassTactics() end
 LibrariesDecor()
