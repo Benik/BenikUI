@@ -174,7 +174,6 @@ local function PVEFrameShadows()
 	local i = 1
 	local tab = _G['PVEFrameTab'..i]
 	while tab do
-		if not BUI.ShadowMode then return end
 		if not tab then return end
 
 		if tab.backdrop then

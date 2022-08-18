@@ -536,9 +536,8 @@ local function style_GuildBankUI()
 	for i = 1, 8 do
 		local tab = _G['GuildBankTab'..i]
 		local button = tab.Button
-		local texture = button.IconTexture
-		button:BuiStyle("Inside")
-		texture:SetTexCoord(unpack(BUI.TexCoords))
+		button:SetTemplate("Transparent")
+		button:CreateSoftShadow()
 	end
 end
 S:AddCallbackForAddon("Blizzard_GuildBankUI", "BenikUI_GuildBankUI", style_GuildBankUI)
