@@ -117,10 +117,12 @@ end
 
 -- thanks to Repooc for guidance
 local function CharacterFrameShadows()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true then
+		return
+	end
 	local i = 1
 	local tab = _G['CharacterFrameTab'..i]
 	while tab do
-		if not BUI.ShadowMode then return end
 		if not tab then return end
 
 		if tab.backdrop then
@@ -134,10 +136,12 @@ local function CharacterFrameShadows()
 end
 
 local function SpellBookFrameShadows()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true then
+		return
+	end
 	local i = 1
 	local tab = _G['SpellBookFrameTabButton'..i]
 	while tab do
-		if not BUI.ShadowMode then return end
 		if not tab then return end
 
 		if tab.backdrop then
@@ -164,6 +168,9 @@ local function SpellBookFrameShadows()
 end
 
 local function PVEFrameShadows()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true then
+		return
+	end
 	local i = 1
 	local tab = _G['PVEFrameTab'..i]
 	while tab do
@@ -181,10 +188,12 @@ local function PVEFrameShadows()
 end
 
 local function FriendsFrameShadows()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true then
+		return
+	end
 	local i = 1
 	local tab = _G['FriendsFrameTab'..i]
 	while tab do
-		if not BUI.ShadowMode then return end
 		if not tab then return end
 
 		if tab.backdrop then
