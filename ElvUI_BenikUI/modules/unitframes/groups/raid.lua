@@ -49,4 +49,4 @@ local function HoverClassColor(self, frame, db)
 end
 
 hooksecurefunc(UF, 'Update_RaidFrames', HoverClassColor)
-hooksecurefunc(UF, 'Update_Raid40Frames', HoverClassColor)
+--hooksecurefunc(UF, 'Update_Raid40Frames', HoverClassColor)

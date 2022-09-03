@@ -74,7 +74,7 @@ end
 
 -- Raid Shadows
 function mod:RaidShadows()
-	local header = _G['ElvUF_Raid']
+	local header = _G['ElvUF_Raid1']
 
 	for i = 1, header:GetNumChildren() do
 		local group = select(i, header:GetChildren())
@@ -232,7 +232,7 @@ function mod:Setup()
 		mod:UnitShadows()
 		mod:PartyShadows()
 		mod:RaidShadows()
-		mod:Raid40Shadows()
+		--mod:Raid40Shadows()
 		mod:BossShadows()
 		mod:ArenaShadows()
 		mod:TankShadows()

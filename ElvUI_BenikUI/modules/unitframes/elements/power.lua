@@ -44,7 +44,7 @@ hooksecurefunc(UF, "Update_AllFrames", BU.ChangeUnitPowerBarTexture)
 
 -- Raid
 function BU:ChangeRaidPowerBarTexture()
-	local header = _G['ElvUF_Raid']
+	local header = _G['ElvUF_Raid1']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for i = 1, header:GetNumChildren() do
 		local group = select(i, header:GetChildren())
@@ -74,7 +74,7 @@ function BU:ChangeRaid40PowerBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_Raid40Frames', BU.ChangeRaid40PowerBarTexture)
+--hooksecurefunc(UF, 'Update_Raid40Frames', BU.ChangeRaid40PowerBarTexture)
 
 -- Party
 function BU:ChangePartyPowerBarTexture()
@@ -121,7 +121,7 @@ hooksecurefunc(UF, 'Update_BossFrames', BU.ChangeBossPowerBarTexture)
 function BU:ChangePowerBarTexture()
 	BU:ChangeUnitPowerBarTexture()
 	BU:ChangeRaidPowerBarTexture()
-	BU:ChangeRaid40PowerBarTexture()
+	--BU:ChangeRaid40PowerBarTexture()
 	BU:ChangePartyPowerBarTexture()
 	BU:ChangeArenaPowerBarTexture()
 	BU:ChangeBossPowerBarTexture()

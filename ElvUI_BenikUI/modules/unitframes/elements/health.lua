@@ -8,7 +8,7 @@ local select = select
 
 -- Raid
 function BU:ChangeRaidHealthBarTexture()
-	local header = _G['ElvUF_Raid']
+	local header = _G['ElvUF_Raid1']
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.health)
 	for i = 1, header:GetNumChildren() do
 		local group = select(i, header:GetChildren())
@@ -42,7 +42,7 @@ function BU:ChangeRaid40HealthBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_Raid40Frames', BU.ChangeRaid40HealthBarTexture)
+--hooksecurefunc(UF, 'Update_Raid40Frames', BU.ChangeRaid40HealthBarTexture)
 
 -- Party
 function BU:ChangePartyHealthBarTexture()
@@ -65,7 +65,7 @@ hooksecurefunc(UF, 'Update_PartyFrames', BU.ChangePartyHealthBarTexture)
 
 function BU:ChangeHealthBarTexture()
 	BU:ChangeRaidHealthBarTexture()
-	BU:ChangeRaid40HealthBarTexture()
+--	BU:ChangeRaid40HealthBarTexture()
 	BU:ChangePartyHealthBarTexture()
 end
 hooksecurefunc(UF, 'Update_StatusBars', BU.ChangeHealthBarTexture)
