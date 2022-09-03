@@ -77,11 +77,11 @@ function mod:RaidShadows()
 	for i = 1, 3 do
 		local header = _G['ElvUF_Raid'..i]
 
-		for i = 1, header:GetNumChildren() do
-			local group = select(i, header:GetChildren())
+		for j = 1, header:GetNumChildren() do
+			local group = select(j, header:GetChildren())
 
-			for j = 1, group:GetNumChildren() do
-				local unitbutton = select(j, group:GetChildren())
+			for k = 1, group:GetNumChildren() do
+				local unitbutton = select(k, group:GetChildren())
 				if unitbutton then
 					unitbutton:CreateSoftShadow()
 					unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
