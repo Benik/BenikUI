@@ -723,7 +723,7 @@ local function injectRaid2Options()
 		set = function(info, value) E.db.unitframe.units['raid2'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 	}
 end
-tinsert(BUI.Config, injectRaid1Options)
+tinsert(BUI.Config, injectRaid2Options)
 
 local function injectRaid3Options()
 	E.Options.args.unitframe.args.groupUnits.args.raid3.args.generalGroup.args.classHover = {
