@@ -28,8 +28,9 @@ function BU:InitRaid()
 	--hooksecurefunc(UF, 'Update_RaidFrames', BU.Update_RaidFrames)
 end
 
--- raid, raid40 mouseover classcolor
+-- raid mouseover classcolor
 local function HoverClassColor(self, frame, db)
+
 	if db.classHover ~= true then return; end
 	if frame.isMouseOverHooked then return; end
 
@@ -48,5 +49,4 @@ local function HoverClassColor(self, frame, db)
 	frame.isMouseOverHooked = true
 end
 
-hooksecurefunc(UF, 'Update_RaidFrames', HoverClassColor)
-hooksecurefunc(UF, 'Update_Raid40Frames', HoverClassColor)
+--hooksecurefunc(UF, 'Update_RaidFrames', HoverClassColor)
