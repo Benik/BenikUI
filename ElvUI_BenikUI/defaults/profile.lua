@@ -10,15 +10,6 @@ P['unitframe']['units']['target']['power']['vertical'] = false
 P['unitframe']['units']['party']['portrait']['height'] = 0
 P['unitframe']['units']['party']['portrait']['transparent'] = false
 
--- Add raid1 classHover to ElvUI defaults
-P['unitframe']['units']['raid1']['classHover'] = false
-
--- Add raid2 classHover to ElvUI defaults
-P['unitframe']['units']['raid2']['classHover'] = false
-
--- Add raid3 classHover to ElvUI defaults
-P['unitframe']['units']['raid3']['classHover'] = false
-
 -- Databars text yOffset
 P['databars']['experience']['textYoffset'] = 0
 P['databars']['azerite']['textYoffset'] = 0

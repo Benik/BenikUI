@@ -702,36 +702,3 @@ local function injectPartyOptions()
 	}
 end
 tinsert(BUI.Config, injectPartyOptions)
-
-local function injectRaid1Options()
-	E.Options.args.unitframe.args.groupUnits.args.raid1.args.generalGroup.args.classHover = {
-		order = 7,
-		type = "toggle",
-		name = BUI:cOption(L['Class Hover'], "blue"),
-		desc = L['Enable Class color on health border, when mouse over'],
-		set = function(info, value) E.db.unitframe.units['raid1'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-	}
-end
-tinsert(BUI.Config, injectRaid1Options)
-
-local function injectRaid2Options()
-	E.Options.args.unitframe.args.groupUnits.args.raid2.args.generalGroup.args.classHover = {
-		order = 7,
-		type = "toggle",
-		name = BUI:cOption(L['Class Hover'], "blue"),
-		desc = L['Enable Class color on health border, when mouse over'],
-		set = function(info, value) E.db.unitframe.units['raid2'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-	}
-end
-tinsert(BUI.Config, injectRaid2Options)
-
-local function injectRaid3Options()
-	E.Options.args.unitframe.args.groupUnits.args.raid3.args.generalGroup.args.classHover = {
-		order = 7,
-		type = "toggle",
-		name = BUI:cOption(L['Class Hover'], "blue"),
-		desc = L['Enable Class color on health border, when mouse over'],
-		set = function(info, value) E.db.unitframe.units['raid3'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-	}
-end
-tinsert(BUI.Config, injectRaid3Options)
