@@ -220,6 +220,17 @@ function mod:Setup()
 		mod:TankShadows()
 		mod:TankTargetShadows()
 	end
+
+	-- Group Health textures hooks
+	hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyHealthBarTexture)
+	hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidHealthBarTexture)
+
+	-- Group Power textures hooks
+	hooksecurefunc(UF, 'Update_AllFrames', mod.ChangeUnitPowerBarTexture)
+	hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidPowerBarTexture)
+	hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyPowerBarTexture)
+	hooksecurefunc(UF, 'Update_ArenaFrames', mod.ChangeArenaPowerBarTexture)
+	hooksecurefunc(UF, 'Update_BossFrames', mod.ChangeBossPowerBarTexture)
 end
 
 
