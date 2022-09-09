@@ -720,7 +720,7 @@ end
 S:AddCallbackForAddon("Blizzard_OrderHallUI", "BenikUI_OrderHallUI", style_OrderHallUI)
 
 -- PlayerChoiceUI
-local function style_PlayerChoiceUI()
+local function style_PlayerChoice()
 	if E.private.skins.blizzard.playerChoice ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
@@ -728,14 +728,14 @@ local function style_PlayerChoiceUI()
 	end
 
 	local frame = _G.PlayerChoiceFrame
-	hooksecurefunc(frame, 'Update', function()
+	hooksecurefunc(frame, 'SetupOptions', function()
 		if not frame.IsStyled then
 			frame:BuiStyle("Outside")
 			frame.IsStyled = true
 		end
 	end)
 end
-S:AddCallbackForAddon("Blizzard_PlayerChoiceUI", "BenikUI_PlayerChoiceUI", style_PlayerChoiceUI)
+S:AddCallbackForAddon("Blizzard_PlayerChoice", "BenikUI_PlayerChoice", style_PlayerChoice)
 
 -- PVPUI
 local function style_PVPUI()
