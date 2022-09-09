@@ -224,6 +224,7 @@ function mod:Setup()
 	-- Group Health textures hooks
 	hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyHealthBarTexture)
 	hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidHealthBarTexture)
+	hooksecurefunc(UF, 'Update_StatusBars', mod.ChangeHealthBarTexture)
 
 	-- Group Power textures hooks
 	hooksecurefunc(UF, 'Update_AllFrames', mod.ChangeUnitPowerBarTexture)
@@ -231,6 +232,10 @@ function mod:Setup()
 	hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyPowerBarTexture)
 	hooksecurefunc(UF, 'Update_ArenaFrames', mod.ChangeArenaPowerBarTexture)
 	hooksecurefunc(UF, 'Update_BossFrames', mod.ChangeBossPowerBarTexture)
+	hooksecurefunc(UF, 'Update_StatusBars', mod.ChangePowerBarTexture)
+
+	-- ShapeShift fix
+	hooksecurefunc(AB, 'StyleShapeShift', mod.ChangeUnitPowerBarTexture)
 end
 
 

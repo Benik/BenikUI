@@ -104,4 +104,3 @@ function BU:ChangePowerBarTexture()
 	BU:ChangeArenaPowerBarTexture()
 	BU:ChangeBossPowerBarTexture()
 end
-hooksecurefunc(UF, 'Update_StatusBars', BU.ChangePowerBarTexture)

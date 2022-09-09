@@ -48,4 +48,3 @@ function BU:ChangeHealthBarTexture()
 	BU:ChangeRaidHealthBarTexture()
 	BU:ChangePartyHealthBarTexture()
 end
-hooksecurefunc(UF, 'Update_StatusBars', BU.ChangeHealthBarTexture)
