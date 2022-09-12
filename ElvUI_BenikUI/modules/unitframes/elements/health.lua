@@ -8,41 +8,23 @@ local select = select
 
 -- Raid
 function BU:ChangeRaidHealthBarTexture()
-	local header = _G['ElvUF_Raid']
-	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.health)
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
+	for i = 1, 3 do
+		local header = _G['ElvUF_Raid'..i]
+		local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.health)
+		for j = 1, header:GetNumChildren() do
+			local group = select(j, header:GetChildren())
 
-		for j = 1, group:GetNumChildren() do
-			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Health then
-				if not unitbutton.Health.isTransparent or (unitbutton.Health.isTransparent and E.db.benikui.unitframes.textures.ignoreTransparency) then
-					unitbutton.Health:SetStatusBarTexture(bar)
+			for k = 1, group:GetNumChildren() do
+				local unitbutton = select(k, group:GetChildren())
+				if unitbutton.Health then
+					if not unitbutton.Health.isTransparent or (unitbutton.Health.isTransparent and E.db.benikui.unitframes.textures.ignoreTransparency) then
+						unitbutton.Health:SetStatusBarTexture(bar)
+					end
 				end
 			end
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_RaidFrames', BU.ChangeRaidHealthBarTexture)
-
--- Raid-40
-function BU:ChangeRaid40HealthBarTexture()
-	local header = _G['ElvUF_Raid40']
-	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.health)
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-
-		for j = 1, group:GetNumChildren() do
-			local unitbutton = select(j, group:GetChildren())
-			if unitbutton.Health then
-				if not unitbutton.Health.isTransparent or (unitbutton.Health.isTransparent and E.db.benikui.unitframes.textures.ignoreTransparency) then
-					unitbutton.Health:SetStatusBarTexture(bar)
-				end
-			end
-		end
-	end
-end
-hooksecurefunc(UF, 'Update_Raid40Frames', BU.ChangeRaid40HealthBarTexture)
 
 -- Party
 function BU:ChangePartyHealthBarTexture()
@@ -61,11 +43,8 @@ function BU:ChangePartyHealthBarTexture()
 		end
 	end
 end
-hooksecurefunc(UF, 'Update_PartyFrames', BU.ChangePartyHealthBarTexture)
 
 function BU:ChangeHealthBarTexture()
 	BU:ChangeRaidHealthBarTexture()
-	BU:ChangeRaid40HealthBarTexture()
 	BU:ChangePartyHealthBarTexture()
 end
-hooksecurefunc(UF, 'Update_StatusBars', BU.ChangeHealthBarTexture)

@@ -1,3 +1,17 @@
+4.19 (Sep 12th, 2022)
+Update raid movers in installer
+Fixed PlayerChoice style
+Donators, Patrons and Nitros
+Cleanup
+Fixed ShapeShift texture glitch
+Merge remote-tracking branch 'origin/dev_yeet' into development
+Fixed the Texture hooks for  health/power
+Remove class hover
+Installer for new raid frames and more clenup
+Initial changes for new raid frames
+Remove bui style for guild bank tabs, only shadows now
+Style tabs on Character, Spellbook, Friends, PVE frames
+
 4.18 (Aug 18th, 2022)
 *Big thanks to thurin for the updates <3
 *Follow ElvUI aurabar changes
