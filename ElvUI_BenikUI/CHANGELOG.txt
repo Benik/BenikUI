@@ -1,4 +1,4 @@
-4.19 (Aug 18th, 2022)
+4.19 (Sep 12th, 2022)
 Update raid movers in installer
 Fixed PlayerChoice style
 Donators, Patrons and Nitros
