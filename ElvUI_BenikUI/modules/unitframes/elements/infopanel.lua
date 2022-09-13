@@ -4,6 +4,8 @@ local BU = BUI:GetModule('Units');
 local LSM = E.LSM;
 
 function BU:Configure_Infopanel(frame)
+	if frame.IS_ELTREUM then return end
+
 	if frame.ORIENTATION == "RIGHT" and not (frame.unitframeType == "arena") then
 		if frame.PORTRAIT_AND_INFOPANEL then
 			frame.InfoPanel:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -frame.PORTRAIT_WIDTH -UF.BORDER - UF.SPACING, UF.BORDER + UF.SPACING)

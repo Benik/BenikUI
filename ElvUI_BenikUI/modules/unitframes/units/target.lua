@@ -93,6 +93,8 @@ function BU:ArrangeTarget()
 
 		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
 		frame.POWER_VERTICAL = db.power.vertical
+
+		frame.IS_ELTREUM = BUI.ELT and frame.InfoPanelOnTop
 	end
 
 	-- Power
