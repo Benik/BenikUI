@@ -729,6 +729,8 @@ local function style_PlayerChoice()
 
 	local frame = _G.PlayerChoiceFrame
 	hooksecurefunc(frame, 'SetupOptions', function()
+		local kit = S.PlayerChoice_TextureKits[frame.uiTextureKit]
+		if kit then return end
 		if not frame.IsStyled then
 			frame:BuiStyle("Outside")
 			frame.IsStyled = true
