@@ -1,6 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Actionbars')
 local AB = E:GetModule('ActionBars')
+local T = E:GetModule('TotemTracker')
 
 if E.private.actionbar.enable ~= true then return; end
 
@@ -128,15 +129,9 @@ function mod:PetShadows()
 end
 
 function mod:TotemShadows()
-	if not BUI.ShadowMode then return end
-
-	for i=1, MAX_TOTEMS do
-		local button = _G["ElvUI_TotemBarTotem"..i];
-		if button then
-			if not button.shadow then
-				button:CreateSoftShadow()
-			end
-		end
+	for i = 1, MAX_TOTEMS do
+		local button = T.bar[i]
+		button:BuiStyle("Outside")
 	end
 end
 
