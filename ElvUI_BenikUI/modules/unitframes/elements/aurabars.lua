@@ -12,8 +12,8 @@ function mod:ApplyAuraBarShadows(bar)
 	if bar.hasShadow == false then
 		bar.backdrop:CreateSoftShadow()
 		bar.icon.backdrop:CreateSoftShadow()
-		bar.hasShadow = true
 		bar.icon:Point('RIGHT', bar, 'LEFT', -bars.barSpacing -3, 0)
+		bar.hasShadow = true
 	end
 end
 hooksecurefunc(UF, 'AuraBars_UpdateBar', mod.ApplyAuraBarShadows)
