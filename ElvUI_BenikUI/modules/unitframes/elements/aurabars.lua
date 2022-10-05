@@ -1,10 +1,24 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
-local BU = BUI:GetModule('Units');
+local mod = BUI:GetModule('Units');
 
-function BU:Configure_AuraBars(frame)
+function mod:ApplyAuraBarShadows(bar)
 	if not BUI.ShadowMode then return end
 
+	local bars = bar:GetParent()
+	bar.db = bars.db
+
+	bar.hasShadow = false
+	if bar.hasShadow == false then
+		bar.backdrop:CreateSoftShadow()
+		bar.icon.backdrop:CreateSoftShadow()
+		bar.hasShadow = true
+		bar.icon:Point('RIGHT', bar, 'LEFT', -bars.barSpacing -3, 0)
+	end
+end
+hooksecurefunc(UF, 'AuraBars_UpdateBar', mod.ApplyAuraBarShadows)
+
+function mod:Configure_AuraBars(frame)
 	local bars = frame.AuraBars
 	local db = frame.db and frame.db.aurabar
 	bars.db = db
@@ -28,10 +42,5 @@ function BU:Configure_AuraBars(frame)
 		end
 
 		bars.width = E:Scale(BAR_WIDTH - (BORDER * 4) - bars.height - POWER_OFFSET + 1)
-		for _, bar in ipairs(bars) do
-			bar.backdrop:CreateSoftShadow()
-			bar.icon.backdrop:CreateSoftShadow()
-			bar.icon:Point('RIGHT', bar, 'LEFT', -bars.barSpacing -3, 0)
-		end
 	end
 end

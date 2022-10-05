@@ -215,6 +215,9 @@ function mod:Setup()
 		mod:ArenaShadows()
 		mod:TankShadows()
 		mod:TankTargetShadows()
+
+		-- AuraBars Shadows
+		hooksecurefunc(UF, 'Configure_AuraBars', mod.Configure_AuraBars)
 	end
 
 	-- Group Health textures hooks
