@@ -117,7 +117,7 @@ end
 
 --Initiate update of unit
 function mod:UpdateSettings(unit)
-	if unit == 'player' or unit == 'target' then
+	if unit then
 		local unitFrameName = "ElvUF_"..E:StringTitle(unit)
 		local unitframe = _G[unitFrameName]
 		ConfigureCastbar(unit, unitframe)
