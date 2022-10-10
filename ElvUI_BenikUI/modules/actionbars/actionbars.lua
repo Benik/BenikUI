@@ -9,6 +9,9 @@ local _G = _G
 local pairs = pairs
 local C_TimerAfter = C_Timer.After
 local MAX_TOTEMS = MAX_TOTEMS
+local MAX_STANCES = GetNumShapeshiftForms()
+local Masque = E.Masque
+local MasqueGroup = Masque and E.private.actionbar.masque.actionbars
 
 -- GLOBALS: NUM_PET_ACTION_SLOTS
 -- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar
@@ -27,7 +30,7 @@ function mod:StyleBackdrops()
 			end
 
 			-- Button Shadows
-			if BUI.ShadowMode then
+			if BUI.ShadowMode and not MasqueGroup then
 				for k = 1, 12 do
 					local buttonBars = {_G["ElvUI_Bar"..i.."Button"..k]}
 					for _, button in pairs(buttonBars) do
@@ -118,11 +121,22 @@ function mod:PetShadows()
 		local petButtons = {_G['PetActionButton'..i]}
 		for _, button in pairs(petButtons) do
 			if button.backdrop then
-				if BUI.ShadowMode then
+				if BUI.ShadowMode and not MasqueGroup then
 					if not button.backdrop.shadow then
 						button.backdrop:CreateSoftShadow()
 					end
 				end
+			end
+		end
+	end
+end
+
+function mod:StancebarShadows()
+	for i = 1, MAX_STANCES do
+		local button = _G['ElvUI_StanceBarButton'..i]
+		if BUI.ShadowMode and not MasqueGroup then
+			if button and not button.shadow then
+				button:CreateSoftShadow()
 			end
 		end
 	end
@@ -193,6 +207,7 @@ function mod:Initialize()
 	C_TimerAfter(2, mod.LoadToggleButtons)
 	C_TimerAfter(2, mod.ToggleStyle)
 	C_TimerAfter(2, mod.TotemShadows)
+	C_TimerAfter(2, mod.StancebarShadows)
 	VehicleExit()
 	self:LoadRequestButton()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "StyleColor");
