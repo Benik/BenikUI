@@ -16,7 +16,7 @@ function mod:ApplyAzeriteStyling()
 end
 
 function mod:ToggleAzeriteBackdrop()
-	if E.db.benikuiDatabars.azerite.enable ~= true then return end
+	if E.db.benikui.databars.azerite.enable ~= true then return end
 	local bar = _G.ElvUI_AzeriteBar
 
 	mod:ToggleBackdrop(bar, "azerite")
@@ -48,7 +48,7 @@ function mod:LoadAzerite()
 	self:AzeriteTextOffset()
 	hooksecurefunc(DB, 'AzeriteBar_Update', mod.AzeriteTextOffset)
 
-	local db = E.db.benikuiDatabars.azerite.notifiers
+	local db = E.db.benikui.databars.azerite.notifiers
 
 	if db.enable then
 		self:CreateNotifier(bar)
@@ -60,7 +60,7 @@ function mod:LoadAzerite()
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateAzeriteNotifier)
 	end
 
-	if E.db.benikuiDatabars.azerite.enable ~= true then return end
+	if E.db.benikui.databars.azerite.enable ~= true then return end
 
 	self:StyleBar(bar)
 	self:ToggleAzeriteBackdrop()

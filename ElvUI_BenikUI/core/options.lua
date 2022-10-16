@@ -1,8 +1,17 @@
 local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
+local BAB = BUI:GetModule('Actionbars')
 local tinsert = table.insert
 
 if E.db.benikui == nil then E.db.benikui = {} end
+
+local colorValues = {
+	[1] = L.CLASS_COLORS,
+	[2] = CUSTOM,
+	[3] = L['Value Color'],
+	[4] = DEFAULT,
+	[5] = L['Covenant Color']
+}
 
 local function Core()
 	E.Options.args.benikui = {
@@ -38,7 +47,7 @@ local function Core()
 			general = {
 				order = 10,
 				type = 'group',
-				name = BUI:cOption(L['General'], "blue"),
+				name = BUI:cOption(L['General'], "orange"),
 				get = function(info) return E.db.benikui.general[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.general[ info[#info] ] = value; end,
 				args = {
@@ -61,7 +70,7 @@ local function Core()
 					},
 					spacer = {
 						order = 10,
-						type = 'description',
+						type = 'header',
 						name = '',
 					},
 					shadows = {
@@ -79,7 +88,16 @@ local function Core()
 						min = 3, max = 10, step = 1,
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateShadowSize(); end,
+						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateShadows(); end,
+					},
+					shadowAlpha = {
+						order = 13,
+						type = "range",
+						name = L['Shadow Alpha'],
+						min = 0.1, max = 1, step = 0.1,
+						disabled = function() return E.db.benikui.general.benikuiStyle ~= true or E.db.benikui.general.shadows ~= true end,
+						get = function(info) return E.db.benikui.general[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; BUI:UpdateShadows(); end,
 					},
 					spacer2 = {
 						order = 20,
@@ -101,7 +119,7 @@ local function Core()
 			colors = {
 				order = 20,
 				type = 'group',
-				name = BUI:cOption(L.COLORS, "blue"),
+				name = BUI:cOption(L["Colors"], "orange"),
 				args = {
 					themes = {
 						order = 2,
@@ -152,12 +170,7 @@ local function Core()
 								order = 1,
 								type = "select",
 								name = "",
-								values = {
-									[1] = L.CLASS_COLORS,
-									[2] = L.CUSTOM,
-									[3] = L['Value Color'],
-									[4] = L.DEFAULT,
-								},
+								values = colorValues,
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
 								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; BUI:UpdateStyleColors(); end,
@@ -200,15 +213,10 @@ local function Core()
 								order = 1,
 								type = "select",
 								name = "",
-								values = {
-									[1] = L.CLASS_COLORS,
-									[2] = L.CUSTOM,
-									[3] = L['Value Color'],
-									[4] = L.DEFAULT,
-								},
+								values = colorValues,
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; BUI:GetModule('Actionbars'):ColorBackdrops(); end,
+								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; BAB:StyleColor(); end,
 							},
 							customAbStyleColor = {
 								order = 2,
@@ -224,7 +232,7 @@ local function Core()
 									E.db.benikui.colors[ info[#info] ] = {}
 									local t = E.db.benikui.colors[ info[#info] ]
 									t.r, t.g, t.b, t.a = r, g, b, a
-									BUI:GetModule('Actionbars'):ColorBackdrops();
+									BAB:StyleColor();
 								end,
 							},
 							abAlpha = {
@@ -234,7 +242,7 @@ local function Core()
 								min = .2, max = 1, step = 0.05,
 								disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; BUI:GetModule('Actionbars'):ColorBackdrops(); end,
+								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; BAB:StyleColor(); end,
 							},
 						},
 					},
@@ -252,6 +260,7 @@ local function Core()
 									[1] = L.CLASS_COLORS,
 									[2] = L.CUSTOM,
 									[3] = L["Value Color"],
+									[4] = L['Covenant Color'],
 								},
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
 								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; end,
@@ -260,7 +269,7 @@ local function Core()
 								order = 2,
 								type = "color",
 								name = L.COLOR_PICKER,
-								disabled = function() return E.db.benikui.colors.gameMenuColor == 1 or E.db.benikui.colors.gameMenuColor == 3 end,
+								disabled = function() return E.db.benikui.colors.gameMenuColor ~= 2 end,
 								get = function(info)
 									local t = E.db.benikui.colors[ info[#info] ]
 									local d = P.benikui.colors[info[#info]]

@@ -20,6 +20,8 @@ local GetSpecializationInfo = GetSpecializationInfo
 local GetAverageItemLevel = GetAverageItemLevel
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
+local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
+local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 
 local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME
 local LEVEL, NONE = LEVEL, NONE
@@ -177,7 +179,7 @@ local function getItemLevel()
 	local _, equipped = GetAverageItemLevel()
 	local ilvl = ''
 	if (level >= MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY) then
-		ilvl = format('\n%s: %d', ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, equipped)
+		ilvl = format('%s: %d', ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, equipped)
 	end
 	return ilvl
 end
@@ -230,6 +232,30 @@ local function GetXPinfo()
 	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
 end
 
+-- Get Covenant Crests and set their height and vertical offset
+local function GetCovenantCrest()
+	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
+	local kit = covenantData and covenantData.textureKit or nil
+
+	-- vertical position
+	local vky = kit == "Kyrian" and 0
+	local vve = kit == "Venthyr" and 18
+	local vni = kit == "NightFae" and 16
+	local vne = kit == "Necrolord" and 20
+
+	local vert = vky or vve or vni or vne
+	
+	-- Height
+	local hky = kit == "Kyrian" and 150
+	local hve = kit == "Venthyr" and 120
+	local hni = kit == "NightFae" and 134
+	local hne = kit == "Necrolord" and 120
+
+	local hei = hky or hve or hni or hne
+
+	return kit, vert, hei
+end
+
 AFK.SetAFKBui = AFK.SetAFK
 function AFK:SetAFK(status)
 	self:SetAFKBui(status)
@@ -242,6 +268,10 @@ function AFK:SetAFK(status)
 		local localizedClass = UnitClass('player')
 		local spec = getSpec()
 		local ilvl = getItemLevel()
+		local kit, vert, hei = GetCovenantCrest()
+		local adventuresEmblemFormat = "Adventures-EndCombat-%s"
+		local displayline = ""
+
 		self.AFKMode.top:Height(0)
 		self.AFKMode.top.anim.height:Play()
 		self.AFKMode.bottom:Height(0)
@@ -249,6 +279,7 @@ function AFK:SetAFK(status)
 		self.startTime = GetTime()
 		self.statsTimer = self:ScheduleRepeatingTimer("UpdateStatMessage", 5)
 		self.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
+
 		if xptxt then
 			self.AFKMode.xp:Show()
 			self.AFKMode.xp.text:SetText(xptxt)
@@ -256,8 +287,17 @@ function AFK:SetAFK(status)
 			self.AFKMode.xp:Hide()
 			self.AFKMode.xp.text:SetText("")
 		end
-		self.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
 
+		if kit then
+			self.AFKMode.statMsg.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
+			self.AFKMode.statMsg.crest:Point("BOTTOM", 0, vert or 14)
+			self.AFKMode.statMsg.crest:Size(300, hei)
+			displayline = (format("%s - %s\n%s %s %s %s %s\n%s - %s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, kit, ilvl))
+		else
+			displayline = (format("%s - %s\n%s %s %s %s %s\n%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl))
+		end
+	
+		self.AFKMode.bottom.name:SetText(displayline)
 		self.isAFK = true
 	else
 		self:CancelTimer(self.statsTimer)
@@ -299,9 +339,14 @@ local function Initialize()
 	local spec = getSpec()
 	local ilvl = getItemLevel()
 
+	-- Shadow overlay
+	AFK.AFKMode.screenShadow = AFK.AFKMode:CreateTexture()
+	AFK.AFKMode.screenShadow:SetTexture([[Interface\Addons\ElvUI_BenikUI\media\textures\screenShadow]])
+	AFK.AFKMode.screenShadow:SetAllPoints(AFK.AFKMode)
+
 	-- Create Top frame
 	AFK.AFKMode.top = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
-	AFK.AFKMode.top:SetFrameLevel(0)
+	AFK.AFKMode.top:SetFrameLevel(2)
 	AFK.AFKMode.top:SetTemplate('Transparent', true, true)
 	AFK.AFKMode.top:SetBackdropBorderColor(.3, .3, .3, 1)
 	AFK.AFKMode.top:CreateWideShadow()
@@ -324,6 +369,7 @@ local function Initialize()
 	AFK.AFKMode.top.wowlogo = CreateFrame('Frame', nil, AFK.AFKMode) -- need this to upper the logo layer
 	AFK.AFKMode.top.wowlogo:Point("TOP", AFK.AFKMode.top, "TOP", 0, -5)
 	AFK.AFKMode.top.wowlogo:SetFrameStrata("MEDIUM")
+	AFK.AFKMode.top.wowlogo:SetFrameLevel(10)
 	AFK.AFKMode.top.wowlogo:Size(300, 150)
 	AFK.AFKMode.top.wowlogo.tex = AFK.AFKMode.top.wowlogo:CreateTexture(nil, 'OVERLAY')
 	local currentExpansionLevel = GetClampedCurrentExpansionLevel();
@@ -354,13 +400,14 @@ local function Initialize()
 	AFK.AFKMode.top.Status:SetStatusBarTexture((E["media"].normTex))
 	AFK.AFKMode.top.Status:SetMinMaxValues(0, 1800)
 	AFK.AFKMode.top.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b, 1)
-	AFK.AFKMode.top.Status:SetFrameLevel(2)
+	AFK.AFKMode.top.Status:SetFrameLevel(3)
 	AFK.AFKMode.top.Status:Point('TOPRIGHT', AFK.AFKMode.top, 'BOTTOMRIGHT', 0, E.PixelMode and 3 or 5)
 	AFK.AFKMode.top.Status:Point('BOTTOMLEFT', AFK.AFKMode.top, 'BOTTOMLEFT', 0, E.PixelMode and 1 or 2)
 	AFK.AFKMode.top.Status:SetValue(0)
 
 	AFK.AFKMode.bottom:SetTemplate('Transparent', true, true)
 	AFK.AFKMode.bottom:SetBackdropBorderColor(.3, .3, .3, 1)
+	AFK.AFKMode.bottom:SetFrameLevel(2)
 	AFK.AFKMode.bottom:CreateWideShadow()
 	AFK.AFKMode.bottom.modelHolder:SetFrameLevel(7)
 
@@ -450,6 +497,9 @@ local function Initialize()
 	AFK.AFKMode.statMsg.lineBottom:Point("BOTTOM")
 	AFK.AFKMode.statMsg.lineBottom:Size(418, 7)
 	AFK.AFKMode.statMsg.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
+
+	AFK.AFKMode.statMsg.crest = AFK.AFKMode.statMsg:CreateTexture(nil, 'BACKGROUND')
+	AFK.AFKMode.statMsg.crest:SetDrawLayer('BACKGROUND', 2)
 
 	-- Countdown decor
 	AFK.AFKMode.countd = CreateFrame("Frame", nil, AFK.AFKMode)

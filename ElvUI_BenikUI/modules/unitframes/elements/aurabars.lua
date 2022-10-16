@@ -1,44 +1,46 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
-local BU = BUI:GetModule('Units');
+local mod = BUI:GetModule('Units');
 
-function BU:Create_AuraBarsWithShadow(statusBar)
-	statusBar:CreateBackdrop(nil, nil, nil, UF.thinBorders, true)
-	statusBar:CreateSoftShadow()
-	statusBar:SetScript('OnMouseDown', OnClick)
-	statusBar:Point("LEFT")
-	statusBar:Point("RIGHT")
-
-	statusBar.icon:CreateBackdrop(nil, nil, nil, UF.thinBorders, true)
-	statusBar.icon.backdrop:CreateSoftShadow()
-	UF.statusbars[statusBar] = true
-	UF:Update_StatusBar(statusBar)
-
-	UF:Configure_FontString(statusBar.timeText)
-	UF:Configure_FontString(statusBar.nameText)
-
-	UF:Update_FontString(statusBar.timeText)
-	UF:Update_FontString(statusBar.nameText)
-
-	statusBar.nameText:SetJustifyH('LEFT')
-	statusBar.nameText:SetJustifyV('MIDDLE')
-	statusBar.nameText:Point("RIGHT", statusBar.timeText, "LEFT", -4, 0)
-
-	statusBar.bg = statusBar:CreateTexture(nil, 'BORDER')
-	statusBar.bg:Show()
-
-	local frame = statusBar:GetParent()
-	statusBar.db = frame.db and frame.db.aurabar
-end
-
-function BU:Configure_AuraBars(frame)
+function mod:ApplyAuraBarShadows(bar)
 	if not BUI.ShadowMode then return end
 
-	local auraBars = frame.AuraBars
-	local db = frame.db
-	auraBars.db = db.aurabar
+	local bars = bar:GetParent()
+	bar.db = bars.db
 
-	if db.aurabar.enable then
-		auraBars.PostCreateBar = BU.Create_AuraBarsWithShadow
+	bar.hasShadow = false
+	if bar.hasShadow == false then
+		bar.backdrop:CreateSoftShadow()
+		bar.icon.backdrop:CreateSoftShadow()
+		bar.icon:Point('RIGHT', bar, 'LEFT', -bars.barSpacing -3, 0)
+		bar.hasShadow = true
+	end
+end
+hooksecurefunc(UF, 'AuraBars_UpdateBar', mod.ApplyAuraBarShadows)
+
+function mod:Configure_AuraBars(frame)
+	local bars = frame.AuraBars
+	local db = frame.db and frame.db.aurabar
+	bars.db = db
+
+	if db.enable then
+		local detached = db.attachTo == 'DETACHED'
+		local POWER_OFFSET, BAR_WIDTH = 0
+		local BORDER = UF.BORDER + UF.SPACING
+
+		if detached then
+			BAR_WIDTH = db.detachedWidth -3
+		else
+			BAR_WIDTH = frame.UNIT_WIDTH -3
+			if db.attachTo ~= 'FRAME' then
+				POWER_OFFSET = frame.POWERBAR_OFFSET
+
+				if frame.ORIENTATION == 'MIDDLE' then
+					POWER_OFFSET = POWER_OFFSET * 2
+				end
+			end
+		end
+
+		bars.width = E:Scale(BAR_WIDTH - (BORDER * 4) - bars.height - POWER_OFFSET + 1)
 	end
 end

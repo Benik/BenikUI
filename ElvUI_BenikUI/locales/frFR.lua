@@ -10,7 +10,7 @@ L["WORLD"] = "Monde";
 
 -- core
 L['is loaded. For any issues or suggestions, please visit'] = "est chargé. Pour toute question ou suggestion, veuillez consulter le site "
-L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = "%s\n\nVotre version ElvUI %.2f n'est pas compatible avec BenikUI.\nLa dernière version ElvUI est %.2f. Veuillez la télécharger ici :"
+L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nMinimum ElvUI version needed is %.2f. Please download it from here:\n"] = true
 L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"] = "|cffff0000BenikUI Erreur|r\n\n Il semble que la version BenikUI Retail soit installée sur WoW Classic. Veuillez installer la version BenikUI Classic. \n|cff00c0fa Astuce: Cela se produit généralement avec le client Twitch"
 
 -- General options
@@ -28,6 +28,8 @@ L['light blue color.'] = "couleur bleu clair."
 L['Splash Screen'] = "Écran de démarrage"
 L['Shadow'] = "Ombre"
 L['Shadow Size'] = "Taille de l'ombre"
+L['Shadow Alpha'] = true
+L['Covenant Color'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Clic gauche: active la configuration"
@@ -36,14 +38,17 @@ L['ShiftClick to toggle chat'] = "Shift Cliquez pour activer le chat"
 L['Click to show the Addon List'] = "Cliquez pour afficher la liste des addons complémentaires"
 
 -- Custom Panels
+L['Clone'] = true
+L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L["Create"] = "Créer"
 L["Enable tooltip to reveal the panel name"] = "Activer l'info-bulle pour révéler le nom du panneau"
-L["Hide In Combat"] = "Cacher au combat"
 L["Hide in Pet Battle"] = "Cacher dans une bataille de mascottes"
 L["Name Tooltip"] = "Info-bulle du nom"
+L['New Custom Panel'] = true
+L['Style Position'] = true
 L["Texture Color"] = true
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Le nom du panneau personnalisé |cff00c0fa%s|r existe déjà. Veuillez en choisir un autre."
-L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = "Cela supprimera le panneau personnalisé nommé |cff00c0fa%s|r. Cette action nécessite un rechargement.\nContinuer?"
+L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"] = "Cela supprimera le panneau personnalisé nommé |cff00c0fa%s|r.\nContinuer?"
 L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = "Cela fonctionne comme une macro, vous pouvez l'exécuter dans différentes situations pour que le panneau s'affiche/masque différemment.\n Exemple: '[combat] afficher;masquer"
 L["Title Bar Position"] = true
 L["Title Text Position"] = true
@@ -138,19 +143,23 @@ L["Random Stats"] = "Statistiques aléatoires"
 L["remaining till level"] = "restant jusqu'au niveau"
 
 -- Dashboards
+L["Change the Professions Dashboard width."] = "Modifiez la largeur du tableau de bord des professions."
+L["Change the Tokens Dashboard width."] = "Modifiez la largeur du tableau de bord des jetons."
+L["Enable the Professions Dashboard."] = "Active le tableau de bord des professions."
+L["Filter Capped"] = "Filtre plafonné"
 L['Amount'] = "Montant"
 L['Bar Color'] = "Couleur de la barre"
-L["Change the Professions Dashboard width."] = "Modifiez la largeur du tableau de bord des professions."
+L['Bar Height'] = true
+L['Change the Bar Height.'] = true
 L['Change the System Dashboard width.'] = "Modifiez la largeur du tableau de bord système."
-L["Change the Tokens Dashboard width."] = "Modifiez la largeur du tableau de bord des jetons."
 L['Choose font for all dashboards.'] = "Choisissez la police pour tous les tableaux de bord."
 L['Click :'] = "Clic"
 L['Dashboards'] = "tableaux de bord"
-L["Enable the Professions Dashboard."] = "Active le tableau de bord des professions."
 L['Enable the System Dashboard.'] = "Active le tableau de bord système."
 L['Enable the Tokens Dashboard.'] = "Active le tableau de bord des jetons."
 L['Enable/Disable'] = "Active/Désactive"
-L["Filter Capped"] = "Filtre plafonné"
+L['Faction Colors'] = true
+L['Fast Volume +/-'] = true
 L['Latency (MS)'] = "Latence (MS)"
 L['MouseWheel :'] = "Roulette de la souris :"
 L['RightClick :'] = "Clic-droit :"
@@ -158,17 +167,21 @@ L['Select Professions'] = "Sélectionn d'une profession"
 L['Select System Board'] = "Sélection de la carte système"
 L['Select Tokens'] = "Sélection des jetons"
 L['Set the font size.'] = "Définissez la taille de la police."
+L['Shift+MouseWheel :'] = true
 L['Shift+RightClick to remove'] = "Maj + clic droit pour supprimer"
 L['Show the token, even if the amount is 0'] = "Affiche le jeton, même si le montant est de 0"
-L['Show Weekly max'] = "Afficher le max. hebdomadaire"
 L['Show Weekly max tokens instead of total max'] = "Afficher les jetons maximum hebdomadaire au lieu du maximum total"
+L['Show Weekly max'] = "Afficher le max. hebdomadaire"
 L['Show zero amount tokens'] = "Afficher les jetons de montant nul"
+L['Show/Hide Professions Dashboard when in combat'] = true
+L['Show/Hide Reputations Dashboard when in combat'] = true
 L['Show/Hide System Dashboard when in combat'] = "Affiche/masque le tableau de bord du système en combat"
 L['Show/Hide Tokens Dashboard when in combat'] = "Affiche/masque le tableau de bord des jetons en combat"
 L['Show/Hide Tooltips'] = "Affiche/masque les info-bulles"
 L['System'] = "Système"
-L['Tip: Grayed tokens are not yet discovered'] = "Astuce: les jetons grisés ne sont pas encore découverts"
+L['Text Alignment'] = true
 L['Tip: Click to free memory'] = "Astuce: cliquez pour libérer de la mémoire"
+L['Tip: Grayed tokens are not yet discovered'] = "Astuce: les jetons grisés ne sont pas encore découverts"
 L['Use DataTexts font'] = "Utiliser la police pour les textes de données"
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true

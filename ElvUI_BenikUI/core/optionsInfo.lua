@@ -42,6 +42,19 @@ local DONATORS = {
 	'Jaxx',
 	'Nightwalker559',
 	'Travis J.',
+	'Apostolis',
+	'Geert-Jan',
+	'Lisa T.',
+	'Vlad P.',
+	'Esa L.',
+	'Ascor',
+	'David R.',
+	'Max M.',
+	'Misaligned',
+	'Ingo B.',
+	'Chris S.',
+	'Rezzurect',
+	'Ascor',
 }
 tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -50,6 +63,8 @@ local PATRONS = {
 	'thurin',
 	'cry1n',
 	'Beleynn',
+	'Frances H.',
+	'Ken P.',
 }
 tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
@@ -63,18 +78,22 @@ local CODING = {
 	'Sinaris',
 	'Hydra',
 	'Merathilis',
-	'NihilisticPandemonium',
+	'Nihilistzsche',
 	'Repooc',
 	'Pristie (frFR)',
 	'|cffff005athurin|r',
-	'|TInterface/AddOns/ElvUI/Media/ChatLogos/Hibiscus:15:15:0:0:64:64:5:59:5:59|t Simpy',
+	'|TInterface/AddOns/ElvUI/Core/Media/ChatLogos/Hibiscus:15:15:0:0:64:64:5:59:5:59|t Simpy',
 	'Cara (ptBR)',
+	'nadugi (koKR)',
 }
 tsort(CODING, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local CODING_STRING = tconcat(CODING, ", ")
 
 local NITRO = {
 	'Runew0lf',
+	'Kullerkeks',
+	'Roxanne',
+	'Fara0on',
 }
 tsort(NITRO, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local NITRO_STRING = tconcat(NITRO, ", ")
@@ -137,12 +156,12 @@ local function Info()
 	E.Options.args.benikui.args.info = {
 		order = 2000,
 		type = 'group',
-		name = BUI:cOption(L['Information'], "blue"),
+		name = BUI:cOption(L['Information'], "orange"),
 		args = {
 			support = {
 				order = 2,
 				type = 'group',
-				name = BUI:cOption(L['Support'], "blue"),
+				name = BUI:cOption(L['Support'], "orange"),
 				guiInline = true,
 				args = {
 					tukui = {
@@ -155,7 +174,7 @@ local function Info()
 						order = 2,
 						type = 'execute',
 						name = L['Git Ticket tracker'],
-						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://git.tukui.org/Benik/ElvUI_BenikUI/issues") end,
+						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://github.com/Benik/BenikUI/issues") end,
 					},
 					discord = {
 						order = 3,
@@ -168,7 +187,7 @@ local function Info()
 			download = {
 				order = 3,
 				type = 'group',
-				name = BUI:cOption(L['Download'], "blue"),
+				name = BUI:cOption(L['Download'], "orange"),
 				guiInline = true,
 				args = {
 					tukui = {
@@ -181,20 +200,20 @@ local function Info()
 						order = 2,
 						type = 'execute',
 						name = L['Curseforge'],
-						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.curseforge.com/wow/addons/benikui-v3") end,
+						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.curseforge.com/wow/addons/benikui") end,
 					},
 					beta = {
 						order = 3,
 						type = 'execute',
 						name = L['Beta versions'],
-						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://git.tukui.org/Benik/ElvUI_BenikUI/repository/archive.zip?ref=development") end,
+						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://github.com/Benik/BenikUI/archive/refs/heads/development.zip") end,
 					},
 				},
 			},
 			coding = {
 				order = 4,
 				type = 'group',
-				name = BUI:cOption(L['Coding'], "blue"),
+				name = BUI:cOption(L['Coding'], "orange"),
 				guiInline = true,
 				args = {
 					str = {
@@ -208,7 +227,7 @@ local function Info()
 			testing = {
 				order = 5,
 				type = 'group',
-				name = BUI:cOption(L['Testing & Inspiration'], "blue"),
+				name = BUI:cOption(L['Testing & Inspiration'], "orange"),
 				guiInline = true,
 				args = {
 					test = {
@@ -222,7 +241,7 @@ local function Info()
 			donors = {
 				order = 6,
 				type = 'group',
-				name = BUI:cOption(L['Donations'], "blue"),
+				name = BUI:cOption(L['Donations'], "orange"),
 				guiInline = true,
 				args = {
 					patreon = {
@@ -248,7 +267,7 @@ local function Info()
 			addons = {
 				order = 7,
 				type = 'group',
-				name = BUI:cOption(L['My other Addons'], "blue"),
+				name = BUI:cOption(L['My other Addons'], "orange"),
 				guiInline = true,
 				args = {
 					locplus = {

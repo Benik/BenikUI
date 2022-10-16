@@ -10,6 +10,7 @@ LSM:Register('font','Bui Tukui', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\uf
 LSM:Register('font','Bui Kait', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\heavy_dock_kait.ttf]])
 LSM:Register('font','Bui ArialN', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\ARIALN.ttf]])
 LSM:Register('font','Bui Homizio', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\homizio_bold.ttf]])
+LSM:Register('font','Bui FiraBold', [[Interface\AddOns\ElvUI_BenikUI\media\fonts\FiraSansCondensed-Bold.ttf]])
 LSM:Register('statusbar','BuiFlat', [[Interface\AddOns\ElvUI_BenikUI\media\textures\Flat.tga]])
 LSM:Register('statusbar','BuiOnePixel', [[Interface\AddOns\ElvUI_BenikUI\media\textures\BuiOnePixel.tga]])
 LSM:Register('statusbar','BuiMelli', [[Interface\AddOns\ElvUI_BenikUI\media\textures\Melli.tga]])

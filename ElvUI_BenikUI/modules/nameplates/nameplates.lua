@@ -20,9 +20,18 @@ function mod:NameplateShadows(nameplate)
 	end
 end
 
+function mod:Construct_AuraIcon(button)
+	if not button then return end
+
+	if not button.shadow then
+		button:CreateSoftShadow()
+	end
+end
+
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
 	hooksecurefunc(NP, 'StylePlate', mod.NameplateShadows)
+	hooksecurefunc(NP, 'Construct_AuraIcon', mod.Construct_AuraIcon)
 end
 
 BUI:RegisterModule(mod:GetName())

@@ -4,7 +4,7 @@ local mod = BUI:GetModule('DataTexts')
 
 function mod:BuildPanelFrame(name)
 	local Panel = DT:FetchFrame(name)
-	Panel:Style('Outside')
+	Panel:BuiStyle('Outside')
 end
 
 function mod:UpdatePanelInfo(panelName, panel)
@@ -13,27 +13,19 @@ function mod:UpdatePanelInfo(panelName, panel)
 	if not db then return end
 
 	if not (panel == _G.LocPlusLeftDT or panel == _G.LocPlusRightDT or panel == _G.MinimapPanel or panel == _G.LeftChatDataPanel or panel == _G.RightChatDataPanel) then
-		panel:Style('Outside')
+		panel:BuiStyle('Outside')
 		if panel.style then
-			if db.benikuiStyle then
-				panel.style:Show()
-			else
-				panel.style:Hide()
-			end
+			panel.style:SetShown(db.benikuiStyle)
 		end
 
 		if BUI.ShadowMode then
-			if not (db.border and db.backdrop or db.backdrop) then
-				panel.shadow:Hide()
-			else
-				panel.shadow:Show()
-			end
+			panel.shadow:SetShown((db.border and db.backdrop or db.backdrop))
 		end
 	end
 end
 
 function mod:SetupTooltip()
-	DT.tooltip:Style('Outside')
+	DT.tooltip:BuiStyle('Outside')
 end
 
 function mod:Initialize()

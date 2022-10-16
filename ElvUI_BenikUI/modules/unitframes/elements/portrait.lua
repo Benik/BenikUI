@@ -153,25 +153,18 @@ function BU:Configure_Portrait(frame, isPlayer)
 end
 
 local function ResetPostUpdate()
-	for _, unitName in pairs(UF.units) do
-		local frameNameUnit = E:StringTitle(unitName)
-		frameNameUnit = frameNameUnit:gsub('t(arget)', 'T%1')
-
-		local unitframe = _G['ElvUF_'..frameNameUnit]
-		if unitframe then
-			if unitframe.Portrait2D then unitframe.Portrait2D.PostUpdate = UF.PortraitUpdate end
-			if unitframe.Portrait3D then unitframe.Portrait3D.PostUpdate = UF.PortraitUpdate end
+	for _, frame in pairs(UF.units) do
+		if frame then
+			if frame.Portrait2D then frame.Portrait2D.PostUpdate = UF.PortraitUpdate end
+			if frame.Portrait3D then frame.Portrait3D.PostUpdate = UF.PortraitUpdate end
 		end
 	end
 
-	for unit, unitgroup in pairs(UF.groupunits) do
-		local frameNameUnit = E:StringTitle(unit)
-		frameNameUnit = frameNameUnit:gsub('t(arget)', 'T%1')
-
-		local unitframe = _G['ElvUF_'..frameNameUnit]
-		if unitframe then
-			if unitframe.Portrait2D then unitframe.Portrait2D.PostUpdate = UF.PortraitUpdate end
-			if unitframe.Portrait3D then unitframe.Portrait3D.PostUpdate = UF.PortraitUpdate end
+	for unit in pairs(UF.groupunits) do
+		local frame = UF[unit]
+		if frame then
+			if frame.Portrait2D then frame.Portrait2D.PostUpdate = UF.PortraitUpdate end
+			if frame.Portrait3D then frame.Portrait3D.PostUpdate = UF.PortraitUpdate end
 		end
 	end
 

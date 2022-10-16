@@ -1,3 +1,229 @@
+4.19 (Sep 12th, 2022)
+Update raid movers in installer
+Fixed PlayerChoice style
+Donators, Patrons and Nitros
+Cleanup
+Fixed ShapeShift texture glitch
+Merge remote-tracking branch 'origin/dev_yeet' into development
+Fixed the Texture hooks for  health/power
+Remove class hover
+Installer for new raid frames and more clenup
+Initial changes for new raid frames
+Remove bui style for guild bank tabs, only shadows now
+Style tabs on Character, Spellbook, Friends, PVE frames
+
+4.18 (Aug 18th, 2022)
+*Big thanks to thurin for the updates <3
+*Follow ElvUI aurabar changes
+*Update toc
+*Hide RareTracker in Flightmode
+*Style WoW-Pro
+*Style RareTracker
+*Style Hekili buttons
+*Fix power offset in party frames due to missing UF in threat
+
+4.17 (Jun 1st, 2022)
+*toc update for patch 9.2.5
+*PlayerReportFrame is now ReportFrame (credit: thurin)
+*Boss Frames are now 8 (credit: Merathilis)
+
+4.16 (Apr 5, 2022)
+*Move the Objective Tracker quest icon a bit for Roxanne :P
+*Added option for Statusbar height for all Dashboards
+*Reputation Dashboard: Added Paragon bag icon with glow and check
+*Reputation Dashboard: It can now utilize ElvUI Custom Faction Color options
+*Reputation Dashboard: Fixed Paragon rep not showing on mouseover and on tooltip
+*Styled the BuyDialog frame in Auctions
+*Fixed Reputation Dashboard error, when a rep gets disabled with Shift Right Click
+*Styled OutfitDetailsPanel
+
+4.15 (Feb 26, 2022)
+*Minor Install fix
+*Fixed WorldMap Style
+*toc update for patch 9.2
+*Update Aurabars shadows
+
+4.14 (Jan 24, 2022)
+*Fixed notifiers error during install
+*Minor install adjustments
+
+4.13 (Jan 23, 2022)
+*fix GuildBankTab button style error - Thurin
+*Changed the default Currencies to Shadowlands
+*License
+*Update donators
+
+4.12 (Nov 25, 2021)
+*Fixed Simpy's flower
+*Updated Donors/Patrons list
+*Fixed the options error
+*Popup Style needs a delay. This should fix it
+*Fixed Static Popup styling
+*Fixed Bliz Splash Frame
+
+4.11 (Nov 2, 2021)
+*Fixed Ace3 Tooltip error
+*Remove the Store from the game menu
+*Remove an outdated event
+*Prevent Static popup error
+*Bump toc version
+*Updated GitHub links
+*Updated issues link
+*Update Donators list with David <3
+
+4.10 (Aug 17, 2021)
+*Fixed all unitframes, following ElvUI changes
+
+4.09 (Aug 4, 2021)
+*Hardcode Renown DT max to 80
+*Style CovenantRenown frame
+*Followed Azils fixes for DBM Bar icons
+*Added shadows on Nameplate buff/debuff icons
+*Fix buff/debuff border color
+*Style animaDiversionUI
+
+4.08 (Jul 18, 2021)
+*Fixed broken options
+*Fixed Install Chat step not moving the Loot/Trade tab to the left chat panel
+*Set min ElvUI version to 12.35
+
+4.07 (Jul 11, 2021)
+*More backdrop fixes
+*Updated Donators/Patrons
+*Fixed ClassTactics style
+*Screen size var update (Simpy)
+
+4.06 (Jun 29, 2021)
+*More backdrop fixes
+*Achievements frame still has a backdrop
+*Fixed Actionbar errors
+*toc update for patch 9.1
+*Credits update
+*Removed all .backdrop from skins
+*Updated Patrons/Donators list
+*I thought I added Blom in the list. Getting old...
+*Prevent CT style
+*Style ClassTactics
+*Disable BigWigs profile till I permanently delete it. Fed up with it
+
+4.05 (Apr 4, 2021)
+*Added a Dashboard like statusbar on the Objective Tracker
+*Added option to toggle Objective Tracker edit
+*Prevent an error in Immersion, when AddonSkins Shadows are disabled
+*Fixed DBM Skin by following AddonSkins changes
+*Renamed the Style function to avoid conflicts.
+*Added Maw bar. Peeked on Mera's module :P
+*Fixed AfkMode statusbar frame level
+*Added new Widget Bar options. Maw bar will be there, along with Half Bar skin for Mirror Timers and Alternative Power bar
+*Style the Sell frame and cleaned up the bags module, making all its functions local
+*Cleared the CovenantMissionFrame skin from Blizz stuff
+
+4.04 (Mar 9, 2021)
+*toc update for patch 9.05
+*Fixed Tokens Dashboard hiding bug, when a currency with zero amount is selected
+
+4.03 (Mar 4, 2021)
+*Added option to toggle style on Chat Panels. Injected in ElvUI Chat - Panels options
+*Added shadow overlay in afkMode
+*Fixed Castbar shadow frame level
+*Added option to enable/disable ElvUI Options buttons and tabs coloring
+*Added back style on Mera's top/bottom panels
+*Styled the ugly Micro bar
+
+4.02 (Feb 2, 2021)
+*Fixed chat datatexts losing their style after a reload
+*Custom Panels: Added style color options
+*Prevent a rep error
+*Added 'shortvalue' on the health custom texts, in the install
+*Set minimum ElvUI version to 12.18
+
+4.011 (Jan 25, 2021)
+*Prevent a ProjectAzilroka error
+
+4.00 (Jan 24, 2021)
+Additions:
+*Dashboards: Added option for Profession Icons to be placed Left or Right
+*Dashboards: Added option for Token Icons to be placed Left or Right
+*Dashboards: Added option for Reputations to align the text left/right/center
+*Styled some missing Communities frames
+*Custom Panels: Added Clone option
+*Custom Panels: Delete a panel without a reload
+*Added Covenant colors in the game menu
+*Added Covenant Color Style option
+*Added icons on Chat DTs buttons
+*Added Renown datatext
+*Added FiraBold font
+*Added Rezzurect in the Patrons list <3
+*Added Kullerkeks in the Nitro Boosters <3
+Fixes:
+*Mission DT menu fix. Credit: Azilroka
+*Prevent an Immersion error, when shadows are disabled
+*Fixed ElvUI Top/Bottom panel strata after a Pet Battle
+*Fixed Middle Datatext creation during install
+Changes:
+*Changed options colors to orange
+*Removed Archeology from Tokens
+*Create Currencies db on the fly
+*Hide Decursive during flightMode
+*Missions DT: Left Click for Covenant, Right click for the "Garrison" menu
+
+3.981 (Dec 23, 2020)
+*Fixed a ZoneAbility frame error during flightMode
+*Add Elkano's Buff Bars to Flightmode (thurin)
+
+3.98 (Dec 22, 2020)
+*Added Stygia to Tokens Dashboard (thurin)
+*Hide the ZoneAbility buttons while on flightMode
+*Custom Panel minimum height changed to 1
+*Missions DT: Don't show "Research Time" for SL
+*Hide SMB during flightMode for good this time
+*Added Apostolis in the donators list
+*Enable AB4 during install
+*Added Sinstone Fragments and Grateful Offering to Tokens Dashboard (thurin)
+*Added Shadow Alpha option for ticket #133 request
+*Added Kaliels Tracker Buttons to flight mode (thurin)
+*Fixed Actionbar visibility state after exiting flightMode
+*Using the Scroll Wheel in Volume dashboard will now +/- the volume in increments of 1 (Credit: viperous). Having Shift pressed the increments will be 10, as it was before.
+*Categorize Reputation Dashboard options by Expansion
+*Added Guild as a category in Rep Dashboard options
+*Right click on Dashboards except System, will bring up BenikUI options.
+*Fixed Rep options for Neutral faction Pandas
+*Custom panels minimum width/height is now 2
+*Custom Panels: Added Top/Bottom style option
+*Added Geert-Jan in the Donators list <3
+*Corrected ElvUI compatibility version message
+*Custom Panels: Improved the style shadow, when placed on bottom.
+*Prevent an Install error if ElvUI Actionbars are disabled. This will close #128
+*Fixed the missions in progress counting, in Missions datatext
+*Utilized ElvUI feature on Dashboards and Custom Panels, when in ToggleUI mode, right clicking a frame, opens its options
+*Updated BigWigs Shadows
+*BigWigs profile cleanup
+*Fix Custom Panels losing their strata after exiting Pet Battle
+*Fixed completed missions info
+*Added Covenant Crests in AFKmode
+*Added the player covenant in the AFKmode text at the bottom
+
+3.971 (Nov 28, 2020)
+*Added Honor Currency
+*Hide ElvUI Chat Datatexts shadows when their backdrop is disabled
+*NEW: Added Achievement points Datatext
+*Fixed Missions datatext
+*Fixed ExtraAB shadows
+*Added Shadows on the ChatBubbles
+*Removed the Quest Frame transparency
+*Add new Zygor Action Bar to flight mode (thurin)
+
+3.97 (Nov 23, 2020)
+*Don't edit the ObjectiveTracker if KalielsTracker is enabled
+*Load KalielsTracker profile on the fly
+*Re enable Help frame style
+*toc update for WoW 9.02
+
+3.962 (Nov 18, 2020)
+*Comment out the HelpFrame style till SL launch
+*Prevent an error in tokens
+*Fix the tokens showing when currency has been spend
+
 3.961 (Nov 4, 2020)
 *Let ElvUI deal with the font size
 *Don't open the game menu while in combat, to prevent errors (Bliz limitation)
@@ -170,7 +396,7 @@
 *Fixed chat messages when applying addon profiles
 *Fixed enabling Chat Datatexts during install. This should deal with #96
 *Fixed the /estatus report. Thanks @Repooc
-*Fixed Tooltip Statusbar Shadow not showing. 
+*Fixed Tooltip Statusbar Shadow not showing.
 *The tooltip style will now hide if the tooltip statusbar is placed on top
 *Style shadow should obey to the shadow size option
 
@@ -225,7 +451,7 @@
 3.75 (Feb 6, 2020)
 *Set min ElvUI version to 11.351
 *Changed the options tabs and buttons a bit
-*Fix up these options to the latest ElvUI changes (NihilisticPandemonium)
+*Fix up these options to the latest ElvUI changes (Nihilistzsche)
 *Fixed shadows not hiding when disabling dashboard backdrop
 *Don't style the tooltip when TinyTooltip is loaded
 *Added shadows on Actionbar Buttons
@@ -324,7 +550,7 @@
 *Fixed a potential error in buffs/debuffs shadows.
 *Fixed AuraBars Shadows.
 *Update locales to take account to the ElvUI Config language. (Credit: Merathilis)
-*ToggleConfig has been renamed to ToggleOptionsUI. (Credit: NihilisticPandemonium)
+*ToggleConfig has been renamed to ToggleOptionsUI. (Credit: Nihilistzsche)
 
 3.59
 *Revert latest locales changes.
@@ -352,7 +578,7 @@
 *Update donor list. Thank you Shannon :)
 
 3.551
-*Fixed the portrait error 
+*Fixed the portrait error
 
 3.55
 Fixes:
@@ -636,7 +862,7 @@ Enable Shadows by default.
 *Fixed the wrong value at the Paragon Reputation Notifier
 
 3.24
-*Made selecting Tokens and Professions in their Dashboards, per char as they should be. This will avoid losing tokens (mostly) selections on a maxed level char, after loading a low level char, that hasn't of course discovered the high level tokens yet. This will reset the tokens and the professions on all chars, since from now on they are going to be saved per character. 
+*Made selecting Tokens and Professions in their Dashboards, per char as they should be. This will avoid losing tokens (mostly) selections on a maxed level char, after loading a low level char, that hasn't of course discovered the high level tokens yet. This will reset the tokens and the professions on all chars, since from now on they are going to be saved per character.
 *Changed the WorldMap emissary quests faction font, to ElvUI default. I think now I've done them all. Yey :)
 
 3.23
@@ -681,16 +907,16 @@ toc update for patch 7.2
 *Reworked the install.lua file by creating a seperate file for each addon profile. This will avoid cluttering in the install file. Also made some functions local.
 
 3.18
-*Disable DressUp frame edit when some 3d party addons are loaded 
-*Complete overhaul on Style coloring. Now transparent style is also an option. 
+*Disable DressUp frame edit when some 3d party addons are loaded
+*Complete overhaul on Style coloring. Now transparent style is also an option.
 *Style coloring option can now be applied without a reload
 *Changed the way Style is colored
-*Styled the GhostFrame. Yes, I died 
+*Styled the GhostFrame. Yes, I died
 *Fixed Castbar text position when the icon is enabled
-*Added Autotrack faction option in reputation databar by user request, ticket: #67. Credit: Feraldin 
+*Added Autotrack faction option in reputation databar by user request, ticket: #67. Credit: Feraldin
 *Moved the Castbar texture option to the Texture options, so it will have power and health company. Aaaand this will reset Castbar texture :P
-*Added option in Health Texture option that ignores ElvUI Health transparency option 
-*Fixed Actionbar Switch buttons that broke on v3.16. Also added BenikUI style requirement 
+*Added option in Health Texture option that ignores ElvUI Health transparency option
+*Fixed Actionbar Switch buttons that broke on v3.16. Also added BenikUI style requirement
 
 3.17
 *Prevent an error when ElvUI_ExtraActionbars is not loaded
@@ -698,14 +924,14 @@ toc update for patch 7.2
 3.16
 *Fixed ElvUI transparency on uf elements: health, power, castbar that was breaking after using BenikUI uf texture options
 *Moved ElvUI Bags bar styling from actionbars.lua to bags lua. Also added transparency to it
-*Changed the way the Actionbar style color is registered 
+*Changed the way the Actionbar style color is registered
 *Added option to toggle style for each Actionbar. Also moved BenikUI Actionbar options from ElvUI Ab's. They now have their own group
-*Added Detached portrait option on Focus frame by user request 
+*Added Detached portrait option on Focus frame by user request
 *Fixed the click function for mining, skinning and herbalism dashboard icon.
-*Added toggle buttons from ElvUI databars to BenikUI databars and vice versa 
+*Added toggle buttons from ElvUI databars to BenikUI databars and vice versa
 *Added text yOffset option on all ElvUI DataBars
-*Added new readyCheck icons (Code: Merathilis - Darth) 
-*Added option for Pet detached portrait by user request 
+*Added new readyCheck icons (Code: Merathilis - Darth)
+*Added option for Pet detached portrait by user request
 *Added a theme color edit option by user request
 *Changed the Monk crest in AFK mode
 
@@ -716,15 +942,15 @@ toc update for patch 7.2
 3.14
 *Added French and Russian locale files. Any help on translating will be much appreciated.
 *NEW: Change style colors on the fly, without a reload.
-*Removed the Objective tracker button skin. It's been done in ElvUI for ages. Just kept the font. 
+*Removed the Objective tracker button skin. It's been done in ElvUI for ages. Just kept the font.
 *Chg: Blizzard frames styling overhaul (Internal change - Blizzard frames style creation)
 *Added more Blizzard replacement fonts (Merathilis)
-*Added Strata option for player/target/targettarget detached portrait. Default to "Medium". 
+*Added Strata option for player/target/targettarget detached portrait. Default to "Medium".
 *Added option for the Artifact databar notifier, to show at the bag bar
-*Added Styling and mini profile for Pawn 
+*Added Styling and mini profile for Pawn
 *Added a simple check for Buff-/Debuff Styling if Masque Support is enabled (Merathilis)
 *Added option for BenikUI Style for Auras (Merathilis)
-*Added the font used in XIV_Databar 
+*Added the font used in XIV_Databar
 *Chg: Professions Dashboard: Store profession ids rather than names, so it will work for all locales during install. This will reset the profession settings.
 *Chg: Tokens Dashboard: Store token ids rather than the names so it will work for all locales during install. This will reset the token settings.
 *Fix: Prevent flightMode to enable and requestStop button to show, when in an instance e.g. Old Hillsbrad Foothills
@@ -735,7 +961,7 @@ toc update for patch 7.2
 
 3.12
 *Added mouseover feature for Professions Dashboard by user request. Disabled by default.
-*Added mouseover feature for the Tokens dashboard by user request. Disabled by default. 
+*Added mouseover feature for the Tokens dashboard by user request. Disabled by default.
 *ScrollingMessageFrame in AFK mode sometimes was showing 1.5 lines. Replaced with text.
 *Empty tab cleanup. (Merathilis)
 *Update AFK Mode to use wow api for "race" and "localizedClass" so it works with non-english clients too. (Merathilis)
@@ -743,7 +969,7 @@ toc update for patch 7.2
 *Tokens Dashboard: The token tooltip will show only when mouse overing the icon
 *Tokens Dashboard: token can be disabled by Shift+Right click on it's icon, straight from the dashboard.
 *Added spec and ilvl in afkMode
-*Styled the WardrobeEdit frames and made the DressUp frame bigger 
+*Styled the WardrobeEdit frames and made the DressUp frame bigger
 *Fixed FlightMap tooltips not getting styled when zoom in the area
 
 3.11
@@ -788,22 +1014,22 @@ toc update for patch 7.2
 3.08
 *Fixed detached portrait style height and also lowered the minimum height option from 4 to 3
 *Added Order Hall Datatext. This will show missions instead
-*Removed Roadway font. Merathilis has his own ui now :P 
-*Guard against a rare lua error in the experience databar notifier 
-*Fixed max player level for Honor Databar. This should deal with #51 
+*Removed Roadway font. Merathilis has his own ui now :P
+*Guard against a rare lua error in the experience databar notifier
+*Fixed max player level for Honor Databar. This should deal with #51
 *AFK mode: Added backdrops under XP remaining string
 *Game Menu: Added Talents, Specialization, PvP Talents
-*Clicking the Honor button will show the PvP Talents frame 
-*Added fps in FlightMode 
+*Clicking the Honor button will show the PvP Talents frame
+*Added fps in FlightMode
 *Databar buttons now have their own backdrop option
-*Adopted ElvUI beta oUF changes 
-*Added tab chat flash 
+*Adopted ElvUI beta oUF changes
+*Added tab chat flash
 *Changed the default castbar texture to a non transparent one, so that the interrupt casts color shows
-*Fixed a copy/paste error in experience databar. This should fix #50 
-*Disable OrdeHall styling when GarrisonCommander addon is loaded. This should fix #47 
+*Fixed a copy/paste error in experience databar. This should fix #50
+*Disable OrdeHall styling when GarrisonCommander addon is loaded. This should fix #47
 *Styled all order hall mission tooltips
 *Fixed World Quest tooltips style
-*Updated donor list 
+*Updated donor list
 *Prevent tooltip style to go off screen
 *Fixed code to prevent a HonorBar error
 *Added option on System Dashboard to show World or Home Latency. Default is World. Also added tooltip.
@@ -813,7 +1039,7 @@ toc update for patch 7.2
 *Fixed a honorbar lua error
 *BenikUI Style for the BattlePet Ability Tooltip
 *Added checks to prevent lua error when the unitframe is disabled via ElvUI options
-*Change BenikUI style for Battlepet tooltip 
+*Change BenikUI style for Battlepet tooltip
 
 3.06
 *Fixed styling for OrderHall Mission frame
@@ -850,8 +1076,8 @@ toc update for patch 7.2
 *Added Honor bar options (Color, Notifier)
 *Added Honor bar in the install
 *Added seperate option to enable/disable styling on Databars
-*Fixed Professions Dashboard size and position 
-*Added all Legion currencies. Removed Honor and Conquest points from tokens 
+*Fixed Professions Dashboard size and position
+*Added all Legion currencies. Removed Honor and Conquest points from tokens
 *Styled the PVPRewardTooltip
 
 3.01
@@ -876,7 +1102,7 @@ toc update for patch 7.2
 2.58
 *Fixed wrong target debuff anchor. This should fix #24
 *[NEW] Added option to change castbar text color
-*Fixed memory module being disabled even if Zygor is not loaded 
+*Fixed memory module being disabled even if Zygor is not loaded
 
 2.57
 *Fixed the Castbar Texture option
@@ -884,8 +1110,8 @@ toc update for patch 7.2
 2.56
 *Miscellaneous options are moved from General and now they have their own group.
 *Added option for Vertical Powerbar texture (Player/Target). Option in ElvUI Player/Target Power. To be used with detached power bar ofc.
-*Added option to apply texture on the castbar 
-*Added options to apply texture and color on the Information Panels 
+*Added option to apply texture on the castbar
+*Added options to apply texture and color on the Information Panels
 *Added mouse over coloring at the RequestStop button
 
 2.55
@@ -893,13 +1119,13 @@ toc update for patch 7.2
 
 2.54
 *Massive global caching. Credit: Merathilis
-*Fixed the castbar text position with catbar and icon inside the infopanel 
-*Revamped the RequestStop button. Looks much better 
+*Fixed the castbar text position with catbar and icon inside the infopanel
+*Revamped the RequestStop button. Looks much better
 *Prevented a lua error when using 2D portraits (who does that now anyways)
 *New feature: FlightMode. Pops when the player uses a flight path. It won't hide some 3rd party addons
 *Changed BenikUI logo by removing the white glow and adding shadow
-*Revamped the color options 
-*Added wide shadow function at the toolkit 
+*Revamped the color options
+*Added wide shadow function at the toolkit
 *Fixed combobar and backdropSpacing at he install routine
 *Added Value color option at the Game Menu
 *Styled some (still) missing frames. Thanks to detective Merathilis(TM)
@@ -963,7 +1189,7 @@ toc update for patch 7.2
 
 2.33
 *Injected the missing chars in visitor1 font.
-*Tokens Dashboard: Added option to show weekly max tokens, rather than total max (enabled by default) 
+*Tokens Dashboard: Added option to show weekly max tokens, rather than total max (enabled by default)
 
 2.32
 *Added the new portraits in the Install
@@ -983,12 +1209,12 @@ toc update for patch 7.2
 
 2.31
 *Added a new party profile for the default layout, with EmptyBars
-*Target threat visual fixes. That was a bitch 
+*Target threat visual fixes. That was a bitch
 *[NEW] EmptyBars on Party Frames. Disabled by default. Options in ElvUI Party Frames
 *Fixed chat datatexts visibility on spec change
 *Skins: The CalendarCreateEventFrame now fits the BenikUI Style. Credit: Merathilis
 *[NEW] Added iLvl in character frame item slots
-*Fixed chat datatexts backdrop toggle 
+*Fixed chat datatexts backdrop toggle
 *[NEW] Added a new spec switch datatext that only shows current spec. LeftClick to respec RightClick for info and loot spec (as in ElvUI)
 *Moved Datatext options to their own tab
 *[NEW] AFK mode: Replaced the faction logo with Class logos. Credit: ADDOriN @DevianArt
@@ -1001,21 +1227,21 @@ toc update for patch 7.2
 
 2.30
 *[NEW]: Install: Added Party profiles for both layouts
-*[NEW]: Added MSBT Profile (user request) 
+*[NEW]: Added MSBT Profile (user request)
 *[NEW]: Added x and y offset options for the party role icons
 *[NEW]: Party Portraits. Options in ElvUI Party Frames
 *AFK mode: eu date type
 *Fixed Request Stop Button growth direction when it's right-clicked
 *FPS Dashboard: Changed the color values a bit
 *Fix Middle Datatext size on Talent change
-*Fix ActionBar coloring on Talent change 
+*Fix ActionBar coloring on Talent change
 *Fix player threat with detached classbar
 *Followed ElvUI datatext Word Wrap addition
 *Fixed Zygor Guides model frame styling
-*AFK mode: Localized dates. 
+*AFK mode: Localized dates.
 *Xp/Rep bottom buttons follow chat datatexts transparency option
 *AFK mode: Moved the chat window under the top panel
-*Guild News Filters Frame styled 
+*Guild News Filters Frame styled
 
 2.29
 *Prevent an error with the rep bar.
@@ -1051,8 +1277,8 @@ toc update for patch 7.2
 *System Dashboard: Changed the non pixel perfect mode spacings
 *Tokens Dashboard: Changed the non pixel perfect mode spacings and the created frames names
 *Skinned and styled GarrisonRandomMissionAlertFrame
-*Install: Added the new bag item count font option 
-*Added option to toggle BenikUI style on ElvUI xp/rep bars 
+*Install: Added the new bag item count font option
+*Added option to toggle BenikUI style on ElvUI xp/rep bars
 *Added option to Enable/Disable BenikUI chat datatexts and buttons backdrops
 *Added styling for ElvUI_DTBars2. All datatexts get styled with this. Can be disabled in BenikUI -> AddOns options.
 *Styled ElvUI_Enhanced Raid Marker and Minimap Button Bar
@@ -1175,7 +1401,7 @@ toc update for patch 7.2
 *Moar afk mode stats (Draenor Raiding). Credits: Flodropp
 
 2.11 (Jan 25, 2015)
-*Fix Toggle Bags button #15 
+*Fix Toggle Bags button #15
 *[NEW] Decursive Skin
 *Added options for Objective Tracker and Decursive skinning
 *Added Skada: Double windows profile
@@ -1304,7 +1530,7 @@ Overnight uploads... wrong skins.lua file.
 
 1.09 (Aug 23, 2014)
 
-*Prevented a lua error in case AddOnSkins addon is not loaded. 
+*Prevented a lua error in case AddOnSkins addon is not loaded.
 *Changed the way AddOnSkins and BenikUI interact with eachother.
 *Added BenikUI Style in Azilroka's Square Minimap Buttons addon.
 *Added options to enable/disable BenikUI style on ElvUI addons (like S&L, LocationPlus, etc) and any addon skinned by AddOnSkins and gets styled from BenikUI. (requires reload)
@@ -1519,7 +1745,7 @@ TODO: Auras status bars; ain't working as intended.
 
 0.25beta (Mar 21, 2014)
 
-*Fixed most rep/xp issues on playerbar. 
+*Fixed most rep/xp issues on playerbar.
 
 
 

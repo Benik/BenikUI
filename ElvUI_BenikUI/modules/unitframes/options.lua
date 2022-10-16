@@ -23,7 +23,7 @@ local function ufTable()
 	E.Options.args.benikui.args.unitframes = {
 		order = 40,
 		type = 'group',
-		name = BUI:cOption(L['UnitFrames'], "blue"),
+		name = BUI:cOption(L['UnitFrames'], "orange"),
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			infoPanel = {
@@ -702,25 +702,3 @@ local function injectPartyOptions()
 	}
 end
 tinsert(BUI.Config, injectPartyOptions)
-
-local function injectRaidOptions()
-	E.Options.args.unitframe.args.groupUnits.args.raid.args.generalGroup.args.classHover = {
-		order = 7,
-		type = "toggle",
-		name = BUI:cOption(L['Class Hover'], "blue"),
-		desc = L['Enable Class color on health border, when mouse over'],
-		set = function(info, value) E.db.unitframe.units['raid'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-	}
-end
-tinsert(BUI.Config, injectRaidOptions)
-
-local function injectRaid40Options()
-	E.Options.args.unitframe.args.groupUnits.args.raid40.args.generalGroup.args.classHover = {
-		order = 7,
-		type = "toggle",
-		name = BUI:cOption(L['Class Hover'], "blue"),
-		desc = L['Enable Class color on health border, when mouse over'],
-		set = function(info, value) E.db.unitframe.units['raid40'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-	}
-end
-tinsert(BUI.Config, injectRaid40Options)

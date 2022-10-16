@@ -19,7 +19,7 @@ BUI.Eversion = tonumber(E.version)
 BUI.Erelease = tonumber(GetAddOnMetadata("ElvUI_BenikUI", "X-ElvuiVersion"))
 
 BUI.Actionbars = BUI:NewModule('Actionbars', 'AceEvent-3.0')
-BUI.Bags = BUI:NewModule('Bags', 'AceHook-3.0', 'AceEvent-3.0')
+BUI.Bags = BUI:NewModule('Bags', 'AceHook-3.0')
 BUI.Chat = BUI:NewModule('Chat', 'AceHook-3.0', 'AceEvent-3.0')
 BUI.CustomPanels = BUI:NewModule('CustomPanels', 'AceEvent-3.0')
 BUI.Dashboards = BUI:NewModule('Dashboards', 'AceEvent-3.0', 'AceHook-3.0')
@@ -34,6 +34,7 @@ BUI.Skins = BUI:NewModule('Skins', 'AceHook-3.0', 'AceEvent-3.0')
 BUI.Styles = BUI:NewModule('Styles', 'AceHook-3.0', 'AceEvent-3.0')
 BUI.Tooltip = BUI:NewModule('Tooltip', 'AceHook-3.0')
 BUI.Units = BUI:NewModule('Units', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+BUI.Widgetbars = BUI:NewModule('Widgetbars', 'AceHook-3.0', 'AceEvent-3.0')
 
 function BUI:RegisterModule(name)
 	if self.initialized then
@@ -94,7 +95,7 @@ E.PopupDialogs["BENIKUI_CLASSIC"] = {
 
 --Version check
 E.PopupDialogs["BENIKUI_VERSION_MISMATCH"] = {
-	text = format(L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"], BUI.Title, BUI.Eversion, BUI.Erelease),
+	text = format(L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nMinimum ElvUI version needed is %.2f. Please download it from here:\n"], BUI.Title, BUI.Eversion, BUI.Erelease),
 	button1 = CLOSE,
 	timeout = 0,
 	whileDead = 1,

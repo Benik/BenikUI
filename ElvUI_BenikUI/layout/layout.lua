@@ -14,6 +14,7 @@ local PlaySound = PlaySound
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
 local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
+local C_TimerAfter = C_Timer.After
 local GameMenuButtonAddons = GameMenuButtonAddons
 
 -- GLOBALS: hooksecurefunc, selectioncolor
@@ -26,6 +27,11 @@ local GameMenuButtonAddons = GameMenuButtonAddons
 local PANEL_HEIGHT = 19;
 local SPACING = (E.PixelMode and 1 or 3)
 local BUTTON_NUM = 4
+
+local menuIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\menu.tga'
+local lfgIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\buttons\\eye.tga'
+local optionsIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\buttons\\options.tga'
+local addonsIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\buttons\\plugin.tga'
 
 local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent, 'BackdropTemplate')
 local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent, 'BackdropTemplate')
@@ -136,25 +142,27 @@ function mod:ToggleTransparency()
 			end
 		end
 	end
+
+	if not BUI.ShadowMode then return end
+	local lchatToggle = E.db.datatexts.panels.LeftChatDataPanel.backdrop
+	_G.LeftChatDataPanel.shadow:SetShown(lchatToggle)
+	_G.LeftChatToggleButton.shadow:SetShown(lchatToggle)
+
+	local rchatToggle = E.db.datatexts.panels.RightChatDataPanel.backdrop
+	_G.RightChatDataPanel.shadow:SetShown(rchatToggle)
+	_G.RightChatToggleButton.shadow:SetShown(rchatToggle)
 end
 
 function mod:ChatStyles()
 	if not E.db.benikui.general.benikuiStyle then return end
 	local Bui_ldtp = _G.BuiLeftChatDTPanel
 	local Bui_rdtp = _G.BuiRightChatDTPanel
+	local showConditions = E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH'
 
-	if E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH' then
-		Bui_rdtp.style:Show()
-		Bui_ldtp.style:Show()
-		for i = 1, BUTTON_NUM do
-			bbuttons[i].style:Show()
-		end
-	else
-		if Bui_rdtp.style then Bui_rdtp.style:Hide() end
-		if Bui_ldtp.style then Bui_ldtp.style:Hide() end
-		for i = 1, BUTTON_NUM do
-			if bbuttons[i].style then bbuttons[i].style:Hide() end
-		end
+	Bui_rdtp.style:SetShown(showConditions)
+	Bui_ldtp.style:SetShown(showConditions)
+	for i = 1, BUTTON_NUM do
+		bbuttons[i].style:SetShown(showConditions)
 	end
 end
 
@@ -166,12 +174,6 @@ end
 
 local function updateButtonFont()
 	local db = E.db.datatexts
-	for i = 1, BUTTON_NUM do
-		if bbuttons[i].text then
-			bbuttons[i].text:SetFont(LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
-			bbuttons[i].text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
-		end
-	end
 
 	local dts = {BuiLeftChatDTPanel, BuiRightChatDTPanel}
 	for panelName, panel in pairs(dts) do
@@ -184,8 +186,22 @@ local function updateButtonFont()
 	end
 end
 
+local function updateButtonColor()
+	for i = 1, BUTTON_NUM do
+		if bbuttons[i].btn then
+			bbuttons[i].btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+		end
+	end
+end
+
+local function updateButtons()
+	updateButtonFont()
+	updateButtonColor()
+end
+
 local function Panel_OnShow(self)
 	self:SetFrameLevel(0)
+	self:SetFrameStrata('BACKGROUND')
 end
 
 function mod:CreateLayout()
@@ -196,7 +212,7 @@ function mod:CreateLayout()
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
 	Bui_ldtp:Point('BOTTOMRIGHT', LeftChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
-	Bui_ldtp:Style('Outside', nil, false, true)
+	Bui_ldtp:BuiStyle('Outside', nil, false, true)
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- Right dt panel
@@ -205,7 +221,7 @@ function mod:CreateLayout()
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
 	Bui_rdtp:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', -(SPACING +PANEL_HEIGHT), -PANEL_HEIGHT -SPACING)
-	Bui_rdtp:Style('Outside', nil, false, true)
+	Bui_rdtp:BuiStyle('Outside', nil, false, true)
 	DT:RegisterPanel(BuiRightChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- dummy frame for chat/threat (left)
@@ -218,14 +234,13 @@ function mod:CreateLayout()
 		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i, E.UIParent, 'BackdropTemplate')
 		bbuttons[i]:RegisterForClicks('AnyUp')
 		bbuttons[i]:SetFrameStrata('BACKGROUND')
-		bbuttons[i]:CreateSoftGlow()
-		bbuttons[i].sglow:Hide()
-		bbuttons[i]:Style('Outside', nil, false, true)
-		bbuttons[i].text = bbuttons[i]:CreateFontString(nil, 'OVERLAY')
-		bbuttons[i].text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-		bbuttons[i].text:Point('CENTER', 1, 0)
-		bbuttons[i].text:SetJustifyH('CENTER')
-		bbuttons[i].text:SetTextColor(BUI:unpackColor(E.db.general.valuecolor))
+		bbuttons[i]:BuiStyle('Outside', nil, false, true)
+		bbuttons[i].btn = bbuttons[i]:CreateTexture(nil, 'OVERLAY')
+		bbuttons[i].btn:ClearAllPoints()
+		bbuttons[i].btn:Point('CENTER')
+		bbuttons[i].btn:Size(14, 14)
+		bbuttons[i].btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+		bbuttons[i].btn:Show()
 		bbuttons[i].arrow = bbuttons[i]:CreateTexture(nil, 'OVERLAY')
 		bbuttons[i].arrow:SetTexture(E.Media.Textures.ArrowUp)
 		bbuttons[i].arrow:ClearAllPoints()
@@ -239,7 +254,7 @@ function mod:CreateLayout()
 			bbuttons[i]:Point('TOPLEFT', Bui_rdtp, 'TOPRIGHT', SPACING, 0)
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_rdtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i]:SetParent(Bui_rdtp)
-			bbuttons[i].text:SetText('C')
+			bbuttons[i].btn:SetTexture(optionsIcon)
 			bbuttons[i].arrow:SetRotation(E.Skins.ArrowRotation.right)
 			bbuttons[i].parent = _G.RightChatPanel
 
@@ -252,17 +267,15 @@ function mod:CreateLayout()
 				end
 				GameTooltip:AddLine(L['ShiftClick to toggle chat'], 0.7, 0.7, 1)
 
-				if not E.db.benikui.datatexts.chat.styled then
-					self.sglow:Show()
-				end
+				self.btn:SetVertexColor(1, 1, 1, .7)
 
 				if IsShiftKeyDown() then
-					self.text:SetText('')
+					self.btn:Hide()
 					self.arrow:Show()
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
 					self.arrow:Hide()
-					self.text:SetText('C')
+					self.btn:Show()
 					self:SetScript('OnClick', function(self, btn)
 						if btn == 'LeftButton' then
 							E:ToggleOptionsUI()
@@ -291,8 +304,9 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.text:SetText('C')
-				self.sglow:Hide()
+				self.btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+				self.arrow:Hide()
+				self.btn:Show()
 				GameTooltip:Hide()
 			end)
 
@@ -301,14 +315,12 @@ function mod:CreateLayout()
 			bbuttons[i]:Point('TOPRIGHT', Bui_rdtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_rdtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i]:SetParent(Bui_rdtp)
-			bbuttons[i].text:SetText('G')
+			bbuttons[i].btn:SetTexture(menuIcon)
 
 			bbuttons[i]:SetScript('OnClick', BuiGameMenu_OnMouseUp)
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				if not E.db.benikui.datatexts.chat.styled then
-					self.sglow:Show()
-				end
+				self.btn:SetVertexColor(1, 1, 1, .7)
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(MAINMENU_BUTTON, selectioncolor)
@@ -317,7 +329,7 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.sglow:Hide()
+				self.btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 				GameTooltip:Hide()
 			end)
 
@@ -326,17 +338,15 @@ function mod:CreateLayout()
 			bbuttons[i]:Point('TOPRIGHT', Bui_ldtp, 'TOPLEFT', -SPACING, 0)
 			bbuttons[i]:Point('BOTTOMLEFT', Bui_ldtp, 'BOTTOMLEFT', -(PANEL_HEIGHT + SPACING), 0)
 			bbuttons[i]:SetParent(Bui_ldtp)
-			bbuttons[i].text:SetText('A')
+			bbuttons[i].btn:SetTexture(addonsIcon)
 			bbuttons[i].arrow:SetRotation(E.Skins.ArrowRotation.left)
 			bbuttons[i].parent = _G.LeftChatPanel
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				if not E.db.benikui.datatexts.chat.styled then
-					self.sglow:Show()
-				end
+				self.btn:SetVertexColor(1, 1, 1, .7)
 				if IsShiftKeyDown() then
 					self.arrow:Show()
-					self.text:SetText('')
+					self.btn:Hide()
 					self:SetScript('OnClick', ChatButton_OnClick)
 				else
 					self:SetScript('OnClick', function(self)
@@ -352,9 +362,9 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.text:SetText('A')
+				self.btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+				self.btn:Show()
 				self.arrow:Hide()
-				self.sglow:Hide()
 				GameTooltip:Hide()
 			end)
 
@@ -363,7 +373,7 @@ function mod:CreateLayout()
 			bbuttons[i]:Point('TOPLEFT', Bui_ldtp, 'TOPRIGHT', SPACING, 0)
 			bbuttons[i]:Point('BOTTOMRIGHT', Bui_ldtp, 'BOTTOMRIGHT', PANEL_HEIGHT + SPACING, 0)
 			bbuttons[i]:SetParent(Bui_ldtp)
-			bbuttons[i].text:SetText('L')
+			bbuttons[i].btn:SetTexture(lfgIcon)
 
 			bbuttons[i]:SetScript('OnClick', function(self, btn)
 				if btn == "LeftButton" then
@@ -378,9 +388,7 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnEnter', function(self)
-				if not E.db.benikui.datatexts.chat.styled then
-					self.sglow:Show()
-				end
+				self.btn:SetVertexColor(1, 1, 1, .7)
 				GameTooltip:SetOwner(self, 'ANCHOR_TOP', 0, 2 )
 				GameTooltip:ClearLines()
 				GameTooltip:AddDoubleLine(L['Click :'], LFG_TITLE, 0.7, 0.7, 1)
@@ -390,7 +398,7 @@ function mod:CreateLayout()
 			end)
 
 			bbuttons[i]:SetScript('OnLeave', function(self)
-				self.sglow:Hide()
+				self.btn:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 				GameTooltip:Hide()
 			end)
 		end
@@ -399,11 +407,13 @@ function mod:CreateLayout()
 	MinimapPanel:Height(PANEL_HEIGHT)
 	ElvUI_BottomPanel:SetScript('OnShow', Panel_OnShow)
 	ElvUI_BottomPanel:SetFrameLevel(0)
+	ElvUI_BottomPanel:SetFrameStrata('BACKGROUND')
 	ElvUI_TopPanel:SetScript('OnShow', Panel_OnShow)
 	ElvUI_TopPanel:SetFrameLevel(0)
+	ElvUI_TopPanel:SetFrameStrata('BACKGROUND')
 
-	LeftChatPanel.backdrop:Style('Outside')
-	RightChatPanel.backdrop:Style('Outside')
+	LeftChatPanel.backdrop:BuiStyle('Outside')
+	RightChatPanel.backdrop:BuiStyle('Outside')
 
 	if BUI.ShadowMode then
 		MinimapPanel:CreateSoftShadow()
@@ -415,18 +425,18 @@ function mod:CreateLayout()
 
 	-- Minimap elements styling
 	if E.private.general.minimap.enable then
-		Minimap.backdrop:Style('Outside')
+		Minimap.backdrop:BuiStyle('Outside')
 		mod:ResizeMinimapPanels()
 	end
 
-	if CopyChatFrame then CopyChatFrame:Style('Outside') end
+	if CopyChatFrame then CopyChatFrame:BuiStyle('Outside') end
 
 	self:ToggleTransparency()
 end
 
 -- Add minimap styling option in ElvUI minimap options
 local function InjectMinimapOption()
-	E.Options.args.maps.args.minimap.args.generalGroup.args.benikuiStyle = {
+	E.Options.args.maps.args.minimap.args.benikuiStyle = {
 		order = 3,
 		type = "toggle",
 		name = BUI:cOption(L['BenikUI Style'], "blue"),
@@ -440,13 +450,13 @@ tinsert(BUI.Config, InjectMinimapOption)
 function mod:CreateMiddlePanel(forceReset)
 	if forceReset and E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] or not E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] then
 		DT:BuildPanelFrame("BuiMiddleDTPanel")
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["enable"] = true
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["enable"] = true
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["border"] = true
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] = 4
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["numPoints"] = 3
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipAnchor"] = "ANCHOR_TOPLEFT"
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["backdrop"] = true
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["height"] = PANEL_HEIGHT
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipXOffset"] = 3
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["panelTransparency"] = false
@@ -473,10 +483,8 @@ end
 
 function mod:ToggleMinimapStyle()
 	if E.private.general.minimap.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
-	if E.db.general.minimap.benikuiStyle then
-		Minimap.backdrop.style:Show()
-	else
-		Minimap.backdrop.style:Hide()
+	if _G.Minimap.backdrop.style then
+		_G.Minimap.backdrop.style:SetShown(E.db.general.minimap.benikuiStyle)
 	end
 end
 
@@ -512,8 +520,8 @@ end
 function mod:Initialize()
 	mod:CreateLayout()
 	mod:CreateMiddlePanel()
-	mod:ChatStyles()
 	mod:ToggleMinimapStyle()
+	C_TimerAfter(0.5, mod.ChatStyles)
 	tinsert(BUI.Config, InjectDatatextOptions)
 
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
@@ -522,7 +530,7 @@ function mod:Initialize()
 	hooksecurefunc(M, 'UpdateSettings', mod.ResizeMinimapPanels)
 	hooksecurefunc(DT, 'UpdatePanelInfo', mod.ToggleTransparency)
 	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
-	hooksecurefunc(E, 'UpdateMedia', updateButtonFont)
+	hooksecurefunc(E, 'UpdateMedia', updateButtons)
 
 	mod:RegisterEvent('PLAYER_ENTERING_WORLD')
 	mod:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')

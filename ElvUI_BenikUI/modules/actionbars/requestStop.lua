@@ -107,7 +107,7 @@ function mod:TaxiButton()
 	tbtn:Size(240, 40)
 	tbtn:Point('TOP', E.UIParent, 'TOP', 0, -150)
 	tbtn:SetTemplate("Transparent")
-	tbtn:Style('Outside')
+	tbtn:BuiStyle('Outside')
 	tbtn:RegisterForClicks("AnyUp")
 
 	tbtn.anim = CreateAnimationGroup(tbtn)

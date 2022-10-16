@@ -16,7 +16,7 @@ BUI.ProfessionsDB = {}
 BUI.FactionsDB = {}
 
 function mod:EnableDisableCombat(holder, option)
-	local db = E.db.dashboards[option]
+	local db = E.db.benikui.dashboards[option]
 
 	if db.combat then
 		holder:RegisterEvent('PLAYER_REGEN_DISABLED')
@@ -28,7 +28,7 @@ function mod:EnableDisableCombat(holder, option)
 end
 
 function mod:UpdateHolderDimensions(holder, option, tableName)
-	local db = E.db.dashboards[option]
+	local db = E.db.benikui.dashboards[option]
 	holder:Width(db.width)
 
 	for _, frame in pairs(tableName) do
@@ -37,7 +37,7 @@ function mod:UpdateHolderDimensions(holder, option, tableName)
 end
 
 function mod:ToggleTransparency(holder, option)
-	local db = E.db.dashboards[option]
+	local db = E.db.benikui.dashboards[option]
 	if not db.backdrop then
 		holder.backdrop:SetTemplate("NoBackdrop")
 		if holder.backdrop.shadow then
@@ -59,52 +59,76 @@ end
 function mod:ToggleStyle(holder, option)
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
-	local db = E.db.dashboards[option]
-	if db.style then
-		holder.backdrop.style:Show()
-	else
-		holder.backdrop.style:Hide()
-	end
+	local db = E.db.benikui.dashboards[option]
+	holder.backdrop.style:SetShown(db.style)
 end
 
 function mod:FontStyle(tableName)
-	for _, frame in pairs(tableName) do
-		if E.db.dashboards.dashfont.useDTfont then
-			frame.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+	for _, bar in pairs(tableName) do
+		if E.db.benikui.dashboards.dashfont.useDTfont then
+			bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
-			frame.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
+			bar.Text:FontTemplate(LSM:Fetch('font', E.db.benikui.dashboards.dashfont.dbfont), E.db.benikui.dashboards.dashfont.dbfontsize, E.db.benikui.dashboards.dashfont.dbfontflags)
 		end
 	end
 end
 
 function mod:FontColor(tableName)
-	for _, frame in pairs(tableName) do
-		if E.db.dashboards.textColor == 1 then
-			frame.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+	for _, bar in pairs(tableName) do
+		if E.db.benikui.dashboards.textColor == 1 then
+			bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		else
-			frame.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
+			bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
 		end
 	end
 end
 
 function mod:BarColor(tableName)
-	for _, frame in pairs(tableName) do
-		if E.db.dashboards.barColor == 1 then
-			frame.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+	for _, bar in pairs(tableName) do
+		if E.db.benikui.dashboards.barColor == 1 then
+			bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		else
-			frame.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+			bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
+		end
+	end
+end
+
+function mod:BarHeight(option, tableName)
+	local db = E.db.benikui.dashboards[option]
+	for _, bar in pairs(tableName) do
+		bar.dummy:Height(db.barHeight)
+		bar.spark:Height(5 + db.barHeight)
+	end
+end
+
+function mod:IconPosition(tableName, dashboard)
+	for _, bar in pairs(tableName) do
+		if not bar.hasIcon then return end
+
+		bar.IconBG:ClearAllPoints()
+		bar.dummy:ClearAllPoints()
+		if E.db.benikui.dashboards[dashboard].iconPosition == 'LEFT' then
+			bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', -2, 0)
+			bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', (E.PixelMode and 24 or 28), 0)
+			bar.IconBG:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', (E.PixelMode and 2 or 3), -SPACING)
+			bar.Text:Point('CENTER', bar, 'CENTER', 10, (E.PixelMode and -1 or -3))
+		else
+			bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, 0)
+			bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
+			bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
+			bar.Text:Point('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
 		end
 	end
 end
 
 function mod:CreateDashboardHolder(holderName, option)
-	local db = E.db.dashboards[option]
+	local db = E.db.benikui.dashboards[option]
 
 	local holder = CreateFrame('Frame', holderName, E.UIParent)
 	holder:CreateBackdrop('Transparent')
 	holder:SetFrameStrata('BACKGROUND')
 	holder:SetFrameLevel(5)
-	holder.backdrop:Style('Outside')
+	holder.backdrop:BuiStyle('Outside')
 	holder:Hide()
 
 	if db.combat then
@@ -125,32 +149,32 @@ function mod:CreateDashboardHolder(holderName, option)
 	return holder
 end
 
-function mod:CreateDashboard(barHolder, option, hasIcon)
+function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 	local bar = CreateFrame('Button', nil, barHolder)
-	local barIconOffset = (hasIcon and -20) or -2
+	local barIconOffset = (hasIcon and -22) or -2
+	local db = E.db.benikui.dashboards[option]
+
 	bar:Height(DASH_HEIGHT)
-	bar:Width(E.db.dashboards[option].width or 150)
+	bar:Width(db.width or 150)
 	bar:Point('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
 	bar:EnableMouse(true)
 
-	bar.dummy = CreateFrame('Frame', nil, bar)
+	bar.dummy = CreateFrame('Frame', nil, bar, 'BackdropTemplate')
+	bar.dummy:SetTemplate('Transparent', nil, true, true)
+	bar.dummy:SetBackdropBorderColor(0, 0, 0, 0)
+	bar.dummy:SetBackdropColor(1, 1, 1, .2)
 	bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, 0)
 	bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (hasIcon and (E.PixelMode and -24 or -28) or -2), 0)
-	bar.dummy:Height(E.PixelMode and 3 or 5)
-
-	bar.dummy.dummyStatus = bar.dummy:CreateTexture(nil, 'OVERLAY')
-	bar.dummy.dummyStatus:SetInside()
-	bar.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
-	bar.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
+	bar.dummy:Height(db.barHeight or (E.PixelMode and 1 or 3))
 
 	bar.Status = CreateFrame('StatusBar', nil, bar.dummy)
-	bar.Status:SetStatusBarTexture(E['media'].BuiFlat)
-	bar.Status:SetInside()
+	bar.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
+	bar.Status:SetAllPoints()
 
-	bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);
-	bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-	bar.spark:Size(12, 6);
-	bar.spark:SetBlendMode('ADD');
+	bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil)
+	bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
+	bar.spark:Size(12, ((db.barHeight + 5) or 6))
+	bar.spark:SetBlendMode('ADD')
 	bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
 	bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
@@ -168,6 +192,27 @@ function mod:CreateDashboard(barHolder, option, hasIcon)
 		bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
 		bar.IconBG.Icon:SetInside()
 		bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		bar.hasIcon = hasIcon
+	end
+
+	if isRep then
+		bar.bag = bar:CreateTexture(nil, 'ARTWORK')
+		bar.bag:SetAtlas("ParagonReputation_Bag")
+		bar.bag:Size(12, 16)
+		bar.bag:Point('RIGHT', bar, 'RIGHT', -4, 0)
+
+		bar.bagGlow = bar:CreateTexture(nil, 'BACKGROUND')
+		bar.bagGlow:SetAtlas("ParagonReputation_Glow")
+		bar.bagGlow:Size(32, 32)
+		bar.bagGlow:Point('CENTER', bar.bag, 'CENTER')
+		bar.bagGlow:SetAlpha(0.6)
+		bar.bagGlow:SetBlendMode('ADD')
+
+		bar.bagCheck = bar:CreateTexture(nil, 'OVERLAY')
+		bar.bagCheck:SetAtlas("ParagonReputation_Checkmark", true)
+		bar.bagCheck:Point('CENTER', bar.bag, 'CENTER', 5, -4)
+
+		bar.isRep = isRep
 	end
 
 	return bar

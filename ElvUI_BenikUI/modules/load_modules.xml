@@ -7,6 +7,7 @@
 	<Include file="dashboard\load_dashboards.xml"/>
 	<Include file="datatexts\load_datatexts.xml"/>
 	<Include file="databars\load_databars.xml"/>
+	<Include file="widgetbars\load_widgetbars.xml"/>
 	<Include file="skins\load_skins.xml"/>
 	<Include file="shadows\load_shadows.xml"/>
 	<Include file="styles\load_styles.xml"/>

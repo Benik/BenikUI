@@ -15,7 +15,7 @@ local SPACING = 1
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
 function mod:UpdateSystem()
-	local db = E.db.dashboards.system
+	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
 	if(BUI.SystemDB[1]) then
@@ -47,29 +47,27 @@ function mod:UpdateSystem()
 
 			local sysFrame = CreateFrame('Frame', 'BUI_'..name, holder)
 			sysFrame:Height(DASH_HEIGHT)
-			sysFrame:Width(E.db.dashboards.system.width or 150)
+			sysFrame:Width(db.width or 150)
 			sysFrame:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
 
-			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
+			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame, 'BackdropTemplate')
+			sysFrame.dummy:SetTemplate('Transparent', nil, true, true)
+			sysFrame.dummy:SetBackdropBorderColor(0, 0, 0, 0)
+			sysFrame.dummy:SetBackdropColor(1, 1, 1, .2)
 			sysFrame.dummy:Point('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 0)
 			sysFrame.dummy:Point('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
-			sysFrame.dummy:Height(E.PixelMode and 3 or 5)
-
-			sysFrame.dummy.dummyStatus = sysFrame.dummy:CreateTexture(nil, 'OVERLAY')
-			sysFrame.dummy.dummyStatus:SetInside()
-			sysFrame.dummy.dummyStatus:SetTexture(E['media'].BuiFlat)
-			sysFrame.dummy.dummyStatus:SetVertexColor(1, 1, 1, .2)
+			sysFrame.dummy:Height(db.barHeight or (E.PixelMode and 1 or 3))
 
 			sysFrame.Status = CreateFrame('StatusBar', nil, sysFrame.dummy)
-			sysFrame.Status:SetStatusBarTexture(E['media'].BuiFlat)
+			sysFrame.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
 			sysFrame.Status:SetMinMaxValues(0, 100)
-			sysFrame.Status:SetInside()
+			sysFrame.Status:SetAllPoints()
 
 			sysFrame.spark = sysFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
 			sysFrame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-			sysFrame.spark:Size(12, 6);
-			sysFrame.spark:SetBlendMode('ADD');
+			sysFrame.spark:Size(12, ((db.barHeight + 5) or 6))
+			sysFrame.spark:SetBlendMode('ADD')
 			sysFrame.spark:Point('CENTER', sysFrame.Status:GetStatusBarTexture(), 'RIGHT')
 
 			sysFrame.Text = sysFrame.Status:CreateFontString(nil, 'OVERLAY')
@@ -106,24 +104,25 @@ function mod:UpdateSystemSettings()
 	mod:FontStyle(BUI.SystemDB)
 	mod:FontColor(BUI.SystemDB)
 	mod:BarColor(BUI.SystemDB)
+	mod:BarHeight('system', BUI.SystemDB)
 end
 
 function mod:CreateSystemDashboard()
-	self.sysHolder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
-	self.sysHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
-	self.sysHolder:Width(E.db.dashboards.system.width or 150)
+	local holder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
+	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
+	holder:Width(E.db.benikui.dashboards.system.width or 150)
 
 	mod:UpdateSystem()
-	mod:UpdateHolderDimensions(self.sysHolder, 'system', BUI.SystemDB)
-	mod:ToggleStyle(self.sysHolder, 'system')
-	mod:ToggleTransparency(self.sysHolder, 'system')
+	mod:UpdateHolderDimensions(holder, 'system', BUI.SystemDB)
+	mod:ToggleStyle(holder, 'system')
+	mod:ToggleTransparency(holder, 'system')
 
-	E:CreateMover(_G.BUI_SystemDashboard, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI')
+	E:CreateMover(_G.BUI_SystemDashboard, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,system')
 end
 
 function mod:LoadSystem()
-	if E.db.dashboards.system.enableSystem ~= true then return end
-	local db = E.db.dashboards.system.chooseSystem
+	if E.db.benikui.dashboards.system.enableSystem ~= true then return end
+	local db = E.db.benikui.dashboards.system.chooseSystem
 
 	if (db.FPS ~= true and db.MS ~= true and db.Bags ~= true and db.Durability ~= true and db.Volume ~= true) then return end
 
@@ -132,9 +131,9 @@ function mod:LoadSystem()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateSystemSettings)
 
-	if db.FPS then self:CreateFps() end
-	if db.MS then self:CreateMs() end
-	if db.Bags then self:CreateBags() end
-	if db.Durability then self:CreateDurability() end
-	if db.Volume then self:CreateVolume() end
+	if db.FPS then mod:CreateFps() end
+	if db.MS then mod:CreateMs() end
+	if db.Bags then mod:CreateBags() end
+	if db.Durability then mod:CreateDurability() end
+	if db.Volume then mod:CreateVolume() end
 end

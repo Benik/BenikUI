@@ -132,14 +132,24 @@ function mod:UpdateFps()
 	self.FlightMode.bottom.fps.txt:SetFormattedText(displayFormat, value)
 end
 
-function mod:SetWorldMapParent()
+function mod:SetFrameParent()
 	if E.db.benikui.misc.flightMode.enable ~= true then return end
 
 	local WorldMapFrame = _G.WorldMapFrame
 	if mod.inFlightMode == true then
 		WorldMapFrame:SetParent(_G.UIParent)
+		if BUI.PA then
+			if SquareMinimapButtonBar then
+				SquareMinimapButtonBar:SetParent(E.UIParent)
+			end
+		end
 	else
 		WorldMapFrame:SetParent(E.UIParent)
+		if BUI.PA then
+			if SquareMinimapButtonBar then
+				SquareMinimapButtonBar:SetParent(_G.UIParent)
+			end
+		end
 	end
 end
 
@@ -165,10 +175,23 @@ function mod:SkinInFlight()
 	end
 end
 
+local DCR = _G.LibStub('AceAddon-3.0'):GetAddon('Decursive', true)
+local function Decursive(hide)
+	if not DCR then return end
+	if hide then
+		DcrMUFsContainer:Hide()
+	else
+		if DCR.profile.ShowDebuffsFrame == true then
+			DcrMUFsContainer:Show()
+		end
+	end
+end
+
 local AddonsToHide = {
 	-- addon, frame
 	{'ZygorGuidesViewer', 'ZygorGuidesViewerFrame'},
 	{'ZygorGuidesViewer', 'Zygor_Notification_Center'},
+	{'ZygorGuidesViewer', 'ZygorGuidesViewer_ActionBar'},
 	{'WorldQuestTracker', 'WorldQuestTrackerScreenPanel'},
 	{'WorldQuestTracker', 'WorldQuestTrackerFinderFrame'},
 	{'XIV_Databar', 'XIV_Databar'},
@@ -176,6 +199,8 @@ local AddonsToHide = {
 	{'WeakAuras', 'WeakAurasFrame'},
 	{'HeroRotation','HeroRotation_ToggleIconFrame'},
 	{'!KalielsTracker','!KalielsTrackerFrame'},
+	{'!KalielsTracker','!KalielsTrackerButtons'},
+	{'RareTrackerCore','RT'},
 }
 
 local AllTheThingsFrames = {}
@@ -187,7 +212,7 @@ function mod:SetFlightMode(status)
 	if(status) then
 		self.inFlightMode = true
 		self.FlightMode:Show()
-		mod:SetWorldMapParent()
+		mod:SetFrameParent()
 
 		E.UIParent:Hide()
 
@@ -197,6 +222,9 @@ function mod:SetFlightMode(status)
 			Minimap:Hide()
 		end
 
+		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
+			_G.ZoneAbilityFrame:GetParent():Hide()
+		end
 		C_TimerAfter(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
 
 		self.FlightMode.bottom.map:EnableMouse(true)
@@ -237,10 +265,9 @@ function mod:SetFlightMode(status)
 		end
 
 		-- Hide SquareMinimapButtonBar
-		if (BUI.PA and not BUI.SLE) then
+		if BUI.PA then
 			if SquareMinimapButtonBar then
-				_G.SquareMinimapButtons:CancelAllTimers()
-				SquareMinimapButtonBar:SetAlpha(0)
+				SquareMinimapButtonBar:Hide()
 			end
 		end
 
@@ -275,6 +302,14 @@ function mod:SetFlightMode(status)
 			end
 		end
 
+		-- special handling for Elkano Buff Bars
+		if IsAddOnLoaded('ElkBuffBars') then
+			ElkBuffBars:PET_BATTLE_OPENING_START()
+		end
+
+		-- Decursive
+		Decursive(true)
+
 		-- Handle ActionBars. This needs to be done if Global Fade is active
 		for _, bar in pairs(AB.handledBars) do
 			if bar then
@@ -282,11 +317,6 @@ function mod:SetFlightMode(status)
 					bar:SetAlpha(0)
 				end
 			end
-		end
-
-		-- StanceBar needs a little extra check
-		if _G.ElvUI_StanceBar then
-			_G.ElvUI_StanceBar:SetAlpha(0)
 		end
 
 		-- Disable Blizz location messsages
@@ -302,7 +332,7 @@ function mod:SetFlightMode(status)
 	elseif(self.inFlightMode) then
 		self.inFlightMode = false
 		_G.MainMenuBarVehicleLeaveButton:SetParent(_G.UIParent)
-		mod:SetWorldMapParent()
+		mod:SetFrameParent()
 
 		E.UIParent:Show()
 
@@ -310,6 +340,10 @@ function mod:SetFlightMode(status)
 		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Show() end
 		if E.private.general.minimap.enable then
 			Minimap:Show()
+		end
+
+		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
+			_G.ZoneAbilityFrame:GetParent():Show()
 		end
 		_G.MainMenuBarVehicleLeaveButton:SetScript('OnShow', nil)
 		self.FlightMode:Hide()
@@ -376,6 +410,14 @@ function mod:SetFlightMode(status)
 			twipe(AllTheThingsFrames)
 		end
 
+		-- special handling for Elkano Buff Bars
+		if IsAddOnLoaded('ElkBuffBars') then
+			ElkBuffBars:PET_BATTLE_CLOSE()
+		end
+
+		-- Decursive
+		Decursive(false)
+
 		-- revert Left Chat
 		if E.private.chat.enable then
 			BuiDummyChat:SetParent(E.UIParent)
@@ -401,22 +443,15 @@ function mod:SetFlightMode(status)
 			LO:ToggleChatPanels()
 		end
 
-		-- Revert ActionBars
-		for _, bar in pairs(AB.handledBars) do
-			if bar then
-				bar:SetAlpha(1)
-			end
-		end
-
-		if _G.ElvUI_StanceBar then
-			_G.ElvUI_StanceBar:SetAlpha(1)
+		-- revert Actionbars
+		for barName in pairs(AB.handledBars) do
+			AB:PositionAndSizeBar(barName)
 		end
 
 		-- Show SquareMinimapButtonBar
-		if (BUI.PA and not BUI.SLE) then
+		if BUI.PA then
 			if SquareMinimapButtonBar then
-				_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
-				SquareMinimapButtonBar:SetAlpha(1)
+				SquareMinimapButtonBar:Show()
 			end
 		end
 
@@ -865,8 +900,8 @@ function mod:Initialize()
 	self:Toggle()
 	self:ToggleLogo()
 
-	hooksecurefunc(M, "SetLargeWorldMap", mod.SetWorldMapParent)
-	hooksecurefunc(M, "SetSmallWorldMap", mod.SetWorldMapParent)
+	hooksecurefunc(M, "SetLargeWorldMap", mod.SetFrameParent)
+	hooksecurefunc(M, "SetSmallWorldMap", mod.SetFrameParent)
 	
 	-- force databars parent. This should fix databars showing after a Pet Battle
 	E.FrameLocks['ElvUI_ExperienceBar'] = { parent = E.UIParent }

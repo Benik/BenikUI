@@ -10,12 +10,6 @@ P['unitframe']['units']['target']['power']['vertical'] = false
 P['unitframe']['units']['party']['portrait']['height'] = 0
 P['unitframe']['units']['party']['portrait']['transparent'] = false
 
--- Add raid classHover to ElvUI defaults
-P['unitframe']['units']['raid']['classHover'] = false
-
--- Add raid40 classHover to ElvUI defaults
-P['unitframe']['units']['raid40']['classHover'] = false
-
 -- Databars text yOffset
 P['databars']['experience']['textYoffset'] = 0
 P['databars']['azerite']['textYoffset'] = 0
@@ -24,6 +18,9 @@ P['databars']['honor']['textYoffset'] = 0
 
 -- Add Minimap styling toggle default
 P['general']['minimap']['benikuiStyle'] = true
+
+-- Add Chat styling toggle default
+P['chat']['benikuiStyle'] = true
 
 -- Datatexts
 P['datatexts']['panels']['BuiLeftChatDTPanel'] = {
@@ -53,6 +50,7 @@ P['benikui'] = {
 		['hideStyle'] = false,
 		['shadows'] = true,
 		['shadowSize'] = 4,
+		['shadowAlpha'] = 0.6,
 		['loginMessage'] = true,
 		['splashScreen'] = true,
 	},
@@ -120,6 +118,7 @@ P['benikui'] = {
 			['bar10'] = true,
 			['petbar'] = true,
 			['stancebar'] = true,
+			['microbar'] = true,
 		},
 	},
 
@@ -209,14 +208,14 @@ P['benikui'] = {
 }
 
 -- Skins and ElvUI addons Styling
-P['benikuiSkins'] = {
+P['benikui']['skins'] = {
 	['elvuiAddons'] = {
-		['loclite'] = true,
 		['locplus'] = true,
 		['sle'] = true,
 		['enh'] = true,
 		['pa'] = true,
 		['mer'] = true,
+		['elv'] = true,
 	},
 
 	['addonSkins'] = {
@@ -235,18 +234,22 @@ P['benikuiSkins'] = {
 		['allthethings'] = true,
 		['tinyinspect'] = true,
 		['arkinventory'] = true,
+		['classTactics'] = true,
+		['hekili'] = true,
+		['wowpro'] = true,
 	},
 
 	['variousSkins'] = {
 		['talkingHead'] = true,
-		['storyline'] = true,
+		['objectiveTracker'] = true,
 		['inflight'] = true,
 		['kt'] = true,
+		['rt'] = true,
 	},
 }
 
 -- Databars
-P['benikuiDatabars'] = {
+P['benikui']['databars'] = {
 	['experience'] = {
 		['enable'] = true,
 		['buiStyle'] = true,
@@ -298,12 +301,35 @@ P['benikuiDatabars'] = {
 	},
 }
 
+-- Widgetbars
+P['benikui']['widgetbars'] = {
+	['mawBar'] = {
+		['enable'] = true,
+		['width'] = 222,
+		['height'] = 5,
+		['textYoffset'] = 13,
+		['barColor'] = {r = 0.192, g = 0.858, b = 0.858, a = 100},
+		['barAutoColor'] = true,
+		['textColor'] = {r = 1, g = 1, b = 1},
+		['useDTfont'] = true,
+		['font'] = E.db.datatexts.font,
+		['fontsize'] = E.db.datatexts.fontSize,
+		['fontflags'] = E.db.datatexts.fontOutline,
+		['textFormat'] = 'PERCENT',
+	},
+	['halfBar'] = {
+		['altbar'] = true,
+		['mirrorbar'] = true,
+	},
+}
+
 -- Dashboards
-P['dashboards'] = {
+P['benikui']['dashboards'] = {
 	['system'] = {
 		['enableSystem'] = true,
 		['combat'] = false,
 		['width'] = 150,
+		['barHeight'] = 1,
 		['style'] = true,
 		['transparency'] = true,
 		['backdrop'] = true,
@@ -324,11 +350,13 @@ P['dashboards'] = {
 		['mouseover'] = false,
 		['tooltip'] = true,
 		['width'] = 150,
+		['barHeight'] = 1,
 		['style'] = true,
 		['transparency'] = true,
 		['backdrop'] = true,
 		['zeroamount'] = false,
 		['weekly'] = true,
+		['iconPosition'] = 'LEFT'
 	},
 
 	['professions'] = {
@@ -336,10 +364,12 @@ P['dashboards'] = {
 		['combat'] = true,
 		['mouseover'] = false,
 		['width'] = 150,
+		['barHeight'] = 1,
 		['style'] = true,
 		['transparency'] = true,
 		['backdrop'] = true,
 		['capped'] = false,
+		['iconPosition'] = 'RIGHT'
 	},
 
 	['reputations'] = {
@@ -347,12 +377,14 @@ P['dashboards'] = {
 		['combat'] = true,
 		['mouseover'] = false,
 		['width'] = 200,
+		['barHeight'] = 1,
 		['style'] = true,
 		['transparency'] = true,
 		['backdrop'] = true,
 		['barFactionColors'] = true,
 		['textFactionColors'] = true,
 		['tooltip'] = false,
+		['textAlign'] = 'LEFT',
 	},
 
 	['dashfont'] = {

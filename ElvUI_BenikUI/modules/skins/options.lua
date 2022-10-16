@@ -11,6 +11,8 @@ local DecorElvUIAddons = {
 	{'ElvUI_LocPlus', L['LocationPlus'], 'locplus'},
 	{'ElvUI_SLE', L['Shadow & Light'], 'sle'},
 	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
+	{'ElvUI_MerathilisUI', L['MerathilisUI'], 'mer'},
+	{'ElvUI_OptionsUI', L['ElvUI Options'], 'elv'},
 }
 
 local DecorAddonSkins = {
@@ -29,11 +31,15 @@ local DecorAddonSkins = {
 	{'AllTheThings', L['All The Things'], 'allthethings'},
 	{'TinyInspect', L['TinyInspect'], 'tinyinspect'},
 	{'ArkInventory', L['Ark Inventory'], 'arkinventory'},
+	{'Storyline', L['Storyline'], 'storyline'},
+	{'ClassTactics', L['ClassTactics'], 'classTactics'},
+	{'Hekili', L['Hekili'], 'hekili'},
+	{'WoWPro', L['WoWPro'], 'wowpro'},
 }
 
 local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
-	{'BigWigs', 'BigWigs'},
+	--{'BigWigs', 'BigWigs'},
 	{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
 	{'ElvUI_LocPlus', 'Location Plus'},
@@ -57,7 +63,7 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins = {
 		order = 100,
 		type = 'group',
-		name = BUI:cOption(ADDONS, "blue"),
+		name = BUI:cOption(ADDONS, "orange"),
 		args = {
 			desc = {
 				order = 2,
@@ -72,8 +78,8 @@ local function SkinTable()
 		type = 'group',
 		guiInline = true,
 		name = L['ElvUI AddOns'],
-		get = function(info) return E.db.benikuiSkins.elvuiAddons[ info[#info] ] end,
-		set = function(info, value) E.db.benikuiSkins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		get = function(info) return E.db.benikui.skins.elvuiAddons[ info[#info] ] end,
+		set = function(info, value) E.db.benikui.skins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			},
 		}
@@ -104,8 +110,8 @@ local function SkinTable()
 		type = 'group',
 		guiInline = true,
 		name = L['AddOnSkins'],
-		get = function(info) return E.db.benikuiSkins.addonSkins[ info[#info] ] end,
-		set = function(info, value) E.db.benikuiSkins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		get = function(info) return E.db.benikui.skins.addonSkins[ info[#info] ] end,
+		set = function(info, value) E.db.benikui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			},
 		}
@@ -127,26 +133,25 @@ local function SkinTable()
 		type = 'group',
 		guiInline = true,
 		name = L['Skins'],
-		get = function(info) return E.db.benikuiSkins.variousSkins[ info[#info] ] end,
-		set = function(info, value) E.db.benikuiSkins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
+		set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
 			talkingHead = {
 				order = 1,
 				type = 'toggle',
 				name = L["TalkingHead"],
 			},
-			storyline = {
+			objectiveTracker = {
 				order = 2,
 				type = 'toggle',
-				name = L['Storyline'],
-				disabled = function() return not IsAddOnLoaded('Storyline') end,
+				name = OBJECTIVES_TRACKER_LABEL,
 			},
 			inflight = {
 				order = 3,
 				type = 'toggle',
 				name = L['InFlight'],
-				set = function(info, value) E.db.benikuiSkins.variousSkins[ info[#info] ] = value;
-					if E.db.benikuiSkins.variousSkins.inflight then
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value;
+					if E.db.benikui.skins.variousSkins.inflight then
 						BUI:LoadInFlightProfile(true)
 					else
 						BUI:LoadInFlightProfile(false)
@@ -159,6 +164,12 @@ local function SkinTable()
 				type = 'toggle',
 				name = L['Kaliels Tracker'],
 				disabled = function() return not IsAddOnLoaded('!KalielsTracker') end,
+			},
+			rt = {
+				order = 5,
+				type = 'toggle',
+				name = L['Rare Tracker'],
+				disabled = function() return not IsAddOnLoaded('RareTrackerCore') end,
 			},
 		},
 	}
@@ -184,11 +195,11 @@ local function SkinTable()
 				if addon == 'DBM-Core' then
 					BUI:LoadDBMProfile()
 				elseif addon == 'BigWigs' then
-					BUI:LoadBigWigsProfile()
+					--BUI:LoadBigWigsProfile()
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
 				elseif addon == 'InFlight_Load'then
-					if E.db.benikuiSkins.variousSkins.inflight then
+					if E.db.benikui.skins.variousSkins.inflight then
 						BUI:LoadInFlightProfile(true)
 					else
 						BUI:LoadInFlightProfile(false)

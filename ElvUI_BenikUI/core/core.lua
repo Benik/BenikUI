@@ -32,10 +32,12 @@ end
 -- Check other addons
 BUI.SLE = BUI:IsAddOnEnabled('ElvUI_SLE')
 BUI.MER = BUI:IsAddOnEnabled('ElvUI_MerathilisUI')
+BUI.ELT = BUI:IsAddOnEnabled('ElvUI_EltreumUI')
 BUI.PA = BUI:IsAddOnEnabled('ProjectAzilroka')
 BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')
 BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
+BUI.CT = BUI:IsAddOnEnabled('ClassTactics')
 BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
 BUI.ZG = BUI:IsAddOnEnabled('ZygorGuidesViewer')
 
@@ -43,22 +45,6 @@ local classColor = E:ClassColor(E.myclass, true)
 
 local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
-end
-
-local function RegisterMedia()
-	--Fonts
-	E['media'].buiFont = LSM:Fetch('font', 'Bui Prototype')
-	E['media'].buiVisitor = LSM:Fetch('font', 'Bui Visitor1')
-	E['media'].buiVisitor2 = LSM:Fetch('font', 'Bui Visitor2')
-	E['media'].buiTuk = LSM:Fetch('font', 'Bui Tukui')
-
-	--Textures
-	E['media'].BuiEmpty = LSM:Fetch('statusbar', 'BuiEmpty')
-	E['media'].BuiFlat = LSM:Fetch('statusbar', 'BuiFlat')
-	E['media'].BuiMelli = LSM:Fetch('statusbar', 'BuiMelli')
-	E['media'].BuiMelliDark = LSM:Fetch('statusbar', 'BuiMelliDark')
-	E['media'].BuiOnePixel = LSM:Fetch('statusbar', 'BuiOnePixel')
-	E['media'].BuiShadow = LSM:Fetch('statusbar', 'BuiKringelShadow')
 end
 
 function BUI:Print(...)
@@ -115,6 +101,28 @@ function BUI:LuaError(msg)
 	end
 end
 
+function BUI:getCovenantColor()
+	local covenantData = C_Covenants.GetCovenantData(C_Covenants.GetActiveCovenantID())
+	local kit = covenantData and covenantData.textureKit or nil
+	local r, g, b
+
+	if kit then
+		if kit == "Kyrian" then
+			r, g, b = 0.1647, 0.6353, 1.0
+		elseif kit == "Venthyr" then
+			r, g, b = 0.8941, 0.0510, 0.0549
+		elseif kit == "NightFae" then
+			r, g, b = 0.5020, 0.7098, 0.9922
+		elseif kit == "Necrolord" then
+			r, g, b = 0.0902, 0.7843, 0.3922
+		end
+	else
+		r, g, b = 1, 1, 1 -- fall back to white
+	end
+
+	return r, g, b
+end
+
 local r, g, b = 0, 0, 0
 function BUI:UpdateStyleColors()
 	if not E.db.benikui.general.benikuiStyle then return end
@@ -128,6 +136,8 @@ function BUI:UpdateStyleColors()
 				r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
 			elseif E.db.benikui.colors.StyleColor == 3 then
 				r, g, b = BUI:unpackColor(E.db.general.valuecolor)
+			elseif E.db.benikui.colors.StyleColor == 5 then
+				r, g, b = BUI:getCovenantColor()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
@@ -166,7 +176,7 @@ function BUI:UpdateSoftGlowColor()
 	end
 end
 
-function BUI:UpdateShadowSize()
+function BUI:UpdateShadows()
 	if BUI["shadows"] == nil then BUI["shadows"] = {} end
 	local db = E.db.benikui.general
 
@@ -175,7 +185,7 @@ function BUI:UpdateShadowSize()
 			shadow:SetOutside(shadow:GetParent(), (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
 			shadow:SetBackdrop({edgeFile = E.Media.Textures.GlowTex, edgeSize = E:Scale(db.shadowSize or 3)})
 			shadow:SetBackdropColor(0, 0, 0, 0)
-			shadow:SetBackdropBorderColor(0, 0, 0, 0.6)
+			shadow:SetBackdropBorderColor(0, 0, 0, db.shadowAlpha or 0.6)
 		else
 			BUI["shadows"][shadow] = nil;
 		end
@@ -196,10 +206,33 @@ function BUI:LoadCommands()
 	self:RegisterChatCommand("buierror", "LuaError")
 end
 
+function BUI:ConvertDB()
+	if E.db.benikuiSkins then
+		E:CopyTable(E.db.benikui.skins, E.db.benikuiSkins)
+		E.db.benikuiSkins = nil
+	end
+	if E.db.benikuiDatabars then
+		E:CopyTable(E.db.benikui.databars, E.db.benikuiDatabars)
+		E.db.benikuiDatabars = nil
+	end
+	if E.db.benikuiWidgetbars then
+		E:CopyTable(E.db.benikui.widgetbars, E.db.benikuiWidgetbars)
+		E.db.benikuiWidgetbars = nil
+	end
+	if E.db.dashboards then
+		E:CopyTable(E.db.benikui.dashboards, E.db.dashboards)
+		E.db.dashboards = nil
+	end
+	if E.private.dashboards then
+		E:CopyTable(E.private.benikui.dashboards, E.private.dashboards)
+		E.private.dashboards = nil
+	end
+end
+
 function BUI:Initialize()
-	RegisterMedia()
-	self:LoadCommands()
-	self:SplashScreen()
+	BUI:LoadCommands()
+	BUI:SplashScreen()
+	BUI:ConvertDB()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
@@ -217,8 +250,7 @@ function BUI:Initialize()
 	end
 
 	if E.db.benikui.general.loginMessage then
-		--print(BUI.Title..format('v|cff00c0fa%s|r',BUI.Version)..L[' is loaded. For any issues or suggestions, please visit ']..PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues'))
-		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('http://git.tukui.org/Benik/ElvUI_BenikUI/issues')))
+		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('https://github.com/Benik/BenikUI/issues')))
 	end
 
 	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then

@@ -10,7 +10,7 @@ L["WORLD"] = "Mundo";
 
 -- core
 L['is loaded. For any issues or suggestions, please visit'] = "carregado. Para qualquer problema ou sugestão, por favor acesse"
-L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = "%s\n\nA sua versão %.2f do ElvUI não é compativel com o BenikUI.\nA ultima versão do ElvUI é a %.2f. Por favor, baixe aqui:\n"
+L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nMinimum ElvUI version needed is %.2f. Please download it from here:\n"] = true
 L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"] = "|cffff0000Erro BenikUI|r\n\nParece que instalou o BenikUI versão Retail no WoW Clássico. Por favor instale o BenikUI versão Clássico.\n|cff00c0faDica: Normalmente acontece com o Twitch Client|r"
 
 -- General options
@@ -27,8 +27,10 @@ L['by Benik (EU-Emerald Dream)'] = "por Benik (EU-Emerald Dream)"
 L['light blue color.'] = "cor azul claro"
 L['Splash Screen'] = "Tela de inicio"
 L['Shadow'] = "Sombra"
-
+L['Shadow Alpha'] = true
 L['Shadow Size'] = "Tamanho da Sombra"
+L['Covenant Color'] = true
+
 -- Layout
 L['LeftClick: Toggle Configuration'] = "LeftClick: Alterna Configuração"
 L['RightClick: Toggle Embedded Addon'] = "RightClick: Alterna Addon Embutido"
@@ -36,14 +38,17 @@ L['ShiftClick to toggle chat'] = "ShiftClick para alternar bate-papo"
 L['Click to show the Addon List'] = "Clique para mostrar a lista de Addons"
 
 -- Custom Panels
+L['Clone'] = true
+L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L['Create'] = "Criar"
 L['Enable tooltip to reveal the panel name'] = "Mostra o nome do painel na dica de contexto"
-L['Hide In Combat'] = "Esconder Em Combate"
 L['Hide in Pet Battle'] = "Esconder Em Batalhas de Pet"
 L['Name Tooltip'] = "Nome na Dica de contexto"
+L['New Custom Panel'] = true
+L['Style Position'] = true
 L['Texture Color'] = "Cor da Textura"
 L['The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one.'] = "O nome do painel personalizado |cff00c0fa%s|r já existe. Por favor escolha outro nome."
-L['This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?'] = "Isto vai apagar o painel personalizado com o nome |cff00c0fa%s|r. Esta ação precisa que recarregue a interface.\nContinuar?"
+L['This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?'] = "Isto vai apagar o painel personalizado com o nome |cff00c0fa%s|r.\nContinuar?"
 L['This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: "[combat] show;hide"'] = 'Isto funciona como uma macro, pode configurar várias situações para esconder ou mostrar o painel.\n Examplo: "[combat] show;hide"'
 L['Title Bar Position'] = "Posição da Barra de Título"
 L['Title Text Position'] = "Posição do Texto de Título"
@@ -138,19 +143,23 @@ L["Random Stats"] = "Estatisticas Variadas"
 L["remaining till level"] = "faltando para nivel"
 
 -- Dashboards
+L["Change the Professions Dashboard width."] = "Altera a largura do Painel de Profissões."
+L["Change the Tokens Dashboard width."] = "Altera a largura do Painel de Tokens."
+L["Enable the Professions Dashboard."] = "Habilita o Painel de Profissões."
+L["Filter Capped"] = "Filtrar terminadas."
 L['Amount'] = "Quantidade"
 L['Bar Color'] = "Cor da Barra"
-L["Change the Professions Dashboard width."] = "Altera a largura do Painel de Profissões."
+L['Bar Height'] = true
+L['Change the Bar Height.'] = true
 L['Change the System Dashboard width.'] = "Altera a largura do Painel de Sistema."
-L["Change the Tokens Dashboard width."] = "Altera a largura do Painel de Tokens."
 L['Choose font for all dashboards.'] = "Escolha a fonte para todos os painéis."
 L['Click :'] = "Clique :"
 L['Dashboards'] = "Painéis"
-L["Enable the Professions Dashboard."] = "Habilita o Painel de Profissões."
 L['Enable the System Dashboard.'] = "Habilita o Painel de Sistema."
 L['Enable the Tokens Dashboard.'] = "Habilita o Painel de Tokens."
 L['Enable/Disable'] = "Habilita/Desabilita"
-L["Filter Capped"] = "Filtrar terminadas."
+L['Faction Colors'] = true
+L['Fast Volume +/-'] = true
 L['Latency (MS)'] = "Latência (MS)"
 L['MouseWheel :'] = "MouseWheel :"
 L['RightClick :'] = "RightClick :"
@@ -158,17 +167,21 @@ L['Select Professions'] = "Escolha Profissões"
 L['Select System Board'] = "Escolha Painel de Sistema"
 L['Select Tokens'] = "Escolha Tokens"
 L['Set the font size.'] = "Defina o tamanho da fonte."
+L['Shift+MouseWheel :'] = true
 L['Shift+RightClick to remove'] = "Shift+RightClick para remover"
 L['Show the token, even if the amount is 0'] = "Mostrar o token mesmo que a quantidade seja 0"
-L['Show Weekly max'] = "Mostrar Máx Semanal"
 L['Show Weekly max tokens instead of total max'] = "Mostrar Máx Semanal de tokens em vez do Máx Total"
+L['Show Weekly max'] = "Mostrar Máx Semanal"
 L['Show zero amount tokens'] = "Mostrar tokens com quantidade zero"
+L['Show/Hide Professions Dashboard when in combat'] = true
+L['Show/Hide Reputations Dashboard when in combat'] = true
 L['Show/Hide System Dashboard when in combat'] = "Mostra/Esconde o Painel de Sistem em combate"
 L['Show/Hide Tokens Dashboard when in combat'] = "Mostra/Esconde o Painel de Tokens em combate"
 L['Show/Hide Tooltips'] = "Mostra/Esconde Dica de contexto"
 L['System'] = "Sistema"
-L['Tip: Grayed tokens are not yet discovered'] = "Dica: Tokens a cinzento ainda não foram descobertos"
+L['Text Alignment'] = true
 L['Tip: Click to free memory'] = "Dica: Clique para libera memória"
+L['Tip: Grayed tokens are not yet discovered'] = "Dica: Tokens a cinzento ainda não foram descobertos"
 L['Use DataTexts font'] = "Usar fonte dos Textos Informativos"
 L['Use Faction Colors on Bars'] = "Usar cor da Fação nas Barras"
 L['Use Faction Colors on Text'] = "Usar cor da Fação no Texto"

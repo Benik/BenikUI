@@ -1,6 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Units')
 local UF = E:GetModule('UnitFrames')
+local AB = E:GetModule('ActionBars')
 
 function mod:UnitDefaults()
 	if E.db.benikui.unitframes.player.portraitWidth == nil then
@@ -41,15 +42,11 @@ end
 
 -- Unit Shadows
 function mod:UnitShadows()
-	for _, unitName in pairs(UF.units) do
-		local frameNameUnit = E:StringTitle(unitName)
-		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
-
-		local unitframe = _G["ElvUF_"..frameNameUnit]
-		if unitframe then
-			unitframe:CreateSoftShadow()
-			unitframe.Buffs.PostUpdateIcon = mod.PostUpdateAura
-			unitframe.Debuffs.PostUpdateIcon = mod.PostUpdateAura
+	for _, frame in pairs(UF.units) do
+		if frame then
+			frame:CreateSoftShadow()
+			frame.Buffs.PostUpdateIcon = mod.PostUpdateAura
+			frame.Debuffs.PostUpdateIcon = mod.PostUpdateAura
 		end
 	end
 end
@@ -73,43 +70,28 @@ end
 
 -- Raid Shadows
 function mod:RaidShadows()
-	local header = _G['ElvUF_Raid']
+	for i = 1, 3 do
+		local header = _G['ElvUF_Raid'..i]
 
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
+		for j = 1, header:GetNumChildren() do
+			local group = select(j, header:GetChildren())
 
-		for j = 1, group:GetNumChildren() do
-			local unitbutton = select(j, group:GetChildren())
-			if unitbutton then
-				unitbutton:CreateSoftShadow()
-				unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
-				unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
-			end
-		end
-	end
-end
-
--- Raid-40 Shadows
-function mod:Raid40Shadows()
-	local header = _G['ElvUF_Raid40']
-
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-
-		for j = 1, group:GetNumChildren() do
-			local unitbutton = select(j, group:GetChildren())
-			if unitbutton then
-				unitbutton:CreateSoftShadow()
-				unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
-				unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
+			for k = 1, group:GetNumChildren() do
+				local unitbutton = select(k, group:GetChildren())
+				if unitbutton then
+					unitbutton:CreateSoftShadow()
+					unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
+					unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
+				end
 			end
 		end
 	end
 end
 
 -- Boss shadows
+local MAX_BOSS_FRAMES = 8
 function mod:BossShadows()
-	for i = 1, 5 do
+	for i = 1, MAX_BOSS_FRAMES do
 		local unitbutton = _G["ElvUF_Boss"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
@@ -154,29 +136,40 @@ function mod:TankTargetShadows()
 end
 
 function mod:PostUpdateAura(_, button)
+	local db = (self.isNameplate and NP.db.colors) or UF.db.colors
+	local enemyNPC = not button.isFriend and not button.isPlayer
+
 	if not button.shadow then
 		button:CreateSoftShadow()
 	end
 
+	local r, g, b
 	if button.isDebuff then
-		if(not button.isFriend and not button.isPlayer) then --[[and (not E.isDebuffWhiteList[name])]]
-			button:SetBackdropBorderColor(0.9, 0.1, 0.1)
-			button.icon:SetDesaturated(button.canDesaturate)
-		else
-			if E.BadDispels[button.spellID] and button.dtype and E:IsDispellableByMe(button.dtype) then
-				button:SetBackdropBorderColor(0.05, 0.85, 0.94)
-			else
-				local color = (button.dtype and _G.DebuffTypeColor[button.dtype]) or _G.DebuffTypeColor.none
-				button:SetBackdropBorderColor(color.r * 0.6, color.g * 0.6, color.b * 0.6)
+		if enemyNPC then
+			if db.auraByType then
+				r, g, b = .9, .1, .1
 			end
-			button.icon:SetDesaturated(false)
+		elseif db.auraByDispels and button.debuffType and E.BadDispels[button.spellID] and E:IsDispellableByMe(button.debuffType) then
+			r, g, b = .05, .85, .94
+		elseif db.auraByType then
+			local color = _G.DebuffTypeColor[button.debuffType] or _G.DebuffTypeColor.none
+			r, g, b = color.r * 0.6, color.g * 0.6, color.b * 0.6
 		end
-	else
-		if button.isStealable and not button.isFriend then
-			button:SetBackdropBorderColor(0.93, 0.91, 0.55, 1.0)
-		else
-			button:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
-		end
+	elseif db.auraByDispels and button.isStealable and not button.isFriend then
+		r, g, b = .93, .91, .55
+	end
+
+	if not r then
+		r, g, b = unpack((self.isNameplate and E.media.bordercolor) or E.media.unitframeBorderColor)
+	end
+
+	button:SetBackdropBorderColor(r, g, b)
+	button.icon:SetDesaturated(button.isDebuff and enemyNPC and button.canDesaturate)
+	button.matches = nil -- stackAuras
+
+	if button.needsIconTrim then
+		AB:TrimIcon(button)
+		button.needsIconTrim = nil
 	end
 
 	if button.needsUpdateCooldownPosition and (button.cd and button.cd.timer and button.cd.timer.text) then
@@ -186,9 +179,9 @@ end
 
 function mod:ChangeDefaultOptions()
 	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.height.max = 300
-	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
+	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.detachGroup.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
 	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.height.max = 300
-	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
+	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.detachGroup.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
 end
 
 function mod:ADDON_LOADED(event, addon)
@@ -197,37 +190,60 @@ function mod:ADDON_LOADED(event, addon)
 	mod:ChangeDefaultOptions()
 end
 
-function mod:Initialize()
-	if E.private.unitframe.enable ~= true then return end
-	self:UnitDefaults()
-	self:InitPlayer()
-	self:InitTarget()
-	self:InitFocus()
-	self:InitPet()
-	self:InitTargetTarget()
+function mod:Setup()
+	mod:UnitDefaults()
+	mod:InitPlayer()
+	mod:InitTarget()
+	mod:InitFocus()
+	mod:InitPet()
+	mod:InitTargetTarget()
 
-	self:InitParty()
-	self:InitRaid()
-	self:InitRaid40()
+	mod:InitParty()
+	mod:InitRaid()
 
-	self:ChangePowerBarTexture()
-	self:ChangeHealthBarTexture()
-	self:InfoPanelColor()
+	mod:ChangePowerBarTexture()
+	mod:ChangeHealthBarTexture()
+	mod:InfoPanelColor()
 
-	self:Configure_RoleIcons()
+	mod:Configure_RoleIcons()
 
 	if BUI.ShadowMode then
-		self:UnitShadows()
-		self:PartyShadows()
-		self:RaidShadows()
-		self:Raid40Shadows()
-		self:BossShadows()
-		self:ArenaShadows()
-		self:TankShadows()
-		self:TankTargetShadows()
+		mod:UnitShadows()
+		mod:PartyShadows()
+		mod:RaidShadows()
+		mod:BossShadows()
+		mod:ArenaShadows()
+		mod:TankShadows()
+		mod:TankTargetShadows()
+
+		-- AuraBars Shadows
+		hooksecurefunc(UF, 'Configure_AuraBars', mod.Configure_AuraBars)
 	end
 
+	-- Group Health textures hooks
+	hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyHealthBarTexture)
+	hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidHealthBarTexture)
+	hooksecurefunc(UF, 'Update_StatusBars', mod.ChangeHealthBarTexture)
+
+	-- Group Power textures hooks
+	hooksecurefunc(UF, 'Update_AllFrames', mod.ChangeUnitPowerBarTexture)
+	hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidPowerBarTexture)
+	hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyPowerBarTexture)
+	hooksecurefunc(UF, 'Update_ArenaFrames', mod.ChangeArenaPowerBarTexture)
+	hooksecurefunc(UF, 'Update_BossFrames', mod.ChangeBossPowerBarTexture)
+	hooksecurefunc(UF, 'Update_StatusBars', mod.ChangePowerBarTexture)
+
+	-- ShapeShift fix
+	hooksecurefunc(AB, 'StyleShapeShift', mod.ChangeUnitPowerBarTexture)
+end
+
+
+function mod:Initialize()
+	if E.private.unitframe.enable ~= true then return end
+
+	hooksecurefunc(UF, "LoadUnits", mod.Setup)
 	hooksecurefunc(UF, "Configure_ReadyCheckIcon", mod.Configure_ReadyCheckIcon)
+
 	self:RegisterEvent("ADDON_LOADED")
 end
 

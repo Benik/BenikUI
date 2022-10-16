@@ -10,7 +10,7 @@ L["WORLD"] = "Welt";
 
 --core
 L['is loaded. For any issues or suggestions, please visit'] = "ist geladen. Für Fehler oder Vorschläge besucht bitte:"
-L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = "%s\n\nDeine Version von ElvUI %.2f ist nicht kompatibel mit BenikUI.\nAktuellste Version ist %.2f. Bitte lade sie hier runter:\n"
+L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nMinimum ElvUI version needed is %.2f. Please download it from here:\n"] = true
 L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"] = true
 
 -- General options
@@ -28,6 +28,8 @@ L['light blue color.'] = "hell blau"
 L['Splash Screen'] = "Startbildschirm"
 L['Shadow'] = "Schatten"
 L['Shadow Size'] = true
+L['Shadow Alpha'] = true
+L['Covenant Color'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
@@ -36,14 +38,17 @@ L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 
 -- Custom Panels
+L['Clone'] = true
+L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L["Create"] = "Erstelle"
 L["Enable tooltip to reveal the panel name"] = "Aktiviere den Tooltip um den Panel Namen zu erfahren"
-L["Hide In Combat"] = "Verstecke im Kampf"
 L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
 L["Name Tooltip"] = "Namenstooltip"
+L['New Custom Panel'] = true
+L['Style Position'] = true
 L["Texture Color"] = true
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Der Name |cff00c0fa%s|r von einem Benutzerdefiniertem Panel existiert bereits. Bitte wähle einen anderen."
-L["This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?"] = "Dieses wird das Benutzerdefiniertes Panel mit dem Namen |cff00c0fa%s|r löschen. Dieses erfordert einen Reload.\nFortfahren?"
+L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"] = "Dieses wird das Benutzerdefiniertes Panel mit dem Namen |cff00c0fa%s|r löschen.\nFortfahren?"
 L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = true
 L["Title Bar Position"] = true
 L["Title Text Position"] = true
@@ -138,19 +143,23 @@ L["Random Stats"] = "Zufällige Werte"
 L["remaining till level"] = "verbleibend bis zum Level"
 
 -- Dashboards
+L["Change the Professions Dashboard width."] = "Ändert die Beruf-Dashboard Breite."
+L["Change the Tokens Dashboard width."] = "Ändert die Token-Dashboard Breite."
+L["Enable the Professions Dashboard."] = "Aktiviert das Berufe Dashboard."
+L["Filter Capped"] = "Filtere am Cap"
 L['Amount'] = true
 L['Bar Color'] = "Leistenfarbe"
-L["Change the Professions Dashboard width."] = "Ändert die Beruf-Dashboard Breite."
+L['Bar Height'] = true
+L['Change the Bar Height.'] = true
 L['Change the System Dashboard width.'] = "Ändert die System-Dashboard Breite."
-L["Change the Tokens Dashboard width."] = "Ändert die Token-Dashboard Breite."
 L['Choose font for all dashboards.'] = "Wähle Schriftart für alle Dashboards."
 L['Click :'] = "Klick :"
 L['Dashboards'] = true --No need to translate
-L["Enable the Professions Dashboard."] = "Aktiviert das Berufe Dashboard."
 L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
 L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
 L['Enable/Disable'] = "Aktivieren/Deaktivieren"
-L["Filter Capped"] = "Filtere am Cap"
+L['Faction Colors'] = true
+L['Fast Volume +/-'] = true
 L['Latency (MS)'] = "Latenz (MS)"
 L['MouseWheel :'] = "Mausrad :"
 L['RightClick :'] = "Rechtsklick :"
@@ -158,17 +167,21 @@ L['Select Professions'] = "Berufe auswählen"
 L['Select System Board'] = "Wähle System Board"
 L['Select Tokens'] = "Abzeichen auswählen"
 L['Set the font size.'] = "Schriftgröße auswählen."
+L['Shift+MouseWheel :'] = true
 L['Shift+RightClick to remove'] = "Shift+Rechts click um zu entfernen"
 L['Show the token, even if the amount is 0'] = "Abzeichen anzeigen, auch wenn die Anzahl 0 ist"
-L['Show Weekly max'] = "Zeige wöchentliches maximum"
 L['Show Weekly max tokens instead of total max'] = "Zeige wöchentliches max. Abzeichen anstatt vom totalem max."
+L['Show Weekly max'] = "Zeige wöchentliches maximum"
 L['Show zero amount tokens'] = "Zeige Abzeichen mit der Anzahl 0"
+L['Show/Hide Professions Dashboard when in combat'] = true
+L['Show/Hide Reputations Dashboard when in combat'] = true
 L['Show/Hide System Dashboard when in combat'] = "Dashboard im Kampf anzeigen/ausblenden"
 L['Show/Hide Tokens Dashboard when in combat'] = "Abzeichen Dashboard im Kampf anzeigen/ausblenden"
 L['Show/Hide Tooltips'] = "Tooltip anzeigen/ausblenden"
 L['System'] = true --No need to translate
-L['Tip: Grayed tokens are not yet discovered'] = "Tip: Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
+L['Text Alignment'] = true
 L['Tip: Click to free memory'] = "Tip: Klicken um den Speicher zu bereinigen"
+L['Tip: Grayed tokens are not yet discovered'] = "Tip: Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true

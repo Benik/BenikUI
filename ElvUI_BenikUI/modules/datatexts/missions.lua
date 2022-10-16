@@ -22,10 +22,12 @@ local C_Garrison_RequestLandingPageShipmentInfo = C_Garrison.RequestLandingPageS
 local C_Garrison_GetCompleteMissions = C_Garrison.GetCompleteMissions
 local C_Garrison_GetLooseShipments = C_Garrison.GetLooseShipments
 local C_Garrison_GetTalentTreeIDsByClassID = C_Garrison.GetTalentTreeIDsByClassID
+local C_Garrison_GetTalentTreeInfo = C_Garrison.GetTalentTreeInfo
 local C_Garrison_GetTalentTreeInfoForID = C_Garrison.GetTalentTreeInfoForID
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
 local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 local C_CovenantCallings_AreCallingsUnlocked = C_CovenantCallings.AreCallingsUnlocked
 local CovenantCalling_Create = CovenantCalling_Create
@@ -39,6 +41,7 @@ local FOLLOWERLIST_LABEL_TROOPS = FOLLOWERLIST_LABEL_TROOPS
 local GARRISON_EMPTY_IN_PROGRESS_LIST = GARRISON_EMPTY_IN_PROGRESS_LIST
 local GARRISON_LANDING_SHIPMENT_COUNT = GARRISON_LANDING_SHIPMENT_COUNT
 local GOAL_COMPLETED = GOAL_COMPLETED
+local GARRISON_MISSION_IN_PROGRESS_TOOLTIP = GARRISON_MISSION_IN_PROGRESS_TOOLTIP
 local GREEN_FONT_COLOR = GREEN_FONT_COLOR
 local ISLANDS_HEADER = ISLANDS_HEADER
 local ISLANDS_QUEUE_FRAME_TITLE = ISLANDS_QUEUE_FRAME_TITLE
@@ -54,15 +57,21 @@ local LE_GARRISON_TYPE_7_0 = Enum.GarrisonType.Type_7_0
 local LE_GARRISON_TYPE_8_0 = Enum.GarrisonType.Type_8_0
 local LE_GARRISON_TYPE_9_0 = Enum.GarrisonType.Type_9_0
 local RESEARCH_TIME_LABEL = RESEARCH_TIME_LABEL
-local TALENTS = TALENTS
 
 local BODYGUARD_LEVEL_XP_FORMAT = L["Rank"] .. " %d (%d/%d)"
 local EXPANSION_NAME5 = EXPANSION_NAME5 -- "Warlords of Draenor"
 local EXPANSION_NAME6 = EXPANSION_NAME6 -- "Legion"
 local EXPANSION_NAME7 = EXPANSION_NAME7 -- "Battle for Azeroth"
 
-local NAZJATAR_MAP_ID = 1355
 local iconString = "|T%s:16:16:0:0:64:64:4:60:4:60|t"
+
+local callingsData = {}
+local covenantTreeIDs = {
+	[1] = {308, 312, 316, 320, 327},
+	[2] = {309, 314, 317, 324, 326},
+	[3] = {307, 311, 315, 319, 328},
+	[4] = {310, 313, 318, 321, 329}
+}
 
 local Widget_IDs = {
 	Alliance = {
@@ -88,7 +97,16 @@ local function LandingPage(_, ...)
 		return
 	end
 
-	HideUIPanel(_G.GarrisonLandingPage)
+	if _G.GarrisonLandingPage then
+		HideUIPanel(_G.GarrisonLandingPage)
+
+		for _, frame in pairs({ 'SoulbindPanel', 'CovenantCallings', 'ArdenwealdGardeningPanel' }) do
+			if _G.GarrisonLandingPage[frame] then
+				_G.GarrisonLandingPage[frame]:Hide()
+			end
+		end
+	end
+
 	ShowGarrisonLandingPage(...)
 end
 
@@ -96,7 +114,6 @@ local menuList = {
 	{text = _G.GARRISON_LANDING_PAGE_TITLE,			 func = LandingPage, arg1 = LE_GARRISON_TYPE_6_0, notCheckable = true},
 	{text = _G.ORDER_HALL_LANDING_PAGE_TITLE,		 func = LandingPage, arg1 = LE_GARRISON_TYPE_7_0, notCheckable = true},
 	{text = _G.WAR_CAMPAIGN,						 func = LandingPage, arg1 = LE_GARRISON_TYPE_8_0, notCheckable = true},
-	{text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = LandingPage, arg1 = LE_GARRISON_TYPE_9_0, notCheckable = true},
 }
 
 local data = {}
@@ -127,44 +144,54 @@ local function AddInProgressMissions(garrisonType)
 end
 
 local function AddFollowerInfo(garrisonType)
-	wipe(data)
-
 	data = C_Garrison_GetFollowerShipments(garrisonType)
 
 	if next(data) then
 		DT.tooltip:AddLine(' ')
-		DT.tooltip:AddLine(FOLLOWERLIST_LABEL_TROOPS) -- "Troops"
+		DT.tooltip:AddLine(FOLLOWERLIST_LABEL_TROOPS) -- 'Troops'
 		for _, followerShipments in ipairs(data) do
 			local name, _, _, shipmentsReady, shipmentsTotal, _, _, timeleftString = C_Garrison_GetLandingPageShipmentInfoByContainerID(followerShipments)
-			if (name and shipmentsReady and shipmentsTotal) then
-				timeleftString = (timeleftString and " "..timeleftString) or ""
-				DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal)..timeleftString, 1, 1, 1)
+			if name and shipmentsReady and shipmentsTotal then
+				if timeleftString then
+					DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal) .. ' ' .. format(GARRISON_LANDING_NEXT,timeleftString), 1, 1, 1, 1, 1, 1)
+				else
+					DT.tooltip:AddDoubleLine(name, format(GARRISON_LANDING_SHIPMENT_COUNT, shipmentsReady, shipmentsTotal), 1, 1, 1, 1, 1, 1)
+				end
 			end
 		end
 	end
 end
 
-local function AddTalentInfo(garrisonType)
-	wipe(data)
-
-	data = C_Garrison_GetTalentTreeIDsByClassID(garrisonType, E.myClassID)
+local covenantInfo = {}
+local function AddTalentInfo(garrisonType, currentCovenant)
+	if garrisonType == LE_GARRISON_TYPE_9_0 then
+		local current = covenantTreeIDs[currentCovenant]
+		if current then
+			wipe(covenantInfo)
+			data = E:CopyTable(covenantInfo, current)
+		else
+			wipe(data)
+		end
+	else
+		data = C_Garrison_GetTalentTreeIDsByClassID(garrisonType, E.myClassID)
+	end
 
 	if next(data) then
-		-- this is a talent that has completed, but has not been seen in the talent UI yet.
+		-- This is a talent that has completed, but has not been seen in the talent UI yet.
+		-- No longer provide relevant output in SL. Still used by old content.
 		local completeTalentID = C_Garrison_GetCompleteTalent(garrisonType)
-		if completeTalentID > 0 then
+		if completeTalentID > 0 and garrisonType ~= LE_GARRISON_TYPE_9_0 then
 			DT.tooltip:AddLine(' ')
-			DT.tooltip:AddLine(TALENTS)
+			DT.tooltip:AddLine(RESEARCH_TIME_LABEL) -- 'Research Time:'
 
 			for _, treeID in ipairs(data) do
-				local _, _, tree = C_Garrison_GetTalentTreeInfoForID(treeID)
-				for _, talent in ipairs(tree) do
-					if talent.isBeingResearched or talent.id == completeTalentID then
-						DT.tooltip:AddLine(RESEARCH_TIME_LABEL) -- "Research Time:"
-						if talent.researchTimeRemaining and talent.researchTimeRemaining == 0 then
+				local treeInfo = C_Garrison_GetTalentTreeInfo(treeID)
+				for _, talent in ipairs(treeInfo.talents) do
+					if talent.isBeingResearched or (talent.id == completeTalentID and garrisonType ~= LE_GARRISON_TYPE_9_0)then
+						if talent.timeRemaining and talent.timeRemaining == 0 then
 							DT.tooltip:AddDoubleLine(talent.name, GOAL_COMPLETED, 1, 1, 1, GREEN_FONT_COLOR:GetRGB())
 						else
-							DT.tooltip:AddDoubleLine(talent.name, E:GetTimeInfo(talent.researchTimeRemaining), 1, 1, 1, 1, 1, 1)
+							DT.tooltip:AddDoubleLine(talent.name, SecondsToTime(talent.timeRemaining), 1, 1, 1, 1, 1, 1)
 						end
 					end
 				end
@@ -306,14 +333,28 @@ local function OnEnter()
 	DT.tooltip:Show()
 end
 
-local function OnClick(self)
+local function OnClick(self, btn)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
 
-	DT:SetEasyMenuAnchor(DT.EasyMenu, self)
-	_G.EasyMenu(menuList, DT.EasyMenu, nil, nil, nil, "MENU")
+	if btn == "LeftButton" then
+		if C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID()) then
+			HideUIPanel(_G.GarrisonLandingPage)
+			ShowGarrisonLandingPage(LE_GARRISON_TYPE_9_0)
+		end
+	elseif btn == "RightButton" then
+		DT:SetEasyMenuAnchor(DT.EasyMenu, self)
+		_G.EasyMenu(menuList, DT.EasyMenu, nil, nil, nil, "MENU")
+	end
 end
 
-local inProgressMissions = {};
+local inProgressMissions = {}
+local expansions = {
+	LE_FOLLOWER_TYPE_GARRISON_6_2,
+	LE_FOLLOWER_TYPE_GARRISON_6_0,
+	LE_FOLLOWER_TYPE_GARRISON_7_0,
+	LE_FOLLOWER_TYPE_GARRISON_8_0,
+	LE_FOLLOWER_TYPE_GARRISON_9_0
+}
 local CountInProgress = 0
 local CountCompleted = 0
 
@@ -321,6 +362,11 @@ local function OnEvent(self, event, ...)
 
 	if event == 'GARRISON_SHIPMENT_RECEIVED' or (event == 'SHIPMENT_UPDATE' and select(1, ...) == true) then
 		C_Garrison_RequestLandingPageShipmentInfo()
+	end
+
+	if event == 'COVENANT_CALLINGS_UPDATED' then
+		wipe(callingsData)
+		callingsData = ...
 	end
 
 	if event == 'GARRISON_MISSION_NPC_OPENED' then
@@ -335,23 +381,24 @@ local function OnEvent(self, event, ...)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_2)
-
-		C_Garrison_GetInProgressMissions(inProgressMissions, LE_FOLLOWER_TYPE_GARRISON_8_0)
-		for i = 1, #inProgressMissions do
-			if inProgressMissions[i].inProgress then
-				local TimeLeft = inProgressMissions[i].timeLeft:match("%d")
-
-				if (TimeLeft ~= "0") then
-					CountInProgress = CountInProgress + 1
+		
+		for _, expansion in ipairs(expansions) do
+			C_Garrison_GetInProgressMissions(inProgressMissions, expansion)
+			for _, mission in ipairs(inProgressMissions) do
+				local timeLeft = mission.timeLeftSeconds
+				if (timeLeft ~= 0) then
+					CountInProgress = #inProgressMissions
 				end
 			end
 		end
 	end
 
-	if (CountInProgress > 0) then
-		self.text:SetFormattedText("|cff00ff00%s: %d/%d|r", GARRISON_MISSIONS, CountCompleted, #inProgressMissions)
+	if (CountCompleted == 0) and CountInProgress > 0 then
+		self.text:SetFormattedText("%s: |cffffa500%d|r", GARRISON_MISSION_IN_PROGRESS_TOOLTIP, CountInProgress)
 	elseif (CountInProgress == 0) and CountCompleted > 0 then
-		self.text:SetFormattedText("|cff00ff00%s (%d)|r", GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, CountCompleted)
+		self.text:SetFormattedText("%s: |cff00ff00%d|r", GOAL_COMPLETED, CountCompleted)
+	elseif (CountInProgress > 0) then
+		self.text:SetFormattedText("%s: |cff00ff00%d|r/|cffffa500%d|r", GARRISON_MISSIONS, CountCompleted, CountInProgress)
 	else
 		self.text:SetFormattedText(GARRISON_TYPE_8_0_LANDING_PAGE_TITLE)
 	end
@@ -361,4 +408,4 @@ local function OnEvent(self, event, ...)
 	end
 end
 
-DT:RegisterDatatext('Missions (BenikUI)', 'BenikUI', {'PLAYER_ENTERING_WORLD', 'GARRISON_LANDINGPAGE_SHIPMENTS', 'GARRISON_TALENT_UPDATE', 'GARRISON_TALENT_COMPLETE', 'GARRISON_SHIPMENT_RECEIVED', 'SHIPMENT_UPDATE', 'GARRISON_MISSION_FINISHED', 'GARRISON_MISSION_NPC_CLOSED', 'GARRISON_MISSION_NPC_OPENED', 'MODIFIER_STATE_CHANGED'}, OnEvent, nil, OnClick, OnEnter)
+DT:RegisterDatatext('Missions (BenikUI)', 'BenikUI', {'PLAYER_ENTERING_WORLD', 'GARRISON_LANDINGPAGE_SHIPMENTS', 'GARRISON_TALENT_UPDATE', 'GARRISON_TALENT_COMPLETE', 'GARRISON_SHIPMENT_RECEIVED', 'SHIPMENT_UPDATE', 'GARRISON_MISSION_FINISHED', 'GARRISON_MISSION_NPC_CLOSED', 'GARRISON_MISSION_NPC_OPENED', 'MODIFIER_STATE_CHANGED', 'COVENANT_CALLINGS_UPDATED'}, OnEvent, nil, OnClick, OnEnter)

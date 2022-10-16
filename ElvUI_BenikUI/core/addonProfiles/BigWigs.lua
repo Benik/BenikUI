@@ -33,7 +33,7 @@ function BUI:LoadBigWigsProfile()
 					["profiles"] = {
 						[key] = {
 							["fontName"] = font,
-							["BigWigsAnchor_width"] = 199.999908447266,
+							["BigWigsAnchor_width"] = 200,
 							["texture"] = "BuiFlat",
 							["barStyle"] = "AddOnSkins Half-Bar",
 						},
@@ -59,10 +59,10 @@ function BUI:LoadBigWigsProfile()
 						[key] = {
 							["fontSize"] = 20,
 							["fontName"] = font,
-							["width"] = 139.999984741211,
-							["posy"] = 453.688899874687,
-							["posx"] = 976.355666002965,
-							["height"] = 120.000007629395,
+							["width"] = 140,
+							["posy"] = 454,
+							["posx"] = 976,
+							["height"] = 120,
 						},
 					},
 				},

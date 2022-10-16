@@ -76,7 +76,7 @@ end
 
 function mod:CreateFps()
 	local boardName = _G['BUI_FPS']
-	local db = E.db.dashboards.system
+	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
 	boardName:SetScript('OnMouseDown', function (self)

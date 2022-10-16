@@ -10,7 +10,7 @@ L["WORLD"] = "Mondo";
 
 -- core
 L['is loaded. For any issues or suggestions, please visit'] = true
-L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nLatest ElvUI version is %.2f. Please download it from here:\n"] = true
+L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nMinimum ElvUI version needed is %.2f. Please download it from here:\n"] = true
 L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"] = true
 
 -- General options
@@ -28,6 +28,8 @@ L['light blue color.'] = true
 L['Splash Screen'] = true
 L['Shadow'] = true
 L['Shadow Size'] = true
+L['Shadow Alpha'] = true
+L['Covenant Color'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = true
@@ -36,14 +38,17 @@ L['ShiftClick to toggle chat'] = true
 L['Click to show the Addon List'] = true
 
 -- Custom Panels
+L['Clone'] = true
+L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L['Create'] = true
 L['Enable tooltip to reveal the panel name'] = true
-L['Hide In Combat'] = true
 L['Hide in Pet Battle'] = true
 L['Name Tooltip'] = true
+L['New Custom Panel'] = true
+L['Style Position'] = true
 L['Texture Color'] = true
 L['The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one.'] = true
-L['This will delete the Custom Panel named |cff00c0fa%s|r. This action will require a reload.\nContinue?'] = true
+L['This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?'] = true
 L['This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: "[combat] show;hide"'] = true
 L['Title Bar Position'] = true
 L['Title Text Position'] = true
@@ -138,19 +143,23 @@ L["Random Stats"] = true
 L["remaining till level"] = true
 
 -- Dashboards
+L["Change the Professions Dashboard width."] = true
+L["Change the Tokens Dashboard width."] = true
+L["Enable the Professions Dashboard."] = true
+L["Filter Capped"] = true
 L['Amount'] = true
 L['Bar Color'] = true
-L["Change the Professions Dashboard width."] = true
+L['Bar Height'] = true
+L['Change the Bar Height.'] = true
 L['Change the System Dashboard width.'] = true
-L["Change the Tokens Dashboard width."] = true
 L['Choose font for all dashboards.'] = true
 L['Click :'] = true
 L['Dashboards'] = true
-L["Enable the Professions Dashboard."] = true
 L['Enable the System Dashboard.'] = true
 L['Enable the Tokens Dashboard.'] = true
 L['Enable/Disable'] = true
-L["Filter Capped"] = true
+L['Faction Colors'] = true
+L['Fast Volume +/-'] = true
 L['Latency (MS)'] = true
 L['MouseWheel :'] = true
 L['RightClick :'] = true
@@ -158,17 +167,21 @@ L['Select Professions'] = true
 L['Select System Board'] = true
 L['Select Tokens'] = true
 L['Set the font size.'] = true
+L['Shift+MouseWheel :'] = true
 L['Shift+RightClick to remove'] = true
 L['Show the token, even if the amount is 0'] = true
-L['Show Weekly max'] = true
 L['Show Weekly max tokens instead of total max'] = true
+L['Show Weekly max'] = true
 L['Show zero amount tokens'] = true
+L['Show/Hide Professions Dashboard when in combat'] = true
+L['Show/Hide Reputations Dashboard when in combat'] = true
 L['Show/Hide System Dashboard when in combat'] = true
 L['Show/Hide Tokens Dashboard when in combat'] = true
 L['Show/Hide Tooltips'] = true
 L['System'] = true
-L['Tip: Grayed tokens are not yet discovered'] = true
+L['Text Alignment'] = true
 L['Tip: Click to free memory'] = true
+L['Tip: Grayed tokens are not yet discovered'] = true
 L['Use DataTexts font'] = true
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true

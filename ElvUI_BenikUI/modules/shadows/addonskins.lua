@@ -18,6 +18,14 @@ function mod:DBMShadows()
 	local function SkinBars(self)
 		for bar in self:GetBarIterator() do
 			if not bar.injected then
+				hooksecurefunc(bar, "Update", function()
+					local sparkEnabled = DBT.Options.Spark
+					if not (AS:CheckOption('DBMSkinHalf') and sparkEnabled) then return end
+					local spark = _G[bar.frame:GetName().."BarSpark"]
+					spark:SetSize(12, DBT.Options.Height*3/2 - 2)
+					local a, b, c, d = spark:GetPoint()
+					spark:SetPoint(a, b, c, d, 0)
+				end)
 				hooksecurefunc(bar, "ApplyStyle", function()
 					local frame = bar.frame
 					local tbar = _G[frame:GetName()..'Bar']
@@ -25,41 +33,29 @@ function mod:DBMShadows()
 					local icon2 = _G[frame:GetName()..'BarIcon2']
 					local name = _G[frame:GetName()..'BarName']
 					local timer = _G[frame:GetName()..'BarTimer']
-
-					if not icon1.overlay then
-						icon1.overlay = CreateFrame('Frame', '$parentIcon1Overlay', tbar)
-						AS:SetTemplate(icon1.overlay)
-						icon1.overlay:SetFrameLevel(0)
-						icon1.overlay:Point('BOTTOMRIGHT', frame, 'BOTTOMLEFT', -(AS.PixelMode and 2 or 3), 0)
-						icon1.overlay:CreateSoftShadow()
+					local iconSize = bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height
+					if AS:CheckOption('DBMSkinHalf') then
+						iconSize = iconSize * 3
 					end
 
-					if not icon2.overlay then
-						icon2.overlay = CreateFrame('Frame', '$parentIcon2Overlay', tbar)
-						AS:SetTemplate(icon2.overlay)
-						icon2.overlay:SetFrameLevel(0)
-						icon2.overlay:Point('BOTTOMLEFT', frame, 'BOTTOMRIGHT', (AS.PixelMode and 2 or 3), 0)
-						icon2.overlay:CreateSoftShadow()
-					end
-
-					AS:SkinTexture(icon1)
+					AS:SkinTexture(icon1, true)
 					icon1:ClearAllPoints()
-					icon1:SetInside(icon1.overlay)
+					icon1:SetPoint('BOTTOMRIGHT', frame, 'BOTTOMLEFT', AS:AdjustForTheme(-2), 1)
+					icon1:SetSize(iconSize, iconSize)
 
-					AS:SkinTexture(icon2)
+					AS:SkinTexture(icon2, true)
 					icon2:ClearAllPoints()
-					icon2:SetInside(icon2.overlay)
+					icon2:SetPoint('BOTTOMLEFT', frame, 'BOTTOMRIGHT', AS:AdjustForTheme(2), 1)
+					icon2:SetSize(iconSize, iconSize)
 
-					icon1.overlay:Size(bar.owner.options.Height, bar.owner.options.Height)
-					icon2.overlay:Size(bar.owner.options.Height, bar.owner.options.Height)
-					tbar:SetInside(frame)
+					AS:SetInside(tbar, frame)
 
-					AS:SetTemplate(frame, 'Transparent')
+					AS:SetTemplate(frame)
 					frame:CreateSoftShadow()
 
 					name:ClearAllPoints()
-					name:Width(165)
-					name:Height(8)
+					name:SetWidth(165)
+					name:SetHeight(8)
 					name:SetJustifyH('LEFT')
 					name:SetShadowColor(0, 0, 0, 0)
 
@@ -68,20 +64,18 @@ function mod:DBMShadows()
 					timer:SetShadowColor(0, 0, 0, 0)
 
 					if AS:CheckOption('DBMSkinHalf') then
-						frame:Height(bar.owner.options.Height / 3)
-						name:Point('BOTTOMLEFT', frame, 'TOPLEFT', 0, 3)
-						timer:Point('BOTTOMRIGHT', frame, 'TOPRIGHT', -1, 1)
+						name:SetPoint('BOTTOMLEFT', frame, 'TOPLEFT', 0, 3)
+						timer:SetPoint('BOTTOMRIGHT', frame, 'TOPRIGHT', -1, 1)
 					else
-						frame:Height(bar.owner.options.Height)
-						name:Point('LEFT', frame, 'LEFT', 4, 0)
-						timer:Point('RIGHT', frame, 'RIGHT', -4, 0)
+						name:SetPoint('LEFT', frame, 'LEFT', 4, 0)
+						timer:SetPoint('RIGHT', frame, 'RIGHT', -4, 0)
 					end
 
-					timer:SetFont(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
-					name:SetFont(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
+					icon1.Backdrop:CreateSoftShadow()
+					icon2.Backdrop:CreateSoftShadow()
 
-					if bar.owner.options.IconLeft then icon1.overlay:Show() else icon1.overlay:Hide() end
-					if bar.owner.options.IconRight then icon2.overlay:Show() else icon2.overlay:Hide() end
+					if DBT.Options.IconLeft then icon1.Backdrop:Show() else icon1.Backdrop:Hide() end
+					if DBT.Options.IconRight then icon2.Backdrop:Show() else icon2.Backdrop:Hide() end
 
 					bar.injected = true
 				end)
@@ -101,7 +95,7 @@ function mod:AddonSkins()
 
 	hooksecurefunc(AS, "SkinTab", mod.TabShadowsAS)
 
-	if BUI.ShadowMode and E.db.benikuiSkins.addonSkins.dbm then
+	if BUI.ShadowMode and E.db.benikui.skins.addonSkins.dbm then
 		mod:DBMShadows()
 	end
 end

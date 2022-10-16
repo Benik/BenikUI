@@ -18,8 +18,8 @@ local function CreateStatusFrame()
 	local StatusFrame = ElvUIStatusReport
 
 	-- style
-	StatusFrame.backdrop:Style('Outside')
-	StatusFrame.PluginFrame.backdrop:Style('Outside')
+	StatusFrame.backdrop:BuiStyle('Outside')
+	StatusFrame.PluginFrame.backdrop:BuiStyle('Outside')
 	-- hide the logo. Sorry Elv :P
 	StatusFrame.TitleLogoFrame.LogoTop:SetTexture(nil)
 	StatusFrame.TitleLogoFrame.LogoBottom:SetTexture(nil)

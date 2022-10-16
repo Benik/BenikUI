@@ -82,7 +82,6 @@ BUI.MenuList = {
 		end
 	end},
 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
-	{text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end}
 }
 
 local function sortFunction(a, b)
@@ -118,8 +117,10 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 		r, g, b = classColor.r, classColor.g, classColor.b
 	elseif db == 2 then
 		r, g, b = BUI:unpackColor(E.db.benikui.colors.customGameMenuColor)
-	else
+	elseif db == 3 then
 		r, g, b = unpack(E.media.rgbvaluecolor)
+	else
+		r, g, b = BUI:getCovenantColor()
 	end
 
 	if not frame.buttons then
@@ -190,7 +191,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 
 	frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2)
 	frame:Width(BUTTON_WIDTH + PADDING * 2 + (addedSize or 0))
-	frame:Style('Outside')
+	frame:BuiStyle('Outside')
 	frame:ClearAllPoints()
 	if pos == 'tLeft' then
 		frame:Point('BOTTOMRIGHT', parent, 'TOPLEFT', xOffset, yOffset)
