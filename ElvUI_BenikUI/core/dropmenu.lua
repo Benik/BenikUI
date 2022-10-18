@@ -125,10 +125,9 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 
 	if not frame.buttons then
 		frame.buttons = {}
-		frame:SetParent(parent)
 		frame:SetFrameStrata('DIALOG')
 		frame:SetClampedToScreen(true)
-		tinsert(UISpecialFrames, frame:GetName())
+		tinsert(_G.UISpecialFrames, frame:GetName())
 		frame:Hide()
 	end
 
