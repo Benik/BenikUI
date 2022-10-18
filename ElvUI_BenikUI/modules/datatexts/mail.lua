@@ -30,20 +30,20 @@ local function OnEvent(self, event, ...)
 
 	if event == 'MAIL_INBOX_UPDATE' or event == 'MAIL_SHOW' or event == 'MAIL_CLOSED' then
 		for i = 1, GetInboxNumItems() do
-			local _, _, _, _, _, _, _, _, wasRead = GetInboxHeaderInfo(i);
+			local _, _, _, _, _, _, _, _, wasRead = GetInboxHeaderInfo(i)
 			if( not wasRead ) then
-				newMail = true;
-				break;
+				newMail = true
+				break
 			end
 		end
 	end
 
 	if newMail then
 		self.text:SetFormattedText("|cff00ff00%s|r", L['New Mail'])
-		Read = false;
+		Read = false
 	else
 		self.text:SetFormattedText("%s", L['No Mail'])
-		Read = true;
+		Read = true
 	end
 end
 
@@ -60,9 +60,9 @@ local function OnEnter(self)
 			DT.tooltip:AddLine(HAVE_MAIL)
 		end
 
-		if sender1 then DT.tooltip:AddLine(sender1); end
-		if sender2 then DT.tooltip:AddLine(sender2); end
-		if sender3 then DT.tooltip:AddLine(sender3); end
+		if sender1 then DT.tooltip:AddLine(sender1) end
+		if sender2 then DT.tooltip:AddLine(sender2) end
+		if sender3 then DT.tooltip:AddLine(sender3) end
 
 	end
 	DT.tooltip:Show()
@@ -70,9 +70,12 @@ end
 
 -- Hide the mail icon from minimap
 function DT:ToggleMailFrame()
+	local MiniMapMailFrame = _G.MiniMapMailFrame
 	if E.db.benikui.datatexts.mail.toggle then
-		MiniMapMailFrame.Show = MiniMapMailFrame.Hide;
-		MiniMapMailFrame:Hide();
+		if MiniMapMailFrame then
+			MiniMapMailFrame.Show = MiniMapMailFrame.Hide
+			MiniMapMailFrame:Hide()
+		end
 	end
 end
 
