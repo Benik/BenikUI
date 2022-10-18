@@ -38,11 +38,12 @@ local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent)
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
+menuFrame:SetFrameStrata('TOOLTIP')
 
 function BuiGameMenu_OnMouseUp(self)
 	if InCombatLockdown() then return end
 	GameTooltip:Hide()
-	BUI:Dropmenu(BUI.MenuList, menuFrame, self:GetName(), 'tLeft', -SPACING, SPACING, 4)
+	BUI:Dropmenu(BUI.MenuList, menuFrame, BuiButton_2, 'tLeft', -SPACING, SPACING, 4)
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 end
 

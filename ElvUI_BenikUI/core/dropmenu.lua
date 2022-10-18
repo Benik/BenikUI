@@ -17,41 +17,16 @@ local classColor = E:ClassColor(E.myclass, true)
 
 BUI.MenuList = {
 	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
-	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
-	{text = SPECIALIZATION,
-	func = function()
-		if not PlayerTalentFrame then
-			TalentFrame_LoadUI()
-		end
-
-		if not PlayerTalentFrame:IsShown() then
-			ShowUIPanel(PlayerTalentFrame)
-			_G["PlayerTalentFrameTab"..SPECIALIZATION_TAB]:Click()
-		else
-			HideUIPanel(PlayerTalentFrame)
-		end
-	end},
-	{text = TALENTS,
-	func = function()
-		if not PlayerTalentFrame then
-			TalentFrame_LoadUI()
-		end
-
-		if not PlayerTalentFrame:IsShown() then
-			ShowUIPanel(PlayerTalentFrame)
-			_G["PlayerTalentFrameTab"..TALENTS_TAB]:Click()
-		else
-			HideUIPanel(PlayerTalentFrame)
-		end
-	end},
-	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
+	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() ToggleFrame(_G.SpellBookFrame) end},
+	{text = TALENTS_BUTTON, func = function() ToggleTalentFrame() end},
+	{text = LFG_TITLE, func = function() ToggleLFDParentFrame() end},
 	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
-	{text = GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = function()
+	--[[{text = GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = function()
 		if (C_Garrison.HasGarrison(Enum.GarrisonType.Type_9_0)) then
 			ShowGarrisonLandingPage(Enum.GarrisonType.Type_9_0) -- errors the ElvUI Skin
 		end
-	end},
+	end},]]
 	{text = COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
 	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
 	{text = MOUNTS, func = function() ToggleCollectionsJournal(1) end},
@@ -66,13 +41,6 @@ BUI.MenuList = {
 	{text = MAINMENU_BUTTON,
 	func = function()
 		if ( not GameMenuFrame:IsShown() ) then
-			if ( VideoOptionsFrame:IsShown() ) then
-					VideoOptionsFrameCancel:Click();
-			elseif ( AudioOptionsFrame:IsShown() ) then
-					AudioOptionsFrameCancel:Click();
-			elseif ( InterfaceOptionsFrame:IsShown() ) then
-					InterfaceOptionsFrameCancel:Click();
-			end
 			CloseMenus();
 			CloseAllWindows()
 			ShowUIPanel(GameMenuFrame);
@@ -127,6 +95,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 		frame.buttons = {}
 		frame:SetFrameStrata('DIALOG')
 		frame:SetClampedToScreen(true)
+		frame:SetParent(parent)
 		tinsert(_G.UISpecialFrames, frame:GetName())
 		frame:Hide()
 	end
@@ -192,6 +161,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 	frame:Width(BUTTON_WIDTH + PADDING * 2 + (addedSize or 0))
 	frame:BuiStyle('Outside')
 	frame:ClearAllPoints()
+
 	if pos == 'tLeft' then
 		frame:Point('BOTTOMRIGHT', parent, 'TOPLEFT', xOffset, yOffset)
 	elseif pos == 'tRight' then
