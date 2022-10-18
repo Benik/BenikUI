@@ -21,8 +21,9 @@ local function mirrorTimersShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mirrorTimers ~= true then return end
 
 	for i = 1, _G.MIRRORTIMER_NUMTIMERS do
-		local statusBar = _G['MirrorTimer'..i..'StatusBar']
-		statusBar.backdrop:CreateSoftShadow()
+		local mirrorTimer = _G['MirrorTimer'..i]
+		local statusBar = mirrorTimer.StatusBar or _G[mirrorTimer:GetName()..'StatusBar']
+		statusBar:CreateSoftShadow()
 	end
 end
 
@@ -83,12 +84,25 @@ function mod:ItemButtonShadows(button)
 end
 hooksecurefunc(S, "HandleItemButton", mod.ItemButtonShadows)
 
+local MICRO_BUTTONS = _G.MICRO_BUTTONS or {
+	'CharacterMicroButton',
+	'SpellbookMicroButton',
+	'TalentMicroButton',
+	'AchievementMicroButton',
+	'QuestLogMicroButton',
+	'GuildMicroButton',
+	'LFDMicroButton',
+	'EJMicroButton',
+	'CollectionsMicroButton',
+	'MainMenuMicroButton',
+	'HelpMicroButton',
+	'StoreMicroButton',
+}
+
 -- MicroBar
 local function MicroBarShadows()
-	for i=1, #MICRO_BUTTONS do
-		if _G[MICRO_BUTTONS[i]].backdrop then
-			_G[MICRO_BUTTONS[i]].backdrop:CreateSoftShadow()
-		end
+	for _, x in pairs(MICRO_BUTTONS) do
+		_G[x]:CreateSoftShadow()
 	end
 end
 
