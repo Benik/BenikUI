@@ -51,7 +51,7 @@ function mod:UpdateSystem()
 			sysFrame:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
 
-			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame, 'BackdropTemplate')
+			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
 			sysFrame.dummy:SetTemplate('Transparent', nil, true, true)
 			sysFrame.dummy:SetBackdropBorderColor(0, 0, 0, 0)
 			sysFrame.dummy:SetBackdropColor(1, 1, 1, .2)
