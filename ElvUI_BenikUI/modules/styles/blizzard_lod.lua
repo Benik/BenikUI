@@ -709,6 +709,18 @@ local function style_MacroUI()
 end
 S:AddCallbackForAddon("Blizzard_MacroUI", "BenikUI_MacroUI", style_MacroUI)
 
+-- Major Factions
+local function style_MajorFactions()
+	if E.private.skins.blizzard.majorFactions ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.MajorFactionRenownFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_MajorFactions", "BenikUI_MajorFactions", style_MajorFactions)
+
 -- ObliterumUI
 local function style_ObliterumUI()
 	if E.private.skins.blizzard.obliterum ~= true or E.private.skins.blizzard.enable ~= true or
