@@ -15,8 +15,7 @@ local function style_AchievementUI()
 
 	local frame = _G.AchievementFrame
 	if frame then
-		frame.backdrop:BuiStyle("Outside")
-		frame.searchResults:BuiStyle("Outside")
+		frame:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
@@ -214,6 +213,18 @@ local function style_Channels()
 	_G.CreateChannelPopup:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
+
+-- Class Talents
+local function style_ClassTalents()
+	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ClassTalentFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ClassTalentUI", "BenikUI_ClassTalents", style_ClassTalents)
 
 -- Collections
 local function style_Collections()
