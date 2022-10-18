@@ -14,7 +14,7 @@ local GetFactionInfo = GetFactionInfo
 local IsPlayerAtEffectiveMaxLevel = IsPlayerAtEffectiveMaxLevel
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
-local GetFriendshipReputation = GetFriendshipReputation
+local C_GossipInfo_GetFriendshipReputation = C_GossipInfo.GetFriendshipReputation
 local InCombatLockdown = InCombatLockdown
 local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
@@ -89,11 +89,11 @@ function mod:UpdateReputations()
 					end
 
 					local isFriend, friendText, standingLabel
-					local friendshipID = GetFriendshipReputation(factionID)
+					local friendshipID = C_GossipInfo_GetFriendshipReputation(factionID)
 					local isParagon = C_Reputation_IsFactionParagon(factionID)
 					
 					if friendshipID then
-						local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+						local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = C_GossipInfo_GetFriendshipReputation(factionID)
 						isFriend, standingID, friendText = true, 5, friendTextLevel
 						if nextFriendThreshold then
 							barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
