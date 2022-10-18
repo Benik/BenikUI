@@ -535,6 +535,18 @@ local function style_GarrisonUI()
 end
 S:AddCallbackForAddon("Blizzard_GarrisonUI", "BenikUI_GarrisonUI", style_GarrisonUI)
 
+-- Generic Trait Frame
+local function style_GenericTraitUI()
+	if E.private.skins.blizzard.genericTrait ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.GenericTraitFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_GenericTraitUI", "BenikUI_GenericTraitUI", style_GenericTraitUI)
+
 -- GuildBankUI
 local function style_GuildBankUI()
 	if E.private.skins.blizzard.gbank ~= true or E.private.skins.blizzard.enable ~= true or
