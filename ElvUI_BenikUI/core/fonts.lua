@@ -33,6 +33,8 @@ function BUI:UpdateBlizzardFonts()
 		SetFont(_G.Game20Font, 							NORMAL, 20);								-- WarboardUI Options
 		SetFont(_G.GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET)	-- Used at the install steps
 		SetFont(_G.WhiteNormalNumberFont,				NORMAL, E.db.general.fontSize);				-- Statusbar Numbers on TradeSkill frame
+		SetFont(_G.Fancy40Font,							NORMAL, 40);								-- MajorFaction
+		SetFont(_G.Fancy48Font,							NORMAL, 42);								-- ExpansionLandingPage, 48 is way too big
 	end
 end
 hooksecurefunc(E, "UpdateBlizzardFonts", BUI.UpdateBlizzardFonts)
