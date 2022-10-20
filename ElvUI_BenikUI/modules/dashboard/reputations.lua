@@ -15,9 +15,20 @@ local IsPlayerAtEffectiveMaxLevel = IsPlayerAtEffectiveMaxLevel
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
 local C_GossipInfo_GetFriendshipReputation = C_GossipInfo.GetFriendshipReputation
+local C_Reputation_IsMajorFaction = C_Reputation.IsMajorFaction
+local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
+local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
 local InCombatLockdown = InCombatLockdown
 local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
+
+local BLUE_FONT_COLOR = BLUE_FONT_COLOR
+local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
+local REPUTATION = REPUTATION
+local STANDING = STANDING
+local UNKNOWN = UNKNOWN
+
+local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
 
 -- GLOBALS: hooksecurefunc
 BUI.ReputationsList = {}
@@ -88,19 +99,22 @@ function mod:UpdateReputations()
 						holder:SetPoint('TOPLEFT', reputationHolderMover, 'TOPLEFT')
 					end
 
-					local isFriend, friendText, standingLabel
-					local friendshipID = C_GossipInfo_GetFriendshipReputation(factionID)
+					local isFriend, friendText, standingLabel, majorStandingLabel
 					local isParagon = C_Reputation_IsFactionParagon(factionID)
-					
-					if friendshipID then
-						local _, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = C_GossipInfo_GetFriendshipReputation(factionID)
-						isFriend, standingID, friendText = true, 5, friendTextLevel
-						if nextFriendThreshold then
-							barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
-						else
-							barMin, barMax, barValue = 0, 1, 1
-						end
-					elseif isParagon then
+					local isMajorFaction = factionID and C_Reputation_IsMajorFaction(factionID)
+					local repInfo = factionID and C_GossipInfo_GetFriendshipReputation(factionID)
+
+					if repInfo and repInfo.friendshipFactionID > 0 then
+						standingLabel, barMin, barMax, barValue = repInfo.reaction, repInfo.reactionThreshold or 0, repInfo.nextThreshold or 1, repInfo.standing or 1
+					elseif isMajorFaction then
+						local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
+			
+						barMin, barMax = 0, majorFactionData.renownLevelThreshold
+						barValue = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+						majorStandingLabel = format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
+					end
+
+					if isParagon then
 						local currentValue, threshold, _, hasRewardPending, tooLowLevelForParagon = C_Reputation_GetFactionParagonInfo(factionID)
 						if currentValue and threshold then
 							barMin, barMax = 0, threshold
@@ -129,6 +143,7 @@ function mod:UpdateReputations()
 					bar.Status:SetValue(barValue)
 
 					standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
+
 					local customColors = E.db.databars.colors.useCustomFactionColors
 					local color = (customColors or standingID == 9) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID] -- reaction 9 is Paragon
 					local hexColor = E:RGBToHex(color.r, color.g, color.b)
@@ -178,9 +193,7 @@ function mod:UpdateReputations()
 					end
 
 					bar:SetScript('OnEnter', function(self)
-						if isParagon then
-							standingLabel = L["Paragon"]
-						end
+						standingLabel = isParagon and L["Paragon"] or isMajorFaction and majorStandingLabel or standingLabel
 
 						self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
 
@@ -306,8 +319,10 @@ function mod:UPDATE_FACTION(_, factionID)
 end
 
 function mod:ReputationEvents()
-	self:RegisterEvent('UPDATE_FACTION')
-	self:RegisterEvent('QUEST_LOG_UPDATE', 'UpdateReputations')
+	mod:RegisterEvent('UPDATE_FACTION')
+	mod:RegisterEvent('QUEST_LOG_UPDATE', 'UpdateReputations')
+	mod:RegisterEvent('MAJOR_FACTION_RENOWN_LEVEL_CHANGED', 'UpdateReputations')
+	mod:RegisterEvent('MAJOR_FACTION_UNLOCKED', 'UpdateReputations')
 end
 
 function mod:CreateReputationsDashboard()
