@@ -14,6 +14,7 @@ local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
 local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
 
 local classColor = E:ClassColor(E.myclass, true)
+local Garrison_OnClick = GarrisonLandingPageMinimapButton_OnClick
 
 BUI.MenuList = {
 	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
@@ -22,11 +23,9 @@ BUI.MenuList = {
 	{text = LFG_TITLE, func = function() ToggleLFDParentFrame() end},
 	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
-	--[[{text = GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = function()
-		if (C_Garrison.HasGarrison(Enum.GarrisonType.Type_9_0)) then
-			ShowGarrisonLandingPage(Enum.GarrisonType.Type_9_0) -- errors the ElvUI Skin
-		end
-	end},]]
+	{text = GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, func = function()
+		if Garrison_OnClick then Garrison_OnClick(_G.GarrisonLandingPageMinimapButton) else _G.ExpansionLandingPageMinimapButton:ToggleLandingPage() end
+	end},
 	{text = COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
 	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
 	{text = MOUNTS, func = function() ToggleCollectionsJournal(1) end},
