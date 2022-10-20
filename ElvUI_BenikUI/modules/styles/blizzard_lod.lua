@@ -223,6 +223,9 @@ local function style_ClassTalents()
 	end
 
 	_G.ClassTalentFrame:BuiStyle("Outside")
+	_G.ClassTalentLoadoutCreateDialog.backdrop:BuiStyle("Outside")
+	_G.ClassTalentLoadoutImportDialog.backdrop:BuiStyle("Outside")
+	_G.ClassTalentLoadoutEditDialog.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ClassTalentUI", "BenikUI_ClassTalents", style_ClassTalents)
 
