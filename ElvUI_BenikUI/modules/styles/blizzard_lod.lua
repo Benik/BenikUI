@@ -389,6 +389,18 @@ local function style_EncounterJournal()
 end
 S:AddCallbackForAddon("Blizzard_EncounterJournal", "BenikUI_EncounterJournal", style_EncounterJournal)
 
+-- ExpansionLandingPage
+local function style_ExpansionLandingPage()
+	if E.private.skins.blizzard.expansionLanding ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ExpansionLandingPage:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ExpansionLandingPage", "BenikUI_ExpansionLandingPage", style_ExpansionLandingPage)
+
 -- FlightMap
 local function style_FlightMap()
 	if E.private.skins.blizzard.taxi ~= true or E.private.skins.blizzard.enable ~= true or
