@@ -91,7 +91,9 @@ function mod:StyleColor()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
-			bar.backdrop.style:SetBackdropColor(r, g, b, db.abAlpha or 1)
+			if bar.backdrop.style then
+				bar.backdrop.style:SetBackdropColor(r, g, b, db.abAlpha or 1)
+			end
 		end
 	end
 
