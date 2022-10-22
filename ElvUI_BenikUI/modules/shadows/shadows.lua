@@ -219,6 +219,25 @@ local function FriendsFrameShadows()
 	end
 end
 
+local function MerchantFrameShadows()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true then
+		return
+	end
+	local i = 1
+	local tab = _G['MerchantFrameTab'..i]
+	while tab do
+		if not tab then return end
+
+		if tab.backdrop then
+			tab.backdrop:SetTemplate("Transparent")
+			tab.backdrop:CreateSoftShadow()
+		end
+
+		i = i + 1
+		tab = _G['MerchantFrameTab'..i]
+	end
+end
+
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
@@ -231,6 +250,7 @@ function mod:Initialize()
 	SpellBookFrameShadows()
 	PVEFrameShadows()
 	FriendsFrameShadows()
+	MerchantFrameShadows()
 	mod:RegisterEvent('START_TIMER')
 
 	-- AddonSkins
