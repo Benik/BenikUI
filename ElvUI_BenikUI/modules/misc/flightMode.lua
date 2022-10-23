@@ -21,6 +21,7 @@ local InCombatLockdown = InCombatLockdown
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local UIFrameFadeIn, UIFrameFadeOut, PlaySound = UIFrameFadeIn, UIFrameFadeOut, PlaySound
 local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
+local MinimapCluster = _G.MinimapCluster
 
 -- GLOBALS: UIParent, FlightModeLocation, selectioncolor, LeftChatPanel, ElvUI_ContainerFrame
 -- GLOBALS: FlightModeMenuBtn, CreateAnimationGroup, LeftChatMover, BuiDummyChat, Minimap, AddOnSkins
@@ -208,6 +209,7 @@ local VisibleFrames = {}
 
 function mod:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
+	local tracking = MinimapCluster.Tracking and MinimapCluster.Tracking.Button or _G.MiniMapTrackingFrame or _G.MiniMapTracking
 
 	if(status) then
 		self.inFlightMode = true
@@ -225,7 +227,11 @@ function mod:SetFlightMode(status)
 		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:GetParent():Hide()
 		end
-		C_TimerAfter(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
+
+		C_TimerAfter(0.05, function()
+			_G.MainMenuBarVehicleLeaveButton:Hide()
+			tracking:SetAlpha(0)
+		end)
 
 		self.FlightMode.bottom.map:EnableMouse(true)
 		self.FlightMode.top.menuButton:EnableMouse(true)
@@ -342,10 +348,14 @@ function mod:SetFlightMode(status)
 			Minimap:Show()
 		end
 
+		tracking:SetAlpha(1)
+
 		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:GetParent():Show()
 		end
+
 		_G.MainMenuBarVehicleLeaveButton:SetScript('OnShow', nil)
+
 		self.FlightMode:Hide()
 
 		-- Enable Blizz location messsages.
