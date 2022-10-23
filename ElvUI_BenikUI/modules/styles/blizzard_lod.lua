@@ -953,11 +953,8 @@ local function style_VoidStorageUI()
 	frame:BuiStyle("Outside")
 	for i = 1, 2 do
 		local tab = frame["Page" .. i]
-		if not tab.style then
-			tab:BuiStyle("Inside")
-			tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-			tab:GetNormalTexture():SetInside()
-		end
+		tab:SetTemplate("Transparent")
+		tab:CreateSoftShadow()
 	end
 end
 S:AddCallbackForAddon("Blizzard_VoidStorageUI", "BenikUI_VoidStorageUI", style_VoidStorageUI)
