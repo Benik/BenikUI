@@ -159,7 +159,7 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 	bar:Point('TOPLEFT', barHolder, 'TOPLEFT', SPACING, -SPACING)
 	bar:EnableMouse(true)
 
-	bar.dummy = CreateFrame('Frame', nil, bar, 'BackdropTemplate')
+	bar.dummy = CreateFrame('Frame', nil, bar)
 	bar.dummy:SetTemplate('Transparent', nil, true, true)
 	bar.dummy:SetBackdropBorderColor(0, 0, 0, 0)
 	bar.dummy:SetBackdropColor(1, 1, 1, .2)
@@ -184,7 +184,7 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 	bar.Text:SetWordWrap(false)
 
 	if hasIcon then
-		bar.IconBG = CreateFrame('Button', nil, bar, 'BackdropTemplate')
+		bar.IconBG = CreateFrame('Button', nil, bar)
 		bar.IconBG:SetTemplate('Transparent')
 		bar.IconBG:Size(E.PixelMode and 18 or 20, E.PixelMode and 18 or 20)
 		bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)

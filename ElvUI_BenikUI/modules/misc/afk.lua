@@ -345,7 +345,7 @@ local function Initialize()
 	AFK.AFKMode.screenShadow:SetAllPoints(AFK.AFKMode)
 
 	-- Create Top frame
-	AFK.AFKMode.top = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
+	AFK.AFKMode.top = CreateFrame('Frame', nil, AFK.AFKMode)
 	AFK.AFKMode.top:SetFrameLevel(2)
 	AFK.AFKMode.top:SetTemplate('Transparent', true, true)
 	AFK.AFKMode.top:SetBackdropBorderColor(.3, .3, .3, 1)

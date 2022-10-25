@@ -3,55 +3,57 @@ local DT = E:GetModule('DataTexts')
 
 local strjoin = strjoin
 
-local ShowGarrisonLandingPage = ShowGarrisonLandingPage
-local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
-local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
-local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
-local LE_GARRISON_TYPE_9_0 = Enum.GarrisonType.Type_9_0
+local C_Reputation_IsMajorFaction = C_Reputation.IsMajorFaction
+local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
+local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
 
-local RenownID = 1822
-local totalMax
+local factionID = 2507
+local majorFactionData
 
 local displayString, lastPanel = ''
 
-local function GetTokenInfo(id)
-	local info = C_CurrencyInfo_GetCurrencyInfo(id)
-	if info then
-		return info.name, info.quantity
-	else
-		return
+local function OnClick()
+	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
+	if _G.ExpansionLandingPageMinimapButton then
+		_G.ExpansionLandingPageMinimapButton:ToggleLandingPage()
 	end
 end
 
-local function OnClick()
-	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
-	if C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID()) then
-		HideUIPanel(_G.GarrisonLandingPage)
-		ShowGarrisonLandingPage(LE_GARRISON_TYPE_9_0)
+local function OnEnter(self)
+	DT:SetupTooltip(self)
+
+	if not C_MajorFactions_HasMaximumRenown(factionID) then
+		local name = majorFactionData.name
+		local earned = majorFactionData.renownReputationEarned
+		local max = majorFactionData.renownLevelThreshold
+		local percent = earned / max * 100
+
+		DT.tooltip:AddLine(format('|cffFFFFFF%s|r', name))
+		DT.tooltip:AddLine(' ')
+		DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
+		DT.tooltip:Show()
 	end
 end
 
 local function OnEvent(self)
-	local name, amount = GetTokenInfo(RenownID)
-	if C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID()) then
-		amount = amount + 1
-		totalMax = 80
-	else
-		amount = "-"
-		totalMax = "-"
-	end
+	local isMajorFaction = factionID and C_Reputation_IsMajorFaction(factionID)
 
-	self.text:SetFormattedText(displayString, name, amount, totalMax)
+	if isMajorFaction then
+		majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
+		self.text:SetFormattedText(displayString, COVENANT_SANCTUM_TAB_RENOWN, majorFactionData.renownLevel)
+	end
 
 	lastPanel = self
 end
 
 local function ValueColorUpdate(hex)
-	displayString = strjoin('', '%s: ', hex, '%s/%s|r')
+	displayString = strjoin('', '%s: ', hex, '%s|r')
 
-	if lastPanel then OnEvent(lastPanel) end
+	if lastPanel ~= nil then
+		OnEvent(lastPanel)
+	end
 end
 
 E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
-DT:RegisterDatatext('Renown (BenikUI)', 'BenikUI', {'COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED'}, OnEvent, nil, OnClick)
+DT:RegisterDatatext('Renown (BenikUI)', 'BenikUI', {'MAJOR_FACTION_UNLOCKED', 'MAJOR_FACTION_RENOWN_LEVEL_CHANGED'}, OnEvent, nil, OnClick, OnEnter, nil, nil, nil, ValueColorUpdate)

@@ -23,17 +23,17 @@ function mod:MirrorBar()
 
 	for i = 1, _G.MIRRORTIMER_NUMTIMERS do
 		local mirrorTimer = _G['MirrorTimer'..i]
-		local statusBar = _G['MirrorTimer'..i..'StatusBar']
+		local statusBar = mirrorTimer.StatusBar or _G[mirrorTimer:GetName()..'StatusBar']
 
-		mirrorTimer.TimerText:ClearAllPoints()
+		mirrorTimer.Text:ClearAllPoints()
 		if E.db.benikui.widgetbars.halfBar.mirrorbar then
 			mirrorTimer:Size(222, 24)
 			statusBar:Size(222, 5)
-			mirrorTimer.TimerText:Point('BOTTOM', statusBar, 'TOP', 0, 4)
+			mirrorTimer.Text:Point('BOTTOM', statusBar, 'TOP', 0, 4)
 		else
 			mirrorTimer:Size(222, 18)
 			statusBar:Size(222, 18)
-			mirrorTimer.TimerText:Point('CENTER', statusBar, 'CENTER')
+			mirrorTimer.Text:Point('CENTER', statusBar, 'CENTER')
 		end
 	end
 end

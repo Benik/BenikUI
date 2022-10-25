@@ -14,43 +14,17 @@ local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
 local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
 
 local classColor = E:ClassColor(E.myclass, true)
+local Garrison_OnClick = GarrisonLandingPageMinimapButton_OnClick
 
 BUI.MenuList = {
 	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
-	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end end},
-	{text = SPECIALIZATION,
-	func = function()
-		if not PlayerTalentFrame then
-			TalentFrame_LoadUI()
-		end
-
-		if not PlayerTalentFrame:IsShown() then
-			ShowUIPanel(PlayerTalentFrame)
-			_G["PlayerTalentFrameTab"..SPECIALIZATION_TAB]:Click()
-		else
-			HideUIPanel(PlayerTalentFrame)
-		end
-	end},
-	{text = TALENTS,
-	func = function()
-		if not PlayerTalentFrame then
-			TalentFrame_LoadUI()
-		end
-
-		if not PlayerTalentFrame:IsShown() then
-			ShowUIPanel(PlayerTalentFrame)
-			_G["PlayerTalentFrameTab"..TALENTS_TAB]:Click()
-		else
-			HideUIPanel(PlayerTalentFrame)
-		end
-	end},
-	{text = LFG_TITLE, func = function() ToggleLFDParentFrame(); end},
+	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() ToggleFrame(_G.SpellBookFrame) end},
+	{text = TALENTS_BUTTON, func = function() ToggleTalentFrame() end},
+	{text = LFG_TITLE, func = function() ToggleLFDParentFrame() end},
 	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
-	{text = GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = function()
-		if (C_Garrison.HasGarrison(Enum.GarrisonType.Type_9_0)) then
-			ShowGarrisonLandingPage(Enum.GarrisonType.Type_9_0) -- errors the ElvUI Skin
-		end
+	{text = GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, func = function()
+		if Garrison_OnClick then Garrison_OnClick(_G.GarrisonLandingPageMinimapButton) else _G.ExpansionLandingPageMinimapButton:ToggleLandingPage() end
 	end},
 	{text = COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
 	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
@@ -66,13 +40,6 @@ BUI.MenuList = {
 	{text = MAINMENU_BUTTON,
 	func = function()
 		if ( not GameMenuFrame:IsShown() ) then
-			if ( VideoOptionsFrame:IsShown() ) then
-					VideoOptionsFrameCancel:Click();
-			elseif ( AudioOptionsFrame:IsShown() ) then
-					AudioOptionsFrameCancel:Click();
-			elseif ( InterfaceOptionsFrame:IsShown() ) then
-					InterfaceOptionsFrameCancel:Click();
-			end
 			CloseMenus();
 			CloseAllWindows()
 			ShowUIPanel(GameMenuFrame);
@@ -125,10 +92,10 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 
 	if not frame.buttons then
 		frame.buttons = {}
-		frame:SetParent(parent)
 		frame:SetFrameStrata('DIALOG')
 		frame:SetClampedToScreen(true)
-		tinsert(UISpecialFrames, frame:GetName())
+		frame:SetParent(parent)
+		tinsert(_G.UISpecialFrames, frame:GetName())
 		frame:Hide()
 	end
 
@@ -141,7 +108,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 
 	for i=1, #list do
 		if not frame.buttons[i] then
-			frame.buttons[i] = CreateFrame('Button', nil, frame, 'BackdropTemplate')
+			frame.buttons[i] = CreateFrame('Button', nil, frame)
 
 			frame.buttons[i].hoverTex = frame.buttons[i]:CreateTexture(nil, 'OVERLAY')
 			frame.buttons[i].hoverTex:SetAllPoints()
@@ -193,6 +160,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 	frame:Width(BUTTON_WIDTH + PADDING * 2 + (addedSize or 0))
 	frame:BuiStyle('Outside')
 	frame:ClearAllPoints()
+
 	if pos == 'tLeft' then
 		frame:Point('BOTTOMRIGHT', parent, 'TOPLEFT', xOffset, yOffset)
 	elseif pos == 'tRight' then

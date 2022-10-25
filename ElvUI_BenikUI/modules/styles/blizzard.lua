@@ -22,14 +22,12 @@ local function LoadSkin()
 	end
 
 	if db.blizzardOptions then
-		_G.AudioOptionsFrame:BuiStyle("Outside")
+		_G.SettingsPanel.backdrop:BuiStyle("Outside")
 		_G.ChatConfigFrame:BuiStyle("Outside")
-		_G.InterfaceOptionsFrame:BuiStyle("Outside")
 		_G.ReadyCheckFrame:BuiStyle("Outside")
 		_G.ReadyCheckListenerFrame:BuiStyle("Outside")
 		_G.SplashFrame:CreateBackdrop("Transparent")
 		_G.SplashFrame.backdrop:BuiStyle("Outside")
-		_G.VideoOptionsFrame:BuiStyle("Outside")
 	end
 
 	local function repUpdate()
@@ -43,7 +41,6 @@ local function LoadSkin()
 	end
 
 	if db.character then
-		_G.GearManagerDialogPopup:BuiStyle("Outside")
 		_G.PaperDollFrame:BuiStyle("Outside")
 		_G.ReputationFrame:BuiStyle("Outside")
 		_G.TokenFrame:BuiStyle("Outside")
