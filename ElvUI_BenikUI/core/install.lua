@@ -2080,7 +2080,7 @@ local function SetupDataTexts(role)
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Missions (BenikUI)'
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][3] = 'BuiMail'
 
-	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][1] = 'Spec Switch (BenikUI)'
+	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][1] = 'Talent/Loot Specialization'
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][3] = 'Gold'
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][2] = 'Bags'
 
