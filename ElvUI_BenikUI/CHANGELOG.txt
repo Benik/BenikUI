@@ -1,3 +1,41 @@
+4.20 (Oct 26th, 2022)
+Updated for WoW Patch 10.00
+Removed Spec Switch Datatext.
+Hide the Tracking button from Minimap while on flightMode
+Fixup merchant and void storage tab style
+Rep tooltip
+Updated the Renown Datatext to the new system
+Update Reputation Dashboard with the new Renown/Rep feature
+Replace font style
+Added Missions at the Game menu
+Styled Expansion Landing Page
+Fixed Dropmenu v2
+Styled Major Factions frame
+Styled the Generic Trait Frame
+Fixed Professions Dashboard init position to the new ElvUI_MinimapClusterHolder
+Removed the BackdropTemplate
+Fixed Dropmenu
+Fixed Reputation Dashboard
+Chat DTs to have a look at
+Class Talents frame
+Shadow fixes
+Fixed fonts and Widget bars
+Various beta fixes
+Prevent a castbar error
+Fixed Stancebar shadows and added support for Masque
+Fixed all unit castbar shadows.
+Fixed AuraBars Shadows for good this time. Need options tweaks
+donors/patrons
+TotemTracker failsafe
+Fixed Aurabars Shadows
+Disable Actionbar step during install, when ElvUI Actionbars are disabled
+Style new totem tracker
+Attempt to fix Torghast powers frame
+Fixed InfoPanel color feature
+Fixed the double castbar shadow
+More uf fixes
+Disable InfoPanel fix when EltreumUI is loaded and its "InfoPanel on top" option is enabled
+
 4.19 (Sep 12th, 2022)
 Update raid movers in installer
 Fixed PlayerChoice style
