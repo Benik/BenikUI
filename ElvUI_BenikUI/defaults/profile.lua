@@ -30,7 +30,7 @@ P['datatexts']['panels']['BuiLeftChatDTPanel'] = {
 }
 
 P['datatexts']['panels']['BuiRightChatDTPanel'] = {
-	[1] = 'Spec Switch (BenikUI)',
+	[1] = 'Talent/Loot Specialization',
 	[2] = 'Gold',
 	[3] = 'Bags',
 }
