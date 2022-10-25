@@ -24,6 +24,7 @@ local INVERT_ANCHORPOINT = {
 	BOTTOM = 'TOP',
 }
 
+local MAX_BOSS_FRAMES = 8
 local units = {"Player", "Target", "Focus", "Pet"}
 
 -- GLOBALS: hooksecurefunc
@@ -76,11 +77,13 @@ local function ConfigureCastbarShadow(unit, unitframe)
 		castbar.Icon.bg:ClearAllPoints()
 		castbar.Icon.bg:Point(INVERT_ANCHORPOINT[anchorPoint], attachPoint, anchorPoint, db.iconXOffset, db.iconYOffset)
 	elseif(db.icon) then
-		castbar.Icon.bg:ClearAllPoints()
-		if unitframe.ORIENTATION == "RIGHT" then
-			castbar.Icon.bg:Point("LEFT", castbar, "RIGHT", (UF.SPACING*3), 0)
-		else
-			castbar.Icon.bg:Point("RIGHT", castbar, "LEFT", -(UF.SPACING*3), 0)
+		if castbar.Icon then
+			castbar.Icon.bg:ClearAllPoints()
+			if unitframe.ORIENTATION == "RIGHT" then
+				castbar.Icon.bg:Point("LEFT", castbar, "RIGHT", (UF.SPACING*3), 0)
+			else
+				castbar.Icon.bg:Point("RIGHT", castbar, "LEFT", -(UF.SPACING*3), 0)
+			end
 		end
 	end
 end
@@ -108,7 +111,7 @@ local function ConfigureCastbar(unit, unitframe)
 			ConfigureCastbarShadow(unit, unitframe)
 		end
 	elseif unit == "boss" then
-		for i = 1, 5 do
+		for i = 1, MAX_BOSS_FRAMES do
 			local unitframe = _G["ElvUF_Boss"..i]
 			ConfigureCastbarShadow(unit, unitframe)
 		end
@@ -117,7 +120,7 @@ end
 
 --Initiate update of unit
 function mod:UpdateSettings(unit)
-	if unit == 'player' or unit == 'target' then
+	if unit then
 		local unitFrameName = "ElvUF_"..E:StringTitle(unit)
 		local unitframe = _G[unitFrameName]
 		ConfigureCastbar(unit, unitframe)
@@ -240,9 +243,7 @@ function mod:Initialize()
 	end)
 
 	--Castbar was modified, re-apply settings
-	hooksecurefunc(UF, "Configure_Castbar", function(self, frame, preventLoop)
-		if preventLoop then return; end
-
+	hooksecurefunc(UF, "Configure_Castbar", function(self, frame)
 		local unit = frame.unitframeType
 		if unit and (unit == 'player' or unit == 'target') then
 			mod:UpdateSettings(unit)
@@ -250,6 +251,7 @@ function mod:Initialize()
 	end)
 
 	hooksecurefunc(UF, "LoadUnits", mod.CastBarHooks)
+	hooksecurefunc(UF, "LoadUnits", mod.UpdateAllCastbars)
 end
 
 BUI:RegisterModule(mod:GetName())

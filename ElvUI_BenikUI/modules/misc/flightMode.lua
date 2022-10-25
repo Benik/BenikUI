@@ -21,12 +21,13 @@ local InCombatLockdown = InCombatLockdown
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local UIFrameFadeIn, UIFrameFadeOut, PlaySound = UIFrameFadeIn, UIFrameFadeOut, PlaySound
 local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
+local MinimapCluster = _G.MinimapCluster
 
 -- GLOBALS: UIParent, FlightModeLocation, selectioncolor, LeftChatPanel, ElvUI_ContainerFrame
 -- GLOBALS: FlightModeMenuBtn, CreateAnimationGroup, LeftChatMover, BuiDummyChat, Minimap, AddOnSkins
 -- GLOBALS: ObjectiveTrackerFrame, ZoneTextFrame
 
-local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent, 'BackdropTemplate')
+local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
 menuFrame:CreateWideShadow()
 
@@ -208,6 +209,7 @@ local VisibleFrames = {}
 
 function mod:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
+	local tracking = MinimapCluster.Tracking and MinimapCluster.Tracking.Button or _G.MiniMapTrackingFrame or _G.MiniMapTracking
 
 	if(status) then
 		self.inFlightMode = true
@@ -225,7 +227,11 @@ function mod:SetFlightMode(status)
 		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:GetParent():Hide()
 		end
-		C_TimerAfter(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
+
+		C_TimerAfter(0.05, function()
+			_G.MainMenuBarVehicleLeaveButton:Hide()
+			tracking:SetAlpha(0)
+		end)
 
 		self.FlightMode.bottom.map:EnableMouse(true)
 		self.FlightMode.top.menuButton:EnableMouse(true)
@@ -342,10 +348,14 @@ function mod:SetFlightMode(status)
 			Minimap:Show()
 		end
 
+		tracking:SetAlpha(1)
+
 		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:GetParent():Show()
 		end
+
 		_G.MainMenuBarVehicleLeaveButton:SetScript('OnShow', nil)
+
 		self.FlightMode:Hide()
 
 		-- Enable Blizz location messsages.
@@ -533,7 +543,7 @@ function mod:Initialize()
 	self.FlightMode:Hide()
 
 	-- Top frame
-	self.FlightMode.top = CreateFrame('Frame', nil, self.FlightMode, 'BackdropTemplate')
+	self.FlightMode.top = CreateFrame('Frame', nil, self.FlightMode)
 	self.FlightMode.top:SetFrameLevel(0)
 	self.FlightMode.top:SetFrameStrata("HIGH")
 	self.FlightMode.top:Point("TOP", self.FlightMode, "TOP", 0, E.Border)
@@ -612,7 +622,7 @@ function mod:Initialize()
 	end)
 
 	-- Location frame
-	self.FlightMode.top.location = CreateFrame('Frame', 'FlightModeLocation', self.FlightMode.top, 'BackdropTemplate')
+	self.FlightMode.top.location = CreateFrame('Frame', 'FlightModeLocation', self.FlightMode.top)
 	self.FlightMode.top.location:SetFrameLevel(1)
 	self.FlightMode.top.location:SetTemplate('Default', true, true)
 	self.FlightMode.top.location:SetBackdropBorderColor(.3, .3, .3, 1)
@@ -627,7 +637,7 @@ function mod:Initialize()
 	self.FlightMode.top.location.text:SetWordWrap(false)
 
 	-- Coords X frame
-	self.FlightMode.top.location.x = CreateFrame('Frame', nil, self.FlightMode.top.location, 'BackdropTemplate')
+	self.FlightMode.top.location.x = CreateFrame('Frame', nil, self.FlightMode.top.location)
 	self.FlightMode.top.location.x:SetTemplate('Default', true, true)
 	self.FlightMode.top.location.x:SetBackdropBorderColor(.3, .3, .3, 1)
 	self.FlightMode.top.location.x:CreateWideShadow()
@@ -640,7 +650,7 @@ function mod:Initialize()
 	self.FlightMode.top.location.x.text:Point('CENTER')
 
 	-- Coords Y frame
-	self.FlightMode.top.location.y = CreateFrame('Frame', nil, self.FlightMode.top.location, 'BackdropTemplate')
+	self.FlightMode.top.location.y = CreateFrame('Frame', nil, self.FlightMode.top.location)
 	self.FlightMode.top.location.y:SetTemplate('Default', true, true)
 	self.FlightMode.top.location.y:SetBackdropBorderColor(.3, .3, .3, 1)
 	self.FlightMode.top.location.y:CreateWideShadow()
@@ -653,7 +663,7 @@ function mod:Initialize()
 	self.FlightMode.top.location.y.text:Point('CENTER')
 
 	-- Bottom frame
-	self.FlightMode.bottom = CreateFrame("Frame", nil, self.FlightMode, 'BackdropTemplate')
+	self.FlightMode.bottom = CreateFrame("Frame", nil, self.FlightMode)
 	self.FlightMode.bottom:SetFrameLevel(0)
 	self.FlightMode.bottom:SetTemplate('Transparent', true, true)
 	self.FlightMode.bottom:SetBackdropBorderColor(.3, .3, .3, 1)
@@ -692,7 +702,7 @@ function mod:Initialize()
 	self.FlightMode.bottom.benikui:Hide()
 
 	-- Message frame. Shows when request stop is pressed
-	self.FlightMode.message = CreateFrame("Frame", nil, self.FlightMode, 'BackdropTemplate')
+	self.FlightMode.message = CreateFrame("Frame", nil, self.FlightMode)
 	self.FlightMode.message:SetFrameLevel(0)
 	self.FlightMode.message:SetTemplate("Transparent")
 	self.FlightMode.message:CreateWideShadow()
@@ -864,7 +874,7 @@ function mod:Initialize()
 	end)
 
 	-- Time flying
-	self.FlightMode.bottom.timeFlying = CreateFrame('Frame', nil, self.FlightMode.bottom, 'BackdropTemplate')
+	self.FlightMode.bottom.timeFlying = CreateFrame('Frame', nil, self.FlightMode.bottom)
 	self.FlightMode.bottom.timeFlying:Point("RIGHT", self.FlightMode.bottom, "RIGHT", -10, 0)
 	self.FlightMode.bottom.timeFlying:SetTemplate("Default", true, true)
 	self.FlightMode.bottom.timeFlying:SetBackdropBorderColor(.3, .3, .3, 1)
@@ -876,7 +886,7 @@ function mod:Initialize()
 	self.FlightMode.bottom.timeFlying.txt:SetTextColor(1, 1, 1)
 
 	-- fps
-	self.FlightMode.bottom.fps = CreateFrame('Frame', nil, self.FlightMode.bottom, 'BackdropTemplate')
+	self.FlightMode.bottom.fps = CreateFrame('Frame', nil, self.FlightMode.bottom)
 	self.FlightMode.bottom.fps:Point('RIGHT', self.FlightMode.bottom.timeFlying, 'LEFT', -10, 0)
 	self.FlightMode.bottom.fps:SetTemplate("Default", true, true)
 	self.FlightMode.bottom.fps:SetBackdropBorderColor(.3, .3, .3, 1)

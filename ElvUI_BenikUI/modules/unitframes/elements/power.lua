@@ -30,13 +30,9 @@ end
 -- Units
 function BU:ChangeUnitPowerBarTexture()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
-	for _, unitName in pairs(UF.units) do
-		local frameNameUnit = E:StringTitle(unitName)
-		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
-
-		local unitframe = _G["ElvUF_"..frameNameUnit]
-		if unitframe and unitframe.Power then
-			unitframe.Power:SetStatusBarTexture(bar)
+	for _, frame in pairs(UF.units) do
+		if frame.Power then
+			frame.Power:SetStatusBarTexture(bar)
 		end
 	end
 end

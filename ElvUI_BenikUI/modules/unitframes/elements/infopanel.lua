@@ -4,6 +4,8 @@ local BU = BUI:GetModule('Units');
 local LSM = E.LSM;
 
 function BU:Configure_Infopanel(frame)
+	if frame.IS_ELTREUM then return end
+
 	if frame.ORIENTATION == "RIGHT" and not (frame.unitframeType == "arena") then
 		if frame.PORTRAIT_AND_INFOPANEL then
 			frame.InfoPanel:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -frame.PORTRAIT_WIDTH -UF.BORDER - UF.SPACING, UF.BORDER + UF.SPACING)
@@ -50,23 +52,19 @@ function BU:UnitInfoPanelColor()
 	if not E.db.benikui.unitframes.infoPanel.enableColor then return end
 
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
-	for unit, unitName in pairs(UF.units) do
-		local frameNameUnit = E:StringTitle(unitName)
-		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
-		local r, g, b
-		local unitframe = _G["ElvUF_"..frameNameUnit]
-		if unitframe and unitframe.InfoPanel then
-			if not unitframe.InfoPanel.color then
-				unitframe.InfoPanel.color = unitframe.InfoPanel:CreateTexture(nil, 'OVERLAY')
-				unitframe.InfoPanel.color:SetAllPoints()
+	for unit, frame in pairs(UF.units) do
+		if frame and frame.InfoPanel then
+			if not frame.InfoPanel.color then
+				frame.InfoPanel.color = frame.InfoPanel:CreateTexture(nil, 'OVERLAY')
+				frame.InfoPanel.color:SetAllPoints()
 			end
-			unitframe.InfoPanel.color:SetTexture(bar)
+			frame.InfoPanel.color:SetTexture(bar)
 			if E.db.benikui.unitframes.infoPanel.customColor == 1 then
 				r, g, b = GetClassColor(unit)
 			else
 				r, g, b = BUI:unpackColor(E.db.benikui.unitframes.infoPanel.color)
 			end
-			unitframe.InfoPanel.color:SetVertexColor(r, g, b)
+			frame.InfoPanel.color:SetVertexColor(r, g, b)
 		end
 	end
 end

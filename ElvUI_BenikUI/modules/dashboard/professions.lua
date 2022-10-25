@@ -13,7 +13,7 @@ local CastSpell = CastSpell
 local InCombatLockdown = InCombatLockdown
 local TRADE_SKILLS = TRADE_SKILLS
 
--- GLOBALS: hooksecurefunc, MMHolder
+-- GLOBALS: hooksecurefunc
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -181,13 +181,13 @@ function mod:ProfessionsEvents()
 end
 
 function mod:CreateProfessionsDashboard()
-	local mapholderWidth = E.private.general.minimap.enable and _G.MMHolder:GetWidth() or 150
+	local mapholderWidth = E.private.general.minimap.enable and _G.ElvUI_MinimapClusterHolder:GetWidth() or 150
 	local DASH_WIDTH = E.db.benikui.dashboards.professions.width or 150
 
 	local holder = self:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
 
 	if E.private.general.minimap.enable then
-		holder:Point('TOPLEFT', _G.MMHolder, 'BOTTOMLEFT', 0, -5)
+		holder:Point('TOPLEFT', _G.ElvUI_MinimapClusterHolder, 'BOTTOMLEFT', 0, -5)
 	else
 		holder:Point('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
 	end

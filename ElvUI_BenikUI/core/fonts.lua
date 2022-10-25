@@ -6,7 +6,7 @@ local _G = _G
 -- add alpha in shadow color (sa) and moved the r, g, b to the end cause of Blizz auto coloring
 -- some fonts like Fancy32Font or Fancy30Font are kinda big so I adjusted their size -2
 local function SetFont(obj, font, size, style, sr, sg, sb, sa, sox, soy, r, g, b)
-	obj:SetFont(font, size, style)
+	obj:SetFont(font, size,  '')
 	if sr and sg and sb then obj:SetShadowColor(sr, sg, sb, sa) end
 	if sox and soy then obj:SetShadowOffset(sox, soy) end
 	if r and g and b then obj:SetTextColor(r, g, b)
@@ -33,6 +33,8 @@ function BUI:UpdateBlizzardFonts()
 		SetFont(_G.Game20Font, 							NORMAL, 20);								-- WarboardUI Options
 		SetFont(_G.GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET)	-- Used at the install steps
 		SetFont(_G.WhiteNormalNumberFont,				NORMAL, E.db.general.fontSize);				-- Statusbar Numbers on TradeSkill frame
+		SetFont(_G.Fancy40Font,							NORMAL, 40);								-- MajorFaction
+		SetFont(_G.Fancy48Font,							NORMAL, 42);								-- ExpansionLandingPage, 48 is way too big
 	end
 end
 hooksecurefunc(E, "UpdateBlizzardFonts", BUI.UpdateBlizzardFonts)

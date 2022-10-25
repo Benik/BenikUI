@@ -31,7 +31,7 @@ end
 local abtn = {}
 function mod:CreateButtons()
 	for i = 1, 2 do
-		abtn[i] = CreateFrame('Button', nil, E.UIParent, 'BackdropTemplate')
+		abtn[i] = CreateFrame('Button', nil, E.UIParent)
 		abtn[i]:Size(12, 5)
 		abtn[i]:SetTemplate('Default', true)
 		abtn[i]:SetAlpha(0)

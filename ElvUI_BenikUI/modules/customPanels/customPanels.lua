@@ -110,7 +110,7 @@ function mod:CreatePanel()
 
 	for name in pairs(E.db.benikui.panels) do
 		if name and not _G[name] then
-			local panel = CreateFrame("Frame", name, E.UIParent, 'BackdropTemplate')
+			local panel = CreateFrame("Frame", name, E.UIParent)
 			panel:Width(name.width or 200)
 			panel:Height(name.height or 200)
 			panel:SetTemplate('Transparent')
@@ -126,7 +126,7 @@ function mod:CreatePanel()
 			panel.moverName = moverName
 			panel.Name = name
 			
-			local title = CreateFrame("Frame", nil, panel, 'BackdropTemplate')
+			local title = CreateFrame("Frame", nil, panel)
 			title:SetTemplate('Transparent', false, true)
 			title:Point('TOPLEFT', panel, 'TOPLEFT', 0, (E.PixelMode and 0 or 2))
 			title:Point('BOTTOMRIGHT', panel, 'TOPRIGHT', 0, (E.PixelMode and -15 or -14))

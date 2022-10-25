@@ -15,8 +15,7 @@ local function style_AchievementUI()
 
 	local frame = _G.AchievementFrame
 	if frame then
-		frame.backdrop:BuiStyle("Outside")
-		frame.searchResults:BuiStyle("Outside")
+		frame:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
@@ -215,6 +214,21 @@ local function style_Channels()
 end
 S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
 
+-- Class Talents
+local function style_ClassTalents()
+	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ClassTalentFrame:BuiStyle("Outside")
+	_G.ClassTalentLoadoutCreateDialog.backdrop:BuiStyle("Outside")
+	_G.ClassTalentLoadoutImportDialog.backdrop:BuiStyle("Outside")
+	_G.ClassTalentLoadoutEditDialog.backdrop:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ClassTalentUI", "BenikUI_ClassTalents", style_ClassTalents)
+
 -- Collections
 local function style_Collections()
 	if E.private.skins.blizzard.collections ~= true or E.private.skins.blizzard.enable ~= true or
@@ -378,6 +392,18 @@ local function style_EncounterJournal()
 end
 S:AddCallbackForAddon("Blizzard_EncounterJournal", "BenikUI_EncounterJournal", style_EncounterJournal)
 
+-- ExpansionLandingPage
+local function style_ExpansionLandingPage()
+	if E.private.skins.blizzard.expansionLanding ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ExpansionLandingPage:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ExpansionLandingPage", "BenikUI_ExpansionLandingPage", style_ExpansionLandingPage)
+
 -- FlightMap
 local function style_FlightMap()
 	if E.private.skins.blizzard.taxi ~= true or E.private.skins.blizzard.enable ~= true or
@@ -498,7 +524,7 @@ local function style_GarrisonUI()
 	GRecruitSelect.FollowerSelection.Recruit3:Point("LEFT", GRecruitSelect.FollowerSelection.Recruit2, "RIGHT", 6, 0)
 
 	for i = 1, 3 do
-		fRecruits[i] = CreateFrame("Frame", nil, E.UIParent, 'BackdropTemplate')
+		fRecruits[i] = CreateFrame("Frame", nil, E.UIParent)
 		fRecruits[i]:SetTemplate("Default", true)
 		fRecruits[i]:Size(190, 60)
 		if i == 1 then
@@ -523,6 +549,18 @@ local function style_GarrisonUI()
 	S:HandleButton(GRecruitSelect.FollowerSelection.Recruit3.HireRecruits)
 end
 S:AddCallbackForAddon("Blizzard_GarrisonUI", "BenikUI_GarrisonUI", style_GarrisonUI)
+
+-- Generic Trait Frame
+local function style_GenericTraitUI()
+	if E.private.skins.blizzard.genericTrait ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.GenericTraitFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_GenericTraitUI", "BenikUI_GenericTraitUI", style_GenericTraitUI)
 
 -- GuildBankUI
 local function style_GuildBankUI()
@@ -686,6 +724,18 @@ local function style_MacroUI()
 end
 S:AddCallbackForAddon("Blizzard_MacroUI", "BenikUI_MacroUI", style_MacroUI)
 
+-- Major Factions
+local function style_MajorFactions()
+	if E.private.skins.blizzard.majorFactions ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.MajorFactionRenownFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_MajorFactions", "BenikUI_MajorFactions", style_MajorFactions)
+
 -- ObliterumUI
 local function style_ObliterumUI()
 	if E.private.skins.blizzard.obliterum ~= true or E.private.skins.blizzard.enable ~= true or
@@ -729,6 +779,8 @@ local function style_PlayerChoice()
 
 	local frame = _G.PlayerChoiceFrame
 	hooksecurefunc(frame, 'SetupOptions', function()
+		local kit = S.PlayerChoice_TextureKits[frame.uiTextureKit]
+		if kit then return end
 		if not frame.IsStyled then
 			frame:BuiStyle("Outside")
 			frame.IsStyled = true
@@ -901,11 +953,8 @@ local function style_VoidStorageUI()
 	frame:BuiStyle("Outside")
 	for i = 1, 2 do
 		local tab = frame["Page" .. i]
-		if not tab.style then
-			tab:BuiStyle("Inside")
-			tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-			tab:GetNormalTexture():SetInside()
-		end
+		tab:SetTemplate("Transparent")
+		tab:CreateSoftShadow()
 	end
 end
 S:AddCallbackForAddon("Blizzard_VoidStorageUI", "BenikUI_VoidStorageUI", style_VoidStorageUI)

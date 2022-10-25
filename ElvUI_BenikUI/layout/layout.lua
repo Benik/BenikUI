@@ -33,16 +33,17 @@ local lfgIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\buttons\\eye
 local optionsIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\buttons\\options.tga'
 local addonsIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\buttons\\plugin.tga'
 
-local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent, 'BackdropTemplate')
-local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent, 'BackdropTemplate')
+local Bui_dchat = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
+local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent)
 
-local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent, 'BackdropTemplate')
+local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
+menuFrame:SetFrameStrata('TOOLTIP')
 
 function BuiGameMenu_OnMouseUp(self)
 	if InCombatLockdown() then return end
 	GameTooltip:Hide()
-	BUI:Dropmenu(BUI.MenuList, menuFrame, self:GetName(), 'tLeft', -SPACING, SPACING, 4)
+	BUI:Dropmenu(BUI.MenuList, menuFrame, BuiButton_2, 'tLeft', -SPACING, SPACING, 4)
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 end
 
@@ -207,7 +208,7 @@ end
 function mod:CreateLayout()
 
 	-- Left dt panel
-	local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent, 'BackdropTemplate')
+	local Bui_ldtp = CreateFrame('Frame', 'BuiLeftChatDTPanel', E.UIParent)
 	Bui_ldtp:SetTemplate('Default', true)
 	Bui_ldtp:SetFrameStrata('BACKGROUND')
 	Bui_ldtp:Point('TOPLEFT', LeftChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
@@ -216,7 +217,7 @@ function mod:CreateLayout()
 	DT:RegisterPanel(BuiLeftChatDTPanel, 3, 'ANCHOR_BOTTOM', 0, -4)
 
 	-- Right dt panel
-	local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent, 'BackdropTemplate')
+	local Bui_rdtp = CreateFrame('Frame', 'BuiRightChatDTPanel', E.UIParent)
 	Bui_rdtp:SetTemplate('Default', true)
 	Bui_rdtp:SetFrameStrata('BACKGROUND')
 	Bui_rdtp:Point('TOPLEFT', RightChatPanel, 'BOTTOMLEFT', (SPACING +PANEL_HEIGHT), -SPACING)
@@ -231,7 +232,7 @@ function mod:CreateLayout()
 
 	-- Buttons
 	for i = 1, BUTTON_NUM do
-		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i, E.UIParent, 'BackdropTemplate')
+		bbuttons[i] = CreateFrame('Button', 'BuiButton_'..i, E.UIParent)
 		bbuttons[i]:RegisterForClicks('AnyUp')
 		bbuttons[i]:SetFrameStrata('BACKGROUND')
 		bbuttons[i]:BuiStyle('Outside', nil, false, true)
@@ -463,12 +464,14 @@ function mod:CreateMiddlePanel(forceReset)
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] = false
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["growth"] = 'HORIZONTAL'
 
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
-			[1] = "Haste",
-			[2] = "Mastery",
-			[3] = "Crit",
-			["enable"] = true,
-		}
+		if not E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] then
+			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
+				[1] = "Haste",
+				[2] = "Mastery",
+				[3] = "Crit",
+				["enable"] = true,
+			}
+		end
 
 		if E.db["movers"] == nil then E.db["movers"] = {} end
 

@@ -1,52 +1,46 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
-local BU = BUI:GetModule('Units');
+local mod = BUI:GetModule('Units');
 
-function BU:Create_AuraBarsWithShadow(bar)
-	bar.auraInfo = {}
-	bar:CreateBackdrop(nil, nil, nil, nil, true)
-	bar:CreateSoftShadow()
-	bar:SetScript('OnMouseDown', OnClick)
-	bar:Point("LEFT")
-	bar:Point("RIGHT")
-
-	bar.spark:SetTexture(E.media.blankTex)
-	bar.spark:SetVertexColor(1, 1, 1, 0.4)
-	bar.spark:Width(2)
-
-	bar.icon:CreateBackdrop(nil, nil, nil, nil, true)
-	bar.icon:ClearAllPoints()
-	bar.icon:Point('RIGHT', bar, 'LEFT', -self.barSpacing, 0)
-	bar.icon:SetTexCoord(unpack(E.TexCoords))
-
-	UF.statusbars[bar] = true
-	UF:Update_StatusBar(bar)
-
-	UF:Configure_FontString(bar.timeText)
-	UF:Configure_FontString(bar.nameText)
-
-	UF:AuraBars_UpdateBar(bar)
-
-	bar.nameText:SetJustifyH('LEFT')
-	bar.nameText:SetJustifyV('MIDDLE')
-	bar.nameText:Point('RIGHT', bar.timeText, 'LEFT', -4, 0)
-	bar.nameText:SetWordWrap(false)
-
-	bar.bg = bar:CreateTexture(nil, 'BORDER')
-	bar.bg:Show()
-
-	local frame = bar:GetParent()
-	bar.db = frame.db and frame.db.aurabar
-end
-
-function BU:Configure_AuraBars(frame)
+function mod:ApplyAuraBarShadows(bar)
 	if not BUI.ShadowMode then return end
 
-	local auraBars = frame.AuraBars
-	local db = frame.db
-	auraBars.db = db.aurabar
+	local bars = bar:GetParent()
+	bar.db = bars.db
 
-	if db.aurabar.enable then
-		auraBars.PostCreateBar = BU.Create_AuraBarsWithShadow
+	bar.hasShadow = false
+	if bar.hasShadow == false then
+		bar.backdrop:CreateSoftShadow()
+		bar.icon.backdrop:CreateSoftShadow()
+		bar.icon:Point('RIGHT', bar, 'LEFT', -bars.barSpacing -3, 0)
+		bar.hasShadow = true
+	end
+end
+hooksecurefunc(UF, 'AuraBars_UpdateBar', mod.ApplyAuraBarShadows)
+
+function mod:Configure_AuraBars(frame)
+	local bars = frame.AuraBars
+	local db = frame.db and frame.db.aurabar
+	bars.db = db
+
+	if db.enable then
+		local detached = db.attachTo == 'DETACHED'
+		local POWER_OFFSET, BAR_WIDTH = 0
+		local BORDER = UF.BORDER + UF.SPACING
+
+		if detached then
+			BAR_WIDTH = db.detachedWidth -3
+		else
+			BAR_WIDTH = frame.UNIT_WIDTH -3
+			if db.attachTo ~= 'FRAME' then
+				POWER_OFFSET = frame.POWERBAR_OFFSET
+
+				if frame.ORIENTATION == 'MIDDLE' then
+					POWER_OFFSET = POWER_OFFSET * 2
+				end
+			end
+		end
+
+		bars.width = E:Scale(BAR_WIDTH - (BORDER * 4) - bars.height - POWER_OFFSET + 1)
 	end
 end

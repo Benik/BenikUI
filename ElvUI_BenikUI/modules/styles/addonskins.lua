@@ -37,7 +37,7 @@ end
 
 local function StyleRecount(name, parent, ...)
 	if E.db.benikui.general.benikuiStyle ~= true then return end
-	local recountdecor = CreateFrame('Frame', name, E.UIParent, 'BackdropTemplate')
+	local recountdecor = CreateFrame('Frame', name, E.UIParent)
 	recountdecor:SetTemplate('Default', true)
 	recountdecor:SetParent(parent)
 	recountdecor:Point('TOPLEFT', parent, 'TOPLEFT', 0, -2)

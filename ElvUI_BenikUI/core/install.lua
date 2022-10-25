@@ -326,6 +326,7 @@ local function SetupChat()
 end
 
 local function SetupActionbars(layout)
+	if E.private.actionbar.enable ~= true then return end
 	-- Actionbars
 	E.db["actionbar"]["lockActionBars"] = true
 	E.db["actionbar"]["transparent"] = true
@@ -535,9 +536,7 @@ local function SetupActionbars(layout)
 		E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,116"
 	end
 
-	if E.private.actionbar.enable ~= true then
-		BUI:GetModule('Actionbars'):ToggleStyle()
-	end
+	BUI:GetModule('Actionbars'):ToggleStyle()
 
 	PluginInstallStepComplete.message = BUI.Title..L['Actionbars Set']
 	PluginInstallStepComplete:Show()
@@ -2081,7 +2080,7 @@ local function SetupDataTexts(role)
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Missions (BenikUI)'
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][3] = 'BuiMail'
 
-	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][1] = 'Spec Switch (BenikUI)'
+	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][1] = 'Talent/Loot Specialization'
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][3] = 'Gold'
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][2] = 'Bags'
 
