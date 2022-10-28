@@ -510,7 +510,7 @@ local function style_GarrisonUI()
 	S:HandleEditBox(GRecruitSelect.FollowerList.SearchBox)
 
 	GRecruitSelect.FollowerList:StripTextures()
-	S:HandleScrollBar(_G.GarrisonRecruitSelectFrameListScrollFrameScrollBar)
+	--S:HandleScrollBar(_G.GarrisonRecruitSelectFrameListScrollFrameScrollBar)
 	GRecruitSelect.FollowerSelection:StripTextures()
 
 	GRecruitSelect.FollowerSelection.Recruit1:CreateBackdrop()
