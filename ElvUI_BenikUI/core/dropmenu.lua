@@ -45,7 +45,7 @@ BUI.MenuList = {
 			ShowUIPanel(GameMenuFrame);
 		else
 			HideUIPanel(GameMenuFrame);
-			MainMenuMicroButton_SetNormal();
+			MainMenuMicroButton:SetButtonState("NORMAL");
 		end
 	end},
 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end},
@@ -160,6 +160,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 	frame:Width(BUTTON_WIDTH + PADDING * 2 + (addedSize or 0))
 	frame:BuiStyle('Outside')
 	frame:ClearAllPoints()
+	frame:SetFrameStrata('DIALOG')
 
 	if pos == 'tLeft' then
 		frame:Point('BOTTOMRIGHT', parent, 'TOPLEFT', xOffset, yOffset)
