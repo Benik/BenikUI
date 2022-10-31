@@ -367,21 +367,10 @@ local function style_EncounterJournal()
 
 	_G.EncounterJournal:BuiStyle("Outside")
 
-	local Buttons = {
-		_G.EncounterJournalInstanceSelectSuggestTab,
-		_G.EncounterJournalInstanceSelectDungeonTab,
-		_G.EncounterJournalInstanceSelectRaidTab,
-		_G.EncounterJournalInstanceSelectLootJournalTab
-	}
-
-	for _, Button in pairs(Buttons) do
-		if Button then
-			local text = Button:GetFontString()
-			if text then
-				text:ClearAllPoints()
-				text:Point("CENTER", Button, "CENTER", 0, 2)
-				text:FontTemplate(nil, 12)
-			end
+	for _, name in next, { 'overviewTab', 'modelTab', 'bossTab', 'lootTab' } do
+		local tab = _G.EncounterJournal.encounter.info[name]
+		if tab then
+			tab:CreateSoftShadow()
 		end
 	end
 
