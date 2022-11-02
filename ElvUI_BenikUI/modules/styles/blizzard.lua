@@ -54,6 +54,14 @@ local function LoadSkin()
 		_G.WardrobeOutfitEditFrame:BuiStyle("Outside")
 	end
 
+	if db.editor then
+		_G.EditModeManagerFrame.backdrop:BuiStyle("Outside")
+		_G.EditModeNewLayoutDialog.backdrop:BuiStyle("Outside")
+		_G.EditModeUnsavedChangesDialog.backdrop:BuiStyle("Outside")
+		_G.EditModeImportLayoutDialog.backdrop:BuiStyle("Outside")
+		_G.EditModeSystemSettingsDialog.backdrop:BuiStyle("Outside")
+	end
+
 	if db.friends then
 		_G.AddFriendFrame:BuiStyle("Outside")
 		_G.FriendsFrame:BuiStyle("Outside")
