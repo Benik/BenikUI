@@ -10,7 +10,6 @@ local colorValues = {
 	[2] = CUSTOM,
 	[3] = L['Value Color'],
 	[4] = DEFAULT,
-	[5] = L['Covenant Color']
 }
 
 local function Core()
@@ -260,7 +259,6 @@ local function Core()
 									[1] = L.CLASS_COLORS,
 									[2] = L.CUSTOM,
 									[3] = L["Value Color"],
-									[4] = L['Covenant Color'],
 								},
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
 								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; end,

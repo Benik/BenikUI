@@ -28,7 +28,6 @@ local colorValues = {
 	[2] = CUSTOM,
 	[3] = L['Value Color'],
 	[4] = DEFAULT,
-	[5] = L['Covenant Color']
 }
 
 local function updateOptions()
