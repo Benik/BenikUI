@@ -172,7 +172,8 @@ local function SetupLayout(layout)
 		E.db["tooltip"]["healthBar"]["height"] = 6
 		E.db["tooltip"]["font"] = "Bui Prototype"
 		E.db["tooltip"]["fontOutline"] = 'NONE'
-		E.db["tooltip"]["headerFontSize"] = 10
+		E.db["tooltip"]["headerFont"] = "Bui Prototype"
+		E.db["tooltip"]["headerFontSize"] = 12
 		E.db["tooltip"]["textFontSize"] = 10
 		E.db["tooltip"]["smallTextFontSize"] = 10
 
@@ -219,7 +220,8 @@ local function SetupLayout(layout)
 
 		E.db["tooltip"]["font"] = "Expressway"
 		E.db["tooltip"]["fontSize"] = 10
-		E.db["tooltip"]["headerFontSize"] = 11
+		E.db["tooltip"]["headerFont"] = "Expressway"
+		E.db["tooltip"]["headerFontSize"] = 12
 		E.db["tooltip"]["healthBar"]["font"] = "Expressway"
 		E.db["tooltip"]["healthBar"]["fontSize"] = 9
 		E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
