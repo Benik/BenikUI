@@ -209,6 +209,16 @@ local function LoadSkin()
 		_G.TabardFrame:BuiStyle("Outside")
 	end
 
+	if db.talkinghead then
+		local TalkingHeadFrame = _G.TalkingHeadFrame
+
+		if E.db.general.talkingHeadFrameBackdrop then
+			TalkingHeadFrame:BuiStyle("Outside")
+		else
+			TalkingHeadFrame.MainFrame.Model.backdrop:BuiStyle("Outside")
+		end
+	end
+
 	if db.taxi then
 		_G.TaxiFrame:BuiStyle("Outside")
 	end
