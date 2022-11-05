@@ -257,8 +257,6 @@ function mod:SetupPanels()
 					r, g, b = BUI:unpackColor(db.customStyleColor)
 				elseif db.styleColor == 3 then
 					r, g, b = BUI:unpackColor(E.db.general.valuecolor)
-				elseif db.styleColor == 5 then
-					r, g, b = BUI:getCovenantColor()
 				else
 					r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 				end

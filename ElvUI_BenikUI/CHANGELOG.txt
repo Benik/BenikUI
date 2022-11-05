@@ -1,3 +1,23 @@
+4.22 (Nov 5th, 2022)
+Updated the Patreon team
+Resize the ugly Micro buttons
+Fixed the Tooltip Header Font during install
+Fixed SLEEEEE :D Location panel shadow overlap
+Fixed the Talking Head Style/Shadows
+Mini corrections in the Installer
+Removed the Covenant Color option and its Crest from the AFK Mode
+Styled the EditMode frames
+Style new Encounter Journal side tabs
+Fix DropDown Menu Strata and Closing Game Menu
+Fix hiding minimap mail icon
+
+4.21 (Oct 28th, 2022)
+Add more safety on castbars
+Fixed a typo ;)
+HandleScrollBar is bugged atm
+Fixes for missing icons on castbar and chat error on reload
+Fix for SetVertexColor on Target loss
+
 4.20 (Oct 26th, 2022)
 Updated for WoW Patch 10.00
 Removed Spec Switch Datatext.

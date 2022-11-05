@@ -30,7 +30,6 @@ L['Splash Screen'] = true
 L['Shadow'] = true
 L['Shadow Size'] = true
 L['Shadow Alpha'] = true
-L['Covenant Color'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = true

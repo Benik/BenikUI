@@ -367,21 +367,10 @@ local function style_EncounterJournal()
 
 	_G.EncounterJournal:BuiStyle("Outside")
 
-	local Buttons = {
-		_G.EncounterJournalInstanceSelectSuggestTab,
-		_G.EncounterJournalInstanceSelectDungeonTab,
-		_G.EncounterJournalInstanceSelectRaidTab,
-		_G.EncounterJournalInstanceSelectLootJournalTab
-	}
-
-	for _, Button in pairs(Buttons) do
-		if Button then
-			local text = Button:GetFontString()
-			if text then
-				text:ClearAllPoints()
-				text:Point("CENTER", Button, "CENTER", 0, 2)
-				text:FontTemplate(nil, 12)
-			end
+	for _, name in next, { 'overviewTab', 'modelTab', 'bossTab', 'lootTab' } do
+		local tab = _G.EncounterJournal.encounter.info[name]
+		if tab then
+			tab:CreateSoftShadow()
 		end
 	end
 
@@ -510,7 +499,7 @@ local function style_GarrisonUI()
 	S:HandleEditBox(GRecruitSelect.FollowerList.SearchBox)
 
 	GRecruitSelect.FollowerList:StripTextures()
-	S:HandleScrollBar(_G.GarrisonRecruitSelectFrameListScrollFrameScrollBar)
+	--S:HandleScrollBar(_G.GarrisonRecruitSelectFrameListScrollFrameScrollBar)
 	GRecruitSelect.FollowerSelection:StripTextures()
 
 	GRecruitSelect.FollowerSelection.Recruit1:CreateBackdrop()
@@ -872,36 +861,6 @@ local function style_TalentUI()
 	PlayerTalentFrameTalents.PvpTalentFrame.TalentList:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_TalentUI", "BenikUI_TalentUI", style_TalentUI)
-
--- TalkingHeadUI
-local function style_TalkingHeadUI()
-	if E.private.skins.blizzard.talkinghead ~= true or E.db.benikui.skins.variousSkins.talkingHead ~= true or
-		E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true
-	then
-		return
-	end
-
-	local frame = _G.TalkingHeadFrame
-	if frame then
-		-- Hide ElvUI's backdrop
-		if frame then
-			frame:Hide()
-		end
-
-		frame.BackgroundFrame:CreateBackdrop("Transparent")
-		frame.BackgroundFrame:SetAllPoints()
-		frame.BackgroundFrame:CreateWideShadow() -- to hide the borders not showing due to scaling
-
-		frame.BackgroundFrame:BuiStyle("Inside")
-		if frame.BackgroundFrame.style then
-			frame.BackgroundFrame.style:ClearAllPoints()
-			frame.BackgroundFrame.style:Point("TOPLEFT", frame, "TOPLEFT", -(E.PixelMode and 0 or 2), (E.PixelMode and -5 or -7))
-			frame.BackgroundFrame.style:Point("BOTTOMRIGHT", frame, "TOPRIGHT", (E.PixelMode and -1 or 1), (E.PixelMode and 0 or -2))
-		end
-	end
-end
-S:AddCallbackForAddon("Blizzard_TalkingHeadUI", "BenikUI_TalkingHeadUI", style_TalkingHeadUI)
 
 local function style_TimeManager()
 	if E.private.skins.blizzard.timemanager ~= true or E.private.skins.blizzard.enable ~= true or
