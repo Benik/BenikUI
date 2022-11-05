@@ -1,5 +1,5 @@
 local BUI, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local LSM = E.LSM
 
 local _G = _G
@@ -21,8 +21,8 @@ BUI["softGlow"] = {}
 BUI["shadows"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
-BUI.ShadowMode = false;
-BUI.AddonProfileKey = '';
+BUI.ShadowMode = false
+BUI.AddonProfileKey = ''
 BINDING_HEADER_BENIKUI = BUI.Title
 
 function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
@@ -119,7 +119,7 @@ function BUI:UpdateStyleColors()
 			end
 			frame:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 		else
-			BUI["styles"][frame] = nil;
+			BUI["styles"][frame] = nil
 		end
 	end
 	BTT:CheckTooltipStyleColor()
@@ -147,7 +147,7 @@ function BUI:UpdateSoftGlowColor()
 		if glow then
 			glow:SetBackdropBorderColor(sr, sg, sb, 0.6)
 		else
-			BUI["softGlow"][glow] = nil;
+			BUI["softGlow"][glow] = nil
 		end
 	end
 end
@@ -163,13 +163,14 @@ function BUI:UpdateShadows()
 			shadow:SetBackdropColor(0, 0, 0, 0)
 			shadow:SetBackdropBorderColor(0, 0, 0, db.shadowAlpha or 0.6)
 		else
-			BUI["shadows"][shadow] = nil;
+			BUI["shadows"][shadow] = nil
 		end
 	end
 end
 
 function BUI:DasOptions()
-	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
+	E:ToggleOptionsUI()
+	LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
 function BUI:SetupBenikUI()
@@ -182,33 +183,9 @@ function BUI:LoadCommands()
 	self:RegisterChatCommand("buierror", "LuaError")
 end
 
-function BUI:ConvertDB()
-	if E.db.benikuiSkins then
-		E:CopyTable(E.db.benikui.skins, E.db.benikuiSkins)
-		E.db.benikuiSkins = nil
-	end
-	if E.db.benikuiDatabars then
-		E:CopyTable(E.db.benikui.databars, E.db.benikuiDatabars)
-		E.db.benikuiDatabars = nil
-	end
-	if E.db.benikuiWidgetbars then
-		E:CopyTable(E.db.benikui.widgetbars, E.db.benikuiWidgetbars)
-		E.db.benikuiWidgetbars = nil
-	end
-	if E.db.dashboards then
-		E:CopyTable(E.db.benikui.dashboards, E.db.dashboards)
-		E.db.dashboards = nil
-	end
-	if E.private.dashboards then
-		E:CopyTable(E.private.benikui.dashboards, E.private.dashboards)
-		E.private.dashboards = nil
-	end
-end
-
 function BUI:Initialize()
 	BUI:LoadCommands()
 	BUI:SplashScreen()
-	BUI:ConvertDB()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
@@ -229,9 +206,7 @@ function BUI:Initialize()
 		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('https://github.com/Benik/BenikUI/issues')))
 	end
 
-	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
-		BUI.ShadowMode = true
-	end
+	BUI.ShadowMode = E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows or false
 
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BENIKUI")
 	E.ConfigModeLocalizedStrings["BENIKUI"] = BUI.Title
