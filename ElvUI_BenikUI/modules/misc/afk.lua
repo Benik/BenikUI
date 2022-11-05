@@ -20,8 +20,6 @@ local GetSpecializationInfo = GetSpecializationInfo
 local GetAverageItemLevel = GetAverageItemLevel
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
-local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
-local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 
 local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME
 local LEVEL, NONE = LEVEL, NONE
@@ -232,30 +230,6 @@ local function GetXPinfo()
 	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
 end
 
--- Get Covenant Crests and set their height and vertical offset
-local function GetCovenantCrest()
-	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
-	local kit = covenantData and covenantData.textureKit or nil
-
-	-- vertical position
-	local vky = kit == "Kyrian" and 0
-	local vve = kit == "Venthyr" and 18
-	local vni = kit == "NightFae" and 16
-	local vne = kit == "Necrolord" and 20
-
-	local vert = vky or vve or vni or vne
-	
-	-- Height
-	local hky = kit == "Kyrian" and 150
-	local hve = kit == "Venthyr" and 120
-	local hni = kit == "NightFae" and 134
-	local hne = kit == "Necrolord" and 120
-
-	local hei = hky or hve or hni or hne
-
-	return kit, vert, hei
-end
-
 AFK.SetAFKBui = AFK.SetAFK
 function AFK:SetAFK(status)
 	self:SetAFKBui(status)
@@ -268,8 +242,6 @@ function AFK:SetAFK(status)
 		local localizedClass = UnitClass('player')
 		local spec = getSpec()
 		local ilvl = getItemLevel()
-		local kit, vert, hei = GetCovenantCrest()
-		local adventuresEmblemFormat = "Adventures-EndCombat-%s"
 		local displayline = ""
 
 		self.AFKMode.top:Height(0)
@@ -288,14 +260,7 @@ function AFK:SetAFK(status)
 			self.AFKMode.xp.text:SetText("")
 		end
 
-		if kit then
-			self.AFKMode.statMsg.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
-			self.AFKMode.statMsg.crest:Point("BOTTOM", 0, vert or 14)
-			self.AFKMode.statMsg.crest:Size(300, hei)
-			displayline = (format("%s - %s\n%s %s %s %s %s\n%s - %s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, kit, ilvl))
-		else
-			displayline = (format("%s - %s\n%s %s %s %s %s\n%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl))
-		end
+		displayline = (format("%s - %s\n%s %s %s %s %s\n%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl))
 	
 		self.AFKMode.bottom.name:SetText(displayline)
 		self.isAFK = true

@@ -38,7 +38,7 @@ local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent)
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
-menuFrame:SetFrameStrata('TOOLTIP')
+menuFrame:SetFrameStrata('DIALOG')
 
 function BuiGameMenu_OnMouseUp(self)
 	if InCombatLockdown() then return end

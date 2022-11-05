@@ -42,6 +42,12 @@ function mod:stylePlugins()
 				frame:BuiStyle("Outside")
 			end
 		end
+
+		-- fix shadow overlap
+		if BUI.ShadowMode then
+			_G.SLE_LocationPanel_X:Point('RIGHT', _G.SLE_LocationPanel, 'LEFT', -2, 0)
+			_G.SLE_LocationPanel_Y:Point('LEFT', _G.SLE_LocationPanel, 'RIGHT', 2, 0)
+		end
 	end
 
 	-- SquareMinimapButtons
