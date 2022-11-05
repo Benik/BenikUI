@@ -29,7 +29,7 @@ local function abTable()
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = L.SHOW,
+						name = L['Show'],
 						desc = L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'],
 						disabled = function() return not E.private.actionbar.enable or not E.db.benikui.general.benikuiStyle end,
 					},
@@ -71,6 +71,21 @@ local function abTable()
 		}
 	end
 
+	for i = 13, 15 do
+		local name = L["Bar "]..i
+		E.Options.args.benikui.args.actionbars.args.style.args['bar'..i] = {
+			order = i,
+			type = 'toggle',
+			name = name,
+			disabled = function() return not E.private.actionbar.enable end,
+			get = function(info) return E.db.benikui.actionbars.style[ info[#info] ] end,
+			set = function(info, value)
+				E.db.benikui.actionbars.style[ info[#info] ] = value;
+				mod:ToggleStyle()
+			end,
+		}
+	end
+
 	E.Options.args.benikui.args.actionbars.args.style.args.spacer = {
 		order = 20,
 		type = 'header',
@@ -82,6 +97,7 @@ local function abTable()
 		{'stancebar', L["Stance Bar"]},
 		{'microbar', L["Micro Bar"]},
 	}
+
 	for i, v in ipairs(otherBars) do
 		local option, name = unpack(v)
 		E.Options.args.benikui.args.actionbars.args.style.args[option] = {

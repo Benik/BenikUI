@@ -3,40 +3,28 @@ local mod = BUI:GetModule('Actionbars')
 local AB = E:GetModule('ActionBars')
 local T = E:GetModule('TotemTracker')
 
-if E.private.actionbar.enable ~= true then return; end
+if E.private.actionbar.enable ~= true then return end
 
 local _G = _G
 local pairs = pairs
-local C_TimerAfter = C_Timer.After
 local MAX_TOTEMS = MAX_TOTEMS
 local MAX_STANCES = GetNumShapeshiftForms()
 local Masque = E.Masque
 local MasqueGroup = Masque and E.private.actionbar.masque.actionbars
-
--- GLOBALS: NUM_PET_ACTION_SLOTS
--- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar
 
 local classColor = E:ClassColor(E.myclass, true)
 
 local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_MicroBar}
 
 function mod:StyleBackdrops()
-	-- Actionbar backdrops
-	for i = 1, 10 do
-		local styleBacks = {_G['ElvUI_Bar'..i]}
-		for _, frame in pairs(styleBacks) do
-			if frame.backdrop then
-				frame.backdrop:BuiStyle('Outside', nil, true, true)
-			end
+	for _, bar in pairs(AB.handledBars) do
+		if bar then
+			bar.backdrop:BuiStyle('Outside', nil, true, true)
 
-			-- Button Shadows
 			if BUI.ShadowMode and not MasqueGroup then
-				for k = 1, 12 do
-					local buttonBars = {_G["ElvUI_Bar"..i.."Button"..k]}
-					for _, button in pairs(buttonBars) do
-						if button and not button.shadow then
-							button:CreateSoftShadow()
-						end
+				for _, button in ipairs(bar.buttons) do
+					if button then
+						button:CreateSoftShadow()
 					end
 				end
 			end
@@ -52,24 +40,31 @@ function mod:StyleBackdrops()
 end
 
 function mod:ToggleStyle()
-	-- Actionbar backdrops
+	local db = E.db.benikui.actionbars.style
+
 	for i = 1, 10 do
 		if _G['ElvUI_Bar'..i].backdrop.style then
-			_G['ElvUI_Bar'..i].backdrop.style:SetShown(E.db.benikui.actionbars.style['bar'..i])
+			_G['ElvUI_Bar'..i].backdrop.style:SetShown(db['bar'..i])
+		end
+	end
+
+	for i = 13, 15 do
+		if _G['ElvUI_Bar'..i].backdrop.style then
+			_G['ElvUI_Bar'..i].backdrop.style:SetShown(db['bar'..i])
 		end
 	end
 
 	-- Other bar backdrops
 	if _G.ElvUI_BarPet.backdrop.style then
-		_G.ElvUI_BarPet.backdrop.style:SetShown(E.db.benikui.actionbars.style.petbar)
+		_G.ElvUI_BarPet.backdrop.style:SetShown(db.petbar)
 	end
 
 	if _G.ElvUI_StanceBar.backdrop.style then
-		_G.ElvUI_StanceBar.backdrop.style:SetShown(E.db.benikui.actionbars.style.stancebar)
+		_G.ElvUI_StanceBar.backdrop.style:SetShown(db.stancebar)
 	end
 
 	if _G.ElvUI_MicroBar.backdrop.style then
-		_G.ElvUI_MicroBar.backdrop.style:SetShown(E.db.benikui.actionbars.style.microbar)
+		_G.ElvUI_MicroBar.backdrop.style:SetShown(db.microbar)
 	end
 end
 
@@ -115,16 +110,10 @@ end
 
 function mod:PetShadows()
 	-- Pet Buttons
-	for i = 1, NUM_PET_ACTION_SLOTS do
-		local petButtons = {_G['PetActionButton'..i]}
-		for _, button in pairs(petButtons) do
-			if button.backdrop then
-				if BUI.ShadowMode and not MasqueGroup then
-					if not button.backdrop.shadow then
-						button.backdrop:CreateSoftShadow()
-					end
-				end
-			end
+	for i = 1, _G.NUM_PET_ACTION_SLOTS do
+		local button = _G['PetActionButton'..i]
+		if (button and BUI.ShadowMode) and not MasqueGroup then
+			button:CreateSoftShadow()
 		end
 	end
 end
@@ -132,10 +121,8 @@ end
 function mod:StancebarShadows()
 	for i = 1, MAX_STANCES do
 		local button = _G['ElvUI_StanceBarButton'..i]
-		if BUI.ShadowMode and not MasqueGroup then
-			if button and not button.shadow then
-				button:CreateSoftShadow()
-			end
+		if (button and BUI.ShadowMode) and not MasqueGroup then
+			button:CreateSoftShadow()
 		end
 	end
 end
@@ -208,13 +195,13 @@ function mod:UpdateMicroButtons()
 end
 
 function mod:Initialize()
-	C_TimerAfter(1, mod.StyleBackdrops)
-	C_TimerAfter(1, mod.PetShadows)
-	C_TimerAfter(2, mod.StyleColor)
-	C_TimerAfter(2, mod.LoadToggleButtons)
-	C_TimerAfter(2, mod.ToggleStyle)
-	C_TimerAfter(2, mod.TotemShadows)
-	C_TimerAfter(2, mod.StancebarShadows)
+	mod.StyleBackdrops()
+	mod.PetShadows()
+	mod.StyleColor()
+	mod.LoadToggleButtons()
+	mod.ToggleStyle()
+	mod.TotemShadows()
+	mod.StancebarShadows()
 
 	VehicleExit()
 
