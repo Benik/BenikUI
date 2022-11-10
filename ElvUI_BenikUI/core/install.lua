@@ -113,7 +113,7 @@ local function SetupLayout(layout)
 	BUI:GetModule('Layout'):CreateMiddlePanel(true)
 
 	-- common movers
-	if E.db["movers"] == nil then E.db["movers"] = {} end
+	E.db["movers"] = E.db["movers"] or {}
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-192"
@@ -231,7 +231,7 @@ local function SetupLayout(layout)
 
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Expressway"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 417
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
 
 
 		E.db["benikui"]["general"]["shadows"] = true
@@ -342,7 +342,7 @@ local function SetupActionbars(layout)
 	E.db["actionbar"]["extraActionButton"]["clean"] = true
 	E.db["actionbar"]["zoneActionButton"]["clean"] = true
 
-	if E.db["movers"] == nil then E.db["movers"] = {} end
+	E.db["movers"] = E.db["movers"] or {}
 	if layout == 'v1' then
 		fontStyle = "Bui Visitor1"
 		fontOutline = 'MONOCHROMEOUTLINE'
@@ -468,8 +468,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonSize"] = 24
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 417
-		E.db["databars"]["experience"]["width"] = 417
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
+		E.db["databars"]["experience"]["width"] = 416
 
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
@@ -531,8 +531,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["fontOutline"] = fontOutline
 		E.db["actionbar"]["stanceBar"]["buttonSize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 417
-		E.db["databars"]["experience"]["width"] = 417
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
+		E.db["databars"]["experience"]["width"] = 416
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
@@ -580,7 +580,8 @@ end
 
 local function SetupUnitframes(layout)
 	E.db["general"]["decimalLength"] = 2
-	if E.db["movers"] == nil then E.db["movers"] = {} end
+	E.db["movers"] = E.db["movers"] or {}
+
 	if layout == 'v1' then
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "Bui Prototype"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Bui Prototype"
