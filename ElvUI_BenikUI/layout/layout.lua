@@ -464,7 +464,7 @@ function mod:CreateMiddlePanel(forceReset)
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] = false
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["growth"] = 'HORIZONTAL'
 
-		if not E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] then
+		if E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] == '' and E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][2] == '' and E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] == '' then
 			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
 				[1] = "Haste",
 				[2] = "Mastery",

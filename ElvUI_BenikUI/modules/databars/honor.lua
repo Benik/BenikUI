@@ -40,23 +40,14 @@ function mod:UpdateHonorNotifier()
 	bar.f.txt:SetFormattedText('%d%%', value / max * 100)
 end
 
-function mod:HonorTextOffset()
-	local text = _G.ElvUI_HonorBar.text
-	text:Point('CENTER', 0, E.db.databars.honor.textYoffset or 0)
-end
-
 function mod:LoadHonor()
 	local bar = _G.ElvUI_HonorBar
-
-	self:HonorTextOffset()
-	hooksecurefunc(DB, 'HonorBar_Update', mod.HonorTextOffset)
-
 	local db = E.db.benikui.databars.honor.notifiers
 
 	if db.enable then
-		self:CreateNotifier(bar)
-		self:UpdateHonorNotifierPositions()
-		self:UpdateHonorNotifier()
+		mod:CreateNotifier(bar)
+		mod:UpdateHonorNotifierPositions()
+		mod:UpdateHonorNotifier()
 		hooksecurefunc(DB, 'HonorBar_Update', mod.UpdateHonorNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateHonorNotifierPositions)
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateHonorNotifierPositions)
@@ -65,9 +56,9 @@ function mod:LoadHonor()
 
 	if E.db.benikui.databars.honor.enable ~= true then return end
 
-	self:StyleBar(bar, OnClick)
-	self:ToggleHonorBackdrop()
-	self:ApplyHonorStyling()
+	mod:StyleBar(bar, OnClick)
+	mod:ToggleHonorBackdrop()
+	mod:ApplyHonorStyling()
 
 	hooksecurefunc(DB, 'UpdateAll', mod.ApplyHonorStyling)
 end

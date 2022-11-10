@@ -79,7 +79,7 @@ end
 function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSize)
 	local db = E.db.benikui.colors.gameMenuColor
 	
-	local r, g, b
+	local r, g, b = 0, 0, 0
 	if db == 1 then
 		r, g, b = classColor.r, classColor.g, classColor.b
 	elseif db == 2 then

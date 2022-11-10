@@ -37,23 +37,14 @@ function mod:UpdateAzeriteNotifier()
 	bar.f.txt:SetFormattedText('%d%%', floor(value / max * 100))
 end
 
-function mod:AzeriteTextOffset()
-	local text = _G.ElvUI_AzeriteBar.text
-	text:Point('CENTER', 0, E.db.databars.azerite.textYoffset or 0)
-end
-
 function mod:LoadAzerite()
 	local bar = _G.ElvUI_AzeriteBar
-
-	self:AzeriteTextOffset()
-	hooksecurefunc(DB, 'AzeriteBar_Update', mod.AzeriteTextOffset)
-
 	local db = E.db.benikui.databars.azerite.notifiers
 
 	if db.enable then
-		self:CreateNotifier(bar)
-		self:UpdateAzeriteNotifierPositions()
-		self:UpdateAzeriteNotifier()
+		mod:CreateNotifier(bar)
+		mod:UpdateAzeriteNotifierPositions()
+		mod:UpdateAzeriteNotifier()
 		hooksecurefunc(DB, 'AzeriteBar_Update', mod.UpdateAzeriteNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateAzeriteNotifierPositions)
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateAzeriteNotifierPositions)
@@ -62,9 +53,9 @@ function mod:LoadAzerite()
 
 	if E.db.benikui.databars.azerite.enable ~= true then return end
 
-	self:StyleBar(bar)
-	self:ToggleAzeriteBackdrop()
-	self:ApplyAzeriteStyling()
+	mod:StyleBar(bar)
+	mod:ToggleAzeriteBackdrop()
+	mod:ApplyAzeriteStyling()
 
 	hooksecurefunc(DB, 'UpdateAll', mod.ApplyAzeriteStyling)
 end

@@ -117,15 +117,6 @@ tinsert(BUI.Config, databarsTable)
 
 local function injectElvUIDatabarOptions()
 	-- xp
-	E.Options.args.databars.args.experience.args.fontGroup.args.textYoffset = {
-		order = 100,
-		type = "range",
-		min = -30, max = 30, step = 1,
-		name = BUI:cOption(L['Text yOffset'], "blue"),
-		get = function(info) return E.db.databars.experience[ info[#info] ] end,
-		set = function(info, value) E.db.databars.experience[ info[#info] ] = value; mod:XpTextOffset() end,
-	}
-
 	E.Options.args.databars.args.experience.args.gotobenikui = {
 		order = -1,
 		type = "execute",
@@ -134,15 +125,6 @@ local function injectElvUIDatabarOptions()
 	}
 
 	-- azerite
-	E.Options.args.databars.args.azerite.args.fontGroup.args.textYoffset = {
-		order = 100,
-		type = "range",
-		min = -30, max = 30, step = 1,
-		name = BUI:cOption(L['Text yOffset'], "blue"),
-		get = function(info) return E.db.databars.azerite[ info[#info] ] end,
-		set = function(info, value) E.db.databars.azerite[ info[#info] ] = value; mod:AzeriteTextOffset() end,
-	}
-
 	E.Options.args.databars.args.azerite.args.gotobenikui = {
 		order = -1,
 		type = "execute",
@@ -151,15 +133,6 @@ local function injectElvUIDatabarOptions()
 	}
 
 	-- reputation
-	E.Options.args.databars.args.reputation.args.fontGroup.args.textYoffset = {
-		order = 100,
-		type = "range",
-		min = -30, max = 30, step = 1,
-		name = BUI:cOption(L['Text yOffset'], "blue"),
-		get = function(info) return E.db.databars.reputation[ info[#info] ] end,
-		set = function(info, value) E.db.databars.reputation[ info[#info] ] = value; mod:RepTextOffset() end,
-	}
-
 	E.Options.args.databars.args.reputation.args.gotobenikui = {
 		order = -1,
 		type = "execute",
@@ -168,15 +141,6 @@ local function injectElvUIDatabarOptions()
 	}
 
 	-- honor
-	E.Options.args.databars.args.honor.args.fontGroup.args.textYoffset = {
-		order = 100,
-		type = "range",
-		min = -30, max = 30, step = 1,
-		name = BUI:cOption(L['Text yOffset'], "blue"),
-		get = function(info) return E.db.databars.honor[ info[#info] ] end,
-		set = function(info, value) E.db.databars.honor[ info[#info] ] = value; mod:HonorTextOffset() end,
-	}
-
 	E.Options.args.databars.args.honor.args.gotobenikui = {
 		order = -1,
 		type = "execute",
@@ -185,15 +149,6 @@ local function injectElvUIDatabarOptions()
 	}
 
 	-- threat
-	E.Options.args.databars.args.threat.args.fontGroup.args.textYoffset = {
-		order = 100,
-		type = "range",
-		min = -30, max = 30, step = 1,
-		name = BUI:cOption(L['Text yOffset'], "blue"),
-		get = function(info) return E.db.databars.threat[ info[#info] ] end,
-		set = function(info, value) E.db.databars.threat[ info[#info] ] = value; mod:ThreatTextOffset() end,
-	}
-
 	E.Options.args.databars.args.threat.args.gotobenikui = {
 		order = -1,
 		type = "execute",

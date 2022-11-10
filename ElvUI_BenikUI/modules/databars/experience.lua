@@ -42,23 +42,14 @@ function mod:UpdateXpNotifier()
 	bar.f.txt:SetFormattedText('%d%%', value / max * 100)
 end
 
-function mod:XpTextOffset()
-	local text = _G.ElvUI_ExperienceBar.text
-	text:Point('CENTER', 0, E.db.databars.experience.textYoffset or 0)
-end
-
 function mod:LoadXP()
 	local bar = _G.ElvUI_ExperienceBar
-
-	self:XpTextOffset()
-	hooksecurefunc(DB, 'ExperienceBar_Update', mod.XpTextOffset)
-
 	local db = E.db.benikui.databars.experience.notifiers
 
 	if db.enable then
-		self:CreateNotifier(bar)
-		self:UpdateXpNotifierPositions()
-		self:UpdateXpNotifier()
+		mod:CreateNotifier(bar)
+		mod:UpdateXpNotifierPositions()
+		mod:UpdateXpNotifier()
 		hooksecurefunc(DB, 'ExperienceBar_Update', mod.UpdateXpNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateXpNotifierPositions)
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateXpNotifierPositions)
@@ -67,9 +58,9 @@ function mod:LoadXP()
 
 	if E.db.benikui.databars.experience.enable ~= true then return end
 
-	self:StyleBar(bar, OnClick)
-	self:ToggleXPBackdrop()
-	self:ApplyXpStyling()
+	mod:StyleBar(bar, OnClick)
+	mod:ToggleXPBackdrop()
+	mod:ApplyXpStyling()
 
 	hooksecurefunc(DB, 'UpdateAll', mod.ApplyXpStyling)
 end
