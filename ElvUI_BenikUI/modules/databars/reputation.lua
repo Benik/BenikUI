@@ -39,23 +39,14 @@ function mod:UpdateRepNotifier()
 	bar.f.txt:SetFormattedText('%d%%', ((value - min) / ((max - min == 0) and max or (max - min)) * 100))
 end
 
-function mod:RepTextOffset()
-	local text = _G.ElvUI_ReputationBar.text
-	text:Point('CENTER', 0, E.db.databars.reputation.textYoffset or 0)
-end
-
 function mod:LoadRep()
 	local bar = _G.ElvUI_ReputationBar
-
-	self:RepTextOffset()
-	hooksecurefunc(DB, 'ReputationBar_Update', mod.RepTextOffset)
-
 	local db = E.db.benikui.databars.reputation.notifiers
 
 	if db.enable then
-		self:CreateNotifier(bar)
-		self:UpdateRepNotifierPositions()
-		self:UpdateRepNotifier()
+		mod:CreateNotifier(bar)
+		mod:UpdateRepNotifierPositions()
+		mod:UpdateRepNotifier()
 
 		hooksecurefunc(DB, 'ReputationBar_Update', mod.UpdateRepNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateRepNotifierPositions)
@@ -65,9 +56,9 @@ function mod:LoadRep()
 
 	if E.db.benikui.databars.reputation.enable ~= true then return end
 
-	self:StyleBar(bar, OnClick)
-	self:ToggleRepBackdrop()
-	self:ApplyRepStyling()
+	mod:StyleBar(bar, OnClick)
+	mod:ToggleRepBackdrop()
+	mod:ApplyRepStyling()
 
 	hooksecurefunc(DB, 'UpdateAll', mod.ApplyRepStyling)
 end

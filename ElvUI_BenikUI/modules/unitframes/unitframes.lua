@@ -45,8 +45,8 @@ function mod:UnitShadows()
 	for _, frame in pairs(UF.units) do
 		if frame then
 			frame:CreateSoftShadow()
-			frame.Buffs.PostUpdateIcon = mod.PostUpdateAura
-			frame.Debuffs.PostUpdateIcon = mod.PostUpdateAura
+			frame.Buffs.PostUpdateButton = mod.PostUpdateAura
+			frame.Debuffs.PostUpdateButton = mod.PostUpdateAura
 		end
 	end
 end
@@ -61,8 +61,8 @@ function mod:PartyShadows()
 			local unitbutton = select(j, group:GetChildren())
 			if unitbutton then
 				unitbutton:CreateSoftShadow()
-				unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
-				unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
+				unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
+				unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 			end
 		end
 	end
@@ -80,8 +80,8 @@ function mod:RaidShadows()
 				local unitbutton = select(k, group:GetChildren())
 				if unitbutton then
 					unitbutton:CreateSoftShadow()
-					unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
-					unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
+					unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
+					unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 				end
 			end
 		end
@@ -95,8 +95,8 @@ function mod:BossShadows()
 		local unitbutton = _G["ElvUF_Boss"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
+			unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 		end
 	end
 end
@@ -107,8 +107,8 @@ function mod:ArenaShadows()
 		local unitbutton = _G["ElvUF_Arena"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
+			unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 		end
 	end
 end
@@ -119,8 +119,8 @@ function mod:TankShadows()
 		local unitbutton = _G["ElvUF_TankUnitButton"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateIcon = mod.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateIcon = mod.PostUpdateAura
+			unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 		end
 	end
 end
@@ -164,15 +164,14 @@ function mod:PostUpdateAura(_, button)
 	end
 
 	button:SetBackdropBorderColor(r, g, b)
-	button.icon:SetDesaturated(button.isDebuff and enemyNPC and button.canDesaturate)
-	button.matches = nil -- stackAuras
+	button.Icon:SetDesaturated(button.isDebuff and enemyNPC and button.canDesaturate)
 
-	if button.needsIconTrim then
+	if button.needsButtonTrim then
 		AB:TrimIcon(button)
-		button.needsIconTrim = nil
+		button.needsButtonTrim = nil
 	end
 
-	if button.needsUpdateCooldownPosition and (button.cd and button.cd.timer and button.cd.timer.text) then
+	if button.needsUpdateCooldownPosition and (button.Cooldown and button.Cooldown.timer and button.Cooldown.timer.text) then
 		UF:UpdateAuraCooldownPosition(button)
 	end
 end
