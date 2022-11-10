@@ -146,7 +146,7 @@ local function SetupLayout(layout)
 
 		E.db["chat"]["tabFont"] = "Bui Visitor1"
 		E.db["chat"]["tabFontSize"] = 10
-		E.db["chat"]["tabFontOutline"] = "MONOCROMEOUTLINE"
+		E.db["chat"]["tabFontOutline"] = "MONOCHROMEOUTLINE"
 		E.db["chat"]["font"] = "Bui Prototype"
 		E.db["chat"]["panelHeight"] = 150
 
@@ -157,7 +157,7 @@ local function SetupLayout(layout)
 
 		E.db["datatexts"]["font"] = "Bui Visitor1"
 		E.db["datatexts"]["fontSize"] = 10
-		E.db["datatexts"]["fontOutline"] = "MONOCROMEOUTLINE"
+		E.db["datatexts"]["fontOutline"] = "MONOCHROMEOUTLINE"
 
 		E.db["bags"]["itemLevelFont"] = "Bui Prototype"
 		E.db["bags"]["itemLevelFontSize"] = 10
@@ -329,6 +329,8 @@ end
 
 local function SetupActionbars(layout)
 	if E.private.actionbar.enable ~= true then return end
+
+	local fontStyle, fontOutline
 	-- Actionbars
 	E.db["actionbar"]["lockActionBars"] = true
 	E.db["actionbar"]["transparent"] = true
@@ -339,8 +341,11 @@ local function SetupActionbars(layout)
 
 	if E.db["movers"] == nil then E.db["movers"] = {} end
 	if layout == 'v1' then
-		E.db["actionbar"]["font"] = "Bui Visitor1"
-		--E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
+		fontStyle = "Bui Visitor1"
+		fontOutline = 'MONOCHROMEOUTLINE'
+
+		E.db["actionbar"]["font"] = fontStyle
+		E.db["actionbar"]["fontOutline"] = fontOutline
 		E.db["actionbar"]["fontSize"] = 10
 
 		E.db["actionbar"]["bar1"]["backdrop"] = false
@@ -408,8 +413,11 @@ local function SetupActionbars(layout)
 		E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-128"
 
 	elseif layout == 'v2' then
-		E.db["actionbar"]["font"] = "Bui Visitor1"
-		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
+		fontStyle = "Bui Visitor1"
+		fontOutline = 'MONOCHROMEOUTLINE'
+
+		E.db["actionbar"]["font"] = fontStyle
+		E.db["actionbar"]["fontOutline"] = fontOutline
 		E.db["actionbar"]["fontSize"] = 10;
 
 		E.db["actionbar"]["bar1"]["backdrop"] = false
@@ -477,6 +485,9 @@ local function SetupActionbars(layout)
 		E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-128"
 
 	elseif layout == 'v3' then
+		fontStyle = "Expressway"
+		fontOutline = 'OUTLINE'
+
 		E.db["actionbar"]["bar1"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar1"]["buttons"] = 10
 		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 10
@@ -513,8 +524,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["barPet"]["buttonSize"] = 23
 		E.db["actionbar"]["barPet"]["buttonSpacing"] = 4
-		E.db["actionbar"]["font"] = "Expressway"
-		E.db["actionbar"]["fontOutline"] = "OUTLINE"
+		E.db["actionbar"]["font"] = fontStyle
+		E.db["actionbar"]["fontOutline"] = fontOutline
 		E.db["actionbar"]["stanceBar"]["buttonSize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 417
@@ -537,6 +548,21 @@ local function SetupActionbars(layout)
 		E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,68"
 		E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,116"
 	end
+
+	for i = 1, 10 do
+		local bar = E.db["actionbar"]["bar"..i]
+		bar["countFont"] = fontStyle
+		bar["countFontOutline"] = fontOutline
+		bar["hotkeyFont"] = fontStyle
+		bar["hotkeyFontOutline"] = fontOutline
+		bar["macroFont"] = fontStyle
+		bar["macroFontOutline"] = fontOutline
+	end
+
+	E.db["actionbar"]['barPet']["hotkeyFont"] = fontStyle
+	E.db["actionbar"]['barPet']["hotkeyFontOutline"] = fontOutline
+	E.db["actionbar"]['zoneActionButton']["hotkeyFont"] = fontStyle
+	E.db["actionbar"]['zoneActionButton']["hotkeyFontOutline"] = fontOutline
 
 	BUI:GetModule('Actionbars'):ToggleStyle()
 
@@ -596,20 +622,31 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["colors"]["abAlpha"] = 1
 
 		-- Auras
-		E.db["auras"]["timeXOffset"] = -1
-		E.db["auras"]["font"] = "Bui Visitor1"
-		E.db["auras"]["fontSize"] = 10
-		E.db["auras"]["fontOutline"] = "MONOCROMEOUTLINE"
-		E.db["auras"]["fadeThreshold"] = 10
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
 		E.db["auras"]["buffs"]["size"] = 30
 		E.db["auras"]["debuffs"]["size"] = 30
+		E.db["auras"]["buffs"]["fadeThreshold"] = 10
+		E.db["auras"]["buffs"]["countFont"] = "Bui Visitor1"
+		E.db["auras"]["buffs"]["countFontSize"] = 10
+		E.db["auras"]["buffs"]["countFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["buffs"]["timeFont"] = "Bui Visitor1"
+		E.db["auras"]["buffs"]["timeFontSize"] = 10
+		E.db["auras"]["buffs"]["timeFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["buffs"]["timeXOffset"] = -1
+		E.db["auras"]["debuffs"]["fadeThreshold"] = 10
+		E.db["auras"]["debuffs"]["countFont"] = "Bui Visitor1"
+		E.db["auras"]["debuffs"]["countFontSize"] = 10
+		E.db["auras"]["debuffs"]["countFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["debuffs"]["timeFont"] = "Bui Visitor1"
+		E.db["auras"]["debuffs"]["timeFontSize"] = 10
+		E.db["auras"]["debuffs"]["timeFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["debuffs"]["timeXOffset"] = -1
 
 		-- Units
 		-- general
 		E.db["unitframe"]["font"] = "Bui Visitor1"
 		E.db["unitframe"]["fontSize"] = 10
-		E.db["unitframe"]["fontOutline"] = "MONOCROMEOUTLINE"
+		E.db["unitframe"]["fontOutline"] = "MONOCHROMEOUTLINE"
 		E.db["unitframe"]["colors"]["transparentAurabars"] = true
 		E.db["unitframe"]["colors"]["transparentCastbar"] = false
 		E.db["unitframe"]["colors"]["castClassColor"] = true
@@ -1055,11 +1092,22 @@ local function SetupUnitframes(layout)
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
 		E.db["auras"]["buffs"]["size"] = 30
 		E.db["auras"]["debuffs"]["size"] = 30
-		E.db["auras"]["fadeThreshold"] = 10
-		E.db["auras"]["font"] = "Bui Visitor1"
-		E.db["auras"]["fontOutline"] = "MONOCROMEOUTLINE"
-		E.db["auras"]["fontSize"] = 10
-		E.db["auras"]["timeXOffset"] = -1
+		E.db["auras"]["buffs"]["fadeThreshold"] = 10
+		E.db["auras"]["buffs"]["countFont"] = "Bui Visitor1"
+		E.db["auras"]["buffs"]["countFontSize"] = 10
+		E.db["auras"]["buffs"]["countFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["buffs"]["timeFont"] = "Bui Visitor1"
+		E.db["auras"]["buffs"]["timeFontSize"] = 10
+		E.db["auras"]["buffs"]["timeFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["buffs"]["timeXOffset"] = -1
+		E.db["auras"]["debuffs"]["fadeThreshold"] = 10
+		E.db["auras"]["debuffs"]["countFont"] = "Bui Visitor1"
+		E.db["auras"]["debuffs"]["countFontSize"] = 10
+		E.db["auras"]["debuffs"]["countFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["debuffs"]["timeFont"] = "Bui Visitor1"
+		E.db["auras"]["debuffs"]["timeFontSize"] = 10
+		E.db["auras"]["debuffs"]["timeFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["debuffs"]["timeXOffset"] = -1
 
 		-- Units
 		-- general
@@ -1540,10 +1588,22 @@ local function SetupUnitframes(layout)
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
 		E.db["auras"]["buffs"]["size"] = 30
 		E.db["auras"]["debuffs"]["size"] = 30
-		E.db["auras"]["fadeThreshold"] = 10
-		E.db["auras"]["font"] = "Expressway"
-		E.db["auras"]["fontOutline"] = "OUTLINE"
-		E.db["auras"]["timeXOffset"] = -1
+		E.db["auras"]["buffs"]["fadeThreshold"] = 10
+		E.db["auras"]["buffs"]["countFont"] = "Expressway"
+		E.db["auras"]["buffs"]["countFontSize"] = 10
+		E.db["auras"]["buffs"]["countFontOutline"] = "OUTLINE"
+		E.db["auras"]["buffs"]["timeFont"] = "Expressway"
+		E.db["auras"]["buffs"]["timeFontSize"] = 10
+		E.db["auras"]["buffs"]["timeFontOutline"] = "OUTLINE"
+		E.db["auras"]["buffs"]["timeXOffset"] = -1
+		E.db["auras"]["debuffs"]["fadeThreshold"] = 10
+		E.db["auras"]["debuffs"]["countFont"] = "Expressway"
+		E.db["auras"]["debuffs"]["countFontSize"] = 10
+		E.db["auras"]["debuffs"]["countFontOutline"] = "OUTLINE"
+		E.db["auras"]["debuffs"]["timeFont"] = "Expressway"
+		E.db["auras"]["debuffs"]["timeFontSize"] = 10
+		E.db["auras"]["debuffs"]["timeFontOutline"] = "OUTLINE"
+		E.db["auras"]["debuffs"]["timeXOffset"] = -1
 
 		E.db["benikui"]["colors"]["styleAlpha"] = 0.7
 		E.db["benikui"]["colors"]["abAlpha"] = 0.7
