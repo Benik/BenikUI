@@ -35,23 +35,14 @@ function mod:UpdateThreatNotifier()
 	bar.f.txt:SetFormattedText('%d%%', value / max * 100)
 end
 
-function mod:ThreatTextOffset()
-	local text = _G.ElvUI_ThreatBar.text
-	text:Point('CENTER', 0, E.db.databars.threat.textYoffset or 0)
-end
-
 function mod:LoadThreat()
 	local bar = _G.ElvUI_ThreatBar
-
-	self:ThreatTextOffset()
-	hooksecurefunc(DB, 'ThreatBar_Update', mod.ThreatTextOffset)
-
 	local db = E.db.benikui.databars.threat.notifiers
 
 	if db.enable then
-		self:CreateNotifier(bar)
-		self:UpdateThreatNotifierPositions()
-		self:UpdateThreatNotifier()
+		mod:CreateNotifier(bar)
+		mod:UpdateThreatNotifierPositions()
+		mod:UpdateThreatNotifier()
 		hooksecurefunc(DB, 'ThreatBar_Update', mod.UpdateThreatNotifier)
 		hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateThreatNotifierPositions)
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdateThreatNotifierPositions)
@@ -60,9 +51,9 @@ function mod:LoadThreat()
 
 	if E.db.benikui.databars.threat.enable ~= true then return end
 
-	self:StyleBar(bar)
-	self:ToggleThreatBackdrop()
-	self:ApplyThreatStyling()
+	mod:StyleBar(bar)
+	mod:ToggleThreatBackdrop()
+	mod:ApplyThreatStyling()
 
 	hooksecurefunc(DB, 'UpdateAll', mod.ApplyThreatStyling)
 end
