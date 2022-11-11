@@ -279,7 +279,7 @@ function mod:CreateLayout()
 					self.btn:Show()
 					self:SetScript('OnClick', function(self, btn)
 						if btn == 'LeftButton' then
-							E:ToggleOptionsUI()
+							E:ToggleOptions()
 						else
 							if BUI.AS then
 								local AS = unpack(AddOnSkins) or nil

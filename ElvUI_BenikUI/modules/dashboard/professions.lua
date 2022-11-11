@@ -31,7 +31,7 @@ local function OnMouseUp(frame, btn)
 	local name = frame.name
 
 	if btn == "RightButton" then
-		E:ToggleOptionsUI()
+		E:ToggleOptions()
 		local ACD = E.Libs.AceConfigDialog
 		if ACD then ACD:SelectGroup("ElvUI", "benikui") end
 	else

@@ -36,7 +36,7 @@ local function Core()
 				type = 'execute',
 				name = L['Install'],
 				desc = L['Run the installation process.'],
-				func = function() E:GetModule("PluginInstaller"):Queue(BUI.installTable); E:ToggleOptionsUI() end,
+				func = function() E:GetModule("PluginInstaller"):Queue(BUI.installTable); E:ToggleOptions() end,
 			},
 			spacer2 = {
 				order = 4,
