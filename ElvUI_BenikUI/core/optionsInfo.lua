@@ -81,7 +81,6 @@ local CODING = {
 	'Sinaris',
 	'Hydra',
 	'Merathilis',
-	'thurin',
 	'Repooc',
 	'Pristie (frFR)',
 	'|cffff005athurin|r',
