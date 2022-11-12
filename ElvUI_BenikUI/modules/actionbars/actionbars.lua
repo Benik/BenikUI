@@ -185,15 +185,6 @@ local function VehicleExit()
 	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
 end
 
-function mod:UpdateMicroButtons()
-	local btns = AB:ShownMicroButtons()
-
-	for i, name in next, btns do
-		local button = _G[name]
-		button:Size(22, 24)
-	end
-end
-
 function mod:Initialize()
 	mod.StyleBackdrops()
 	mod.PetShadows()
@@ -209,7 +200,6 @@ function mod:Initialize()
 	mod:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "StyleColor")
 
 	hooksecurefunc(BUI, "SetupColorThemes", mod.StyleColor)
-	hooksecurefunc(AB, "UpdateMicroButtons", mod.UpdateMicroButtons)
 
 	if not BUI.ShadowMode then return end
 	hooksecurefunc(_G.SpellFlyout, 'Show', mod.FlyoutShadows)
