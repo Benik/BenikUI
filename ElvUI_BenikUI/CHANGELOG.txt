@@ -1,3 +1,7 @@
+4.24 (Nov 12th, 2022)
+Removed Microbar button sizing. ElvUI has an option for it
+Follow ElvUI v13.01 changes. credits thurin, Repooc
+
 4.23 (Nov 10th, 2022)
 Installer cleanup and tweaks
 Update ElvUI min version

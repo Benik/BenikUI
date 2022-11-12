@@ -184,7 +184,7 @@ function mod:ChangeDefaultOptions()
 end
 
 function mod:ADDON_LOADED(event, addon)
-	if addon ~= "ElvUI_OptionsUI" then return end
+	if addon ~= "ElvUI_Options" then return end
 	mod:UnregisterEvent(event)
 	mod:ChangeDefaultOptions()
 end

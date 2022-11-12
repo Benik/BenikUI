@@ -57,9 +57,7 @@ local function LoadSkin()
 	if db.editor then
 		_G.EditModeManagerFrame.backdrop:BuiStyle("Outside")
 		_G.EditModeNewLayoutDialog.backdrop:BuiStyle("Outside")
-		if _G.EditModeUnsavedChangesDialog.backdrop then
-			_G.EditModeUnsavedChangesDialog.backdrop:BuiStyle("Outside")
-		end
+		_G.EditModeUnsavedChangesDialog.backdrop:BuiStyle("Outside")
 		_G.EditModeImportLayoutDialog.backdrop:BuiStyle("Outside")
 		_G.EditModeSystemSettingsDialog.backdrop:BuiStyle("Outside")
 	end
