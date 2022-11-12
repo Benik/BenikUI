@@ -60,7 +60,7 @@ local function Icon_OnMouseUp(self, btn)
 			E.private.benikui.dashboards.tokens.chooseTokens[id] = false
 			mod:UpdateTokens()
 		else
-			E:ToggleOptionsUI()
+			E:ToggleOptions()
 			local ACD = E.Libs.AceConfigDialog
 			if ACD then ACD:SelectGroup("ElvUI", "benikui") end
 		end
