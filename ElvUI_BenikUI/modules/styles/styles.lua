@@ -60,7 +60,7 @@ function mod:Initialize()
 	StyleElvUIBindPopup()
 
 	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
-	hooksecurefunc(E, "ToggleOptionsUI", StyleElvUIConfig)
+	hooksecurefunc(E, "ToggleOptions", StyleElvUIConfig)
 
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
 	mod:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
