@@ -19,6 +19,12 @@ local iconOrientationValues = {
 	['RIGHT'] = L['Right'],
 }
 
+local textAlignValues = {
+	['CENTER'] = L['Center'],
+	['LEFT'] = L['Left'],
+	['RIGHT'] = L['Right'],
+}
+
 local function UpdateSystemOptions()
 	for _, boardname in pairs(boards) do
 		local optionOrder = 1
@@ -150,6 +156,13 @@ local function UpdateReputationOptions()
 	end
 end
 
+local function UpdateAllDashboards()
+	if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
+	if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
+	if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
+	if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+end
+
 local function dashboardsTable()
 	E.Options.args.benikui.args.dashboards = {
 		order = 60,
@@ -172,10 +185,7 @@ local function dashboardsTable()
 						},
 						get = function(info) return E.db.benikui.dashboards[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.dashboards[ info[#info] ] = value;
-							if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-							if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-							if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
-							if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+							UpdateAllDashboards()
 						end,
 					},
 					customBarColor = {
@@ -192,10 +202,7 @@ local function dashboardsTable()
 							E.db.benikui.dashboards[ info[#info] ] = {}
 							local t = E.db.benikui.dashboards[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
-							if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-							if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-							if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
-							if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+							UpdateAllDashboards()
 						end,
 					},
 					spacer = {
@@ -213,10 +220,7 @@ local function dashboardsTable()
 						},
 						get = function(info) return E.db.benikui.dashboards[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.dashboards[ info[#info] ] = value;
-							if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-							if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-							if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
-							if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+							UpdateAllDashboards()
 						end,
 					},
 					customTextColor = {
@@ -233,10 +237,7 @@ local function dashboardsTable()
 							E.db.benikui.dashboards[ info[#info] ] = {}
 							local t = E.db.benikui.dashboards[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
-							if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-							if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-							if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
-							if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+							UpdateAllDashboards()
 						end,
 					},
 				},
@@ -249,10 +250,7 @@ local function dashboardsTable()
 				disabled = function() return not E.db.benikui.dashboards.system.enableSystem and not E.db.benikui.dashboards.tokens.enableTokens and not E.db.benikui.dashboards.professions.enableProfessions end,
 				get = function(info) return E.db.benikui.dashboards.dashfont[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.dashboards.dashfont[ info[#info] ] = value;
-					if E.db.benikui.dashboards.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-					if E.db.benikui.dashboards.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-					if E.db.benikui.dashboards.system.enableSystem then BUID:UpdateSystemSettings(); end
-					if E.db.benikui.dashboards.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+					UpdateAllDashboards()
 				end,
 				args = {
 					useDTfont = {
@@ -282,12 +280,7 @@ local function dashboardsTable()
 						name = L['Font Outline'],
 						disabled = function() return E.db.benikui.dashboards.dashfont.useDTfont end,
 						type = 'select',
-						values = {
-							['NONE'] = L['None'],
-							['OUTLINE'] = 'OUTLINE',
-							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-							['THICKOUTLINE'] = 'THICKOUTLINE',
-						},
+						values = E.Config[1].Values.FontFlags,
 					},
 				},
 			},
@@ -325,11 +318,7 @@ local function dashboardsTable()
 								order = 2,
 								name = E.NewSign..L['Text Alignment'],
 								type = 'select',
-								values = {
-									['CENTER'] = L['Center'],
-									['LEFT'] = L['Left'],
-									['RIGHT'] = L['Right'],
-								},
+								values = textAlignValues,
 								get = function(info) return E.db.benikui.dashboards.system[ info[#info] ] end,
 								set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value BUID:UpdateSystemTextAlignment() end,
 							},
@@ -654,11 +643,7 @@ local function dashboardsTable()
 								order = 2,
 								name = L['Text Alignment'],
 								type = 'select',
-								values = {
-									['CENTER'] = L['Center'],
-									['LEFT'] = L['Left'],
-									['RIGHT'] = L['Right'],
-								},
+								values = textAlignValues,
 								get = function(info) return E.db.benikui.dashboards.reputations[ info[#info] ] end,
 								set = function(info, value) E.db.benikui.dashboards.reputations[ info[#info] ] = value; BUID:UpdateReputations(); end,
 							},
@@ -739,10 +724,6 @@ local function dashboardsTable()
 			},
 		},
 	}
-	-- update the options, when ElvUI Config fires
-	hooksecurefunc(E, "ToggleOptions", UpdateTokenOptions)
-	hooksecurefunc(E, "ToggleOptions", UpdateProfessionOptions)
-	hooksecurefunc(E, "ToggleOptions", UpdateReputationOptions)
 end
 
 tinsert(BUI.Config, dashboardsTable)
