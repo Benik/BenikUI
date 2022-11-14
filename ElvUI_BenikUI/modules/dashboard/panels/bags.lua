@@ -3,8 +3,8 @@ local mod = BUI:GetModule('Dashboards');
 
 local join = string.join
 
-local GetContainerNumFreeSlots = GetContainerNumFreeSlots
-local GetContainerNumSlots = GetContainerNumSlots
+local C_Container_GetContainerNumFreeSlots = C_Container.GetContainerNumFreeSlots
+local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 
 local statusColors = {
@@ -19,7 +19,7 @@ local function OnEvent(self)
 	local free, total = 0, 0
 	local textColor = 1
 	for i = 0, NUM_BAG_SLOTS do
-		free, total = free + GetContainerNumFreeSlots(i), total + GetContainerNumSlots(i)
+		free, total = free +C_Container_GetContainerNumFreeSlots(i), total + C_Container_GetContainerNumSlots(i)
 	end
 
 	local percentage = ((total - free) * 100) / total
