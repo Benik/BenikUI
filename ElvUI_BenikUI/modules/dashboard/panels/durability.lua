@@ -39,46 +39,57 @@ local statusColors = {
 	'|cffD80909'	-- red
 }
 
+local function OnEvent()
+	local bar = _G['BUI_Durability']
+	local db = E.db.benikui.dashboards.system
+
+	totalDurability = 100
+	local textColor = 1
+
+	for index, value in pairs(slots) do
+		local slot = GetInventorySlotInfo(index)
+		current, max = GetInventoryItemDurability(slot)
+
+		if current then
+			invDurability[value] = (current/max)*100
+
+			if ((current/max) * 100) < totalDurability then
+				totalDurability = (current/max) * 100
+			end
+		end
+	end
+
+	if totalDurability >= 90 then
+		textColor = 1
+	elseif totalDurability >= 70 and totalDurability < 90 then
+		textColor = 2
+	else
+		textColor = 3
+	end
+
+	local displayString = join('', DURABILITY, ': ', statusColors[textColor], '%d%%|r')
+	bar.Text:SetFormattedText(displayString, totalDurability)
+
+	bar.Status:SetMinMaxValues(0, 100)
+	bar.Status:SetValue(totalDurability)
+
+	bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+	bar.Text:SetJustifyH(db.textAlign)
+end
+
+function mod:ForceUpdateDurability()
+	OnEvent()
+end
+
 function mod:CreateDurability()
-	local boardName = _G['BUI_Durability']
+	local bar = _G['BUI_Durability']
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
-	boardName.Status:SetScript('OnEvent', function(self)
+	bar.Status:SetScript('OnEvent', OnEvent)
 
-		totalDurability = 100
-		local textColor = 1
-
-		for index, value in pairs(slots) do
-			local slot = GetInventorySlotInfo(index)
-			current, max = GetInventoryItemDurability(slot)
-
-			if current then
-				invDurability[value] = (current/max)*100
-
-				if ((current/max) * 100) < totalDurability then
-					totalDurability = (current/max) * 100
-				end
-			end
-		end
-
-		if totalDurability >= 90 then
-			textColor = 1
-		elseif totalDurability >= 70 and totalDurability < 90 then
-			textColor = 2
-		else
-			textColor = 3
-		end
-
-		local displayString = join('', DURABILITY, ': ', statusColors[textColor], '%d%%|r')
-		boardName.Text:SetFormattedText(displayString, totalDurability)
-
-		self:SetMinMaxValues(0, 100)
-		self:SetValue(totalDurability)
-	end)
-
-	boardName:EnableMouse(true)
-	boardName:SetScript('OnEnter', function(self)
+	bar:EnableMouse(true)
+	bar:SetScript('OnEnter', function(self)
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
 		GameTooltip:ClearAllPoints()
 
@@ -94,15 +105,17 @@ function mod:CreateDurability()
 			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 		end
 	end)
-	boardName:SetScript('OnLeave', function(self)
+
+	bar:SetScript('OnLeave', function(self)
 		if db.mouseover then
 			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 		end
 		GameTooltip:Hide()
 	end)
-	boardName:SetScript('OnMouseUp', Click)
 
-	boardName.Status:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
-	boardName.Status:RegisterEvent('MERCHANT_SHOW')
-	boardName.Status:RegisterEvent('PLAYER_ENTERING_WORLD')
+	bar:SetScript('OnMouseUp', Click)
+
+	bar.Status:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
+	bar.Status:RegisterEvent('MERCHANT_SHOW')
+	bar.Status:RegisterEvent('PLAYER_ENTERING_WORLD')
 end

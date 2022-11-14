@@ -75,20 +75,20 @@ local function UpdateMemory()
 end
 
 function mod:CreateFps()
-	local boardName = _G['BUI_FPS']
+	local bar = _G['BUI_FPS']
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
-	boardName:SetScript('OnMouseDown', function (self)
+	bar:SetScript('OnMouseDown', function (self)
 		if(not InCombatLockdown()) then
 			collectgarbage('collect')
 		end
 	end)
 
-	boardName:SetScript('OnEnter', function(self)
+	bar:SetScript('OnEnter', function(self)
 		if(not InCombatLockdown()) then
 
-			GameTooltip:SetOwner(boardName, 'ANCHOR_RIGHT', 5, 0)
+			GameTooltip:SetOwner(bar, 'ANCHOR_RIGHT', 5, 0)
 			GameTooltip:ClearLines()
 
 			RebuildAddonList()
@@ -115,14 +115,14 @@ function mod:CreateFps()
 		end
 	end)
 
-	boardName:SetScript('OnLeave', function(self)
+	bar:SetScript('OnLeave', function(self)
 		if db.mouseover then
 			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 		end
 		GameTooltip:Hide()
 	end)
 
-	boardName.Status:SetScript('OnUpdate', function(self, elapsed)
+	bar.Status:SetScript('OnUpdate', function(self, elapsed)
 		LastUpdate = LastUpdate - elapsed
 
 		if(LastUpdate < 0) then
@@ -141,8 +141,11 @@ function mod:CreateFps()
 			end
 
 			local displayFormat = join('', 'FPS: ', statusColors[fpscolor], '%d|r')
-			boardName.Text:SetFormattedText(displayFormat, value)
+			bar.Text:SetFormattedText(displayFormat, value)
+
 			LastUpdate = 1
 		end
+		bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+		bar.Text:SetJustifyH(db.textAlign)
 	end)
 end

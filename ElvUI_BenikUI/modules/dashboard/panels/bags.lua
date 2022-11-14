@@ -14,12 +14,13 @@ local statusColors = {
 }
 
 local function OnEvent(self)
-	local boardName = _G['BUI_Bags']
+	local bar = _G['BUI_Bags']
+	local db = E.db.benikui.dashboards.system
 
 	local free, total = 0, 0
 	local textColor = 1
 	for i = 0, NUM_BAG_SLOTS do
-		free, total = free +C_Container_GetContainerNumFreeSlots(i), total + C_Container_GetContainerNumSlots(i)
+		free, total = free + C_Container_GetContainerNumFreeSlots(i), total + C_Container_GetContainerNumSlots(i)
 	end
 
 	local percentage = ((total - free) * 100) / total
@@ -33,21 +34,28 @@ local function OnEvent(self)
 	end
 
 	local displayFormat = join("", "%s", statusColors[textColor], "%d/%d|r")
-	boardName.Text:SetFormattedText(displayFormat, L["Bags"]..': ', total - free, total)
-	boardName.Status:SetMinMaxValues(0, total)
-	boardName.Status:SetValue(total - free)
+	bar.Text:SetFormattedText(displayFormat, L["Bags"]..': ', total - free, total)
+	bar.Status:SetMinMaxValues(0, total)
+	bar.Status:SetValue(total - free)
+
+	bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+	bar.Text:SetJustifyH(db.textAlign)
 end
 
 local function OnClick()
 	_G.ToggleAllBags()
 end
 
+function mod:ForceUpdateBags()
+	OnEvent()
+end
+
 function mod:CreateBags()
-	local boardName = _G['BUI_Bags']
+	local bar = _G['BUI_Bags']
 
-	boardName.Status:SetScript('OnEvent', OnEvent)
-	boardName:SetScript('OnMouseDown', OnClick)
+	bar.Status:SetScript('OnEvent', OnEvent)
+	bar:SetScript('OnMouseDown', OnClick)
 
-	boardName.Status:RegisterEvent('BAG_UPDATE')
-	boardName.Status:RegisterEvent('PLAYER_ENTERING_WORLD')
+	bar.Status:RegisterEvent('BAG_UPDATE')
+	bar.Status:RegisterEvent('PLAYER_ENTERING_WORLD')
 end

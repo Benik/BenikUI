@@ -71,8 +71,8 @@ function mod:UpdateSystem()
 			bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
 			bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
-			bar.Text:Point('LEFT', bar, 'LEFT', 6, (E.PixelMode and 2 or 3))
-			bar.Text:SetJustifyH('LEFT')
+			bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+			bar.Text:SetJustifyH(db.textAlign)
 
 			bar:SetScript('OnEnter', function(self)
 				if db.mouseover then
