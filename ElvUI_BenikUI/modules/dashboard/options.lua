@@ -322,8 +322,30 @@ local function dashboardsTable()
 								get = function(info) return E.db.benikui.dashboards.system[ info[#info] ] end,
 								set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value BUID:UpdateSystemTextAlignment() end,
 							},
-							variousGroup = {
+							barHeight = {
 								order = 3,
+								type = 'range',
+								name = L['Bar Height'],
+								desc = L['Change the Bar Height.'],
+								min = 1, max = 20, step = 1,
+								get = function(info) return E.db.benikui.dashboards.system[ info[#info] ] end,
+								set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value; BUID:BarHeight('system', BUI.SystemDB); end,
+							},
+							layoutOptions = {
+								order = 4,
+								type = 'multiselect',
+								name = L['Layout'],
+								disabled = function() return not E.db.benikui.dashboards.system.enableSystem end,
+								get = function(_, key) return E.db.benikui.dashboards.system[key] end,
+								set = function(_, key, value) E.db.benikui.dashboards.system[key] = value; BUID:ToggleStyle(BUI_SystemDashboard, 'system') BUID:ToggleTransparency(BUI_SystemDashboard, 'system') end,
+								values = {
+									style = L['BenikUI Style'],
+									transparency = L['Panel Transparency'],
+									backdrop = L['Backdrop'],
+								}
+							},
+							variousGroup = {
+								order = 5,
 								type = 'group',
 								name = ' ',
 								guiInline = true,
@@ -345,31 +367,9 @@ local function dashboardsTable()
 										get = function(info) return E.db.benikui.dashboards.system[ info[#info] ] end,
 										set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 									},
-									barHeight = {
-										order = 3,
-										type = 'range',
-										name = L['Bar Height'],
-										desc = L['Change the Bar Height.'],
-										min = 1, max = 20, step = 1,
-										get = function(info) return E.db.benikui.dashboards.system[ info[#info] ] end,
-										set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value; BUID:BarHeight('system', BUI.SystemDB); end,
-									},
 								},
 							},
 						},
-					},
-					layoutOptions = {
-						order = 3,
-						type = 'multiselect',
-						name = L['Layout'],
-						disabled = function() return not E.db.benikui.dashboards.system.enableSystem end,
-						get = function(_, key) return E.db.benikui.dashboards.system[key] end,
-						set = function(_, key, value) E.db.benikui.dashboards.system[key] = value; BUID:ToggleStyle(BUI_SystemDashboard, 'system') BUID:ToggleTransparency(BUI_SystemDashboard, 'system') end,
-						values = {
-							style = L['BenikUI Style'],
-							transparency = L['Panel Transparency'],
-							backdrop = L['Backdrop'],
-						}
 					},
 					spacer = {
 						order = 10,
