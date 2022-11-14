@@ -37,17 +37,10 @@ local function OnEvent(self)
 	bar.Text:SetFormattedText(displayFormat, L["Bags"]..': ', total - free, total)
 	bar.Status:SetMinMaxValues(0, total)
 	bar.Status:SetValue(total - free)
-
-	bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
-	bar.Text:SetJustifyH(db.textAlign)
 end
 
 local function OnClick()
 	_G.ToggleAllBags()
-end
-
-function mod:ForceUpdateBags()
-	OnEvent()
 end
 
 function mod:CreateBags()

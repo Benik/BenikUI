@@ -71,7 +71,7 @@ function mod:UpdateSystem()
 			bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
 			bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
-			bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+			bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
 			bar.Text:SetJustifyH(db.textAlign)
 
 			bar:SetScript('OnEnter', function(self)
@@ -105,6 +105,21 @@ function mod:UpdateSystemSettings()
 	mod:FontColor(BUI.SystemDB)
 	mod:BarColor(BUI.SystemDB)
 	mod:BarHeight('system', BUI.SystemDB)
+end
+
+function mod:UpdateSystemTextAlignment()
+	local db = E.db.benikui.dashboards.system
+
+	for _, name in pairs(boards) do
+		if db.chooseSystem[name] == true then
+			local bar = _G['BUI_'..name]
+			if bar then
+				bar.Text:ClearAllPoints()
+				bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+				bar.Text:SetJustifyH(db.textAlign)
+			end
+		end
+	end
 end
 
 function mod:CreateSystemDashboard()

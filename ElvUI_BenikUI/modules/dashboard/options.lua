@@ -323,7 +323,7 @@ local function dashboardsTable()
 							},
 							textAlign ={
 								order = 2,
-								name = L['Text Alignment'],
+								name = E.NewSign..L['Text Alignment'],
 								type = 'select',
 								values = {
 									['CENTER'] = L['Center'],
@@ -331,10 +331,7 @@ local function dashboardsTable()
 									['RIGHT'] = L['Right'],
 								},
 								get = function(info) return E.db.benikui.dashboards.system[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value
-									BUID:ForceUpdateBags()
-									BUID:ForceUpdateDurability()
-								end,
+								set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value BUID:UpdateSystemTextAlignment() end,
 							},
 							variousGroup = {
 								order = 3,
