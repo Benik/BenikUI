@@ -72,18 +72,6 @@ function mod:UpdateReputations()
 
 	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 
-	holder:SetScript('OnEnter', function(self)
-		if db.mouseover then
-			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-		end
-	end)
-
-	holder:SetScript('OnLeave', function(self)
-		if db.mouseover then
-			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-		end
-	end)
-
 	for _, info in ipairs(BUI.ReputationsList) do
 		local _, factionID = unpack(info)
 
@@ -331,16 +319,30 @@ function mod:ReputationEvents()
 end
 
 function mod:CreateReputationsDashboard()
-	self.reputationHolder = self:CreateDashboardHolder('BUI_ReputationsDashboard', 'reputations')
-	self.reputationHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
-	self.reputationHolder:SetWidth(E.db.benikui.dashboards.reputations.width or 150)
+	local db = E.db.benikui.dashboards.reputations
+
+	mod.reputationHolder = mod:CreateDashboardHolder('BUI_ReputationsDashboard', 'reputations')
+	mod.reputationHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
+	mod.reputationHolder:SetWidth(db.width or 150)
 
 	mod:PopulateFactionData()
 	mod:UpdateReputations()
 	mod:UpdateReputationSettings()
-	mod:UpdateHolderDimensions(self.reputationHolder, 'reputations', BUI.FactionsDB)
-	mod:ToggleStyle(self.reputationHolder, 'reputations')
-	mod:ToggleTransparency(self.reputationHolder, 'reputations')
+	mod:UpdateHolderDimensions(mod.reputationHolder, 'reputations', BUI.FactionsDB)
+	mod:ToggleStyle(mod.reputationHolder, 'reputations')
+	mod:ToggleTransparency(mod.reputationHolder, 'reputations')
+
+	mod.reputationHolder:SetScript('OnEnter', function()
+		if db.mouseover then
+			E:UIFrameFadeIn(mod.reputationHolder, 0.2, mod.reputationHolder:GetAlpha(), 1)
+		end
+	end)
+
+	mod.reputationHolder:SetScript('OnLeave', function()
+		if db.mouseover then
+			E:UIFrameFadeOut(mod.reputationHolder, 0.2, mod.reputationHolder:GetAlpha(), 0)
+		end
+	end)
 
 	E:CreateMover(_G.BUI_ReputationsDashboard, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
 end

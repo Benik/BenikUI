@@ -365,7 +365,7 @@ local function dashboardsTable()
 										desc = L['The frame is not shown unless you mouse over the frame.'],
 										type = 'toggle',
 										get = function(info) return E.db.benikui.dashboards.system[ info[#info] ] end,
-										set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+										set = function(info, value) E.db.benikui.dashboards.system[ info[#info] ] = value; BUID:UpdateSystemSettings() end,
 									},
 								},
 							},
