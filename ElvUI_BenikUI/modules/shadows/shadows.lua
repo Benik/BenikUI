@@ -238,6 +238,25 @@ local function MerchantFrameShadows()
 	end
 end
 
+local function MailFrameShadows()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true then
+		return
+	end
+	local i = 1
+	local tab = _G['MailFrameTab'..i]
+	while tab do
+		if not tab then return end
+
+		if tab.backdrop then
+			tab.backdrop:SetTemplate("Transparent")
+			tab.backdrop:CreateSoftShadow()
+		end
+
+		i = i + 1
+		tab = _G['MailFrameTab'..i]
+	end
+end
+
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
@@ -251,6 +270,7 @@ function mod:Initialize()
 	PVEFrameShadows()
 	FriendsFrameShadows()
 	MerchantFrameShadows()
+	MailFrameShadows()
 	mod:RegisterEvent('START_TIMER')
 
 	-- AddonSkins
