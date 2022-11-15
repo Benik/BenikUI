@@ -1,3 +1,17 @@
+4.25 (Nov 15th, 2022)
+toc update for patch v10.02
+Dashboards: Moved the MouseOver option at the dashboard creation
+Rep Dashboard: Fixed showing the bag glow when a paragon faction has pending reward
+Style mail frame tabs (thurin)
+System Dashboard: Added Text justification option
+Fixed Bags Dashboard
+Style the new Professions frame
+
+
+4.24 (Nov 12th, 2022)
+Removed Microbar button sizing. ElvUI has an option for it
+Follow ElvUI v13.01 changes. credits thurin, Repooc
+
 4.23 (Nov 10th, 2022)
 Installer cleanup and tweaks
 Update ElvUI min version

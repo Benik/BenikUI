@@ -331,6 +331,7 @@ P['benikui']['dashboards'] = {
 		['transparency'] = true,
 		['backdrop'] = true,
 		['mouseover'] = false,
+		['textAlign'] = 'LEFT',
 		['chooseSystem'] = {
 			['FPS'] = true,
 			['MS'] = true,

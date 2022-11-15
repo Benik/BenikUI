@@ -31,7 +31,7 @@ local function OnMouseUp(frame, btn)
 	local name = frame.name
 
 	if btn == "RightButton" then
-		E:ToggleOptionsUI()
+		E:ToggleOptions()
 		local ACD = E.Libs.AceConfigDialog
 		if ACD then ACD:SelectGroup("ElvUI", "benikui") end
 	else
@@ -53,23 +53,7 @@ function mod:UpdateProfessions()
 		holder:Hide()
 	end
 
-	if db.mouseover then
-		holder:SetAlpha(0)
-	else
-		holder:SetAlpha(1)
-	end
-
-	holder:SetScript('OnEnter', function(self)
-		if db.mouseover then
-			E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-		end
-	end)
-
-	holder:SetScript('OnLeave', function(self)
-		if db.mouseover then
-			E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-		end
-	end)
+	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 
 	local prof1, prof2, archy, fishing, cooking = GetProfessions()
 
@@ -176,15 +160,16 @@ function mod:UpdateProfessionSettings()
 end
 
 function mod:ProfessionsEvents()
-	self:RegisterEvent('SKILL_LINES_CHANGED', 'UpdateProfessions')
-	self:RegisterEvent('CHAT_MSG_SKILL', 'UpdateProfessions')
+	mod:RegisterEvent('SKILL_LINES_CHANGED', 'UpdateProfessions')
+	mod:RegisterEvent('CHAT_MSG_SKILL', 'UpdateProfessions')
 end
 
 function mod:CreateProfessionsDashboard()
+	local db = E.db.benikui.dashboards.professions
 	local mapholderWidth = E.private.general.minimap.enable and _G.ElvUI_MinimapClusterHolder:GetWidth() or 150
-	local DASH_WIDTH = E.db.benikui.dashboards.professions.width or 150
+	local DASH_WIDTH = db.width or 150
 
-	local holder = self:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
+	local holder = mod:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
 
 	if E.private.general.minimap.enable then
 		holder:Point('TOPLEFT', _G.ElvUI_MinimapClusterHolder, 'BOTTOMLEFT', 0, -5)
@@ -198,6 +183,18 @@ function mod:CreateProfessionsDashboard()
 	mod:UpdateHolderDimensions(holder, 'professions', BUI.ProfessionsDB)
 	mod:ToggleStyle(holder, 'professions')
 	mod:ToggleTransparency(holder, 'professions')
+
+	holder:SetScript('OnEnter', function()
+		if db.mouseover then
+			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		end
+	end)
+
+	holder:SetScript('OnLeave', function(holder)
+		if db.mouseover then
+			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+		end
+	end)
 
 	E:CreateMover(_G.BUI_ProfessionsDashboard, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,professions')
 end

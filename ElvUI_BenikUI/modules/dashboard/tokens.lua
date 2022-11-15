@@ -60,7 +60,7 @@ local function Icon_OnMouseUp(self, btn)
 			E.private.benikui.dashboards.tokens.chooseTokens[id] = false
 			mod:UpdateTokens()
 		else
-			E:ToggleOptionsUI()
+			E:ToggleOptions()
 			local ACD = E.Libs.AceConfigDialog
 			if ACD then ACD:SelectGroup("ElvUI", "benikui") end
 		end
@@ -93,18 +93,6 @@ function mod:UpdateTokens()
 	end
 
 	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
-
-	holder:SetScript('OnEnter', function(self)
-		if db.mouseover then
-			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-		end
-	end)
-
-	holder:SetScript('OnLeave', function(self)
-		if db.mouseover then
-			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-		end
-	end)
 
 	for _, info in ipairs(BUI.CurrencyList) do
 		local _, id = unpack(info)
@@ -272,9 +260,10 @@ function mod:TokenEvents()
 end
 
 function mod:CreateTokensDashboard()
-	local holder = self:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
+	local db = E.db.benikui.dashboards.tokens
+	local holder = mod:CreateDashboardHolder('BUI_TokensDashboard', 'tokens')
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
-	holder:Width(E.db.benikui.dashboards.tokens.width or 150)
+	holder:Width(db.width or 150)
 
 	mod:PopulateCurrencyData()
 	mod:UpdateTokens()
@@ -282,6 +271,18 @@ function mod:CreateTokensDashboard()
 	mod:UpdateHolderDimensions(holder, 'tokens', BUI.TokensDB)
 	mod:ToggleStyle(holder, 'tokens')
 	mod:ToggleTransparency(holder, 'tokens')
+
+	holder:SetScript('OnEnter', function(self)
+		if db.mouseover then
+			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		end
+	end)
+
+	holder:SetScript('OnLeave', function(self)
+		if db.mouseover then
+			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+		end
+	end)
 
 	E:CreateMover(_G.BUI_TokensDashboard, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,tokens')
 end

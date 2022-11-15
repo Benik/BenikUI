@@ -341,6 +341,7 @@ local function SetupActionbars(layout)
 
 	E.db["actionbar"]["extraActionButton"]["clean"] = true
 	E.db["actionbar"]["zoneActionButton"]["clean"] = true
+	E.db["actionbar"]["microbar"]["buttonHeight"] = 22
 
 	E.db["movers"] = E.db["movers"] or {}
 	if layout == 'v1' then
