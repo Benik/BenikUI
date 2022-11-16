@@ -34,7 +34,7 @@ local function StyleBags()
 	end
 end
 
-local function OpenBankBags()
+local function StyleBankBags()
 	if _G.ElvUI_BankContainerFrame then
 		_G.ElvUI_BankContainerFrame:BuiStyle('Outside')
 		_G.ElvUI_BankContainerFrameContainerHolder:BuiStyle('Outside')
@@ -45,13 +45,13 @@ local function OpenBankBags()
 	end
 end
 
-local function SkinBlizzBags()
+local function StyleAllBags()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bags ~= true or E.private.bags.enable then return end
 
-	for i = 1, NUM_CONTAINER_FRAMES, 1 do
+	for i = 1, NUM_CONTAINER_FRAMES do
 		local container = _G['ContainerFrame'..i]
-		if container.backdrop then
-			container.backdrop:BuiStyle('Inside')
+		if container then
+			container:BuiStyle('Inside')
 		end
 	end
 	if _G.BankFrame then
@@ -59,16 +59,30 @@ local function SkinBlizzBags()
 	end
 end
 
+local function StyleBagBar()
+	if not E.private.bags.bagBar then return end
+
+	_G.ElvUIBagBar.backdrop:BuiStyle('Outside')
+
+	if BUI.ShadowMode then
+		_G.MainMenuBarBackpackButton:CreateSoftShadow()
+		for i, button in ipairs(B.BagBar.buttons) do
+			button:CreateSoftShadow()
+		end
+	end
+end
+
 local function AllInOneBags()
 	StyleBags()
-	hooksecurefunc(B, "OpenBank", OpenBankBags)
+	hooksecurefunc(B, "OpenBank", StyleBankBags)
 end
 
 function mod:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	AllInOneBags()
-	SkinBlizzBags()
-	OpenBankBags()
+	StyleAllBags()
+	StyleBankBags()
+	StyleBagBar()
 end
 
 BUI:RegisterModule(mod:GetName())
