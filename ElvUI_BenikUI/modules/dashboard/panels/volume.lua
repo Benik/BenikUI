@@ -97,13 +97,13 @@ local SOUND_MEDIUM_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\
 local SOUND_MAX_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\\sound-max.blp:14:14|t')
 
 function mod:CreateVolume()
-	local boardName = _G['BUI_Volume']
+	local bar = _G['BUI_Volume']
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
-	local iconBG = CreateFrame('Frame', nil, boardName)
+	local iconBG = CreateFrame('Frame', nil, bar)
 	iconBG:Size(16, 16)
-	iconBG:Point('BOTTOMRIGHT', boardName, 'BOTTOMRIGHT', 0, (E.PixelMode and 4 or 6))
+	iconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', 0, (E.PixelMode and 4 or 6))
 	iconBG:SetFrameStrata('LOW')
 	iconBG.text = iconBG:CreateFontString(nil, 'OVERLAY')
 	iconBG.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
@@ -155,7 +155,7 @@ function mod:CreateVolume()
 	iconBG:SetScript('OnMouseWheel', iconBG_OnMouseWheel)
 	iconBG:SetScript('OnMouseUp', iconBG_OnClick)
 
-	boardName.Status:SetScript('OnUpdate', function(self)
+	bar.Status:SetScript('OnUpdate', function(self)
 		local volGet = GetCVar('Sound_MasterVolume')
 		local volumeValue = tonumber(E:Round(100 * volGet, 0))
 
@@ -191,9 +191,9 @@ function mod:CreateVolume()
 		end
 
 		local displayFormat = join('', VOLUME..':', statusColors[color], ' %d%%|r')
-		boardName.Text:SetFormattedText(displayFormat, volumeValue)
+		bar.Text:SetFormattedText(displayFormat, volumeValue)
 	end)
 
-	boardName.Status:RegisterEvent('VARIABLES_LOADED')
-	boardName.Status:RegisterEvent('CVAR_UPDATE')
+	bar.Status:RegisterEvent('VARIABLES_LOADED')
+	bar.Status:RegisterEvent('CVAR_UPDATE')
 end

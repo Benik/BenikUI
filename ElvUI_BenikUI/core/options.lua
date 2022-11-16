@@ -10,7 +10,6 @@ local colorValues = {
 	[2] = CUSTOM,
 	[3] = L['Value Color'],
 	[4] = DEFAULT,
-	[5] = L['Covenant Color']
 }
 
 local function Core()
@@ -37,7 +36,7 @@ local function Core()
 				type = 'execute',
 				name = L['Install'],
 				desc = L['Run the installation process.'],
-				func = function() E:GetModule("PluginInstaller"):Queue(BUI.installTable); E:ToggleOptionsUI() end,
+				func = function() E:GetModule("PluginInstaller"):Queue(BUI.installTable); E:ToggleOptions() end,
 			},
 			spacer2 = {
 				order = 4,
@@ -260,7 +259,6 @@ local function Core()
 									[1] = L.CLASS_COLORS,
 									[2] = L.CUSTOM,
 									[3] = L["Value Color"],
-									[4] = L['Covenant Color'],
 								},
 								get = function(info) return E.db.benikui.colors[ info[#info] ] end,
 								set = function(info, value) E.db.benikui.colors[ info[#info] ] = value; end,

@@ -1,5 +1,5 @@
 local BUI, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local LSM = E.LSM
 
 local _G = _G
@@ -21,8 +21,8 @@ BUI["softGlow"] = {}
 BUI["shadows"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
-BUI.ShadowMode = false;
-BUI.AddonProfileKey = '';
+BUI.ShadowMode = false
+BUI.AddonProfileKey = ''
 BINDING_HEADER_BENIKUI = BUI.Title
 
 function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
@@ -74,7 +74,7 @@ function BUI:LuaError(msg)
 	if switch == 'on' or switch == '1' then
 		for i=1, GetNumAddOns() do
 			local name = GetAddOnInfo(i)
-			if (name ~= 'ElvUI' and name ~= 'ElvUI_OptionsUI' and name ~= 'ElvUI_BenikUI') and E:IsAddOnEnabled(name) then
+			if (name ~= 'ElvUI' and name ~= 'ElvUI_Options' and name ~= 'ElvUI_Libraries' and name ~= 'ElvUI_BenikUI') and E:IsAddOnEnabled(name) then
 				DisableAddOn(name, E.myname)
 				ElvDB.BuiErrorDisabledAddOns[name] = i
 			end
@@ -101,28 +101,6 @@ function BUI:LuaError(msg)
 	end
 end
 
-function BUI:getCovenantColor()
-	local covenantData = C_Covenants.GetCovenantData(C_Covenants.GetActiveCovenantID())
-	local kit = covenantData and covenantData.textureKit or nil
-	local r, g, b
-
-	if kit then
-		if kit == "Kyrian" then
-			r, g, b = 0.1647, 0.6353, 1.0
-		elseif kit == "Venthyr" then
-			r, g, b = 0.8941, 0.0510, 0.0549
-		elseif kit == "NightFae" then
-			r, g, b = 0.5020, 0.7098, 0.9922
-		elseif kit == "Necrolord" then
-			r, g, b = 0.0902, 0.7843, 0.3922
-		end
-	else
-		r, g, b = 1, 1, 1 -- fall back to white
-	end
-
-	return r, g, b
-end
-
 local r, g, b = 0, 0, 0
 function BUI:UpdateStyleColors()
 	if not E.db.benikui.general.benikuiStyle then return end
@@ -136,14 +114,12 @@ function BUI:UpdateStyleColors()
 				r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
 			elseif E.db.benikui.colors.StyleColor == 3 then
 				r, g, b = BUI:unpackColor(E.db.general.valuecolor)
-			elseif E.db.benikui.colors.StyleColor == 5 then
-				r, g, b = BUI:getCovenantColor()
 			else
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 			end
 			frame:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 		else
-			BUI["styles"][frame] = nil;
+			BUI["styles"][frame] = nil
 		end
 	end
 	BTT:CheckTooltipStyleColor()
@@ -171,7 +147,7 @@ function BUI:UpdateSoftGlowColor()
 		if glow then
 			glow:SetBackdropBorderColor(sr, sg, sb, 0.6)
 		else
-			BUI["softGlow"][glow] = nil;
+			BUI["softGlow"][glow] = nil
 		end
 	end
 end
@@ -187,13 +163,14 @@ function BUI:UpdateShadows()
 			shadow:SetBackdropColor(0, 0, 0, 0)
 			shadow:SetBackdropBorderColor(0, 0, 0, db.shadowAlpha or 0.6)
 		else
-			BUI["shadows"][shadow] = nil;
+			BUI["shadows"][shadow] = nil
 		end
 	end
 end
 
 function BUI:DasOptions()
-	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
+	E:ToggleOptions()
+	LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
 function BUI:SetupBenikUI()
@@ -206,33 +183,9 @@ function BUI:LoadCommands()
 	self:RegisterChatCommand("buierror", "LuaError")
 end
 
-function BUI:ConvertDB()
-	if E.db.benikuiSkins then
-		E:CopyTable(E.db.benikui.skins, E.db.benikuiSkins)
-		E.db.benikuiSkins = nil
-	end
-	if E.db.benikuiDatabars then
-		E:CopyTable(E.db.benikui.databars, E.db.benikuiDatabars)
-		E.db.benikuiDatabars = nil
-	end
-	if E.db.benikuiWidgetbars then
-		E:CopyTable(E.db.benikui.widgetbars, E.db.benikuiWidgetbars)
-		E.db.benikuiWidgetbars = nil
-	end
-	if E.db.dashboards then
-		E:CopyTable(E.db.benikui.dashboards, E.db.dashboards)
-		E.db.dashboards = nil
-	end
-	if E.private.dashboards then
-		E:CopyTable(E.private.benikui.dashboards, E.private.dashboards)
-		E.private.dashboards = nil
-	end
-end
-
 function BUI:Initialize()
 	BUI:LoadCommands()
 	BUI:SplashScreen()
-	BUI:ConvertDB()
 
 	E:GetModule('DataTexts'):ToggleMailFrame()
 
@@ -253,9 +206,7 @@ function BUI:Initialize()
 		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('https://github.com/Benik/BenikUI/issues')))
 	end
 
-	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
-		BUI.ShadowMode = true
-	end
+	BUI.ShadowMode = E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows or false
 
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BENIKUI")
 	E.ConfigModeLocalizedStrings["BENIKUI"] = BUI.Title

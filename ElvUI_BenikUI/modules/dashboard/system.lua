@@ -28,65 +28,53 @@ function mod:UpdateSystem()
 
 	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 
-	holder:SetScript('OnEnter', function(self)
-		if db.mouseover then
-			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-		end
-	end)
-
-	holder:SetScript('OnLeave', function(self)
-		if db.mouseover then
-			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-		end
-	end)
-
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
 			holder:Show()
 			holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB + 1)) + DASH_SPACING)
 
-			local sysFrame = CreateFrame('Frame', 'BUI_'..name, holder)
-			sysFrame:Height(DASH_HEIGHT)
-			sysFrame:Width(db.width or 150)
-			sysFrame:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
-			sysFrame:EnableMouse(true)
+			local bar = CreateFrame('Frame', 'BUI_'..name, holder)
+			bar:Height(DASH_HEIGHT)
+			bar:Width(db.width or 150)
+			bar:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
+			bar:EnableMouse(true)
 
-			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
-			sysFrame.dummy:SetTemplate('Transparent', nil, true, true)
-			sysFrame.dummy:SetBackdropBorderColor(0, 0, 0, 0)
-			sysFrame.dummy:SetBackdropColor(1, 1, 1, .2)
-			sysFrame.dummy:Point('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 0)
-			sysFrame.dummy:Point('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
-			sysFrame.dummy:Height(db.barHeight or (E.PixelMode and 1 or 3))
+			bar.dummy = CreateFrame('Frame', nil, bar)
+			bar.dummy:SetTemplate('Transparent', nil, true, true)
+			bar.dummy:SetBackdropBorderColor(0, 0, 0, 0)
+			bar.dummy:SetBackdropColor(1, 1, 1, .2)
+			bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, 0)
+			bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
+			bar.dummy:Height(db.barHeight or (E.PixelMode and 1 or 3))
 
-			sysFrame.Status = CreateFrame('StatusBar', nil, sysFrame.dummy)
-			sysFrame.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
-			sysFrame.Status:SetMinMaxValues(0, 100)
-			sysFrame.Status:SetAllPoints()
+			bar.Status = CreateFrame('StatusBar', nil, bar.dummy)
+			bar.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
+			bar.Status:SetMinMaxValues(0, 100)
+			bar.Status:SetAllPoints()
 
-			sysFrame.spark = sysFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
-			sysFrame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-			sysFrame.spark:Size(12, ((db.barHeight + 5) or 6))
-			sysFrame.spark:SetBlendMode('ADD')
-			sysFrame.spark:Point('CENTER', sysFrame.Status:GetStatusBarTexture(), 'RIGHT')
+			bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);
+			bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
+			bar.spark:Size(12, ((db.barHeight + 5) or 6))
+			bar.spark:SetBlendMode('ADD')
+			bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
-			sysFrame.Text = sysFrame.Status:CreateFontString(nil, 'OVERLAY')
-			sysFrame.Text:Point('LEFT', sysFrame, 'LEFT', 6, (E.PixelMode and 2 or 3))
-			sysFrame.Text:SetJustifyH('LEFT')
+			bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
+			bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+			bar.Text:SetJustifyH(db.textAlign)
 
-			sysFrame:SetScript('OnEnter', function(self)
+			bar:SetScript('OnEnter', function(self)
 				if db.mouseover then
 					E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 				end
 			end)
 
-			sysFrame:SetScript('OnLeave', function(self)
+			bar:SetScript('OnLeave', function(self)
 				if db.mouseover then
 					E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 				end
 			end)
 
-			tinsert(BUI.SystemDB, sysFrame)
+			tinsert(BUI.SystemDB, bar)
 		end
 	end
 
@@ -101,21 +89,54 @@ function mod:UpdateSystem()
 end
 
 function mod:UpdateSystemSettings()
+	local db = E.db.benikui.dashboards.system
+	local holder = _G.BUI_SystemDashboard
+
 	mod:FontStyle(BUI.SystemDB)
 	mod:FontColor(BUI.SystemDB)
 	mod:BarColor(BUI.SystemDB)
 	mod:BarHeight('system', BUI.SystemDB)
+
+	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
+end
+
+function mod:UpdateSystemTextAlignment()
+	local db = E.db.benikui.dashboards.system
+
+	for _, name in pairs(boards) do
+		if db.chooseSystem[name] == true then
+			local bar = _G['BUI_'..name]
+			if bar then
+				bar.Text:ClearAllPoints()
+				bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+				bar.Text:SetJustifyH(db.textAlign)
+			end
+		end
+	end
 end
 
 function mod:CreateSystemDashboard()
+	local db = E.db.benikui.dashboards.system
 	local holder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
-	holder:Width(E.db.benikui.dashboards.system.width or 150)
+	holder:Width(db.width or 150)
 
 	mod:UpdateSystem()
 	mod:UpdateHolderDimensions(holder, 'system', BUI.SystemDB)
 	mod:ToggleStyle(holder, 'system')
 	mod:ToggleTransparency(holder, 'system')
+
+	holder:SetScript('OnEnter', function()
+		if db.mouseover then
+			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		end
+	end)
+
+	holder:SetScript('OnLeave', function()
+		if db.mouseover then
+			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+		end
+	end)
 
 	E:CreateMover(_G.BUI_SystemDashboard, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,system')
 end

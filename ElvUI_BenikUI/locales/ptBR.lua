@@ -29,7 +29,6 @@ L['Splash Screen'] = "Tela de inicio"
 L['Shadow'] = "Sombra"
 L['Shadow Alpha'] = true
 L['Shadow Size'] = "Tamanho da Sombra"
-L['Covenant Color'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "LeftClick: Alterna Configuração"

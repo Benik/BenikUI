@@ -29,7 +29,6 @@ L['Splash Screen'] = "Startbildschirm"
 L['Shadow'] = "Schatten"
 L['Shadow Size'] = true
 L['Shadow Alpha'] = true
-L['Covenant Color'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"

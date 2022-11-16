@@ -31,6 +31,7 @@ local units = {"Player", "Target", "Focus", "Pet"}
 
 local function changeCastbarLevel(unit, unitframe)
 	local castbar = unitframe.Castbar
+	if not castbar then return end
 
 	castbar:SetFrameStrata("LOW")
 	castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel() + 10)
@@ -39,6 +40,7 @@ end
 local function resetCastbarLevel(unit, unitframe)
 	local db = E.db.unitframe.units[unit].castbar;
 	local castbar = unitframe.Castbar
+	if not castbar then return end
 
 	if db.strataAndLevel and db.strataAndLevel.useCustomStrata then
 		castbar:SetFrameStrata(db.strataAndLevel.frameStrata)
@@ -56,6 +58,9 @@ end
 local function ConfigureCastbarShadow(unit, unitframe)
 	if not BUI.ShadowMode then return end
 	local castbar = unitframe.Castbar
+
+	if not castbar then return end
+
 	local db = E.db.unitframe.units[unit].castbar;
 
 	if not castbar.backdrop.shadow then return end
@@ -74,8 +79,10 @@ local function ConfigureCastbarShadow(unit, unitframe)
 	if not db.iconAttached and db.icon then
 		local attachPoint = db.iconAttachedTo == "Frame" and unitframe or unitframe.Castbar
 		local anchorPoint = db.iconPosition
-		castbar.Icon.bg:ClearAllPoints()
-		castbar.Icon.bg:Point(INVERT_ANCHORPOINT[anchorPoint], attachPoint, anchorPoint, db.iconXOffset, db.iconYOffset)
+		if castbar.Icon then
+			castbar.Icon.bg:ClearAllPoints()
+			castbar.Icon.bg:Point(INVERT_ANCHORPOINT[anchorPoint], attachPoint, anchorPoint, db.iconXOffset, db.iconYOffset)
+		end
 	elseif(db.icon) then
 		if castbar.Icon then
 			castbar.Icon.bg:ClearAllPoints()

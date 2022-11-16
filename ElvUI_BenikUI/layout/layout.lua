@@ -38,7 +38,7 @@ local Bui_deb = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent)
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
-menuFrame:SetFrameStrata('TOOLTIP')
+menuFrame:SetFrameStrata('DIALOG')
 
 function BuiGameMenu_OnMouseUp(self)
 	if InCombatLockdown() then return end
@@ -279,7 +279,7 @@ function mod:CreateLayout()
 					self.btn:Show()
 					self:SetScript('OnClick', function(self, btn)
 						if btn == 'LeftButton' then
-							E:ToggleOptionsUI()
+							E:ToggleOptions()
 						else
 							if BUI.AS then
 								local AS = unpack(AddOnSkins) or nil
@@ -464,7 +464,7 @@ function mod:CreateMiddlePanel(forceReset)
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] = false
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["growth"] = 'HORIZONTAL'
 
-		if not E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] then
+		if E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] == '' and E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][2] == '' and E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] == '' then
 			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
 				[1] = "Haste",
 				[2] = "Mastery",

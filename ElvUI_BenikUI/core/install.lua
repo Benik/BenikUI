@@ -113,7 +113,7 @@ local function SetupLayout(layout)
 	BUI:GetModule('Layout'):CreateMiddlePanel(true)
 
 	-- common movers
-	if E.db["movers"] == nil then E.db["movers"] = {} end
+	E.db["movers"] = E.db["movers"] or {}
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-192"
@@ -146,7 +146,7 @@ local function SetupLayout(layout)
 
 		E.db["chat"]["tabFont"] = "Bui Visitor1"
 		E.db["chat"]["tabFontSize"] = 10
-		E.db["chat"]["tabFontOutline"] = "MONOCROMEOUTLINE"
+		E.db["chat"]["tabFontOutline"] = "MONOCHROMEOUTLINE"
 		E.db["chat"]["font"] = "Bui Prototype"
 		E.db["chat"]["panelHeight"] = 150
 
@@ -157,7 +157,7 @@ local function SetupLayout(layout)
 
 		E.db["datatexts"]["font"] = "Bui Visitor1"
 		E.db["datatexts"]["fontSize"] = 10
-		E.db["datatexts"]["fontOutline"] = "MONOCROMEOUTLINE"
+		E.db["datatexts"]["fontOutline"] = "MONOCHROMEOUTLINE"
 
 		E.db["bags"]["itemLevelFont"] = "Bui Prototype"
 		E.db["bags"]["itemLevelFontSize"] = 10
@@ -172,7 +172,8 @@ local function SetupLayout(layout)
 		E.db["tooltip"]["healthBar"]["height"] = 6
 		E.db["tooltip"]["font"] = "Bui Prototype"
 		E.db["tooltip"]["fontOutline"] = 'NONE'
-		E.db["tooltip"]["headerFontSize"] = 10
+		E.db["tooltip"]["headerFont"] = "Bui Prototype"
+		E.db["tooltip"]["headerFontSize"] = 12
 		E.db["tooltip"]["textFontSize"] = 10
 		E.db["tooltip"]["smallTextFontSize"] = 10
 
@@ -219,7 +220,8 @@ local function SetupLayout(layout)
 
 		E.db["tooltip"]["font"] = "Expressway"
 		E.db["tooltip"]["fontSize"] = 10
-		E.db["tooltip"]["headerFontSize"] = 11
+		E.db["tooltip"]["headerFont"] = "Expressway"
+		E.db["tooltip"]["headerFontSize"] = 12
 		E.db["tooltip"]["healthBar"]["font"] = "Expressway"
 		E.db["tooltip"]["healthBar"]["fontSize"] = 9
 		E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
@@ -229,7 +231,7 @@ local function SetupLayout(layout)
 
 		E.db["benikui"]["misc"]["ilevel"]["font"] = "Expressway"
 		E.db["benikui"]["misc"]["ilevel"]["fontsize"] = 10
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 409
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
 
 
 		E.db["benikui"]["general"]["shadows"] = true
@@ -327,6 +329,8 @@ end
 
 local function SetupActionbars(layout)
 	if E.private.actionbar.enable ~= true then return end
+
+	local fontStyle, fontOutline
 	-- Actionbars
 	E.db["actionbar"]["lockActionBars"] = true
 	E.db["actionbar"]["transparent"] = true
@@ -335,10 +339,17 @@ local function SetupActionbars(layout)
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["backdrop"] = true
 	E.db["benikui"]["actionbars"]["toggleButtons"]["enable"] = true
 
-	if E.db["movers"] == nil then E.db["movers"] = {} end
+	E.db["actionbar"]["extraActionButton"]["clean"] = true
+	E.db["actionbar"]["zoneActionButton"]["clean"] = true
+	E.db["actionbar"]["microbar"]["buttonHeight"] = 22
+
+	E.db["movers"] = E.db["movers"] or {}
 	if layout == 'v1' then
-		E.db["actionbar"]["font"] = "Bui Visitor1"
-		--E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
+		fontStyle = "Bui Visitor1"
+		fontOutline = 'MONOCHROMEOUTLINE'
+
+		E.db["actionbar"]["font"] = fontStyle
+		E.db["actionbar"]["fontOutline"] = fontOutline
 		E.db["actionbar"]["fontSize"] = 10
 
 		E.db["actionbar"]["bar1"]["backdrop"] = false
@@ -406,8 +417,11 @@ local function SetupActionbars(layout)
 		E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-128"
 
 	elseif layout == 'v2' then
-		E.db["actionbar"]["font"] = "Bui Visitor1"
-		E.db["actionbar"]["fontOutline"] = "MONOCROMEOUTLINE"
+		fontStyle = "Bui Visitor1"
+		fontOutline = 'MONOCHROMEOUTLINE'
+
+		E.db["actionbar"]["font"] = fontStyle
+		E.db["actionbar"]["fontOutline"] = fontOutline
 		E.db["actionbar"]["fontSize"] = 10;
 
 		E.db["actionbar"]["bar1"]["backdrop"] = false
@@ -455,8 +469,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonSize"] = 24
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 409
-		E.db["databars"]["experience"]["width"] = 409
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
+		E.db["databars"]["experience"]["width"] = 416
 
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
@@ -475,6 +489,9 @@ local function SetupActionbars(layout)
 		E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-128"
 
 	elseif layout == 'v3' then
+		fontStyle = "Expressway"
+		fontOutline = 'OUTLINE'
+
 		E.db["actionbar"]["bar1"]["backdropSpacing"] = 6
 		E.db["actionbar"]["bar1"]["buttons"] = 10
 		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 10
@@ -511,12 +528,12 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
 		E.db["actionbar"]["barPet"]["buttonSize"] = 23
 		E.db["actionbar"]["barPet"]["buttonSpacing"] = 4
-		E.db["actionbar"]["font"] = "Expressway"
-		E.db["actionbar"]["fontOutline"] = "OUTLINE"
+		E.db["actionbar"]["font"] = fontStyle
+		E.db["actionbar"]["fontOutline"] = fontOutline
 		E.db["actionbar"]["stanceBar"]["buttonSize"] = 24
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
-		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 409
-		E.db["databars"]["experience"]["width"] = 409
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
+		E.db["databars"]["experience"]["width"] = 416
 		-- movers
 		E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-56,346"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
@@ -536,6 +553,24 @@ local function SetupActionbars(layout)
 		E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,116"
 	end
 
+	E.db["movers"]["ZoneAbility"] = "BOTTOM,ElvUIParent,BOTTOM,0,425"
+	E.db["movers"]["VehicleLeaveButton"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-162,-259"
+
+	for i = 1, 10 do
+		local bar = E.db["actionbar"]["bar"..i]
+		bar["countFont"] = fontStyle
+		bar["countFontOutline"] = fontOutline
+		bar["hotkeyFont"] = fontStyle
+		bar["hotkeyFontOutline"] = fontOutline
+		bar["macroFont"] = fontStyle
+		bar["macroFontOutline"] = fontOutline
+	end
+
+	E.db["actionbar"]['barPet']["hotkeyFont"] = fontStyle
+	E.db["actionbar"]['barPet']["hotkeyFontOutline"] = fontOutline
+	E.db["actionbar"]['zoneActionButton']["hotkeyFont"] = fontStyle
+	E.db["actionbar"]['zoneActionButton']["hotkeyFontOutline"] = fontOutline
+
 	BUI:GetModule('Actionbars'):ToggleStyle()
 
 	PluginInstallStepComplete.message = BUI.Title..L['Actionbars Set']
@@ -546,7 +581,8 @@ end
 
 local function SetupUnitframes(layout)
 	E.db["general"]["decimalLength"] = 2
-	if E.db["movers"] == nil then E.db["movers"] = {} end
+	E.db["movers"] = E.db["movers"] or {}
+
 	if layout == 'v1' then
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "Bui Prototype"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Bui Prototype"
@@ -594,20 +630,31 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["colors"]["abAlpha"] = 1
 
 		-- Auras
-		E.db["auras"]["timeXOffset"] = -1
-		E.db["auras"]["font"] = "Bui Visitor1"
-		E.db["auras"]["fontSize"] = 10
-		E.db["auras"]["fontOutline"] = "MONOCROMEOUTLINE"
-		E.db["auras"]["fadeThreshold"] = 10
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
 		E.db["auras"]["buffs"]["size"] = 30
 		E.db["auras"]["debuffs"]["size"] = 30
+		E.db["auras"]["buffs"]["fadeThreshold"] = 10
+		E.db["auras"]["buffs"]["countFont"] = "Bui Visitor1"
+		E.db["auras"]["buffs"]["countFontSize"] = 10
+		E.db["auras"]["buffs"]["countFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["buffs"]["timeFont"] = "Bui Visitor1"
+		E.db["auras"]["buffs"]["timeFontSize"] = 10
+		E.db["auras"]["buffs"]["timeFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["buffs"]["timeXOffset"] = -1
+		E.db["auras"]["debuffs"]["fadeThreshold"] = 10
+		E.db["auras"]["debuffs"]["countFont"] = "Bui Visitor1"
+		E.db["auras"]["debuffs"]["countFontSize"] = 10
+		E.db["auras"]["debuffs"]["countFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["debuffs"]["timeFont"] = "Bui Visitor1"
+		E.db["auras"]["debuffs"]["timeFontSize"] = 10
+		E.db["auras"]["debuffs"]["timeFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["debuffs"]["timeXOffset"] = -1
 
 		-- Units
 		-- general
 		E.db["unitframe"]["font"] = "Bui Visitor1"
 		E.db["unitframe"]["fontSize"] = 10
-		E.db["unitframe"]["fontOutline"] = "MONOCROMEOUTLINE"
+		E.db["unitframe"]["fontOutline"] = "MONOCHROMEOUTLINE"
 		E.db["unitframe"]["colors"]["transparentAurabars"] = true
 		E.db["unitframe"]["colors"]["transparentCastbar"] = false
 		E.db["unitframe"]["colors"]["castClassColor"] = true
@@ -660,7 +707,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = 'GLOW'
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["player"]["power"]["width"] = 'fill'
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 360
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
@@ -671,7 +718,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 
-		if not E.db.unitframe.units.player.customTexts then E.db.unitframe.units.player.customTexts = {} end
+		E.db.unitframe.units.player.customTexts = E.db.unitframe.units.player.customTexts or {}
 		if E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] then
 			E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] = nil
 		end
@@ -727,7 +774,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DEBUFFS_ON_BUFFS"
 
-		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
+		E.db.unitframe.units.target.customTexts = E.db.unitframe.units.target.customTexts or {}
 		if E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"] then
 			E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"] = nil
 		end
@@ -841,7 +888,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["infoPanel"]["transparent"] = true
 
-		if not E.db.unitframe.units.party.customTexts then E.db.unitframe.units.party.customTexts = {} end
+		E.db.unitframe.units.party.customTexts = E.db.unitframe.units.party.customTexts or {}
 		if E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"] then
 			E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"] = nil
 		end
@@ -973,7 +1020,7 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-66"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,271"
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,349"
-		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-392"
+		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-657"
 		E.db["movers"]["ElvUF_BodyGuardMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,444"
 		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOM,ElvUIParent,BOTTOM,317,150"
 		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,202"
@@ -985,7 +1032,7 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_Raid2Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,180"
 		E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,180"
 		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,636"
-		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-300"
+		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-581"
 		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,231,147"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,232,182"
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-317,150"
@@ -1053,11 +1100,22 @@ local function SetupUnitframes(layout)
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
 		E.db["auras"]["buffs"]["size"] = 30
 		E.db["auras"]["debuffs"]["size"] = 30
-		E.db["auras"]["fadeThreshold"] = 10
-		E.db["auras"]["font"] = "Bui Visitor1"
-		E.db["auras"]["fontOutline"] = "MONOCROMEOUTLINE"
-		E.db["auras"]["fontSize"] = 10
-		E.db["auras"]["timeXOffset"] = -1
+		E.db["auras"]["buffs"]["fadeThreshold"] = 10
+		E.db["auras"]["buffs"]["countFont"] = "Bui Visitor1"
+		E.db["auras"]["buffs"]["countFontSize"] = 10
+		E.db["auras"]["buffs"]["countFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["buffs"]["timeFont"] = "Bui Visitor1"
+		E.db["auras"]["buffs"]["timeFontSize"] = 10
+		E.db["auras"]["buffs"]["timeFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["buffs"]["timeXOffset"] = -1
+		E.db["auras"]["debuffs"]["fadeThreshold"] = 10
+		E.db["auras"]["debuffs"]["countFont"] = "Bui Visitor1"
+		E.db["auras"]["debuffs"]["countFontSize"] = 10
+		E.db["auras"]["debuffs"]["countFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["debuffs"]["timeFont"] = "Bui Visitor1"
+		E.db["auras"]["debuffs"]["timeFontSize"] = 10
+		E.db["auras"]["debuffs"]["timeFontOutline"] = "MONOCHROMEOUTLINE"
+		E.db["auras"]["debuffs"]["timeXOffset"] = -1
 
 		-- Units
 		-- general
@@ -1103,21 +1161,10 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 140
 		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "spaced"
 
-		if not E.db.unitframe.units.player.customTexts then E.db.unitframe.units.player.customTexts = {} end
+		E.db.unitframe.units.player.customTexts = E.db.unitframe.units.player.customTexts or {}
 
-		if E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] == nil then
-			E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] = {}
-		end
-		if E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"] == nil then
-			E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"] = {}
-		end
-		-- convert the old custom text name
-		if E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"] ~= nil then
-			E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"]
-		end
-		if E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"] ~= nil then
-			E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"]
-		end
+		E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] or {}
+		E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"] or {}
 
 		E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"]["font"] = "Bui Tukui"
@@ -1173,21 +1220,11 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["castbar"]["overlayOnFrame"] = "InfoPanel"
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 240
 
-		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
+		E.db.unitframe.units.target.customTexts = E.db.unitframe.units.target.customTexts or {}
 
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"] == nil then
-			E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"] = {}
-		end
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"] == nil then
-			E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"] = {}
-		end
-		-- convert the old custom text name
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["PlayerName"] ~= nil then
-			E.db["unitframe"]["units"]["target"]["customTexts"]["PlayerName"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"]
-		end
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["PlayerBigHealth"] ~= nil then
-			E.db["unitframe"]["units"]["target"]["customTexts"]["PlayerBigHealth"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]
-		end
+		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"] or {}
+		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"] or {}
+
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["font"] = "Bui Tukui"
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]["fontOutline"] = "OUTLINE"
@@ -1326,7 +1363,9 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["yOffset"] = -12
 		E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 30
 		E.db["unitframe"]["units"]["party"]["width"] = 220
-		if not E.db.unitframe.units.party.customTexts then E.db.unitframe.units.party.customTexts = {} end
+
+		E.db.unitframe.units.party.customTexts = E.db.unitframe.units.party.customTexts or {}
+
 		if E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"] then
 			E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"] = nil
 		end
@@ -1474,7 +1513,7 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-66"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,237"
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,300"
-		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,722"
+		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-657"
 		E.db["movers"]["ElvUF_BodyGuardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-526"
 		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-542,108"
 		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-542,125"
@@ -1487,7 +1526,7 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_Raid2Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,180"
 		E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,180"
 		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,664"
-		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-300"
+		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-581"
 		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,217,140"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,189,163"
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,542,125"
@@ -1538,10 +1577,22 @@ local function SetupUnitframes(layout)
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
 		E.db["auras"]["buffs"]["size"] = 30
 		E.db["auras"]["debuffs"]["size"] = 30
-		E.db["auras"]["fadeThreshold"] = 10
-		E.db["auras"]["font"] = "Expressway"
-		E.db["auras"]["fontOutline"] = "OUTLINE"
-		E.db["auras"]["timeXOffset"] = -1
+		E.db["auras"]["buffs"]["fadeThreshold"] = 10
+		E.db["auras"]["buffs"]["countFont"] = "Expressway"
+		E.db["auras"]["buffs"]["countFontSize"] = 10
+		E.db["auras"]["buffs"]["countFontOutline"] = "OUTLINE"
+		E.db["auras"]["buffs"]["timeFont"] = "Expressway"
+		E.db["auras"]["buffs"]["timeFontSize"] = 10
+		E.db["auras"]["buffs"]["timeFontOutline"] = "OUTLINE"
+		E.db["auras"]["buffs"]["timeXOffset"] = -1
+		E.db["auras"]["debuffs"]["fadeThreshold"] = 10
+		E.db["auras"]["debuffs"]["countFont"] = "Expressway"
+		E.db["auras"]["debuffs"]["countFontSize"] = 10
+		E.db["auras"]["debuffs"]["countFontOutline"] = "OUTLINE"
+		E.db["auras"]["debuffs"]["timeFont"] = "Expressway"
+		E.db["auras"]["debuffs"]["timeFontSize"] = 10
+		E.db["auras"]["debuffs"]["timeFontOutline"] = "OUTLINE"
+		E.db["auras"]["debuffs"]["timeXOffset"] = -1
 
 		E.db["benikui"]["colors"]["styleAlpha"] = 0.7
 		E.db["benikui"]["colors"]["abAlpha"] = 0.7
@@ -1580,21 +1631,11 @@ local function SetupUnitframes(layout)
 		E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = false
 
 		-- player
-		if not E.db.unitframe.units.player.customTexts then E.db.unitframe.units.player.customTexts = {} end
+		E.db.unitframe.units.player.customTexts = E.db.unitframe.units.player.customTexts or {}
 
-		if E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] == nil then
-			E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] = {}
-		end
-		if E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"] == nil then
-			E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"] = {}
-		end
-		-- convert the old custom text name
-		if E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"] ~= nil then
-			E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerName"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"]
-		end
-		if E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"] ~= nil then
-			E.db["unitframe"]["units"]["player"]["customTexts"]["PlayerBigHealth"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"]
-		end
+		E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerName"] or {}
+		E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"] = E.db["unitframe"]["units"]["player"]["customTexts"]["BenikuiPlayerHealth"] or {}
+
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
@@ -1639,7 +1680,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 360
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 367
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 7
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
@@ -1651,21 +1692,11 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["width"] = 258
 
 		-- target
-		if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
+		E.db.unitframe.units.target.customTexts = E.db.unitframe.units.target.customTexts or {}
 
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"] == nil then
-			E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"] = {}
-		end
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"] == nil then
-			E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"] = {}
-		end
-		-- convert the old custom text name
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"] ~= nil then
-			E.db["unitframe"]["units"]["target"]["customTexts"]["TargetName"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"]
-		end
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"] ~= nil then
-			E.db["unitframe"]["units"]["target"]["customTexts"]["TargetBigHealth"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"]
-		end
+		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetName"] or {}
+		E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"] = E.db["unitframe"]["units"]["target"]["customTexts"]["BenikuiTargetHealth"] or {}
+
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxDuration"] = 120
@@ -1776,11 +1807,10 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["width"] = 210
 
 		-- party
-		if not E.db.unitframe.units.party.customTexts then E.db.unitframe.units.party.customTexts = {} end
+		E.db.unitframe.units.party.customTexts = E.db.unitframe.units.party.customTexts or {}
 
-		if E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"] == nil then
-			E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"] = {}
-		end
+		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"] = E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"] or {}
+
 		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 18
 		E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 2
@@ -1790,7 +1820,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["justifyH"] = "RIGHT"
-		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["size"] = 16
+		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["size"] = 14
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["text_format"] = "[health:current-percent:shortvalue]"
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["customTexts"]["BenikuiPartyHealth"]["yOffset"] = 0
@@ -1917,7 +1947,7 @@ local function SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid3"]["growthDirection"] = 'RIGHT_UP'
 
 		-- movers
-		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-392"
+		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-657"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,391"
 		E.db["movers"]["ElvUF_BodyGuardMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,444"
 		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,223"
@@ -1931,7 +1961,7 @@ local function SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_Raid2Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,180"
 		E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,180"
 		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,636"
-		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-300"
+		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-581"
 		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,231,147"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,314,268"
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,206"

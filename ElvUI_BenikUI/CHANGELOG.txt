@@ -1,3 +1,48 @@
+4.25 (Nov 15th, 2022)
+toc update for patch v10.02
+Dashboards: Moved the MouseOver option at the dashboard creation
+Rep Dashboard: Fixed showing the bag glow when a paragon faction has pending reward
+Style mail frame tabs (thurin)
+System Dashboard: Added Text justification option
+Fixed Bags Dashboard
+Style the new Professions frame
+
+
+4.24 (Nov 12th, 2022)
+Removed Microbar button sizing. ElvUI has an option for it
+Follow ElvUI v13.01 changes. credits thurin, Repooc
+
+4.23 (Nov 10th, 2022)
+Installer cleanup and tweaks
+Update ElvUI min version
+Removed Text Y offset on Databars. It's in ElvUI now
+Several Font fixes during install
+Fixed applying the Middle DT default settings
+Fixed Aura shadows
+Updated the Actionbars with bars 13-15
+Fixed Pet Button shadows
+Prevent a dropmenu error(?)
+
+4.22 (Nov 5th, 2022)
+Updated the Patreon team
+Resize the ugly Micro buttons
+Fixed the Tooltip Header Font during install
+Fixed SLEEEEE :D Location panel shadow overlap
+Fixed the Talking Head Style/Shadows
+Mini corrections in the Installer
+Removed the Covenant Color option and its Crest from the AFK Mode
+Styled the EditMode frames
+Style new Encounter Journal side tabs
+Fix DropDown Menu Strata and Closing Game Menu
+Fix hiding minimap mail icon
+
+4.21 (Oct 28th, 2022)
+Add more safety on castbars
+Fixed a typo ;)
+HandleScrollBar is bugged atm
+Fixes for missing icons on castbar and chat error on reload
+Fix for SetVertexColor on Target loss
+
 4.20 (Oct 26th, 2022)
 Updated for WoW Patch 10.00
 Removed Spec Switch Datatext.
