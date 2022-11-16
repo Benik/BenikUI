@@ -7,7 +7,7 @@ local NUM_CONTAINER_FRAMES = NUM_CONTAINER_FRAMES
 
 -- GLOBALS: hooksecurefunc
 
-local SPACING = (E.PixelMode and 1 or 5)
+local SPACING = E.Spacing
 local BORDER = E.Border;
 
 local function SellFrame()
