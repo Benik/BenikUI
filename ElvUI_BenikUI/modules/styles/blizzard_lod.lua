@@ -792,6 +792,18 @@ local function style_Professions()
 end
 S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
 
+-- ProfessionsCustomerOrders --TODO
+local function style_ProfessionsCustomerOrders()
+	if E.private.skins.blizzard.tradeskill ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+
+end
+S:AddCallbackForAddon("Blizzard_ProfessionsCustomerOrders", "BenikUI_ProfessionsCustomerOrders", style_ProfessionsCustomerOrders)
+
 -- PVPUI
 local function style_PVPUI()
 	if E.private.skins.blizzard.pvp ~= true or E.private.skins.blizzard.tooltip ~= true or
