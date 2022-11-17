@@ -44,12 +44,7 @@ local function miscTable()
 						order = 4,
 						name = L['Font Outline'],
 						type = 'select',
-						values = {
-							['NONE'] = L['None'],
-							['OUTLINE'] = 'OUTLINE',
-							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-							['THICKOUTLINE'] = 'THICKOUTLINE',
-						},
+						values = E.Config[1].Values.FontFlags,
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 					},
 					colorStyle = {
