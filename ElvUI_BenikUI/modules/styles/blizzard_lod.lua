@@ -788,7 +788,7 @@ local function style_Professions()
 
 	local ProfessionsFrame = _G.ProfessionsFrame
 	ProfessionsFrame:BuiStyle("Outside")
-	ProfessionsFrame.CraftingOutputLog.backdrop:BuiStyle("Outside")
+	--ProfessionsFrame.CraftingOutputLog.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
 
