@@ -614,19 +614,6 @@ local function style_IslandsQueueUI()
 	end
 
 	_G.IslandsQueueFrame:BuiStyle("Outside")
-
-	-- tooltip
-	if E.private.skins.blizzard.tooltip ~= true then
-		return
-	end
-	_G.IslandsQueueFrameTooltip:GetParent():GetParent():HookScript(
-		"OnShow",
-		function(self)
-			if not self.style then
-				self:BuiStyle("Outside")
-			end
-		end
-	)
 end
 S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "BenikUI_IslandsQueueUI", style_IslandsQueueUI)
 
