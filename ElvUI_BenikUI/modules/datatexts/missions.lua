@@ -114,6 +114,7 @@ local menuList = {
 	{text = _G.GARRISON_LANDING_PAGE_TITLE,			 func = LandingPage, arg1 = LE_GARRISON_TYPE_6_0, notCheckable = true},
 	{text = _G.ORDER_HALL_LANDING_PAGE_TITLE,		 func = LandingPage, arg1 = LE_GARRISON_TYPE_7_0, notCheckable = true},
 	{text = _G.WAR_CAMPAIGN,						 func = LandingPage, arg1 = LE_GARRISON_TYPE_8_0, notCheckable = true},
+	{text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = LandingPage, arg1 = LE_GARRISON_TYPE_9_0, notCheckable = true},
 }
 
 local data = {}
