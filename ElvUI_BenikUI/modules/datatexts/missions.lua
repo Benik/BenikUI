@@ -342,8 +342,8 @@ local function OnClick(self, btn)
 			ShowGarrisonLandingPage(LE_GARRISON_TYPE_9_0)
 		end
 	elseif btn == "RightButton" then
-		DT:SetEasyMenuAnchor(DT.EasyMenu, self)
-		_G.EasyMenu(menuList, DT.EasyMenu, nil, nil, nil, "MENU")
+		E:SetEasyMenuAnchor(E.EasyMenu, self)
+		_G.EasyMenu(menuList, E.EasyMenu, nil, nil, nil, "MENU")
 	end
 end
 
