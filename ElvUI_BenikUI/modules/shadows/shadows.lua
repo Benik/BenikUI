@@ -275,6 +275,7 @@ function mod:Initialize()
 
 	-- AddonSkins
 	mod:AddonSkins()
+	mod:WeakAuras()
 
 	-- Callbacks
 	S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_CalendarEventButtonShadows", CalendarEventButtonShadows)

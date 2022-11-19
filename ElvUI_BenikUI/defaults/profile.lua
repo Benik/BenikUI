@@ -242,6 +242,7 @@ P['benikui']['skins'] = {
 		['inflight'] = true,
 		['kt'] = true,
 		['rt'] = true,
+		['wa'] = true,
 	},
 }
 

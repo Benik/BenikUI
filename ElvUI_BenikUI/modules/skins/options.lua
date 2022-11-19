@@ -171,6 +171,13 @@ local function SkinTable()
 				name = L['Rare Tracker'],
 				disabled = function() return not IsAddOnLoaded('RareTrackerCore') end,
 			},
+			wa = {
+				order = 6,
+				type = 'toggle',
+				name = L['WeakAuras'],
+				disabled = function() return not BUI.WA end,
+				hidden = function() return BUI.MER end,
+			},
 		},
 	}
 
