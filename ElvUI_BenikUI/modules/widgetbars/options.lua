@@ -151,14 +151,7 @@ local function widgetTable()
 								name = L['Font Outline'],
 								disabled = function() return E.db.benikui.widgetbars.mawBar.useDTfont end,
 								type = 'select',
-								values = {
-									NONE = L["NONE"],
-									OUTLINE = 'Outline',
-									THICKOUTLINE = 'Thick',
-									MONOCHROME = '|cffaaaaaaMono|r',
-									MONOCHROMEOUTLINE = '|cffaaaaaaMono|r Outline',
-									MONOCHROMETHICKOUTLINE = '|cffaaaaaaMono|r Thick',
-								},
+								values = E.Config[1].Values.FontFlags,
 							},
 							textYoffset = {
 								order = 5,
