@@ -134,7 +134,6 @@ local function widgetTable()
 								type = 'select', dialogControl = 'LSM30_Font',
 								order = 2,
 								name = L['Font'],
-								desc = L['Choose font for all dashboards.'],
 								disabled = function() return E.db.benikui.widgetbars.mawBar.useDTfont end,
 								values = AceGUIWidgetLSMlists.font,
 							},
