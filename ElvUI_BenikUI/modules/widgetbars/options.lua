@@ -87,7 +87,7 @@ local function widgetTable()
 								disabled = function() return E.db.benikui.widgetbars.mawBar.barAutoColor end,
 								get = function(info)
 									local t = E.db.benikui.widgetbars.mawBar[ info[#info] ]
-									local d = P.benikui.widgetbars.mawBar[info[#info]]
+									local d = P.benikui.widgetbars.mawBar[ info[#info] ]
 									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 								end,
 								set = function(info, r, g, b, a)
@@ -103,7 +103,7 @@ local function widgetTable()
 								name = L['Text Color'],
 								get = function(info)
 									local t = E.db.benikui.widgetbars.mawBar[ info[#info] ]
-									local d = P.benikui.widgetbars.mawBar[info[#info]]
+									local d = P.benikui.widgetbars.mawBar[ info[#info] ]
 									return t.r, t.g, t.b, d.r, d.g, d.b
 								end,
 								set = function(info, r, g, b)
@@ -134,7 +134,6 @@ local function widgetTable()
 								type = 'select', dialogControl = 'LSM30_Font',
 								order = 2,
 								name = L['Font'],
-								desc = L['Choose font for all dashboards.'],
 								disabled = function() return E.db.benikui.widgetbars.mawBar.useDTfont end,
 								values = AceGUIWidgetLSMlists.font,
 							},
@@ -151,14 +150,7 @@ local function widgetTable()
 								name = L['Font Outline'],
 								disabled = function() return E.db.benikui.widgetbars.mawBar.useDTfont end,
 								type = 'select',
-								values = {
-									NONE = L["NONE"],
-									OUTLINE = 'Outline',
-									THICKOUTLINE = 'Thick',
-									MONOCHROME = '|cffaaaaaaMono|r',
-									MONOCHROMEOUTLINE = '|cffaaaaaaMono|r Outline',
-									MONOCHROMETHICKOUTLINE = '|cffaaaaaaMono|r Thick',
-								},
+								values = E.Config[1].Values.FontFlags,
 							},
 							textYoffset = {
 								order = 5,

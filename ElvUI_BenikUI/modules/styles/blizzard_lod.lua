@@ -614,19 +614,6 @@ local function style_IslandsQueueUI()
 	end
 
 	_G.IslandsQueueFrame:BuiStyle("Outside")
-
-	-- tooltip
-	if E.private.skins.blizzard.tooltip ~= true then
-		return
-	end
-	_G.IslandsQueueFrameTooltip:GetParent():GetParent():HookScript(
-		"OnShow",
-		function(self)
-			if not self.style then
-				self:BuiStyle("Outside")
-			end
-		end
-	)
 end
 S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "BenikUI_IslandsQueueUI", style_IslandsQueueUI)
 
@@ -786,9 +773,24 @@ local function style_Professions()
 		return
 	end
 
-	_G.ProfessionsFrame:BuiStyle("Outside")
+	local ProfessionsFrame = _G.ProfessionsFrame
+	ProfessionsFrame:BuiStyle("Outside")
+	ProfessionsFrame.CraftingPage.CraftingOutputLog.backdrop:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
+
+-- ProfessionsCustomerOrders
+local function style_ProfessionsCustomerOrders()
+	if E.private.skins.blizzard.tradeskill ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local ProfessionsCustomerOrdersFrame = _G.ProfessionsCustomerOrdersFrame
+	ProfessionsCustomerOrdersFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ProfessionsCustomerOrders", "BenikUI_ProfessionsCustomerOrders", style_ProfessionsCustomerOrders)
 
 -- PVPUI
 local function style_PVPUI()

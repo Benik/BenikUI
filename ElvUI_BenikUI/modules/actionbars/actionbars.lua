@@ -135,19 +135,20 @@ function mod:TotemShadows()
 	end
 end
 
-function mod:ApplyFlyoutShadows(btn)
+local function ApplyFlyoutShadows(btn)
 	if not btn.shadow then
 		btn:CreateSoftShadow()
 	end
 end
 
-function mod:FlyoutShadows()
-	local btn, i = _G['SpellFlyoutButton1'], 1
+local function FlyoutShadows()
+	local btn, i = _G['LABFlyoutButton1'], 1
 	while btn do
-		mod:ApplyFlyoutShadows(btn)
+		if btn.shadow then break end
+		ApplyFlyoutShadows(btn)
 
 		i = i + 1
-		btn = _G['SpellFlyoutButton'..i]
+		btn = _G['LABFlyoutButton'..i]
 	end
 end
 
@@ -202,7 +203,7 @@ function mod:Initialize()
 	hooksecurefunc(BUI, "SetupColorThemes", mod.StyleColor)
 
 	if not BUI.ShadowMode then return end
-	hooksecurefunc(_G.SpellFlyout, 'Show', mod.FlyoutShadows)
+	hooksecurefunc(AB, 'StyleFlyout', FlyoutShadows)
 	mod:ExtraAB()
 end
 

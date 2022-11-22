@@ -8,9 +8,10 @@ local function StyleDBM_Options()
 		return
 	end
 
-	DBM_GUI_OptionsFrame:HookScript("OnShow", function()
-		DBM_GUI_OptionsFrame:BuiStyle("Outside")
-	end)
+	local DBM_GUI_OptionsFrame = _G.DBM_GUI_OptionsFrame
+	DBM_GUI_OptionsFrame:StripTextures()
+	DBM_GUI_OptionsFrame:SetTemplate("Transparent")
+	DBM_GUI_OptionsFrame:BuiStyle("Outside")
 end
 
 local function StyleInFlight()
