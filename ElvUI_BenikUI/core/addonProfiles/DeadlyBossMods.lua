@@ -24,8 +24,10 @@ function BUI:LoadDBMProfile()
 		DBT_AllPersistentOptions[profileName]["DBM"]["Font"] = font
 		DBT_AllPersistentOptions[profileName]["DBM"]["BarYOffset"] = 16
 		DBT_AllPersistentOptions[profileName]["DBM"]["HugeBarYOffset"] = 16
+		DBT_AllPersistentOptions[profileName]["DBM"]["Height"] = 14
 		DBM_AllSavedOptions[profileName]["WarningFont"] = font
 		DBM_AllSavedOptions[profileName]["SpecialWarningFont"] = font
+		DBM_AllSavedOptions[profileName]["InfoFrameFont"] = font
 
 		DBM:ApplyProfile(profileName)
 		if BUI.isInstallerRunning == false then

@@ -35,7 +35,7 @@ function mod:DBMShadows()
 					local timer = _G[frame:GetName()..'BarTimer']
 					local iconSize = bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height
 					if AS:CheckOption('DBMSkinHalf') then
-						iconSize = iconSize * 3
+						iconSize = iconSize * 2
 					end
 
 					AS:SkinTexture(icon1, true)
