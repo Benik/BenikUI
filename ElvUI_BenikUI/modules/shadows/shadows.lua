@@ -20,10 +20,14 @@ end
 local function mirrorTimersShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mirrorTimers ~= true then return end
 
-	for i = 1, _G.MIRRORTIMER_NUMTIMERS do
-		local mirrorTimer = _G['MirrorTimer'..i]
-		local statusBar = mirrorTimer.StatusBar or _G[mirrorTimer:GetName()..'StatusBar']
-		statusBar:CreateSoftShadow()
+	local i = 1
+	local frame = _G.MirrorTimer1
+	while frame do
+		if frame.shadow then break end
+		frame:CreateSoftShadow()
+
+		i = i + 1
+		frame = _G['MirrorTimer'..i]
 	end
 end
 

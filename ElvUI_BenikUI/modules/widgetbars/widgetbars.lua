@@ -19,22 +19,29 @@ function mod:AltPowerBar()
 end
 
 function mod:MirrorBar()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mirrorTimers ~= true then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.mirrorTimers) then return end
 
-	for i = 1, _G.MIRRORTIMER_NUMTIMERS do
-		local mirrorTimer = _G['MirrorTimer'..i]
-		local statusBar = mirrorTimer.StatusBar or _G[mirrorTimer:GetName()..'StatusBar']
-
-		mirrorTimer.Text:ClearAllPoints()
+	local i = 1
+	local frame = _G.MirrorTimer1
+	while frame do
+		frame.Text:ClearAllPoints()
+		frame.StatusBar:ClearAllPoints()
 		if E.db.benikui.widgetbars.halfBar.mirrorbar then
-			mirrorTimer:Size(222, 24)
-			statusBar:Size(222, 5)
-			mirrorTimer.Text:Point('BOTTOM', statusBar, 'TOP', 0, 4)
+			frame:Height(8)
+			frame.StatusBar:Height(10)
+			frame.StatusBar:Point('BOTTOM', 0, -2)
+			frame.Text:SetParent(frame)
+			frame.Text:Point('BOTTOM', frame, 'TOP', 0, 2)
 		else
-			mirrorTimer:Size(222, 18)
-			statusBar:Size(222, 18)
-			mirrorTimer.Text:Point('CENTER', statusBar, 'CENTER')
+			frame:Height(18)
+			frame.StatusBar:Height(22)
+			frame.StatusBar:Point('TOP', 0, 2)
+			frame.Text:SetParent(frame.StatusBar)
+			frame.Text:Point('CENTER', frame.StatusBar, 0, 1)
 		end
+
+		i = i + 1
+		frame = _G['MirrorTimer'..i]
 	end
 end
 
@@ -43,6 +50,7 @@ function mod:Initialize()
 	mod:AltPowerBar()
 	mod:MirrorBar()
 	hooksecurefunc(B, "UpdateAltPowerBarSettings", mod.AltPowerBar)
+	hooksecurefunc('MirrorTimer_Show', mod.MirrorBar)
 end
 
 BUI:RegisterModule(mod:GetName())
