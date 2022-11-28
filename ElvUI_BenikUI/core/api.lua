@@ -1,5 +1,8 @@
 ﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
 
+local format, lower, tonumber = string.format, string.lower, tonumber
+
+local GetGameTime = GetGameTime
 local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 
 local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME
@@ -31,7 +34,7 @@ local daysAbr = {
 
 -- Create Date
 function BUI:createDate()
-	local date = C_DateAndTime_GetCurrentCalendarTime();
+	local date = C_DateAndTime_GetCurrentCalendarTime()
 	local presentWeekday = date.weekday
 	local presentMonth = date.month
 	local presentDay = date.monthDay
@@ -44,6 +47,7 @@ end
 
 -- Create Time
 function BUI:createTime()
+    local db = E.global.datatexts.settings.Time
 	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
 	local sHour, sMinute = GetGameTime()
 
@@ -52,14 +56,14 @@ function BUI:createTime()
 	local realmTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute, ampm)
 	local realmTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute)
 
-	if E.global.datatexts.settings.Time.localTime then
-		if E.global.datatexts.settings.Time.time24 == true then
+	if db.localTime then
+		if db.time24 == true then
 			return localTime24
 		else
 			return localTime
 		end
 	else
-		if E.global.datatexts.settings.Time.time24 == true then
+		if db.time24 == true then
 			return realmTime24
 		else
 			return realmTime

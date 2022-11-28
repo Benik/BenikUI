@@ -1,10 +1,9 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E:GetModule('AFK')
 
-local format, random, lower, tonumber, date, floor = string.format, random, string.lower, tonumber, date, floor
+local format, random, floor = string.format, random, floor
 
 local CreateFrame = CreateFrame
-local GetGameTime = GetGameTime
 local GetScreenHeight, GetScreenWidth = GetScreenHeight, GetScreenWidth
 local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic

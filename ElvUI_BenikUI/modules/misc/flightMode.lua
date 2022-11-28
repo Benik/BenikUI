@@ -109,6 +109,9 @@ end
 function mod:UpdateTimer()
 	local time = GetTime() - self.startTime
 	self.FlightMode.bottom.timeFlying.txt:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
+
+	local createdTime = BUI:createTime()
+	self.FlightMode.top.timeText:SetFormattedText(createdTime)
 end
 
 local statusColors = {
@@ -620,6 +623,13 @@ function mod:Initialize()
 		mod:SetFlightMode(false)
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 	end)
+
+	-- Time
+	self.FlightMode.top.timeText = self.FlightMode.top:CreateFontString(nil, 'OVERLAY')
+	self.FlightMode.top.timeText:FontTemplate(nil, 14)
+	self.FlightMode.top.timeText:Point('RIGHT', self.FlightMode.top.closeButton, 'LEFT', -10, 0)
+	self.FlightMode.top.timeText:SetTextColor(classColor.r, classColor.g, classColor.b)
+	self.FlightMode.top.timeText:SetText("")
 
 	-- Location frame
 	self.FlightMode.top.location = CreateFrame('Frame', 'FlightModeLocation', self.FlightMode.top)
