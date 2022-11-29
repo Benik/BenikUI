@@ -172,18 +172,21 @@ function mod:ExtraAB() -- shadows
 end
 
 local function VehicleExit()
-	if E.private.actionbar.enable ~= true then
+	if E.db.actionbar.vehicleExitButton.enable ~= true then
 		return
 	end
-	local f = _G.MainMenuBarVehicleLeaveButton
-	local arrow = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow"
-	f:SetNormalTexture(arrow)
-	f:SetPushedTexture(arrow)
-	f:SetHighlightTexture(arrow)
 
-	if MasqueGroup and E.private.actionbar.masque.actionbars then return end
-	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
-	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
+	if not MasqueGroup then
+		local f = _G.MainMenuBarVehicleLeaveButton
+		local arrow = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow"
+		f:SetNormalTexture(arrow)
+		f:SetPushedTexture(arrow)
+		f:SetHighlightTexture(arrow)
+
+		f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+		f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
+		f.backdrop:CreateSoftShadow()
+	end
 end
 
 function mod:Initialize()
