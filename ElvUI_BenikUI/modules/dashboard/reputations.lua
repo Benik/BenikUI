@@ -129,6 +129,10 @@ function mod:UpdateReputations()
 						maxMinDiff = 1
 					end
 
+					if not standingLabel then
+						standingLabel = _G['FACTION_STANDING_LABEL'..standingID] or UNKNOWN
+					end
+
 					local bar = mod:CreateDashboard(holder, 'reputations', false, true)
 					bar.Status:SetMinMaxValues(barMin, barMax)
 					bar.Status:SetValue(barValue)
