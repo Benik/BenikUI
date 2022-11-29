@@ -214,6 +214,18 @@ local function style_Channels()
 end
 S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
 
+-- ChromieTime
+local function style_chromieTime()
+	if E.private.skins.blizzard.chromieTime ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ChromieTimeFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ChromieTimeUI", "BenikUI_chromieTime", style_chromieTime)
+
 -- Class Talents
 local function style_ClassTalents()
 	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or
