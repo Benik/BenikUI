@@ -55,7 +55,6 @@ function mod:styleAlertFrames()
 		if frame.backdrop then
 			if not frame.backdrop.style then
 				frame.backdrop:BuiStyle('Outside')
-				frame.Icon.Texture.b:BuiStyle('Outside')
 			end
 		end
 	end
