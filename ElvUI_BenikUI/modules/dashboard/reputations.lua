@@ -101,6 +101,8 @@ function mod:UpdateReputations()
 						barMin, barMax = 0, majorFactionData.renownLevelThreshold
 						barValue = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
 						majorStandingLabel = format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
+					else
+						standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 					end
 
 					if isParagon then
@@ -130,8 +132,6 @@ function mod:UpdateReputations()
 					local bar = mod:CreateDashboard(holder, 'reputations', false, true)
 					bar.Status:SetMinMaxValues(barMin, barMax)
 					bar.Status:SetValue(barValue)
-
-					standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 
 					local customColors = E.db.databars.colors.useCustomFactionColors
 					local color = (customColors or standingID == 9) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID] -- reaction 9 is Paragon
