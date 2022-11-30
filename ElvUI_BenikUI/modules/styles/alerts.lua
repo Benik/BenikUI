@@ -1,16 +1,16 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Styles')
 
-function mod:styleAlertFrames()
-	if E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true or E.private.skins.blizzard.alertframes ~= true then return end
-	
-	local function StyleAlert(frame)
-		if frame.backdrop then
-			if not frame.backdrop.style then
-				frame.backdrop:BuiStyle('Outside')
-			end
+local function StyleAlert(frame)
+	if frame.backdrop then
+		if not frame.backdrop.style then
+			frame.backdrop:BuiStyle('Outside')
 		end
 	end
+end
+
+function mod:styleAlertFrames()
+	if E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true or E.private.skins.blizzard.alertframes ~= true then return end
 
 	hooksecurefunc(_G.AchievementAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.CriteriaAlertSystem, "setUpFunction", StyleAlert)
