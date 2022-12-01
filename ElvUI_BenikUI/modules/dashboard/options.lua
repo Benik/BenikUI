@@ -25,6 +25,17 @@ local textAlignValues = {
 	['RIGHT'] = L['Right'],
 }
 
+local barColorValues = {
+	[1] = L.CLASS_COLORS,
+	[2] = L.CUSTOM,
+}
+
+local layoutStyles = {
+	style = L['BenikUI Style'],
+	transparency = L['Panel Transparency'],
+	backdrop = L['Backdrop'],
+}
+
 local function UpdateSystemOptions()
 	for _, boardname in pairs(boards) do
 		local optionOrder = 1
@@ -179,10 +190,7 @@ local function dashboardsTable()
 						type = "select",
 						order = 1,
 						name = L['Bar Color'],
-						values = {
-							[1] = L.CLASS_COLORS,
-							[2] = L.CUSTOM,
-						},
+						values = barColorValues,
 						get = function(info) return E.db.benikui.dashboards[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.dashboards[ info[#info] ] = value;
 							UpdateAllDashboards()
@@ -214,10 +222,7 @@ local function dashboardsTable()
 						order = 4,
 						type = "select",
 						name = L['Text Color'],
-						values = {
-							[1] = L.CLASS_COLORS,
-							[2] = L.CUSTOM,
-						},
+						values = barColorValues,
 						get = function(info) return E.db.benikui.dashboards[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.dashboards[ info[#info] ] = value;
 							UpdateAllDashboards()
@@ -338,11 +343,7 @@ local function dashboardsTable()
 								disabled = function() return not E.db.benikui.dashboards.system.enableSystem end,
 								get = function(_, key) return E.db.benikui.dashboards.system[key] end,
 								set = function(_, key, value) E.db.benikui.dashboards.system[key] = value; BUID:ToggleStyle(BUI_SystemDashboard, 'system') BUID:ToggleTransparency(BUI_SystemDashboard, 'system') end,
-								values = {
-									style = L['BenikUI Style'],
-									transparency = L['Panel Transparency'],
-									backdrop = L['Backdrop'],
-								}
+								values = layoutStyles,
 							},
 							variousGroup = {
 								order = 5,
@@ -444,11 +445,7 @@ local function dashboardsTable()
 						disabled = function() return not E.db.benikui.dashboards.tokens.enableTokens end,
 						get = function(_, key) return E.db.benikui.dashboards.tokens[key] end,
 						set = function(_, key, value) E.db.benikui.dashboards.tokens[key] = value; BUID:ToggleStyle(BUI_TokensDashboard, 'tokens') BUID:ToggleTransparency(BUI_TokensDashboard, 'tokens') end,
-						values = {
-							style = L['BenikUI Style'],
-							transparency = L['Panel Transparency'],
-							backdrop = L['Backdrop'],
-						},
+						values = layoutStyles,
 					},
 					variousGroup = {
 						order = 4,
@@ -562,11 +559,7 @@ local function dashboardsTable()
 						disabled = function() return not E.db.benikui.dashboards.professions.enableProfessions end,
 						get = function(_, key) return E.db.benikui.dashboards.professions[key] end,
 						set = function(_, key, value) E.db.benikui.dashboards.professions[key] = value; BUID:ToggleStyle(BUI_ProfessionsDashboard, 'professions') BUID:ToggleTransparency(BUI_ProfessionsDashboard, 'professions') end,
-						values = {
-							style = L['BenikUI Style'],
-							transparency = L['Panel Transparency'],
-							backdrop = L['Backdrop'],
-						}
+						values = layoutStyles,
 					},
 					variousGroup = {
 						order = 4,
@@ -665,11 +658,7 @@ local function dashboardsTable()
 						disabled = function() return not E.db.benikui.dashboards.reputations.enableReputations end,
 						get = function(_, key) return E.db.benikui.dashboards.reputations[key] end,
 						set = function(_, key, value) E.db.benikui.dashboards.reputations[key] = value; BUID:ToggleStyle(BUI_ReputationsDashboard, 'reputations') BUID:ToggleTransparency(BUI_ReputationsDashboard, 'reputations') end,
-						values = {
-							style = L['BenikUI Style'],
-							transparency = L['Panel Transparency'],
-							backdrop = L['Backdrop'],
-						}
+						values = layoutStyles,
 					},
 					factionColors = {
 						order = 4,
