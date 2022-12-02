@@ -9,28 +9,36 @@ V['benikui'] = {
 }
 
 -- Dashboards
-V['benikui']['dashboards'] = {
-	['tokens'] = {
-		['chooseTokens'] = {
-			[1191] = true, -- Valor
-			[1813] = true, -- Reservoir Anima
+V['benikui'] = {
+	['dashboards'] = {
+		['tokens'] = {
+			['chooseTokens'] = {
+				[1191] = true, -- Valor
+				[1813] = true, -- Reservoir Anima
+			},
+		},
+
+		['professions'] = {
+			['choosePofessions'] = {
+				[5] = true,
+				[6] = true,
+				[7] = true,
+				[8] = true,
+				[9] = true,
+				[10] = true,
+			},
+		},
+
+		['reputations'] = {
+			['chooseReputations'] = {
+
+			},
 		},
 	},
 
-	['professions'] = {
-		['choosePofessions'] = {
-			[5] = true,
-			[6] = true,
-			[7] = true,
-			[8] = true,
-			[9] = true,
-			[10] = true,
-		},
-	},
-
-	['reputations'] = {
-		['chooseReputations'] = {
-
+	['datatexts'] = {
+		['renown'] = {
+			['factionID'] = 2507,
 		},
 	},
 }
