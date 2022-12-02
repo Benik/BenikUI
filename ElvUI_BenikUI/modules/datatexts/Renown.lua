@@ -1,59 +1,65 @@
 local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
-local strjoin = strjoin
-
-local C_Reputation_IsMajorFaction = C_Reputation.IsMajorFaction
 local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
 local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
+local C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer = C_PlayerInfo.IsExpansionLandingPageUnlockedForPlayer
 
-local factionID = 2507
-local majorFactionData
+local BLUE_FONT_COLOR = BLUE_FONT_COLOR
+local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
 
-local displayString, lastPanel = ''
+local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
+
+local factionIDs = {
+	2503, -- Maruuk Centaur
+	2507, -- Dragonscale Expedition
+	2510, -- Valdrakken Accord
+	2511, -- Iskaara Tuskarr
+}
+
+local lastPanel = ''
 
 local function OnClick()
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
+	if not C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer(LE_EXPANSION_DRAGONFLIGHT) then return end
 	if _G.ExpansionLandingPageMinimapButton then
 		_G.ExpansionLandingPageMinimapButton:ToggleLandingPage()
 	end
 end
 
 local function OnEnter(self)
-	DT:SetupTooltip(self)
+	if C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer(LE_EXPANSION_DRAGONFLIGHT) then
+		DT:SetupTooltip(self)
+		for _, factionID in pairs(factionIDs) do
+			local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
+			if not C_MajorFactions_HasMaximumRenown(factionID) then
+				local name = majorFactionData.name
+				local earned = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+				local max = majorFactionData.renownLevelThreshold
+				local renown = majorFactionData.renownLevel
+				local isUnlocked = majorFactionData.isUnlocked
+				local percent = earned / max * 100
 
-	if not C_MajorFactions_HasMaximumRenown(factionID) then
-		local name = majorFactionData.name
-		local earned = majorFactionData.renownReputationEarned
-		local max = majorFactionData.renownLevelThreshold
-		local percent = earned / max * 100
-
-		DT.tooltip:AddLine(format('|cffFFFFFF%s|r', name))
-		DT.tooltip:AddLine(' ')
-		DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
+				if isUnlocked then
+					DT.tooltip:AddLine(format('|cffFFFFFF%s|r', name))
+					DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
+					DT.tooltip:AddLine(format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, renown))
+					DT.tooltip:AddLine(' ')
+				else
+					DT.tooltip:AddLine(format('|cff999999%s|r', name))
+					DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
+					DT.tooltip:AddLine(' ')
+				end
+			end
+		end
+		DT.tooltip:AddDoubleLine(L['Click:'], DRAGONFLIGHT_LANDING_PAGE_TITLE, 0.7, 0.7, 1, 0.7, 0.7, 1)
 		DT.tooltip:Show()
 	end
 end
 
 local function OnEvent(self)
-	local isMajorFaction = factionID and C_Reputation_IsMajorFaction(factionID)
-
-	if isMajorFaction then
-		majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
-		self.text:SetFormattedText(displayString, COVENANT_SANCTUM_TAB_RENOWN, majorFactionData.renownLevel)
-	end
-
+	self.text:SetFormattedText(COVENANT_SANCTUM_TAB_RENOWN)
 	lastPanel = self
 end
 
-local function ValueColorUpdate(hex)
-	displayString = strjoin('', '%s: ', hex, '%s|r')
-
-	if lastPanel ~= nil then
-		OnEvent(lastPanel)
-	end
-end
-
-E.valueColorUpdateFuncs[ValueColorUpdate] = true
-
-DT:RegisterDatatext('Renown (BenikUI)', 'BenikUI', {'MAJOR_FACTION_UNLOCKED', 'MAJOR_FACTION_RENOWN_LEVEL_CHANGED'}, OnEvent, nil, OnClick, OnEnter, nil, nil, nil, ValueColorUpdate)
+DT:RegisterDatatext('Renown (BenikUI)', 'BenikUI', nil, OnEvent, nil, OnClick, OnEnter)
