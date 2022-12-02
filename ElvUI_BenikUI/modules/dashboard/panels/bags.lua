@@ -5,7 +5,7 @@ local join = string.join
 
 local C_Container_GetContainerNumFreeSlots = C_Container.GetContainerNumFreeSlots
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
-local NUM_BAG_SLOTS = NUM_BAG_SLOTS
+local NUM_BAG_SLOTS = NUM_BAG_SLOTS + 1
 
 local statusColors = {
 	'|cff0CD809',	-- green
@@ -15,7 +15,6 @@ local statusColors = {
 
 local function OnEvent(self)
 	local bar = _G['BUI_Bags']
-	local db = E.db.benikui.dashboards.system
 
 	local free, total = 0, 0
 	local textColor = 1
