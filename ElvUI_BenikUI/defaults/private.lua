@@ -6,10 +6,7 @@ V['benikui'] = {
 	['session'] = {
 		['day'] = 1,
 	},
-}
 
--- Dashboards
-V['benikui'] = {
 	['dashboards'] = {
 		['tokens'] = {
 			['chooseTokens'] = {
