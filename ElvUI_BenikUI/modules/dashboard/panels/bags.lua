@@ -34,8 +34,8 @@ local function OnEvent(self)
 
 	local displayFormat = join("", "%s", statusColors[textColor], "%d/%d|r")
 	bar.Text:SetFormattedText(displayFormat, L["Bags"]..': ', total - free, total)
-	bar.Status:SetMinMaxValues(0, total)
-	bar.Status:SetValue(total - free)
+	self:SetMinMaxValues(0, total)
+	self:SetValue(total - free)
 end
 
 local function OnClick()
@@ -43,7 +43,9 @@ local function OnClick()
 end
 
 function mod:CreateBags()
+	local holder = _G.BUI_SystemDashboard
 	local bar = _G['BUI_Bags']
+	bar:SetParent(holder)
 
 	bar.Status:SetScript('OnEvent', OnEvent)
 	bar:SetScript('OnMouseDown', OnClick)

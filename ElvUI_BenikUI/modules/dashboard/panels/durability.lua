@@ -16,10 +16,6 @@ local totalDurability = 0
 local current, max
 local invDurability = {}
 
-local function Click()
-	ToggleCharacter('PaperDollFrame')
-end
-
 local slots = {
 	['SecondaryHandSlot'] = L['Offhand'],
 	['MainHandSlot'] = L['Main Hand'],
@@ -39,9 +35,13 @@ local statusColors = {
 	'|cffD80909'	-- red
 }
 
-local function OnEvent()
+local function OnMouseUp()
+	ToggleCharacter('PaperDollFrame')
+end
+
+local function OnEvent(self)
 	local bar = _G['BUI_Durability']
-	local db = E.db.benikui.dashboards.system
+	local db = self.db
 
 	totalDurability = 100
 	local textColor = 1
@@ -74,39 +74,48 @@ local function OnEvent()
 	bar.Status:SetValue(totalDurability)
 end
 
+local function OnEnter(self)
+	local db = self.db
+	local holder = self:GetParent()
+
+	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
+	GameTooltip:ClearAllPoints()
+
+	GameTooltip:ClearLines()
+
+	for slot, durability in pairs(invDurability) do
+		GameTooltip:AddDoubleLine(slot, format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0))
+	end
+
+	GameTooltip:Show()
+
+	if db.mouseover then
+		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+	end
+end
+
+local function OnLeave(self)
+	local db = self.db
+	local holder = self:GetParent()
+	if db.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+	end
+	GameTooltip:Hide()
+end
+
 function mod:CreateDurability()
 	local bar = _G['BUI_Durability']
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
+	bar:SetParent(holder)
+	bar.db = db
 
 	bar.Status:SetScript('OnEvent', OnEvent)
 
 	bar:EnableMouse(true)
-	bar:SetScript('OnEnter', function(self)
-		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
-		GameTooltip:ClearAllPoints()
-
-		GameTooltip:ClearLines()
-
-		for slot, durability in pairs(invDurability) do
-			GameTooltip:AddDoubleLine(slot, format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0))
-		end
-
-		GameTooltip:Show()
-
-		if db.mouseover then
-			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-		end
-	end)
-
-	bar:SetScript('OnLeave', function(self)
-		if db.mouseover then
-			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-		end
-		GameTooltip:Hide()
-	end)
-
-	bar:SetScript('OnMouseUp', Click)
+	bar:SetScript('OnEnter', OnEnter)
+	bar:SetScript('OnLeave', OnLeave)
+	bar:SetScript('OnMouseUp', OnMouseUp)
 
 	bar.Status:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
 	bar.Status:RegisterEvent('MERCHANT_SHOW')
