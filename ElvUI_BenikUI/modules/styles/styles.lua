@@ -22,6 +22,7 @@ function mod:StyleAcePopup()
 		self:BuiStyle('Outside')
 	end
 end
+hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
 
 local function StyleScriptErrorsFrame()
 	local frame = _G.ScriptErrorsFrame
@@ -59,7 +60,6 @@ function mod:Initialize()
 	mod:StyleAddons()
 	StyleElvUIBindPopup()
 
-	hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
 	hooksecurefunc(E, "ToggleOptions", StyleElvUIConfig)
 
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
