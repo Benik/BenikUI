@@ -42,7 +42,8 @@ local tooltips = {
 	_G.WarCampaignTooltip,
 	_G.GameTooltip,
 	_G.ElvUIConfigTooltip,
-	_G.ElvUISpellBookTooltip
+	_G.ElvUISpellBookTooltip,
+	_G.SettingsTooltip,
 }
 
 local overlayedTooltips = {
