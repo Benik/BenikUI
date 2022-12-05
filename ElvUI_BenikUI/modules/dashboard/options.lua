@@ -516,6 +516,13 @@ local function dashboardsTable()
 								get = function(info) return db.tokens[ info[#info] ] end,
 								set = function(info, value) db.tokens[ info[#info] ] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 							},
+							instance = {
+								order = 3,
+								name = L['Hide in Instance'],
+								type = 'toggle',
+								get = function(info) return db.tokens[ info[#info] ] end,
+								set = function(info, value) db.tokens[ info[#info] ] = value; BUID:UpdateTokens(); end,
+							},
 						},
 					},
 					spacer = {
@@ -623,6 +630,13 @@ local function dashboardsTable()
 								get = function(info) return db.professions[ info[#info] ] end,
 								set = function(info, value) db.professions[ info[#info] ] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
 							},
+							instance = {
+								order = 3,
+								name = L['Hide in Instance'],
+								type = 'toggle',
+								get = function(info) return db.professions[ info[#info] ] end,
+								set = function(info, value) db.professions[ info[#info] ] = value; BUID:UpdateProfessions(); end,
+							},
 						},	
 					},
 					spacer = {
@@ -726,6 +740,13 @@ local function dashboardsTable()
 								type = 'toggle',
 								get = function(info) return db.reputations[ info[#info] ] end,
 								set = function(info, value) db.reputations[ info[#info] ] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
+							},
+							instance = {
+								order = 3,
+								name = L['Hide in Instance'],
+								type = 'toggle',
+								get = function(info) return db.reputations[ info[#info] ] end,
+								set = function(info, value) db.reputations[ info[#info] ] = value; BUID:UpdateReputations(); end,
 							},
 						},
 					},

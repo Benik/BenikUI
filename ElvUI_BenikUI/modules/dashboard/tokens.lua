@@ -16,6 +16,7 @@ local C_CurrencyInfo_ExpandCurrencyList = C_CurrencyInfo.ExpandCurrencyList
 local GetExpansionLevel = GetExpansionLevel
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
+local IsInInstance = IsInInstance
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
 
@@ -83,6 +84,7 @@ end
 function mod:UpdateTokens()
 	local db = E.db.benikui.dashboards.tokens
 	local holder = _G.BUI_TokensDashboard
+	local inInstance = db.instance and IsInInstance()
 
 	if(BUI.TokensDB[1]) then
 		for i = 1, getn(BUI.TokensDB) do
@@ -104,7 +106,7 @@ function mod:UpdateTokens()
 
 				if E.private.benikui.dashboards.tokens.chooseTokens[id] == true then
 					if db.zeroamount or amount > 0 then
-						holder:Show()
+						if inInstance then holder:Hide() else holder:Show() end
 						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 						if tokenHolderMover then
 							tokenHolderMover:Size(holder:GetSize())

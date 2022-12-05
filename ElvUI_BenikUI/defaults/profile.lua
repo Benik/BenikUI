@@ -354,7 +354,8 @@ P['benikui'] = {
 			['backdrop'] = true,
 			['zeroamount'] = false,
 			['weekly'] = true,
-			['iconPosition'] = 'LEFT'
+			['iconPosition'] = 'LEFT',
+			['instance'] = true,
 		},
 
 		['professions'] = {
@@ -367,7 +368,8 @@ P['benikui'] = {
 			['transparency'] = true,
 			['backdrop'] = true,
 			['capped'] = false,
-			['iconPosition'] = 'RIGHT'
+			['iconPosition'] = 'RIGHT',
+			['instance'] = true,
 		},
 
 		['reputations'] = {
@@ -383,6 +385,7 @@ P['benikui'] = {
 			['textFactionColors'] = true,
 			['tooltip'] = false,
 			['textAlign'] = 'LEFT',
+			['instance'] = true,
 		},
 
 		['dashfont'] = {
