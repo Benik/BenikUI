@@ -117,8 +117,6 @@ local function SetupLayout(layout)
 	E.private["general"]["glossTex"] = "BuiFlat"
 	E.private["general"]["chatBubbles"] = 'backdrop'
 
-	BUI:GetModule('Layout'):CreateMiddlePanel(true)
-
 	-- common movers
 	E.db["movers"] = E.db["movers"] or {}
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
@@ -350,6 +348,8 @@ local function SetupActionbars(layout)
 	E.db["actionbar"]["extraActionButton"]["clean"] = true
 	E.db["actionbar"]["zoneActionButton"]["clean"] = true
 	E.db["actionbar"]["microbar"]["buttonHeight"] = 22
+
+	BUI:GetModule('Layout'):CreateMiddlePanel()
 
 	E.db["movers"] = E.db["movers"] or {}
 	if layout == 'v1' then
@@ -2112,12 +2112,15 @@ local function SetupDataTexts(role)
 	if role == 'tank' then
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Avoidance'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Armor'
+		E.DataTexts:UpdatePanelInfo("BuiMiddleDTPanel")
 	elseif role == 'healer' then
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Mana Regen'
+		E.DataTexts:UpdatePanelInfo("BuiMiddleDTPanel")
 	elseif role == 'dpsMelee' or 'dpsCaster' then
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit'
+		E.DataTexts:UpdatePanelInfo("BuiMiddleDTPanel")
 	end
 
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
