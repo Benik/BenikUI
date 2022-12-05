@@ -88,7 +88,11 @@ end
 -- Toggle all sounds
 local function iconBG_OnClick(self, btn)
 	if btn == 'LeftButton' then
-		Sound_ToggleSound()
+		if IsShiftKeyDown() then
+			_G.Settings.OpenToCategory(_G.Settings.AUDIO_CATEGORY_ID)
+		else
+			Sound_ToggleSound()
+		end
 	end
 
 	if btn == 'RightButton' then
@@ -122,6 +126,7 @@ local function IconOnEnter(self)
 	GameTooltip:AddLine(' ')
 	GameTooltip:AddDoubleLine(L['Click :'], BINDING_NAME_TOGGLESOUND, 0.7, 0.7, 1, 0.7, 0.7, 1)
 	GameTooltip:AddDoubleLine(L['RightClick :'], BINDING_NAME_TOGGLEMUSIC, 0.7, 0.7, 1, 0.7, 0.7, 1)
+	GameTooltip:AddDoubleLine(L['ShiftClick :'], SOUND_OPTIONS, 0.7, 0.7, 1, 0.7, 0.7, 1)
 	GameTooltip:AddDoubleLine(L['MouseWheel :'], VOLUME..' +/-', 0.7, 0.7, 1, 0.7, 0.7, 1)
 	GameTooltip:AddDoubleLine(L['Shift+MouseWheel :'], L['Fast Volume +/-'], 0.7, 0.7, 1, 0.7, 0.7, 1)
 	GameTooltip:Show()
