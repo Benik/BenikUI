@@ -160,6 +160,7 @@ L['Enable/Disable'] = true
 L['Faction Colors'] = true
 L['Fast Volume +/-'] = true
 L['Filter Capped'] = true
+L['Hide in Instance'] = true
 L['Latency (MS)'] = true
 L['MouseWheel :'] = true
 L['RightClick :'] = true
