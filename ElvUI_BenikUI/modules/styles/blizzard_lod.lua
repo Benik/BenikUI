@@ -16,6 +16,8 @@ local function style_AchievementUI()
 	local frame = _G.AchievementFrame
 	if frame then
 		frame:BuiStyle("Outside")
+		frame.SearchPreviewContainer.backdrop:BuiStyle("Outside")
+		frame.SearchResults.backdrop:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
