@@ -150,7 +150,7 @@ end
 local function OnEvent(self)
 	local bar = self:GetParent():GetParent()
 	local holder = bar:GetParent()
-	local volGet = GetCVar('Sound_MasterVolume')
+	local volGet = GetCVar('Sound_MasterVolume') or 1
 	local volumeValue = tonumber(E:Round(100 * volGet, 0))
 
 	local max = 100
