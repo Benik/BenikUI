@@ -145,7 +145,7 @@ function mod:SetupStyleAndShadow(tt)
 	end
 
 	if BUI.ShadowMode then
-		if not tt.StatusBar.backdrop.shadow then
+		if tt.StatusBar.backdrop and not tt.StatusBar.backdrop.shadow then
 			tt.StatusBar.backdrop:CreateSoftShadow()
 		end
 		if TT.db.healthBar.statusPosition == 'BOTTOM' then
