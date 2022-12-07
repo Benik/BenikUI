@@ -45,7 +45,8 @@ end
 function mod:UpdateProfessions()
 	local db = E.db.benikui.dashboards.professions
 	local holder = _G.BUI_ProfessionsDashboard
-	local inInstance = db.instance and IsInInstance()
+	local inInstance = IsInInstance()
+	local NotinInstance = not (db.instance and inInstance)
 
 	if(BUI.ProfessionsDB[1]) then
 		for i = 1, getn(BUI.ProfessionsDB) do
@@ -67,7 +68,8 @@ function mod:UpdateProfessions()
 
 			if name and (rank < maxRank or (not db.capped)) then
 				if E.private.benikui.dashboards.professions.choosePofessions[id] == true then
-					if inInstance then holder:Hide() else holder:Show() end
+					holder:SetShown(NotinInstance)
+					
 					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if ProfessionsMover then
 						ProfessionsMover:Size(holder:GetSize())

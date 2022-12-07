@@ -148,8 +148,7 @@ local function IconOnLeave(self)
 end
 
 local function OnEvent(self)
-	local bar = self:GetParent():GetParent()
-	local holder = bar:GetParent()
+	local holder = self:GetParent()
 	local volGet = GetCVar('Sound_MasterVolume') or 1
 	local volumeValue = tonumber(E:Round(100 * volGet, 0))
 
@@ -157,7 +156,7 @@ local function OnEvent(self)
 	local color = 3
 	local icon
 
-	bar.Status:SetValue(volumeValue)
+	self.Status:SetValue(volumeValue)
 
 	if (GetCVar('Sound_EnableSFX') == '0') then
 		color = 1
@@ -179,13 +178,13 @@ local function OnEvent(self)
 	end
 
 	if holder:GetAlpha() == 0 then
-		bar.iconBG.text:SetText('')
+		self.iconBG.text:SetText('')
 	else
-		bar.iconBG.text:SetText(icon)
+		self.iconBG.text:SetText(icon)
 	end
 
 	local displayFormat = join('', VOLUME..':', statusColors[color], ' %d%%|r')
-	bar.Text:SetFormattedText(displayFormat, volumeValue)
+	self.Text:SetFormattedText(displayFormat, volumeValue)
 end
 
 function mod:CreateVolume()
@@ -216,7 +215,7 @@ function mod:CreateVolume()
 	iconBG:SetScript('OnMouseWheel', iconBG_OnMouseWheel)
 	iconBG:SetScript('OnMouseUp', iconBG_OnClick)
 
-	bar.Status:SetScript('OnEvent', OnEvent)
-	bar.Status:RegisterEvent('VARIABLES_LOADED')
-	bar.Status:RegisterEvent('CVAR_UPDATE')
+	bar:SetScript('OnEvent', OnEvent)
+	bar:RegisterEvent('VARIABLES_LOADED')
+	bar:RegisterEvent('CVAR_UPDATE')
 end

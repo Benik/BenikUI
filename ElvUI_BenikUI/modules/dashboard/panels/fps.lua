@@ -123,15 +123,20 @@ local function OnLeave(self)
 end
 
 local function OnUpdate(self, elapsed)
-	local bar = _G['BUI_FPS']
-	LastUpdate = LastUpdate - elapsed
+	local db = self.db
+	if db.instance and IsInInstance() then return end
+
+	if LastUpdate > 0 then
+		LastUpdate = LastUpdate - elapsed
+		return
+	end
 
 	if(LastUpdate < 0) then
-		self:SetMinMaxValues(0, 200)
+		self.Status:SetMinMaxValues(0, 200)
 		local value = floor(GetFramerate())
 		local max = 120
 		local fpscolor = 4
-		self:SetValue(value)
+		self.Status:SetValue(value)
 
 		if(value * 100 / max >= 45) then
 			fpscolor = 1
@@ -142,7 +147,7 @@ local function OnUpdate(self, elapsed)
 		end
 
 		local displayFormat = join('', 'FPS: ', statusColors[fpscolor], '%d|r')
-		bar.Text:SetFormattedText(displayFormat, value)
+		self.Text:SetFormattedText(displayFormat, value)
 
 		LastUpdate = 1
 	end
@@ -159,5 +164,5 @@ function mod:CreateFps()
 	bar:SetScript('OnEnter', OnEnter)
 	bar:SetScript('OnLeave', OnLeave)
 
-	bar.Status:SetScript('OnUpdate', OnUpdate)
+	bar:SetScript('OnUpdate', OnUpdate)
 end

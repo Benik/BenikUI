@@ -383,6 +383,13 @@ local function dashboardsTable()
 								get = function(info) return db.system[ info[#info] ] end,
 								set = function(info, value) db.system[ info[#info] ] = value; BUID:UpdateSystemSettings() end,
 							},
+							instance = {
+								order = 3,
+								name = L['Hide in Instance'],
+								type = 'toggle',
+								get = function(info) return db.system[ info[#info] ] end,
+								set = function(info, value) db.system[ info[#info] ] = value; BUID:UpdateVisibility(); end,
+							},
 						},
 					},
 					spacer = {

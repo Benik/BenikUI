@@ -40,7 +40,6 @@ local function OnMouseUp()
 end
 
 local function OnEvent(self)
-	local bar = _G['BUI_Durability']
 	local db = self.db
 
 	totalDurability = 100
@@ -68,10 +67,10 @@ local function OnEvent(self)
 	end
 
 	local displayString = join('', DURABILITY, ': ', statusColors[textColor], '%d%%|r')
-	bar.Text:SetFormattedText(displayString, totalDurability)
+	self.Text:SetFormattedText(displayString, totalDurability)
 
-	bar.Status:SetMinMaxValues(0, 100)
-	bar.Status:SetValue(totalDurability)
+	self.Status:SetMinMaxValues(0, 100)
+	self.Status:SetValue(totalDurability)
 end
 
 local function OnEnter(self)
@@ -110,14 +109,14 @@ function mod:CreateDurability()
 	bar:SetParent(holder)
 	bar.db = db
 
-	bar.Status:SetScript('OnEvent', OnEvent)
+	bar:SetScript('OnEvent', OnEvent)
 
 	bar:EnableMouse(true)
 	bar:SetScript('OnEnter', OnEnter)
 	bar:SetScript('OnLeave', OnLeave)
 	bar:SetScript('OnMouseUp', OnMouseUp)
 
-	bar.Status:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
-	bar.Status:RegisterEvent('MERCHANT_SHOW')
-	bar.Status:RegisterEvent('PLAYER_ENTERING_WORLD')
+	bar:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
+	bar:RegisterEvent('MERCHANT_SHOW')
+	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
 end

@@ -340,6 +340,7 @@ P['benikui'] = {
 				['Volume'] = true,
 			},
 			['latency'] = 2,
+			['instance'] = true,
 		},
 
 		['tokens'] = {

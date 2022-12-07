@@ -62,7 +62,8 @@ end
 function mod:UpdateReputations()
 	local db = E.db.benikui.dashboards.reputations
 	local holder = _G.BUI_ReputationsDashboard
-	local inInstance = db.instance and IsInInstance()
+	local inInstance = IsInInstance()
+	local NotinInstance = not (db.instance and inInstance)
 
 	if(BUI.FactionsDB[1]) then
 		for i = 1, getn(BUI.FactionsDB) do
@@ -82,7 +83,8 @@ function mod:UpdateReputations()
 
 			if name then
 				if E.private.benikui.dashboards.reputations.chooseReputations[factionID] == true then
-					if inInstance then holder:Hide() else holder:Show() end
+					holder:SetShown(NotinInstance)
+
 					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.FactionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 					if reputationHolderMover then
 						reputationHolderMover:SetSize(holder:GetSize())

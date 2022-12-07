@@ -7,6 +7,7 @@ local _G = _G
 -- GLOBALS: hooksecurefunc
 
 local CreateFrame = CreateFrame
+local IsInInstance = IsInInstance
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -49,7 +50,7 @@ function mod:UpdateSystem()
 
 			bar.Status = CreateFrame('StatusBar', nil, bar.dummy)
 			bar.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
-			bar.Status:SetMinMaxValues(0, 100)
+			--bar.Status:SetMinMaxValues(0, 100)
 			bar.Status:SetAllPoints()
 
 			bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);
@@ -59,6 +60,7 @@ function mod:UpdateSystem()
 			bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
 			bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
+			bar.Text:FontTemplate()
 			bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
 			bar.Text:SetJustifyH(db.textAlign)
 
@@ -115,6 +117,15 @@ function mod:UpdateSystemTextAlignment()
 	end
 end
 
+function mod:UpdateVisibility()
+	local db = E.db.benikui.dashboards.system
+	local holder = _G.BUI_SystemDashboard
+	local inInstance = IsInInstance()
+	local NotinInstance = not (db.instance and inInstance)
+
+	holder:SetShown(NotinInstance)
+end
+
 function mod:CreateSystemDashboard()
 	local db = E.db.benikui.dashboards.system
 	local holder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
@@ -151,6 +162,7 @@ function mod:LoadSystem()
 	mod:UpdateSystemSettings()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateSystemSettings)
+	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')
 
 	if db.FPS then mod:CreateFps() end
 	if db.MS then mod:CreateMs() end

@@ -42,8 +42,8 @@ local function OnEnter(self)
 end
 
 local function OnUpdate(self, elapsed)
-	local bar = _G['BUI_MS']
-	local db = E.db.benikui.dashboards.system
+	local db = self.db
+	if db.instance and IsInInstance() then return end
 
 	if LastUpdate > 0 then
 		LastUpdate = LastUpdate - elapsed
@@ -51,7 +51,7 @@ local function OnUpdate(self, elapsed)
 	end
 
 	if(LastUpdate < 0) then
-		self:SetMinMaxValues(0, 200)
+		self.Status:SetMinMaxValues(0, 200)
 		local value = 0
 		local displayFormat = ""
 
@@ -64,7 +64,7 @@ local function OnUpdate(self, elapsed)
 		local max = 200
 		local mscolor = 4
 
-		self:SetValue(value)
+		self.Status:SetValue(value)
 
 		if( value * 100 / max <= 35) then
 			mscolor = 1
@@ -80,7 +80,7 @@ local function OnUpdate(self, elapsed)
 			displayFormat = join('', 'MS (', WORLD, '): ', statusColors[mscolor], '%d|r')
 		end
 
-		bar.Text:SetFormattedText(displayFormat, value)
+		self.Text:SetFormattedText(displayFormat, value)
 		LastUpdate = 1
 	end
 end
@@ -104,5 +104,5 @@ function mod:CreateMs()
 
 	bar:SetScript('OnEnter', OnEnter)
 	bar:SetScript('OnLeave', OnLeave)
-	bar.Status:SetScript('OnUpdate', OnUpdate)
+	bar:SetScript('OnUpdate', OnUpdate)
 end
