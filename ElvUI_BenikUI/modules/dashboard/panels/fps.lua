@@ -138,9 +138,9 @@ local function OnUpdate(self, elapsed)
 		local fpscolor
 		self.Status:SetValue(value)
 
-		if(value * 100 / max >= 60) then
+		if(value * 100 / max >= 59) then
 			fpscolor = 1
-		elseif value * 100 / max < 60 and value * 100 / max > 30 then
+		elseif value * 100 / max < 59 and value * 100 / max > 30 then
 			fpscolor = 2
 		else
 			fpscolor = 3
