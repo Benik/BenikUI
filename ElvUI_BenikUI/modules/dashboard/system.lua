@@ -15,7 +15,7 @@ local SPACING = 1
 
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
-function mod:UpdateSystem()
+function mod:CreateSystem()
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
@@ -32,7 +32,6 @@ function mod:UpdateSystem()
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
 			holder:Show()
-			holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB + 1)) + DASH_SPACING)
 
 			local bar = CreateFrame('Frame', 'BUI_'..name, holder)
 			bar:Height(DASH_HEIGHT)
@@ -50,7 +49,6 @@ function mod:UpdateSystem()
 
 			bar.Status = CreateFrame('StatusBar', nil, bar.dummy)
 			bar.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
-			--bar.Status:SetMinMaxValues(0, 100)
 			bar.Status:SetAllPoints()
 
 			bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);
@@ -77,15 +75,6 @@ function mod:UpdateSystem()
 			end)
 
 			tinsert(BUI.SystemDB, bar)
-		end
-	end
-
-	for key, frame in ipairs(BUI.SystemDB) do
-		frame:ClearAllPoints()
-		if(key == 1) then
-			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
-		else
-			frame:Point('TOP', BUI.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
@@ -117,6 +106,32 @@ function mod:UpdateSystemTextAlignment()
 	end
 end
 
+function mod:UpdateOrientation()
+	local db = E.db.benikui.dashboards.system
+	local holder = _G.BUI_SystemDashboard
+
+	if db.orientation == 'BOTTOM' then
+		holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB)) + DASH_SPACING)
+		holder:Width(db.width)
+	else
+		holder:Height(DASH_HEIGHT + (DASH_SPACING))
+		holder:Width(db.width * (#BUI.SystemDB) + DASH_SPACING*2)
+	end
+
+	for key, frame in ipairs(BUI.SystemDB) do
+		frame:ClearAllPoints()
+		if(key == 1) then
+			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+		else
+			if db.orientation == 'BOTTOM' then
+				frame:Point('TOP', BUI.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			else
+				frame:Point('LEFT', BUI.SystemDB[key - 1], 'RIGHT', SPACING +(E.PixelMode and 0 or 2), 0)
+			end
+		end
+	end
+end
+
 function mod:UpdateVisibility()
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
@@ -132,10 +147,11 @@ function mod:CreateSystemDashboard()
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
 	holder:Width(db.width or 150)
 
-	mod:UpdateSystem()
 	mod:UpdateHolderDimensions(holder, 'system', BUI.SystemDB)
 	mod:ToggleStyle(holder, 'system')
 	mod:ToggleTransparency(holder, 'system')
+	mod:CreateSystem()
+	mod:UpdateOrientation()
 
 	holder:SetScript('OnEnter', function()
 		if db.mouseover then

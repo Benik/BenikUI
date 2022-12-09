@@ -25,6 +25,11 @@ local textAlignValues = {
 	['RIGHT'] = L['Right'],
 }
 
+local frameOrientationValues = {
+	['RIGHT'] = L['Horizontal'],
+	['BOTTOM'] = L['Vertical'],
+}
+
 local barColorValues = {
 	[1] = L.CLASS_COLORS,
 	[2] = L.CUSTOM,
@@ -334,7 +339,7 @@ local function dashboardsTable()
 							},
 							textAlign ={
 								order = 2,
-								name = E.NewSign..L['Text Alignment'],
+								name = L['Text Alignment'],
 								type = 'select',
 								values = textAlignValues,
 								get = function(info) return db.system[ info[#info] ] end,
@@ -349,8 +354,16 @@ local function dashboardsTable()
 								get = function(info) return db.system[ info[#info] ] end,
 								set = function(info, value) db.system[ info[#info] ] = value; BUID:BarHeight('system', BUI.SystemDB); end,
 							},
-							layoutOptions = {
+							orientation = {
 								order = 4,
+								name = E.NewSign..L['Frame Orientation'],
+								type = 'select',
+								values = frameOrientationValues,
+								get = function(info) return db.system[ info[#info] ] end,
+								set = function(info, value) db.system[ info[#info] ] = value; BUID:UpdateOrientation(); end,
+							},
+							layoutOptions = {
+								order = 10,
 								type = 'multiselect',
 								name = ' ',
 								disabled = function() return not db.system.enable end,
@@ -437,7 +450,7 @@ local function dashboardsTable()
 								desc = L['Change the Tokens Dashboard width.'],
 								min = 120, max = 520, step = 1,
 								get = function(info) return db.tokens[ info[#info] ] end,
-								set = function(info, value) db.tokens[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_TokensDashboard, 'tokens', BUI.TokensDB); BUID:UpdateTokenSettings(); end,
+								set = function(info, value) db.tokens[ info[#info] ] = value; BUID:UpdateTokenSettings(); BUID:UpdateTokens(); end,
 							},
 							iconPosition = {
 								order = 2,
@@ -456,8 +469,16 @@ local function dashboardsTable()
 								get = function(info) return db.tokens[ info[#info] ] end,
 								set = function(info, value) db.tokens[ info[#info] ] = value; BUID:BarHeight('tokens', BUI.TokensDB); end,
 							},
-							layoutOptions = {
+							orientation = {
 								order = 4,
+								name = E.NewSign..L['Frame Orientation'],
+								type = 'select',
+								values = frameOrientationValues,
+								get = function(info) return db.tokens[ info[#info] ] end,
+								set = function(info, value) db.tokens[ info[#info] ] = value; BUID:UpdateTokens(); end,
+							},
+							layoutOptions = {
+								order = 10,
 								type = 'multiselect',
 								name = ' ',
 								disabled = function() return not db.tokens.enable end,
@@ -466,7 +487,7 @@ local function dashboardsTable()
 								values = layoutStyles,
 							},
 							variousGroup = {
-								order = 5,
+								order = 20,
 								type = 'group',
 								name = ' ',
 								guiInline = true,
@@ -567,7 +588,7 @@ local function dashboardsTable()
 								desc = L['Change the Professions Dashboard width.'],
 								min = 120, max = 520, step = 1,
 								get = function(info) return db.professions[ info[#info] ] end,
-								set = function(info, value) db.professions[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_ProfessionsDashboard, 'professions', BUI.ProfessionsDB); BUID:UpdateProfessionSettings(); end,
+								set = function(info, value) db.professions[ info[#info] ] = value; BUID:UpdateProfessions(); BUID:UpdateProfessionSettings(); end,
 							},
 							iconPosition = {
 								order = 2,
@@ -586,8 +607,16 @@ local function dashboardsTable()
 								get = function(info) return db.professions[ info[#info] ] end,
 								set = function(info, value) db.professions[ info[#info] ] = value; BUID:BarHeight('professions', BUI.ProfessionsDB); end,
 							},
-							layoutOptions = {
+							orientation = {
 								order = 4,
+								name = E.NewSign..L['Frame Orientation'],
+								type = 'select',
+								values = frameOrientationValues,
+								get = function(info) return db.professions[ info[#info] ] end,
+								set = function(info, value) db.professions[ info[#info] ] = value; BUID:UpdateProfessions(); end,
+							},
+							layoutOptions = {
+								order = 10,
 								type = 'multiselect',
 								name = ' ',
 								disabled = function() return not db.professions.enable end,
@@ -596,7 +625,7 @@ local function dashboardsTable()
 								values = layoutStyles,
 							},
 							variousGroup = {
-								order = 5,
+								order = 20,
 								type = 'group',
 								name = ' ',
 								guiInline = true,
@@ -682,7 +711,7 @@ local function dashboardsTable()
 								desc = L['Change the Professions Dashboard width.'],
 								min = 120, max = 520, step = 1,
 								get = function(info) return db.reputations[ info[#info] ] end,
-								set = function(info, value) db.reputations[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_ReputationsDashboard, 'reputations', BUI.FactionsDB); BUID:UpdateReputationSettings(); BUID:UpdateReputations(); end,
+								set = function(info, value) db.reputations[ info[#info] ] = value; BUID:UpdateReputationSettings(); BUID:UpdateReputations(); end,
 							},
 							textAlign ={
 								order = 2,
@@ -701,8 +730,16 @@ local function dashboardsTable()
 								get = function(info) return db.reputations[ info[#info] ] end,
 								set = function(info, value) db.reputations[ info[#info] ] = value; BUID:BarHeight('reputations', BUI.FactionsDB); end,
 							},
-							layoutOptions = {
+							orientation = {
 								order = 4,
+								name = E.NewSign..L['Frame Orientation'],
+								type = 'select',
+								values = frameOrientationValues,
+								get = function(info) return db.reputations[ info[#info] ] end,
+								set = function(info, value) db.reputations[ info[#info] ] = value; BUID:UpdateReputations(); end,
+							},
+							layoutOptions = {
+								order = 10,
 								type = 'multiselect',
 								name = ' ',
 								disabled = function() return not db.reputations.enable end,
@@ -711,7 +748,7 @@ local function dashboardsTable()
 								values = layoutStyles,
 							},
 							factionColors = {
-								order = 5,
+								order = 20,
 								type = 'multiselect',
 								name = ' ',
 								disabled = function() return not db.reputations.enable end,

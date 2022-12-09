@@ -85,10 +85,12 @@ function mod:UpdateReputations()
 				if E.private.benikui.dashboards.reputations.chooseReputations[factionID] == true then
 					holder:SetShown(NotinInstance)
 
-					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.FactionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
-					if reputationHolderMover then
-						reputationHolderMover:SetSize(holder:GetSize())
-						holder:SetPoint('TOPLEFT', reputationHolderMover, 'TOPLEFT')
+					if db.orientation == 'BOTTOM' then
+						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.FactionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+						holder:Width(db.width)
+					else
+						holder:Height(DASH_HEIGHT + (DASH_SPACING))
+						holder:Width(db.width * (#BUI.FactionsDB + 1) + DASH_SPACING*2)
 					end
 
 					local isFriend, friendText, standingLabel, majorStandingLabel
@@ -253,9 +255,13 @@ function mod:UpdateReputations()
 	for key, frame in pairs(BUI.FactionsDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:SetPoint('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:SetPoint('TOP', BUI.FactionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			if db.orientation == 'BOTTOM' then
+				frame:Point('TOP', BUI.FactionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			else
+				frame:Point('LEFT', BUI.FactionsDB[key - 1], 'RIGHT', SPACING +(E.PixelMode and 0 or 2), 0)
+			end
 		end
 	end
 end
@@ -330,13 +336,12 @@ function mod:CreateReputationsDashboard()
 	local db = E.db.benikui.dashboards.reputations
 
 	mod.reputationHolder = mod:CreateDashboardHolder('BUI_ReputationsDashboard', 'reputations')
-	mod.reputationHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
-	mod.reputationHolder:SetWidth(db.width or 150)
+	mod.reputationHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
+	mod.reputationHolder:Width(db.width or 150)
 
 	mod:PopulateFactionData()
 	mod:UpdateReputations()
 	mod:UpdateReputationSettings()
-	mod:UpdateHolderDimensions(mod.reputationHolder, 'reputations', BUI.FactionsDB)
 	mod:ToggleStyle(mod.reputationHolder, 'reputations')
 	mod:ToggleTransparency(mod.reputationHolder, 'reputations')
 

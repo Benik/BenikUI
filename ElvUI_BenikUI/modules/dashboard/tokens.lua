@@ -109,10 +109,12 @@ function mod:UpdateTokens()
 					if db.zeroamount or amount > 0 then
 						holder:SetShown(NotinInstance)
 
-						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
-						if tokenHolderMover then
-							tokenHolderMover:Size(holder:GetSize())
-							holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
+						if db.orientation == 'BOTTOM' then
+							holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+							holder:Width(db.width)
+						else
+							holder:Height(DASH_HEIGHT + (DASH_SPACING))
+							holder:Width(db.width * (#BUI.TokensDB + 1) + DASH_SPACING*2)
 						end
 
 						local bar = self:CreateDashboard(holder, 'tokens', true)
@@ -196,7 +198,11 @@ function mod:UpdateTokens()
 		if(key == 1) then
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			if db.orientation == 'BOTTOM' then
+				frame:Point('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			else
+				frame:Point('LEFT', BUI.TokensDB[key - 1], 'RIGHT', SPACING +(E.PixelMode and 0 or 2), 0)
+			end
 		end
 	end
 end
@@ -272,7 +278,6 @@ function mod:CreateTokensDashboard()
 	mod:PopulateCurrencyData()
 	mod:UpdateTokens()
 	mod:UpdateTokenSettings()
-	mod:UpdateHolderDimensions(holder, 'tokens', BUI.TokensDB)
 	mod:ToggleStyle(holder, 'tokens')
 	mod:ToggleTransparency(holder, 'tokens')
 
@@ -299,5 +304,4 @@ function mod:LoadTokens()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokenSettings)
 	hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
-	if E.private.benikui.dashboards.tokens.chooseTokens[1822] == true then E.private.benikui.dashboards.tokens.chooseTokens[1822] = nil end -- remove renown from old profiles
 end

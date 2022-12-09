@@ -70,10 +70,12 @@ function mod:UpdateProfessions()
 				if E.private.benikui.dashboards.professions.choosePofessions[id] == true then
 					holder:SetShown(NotinInstance)
 					
-					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
-					if ProfessionsMover then
-						ProfessionsMover:Size(holder:GetSize())
-						holder:Point('TOPLEFT', ProfessionsMover, 'TOPLEFT')
+					if db.orientation == 'BOTTOM' then
+						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+						holder:Width(db.width)
+					else
+						holder:Height(DASH_HEIGHT + (DASH_SPACING))
+						holder:Width(db.width * (#BUI.ProfessionsDB + 1) + DASH_SPACING*2)
 					end
 
 					local bar = self:CreateDashboard(holder, 'professions', true)
@@ -146,12 +148,16 @@ function mod:UpdateProfessions()
 
 	tsort(BUI.ProfessionsDB, sortFunction)
 
-	for key, frame in ipairs(BUI.ProfessionsDB) do
+	for key, frame in pairs(BUI.ProfessionsDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', BUI.ProfessionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			if db.orientation == 'BOTTOM' then
+				frame:Point('TOP', BUI.ProfessionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			else
+				frame:Point('LEFT', BUI.ProfessionsDB[key - 1], 'RIGHT', SPACING +(E.PixelMode and 0 or 2), 0)
+			end
 		end
 	end
 end
@@ -184,7 +190,6 @@ function mod:CreateProfessionsDashboard()
 
 	mod:UpdateProfessions()
 	mod:UpdateProfessionSettings()
-	mod:UpdateHolderDimensions(holder, 'professions', BUI.ProfessionsDB)
 	mod:ToggleStyle(holder, 'professions')
 	mod:ToggleTransparency(holder, 'professions')
 
