@@ -49,6 +49,7 @@ function mod:CreateSystem()
 
 			bar.Status = CreateFrame('StatusBar', nil, bar.dummy)
 			bar.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
+			bar.Status:SetMinMaxValues(0, 100)
 			bar.Status:SetAllPoints()
 
 			bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);
