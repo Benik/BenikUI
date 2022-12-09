@@ -78,7 +78,7 @@ local function UpdateTokenOptions()
 				order = i,
 				type = 'group',
 				name = name,
-				disabled = function() return not db.enableTokens end,
+				disabled = function() return not db.enable end,
 				args = {
 				},
 			}
@@ -90,7 +90,7 @@ local function UpdateTokenOptions()
 					type = 'toggle',
 					name = (icon and '|T'..icon..':18|t '..tname) or tname,
 					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], BreakUpLargeNumbers(amount)),
-					disabled = function() return not db.enableTokens end,
+					disabled = function() return not db.enable end,
 					get = function(info) return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
 					set = function(info, value) E.private.benikui.dashboards.tokens.chooseTokens[id] = value; BUID:UpdateTokens(); BUID:UpdateTokenSettings(); end,
 				}
@@ -111,7 +111,7 @@ local function UpdateProfessionOptions()
 			type = 'group',
 			guiInline = true,
 			name = L['Select Professions'],
-			disabled = function() return not db.enableProfessions end,
+			disabled = function() return not db.enable end,
 			args = {
 			},
 		}
@@ -135,7 +135,7 @@ local function UpdateProfessionOptions()
 			type = 'group',
 			guiInline = true,
 			name = L['Select Professions'],
-			disabled = function() return not db.enableProfessions end,
+			disabled = function() return not db.enable end,
 			args = {
 				noprof = {
 					order = 1,
@@ -170,7 +170,7 @@ local function UpdateReputationOptions()
 				type = 'toggle',
 				name = name,
 				desc = format('%s %s', L['Enable/Disable'], name),
-				disabled = function() return not db.enableReputations end,
+				disabled = function() return not db.enable end,
 				get = function(info) return E.private.benikui.dashboards.reputations.chooseReputations[factionID] end,
 				set = function(info, value) E.private.benikui.dashboards.reputations.chooseReputations[factionID] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
 			}
@@ -180,10 +180,10 @@ end
 
 local function UpdateAllDashboards()
 	local db = E.db.benikui.dashboards
-	if db.professions.enableProfessions then BUID:UpdateProfessionSettings(); end
-	if db.tokens.enableTokens then BUID:UpdateTokenSettings(); end
-	if db.system.enableSystem then BUID:UpdateSystemSettings(); end
-	if db.reputations.enableReputations then BUID:UpdateReputationSettings(); end
+	if db.professions.enable then BUID:UpdateProfessionSettings(); end
+	if db.tokens.enable then BUID:UpdateTokenSettings(); end
+	if db.system.enable then BUID:UpdateSystemSettings(); end
+	if db.reputations.enable then BUID:UpdateReputationSettings(); end
 end
 
 local function dashboardsTable()
@@ -265,7 +265,7 @@ local function dashboardsTable()
 				type = 'group',
 				name = L['Fonts'],
 				guiInline = true,
-				disabled = function() return not db.system.enableSystem and not db.tokens.enableTokens and not db.professions.enableProfessions end,
+				disabled = function() return not db.system.enable and not db.tokens.enable and not db.professions.enable end,
 				get = function(info) return db.dashfont[ info[#info] ] end,
 				set = function(info, value) db.dashfont[ info[#info] ] = value;
 					UpdateAllDashboards()
@@ -307,21 +307,21 @@ local function dashboardsTable()
 				type = 'group',
 				name = L['System'],
 				args = {
-					enableSystem = {
+					enable = {
 						order = 1,
 						type = 'toggle',
 						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the System Dashboard.'],
-						get = function(info) return db.system.enableSystem end,
-						set = function(info, value) db.system.enableSystem = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						get = function(info) return db.system.enable end,
+						set = function(info, value) db.system.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					layoutGroup = {
 						order = 2,
 						type = 'group',
 						name = L['Layout'],
 						guiInline = true,
-						disabled = function() return not db.system.enableSystem end,
+						disabled = function() return not db.system.enable end,
 						args = {
 							width = {
 								order = 1,
@@ -353,7 +353,7 @@ local function dashboardsTable()
 								order = 4,
 								type = 'multiselect',
 								name = ' ',
-								disabled = function() return not db.system.enableSystem end,
+								disabled = function() return not db.system.enable end,
 								get = function(_, key) return db.system[key] end,
 								set = function(_, key, value) db.system[key] = value; BUID:ToggleStyle(BUI_SystemDashboard, 'system') BUID:ToggleTransparency(BUI_SystemDashboard, 'system') end,
 								values = layoutStyles,
@@ -365,7 +365,7 @@ local function dashboardsTable()
 						type = 'group',
 						name = L["Visibility"],
 						guiInline = true,
-						disabled = function() return not db.system.enableSystem end,
+						disabled = function() return not db.system.enable end,
 						args = {
 							combat = {
 								order = 1,
@@ -402,7 +402,7 @@ local function dashboardsTable()
 						type = 'group',
 						guiInline = true,
 						name = L['Select System Board'],
-						disabled = function() return not db.system.enableSystem end,
+						disabled = function() return not db.system.enable end,
 						args = {
 						},
 					},
@@ -414,21 +414,21 @@ local function dashboardsTable()
 				name = TOKENS,
 				childGroups = 'select',
 				args = {
-					enableTokens = {
+					enable = {
 						order = 1,
 						type = 'toggle',
 						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the Tokens Dashboard.'],
-						get = function(info) return db.tokens.enableTokens end,
-						set = function(info, value) db.tokens.enableTokens = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						get = function(info) return db.tokens.enable end,
+						set = function(info, value) db.tokens.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					layoutGroup = {
 						order = 2,
 						type = 'group',
 						name = L['Layout'],
 						guiInline = true,
-						disabled = function() return not db.tokens.enableTokens end,
+						disabled = function() return not db.tokens.enable end,
 						args = {
 							width = {
 								order = 1,
@@ -460,7 +460,7 @@ local function dashboardsTable()
 								order = 4,
 								type = 'multiselect',
 								name = ' ',
-								disabled = function() return not db.tokens.enableTokens end,
+								disabled = function() return not db.tokens.enable end,
 								get = function(_, key) return db.tokens[key] end,
 								set = function(_, key, value) db.tokens[key] = value; BUID:ToggleStyle(BUI_TokensDashboard, 'tokens') BUID:ToggleTransparency(BUI_TokensDashboard, 'tokens') end,
 								values = layoutStyles,
@@ -470,7 +470,7 @@ local function dashboardsTable()
 								type = 'group',
 								name = ' ',
 								guiInline = true,
-								disabled = function() return not db.tokens.enableTokens end,
+								disabled = function() return not db.tokens.enable end,
 								args = {
 									zeroamount = {
 										order = 1,
@@ -505,7 +505,7 @@ local function dashboardsTable()
 						type = 'group',
 						name = L["Visibility"],
 						guiInline = true,
-						disabled = function() return not db.tokens.enableTokens end,
+						disabled = function() return not db.tokens.enable end,
 						args = {
 							combat = {
 								order = 1,
@@ -544,7 +544,7 @@ local function dashboardsTable()
 				type = 'group',
 				name = TRADE_SKILLS,
 				args = {
-					enableProfessions = {
+					enable = {
 						order = 1,
 						type = 'toggle',
 						name = L["Enable"],
@@ -558,7 +558,7 @@ local function dashboardsTable()
 						type = 'group',
 						name = L['Layout'],
 						guiInline = true,
-						disabled = function() return not db.professions.enableProfessions end,
+						disabled = function() return not db.professions.enable end,
 						args = {
 							width = {
 								order = 1,
@@ -590,7 +590,7 @@ local function dashboardsTable()
 								order = 4,
 								type = 'multiselect',
 								name = ' ',
-								disabled = function() return not db.professions.enableProfessions end,
+								disabled = function() return not db.professions.enable end,
 								get = function(_, key) return db.professions[key] end,
 								set = function(_, key, value) db.professions[key] = value; BUID:ToggleStyle(BUI_ProfessionsDashboard, 'professions') BUID:ToggleTransparency(BUI_ProfessionsDashboard, 'professions') end,
 								values = layoutStyles,
@@ -600,7 +600,7 @@ local function dashboardsTable()
 								type = 'group',
 								name = ' ',
 								guiInline = true,
-								disabled = function() return not db.professions.enableProfessions end,
+								disabled = function() return not db.professions.enable end,
 								args = {
 									capped = {
 										order = 1,
@@ -619,7 +619,7 @@ local function dashboardsTable()
 						type = 'group',
 						name = L["Visibility"],
 						guiInline = true,
-						disabled = function() return not db.professions.enableProfessions end,
+						disabled = function() return not db.professions.enable end,
 						args = {
 							combat = {
 								order = 1,
@@ -659,7 +659,7 @@ local function dashboardsTable()
 				name = REPUTATION,
 				childGroups = 'select',
 				args = {
-					enableReputations = {
+					enable = {
 						order = 1,
 						type = 'toggle',
 						name = L["Enable"],
@@ -673,7 +673,7 @@ local function dashboardsTable()
 						type = 'group',
 						name = L['Layout'],
 						guiInline = true,
-						disabled = function() return not db.reputations.enableReputations end,
+						disabled = function() return not db.reputations.enable end,
 						args = {
 							width = {
 								order = 1,
@@ -705,7 +705,7 @@ local function dashboardsTable()
 								order = 4,
 								type = 'multiselect',
 								name = ' ',
-								disabled = function() return not db.reputations.enableReputations end,
+								disabled = function() return not db.reputations.enable end,
 								get = function(_, key) return db.reputations[key] end,
 								set = function(_, key, value) db.reputations[key] = value; BUID:ToggleStyle(BUI_ReputationsDashboard, 'reputations') BUID:ToggleTransparency(BUI_ReputationsDashboard, 'reputations') end,
 								values = layoutStyles,
@@ -714,7 +714,7 @@ local function dashboardsTable()
 								order = 5,
 								type = 'multiselect',
 								name = ' ',
-								disabled = function() return not db.reputations.enableReputations end,
+								disabled = function() return not db.reputations.enable end,
 								get = function(_, key) return db.reputations[key] end,
 								set = function(_, key, value) db.reputations[key] = value; BUID:UpdateReputations(); BUID:UpdateReputationSettings(); end,
 								values = {
@@ -730,7 +730,7 @@ local function dashboardsTable()
 						type = 'group',
 						name = L["Visibility"],
 						guiInline = true,
-						disabled = function() return not db.reputations.enableReputations end,
+						disabled = function() return not db.reputations.enable end,
 						args = {
 							combat = {
 								order = 1,

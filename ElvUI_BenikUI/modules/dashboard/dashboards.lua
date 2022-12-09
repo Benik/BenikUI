@@ -218,7 +218,30 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 	return bar
 end
 
+local function ConvertDB()
+	if E.db.benikui.dashboards.DashboardDBConverted == nil then
+		if E.db.benikui.dashboards.enableSystem ~= nil then
+			E.db.benikui.dashboards.system.enable = E.db.benikui.dashboards.enableSystem
+			E.db.benikui.dashboards.enableSystem = nil
+		end
+		if E.db.benikui.dashboards.enableProfessions ~= nil then
+			E.db.benikui.dashboards.professions.enable = E.db.benikui.dashboards.enableProfessions
+			E.db.benikui.dashboards.enableProfessions = nil
+		end
+		if E.db.benikui.dashboards.enableTokens ~= nil then
+			E.db.benikui.dashboards.tokens.enable = E.db.benikui.dashboards.enableTokens
+			E.db.benikui.dashboards.enableTokens = nil
+		end
+		if E.db.benikui.dashboards.enableReputations ~= nil then
+			E.db.benikui.dashboards.reputations.enable = E.db.benikui.dashboards.enableReputations
+			E.db.benikui.dashboards.enableReputations = nil
+		end
+		E.db.benikui.dashboards.DashboardDBConverted = BUI.Version
+	end
+end
+
 function mod:Initialize()
+	ConvertDB()
 	mod:LoadSystem()
 	mod:LoadProfessions()
 	mod:LoadTokens()

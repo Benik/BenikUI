@@ -292,7 +292,7 @@ function mod:CreateTokensDashboard()
 end
 
 function mod:LoadTokens()
-	if E.db.benikui.dashboards.tokens.enableTokens ~= true then return end
+	if E.db.benikui.dashboards.tokens.enable ~= true then return end
 
 	mod:CreateTokensDashboard()
 	mod:TokenEvents()

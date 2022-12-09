@@ -356,7 +356,7 @@ function mod:CreateReputationsDashboard()
 end
 
 function mod:LoadReputations()
-	if E.db.benikui.dashboards.reputations.enableReputations ~= true then return end
+	if E.db.benikui.dashboards.reputations.enable ~= true then return end
 
 	mod:CreateReputationsDashboard()
 	mod:ReputationEvents()

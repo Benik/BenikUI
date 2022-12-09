@@ -153,7 +153,7 @@ function mod:CreateSystemDashboard()
 end
 
 function mod:LoadSystem()
-	if E.db.benikui.dashboards.system.enableSystem ~= true then return end
+	if E.db.benikui.dashboards.system.enable ~= true then return end
 	local db = E.db.benikui.dashboards.system.chooseSystem
 
 	if (db.FPS ~= true and db.MS ~= true and db.Bags ~= true and db.Durability ~= true and db.Volume ~= true) then return end

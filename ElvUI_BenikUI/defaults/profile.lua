@@ -322,8 +322,9 @@ P['benikui'] = {
 
 	-- Dashboards
 	['dashboards'] = {
+		['DashboardDBConverted'] = nil,
 		['system'] = {
-			['enableSystem'] = true,
+			['enable'] = true,
 			['combat'] = false,
 			['width'] = 150,
 			['barHeight'] = 1,
@@ -344,7 +345,7 @@ P['benikui'] = {
 		},
 
 		['tokens'] = {
-			['enableTokens'] = true,
+			['enable'] = true,
 			['combat'] = true,
 			['mouseover'] = false,
 			['tooltip'] = true,
@@ -360,7 +361,7 @@ P['benikui'] = {
 		},
 
 		['professions'] = {
-			['enableProfessions'] = true,
+			['enable'] = true,
 			['combat'] = true,
 			['mouseover'] = false,
 			['width'] = 150,
@@ -374,7 +375,7 @@ P['benikui'] = {
 		},
 
 		['reputations'] = {
-			['enableReputations'] = true,
+			['enable'] = true,
 			['combat'] = true,
 			['mouseover'] = false,
 			['width'] = 200,

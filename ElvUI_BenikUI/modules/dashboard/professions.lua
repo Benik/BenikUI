@@ -204,7 +204,7 @@ function mod:CreateProfessionsDashboard()
 end
 
 function mod:LoadProfessions()
-	if E.db.benikui.dashboards.professions.enableProfessions ~= true then return end
+	if E.db.benikui.dashboards.professions.enable ~= true then return end
 
 	mod:CreateProfessionsDashboard()
 	mod:ProfessionsEvents()
