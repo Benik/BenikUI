@@ -24,7 +24,7 @@ local LastUpdate = 1
 
 local statusColors = {
 	'|cff0CD809',	-- green
-	'|cffE8DA0F',	-- yellow
+	--'|cffE8DA0F',	-- yellow
 	'|cffFF9000',	-- orange
 	'|cffD80909'	-- red
 }
@@ -134,13 +134,13 @@ local function OnUpdate(self, elapsed)
 	if(LastUpdate < 0) then
 		self.Status:SetMinMaxValues(0, 200)
 		local value = floor(GetFramerate())
-		local max = 120
-		local fpscolor = 4
+		local max = 100
+		local fpscolor
 		self.Status:SetValue(value)
 
-		if(value * 100 / max >= 45) then
+		if(value * 100 / max >= 60) then
 			fpscolor = 1
-		elseif value * 100 / max < 45 and value * 100 / max > 30 then
+		elseif value * 100 / max < 60 and value * 100 / max > 30 then
 			fpscolor = 2
 		else
 			fpscolor = 3
