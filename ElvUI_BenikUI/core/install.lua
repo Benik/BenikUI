@@ -2132,6 +2132,7 @@ local function SetupDataTexts(role)
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][2] = 'Bags'
 
 	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][2] = 'Mastery'
+	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["enable"] = true
 
 	E.DataTexts:UpdatePanelInfo('BuiLeftChatDTPanel')
 	E.DataTexts:UpdatePanelInfo('BuiRightChatDTPanel')
