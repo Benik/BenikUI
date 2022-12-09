@@ -32,7 +32,7 @@ local frameOrientationValues = {
 
 local barColorValues = {
 	[1] = L.CLASS_COLORS,
-	[2] = L.CUSTOM,
+	[2] = L["Custom Color"],
 }
 
 local layoutStyles = {
