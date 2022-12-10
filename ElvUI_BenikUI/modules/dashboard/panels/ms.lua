@@ -64,9 +64,9 @@ local function OnUpdate(self, elapsed)
 
 		self.Status:SetValue(value)
 
-		if( value * 100 / max <= 25) then
+		if( value * 100 / max <= 30) then
 			mscolor = 1
-		elseif value * 100 / max > 25 and value * 100 / max < 60 then
+		elseif value * 100 / max > 30 and value * 100 / max < 60 then
 			mscolor = 2
 		else
 			mscolor = 3
