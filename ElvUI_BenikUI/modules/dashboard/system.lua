@@ -116,7 +116,7 @@ function mod:UpdateOrientation()
 		holder:Width(db.width)
 	else
 		holder:Height(DASH_HEIGHT + (DASH_SPACING))
-		holder:Width(db.width * (#BUI.SystemDB) + DASH_SPACING*2)
+		holder:Width(db.width * (#BUI.SystemDB) + ((#BUI.SystemDB -1) *db.spacing))
 	end
 
 	for key, frame in ipairs(BUI.SystemDB) do
@@ -127,7 +127,7 @@ function mod:UpdateOrientation()
 			if db.orientation == 'BOTTOM' then
 				frame:Point('TOP', BUI.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 			else
-				frame:Point('LEFT', BUI.SystemDB[key - 1], 'RIGHT', SPACING +(E.PixelMode and 0 or 2), 0)
+				frame:Point('LEFT', BUI.SystemDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
 			end
 		end
 	end

@@ -346,16 +346,25 @@ local function dashboardsTable()
 								get = function(info) return db.system[ info[#info] ] end,
 								set = function(info, value) db.system[ info[#info] ] = value; BUID:BarHeight('system', BUI.SystemDB); end,
 							},
-							updateThrottle = {
+							spacing = {
 								order = 3,
+								type = 'range',
+								name = E.NewSign..L["Spacing"],
+								min = 1, max = 30, step = 1,
+								disabled = function() return db.system.orientation == 'BOTTOM' end,
+								get = function(info) return db.system[ info[#info] ] end,
+								set = function(info, value) db.system[ info[#info] ] = value; BUID:UpdateOrientation(); end,
+							},
+							updateThrottle = {
+								order = 4,
 								type = 'range',
 								name = E.NewSign..L['Update Throttle'],
 								min = 1, max = 10, step = 1,
 								get = function(info) return db.system[ info[#info] ] end,
 								set = function(info, value) db.system[ info[#info] ] = value; end,
 							},
-							textAlign ={
-								order = 4,
+							textAlign = {
+								order = 5,
 								name = L['Text Alignment'],
 								type = 'select',
 								values = textAlignValues,
@@ -363,7 +372,7 @@ local function dashboardsTable()
 								set = function(info, value) db.system[ info[#info] ] = value BUID:UpdateSystemTextAlignment() end,
 							},
 							orientation = {
-								order = 5,
+								order = 6,
 								name = E.NewSign..L['Frame Orientation'],
 								type = 'select',
 								values = frameOrientationValues,
@@ -371,7 +380,7 @@ local function dashboardsTable()
 								set = function(info, value) db.system[ info[#info] ] = value; BUID:UpdateOrientation(); end,
 							},
 							overrideColor = {
-								order = 6,
+								order = 7,
 								name = E.NewSign..L['Value Color'],
 								type = 'toggle',
 								get = function(info) return db.system[ info[#info] ] end,

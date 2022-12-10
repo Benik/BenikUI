@@ -345,6 +345,7 @@ P['benikui'] = {
 			['orientation'] = 'BOTTOM',
 			['overrideColor'] = true,
 			['updateThrottle'] = 2,
+			['spacing'] = 1,
 		},
 
 		['tokens'] = {
