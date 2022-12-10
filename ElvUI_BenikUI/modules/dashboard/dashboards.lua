@@ -27,9 +27,13 @@ function mod:EnableDisableCombat(holder, option)
 	end
 end
 
-function mod:UpdateHolderDimensions(holder, option, tableName)
+function mod:UpdateHolderDimensions(holder, option, tableName, isSystem)
 	local db = E.db.benikui.dashboards[option]
-	holder:Width(db.width)
+	if isSystem and db.orientation == 'RIGHT' then
+		holder:Width(db.width * (#BUI.SystemDB) + ((#BUI.SystemDB -1) *db.spacing))
+	else
+		holder:Width(db.width)
+	end
 
 	for _, frame in pairs(tableName) do
 		frame:Width(db.width)

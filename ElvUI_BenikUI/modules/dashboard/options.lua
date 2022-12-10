@@ -335,7 +335,7 @@ local function dashboardsTable()
 								desc = L['Change the System Dashboard width.'],
 								min = 120, max = 520, step = 1,
 								get = function(info) return db.system[ info[#info] ] end,
-								set = function(info, value) db.system[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_SystemDashboard, 'system', BUI.SystemDB); BUID:UpdateSystemSettings(); end,
+								set = function(info, value) db.system[ info[#info] ] = value; BUID:UpdateHolderDimensions(BUI_SystemDashboard, 'system', BUI.SystemDB, true); BUID:UpdateSystemSettings(); end,
 							},
 							barHeight = {
 								order = 2,
