@@ -363,6 +363,7 @@ P['benikui'] = {
 			['iconPosition'] = 'LEFT',
 			['instance'] = true,
 			['orientation'] = 'BOTTOM',
+			['spacing'] = 1,
 		},
 
 		['professions'] = {
@@ -378,6 +379,7 @@ P['benikui'] = {
 			['iconPosition'] = 'RIGHT',
 			['instance'] = true,
 			['orientation'] = 'BOTTOM',
+			['spacing'] = 1,
 		},
 
 		['reputations'] = {
@@ -395,6 +397,7 @@ P['benikui'] = {
 			['textAlign'] = 'LEFT',
 			['instance'] = true,
 			['orientation'] = 'BOTTOM',
+			['spacing'] = 1,
 		},
 
 		['dashfont'] = {

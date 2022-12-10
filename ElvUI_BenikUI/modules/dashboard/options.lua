@@ -485,8 +485,17 @@ local function dashboardsTable()
 								get = function(info) return db.tokens[ info[#info] ] end,
 								set = function(info, value) db.tokens[ info[#info] ] = value; BUID:BarHeight('tokens', BUI.TokensDB); end,
 							},
-							iconPosition = {
+							spacing = {
 								order = 3,
+								type = 'range',
+								name = E.NewSign..L["Spacing"],
+								min = 1, max = 30, step = 1,
+								disabled = function() return db.tokens.orientation == 'BOTTOM' end,
+								get = function(info) return db.tokens[ info[#info] ] end,
+								set = function(info, value) db.tokens[ info[#info] ] = value; BUID:UpdateTokens(); end,
+							},
+							iconPosition = {
+								order = 4,
 								type = 'select',
 								name = L['Icon Position'],
 								get = function(info) return db.tokens[ info[#info] ] end,
@@ -494,7 +503,7 @@ local function dashboardsTable()
 								values = iconOrientationValues,
 							},
 							orientation = {
-								order = 4,
+								order = 5,
 								name = E.NewSign..L['Frame Orientation'],
 								type = 'select',
 								values = frameOrientationValues,
@@ -623,8 +632,17 @@ local function dashboardsTable()
 								get = function(info) return db.professions[ info[#info] ] end,
 								set = function(info, value) db.professions[ info[#info] ] = value; BUID:BarHeight('professions', BUI.ProfessionsDB); end,
 							},
-							iconPosition = {
+							spacing = {
 								order = 3,
+								type = 'range',
+								name = E.NewSign..L["Spacing"],
+								min = 1, max = 30, step = 1,
+								disabled = function() return db.professions.orientation == 'BOTTOM' end,
+								get = function(info) return db.professions[ info[#info] ] end,
+								set = function(info, value) db.professions[ info[#info] ] = value; BUID:UpdateProfessions(); end,
+							},
+							iconPosition = {
+								order = 4,
 								type = 'select',
 								name = L['Icon Position'],
 								get = function(info) return db.professions[ info[#info] ] end,
@@ -632,7 +650,7 @@ local function dashboardsTable()
 								values = iconOrientationValues,
 							},
 							orientation = {
-								order = 4,
+								order = 5,
 								name = E.NewSign..L['Frame Orientation'],
 								type = 'select',
 								values = frameOrientationValues,
@@ -746,8 +764,17 @@ local function dashboardsTable()
 								get = function(info) return db.reputations[ info[#info] ] end,
 								set = function(info, value) db.reputations[ info[#info] ] = value; BUID:BarHeight('reputations', BUI.FactionsDB); end,
 							},
-							textAlign ={
+							spacing = {
 								order = 3,
+								type = 'range',
+								name = E.NewSign..L["Spacing"],
+								min = 1, max = 30, step = 1,
+								disabled = function() return db.reputations.orientation == 'BOTTOM' end,
+								get = function(info) return db.reputations[ info[#info] ] end,
+								set = function(info, value) db.reputations[ info[#info] ] = value; BUID:UpdateReputations(); end,
+							},
+							textAlign ={
+								order = 4,
 								name = L['Text Alignment'],
 								type = 'select',
 								values = textAlignValues,
@@ -755,7 +782,7 @@ local function dashboardsTable()
 								set = function(info, value) db.reputations[ info[#info] ] = value; BUID:UpdateReputations(); end,
 							},
 							orientation = {
-								order = 4,
+								order = 5,
 								name = E.NewSign..L['Frame Orientation'],
 								type = 'select',
 								values = frameOrientationValues,

@@ -75,7 +75,7 @@ function mod:UpdateProfessions()
 						holder:Width(db.width)
 					else
 						holder:Height(DASH_HEIGHT + (DASH_SPACING))
-						holder:Width(db.width * (#BUI.ProfessionsDB + 1) + DASH_SPACING*2)
+						holder:Width(db.width * (#BUI.ProfessionsDB + 1) + ((#BUI.ProfessionsDB) *db.spacing))
 					end
 
 					local bar = self:CreateDashboard(holder, 'professions', true)
@@ -156,7 +156,7 @@ function mod:UpdateProfessions()
 			if db.orientation == 'BOTTOM' then
 				frame:Point('TOP', BUI.ProfessionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 			else
-				frame:Point('LEFT', BUI.ProfessionsDB[key - 1], 'RIGHT', SPACING +(E.PixelMode and 0 or 2), 0)
+				frame:Point('LEFT', BUI.ProfessionsDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
 			end
 		end
 	end

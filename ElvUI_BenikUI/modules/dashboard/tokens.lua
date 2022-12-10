@@ -109,13 +109,13 @@ function mod:UpdateTokens()
 					if db.zeroamount or amount > 0 then
 						holder:SetShown(NotinInstance)
 
-						if db.orientation == 'BOTTOM' then
-							holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
-							holder:Width(db.width)
-						else
-							holder:Height(DASH_HEIGHT + (DASH_SPACING))
-							holder:Width(db.width * (#BUI.TokensDB + 1) + DASH_SPACING*2)
-						end
+					if db.orientation == 'BOTTOM' then
+						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+						holder:Width(db.width)
+					else
+						holder:Height(DASH_HEIGHT + (DASH_SPACING))
+						holder:Width(db.width * (#BUI.TokensDB + 1) + ((#BUI.TokensDB) *db.spacing))
+					end
 
 						local bar = self:CreateDashboard(holder, 'tokens', true)
 
@@ -201,7 +201,7 @@ function mod:UpdateTokens()
 			if db.orientation == 'BOTTOM' then
 				frame:Point('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 			else
-				frame:Point('LEFT', BUI.TokensDB[key - 1], 'RIGHT', SPACING +(E.PixelMode and 0 or 2), 0)
+				frame:Point('LEFT', BUI.TokensDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
 			end
 		end
 	end

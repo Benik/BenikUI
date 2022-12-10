@@ -90,7 +90,7 @@ function mod:UpdateReputations()
 						holder:Width(db.width)
 					else
 						holder:Height(DASH_HEIGHT + (DASH_SPACING))
-						holder:Width(db.width * (#BUI.FactionsDB + 1) + DASH_SPACING*2)
+						holder:Width(db.width * (#BUI.FactionsDB + 1) + ((#BUI.FactionsDB) *db.spacing))
 					end
 
 					local isFriend, friendText, standingLabel, majorStandingLabel
@@ -260,7 +260,7 @@ function mod:UpdateReputations()
 			if db.orientation == 'BOTTOM' then
 				frame:Point('TOP', BUI.FactionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 			else
-				frame:Point('LEFT', BUI.FactionsDB[key - 1], 'RIGHT', SPACING +(E.PixelMode and 0 or 2), 0)
+				frame:Point('LEFT', BUI.FactionsDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
 			end
 		end
 	end
