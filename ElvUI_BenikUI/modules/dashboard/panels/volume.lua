@@ -17,9 +17,10 @@ local BINDING_NAME_TOGGLESOUND, BINDING_NAME_TOGGLEMUSIC = BINDING_NAME_TOGGLESO
 -- GLOBALS: selectioncolor
 
 local statusColors = {
-	'|cffee0000', -- red
-	'|cfff6a01a', -- orange
-	'|cff5eed2c', -- light green
+	'cff0CD809',	-- green
+	'cffE8DA0F',	-- yellow
+	'cffFF9000',	-- orange
+	'cffD80909',	-- red
 }
 
 local SOUND_MUTE_ICON = ('|TInterface\\AddOns\\ElvUI_BenikUI\\media\\textures\\sound-mute.blp:14:14|t')
@@ -148,31 +149,32 @@ local function IconOnLeave(self)
 end
 
 local function OnEvent(self)
+	local db = self.db
 	local holder = self:GetParent()
 	local volGet = GetCVar('Sound_MasterVolume') or 1
 	local volumeValue = tonumber(E:Round(100 * volGet, 0))
 
 	local max = 100
-	local color = 3
+	local color
 	local icon
 
 	self.Status:SetValue(volumeValue)
 
 	if (GetCVar('Sound_EnableSFX') == '0') then
-		color = 1
+		color = 4
 		icon = SOUND_MUTE_ICON
 	else
 		if(volumeValue * 100 / max >= 75) then
-			color = 3
+			color = 2
 			icon = SOUND_MAX_ICON
 		elseif volumeValue * 100 / max < 75 and volumeValue * 100 / max > 30 then
-			color = 2
+			color = 1
 			icon = SOUND_MEDIUM_ICON
 		elseif volumeValue == 0 then
 			icon = SOUND_MUTE_ICON
-			color = 1
+			color = 4
 		else
-			color = 2
+			color = 3
 			icon = SOUND_LOW_ICON
 		end
 	end
@@ -183,8 +185,13 @@ local function OnEvent(self)
 		self.iconBG.text:SetText(icon)
 	end
 
-	local displayFormat = join('', VOLUME..':', statusColors[color], ' %d%%|r')
+	local displayFormat = join('', VOLUME..':|', statusColors[color], ' %d%%|r')
 	self.Text:SetFormattedText(displayFormat, volumeValue)
+
+	if db.overrideColor then
+		local r, g, b = E:HexToRGB(statusColors[color])
+		self.Status:SetStatusBarColor(r/255, g/255, b/255)
+	end
 end
 
 function mod:CreateVolume()

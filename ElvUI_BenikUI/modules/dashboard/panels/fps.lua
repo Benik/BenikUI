@@ -23,10 +23,9 @@ local totalMemory = 0
 local LastUpdate = 1
 
 local statusColors = {
-	'|cff0CD809',	-- green
-	--'|cffE8DA0F',	-- yellow
-	'|cffFF9000',	-- orange
-	'|cffD80909'	-- red
+	'cff0CD809',	-- green
+	'cffE8DA0F',	-- yellow
+	'cffD80909',	-- red
 }
 
 local function formatMem(memory)
@@ -146,10 +145,15 @@ local function OnUpdate(self, elapsed)
 			fpscolor = 3
 		end
 
-		local displayFormat = join('', 'FPS: ', statusColors[fpscolor], '%d|r')
+		local displayFormat = join('', 'FPS: |', statusColors[fpscolor], '%d|r')
 		self.Text:SetFormattedText(displayFormat, value)
 
-		LastUpdate = 1
+		if db.overrideColor then
+			local r, g, b = E:HexToRGB(statusColors[fpscolor])
+			self.Status:SetStatusBarColor(r/255, g/255, b/255)
+		end
+
+		LastUpdate = db.updateThrottle or 1
 	end
 end
 
@@ -157,8 +161,8 @@ function mod:CreateFps()
 	local bar = _G['BUI_FPS']
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
-	bar:SetParent(holder)
 	bar.db = db
+	bar:SetParent(holder)
 
 	bar:SetScript('OnMouseDown', OnMouseDown)
 	bar:SetScript('OnEnter', OnEnter)

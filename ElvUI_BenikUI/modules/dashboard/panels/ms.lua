@@ -9,10 +9,9 @@ local _G = _G
 local GetNetStats = GetNetStats
 
 local statusColors = {
-	'|cff0CD809',
-	'|cffE8DA0F',
-	'|cffFF9000',
-	'|cffD80909'
+	'cff0CD809',	-- green
+	'cffE8DA0F',	-- yellow
+	'cffD80909',	-- red
 }
 
 local function OnEnter(self)
@@ -54,6 +53,8 @@ local function OnUpdate(self, elapsed)
 		self.Status:SetMinMaxValues(0, 200)
 		local value = 0
 		local displayFormat = ""
+		local max = 100
+		local mscolor
 
 		if db.latency == 1 then
 			value = (select(3, GetNetStats())) -- Home
@@ -61,27 +62,30 @@ local function OnUpdate(self, elapsed)
 			value = (select(4, GetNetStats())) -- World
 		end
 
-		local max = 200
-		local mscolor = 4
-
 		self.Status:SetValue(value)
 
-		if( value * 100 / max <= 35) then
+		if( value * 100 / max <= 25) then
 			mscolor = 1
-		elseif value * 100 / max > 35 and value * 100 / max < 75 then
+		elseif value * 100 / max > 25 and value * 100 / max < 60 then
 			mscolor = 2
 		else
 			mscolor = 3
 		end
 
 		if db.latency == 1 then
-			displayFormat = join('', 'MS (', HOME, '): ', statusColors[mscolor], '%d|r')
+			displayFormat = join('', 'MS (', HOME, ') : |', statusColors[mscolor], '%d|r')
 		else
-			displayFormat = join('', 'MS (', WORLD, '): ', statusColors[mscolor], '%d|r')
+			displayFormat = join('', 'MS (', WORLD, ') : |', statusColors[mscolor], '%d|r')
 		end
 
 		self.Text:SetFormattedText(displayFormat, value)
-		LastUpdate = 1
+
+		if db.overrideColor then
+			local r, g, b = E:HexToRGB(statusColors[mscolor])
+			self.Status:SetStatusBarColor(r/255, g/255, b/255)
+		end
+		
+		LastUpdate = db.updateThrottle or 1
 	end
 end
 

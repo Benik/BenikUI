@@ -30,9 +30,9 @@ local slots = {
 }
 
 local statusColors = {
-	'|cff0CD809',	-- green
-	'|cffE8DA0F',	-- yellow
-	'|cffD80909'	-- red
+	'cff0CD809',	-- green
+	'cffE8DA0F',	-- yellow
+	'cffD80909',	-- red
 }
 
 local function OnMouseUp()
@@ -66,11 +66,16 @@ local function OnEvent(self)
 		textColor = 3
 	end
 
-	local displayString = join('', DURABILITY, ': ', statusColors[textColor], '%d%%|r')
+	local displayString = join('', DURABILITY, ': |', statusColors[textColor], '%d%%|r')
 	self.Text:SetFormattedText(displayString, totalDurability)
 
 	self.Status:SetMinMaxValues(0, 100)
 	self.Status:SetValue(totalDurability)
+
+	if db.overrideColor then
+		local r, g, b = E:HexToRGB(statusColors[textColor])
+		self.Status:SetStatusBarColor(r/255, g/255, b/255)
+	end
 end
 
 local function OnEnter(self)

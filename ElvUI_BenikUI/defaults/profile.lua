@@ -343,6 +343,8 @@ P['benikui'] = {
 			['latency'] = 2,
 			['instance'] = true,
 			['orientation'] = 'BOTTOM',
+			['overrideColor'] = true,
+			['updateThrottle'] = 2,
 		},
 
 		['tokens'] = {

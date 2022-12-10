@@ -183,6 +183,7 @@ L['System'] = true --No need to translate
 L['Text Alignment'] = true
 L['Tip: Click to free memory'] = "Tip: Klicken um den Speicher zu bereinigen"
 L['Tip: Grayed tokens are not yet discovered'] = "Tip: Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
+L['Update Throttle'] = true
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true

@@ -183,6 +183,7 @@ L['Text Alignment'] = true
 L['Tip: Click to free memory'] = true
 L['Tip: Grayed tokens are not yet discovered'] = true
 L['Use DataTexts font'] = true
+L['Update Throttle'] = true
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true
 

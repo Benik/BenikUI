@@ -183,6 +183,7 @@ L['System'] = "Système"
 L['Text Alignment'] = true
 L['Tip: Click to free memory'] = "Astuce: cliquez pour libérer de la mémoire"
 L['Tip: Grayed tokens are not yet discovered'] = "Astuce: les jetons grisés ne sont pas encore découverts"
+L['Update Throttle'] = true
 L['Use DataTexts font'] = "Utiliser la police pour les textes de données"
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true
