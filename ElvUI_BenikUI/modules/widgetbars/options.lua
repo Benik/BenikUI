@@ -18,7 +18,7 @@ local function widgetTable()
 			mawBar = {
 				order = 1,
 				type = 'group',
-				name = L["BenikUI Maw Bar"],
+				name = L['BenikUI Maw Bar'],
 				guiInline = true,
 				args = {
 					enable = {
@@ -139,7 +139,7 @@ local function widgetTable()
 							},
 							fontsize = {
 								order = 3,
-								name = L.FONT_SIZE,
+								name = L['Font Size'],
 								desc = L['Set the font size.'],
 								disabled = function() return E.db.benikui.widgetbars.mawBar.useDTfont end,
 								type = 'range',
@@ -165,7 +165,7 @@ local function widgetTable()
 			halfBar = {
 				order = 2,
 				type = 'multiselect',
-				name = L["Half Bar"],
+				name = L['Half Bar'],
 				get = function(_, key) return E.db.benikui.widgetbars.halfBar[key] end,
 				set = function(_, key, value) E.db.benikui.widgetbars.halfBar[key] = value;
 					if key == 'mirrorbar' then

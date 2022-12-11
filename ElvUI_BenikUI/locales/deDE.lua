@@ -29,6 +29,7 @@ L['Splash Screen'] = "Startbildschirm"
 L['Shadow'] = "Schatten"
 L['Shadow Size'] = "Schattengröße"
 L['Shadow Alpha'] = "Schattentransparenz"
+L['Font Size'] = "Schriftgröße"
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
@@ -37,17 +38,18 @@ L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 
 -- Custom Panels
+L['Custom Panels'] = "Benutzerdefinierte Leisten"
 L['Clone'] = "Klone"
 L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = "Benutzerdefiniertes Bedienfeld klonen: |cff00c0fa%s|r.\nBitte gebe den neuen Namen ein"
 L["Create"] = "Erstelle"
 L["Enable tooltip to reveal the panel name"] = "Aktiviere den Tooltip um den Leistenamen zu erfahren"
 L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
 L["Name Tooltip"] = "Namenstooltip"
-L['New Custom Panel'] = "Neues benutzerdefinierte Leiste"
+L['New Custom Panel'] = "Neue Benutzerdefinierte Leiste"
 L['Style Position'] = "Stilposition"
 L["Texture Color"] = "Texturfarbe"
 L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Der Name |cff00c0fa%s|r von einer Benutzerdefiniertem Leiste existiert bereits. Bitte wähle einen anderen."
-L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"] = "Diese wird die Benutzerdefinierte Leiste mit dem Namen |cff00c0fa%s|r löschen.\nFortfahren?"
+L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"] = "Dies wird die Benutzerdefinierte Leiste mit dem Namen |cff00c0fa%s|r löschen.\nFortfahren?"
 L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = "Dies funktioniert wie ein Makro, Du kannst verschiedene Situationen ausführen, um das Fenster unterschiedlich anzuzeigen/auszublenden.\n Beispiel: '[combat] show;hide'"
 L["Title Bar Position"] = "Titelleisten Position"
 L["Title Text Position"] = "Titeltext Position"
@@ -66,6 +68,7 @@ L['Inside the item slot'] = "Innerhalb des Ausrüstungsplatz"
 L['Outside the item slot'] = "Ausserhalb des Ausrüstungsplatz"
 
 -- Flight mode
+L['Flight Mode'] = "Flugmodus"
 L['Exit FlightMode'] = "Verlasse den Flugmodus"
 L['Show an enhanced game menu'] = "Zeigt ein erweitertes Spielmenu"
 L['Toggle Location and Coords'] = "Schalte Umgebungstext und Koordinaten um"
@@ -206,7 +209,7 @@ L['Profiles'] = "Profile"
 L['Apply shadow under the portrait'] = "Aktiviere den Schatten unter dem Portrait"
 L['Apply transparency on the portrait backdrop.'] = "Wende Transparenz auf den Portrait Hintergrund an."
 L['BenikUI Style on Portrait'] = "BenikUI Stil auf dem Portrait"
-L['Castbar Backdrop Color'] = "Zauberleisten-Hintergrund Farbe"
+L['Castbar Backdrop Color'] = "Zauberleisten Hintergrundfarbe"
 L['Castbar Text'] = "Zauberleisten Text"
 L['Change the detached portrait height'] = "Ändert die Höhe des abgetrennten Portrait"
 L['Change the detached portrait width'] = "Ändert die Breite des abgetrennten Portrait"
@@ -226,6 +229,7 @@ L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = "
 L['Vertical power statusbar'] = "Vertikale Kraft Statusleiste"
 
 -- Castbar
+L['Castbar'] = "Zauberleiste"
 L['Force show any text placed on the InfoPanel, while casting.'] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
 L['Show Castbar text'] = "Zeige Zauberleisten Text"
 L['Show InfoPanel text'] = "Zeige InfoPanel Text"
@@ -235,6 +239,13 @@ L['This applies on all available castbars.'] = "Wird auf allen verfügbaren Zaub
 -- Raid
 L['Class Hover'] = "Klassenfarbeneffekt"
 L['Enable Class color on health border, when mouse over'] = "Aktiviert den Klassenfarbeneffekt auf den Gesundheitsrand während Mouseover"
+
+-- Widget Bars
+L['Widget Bars'] = "Widget Leisten"
+L['BenikUI Maw Bar'] = "BenikUI Schlundleiste"
+L['Color by Tier'] = "Farbe nach Stufe"
+L['Text yOffset'] = "Text Y-Versatz"
+L['Half Bar'] = "Halbe Leisten"
 
 -- Information
 L['Information'] = true --No need to translate

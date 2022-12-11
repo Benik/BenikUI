@@ -29,6 +29,7 @@ L['Splash Screen'] = "Écran de démarrage"
 L['Shadow'] = "Ombre"
 L['Shadow Size'] = "Taille de l'ombre"
 L['Shadow Alpha'] = true
+L['Font Size'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Clic gauche: active la configuration"
@@ -37,6 +38,7 @@ L['ShiftClick to toggle chat'] = "Shift Cliquez pour activer le chat"
 L['Click to show the Addon List'] = "Cliquez pour afficher la liste des addons complémentaires"
 
 -- Custom Panels
+L['Custom Panels'] = true
 L['Clone'] = true
 L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L["Create"] = "Créer"
@@ -66,6 +68,7 @@ L['Inside the item slot'] = "Dans l'emplacement de l'objet"
 L['Outside the item slot'] = "En dehors de l'emplacement de l'objet"
 
 -- Flight mode
+L['Flight Mode'] = true
 L['Exit FlightMode'] = "Quitter le mode voyage"
 L['Show an enhanced game menu'] = "Afficher un menu du jeu amélioré"
 L['Toggle Location and Coords'] = "Active la localisation et les coordonnées"
@@ -226,6 +229,7 @@ L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = "
 L['Vertical power statusbar'] = "Barre d'état de puissance verticale"
 
 -- Castbar
+L['Castbar'] = true
 L['Force show any text placed on the InfoPanel, while casting.'] = "Force l'affichage de tout texte placé sur l'InfoPanel pendant la diffusion."
 L['Show Castbar text'] = "Afficher le texte de la barre d'incant"
 L['Show InfoPanel text'] = "Afficher le texte du panneau d'informations"
@@ -235,6 +239,13 @@ L['This applies on all available castbars.'] = "Ceci s'applique à toutes les ba
 -- Raid
 L['Class Hover'] = true
 L['Enable Class color on health border, when mouse over'] = "Active la couleur de classe sur la bordure de santé, lorsque la souris passe dessus"
+
+-- Widget Bars
+L['Widget Bars'] = true
+L['BenikUI Maw Bar'] = true
+L['Color by Tier'] = true
+L['Text yOffset'] = true
+L['Half Bar'] = true
 
 -- Information
 L['Information'] = true
