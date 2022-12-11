@@ -93,7 +93,7 @@ function mod:UpdateReputations()
 						holder:Width(db.width * (#BUI.FactionsDB + 1) + ((#BUI.FactionsDB) *db.spacing))
 					end
 
-					local isFriend, friendText, standingLabel, majorStandingLabel
+					local isFriend, friendText, standingLabel, majorStandingLabel, renownLevel
 					local isParagon = C_Reputation_IsFactionParagon(factionID)
 					local isMajorFaction = factionID and C_Reputation_IsMajorFaction(factionID)
 					local repInfo = factionID and C_GossipInfo_GetFriendshipReputation(factionID)
@@ -107,6 +107,7 @@ function mod:UpdateReputations()
 						barMin, barMax = 0, majorFactionData.renownLevelThreshold
 						barValue = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
 						majorStandingLabel = format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
+						renownLevel = majorFactionData.renownLevel
 					else
 						standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 					end
@@ -146,6 +147,8 @@ function mod:UpdateReputations()
 					local customColors = E.db.databars.colors.useCustomFactionColors
 					local color = (customColors or standingID == 9) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID] -- reaction 9 is Paragon
 					local hexColor = E:RGBToHex(color.r, color.g, color.b)
+
+					name = isMajorFaction and format('%s%s (%s)|r', name, BLUE_COLOR_HEX, renownLevel) or name
 
 					if E.db.benikui.dashboards.dashfont.useDTfont then
 						bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
