@@ -37,6 +37,7 @@ L['ShiftClick to toggle chat'] = "ShiftClick para alternar bate-papo"
 L['Click to show the Addon List'] = "Clique para mostrar a lista de Addons"
 
 -- Custom Panels
+L['Custom Panels'] = true
 L['Clone'] = true
 L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L['Create'] = "Criar"
@@ -66,6 +67,7 @@ L['Inside the item slot'] = "Dentro do slot do item"
 L['Outside the item slot'] = "Fora do slot do item"
 
 -- Flight mode
+L['Flight Mode'] = true
 L['Exit FlightMode'] = "Sair do Modo de Voo"
 L['Show an enhanced game menu'] = "Mostrar menu de jogo melhorado"
 L['Toggle Location and Coords'] = "Alterna Localização e Coordenadas"
@@ -226,6 +228,7 @@ L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = "
 L['Vertical power statusbar'] = "Barra de poder vertical"
 
 -- Castbar
+L['Castbar'] = true
 L['Force show any text placed on the InfoPanel, while casting.'] = "Força mostrar qualquer texto colocado no Painel de informações, enquanto faz cast"
 L['Show Castbar text'] = "Mostrar texto da barra de cast"
 L['Show InfoPanel text'] = "Mostrar texto do Painel de informações"
@@ -235,6 +238,13 @@ L['This applies on all available castbars.'] = "Isto aplica-se a todas as barras
 -- Raid
 L['Class Hover'] = "Classe ao pairar"
 L['Enable Class color on health border, when mouse over'] = "Habilita a cor da classe nos bordos da saúde ao pairar com o rato."
+
+-- Widget Bars
+L['Widget Bars'] = true
+L['BenikUI Maw Bar'] = true
+L['Color by Tier'] = true
+L['Text yOffset'] = true
+L['Half Bar'] = true
 
 -- Information
 L['Information'] = "Informação"

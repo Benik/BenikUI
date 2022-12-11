@@ -88,7 +88,7 @@ local CODING = {
 	'|TInterface/AddOns/ElvUI/Core/Media/ChatLogos/Hibiscus:15:15:0:0:64:64:5:59:5:59|t Simpy',
 	'Cara (ptBR)',
 	'nadugi (koKR)',
-	'Dlarge (deDE)',
+	'|cff00c0faDlarge|r (deDE)',
 }
 tsort(CODING, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local CODING_STRING = tconcat(CODING, ", ")

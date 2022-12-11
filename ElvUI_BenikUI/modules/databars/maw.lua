@@ -91,7 +91,7 @@ function mod:LoadMaw()
 	bar.text:FontTemplate()
 	bar.text:Point('CENTER')
 
-	E:CreateMover(bar, "BUIMawBarMover", L["BenikUI Maw Bar"], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,databars,mawBar')
+	E:CreateMover(bar, "BUIMawBarMover", L['BenikUI Maw Bar'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,databars,mawBar')
 
 	bar:SetScript("OnEnter", function(self)
 		local rank = GetMawBarValue()

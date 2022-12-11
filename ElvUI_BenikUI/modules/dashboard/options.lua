@@ -292,7 +292,7 @@ local function dashboardsTable()
 							},
 							dbfontsize = {
 								order = 3,
-								name = L.FONT_SIZE,
+								name = L['Font Size'],
 								desc = L['Set the font size.'],
 								disabled = function() return db.dashfont.useDTfont end,
 								type = 'range',

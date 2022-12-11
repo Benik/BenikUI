@@ -29,6 +29,7 @@ L['Splash Screen'] = true
 L['Shadow'] = true
 L['Shadow Size'] = true
 L['Shadow Alpha'] = true
+L['Font Size'] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = true
@@ -37,6 +38,7 @@ L['ShiftClick to toggle chat'] = true
 L['Click to show the Addon List'] = true
 
 -- Custom Panels
+L['Custom Panels'] = true
 L['Clone'] = true
 L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L['Create'] = true
@@ -66,6 +68,7 @@ L['Inside the item slot'] = true
 L['Outside the item slot'] = true
 
 -- Flight mode
+L['Flight Mode'] = true
 L['Exit FlightMode'] = true
 L['Show an enhanced game menu'] = true
 L['Toggle Location and Coords'] = true
@@ -142,15 +145,15 @@ L["Random Stats"] = true
 L["remaining till level"] = true
 
 -- Dashboards
-L["Change the Professions Dashboard width."] = true
-L["Change the Tokens Dashboard width."] = true
 L["Enable the Professions Dashboard."] = true
 L["Filter Capped"] = true
 L['Amount'] = true
 L['Bar Color'] = true
 L['Bar Height'] = true
 L['Change the Bar Height.'] = true
+L['Change the Professions Dashboard width.'] = true
 L['Change the System Dashboard width.'] = true
+L['Change the Tokens Dashboard width.'] = true
 L['Choose font for all dashboards.'] = true
 L['Click :'] = true
 L['Dashboards'] = true
@@ -226,6 +229,7 @@ L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = t
 L['Vertical power statusbar'] = true
 
 -- Castbar
+L['Castbar'] = true
 L['Force show any text placed on the InfoPanel, while casting.'] = true
 L['Show Castbar text'] = true
 L['Show InfoPanel text'] = true
@@ -235,6 +239,13 @@ L['This applies on all available castbars.'] = true
 -- Raid
 L['Class Hover'] = true
 L['Enable Class color on health border, when mouse over'] = true
+
+-- Widget Bars
+L['Widget Bars'] = true
+L['BenikUI Maw Bar'] = true
+L['Color by Tier'] = true
+L['Text yOffset'] = true
+L['Half Bar'] = true
 
 -- Information
 L['Information'] = true
