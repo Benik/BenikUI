@@ -1,3 +1,42 @@
+4.27 (Dec 11, 2022)
+Dashboards got a major overhaul
+- Revamped the Dashboards options
+- Added Spacing option for all Dashboards on Horizontal orientation
+- System Dashboards: Added option that make the Statusbars accept the Text color
+- System Dashboards: Added an Update Throttle option for FPS and MS
+- Added Horizontal Orientation option on all Dashboards
+- Added Hide in Instance option on all Dashboards
+- Better FPS colors. Idea: Roxanne
+- Volume Dashboard: ShiftClick for Sound Options
+- Revamped the System Dash modules
+
+Added Lucky and Dlarge in the Coders list
+Update deDE.lua. Credit Dlarge
+AddOnSkins removed AcceptFrame
+Stop Middle DT re enabling on reload
+Replace Missions Datatext with the new Renown DT, during install
+Prevent a Tooltip error, while Baggins is loaded. This should deal with ticket #24
+Achievement Search Styled
+Apply Style on Settings Tooltip
+Fixed the Middle Datatext behavior
+Fixed AcePopup Style not showing
+Fixed Ace3 options tooltip style
+Place the Threat databar where the Azerite was, during install
+Default settings cleanup
+Fixed private profile override. Credit: @Repooc
+Bags Dashboard will now also count the Reagent bag
+Renown DT: Added right click menu for faction tracking
+Updated the Renown Datatext to show all factions
+Updated the Alert frames
+Fixed the Standinglabel on the Rep Dash
+ChromieTime style
+VehicelExit button Shadow
+Added Widget Shadows
+Added local/realm time in FlightMode
+Follow Azils changes in DBM skin
+Fixed Mirror Timers HalfBar skin and shadows
+Fixed DBM HalfBar skin
+
 4.26 (Nov 22nd, 2022)
 Fixed Flyout Actionbars shadows
 Use ElvUI fontFlags

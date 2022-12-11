@@ -19,6 +19,7 @@ local C_Reputation_IsMajorFaction = C_Reputation.IsMajorFaction
 local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
 local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
 local InCombatLockdown = InCombatLockdown
+local IsInInstance = IsInInstance
 local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
@@ -61,6 +62,8 @@ end
 function mod:UpdateReputations()
 	local db = E.db.benikui.dashboards.reputations
 	local holder = _G.BUI_ReputationsDashboard
+	local inInstance = IsInInstance()
+	local NotinInstance = not (db.instance and inInstance)
 
 	if(BUI.FactionsDB[1]) then
 		for i = 1, getn(BUI.FactionsDB) do
@@ -80,11 +83,14 @@ function mod:UpdateReputations()
 
 			if name then
 				if E.private.benikui.dashboards.reputations.chooseReputations[factionID] == true then
-					holder:Show()
-					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.FactionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
-					if reputationHolderMover then
-						reputationHolderMover:SetSize(holder:GetSize())
-						holder:SetPoint('TOPLEFT', reputationHolderMover, 'TOPLEFT')
+					holder:SetShown(NotinInstance)
+
+					if db.orientation == 'BOTTOM' then
+						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.FactionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+						holder:Width(db.width)
+					else
+						holder:Height(DASH_HEIGHT + (DASH_SPACING))
+						holder:Width(db.width * (#BUI.FactionsDB + 1) + ((#BUI.FactionsDB) *db.spacing))
 					end
 
 					local isFriend, friendText, standingLabel, majorStandingLabel
@@ -101,6 +107,8 @@ function mod:UpdateReputations()
 						barMin, barMax = 0, majorFactionData.renownLevelThreshold
 						barValue = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
 						majorStandingLabel = format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
+					else
+						standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 					end
 
 					if isParagon then
@@ -127,11 +135,13 @@ function mod:UpdateReputations()
 						maxMinDiff = 1
 					end
 
+					if not standingLabel then
+						standingLabel = _G['FACTION_STANDING_LABEL'..standingID] or UNKNOWN
+					end
+
 					local bar = mod:CreateDashboard(holder, 'reputations', false, true)
 					bar.Status:SetMinMaxValues(barMin, barMax)
 					bar.Status:SetValue(barValue)
-
-					standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 
 					local customColors = E.db.databars.colors.useCustomFactionColors
 					local color = (customColors or standingID == 9) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID] -- reaction 9 is Paragon
@@ -245,9 +255,13 @@ function mod:UpdateReputations()
 	for key, frame in pairs(BUI.FactionsDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:SetPoint('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:SetPoint('TOP', BUI.FactionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			if db.orientation == 'BOTTOM' then
+				frame:Point('TOP', BUI.FactionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			else
+				frame:Point('LEFT', BUI.FactionsDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
+			end
 		end
 	end
 end
@@ -322,13 +336,12 @@ function mod:CreateReputationsDashboard()
 	local db = E.db.benikui.dashboards.reputations
 
 	mod.reputationHolder = mod:CreateDashboardHolder('BUI_ReputationsDashboard', 'reputations')
-	mod.reputationHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
-	mod.reputationHolder:SetWidth(db.width or 150)
+	mod.reputationHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
+	mod.reputationHolder:Width(db.width or 150)
 
 	mod:PopulateFactionData()
 	mod:UpdateReputations()
 	mod:UpdateReputationSettings()
-	mod:UpdateHolderDimensions(mod.reputationHolder, 'reputations', BUI.FactionsDB)
 	mod:ToggleStyle(mod.reputationHolder, 'reputations')
 	mod:ToggleTransparency(mod.reputationHolder, 'reputations')
 
@@ -348,7 +361,7 @@ function mod:CreateReputationsDashboard()
 end
 
 function mod:LoadReputations()
-	if E.db.benikui.dashboards.reputations.enableReputations ~= true then return end
+	if E.db.benikui.dashboards.reputations.enable ~= true then return end
 
 	mod:CreateReputationsDashboard()
 	mod:ReputationEvents()

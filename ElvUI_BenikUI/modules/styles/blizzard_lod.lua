@@ -16,6 +16,8 @@ local function style_AchievementUI()
 	local frame = _G.AchievementFrame
 	if frame then
 		frame:BuiStyle("Outside")
+		frame.SearchPreviewContainer.backdrop:BuiStyle("Outside")
+		frame.SearchResults.backdrop:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
@@ -213,6 +215,18 @@ local function style_Channels()
 	_G.CreateChannelPopup:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
+
+-- ChromieTime
+local function style_chromieTime()
+	if E.private.skins.blizzard.chromieTime ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ChromieTimeFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ChromieTimeUI", "BenikUI_chromieTime", style_chromieTime)
 
 -- Class Talents
 local function style_ClassTalents()

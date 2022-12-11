@@ -35,7 +35,7 @@ function mod:DBMShadows()
 					local timer = _G[frame:GetName()..'BarTimer']
 					local iconSize = bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height
 					if AS:CheckOption('DBMSkinHalf') then
-						iconSize = iconSize * 3
+						iconSize = iconSize * 2
 					end
 
 					AS:SkinTexture(icon1, true)
@@ -54,14 +54,10 @@ function mod:DBMShadows()
 					frame:CreateSoftShadow()
 
 					name:ClearAllPoints()
-					name:SetWidth(165)
-					name:SetHeight(8)
 					name:SetJustifyH('LEFT')
-					name:SetShadowColor(0, 0, 0, 0)
 
 					timer:ClearAllPoints()
 					timer:SetJustifyH('RIGHT')
-					timer:SetShadowColor(0, 0, 0, 0)
 
 					if AS:CheckOption('DBMSkinHalf') then
 						name:SetPoint('BOTTOMLEFT', frame, 'TOPLEFT', 0, 3)

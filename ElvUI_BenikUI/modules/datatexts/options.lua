@@ -170,6 +170,12 @@ local function PanelLayoutOptions()
 	for panel in pairs(E.global.datatexts.customPanels) do
 		PanelGroup_Create(panel)
 	end
+	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.name = BUI.Title..BUI:cOption(L['Left Chat Panel'], "blue")
+	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.order = 1001
+
+	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.name = BUI.Title..BUI:cOption(L['Right Chat Panel'], "blue")
+	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.order = 1002
+
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'], "blue")
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.order = 1003
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.delete.hidden = true

@@ -16,10 +16,6 @@ local totalDurability = 0
 local current, max
 local invDurability = {}
 
-local function Click()
-	ToggleCharacter('PaperDollFrame')
-end
-
 local slots = {
 	['SecondaryHandSlot'] = L['Offhand'],
 	['MainHandSlot'] = L['Main Hand'],
@@ -34,14 +30,17 @@ local slots = {
 }
 
 local statusColors = {
-	'|cff0CD809',	-- green
-	'|cffE8DA0F',	-- yellow
-	'|cffD80909'	-- red
+	'cff0CD809',	-- green
+	'cffE8DA0F',	-- yellow
+	'cffD80909',	-- red
 }
 
-local function OnEvent()
-	local bar = _G['BUI_Durability']
-	local db = E.db.benikui.dashboards.system
+local function OnMouseUp()
+	ToggleCharacter('PaperDollFrame')
+end
+
+local function OnEvent(self)
+	local db = self.db
 
 	totalDurability = 100
 	local textColor = 1
@@ -67,48 +66,62 @@ local function OnEvent()
 		textColor = 3
 	end
 
-	local displayString = join('', DURABILITY, ': ', statusColors[textColor], '%d%%|r')
-	bar.Text:SetFormattedText(displayString, totalDurability)
+	local displayString = join('', DURABILITY, ': |', statusColors[textColor], '%d%%|r')
+	self.Text:SetFormattedText(displayString, totalDurability)
 
-	bar.Status:SetMinMaxValues(0, 100)
-	bar.Status:SetValue(totalDurability)
+	self.Status:SetMinMaxValues(0, 100)
+	self.Status:SetValue(totalDurability)
+
+	if db.overrideColor then
+		local r, g, b = E:HexToRGB(statusColors[textColor])
+		self.Status:SetStatusBarColor(r/255, g/255, b/255)
+	end
+end
+
+local function OnEnter(self)
+	local db = self.db
+	local holder = self:GetParent()
+
+	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
+	GameTooltip:ClearAllPoints()
+
+	GameTooltip:ClearLines()
+
+	for slot, durability in pairs(invDurability) do
+		GameTooltip:AddDoubleLine(slot, format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0))
+	end
+
+	GameTooltip:Show()
+
+	if db.mouseover then
+		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+	end
+end
+
+local function OnLeave(self)
+	local db = self.db
+	local holder = self:GetParent()
+	if db.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+	end
+	GameTooltip:Hide()
 end
 
 function mod:CreateDurability()
 	local bar = _G['BUI_Durability']
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
+	bar:SetParent(holder)
+	bar.db = db
 
-	bar.Status:SetScript('OnEvent', OnEvent)
+	bar:SetScript('OnEvent', OnEvent)
 
 	bar:EnableMouse(true)
-	bar:SetScript('OnEnter', function(self)
-		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
-		GameTooltip:ClearAllPoints()
+	bar:SetScript('OnEnter', OnEnter)
+	bar:SetScript('OnLeave', OnLeave)
+	bar:SetScript('OnMouseUp', OnMouseUp)
 
-		GameTooltip:ClearLines()
-
-		for slot, durability in pairs(invDurability) do
-			GameTooltip:AddDoubleLine(slot, format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0))
-		end
-
-		GameTooltip:Show()
-
-		if db.mouseover then
-			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-		end
-	end)
-
-	bar:SetScript('OnLeave', function(self)
-		if db.mouseover then
-			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-		end
-		GameTooltip:Hide()
-	end)
-
-	bar:SetScript('OnMouseUp', Click)
-
-	bar.Status:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
-	bar.Status:RegisterEvent('MERCHANT_SHOW')
-	bar.Status:RegisterEvent('PLAYER_ENTERING_WORLD')
+	bar:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
+	bar:RegisterEvent('MERCHANT_SHOW')
+	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
 end

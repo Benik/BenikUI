@@ -42,7 +42,8 @@ local tooltips = {
 	_G.WarCampaignTooltip,
 	_G.GameTooltip,
 	_G.ElvUIConfigTooltip,
-	_G.ElvUISpellBookTooltip
+	_G.ElvUISpellBookTooltip,
+	_G.SettingsTooltip,
 }
 
 local overlayedTooltips = {
@@ -144,7 +145,7 @@ function mod:SetupStyleAndShadow(tt)
 	end
 
 	if BUI.ShadowMode then
-		if not tt.StatusBar.backdrop.shadow then
+		if tt.StatusBar.backdrop and not tt.StatusBar.backdrop.shadow then
 			tt.StatusBar.backdrop:CreateSoftShadow()
 		end
 		if TT.db.healthBar.statusPosition == 'BOTTOM' then
@@ -160,6 +161,7 @@ function mod:StyleAceTooltip()
 		self:BuiStyle('Outside')
 	end
 end
+hooksecurefunc(S, "Ace3_StyleTooltip", mod.StyleAceTooltip)
 
 function mod:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
@@ -173,7 +175,6 @@ function mod:Initialize()
 	mod:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
 	hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", mod.SetupStyleAndShadow)
 	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
-	hooksecurefunc(S, "Ace3_StyleTooltip", mod.StyleAceTooltip)
 end
 
 BUI:RegisterModule(mod:GetName())

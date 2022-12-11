@@ -16,6 +16,7 @@ local C_CurrencyInfo_ExpandCurrencyList = C_CurrencyInfo.ExpandCurrencyList
 local GetExpansionLevel = GetExpansionLevel
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
+local IsInInstance = IsInInstance
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
 
@@ -83,6 +84,8 @@ end
 function mod:UpdateTokens()
 	local db = E.db.benikui.dashboards.tokens
 	local holder = _G.BUI_TokensDashboard
+	local inInstance = IsInInstance()
+	local NotinInstance = not (db.instance and inInstance)
 
 	if(BUI.TokensDB[1]) then
 		for i = 1, getn(BUI.TokensDB) do
@@ -104,12 +107,15 @@ function mod:UpdateTokens()
 
 				if E.private.benikui.dashboards.tokens.chooseTokens[id] == true then
 					if db.zeroamount or amount > 0 then
-						holder:Show()
+						holder:SetShown(NotinInstance)
+
+					if db.orientation == 'BOTTOM' then
 						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
-						if tokenHolderMover then
-							tokenHolderMover:Size(holder:GetSize())
-							holder:Point('TOPLEFT', tokenHolderMover, 'TOPLEFT')
-						end
+						holder:Width(db.width)
+					else
+						holder:Height(DASH_HEIGHT + (DASH_SPACING))
+						holder:Width(db.width * (#BUI.TokensDB + 1) + ((#BUI.TokensDB) *db.spacing))
+					end
 
 						local bar = self:CreateDashboard(holder, 'tokens', true)
 
@@ -192,7 +198,11 @@ function mod:UpdateTokens()
 		if(key == 1) then
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:Point('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			if db.orientation == 'BOTTOM' then
+				frame:Point('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			else
+				frame:Point('LEFT', BUI.TokensDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
+			end
 		end
 	end
 end
@@ -268,7 +278,6 @@ function mod:CreateTokensDashboard()
 	mod:PopulateCurrencyData()
 	mod:UpdateTokens()
 	mod:UpdateTokenSettings()
-	mod:UpdateHolderDimensions(holder, 'tokens', BUI.TokensDB)
 	mod:ToggleStyle(holder, 'tokens')
 	mod:ToggleTransparency(holder, 'tokens')
 
@@ -288,12 +297,11 @@ function mod:CreateTokensDashboard()
 end
 
 function mod:LoadTokens()
-	if E.db.benikui.dashboards.tokens.enableTokens ~= true then return end
+	if E.db.benikui.dashboards.tokens.enable ~= true then return end
 
 	mod:CreateTokensDashboard()
 	mod:TokenEvents()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokenSettings)
 	hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
-	if E.private.benikui.dashboards.tokens.chooseTokens[1822] == true then E.private.benikui.dashboards.tokens.chooseTokens[1822] = nil end -- remove renown from old profiles
 end

@@ -2,6 +2,7 @@ local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Shadows')
 local S = E:GetModule('Skins')
 local M = E:GetModule('Misc')
+local B = E:GetModule('Blizzard')
 
 local _G = _G
 
@@ -20,10 +21,14 @@ end
 local function mirrorTimersShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mirrorTimers ~= true then return end
 
-	for i = 1, _G.MIRRORTIMER_NUMTIMERS do
-		local mirrorTimer = _G['MirrorTimer'..i]
-		local statusBar = mirrorTimer.StatusBar or _G[mirrorTimer:GetName()..'StatusBar']
-		statusBar:CreateSoftShadow()
+	local i = 1
+	local frame = _G.MirrorTimer1
+	while frame do
+		if frame.shadow then break end
+		frame:CreateSoftShadow()
+
+		i = i + 1
+		frame = _G['MirrorTimer'..i]
 	end
 end
 
@@ -257,6 +262,26 @@ local function MailFrameShadows()
 	end
 end
 
+local ignoreWidgets = {
+	[283] = true -- Cosmic Energy
+}
+
+function B:UIWidgetTemplateStatusBarShadows()
+	local forbidden = self:IsForbidden()
+	local bar = self.Bar
+
+	if forbidden and bar then
+		if bar.tooltip then bar.tooltip = nil end -- EmbeddedItemTooltip is tainted just block the tooltip
+		return
+	elseif forbidden or ignoreWidgets[self.widgetSetID] or not bar then
+		return -- we don't want to handle these widgets
+	end
+
+	if bar and bar.backdrop then
+		bar.backdrop:CreateSoftShadow()
+	end
+end
+
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
@@ -272,6 +297,13 @@ function mod:Initialize()
 	MerchantFrameShadows()
 	MailFrameShadows()
 	mod:RegisterEvent('START_TIMER')
+
+	-- Widgets
+	for _, widget in pairs(_G.UIWidgetPowerBarContainerFrame.widgetFrames) do
+		B.UIWidgetTemplateStatusBarShadows(widget)
+	end
+	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, 'Setup', B.UIWidgetTemplateStatusBarShadows)
+	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, 'Setup', B.UIWidgetTemplateStatusBarShadows)
 
 	-- AddonSkins
 	mod:AddonSkins()

@@ -32,7 +32,7 @@ local function SetupLayout(layout)
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["chat"]["panelWidth"] = 412
 	E.db["databars"]["statusbar"] = "BuiFlat"
-	E.db["databars"]["azerite"]["enable"] = true
+	E.db["databars"]["azerite"]["enable"] = false
 	E.db["databars"]["azerite"]["height"] = 150
 	E.db["databars"]["azerite"]["orientation"] = 'VERTICAL'
 	E.db["databars"]["azerite"]["textFormat"] = 'NONE'
@@ -56,6 +56,13 @@ local function SetupLayout(layout)
 	E.db["databars"]["reputation"]["textFormat"] = 'NONE'
 	E.db["databars"]["reputation"]["fontSize"] = 9
 	E.db["databars"]["reputation"]["width"] = 8
+	E.db["databars"]["threat"]["enable"] = true
+	E.db["databars"]["threat"]["height"] = 150
+	E.db["databars"]["threat"]["orientation"] = 'VERTICAL'
+	E.db["databars"]["threat"]["textFormat"] = 'NONE'
+	E.db["databars"]["threat"]["fontSize"] = 9
+	E.db["databars"]["threat"]["width"] = 8
+	E.db["databars"]["threat"]["displayText"] = false
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["rightChatPanel"] = false
@@ -96,8 +103,8 @@ local function SetupLayout(layout)
 	E.private["skins"]["blizzard"]["questChoice"] = true
 	E.private["skins"]["parchmentRemoverEnable"] = true
 
-	E.db["benikui"]["databars"]["azerite"]["buttonStyle"] = "DEFAULT"
-	E.db["benikui"]["databars"]["azerite"]["notifiers"]["position"] = "RIGHT"
+	E.db["benikui"]["databars"]["threat"]["buttonStyle"] = "DEFAULT"
+	E.db["benikui"]["databars"]["threat"]["notifiers"]["position"] = "RIGHT"
 	E.db["benikui"]["databars"]["reputation"]["buttonStyle"] = "DEFAULT"
 	E.db["benikui"]["databars"]["reputation"]["notifiers"]["position"] = "LEFT"
 	E.db["benikui"]["databars"]["honor"]["buttonStyle"] = "TRANSPARENT"
@@ -110,11 +117,10 @@ local function SetupLayout(layout)
 	E.private["general"]["glossTex"] = "BuiFlat"
 	E.private["general"]["chatBubbles"] = 'backdrop'
 
-	BUI:GetModule('Layout'):CreateMiddlePanel(true)
-
 	-- common movers
 	E.db["movers"] = E.db["movers"] or {}
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
+	E.db["movers"]["ThreatBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,415,22"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-192"
 	E.db["movers"]["BNETMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-156,-200"
@@ -343,6 +349,8 @@ local function SetupActionbars(layout)
 	E.db["actionbar"]["zoneActionButton"]["clean"] = true
 	E.db["actionbar"]["microbar"]["buttonHeight"] = 22
 
+	BUI:GetModule('Layout'):CreateMiddlePanel()
+
 	E.db["movers"] = E.db["movers"] or {}
 	if layout == 'v1' then
 		fontStyle = "Bui Visitor1"
@@ -395,6 +403,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonSpacing"] = 2
 		E.db["actionbar"]["stanceBar"]["backdrop"] = false
 		E.db["actionbar"]["stanceBar"]["buttonSize"] = 24
+		E.db["actionbar"]["stanceBar"]["hotkeyFont"] = fontStyle
+		E.db["actionbar"]["stanceBar"]["hotkeyFontOutline"] = fontOutline
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 414
@@ -467,6 +477,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["buttonSpacing"] = 2
 		E.db["actionbar"]["stanceBar"]["backdrop"] = false
 		E.db["actionbar"]["stanceBar"]["buttonSize"] = 24
+		E.db["actionbar"]["stanceBar"]["hotkeyFont"] = fontStyle
+		E.db["actionbar"]["stanceBar"]["hotkeyFontOutline"] = fontOutline
 
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = true
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
@@ -531,6 +543,8 @@ local function SetupActionbars(layout)
 		E.db["actionbar"]["font"] = fontStyle
 		E.db["actionbar"]["fontOutline"] = fontOutline
 		E.db["actionbar"]["stanceBar"]["buttonSize"] = 24
+		E.db["actionbar"]["stanceBar"]["hotkeyFont"] = fontStyle
+		E.db["actionbar"]["stanceBar"]["hotkeyFontOutline"] = fontOutline
 		E.db["benikui"]["actionbars"]["style"]["bar2"] = false
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = 416
 		E.db["databars"]["experience"]["width"] = 416
@@ -2098,16 +2112,19 @@ local function SetupDataTexts(role)
 	if role == 'tank' then
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Avoidance'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Armor'
+		E.DataTexts:UpdatePanelInfo("BuiMiddleDTPanel")
 	elseif role == 'healer' then
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Mana Regen'
+		E.DataTexts:UpdatePanelInfo("BuiMiddleDTPanel")
 	elseif role == 'dpsMelee' or 'dpsCaster' then
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] = 'Haste'
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] = 'Crit'
+		E.DataTexts:UpdatePanelInfo("BuiMiddleDTPanel")
 	end
 
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
-	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Missions (BenikUI)'
+	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Renown (BenikUI)'
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][3] = 'BuiMail'
 
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][1] = 'Talent/Loot Specialization'
@@ -2115,6 +2132,7 @@ local function SetupDataTexts(role)
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][2] = 'Bags'
 
 	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][2] = 'Mastery'
+	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["enable"] = true
 
 	E.DataTexts:UpdatePanelInfo('BuiLeftChatDTPanel')
 	E.DataTexts:UpdatePanelInfo('BuiRightChatDTPanel')

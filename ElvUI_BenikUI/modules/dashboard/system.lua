@@ -7,6 +7,7 @@ local _G = _G
 -- GLOBALS: hooksecurefunc
 
 local CreateFrame = CreateFrame
+local IsInInstance = IsInInstance
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -14,7 +15,7 @@ local SPACING = 1
 
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
-function mod:UpdateSystem()
+function mod:CreateSystem()
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
@@ -31,7 +32,6 @@ function mod:UpdateSystem()
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
 			holder:Show()
-			holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB + 1)) + DASH_SPACING)
 
 			local bar = CreateFrame('Frame', 'BUI_'..name, holder)
 			bar:Height(DASH_HEIGHT)
@@ -59,6 +59,7 @@ function mod:UpdateSystem()
 			bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
 			bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
+			bar.Text:FontTemplate()
 			bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
 			bar.Text:SetJustifyH(db.textAlign)
 
@@ -75,15 +76,6 @@ function mod:UpdateSystem()
 			end)
 
 			tinsert(BUI.SystemDB, bar)
-		end
-	end
-
-	for key, frame in ipairs(BUI.SystemDB) do
-		frame:ClearAllPoints()
-		if(key == 1) then
-			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
-		else
-			frame:Point('TOP', BUI.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
@@ -115,16 +107,52 @@ function mod:UpdateSystemTextAlignment()
 	end
 end
 
+function mod:UpdateOrientation()
+	local db = E.db.benikui.dashboards.system
+	local holder = _G.BUI_SystemDashboard
+
+	if db.orientation == 'BOTTOM' then
+		holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB)) + DASH_SPACING)
+		holder:Width(db.width)
+	else
+		holder:Height(DASH_HEIGHT + (DASH_SPACING))
+		holder:Width(db.width * (#BUI.SystemDB) + ((#BUI.SystemDB -1) *db.spacing))
+	end
+
+	for key, frame in ipairs(BUI.SystemDB) do
+		frame:ClearAllPoints()
+		if(key == 1) then
+			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+		else
+			if db.orientation == 'BOTTOM' then
+				frame:Point('TOP', BUI.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			else
+				frame:Point('LEFT', BUI.SystemDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
+			end
+		end
+	end
+end
+
+function mod:UpdateVisibility()
+	local db = E.db.benikui.dashboards.system
+	local holder = _G.BUI_SystemDashboard
+	local inInstance = IsInInstance()
+	local NotinInstance = not (db.instance and inInstance)
+
+	holder:SetShown(NotinInstance)
+end
+
 function mod:CreateSystemDashboard()
 	local db = E.db.benikui.dashboards.system
 	local holder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
 	holder:Width(db.width or 150)
 
-	mod:UpdateSystem()
 	mod:UpdateHolderDimensions(holder, 'system', BUI.SystemDB)
 	mod:ToggleStyle(holder, 'system')
 	mod:ToggleTransparency(holder, 'system')
+	mod:CreateSystem()
+	mod:UpdateOrientation()
 
 	holder:SetScript('OnEnter', function()
 		if db.mouseover then
@@ -142,7 +170,7 @@ function mod:CreateSystemDashboard()
 end
 
 function mod:LoadSystem()
-	if E.db.benikui.dashboards.system.enableSystem ~= true then return end
+	if E.db.benikui.dashboards.system.enable ~= true then return end
 	local db = E.db.benikui.dashboards.system.chooseSystem
 
 	if (db.FPS ~= true and db.MS ~= true and db.Bags ~= true and db.Durability ~= true and db.Volume ~= true) then return end
@@ -151,6 +179,7 @@ function mod:LoadSystem()
 	mod:UpdateSystemSettings()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateSystemSettings)
+	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')
 
 	if db.FPS then mod:CreateFps() end
 	if db.MS then mod:CreateMs() end

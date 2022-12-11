@@ -142,15 +142,14 @@ L["Random Stats"] = true
 L["remaining till level"] = true
 
 -- Dashboards
-L["Change the Professions Dashboard width."] = true
-L["Change the Tokens Dashboard width."] = true
 L["Enable the Professions Dashboard."] = true
-L["Filter Capped"] = true
 L['Amount'] = true
 L['Bar Color'] = true
 L['Bar Height'] = true
 L['Change the Bar Height.'] = true
+L['Change the Professions Dashboard width.'] = true
 L['Change the System Dashboard width.'] = true
+L['Change the Tokens Dashboard width.'] = true
 L['Choose font for all dashboards.'] = true
 L['Click :'] = true
 L['Dashboards'] = true
@@ -159,6 +158,8 @@ L['Enable the Tokens Dashboard.'] = true
 L['Enable/Disable'] = true
 L['Faction Colors'] = true
 L['Fast Volume +/-'] = true
+L['Filter Capped'] = true
+L['Hide in Instance'] = true
 L['Latency (MS)'] = true
 L['MouseWheel :'] = true
 L['RightClick :'] = true
@@ -182,6 +183,7 @@ L['Text Alignment'] = true
 L['Tip: Click to free memory'] = true
 L['Tip: Grayed tokens are not yet discovered'] = true
 L['Use DataTexts font'] = true
+L['Update Throttle'] = true
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true
 

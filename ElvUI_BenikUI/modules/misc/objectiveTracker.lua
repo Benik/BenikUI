@@ -4,6 +4,13 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 
+local MAX_QUESTS = MAX_QUESTS
+local TRACKER_HEADER_QUESTS = TRACKER_HEADER_QUESTS
+local OBJECTIVES_TRACKER_LABEL = OBJECTIVES_TRACKER_LABEL
+
+local C_QuestLog_GetInfo = C_QuestLog.GetInfo
+local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
+
 local headers = {
 	_G.ObjectiveTrackerBlocksFrame.QuestHeader,
 	_G.ObjectiveTrackerBlocksFrame.AchievementHeader,
@@ -105,8 +112,8 @@ local function ObjectiveTrackerQuests()
 		local frame = _G.ObjectiveTrackerFrame
 
 		if not InCombatLockdown() then
-			for questLogIndex = 1, C_QuestLog.GetNumQuestLogEntries() do
-				local info = C_QuestLog.GetInfo(questLogIndex)
+			for questLogIndex = 1, C_QuestLog_GetNumQuestLogEntries() do
+				local info = C_QuestLog_GetInfo(questLogIndex)
 				if info and not info.isHeader and not info.isHidden then
 					questNum = questNum + 1
 				end

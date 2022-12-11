@@ -10,25 +10,25 @@ L["WORLD"] = "Welt";
 
 --core
 L['is loaded. For any issues or suggestions, please visit'] = "ist geladen. Für Fehler oder Vorschläge besucht bitte:"
-L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nMinimum ElvUI version needed is %.2f. Please download it from here:\n"] = true
-L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"] = true
+L["%s\n\nYour ElvUI version %.2f is not compatible with BenikUI.\nMinimum ElvUI version needed is %.2f. Please download it from here:\n"] = "%s\n\nIhre ElvUI-Version %.2f ist nicht mit BenikUI kompatibel.\nDie mindestens benötigte ElvUI-Version ist %.2f. Bitte lade sie hier herunter:\n"
+L["|cffff0000BenikUI Error|r\n\nIt seems like BenikUI Retail version is installed on WoW Classic. Please install BenikUI Classic version.\n|cff00c0faTip: Usually happens with Twitch Client|r"] = "|cffff0000BenikUI-Fehler|r\n\nAnscheinend ist die BenikUI Retail Version auf WoW Classic installiert. Bitte installiere die BenikUI Classic-Version.\n|cff00c0faTipp: Tritt normalerweise beim Twitch Client auf|r"
 
 -- General options
 L["BenikUI is a completely external ElvUI mod. More available options can be found in ElvUI options (e.g. Actionbars, Unitframes, Player and Target Portraits), marked with "] = "BenikUI ist ein komplett externer ElvUI Mod. Weitere verfügbare Optionen findest Du in den ElvUI Optionen (z.B. Aktionsleisten, Einheitenfenster, Spieler und Ziel Portrait), markiert in "
 L["Credits:"] = "Danksagung:"
-L['ActionBar Style Color'] = "Aktionsleiste Stil Farbe"
+L['ActionBar Style Color'] = "Aktionsleiste Stilfarbe"
 L['BenikUI Style'] = "BenikUI Stil"
 L['Game Menu Color'] = "Spielmenü Farbe"
 L['Enable/Disable the decorative bars from UI elements'] = "Aktiviert/Deaktiviert die dekorativen Leisten für UI Elemente"
 L['Hide BenikUI Style'] = "Verstecke BenikUI Stil"
 L['Show/Hide the decorative bars from UI elements. Usefull when applying Shadows, because BenikUI Style must be enabled. |cff00c0faNote: Some elements like the Actionbars, Databars or BenikUI Datatexts have their own Style visibility options.|r'] = "Zeigt/Versteckt die dekorativen Leisten für UI Elemente. Nützlich wenn die Schatten angewandt wurden, BenikUI Stil muss aktiviert sein. |cff00c0faHinweis: Einige Elemente wie Aktionsleisten, Informationsleisten oder BenikUI Infotexte haben ihre eigene Sichtbarkeits Optionen.|r"
-L['Style Color'] = "Stil Farbe"
+L['Style Color'] = "Stilfarbe"
 L['by Benik (EU-Emerald Dream)'] = "von Benik (EU-Emerald Dream)"
-L['light blue color.'] = "hell blau"
+L['light blue color.'] = "hellblau"
 L['Splash Screen'] = "Startbildschirm"
 L['Shadow'] = "Schatten"
-L['Shadow Size'] = true
-L['Shadow Alpha'] = true
+L['Shadow Size'] = "Schattengröße"
+L['Shadow Alpha'] = "Schattentransparenz"
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
@@ -37,22 +37,22 @@ L['ShiftClick to toggle chat'] = "Shift Klick um Chat umzuschalten"
 L['Click to show the Addon List'] = "Klicken um die AddOn-Liste zu zeigen"
 
 -- Custom Panels
-L['Clone'] = true
-L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
+L['Clone'] = "Klone"
+L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = "Benutzerdefiniertes Bedienfeld klonen: |cff00c0fa%s|r.\nBitte gebe den neuen Namen ein"
 L["Create"] = "Erstelle"
-L["Enable tooltip to reveal the panel name"] = "Aktiviere den Tooltip um den Panel Namen zu erfahren"
+L["Enable tooltip to reveal the panel name"] = "Aktiviere den Tooltip um den Leistenamen zu erfahren"
 L["Hide in Pet Battle"] = "Verstecke in Haustiefkämpfen"
 L["Name Tooltip"] = "Namenstooltip"
-L['New Custom Panel'] = true
-L['Style Position'] = true
-L["Texture Color"] = true
-L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Der Name |cff00c0fa%s|r von einem Benutzerdefiniertem Panel existiert bereits. Bitte wähle einen anderen."
-L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"] = "Dieses wird das Benutzerdefiniertes Panel mit dem Namen |cff00c0fa%s|r löschen.\nFortfahren?"
-L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = true
-L["Title Bar Position"] = true
-L["Title Text Position"] = true
-L["Title"] = true
-L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Gib einen einzigartigen Namen für das neue Panel ein. \n|cff00c0faHinweis: 'BenikUI_' wird am Anfang hinzugefügt um die Einzigarigkeit zu gewährleisten|r"
+L['New Custom Panel'] = "Neues benutzerdefinierte Leiste"
+L['Style Position'] = "Stilposition"
+L["Texture Color"] = "Texturfarbe"
+L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."] = "Der Name |cff00c0fa%s|r von einer Benutzerdefiniertem Leiste existiert bereits. Bitte wähle einen anderen."
+L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"] = "Diese wird die Benutzerdefinierte Leiste mit dem Namen |cff00c0fa%s|r löschen.\nFortfahren?"
+L["This works like a macro, you can run different situations to get the panel to show/hide differently.\n Example: '[combat] show;hide'"] = "Dies funktioniert wie ein Makro, Du kannst verschiedene Situationen ausführen, um das Fenster unterschiedlich anzuzeigen/auszublenden.\n Beispiel: '[combat] show;hide'"
+L["Title Bar Position"] = "Titelleisten Position"
+L["Title Text Position"] = "Titeltext Position"
+L["Title"] = "Titel"
+L["Type a unique name for the new panel. \n|cff00c0faNote: 'BenikUI_' will be added at the beginning, to ensure uniqueness|r"] = "Gib einen einzigartigen Namen für die neue Leiste ein. \n|cff00c0faHinweis: 'BenikUI_' wird am Anfang hinzugefügt um die Einzigarigkeit zu gewährleisten|r"
 
 -- Profiles
 L['Successfully created and applied profile(s) for |cffffff00%s|r'] = "Erfolgreich ein Profil erstellt und angewandt für |cffffff00%s|r" -- %s is the addon name
@@ -61,7 +61,7 @@ L['|cffffff00%s|r profile for this character already exists. Aborting.'] = "|cff
 -- Misc
 L['Shown Logo'] = "Zeige Logo"
 L['iLevel'] = true --No need to translate
-L['Show item level per slot, on the character info frame'] = "Zeigt das Itemlevel pro Slot, im Spielerfenster"
+L['Show item level per slot, on the character info frame'] = "Zeigt das Gegenstandslevel pro Slot, im Spielerfenster"
 L['Inside the item slot'] = "Innerhalb des Ausrüstungsplatz"
 L['Outside the item slot'] = "Ausserhalb des Ausrüstungsplatz"
 
@@ -75,16 +75,16 @@ L['Display the Flight Mode screen when taking flight paths'] = "Zeige den Flugmo
 -- DataTexts
 L['BenikUI Middle DataText'] = "BenikUI mittlerer Infotext"
 L['Hide Mail Icon'] = "Verstecke das Postsymbol"
-L['Middle'] = "Mittlerer"
+L['Middle'] = "Mitte"
 L['New Mail'] = "Neue Post"
 L['No Mail'] = "Keine Post"
-L['Set Datatext Values'] = true
+L['Set Datatext Values'] = "Datentextwerte festlegen"
 L['Show/Hide Chat DataTexts. ElvUI chat datatexts must be disabled'] = "Chat Infotexte anzeigen/ausblenden. ElvUI Infotexte müssen dafür deaktiviert sein"
 L['Show/Hide Mail Icon on minimap'] = "Postsymbol an der Minimap anzeigen/ausblenden"
 L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'] = "Passt die Chatinfotexte und Tasten an, wenn der Chathintergrund auf 'Verstecke Beide' gesetzt ist."
-L['Left Chat Panel'] = true
-L['Right Chat Panel'] = true
-L['Middle Panel'] = true
+L['Left Chat Panel'] = "Linkes Chatfenster"
+L['Right Chat Panel'] = "Rechtes Chatfenster"
+L['Middle Panel'] = "Mittlere Leiste"
 
 -- install
 L["BenikUI didn't find any supported addons for profile creation"] = "BenikUI konnte keine unterstütze Profile für Addons finden"
@@ -146,19 +146,21 @@ L["Change the Professions Dashboard width."] = "Ändert die Beruf-Dashboard Brei
 L["Change the Tokens Dashboard width."] = "Ändert die Token-Dashboard Breite."
 L["Enable the Professions Dashboard."] = "Aktiviert das Berufe Dashboard."
 L["Filter Capped"] = "Filtere am Cap"
-L['Amount'] = true
+L['Amount'] = "Menge"
 L['Bar Color'] = "Leistenfarbe"
-L['Bar Height'] = true
+L['Bar Height'] = "Leistenhöhe"
 L['Change the Bar Height.'] = true
-L['Change the System Dashboard width.'] = "Ändert die System-Dashboard Breite."
+L['Change the System Dashboard width.'] = "Ändert die System Dashboardbreite."
 L['Choose font for all dashboards.'] = "Wähle Schriftart für alle Dashboards."
 L['Click :'] = "Klick :"
 L['Dashboards'] = true --No need to translate
 L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
 L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
 L['Enable/Disable'] = "Aktivieren/Deaktivieren"
-L['Faction Colors'] = true
-L['Fast Volume +/-'] = true
+L['Faction Colors'] = "Fraktionsfarben"
+L['Fast Volume +/-'] = "Schnelle Lautstärke +/-"
+L['Filter Capped'] = true
+L['Hide in Instance'] = "Verstecke in Instanz"
 L['Latency (MS)'] = "Latenz (MS)"
 L['MouseWheel :'] = "Mausrad :"
 L['RightClick :'] = "Rechtsklick :"
@@ -166,24 +168,25 @@ L['Select Professions'] = "Berufe auswählen"
 L['Select System Board'] = "Wähle System Board"
 L['Select Tokens'] = "Abzeichen auswählen"
 L['Set the font size.'] = "Schriftgröße auswählen."
-L['Shift+MouseWheel :'] = true
-L['Shift+RightClick to remove'] = "Shift+Rechts click um zu entfernen"
+L['Shift+MouseWheel :'] = "Shift+Moausrad :"
+L['Shift+RightClick to remove'] = "Shift+Rechtsklick um zu entfernen"
 L['Show the token, even if the amount is 0'] = "Abzeichen anzeigen, auch wenn die Anzahl 0 ist"
-L['Show Weekly max tokens instead of total max'] = "Zeige wöchentliches max. Abzeichen anstatt vom totalem max."
-L['Show Weekly max'] = "Zeige wöchentliches maximum"
+L['Show Weekly max tokens instead of total max'] = "Zeige Wöchentliches max. Abzeichen anstatt vom totalem Max."
+L['Show Weekly max'] = "Zeige wöchentliches Maximum"
 L['Show zero amount tokens'] = "Zeige Abzeichen mit der Anzahl 0"
-L['Show/Hide Professions Dashboard when in combat'] = true
-L['Show/Hide Reputations Dashboard when in combat'] = true
-L['Show/Hide System Dashboard when in combat'] = "Dashboard im Kampf anzeigen/ausblenden"
+L['Show/Hide Professions Dashboard when in combat'] = "Berufe Dashboard im Kampf ein-/ausblenden"
+L['Show/Hide Reputations Dashboard when in combat'] = "Ruf Dashboard im Kampf ein-/ausblenden"
+L['Show/Hide System Dashboard when in combat'] = "System Dashboard im Kampf anzeigen/ausblenden"
 L['Show/Hide Tokens Dashboard when in combat'] = "Abzeichen Dashboard im Kampf anzeigen/ausblenden"
 L['Show/Hide Tooltips'] = "Tooltip anzeigen/ausblenden"
 L['System'] = true --No need to translate
-L['Text Alignment'] = true
+L['Text Alignment'] = "Textausrichtung"
 L['Tip: Click to free memory'] = "Tip: Klicken um den Speicher zu bereinigen"
 L['Tip: Grayed tokens are not yet discovered'] = "Tip: Ausgegraute Abzeichen sind bis jetzt noch nicht entdeckt"
+L['Update Throttle'] = "Aktualisierung drosseln"
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
-L['Use Faction Colors on Bars'] = true
-L['Use Faction Colors on Text'] = true
+L['Use Faction Colors on Bars'] = "Benutze Fraktionsfarben auf Leisten"
+L['Use Faction Colors on Text'] = "Benutze Fraktionsfarben auf Texten"
 
 -- Databars Options
 L['Notifiers'] = "Benachrichtigungen"
@@ -235,9 +238,9 @@ L['Enable Class color on health border, when mouse over'] = "Aktiviert den Klass
 
 -- Information
 L['Information'] = true --No need to translate
-L['Support'] = true --No need to translate
+L['Support'] = "Unterstützung"
 L['Download'] = true --No need to translate
-L['Beta versions'] = true --No need to translate
+L['Beta versions'] = "Beta Versionen"
 L['Coding'] = true --No need to translate
 L['Testing & Inspiration'] = "Tester & Inspiration"
 L['Donations'] = "Spenden"
