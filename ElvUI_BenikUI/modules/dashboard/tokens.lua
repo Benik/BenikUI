@@ -205,6 +205,7 @@ function mod:UpdateTokens()
 			end
 		end
 	end
+	mod:IconPosition(BUI.TokensDB, 'tokens')
 end
 
 function mod:UpdateTokenSettings()
