@@ -364,9 +364,3 @@ if AS:CheckAddOn('WoWPro') then AS:RegisterSkin('WoWPro', WoWProDecor, 2) end
 
 --if BUI.CT then ClassTactics() end
 LibrariesDecor()
-
-hooksecurefunc(AS, 'AcceptFrame', function(self)
-	if not _G["AcceptFrame"].style then
-		_G["AcceptFrame"]:BuiStyle('Outside')
-	end
-end)
