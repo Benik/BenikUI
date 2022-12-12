@@ -454,11 +454,9 @@ function mod:CreateMiddlePanel(forceReset)
 	end
 	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] or {}
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] or {}
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["border"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["border"] or true
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] or 4
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["numPoints"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["numPoints"] or 3
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipAnchor"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipAnchor"] or "ANCHOR_TOPLEFT"
-	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["backdrop"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["backdrop"] or true
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] or 416
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["height"] = PANEL_HEIGHT
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipXOffset"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipXOffset"] or 3
