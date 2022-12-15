@@ -25,6 +25,7 @@ local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
+local tokensDB = BUI.TokensDB
 
 local classColor = E:ClassColor(E.myclass, true)
 local expansion = _G['EXPANSION_NAME'..GetExpansionLevel()]
@@ -84,14 +85,17 @@ end
 function mod:UpdateTokens()
 	local db = E.db.benikui.dashboards.tokens
 	local holder = _G.BUI_TokensDashboard
+
+	if not db.enable then holder:Hide() return end
+
 	local inInstance = IsInInstance()
 	local NotinInstance = not (db.instance and inInstance)
 
-	if(BUI.TokensDB[1]) then
-		for i = 1, getn(BUI.TokensDB) do
-			BUI.TokensDB[i]:Kill()
+	if(tokensDB[1]) then
+		for i = 1, getn(tokensDB) do
+			tokensDB[i]:Kill()
 		end
-		twipe(BUI.TokensDB)
+		twipe(tokensDB)
 		holder:Hide()
 	end
 
@@ -110,14 +114,14 @@ function mod:UpdateTokens()
 						holder:SetShown(NotinInstance)
 
 					if db.orientation == 'BOTTOM' then
-						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.TokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#tokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 						holder:Width(db.width)
 					else
 						holder:Height(DASH_HEIGHT + (DASH_SPACING))
-						holder:Width(db.width * (#BUI.TokensDB + 1) + ((#BUI.TokensDB) *db.spacing))
+						holder:Width(db.width * (#tokensDB + 1) + ((#tokensDB) *db.spacing))
 					end
 
-						local bar = self:CreateDashboard(holder, 'tokens', true)
+						local bar = mod:CreateDashboard(holder, 'tokens', true)
 
 						if totalMax == 0 then
 							bar.Status:SetMinMaxValues(0, amount)
@@ -184,35 +188,38 @@ function mod:UpdateTokens()
 						bar.id = id
 						bar.name = name
 
-						tinsert(BUI.TokensDB, bar)
+						tinsert(tokensDB, bar)
 					end
 				end
 			end
 		end
 	end
 
-	tsort(BUI.TokensDB, sortFunction)
+	tsort(tokensDB, sortFunction)
 
-	for key, frame in pairs(BUI.TokensDB) do
+	for key, frame in pairs(tokensDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			if db.orientation == 'BOTTOM' then
-				frame:Point('TOP', BUI.TokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+				frame:Point('TOP', tokensDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 			else
-				frame:Point('LEFT', BUI.TokensDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
+				frame:Point('LEFT', tokensDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
 			end
 		end
 	end
-	mod:IconPosition(BUI.TokensDB, 'tokens')
+	mod:FontStyle(tokensDB)
+	mod:FontColor(tokensDB)
+	mod:BarColor(tokensDB)
+	mod:IconPosition(tokensDB, 'tokens')
 end
 
 function mod:UpdateTokenSettings()
-	mod:FontStyle(BUI.TokensDB)
-	mod:FontColor(BUI.TokensDB)
-	mod:BarColor(BUI.TokensDB)
-	mod:IconPosition(BUI.TokensDB, 'tokens')
+	mod:FontStyle(tokensDB)
+	mod:FontColor(tokensDB)
+	mod:BarColor(tokensDB)
+	mod:IconPosition(tokensDB, 'tokens')
 end
 
 function mod:PopulateCurrencyData()
@@ -266,8 +273,45 @@ function mod:CURRENCY_DISPLAY_UPDATE(_, currencyID)
 	mod:UpdateTokens()
 end
 
-function mod:TokenEvents()
-	self:RegisterEvent('CURRENCY_DISPLAY_UPDATE')
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards.tokens
+	local holder = _G.BUI_TokensDashboard
+
+	if db.mouseover then
+		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+	end
+end
+
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards.tokens
+	local holder = _G.BUI_TokensDashboard
+
+	if db.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+	end
+end
+
+function mod:ToggleTokens()
+	local db = E.db.benikui.dashboards.tokens
+	local holder = _G.BUI_TokensDashboard
+
+	if db.enable then
+		E:EnableMover(holder.mover.name)
+		mod:RegisterEvent('CURRENCY_DISPLAY_UPDATE')
+
+		mod:PopulateCurrencyData()
+		mod:ToggleStyle(holder, 'tokens')
+		mod:ToggleTransparency(holder, 'tokens')
+		holder:SetScript('OnEnter', holderOnEnter)
+		holder:SetScript('OnLeave', holderOnLeave)
+	else
+		E:DisableMover(holder.mover.name)
+		mod:UnregisterEvent('CURRENCY_DISPLAY_UPDATE')
+
+		holder:SetScript('OnEnter', nil)
+		holder:SetScript('OnLeave', nil)
+	end
+	mod:UpdateTokens()
 end
 
 function mod:CreateTokensDashboard()
@@ -276,33 +320,13 @@ function mod:CreateTokensDashboard()
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
 	holder:Width(db.width or 150)
 
-	mod:PopulateCurrencyData()
-	mod:UpdateTokens()
-	mod:UpdateTokenSettings()
-	mod:ToggleStyle(holder, 'tokens')
-	mod:ToggleTransparency(holder, 'tokens')
-
-	holder:SetScript('OnEnter', function(self)
-		if db.mouseover then
-			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-		end
-	end)
-
-	holder:SetScript('OnLeave', function(self)
-		if db.mouseover then
-			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-		end
-	end)
-
 	E:CreateMover(_G.BUI_TokensDashboard, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,tokens')
+	mod:ToggleTokens()
 end
 
 function mod:LoadTokens()
-	if E.db.benikui.dashboards.tokens.enable ~= true then return end
-
 	mod:CreateTokensDashboard()
-	mod:TokenEvents()
 
-	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokenSettings)
+	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokens)
 	hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
 end

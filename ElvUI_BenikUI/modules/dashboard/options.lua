@@ -1,6 +1,6 @@
 local BUI, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local BUID = BUI:GetModule('Dashboards')
+local mod = BUI:GetModule('Dashboards')
 
 local tinsert, pairs, ipairs, gsub, unpack, format, tostring = table.insert, pairs, ipairs, gsub, unpack, string.format, tostring
 local GetProfessions, GetProfessionInfo = GetProfessions, GetProfessionInfo
@@ -88,7 +88,7 @@ local function UpdateTokenOptions()
 				},
 			}
 		elseif info[3] then
-			local tname, amount, icon = BUID:GetTokenInfo(id)
+			local tname, amount, icon = mod:GetTokenInfo(id)
 			if tname then
 				config.args[tostring(info[3])].args[tostring(i)] = {
 					order = optionOrder + 2,
@@ -97,7 +97,7 @@ local function UpdateTokenOptions()
 					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], BreakUpLargeNumbers(amount)),
 					disabled = function() return not db.enable end,
 					get = function(info) return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
-					set = function(info, value) E.private.benikui.dashboards.tokens.chooseTokens[id] = value BUID:UpdateTokens() BUID:UpdateTokenSettings() end,
+					set = function(info, value) E.private.benikui.dashboards.tokens.chooseTokens[id] = value mod:UpdateTokens() end,
 				}
 			end
 		end
@@ -130,7 +130,7 @@ local function UpdateProfessionOptions()
 					name = '|T'..icon..':18|t '..pname,
 					desc = format('%s %s', L['Enable/Disable'], pname),
 					get = function(info) return E.private.benikui.dashboards.professions.choosePofessions[id] end,
-					set = function(info, value) E.private.benikui.dashboards.professions.choosePofessions[id] = value BUID:UpdateProfessions() end,
+					set = function(info, value) E.private.benikui.dashboards.professions.choosePofessions[id] = value mod:UpdateProfessions() end,
 				}
 			end
 		end
@@ -176,7 +176,7 @@ local function UpdateReputationOptions()
 				desc = format('%s %s', L['Enable/Disable'], name),
 				disabled = function() return not db.enable end,
 				get = function(info) return E.private.benikui.dashboards.reputations.chooseReputations[factionID] end,
-				set = function(info, value) E.private.benikui.dashboards.reputations.chooseReputations[factionID] = value BUID:UpdateReputations() BUID:UpdateReputationSettings() end,
+				set = function(info, value) E.private.benikui.dashboards.reputations.chooseReputations[factionID] = value mod:UpdateReputations() mod:UpdateReputationSettings() end,
 			}
 		end
 	end
@@ -184,10 +184,10 @@ end
 
 local function UpdateAllDashboards()
 	local db = E.db.benikui.dashboards
-	if db.professions.enable then BUID:UpdateProfessions() end
-	if db.tokens.enable then BUID:UpdateTokenSettings() end
-	if db.system.enable then BUID:UpdateSystemSettings() end
-	if db.reputations.enable then BUID:UpdateReputationSettings() end
+	if db.professions.enable then mod:UpdateProfessions() end
+	if db.tokens.enable then mod:UpdateTokens() end
+	if db.system.enable then mod:UpdateSystemSettings() end
+	if db.reputations.enable then mod:UpdateReputationSettings() end
 end
 
 local function dashboardsTable()
@@ -358,7 +358,7 @@ local function dashboardsTable()
 										desc = L['Change the System Dashboard width.'],
 										min = 120, max = 520, step = 1,
 										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value BUID:UpdateHolderDimensions(BUI_SystemDashboard, 'system', BUI.SystemDB, true) BUID:UpdateSystemSettings() end,
+										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateHolderDimensions(BUI_SystemDashboard, 'system', BUI.SystemDB, true) mod:UpdateSystemSettings() end,
 									},
 									barHeight = {
 										order = 2,
@@ -367,7 +367,7 @@ local function dashboardsTable()
 										desc = L['Change the Bar Height.'],
 										min = 1, max = 20, step = 1,
 										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value BUID:BarHeight('system', BUI.SystemDB) end,
+										set = function(info, value) db.system[ info[#info] ] = value mod:BarHeight('system', BUI.SystemDB) end,
 									},
 									spacing = {
 										order = 3,
@@ -376,7 +376,7 @@ local function dashboardsTable()
 										min = 1, max = 30, step = 1,
 										disabled = function() return db.system.orientation == 'BOTTOM' end,
 										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value BUID:UpdateOrientation() end,
+										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateOrientation() end,
 									},
 									spacer = {
 										order = 4,
@@ -397,7 +397,7 @@ local function dashboardsTable()
 										type = 'select',
 										values = textAlignValues,
 										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value BUID:UpdateSystemTextAlignment() end,
+										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateSystemTextAlignment() end,
 									},
 									orientation = {
 										order = 7,
@@ -405,7 +405,7 @@ local function dashboardsTable()
 										type = 'select',
 										values = frameOrientationValues,
 										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value BUID:UpdateOrientation() end,
+										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateOrientation() end,
 									},
 									spacer2 = {
 										order = 8,
@@ -425,7 +425,7 @@ local function dashboardsTable()
 										name = ' ',
 										disabled = function() return not db.system.enable end,
 										get = function(_, key) return db.system[key] end,
-										set = function(_, key, value) db.system[key] = value BUID:ToggleStyle(BUI_SystemDashboard, 'system') BUID:ToggleTransparency(BUI_SystemDashboard, 'system') end,
+										set = function(_, key, value) db.system[key] = value mod:ToggleStyle(BUI_SystemDashboard, 'system') mod:ToggleTransparency(BUI_SystemDashboard, 'system') end,
 										values = layoutStyles,
 									},
 								},
@@ -450,7 +450,7 @@ local function dashboardsTable()
 										desc = L['Show/Hide System Dashboard when in combat'],
 										type = 'toggle',
 										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value BUID:EnableDisableCombat(BUI_SystemDashboard, 'system') end,
+										set = function(info, value) db.system[ info[#info] ] = value mod:EnableDisableCombat(BUI_SystemDashboard, 'system') end,
 									},
 									mouseover = {
 										order = 2,
@@ -458,14 +458,14 @@ local function dashboardsTable()
 										desc = L['The frame is not shown unless you mouse over the frame.'],
 										type = 'toggle',
 										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value BUID:UpdateSystemSettings() end,
+										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateSystemSettings() end,
 									},
 									instance = {
 										order = 3,
 										name = L['Hide in Instance'],
 										type = 'toggle',
 										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value BUID:UpdateVisibility() end,
+										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateVisibility() end,
 									},
 								},
 							},
@@ -486,7 +486,7 @@ local function dashboardsTable()
 						width = 'full',
 						desc = L['Enable the Tokens Dashboard.'],
 						get = function(info) return db.tokens.enable end,
-						set = function(info, value) db.tokens.enable = value E:StaticPopup_Show('PRIVATE_RL') end,
+						set = function(info, value) db.tokens.enable = value mod:ToggleTokens() end,
 					},
 					selectTokens = {
 						order = 2,
@@ -506,7 +506,7 @@ local function dashboardsTable()
 										desc = L['Show the token, even if the amount is 0'],
 										type = 'toggle',
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:UpdateTokens() BUID:UpdateTokenSettings() end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 									weekly = {
 										order =2,
@@ -514,7 +514,7 @@ local function dashboardsTable()
 										desc = L['Show Weekly max tokens instead of total max'],
 										type = 'toggle',
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:UpdateTokens() BUID:UpdateTokenSettings() end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 									tooltip = {
 										order = 3,
@@ -522,7 +522,7 @@ local function dashboardsTable()
 										desc = L['Show/Hide Tooltips'],
 										type = 'toggle',
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:UpdateTokens() BUID:UpdateTokenSettings() end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 								},
 							},
@@ -547,7 +547,7 @@ local function dashboardsTable()
 										desc = L['Change the Tokens Dashboard width.'],
 										min = 120, max = 520, step = 1,
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:UpdateTokenSettings() BUID:UpdateTokens() end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 									barHeight = {
 										order = 2,
@@ -556,7 +556,7 @@ local function dashboardsTable()
 										desc = L['Change the Bar Height.'],
 										min = 1, max = 20, step = 1,
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:BarHeight('tokens', BUI.TokensDB) end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:BarHeight('tokens', BUI.TokensDB) end,
 									},
 									spacing = {
 										order = 3,
@@ -565,7 +565,7 @@ local function dashboardsTable()
 										min = 1, max = 30, step = 1,
 										disabled = function() return db.tokens.orientation == 'BOTTOM' end,
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:UpdateTokens() end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 									spacer = {
 										order = 4,
@@ -577,7 +577,7 @@ local function dashboardsTable()
 										type = 'select',
 										name = L['Icon Position'],
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:UpdateTokens() BUID:UpdateTokenSettings() end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 										values = iconOrientationValues,
 									},
 									orientation = {
@@ -586,14 +586,14 @@ local function dashboardsTable()
 										type = 'select',
 										values = frameOrientationValues,
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:UpdateTokens() end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 									layoutOptions = {
 										order = 10,
 										type = 'multiselect',
 										name = ' ',
 										get = function(_, key) return db.tokens[key] end,
-										set = function(_, key, value) db.tokens[key] = value BUID:ToggleStyle(BUI_TokensDashboard, 'tokens') BUID:ToggleTransparency(BUI_TokensDashboard, 'tokens') end,
+										set = function(_, key, value) db.tokens[key] = value mod:ToggleStyle(BUI_TokensDashboard, 'tokens') mod:ToggleTransparency(BUI_TokensDashboard, 'tokens') end,
 										values = layoutStyles,
 									},
 								},
@@ -618,7 +618,7 @@ local function dashboardsTable()
 										desc = L['Show/Hide Tokens Dashboard when in combat'],
 										type = 'toggle',
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:EnableDisableCombat(BUI_TokensDashboard, 'tokens') end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:EnableDisableCombat(BUI_TokensDashboard, 'tokens') end,
 									},
 									mouseover = {
 										order = 2,
@@ -626,14 +626,14 @@ local function dashboardsTable()
 										desc = L['The frame is not shown unless you mouse over the frame.'],
 										type = 'toggle',
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:UpdateTokens() BUID:UpdateTokenSettings() end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 									instance = {
 										order = 3,
 										name = L['Hide in Instance'],
 										type = 'toggle',
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value BUID:UpdateTokens() end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 								},
 							},
@@ -654,7 +654,7 @@ local function dashboardsTable()
 						width = 'full',
 						desc = L['Enable the Professions Dashboard.'],
 						get = function(info) return db.professions[ info[#info] ] end,
-						set = function(info, value) db.professions[ info[#info] ] = value BUID:ToggleProfessions() end,
+						set = function(info, value) db.professions[ info[#info] ] = value mod:ToggleProfessions() end,
 					},
 					selectProfessions = {
 						order = 2,
@@ -674,7 +674,7 @@ local function dashboardsTable()
 										desc = L['Show/Hide Professions that are skill capped'],
 										type = 'toggle',
 										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value BUID:UpdateProfessions() end,
+										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
 									},
 								},
 							},
@@ -699,7 +699,7 @@ local function dashboardsTable()
 										desc = L['Change the Professions Dashboard width.'],
 										min = 120, max = 520, step = 1,
 										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value BUID:UpdateProfessions() end,
+										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
 									},
 									barHeight = {
 										order = 2,
@@ -708,7 +708,7 @@ local function dashboardsTable()
 										desc = L['Change the Bar Height.'],
 										min = 1, max = 20, step = 1,
 										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value BUID:BarHeight('professions', BUI.ProfessionsDB) end,
+										set = function(info, value) db.professions[ info[#info] ] = value mod:BarHeight('professions', BUI.ProfessionsDB) end,
 									},
 									spacing = {
 										order = 3,
@@ -717,7 +717,7 @@ local function dashboardsTable()
 										min = 1, max = 30, step = 1,
 										disabled = function() return db.professions.orientation == 'BOTTOM' end,
 										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value BUID:UpdateProfessions() end,
+										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
 									},
 									spacer = {
 										order = 4,
@@ -729,7 +729,7 @@ local function dashboardsTable()
 										type = 'select',
 										name = L['Icon Position'],
 										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value BUID:UpdateProfessions() end,
+										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
 										values = iconOrientationValues,
 									},
 									orientation = {
@@ -738,14 +738,14 @@ local function dashboardsTable()
 										type = 'select',
 										values = frameOrientationValues,
 										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value BUID:UpdateProfessions() end,
+										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
 									},
 									layoutOptions = {
 										order = 10,
 										type = 'multiselect',
 										name = ' ',
 										get = function(_, key) return db.professions[key] end,
-										set = function(_, key, value) db.professions[key] = value BUID:ToggleStyle(BUI_ProfessionsDashboard, 'professions') BUID:ToggleTransparency(BUI_ProfessionsDashboard, 'professions') end,
+										set = function(_, key, value) db.professions[key] = value mod:ToggleStyle(BUI_ProfessionsDashboard, 'professions') mod:ToggleTransparency(BUI_ProfessionsDashboard, 'professions') end,
 										values = layoutStyles,
 									},
 								},
@@ -770,7 +770,7 @@ local function dashboardsTable()
 										desc = L['Show/Hide Professions Dashboard when in combat'],
 										type = 'toggle',
 										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value BUID:EnableDisableCombat(BUI_ProfessionsDashboard, 'professions') end,
+										set = function(info, value) db.professions[ info[#info] ] = value mod:EnableDisableCombat(BUI_ProfessionsDashboard, 'professions') end,
 									},
 									mouseover = {
 										order = 2,
@@ -778,14 +778,14 @@ local function dashboardsTable()
 										desc = L['The frame is not shown unless you mouse over the frame.'],
 										type = 'toggle',
 										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value BUID:UpdateProfessions() end,
+										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
 									},
 									instance = {
 										order = 3,
 										name = L['Hide in Instance'],
 										type = 'toggle',
 										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value BUID:UpdateProfessions() end,
+										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
 									},
 								},
 							},
@@ -819,7 +819,7 @@ local function dashboardsTable()
 								type = 'multiselect',
 								name = ' ',
 								get = function(_, key) return db.reputations[key] end,
-								set = function(_, key, value) db.reputations[key] = value BUID:UpdateReputations() BUID:UpdateReputationSettings() end,
+								set = function(_, key, value) db.reputations[key] = value mod:UpdateReputations() mod:UpdateReputationSettings() end,
 								values = {
 									barFactionColors = L['Use Faction Colors on Bars'],
 									textFactionColors = L['Use Faction Colors on Text'],
@@ -847,7 +847,7 @@ local function dashboardsTable()
 										desc = L['Change the Reputations Dashboard width.'],
 										min = 120, max = 520, step = 1,
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value BUID:UpdateReputationSettings() BUID:UpdateReputations() end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputationSettings() mod:UpdateReputations() end,
 									},
 									barHeight = {
 										order = 2,
@@ -856,7 +856,7 @@ local function dashboardsTable()
 										desc = L['Change the Bar Height.'],
 										min = 1, max = 20, step = 1,
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value BUID:BarHeight('reputations', BUI.FactionsDB) end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:BarHeight('reputations', BUI.FactionsDB) end,
 									},
 									spacing = {
 										order = 3,
@@ -865,7 +865,7 @@ local function dashboardsTable()
 										min = 1, max = 30, step = 1,
 										disabled = function() return db.reputations.orientation == 'BOTTOM' end,
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value BUID:UpdateReputations() end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
 									},
 									spacer = {
 										order = 4,
@@ -878,7 +878,7 @@ local function dashboardsTable()
 										type = 'select',
 										values = textAlignValues,
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value BUID:UpdateReputations() end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
 									},
 									orientation = {
 										order = 6,
@@ -886,14 +886,14 @@ local function dashboardsTable()
 										type = 'select',
 										values = frameOrientationValues,
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value BUID:UpdateReputations() end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
 									},
 									layoutOptions = {
 										order = 10,
 										type = 'multiselect',
 										name = ' ',
 										get = function(_, key) return db.reputations[key] end,
-										set = function(_, key, value) db.reputations[key] = value BUID:ToggleStyle(BUI_ReputationsDashboard, 'reputations') BUID:ToggleTransparency(BUI_ReputationsDashboard, 'reputations') end,
+										set = function(_, key, value) db.reputations[key] = value mod:ToggleStyle(BUI_ReputationsDashboard, 'reputations') mod:ToggleTransparency(BUI_ReputationsDashboard, 'reputations') end,
 										values = layoutStyles,
 									},
 								},
@@ -918,7 +918,7 @@ local function dashboardsTable()
 										desc = L['Show/Hide Reputations Dashboard when in combat'],
 										type = 'toggle',
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value BUID:EnableDisableCombat(BUI_ReputationsDashboard, 'reputations') end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:EnableDisableCombat(BUI_ReputationsDashboard, 'reputations') end,
 									},
 									mouseover = {
 										order = 2,
@@ -926,14 +926,14 @@ local function dashboardsTable()
 										desc = L['The frame is not shown unless you mouse over the frame.'],
 										type = 'toggle',
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value BUID:UpdateReputations() BUID:UpdateReputationSettings() end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() mod:UpdateReputationSettings() end,
 									},
 									instance = {
 										order = 3,
 										name = L['Hide in Instance'],
 										type = 'toggle',
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value BUID:UpdateReputations() end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
 									},
 								},
 							},
