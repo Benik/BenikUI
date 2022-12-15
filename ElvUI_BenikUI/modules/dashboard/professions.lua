@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:GetModule('Dashboards');
-local DT = E:GetModule('DataTexts');
+local mod = BUI:GetModule('Dashboards')
+local DT = E:GetModule('DataTexts')
 
 local _G = _G
 local getn = getn
@@ -19,6 +19,7 @@ local TRADE_SKILLS = TRADE_SKILLS
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
+local professionsDB = BUI.ProfessionsDB
 
 local classColor = E:ClassColor(E.myclass, true)
 
@@ -26,33 +27,63 @@ local function sortFunction(a, b)
 	return a.name < b.name
 end
 
-local function OnMouseUp(frame, btn)
+local function OnMouseUp(self, btn)
 	if InCombatLockdown() then return end
-	local SetOffset = frame.SetOffset
-	local name = frame.name
 
 	if btn == "RightButton" then
 		E:ToggleOptions()
 		local ACD = E.Libs.AceConfigDialog
-		if ACD then ACD:SelectGroup("ElvUI", "benikui") end
+		if ACD then ACD:SelectGroup("ElvUI", "benikui", "dashboards", "professions") end
 	else
-		if SetOffset > 0 then
-			CastSpell(SetOffset + 1, name)
+		if self.SetOffset > 0 then
+			CastSpell(self.SetOffset + 1, self.name)
 		end
+	end
+end
+
+local function OnEnter(self)
+	local db = E.db.benikui.dashboards.professions
+	local holder = self:GetParent()
+
+	self.Text:SetFormattedText('%s', self.name)
+
+	if db.mouseover then
+		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+	end
+end
+
+local function OnLeave(self)
+	local db = E.db.benikui.dashboards.professions
+	local holder = self:GetParent()
+
+	if (self.rankModifier and self.rankModifier > 0) then
+		self.Text:SetFormattedText('%s |cFF6b8df4+%s|r / %s', self.rank, self.rankModifier, self.maxRank)
+	else
+		self.Text:SetFormattedText('%s / %s', self.rank, self.maxRank)
+	end
+
+	GameTooltip:Hide()
+
+	if db.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 	end
 end
 
 function mod:UpdateProfessions()
 	local db = E.db.benikui.dashboards.professions
+	local dbd = E.db.benikui.dashboards
 	local holder = _G.BUI_ProfessionsDashboard
+
+	if not db.enable then holder:Hide() return end
+
 	local inInstance = IsInInstance()
 	local NotinInstance = not (db.instance and inInstance)
 
-	if(BUI.ProfessionsDB[1]) then
-		for i = 1, getn(BUI.ProfessionsDB) do
-			BUI.ProfessionsDB[i]:Kill()
+	if(professionsDB[1]) then
+		for i = 1, getn(professionsDB) do
+			professionsDB[i]:Kill()
 		end
-		wipe(BUI.ProfessionsDB)
+		wipe(professionsDB)
 		holder:Hide()
 	end
 
@@ -71,107 +102,118 @@ function mod:UpdateProfessions()
 					holder:SetShown(NotinInstance)
 					
 					if db.orientation == 'BOTTOM' then
-						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.ProfessionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#professionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 						holder:Width(db.width)
 					else
 						holder:Height(DASH_HEIGHT + (DASH_SPACING))
-						holder:Width(db.width * (#BUI.ProfessionsDB + 1) + ((#BUI.ProfessionsDB) *db.spacing))
+						holder:Width(db.width * (#professionsDB + 1) + ((#professionsDB) *db.spacing))
 					end
 
-					local bar = self:CreateDashboard(holder, 'professions', true)
+					local bar = mod:CreateDashboard(holder, 'professions', true)
 
-					bar:SetScript('OnEnter', function(self)
-						self.Text:SetFormattedText('%s', name)
-						if skillLineName then
-							GameTooltip:SetOwner(self, 'ANCHOR_CURSOR');
-							GameTooltip:AddLine(format('%s', skillLineName), 0.7, 0.7, 1)
-							GameTooltip:Show()
-						end
-						if db.mouseover then
-							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-						end
-					end)
+					bar:SetScript('OnEnter', OnEnter)
+					bar:SetScript('OnLeave', OnLeave)
+					bar:SetScript('OnMouseUp', OnMouseUp)
 
-					bar:SetScript('OnLeave', function(self)
-						if (rankModifier and rankModifier > 0) then
-							self.Text:SetFormattedText('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
-						else
-							self.Text:SetFormattedText('%s / %s', rank, maxRank)
-						end
-						GameTooltip:Hide()
-						if db.mouseover then
-							E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-						end
-					end)
+					local RankModifier = (rankModifier and rankModifier > 0)
+					local MinMaxValue = (RankModifier and (maxRank + rankModifier)) or maxRank
+					local StatusBarValue = (RankModifier and (rank + rankModifier)) or rank
+					local BarColor = (dbd.barColor == 1 and classColor) or dbd.customBarColor
+					local TextColor = (dbd.textColor == 1 and classColor) or dbd.customTextColor
+					local SetOffset = offset or 0
+					local displayString = ''
 
-					if (rankModifier and rankModifier > 0) then
-						bar.Status:SetMinMaxValues(1, maxRank + rankModifier)
-						bar.Status:SetValue(rank + rankModifier)
+					bar.Status:SetMinMaxValues(1, MinMaxValue)
+					bar.Status:SetValue(StatusBarValue)
+					bar.Status:SetStatusBarColor(BarColor.r, BarColor.g, BarColor.b)
+
+					if RankModifier then
+						displayString = format('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
 					else
-						bar.Status:SetMinMaxValues(1, maxRank)
-						bar.Status:SetValue(rank)
+						displayString = format('%s / %s', rank, maxRank)
 					end
 
-					if E.db.benikui.dashboards.barColor == 1 then
-						bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-					else
-						bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
-					end
-
-					if (rankModifier and rankModifier > 0) then
-						bar.Text:SetFormattedText('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
-					else
-						bar.Text:SetFormattedText('%s / %s', rank, maxRank)
-					end
-
-					if E.db.benikui.dashboards.textColor == 1 then
-						bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
-					else
-						bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
-					end
-
+					bar.Text:SetText(displayString)
+					bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 					bar.IconBG.Icon:SetTexture(icon)
 
-					local SetOffset = offset or 0
+					bar.db = db
 					bar.name = name
 					bar.SetOffset = SetOffset
 					bar.IconBG.SetOffset = SetOffset
+					bar.rank = rank
+					bar.maxRank = maxRank
+					bar.rankModifier = rankModifier
 					bar.IconBG.name = name
-					bar:SetScript('OnMouseUp', OnMouseUp)
-					bar.IconBG:SetScript('OnMouseUp', OnMouseUp)
 
-					tinsert(BUI.ProfessionsDB, bar)
+					tinsert(professionsDB, bar)
 				end
 			end
 		end
 	end
 
-	tsort(BUI.ProfessionsDB, sortFunction)
+	tsort(professionsDB, sortFunction)
 
-	for key, frame in pairs(BUI.ProfessionsDB) do
+	for key, frame in pairs(professionsDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			if db.orientation == 'BOTTOM' then
-				frame:Point('TOP', BUI.ProfessionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+				frame:Point('TOP', professionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 			else
-				frame:Point('LEFT', BUI.ProfessionsDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
+				frame:Point('LEFT', professionsDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
 			end
 		end
 	end
+
+	mod:FontStyle(professionsDB)
+	mod:FontColor(professionsDB)
+	mod:BarColor(professionsDB)
+	mod:IconPosition(professionsDB, 'professions')
 end
 
-function mod:UpdateProfessionSettings()
-	mod:FontStyle(BUI.ProfessionsDB)
-	mod:FontColor(BUI.ProfessionsDB)
-	mod:BarColor(BUI.ProfessionsDB)
-	mod:IconPosition(BUI.ProfessionsDB, 'professions')
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards.professions
+	local holder = _G.BUI_ProfessionsDashboard
+
+	if db.mouseover then
+		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+	end
 end
 
-function mod:ProfessionsEvents()
-	mod:RegisterEvent('SKILL_LINES_CHANGED', 'UpdateProfessions')
-	mod:RegisterEvent('CHAT_MSG_SKILL', 'UpdateProfessions')
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards.professions
+	local holder = _G.BUI_ProfessionsDashboard
+
+	if db.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+	end
+end
+
+function mod:ToggleProfessions()
+	local db = E.db.benikui.dashboards.professions
+	local holder = _G.BUI_ProfessionsDashboard
+
+	if db.enable then
+		E:EnableMover(holder.mover.name)
+		mod:RegisterEvent('SKILL_LINES_CHANGED', 'UpdateProfessions')
+		mod:RegisterEvent('CHAT_MSG_SKILL', 'UpdateProfessions')
+
+		mod:ToggleStyle(holder, 'professions')
+		mod:ToggleTransparency(holder, 'professions')
+	
+		holder:SetScript('OnEnter', holderOnEnter)
+		holder:SetScript('OnLeave', holderOnLeave)
+	else
+		E:DisableMover(holder.mover.name)
+		mod:UnregisterEvent('SKILL_LINES_CHANGED')
+		mod:UnregisterEvent('CHAT_MSG_SKILL')
+
+		holder:SetScript('OnEnter', nil)
+		holder:SetScript('OnLeave', nil)
+	end
+	mod:UpdateProfessions()
 end
 
 function mod:CreateProfessionsDashboard()
@@ -186,33 +228,14 @@ function mod:CreateProfessionsDashboard()
 	else
 		holder:Point('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
 	end
+
 	holder:Width(mapholderWidth or DASH_WIDTH)
 
-	mod:UpdateProfessions()
-	mod:UpdateProfessionSettings()
-	mod:ToggleStyle(holder, 'professions')
-	mod:ToggleTransparency(holder, 'professions')
-
-	holder:SetScript('OnEnter', function()
-		if db.mouseover then
-			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-		end
-	end)
-
-	holder:SetScript('OnLeave', function(holder)
-		if db.mouseover then
-			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-		end
-	end)
-
-	E:CreateMover(_G.BUI_ProfessionsDashboard, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,professions')
+	E:CreateMover(holder, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,professions')
+	mod:ToggleProfessions()
 end
 
 function mod:LoadProfessions()
-	if E.db.benikui.dashboards.professions.enable ~= true then return end
-
 	mod:CreateProfessionsDashboard()
-	mod:ProfessionsEvents()
-
-	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateProfessionSettings)
+	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateProfessions)
 end
