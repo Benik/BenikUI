@@ -115,14 +115,14 @@ function mod:UpdateProfessions()
 					bar:SetScript('OnMouseUp', OnMouseUp)
 
 					local RankModifier = (rankModifier and rankModifier > 0)
-					local MinMaxValue = (RankModifier and (maxRank + rankModifier)) or maxRank
+					local MaxValue = (RankModifier and (maxRank + rankModifier)) or maxRank
 					local StatusBarValue = (RankModifier and (rank + rankModifier)) or rank
 					local BarColor = (db.barColor == 1 and classColor) or db.customBarColor
 					local TextColor = (db.textColor == 1 and classColor) or db.customTextColor
 					local SetOffset = offset or 0
 					local displayString = ''
 
-					bar.Status:SetMinMaxValues(1, MinMaxValue)
+					bar.Status:SetMinMaxValues(1, MaxValue)
 					bar.Status:SetValue(StatusBarValue)
 					bar.Status:SetStatusBarColor(BarColor.r, BarColor.g, BarColor.b)
 
