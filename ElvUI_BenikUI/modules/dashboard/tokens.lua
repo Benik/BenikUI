@@ -83,14 +83,15 @@ end
 local function Bar_OnLeave(self)
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_TokensDashboard
+	local BreakAmount = BreakUpLargeNumbers(self.amount)
 
 	if self.totalMax == 0 then
-		self.Text:SetFormattedText('%s', BreakUpLargeNumbers(self.amount))
+		self.Text:SetFormattedText('%s', BreakAmount)
 	else
 		if db.tokens.weekly and self.weeklyMax > 0 then
-			self.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(self.amount), self.weeklyMax)
+			self.Text:SetFormattedText('%s / %s', BreakAmount, self.weeklyMax)
 		else
-			self.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(self.amount), self.totalMax)
+			self.Text:SetFormattedText('%s / %s', BreakAmount, self.totalMax)
 		end
 	end
 
@@ -154,40 +155,30 @@ function mod:UpdateTokens()
 						end
 
 						local bar = mod:CreateDashboard(holder, 'tokens', true)
+						local BarColor = (db.barColor == 1 and classColor) or db.customBarColor
+						local TextColor = (db.textColor == 1 and classColor) or db.customTextColor
+						local BarMaxValue = (totalMax == 0 and amount) or ((db.tokens.weekly and weeklyMax > 0 and weeklyMax) or totalMax)
+						local TextMaxValue = 0
+						local BreakAmount = BreakUpLargeNumbers(amount)
+						local displayString = ''
 
 						if totalMax == 0 then
-							bar.Status:SetMinMaxValues(0, amount)
+							displayString = format('%s', BreakAmount)
 						else
 							if db.tokens.weekly and weeklyMax > 0 then
-								bar.Status:SetMinMaxValues(0, weeklyMax)
+								TextMaxValue = weeklyMax
 							else
-								bar.Status:SetMinMaxValues(0, totalMax)
+								TextMaxValue = totalMax
 							end
+							displayString = format('%s / %s', BreakAmount, TextMaxValue)
 						end
+
+						bar.Status:SetMinMaxValues(0, BarMaxValue)
 						bar.Status:SetValue(amount)
+						bar.Status:SetStatusBarColor(BarColor.r, BarColor.g, BarColor.b)
 
-						if db.barColor == 1 then
-							bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-						else
-							bar.Status:SetStatusBarColor(db.customBarColor.r, db.customBarColor.g, db.customBarColor.b)
-						end
-
-						if totalMax == 0 then
-							bar.Text:SetFormattedText('%s', BreakUpLargeNumbers(amount))
-						else
-							if db.tokens.weekly and weeklyMax > 0 then
-								bar.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), weeklyMax)
-							else
-								bar.Text:SetFormattedText('%s / %s', BreakUpLargeNumbers(amount), totalMax)
-							end
-						end
-
-						if db.textColor == 1 then
-							bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
-						else
-							bar.Text:SetTextColor(BUI:unpackColor(db.customTextColor))
-						end
-
+						bar.Text:SetText(displayString)
+						bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 						bar.IconBG.Icon:SetTexture(icon)
 
 						bar.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
@@ -311,6 +302,7 @@ function mod:ToggleTokens()
 		mod:PopulateCurrencyData()
 		mod:ToggleStyle(holder, 'tokens')
 		mod:ToggleTransparency(holder, 'tokens')
+		
 		holder:SetScript('OnEnter', holderOnEnter)
 		holder:SetScript('OnLeave', holderOnLeave)
 	else
