@@ -42,18 +42,18 @@ local function OnMouseUp(self, btn)
 end
 
 local function OnEnter(self)
-	local db = E.db.benikui.dashboards.professions
+	local db = E.db.benikui.dashboards
 	local holder = self:GetParent()
 
 	self.Text:SetFormattedText('%s', self.name)
 
-	if db.mouseover then
+	if db.professions.mouseover then
 		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 	end
 end
 
 local function OnLeave(self)
-	local db = E.db.benikui.dashboards.professions
+	local db = E.db.benikui.dashboards
 	local holder = self:GetParent()
 
 	if (self.rankModifier and self.rankModifier > 0) then
@@ -64,20 +64,19 @@ local function OnLeave(self)
 
 	GameTooltip:Hide()
 
-	if db.mouseover then
+	if db.professions.mouseover then
 		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 	end
 end
 
 function mod:UpdateProfessions()
-	local db = E.db.benikui.dashboards.professions
-	local dbd = E.db.benikui.dashboards
+	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ProfessionsDashboard
 
-	if not db.enable then holder:Hide() return end
+	if not db.professions.enable then holder:Hide() return end
 
 	local inInstance = IsInInstance()
-	local NotinInstance = not (db.instance and inInstance)
+	local NotinInstance = not (db.professions.instance and inInstance)
 
 	if(professionsDB[1]) then
 		for i = 1, getn(professionsDB) do
@@ -87,7 +86,7 @@ function mod:UpdateProfessions()
 		holder:Hide()
 	end
 
-	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
+	if db.professions.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 
 	local prof1, prof2, archy, fishing, cooking = GetProfessions()
 
@@ -97,16 +96,16 @@ function mod:UpdateProfessions()
 		for _, id in pairs(proftable) do
 			local name, icon, rank, maxRank, _, offset, _, rankModifier, _, _, skillLineName = GetProfessionInfo(id)
 
-			if name and (rank < maxRank or (not db.capped)) then
+			if name and (rank < maxRank or (not db.professions.capped)) then
 				if E.private.benikui.dashboards.professions.choosePofessions[id] == true then
 					holder:SetShown(NotinInstance)
 					
-					if db.orientation == 'BOTTOM' then
+					if db.professions.orientation == 'BOTTOM' then
 						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#professionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
-						holder:Width(db.width)
+						holder:Width(db.professions.width)
 					else
 						holder:Height(DASH_HEIGHT + (DASH_SPACING))
-						holder:Width(db.width * (#professionsDB + 1) + ((#professionsDB) *db.spacing))
+						holder:Width(db.professions.width * (#professionsDB + 1) + ((#professionsDB) *db.professions.spacing))
 					end
 
 					local bar = mod:CreateDashboard(holder, 'professions', true)
@@ -118,8 +117,8 @@ function mod:UpdateProfessions()
 					local RankModifier = (rankModifier and rankModifier > 0)
 					local MinMaxValue = (RankModifier and (maxRank + rankModifier)) or maxRank
 					local StatusBarValue = (RankModifier and (rank + rankModifier)) or rank
-					local BarColor = (dbd.barColor == 1 and classColor) or dbd.customBarColor
-					local TextColor = (dbd.textColor == 1 and classColor) or dbd.customTextColor
+					local BarColor = (db.barColor == 1 and classColor) or db.customBarColor
+					local TextColor = (db.textColor == 1 and classColor) or db.customTextColor
 					local SetOffset = offset or 0
 					local displayString = ''
 
@@ -159,10 +158,10 @@ function mod:UpdateProfessions()
 		if(key == 1) then
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			if db.orientation == 'BOTTOM' then
+			if db.professions.orientation == 'BOTTOM' then
 				frame:Point('TOP', professionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 			else
-				frame:Point('LEFT', professionsDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
+				frame:Point('LEFT', professionsDB[key - 1], 'RIGHT', db.professions.spacing +(E.PixelMode and 0 or 2), 0)
 			end
 		end
 	end
@@ -174,28 +173,28 @@ function mod:UpdateProfessions()
 end
 
 local function holderOnEnter(self)
-	local db = E.db.benikui.dashboards.professions
+	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ProfessionsDashboard
 
-	if db.mouseover then
+	if db.professions.mouseover then
 		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 	end
 end
 
 local function holderOnLeave(self)
-	local db = E.db.benikui.dashboards.professions
+	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ProfessionsDashboard
 
-	if db.mouseover then
+	if db.professions.mouseover then
 		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 	end
 end
 
 function mod:ToggleProfessions()
-	local db = E.db.benikui.dashboards.professions
+	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ProfessionsDashboard
 
-	if db.enable then
+	if db.professions.enable then
 		E:EnableMover(holder.mover.name)
 		mod:RegisterEvent('SKILL_LINES_CHANGED', 'UpdateProfessions')
 		mod:RegisterEvent('CHAT_MSG_SKILL', 'UpdateProfessions')
@@ -217,9 +216,9 @@ function mod:ToggleProfessions()
 end
 
 function mod:CreateProfessionsDashboard()
-	local db = E.db.benikui.dashboards.professions
+	local db = E.db.benikui.dashboards
 	local mapholderWidth = E.private.general.minimap.enable and _G.ElvUI_MinimapClusterHolder:GetWidth() or 150
-	local DASH_WIDTH = db.width or 150
+	local DASH_WIDTH = db.professions.width or 150
 
 	local holder = mod:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
 
