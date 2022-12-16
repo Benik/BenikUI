@@ -3,6 +3,7 @@ local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 
 local _G = _G
+local format, join = string.format, string.join
 
 local MAX_QUESTS = 35
 local TRACKER_HEADER_QUESTS = TRACKER_HEADER_QUESTS
@@ -83,6 +84,12 @@ local function ObjectiveTrackerShadows()
 	end
 end
 
+local statusColors = {
+	'cff0CD809',	-- green
+	'cffE8DA0F',	-- yellow
+	'cffD80909',	-- red
+}
+
 local function ObjectiveTrackerQuests()
 	if BUI:IsAddOnEnabled('!KalielsTracker') or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.benikui.skins.variousSkins.objectiveTracker ~= true then return end
 	
@@ -107,9 +114,11 @@ local function ObjectiveTrackerQuests()
 
 	local function QuestNumString()
 		local questNum = 0
-		local q, o
+		local TextFormat
 		local block = _G.ObjectiveTrackerBlocksFrame
 		local frame = _G.ObjectiveTrackerFrame
+		local statusBar = block.QuestHeader.buibar.status
+		local Color = 1
 
 		if not InCombatLockdown() then
 			for questLogIndex = 1, C_QuestLog_GetNumQuestLogEntries() do
@@ -118,19 +127,16 @@ local function ObjectiveTrackerQuests()
 					questNum = questNum + 1
 				end
 			end
-			if questNum >= (MAX_QUESTS - 5) then -- go red
-				q = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
-				o = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
-				block.QuestHeader.buibar.status:SetStatusBarColor(1, 0, 0)
-			else
-				q = format("%d/%d %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
-				o = format("%d/%d %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
-				block.QuestHeader.buibar.status:SetStatusBarColor(0.75, 0.61, 0)
-			end
-			block.QuestHeader.Text:SetText(q)
-			frame.HeaderMenu.Title:SetText(o)
 
-			block.QuestHeader.buibar.status:SetValue(questNum)
+			Color = (questNum < 20 and 1) or (questNum >= (MAX_QUESTS - 5) and 3) or 2
+			TextFormat = join('', '|', statusColors[Color], '%d/%d %s|r')
+
+			local r, g, b = E:HexToRGB(statusColors[Color])
+			statusBar:SetStatusBarColor(r/255, g/255, b/255)
+			statusBar:SetValue(questNum)
+
+			block.QuestHeader.Text:SetFormattedText(TextFormat, questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
+			frame.HeaderMenu.Title:SetFormattedText(TextFormat, questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
 		end
 	end
 	hooksecurefunc("ObjectiveTracker_Update", QuestNumString)
