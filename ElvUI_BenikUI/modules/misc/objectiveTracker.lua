@@ -123,7 +123,7 @@ local function ObjectiveTrackerQuests()
 					questNum = questNum + 1
 				end
 			end
-
+			
 			local colorValue = (MAX_QUESTS > 0 and questNum / MAX_QUESTS) or 0
 			local r, g, b = E:ColorGradient(colorValue, 0,0.8,0, 0.8,0.8,0, 0.8,0,0)
 			statusBar:SetStatusBarColor(r, g, b)
@@ -134,7 +134,9 @@ local function ObjectiveTrackerQuests()
 
 			local r1, g2, b2 = statusBar:GetStatusBarColor()
 			blockText:SetTextColor(r1, g2, b2)
+			blockText:FontTemplate(nil, 14, 'NONE')
 			frameText:SetTextColor(r1, g2, b2)
+			frameText:FontTemplate(nil, 14, 'NONE')
 		end
 	end
 	
