@@ -88,6 +88,12 @@ end
 local function ObjectiveTrackerQuests()
 	if BUI:IsAddOnEnabled('!KalielsTracker') or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.benikui.skins.variousSkins.objectiveTracker ~= true then return end
 	
+	-- Objective Tracker Backdrop
+	--[[local tracker = _G.ObjectiveTrackerBlocksFrame
+	tracker:CreateBackdrop("Transparent")
+	tracker.backdrop:SetOutside(tracker, 30)
+	tracker.backdrop:BuiStyle("Outside")]]
+
 	local header = _G.ObjectiveTrackerBlocksFrame.QuestHeader
 	header.buibar = CreateFrame('Frame', nil, header)
 	header.buibar:SetTemplate('Transparent', nil, true, true)
@@ -123,7 +129,7 @@ local function ObjectiveTrackerQuests()
 					questNum = questNum + 1
 				end
 			end
-			
+
 			local colorValue = (MAX_QUESTS > 0 and questNum / MAX_QUESTS) or 0
 			local r, g, b = E:ColorGradient(colorValue, 0,0.8,0, 0.8,0.8,0, 0.8,0,0)
 			statusBar:SetStatusBarColor(r, g, b)
