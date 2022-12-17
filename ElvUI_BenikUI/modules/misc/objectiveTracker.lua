@@ -1,6 +1,7 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
+local AFK = E:GetModule('AFK')
 
 local _G = _G
 local format, join = string.format, string.join
@@ -138,6 +139,7 @@ local function ObjectiveTrackerQuests()
 	end
 	
 	hooksecurefunc("ObjectiveTracker_Update", QuestNumString)
+	hooksecurefunc(AFK, "SetAFK", QuestNumString)
 end
 S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
 
