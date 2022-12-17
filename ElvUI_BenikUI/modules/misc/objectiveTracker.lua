@@ -84,12 +84,6 @@ local function ObjectiveTrackerShadows()
 	end
 end
 
-local statusColors = {
-	'cff0CD809',	-- green
-	'cffE8DA0F',	-- yellow
-	'cffD80909',	-- red
-}
-
 local function ObjectiveTrackerQuests()
 	if BUI:IsAddOnEnabled('!KalielsTracker') or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.benikui.skins.variousSkins.objectiveTracker ~= true then return end
 	
@@ -114,11 +108,12 @@ local function ObjectiveTrackerQuests()
 
 	local function QuestNumString()
 		local questNum = 0
-		local TextFormat
 		local block = _G.ObjectiveTrackerBlocksFrame
+		local blockText = block.QuestHeader.Text
 		local frame = _G.ObjectiveTrackerFrame
+		local frameText = frame.HeaderMenu.Title
 		local statusBar = block.QuestHeader.buibar.status
-		local Color = 1
+		local TextFormat = '%d/%d %s'
 
 		if not InCombatLockdown() then
 			for questLogIndex = 1, C_QuestLog_GetNumQuestLogEntries() do
@@ -128,17 +123,20 @@ local function ObjectiveTrackerQuests()
 				end
 			end
 
-			Color = (questNum < 20 and 1) or (questNum >= (MAX_QUESTS - 5) and 3) or 2
-			TextFormat = join('', '|', statusColors[Color], '%d/%d %s|r')
-
-			local r, g, b = E:HexToRGB(statusColors[Color])
-			statusBar:SetStatusBarColor(r/255, g/255, b/255)
+			local colorValue = (MAX_QUESTS > 0 and questNum / MAX_QUESTS) or 0
+			local r, g, b = E:ColorGradient(colorValue, 0,0.8,0, 0.8,0.8,0, 0.8,0,0)
+			statusBar:SetStatusBarColor(r, g, b)
 			statusBar:SetValue(questNum)
 
-			block.QuestHeader.Text:SetFormattedText(TextFormat, questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
-			frame.HeaderMenu.Title:SetFormattedText(TextFormat, questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+			blockText:SetFormattedText(TextFormat, questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
+			frameText:SetFormattedText(TextFormat, questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+
+			local r1, g2, b2 = statusBar:GetStatusBarColor()
+			blockText:SetTextColor(r1, g2, b2)
+			frameText:SetTextColor(r1, g2, b2)
 		end
 	end
+	
 	hooksecurefunc("ObjectiveTracker_Update", QuestNumString)
 end
 S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
