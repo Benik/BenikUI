@@ -176,7 +176,7 @@ local function UpdateReputationOptions()
 				desc = format('%s %s', L['Enable/Disable'], name),
 				disabled = function() return not db.enable end,
 				get = function(info) return E.private.benikui.dashboards.reputations.chooseReputations[factionID] end,
-				set = function(info, value) E.private.benikui.dashboards.reputations.chooseReputations[factionID] = value mod:UpdateReputations() mod:UpdateReputationSettings() end,
+				set = function(info, value) E.private.benikui.dashboards.reputations.chooseReputations[factionID] = value mod:UpdateReputations() end,
 			}
 		end
 	end
@@ -187,7 +187,7 @@ local function UpdateAllDashboards()
 	if db.professions.enable then mod:UpdateProfessions() end
 	if db.tokens.enable then mod:UpdateTokens() end
 	if db.system.enable then mod:UpdateSystemSettings() end
-	if db.reputations.enable then mod:UpdateReputationSettings() end
+	if db.reputations.enable then mod:UpdateReputations() end
 end
 
 local function dashboardsTable()
@@ -806,7 +806,7 @@ local function dashboardsTable()
 						width = 'full',
 						desc = L['Enable the Reputations Dashboard.'],
 						get = function(info) return db.reputations[ info[#info] ] end,
-						set = function(info, value) db.reputations[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL') end,
+						set = function(info, value) db.reputations[ info[#info] ] = value mod:ToggleReputations() end,
 					},
 					selectReputations = {
 						order = 2,
@@ -819,7 +819,7 @@ local function dashboardsTable()
 								type = 'multiselect',
 								name = ' ',
 								get = function(_, key) return db.reputations[key] end,
-								set = function(_, key, value) db.reputations[key] = value mod:UpdateReputations() mod:UpdateReputationSettings() end,
+								set = function(_, key, value) db.reputations[key] = value mod:UpdateReputations() end,
 								values = {
 									barFactionColors = L['Use Faction Colors on Bars'],
 									textFactionColors = L['Use Faction Colors on Text'],
@@ -847,7 +847,7 @@ local function dashboardsTable()
 										desc = L['Change the Reputations Dashboard width.'],
 										min = 120, max = 520, step = 1,
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputationSettings() mod:UpdateReputations() end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
 									},
 									barHeight = {
 										order = 2,
@@ -926,7 +926,7 @@ local function dashboardsTable()
 										desc = L['The frame is not shown unless you mouse over the frame.'],
 										type = 'toggle',
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() mod:UpdateReputationSettings() end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
 									},
 									instance = {
 										order = 3,

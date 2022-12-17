@@ -62,6 +62,13 @@ end
 function mod:UpdateReputations()
 	local db = E.db.benikui.dashboards.reputations
 	local holder = _G.BUI_ReputationsDashboard
+
+	if not db.enable then
+		holder:Hide()
+		twipe(BUI.ReputationsList)
+		return
+	end
+
 	local inInstance = IsInInstance()
 	local NotinInstance = not (db.instance and inInstance)
 
@@ -150,12 +157,6 @@ function mod:UpdateReputations()
 
 					name = isMajorFaction and format('%s%s (%s)|r', name, BLUE_COLOR_HEX, renownLevel) or name
 
-					if E.db.benikui.dashboards.dashfont.useDTfont then
-						bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-					else
-						bar.Text:FontTemplate(LSM:Fetch('font', E.db.benikui.dashboards.dashfont.dbfont), E.db.benikui.dashboards.dashfont.dbfontsize, E.db.benikui.dashboards.dashfont.dbfontflags)
-					end
-
 					if not db.barFactionColors then
 						if E.db.benikui.dashboards.barColor == 1 then
 							bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
@@ -170,12 +171,6 @@ function mod:UpdateReputations()
 						bar.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
 					else
 						bar.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
-					end
-
-					if E.db.benikui.dashboards.textColor == 1 then
-						bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
-					else
-						bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
 					end
 
 					bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
@@ -267,14 +262,9 @@ function mod:UpdateReputations()
 			end
 		end
 	end
-end
 
-function mod:UpdateReputationSettings()
 	mod:FontStyle(BUI.FactionsDB)
 	mod:FontColor(BUI.FactionsDB)
-	if not E.db.benikui.dashboards.reputations.barFactionColors then
-		mod:BarColor(BUI.FactionsDB)
-	end
 end
 
 function mod:PopulateFactionData()
@@ -328,47 +318,70 @@ function mod:UPDATE_FACTION(_, factionID)
 	mod:UpdateReputations()
 end
 
-function mod:ReputationEvents()
-	mod:RegisterEvent('UPDATE_FACTION')
-	mod:RegisterEvent('QUEST_LOG_UPDATE', 'UpdateReputations')
-	mod:RegisterEvent('MAJOR_FACTION_RENOWN_LEVEL_CHANGED', 'UpdateReputations')
-	mod:RegisterEvent('MAJOR_FACTION_UNLOCKED', 'UpdateReputations')
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards
+	local holder = _G.BUI_ReputationsDashboard
+
+	if db.professions.mouseover then
+		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+	end
+end
+
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards
+	local holder = _G.BUI_ReputationsDashboard
+
+	if db.professions.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+	end
+end
+
+function mod:ToggleReputations()
+	local db = E.db.benikui.dashboards
+	local holder = _G.BUI_ReputationsDashboard
+
+	if db.reputations.enable then
+		E:EnableMover(holder.mover.name)
+		mod:RegisterEvent('UPDATE_FACTION')
+		mod:RegisterEvent('QUEST_LOG_UPDATE', 'UpdateReputations')
+		mod:RegisterEvent('MAJOR_FACTION_RENOWN_LEVEL_CHANGED', 'UpdateReputations')
+		mod:RegisterEvent('MAJOR_FACTION_UNLOCKED', 'UpdateReputations')
+
+		mod:ToggleStyle(holder, 'reputations')
+		mod:ToggleTransparency(holder, 'reputations')
+
+		holder:SetScript('OnEnter', holderOnEnter)
+		holder:SetScript('OnLeave', holderOnLeave)
+
+		mod:PopulateFactionData()
+	else
+		E:DisableMover(holder.mover.name)
+		mod:UnregisterEvent('UPDATE_FACTION')
+		mod:UnregisterEvent('QUEST_LOG_UPDATE')
+		mod:UnregisterEvent('MAJOR_FACTION_RENOWN_LEVEL_CHANGED')
+		mod:UnregisterEvent('MAJOR_FACTION_UNLOCKED')
+
+		holder:SetScript('OnEnter', nil)
+		holder:SetScript('OnLeave', nil)
+	end
+
+	mod:UpdateReputations()
 end
 
 function mod:CreateReputationsDashboard()
 	local db = E.db.benikui.dashboards.reputations
 
-	mod.reputationHolder = mod:CreateDashboardHolder('BUI_ReputationsDashboard', 'reputations')
-	mod.reputationHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
-	mod.reputationHolder:Width(db.width or 150)
+	local holder = mod:CreateDashboardHolder('BUI_ReputationsDashboard', 'reputations')
+	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
+	holder:Width(db.width or 150)
 
-	mod:PopulateFactionData()
-	mod:UpdateReputations()
-	mod:UpdateReputationSettings()
-	mod:ToggleStyle(mod.reputationHolder, 'reputations')
-	mod:ToggleTransparency(mod.reputationHolder, 'reputations')
-
-	mod.reputationHolder:SetScript('OnEnter', function()
-		if db.mouseover then
-			E:UIFrameFadeIn(mod.reputationHolder, 0.2, mod.reputationHolder:GetAlpha(), 1)
-		end
-	end)
-
-	mod.reputationHolder:SetScript('OnLeave', function()
-		if db.mouseover then
-			E:UIFrameFadeOut(mod.reputationHolder, 0.2, mod.reputationHolder:GetAlpha(), 0)
-		end
-	end)
-
-	E:CreateMover(_G.BUI_ReputationsDashboard, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
+	E:CreateMover(holder, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
+	mod:ToggleReputations()
 end
 
 function mod:LoadReputations()
-	if E.db.benikui.dashboards.reputations.enable ~= true then return end
-
 	mod:CreateReputationsDashboard()
-	mod:ReputationEvents()
 
-	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateReputationSettings)
+	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateReputations)
 	hooksecurefunc(DB, 'ReputationBar_Update', mod.UpdateReputations)
 end
