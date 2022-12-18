@@ -285,6 +285,7 @@ end
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
+	AltPowerBarShadows()
 	raidUtilityShadows()
 	mirrorTimersShadows()
 
