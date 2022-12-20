@@ -171,8 +171,14 @@ local function SkinTable()
 				name = L['Rare Tracker'],
 				disabled = function() return not IsAddOnLoaded('RareTrackerCore') end,
 			},
-			wa = {
+			tomtom = {
 				order = 6,
+				type = 'toggle',
+				name = L['TomTom'],
+				disabled = function() return not IsAddOnLoaded('TomTom') end,
+			},
+			wa = {
+				order = 7,
 				type = 'toggle',
 				name = L['WeakAuras'],
 				disabled = function() return not BUI.WA end,

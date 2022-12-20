@@ -241,6 +241,7 @@ P['benikui'] = {
 			['kt'] = true,
 			['rt'] = true,
 			['wa'] = true,
+			['tomtom'] = true,
 		},
 	},
 
