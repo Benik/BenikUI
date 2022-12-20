@@ -1,8 +1,8 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:GetModule('Dashboards');
-local DT = E:GetModule('DataTexts');
-local DB = E:GetModule('DataBars');
-local LSM = E.LSM;
+local mod = BUI:GetModule('Dashboards')
+local DT = E:GetModule('DataTexts')
+local DB = E:GetModule('DataBars')
+local LSM = E.LSM
 
 local _G = _G
 local getn = getn
@@ -111,7 +111,7 @@ function mod:UpdateReputations()
 					elseif isMajorFaction then
 						local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
 			
-						barMin, barMax = 0, majorFactionData.renownLevelThreshold
+						standingID, barMin, barMax = 10, 0, majorFactionData.renownLevelThreshold
 						barValue = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
 						majorStandingLabel = format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
 						renownLevel = majorFactionData.renownLevel
@@ -152,7 +152,8 @@ function mod:UpdateReputations()
 					bar.Status:SetValue(barValue)
 
 					local customColors = E.db.databars.colors.useCustomFactionColors
-					local color = (customColors or standingID == 9) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID] -- reaction 9 is Paragon
+					local customReaction = standingID == 9 or standingID == 10 -- 9 is paragon, 10 is renown
+					local color = (customColors or customReaction) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID]
 					local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
 					name = isMajorFaction and format('%s%s (%s)|r', name, BLUE_COLOR_HEX, renownLevel) or name
@@ -199,7 +200,7 @@ function mod:UpdateReputations()
 						end
 
 						if db.tooltip then
-							_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
+							_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0)
 							_G.GameTooltip:AddLine(name)
 							_G.GameTooltip:AddLine(' ')
 
