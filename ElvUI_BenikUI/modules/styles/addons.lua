@@ -55,11 +55,14 @@ local function RareTracker()
 end
 
 local function TomTom()
-	if BUI:IsAddOnEnabled('TomTom') and E.db.benikui.general.benikuiStyle and E.db.benikui.skins.variousSkins.tomtom then
+	if BUI:IsAddOnEnabled('TomTom') and E.db.benikui.skins.variousSkins.tomtom then
 		if MyFrameDropDownBackdrop then
 			MyFrameDropDownBackdrop:StripTextures()
 			MyFrameDropDownBackdrop:SetTemplate("Transparent")
-			MyFrameDropDownBackdrop:BuiStyle('Outside')
+
+			if E.db.benikui.general.benikuiStyle
+				MyFrameDropDownBackdrop:BuiStyle('Outside')
+			end
 		end
 	end
 end
