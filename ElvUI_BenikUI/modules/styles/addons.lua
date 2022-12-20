@@ -60,7 +60,7 @@ local function TomTom()
 			MyFrameDropDownBackdrop:StripTextures()
 			MyFrameDropDownBackdrop:SetTemplate("Transparent")
 
-			if E.db.benikui.general.benikuiStyle
+			if E.db.benikui.general.benikuiStyle then
 				MyFrameDropDownBackdrop:BuiStyle('Outside')
 			end
 		end
