@@ -446,7 +446,7 @@ local function dashboardsTable()
 								args = {
 									combat = {
 										order = 1,
-										name = L['Combat Fade'],
+										name = L['Hide In Combat'],
 										desc = L['Show/Hide System Dashboard when in combat'],
 										type = 'toggle',
 										get = function(info) return db.system[ info[#info] ] end,
@@ -614,7 +614,7 @@ local function dashboardsTable()
 								args = {
 									combat = {
 										order = 1,
-										name = L['Combat Fade'],
+										name = L['Hide In Combat'],
 										desc = L['Show/Hide Tokens Dashboard when in combat'],
 										type = 'toggle',
 										get = function(info) return db.tokens[ info[#info] ] end,
@@ -766,7 +766,7 @@ local function dashboardsTable()
 								args = {
 									combat = {
 										order = 1,
-										name = L['Combat Fade'],
+										name = L['Hide In Combat'],
 										desc = L['Show/Hide Professions Dashboard when in combat'],
 										type = 'toggle',
 										get = function(info) return db.professions[ info[#info] ] end,
