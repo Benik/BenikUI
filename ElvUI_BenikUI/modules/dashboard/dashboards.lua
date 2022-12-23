@@ -135,11 +135,12 @@ function mod:CreateDashboardHolder(holderName, option)
 	holder.backdrop:BuiStyle('Outside')
 	holder:Hide()
 
+	local inInstance = IsInInstance()
 	if db.combat then
 		holder:SetScript('OnEvent',function(self, event)
+			if (db.instance and inInstance) then return end
 			if event == 'PLAYER_REGEN_DISABLED' then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-				--self.fadeInfo.finishedFunc = mod.holderOnFade
 			elseif event == 'PLAYER_REGEN_ENABLED' then
 				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 				self:Show()
