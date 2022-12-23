@@ -1,3 +1,19 @@
+4.28 (Dec 23, 2022)
+Fixed Dashboard Visibility issues when in Combat and in an instance
+Portraits cleanup
+Style TomTom right click menu
+Major Factions will now have Renown Color on Reputations Dashboard Statusbars
+Fixed an error while mouse hovering the MS dash module
+Toggle Reputations Dashboard without a reload
+Fixed Objective Tracker Text not showing after going AFK (with AFKMode)
+Objective Tracker: Use Color Gradient instead
+Hard code Max Quests to 35
+Toggle Tokens Dashboard without a reload
+Toggle Professions Dashboard without a reload
+Fixed Middle Datatext not applying the correct Backdrop setting
+Always show the Renown Level at the Rep Dashboard
+Localstrings, deDe locals, fixed Typos. Credit: Dlarge
+
 4.27 (Dec 11, 2022)
 Dashboards got a major overhaul
 - Revamped the Dashboards options

@@ -349,7 +349,7 @@ local function SetupActionbars(layout)
 	E.db["actionbar"]["zoneActionButton"]["clean"] = true
 	E.db["actionbar"]["microbar"]["buttonHeight"] = 22
 
-	BUI:GetModule('Layout'):CreateMiddlePanel()
+	BUI:GetModule('Layout'):CreateMiddlePanel(true)
 
 	E.db["movers"] = E.db["movers"] or {}
 	if layout == 'v1' then

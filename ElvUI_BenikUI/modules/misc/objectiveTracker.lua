@@ -1,10 +1,12 @@
 local BUI, E, L, V, P, G = unpack(select(2, ...))
 local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
+local AFK = E:GetModule('AFK')
 
 local _G = _G
+local format, join = string.format, string.join
 
-local MAX_QUESTS = MAX_QUESTS
+local MAX_QUESTS = 35
 local TRACKER_HEADER_QUESTS = TRACKER_HEADER_QUESTS
 local OBJECTIVES_TRACKER_LABEL = OBJECTIVES_TRACKER_LABEL
 
@@ -86,6 +88,12 @@ end
 local function ObjectiveTrackerQuests()
 	if BUI:IsAddOnEnabled('!KalielsTracker') or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.benikui.skins.variousSkins.objectiveTracker ~= true then return end
 	
+	-- Objective Tracker Backdrop
+	--[[local tracker = _G.ObjectiveTrackerBlocksFrame
+	tracker:CreateBackdrop("Transparent")
+	tracker.backdrop:SetOutside(tracker, 30)
+	tracker.backdrop:BuiStyle("Outside")]]
+
 	local header = _G.ObjectiveTrackerBlocksFrame.QuestHeader
 	header.buibar = CreateFrame('Frame', nil, header)
 	header.buibar:SetTemplate('Transparent', nil, true, true)
@@ -107,9 +115,12 @@ local function ObjectiveTrackerQuests()
 
 	local function QuestNumString()
 		local questNum = 0
-		local q, o
 		local block = _G.ObjectiveTrackerBlocksFrame
+		local blockText = block.QuestHeader.Text
 		local frame = _G.ObjectiveTrackerFrame
+		local frameText = frame.HeaderMenu.Title
+		local statusBar = block.QuestHeader.buibar.status
+		local TextFormat = '%d/%d %s'
 
 		if not InCombatLockdown() then
 			for questLogIndex = 1, C_QuestLog_GetNumQuestLogEntries() do
@@ -118,22 +129,25 @@ local function ObjectiveTrackerQuests()
 					questNum = questNum + 1
 				end
 			end
-			if questNum >= (MAX_QUESTS - 5) then -- go red
-				q = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
-				o = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
-				block.QuestHeader.buibar.status:SetStatusBarColor(1, 0, 0)
-			else
-				q = format("%d/%d %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
-				o = format("%d/%d %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
-				block.QuestHeader.buibar.status:SetStatusBarColor(0.75, 0.61, 0)
-			end
-			block.QuestHeader.Text:SetText(q)
-			frame.HeaderMenu.Title:SetText(o)
 
-			block.QuestHeader.buibar.status:SetValue(questNum)
+			local colorValue = (MAX_QUESTS > 0 and questNum / MAX_QUESTS) or 0
+			local r, g, b = E:ColorGradient(colorValue, 0,0.8,0, 0.8,0.8,0, 0.8,0,0)
+			statusBar:SetStatusBarColor(r, g, b)
+			statusBar:SetValue(questNum)
+
+			blockText:SetFormattedText(TextFormat, questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
+			frameText:SetFormattedText(TextFormat, questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+
+			local r1, g2, b2 = statusBar:GetStatusBarColor()
+			blockText:SetTextColor(r1, g2, b2)
+			blockText:FontTemplate(nil, 14, 'NONE')
+			frameText:SetTextColor(r1, g2, b2)
+			frameText:FontTemplate(nil, 14, 'NONE')
 		end
 	end
+	
 	hooksecurefunc("ObjectiveTracker_Update", QuestNumString)
+	hooksecurefunc(AFK, "SetAFK", QuestNumString)
 end
 S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
 

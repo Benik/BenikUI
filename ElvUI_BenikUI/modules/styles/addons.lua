@@ -54,6 +54,19 @@ local function RareTracker()
 	end
 end
 
+local function TomTom()
+	if BUI:IsAddOnEnabled('TomTom') and E.db.benikui.skins.variousSkins.tomtom then
+		if MyFrameDropDownBackdrop then
+			MyFrameDropDownBackdrop:StripTextures()
+			MyFrameDropDownBackdrop:SetTemplate("Transparent")
+
+			if E.db.benikui.general.benikuiStyle then
+				MyFrameDropDownBackdrop:BuiStyle('Outside')
+			end
+		end
+	end
+end
+
 function mod:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
@@ -67,4 +80,5 @@ end
 function mod:StyleAddons()
 	KalielsTracker()
 	RareTracker()
+	TomTom()
 end

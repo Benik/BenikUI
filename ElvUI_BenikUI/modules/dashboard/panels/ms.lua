@@ -16,6 +16,8 @@ local statusColors = {
 
 local function OnEnter(self)
 	local db = self.db
+	local holder = self:GetParent()
+
 	if not InCombatLockdown() then
 		local value = 0
 		local text = ""
