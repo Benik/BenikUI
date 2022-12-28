@@ -453,6 +453,7 @@ function mod:CreateMiddlePanel(forceReset)
 		DT:BuildPanelFrame("BuiMiddleDTPanel")
 		DT:UpdatePanelInfo('BuiMiddleDTPanel')
 	end
+
 	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] or {}
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] or {}
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] or 4
