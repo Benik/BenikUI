@@ -503,7 +503,6 @@ function mod:CreateMiddlePanel(forceReset)
 
 		DT:UpdatePanelInfo('BuiMiddleDTPanel')
 		DT:BuildPanelFrame('BuiMiddleDTPanel', true)
-		DT:SetupPanelOptions('BuiMiddleDTPanel')
 	end
 end
 
