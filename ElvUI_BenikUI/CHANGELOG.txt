@@ -1,3 +1,8 @@
+4.29 (Jan 2, 2023)
+The Dashboards visibility issues should be fixed for good
+Fixed a layout error for new profiles
+License update to 2023
+
 4.28 (Dec 23, 2022)
 Fixed Dashboard Visibility issues when in Combat and in an instance
 Portraits cleanup

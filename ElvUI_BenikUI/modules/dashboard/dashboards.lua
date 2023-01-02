@@ -15,6 +15,13 @@ BUI.TokensDB = {}
 BUI.ProfessionsDB = {}
 BUI.FactionsDB = {}
 
+local Dashboards = {
+	{'BUI_ReputationsDashboard', 'reputations'},
+	{'BUI_SystemDashboard', 'system'},
+	{'BUI_ProfessionsDashboard', 'professions'},
+	{'BUI_TokensDashboard', 'tokens'},
+}
+
 function mod:EnableDisableCombat(holder, option)
 	local db = E.db.benikui.dashboards[option]
 
@@ -105,6 +112,17 @@ function mod:BarHeight(option, tableName)
 	end
 end
 
+function mod:UpdateVisibility()
+	for i, v in ipairs(Dashboards) do
+		local holder, option = unpack(v)
+		local db = E.db.benikui.dashboards[option]
+		local inInstance = IsInInstance()
+		local NotinInstance = not (db.instance and inInstance)
+
+		_G[holder]:SetShown(NotinInstance)
+	end
+end
+
 function mod:IconPosition(tableName, dashboard)
 	for _, bar in pairs(tableName) do
 		if not bar.hasIcon then return end
@@ -135,18 +153,20 @@ function mod:CreateDashboardHolder(holderName, option)
 	holder.backdrop:BuiStyle('Outside')
 	holder:Hide()
 
-	local inInstance = IsInInstance()
-	if db.combat then
-		holder:SetScript('OnEvent',function(self, event)
-			if (db.instance and inInstance) then return end
+	holder:SetScript('OnEvent', function(self, event)
+		local inInstance = IsInInstance()
+		if (db.instance and inInstance) then return end
+	
+		if db.combat then
 			if event == 'PLAYER_REGEN_DISABLED' then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 			elseif event == 'PLAYER_REGEN_ENABLED' then
 				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 				self:Show()
 			end
-		end)
-	end
+		end
+	end)
+
 	mod:EnableDisableCombat(holder, option)
 
 	E.FrameLocks[holder] = { parent = E.UIParent }
@@ -251,6 +271,8 @@ function mod:Initialize()
 	mod:LoadProfessions()
 	mod:LoadTokens()
 	mod:LoadReputations()
+
+	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')
 end
 
 BUI:RegisterModule(mod:GetName())

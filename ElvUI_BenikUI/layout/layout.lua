@@ -451,7 +451,9 @@ tinsert(BUI.Config, InjectMinimapOption)
 function mod:CreateMiddlePanel(forceReset)
 	if not DT:FetchFrame("BuiMiddleDTPanel") then	
 		DT:BuildPanelFrame("BuiMiddleDTPanel")
+		DT:UpdatePanelInfo('BuiMiddleDTPanel')
 	end
+
 	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] or {}
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] or {}
 	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] or 4
@@ -503,7 +505,6 @@ function mod:CreateMiddlePanel(forceReset)
 
 		DT:UpdatePanelInfo('BuiMiddleDTPanel')
 		DT:BuildPanelFrame('BuiMiddleDTPanel', true)
-		DT:SetupPanelOptions('BuiMiddleDTPanel')
 	end
 end
 
