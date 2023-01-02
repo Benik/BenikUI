@@ -15,6 +15,13 @@ BUI.TokensDB = {}
 BUI.ProfessionsDB = {}
 BUI.FactionsDB = {}
 
+local Dashboards = {
+	{'BUI_ReputationsDashboard', 'reputations'},
+	{'BUI_SystemDashboard', 'system'},
+	{'BUI_ProfessionsDashboard', 'professions'},
+	{'BUI_TokensDashboard', 'tokens'},
+}
+
 function mod:EnableDisableCombat(holder, option)
 	local db = E.db.benikui.dashboards[option]
 
@@ -102,6 +109,17 @@ function mod:BarHeight(option, tableName)
 	for _, bar in pairs(tableName) do
 		bar.dummy:Height(db.barHeight)
 		bar.spark:Height(5 + db.barHeight)
+	end
+end
+
+function mod:UpdateVisibility()
+	for i, v in ipairs(Dashboards) do
+		local holder, option = unpack(v)
+		local db = E.db.benikui.dashboards[option]
+		local inInstance = IsInInstance()
+		local NotinInstance = not (db.instance and inInstance)
+
+		_G[holder]:SetShown(NotinInstance)
 	end
 end
 
@@ -253,6 +271,8 @@ function mod:Initialize()
 	mod:LoadProfessions()
 	mod:LoadTokens()
 	mod:LoadReputations()
+
+	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')
 end
 
 BUI:RegisterModule(mod:GetName())

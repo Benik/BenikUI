@@ -133,15 +133,6 @@ function mod:UpdateOrientation()
 	end
 end
 
-function mod:UpdateVisibility()
-	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
-	local inInstance = IsInInstance()
-	local NotinInstance = not (db.instance and inInstance)
-
-	holder:SetShown(NotinInstance)
-end
-
 function mod:CreateSystemDashboard()
 	local db = E.db.benikui.dashboards.system
 	local holder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
@@ -179,7 +170,6 @@ function mod:LoadSystem()
 	mod:UpdateSystemSettings()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateSystemSettings)
-	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')
 
 	if db.FPS then mod:CreateFps() end
 	if db.MS then mod:CreateMs() end
