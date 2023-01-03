@@ -1,4 +1,4 @@
-4.29 (Jan 3, 2023)
+4.30 (Jan 3, 2023)
 Avoid an error when System Dashboard is disabled
 
 4.29 (Jan 2, 2023)
