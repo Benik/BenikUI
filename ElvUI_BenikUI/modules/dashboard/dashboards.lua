@@ -75,31 +75,34 @@ function mod:ToggleStyle(holder, option)
 end
 
 function mod:FontStyle(tableName)
+	local db = E.db.benikui.dashboards.dashfont
 	for _, bar in pairs(tableName) do
 		if E.db.benikui.dashboards.dashfont.useDTfont then
 			bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
-			bar.Text:FontTemplate(LSM:Fetch('font', E.db.benikui.dashboards.dashfont.dbfont), E.db.benikui.dashboards.dashfont.dbfontsize, E.db.benikui.dashboards.dashfont.dbfontflags)
+			bar.Text:FontTemplate(LSM:Fetch('font', db.dbfont), db.dbfontsize, db.dbfontflags)
 		end
 	end
 end
 
 function mod:FontColor(tableName)
+	local db = E.db.benikui.dashboards
 	for _, bar in pairs(tableName) do
-		if E.db.benikui.dashboards.textColor == 1 then
+		if db.textColor == 1 then
 			bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		else
-			bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
+			bar.Text:SetTextColor(BUI:unpackColor(db.customTextColor))
 		end
 	end
 end
 
 function mod:BarColor(tableName)
+	local db = E.db.benikui.dashboards
 	for _, bar in pairs(tableName) do
-		if E.db.benikui.dashboards.barColor == 1 then
+		if db.barColor == 1 then
 			bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		else
-			bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
+			bar.Status:SetStatusBarColor(db.customBarColor.r, db.customBarColor.g, db.customBarColor.b)
 		end
 	end
 end
