@@ -1,3 +1,6 @@
+4.29 (Jan 3, 2023)
+Avoid an error when System Dashboard is disabled
+
 4.29 (Jan 2, 2023)
 The Dashboards visibility issues should be fixed for good
 Fixed a layout error for new profiles
