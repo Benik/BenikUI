@@ -119,7 +119,9 @@ function mod:UpdateVisibility()
 		local inInstance = IsInInstance()
 		local NotinInstance = not (db.instance and inInstance)
 
-		_G[holder]:SetShown(NotinInstance)
+		if _G[holder] then
+			_G[holder]:SetShown(NotinInstance)
+		end
 	end
 end
 
