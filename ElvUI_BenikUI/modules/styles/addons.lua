@@ -56,12 +56,28 @@ end
 
 local function TomTom()
 	if BUI:IsAddOnEnabled('TomTom') and E.db.benikui.skins.variousSkins.tomtom then
+
 		if MyFrameDropDownBackdrop then
 			MyFrameDropDownBackdrop:StripTextures()
 			MyFrameDropDownBackdrop:SetTemplate("Transparent")
 
 			if E.db.benikui.general.benikuiStyle then
 				MyFrameDropDownBackdrop:BuiStyle('Outside')
+			end
+		end
+
+		if TomTomWorldMapDropdownBackdrop then
+			TomTomWorldMapDropdownBackdrop:StripTextures()
+			TomTomWorldMapDropdownBackdrop:SetTemplate("Transparent")
+
+			if E.db.benikui.general.benikuiStyle then
+				TomTomWorldMapDropdownBackdrop:BuiStyle('Outside')
+			end
+		end
+
+		if TomTomTooltip then
+			if E.db.benikui.general.benikuiStyle then
+				TomTomTooltip:BuiStyle('Outside')
 			end
 		end
 	end
