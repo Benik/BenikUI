@@ -156,6 +156,9 @@ function mod:UpdateReputations()
 					local color = (customColors or customReaction) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID]
 					local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
+					-- cut down Artisan's Consortium name
+					if factionID == 2544 then name = E:ShortenString(name, 20) end
+
 					name = isMajorFaction and format('%s%s (%s)|r', name, BLUE_COLOR_HEX, renownLevel) or name
 
 					if not db.barFactionColors then
