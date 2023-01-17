@@ -54,7 +54,7 @@ local function OnClick(self, btn)
 	if btn == 'RightButton' then
 		E:SetEasyMenuAnchor(E.EasyMenu, self)
 		_G.EasyMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
-	else		
+	else
 		if _G.ExpansionLandingPageMinimapButton then
 			_G.ExpansionLandingPageMinimapButton:ToggleLandingPage()
 		end
@@ -102,14 +102,10 @@ local function OnEnter(self)
 	end
 end
 
-local function ValueColorUpdate(hex)
+local function ValueColorUpdate(self, hex)
 	displayString = strjoin('', '%s: ', hex, '%s|r')
 
-	if lastPanel ~= nil then
-		OnEvent(lastPanel)
-	end
+	OnEvent(self)
 end
-
-E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
 DT:RegisterDatatext('Renown (BenikUI)', 'BenikUI', {'MAJOR_FACTION_UNLOCKED', 'MAJOR_FACTION_RENOWN_LEVEL_CHANGED'}, OnEvent, nil, OnClick, OnEnter, nil, nil, nil, ValueColorUpdate)

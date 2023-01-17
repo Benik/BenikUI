@@ -4,7 +4,7 @@ local DT = E:GetModule('DataTexts')
 local _G = _G
 local next = next
 local format, sort, select = format, sort, select
-local wipe, unpack, ipairs = wipe, unpack, ipairs
+local wipe, ipairs = wipe, ipairs
 local GetMouseFocus = GetMouseFocus
 local HideUIPanel = HideUIPanel
 local IsShiftKeyDown = IsShiftKeyDown
@@ -23,7 +23,6 @@ local C_Garrison_GetCompleteMissions = C_Garrison.GetCompleteMissions
 local C_Garrison_GetLooseShipments = C_Garrison.GetLooseShipments
 local C_Garrison_GetTalentTreeIDsByClassID = C_Garrison.GetTalentTreeIDsByClassID
 local C_Garrison_GetTalentTreeInfo = C_Garrison.GetTalentTreeInfo
-local C_Garrison_GetTalentTreeInfoForID = C_Garrison.GetTalentTreeInfoForID
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
@@ -382,7 +381,7 @@ local function OnEvent(self, event, ...)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_2)
-		
+
 		for _, expansion in ipairs(expansions) do
 			C_Garrison_GetInProgressMissions(inProgressMissions, expansion)
 			for _, mission in ipairs(inProgressMissions) do

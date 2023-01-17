@@ -1,4 +1,11 @@
-4.29 (Jan 3, 2023)
+4.31 (Jan 17, 2023)
+The durability value color should now match with its tooltip value color
+Cut down Artisan's Consortium name in the Rep Dashboard
+Update Datatexts following ElvUI changes. Credit: Azilroka
+More TomTom skins
+Added Chris in the Donators list <3
+
+4.30 (Jan 3, 2023)
 Avoid an error when System Dashboard is disabled
 
 4.29 (Jan 2, 2023)

@@ -29,12 +29,6 @@ local slots = {
 	['HeadSlot'] = L['Head'],
 }
 
-local statusColors = {
-	'cff0CD809',	-- green
-	'cffE8DA0F',	-- yellow
-	'cffD80909',	-- red
-}
-
 local function OnMouseUp()
 	ToggleCharacter('PaperDollFrame')
 end
@@ -43,7 +37,6 @@ local function OnEvent(self)
 	local db = self.db
 
 	totalDurability = 100
-	local textColor = 1
 
 	for index, value in pairs(slots) do
 		local slot = GetInventorySlotInfo(index)
@@ -58,23 +51,15 @@ local function OnEvent(self)
 		end
 	end
 
-	if totalDurability >= 90 then
-		textColor = 1
-	elseif totalDurability >= 70 and totalDurability < 90 then
-		textColor = 2
-	else
-		textColor = 3
-	end
-
-	local displayString = join('', DURABILITY, ': |', statusColors[textColor], '%d%%|r')
-	self.Text:SetFormattedText(displayString, totalDurability)
+	local r, g, b = E:ColorGradient(totalDurability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0)
+	local color = E:RGBToHex(r, g, b)
+	self.Text:SetFormattedText('%s: %s%d%%|r', DURABILITY, color, totalDurability)
 
 	self.Status:SetMinMaxValues(0, 100)
 	self.Status:SetValue(totalDurability)
 
 	if db.overrideColor then
-		local r, g, b = E:HexToRGB(statusColors[textColor])
-		self.Status:SetStatusBarColor(r/255, g/255, b/255)
+		self.Status:SetStatusBarColor(r, g, b)
 	end
 end
 
