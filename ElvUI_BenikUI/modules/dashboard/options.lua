@@ -41,6 +41,16 @@ local layoutStyles = {
 	backdrop = L['Backdrop'],
 }
 
+local ItemSetup = {
+	['id'] = "",
+}
+
+local ItemDefaultValues = {
+	['enable'] = true,
+	['useCustomStack'] = false,
+	['customStack'] = 100,
+}
+
 local function UpdateSystemOptions()
 	local config = E.Options.args.benikui.args.dashboards.args.system.args.chooseSystem
 	local db = E.db.benikui.dashboards.system
@@ -182,12 +192,81 @@ local function UpdateReputationOptions()
 	end
 end
 
+local function UpdateItemsOptions()
+	local db = E.db.benikui.dashboards.items
+	local vdb = E.private.benikui.dashboards.items.chooseItems
+	local config = E.Options.args.benikui.args.dashboards.args.items.args.selectItems
+	local optionOrder = 10
+
+	for itemID in pairs(BUI.ItemsList) do
+		local itemName, icon, amount, totalMax = mod:GetItemsInfo(itemID)
+		if itemName then
+			config.args[tostring(itemID)] = {
+				order = optionOrder + 1,
+				type = 'group',
+				name = itemName,
+				icon = icon,
+				args = {
+					enable = {
+						order = 1,
+						type = 'toggle',
+						name = ENABLE.." "..itemName,
+						get = function(_) if vdb[itemID] and vdb[itemID].enable then return vdb[itemID].enable end end,
+						set = function(_, value) vdb[itemID].enable = value mod:GetUserItems() end,
+					},
+					spacer = {
+						order = 2,
+						type = 'header',
+						name = '',
+					},
+					useCustomStack = {
+						order = 10,
+						type = 'toggle',
+						name = L['Use Custom Stack'],
+						get = function(_) if vdb[itemID] and vdb[itemID].useCustomStack then return vdb[itemID].useCustomStack end end,
+						set = function(_, value) vdb[itemID].useCustomStack = value mod:UpdateItems() end,
+					},
+					customStack = {
+						order = 11,
+						type = 'input',
+						width = 'half',
+						name = L['Custom Stack'],
+						hidden = function() if vdb[itemID] and vdb[itemID].customStack then return not vdb[itemID].useCustomStack end end,
+						get = function(_) if vdb[itemID] and vdb[itemID].customStack then return vdb[itemID].customStack end end,
+						set = function(_, value)
+							vdb[itemID].customStack = tonumber(value)
+							mod:UpdateItems()
+						end,
+					},
+					spacer2 = {
+						order = 20,
+						type = 'header',
+						name = '',
+					},
+					delete = {
+						order = 21,
+						name = DELETE,
+						type = 'execute',
+						disabled = function() if vdb[itemID].enable then return not vdb[itemID].enable end end,
+						func = function()
+							config.args[tostring(itemID)] = nil
+							vdb[itemID] = nil
+							mod:GetUserItems()
+						end,
+					},
+				},
+			}
+		end
+	end
+end
+
 local function UpdateAllDashboards()
 	local db = E.db.benikui.dashboards
 	if db.professions.enable then mod:UpdateProfessions() end
 	if db.tokens.enable then mod:UpdateTokens() end
 	if db.system.enable then mod:UpdateSystemSettings() end
 	if db.reputations.enable then mod:UpdateReputations() end
+	if db.items.enable then mod:UpdateItems() end
 end
 
 local function dashboardsTable()
@@ -271,7 +350,7 @@ local function dashboardsTable()
 						type = 'group',
 						name = L['Fonts'],
 						guiInline = true,
-						disabled = function() return not db.system.enable and not db.tokens.enable and not db.professions.enable and not db.reputations.enable end,
+						disabled = function() return not db.system.enable and not db.tokens.enable and not db.professions.enable and not db.reputations.enable and not db.items.enable end,
 						get = function(info) return db.dashfont[ info[#info] ] end,
 						set = function(info, value) db.dashfont[ info[#info] ] = value UpdateAllDashboards() end,
 						args = {
@@ -372,7 +451,7 @@ local function dashboardsTable()
 									spacing = {
 										order = 3,
 										type = 'range',
-										name = E.NewSign..L["Spacing"],
+										name = L["Spacing"],
 										min = 1, max = 30, step = 1,
 										disabled = function() return db.system.orientation == 'BOTTOM' end,
 										get = function(info) return db.system[ info[#info] ] end,
@@ -386,7 +465,7 @@ local function dashboardsTable()
 									updateThrottle = {
 										order = 5,
 										type = 'range',
-										name = E.NewSign..L['Update Throttle'],
+										name = L['Update Throttle'],
 										min = 1, max = 10, step = 1,
 										get = function(info) return db.system[ info[#info] ] end,
 										set = function(info, value) db.system[ info[#info] ] = value end,
@@ -401,7 +480,7 @@ local function dashboardsTable()
 									},
 									orientation = {
 										order = 7,
-										name = E.NewSign..L['Frame Orientation'],
+										name = L['Frame Orientation'],
 										type = 'select',
 										values = frameOrientationValues,
 										get = function(info) return db.system[ info[#info] ] end,
@@ -414,7 +493,7 @@ local function dashboardsTable()
 									},
 									overrideColor = {
 										order = 9,
-										name = E.NewSign..L['Value Color'],
+										name = L['Value Color'],
 										type = 'toggle',
 										get = function(info) return db.system[ info[#info] ] end,
 										set = function(info, value) db.system[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL') end,
@@ -561,7 +640,7 @@ local function dashboardsTable()
 									spacing = {
 										order = 3,
 										type = 'range',
-										name = E.NewSign..L["Spacing"],
+										name = L["Spacing"],
 										min = 1, max = 30, step = 1,
 										disabled = function() return db.tokens.orientation == 'BOTTOM' end,
 										get = function(info) return db.tokens[ info[#info] ] end,
@@ -582,7 +661,7 @@ local function dashboardsTable()
 									},
 									orientation = {
 										order = 6,
-										name = E.NewSign..L['Frame Orientation'],
+										name = L['Frame Orientation'],
 										type = 'select',
 										values = frameOrientationValues,
 										get = function(info) return db.tokens[ info[#info] ] end,
@@ -713,7 +792,7 @@ local function dashboardsTable()
 									spacing = {
 										order = 3,
 										type = 'range',
-										name = E.NewSign..L["Spacing"],
+										name = L["Spacing"],
 										min = 1, max = 30, step = 1,
 										disabled = function() return db.professions.orientation == 'BOTTOM' end,
 										get = function(info) return db.professions[ info[#info] ] end,
@@ -734,7 +813,7 @@ local function dashboardsTable()
 									},
 									orientation = {
 										order = 6,
-										name = E.NewSign..L['Frame Orientation'],
+										name = L['Frame Orientation'],
 										type = 'select',
 										values = frameOrientationValues,
 										get = function(info) return db.professions[ info[#info] ] end,
@@ -861,7 +940,7 @@ local function dashboardsTable()
 									spacing = {
 										order = 3,
 										type = 'range',
-										name = E.NewSign..L["Spacing"],
+										name = L["Spacing"],
 										min = 1, max = 30, step = 1,
 										disabled = function() return db.reputations.orientation == 'BOTTOM' end,
 										get = function(info) return db.reputations[ info[#info] ] end,
@@ -882,7 +961,7 @@ local function dashboardsTable()
 									},
 									orientation = {
 										order = 6,
-										name = E.NewSign..L['Frame Orientation'],
+										name = L['Frame Orientation'],
 										type = 'select',
 										values = frameOrientationValues,
 										get = function(info) return db.reputations[ info[#info] ] end,
@@ -941,6 +1020,190 @@ local function dashboardsTable()
 					},
 				},
 			},
+			items = {
+				order = 7,
+				type = 'group',
+				name = E.NewSign..L['Items WIP'],
+				childGroups = 'tab',
+				args = {
+					enable = {
+						order = 1,
+						type = 'toggle',
+						name = L["Enable"],
+						width = 'full',
+						desc = L['Enable the Items Dashboard.'],
+						get = function(info) return db.items.enable end,
+						set = function(info, value) db.items.enable = value mod:ToggleItems() end,
+					},
+					selectItems = {
+						order = 2,
+						type = 'group',
+						name = L['Items'],
+						disabled = function() return not db.items.enable end,
+						args = {
+							createButton = {
+								order = 1,
+								name = L["Create"],
+								width = 'half',
+								type = 'execute',
+								func = function()
+									if E.global.benikui.CustomItems.createButton == true then
+										E.global.benikui.CustomItems.createButton = false
+									else
+										E.global.benikui.CustomItems.createButton = true
+									end
+								end,
+							},
+							newItem = {
+								order = 2,
+								type = "group",
+								guiInline = true,
+								name = ' ',
+								hidden = function() return not E.global.benikui.CustomItems.createButton end,
+								args = {
+									newID = {
+										order = 1,
+										type = 'input',
+										width = 'double',
+										name = L["New Item by ID"],
+										hidden = function() return not E.global.benikui.CustomItems.createButton end,
+										get = function() return ItemSetup.id end,
+										set = function(_, value)
+											ItemSetup.id = value
+										end,
+									},
+									add = {
+										order = 3,
+										name = ADD,
+										width = 'half',
+										type = 'execute',
+										hidden = function() return not E.global.benikui.CustomItems.createButton end,
+										func = function()
+											local itemID = tonumber(ItemSetup.id)
+											E.private.benikui.dashboards.items.chooseItems[itemID] = ItemDefaultValues
+
+											mod:GetUserItems()
+											UpdateItemsOptions()
+											E.global.benikui.CustomItems.createButton = false;
+										end,
+									},
+								},
+							},
+						},
+					},
+					layout = {
+						order = 3,
+						type = 'group',
+						name = L['Layout'],
+						disabled = function() return not db.items.enable end,
+						args = {
+							layoutGroup = {
+								order = 1,
+								type = 'group',
+								name = L['Layout'],
+								guiInline = true,
+								args = {
+									width = {
+										order = 1,
+										type = 'range',
+										name = L['Width'],
+										desc = L['Change the items Dashboard width.'],
+										min = 120, max = 520, step = 1,
+										get = function(info) return db.items[ info[#info] ] end,
+										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
+									},
+									barHeight = {
+										order = 2,
+										type = 'range',
+										name = L['Bar Height'],
+										desc = L['Change the Bar Height.'],
+										min = 1, max = 20, step = 1,
+										get = function(info) return db.items[ info[#info] ] end,
+										set = function(info, value) db.items[ info[#info] ] = value mod:BarHeight('items', BUI.ItemsDB) end,
+									},
+									spacing = {
+										order = 3,
+										type = 'range',
+										name = L["Spacing"],
+										min = 1, max = 30, step = 1,
+										disabled = function() return db.items.orientation == 'BOTTOM' end,
+										get = function(info) return db.items[ info[#info] ] end,
+										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
+									},
+									spacer = {
+										order = 4,
+										type = 'header',
+										name = '',
+									},
+									iconPosition = {
+										order = 5,
+										type = 'select',
+										name = L['Icon Position'],
+										get = function(info) return db.items[ info[#info] ] end,
+										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
+										values = iconOrientationValues,
+									},
+									orientation = {
+										order = 6,
+										name = L['Frame Orientation'],
+										type = 'select',
+										values = frameOrientationValues,
+										get = function(info) return db.items[ info[#info] ] end,
+										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
+									},
+									layoutOptions = {
+										order = 10,
+										type = 'multiselect',
+										name = ' ',
+										get = function(_, key) return db.items[key] end,
+										set = function(_, key, value) db.items[key] = value mod:ToggleStyle(BUI_ItemsDashboard, 'items') mod:ToggleTransparency(BUI_ItemsDashboard, 'items') end,
+										values = layoutStyles,
+									},
+								},
+							},
+						},
+					},
+					visibility = {
+						order = 4,
+						type = 'group',
+						name = L["Visibility"],
+						disabled = function() return not db.items.enable end,
+						args = {
+							visibilityGroup = {
+								order = 1,
+								type = 'group',
+								name = L["Visibility"],
+								guiInline = true,
+								args = {
+									combat = {
+										order = 1,
+										name = L['Hide In Combat'],
+										desc = L['Show/Hide items Dashboard when in combat'],
+										type = 'toggle',
+										get = function(info) return db.items[ info[#info] ] end,
+										set = function(info, value) db.items[ info[#info] ] = value mod:EnableDisableCombat(BUI_ItemsDashboard, 'items') end,
+									},
+									mouseover = {
+										order = 2,
+										name = L['Mouse Over'],
+										desc = L['The frame is not shown unless you mouse over the frame.'],
+										type = 'toggle',
+										get = function(info) return db.items[ info[#info] ] end,
+										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
+									},
+									instance = {
+										order = 3,
+										name = L['Hide in Instance'],
+										type = 'toggle',
+										get = function(info) return db.items[ info[#info] ] end,
+										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
 		},
 	}
 end
@@ -950,3 +1213,4 @@ tinsert(BUI.Config, UpdateSystemOptions)
 tinsert(BUI.Config, UpdateTokenOptions)
 tinsert(BUI.Config, UpdateProfessionOptions)
 tinsert(BUI.Config, UpdateReputationOptions)
+tinsert(BUI.Config, UpdateItemsOptions)

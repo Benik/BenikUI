@@ -14,6 +14,7 @@ BUI.SystemDB = {}
 BUI.TokensDB = {}
 BUI.ProfessionsDB = {}
 BUI.FactionsDB = {}
+BUI.ItemsDB = {}
 
 local Dashboards = {
 	{'BUI_ReputationsDashboard', 'reputations'},
@@ -276,6 +277,7 @@ function mod:Initialize()
 	mod:LoadProfessions()
 	mod:LoadTokens()
 	mod:LoadReputations()
+	mod:LoadItems()
 
 	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')
 end
