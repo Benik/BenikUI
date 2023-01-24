@@ -210,7 +210,8 @@ local function UpdateItemsOptions()
 					enable = {
 						order = 1,
 						type = 'toggle',
-						name = ENABLE.." "..itemName,
+						width = 'full',
+						name = format('%s %s|cfffcba03 (%s)|r', ENABLE, itemName, itemID),
 						get = function(_) if vdb[itemID] and vdb[itemID].enable then return vdb[itemID].enable end end,
 						set = function(_, value) vdb[itemID].enable = value mod:GetUserItems() end,
 					},
@@ -223,6 +224,7 @@ local function UpdateItemsOptions()
 						order = 10,
 						type = 'toggle',
 						name = L['Use Custom Stack'],
+						disabled = function() return not vdb[itemID].enable end,
 						get = function(_) if vdb[itemID] and vdb[itemID].useCustomStack then return vdb[itemID].useCustomStack end end,
 						set = function(_, value) vdb[itemID].useCustomStack = value mod:UpdateItems() end,
 					},
@@ -247,7 +249,7 @@ local function UpdateItemsOptions()
 						order = 21,
 						name = DELETE,
 						type = 'execute',
-						--disabled = function() if vdb[itemID].enable then return not vdb[itemID].enable end end,
+						disabled = function() return not vdb[itemID].enable end,
 						func = function()
 							config.args[tostring(itemID)] = nil
 							vdb[itemID] = nil
@@ -1044,7 +1046,7 @@ local function dashboardsTable()
 						args = {
 							createButton = {
 								order = 1,
-								name = L["Create"],
+								name = ADD,
 								width = 'half',
 								type = 'execute',
 								func = function()
@@ -1094,7 +1096,7 @@ local function dashboardsTable()
 									},
 									add = {
 										order = 3,
-										name = ADD,
+										name = KEY_INSERT,
 										width = 'half',
 										type = 'execute',
 										hidden = function() return not E.global.benikui.CustomItems.createButton end,
