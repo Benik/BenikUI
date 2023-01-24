@@ -247,10 +247,11 @@ local function UpdateItemsOptions()
 						order = 21,
 						name = DELETE,
 						type = 'execute',
-						disabled = function() if vdb[itemID].enable then return not vdb[itemID].enable end end,
+						--disabled = function() if vdb[itemID].enable then return not vdb[itemID].enable end end,
 						func = function()
 							config.args[tostring(itemID)] = nil
 							vdb[itemID] = nil
+							BUI.ItemsList[itemID] = nil
 							mod:GetUserItems()
 						end,
 					},
@@ -1077,7 +1078,7 @@ local function dashboardsTable()
 												E:StaticPopup_Show("BUI_Panel_Name")
 												ItemSetup.id = nil
 											elseif not checkDuplicate then
-												for object in pairs(E.private.benikui.dashboards.items.chooseItems) do
+												for object in pairs(BUI.ItemsList) do
 													if object == tonumber(ItemSetup.id) then
 														E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The Item |cff00c0fa%s|r already exists."], name))
 														E:StaticPopup_Show("BUI_Panel_Name")
