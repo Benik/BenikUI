@@ -1070,6 +1070,25 @@ local function dashboardsTable()
 										get = function() return ItemSetup.id end,
 										set = function(_, value)
 											ItemSetup.id = strmatch(value, 'item:(%d+)') or value
+											local name = GetItemInfo(ItemSetup.id)
+											local checkDuplicate = false
+											if not name then
+												E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The ID |cff00c0fa%d|r doesn't exist in the game."], ItemSetup.id))
+												E:StaticPopup_Show("BUI_Panel_Name")
+												ItemSetup.id = nil
+											elseif not checkDuplicate then
+												for object in pairs(E.private.benikui.dashboards.items.chooseItems) do
+													if object == tonumber(ItemSetup.id) then
+														E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The Item |cff00c0fa%s|r already exists."], name))
+														E:StaticPopup_Show("BUI_Panel_Name")
+														ItemSetup.id = nil
+														checkDuplicate = true
+													else
+														ItemSetup.id = ItemSetup.id
+														checkDuplicate = false
+													end
+												end
+											end
 										end,
 									},
 									add = {
