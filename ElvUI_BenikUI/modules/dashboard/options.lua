@@ -1069,7 +1069,7 @@ local function dashboardsTable()
 										hidden = function() return not E.global.benikui.CustomItems.createButton end,
 										get = function() return ItemSetup.id end,
 										set = function(_, value)
-											ItemSetup.id = value
+											ItemSetup.id = strmatch(value, 'item:(%d+)') or value
 										end,
 									},
 									add = {
@@ -1080,7 +1080,9 @@ local function dashboardsTable()
 										hidden = function() return not E.global.benikui.CustomItems.createButton end,
 										func = function()
 											local itemID = tonumber(ItemSetup.id)
-											E.private.benikui.dashboards.items.chooseItems[itemID] = ItemDefaultValues
+											if itemID then
+												E.private.benikui.dashboards.items.chooseItems[itemID] = ItemDefaultValues
+											end
 
 											mod:GetUserItems()
 											UpdateItemsOptions()
