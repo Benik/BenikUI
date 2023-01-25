@@ -91,6 +91,7 @@ local CODING = {
 	'Cara (ptBR)',
 	'nadugi (koKR)',
 	'|cff00c0faDlarge|r (deDE)',
+	'Tsxy',
 }
 tsort(CODING, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local CODING_STRING = tconcat(CODING, ", ")
