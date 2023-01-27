@@ -213,7 +213,6 @@ function mod:ToggleItems()
 	if db.items.enable then
 		E:EnableMover(holder.mover.name)
 		mod:RegisterEvent('BAG_UPDATE', mod.GetUserItems)
-		mod:RegisterEvent('CHAT_MSG_LOOT', mod.UpdateItems)
 
 		mod:ToggleStyle(holder, 'items')
 		mod:ToggleTransparency(holder, 'items')
@@ -223,7 +222,6 @@ function mod:ToggleItems()
 	else
 		E:DisableMover(holder.mover.name)
 		mod:UnregisterEvent('BAG_UPDATE')
-		mod:UnregisterEvent('CHAT_MSG_LOOT')
 
 		holder:SetScript('OnEnter', nil)
 		holder:SetScript('OnLeave', nil)
