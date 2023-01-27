@@ -87,8 +87,8 @@ P['benikui'] = {
 			['backdrop'] = true,
 			['showChatDt'] = 'SHOWBOTH',
 		},
-		['mail'] = {
-			['toggle'] = true,
+		['mailIcon'] = {
+			['show'] = false,
 		},
 	},
 
