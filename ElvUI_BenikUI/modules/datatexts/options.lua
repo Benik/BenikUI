@@ -124,19 +124,19 @@ local function Datatexts()
 					},
 				},
 			},
-			mailIcon = {
+			mail = {
 				order = 30,
 				type = 'group',
 				name = MAIL_LABEL,
 				guiInline = true,
 				args = {
-					show = {
+					toggle = {
 						order = 1,
 						type = 'toggle',
-						name = L['Show Mail Icon'],
+						name = L['Hide Mail Icon'],
 						desc = L['Show/Hide Mail Icon on minimap'],
-						get = function(info) return E.db.benikui.datatexts.mailIcon[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.mailIcon[ info[#info] ] = value; DT:ToggleMailFrame() end, --E:StaticPopup_Show('PRIVATE_RL');
+						get = function(info) return E.db.benikui.datatexts.mail[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.mail[ info[#info] ] = value; DT:ToggleMailFrame() end, --E:StaticPopup_Show('PRIVATE_RL');
 					},
 				},
 			},

@@ -48,7 +48,7 @@ local function OnEvent(self, event, ...)
 	end
 
 	if _G.MiniMapMailIcon then
-		_G.MiniMapMailIcon:SetShown(E.db.benikui.datatexts.mailIcon.show)
+		_G.MiniMapMailIcon:SetShown(not E.db.benikui.datatexts.mail.toggle)
 	end
 end
 
@@ -76,7 +76,7 @@ end
 -- Hide the mail icon from minimap
 function DT:ToggleMailFrame()
 	if _G.MiniMapMailIcon then
-		_G.MiniMapMailIcon:SetShown(E.db.benikui.datatexts.mailIcon.show)
+		_G.MiniMapMailIcon:SetShown(not E.db.benikui.datatexts.mail.toggle)
 	end
 end
 
