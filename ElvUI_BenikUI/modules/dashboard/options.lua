@@ -1026,7 +1026,7 @@ local function dashboardsTable()
 			items = {
 				order = 7,
 				type = 'group',
-				name = E.NewSign..L['Items WIP'],
+				name = E.NewSign..L['Items'],
 				childGroups = 'tab',
 				args = {
 					enable = {
@@ -1131,7 +1131,7 @@ local function dashboardsTable()
 										order = 1,
 										type = 'range',
 										name = L['Width'],
-										desc = L['Change the items Dashboard width.'],
+										desc = L['Change the Items Dashboard width.'],
 										min = 120, max = 520, step = 1,
 										get = function(info) return db.items[ info[#info] ] end,
 										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,

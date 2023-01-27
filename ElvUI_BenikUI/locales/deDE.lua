@@ -191,6 +191,15 @@ L['Use DataTexts font'] = "Benutze Infotext Schriftart"
 L['Use Faction Colors on Bars'] = "Benutze Fraktionsfarben auf Leisten"
 L['Use Faction Colors on Text'] = "Benutze Fraktionsfarben auf Texten"
 
+-- Items
+L['Items'] = true
+L['Enable the Items Dashboard.'] = true
+L['New Item by ID'] = true
+L["The ID |cff00c0fa%d|r doesn't exist in the game."] = true
+L['The Item |cff00c0fa%s|r already exists.'] = true
+L['Change the Items Dashboard width.'] = true
+L['Show/Hide items Dashboard when in combat'] = true
+
 -- Databars Options
 L['Notifiers'] = "Benachrichtigungen"
 L['Button Backdrop'] = "Tasten Hintergrund"
