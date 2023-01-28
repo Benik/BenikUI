@@ -32,6 +32,9 @@ local UNKNOWN = UNKNOWN
 local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
 
 -- GLOBALS: hooksecurefunc
+
+local position, Xoffset
+
 BUI.ReputationsList = {}
 
 local DASH_HEIGHT = 20
@@ -203,7 +206,7 @@ function mod:UpdateReputations()
 						end
 
 						if db.tooltip then
-							_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0)
+							_G.GameTooltip:SetOwner(self, position, Xoffset, 0)
 							_G.GameTooltip:AddLine(name)
 							_G.GameTooltip:AddLine(' ')
 
@@ -340,6 +343,11 @@ local function holderOnLeave(self)
 	end
 end
 
+local function CheckReputationsPosition()
+	local pos, Xoff = mod:CheckPositionForTooltip(_G.BUI_ReputationsDashboard)
+	position, Xoffset = pos, Xoff
+end
+
 function mod:ToggleReputations()
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ReputationsDashboard
@@ -381,6 +389,7 @@ function mod:CreateReputationsDashboard()
 
 	E:CreateMover(holder, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
 	mod:ToggleReputations()
+	CheckReputationsPosition()
 end
 
 function mod:LoadReputations()
@@ -388,4 +397,5 @@ function mod:LoadReputations()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateReputations)
 	hooksecurefunc(DB, 'ReputationBar_Update', mod.UpdateReputations)
+	hooksecurefunc(E, 'ToggleMoveMode', CheckReputationsPosition)
 end
