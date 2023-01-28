@@ -22,11 +22,11 @@ local BreakUpLargeNumbers = BreakUpLargeNumbers
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
-local itemsDB = BUI.ItemsDB
+local itemsDB = mod.ItemsDB
 
 local position, Xoffset
 
-BUI.ItemsList = {}
+mod.ItemsList = {}
 
 local classColor = E:ClassColor(E.myclass, true)
 
@@ -121,7 +121,7 @@ function mod:UpdateItems()
 
 	if db.items.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 
-	for id in pairs(BUI.ItemsList) do
+	for id in pairs(mod.ItemsList) do
 		local name, icon, amount, totalMax = mod:GetItemsInfo(tonumber(id))
 
 		if id and name then
@@ -189,7 +189,7 @@ end
 function mod:GetUserItems()
 	local db = E.private.benikui.dashboards.items.chooseItems
 	for id in pairs(db) do
-		BUI.ItemsList[id] = id
+		mod.ItemsList[id] = id
 	end
 	mod:UpdateItems()
 end

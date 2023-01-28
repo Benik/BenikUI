@@ -10,11 +10,11 @@ local SPACING = 1
 local classColor = E:ClassColor(E.myclass, true)
 
 -- Dashboards bar frame tables
-BUI.SystemDB = {}
-BUI.TokensDB = {}
-BUI.ProfessionsDB = {}
-BUI.FactionsDB = {}
-BUI.ItemsDB = {}
+mod.SystemDB = {}
+mod.TokensDB = {}
+mod.ProfessionsDB = {}
+mod.FactionsDB = {}
+mod.ItemsDB = {}
 
 local Dashboards = {
 	{'BUI_ReputationsDashboard', 'reputations'},
@@ -38,7 +38,7 @@ end
 function mod:UpdateHolderDimensions(holder, option, tableName, isSystem)
 	local db = E.db.benikui.dashboards[option]
 	if isSystem and db.orientation == 'RIGHT' then
-		holder:Width(db.width * (#BUI.SystemDB) + ((#BUI.SystemDB -1) *db.spacing))
+		holder:Width(db.width * (#mod.SystemDB) + ((#mod.SystemDB -1) *db.spacing))
 	else
 		holder:Width(db.width)
 	end

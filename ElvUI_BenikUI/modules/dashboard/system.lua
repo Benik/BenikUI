@@ -12,6 +12,7 @@ local IsInInstance = IsInInstance
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
+local systemDB = mod.SystemDB
 
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
@@ -19,11 +20,11 @@ function mod:CreateSystem()
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
-	if(BUI.SystemDB[1]) then
-		for i = 1, getn(BUI.SystemDB) do
-			BUI.SystemDB[i]:Kill()
+	if(systemDB[1]) then
+		for i = 1, getn(systemDB) do
+			systemDB[i]:Kill()
 		end
-		twipe(BUI.SystemDB)
+		twipe(systemDB)
 		holder:Hide()
 	end
 
@@ -75,7 +76,7 @@ function mod:CreateSystem()
 				end
 			end)
 
-			tinsert(BUI.SystemDB, bar)
+			tinsert(systemDB, bar)
 		end
 	end
 end
@@ -84,10 +85,10 @@ function mod:UpdateSystemSettings()
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
-	mod:FontStyle(BUI.SystemDB)
-	mod:FontColor(BUI.SystemDB)
-	mod:BarColor(BUI.SystemDB)
-	mod:BarHeight('system', BUI.SystemDB)
+	mod:FontStyle(systemDB)
+	mod:FontColor(systemDB)
+	mod:BarColor(systemDB)
+	mod:BarHeight('system', systemDB)
 
 	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 end
@@ -112,22 +113,22 @@ function mod:UpdateOrientation()
 	local holder = _G.BUI_SystemDashboard
 
 	if db.orientation == 'BOTTOM' then
-		holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB)) + DASH_SPACING)
+		holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#systemDB)) + DASH_SPACING)
 		holder:Width(db.width)
 	else
 		holder:Height(DASH_HEIGHT + (DASH_SPACING))
-		holder:Width(db.width * (#BUI.SystemDB) + ((#BUI.SystemDB -1) *db.spacing))
+		holder:Width(db.width * (#systemDB) + ((#systemDB -1) *db.spacing))
 	end
 
-	for key, frame in ipairs(BUI.SystemDB) do
+	for key, frame in ipairs(systemDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
 			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			if db.orientation == 'BOTTOM' then
-				frame:Point('TOP', BUI.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+				frame:Point('TOP', systemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 			else
-				frame:Point('LEFT', BUI.SystemDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
+				frame:Point('LEFT', systemDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
 			end
 		end
 	end
@@ -139,7 +140,7 @@ function mod:CreateSystemDashboard()
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
 	holder:Width(db.width or 150)
 
-	mod:UpdateHolderDimensions(holder, 'system', BUI.SystemDB)
+	mod:UpdateHolderDimensions(holder, 'system', systemDB)
 	mod:ToggleStyle(holder, 'system')
 	mod:ToggleTransparency(holder, 'system')
 	mod:CreateSystem()

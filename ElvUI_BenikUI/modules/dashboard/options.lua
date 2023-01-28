@@ -86,7 +86,7 @@ local function UpdateTokenOptions()
 	local db = E.db.benikui.dashboards.tokens
 
 	local optionOrder = 1
-	for i, info in ipairs(BUI.CurrencyList) do
+	for i, info in ipairs(mod.CurrencyList) do
 		local name, id = unpack(info)
 		if not info[2] then
 			config.args[tostring(i)] = {
@@ -167,7 +167,7 @@ local function UpdateReputationOptions()
 	local db = E.db.benikui.dashboards.reputations
 
 	local optionOrder = 1
-	for i, info in ipairs(BUI.ReputationsList) do
+	for i, info in ipairs(mod.ReputationsList) do
 		local name, factionID, headerIndex, isHeader, hasRep, isChild = unpack(info)
 
 		if isHeader and not (hasRep or isChild) then
@@ -198,7 +198,7 @@ local function UpdateItemsOptions()
 	local config = E.Options.args.benikui.args.dashboards.args.items.args.selectItems
 	local optionOrder = 10
 
-	for itemID in pairs(BUI.ItemsList) do
+	for itemID in pairs(mod.ItemsList) do
 		local itemName, icon, amount, totalMax = mod:GetItemsInfo(itemID)
 		if itemName then
 			config.args[tostring(itemID)] = {
@@ -253,7 +253,7 @@ local function UpdateItemsOptions()
 						func = function()
 							config.args[tostring(itemID)] = nil
 							vdb[itemID] = nil
-							BUI.ItemsList[itemID] = nil
+							mod.ItemsList[itemID] = nil
 							mod:GetUserItems()
 						end,
 					},
@@ -440,7 +440,7 @@ local function dashboardsTable()
 										desc = L['Change the System Dashboard width.'],
 										min = 120, max = 520, step = 1,
 										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateHolderDimensions(BUI_SystemDashboard, 'system', BUI.SystemDB, true) mod:UpdateSystemSettings() end,
+										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateHolderDimensions(BUI_SystemDashboard, 'system', mod.SystemDB, true) mod:UpdateSystemSettings() end,
 									},
 									barHeight = {
 										order = 2,
@@ -449,7 +449,7 @@ local function dashboardsTable()
 										desc = L['Change the Bar Height.'],
 										min = 1, max = 20, step = 1,
 										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value mod:BarHeight('system', BUI.SystemDB) end,
+										set = function(info, value) db.system[ info[#info] ] = value mod:BarHeight('system', mod.SystemDB) end,
 									},
 									spacing = {
 										order = 3,
@@ -638,7 +638,7 @@ local function dashboardsTable()
 										desc = L['Change the Bar Height.'],
 										min = 1, max = 20, step = 1,
 										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:BarHeight('tokens', BUI.TokensDB) end,
+										set = function(info, value) db.tokens[ info[#info] ] = value mod:BarHeight('tokens', mod.TokensDB) end,
 									},
 									spacing = {
 										order = 3,
@@ -790,7 +790,7 @@ local function dashboardsTable()
 										desc = L['Change the Bar Height.'],
 										min = 1, max = 20, step = 1,
 										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value mod:BarHeight('professions', BUI.ProfessionsDB) end,
+										set = function(info, value) db.professions[ info[#info] ] = value mod:BarHeight('professions', mod.ProfessionsDB) end,
 									},
 									spacing = {
 										order = 3,
@@ -938,7 +938,7 @@ local function dashboardsTable()
 										desc = L['Change the Bar Height.'],
 										min = 1, max = 20, step = 1,
 										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:BarHeight('reputations', BUI.FactionsDB) end,
+										set = function(info, value) db.reputations[ info[#info] ] = value mod:BarHeight('reputations', mod.FactionsDB) end,
 									},
 									spacing = {
 										order = 3,
@@ -1087,7 +1087,7 @@ local function dashboardsTable()
 												E:StaticPopup_Show("BUI_Panel_Name")
 												ItemSetup.id = nil
 											elseif not checkDuplicate then
-												for object in pairs(BUI.ItemsList) do
+												for object in pairs(mod.ItemsList) do
 													if object == tonumber(ItemSetup.id) then
 														E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The Item |cff00c0fa%s|r already exists."], name))
 														E:StaticPopup_Show("BUI_Panel_Name")
@@ -1150,7 +1150,7 @@ local function dashboardsTable()
 										desc = L['Change the Bar Height.'],
 										min = 1, max = 20, step = 1,
 										get = function(info) return db.items[ info[#info] ] end,
-										set = function(info, value) db.items[ info[#info] ] = value mod:BarHeight('items', BUI.ItemsDB) end,
+										set = function(info, value) db.items[ info[#info] ] = value mod:BarHeight('items', mod.ItemsDB) end,
 									},
 									spacing = {
 										order = 3,
