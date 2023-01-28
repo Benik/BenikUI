@@ -24,33 +24,40 @@ local DASH_SPACING = 3
 local SPACING = 1
 local itemsDB = BUI.ItemsDB
 
+local position, Xoffset
+
 BUI.ItemsList = {}
 
 local classColor = E:ClassColor(E.myclass, true)
 
-local function Icon_OnEnter(self)
-	if E.db.benikui.dashboards.items.mouseover then
-		E:UIFrameFadeIn(BUI_ItemsDashboard, 0.2, BUI_ItemsDashboard:GetAlpha(), 1)
-	end
-end
-
-local function Icon_OnLeave(self)
-	if E.db.benikui.dashboards.items.mouseover then
-		E:UIFrameFadeIn(BUI_ItemsDashboard, 0.2, BUI_ItemsDashboard:GetAlpha(), 0)
-	end
-end
-
-local function Icon_OnMouseUp(self)
+local function OnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 
-	E:ToggleOptions()
-	local ACD = E.Libs.AceConfigDialog
-	if ACD then ACD:SelectGroup("ElvUI", "benikui", "dashboards", "items") end
+	if btn == "RightButton" then
+		if IsShiftKeyDown() then
+			local id = self.id
+			E.private.benikui.dashboards.items.chooseItems[id].enable = false
+			mod:UpdateItems()
+		else
+			E:ToggleOptions()
+			local ACD = E.Libs.AceConfigDialog
+			if ACD then ACD:SelectGroup("ElvUI", "benikui", "dashboards", "items") end
+		end
+	end
 end
 
-local function Bar_OnEnter(self)
+local function OnEnter(self)
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ItemsDashboard
+	local id = self.id
+	
+	if db.items.tooltip then
+		GameTooltip:SetOwner(self, position, Xoffset, 0)
+		GameTooltip:SetItemByID(id)
+		GameTooltip:AddLine(' ')
+		GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
+		GameTooltip:Show()
+	end
 
 	self.Text:SetFormattedText('%s', self.name)
 	if db.items.mouseover then
@@ -58,7 +65,7 @@ local function Bar_OnEnter(self)
 	end
 end
 
-local function Bar_OnLeave(self)
+local function OnLeave(self)
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ItemsDashboard
 	local BreakAmount = BreakUpLargeNumbers(self.amount)
@@ -66,7 +73,9 @@ local function Bar_OnLeave(self)
 
 	self.Text:SetFormattedText('%s / %s', BreakAmount, BreakMax)
 
-	GameTooltip:Hide()
+	if db.items.tooltip then
+		GameTooltip:Hide()
+	end
 
 	if db.items.mouseover then
 		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
@@ -142,12 +151,9 @@ function mod:UpdateItems()
 				bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 				bar.IconBG.Icon:SetTexture(icon)
 
-				bar.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
-				bar.IconBG:SetScript('OnEnter', Icon_OnEnter)
-				bar.IconBG:SetScript('OnLeave', Icon_OnLeave)
-
-				bar:SetScript('OnEnter', Bar_OnEnter)
-				bar:SetScript('OnLeave', Bar_OnLeave)
+				bar:SetScript('OnEnter', OnEnter)
+				bar:SetScript('OnLeave', OnLeave)
+				bar:SetScript('OnMouseUp', OnMouseUp)
 
 				bar.id = id
 				bar.name = name
@@ -206,6 +212,11 @@ local function holderOnLeave(self)
 	end
 end
 
+local function CheckItemsPosition()
+	local pos, Xoff = mod:CheckPositionForTooltip(_G.BUI_ItemsDashboard)
+	position, Xoffset = pos, Xoff
+end
+
 function mod:ToggleItems()
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ItemsDashboard
@@ -238,10 +249,12 @@ function mod:CreateItemsDashboard()
 
 	E:CreateMover(holder, 'itemsHolderMover', L['items'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,items')
 	mod:ToggleItems()
+	CheckItemsPosition()
 end
 
 function mod:LoadItems()
 	mod:CreateItemsDashboard()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateItems)
+	hooksecurefunc(E, 'ToggleMoveMode', CheckItemsPosition)
 end

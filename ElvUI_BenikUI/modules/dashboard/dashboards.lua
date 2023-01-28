@@ -149,6 +149,23 @@ function mod:IconPosition(tableName, dashboard)
 	end
 end
 
+function mod:CheckPositionForTooltip(frame)
+	if not frame then return end
+
+	local x, y = frame:GetCenter()
+	local position, Xoffset
+
+	if x > (E.screenWidth * 0.5) then
+		position = 'ANCHOR_LEFT'
+		Xoffset = BUI.ShadowMode and -3 or 0
+	else
+		position = 'ANCHOR_RIGHT'
+		Xoffset = BUI.ShadowMode and 3 or 0
+	end
+
+	return position, Xoffset
+end
+
 function mod:CreateDashboardHolder(holderName, option)
 	local db = E.db.benikui.dashboards[option]
 
@@ -223,6 +240,7 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 		bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
 		bar.IconBG.Icon:SetInside()
 		bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		bar.IconBG:EnableMouse(false)
 		bar.hasIcon = hasIcon
 	end
 

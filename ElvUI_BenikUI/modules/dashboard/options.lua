@@ -1057,8 +1057,15 @@ local function dashboardsTable()
 									end
 								end,
 							},
-							newItem = {
+							tooltip = {
 								order = 2,
+								type = 'toggle',
+								name = L['Tooltip'],
+								get = function(info) return db.items.tooltip end,
+								set = function(info, value) db.items.tooltip = value end,
+							},
+							newItem = {
+								order = 3,
 								type = "group",
 								guiInline = true,
 								name = ' ',
@@ -1095,7 +1102,7 @@ local function dashboardsTable()
 										end,
 									},
 									add = {
-										order = 3,
+										order = 2,
 										name = KEY_INSERT,
 										width = 'half',
 										type = 'execute',
