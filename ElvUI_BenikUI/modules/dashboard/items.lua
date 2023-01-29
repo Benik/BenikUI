@@ -215,8 +215,7 @@ end
 local function CheckItemsPosition()
 	if E.db.benikui.dashboards.items.enable ~= true then return end
 
-	local pos, Xoff = mod:CheckPositionForTooltip(_G.BUI_ItemsDashboard)
-	position, Xoffset = pos, Xoff
+	position, Xoffset = mod:CheckPositionForTooltip(_G.BUI_ItemsDashboard)
 end
 
 function mod:ToggleItems()
