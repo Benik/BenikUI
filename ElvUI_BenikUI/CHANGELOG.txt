@@ -1,3 +1,17 @@
+4.32 (Jan 29, 2023)
+Fixed Renown Datatext for capped factions
+Fixed Tokens and Reps options not updating after re-enabling them
+Simplified the Dashboards dbs references
+Added a function that arranges the Tooltip Left or Right, according to the Dashboard position on the screen
+Added acesyde in the Donators list <3
+Update deDE.lua Credit: DlargeX
+The "Hide Mail Icon" will now properly toggle the Mail Icon
+Added the mighty Tsxy <3
+Added FrogZilla at the Donators list, cause he's awesome <3
+Items Dashboard: Drag and drop for item ID. Credit: Azilroka. Also added a check to prevent an error
+New Dashboard: Items. Track any item by adding its ID. Also with Custom Max value.
+Styled the Middle click Minimap menu
+
 4.31 (Jan 17, 2023)
 The durability value color should now match with its tooltip value color
 Cut down Artisan's Consortium name in the Rep Dashboard
