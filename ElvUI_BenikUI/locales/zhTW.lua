@@ -190,6 +190,15 @@ L['Use DataTexts font'] = true
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true
 
+-- Items
+L['Items'] = true
+L['Enable the Items Dashboard.'] = true
+L['New Item by ID'] = true
+L["The ID |cff00c0fa%d|r doesn't exist in the game."] = true
+L['The Item |cff00c0fa%s|r already exists.'] = true
+L['Change the Items Dashboard width.'] = true
+L['Show/Hide items Dashboard when in combat'] = true
+
 -- Databars Options
 L['Notifiers'] = true
 L['Button Backdrop'] = true

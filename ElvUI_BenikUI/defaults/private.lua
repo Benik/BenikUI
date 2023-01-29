@@ -31,6 +31,12 @@ V['benikui'] = {
 
 			},
 		},
+
+		['items'] = {
+			['chooseItems'] = {
+
+			},
+		},
 	},
 
 	['datatexts'] = {

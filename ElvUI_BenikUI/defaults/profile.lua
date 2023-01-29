@@ -401,6 +401,22 @@ P['benikui'] = {
 			['spacing'] = 1,
 		},
 
+		['items'] = {
+			['enable'] = true,
+			['combat'] = true,
+			['mouseover'] = false,
+			['width'] = 150,
+			['barHeight'] = 1,
+			['style'] = true,
+			['transparency'] = true,
+			['backdrop'] = true,
+			['iconPosition'] = 'RIGHT',
+			['instance'] = true,
+			['orientation'] = 'BOTTOM',
+			['spacing'] = 1,
+			['tooltip'] = true,
+		},
+
 		['dashfont'] = {
 			['useDTfont'] = true,
 			['dbfont'] = E.db.datatexts.font,
@@ -417,6 +433,9 @@ P['benikui'] = {
 
 G['benikui'] = {
 	['CustomPanels'] = {
+		['createButton'] = false,
+	},
+	['CustomItems'] = {
 		['createButton'] = false,
 	},
 }

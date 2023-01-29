@@ -10,10 +10,11 @@ local SPACING = 1
 local classColor = E:ClassColor(E.myclass, true)
 
 -- Dashboards bar frame tables
-BUI.SystemDB = {}
-BUI.TokensDB = {}
-BUI.ProfessionsDB = {}
-BUI.FactionsDB = {}
+mod.SystemDB = {}
+mod.TokensDB = {}
+mod.ProfessionsDB = {}
+mod.FactionsDB = {}
+mod.ItemsDB = {}
 
 local Dashboards = {
 	{'BUI_ReputationsDashboard', 'reputations'},
@@ -37,7 +38,7 @@ end
 function mod:UpdateHolderDimensions(holder, option, tableName, isSystem)
 	local db = E.db.benikui.dashboards[option]
 	if isSystem and db.orientation == 'RIGHT' then
-		holder:Width(db.width * (#BUI.SystemDB) + ((#BUI.SystemDB -1) *db.spacing))
+		holder:Width(db.width * (#mod.SystemDB) + ((#mod.SystemDB -1) *db.spacing))
 	else
 		holder:Width(db.width)
 	end
@@ -148,6 +149,25 @@ function mod:IconPosition(tableName, dashboard)
 	end
 end
 
+function mod:CheckPositionForTooltip(frame)
+	if not frame then return end
+
+	local x = frame:GetCenter()
+	if not x then return end
+
+	local position, Xoffset
+
+	if x > (E.screenWidth * 0.5) then
+		position = 'ANCHOR_LEFT'
+		Xoffset = BUI.ShadowMode and -3 or 0
+	else
+		position = 'ANCHOR_RIGHT'
+		Xoffset = BUI.ShadowMode and 3 or 0
+	end
+
+	return position, Xoffset
+end
+
 function mod:CreateDashboardHolder(holderName, option)
 	local db = E.db.benikui.dashboards[option]
 
@@ -222,6 +242,7 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 		bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
 		bar.IconBG.Icon:SetInside()
 		bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		bar.IconBG:EnableMouse(false)
 		bar.hasIcon = hasIcon
 	end
 
@@ -276,6 +297,7 @@ function mod:Initialize()
 	mod:LoadProfessions()
 	mod:LoadTokens()
 	mod:LoadReputations()
+	mod:LoadItems()
 
 	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')
 end

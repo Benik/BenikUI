@@ -25,41 +25,20 @@ local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
-local tokensDB = BUI.TokensDB
+local tokensDB = mod.TokensDB
+
+local position, Xoffset
 
 local classColor = E:ClassColor(E.myclass, true)
 local expansion = _G['EXPANSION_NAME'..GetExpansionLevel()]
 
-BUI.CurrencyList = {}
+mod.CurrencyList = {}
 
-local function Icon_OnEnter(self)
-	local db = E.db.benikui.dashboards
-	local id = self:GetParent().id
-	if db.tokens.tooltip then
-		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
-		GameTooltip:SetCurrencyByID(id)
-		GameTooltip:AddLine(' ')
-		GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
-		GameTooltip:Show()
-	end
-
-	if db.tokens.mouseover then
-		E:UIFrameFadeIn(BUI_TokensDashboard, 0.2, BUI_TokensDashboard:GetAlpha(), 1)
-	end
-end
-
-local function Icon_OnLeave(self)
-	if E.db.benikui.dashboards.mouseover then
-		E:UIFrameFadeIn(BUI_TokensDashboard, 0.2, BUI_TokensDashboard:GetAlpha(), 0)
-	end
-	GameTooltip:Hide()
-end
-
-local function Icon_OnMouseUp(self, btn)
+local function OnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
-			local id = self:GetParent().id
+			local id = self.id
 			E.private.benikui.dashboards.tokens.chooseTokens[id] = false
 			mod:UpdateTokens()
 		else
@@ -70,9 +49,18 @@ local function Icon_OnMouseUp(self, btn)
 	end
 end
 
-local function Bar_OnEnter(self)
+local function OnEnter(self)
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_TokensDashboard
+	local id = self.id
+
+	if db.tokens.tooltip then
+		GameTooltip:SetOwner(self, position, Xoffset, 0);
+		GameTooltip:SetCurrencyByID(id)
+		GameTooltip:AddLine(' ')
+		GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', id), 0.7, 0.7, 1)
+		GameTooltip:Show()
+	end
 
 	self.Text:SetFormattedText('%s', self.name)
 	if db.tokens.mouseover then
@@ -80,7 +68,7 @@ local function Bar_OnEnter(self)
 	end
 end
 
-local function Bar_OnLeave(self)
+local function OnLeave(self)
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_TokensDashboard
 	local BreakAmount = BreakUpLargeNumbers(self.amount)
@@ -134,7 +122,7 @@ function mod:UpdateTokens()
 
 	if db.tokens.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 
-	for _, info in ipairs(BUI.CurrencyList) do
+	for _, info in ipairs(mod.CurrencyList) do
 		local _, id = unpack(info)
 
 		if id then
@@ -181,12 +169,9 @@ function mod:UpdateTokens()
 						bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 						bar.IconBG.Icon:SetTexture(icon)
 
-						bar.IconBG:SetScript('OnMouseUp', Icon_OnMouseUp)
-						bar.IconBG:SetScript('OnEnter', Icon_OnEnter)
-						bar.IconBG:SetScript('OnLeave', Icon_OnLeave)
-
-						bar:SetScript('OnEnter', Bar_OnEnter)
-						bar:SetScript('OnLeave', Bar_OnLeave)
+						bar:SetScript('OnEnter', OnEnter)
+						bar:SetScript('OnLeave', OnLeave)
+						bar:SetScript('OnMouseUp', OnMouseUp)
 
 						bar.id = id
 						bar.name = name
@@ -236,7 +221,7 @@ function mod:PopulateCurrencyData()
 		end
 
 		if info.isHeader then
-			BUI.CurrencyList[i] = { info.name, nil, nil, (info.name == expansion or info.name == MISCELLANEOUS) or strfind(info.name, LFG_TYPE_DUNGEON) }
+			mod.CurrencyList[i] = { info.name, nil, nil, (info.name == expansion or info.name == MISCELLANEOUS) or strfind(info.name, LFG_TYPE_DUNGEON) }
 			headerIndex = i
 		end
 
@@ -244,8 +229,8 @@ function mod:PopulateCurrencyData()
 			local currencyLink = C_CurrencyInfo_GetCurrencyListLink(i)
 			local currencyID = currencyLink and C_CurrencyInfo_GetCurrencyIDFromLink(currencyLink)
 			if currencyID then
-				BUI.CurrencyList[tostring(currencyID)] = info.name
-				BUI.CurrencyList[i] = { info.name, currencyID, headerIndex}
+				mod.CurrencyList[tostring(currencyID)] = info.name
+				mod.CurrencyList[i] = { info.name, currencyID, headerIndex}
 			end
 		end
 		i = i + 1
@@ -264,7 +249,7 @@ function mod:PopulateCurrencyData()
 end
 
 function mod:CURRENCY_DISPLAY_UPDATE(_, currencyID)
-	if currencyID and not BUI.CurrencyList[tostring(currencyID)] then
+	if currencyID and not mod.CurrencyList[tostring(currencyID)] then
 		local info = C_CurrencyInfo_GetCurrencyInfo(currencyID)
 		if info then
 			mod:PopulateCurrencyData()
@@ -291,6 +276,12 @@ local function holderOnLeave(self)
 	end
 end
 
+local function CheckTokensPosition()
+	if E.db.benikui.dashboards.tokens.enable ~= true then return end
+
+	position, Xoffset = mod:CheckPositionForTooltip(_G.BUI_TokensDashboard)
+end
+
 function mod:ToggleTokens()
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_TokensDashboard
@@ -312,7 +303,9 @@ function mod:ToggleTokens()
 		holder:SetScript('OnEnter', nil)
 		holder:SetScript('OnLeave', nil)
 	end
+
 	mod:UpdateTokens()
+	CheckTokensPosition()
 end
 
 function mod:CreateTokensDashboard()
@@ -330,4 +323,5 @@ function mod:LoadTokens()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokens)
 	hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
+	hooksecurefunc(E, 'ToggleMoveMode', CheckTokensPosition)
 end

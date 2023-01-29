@@ -19,7 +19,7 @@ local TRADE_SKILLS = TRADE_SKILLS
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
-local professionsDB = BUI.ProfessionsDB
+local professionsDB = mod.ProfessionsDB
 
 local classColor = E:ClassColor(E.myclass, true)
 

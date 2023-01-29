@@ -427,6 +427,7 @@ function mod:CreateLayout()
 	-- Minimap elements styling
 	if E.private.general.minimap.enable then
 		Minimap.backdrop:BuiStyle('Outside')
+		MinimapRightClickMenu:BuiStyle('Outside')
 		mod:ResizeMinimapPanels()
 	end
 

@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
+local M = E:GetModule('Minimap')
 
 local HasNewMail = HasNewMail
 local GetInboxNumItems = GetInboxNumItems
@@ -45,6 +46,10 @@ local function OnEvent(self, event, ...)
 		self.text:SetFormattedText("%s", L['No Mail'])
 		Read = true
 	end
+
+	if _G.MiniMapMailIcon then
+		_G.MiniMapMailIcon:SetShown(not E.db.benikui.datatexts.mail.toggle)
+	end
 end
 
 local function OnEnter(self)
@@ -70,12 +75,8 @@ end
 
 -- Hide the mail icon from minimap
 function DT:ToggleMailFrame()
-	local MiniMapMailFrame = MinimapCluster.MailFrame or _G.MiniMapMailFrame
-	if E.db.benikui.datatexts.mail.toggle then
-		if MiniMapMailFrame then
-			MiniMapMailFrame.Show = MiniMapMailFrame.Hide
-			MiniMapMailFrame:Hide()
-		end
+	if _G.MiniMapMailIcon then
+		_G.MiniMapMailIcon:SetShown(not E.db.benikui.datatexts.mail.toggle)
 	end
 end
 

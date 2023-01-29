@@ -64,35 +64,34 @@ end
 local function OnEnter(self)
 	if C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer(LE_EXPANSION_DRAGONFLIGHT) then
 		DT:SetupTooltip(self)
+
 		local activeFaction = E.private.benikui.datatexts.renown.factionID
 		for i, factionID in pairs(factionIDs) do
 			local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
-			if not C_MajorFactions_HasMaximumRenown(factionID) then
-				local earned = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
-				local max = majorFactionData.renownLevelThreshold
-				local percent = earned / max * 100
-				local factionName = majorFactionData.name
-				local factionRenownLevel = majorFactionData.renownLevel
-				local factionIsUnlocked = majorFactionData.isUnlocked
+			local earned = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+			local max = majorFactionData.renownLevelThreshold
+			local percent = earned / max * 100
+			local factionName = majorFactionData.name
+			local factionRenownLevel = majorFactionData.renownLevel
+			local factionIsUnlocked = majorFactionData.isUnlocked
 
-				if factionIsUnlocked then
-					if activeFaction == factionID then
-						DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
-					else
-						DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
-					end
-					DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
-					DT.tooltip:AddLine(format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, factionRenownLevel))
-					DT.tooltip:AddLine(' ')
-
-					menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, notCheckable = true, disabled = false}
+			if factionIsUnlocked then
+				if activeFaction == factionID then
+					DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
 				else
-					DT.tooltip:AddLine(format('|cff999999%s|r', factionName))
-					DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
-					DT.tooltip:AddLine(' ')
-
-					menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, notCheckable = true, disabled = true}
+					DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
 				end
+				DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
+				DT.tooltip:AddLine(format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, factionRenownLevel))
+				DT.tooltip:AddLine(' ')
+
+				menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, notCheckable = true, disabled = false}
+			else
+				DT.tooltip:AddLine(format('|cff999999%s|r', factionName))
+				DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
+				DT.tooltip:AddLine(' ')
+
+				menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, notCheckable = true, disabled = true}
 			end
 		end
 
