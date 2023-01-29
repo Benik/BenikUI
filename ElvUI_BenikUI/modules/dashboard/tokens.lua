@@ -279,7 +279,7 @@ end
 local function CheckTokensPosition()
 	if E.db.benikui.dashboards.tokens.enable ~= true then return end
 
-	local pos, Xoff = mod:CheckPositionForTooltip(BUI_TokensDashboard)
+	local pos, Xoff = mod:CheckPositionForTooltip(_G.BUI_TokensDashboard)
 	position, Xoffset = pos, Xoff
 end
 

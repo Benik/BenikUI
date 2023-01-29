@@ -150,9 +150,11 @@ function mod:IconPosition(tableName, dashboard)
 end
 
 function mod:CheckPositionForTooltip(frame)
-	if not _G.frame then return end
+	if not frame then return end
 
-	local x = _G.frame:GetCenter()
+	local x = frame:GetCenter()
+	if not x then return end
+
 	local position, Xoffset
 
 	if x > (E.screenWidth * 0.5) then
