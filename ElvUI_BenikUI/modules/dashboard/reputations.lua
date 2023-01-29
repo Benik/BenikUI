@@ -347,7 +347,7 @@ end
 
 local function CheckReputationsPosition()
 	if not E.db.benikui.dashboards.reputations.enable then return end
-	local pos, Xoff = mod:CheckPositionForTooltip(_G.BUI_ReputationsDashboard)
+	local pos, Xoff = mod:CheckPositionForTooltip(BUI_ReputationsDashboard)
 	position, Xoffset = pos, Xoff
 end
 

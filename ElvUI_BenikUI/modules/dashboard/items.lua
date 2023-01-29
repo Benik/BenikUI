@@ -213,8 +213,9 @@ local function holderOnLeave(self)
 end
 
 local function CheckItemsPosition()
-	if not E.db.benikui.dashboards.items.enable then return end
-	local pos, Xoff = mod:CheckPositionForTooltip(_G.BUI_ItemsDashboard)
+	if E.db.benikui.dashboards.items.enable ~= teue then return end
+
+	local pos, Xoff = mod:CheckPositionForTooltip(BUI_ItemsDashboard)
 	position, Xoffset = pos, Xoff
 end
 
