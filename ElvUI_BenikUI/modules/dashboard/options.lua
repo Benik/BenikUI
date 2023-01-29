@@ -1237,6 +1237,8 @@ local function dashboardsTable()
 			},
 		},
 	}
+	hooksecurefunc(mod, 'ToggleTokens', UpdateTokenOptions)
+	hooksecurefunc(mod, 'ToggleReputations', UpdateReputationOptions)
 end
 
 tinsert(BUI.Config, dashboardsTable)
