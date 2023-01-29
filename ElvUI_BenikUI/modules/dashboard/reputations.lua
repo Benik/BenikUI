@@ -346,7 +346,8 @@ local function holderOnLeave(self)
 end
 
 local function CheckReputationsPosition()
-	if not E.db.benikui.dashboards.reputations.enable then return end
+	if E.db.benikui.dashboards.reputations.enable ~= true then return end
+
 	local pos, Xoff = mod:CheckPositionForTooltip(BUI_ReputationsDashboard)
 	position, Xoffset = pos, Xoff
 end

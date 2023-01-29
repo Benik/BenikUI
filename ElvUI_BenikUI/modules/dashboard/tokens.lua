@@ -277,7 +277,8 @@ local function holderOnLeave(self)
 end
 
 local function CheckTokensPosition()
-	if not E.db.benikui.dashboards.tokens.enable then return end
+	if E.db.benikui.dashboards.tokens.enable ~= true then return end
+
 	local pos, Xoff = mod:CheckPositionForTooltip(BUI_TokensDashboard)
 	position, Xoffset = pos, Xoff
 end
