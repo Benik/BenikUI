@@ -277,6 +277,7 @@ local function holderOnLeave(self)
 end
 
 local function CheckTokensPosition()
+	if not E.db.benikui.dashboards.tokens.enable then return end
 	local pos, Xoff = mod:CheckPositionForTooltip(_G.BUI_TokensDashboard)
 	position, Xoffset = pos, Xoff
 end
@@ -302,7 +303,9 @@ function mod:ToggleTokens()
 		holder:SetScript('OnEnter', nil)
 		holder:SetScript('OnLeave', nil)
 	end
+
 	mod:UpdateTokens()
+	CheckTokensPosition()
 end
 
 function mod:CreateTokensDashboard()
@@ -313,7 +316,6 @@ function mod:CreateTokensDashboard()
 
 	E:CreateMover(holder, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,tokens')
 	mod:ToggleTokens()
-	CheckTokensPosition()
 end
 
 function mod:LoadTokens()

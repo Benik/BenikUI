@@ -346,6 +346,7 @@ local function holderOnLeave(self)
 end
 
 local function CheckReputationsPosition()
+	if not E.db.benikui.dashboards.reputations.enable then return end
 	local pos, Xoff = mod:CheckPositionForTooltip(_G.BUI_ReputationsDashboard)
 	position, Xoffset = pos, Xoff
 end
@@ -380,6 +381,7 @@ function mod:ToggleReputations()
 	end
 
 	mod:UpdateReputations()
+	CheckReputationsPosition()
 end
 
 function mod:CreateReputationsDashboard()
@@ -391,7 +393,6 @@ function mod:CreateReputationsDashboard()
 
 	E:CreateMover(holder, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
 	mod:ToggleReputations()
-	CheckReputationsPosition()
 end
 
 function mod:LoadReputations()

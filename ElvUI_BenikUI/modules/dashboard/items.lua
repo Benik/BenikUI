@@ -213,6 +213,7 @@ local function holderOnLeave(self)
 end
 
 local function CheckItemsPosition()
+	if not E.db.benikui.dashboards.items.enable then return end
 	local pos, Xoff = mod:CheckPositionForTooltip(_G.BUI_ItemsDashboard)
 	position, Xoffset = pos, Xoff
 end
@@ -239,6 +240,7 @@ function mod:ToggleItems()
 	end
 
 	mod:GetUserItems()
+	CheckItemsPosition()
 end
 
 function mod:CreateItemsDashboard()
@@ -249,7 +251,6 @@ function mod:CreateItemsDashboard()
 
 	E:CreateMover(holder, 'itemsHolderMover', L['items'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,items')
 	mod:ToggleItems()
-	CheckItemsPosition()
 end
 
 function mod:LoadItems()

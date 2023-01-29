@@ -152,7 +152,7 @@ end
 function mod:CheckPositionForTooltip(frame)
 	if not frame then return end
 
-	local x, y = frame:GetCenter()
+	local x = frame:GetCenter()
 	local position, Xoffset
 
 	if x > (E.screenWidth * 0.5) then
