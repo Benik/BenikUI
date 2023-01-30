@@ -113,6 +113,7 @@ local function LoadSkin()
 
 	if db.loot then
 		_G.LootFrame:BuiStyle("Outside")
+		_G.LootHistoryFrame:BuiStyle("Outside")
 		_G.MasterLooterFrame:BuiStyle("Outside")
 		_G.BonusRollFrame:BuiStyle("Outside")
 	end
