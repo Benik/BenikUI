@@ -377,9 +377,6 @@ function mod:SetFlightMode(status)
 		self.FlightMode.bottom.requestStop:EnableMouse(true)
 		self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
 		self.FlightMode.message:Hide()
-		self.FlightMode.message:SetAlpha(1)
-		self.FlightMode.message:Width(10)
-		self.FlightMode.message.text:SetAlpha(0)
 
 		-- Revert Bags
 		if ElvUI_ContainerFrame then
@@ -714,14 +711,12 @@ function mod:Initialize()
 	-- Message frame. Shows when request stop is pressed
 	self.FlightMode.message = CreateFrame("Frame", nil, self.FlightMode)
 	self.FlightMode.message:SetFrameLevel(0)
-	self.FlightMode.message:SetTemplate("Transparent")
-	self.FlightMode.message:CreateWideShadow()
-	self.FlightMode.message:Point("BOTTOM", self.FlightMode.bottom.logo, "TOP", 0, (E.PixelMode and 8 or 10))
+	self.FlightMode.message:Point("CENTER", UIParent, "CENTER")
 	self.FlightMode.message:Size(10, 30)
 	self.FlightMode.message:Hide()
 
 	self.FlightMode.message.text = self.FlightMode.message:CreateFontString(nil, 'OVERLAY')
-	self.FlightMode.message.text:FontTemplate(nil, 14)
+	self.FlightMode.message.text:FontTemplate(nil, 18)
 	self.FlightMode.message.text:SetFormattedText("%s", TAXI_CANCEL_DESCRIPTION)
 	self.FlightMode.message.text:Point("CENTER")
 	self.FlightMode.message.text:SetTextColor(1, 1, 0, .7)

@@ -40,7 +40,7 @@ local function TaxiButton_OnEvent(self)
 		self.textHolder.Text:SetTextColor(1, 1, 1, .7)
 		self.IconBG.Icon:SetVertexColor(1, 1, 1, .7)
 		self:EnableMouse(true)
-		BuiTaxiButton:Width(self:GetWidth() + 42)
+		--BuiTaxiButton:Width(self:GetWidth() + 42)
 	else
 		self:Hide()
 	end
@@ -57,6 +57,7 @@ local function TaxiButton_OnClick(self, btn)
 			self.textHolder.Text:SetTextColor(1, 0.1, 0.1)
 			self.textHolder.Text:SetAlpha(0)
 			self.IconBG.Icon:SetVertexColor(1, 0.1, 0.1)
+			self:Width(self.textHolder.Text:GetStringWidth() + 48)
 		end)
 
 		E:Delay(1.2, function()
@@ -64,7 +65,7 @@ local function TaxiButton_OnClick(self, btn)
 		end)
 
 		self:EnableMouse(false)
-
+		
 		E:Delay(8, function()
 			E:UIFrameFadeOut(self, 1, 1, 0)
 		end)
