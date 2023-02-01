@@ -10,7 +10,7 @@ local C_TimerAfter = C_Timer.After
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION = TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION
 
--- GLOBALS: selectioncolor, GameTooltip_Hide, CreateAnimationGroup, BuiTaxiButton, LeaveVehicleButton
+-- GLOBALS: selectioncolor, GameTooltip_Hide, BuiTaxiButton, LeaveVehicleButton
 
 local noFlightMapIDs = {
 	-- Antoran Wastes (Legion)
@@ -57,9 +57,6 @@ local function TaxiButton_OnClick(self, btn)
 			self.textHolder.Text:SetTextColor(1, 0.1, 0.1)
 			self.textHolder.Text:SetAlpha(0)
 			self.IconBG.Icon:SetVertexColor(1, 0.1, 0.1)
-
-			self.anim.sizing:SetChange(self.textHolder.Text:GetStringWidth() + 56)
-			self.anim:Play()
 		end)
 
 		E:Delay(1.2, function()
@@ -109,9 +106,6 @@ function mod:TaxiButton()
 	tbtn:SetTemplate("Transparent")
 	tbtn:BuiStyle('Outside')
 	tbtn:RegisterForClicks("AnyUp")
-
-	tbtn.anim = CreateAnimationGroup(tbtn)
-	tbtn.anim.sizing = tbtn.anim:CreateAnimation("Width")
 
 	tbtn.IconBG = CreateFrame('Frame', nil, tbtn)
 	tbtn.IconBG:Size(32, 32)

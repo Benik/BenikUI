@@ -24,7 +24,7 @@ local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 local MinimapCluster = _G.MinimapCluster
 
 -- GLOBALS: UIParent, FlightModeLocation, selectioncolor, LeftChatPanel, ElvUI_ContainerFrame
--- GLOBALS: FlightModeMenuBtn, CreateAnimationGroup, LeftChatMover, BuiDummyChat, Minimap, AddOnSkins
+-- GLOBALS: FlightModeMenuBtn, LeftChatMover, BuiDummyChat, Minimap, AddOnSkins
 -- GLOBALS: ObjectiveTrackerFrame, ZoneTextFrame
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
@@ -719,9 +719,6 @@ function mod:Initialize()
 	self.FlightMode.message:Point("BOTTOM", self.FlightMode.bottom.logo, "TOP", 0, (E.PixelMode and 8 or 10))
 	self.FlightMode.message:Size(10, 30)
 	self.FlightMode.message:Hide()
-	-- Create animation
-	self.FlightMode.message.anim = CreateAnimationGroup(self.FlightMode.message)
-	self.FlightMode.message.anim.sizing = self.FlightMode.message.anim:CreateAnimation("SetWidth")
 
 	self.FlightMode.message.text = self.FlightMode.message:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.message.text:FontTemplate(nil, 14)
@@ -767,8 +764,6 @@ function mod:Initialize()
 		self.FlightMode.bottom.requestStop:EnableMouse(false)
 		self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 0, 0, .7)
 		self.FlightMode.message:Show()
-		self.FlightMode.message.anim.sizing:SetChange(self.FlightMode.message.text:GetStringWidth() + 24)
-		self.FlightMode.message.anim:Play()
 		C_TimerAfter(.5, function()
 			UIFrameFadeIn(self.FlightMode.message.text, 1, 0, 1)
 		end)
