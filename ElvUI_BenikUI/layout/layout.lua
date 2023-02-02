@@ -504,8 +504,7 @@ function mod:CreateMiddlePanel(forceReset)
 		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 		E:SaveMoverPosition("DTPanelBuiMiddleDTPanelMover")
 
-		DT:UpdatePanelInfo('BuiMiddleDTPanel')
-		DT:BuildPanelFrame('BuiMiddleDTPanel', true)
+		DT:BuildPanelFrame('BuiMiddleDTPanel')
 	end
 end
 
