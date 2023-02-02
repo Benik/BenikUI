@@ -766,8 +766,26 @@ local function style_PerksProgramm()
 	local productsFrame = frame.ProductsFrame
 	if productsFrame then
 		productsFrame.PerksProgramProductDetailsContainerFrame:BuiStyle("Outside")
+		if BUI.ShadowMode then
+			productsFrame.PerksProgramFilter.FilterDropDownButton:CreateSoftShadow()
+			productsFrame.PerksProgramCurrencyFrame.Icon:CreateBackdrop()
+			productsFrame.PerksProgramCurrencyFrame.Icon.backdrop:CreateSoftShadow()
+		end
+		PerksProgramTooltip:BuiStyle("Outside")
 		local productsContainer = productsFrame.ProductsScrollBoxContainer
 		productsContainer:BuiStyle("Outside")
+	end
+
+	if not BUI.ShadowMode then return end
+	local footer = frame.FooterFrame
+	if footer then
+		footer.LeaveButton:CreateSoftShadow()
+		footer.PurchaseButton:CreateSoftShadow()
+		footer.RefundButton:CreateSoftShadow()
+		footer.TogglePlayerPreview.backdrop:CreateSoftShadow()
+		footer.ToggleHideArmor.backdrop:CreateSoftShadow()
+		footer.RotateButtonContainer.RotateLeftButton:CreateSoftShadow()
+		footer.RotateButtonContainer.RotateRightButton:CreateSoftShadow()
 	end
 end
 S:AddCallbackForAddon("Blizzard_PerksProgram", "BenikUI_PerksProgram", style_PerksProgramm)
