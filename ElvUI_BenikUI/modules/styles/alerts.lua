@@ -14,6 +14,7 @@ function mod:styleAlertFrames()
 
 	hooksecurefunc(_G.AchievementAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.CriteriaAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(_G.MonthlyActivityAlertSystem, 'setUpFunction', StyleAlert)
 	hooksecurefunc(_G.DungeonCompletionAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.GuildChallengeAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.InvasionAlertSystem, "setUpFunction", StyleAlert)
@@ -43,6 +44,8 @@ function mod:styleAlertFrames()
 	hooksecurefunc(_G.NewPetAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.NewMountAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.NewToyAlertSystem, "setUpFunction", StyleAlert)
+
+	hooksecurefunc(_G.NewCosmeticAlertFrameSystem, "setUpFunction", StyleAlert)
 
 	local BonusRollMoneyWonFrame = _G.BonusRollMoneyWonFrame
 	BonusRollMoneyWonFrame.backdrop:BuiStyle('Outside')
