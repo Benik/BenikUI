@@ -40,7 +40,6 @@ local function TaxiButton_OnEvent(self)
 		self.textHolder.Text:SetTextColor(1, 1, 1, .7)
 		self.IconBG.Icon:SetVertexColor(1, 1, 1, .7)
 		self:EnableMouse(true)
-		--BuiTaxiButton:Width(self:GetWidth() + 42)
 	else
 		self:Hide()
 	end
