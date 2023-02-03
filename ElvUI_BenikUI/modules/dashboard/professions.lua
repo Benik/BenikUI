@@ -9,7 +9,7 @@ local tinsert, tsort = table.insert, table.sort
 
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
-local CastSpell = CastSpell
+local C_TradeSkillUI_OpenTradeSkill = C_TradeSkillUI.OpenTradeSkill
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local TRADE_SKILLS = TRADE_SKILLS
@@ -29,15 +29,14 @@ end
 
 local function OnMouseUp(self, btn)
 	if InCombatLockdown() then return end
+	local skillLine = self.skillLine
 
 	if btn == "RightButton" then
 		E:ToggleOptions()
 		local ACD = E.Libs.AceConfigDialog
 		if ACD then ACD:SelectGroup("ElvUI", "benikui", "dashboards", "professions") end
 	else
-		if self.SetOffset > 0 then
-			CastSpell(self.SetOffset + 1, self.name)
-		end
+		C_TradeSkillUI_OpenTradeSkill(skillLine)
 	end
 end
 
@@ -94,7 +93,7 @@ function mod:UpdateProfessions()
 		local proftable = { GetProfessions() }
 
 		for _, id in pairs(proftable) do
-			local name, icon, rank, maxRank, _, offset, _, rankModifier, _, _, skillLineName = GetProfessionInfo(id)
+			local name, icon, rank, maxRank, _, _, skillLine, rankModifier, _, _, skillLineName = GetProfessionInfo(id)
 
 			if name and (rank < maxRank or (not db.professions.capped)) then
 				if E.private.benikui.dashboards.professions.choosePofessions[id] == true then
@@ -119,7 +118,6 @@ function mod:UpdateProfessions()
 					local StatusBarValue = (RankModifier and (rank + rankModifier)) or rank
 					local BarColor = (db.barColor == 1 and classColor) or db.customBarColor
 					local TextColor = (db.textColor == 1 and classColor) or db.customTextColor
-					local SetOffset = offset or 0
 					local displayString = ''
 
 					bar.Status:SetMinMaxValues(1, MaxValue)
@@ -138,12 +136,10 @@ function mod:UpdateProfessions()
 
 					bar.db = db
 					bar.name = name
-					bar.SetOffset = SetOffset
-					bar.IconBG.SetOffset = SetOffset
+					bar.skillLine = skillLine
 					bar.rank = rank
 					bar.maxRank = maxRank
 					bar.rankModifier = rankModifier
-					bar.IconBG.name = name
 
 					tinsert(professionsDB, bar)
 				end
