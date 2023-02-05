@@ -114,6 +114,9 @@ local function LoadSkin()
 	if db.loot then
 		_G.LootFrame:BuiStyle("Outside")
 		_G.LootHistoryFrame:BuiStyle("Outside")
+		if BUI.ShadowMode then
+			_G.LootHistoryFrame.ResizeButton:CreateSoftShadow()
+		end
 		_G.MasterLooterFrame:BuiStyle("Outside")
 		_G.BonusRollFrame:BuiStyle("Outside")
 	end
