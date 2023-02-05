@@ -780,7 +780,6 @@ local function style_PerksProgramm()
 	local footer = frame.FooterFrame
 	if footer then
 		footer.LeaveButton:CreateSoftShadow()
-		footer.PurchaseButton:CreateSoftShadow()
 		footer.RefundButton:CreateSoftShadow()
 		footer.TogglePlayerPreview.backdrop:CreateSoftShadow()
 		footer.ToggleHideArmor.backdrop:CreateSoftShadow()
