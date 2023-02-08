@@ -1,3 +1,19 @@
+4.33 (Feb 9, 2023)
+Fix for the Datatext error
+missed that
+This button has glow, no shadow needed
+cleanup
+Fixed Professions Dashboard click
+Fixed InFlight skin not disabling while on flightMode
+Updated the AlertFrame System with the Cosmetics and the new MonthlyActivity
+Finished the Trading Post styles and shadows
+fix layout for benik
+Fixed the frames that were affected by the broken animations
+Removed this animations for now. They are breaking
+Styled Trading Post
+Added DesertDwarf in the Donators list, for being... a Dwarf... in the Desert <3
+Styled LootHistoryFrame
+
 4.32 (Jan 29, 2023)
 Fixed Renown Datatext for capped factions
 Fixed Tokens and Reps options not updating after re-enabling them
