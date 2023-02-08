@@ -15,9 +15,7 @@ local function StyleDBM_Options()
 end
 
 local function StyleInFlight()
-	if E.db.benikui.skins.variousSkins.inflight ~= true or E.db.benikui.misc.flightMode == true then
-		return
-	end
+	if E.db.benikui.skins.variousSkins.inflight ~= true or E.db.benikui.misc.flightMode.enable == true then return end
 
 	local frame = _G.InFlightBar
 	if frame then

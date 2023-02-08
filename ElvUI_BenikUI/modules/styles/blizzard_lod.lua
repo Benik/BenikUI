@@ -759,6 +759,36 @@ local function style_OrderHallUI()
 end
 S:AddCallbackForAddon("Blizzard_OrderHallUI", "BenikUI_OrderHallUI", style_OrderHallUI)
 
+-- Perks Programm (Trading Post)
+local function style_PerksProgramm()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.perks and E.db.benikui.general.benikuiStyle) then return end
+	local frame = _G.PerksProgramFrame
+	local productsFrame = frame.ProductsFrame
+	if productsFrame then
+		productsFrame.PerksProgramProductDetailsContainerFrame:BuiStyle("Outside")
+		if BUI.ShadowMode then
+			productsFrame.PerksProgramFilter.FilterDropDownButton:CreateSoftShadow()
+			productsFrame.PerksProgramCurrencyFrame.Icon:CreateBackdrop()
+			productsFrame.PerksProgramCurrencyFrame.Icon.backdrop:CreateSoftShadow()
+		end
+		PerksProgramTooltip:BuiStyle("Outside")
+		local productsContainer = productsFrame.ProductsScrollBoxContainer
+		productsContainer:BuiStyle("Outside")
+	end
+
+	if not BUI.ShadowMode then return end
+	local footer = frame.FooterFrame
+	if footer then
+		footer.LeaveButton:CreateSoftShadow()
+		footer.RefundButton:CreateSoftShadow()
+		footer.TogglePlayerPreview.backdrop:CreateSoftShadow()
+		footer.ToggleHideArmor.backdrop:CreateSoftShadow()
+		footer.RotateButtonContainer.RotateLeftButton:CreateSoftShadow()
+		footer.RotateButtonContainer.RotateRightButton:CreateSoftShadow()
+	end
+end
+S:AddCallbackForAddon("Blizzard_PerksProgram", "BenikUI_PerksProgram", style_PerksProgramm)
+
 -- PlayerChoiceUI
 local function style_PlayerChoice()
 	if E.private.skins.blizzard.playerChoice ~= true or E.private.skins.blizzard.enable ~= true or
