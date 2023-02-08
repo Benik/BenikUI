@@ -519,13 +519,16 @@ function mod:regEvents()
 	mod:ToggleTransparency()
 end
 
-function mod:PLAYER_ENTERING_WORLD(...)
-	mod:ToggleBuiDts()
-	mod:regEvents()
-
+function mod:LoadDataTexts(...)
 	DT:UpdatePanelInfo('BuiLeftChatDTPanel')
 	DT:UpdatePanelInfo('BuiRightChatDTPanel')
 	DT:UpdatePanelInfo('BuiMiddleDTPanel')
+	updateButtonFont()
+end
+
+function mod:PLAYER_ENTERING_WORLD(...)
+	mod:ToggleBuiDts()
+	mod:regEvents()
 
 	mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
@@ -541,7 +544,7 @@ function mod:Initialize()
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ChatStyles)
 	hooksecurefunc(M, 'UpdateSettings', mod.ResizeMinimapPanels)
 	hooksecurefunc(DT, 'UpdatePanelInfo', mod.ToggleTransparency)
-	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
+	hooksecurefunc(DT, 'LoadDataTexts', mod.LoadDataTexts)
 	hooksecurefunc(E, 'UpdateMedia', updateButtons)
 
 	mod:RegisterEvent('PLAYER_ENTERING_WORLD')
