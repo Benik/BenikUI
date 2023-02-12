@@ -147,7 +147,7 @@ tinsert(BUI.Config, Datatexts)
 
 local DTPanelOptions = {
 	benikuiGroup = {
-		order = 6,
+		order = 4,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -157,13 +157,15 @@ local DTPanelOptions = {
 				type = 'toggle',
 				name = L['BenikUI Style'],
 				disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
+				get = function(info) return E.global.datatexts.newPanelInfo[info[#info]] end,
+				set = function(info, value) E.global.datatexts.newPanelInfo[info[#info]] = value end,
 			},
 		},
 	},
 }
 
 local function PanelGroup_Create(panel)
-	E:CopyTable(E.Options.args.datatexts.args.panels.args[panel].args.panelOptions.args, DTPanelOptions)
+	E:CopyTable(E.Options.args.datatexts.args.panels.args[panel].args, DTPanelOptions)
 end
 
 local function PanelLayoutOptions()
@@ -178,14 +180,11 @@ local function PanelLayoutOptions()
 
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'], "blue")
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.order = 1003
-	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.delete.hidden = true
-	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.height.hidden = true
-	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.growth.hidden = true
 end
 
 local function initDataTexts()
 	PanelLayoutOptions()
 	E:CopyTable(E.Options.args.datatexts.args.panels.args.newPanel.args, DTPanelOptions)
-	hooksecurefunc(DT, "PanelLayoutOptions", PanelLayoutOptions)
+	hooksecurefunc(DT, "LoadDataTexts", PanelLayoutOptions)
 end
 tinsert(BUI.Config, initDataTexts)
