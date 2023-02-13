@@ -137,7 +137,7 @@ local function Datatexts()
 						name = L['Hide Mail Icon'],
 						desc = L['Show/Hide Mail Icon on minimap'],
 						get = function(info) return E.db.benikui.datatexts.mail[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.mail[ info[#info] ] = value; DT:ToggleMailFrame() end, --E:StaticPopup_Show('PRIVATE_RL');
+						set = function(info, value) E.db.benikui.datatexts.mail[ info[#info] ] = value; DT:ToggleMailFrame() end,
 					},
 				},
 			},
@@ -148,7 +148,7 @@ tinsert(BUI.Config, Datatexts)
 
 local DTPanelOptions = {
 	benikuiGroup = {
-		order = 4,
+		order = 5,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -158,15 +158,13 @@ local DTPanelOptions = {
 				type = 'toggle',
 				name = L['BenikUI Style'],
 				disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
-				get = function(info) return E.global.datatexts.newPanelInfo[info[#info]] end,
-				set = function(info, value) E.global.datatexts.newPanelInfo[info[#info]] = value end,
 			},
 		},
 	},
 }
 
 local function PanelGroup_Create(panel)
-	E:CopyTable(E.Options.args.datatexts.args.panels.args[panel].args, DTPanelOptions)
+	E:CopyTable(E.Options.args.datatexts.args.panels.args[panel].args.panelOptions.args, DTPanelOptions)
 end
 
 local function PanelLayoutOptions()
@@ -175,10 +173,11 @@ local function PanelLayoutOptions()
 	end
 
 	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.name = BUI.Title..BUI:cOption(L['Left Chat Panel'], "blue")
-
 	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.name = BUI.Title..BUI:cOption(L['Right Chat Panel'], "blue")
-
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'], "blue")
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.delete.hidden = true
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.height.hidden = true
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.growth.hidden = true
 end
 
 local function initDataTexts()
