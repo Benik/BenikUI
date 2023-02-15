@@ -4,7 +4,6 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local LO = E:GetModule('Layout')
 local BL = BUI:GetModule('Layout')
 local DT = E:GetModule('DataTexts')
-local CH = E:GetModule('Chat')
 
 if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
@@ -51,7 +50,7 @@ local function Datatexts()
 						desc = L['Styles the chat datetexts and buttons only if both chat backdrops are set to "Hide Both".'],
 						disabled = function() return E.db.benikui.datatexts.chat.enable ~= true or E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ChatStyles(); LO:ToggleChatPanels(); E.Chat:PositionChats(); end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; BL:ChatStyles(); E:GetModule('Layout'):ToggleChatPanels(); E.Chat:PositionChats(); end,
 					},
 					backdrop = {
 						order = 5,
@@ -80,7 +79,7 @@ local function Datatexts()
 						},
 						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; CH:UpdateEditboxAnchors() end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; E:GetModule('Chat'):UpdateEditboxAnchors() end,
 					},
 					showChatDt = {
 						order = 8,
@@ -93,7 +92,7 @@ local function Datatexts()
 						},
 						disabled = function() return E.db.benikui.datatexts.chat.enable ~= true end,
 						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); CH:UpdateEditboxAnchors(); end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; LO:ToggleChatPanels(); E:GetModule('Chat'):UpdateEditboxAnchors(); end,
 					},
 					elvuiOption = {
 						order = 10,
@@ -137,7 +136,7 @@ local function Datatexts()
 						name = L['Hide Mail Icon'],
 						desc = L['Show/Hide Mail Icon on minimap'],
 						get = function(info) return E.db.benikui.datatexts.mail[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.mail[ info[#info] ] = value; DT:ToggleMailFrame() end,
+						set = function(info, value) E.db.benikui.datatexts.mail[ info[#info] ] = value; DT:ToggleMailFrame() end, --E:StaticPopup_Show('PRIVATE_RL');
 					},
 				},
 			},
@@ -148,7 +147,7 @@ tinsert(BUI.Config, Datatexts)
 
 local DTPanelOptions = {
 	benikuiGroup = {
-		order = 5,
+		order = 6,
 		type = 'group',
 		name = BUI.Title,
 		guiInline = true,
@@ -171,10 +170,14 @@ local function PanelLayoutOptions()
 	for panel in pairs(E.global.datatexts.customPanels) do
 		PanelGroup_Create(panel)
 	end
-
 	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.name = BUI.Title..BUI:cOption(L['Left Chat Panel'], "blue")
+	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.order = 1001
+
 	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.name = BUI.Title..BUI:cOption(L['Right Chat Panel'], "blue")
+	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.order = 1002
+
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'], "blue")
+	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.order = 1003
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.delete.hidden = true
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.height.hidden = true
 	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.growth.hidden = true
@@ -183,6 +186,6 @@ end
 local function initDataTexts()
 	PanelLayoutOptions()
 	E:CopyTable(E.Options.args.datatexts.args.panels.args.newPanel.args, DTPanelOptions)
-	hooksecurefunc(DT, "SetupPanelOptions", PanelLayoutOptions)
+	hooksecurefunc(DT, "PanelLayoutOptions", PanelLayoutOptions)
 end
 tinsert(BUI.Config, initDataTexts)

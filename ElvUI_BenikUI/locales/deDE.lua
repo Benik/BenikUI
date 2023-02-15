@@ -30,7 +30,6 @@ L['Shadow'] = "Schatten"
 L['Shadow Size'] = "Schattengröße"
 L['Shadow Alpha'] = "Schattentransparenz"
 L['Font Size'] = "Schriftgröße"
-L["Miscellaneous"] = "Sonstiges"
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Links Klick: Einstellungen umschalten"
@@ -153,18 +152,17 @@ L["Filter Capped"] = "Filtere am Cap"
 L['Amount'] = "Menge"
 L['Bar Color'] = "Leistenfarbe"
 L['Bar Height'] = "Leistenhöhe"
-L['Change the Bar Height.'] = "Ändert die Leistenhöhe."
+L['Change the Bar Height.'] = true
 L['Change the System Dashboard width.'] = "Ändert die System Dashboardbreite."
 L['Choose font for all dashboards.'] = "Wähle Schriftart für alle Dashboards."
 L['Click :'] = "Klick :"
-L["Custom Color"] = "Benutzerdefinierte Farben"
 L['Dashboards'] = true --No need to translate
 L['Enable the System Dashboard.'] = "Aktiviert das System Dashboard."
 L['Enable the Tokens Dashboard.'] = "Aktivert das Abzeichen Dashboard."
 L['Enable/Disable'] = "Aktivieren/Deaktivieren"
 L['Faction Colors'] = "Fraktionsfarben"
 L['Fast Volume +/-'] = "Schnelle Lautstärke +/-"
-L['Filter Capped'] = "Filter Gekappt"
+L['Filter Capped'] = true
 L['Hide in Instance'] = "Verstecke in Instanz"
 L['Latency (MS)'] = "Latenz (MS)"
 L['MouseWheel :'] = "Mausrad :"
@@ -257,7 +255,6 @@ L['BenikUI Maw Bar'] = "BenikUI Schlundleiste"
 L['Color by Tier'] = "Farbe nach Stufe"
 L['Text yOffset'] = "Text Y-Versatz"
 L['Half Bar'] = "Halbe Leisten"
-L["Percent"] = "Prozent"
 
 -- Information
 L['Information'] = true --No need to translate

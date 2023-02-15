@@ -29,7 +29,6 @@ L['Splash Screen'] = "Tela de inicio"
 L['Shadow'] = "Sombra"
 L['Shadow Alpha'] = true
 L['Shadow Size'] = "Tamanho da Sombra"
-L["Miscellaneous"] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "LeftClick: Alterna Configuração"
@@ -156,7 +155,6 @@ L['Change the Bar Height.'] = true
 L['Change the System Dashboard width.'] = "Altera a largura do Painel de Sistema."
 L['Choose font for all dashboards.'] = "Escolha a fonte para todos os painéis."
 L['Click :'] = "Clique :"
-L["Custom Color"] = true
 L['Dashboards'] = "Painéis"
 L['Enable the System Dashboard.'] = "Habilita o Painel de Sistema."
 L['Enable the Tokens Dashboard.'] = "Habilita o Painel de Tokens."
@@ -256,7 +254,6 @@ L['BenikUI Maw Bar'] = true
 L['Color by Tier'] = true
 L['Text yOffset'] = true
 L['Half Bar'] = true
-L["Percent"] = true
 
 -- Information
 L['Information'] = "Informação"

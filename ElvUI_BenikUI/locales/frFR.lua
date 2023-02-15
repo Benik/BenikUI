@@ -30,7 +30,6 @@ L['Shadow'] = "Ombre"
 L['Shadow Size'] = "Taille de l'ombre"
 L['Shadow Alpha'] = true
 L['Font Size'] = true
-L["Miscellaneous"] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Clic gauche: active la configuration"
@@ -157,7 +156,6 @@ L['Change the Bar Height.'] = true
 L['Change the System Dashboard width.'] = "Modifiez la largeur du tableau de bord système."
 L['Choose font for all dashboards.'] = "Choisissez la police pour tous les tableaux de bord."
 L['Click :'] = "Clic"
-L["Custom Color"] = true
 L['Dashboards'] = "tableaux de bord"
 L['Enable the System Dashboard.'] = "Active le tableau de bord système."
 L['Enable the Tokens Dashboard.'] = "Active le tableau de bord des jetons."
@@ -257,7 +255,6 @@ L['BenikUI Maw Bar'] = true
 L['Color by Tier'] = true
 L['Text yOffset'] = true
 L['Half Bar'] = true
-L["Percent"] = true
 
 -- Information
 L['Information'] = true
