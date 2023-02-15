@@ -35,7 +35,7 @@ local function miscTable()
 					},
 					fontsize = {
 						order = 3,
-						name = L.FONT_SIZE,
+						name = L['Font Size'],
 						type = 'range',
 						min = 6, max = 22, step = 1,
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
