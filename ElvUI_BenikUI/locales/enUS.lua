@@ -31,6 +31,7 @@ L['Shadow'] = true
 L['Shadow Size'] = true
 L['Shadow Alpha'] = true
 L['Font Size'] = true
+L["Miscellaneous"] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = true
@@ -156,6 +157,7 @@ L['Change the System Dashboard width.'] = true
 L['Change the Tokens Dashboard width.'] = true
 L['Choose font for all dashboards.'] = true
 L['Click :'] = true
+L["Custom Color"] = true
 L['Dashboards'] = true
 L['Enable the System Dashboard.'] = true
 L['Enable the Tokens Dashboard.'] = true
@@ -255,6 +257,7 @@ L['BenikUI Maw Bar'] = true
 L['Color by Tier'] = true
 L['Text yOffset'] = true
 L['Half Bar'] = true
+L["Percent"] = true
 
 -- Information
 L['Information'] = true

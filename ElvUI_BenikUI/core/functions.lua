@@ -25,6 +25,8 @@ local function CreateSoftShadow(f)
 	local db = E.db.benikui.general
 
 	local shadow = f.shadow or CreateFrame('Frame', nil, f, 'BackdropTemplate') -- This way you can replace current shadows.
+	if shadow:IsObjectType('Texture') then return end
+
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
