@@ -1,3 +1,10 @@
+4.34 (Feb 25, 2023)
+DE locales. Credit: Dlarge
+DT options back to life
+Fix DT Changes and abort the soft shadows if ActionBar Masks is used. Credit: Azilroka
+For the 60 fps users. Credit: Roxanne
+Follow ElvUI DT options
+
 4.33 (Feb 9, 2023)
 Fix for the Datatext error
 missed that
