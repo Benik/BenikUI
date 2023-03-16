@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('FlightMode')
 local AB = E:GetModule('ActionBars')
 local LO = E:GetModule('Layout')

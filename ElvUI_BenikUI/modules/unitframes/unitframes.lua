@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Units')
 local UF = E:GetModule('UnitFrames')
 local AB = E:GetModule('ActionBars')
