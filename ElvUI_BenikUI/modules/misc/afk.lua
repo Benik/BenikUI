@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local AFK = E:GetModule('AFK')
 
 local format, random, floor = string.format, random, floor

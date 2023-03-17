@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local NP = E:GetModule('NamePlates')
 local mod = BUI:GetModule('Nameplates');
 
