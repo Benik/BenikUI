@@ -44,6 +44,8 @@ local function ObjectiveTrackerShadows()
 				icon:Size(18, 18) -- I like this better
 				icon:CreateBackdrop('Transparent')
 				icon.backdrop:CreateSoftShadow()
+			else
+				if icon.backdrop then icon.backdrop:Hide() end
 			end
 			progressBar.hasShadow = true
 		end
