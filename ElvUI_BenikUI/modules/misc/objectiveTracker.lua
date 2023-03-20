@@ -38,14 +38,12 @@ local function ObjectiveTrackerShadows()
 		if not progressBar.hasShadow then
 			bar.backdrop:CreateSoftShadow()
 
-			if icon then
+			if icon and icon:GetTexture() then
 				icon:ClearAllPoints()
 				icon:Point('LEFT', bar, 'RIGHT', E.PixelMode and 6 or 10, 0)
 				icon:Size(18, 18) -- I like this better
 				icon:CreateBackdrop('Transparent')
 				icon.backdrop:CreateSoftShadow()
-				local texture = icon:GetNormalTexture():GetTexture()
-				if not texture then icon.backdrop:Hide() end
 			end
 			progressBar.hasShadow = true
 		end
