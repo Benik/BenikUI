@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 local AFK = E:GetModule('AFK')
@@ -38,7 +38,7 @@ local function ObjectiveTrackerShadows()
 		if not progressBar.hasShadow then
 			bar.backdrop:CreateSoftShadow()
 
-			if icon then
+			if icon and icon:GetTexture() then
 				icon:ClearAllPoints()
 				icon:Point('LEFT', bar, 'RIGHT', E.PixelMode and 6 or 10, 0)
 				icon:Size(18, 18) -- I like this better

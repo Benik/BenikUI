@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local A = E:GetModule('Auras');
 
 if E.private.auras.enable ~= true then return end

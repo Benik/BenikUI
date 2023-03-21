@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local S = E:GetModule('Skins')
 local mod = BUI:GetModule('Shadows')
 
