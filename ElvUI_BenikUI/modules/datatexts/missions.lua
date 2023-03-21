@@ -46,11 +46,11 @@ local ISLANDS_HEADER = ISLANDS_HEADER
 local ISLANDS_QUEUE_FRAME_TITLE = ISLANDS_QUEUE_FRAME_TITLE
 local ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS = ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS
 local LE_EXPANSION_BATTLE_FOR_AZEROTH = LE_EXPANSION_BATTLE_FOR_AZEROTH
-local LE_FOLLOWER_TYPE_GARRISON_6_0 = Enum.GarrisonFollowerType.FollowerType_6_0
-local LE_FOLLOWER_TYPE_GARRISON_7_0 = Enum.GarrisonFollowerType.FollowerType_7_0
-local LE_FOLLOWER_TYPE_GARRISON_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0
-local LE_FOLLOWER_TYPE_GARRISON_6_2 = Enum.GarrisonFollowerType.FollowerType_6_2
-local LE_FOLLOWER_TYPE_GARRISON_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0
+local LE_FOLLOWER_TYPE_GARRISON_6_0 = Enum.GarrisonFollowerType.FollowerType_6_0_GarrisonFollower
+local LE_FOLLOWER_TYPE_GARRISON_7_0 = Enum.GarrisonFollowerType.FollowerType_7_0_GarrisonFollower
+local LE_FOLLOWER_TYPE_GARRISON_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0_GarrisonFollower
+local LE_FOLLOWER_TYPE_GARRISON_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0_GarrisonFollower
+local GARRISONFOLLOWERTYPE_6_0_BOAT = Enum.GarrisonFollowerType.FollowerType_6_0_Boat
 local LE_GARRISON_TYPE_6_0 = Enum.GarrisonType.Type_6_0
 local LE_GARRISON_TYPE_7_0 = Enum.GarrisonType.Type_7_0
 local LE_GARRISON_TYPE_8_0 = Enum.GarrisonType.Type_8_0
@@ -380,7 +380,7 @@ local function OnEvent(self, event, ...)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_8_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
 		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
-		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_2)
+		+ #C_Garrison_GetCompleteMissions(GARRISONFOLLOWERTYPE_6_0_BOAT)
 
 		for _, expansion in ipairs(expansions) do
 			C_Garrison_GetInProgressMissions(inProgressMissions, expansion)
