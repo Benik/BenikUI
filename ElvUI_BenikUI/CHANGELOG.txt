@@ -1,3 +1,8 @@
+4.35 (Mar 21, 2023)
+toc update for patch 10.0.7
+Fixed Missions DT for patch 10.0.7
+Fixed the blank icon in the Objective Tracker
+
 4.34 (Feb 25, 2023)
 DE locales. Credit: Dlarge
 DT options back to life
