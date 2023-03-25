@@ -415,6 +415,7 @@ P['benikui'] = {
 			['orientation'] = 'BOTTOM',
 			['spacing'] = 1,
 			['tooltip'] = true,
+			['showMax'] = true,
 		},
 
 		['dashfont'] = {

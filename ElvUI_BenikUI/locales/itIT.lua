@@ -200,6 +200,7 @@ L["The ID |cff00c0fa%d|r doesn't exist in the game."] = true
 L['The Item |cff00c0fa%s|r already exists.'] = true
 L['Change the Items Dashboard width.'] = true
 L['Show/Hide items Dashboard when in combat'] = true
+L['Show Max Amount'] = true
 
 -- Databars Options
 L['Notifiers'] = true
