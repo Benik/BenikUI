@@ -201,6 +201,7 @@ L["The ID |cff00c0fa%d|r doesn't exist in the game."] = "Diese ID |cff00c0fa%d|r
 L['The Item |cff00c0fa%s|r already exists.'] = "Das Item |cff00c0fa%s|r existiert bereits."
 L['Change the Items Dashboard width.'] = "Ändere die Breite des Item Dashboards."
 L['Show/Hide items Dashboard when in combat'] = "Anzeigen/Ausblenden von dem Item Dashboards im Kampf"
+L['Show Max Amount'] = true
 
 -- Databars Options
 L['Notifiers'] = "Benachrichtigungen"
