@@ -27,6 +27,18 @@ function mod:UpdateUF()
 		mod:ArrangeTarget()
 	end
 
+	if E.db.unitframe.units.focus.enable then
+		mod:ArrangeFocus()
+	end
+
+	if E.db.unitframe.units.pet.enable then
+		mod:ArrangePet()
+	end
+
+	if E.db.unitframe.units.targettarget.enable then
+		mod:ArrangeTargetTarget()
+	end
+
 	if E.db.unitframe.units.party.enable then
 		UF:CreateAndUpdateHeaderGroup('party')
 	end
