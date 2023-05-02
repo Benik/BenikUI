@@ -5,6 +5,8 @@ local strjoin = strjoin
 
 local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
 local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
+local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
+local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer = C_PlayerInfo.IsExpansionLandingPageUnlockedForPlayer
 
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
@@ -47,6 +49,8 @@ local menuList = {
 	{text = nil, func = setSelectedFaction, arg1 = nil, notCheckable = true, disabled = true},
 }
 
+local function menu_checked(data) return data and data.arg1 == E.private.benikui.datatexts.renown.factionID end
+
 local function OnClick(self, btn)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
 	if not C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer(LE_EXPANSION_DRAGONFLIGHT) then return end
@@ -74,6 +78,19 @@ local function OnEnter(self)
 			local factionName = majorFactionData.name
 			local factionRenownLevel = majorFactionData.renownLevel
 			local factionIsUnlocked = majorFactionData.isUnlocked
+			local isParagon = C_Reputation_IsFactionParagon(factionID)
+
+			if isParagon then
+				local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
+				if currentValue and threshold then
+					max = threshold
+					earned = currentValue % threshold
+					if hasRewardPending then
+						earned = earned + threshold
+					end
+					percent = earned / max * 100
+				end
+			end
 
 			if factionIsUnlocked then
 				if activeFaction == factionID then
@@ -85,7 +102,7 @@ local function OnEnter(self)
 				DT.tooltip:AddLine(format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, factionRenownLevel))
 				DT.tooltip:AddLine(' ')
 
-				menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, notCheckable = true, disabled = false}
+				menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, checked = menu_checked, disabled = false}
 			else
 				DT.tooltip:AddLine(format('|cff999999%s|r', factionName))
 				DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))

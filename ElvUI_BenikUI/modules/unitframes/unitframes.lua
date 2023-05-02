@@ -19,15 +19,29 @@ function mod:UnitDefaults()
 end
 
 function mod:UpdateUF()
-	if E.db.unitframe.units.player.enable then
+	local db = E.db.unitframe.units
+
+	if db.player.enable then
 		mod:ArrangePlayer()
 	end
 
-	if E.db.unitframe.units.target.enable then
+	if db.target.enable then
 		mod:ArrangeTarget()
 	end
 
-	if E.db.unitframe.units.party.enable then
+	if db.focus.enable then
+		mod:ArrangeFocus()
+	end
+
+	if db.pet.enable then
+		mod:ArrangePet()
+	end
+
+	if db.targettarget.enable then
+		mod:ArrangeTargetTarget()
+	end
+
+	if db.party.enable then
 		UF:CreateAndUpdateHeaderGroup('party')
 	end
 end

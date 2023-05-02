@@ -1,3 +1,14 @@
+v4.36 (May 2, 2023)
+toc update for patch 10.1
+Added Icon Texture
+deDE Locale update. Credit: Dlarge
+'Fix InfoPanel width' option will now also affect Pet, Focus and TargetTarget frames
+Cleaned up the Mail Datatext
+Added checked conditions in the Renown Datatext
+Fixed rep values in Renown Datatext
+Check for Eltruism skin and hide it on style
+Added 'Show Max Amount' option for Items Dashboard. Enabled by default
+
 4.35 (Mar 21, 2023)
 toc update for patch 10.0.7
 Fixed Missions DT for patch 10.0.7

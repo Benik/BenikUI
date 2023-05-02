@@ -71,7 +71,7 @@ local function OnLeave(self)
 	local BreakAmount = BreakUpLargeNumbers(self.amount)
 	local BreakMax = BreakUpLargeNumbers(self.maxValue)
 
-	self.Text:SetFormattedText('%s / %s', BreakAmount, BreakMax)
+	self.Text:SetText(db.items.showMax and format('%s / %s', BreakAmount, BreakMax) or (format('%s', BreakAmount)))
 
 	if db.items.tooltip then
 		GameTooltip:Hide()
@@ -147,7 +147,7 @@ function mod:UpdateItems()
 				bar.Status:SetValue(amount)
 				bar.Status:SetStatusBarColor(BarColor.r, BarColor.g, BarColor.b)
 
-				bar.Text:SetText(format('%s / %s', BreakAmount, BreakMax))
+				bar.Text:SetText(db.items.showMax and format('%s / %s', BreakAmount, BreakMax) or (format('%s', BreakAmount)))
 				bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 				bar.IconBG.Icon:SetTexture(icon)
 

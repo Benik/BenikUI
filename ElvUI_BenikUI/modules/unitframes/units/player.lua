@@ -47,7 +47,7 @@ function BU:ArrangePlayer()
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.player.portraitHeight
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.player.portraitFrameStrata
 
-		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
+		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH
 		frame.POWER_VERTICAL = db.power.vertical
 
 		frame.IS_ELTREUM = BUI.ELT and frame.InfoPanelOnTop

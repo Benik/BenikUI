@@ -1064,8 +1064,15 @@ local function dashboardsTable()
 								get = function(info) return db.items.tooltip end,
 								set = function(info, value) db.items.tooltip = value end,
 							},
-							newItem = {
+							showMax = {
 								order = 3,
+								type = 'toggle',
+								name = L['Show Max Amount'],
+								get = function(info) return db.items[ info[#info] ] end,
+								set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
+							},
+							newItem = {
+								order = 10,
 								type = "group",
 								guiInline = true,
 								name = ' ',
@@ -1112,10 +1119,9 @@ local function dashboardsTable()
 											if itemID then
 												E.private.benikui.dashboards.items.chooseItems[itemID] = ItemDefaultValues
 											end
-
 											mod:GetUserItems()
 											UpdateItemsOptions()
-											E.global.benikui.CustomItems.createButton = false;
+											E.global.benikui.CustomItems.createButton = false
 										end,
 									},
 								},
