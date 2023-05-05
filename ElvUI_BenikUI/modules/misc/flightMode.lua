@@ -391,7 +391,9 @@ function mod:SetFlightMode(status)
 
 		if BUI.AS then
 			local AS = unpack(AddOnSkins) or nil
-			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
+			if not (AS:CheckOption('EmbedSystem') or AS:CheckOption('EmbedSystemDual')) then return end
+			local ES = AS.EmbedSystem
+			ES:Show()
 		end
 
 		for i, v in ipairs(AddonsToHide) do
