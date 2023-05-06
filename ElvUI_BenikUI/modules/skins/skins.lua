@@ -25,7 +25,7 @@ function mod:HandleCloseButton(f)
 		if self.Texture then
 			self.Texture:SetVertexColor(1, 1, 1)
 		end
-	end)s
+	end)
 end
 hooksecurefunc(S, "HandleCloseButton", mod.HandleCloseButton)
 
