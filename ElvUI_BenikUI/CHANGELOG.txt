@@ -1,3 +1,10 @@
+v4.37 (May 9, 2023)
+Prevent a Priest error. Credit: cxmplex
+AddonSkins fixes
+Mission datatext fix (untested) for ticket #39
+Added the new Loamm Niffen faction in the Renown Datatext
+Updated Patrons list
+
 v4.36 (May 2, 2023)
 toc update for patch 10.1
 Added Icon Texture

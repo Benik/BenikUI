@@ -77,18 +77,18 @@ function mod:UpdateLocation()
 	end
 
 	local r, g, b = AutoColoring()
-	self.FlightMode.top.location.text:SetText(displayLine)
-	self.FlightMode.top.location.text:SetTextColor(r, g, b)
-	self.FlightMode.top.location.text:Width(LOCATION_WIDTH - 30)
+	mod.FlightMode.top.location.text:SetText(displayLine)
+	mod.FlightMode.top.location.text:SetTextColor(r, g, b)
+	mod.FlightMode.top.location.text:Width(LOCATION_WIDTH - 30)
 end
 
 function mod:UpdateCoords()
-	local x, y = self.CreateCoords()
+	local x, y = mod.CreateCoords()
 	local xt,yt
 
 	if x == 0 and y == 0 then
-		self.FlightMode.top.location.x.text:SetText("-")
-		self.FlightMode.top.location.y.text:SetText("-")
+		mod.FlightMode.top.location.x.text:SetText("-")
+		mod.FlightMode.top.location.y.text:SetText("-")
 	else
 		if x < 10 then
 			xt = "0"..x
@@ -101,17 +101,17 @@ function mod:UpdateCoords()
 		else
 			yt = y
 		end
-		self.FlightMode.top.location.x.text:SetText(xt)
-		self.FlightMode.top.location.y.text:SetText(yt)
+		mod.FlightMode.top.location.x.text:SetText(xt)
+		mod.FlightMode.top.location.y.text:SetText(yt)
 	end
 end
 
 function mod:UpdateTimer()
-	local time = GetTime() - self.startTime
-	self.FlightMode.bottom.timeFlying.txt:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
+	local time = GetTime() - mod.startTime
+	mod.FlightMode.bottom.timeFlying.txt:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
 
 	local createdTime = BUI:createTime()
-	self.FlightMode.top.timeText:SetFormattedText(createdTime)
+	mod.FlightMode.top.timeText:SetFormattedText(createdTime)
 end
 
 local statusColors = {
@@ -133,7 +133,7 @@ function mod:UpdateFps()
 		fpscolor = 3
 	end
 	local displayFormat = join('', statusColors[fpscolor], '%d|rFps')
-	self.FlightMode.bottom.fps.txt:SetFormattedText(displayFormat, value)
+	mod.FlightMode.bottom.fps.txt:SetFormattedText(displayFormat, value)
 end
 
 function mod:SetFrameParent()
@@ -215,8 +215,8 @@ function mod:SetFlightMode(status)
 	local tracking = MinimapCluster.Tracking and MinimapCluster.Tracking.Button or _G.MiniMapTrackingFrame or _G.MiniMapTracking
 
 	if(status) then
-		self.inFlightMode = true
-		self.FlightMode:Show()
+		mod.inFlightMode = true
+		mod.FlightMode:Show()
 		mod:SetFrameParent()
 
 		E.UIParent:Hide()
@@ -236,12 +236,12 @@ function mod:SetFlightMode(status)
 			tracking:SetAlpha(0)
 		end)
 
-		self.FlightMode.bottom.map:EnableMouse(true)
-		self.FlightMode.top.menuButton:EnableMouse(true)
+		mod.FlightMode.bottom.map:EnableMouse(true)
+		mod.FlightMode.top.menuButton:EnableMouse(true)
 
 		-- Bags
 		if ElvUI_ContainerFrame then
-			ElvUI_ContainerFrame:SetParent(self.FlightMode)
+			ElvUI_ContainerFrame:SetParent(mod.FlightMode)
 			if ElvUI_ContainerFrame.wideshadow then
 				ElvUI_ContainerFrame.wideshadow:Show()
 			end
@@ -252,15 +252,15 @@ function mod:SetFlightMode(status)
 
 		-- Left Chat
 		if E.private.chat.enable then
-			BuiDummyChat:SetParent(self.FlightMode)
-			LeftChatPanel:SetParent(self.FlightMode)
+			BuiDummyChat:SetParent(mod.FlightMode)
+			LeftChatPanel:SetParent(mod.FlightMode)
 			if LeftChatPanel.backdrop.shadow then
 				LeftChatPanel.backdrop.shadow:Hide()
 			end
 			LeftChatPanel.backdrop.wideshadow:Show()
 			LeftChatPanel.backdrop.wideshadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
 			LeftChatPanel:ClearAllPoints()
-			LeftChatPanel:Point("BOTTOMLEFT", self.FlightMode.bottom, "TOPLEFT", 24, 24)
+			LeftChatPanel:Point("BOTTOMLEFT", mod.FlightMode.bottom, "TOPLEFT", 24, 24)
 
 			if LeftChatPanel.backdrop.style then
 				LeftChatPanel.backdrop.style:SetFrameStrata('BACKGROUND')
@@ -331,15 +331,15 @@ function mod:SetFlightMode(status)
 		-- Disable Blizz location messsages
 		ZoneTextFrame:UnregisterAllEvents()
 
-		self.startTime = GetTime()
-		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
-		self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
-		self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
-		self.fpsTimer = self:ScheduleRepeatingTimer('UpdateFps', 1)
+		mod.startTime = GetTime()
+		mod.timer = mod:ScheduleRepeatingTimer('UpdateTimer', 1)
+		mod.locationTimer = mod:ScheduleRepeatingTimer('UpdateLocation', 0.2)
+		mod.coordsTimer = mod:ScheduleRepeatingTimer('UpdateCoords', 0.2)
+		mod.fpsTimer = mod:ScheduleRepeatingTimer('UpdateFps', 1)
 
-		self:SkinInFlight()
-	elseif(self.inFlightMode) then
-		self.inFlightMode = false
+		mod:SkinInFlight()
+	elseif(mod.inFlightMode) then
+		mod.inFlightMode = false
 		_G.MainMenuBarVehicleLeaveButton:SetParent(_G.UIParent)
 		mod:SetFrameParent()
 
@@ -359,7 +359,7 @@ function mod:SetFlightMode(status)
 
 		_G.MainMenuBarVehicleLeaveButton:SetScript('OnShow', nil)
 
-		self.FlightMode:Hide()
+		mod.FlightMode:Hide()
 
 		-- Enable Blizz location messsages.
 		-- Added support for LocationPlus & NutsAndBolts LocationLite
@@ -371,12 +371,12 @@ function mod:SetFlightMode(status)
 			ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
 		end
 
-		self:CancelAllTimers()
+		mod:CancelAllTimers()
 
-		self.FlightMode.bottom.timeFlying.txt:SetText("00:00")
-		self.FlightMode.bottom.requestStop:EnableMouse(true)
-		self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
-		self.FlightMode.message:Hide()
+		mod.FlightMode.bottom.timeFlying.txt:SetText("00:00")
+		mod.FlightMode.bottom.requestStop:EnableMouse(true)
+		mod.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
+		mod.FlightMode.message:Hide()
 
 		-- Revert Bags
 		if ElvUI_ContainerFrame then
@@ -391,7 +391,9 @@ function mod:SetFlightMode(status)
 
 		if BUI.AS then
 			local AS = unpack(AddOnSkins) or nil
-			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
+			if not (AS:CheckOption('EmbedSystem') or AS:CheckOption('EmbedSystemDual')) then return end
+			local ES = AS.EmbedSystem
+			ES:Show()
 		end
 
 		for i, v in ipairs(AddonsToHide) do
@@ -480,10 +482,10 @@ function mod:OnEvent(event, ...)
 		if(event == "UPDATE_BATTLEFIELD_STATUS") then
 			local status = GetBattlefieldStatus(...);
 			if ( status == "confirm" ) then
-				self:SetFlightMode(false)
+				mod:SetFlightMode(false)
 			end
 		else
-			self:SetFlightMode(false)
+			mod:SetFlightMode(false)
 		end
 		return
 	end
@@ -491,9 +493,9 @@ function mod:OnEvent(event, ...)
 	if IsInInstance() then return end
 
 	if (UnitOnTaxi("player")) then
-		self:SetFlightMode(true)
+		mod:SetFlightMode(true)
 	else
-		self:SetFlightMode(false)
+		mod:SetFlightMode(false)
 	end
 end
 
@@ -502,301 +504,301 @@ function mod:ToggleLogo()
 	local db = E.db.benikui.misc.flightMode.logo
 
 	if db == 'WOW' then
-		self.FlightMode.bottom.wowlogo:Show()
-		self.FlightMode.bottom.benikui:Hide()
-		self.FlightMode.bottom.logo:Hide()
+		mod.FlightMode.bottom.wowlogo:Show()
+		mod.FlightMode.bottom.benikui:Hide()
+		mod.FlightMode.bottom.logo:Hide()
 	elseif db == 'BENIKUI' then
-		self.FlightMode.bottom.wowlogo:Hide()
-		self.FlightMode.bottom.benikui:Show()
-		self.FlightMode.bottom.logo:Show()
+		mod.FlightMode.bottom.wowlogo:Hide()
+		mod.FlightMode.bottom.benikui:Show()
+		mod.FlightMode.bottom.logo:Show()
 	else
-		self.FlightMode.bottom.wowlogo:Hide()
-		self.FlightMode.bottom.benikui:Hide()
-		self.FlightMode.bottom.logo:Hide()
+		mod.FlightMode.bottom.wowlogo:Hide()
+		mod.FlightMode.bottom.benikui:Hide()
+		mod.FlightMode.bottom.logo:Hide()
 	end
 end
 
 function mod:Toggle()
 	if(E.db.benikui.misc.flightMode.enable) then
-		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
-		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
-		self:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
-		self:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
-		self:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
+		mod:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
+		mod:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
+		mod:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
+		mod:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
+		mod:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
 		BUI:LoadInFlightProfile(true)
 	else
-		self:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
-		self:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
-		self:UnregisterEvent("LFG_PROPOSAL_SHOW")
-		self:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
-		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		mod:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
+		mod:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
+		mod:UnregisterEvent("LFG_PROPOSAL_SHOW")
+		mod:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
+		mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		BUI:LoadInFlightProfile(false)
 	end
 end
 
 function mod:Initialize()
 	local db = E.db.benikui.colors
-	self.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", UIParent)
-	self.FlightMode:SetFrameLevel(1)
-	self.FlightMode:SetFrameStrata('BACKGROUND')
-	self.FlightMode:SetAllPoints(UIParent)
-	self.FlightMode:Hide()
+	mod.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", UIParent)
+	mod.FlightMode:SetFrameLevel(1)
+	mod.FlightMode:SetFrameStrata('BACKGROUND')
+	mod.FlightMode:SetAllPoints(UIParent)
+	mod.FlightMode:Hide()
 
 	-- Top frame
-	self.FlightMode.top = CreateFrame('Frame', nil, self.FlightMode)
-	self.FlightMode.top:SetFrameLevel(0)
-	self.FlightMode.top:SetFrameStrata("HIGH")
-	self.FlightMode.top:Point("TOP", self.FlightMode, "TOP", 0, E.Border)
-	self.FlightMode.top:SetTemplate('Transparent', true, true)
-	self.FlightMode.top:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.top:CreateWideShadow()
-	self.FlightMode.top:Width(GetScreenWidth() + (E.Border*2))
-	self.FlightMode.top:Height(40)
+	mod.FlightMode.top = CreateFrame('Frame', nil, mod.FlightMode)
+	mod.FlightMode.top:SetFrameLevel(0)
+	mod.FlightMode.top:SetFrameStrata("HIGH")
+	mod.FlightMode.top:Point("TOP", mod.FlightMode, "TOP", 0, E.Border)
+	mod.FlightMode.top:SetTemplate('Transparent', true, true)
+	mod.FlightMode.top:SetBackdropBorderColor(.3, .3, .3, 1)
+	mod.FlightMode.top:CreateWideShadow()
+	mod.FlightMode.top:Width(GetScreenWidth() + (E.Border*2))
+	mod.FlightMode.top:Height(40)
 
 	-- Menu button
-	self.FlightMode.top.menuButton = CreateFrame('Button', 'FlightModeMenuBtn', self.FlightMode.top)
-	self.FlightMode.top.menuButton:Size(32, 32)
-	self.FlightMode.top.menuButton:Point("LEFT", self.FlightMode.top, "LEFT", 6, 0)
+	mod.FlightMode.top.menuButton = CreateFrame('Button', 'FlightModeMenuBtn', mod.FlightMode.top)
+	mod.FlightMode.top.menuButton:Size(32, 32)
+	mod.FlightMode.top.menuButton:Point("LEFT", mod.FlightMode.top, "LEFT", 6, 0)
 
-	self.FlightMode.top.menuButton.img = self.FlightMode.top.menuButton:CreateTexture(nil, 'OVERLAY')
-	self.FlightMode.top.menuButton.img:Point("CENTER")
-	self.FlightMode.top.menuButton.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\menu.tga')
-	self.FlightMode.top.menuButton.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.top.menuButton.img = mod.FlightMode.top.menuButton:CreateTexture(nil, 'OVERLAY')
+	mod.FlightMode.top.menuButton.img:Point("CENTER")
+	mod.FlightMode.top.menuButton.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\menu.tga')
+	mod.FlightMode.top.menuButton.img:SetVertexColor(1, 1, 1, .7)
 
-	self.FlightMode.top.menuButton:SetScript('OnEnter', function()
-		GameTooltip:SetOwner(self.FlightMode.top.menuButton, 'ANCHOR_BOTTOMRIGHT', 4, -4)
+	mod.FlightMode.top.menuButton:SetScript('OnEnter', function()
+		GameTooltip:SetOwner(mod.FlightMode.top.menuButton, 'ANCHOR_BOTTOMRIGHT', 4, -4)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(L['Show an enhanced game menu'], selectioncolor)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
-			self.FlightMode.top.menuButton.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			mod.FlightMode.top.menuButton.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		elseif db.gameMenuColor == 2 then
-			self.FlightMode.top.menuButton.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
+			mod.FlightMode.top.menuButton.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
 		else
-			self.FlightMode.top.menuButton.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+			mod.FlightMode.top.menuButton.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 		end
 	end)
 
-	self.FlightMode.top.menuButton:SetScript('OnLeave', function()
-		self.FlightMode.top.menuButton.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.top.menuButton:SetScript('OnLeave', function()
+		mod.FlightMode.top.menuButton.img:SetVertexColor(1, 1, 1, .7)
 		GameTooltip:Hide()
 	end)
 
-	self.FlightMode.top.menuButton:SetScript('OnClick', function()
+	mod.FlightMode.top.menuButton:SetScript('OnClick', function()
 		BUI:Dropmenu(BUI.MenuList, menuFrame, FlightModeMenuBtn, 'bRight', (E.PixelMode and -32 or -30), (E.PixelMode and -13 or -15), 4, 36)
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 	end)
 
 	-- Close button
-	self.FlightMode.top.closeButton = CreateFrame('Button', nil, self.FlightMode.top)
-	self.FlightMode.top.closeButton:Size(32, 32)
-	self.FlightMode.top.closeButton:Point("RIGHT", self.FlightMode.top, "RIGHT", -6, 0)
+	mod.FlightMode.top.closeButton = CreateFrame('Button', nil, mod.FlightMode.top)
+	mod.FlightMode.top.closeButton:Size(32, 32)
+	mod.FlightMode.top.closeButton:Point("RIGHT", mod.FlightMode.top, "RIGHT", -6, 0)
 
-	self.FlightMode.top.closeButton.img = self.FlightMode.top.closeButton:CreateTexture(nil, 'OVERLAY')
-	self.FlightMode.top.closeButton.img:Point("CENTER")
-	self.FlightMode.top.closeButton.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\close.tga')
-	self.FlightMode.top.closeButton.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.top.closeButton.img = mod.FlightMode.top.closeButton:CreateTexture(nil, 'OVERLAY')
+	mod.FlightMode.top.closeButton.img:Point("CENTER")
+	mod.FlightMode.top.closeButton.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\close.tga')
+	mod.FlightMode.top.closeButton.img:SetVertexColor(1, 1, 1, .7)
 
-	self.FlightMode.top.closeButton:SetScript('OnEnter', function()
-		GameTooltip:SetOwner(self.FlightMode.top.closeButton, 'ANCHOR_BOTTOMLEFT', -4, -4)
+	mod.FlightMode.top.closeButton:SetScript('OnEnter', function()
+		GameTooltip:SetOwner(mod.FlightMode.top.closeButton, 'ANCHOR_BOTTOMLEFT', -4, -4)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(L['Exit FlightMode'], selectioncolor)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
-			self.FlightMode.top.closeButton.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			mod.FlightMode.top.closeButton.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		elseif db.gameMenuColor == 2 then
-			self.FlightMode.top.closeButton.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
+			mod.FlightMode.top.closeButton.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
 		else
-			self.FlightMode.top.closeButton.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+			mod.FlightMode.top.closeButton.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 		end
 	end)
 
-	self.FlightMode.top.closeButton:SetScript('OnLeave', function()
-		self.FlightMode.top.closeButton.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.top.closeButton:SetScript('OnLeave', function()
+		mod.FlightMode.top.closeButton.img:SetVertexColor(1, 1, 1, .7)
 		GameTooltip:Hide()
 	end)
 
-	self.FlightMode.top.closeButton:SetScript('OnClick', function()
+	mod.FlightMode.top.closeButton:SetScript('OnClick', function()
 		mod:SetFlightMode(false)
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 	end)
 
 	-- Time
-	self.FlightMode.top.timeText = self.FlightMode.top:CreateFontString(nil, 'OVERLAY')
-	self.FlightMode.top.timeText:FontTemplate(nil, 14)
-	self.FlightMode.top.timeText:Point('RIGHT', self.FlightMode.top.closeButton, 'LEFT', -10, 0)
-	self.FlightMode.top.timeText:SetTextColor(classColor.r, classColor.g, classColor.b)
-	self.FlightMode.top.timeText:SetText("")
+	mod.FlightMode.top.timeText = mod.FlightMode.top:CreateFontString(nil, 'OVERLAY')
+	mod.FlightMode.top.timeText:FontTemplate(nil, 14)
+	mod.FlightMode.top.timeText:Point('RIGHT', mod.FlightMode.top.closeButton, 'LEFT', -10, 0)
+	mod.FlightMode.top.timeText:SetTextColor(classColor.r, classColor.g, classColor.b)
+	mod.FlightMode.top.timeText:SetText("")
 
 	-- Location frame
-	self.FlightMode.top.location = CreateFrame('Frame', 'FlightModeLocation', self.FlightMode.top)
-	self.FlightMode.top.location:SetFrameLevel(1)
-	self.FlightMode.top.location:SetTemplate('Default', true, true)
-	self.FlightMode.top.location:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.top.location:CreateWideShadow()
-	self.FlightMode.top.location:Point("TOP", self.FlightMode.top, "CENTER", 0, 6)
-	self.FlightMode.top.location:Width(LOCATION_WIDTH)
-	self.FlightMode.top.location:Height(50)
+	mod.FlightMode.top.location = CreateFrame('Frame', 'FlightModeLocation', mod.FlightMode.top)
+	mod.FlightMode.top.location:SetFrameLevel(1)
+	mod.FlightMode.top.location:SetTemplate('Default', true, true)
+	mod.FlightMode.top.location:SetBackdropBorderColor(.3, .3, .3, 1)
+	mod.FlightMode.top.location:CreateWideShadow()
+	mod.FlightMode.top.location:Point("TOP", mod.FlightMode.top, "CENTER", 0, 6)
+	mod.FlightMode.top.location:Width(LOCATION_WIDTH)
+	mod.FlightMode.top.location:Height(50)
 
-	self.FlightMode.top.location.text = self.FlightMode.top.location:CreateFontString(nil, 'OVERLAY')
-	self.FlightMode.top.location.text:FontTemplate(nil, 18)
-	self.FlightMode.top.location.text:Point('CENTER')
-	self.FlightMode.top.location.text:SetWordWrap(false)
+	mod.FlightMode.top.location.text = mod.FlightMode.top.location:CreateFontString(nil, 'OVERLAY')
+	mod.FlightMode.top.location.text:FontTemplate(nil, 18)
+	mod.FlightMode.top.location.text:Point('CENTER')
+	mod.FlightMode.top.location.text:SetWordWrap(false)
 
 	-- Coords X frame
-	self.FlightMode.top.location.x = CreateFrame('Frame', nil, self.FlightMode.top.location)
-	self.FlightMode.top.location.x:SetTemplate('Default', true, true)
-	self.FlightMode.top.location.x:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.top.location.x:CreateWideShadow()
-	self.FlightMode.top.location.x:Point("RIGHT", self.FlightMode.top.location, "LEFT", (E.PixelMode and -4 or -6), 0)
-	self.FlightMode.top.location.x:Width(60)
-	self.FlightMode.top.location.x:Height(40)
+	mod.FlightMode.top.location.x = CreateFrame('Frame', nil, mod.FlightMode.top.location)
+	mod.FlightMode.top.location.x:SetTemplate('Default', true, true)
+	mod.FlightMode.top.location.x:SetBackdropBorderColor(.3, .3, .3, 1)
+	mod.FlightMode.top.location.x:CreateWideShadow()
+	mod.FlightMode.top.location.x:Point("RIGHT", mod.FlightMode.top.location, "LEFT", (E.PixelMode and -4 or -6), 0)
+	mod.FlightMode.top.location.x:Width(60)
+	mod.FlightMode.top.location.x:Height(40)
 
-	self.FlightMode.top.location.x.text = self.FlightMode.top.location.x:CreateFontString(nil, 'OVERLAY')
-	self.FlightMode.top.location.x.text:FontTemplate(nil, 18)
-	self.FlightMode.top.location.x.text:Point('CENTER')
+	mod.FlightMode.top.location.x.text = mod.FlightMode.top.location.x:CreateFontString(nil, 'OVERLAY')
+	mod.FlightMode.top.location.x.text:FontTemplate(nil, 18)
+	mod.FlightMode.top.location.x.text:Point('CENTER')
 
 	-- Coords Y frame
-	self.FlightMode.top.location.y = CreateFrame('Frame', nil, self.FlightMode.top.location)
-	self.FlightMode.top.location.y:SetTemplate('Default', true, true)
-	self.FlightMode.top.location.y:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.top.location.y:CreateWideShadow()
-	self.FlightMode.top.location.y:Point("LEFT", self.FlightMode.top.location, "RIGHT", (E.PixelMode and 4 or 6), 0)
-	self.FlightMode.top.location.y:Width(60)
-	self.FlightMode.top.location.y:Height(40)
+	mod.FlightMode.top.location.y = CreateFrame('Frame', nil, mod.FlightMode.top.location)
+	mod.FlightMode.top.location.y:SetTemplate('Default', true, true)
+	mod.FlightMode.top.location.y:SetBackdropBorderColor(.3, .3, .3, 1)
+	mod.FlightMode.top.location.y:CreateWideShadow()
+	mod.FlightMode.top.location.y:Point("LEFT", mod.FlightMode.top.location, "RIGHT", (E.PixelMode and 4 or 6), 0)
+	mod.FlightMode.top.location.y:Width(60)
+	mod.FlightMode.top.location.y:Height(40)
 
-	self.FlightMode.top.location.y.text = self.FlightMode.top.location.y:CreateFontString(nil, 'OVERLAY')
-	self.FlightMode.top.location.y.text:FontTemplate(nil, 18)
-	self.FlightMode.top.location.y.text:Point('CENTER')
+	mod.FlightMode.top.location.y.text = mod.FlightMode.top.location.y:CreateFontString(nil, 'OVERLAY')
+	mod.FlightMode.top.location.y.text:FontTemplate(nil, 18)
+	mod.FlightMode.top.location.y.text:Point('CENTER')
 
 	-- Bottom frame
-	self.FlightMode.bottom = CreateFrame("Frame", nil, self.FlightMode)
-	self.FlightMode.bottom:SetFrameLevel(0)
-	self.FlightMode.bottom:SetTemplate('Transparent', true, true)
-	self.FlightMode.bottom:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.bottom:CreateWideShadow()
-	self.FlightMode.bottom:Point("BOTTOM", self.FlightMode, "BOTTOM", 0, -E.Border)
-	self.FlightMode.bottom:Width(GetScreenWidth() + (E.Border*2))
-	self.FlightMode.bottom:Height(52)
+	mod.FlightMode.bottom = CreateFrame("Frame", nil, mod.FlightMode)
+	mod.FlightMode.bottom:SetFrameLevel(0)
+	mod.FlightMode.bottom:SetTemplate('Transparent', true, true)
+	mod.FlightMode.bottom:SetBackdropBorderColor(.3, .3, .3, 1)
+	mod.FlightMode.bottom:CreateWideShadow()
+	mod.FlightMode.bottom:Point("BOTTOM", mod.FlightMode, "BOTTOM", 0, -E.Border)
+	mod.FlightMode.bottom:Width(GetScreenWidth() + (E.Border*2))
+	mod.FlightMode.bottom:Height(52)
 
 	-- BenikUI logo
-	self.FlightMode.bottom.logo = self.FlightMode:CreateTexture(nil, 'OVERLAY')
-	self.FlightMode.bottom.logo:Size(420, 105)
-	self.FlightMode.bottom.logo:Point("BOTTOM", self.FlightMode.bottom, "CENTER", 0, -20)
-	self.FlightMode.bottom.logo:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga')
-	self.FlightMode.bottom.logo:Hide()
+	mod.FlightMode.bottom.logo = mod.FlightMode:CreateTexture(nil, 'OVERLAY')
+	mod.FlightMode.bottom.logo:Size(420, 105)
+	mod.FlightMode.bottom.logo:Point("BOTTOM", mod.FlightMode.bottom, "CENTER", 0, -20)
+	mod.FlightMode.bottom.logo:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\logo_benikui.tga')
+	mod.FlightMode.bottom.logo:Hide()
 
 	-- WoW logo
-	self.FlightMode.bottom.wowlogo = CreateFrame('Frame', nil, mod.FlightMode) -- need this to upper the logo layer
-	self.FlightMode.bottom.wowlogo:Point("BOTTOM", self.FlightMode.bottom, "CENTER", 0, -20)
-	self.FlightMode.bottom.wowlogo:SetFrameStrata("MEDIUM")
-	self.FlightMode.bottom.wowlogo:Size(300, 150)
-	self.FlightMode.bottom.wowlogo.tex = self.FlightMode.bottom.wowlogo:CreateTexture(nil, 'OVERLAY')
+	mod.FlightMode.bottom.wowlogo = CreateFrame('Frame', nil, mod.FlightMode) -- need this to upper the logo layer
+	mod.FlightMode.bottom.wowlogo:Point("BOTTOM", mod.FlightMode.bottom, "CENTER", 0, -20)
+	mod.FlightMode.bottom.wowlogo:SetFrameStrata("MEDIUM")
+	mod.FlightMode.bottom.wowlogo:Size(300, 150)
+	mod.FlightMode.bottom.wowlogo.tex = mod.FlightMode.bottom.wowlogo:CreateTexture(nil, 'OVERLAY')
 	local currentExpansionLevel = GetClampedCurrentExpansionLevel();
 	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel);
 	if expansionDisplayInfo then
-		self.FlightMode.bottom.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
+		mod.FlightMode.bottom.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
 	end
-	self.FlightMode.bottom.wowlogo.tex:SetInside()
-	self.FlightMode.bottom.wowlogo:Hide()
+	mod.FlightMode.bottom.wowlogo.tex:SetInside()
+	mod.FlightMode.bottom.wowlogo:Hide()
 
 	-- BenikUI version
-	self.FlightMode.bottom.benikui = self.FlightMode.bottom:CreateFontString(nil, 'OVERLAY')
-	self.FlightMode.bottom.benikui:FontTemplate(nil, 10)
-	self.FlightMode.bottom.benikui:SetFormattedText("v%s", BUI.Version)
-	self.FlightMode.bottom.benikui:Point("TOP", self.FlightMode.bottom.logo, "BOTTOM", 0, 12)
-	self.FlightMode.bottom.benikui:SetTextColor(1, 1, 1)
-	self.FlightMode.bottom.benikui:Hide()
+	mod.FlightMode.bottom.benikui = mod.FlightMode.bottom:CreateFontString(nil, 'OVERLAY')
+	mod.FlightMode.bottom.benikui:FontTemplate(nil, 10)
+	mod.FlightMode.bottom.benikui:SetFormattedText("v%s", BUI.Version)
+	mod.FlightMode.bottom.benikui:Point("TOP", mod.FlightMode.bottom.logo, "BOTTOM", 0, 12)
+	mod.FlightMode.bottom.benikui:SetTextColor(1, 1, 1)
+	mod.FlightMode.bottom.benikui:Hide()
 
 	-- Message frame. Shows when request stop is pressed
-	self.FlightMode.message = CreateFrame("Frame", nil, self.FlightMode)
-	self.FlightMode.message:SetFrameLevel(0)
-	self.FlightMode.message:Point("CENTER", UIParent, "CENTER")
-	self.FlightMode.message:Size(10, 30)
-	self.FlightMode.message:Hide()
+	mod.FlightMode.message = CreateFrame("Frame", nil, mod.FlightMode)
+	mod.FlightMode.message:SetFrameLevel(0)
+	mod.FlightMode.message:Point("CENTER", UIParent, "CENTER")
+	mod.FlightMode.message:Size(10, 30)
+	mod.FlightMode.message:Hide()
 
-	self.FlightMode.message.text = self.FlightMode.message:CreateFontString(nil, 'OVERLAY')
-	self.FlightMode.message.text:FontTemplate(nil, 18)
-	self.FlightMode.message.text:SetFormattedText("%s", TAXI_CANCEL_DESCRIPTION)
-	self.FlightMode.message.text:Point("CENTER")
-	self.FlightMode.message.text:SetTextColor(1, 1, 0, .7)
-	self.FlightMode.message.text:SetAlpha(0)
+	mod.FlightMode.message.text = mod.FlightMode.message:CreateFontString(nil, 'OVERLAY')
+	mod.FlightMode.message.text:FontTemplate(nil, 18)
+	mod.FlightMode.message.text:SetFormattedText("%s", TAXI_CANCEL_DESCRIPTION)
+	mod.FlightMode.message.text:Point("CENTER")
+	mod.FlightMode.message.text:SetTextColor(1, 1, 0, .7)
+	mod.FlightMode.message.text:SetAlpha(0)
 
 	-- Request Stop button
-	self.FlightMode.bottom.requestStop = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.requestStop:Size(32, 32)
-	self.FlightMode.bottom.requestStop:Point("LEFT", self.FlightMode.bottom, "LEFT", 10, 0)
-	self.FlightMode.bottom.requestStop:EnableMouse(true)
+	mod.FlightMode.bottom.requestStop = CreateFrame('Button', nil, mod.FlightMode.bottom)
+	mod.FlightMode.bottom.requestStop:Size(32, 32)
+	mod.FlightMode.bottom.requestStop:Point("LEFT", mod.FlightMode.bottom, "LEFT", 10, 0)
+	mod.FlightMode.bottom.requestStop:EnableMouse(true)
 
-	self.FlightMode.bottom.requestStop.img = self.FlightMode.bottom.requestStop:CreateTexture(nil, 'OVERLAY')
-	self.FlightMode.bottom.requestStop.img:Point("CENTER")
-	self.FlightMode.bottom.requestStop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow.tga')
-	self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.bottom.requestStop.img = mod.FlightMode.bottom.requestStop:CreateTexture(nil, 'OVERLAY')
+	mod.FlightMode.bottom.requestStop.img:Point("CENTER")
+	mod.FlightMode.bottom.requestStop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow.tga')
+	mod.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
 
-	self.FlightMode.bottom.requestStop:SetScript('OnEnter', function()
-		GameTooltip:SetOwner(self.FlightMode.bottom.requestStop, 'ANCHOR_RIGHT', 1, 0)
+	mod.FlightMode.bottom.requestStop:SetScript('OnEnter', function()
+		GameTooltip:SetOwner(mod.FlightMode.bottom.requestStop, 'ANCHOR_RIGHT', 1, 0)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, selectioncolor)
 		GameTooltip:AddLine(L['LeftClick to Request Stop'], 0.7, 0.7, 1)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
-			self.FlightMode.bottom.requestStop.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			mod.FlightMode.bottom.requestStop.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		elseif db.gameMenuColor == 2 then
-			self.FlightMode.bottom.requestStop.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
+			mod.FlightMode.bottom.requestStop.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
 		else
-			self.FlightMode.bottom.requestStop.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+			mod.FlightMode.bottom.requestStop.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 		end
 	end)
 
-	self.FlightMode.bottom.requestStop:SetScript('OnLeave', function()
-		self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.bottom.requestStop:SetScript('OnLeave', function()
+		mod.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
 		GameTooltip:Hide()
 	end)
 
-	self.FlightMode.bottom.requestStop:SetScript('OnClick', function()
+	mod.FlightMode.bottom.requestStop:SetScript('OnClick', function()
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 		TaxiRequestEarlyLanding();
-		self.FlightMode.bottom.requestStop:EnableMouse(false)
-		self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 0, 0, .7)
-		self.FlightMode.message:Show()
+		mod.FlightMode.bottom.requestStop:EnableMouse(false)
+		mod.FlightMode.bottom.requestStop.img:SetVertexColor(1, 0, 0, .7)
+		mod.FlightMode.message:Show()
 		C_TimerAfter(.5, function()
-			UIFrameFadeIn(self.FlightMode.message.text, 1, 0, 1)
+			UIFrameFadeIn(mod.FlightMode.message.text, 1, 0, 1)
 		end)
 		C_TimerAfter(8, function()
-			UIFrameFadeOut(self.FlightMode.message, 1, 1, 0)
+			UIFrameFadeOut(mod.FlightMode.message, 1, 1, 0)
 		end)
 	end)
 
 	-- Toggle Location button
-	self.FlightMode.bottom.info = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.info:Size(32, 32)
-	self.FlightMode.bottom.info:Point("LEFT", self.FlightMode.bottom.requestStop, "RIGHT", 10, 0)
+	mod.FlightMode.bottom.info = CreateFrame('Button', nil, mod.FlightMode.bottom)
+	mod.FlightMode.bottom.info:Size(32, 32)
+	mod.FlightMode.bottom.info:Point("LEFT", mod.FlightMode.bottom.requestStop, "RIGHT", 10, 0)
 
-	self.FlightMode.bottom.info.img = self.FlightMode.bottom.info:CreateTexture(nil, 'OVERLAY')
-	self.FlightMode.bottom.info.img:Point("CENTER")
-	self.FlightMode.bottom.info.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\info.tga')
-	self.FlightMode.bottom.info.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.bottom.info.img = mod.FlightMode.bottom.info:CreateTexture(nil, 'OVERLAY')
+	mod.FlightMode.bottom.info.img:Point("CENTER")
+	mod.FlightMode.bottom.info.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\info.tga')
+	mod.FlightMode.bottom.info.img:SetVertexColor(1, 1, 1, .7)
 
-	self.FlightMode.bottom.info:SetScript('OnEnter', function()
-		GameTooltip:SetOwner(self.FlightMode.bottom.info, 'ANCHOR_RIGHT', 1, 0)
+	mod.FlightMode.bottom.info:SetScript('OnEnter', function()
+		GameTooltip:SetOwner(mod.FlightMode.bottom.info, 'ANCHOR_RIGHT', 1, 0)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(L['Toggle Location and Coords'], selectioncolor)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
-			self.FlightMode.bottom.info.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			mod.FlightMode.bottom.info.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		elseif db.gameMenuColor == 2 then
-			self.FlightMode.bottom.info.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
+			mod.FlightMode.bottom.info.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
 		else
-			self.FlightMode.bottom.info.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+			mod.FlightMode.bottom.info.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 		end
 	end)
 
-	self.FlightMode.bottom.info:SetScript('OnLeave', function()
-		self.FlightMode.bottom.info.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.bottom.info:SetScript('OnLeave', function()
+		mod.FlightMode.bottom.info.img:SetVertexColor(1, 1, 1, .7)
 		GameTooltip:Hide()
 	end)
 
-	self.FlightMode.bottom.info:SetScript('OnClick', function()
+	mod.FlightMode.bottom.info:SetScript('OnClick', function()
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 		if FlightModeLocation:GetAlpha() == 1 then
 			UIFrameFadeOut(FlightModeLocation, 0.2, 1, 0)
@@ -806,95 +808,95 @@ function mod:Initialize()
 	end)
 
 	-- Toggle Map button
-	self.FlightMode.bottom.map = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.map:Size(32, 32)
-	self.FlightMode.bottom.map:Point("LEFT", self.FlightMode.bottom.info, "RIGHT", 10, 0)
+	mod.FlightMode.bottom.map = CreateFrame('Button', nil, mod.FlightMode.bottom)
+	mod.FlightMode.bottom.map:Size(32, 32)
+	mod.FlightMode.bottom.map:Point("LEFT", mod.FlightMode.bottom.info, "RIGHT", 10, 0)
 
-	self.FlightMode.bottom.map.img = self.FlightMode.bottom.map:CreateTexture(nil, 'OVERLAY')
-	self.FlightMode.bottom.map.img:Point("CENTER")
-	self.FlightMode.bottom.map.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\map.tga')
-	self.FlightMode.bottom.map.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.bottom.map.img = mod.FlightMode.bottom.map:CreateTexture(nil, 'OVERLAY')
+	mod.FlightMode.bottom.map.img:Point("CENTER")
+	mod.FlightMode.bottom.map.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\map.tga')
+	mod.FlightMode.bottom.map.img:SetVertexColor(1, 1, 1, .7)
 
-	self.FlightMode.bottom.map:SetScript('OnEnter', function()
-		GameTooltip:SetOwner(self.FlightMode.bottom.map, 'ANCHOR_RIGHT', 1, 0)
+	mod.FlightMode.bottom.map:SetScript('OnEnter', function()
+		GameTooltip:SetOwner(mod.FlightMode.bottom.map, 'ANCHOR_RIGHT', 1, 0)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(L['Toggle World Map'], selectioncolor)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
-			self.FlightMode.bottom.map.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			mod.FlightMode.bottom.map.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		elseif db.gameMenuColor == 2 then
-			self.FlightMode.bottom.map.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
+			mod.FlightMode.bottom.map.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
 		else
-			self.FlightMode.bottom.map.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+			mod.FlightMode.bottom.map.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 		end
 	end)
 
-	self.FlightMode.bottom.map:SetScript('OnLeave', function()
-		self.FlightMode.bottom.map.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.bottom.map:SetScript('OnLeave', function()
+		mod.FlightMode.bottom.map.img:SetVertexColor(1, 1, 1, .7)
 		GameTooltip:Hide()
 	end)
 
-	self.FlightMode.bottom.map:SetScript('OnClick', function()
+	mod.FlightMode.bottom.map:SetScript('OnClick', function()
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 		ToggleWorldMap()
 	end)
 
 	-- Toggle bags button
-	self.FlightMode.bottom.bags = CreateFrame('Button', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.bags:Size(32, 32)
-	self.FlightMode.bottom.bags:Point("LEFT", self.FlightMode.bottom.map, "RIGHT", 10, 0)
+	mod.FlightMode.bottom.bags = CreateFrame('Button', nil, mod.FlightMode.bottom)
+	mod.FlightMode.bottom.bags:Size(32, 32)
+	mod.FlightMode.bottom.bags:Point("LEFT", mod.FlightMode.bottom.map, "RIGHT", 10, 0)
 
-	self.FlightMode.bottom.bags.img = self.FlightMode.bottom.bags:CreateTexture(nil, 'OVERLAY')
-	self.FlightMode.bottom.bags.img:Point("CENTER")
-	self.FlightMode.bottom.bags.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\bags.tga')
-	self.FlightMode.bottom.bags.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.bottom.bags.img = mod.FlightMode.bottom.bags:CreateTexture(nil, 'OVERLAY')
+	mod.FlightMode.bottom.bags.img:Point("CENTER")
+	mod.FlightMode.bottom.bags.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\bags.tga')
+	mod.FlightMode.bottom.bags.img:SetVertexColor(1, 1, 1, .7)
 
-	self.FlightMode.bottom.bags:SetScript('OnEnter', function()
-		GameTooltip:SetOwner(self.FlightMode.bottom.bags, 'ANCHOR_RIGHT', 1, 0)
+	mod.FlightMode.bottom.bags:SetScript('OnEnter', function()
+		GameTooltip:SetOwner(mod.FlightMode.bottom.bags, 'ANCHOR_RIGHT', 1, 0)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(L['Toggle Bags'], selectioncolor)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
-			self.FlightMode.bottom.bags.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			mod.FlightMode.bottom.bags.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		elseif db.gameMenuColor == 2 then
-			self.FlightMode.bottom.bags.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
+			mod.FlightMode.bottom.bags.img:SetVertexColor(BUI:unpackColor(E.db.benikui.colors.customGameMenuColor))
 		else
-			self.FlightMode.bottom.bags.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
+			mod.FlightMode.bottom.bags.img:SetVertexColor(BUI:unpackColor(E.db.general.valuecolor))
 		end
 	end)
 
-	self.FlightMode.bottom.bags:SetScript('OnLeave', function()
-		self.FlightMode.bottom.bags.img:SetVertexColor(1, 1, 1, .7)
+	mod.FlightMode.bottom.bags:SetScript('OnLeave', function()
+		mod.FlightMode.bottom.bags.img:SetVertexColor(1, 1, 1, .7)
 		GameTooltip:Hide()
 	end)
 
-	self.FlightMode.bottom.bags:SetScript('OnClick', function()
+	mod.FlightMode.bottom.bags:SetScript('OnClick', function()
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 		_G.ToggleAllBags()
 	end)
 
 	-- Time flying
-	self.FlightMode.bottom.timeFlying = CreateFrame('Frame', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.timeFlying:Point("RIGHT", self.FlightMode.bottom, "RIGHT", -10, 0)
-	self.FlightMode.bottom.timeFlying:SetTemplate("Default", true, true)
-	self.FlightMode.bottom.timeFlying:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.bottom.timeFlying:Size(70,30)
-	self.FlightMode.bottom.timeFlying.txt = self.FlightMode.bottom.timeFlying:CreateFontString(nil, 'OVERLAY')
-	self.FlightMode.bottom.timeFlying.txt:FontTemplate(nil, 14)
-	self.FlightMode.bottom.timeFlying.txt:SetText("00:00")
-	self.FlightMode.bottom.timeFlying.txt:Point("CENTER", self.FlightMode.bottom.timeFlying, "CENTER")
-	self.FlightMode.bottom.timeFlying.txt:SetTextColor(1, 1, 1)
+	mod.FlightMode.bottom.timeFlying = CreateFrame('Frame', nil, mod.FlightMode.bottom)
+	mod.FlightMode.bottom.timeFlying:Point("RIGHT", mod.FlightMode.bottom, "RIGHT", -10, 0)
+	mod.FlightMode.bottom.timeFlying:SetTemplate("Default", true, true)
+	mod.FlightMode.bottom.timeFlying:SetBackdropBorderColor(.3, .3, .3, 1)
+	mod.FlightMode.bottom.timeFlying:Size(70,30)
+	mod.FlightMode.bottom.timeFlying.txt = mod.FlightMode.bottom.timeFlying:CreateFontString(nil, 'OVERLAY')
+	mod.FlightMode.bottom.timeFlying.txt:FontTemplate(nil, 14)
+	mod.FlightMode.bottom.timeFlying.txt:SetText("00:00")
+	mod.FlightMode.bottom.timeFlying.txt:Point("CENTER", mod.FlightMode.bottom.timeFlying, "CENTER")
+	mod.FlightMode.bottom.timeFlying.txt:SetTextColor(1, 1, 1)
 
 	-- fps
-	self.FlightMode.bottom.fps = CreateFrame('Frame', nil, self.FlightMode.bottom)
-	self.FlightMode.bottom.fps:Point('RIGHT', self.FlightMode.bottom.timeFlying, 'LEFT', -10, 0)
-	self.FlightMode.bottom.fps:SetTemplate("Default", true, true)
-	self.FlightMode.bottom.fps:SetBackdropBorderColor(.3, .3, .3, 1)
-	self.FlightMode.bottom.fps:Size(70,30)
-	self.FlightMode.bottom.fps.txt = self.FlightMode.bottom.fps:CreateFontString(nil, 'OVERLAY')
-	self.FlightMode.bottom.fps.txt:FontTemplate(nil, 14)
-	self.FlightMode.bottom.fps.txt:Point('CENTER', self.FlightMode.bottom.fps, 'CENTER')
-	self.FlightMode.bottom.fps.txt:SetText("")
+	mod.FlightMode.bottom.fps = CreateFrame('Frame', nil, mod.FlightMode.bottom)
+	mod.FlightMode.bottom.fps:Point('RIGHT', mod.FlightMode.bottom.timeFlying, 'LEFT', -10, 0)
+	mod.FlightMode.bottom.fps:SetTemplate("Default", true, true)
+	mod.FlightMode.bottom.fps:SetBackdropBorderColor(.3, .3, .3, 1)
+	mod.FlightMode.bottom.fps:Size(70,30)
+	mod.FlightMode.bottom.fps.txt = mod.FlightMode.bottom.fps:CreateFontString(nil, 'OVERLAY')
+	mod.FlightMode.bottom.fps.txt:FontTemplate(nil, 14)
+	mod.FlightMode.bottom.fps.txt:Point('CENTER', mod.FlightMode.bottom.fps, 'CENTER')
+	mod.FlightMode.bottom.fps.txt:SetText("")
 
 	-- Add Shadow at the bags
 	if ElvUI_ContainerFrame then
@@ -907,8 +909,8 @@ function mod:Initialize()
 	LeftChatPanel.backdrop.wideshadow:Hide()
 	LeftChatPanel.backdrop.wideshadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
 
-	self:Toggle()
-	self:ToggleLogo()
+	mod:Toggle()
+	mod:ToggleLogo()
 
 	hooksecurefunc(M, "SetLargeWorldMap", mod.SetFrameParent)
 	hooksecurefunc(M, "SetSmallWorldMap", mod.SetFrameParent)

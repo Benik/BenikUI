@@ -22,6 +22,7 @@ local factionIDs = {
 	2507, -- Dragonscale Expedition
 	2510, -- Valdrakken Accord
 	2511, -- Iskaara Tuskarr
+	2564, -- Loamm Niffen
 }
 
 local displayString, lastPanel = ''
