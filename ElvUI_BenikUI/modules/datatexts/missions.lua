@@ -302,7 +302,7 @@ local function OnEnter()
 
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddDoubleLine(L["Naval Mission(s) Report:"], AddInfo(1101), nil, nil, nil, 1, 1 , 1)
-		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_6_2)
+		AddInProgressMissions(GARRISONFOLLOWERTYPE_6_0_BOAT)
 
 		--Buildings
 		data = C_Garrison_GetBuildings(LE_GARRISON_TYPE_6_0)
@@ -333,17 +333,15 @@ local function OnEnter()
 	DT.tooltip:Show()
 end
 
+
 local function OnClick(self, btn)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
 
-	if btn == "LeftButton" then
-		if C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID()) then
-			HideUIPanel(_G.GarrisonLandingPage)
-			ShowGarrisonLandingPage(LE_GARRISON_TYPE_9_0)
-		end
-	elseif btn == "RightButton" then
+	if btn == 'RightButton' then
 		E:SetEasyMenuAnchor(E.EasyMenu, self)
-		_G.EasyMenu(menuList, E.EasyMenu, nil, nil, nil, "MENU")
+		EasyMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
+	else
+		_G.ExpansionLandingPageMinimapButton:ToggleLandingPage()
 	end
 end
 
