@@ -1,3 +1,9 @@
+v4.38 (May 25, 2023)
+Fixed Chat DT Style hicups
+Simpy did some changes to Debuff stuff.. so we need to take account. Credit: Merathilis
+Fixed Hekili style for ticket #42
+Fix missions datatext error change left-click behavior to DF Summary. Credit: Bauxite
+
 v4.37 (May 9, 2023)
 Prevent a Priest error. Credit: cxmplex
 AddonSkins fixes

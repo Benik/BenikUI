@@ -287,11 +287,11 @@ local function HekiliDecor()
 	hooksecurefunc(Hekili, "CreateButton", function(self, dispID, id)
 		if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.hekili then return end
 		local b = Hekili.DisplayPool[dispID].Buttons[id]
-		if b then
+		if b and not b.backdrop then
+			b:CreateBackdrop()
 			b.backdrop:BuiStyle('Outside')
 		end
 	end)
-
 end
 
 local function WoWProDecor()

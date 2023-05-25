@@ -154,16 +154,21 @@ function mod:ToggleTransparency()
 	_G.RightChatToggleButton.shadow:SetShown(rchatToggle)
 end
 
+local function ChatDT_StyleDelay()
+	local showConditions = E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH'
+	
+	_G.BuiLeftChatDTPanel.style:SetShown(showConditions)
+	_G.BuiRightChatDTPanel.style:SetShown(showConditions)
+end
+
 function mod:ChatStyles()
 	if not E.db.benikui.general.benikuiStyle then return end
-	local Bui_ldtp = _G.BuiLeftChatDTPanel
-	local Bui_rdtp = _G.BuiRightChatDTPanel
-	local showConditions = E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH'
 
-	Bui_rdtp.style:SetShown(showConditions)
-	Bui_ldtp.style:SetShown(showConditions)
+	C_TimerAfter(0.1, ChatDT_StyleDelay)
+	C_TimerAfter(0.1, ChatDT_StyleDelay)
+
 	for i = 1, BUTTON_NUM do
-		bbuttons[i].style:SetShown(showConditions)
+		bbuttons[i].style:SetShown(E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH')
 	end
 end
 

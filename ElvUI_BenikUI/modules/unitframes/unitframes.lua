@@ -1,7 +1,12 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Units')
 local UF = E:GetModule('UnitFrames')
+local NP = E:GetModule('NamePlates')
 local AB = E:GetModule('ActionBars')
+
+local DebuffColors = E.Libs.Dispel:GetDebuffTypeColor()
+local BleedList = E.Libs.Dispel:GetBleedList()
+local BadDispels = E.Libs.Dispel:GetBadList()
 
 function mod:UnitDefaults()
 	if E.db.benikui.unitframes.player.portraitWidth == nil then
@@ -163,7 +168,7 @@ function mod:PostUpdateAura(_, button)
 			if db.auraByType then
 				r, g, b = .9, .1, .1
 			end
-		elseif db.auraByDispels and button.debuffType and E.BadDispels[button.spellID] and E:IsDispellableByMe(button.debuffType) then
+		elseif db.auraByDispels and button.debuffType and BadDispels[button.spellID] and E:IsDispellableByMe(button.debuffType) then
 			r, g, b = .05, .85, .94
 		elseif db.auraByType then
 			local color = _G.DebuffTypeColor[button.debuffType] or _G.DebuffTypeColor.none
