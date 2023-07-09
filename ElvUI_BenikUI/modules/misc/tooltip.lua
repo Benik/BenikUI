@@ -116,16 +116,17 @@ function mod:GameTooltip_OnTooltipCleared(tt)
 end
 
 function mod:RecolorTooltipStyle()
+	if not GameTooltip.style then return end
 	if not GameTooltip.buiUpdated then
 		local r, g, b = 0, 0, 0
 
 		if GameTooltipStatusBar:IsShown() then
-			r, g, b = GameTooltipStatusBar:GetStatusBarColor()	
+			r, g, b = GameTooltipStatusBar:GetStatusBarColor()
 		else
 			r, g, b = ttr, ttg, ttb
 		end
 
-		if (r and g and b) and GameTooltip.style then
+		if (r and g and b) then
 			GameTooltip.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
 		end
 
