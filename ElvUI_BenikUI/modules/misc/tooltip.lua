@@ -125,7 +125,7 @@ function mod:RecolorTooltipStyle()
 			r, g, b = ttr, ttg, ttb
 		end
 
-		if (r and g and b) then
+		if (r and g and b) and GameTooltip.style then
 			GameTooltip.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
 		end
 
