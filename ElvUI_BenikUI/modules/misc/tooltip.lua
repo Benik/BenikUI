@@ -116,11 +116,12 @@ function mod:GameTooltip_OnTooltipCleared(tt)
 end
 
 function mod:RecolorTooltipStyle()
+	if not GameTooltip.style then return end
 	if not GameTooltip.buiUpdated then
 		local r, g, b = 0, 0, 0
 
 		if GameTooltipStatusBar:IsShown() then
-			r, g, b = GameTooltipStatusBar:GetStatusBarColor()	
+			r, g, b = GameTooltipStatusBar:GetStatusBarColor()
 		else
 			r, g, b = ttr, ttg, ttb
 		end

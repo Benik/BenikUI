@@ -18,20 +18,6 @@ local function AltPowerBarShadows()
 	end
 end
 
-local function mirrorTimersShadows()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mirrorTimers ~= true then return end
-
-	local i = 1
-	local frame = _G.MirrorTimer1
-	while frame do
-		if frame.shadow then break end
-		frame:CreateSoftShadow()
-
-		i = i + 1
-		frame = _G['MirrorTimer'..i]
-	end
-end
-
 local function raidUtilityShadows()
 	if E.private.general.raidUtility == false then return end
 
@@ -287,7 +273,6 @@ function mod:Initialize()
 
 	AltPowerBarShadows()
 	raidUtilityShadows()
-	mirrorTimersShadows()
 
 	miscShadows()
 	MicroBarShadows()

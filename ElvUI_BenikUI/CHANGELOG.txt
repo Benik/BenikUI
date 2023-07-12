@@ -1,3 +1,9 @@
+v4.39 (Jul 12, 2023)
+Fixed Mirror Timers. Credit: thurin
+nil check style. Credit: Eltreum
+Fixed chat glitch after exiting FlightMode (ticket #44)
+Removed Tukui.org links
+
 v4.38 (May 25, 2023)
 Fixed Chat DT Style hicups
 Simpy did some changes to Debuff stuff.. so we need to take account. Credit: Merathilis

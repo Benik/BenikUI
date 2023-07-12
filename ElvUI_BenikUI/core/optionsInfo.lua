@@ -174,12 +174,6 @@ local function Info()
 				name = BUI:cOption(L['Support'], "orange"),
 				guiInline = true,
 				args = {
-					tukui = {
-						order = 1,
-						type = 'execute',
-						name = L['Tukui.org'],
-						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.tukui.org/forum/viewforum.php?f=33") end,
-						},
 					git = {
 						order = 2,
 						type = 'execute',
@@ -200,17 +194,17 @@ local function Info()
 				name = BUI:cOption(L['Download'], "orange"),
 				guiInline = true,
 				args = {
-					tukui = {
-						order = 1,
-						type = 'execute',
-						name = L['Tukui.org'],
-						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.tukui.org/addons.php?id=11") end,
-					},
 					curse = {
-						order = 2,
+						order = 1,
 						type = 'execute',
 						name = L['Curseforge'],
 						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.curseforge.com/wow/addons/benikui") end,
+					},
+					wago = {
+						order = 2,
+						type = 'execute',
+						name = L['Wago.io'],
+						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://addons.wago.io/addons/benikui") end,
 					},
 					beta = {
 						order = 3,
