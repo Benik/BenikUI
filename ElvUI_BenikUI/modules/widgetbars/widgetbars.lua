@@ -50,7 +50,7 @@ function mod:Initialize()
 	mod:AltPowerBar()
 	mod:MirrorBar()
 	hooksecurefunc(B, "UpdateAltPowerBarSettings", mod.AltPowerBar)
-	hooksecurefunc(_G.MirrorTimerMixin, "SetupTimer", mod.MirrorBar)
+	hooksecurefunc(_G.MirrorTimerMixin, "Setup", mod.MirrorBar)
 end
 
 BUI:RegisterModule(mod:GetName())
