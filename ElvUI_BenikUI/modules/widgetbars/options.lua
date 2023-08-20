@@ -168,9 +168,7 @@ local function widgetTable()
 				name = L['Half Bar'],
 				get = function(_, key) return E.db.benikui.widgetbars.halfBar[key] end,
 				set = function(_, key, value) E.db.benikui.widgetbars.halfBar[key] = value;
-					if key == 'mirrorbar' then
-						mod:MirrorBar()
-					elseif key == 'altbar' then
+					if key == 'altbar' then
 						mod:AltPowerBar()
 					end
 				end,
