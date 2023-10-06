@@ -67,7 +67,7 @@ end
 function BUI:Init()
 	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 		E:Delay(2, function() E:StaticPopup_Show("BENIKUI_CLASSIC") end)
-		return	
+		return
 	end
 
 	--ElvUI's version check
@@ -106,8 +106,8 @@ E.PopupDialogs["BENIKUI_VERSION_MISMATCH"] = {
 		self.editBox.width = self.editBox:GetWidth()
 		self.editBox:Width(280)
 		self.editBox:AddHistoryLine("text")
-		self.editBox.temptxt = "https://www.tukui.org/download.php?ui=elvui"
-		self.editBox:SetText("https://www.tukui.org/download.php?ui=elvui")
+		self.editBox.temptxt = "https://tukui.org/elvui"
+		self.editBox:SetText("https://tukui.org/elvui")
 		self.editBox:HighlightText()
 		self.editBox:SetJustifyH("CENTER")
 	end,
