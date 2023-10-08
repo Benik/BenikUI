@@ -86,6 +86,6 @@ function mod:WeakAuras()
 	if BUI.MER or not BUI.WA then return end
 
 	if E.db.benikui.skins.variousSkins.wa then
-		LoadSkin()
+		-- LoadSkin()
 	end
 end
