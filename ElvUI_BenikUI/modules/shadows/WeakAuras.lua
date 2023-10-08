@@ -1,7 +1,9 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Shadows')
+local S = E:GetModule('Skins')
 
 --Credits: Merathilis
+local WeakAuras = _G.WeakAuras
 
 local function Skin_WeakAuras(f, fType, data)
 	if fType == "icon" then
@@ -67,8 +69,10 @@ local function Skin_WeakAuras(f, fType, data)
 	end
 end
 
-local function LoadSkin()
-	local WeakAuras = _G.WeakAuras
+function mod:WeakAurasShadows()
+	if BUI.MER or not BUI.WA then return end
+	if not E.db.benikui.skins.variousSkins.wa then return end
+	if not WeakAuras or not WeakAuras.regionPrototype then return end
 
 	local function OnPrototypeCreate(region)
 		Skin_WeakAuras(region, region.regionType)
@@ -82,10 +86,4 @@ local function LoadSkin()
 	mod:SecureHook(WeakAuras.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
 end
 
-function mod:WeakAuras()
-	if BUI.MER or not BUI.WA then return end
-
-	if E.db.benikui.skins.variousSkins.wa then
-		LoadSkin()
-	end
-end
+S:AddCallbackForAddon("WeakAurasShadows")
