@@ -1,3 +1,7 @@
+v4.41 (Oct 8, 2023)
+Fixed WeakAuras Shadows
+Fixed download url for elvui. Credit: Repooc
+
 v4.40 (Sep 28, 2023)
 toc update
 
