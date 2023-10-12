@@ -231,6 +231,10 @@ function mod:SetFlightMode(status)
 			_G.ZoneAbilityFrame:GetParent():Hide()
 		end
 
+		if not E.db.general.addonCompartment.hide then
+			_G.AddonCompartmentFrame:Hide()
+		end
+
 		C_TimerAfter(0.05, function()
 			_G.MainMenuBarVehicleLeaveButton:Hide()
 			tracking:SetAlpha(0)
@@ -355,6 +359,10 @@ function mod:SetFlightMode(status)
 
 		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:GetParent():Show()
+		end
+
+		if not E.db.general.addonCompartment.hide then
+			_G.AddonCompartmentFrame:Show()
 		end
 
 		_G.MainMenuBarVehicleLeaveButton:SetScript('OnShow', nil)
