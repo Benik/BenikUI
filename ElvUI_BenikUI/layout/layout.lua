@@ -53,10 +53,6 @@ local function ChatButton_OnClick(self)
 	if E.db[self.parent:GetName()..'Faded'] then
 		E.db[self.parent:GetName()..'Faded'] = nil
 		E:UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
-		if BUI.AS then
-			local AS = unpack(AddOnSkins) or nil
-			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
-		end
 	else
 		E.db[self.parent:GetName()..'Faded'] = true
 		E:UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
