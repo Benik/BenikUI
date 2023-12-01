@@ -785,6 +785,7 @@ local function style_PerksProgramm()
 		footer.ToggleHideArmor.backdrop:CreateSoftShadow()
 		footer.RotateButtonContainer.RotateLeftButton:CreateSoftShadow()
 		footer.RotateButtonContainer.RotateRightButton:CreateSoftShadow()
+		footer.PurchaseButton:CreateSoftShadow()
 	end
 end
 S:AddCallbackForAddon("Blizzard_PerksProgram", "BenikUI_PerksProgram", style_PerksProgramm)
