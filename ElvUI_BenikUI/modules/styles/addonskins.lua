@@ -177,6 +177,7 @@ local function BugSackDecor()
 end
 
 local function LibrariesDecor()
+	if BUI:IsAddOnEnabled('TipTac') then return end
 	local DBIcon = LibStub("LibDBIcon-1.0", true)
 	if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType('GameTooltip') then
 		DBIcon.tooltip:HookScript("OnShow", function(self)

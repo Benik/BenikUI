@@ -75,6 +75,8 @@ end
 
 local function StyleBlizzardTooltips()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
+	if BUI:IsAddOnEnabled('TipTac') then return end
+
 	if E.private.skins.blizzard.tooltip then
 		for _, tt in pairs(tooltips) do
 			if tt and not tt.style then
