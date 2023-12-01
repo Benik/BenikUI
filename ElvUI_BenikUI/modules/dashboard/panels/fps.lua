@@ -125,12 +125,10 @@ local function OnUpdate(self, elapsed)
 	local db = self.db
 	if db.instance and IsInInstance() then return end
 
-	if LastUpdate > 0 then
-		LastUpdate = LastUpdate - elapsed
-		return
-	end
+	LastUpdate = LastUpdate - elapsed
 
 	if(LastUpdate < 0) then
+		LastUpdate = db.updateThrottle or 1
 		self.Status:SetMinMaxValues(0, 200)
 		local value = floor(GetFramerate())
 		local max = 100
@@ -152,8 +150,6 @@ local function OnUpdate(self, elapsed)
 			local r, g, b = E:HexToRGB(statusColors[fpscolor])
 			self.Status:SetStatusBarColor(r/255, g/255, b/255)
 		end
-
-		LastUpdate = db.updateThrottle or 1
 	end
 end
 

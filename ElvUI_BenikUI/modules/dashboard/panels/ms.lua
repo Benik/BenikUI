@@ -46,12 +46,10 @@ local function OnUpdate(self, elapsed)
 	local db = self.db
 	if db.instance and IsInInstance() then return end
 
-	if LastUpdate > 0 then
-		LastUpdate = LastUpdate - elapsed
-		return
-	end
+	LastUpdate = LastUpdate - elapsed
 
 	if(LastUpdate < 0) then
+		LastUpdate = db.updateThrottle or 1
 		self.Status:SetMinMaxValues(0, 200)
 		local value = 0
 		local displayFormat = ""
@@ -86,8 +84,6 @@ local function OnUpdate(self, elapsed)
 			local r, g, b = E:HexToRGB(statusColors[mscolor])
 			self.Status:SetStatusBarColor(r/255, g/255, b/255)
 		end
-		
-		LastUpdate = db.updateThrottle or 1
 	end
 end
 
