@@ -1,3 +1,12 @@
+v4.43 (Dec 10, 2023)
+Fixed FPS & MS Dashboard modules getting stuck on rare occations
+Properly disable Tooltip Style while TipTac is loaded
+Add shadow at the PurchaseButton in Trading Post
+Style the GroupLootHistoryFrame
+Don't Style the Tooltips when TipTac is loaded
+Let ElvUI handle the Chat Font Size
+fix chat show toggle with AddOnSkins embed
+
 v4.42 (Nov 9, 2023)
 toc update
 Added Dream Wardens in the Renown Datatext

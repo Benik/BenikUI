@@ -114,6 +114,8 @@ local function LoadSkin()
 		_G.LootFrame:BuiStyle("Outside")
 		_G.MasterLooterFrame:BuiStyle("Outside")
 		_G.BonusRollFrame:BuiStyle("Outside")
+		_G.GroupLootHistoryFrame:BuiStyle("Outside")
+		_G.GroupLootHistoryFrame.ResizeButton:CreateSoftShadow()
 	end
 
 	if db.mail then
