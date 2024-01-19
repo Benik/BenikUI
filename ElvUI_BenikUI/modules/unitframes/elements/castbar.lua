@@ -146,10 +146,8 @@ end
 
 --Castbar texture
 function mod:PostCast(unit, unitframe)
-	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
-
-	if not self.isTransparent then
-		self:SetStatusBarTexture(castTexture)
+	if E.db.benikui.unitframes.textures.enableCastbar and not self.isTransparent then
+		self:SetStatusBarTexture(LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar))
 	end
 
 	if not E.db.benikui.unitframes.castbarColor.enable then return; end
@@ -173,10 +171,8 @@ end
 function mod:PostCastInterruptible(unit, unitframe)
 	if unit == "vehicle" or unit == "player" then return end
 
-	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
-
-	if not self.isTransparent then
-		self:SetStatusBarTexture(castTexture)
+	if E.db.benikui.unitframes.textures.enableCastbar and not self.isTransparent then
+		self:SetStatusBarTexture(LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar))
 	end
 
 	if not E.db.benikui.unitframes.castbarColor.enable then return; end

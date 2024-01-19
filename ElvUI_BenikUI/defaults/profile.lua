@@ -183,9 +183,12 @@ P['benikui'] = {
 			},
 		},
 		['textures'] = {
+			['enableHealth'] = true,
 			['health'] = E.db.unitframe.statusbar,
 			['ignoreTransparency'] = false,
+			['enablePower'] = true,
 			['power'] = E.db.unitframe.statusbar,
+			['enableCastbar'] = true,
 			['castbar'] = 'BuiFlat',
 		},
 		['castbarColor'] = {
