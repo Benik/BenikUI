@@ -62,6 +62,7 @@ local DONATORS = {
 	'Vega - FailZorD',
 	'Ken P.',
 	'Brookerz',
+	'Chris St.',
 }
 tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -95,6 +96,7 @@ local CODING = {
 	'nadugi (koKR)',
 	'|cff00c0faDlarge|r (deDE)',
 	'Tsxy',
+	'Eltreum',
 }
 tsort(CODING, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local CODING_STRING = tconcat(CODING, ", ")

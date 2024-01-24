@@ -21,8 +21,6 @@ function BUI:UpdateBlizzardFonts()
 	local NORMALOFFSET = 1.25, -1.25 	-- shadow offset for small fonts
 	local BIGOFFSET = 2, -2 			-- shadow offset for large fonts
 
-	CHAT_FONT_HEIGHTS = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
-
 	if E.private.general.replaceBlizzFonts then
 		SetFont(_G.Fancy16Font, 						NORMAL, 14);								-- Allied Races Blizzard tryout font
 		SetFont(_G.Fancy18Font, 						NORMAL, 16);								-- Allied Races Blizzard tryout font

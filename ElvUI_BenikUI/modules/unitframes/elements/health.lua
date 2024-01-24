@@ -45,6 +45,8 @@ function BU:ChangePartyHealthBarTexture()
 end
 
 function BU:ChangeHealthBarTexture()
-	BU:ChangeRaidHealthBarTexture()
-	BU:ChangePartyHealthBarTexture()
+	if E.db.benikui.unitframes.textures.enableHealth then
+		BU:ChangeRaidHealthBarTexture()
+		BU:ChangePartyHealthBarTexture()
+	end
 end

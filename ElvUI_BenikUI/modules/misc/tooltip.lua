@@ -16,7 +16,7 @@ local function StyleTooltip()
 	GameTooltipStatusBar:SetFrameLevel(GameTooltip.style:GetFrameLevel() +2)
 
 	-- FreebTip support
-	if IsAddOnLoaded('FreebTip') then
+	if BUI:IsAddOnEnabled('FreebTip') then
 		GameTooltip.style:ClearAllPoints()
 		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
 		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
@@ -75,6 +75,8 @@ end
 
 local function StyleBlizzardTooltips()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
+	if BUI:IsAddOnEnabled('TipTac') then return end
+
 	if E.private.skins.blizzard.tooltip then
 		for _, tt in pairs(tooltips) do
 			if tt and not tt.style then
@@ -167,7 +169,7 @@ hooksecurefunc(S, "Ace3_StyleTooltip", mod.StyleAceTooltip)
 function mod:Initialize()
 	if E.db.benikui.general.benikuiStyle ~= true or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
 
-	if BUI:IsAddOnEnabled('TinyTooltip') then return end
+	if BUI:IsAddOnEnabled('TinyTooltip') or BUI:IsAddOnEnabled('TipTac') then return end
 
 	StyleTooltip()
 

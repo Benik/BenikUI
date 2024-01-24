@@ -29,6 +29,7 @@ end
 
 -- Units
 function BU:ChangeUnitPowerBarTexture()
+	if not E.db.benikui.unitframes.textures.enablePower then return end
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for _, frame in pairs(UF.units) do
 		if frame.Power then
@@ -94,9 +95,11 @@ function BU:ChangeBossPowerBarTexture()
 end
 
 function BU:ChangePowerBarTexture()
-	BU:ChangeUnitPowerBarTexture()
-	BU:ChangeRaidPowerBarTexture()
-	BU:ChangePartyPowerBarTexture()
-	BU:ChangeArenaPowerBarTexture()
-	BU:ChangeBossPowerBarTexture()
+	if E.db.benikui.unitframes.textures.enablePower then
+		BU:ChangeUnitPowerBarTexture()
+		BU:ChangeRaidPowerBarTexture()
+		BU:ChangePartyPowerBarTexture()
+		BU:ChangeArenaPowerBarTexture()
+		BU:ChangeBossPowerBarTexture()
+	end
 end
