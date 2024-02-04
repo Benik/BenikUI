@@ -87,12 +87,6 @@ end
 
 local function ObjectiveTrackerQuests()
 	if BUI:IsAddOnEnabled('!KalielsTracker') or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.benikui.skins.variousSkins.objectiveTracker ~= true then return end
-	
-	-- Objective Tracker Backdrop
-	--[[local tracker = _G.ObjectiveTrackerBlocksFrame
-	tracker:CreateBackdrop("Transparent")
-	tracker.backdrop:SetOutside(tracker, 30)
-	tracker.backdrop:BuiStyle("Outside")]]
 
 	local header = _G.ObjectiveTrackerBlocksFrame.QuestHeader
 	header.buibar = CreateFrame('Frame', nil, header)
@@ -151,7 +145,47 @@ local function ObjectiveTrackerQuests()
 end
 S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
 
+local function StyleBlockFrames()
+	if BUI:IsAddOnEnabled('!KalielsTracker') or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.benikui.skins.variousSkins.objectiveTracker ~= true then return end
+
+	local function StyleScenarioFrame()
+		local scenario = ScenarioStageBlock
+		local isStyled = false
+
+		if isStyled == false then
+			scenario:StripTextures()
+			scenario:CreateBackdrop('Transparent')
+			scenario.backdrop:ClearAllPoints()
+			scenario.backdrop:Point('TOPLEFT', scenario, 5, -5)
+			scenario.backdrop:Point('BOTTOMRIGHT', scenario.NormalBG, -5, 0)
+			scenario.backdrop:BuiStyle("Outside")
+			isStyled = true
+		end
+	end
+
+	hooksecurefunc(_G.SCENARIO_CONTENT_TRACKER_MODULE, 'Update', StyleScenarioFrame)
+	hooksecurefunc('ScenarioBlocksFrame_OnLoad', StyleScenarioFrame)
+
+	local function StyleChallengeModeFrame()
+		local challenge = ScenarioChallengeModeBlock
+		local isStyled = false
+
+		if isStyled == false then
+			challenge:StripTextures()
+			challenge:CreateBackdrop('Transparent')
+			challenge.backdrop:ClearAllPoints()
+			challenge.backdrop:Point('TOPLEFT', challenge, 5, -5)
+			challenge.backdrop:Point('BOTTOMRIGHT', challenge.NormalBG, -12, 0)
+			challenge.backdrop:BuiStyle("Outside")
+			isStyled = true
+		end
+	end
+
+	hooksecurefunc('Scenario_ChallengeMode_ShowBlock', StyleChallengeModeFrame)
+end
+
 function mod:InitializeObjectiveTracker()
 	if BUI:IsAddOnEnabled('!KalielsTracker') then return end
 	ObjectiveTrackerShadows()
+	StyleBlockFrames()
 end
