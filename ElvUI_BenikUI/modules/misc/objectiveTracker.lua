@@ -134,9 +134,7 @@ local function ObjectiveTrackerQuests()
 
 			local r1, g2, b2 = statusBar:GetStatusBarColor()
 			blockText:SetTextColor(r1, g2, b2)
-			blockText:FontTemplate(nil, 14, 'NONE')
 			frameText:SetTextColor(r1, g2, b2)
-			frameText:FontTemplate(nil, 14, 'NONE')
 		end
 	end
 	
