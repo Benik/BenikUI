@@ -164,12 +164,12 @@ local function SpellBookFrameShadows()
 	end
 
 	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
-			function()
-				for i = 1, MAX_SKILLLINE_TABS do
-					local tab = _G['SpellBookSkillLineTab'..i]
-					tab:CreateSoftShadow()
-				end
-			end)
+		function()
+			for i = 1, MAX_SKILLLINE_TABS do
+				local tab = _G['SpellBookSkillLineTab'..i]
+				tab:CreateSoftShadow()
+			end
+		end)
 end
 
 local function PVEFrameShadows()
