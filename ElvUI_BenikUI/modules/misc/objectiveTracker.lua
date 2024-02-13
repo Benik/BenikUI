@@ -23,6 +23,14 @@ local headers = {
 	_G.ObjectiveTrackerFrame.BlocksFrame.UIWidgetsHeader
 }
 
+local skinnableWidgets = {
+	[1217] = true, --Alliance warfront BfA
+	[1329] = true, --Horde warfront BfA
+	[2319] = true,
+	[3302] = true,
+	[4324] = true,
+}
+
 local function ObjectiveTrackerShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or not BUI.ShadowMode then return end
 
@@ -163,6 +171,19 @@ local function StyleBlockFrames()
 
 	hooksecurefunc(_G.SCENARIO_CONTENT_TRACKER_MODULE, 'Update', StyleScenarioFrame)
 	hooksecurefunc('ScenarioBlocksFrame_OnLoad', StyleScenarioFrame)
+
+	hooksecurefunc(ScenarioStageBlock.WidgetContainer, 'CreateWidget', function(self, widgetID)
+		local widgetFrame = self.widgetFrames[widgetID]
+
+		if skinnableWidgets[widgetID] then
+			for i = 1, widgetFrame:GetNumRegions() do
+				local region = select(i, widgetFrame:GetRegions())
+				if region and region:IsObjectType('Texture') then
+					region:SetAlpha(0)
+				end
+			end
+		end
+	end)
 
 	local function StyleChallengeModeFrame()
 		local challenge = ScenarioChallengeModeBlock
