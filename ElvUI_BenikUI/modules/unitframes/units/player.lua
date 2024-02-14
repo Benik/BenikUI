@@ -50,7 +50,6 @@ function BU:ArrangePlayer()
 
 	-- Power
 	BU:Configure_Power(frame)
-	BU:UnitPowerShadows(frame)
 
 	-- InfoPanel
 	BU:Configure_Infopanel(frame)
