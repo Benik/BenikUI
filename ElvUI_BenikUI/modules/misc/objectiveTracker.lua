@@ -29,6 +29,7 @@ local skinnableWidgets = {
 	[2319] = true,
 	[3302] = true,
 	[4324] = true,
+	[4947] = true,	-- Superbloom
 }
 
 local function ObjectiveTrackerShadows()
