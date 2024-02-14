@@ -62,10 +62,40 @@ end
 -- Unit Shadows
 function mod:UnitShadows()
 	for _, frame in pairs(UF.units) do
-		if frame then
+		if frame and not frame.shadow then
 			frame:CreateSoftShadow()
+			frame.Health.backdrop:CreateSoftShadow()
+			frame.Health.backdrop.shadow:Hide()
+			frame.Power.backdrop:CreateSoftShadow()
+			frame.Power.backdrop.shadow:Hide()
 			frame.Buffs.PostUpdateButton = mod.PostUpdateAura
 			frame.Debuffs.PostUpdateButton = mod.PostUpdateAura
+		end
+	end
+end
+
+-- Fix unit Power Shadows
+function mod:UnitPowerShadows(frame)
+	if frame and frame.shadow and frame.Health.backdrop.shadow and frame.Power.backdrop.shadow then
+		local power = frame.Power
+		local health = frame.Health
+		
+		if frame.USE_POWERBAR then
+			if frame.USE_POWERBAR_OFFSET or frame.USE_MINI_POWERBAR then
+				frame.shadow:Hide()
+				health.backdrop.shadow:Show()
+				power.backdrop.shadow:Show()
+			elseif frame.USE_INSET_POWERBAR or frame.POWERBAR_DETACHED then
+				frame.shadow:Show()
+				health.backdrop.shadow:Hide()
+				power.backdrop.shadow:Show()
+			else
+				frame.shadow:Show()
+				health.backdrop.shadow:Hide()
+				power.backdrop.shadow:Hide()
+			end
+		else
+			frame.shadow:Show()
 		end
 	end
 end
@@ -227,12 +257,19 @@ function mod:Setup()
 
 	if BUI.ShadowMode then
 		mod:UnitShadows()
+		
 		mod:PartyShadows()
 		mod:RaidShadows()
 		mod:BossShadows()
 		mod:ArenaShadows()
 		mod:TankShadows()
 		mod:TankTargetShadows()
+
+		for _, frame in pairs(UF.units) do
+			if frame then
+				mod:UnitPowerShadows(frame)
+			end
+		end
 
 		-- AuraBars Shadows
 		hooksecurefunc(UF, 'Configure_AuraBars', mod.Configure_AuraBars)

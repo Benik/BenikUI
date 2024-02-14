@@ -20,11 +20,6 @@ function BU:Construct_PlayerFrame()
 		frame.Portrait.backdrop.style:Hide()
 	end
 
-	if BUI.ShadowMode then
-		frame.Power.backdrop:CreateSoftShadow()
-		frame.Power.backdrop.shadow:Hide()
-	end
-
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
@@ -55,6 +50,7 @@ function BU:ArrangePlayer()
 
 	-- Power
 	BU:Configure_Power(frame)
+	BU:UnitPowerShadows(frame)
 
 	-- InfoPanel
 	BU:Configure_Infopanel(frame)
@@ -93,6 +89,14 @@ function BU:InitPlayer()
 
 		if unitframeType == "player" then
 			BU:Configure_Infopanel(frame)
+		end
+	end)
+
+	hooksecurefunc(UF, "Configure_Power", function(self, frame)
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "player" then
+			BU:UnitPowerShadows(frame)
 		end
 	end)
 end

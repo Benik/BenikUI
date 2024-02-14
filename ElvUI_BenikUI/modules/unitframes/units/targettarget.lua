@@ -36,6 +36,8 @@ function BU:ArrangeTargetTarget()
 		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH
 	end
 
+	BU:UnitPowerShadows(frame)
+
 	-- Portrait
 	BU:Configure_Portrait(frame, false)
 
@@ -56,6 +58,14 @@ function BU:InitTargetTarget()
 
 		if unitframeType == "targettarget" then
 			BU:Configure_Portrait(frame, false)
+		end
+	end)
+
+	hooksecurefunc(UF, "Configure_Power", function(self, frame)
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "targettarget" then
+			BU:UnitPowerShadows(frame)
 		end
 	end)
 end
