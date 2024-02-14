@@ -116,6 +116,8 @@ function mod:PartyShadows()
 				unitbutton.Health.backdrop.shadow:Hide()
 				unitbutton.Power.backdrop:CreateSoftShadow()
 				unitbutton.Power.backdrop.shadow:Hide()
+				unitbutton.Portrait.backdrop:CreateSoftShadow()
+				unitbutton.Portrait.backdrop.shadow:Hide()
 				unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
 				unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 			end

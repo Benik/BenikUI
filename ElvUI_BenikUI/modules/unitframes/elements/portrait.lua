@@ -39,11 +39,7 @@ function BU:Configure_Portrait(frame, isPlayer)
 				portrait.backdrop:SetAllPoints(frame.portraitmover)
 
 				if portrait.backdrop.shadow then
-					if frame.PORTRAIT_SHADOW then
-						portrait.backdrop.shadow:Show()
-					else
-						portrait.backdrop.shadow:Hide()
-					end
+					portrait.backdrop.shadow:SetShown(frame.PORTRAIT_SHADOW)
 				end
 
 				portrait.backdrop:SetFrameStrata(frame.DETACHED_PORTRAIT_STRATA)
@@ -92,10 +88,14 @@ function BU:Configure_Portrait(frame, isPlayer)
 					portrait:SetParent(frame)
 				end
 
+				if portrait.backdrop.shadow then
+					portrait.backdrop.shadow:SetShown(E.db.unitframe.units.party.portrait.height > 0)
+				end
+
 				if frame.ORIENTATION == "LEFT" then
 					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", UF.SPACING, frame.PORTRAIT_HEIGHT or frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+UF.SPACING) or -UF.SPACING)
 					if frame.PORTRAIT_AND_INFOPANEL then
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.InfoPanel, "BOTTOMLEFT", - UF.SPACING*3, -UF.BORDER)
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.InfoPanel, "BOTTOMLEFT", UF.BORDER - UF.SPACING*3, -UF.BORDER)
 					elseif frame.USE_MINI_POWERBAR or frame.USE_POWERBAR_OFFSET or not frame.USE_POWERBAR or frame.USE_INSET_POWERBAR or frame.POWERBAR_DETACHED then
 						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", UF.BORDER - UF.SPACING*3, 0)
 					else

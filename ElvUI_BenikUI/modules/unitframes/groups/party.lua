@@ -33,4 +33,8 @@ end
 function BU:InitParty()
 	if not E.db.unitframe.units.party.enable then return end
 	hooksecurefunc(UF, 'Update_PartyFrames', BU.Update_PartyFrames)
+
+	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
+		BU:Configure_Portrait(frame)
+	end)
 end
