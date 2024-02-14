@@ -170,6 +170,7 @@ function mod:ArenaShadows()
 		local unitbutton = _G["ElvUF_Arena"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
+			unitbutton.Trinket:CreateSoftShadow()
 			unitbutton.Health.backdrop:CreateSoftShadow()
 			unitbutton.Health.backdrop.shadow:Hide()
 			unitbutton.Power.backdrop:CreateSoftShadow()
