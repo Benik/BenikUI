@@ -23,6 +23,15 @@ local headers = {
 	_G.ObjectiveTrackerFrame.BlocksFrame.UIWidgetsHeader
 }
 
+local skinnableWidgets = {
+	[1217] = true, --Alliance warfront BfA
+	[1329] = true, --Horde warfront BfA
+	[2319] = true,
+	[3302] = true,
+	[4324] = true,
+	[4947] = true,	-- Superbloom
+}
+
 local function ObjectiveTrackerShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or not BUI.ShadowMode then return end
 
@@ -87,12 +96,6 @@ end
 
 local function ObjectiveTrackerQuests()
 	if BUI:IsAddOnEnabled('!KalielsTracker') or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.benikui.skins.variousSkins.objectiveTracker ~= true then return end
-	
-	-- Objective Tracker Backdrop
-	--[[local tracker = _G.ObjectiveTrackerBlocksFrame
-	tracker:CreateBackdrop("Transparent")
-	tracker.backdrop:SetOutside(tracker, 30)
-	tracker.backdrop:BuiStyle("Outside")]]
 
 	local header = _G.ObjectiveTrackerBlocksFrame.QuestHeader
 	header.buibar = CreateFrame('Frame', nil, header)
@@ -140,9 +143,7 @@ local function ObjectiveTrackerQuests()
 
 			local r1, g2, b2 = statusBar:GetStatusBarColor()
 			blockText:SetTextColor(r1, g2, b2)
-			blockText:FontTemplate(nil, 14, 'NONE')
 			frameText:SetTextColor(r1, g2, b2)
-			frameText:FontTemplate(nil, 14, 'NONE')
 		end
 	end
 	
@@ -151,7 +152,60 @@ local function ObjectiveTrackerQuests()
 end
 S:AddCallback("BenikUI_ObjectiveTracker", ObjectiveTrackerQuests)
 
+local function StyleBlockFrames()
+	if BUI:IsAddOnEnabled('!KalielsTracker') or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.benikui.skins.variousSkins.objectiveTracker ~= true then return end
+
+	local function StyleScenarioFrame()
+		local scenario = ScenarioStageBlock
+		local isStyled = false
+
+		if isStyled == false then
+			scenario:StripTextures()
+			scenario:CreateBackdrop('Transparent')
+			scenario.backdrop:ClearAllPoints()
+			scenario.backdrop:Point('TOPLEFT', scenario, 5, -5)
+			scenario.backdrop:Point('BOTTOMRIGHT', scenario.NormalBG, -5, 0)
+			scenario.backdrop:BuiStyle("Outside")
+			isStyled = true
+		end
+	end
+
+	hooksecurefunc(_G.SCENARIO_CONTENT_TRACKER_MODULE, 'Update', StyleScenarioFrame)
+	hooksecurefunc('ScenarioBlocksFrame_OnLoad', StyleScenarioFrame)
+
+	hooksecurefunc(ScenarioStageBlock.WidgetContainer, 'CreateWidget', function(self, widgetID)
+		local widgetFrame = self.widgetFrames[widgetID]
+
+		if skinnableWidgets[widgetID] then
+			for i = 1, widgetFrame:GetNumRegions() do
+				local region = select(i, widgetFrame:GetRegions())
+				if region and region:IsObjectType('Texture') then
+					region:SetAlpha(0)
+				end
+			end
+		end
+	end)
+
+	local function StyleChallengeModeFrame()
+		local challenge = ScenarioChallengeModeBlock
+		local isStyled = false
+
+		if isStyled == false then
+			challenge:StripTextures()
+			challenge:CreateBackdrop('Transparent')
+			challenge.backdrop:ClearAllPoints()
+			challenge.backdrop:Point('TOPLEFT', challenge, 5, -5)
+			challenge.backdrop:Point('BOTTOMRIGHT', challenge.NormalBG, -12, 0)
+			challenge.backdrop:BuiStyle("Outside")
+			isStyled = true
+		end
+	end
+
+	hooksecurefunc('Scenario_ChallengeMode_ShowBlock', StyleChallengeModeFrame)
+end
+
 function mod:InitializeObjectiveTracker()
 	if BUI:IsAddOnEnabled('!KalielsTracker') then return end
 	ObjectiveTrackerShadows()
+	StyleBlockFrames()
 end

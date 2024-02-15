@@ -1,3 +1,17 @@
+v4.45 (Feb 15, 2024)
+"Fixed" Party Portrait shadow glitch, when resized
+Skin Superbloom Objective Tracker Block
+Added shadow in the Arena Trinket icon
+Fixed Group Units Power shadow glitches
+Fixed Units Power shadow glitches. At last :P
+Properly styled ObjectiveTracker blocks on some widgets. Credit: SLE
+Fixed Custom Texts shadows for Player/Target/Party, during install
+The default ObjectiveTracker font and its flags look better. I think :P
+Fixed a possible error with Castbar Icon
+Styled ObjeciveTracker Block Frames. Mythic+ needs testing
+Fixed QuestNPCModelTextFrame Shadows
+Arranged Patrons & Donators
+
 v4.44 (Jan 24, 2024)
 toc bump
 It's been 10 years? WOW

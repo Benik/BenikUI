@@ -58,4 +58,12 @@ function BU:InitTargetTarget()
 			BU:Configure_Portrait(frame, false)
 		end
 	end)
+
+	hooksecurefunc(UF, "Configure_Power", function(self, frame)
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "targettarget" then
+			BU:UnitPowerShadows(frame)
+		end
+	end)
 end
