@@ -431,7 +431,7 @@ local function ufTargetTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return E.db.benikui.unitframes.target.getPlayerPortraitSize or not E.db.benikui.unitframes.target.detachPortrait end,
-				min = 10, max = 1000 step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 7,
