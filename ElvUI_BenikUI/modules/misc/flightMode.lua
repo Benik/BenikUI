@@ -212,7 +212,7 @@ local VisibleFrames = {}
 
 function mod:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
-	local tracking = MinimapCluster.Tracking and MinimapCluster.Tracking.Button or _G.MiniMapTrackingFrame or _G.MiniMapTracking
+	local tracking = MinimapCluster.TrackingFrame and MinimapCluster.TrackingFrame.Button or _G.MiniMapTrackingFrame or _G.MiniMapTracking
 
 	if(status) then
 		mod.inFlightMode = true
