@@ -1,3 +1,8 @@
+v4.46 (Mar 20, 2024)
+toc bump for 10.2.6
+Raised detached portrait max width to 1000 (for Jiberish)
+Fix Flightmode error. Credit: Tsxy
+
 v4.45 (Feb 15, 2024)
 "Fixed" Party Portrait shadow glitch, when resized
 Skin Superbloom Objective Tracker Block
