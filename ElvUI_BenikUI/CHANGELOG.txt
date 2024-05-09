@@ -1,3 +1,6 @@
+v4.47 (May 9, 2024)
+Fix pet stable frame for 10.2.7. Credit Tsxy
+
 v4.46 (Mar 20, 2024)
 toc bump for 10.2.6
 Raised detached portrait max width to 1000 (for Jiberish)
