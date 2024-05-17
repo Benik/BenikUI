@@ -33,7 +33,8 @@ local function CreateStatusFrame()
 	StatusFrame.TitleLogoFrame.Title:SetFormattedText("|cfffe7b2c- ElvUI Status Report -|r")
 
 	-- Content lines
-	StatusFrame.Section1.Content.Line2.Text:SetFormattedText("Other AddOns Enabled: |cff4beb2c%s|r", AreOtherAddOnsEnabled())
+	local addons, plugins = E:AreOtherAddOnsEnabled()
+	StatusFrame.Section1.Content.Line2.Text:SetFormattedText('Other AddOns Enabled: |cff%s|r', (not addons and plugins and 'ff9933Plugins') or (addons and 'ff3333Yes') or '33ff33No')
 end
 
 hooksecurefunc(E, "UpdateStatusFrame", CreateStatusFrame)
