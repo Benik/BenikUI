@@ -2024,11 +2024,11 @@ local function SetupAddons()
 		tinsert(addonNames, 'Deadly Boss Mods')
 	end
 
-	-- Details
+	--[[ Details
 	if BUI:IsAddOnEnabled('Details') then
 		BUI:LoadDetailsProfile()
 		tinsert(addonNames, 'Details')
-	end
+	end]]
 
 	-- InFlight
 	if BUI:IsAddOnEnabled('InFlight_Load') then

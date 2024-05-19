@@ -1,7 +1,7 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<script file="AddOnSkins.lua"/>
 	<script file="DeadlyBossMods.lua"/>
-	<script file="Details.lua"/>
+	<!--<script file="Details.lua"/>-->
 	<script file="LocationPlus.lua"/>
 	<script file="MikScrollingBattleText.lua"/>
 	<script file="Pawn.lua"/>
