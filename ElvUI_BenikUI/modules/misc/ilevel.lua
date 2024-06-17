@@ -6,8 +6,8 @@ local _G = _G
 local next, wipe = next, wipe
 
 local GetInventoryItemLink = GetInventoryItemLink
-local GetItemInfo = GetItemInfo
-local GetItemQualityColor = GetItemQualityColor
+local GetItemInfo = C_Item.GetItemInfo or GetItemInfo
+local GetItemQualityColor = C_Item.GetItemQualityColor or GetItemQualityColor
 local C_Timer_After = C_Timer.After
 
 -- GLOBALS: CharacterNeckSlot

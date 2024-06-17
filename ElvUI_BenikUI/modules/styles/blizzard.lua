@@ -5,6 +5,8 @@ local S = E:GetModule('Skins')
 local _G = _G
 local pairs = pairs
 local C_TimerAfter = C_Timer.After
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+
 
 local MAX_STATIC_POPUPS = 4
 
@@ -208,7 +210,7 @@ local function LoadSkin()
 	end
 
 	if db.spellbook then
-		_G.SpellBookFrame:BuiStyle("Outside")
+		_G.PlayerSpellsFrame:BuiStyle("Outside")
 	end
 
 	if db.tabard then

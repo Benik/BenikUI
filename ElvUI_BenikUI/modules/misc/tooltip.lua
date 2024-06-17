@@ -6,7 +6,8 @@ local S = E:GetModule('Skins')
 local _G = _G
 local pairs = pairs
 local GameTooltip, GameTooltipStatusBar = _G.GameTooltip, _G.GameTooltipStatusBar
-local IsAddOnLoaded = IsAddOnLoaded
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+
 
 local function StyleTooltip()
 	if GameTooltip.style then return end

@@ -322,6 +322,6 @@ function mod:LoadTokens()
 	mod:CreateTokensDashboard()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokens)
-	hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
+	-- hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
 	hooksecurefunc(E, 'ToggleMoveMode', CheckTokensPosition)
 end

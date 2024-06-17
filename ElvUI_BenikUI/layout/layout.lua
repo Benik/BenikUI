@@ -16,6 +16,8 @@ local InCombatLockdown = InCombatLockdown
 local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
 local C_TimerAfter = C_Timer.After
 local GameMenuButtonAddons = GameMenuButtonAddons
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+
 
 -- GLOBALS: hooksecurefunc, selectioncolor
 -- GLOBALS: AddOnSkins, MAINMENU_BUTTON, LFG_TITLE, BuiLeftChatDTPanel

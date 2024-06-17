@@ -4,6 +4,8 @@ function BUI:LoadBigWigsProfile()
 	local font, fontsize
 	local key = BUI.AddonProfileKey
 
+	local LoadAddOn = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
+
 	LoadAddOn("BigWigs_Options")
 	LoadAddOn("BigWigs")
 
