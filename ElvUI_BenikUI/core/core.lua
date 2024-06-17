@@ -1,4 +1,4 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local LSM = E.LSM
 
@@ -40,6 +40,7 @@ BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
 BUI.CT = BUI:IsAddOnEnabled('ClassTactics')
 BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
 BUI.ZG = BUI:IsAddOnEnabled('ZygorGuidesViewer')
+BUI.WA = BUI:IsAddOnEnabled('WeakAuras')
 
 local classColor = E:ClassColor(E.myclass, true)
 

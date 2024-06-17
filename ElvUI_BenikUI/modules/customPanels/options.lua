@@ -1,4 +1,4 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local mod = BUI:GetModule('CustomPanels');
 
@@ -262,7 +262,7 @@ local function updateOptions()
 								},
 								fontsize = {
 									order = 5,
-									name = L.FONT_SIZE,
+									name = L['Font Size'],
 									disabled = function() return E.db.benikui.panels[panelname].title.useDTfont end,
 									type = 'range',
 									min = 6, max = 30, step = 1,
@@ -425,7 +425,7 @@ end
 local function panelsTable()
 	E.Options.args.benikui.args.panels = {
 		type = "group",
-		name = BUI:cOption(L["Custom Panels"], "orange"),
+		name = BUI:cOption(L['Custom Panels'], "orange"),
 		order = 70,
 		childGroups = "select",
 		args = {

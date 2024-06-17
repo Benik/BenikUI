@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards')
 local LSM = E.LSM
 
@@ -10,10 +10,18 @@ local SPACING = 1
 local classColor = E:ClassColor(E.myclass, true)
 
 -- Dashboards bar frame tables
-BUI.SystemDB = {}
-BUI.TokensDB = {}
-BUI.ProfessionsDB = {}
-BUI.FactionsDB = {}
+mod.SystemDB = {}
+mod.TokensDB = {}
+mod.ProfessionsDB = {}
+mod.FactionsDB = {}
+mod.ItemsDB = {}
+
+local Dashboards = {
+	{'BUI_ReputationsDashboard', 'reputations'},
+	{'BUI_SystemDashboard', 'system'},
+	{'BUI_ProfessionsDashboard', 'professions'},
+	{'BUI_TokensDashboard', 'tokens'},
+}
 
 function mod:EnableDisableCombat(holder, option)
 	local db = E.db.benikui.dashboards[option]
@@ -27,9 +35,13 @@ function mod:EnableDisableCombat(holder, option)
 	end
 end
 
-function mod:UpdateHolderDimensions(holder, option, tableName)
+function mod:UpdateHolderDimensions(holder, option, tableName, isSystem)
 	local db = E.db.benikui.dashboards[option]
-	holder:Width(db.width)
+	if isSystem and db.orientation == 'RIGHT' then
+		holder:Width(db.width * (#mod.SystemDB) + ((#mod.SystemDB -1) *db.spacing))
+	else
+		holder:Width(db.width)
+	end
 
 	for _, frame in pairs(tableName) do
 		frame:Width(db.width)
@@ -64,31 +76,34 @@ function mod:ToggleStyle(holder, option)
 end
 
 function mod:FontStyle(tableName)
+	local db = E.db.benikui.dashboards.dashfont
 	for _, bar in pairs(tableName) do
 		if E.db.benikui.dashboards.dashfont.useDTfont then
 			bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
-			bar.Text:FontTemplate(LSM:Fetch('font', E.db.benikui.dashboards.dashfont.dbfont), E.db.benikui.dashboards.dashfont.dbfontsize, E.db.benikui.dashboards.dashfont.dbfontflags)
+			bar.Text:FontTemplate(LSM:Fetch('font', db.dbfont), db.dbfontsize, db.dbfontflags)
 		end
 	end
 end
 
 function mod:FontColor(tableName)
+	local db = E.db.benikui.dashboards
 	for _, bar in pairs(tableName) do
-		if E.db.benikui.dashboards.textColor == 1 then
+		if db.textColor == 1 then
 			bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		else
-			bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
+			bar.Text:SetTextColor(BUI:unpackColor(db.customTextColor))
 		end
 	end
 end
 
 function mod:BarColor(tableName)
+	local db = E.db.benikui.dashboards
 	for _, bar in pairs(tableName) do
-		if E.db.benikui.dashboards.barColor == 1 then
+		if db.barColor == 1 then
 			bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		else
-			bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
+			bar.Status:SetStatusBarColor(db.customBarColor.r, db.customBarColor.g, db.customBarColor.b)
 		end
 	end
 end
@@ -98,6 +113,19 @@ function mod:BarHeight(option, tableName)
 	for _, bar in pairs(tableName) do
 		bar.dummy:Height(db.barHeight)
 		bar.spark:Height(5 + db.barHeight)
+	end
+end
+
+function mod:UpdateVisibility()
+	for i, v in ipairs(Dashboards) do
+		local holder, option = unpack(v)
+		local db = E.db.benikui.dashboards[option]
+		local inInstance = IsInInstance()
+		local NotinInstance = not (db.instance and inInstance)
+
+		if _G[holder] then
+			_G[holder]:SetShown(NotinInstance)
+		end
 	end
 end
 
@@ -121,6 +149,25 @@ function mod:IconPosition(tableName, dashboard)
 	end
 end
 
+function mod:CheckPositionForTooltip(frame)
+	if not frame then return end
+
+	local x = frame:GetCenter()
+	if not x then return end
+
+	local position, Xoffset
+
+	if x > (E.screenWidth * 0.5) then
+		position = 'ANCHOR_LEFT'
+		Xoffset = BUI.ShadowMode and -3 or 0
+	else
+		position = 'ANCHOR_RIGHT'
+		Xoffset = BUI.ShadowMode and 3 or 0
+	end
+
+	return position, Xoffset
+end
+
 function mod:CreateDashboardHolder(holderName, option)
 	local db = E.db.benikui.dashboards[option]
 
@@ -131,17 +178,20 @@ function mod:CreateDashboardHolder(holderName, option)
 	holder.backdrop:BuiStyle('Outside')
 	holder:Hide()
 
-	if db.combat then
-		holder:SetScript('OnEvent',function(self, event)
+	holder:SetScript('OnEvent', function(self, event)
+		local inInstance = IsInInstance()
+		if (db.instance and inInstance) then return end
+	
+		if db.combat then
 			if event == 'PLAYER_REGEN_DISABLED' then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-				--self.fadeInfo.finishedFunc = mod.holderOnFade
 			elseif event == 'PLAYER_REGEN_ENABLED' then
 				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 				self:Show()
 			end
-		end)
-	end
+		end
+	end)
+
 	mod:EnableDisableCombat(holder, option)
 
 	E.FrameLocks[holder] = { parent = E.UIParent }
@@ -192,6 +242,7 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 		bar.IconBG.Icon = bar.IconBG:CreateTexture(nil, 'ARTWORK')
 		bar.IconBG.Icon:SetInside()
 		bar.IconBG.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		bar.IconBG:EnableMouse(false)
 		bar.hasIcon = hasIcon
 	end
 
@@ -218,11 +269,37 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 	return bar
 end
 
+local function ConvertDB()
+	if E.db.benikui.dashboards.DashboardDBConverted == nil then
+		if E.db.benikui.dashboards.enableSystem ~= nil then
+			E.db.benikui.dashboards.system.enable = E.db.benikui.dashboards.enableSystem
+			E.db.benikui.dashboards.enableSystem = nil
+		end
+		if E.db.benikui.dashboards.enableProfessions ~= nil then
+			E.db.benikui.dashboards.professions.enable = E.db.benikui.dashboards.enableProfessions
+			E.db.benikui.dashboards.enableProfessions = nil
+		end
+		if E.db.benikui.dashboards.enableTokens ~= nil then
+			E.db.benikui.dashboards.tokens.enable = E.db.benikui.dashboards.enableTokens
+			E.db.benikui.dashboards.enableTokens = nil
+		end
+		if E.db.benikui.dashboards.enableReputations ~= nil then
+			E.db.benikui.dashboards.reputations.enable = E.db.benikui.dashboards.enableReputations
+			E.db.benikui.dashboards.enableReputations = nil
+		end
+		E.db.benikui.dashboards.DashboardDBConverted = BUI.Version
+	end
+end
+
 function mod:Initialize()
+	ConvertDB()
 	mod:LoadSystem()
 	mod:LoadProfessions()
 	mod:LoadTokens()
 	mod:LoadReputations()
+	mod:LoadItems()
+
+	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')
 end
 
 BUI:RegisterModule(mod:GetName())

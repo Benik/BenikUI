@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards');
 
 local _G = _G
@@ -23,10 +23,9 @@ local totalMemory = 0
 local LastUpdate = 1
 
 local statusColors = {
-	'|cff0CD809',	-- green
-	'|cffE8DA0F',	-- yellow
-	'|cffFF9000',	-- orange
-	'|cffD80909'	-- red
+	'cff0CD809',	-- green
+	'cffE8DA0F',	-- yellow
+	'cffD80909',	-- red
 }
 
 local function formatMem(memory)
@@ -74,76 +73,96 @@ local function UpdateMemory()
 	sort(memoryTable, sortByMemory)
 end
 
+local function OnMouseDown(self)
+	if(not InCombatLockdown()) then
+		collectgarbage('collect')
+	end
+end
+
+local function OnEnter(self)
+	local db = self.db
+	local holder = self:GetParent()
+
+	if(not InCombatLockdown()) then
+		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
+		GameTooltip:ClearLines()
+
+		RebuildAddonList()
+		UpdateMemory()
+
+		GameTooltip:AddDoubleLine(L["Total Memory:"], formatMem(totalMemory), 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
+		GameTooltip:AddLine(' ')
+
+		local red, green
+		for i = 1, #memoryTable do
+			if(memoryTable[i][4] ) then
+				red = memoryTable[i][3] / totalMemory
+				green = 1 - red
+				GameTooltip:AddDoubleLine(memoryTable[i][2], formatMem(memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0)
+			end
+		end
+		GameTooltip:AddLine(' ')
+		GameTooltip:AddLine(L['Tip: Click to free memory'], 0.7, 0.7, 1)
+
+		GameTooltip:Show()
+		if db.mouseover then
+			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		end
+	end
+end
+
+local function OnLeave(self)
+	local db = self.db
+	local holder = self:GetParent()
+
+	if db.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+	end
+	GameTooltip:Hide()
+end
+
+local function OnUpdate(self, elapsed)
+	local db = self.db
+	if db.instance and IsInInstance() then return end
+
+	LastUpdate = LastUpdate - elapsed
+
+	if(LastUpdate < 0) then
+		LastUpdate = db.updateThrottle or 1
+		self.Status:SetMinMaxValues(0, 200)
+		local value = floor(GetFramerate())
+		local max = 100
+		local fpscolor
+		self.Status:SetValue(value)
+
+		if(value * 100 / max >= 45) then
+			fpscolor = 1
+		elseif value * 100 / max < 45 and value * 100 / max > 30 then
+			fpscolor = 2
+		else
+			fpscolor = 3
+		end
+
+		local displayFormat = join('', 'FPS: |', statusColors[fpscolor], '%d|r')
+		self.Text:SetFormattedText(displayFormat, value)
+
+		if db.overrideColor then
+			local r, g, b = E:HexToRGB(statusColors[fpscolor])
+			self.Status:SetStatusBarColor(r/255, g/255, b/255)
+		end
+	end
+end
+
 function mod:CreateFps()
 	local bar = _G['BUI_FPS']
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
+	bar.db = db
+	bar:SetParent(holder)
 
-	bar:SetScript('OnMouseDown', function (self)
-		if(not InCombatLockdown()) then
-			collectgarbage('collect')
-		end
-	end)
+	bar:SetScript('OnMouseDown', OnMouseDown)
+	bar:SetScript('OnEnter', OnEnter)
+	bar:SetScript('OnLeave', OnLeave)
 
-	bar:SetScript('OnEnter', function(self)
-		if(not InCombatLockdown()) then
-
-			GameTooltip:SetOwner(bar, 'ANCHOR_RIGHT', 5, 0)
-			GameTooltip:ClearLines()
-
-			RebuildAddonList()
-			UpdateMemory()
-
-			GameTooltip:AddDoubleLine(L["Total Memory:"], formatMem(totalMemory), 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
-			GameTooltip:AddLine(' ')
-
-			local red, green
-			for i = 1, #memoryTable do
-				if(memoryTable[i][4] ) then
-					red = memoryTable[i][3] / totalMemory
-					green = 1 - red
-					GameTooltip:AddDoubleLine(memoryTable[i][2], formatMem(memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0)
-				end
-			end
-			GameTooltip:AddLine(' ')
-			GameTooltip:AddLine(L['Tip: Click to free memory'], 0.7, 0.7, 1)
-
-			GameTooltip:Show()
-			if db.mouseover then
-				E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-			end
-		end
-	end)
-
-	bar:SetScript('OnLeave', function(self)
-		if db.mouseover then
-			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-		end
-		GameTooltip:Hide()
-	end)
-
-	bar.Status:SetScript('OnUpdate', function(self, elapsed)
-		LastUpdate = LastUpdate - elapsed
-
-		if(LastUpdate < 0) then
-			self:SetMinMaxValues(0, 200)
-			local value = floor(GetFramerate())
-			local max = 120
-			local fpscolor = 4
-			self:SetValue(value)
-
-			if(value * 100 / max >= 45) then
-				fpscolor = 1
-			elseif value * 100 / max < 45 and value * 100 / max > 30 then
-				fpscolor = 2
-			else
-				fpscolor = 3
-			end
-
-			local displayFormat = join('', 'FPS: ', statusColors[fpscolor], '%d|r')
-			bar.Text:SetFormattedText(displayFormat, value)
-
-			LastUpdate = 1
-		end
-	end)
+	bar:SetScript('OnUpdate', OnUpdate)
 end

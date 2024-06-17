@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
 local _G = _G
 local unpack = unpack
@@ -16,21 +16,21 @@ local function SkadaDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.skada then return end
 	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 		local skada = win.bargroup
-		skada.Backdrop:BuiStyle('Outside')
+		skada.backdrop:BuiStyle('Outside')
 		if win.db.enabletitle then
 			skada.button:StripTextures()
 		end
-		if not skada.Backdrop.ishooked then
-			hooksecurefunc(AS, 'Embed_Check', function(self, message)
-				if skada.Backdrop.style then
+		if not skada.backdrop.ishooked then
+			hooksecurefunc(AS, 'CheckEmbed', function(self, message)
+				if skada.backdrop.style then
 					if AS.db.EmbedSystem and AS.db.EmbedSkada then
-						skada.Backdrop.style:Hide()
+						skada.backdrop.style:Hide()
 					else
-						skada.Backdrop.style:Show()
+						skada.backdrop.style:Show()
 					end
 				end
 			end)
-			skada.Backdrop.ishooked = true
+			skada.backdrop.ishooked = true
 		end
 	end)
 end
@@ -51,7 +51,6 @@ local function RecountDecor()
 	StyleRecount('recountMain', _G["Recount_MainWindow"])
 	_G["Recount_MainWindow"].TitleBackground:StripTextures()
 	_G["Recount_ConfigWindow"].TitleBackground:StripTextures()
-	_G["Recount_DetailWindow"].TitleBackground:StripTextures()
 	StyleRecount(nil, _G["Recount_DetailWindow"])
 	StyleRecount(nil, _G["Recount_ConfigWindow"])
 	hooksecurefunc(Recount, 'ShowReport', function(self)
@@ -61,7 +60,7 @@ local function RecountDecor()
 		end
 	end)
 
-	hooksecurefunc(AS, 'Embed_Check', function(self, message)
+	hooksecurefunc(AS, 'CheckEmbed', function(self, message)
 		-- Fix for blurry pixel fonts
 		Recount.db.profile.Scaling = 0.95
 		if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -144,24 +143,6 @@ local function DbmDecor(_, event)
 			if not DBMRangeCheckRadar.style then
 				DBMRangeCheckRadar:BuiStyle('Inside')
 			end
-
-			if AS:CheckOption('DBMRadarTrans') then
-				if DBMRangeCheckRadar.style and E.db.benikui.general.benikuiStyle then
-					DBMRangeCheckRadar.style:Hide()
-				end
-
-				if DBMRangeCheckRadar.shadow then
-					DBMRangeCheckRadar.shadow:Hide()
-				end
-			else
-				if DBMRangeCheckRadar.style and E.db.benikui.general.benikuiStyle then
-					DBMRangeCheckRadar.style:Show()
-				end
-
-				if DBMRangeCheckRadar.shadow then
-					DBMRangeCheckRadar.shadow:Show()
-				end
-			end
 		end
 
 		if DBMRangeCheck then
@@ -196,6 +177,7 @@ local function BugSackDecor()
 end
 
 local function LibrariesDecor()
+	if BUI:IsAddOnEnabled('TipTac') then return end
 	local DBIcon = LibStub("LibDBIcon-1.0", true)
 	if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType('GameTooltip') then
 		DBIcon.tooltip:HookScript("OnShow", function(self)
@@ -215,24 +197,24 @@ end
 local function ImmersionDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.immersion then return end
 	local frame = _G['ImmersionFrame']
-	frame.TalkBox.BackgroundFrame.Backdrop:BuiStyle('Inside')
-	frame.TalkBox.Hilite:SetOutside(frame.TalkBox.BackgroundFrame.Backdrop)
-	frame.TalkBox.Elements.Backdrop:BuiStyle('Inside')
+	frame.TalkBox.BackgroundFrame.backdrop:BuiStyle('Inside')
+	frame.TalkBox.Hilite:SetOutside(frame.TalkBox.BackgroundFrame.backdrop)
+	frame.TalkBox.Elements.backdrop:BuiStyle('Inside')
 
 	if BUI.ShadowMode and AS:CheckOption('Shadows') then
-		frame.TalkBox.BackgroundFrame.Backdrop.Shadow:Hide()
-		frame.TalkBox.Elements.Backdrop.Shadow:Hide()
+		frame.TalkBox.BackgroundFrame.backdrop.Shadow:Hide()
+		frame.TalkBox.Elements.backdrop.Shadow:Hide()
 	end
 
 	frame:HookScript('OnUpdate', function(self)
 		for _, Button in ipairs(self.TitleButtons.Buttons) do
-			if Button.Backdrop and not Button.Backdrop.isStyled then
-				Button.Backdrop:BuiStyle('Inside')
-				Button.Hilite:SetOutside(Button.Backdrop)
-				if Button.Backdrop.Shadow then
-					Button.Backdrop.Shadow:Hide()
+			if Button.backdrop and not Button.backdrop.isStyled then
+				Button.backdrop:BuiStyle('Inside')
+				Button.Hilite:SetOutside(Button.backdrop)
+				if Button.backdrop.Shadow then
+					Button.backdrop.Shadow:Hide()
 				end
-				Button.Backdrop.isStyled = true
+				Button.backdrop.isStyled = true
 			end
 		end
 	end)
@@ -306,11 +288,11 @@ local function HekiliDecor()
 	hooksecurefunc(Hekili, "CreateButton", function(self, dispID, id)
 		if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.hekili then return end
 		local b = Hekili.DisplayPool[dispID].Buttons[id]
-		if b then
-			b.Backdrop:BuiStyle('Outside')
+		if b and not b.backdrop then
+			b:CreateBackdrop()
+			b.backdrop:BuiStyle('Outside')
 		end
 	end)
-
 end
 
 local function WoWProDecor()
@@ -323,36 +305,36 @@ end
 
 -- Replace the close button
 function AS:SkinCloseButton(Button, Reposition)
-	if Button.Backdrop then return end
+	if Button.backdrop then return end
 
 	AS:SkinBackdropFrame(Button)
 
-	Button.Backdrop:Point('TOPLEFT', 7, -8)
-	Button.Backdrop:Point('BOTTOMRIGHT', -7, 8)
-	Button.Backdrop:SetTemplate('NoBackdrop')
+	Button.backdrop:Point('TOPLEFT', 7, -8)
+	Button.backdrop:Point('BOTTOMRIGHT', -7, 8)
+	Button.backdrop:SetTemplate('NoBackdrop')
 
 	Button:SetHitRectInsets(6, 6, 7, 7)
 
-	Button.Backdrop.img = Button.Backdrop:CreateTexture(nil, 'OVERLAY')
-	Button.Backdrop.img:Size(12, 12)
-	Button.Backdrop.img:Point("CENTER")
-	Button.Backdrop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Close.tga')
-	Button.Backdrop.img:SetVertexColor(1, 1, 1)
+	Button.backdrop.img = Button.backdrop:CreateTexture(nil, 'OVERLAY')
+	Button.backdrop.img:Size(12, 12)
+	Button.backdrop.img:Point("CENTER")
+	Button.backdrop.img:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Close.tga')
+	Button.backdrop.img:SetVertexColor(1, 1, 1)
 
 	Button:HookScript('OnEnter', function(self)
-		self.Backdrop.img:SetVertexColor(1, .2, .2)
+		self.backdrop.img:SetVertexColor(1, .2, .2)
 		if E.myclass == 'PRIEST' then
-			self.Backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
-			self.Backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+			self.backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+			self.backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
 		else
-			self.Backdrop.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
-			self.Backdrop:SetBackdropBorderColor(classColor.r, classColor.g, classColor.b)
+			self.backdrop.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			self.backdrop:SetBackdropBorderColor(classColor.r, classColor.g, classColor.b)
 		end
 	end)
 
 	Button:HookScript('OnLeave', function(self)
-		self.Backdrop.img:SetVertexColor(1, 1, 1)
-		self.Backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+		self.backdrop.img:SetVertexColor(1, 1, 1)
+		self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
 	end)
 
 	if Reposition then
@@ -368,7 +350,7 @@ if AS:CheckAddOn('Altoholic') then AS:RegisterSkin('Altoholic', AltoholicDecor, 
 if AS:CheckAddOn('Clique') then AS:RegisterSkin('Clique', CliqueDecor, 2) end
 if AS:CheckAddOn('oRA3') then AS:RegisterSkin('oRA3', oRA3Decor, 2) end
 if AS:CheckAddOn('Pawn') then AS:RegisterSkin('Pawn', PawnDecor, 2) end
-if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers')) then AS:RegisterSkin('DBM', DbmDecor, 'ADDON_LOADED') end
+if (AS:CheckAddOn('DBM-Core') and AS:CheckAddOn('DBM-StatusBarTimers')) then AS:RegisterSkin('DBM-Core', DbmDecor, 'ADDON_LOADED') end
 if AS:CheckAddOn('BugSack') then AS:RegisterSkin('BugSack', BugSackDecor, 2) end
 if AS:CheckAddOn('ZygorGuidesViewer') then AS:RegisterSkin('Zygor', ZygorDecor, 2) end
 if AS:CheckAddOn('Immersion') then AS:RegisterSkin('Immersion', ImmersionDecor, 2) end
@@ -382,9 +364,3 @@ if AS:CheckAddOn('WoWPro') then AS:RegisterSkin('WoWPro', WoWProDecor, 2) end
 
 --if BUI.CT then ClassTactics() end
 LibrariesDecor()
-
-hooksecurefunc(AS, 'AcceptFrame', function(self)
-	if not _G["AcceptFrame"].style then
-		_G["AcceptFrame"]:BuiStyle('Outside')
-	end
-end)

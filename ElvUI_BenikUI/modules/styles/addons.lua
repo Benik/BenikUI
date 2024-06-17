@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
 
 local CreateFrame = CreateFrame
@@ -8,15 +8,14 @@ local function StyleDBM_Options()
 		return
 	end
 
-	DBM_GUI_OptionsFrame:HookScript("OnShow", function()
-		DBM_GUI_OptionsFrame:BuiStyle("Outside")
-	end)
+	local DBM_GUI_OptionsFrame = _G.DBM_GUI_OptionsFrame
+	DBM_GUI_OptionsFrame:StripTextures()
+	DBM_GUI_OptionsFrame:SetTemplate("Transparent")
+	DBM_GUI_OptionsFrame:BuiStyle("Outside")
 end
 
 local function StyleInFlight()
-	if E.db.benikui.skins.variousSkins.inflight ~= true or E.db.benikui.misc.flightMode == true then
-		return
-	end
+	if E.db.benikui.skins.variousSkins.inflight ~= true or E.db.benikui.misc.flightMode.enable == true then return end
 
 	local frame = _G.InFlightBar
 	if frame then
@@ -53,6 +52,35 @@ local function RareTracker()
 	end
 end
 
+local function TomTom()
+	if BUI:IsAddOnEnabled('TomTom') and E.db.benikui.skins.variousSkins.tomtom then
+
+		if MyFrameDropDownBackdrop then
+			MyFrameDropDownBackdrop:StripTextures()
+			MyFrameDropDownBackdrop:SetTemplate("Transparent")
+
+			if E.db.benikui.general.benikuiStyle then
+				MyFrameDropDownBackdrop:BuiStyle('Outside')
+			end
+		end
+
+		if TomTomWorldMapDropdownBackdrop then
+			TomTomWorldMapDropdownBackdrop:StripTextures()
+			TomTomWorldMapDropdownBackdrop:SetTemplate("Transparent")
+
+			if E.db.benikui.general.benikuiStyle then
+				TomTomWorldMapDropdownBackdrop:BuiStyle('Outside')
+			end
+		end
+
+		if TomTomTooltip then
+			if E.db.benikui.general.benikuiStyle then
+				TomTomTooltip:BuiStyle('Outside')
+			end
+		end
+	end
+end
+
 function mod:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
@@ -66,4 +94,5 @@ end
 function mod:StyleAddons()
 	KalielsTracker()
 	RareTracker()
+	TomTom()
 end

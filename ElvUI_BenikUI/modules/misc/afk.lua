@@ -1,12 +1,10 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local AFK = E:GetModule('AFK')
 
-local format, random, lower, tonumber, date, floor = string.format, random, string.lower, tonumber, date, floor
+local format, random, floor = string.format, random, floor
 
 local CreateFrame = CreateFrame
-local GetGameTime = GetGameTime
 local GetScreenHeight, GetScreenWidth = GetScreenHeight, GetScreenWidth
-local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic
 local IsXPUserDisabled = IsXPUserDisabled
@@ -21,7 +19,6 @@ local GetAverageItemLevel = GetAverageItemLevel
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 
-local TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME = TIMEMANAGER_TOOLTIP_LOCALTIME, TIMEMANAGER_TOOLTIP_REALMTIME
 local LEVEL, NONE = LEVEL, NONE
 local ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY
 
@@ -83,66 +80,6 @@ local stats = {
 	7399,	-- Challenge mode dungeons completed
 	8278,	-- Pet Battles won at max level
 }
-
--- Create Time
-local function createTime()
-	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
-	local sHour, sMinute = GetGameTime()
-
-	local localTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_LOCALTIME, hour, minute, ampm)
-	local localTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_LOCALTIME, hour24, minute)
-	local realmTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute, ampm)
-	local realmTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute)
-
-	if E.global.datatexts.settings.Time.localTime then
-		if E.global.datatexts.settings.Time.time24 == true then
-			return localTime24
-		else
-			return localTime
-		end
-	else
-		if E.global.datatexts.settings.Time.time24 == true then
-			return realmTime24
-		else
-			return realmTime
-		end
-	end
-end
-
-local monthAbr = {
-	[1] = L["Jan"],
-	[2] = L["Feb"],
-	[3] = L["Mar"],
-	[4] = L["Apr"],
-	[5] = L["May"],
-	[6] = L["Jun"],
-	[7] = L["Jul"],
-	[8] = L["Aug"],
-	[9] = L["Sep"],
-	[10] = L["Oct"],
-	[11] = L["Nov"],
-	[12] = L["Dec"],
-}
-
-local daysAbr = {
-	[1] = L["Sun"],
-	[2] = L["Mon"],
-	[3] = L["Tue"],
-	[4] = L["Wed"],
-	[5] = L["Thu"],
-	[6] = L["Fri"],
-	[7] = L["Sat"],
-}
-
--- Create Date
-local function createDate()
-	local date = C_DateAndTime_GetCurrentCalendarTime();
-	local presentWeekday = date.weekday;
-	local presentMonth = date.month;
-	local presentDay = date.monthDay;
-	local presentYear = date.year;
-	AFK.AFKMode.top.date:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
-end
 
 -- Create random stats
 local function createStats()
@@ -207,13 +144,13 @@ end
 local function UpdateTimer()
 	if E.db.benikui.misc.afkMode ~= true then return end
 
-	local createdTime = createTime()
-
 	-- Set time
+	local createdTime = BUI:createTime()
 	AFK.AFKMode.top.time:SetFormattedText(createdTime)
 
 	-- Set Date
-	createDate()
+	local days, months, presentDay, presentYear = BUI:createDate()
+	AFK.AFKMode.top.date:SetFormattedText("%s, %s %d, %d", days, months, presentDay, presentYear)
 
 	-- Don't need the default timer
 	AFK.AFKMode.bottom.time:SetText(nil)

@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local DT = E:GetModule('DataTexts')
 local mod = BUI:GetModule('DataTexts')
 
@@ -7,7 +7,7 @@ function mod:BuildPanelFrame(name)
 	Panel:BuiStyle('Outside')
 end
 
-function mod:UpdatePanelInfo(panelName, panel)
+function mod:UpdatePanelInfo(panelName, panel, ...)
 	if not panel then panel = DT.RegisteredPanels[panelName] end
 	local db = panel.db or P.datatexts.panels[panelName] and DT.db.panels[panelName]
 	if not db then return end

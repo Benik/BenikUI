@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local LSM = E.LSM
 
 local _G = _G
@@ -20,8 +20,6 @@ function BUI:UpdateBlizzardFonts()
 	local NO_OFFSET = 0, 0
 	local NORMALOFFSET = 1.25, -1.25 	-- shadow offset for small fonts
 	local BIGOFFSET = 2, -2 			-- shadow offset for large fonts
-
-	CHAT_FONT_HEIGHTS = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
 
 	if E.private.general.replaceBlizzFonts then
 		SetFont(_G.Fancy16Font, 						NORMAL, 14);								-- Allied Races Blizzard tryout font

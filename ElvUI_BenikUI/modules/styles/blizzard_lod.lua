@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local S = E:GetModule("Skins")
 
 local _G = _G
@@ -16,6 +16,8 @@ local function style_AchievementUI()
 	local frame = _G.AchievementFrame
 	if frame then
 		frame:BuiStyle("Outside")
+		frame.SearchPreviewContainer.backdrop:BuiStyle("Outside")
+		frame.SearchResults.backdrop:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
@@ -213,6 +215,18 @@ local function style_Channels()
 	_G.CreateChannelPopup:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
+
+-- ChromieTime
+local function style_chromieTime()
+	if E.private.skins.blizzard.chromieTime ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ChromieTimeFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ChromieTimeUI", "BenikUI_chromieTime", style_chromieTime)
 
 -- Class Talents
 local function style_ClassTalents()
@@ -614,19 +628,6 @@ local function style_IslandsQueueUI()
 	end
 
 	_G.IslandsQueueFrame:BuiStyle("Outside")
-
-	-- tooltip
-	if E.private.skins.blizzard.tooltip ~= true then
-		return
-	end
-	_G.IslandsQueueFrameTooltip:GetParent():GetParent():HookScript(
-		"OnShow",
-		function(self)
-			if not self.style then
-				self:BuiStyle("Outside")
-			end
-		end
-	)
 end
 S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "BenikUI_IslandsQueueUI", style_IslandsQueueUI)
 
@@ -758,6 +759,37 @@ local function style_OrderHallUI()
 end
 S:AddCallbackForAddon("Blizzard_OrderHallUI", "BenikUI_OrderHallUI", style_OrderHallUI)
 
+-- Perks Programm (Trading Post)
+local function style_PerksProgramm()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.perks and E.db.benikui.general.benikuiStyle) then return end
+	local frame = _G.PerksProgramFrame
+	local productsFrame = frame.ProductsFrame
+	if productsFrame then
+		productsFrame.PerksProgramProductDetailsContainerFrame:BuiStyle("Outside")
+		if BUI.ShadowMode then
+			productsFrame.PerksProgramFilter.FilterDropDownButton:CreateSoftShadow()
+			productsFrame.PerksProgramCurrencyFrame.Icon:CreateBackdrop()
+			productsFrame.PerksProgramCurrencyFrame.Icon.backdrop:CreateSoftShadow()
+		end
+		PerksProgramTooltip:BuiStyle("Outside")
+		local productsContainer = productsFrame.ProductsScrollBoxContainer
+		productsContainer:BuiStyle("Outside")
+	end
+
+	if not BUI.ShadowMode then return end
+	local footer = frame.FooterFrame
+	if footer then
+		footer.LeaveButton:CreateSoftShadow()
+		footer.RefundButton:CreateSoftShadow()
+		footer.TogglePlayerPreview.backdrop:CreateSoftShadow()
+		footer.ToggleHideArmor.backdrop:CreateSoftShadow()
+		footer.RotateButtonContainer.RotateLeftButton:CreateSoftShadow()
+		footer.RotateButtonContainer.RotateRightButton:CreateSoftShadow()
+		footer.PurchaseButton:CreateSoftShadow()
+	end
+end
+S:AddCallbackForAddon("Blizzard_PerksProgram", "BenikUI_PerksProgram", style_PerksProgramm)
+
 -- PlayerChoiceUI
 local function style_PlayerChoice()
 	if E.private.skins.blizzard.playerChoice ~= true or E.private.skins.blizzard.enable ~= true or
@@ -786,9 +818,25 @@ local function style_Professions()
 		return
 	end
 
-	_G.ProfessionsFrame:BuiStyle("Outside")
+	local ProfessionsFrame = _G.ProfessionsFrame
+	ProfessionsFrame:BuiStyle("Outside")
+	ProfessionsFrame.CraftingPage.CraftingOutputLog:BuiStyle("Outside")
+	ProfessionsFrame.CraftingPage.SchematicForm.QualityDialog:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
+
+-- ProfessionsCustomerOrders
+local function style_ProfessionsCustomerOrders()
+	if E.private.skins.blizzard.tradeskill ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local ProfessionsCustomerOrdersFrame = _G.ProfessionsCustomerOrdersFrame
+	ProfessionsCustomerOrdersFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ProfessionsCustomerOrders", "BenikUI_ProfessionsCustomerOrders", style_ProfessionsCustomerOrders)
 
 -- PVPUI
 local function style_PVPUI()

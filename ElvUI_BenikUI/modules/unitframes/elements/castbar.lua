@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:NewModule('Castbar', 'AceTimer-3.0', 'AceEvent-3.0')
 local UF = E:GetModule('UnitFrames');
 local LSM = LibStub("LibSharedMedia-3.0");
@@ -79,17 +79,17 @@ local function ConfigureCastbarShadow(unit, unitframe)
 	if not db.iconAttached and db.icon then
 		local attachPoint = db.iconAttachedTo == "Frame" and unitframe or unitframe.Castbar
 		local anchorPoint = db.iconPosition
-		if castbar.Icon then
-			castbar.Icon.bg:ClearAllPoints()
-			castbar.Icon.bg:Point(INVERT_ANCHORPOINT[anchorPoint], attachPoint, anchorPoint, db.iconXOffset, db.iconYOffset)
+		if castbar.ButtonIcon then
+			castbar.ButtonIcon.bg:ClearAllPoints()
+			castbar.ButtonIcon.bg:Point(INVERT_ANCHORPOINT[anchorPoint], attachPoint, anchorPoint, db.iconXOffset, db.iconYOffset)
 		end
 	elseif(db.icon) then
-		if castbar.Icon then
-			castbar.Icon.bg:ClearAllPoints()
+		if castbar.ButtonIcon then
+			castbar.ButtonIcon.bg:ClearAllPoints()
 			if unitframe.ORIENTATION == "RIGHT" then
-				castbar.Icon.bg:Point("LEFT", castbar, "RIGHT", (UF.SPACING*3), 0)
+				castbar.ButtonIcon.bg:Point("LEFT", castbar, "RIGHT", (UF.SPACING*3), 0)
 			else
-				castbar.Icon.bg:Point("RIGHT", castbar, "LEFT", -(UF.SPACING*3), 0)
+				castbar.ButtonIcon.bg:Point("RIGHT", castbar, "LEFT", -(UF.SPACING*3), 0)
 			end
 		end
 	end
@@ -146,10 +146,8 @@ end
 
 --Castbar texture
 function mod:PostCast(unit, unitframe)
-	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
-
-	if not self.isTransparent then
-		self:SetStatusBarTexture(castTexture)
+	if E.db.benikui.unitframes.textures.enableCastbar and not self.isTransparent then
+		self:SetStatusBarTexture(LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar))
 	end
 
 	if not E.db.benikui.unitframes.castbarColor.enable then return; end
@@ -173,10 +171,8 @@ end
 function mod:PostCastInterruptible(unit, unitframe)
 	if unit == "vehicle" or unit == "player" then return end
 
-	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
-
-	if not self.isTransparent then
-		self:SetStatusBarTexture(castTexture)
+	if E.db.benikui.unitframes.textures.enableCastbar and not self.isTransparent then
+		self:SetStatusBarTexture(LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar))
 	end
 
 	if not E.db.benikui.unitframes.castbarColor.enable then return; end

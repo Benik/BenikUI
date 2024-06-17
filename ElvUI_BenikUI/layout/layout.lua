@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Layout')
 local LO = E:GetModule('Layout')
 local DT = E:GetModule('DataTexts')
@@ -53,10 +53,6 @@ local function ChatButton_OnClick(self)
 	if E.db[self.parent:GetName()..'Faded'] then
 		E.db[self.parent:GetName()..'Faded'] = nil
 		E:UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
-		if BUI.AS then
-			local AS = unpack(AddOnSkins) or nil
-			if AS.db.EmbedSystem or AS.db.EmbedSystemDual then AS:Embed_Show() end
-		end
 	else
 		E.db[self.parent:GetName()..'Faded'] = true
 		E:UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
@@ -154,16 +150,21 @@ function mod:ToggleTransparency()
 	_G.RightChatToggleButton.shadow:SetShown(rchatToggle)
 end
 
+local function ChatDT_StyleDelay()
+	local showConditions = E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH'
+	
+	_G.BuiLeftChatDTPanel.style:SetShown(showConditions)
+	_G.BuiRightChatDTPanel.style:SetShown(showConditions)
+end
+
 function mod:ChatStyles()
 	if not E.db.benikui.general.benikuiStyle then return end
-	local Bui_ldtp = _G.BuiLeftChatDTPanel
-	local Bui_rdtp = _G.BuiRightChatDTPanel
-	local showConditions = E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH'
 
-	Bui_rdtp.style:SetShown(showConditions)
-	Bui_ldtp.style:SetShown(showConditions)
+	C_TimerAfter(0.1, ChatDT_StyleDelay)
+	C_TimerAfter(0.1, ChatDT_StyleDelay)
+
 	for i = 1, BUTTON_NUM do
-		bbuttons[i].style:SetShown(showConditions)
+		bbuttons[i].style:SetShown(E.db.benikui.datatexts.chat.styled and E.db.chat.panelBackdrop == 'HIDEBOTH')
 	end
 end
 
@@ -427,6 +428,7 @@ function mod:CreateLayout()
 	-- Minimap elements styling
 	if E.private.general.minimap.enable then
 		Minimap.backdrop:BuiStyle('Outside')
+		MinimapRightClickMenu:BuiStyle('Outside')
 		mod:ResizeMinimapPanels()
 	end
 
@@ -449,9 +451,38 @@ end
 tinsert(BUI.Config, InjectMinimapOption)
 
 function mod:CreateMiddlePanel(forceReset)
-	if forceReset and E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] or not E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] then
+	if not DT:FetchFrame("BuiMiddleDTPanel") then	
 		DT:BuildPanelFrame("BuiMiddleDTPanel")
+		DT:UpdatePanelInfo('BuiMiddleDTPanel')
+	end
+
+	E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] or {}
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] or {}
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] or 4
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["numPoints"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["numPoints"] or 3
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipAnchor"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipAnchor"] or "ANCHOR_TOPLEFT"
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["width"] or 416
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["height"] = PANEL_HEIGHT
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipXOffset"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipXOffset"] or 3
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["panelTransparency"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["panelTransparency"] or false
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] or false
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["textJustify"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["textJustify"] or 'CENTER'
+	E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["growth"] = 'HORIZONTAL'
+
+	if E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] == '' and E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][2] == '' and E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] == '' then
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
+			[1] = "Haste",
+			[2] = "Mastery",
+			[3] = "Crit",
+			["enable"] = true,
+		}
+	end
+
+	if forceReset then
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] or {}
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["enable"] = true
+
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] = E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] or {}
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["border"] = true
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipYOffset"] = 4
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["numPoints"] = 3
@@ -462,16 +493,8 @@ function mod:CreateMiddlePanel(forceReset)
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["tooltipXOffset"] = 3
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["panelTransparency"] = false
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["benikuiStyle"] = false
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["textJustify"] = 'CENTER'
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["growth"] = 'HORIZONTAL'
-
-		if E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][1] == '' and E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][2] == '' and E.db["datatexts"]["panels"]["BuiMiddleDTPanel"][3] == '' then
-			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"] = {
-				[1] = "Haste",
-				[2] = "Mastery",
-				[3] = "Crit",
-				["enable"] = true,
-			}
-		end
 
 		if E.db["movers"] == nil then E.db["movers"] = {} end
 
@@ -481,6 +504,8 @@ function mod:CreateMiddlePanel(forceReset)
 		dt:SetPoint("CENTER", dt.mover, "CENTER", 0, 0) -- just in case
 		E.db["movers"]["DTPanelBuiMiddleDTPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 		E:SaveMoverPosition("DTPanelBuiMiddleDTPanelMover")
+
+		DT:BuildPanelFrame('BuiMiddleDTPanel')
 	end
 end
 
@@ -495,29 +520,18 @@ function mod:regEvents()
 	mod:ToggleTransparency()
 end
 
+function mod:LoadDataTexts(...)
+	DT:UpdatePanelInfo('BuiLeftChatDTPanel')
+	DT:UpdatePanelInfo('BuiRightChatDTPanel')
+	DT:UpdatePanelInfo('BuiMiddleDTPanel')
+	updateButtonFont()
+end
+
 function mod:PLAYER_ENTERING_WORLD(...)
 	mod:ToggleBuiDts()
 	mod:regEvents()
 
-	DT:UpdatePanelInfo('BuiLeftChatDTPanel')
-	DT:UpdatePanelInfo('BuiRightChatDTPanel')
-	DT:UpdatePanelInfo('BuiMiddleDTPanel')
-
 	mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end
-
-local function InjectDatatextOptions()
-	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.name = BUI.Title..BUI:cOption(L['Left Chat Panel'], "blue")
-	E.Options.args.datatexts.args.panels.args.BuiLeftChatDTPanel.order = 1001
-
-	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.name = BUI.Title..BUI:cOption(L['Right Chat Panel'], "blue")
-	E.Options.args.datatexts.args.panels.args.BuiRightChatDTPanel.order = 1002
-
-	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.name = BUI.Title..BUI:cOption(L['Middle Panel'], "blue")
-	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.order = 1003
-	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.delete.hidden = true
-	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.height.hidden = true
-	E.Options.args.datatexts.args.panels.args.BuiMiddleDTPanel.args.panelOptions.args.growth.hidden = true
 end
 
 function mod:Initialize()
@@ -525,14 +539,13 @@ function mod:Initialize()
 	mod:CreateMiddlePanel()
 	mod:ToggleMinimapStyle()
 	C_TimerAfter(0.5, mod.ChatStyles)
-	tinsert(BUI.Config, InjectDatatextOptions)
 
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ResizeMinimapPanels)
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ChatStyles)
 	hooksecurefunc(M, 'UpdateSettings', mod.ResizeMinimapPanels)
 	hooksecurefunc(DT, 'UpdatePanelInfo', mod.ToggleTransparency)
-	hooksecurefunc(DT, 'LoadDataTexts', updateButtonFont)
+	hooksecurefunc(DT, 'LoadDataTexts', mod.LoadDataTexts)
 	hooksecurefunc(E, 'UpdateMedia', updateButtons)
 
 	mod:RegisterEvent('PLAYER_ENTERING_WORLD')

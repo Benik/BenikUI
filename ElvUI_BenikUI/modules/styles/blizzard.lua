@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 
@@ -94,7 +94,6 @@ local function LoadSkin()
 		_G.LFGListApplicationDialog:BuiStyle("Outside")
 		_G.LFGListInviteDialog:BuiStyle("Outside")
 		_G.PVEFrame:BuiStyle("Outside")
-		_G.RaidBrowserFrame:BuiStyle("Outside")
 
 		local function forceTabFont(button)
 			if button.isSkinned then
@@ -115,6 +114,8 @@ local function LoadSkin()
 		_G.LootFrame:BuiStyle("Outside")
 		_G.MasterLooterFrame:BuiStyle("Outside")
 		_G.BonusRollFrame:BuiStyle("Outside")
+		_G.GroupLootHistoryFrame:BuiStyle("Outside")
+		_G.GroupLootHistoryFrame.ResizeButton:CreateSoftShadow()
 	end
 
 	if db.mail then
@@ -194,11 +195,16 @@ local function LoadSkin()
 	if db.quest then
 		_G.QuestFrame:BuiStyle("Outside")
 		_G.QuestLogPopupDetailFrame:BuiStyle("Outside")
-		_G.QuestModelScene:BuiStyle("Outside")
+		_G.QuestModelScene.backdrop:BuiStyle("Outside")
+
+		_G.QuestNPCModelTextFrame:ClearAllPoints()
+		_G.QuestNPCModelTextFrame:Point("TOP", _G.QuestModelScene.backdrop, "BOTTOM", 0, -4)
+		_G.QuestNPCModelTextFrame.backdrop:CreateSoftShadow()
+		_G.QuestNPCModelTextFrame.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
 	end
 
 	if db.stable then
-		_G.PetStableFrame:BuiStyle("Outside")
+		_G.StableFrame:BuiStyle("Outside")
 	end
 
 	if db.spellbook then

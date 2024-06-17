@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
 local CreateFrame = CreateFrame
 local getmetatable = getmetatable
@@ -25,6 +25,8 @@ local function CreateSoftShadow(f)
 	local db = E.db.benikui.general
 
 	local shadow = f.shadow or CreateFrame('Frame', nil, f, 'BackdropTemplate') -- This way you can replace current shadows.
+	if shadow:IsObjectType('Texture') then return end
+
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
@@ -81,6 +83,8 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 	else
 		style:SetTemplate('Transparent', true)
 	end
+	
+	if style.eltruismbgtexture then style.eltruismbgtexture:Hide() end --Hide Eltruism's Skin if it exists
 
 	style.ignoreUpdates = true
 

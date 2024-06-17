@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Widgetbars')
 local LSM = E.LSM;
 
@@ -90,7 +90,7 @@ function mod:LoadMaw()
 	bar.text:FontTemplate()
 	bar.text:Point('CENTER')
 
-	E:CreateMover(bar, "BUIMawBarMover", L["BenikUI Maw Bar"], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,widgetbars,mawBar')
+	E:CreateMover(bar, "BUIMawBarMover", L['BenikUI Maw Bar'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,widgetbars,mawBar')
 
 	bar:SetScript("OnEnter", function(self)
 		local rank = GetMawBarValue()

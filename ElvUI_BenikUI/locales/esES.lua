@@ -29,6 +29,8 @@ L['Splash Screen'] = true
 L['Shadow'] = true
 L['Shadow Size'] = true
 L['Shadow Alpha'] = true
+L['Font Size'] = true
+L["Miscellaneous"] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = true
@@ -37,6 +39,7 @@ L['ShiftClick to toggle chat'] = true
 L['Click to show the Addon List'] = true
 
 -- Custom Panels
+L['Custom Panels'] = true
 L['Clone'] = true
 L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L['Create'] = true
@@ -66,6 +69,7 @@ L['Inside the item slot'] = true
 L['Outside the item slot'] = true
 
 -- Flight mode
+L['Flight Mode'] = true
 L['Exit FlightMode'] = true
 L['Show an enhanced game menu'] = true
 L['Toggle Location and Coords'] = true
@@ -142,23 +146,26 @@ L["Random Stats"] = true
 L["remaining till level"] = true
 
 -- Dashboards
-L["Change the Professions Dashboard width."] = true
-L["Change the Tokens Dashboard width."] = true
 L["Enable the Professions Dashboard."] = true
 L["Filter Capped"] = true
 L['Amount'] = true
 L['Bar Color'] = true
 L['Bar Height'] = true
 L['Change the Bar Height.'] = true
+L['Change the Professions Dashboard width.'] = true
 L['Change the System Dashboard width.'] = true
+L['Change the Tokens Dashboard width.'] = true
 L['Choose font for all dashboards.'] = true
 L['Click :'] = true
+L["Custom Color"] = true
 L['Dashboards'] = true
 L['Enable the System Dashboard.'] = true
 L['Enable the Tokens Dashboard.'] = true
 L['Enable/Disable'] = true
 L['Faction Colors'] = true
 L['Fast Volume +/-'] = true
+L['Filter Capped'] = true
+L['Hide in Instance'] = true
 L['Latency (MS)'] = true
 L['MouseWheel :'] = true
 L['RightClick :'] = true
@@ -181,9 +188,20 @@ L['System'] = true
 L['Text Alignment'] = true
 L['Tip: Click to free memory'] = true
 L['Tip: Grayed tokens are not yet discovered'] = true
+L['Update Throttle'] = true
 L['Use DataTexts font'] = true
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true
+
+-- Items
+L['Items'] = true
+L['Enable the Items Dashboard.'] = true
+L['New Item by ID'] = true
+L["The ID |cff00c0fa%d|r doesn't exist in the game."] = true
+L['The Item |cff00c0fa%s|r already exists.'] = true
+L['Change the Items Dashboard width.'] = true
+L['Show/Hide items Dashboard when in combat'] = true
+L['Show Max Amount'] = true
 
 -- Databars Options
 L['Notifiers'] = true
@@ -223,6 +241,7 @@ L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = t
 L['Vertical power statusbar'] = true
 
 -- Castbar
+L['Castbar'] = true
 L['Force show any text placed on the InfoPanel, while casting.'] = true
 L['Show Castbar text'] = true
 L['Show InfoPanel text'] = true
@@ -232,6 +251,14 @@ L['This applies on all available castbars.'] = true
 -- Raid
 L['Class Hover'] = true
 L['Enable Class color on health border, when mouse over'] = true
+
+-- Widget Bars
+L['Widget Bars'] = true
+L['BenikUI Maw Bar'] = true
+L['Color by Tier'] = true
+L['Text yOffset'] = true
+L['Half Bar'] = true
+L["Percent"] = true
 
 -- Information
 L['Information'] = true

@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Skins')
 local S = E:GetModule('Skins')
 
@@ -12,15 +12,19 @@ function mod:HandleCloseButton(f)
 	end
 
 	f:HookScript('OnEnter', function(self)
-		if E.myclass == 'PRIEST' then
-			self.Texture:SetVertexColor(unpack(E["media"].rgbvaluecolor))
-		else
-			self.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		if self.Texture then
+			if E.myclass == 'PRIEST' then
+				self.Texture:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+			else
+				self.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			end
 		end
 	end)
 
 	f:HookScript('OnLeave', function(self)
-		self.Texture:SetVertexColor(1, 1, 1)
+		if self.Texture then
+			self.Texture:SetVertexColor(1, 1, 1)
+		end
 	end)
 end
 hooksecurefunc(S, "HandleCloseButton", mod.HandleCloseButton)

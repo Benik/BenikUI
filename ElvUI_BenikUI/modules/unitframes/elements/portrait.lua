@@ -1,49 +1,14 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
+﻿local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
 function BU:Configure_Portrait(frame, isPlayer)
 	local db = frame.db
-	frame.Portrait = (db.portrait.style == '3D' and frame.Portrait3D) or frame.Portrait2D
-	local portrait = frame.Portrait
+	local portrait = (db.portrait.style == '3D' and frame.Portrait3D) or frame.Portrait2D
+	portrait.db = db.portrait
 
 	if frame.USE_PORTRAIT then
-		if frame.USE_PORTRAIT_OVERLAY then
-			if db.portrait.style == '3D' then
-				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
-			else
-				portrait:SetParent(frame.Health)
-			end
-
-			portrait:SetAlpha(db.portrait.overlayAlpha)
-			portrait.backdrop:Hide()
-
-			portrait:ClearAllPoints()
-			if db.portrait.fullOverlay then
-				portrait:SetAllPoints(frame.Health)
-			else
-				local healthTex = frame.Health:GetStatusBarTexture()
-				if db.health.reverseFill then
-					portrait:Point("TOPLEFT", healthTex, "TOPLEFT")
-					portrait:Point("BOTTOMLEFT", healthTex, "BOTTOMLEFT")
-					portrait:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT")
-				else
-					portrait:Point("TOPLEFT", frame.Health, "TOPLEFT")
-					portrait:Point("BOTTOMRIGHT", healthTex, "BOTTOMRIGHT")
-					portrait:Point("BOTTOMLEFT", healthTex, "BOTTOMLEFT")
-				end
-			end
-		else
-			portrait:SetAlpha(1)
-			portrait.backdrop:ClearAllPoints()
-			portrait.backdrop:Show()
-
-			if db.portrait.style == '3D' then
-				portrait:SetFrameLevel(frame.Health:GetFrameLevel())
-			else
-				portrait:SetParent(frame)
-			end
-
+		if not frame.USE_PORTRAIT_OVERLAY then
 			if frame.PORTRAIT_TRANSPARENCY then
 				portrait.backdrop:SetTemplate('Transparent')
 			else
@@ -74,11 +39,7 @@ function BU:Configure_Portrait(frame, isPlayer)
 				portrait.backdrop:SetAllPoints(frame.portraitmover)
 
 				if portrait.backdrop.shadow then
-					if frame.PORTRAIT_SHADOW then
-						portrait.backdrop.shadow:Show()
-					else
-						portrait.backdrop.shadow:Hide()
-					end
+					portrait.backdrop.shadow:SetShown(frame.PORTRAIT_SHADOW)
 				end
 
 				portrait.backdrop:SetFrameStrata(frame.DETACHED_PORTRAIT_STRATA)
@@ -127,10 +88,14 @@ function BU:Configure_Portrait(frame, isPlayer)
 					portrait:SetParent(frame)
 				end
 
+				if portrait.backdrop.shadow then
+					portrait.backdrop.shadow:SetShown(E.db.unitframe.units.party.portrait.height > 0)
+				end
+
 				if frame.ORIENTATION == "LEFT" then
 					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", UF.SPACING, frame.PORTRAIT_HEIGHT or frame.USE_MINI_CLASSBAR and -(frame.CLASSBAR_YOFFSET+UF.SPACING) or -UF.SPACING)
 					if frame.PORTRAIT_AND_INFOPANEL then
-						portrait.backdrop:Point("BOTTOMRIGHT", frame.InfoPanel, "BOTTOMLEFT", - UF.SPACING*3, -UF.BORDER)
+						portrait.backdrop:Point("BOTTOMRIGHT", frame.InfoPanel, "BOTTOMLEFT", UF.BORDER - UF.SPACING*3, -UF.BORDER)
 					elseif frame.USE_MINI_POWERBAR or frame.USE_POWERBAR_OFFSET or not frame.USE_POWERBAR or frame.USE_INSET_POWERBAR or frame.POWERBAR_DETACHED then
 						portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", UF.BORDER - UF.SPACING*3, 0)
 					else
@@ -147,7 +112,7 @@ function BU:Configure_Portrait(frame, isPlayer)
 					end
 				end
 			end
-			portrait:SetInside(portrait.backdrop, UF.BORDER)
+			portrait:SetInside(portrait.backdrop, UF.BORDER, UF.BORDER)
 		end
 	end
 end

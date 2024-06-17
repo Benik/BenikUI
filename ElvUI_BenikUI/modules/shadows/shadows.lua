@@ -1,7 +1,8 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Shadows')
 local S = E:GetModule('Skins')
 local M = E:GetModule('Misc')
+local B = E:GetModule('Blizzard')
 
 local _G = _G
 
@@ -14,16 +15,6 @@ local function AltPowerBarShadows()
 	bar.backdrop:CreateSoftShadow()
 	if bar.textures then
 		bar:StripTextures(true)
-	end
-end
-
-local function mirrorTimersShadows()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mirrorTimers ~= true then return end
-
-	for i = 1, _G.MIRRORTIMER_NUMTIMERS do
-		local mirrorTimer = _G['MirrorTimer'..i]
-		local statusBar = mirrorTimer.StatusBar or _G[mirrorTimer:GetName()..'StatusBar']
-		statusBar:CreateSoftShadow()
 	end
 end
 
@@ -121,9 +112,9 @@ end
 
 function mod:ChatBubbles(frame, holder)
 	if E.private.general.chatBubbles == 'backdrop' then
-		if holder.backdrop then
-			if not holder.backdrop.shadow then
-				holder.backdrop:CreateSoftShadow()
+		if holder then
+			if not holder.shadow then
+				holder:CreateSoftShadow()
 			end
 		end
 	end
@@ -173,12 +164,12 @@ local function SpellBookFrameShadows()
 	end
 
 	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
-			function()
-				for i = 1, MAX_SKILLLINE_TABS do
-					local tab = _G['SpellBookSkillLineTab'..i]
-					tab:CreateSoftShadow()
-				end
-			end)
+		function()
+			for i = 1, MAX_SKILLLINE_TABS do
+				local tab = _G['SpellBookSkillLineTab'..i]
+				tab:CreateSoftShadow()
+			end
+		end)
 end
 
 local function PVEFrameShadows()
@@ -257,11 +248,31 @@ local function MailFrameShadows()
 	end
 end
 
+local ignoreWidgets = {
+	[283] = true -- Cosmic Energy
+}
+
+function B:UIWidgetTemplateStatusBarShadows()
+	local forbidden = self:IsForbidden()
+	local bar = self.Bar
+
+	if forbidden and bar then
+		if bar.tooltip then bar.tooltip = nil end -- EmbeddedItemTooltip is tainted just block the tooltip
+		return
+	elseif forbidden or ignoreWidgets[self.widgetSetID] or not bar then
+		return -- we don't want to handle these widgets
+	end
+
+	if bar and bar.backdrop then
+		bar.backdrop:CreateSoftShadow()
+	end
+end
+
 function mod:Initialize()
 	if not BUI.ShadowMode then return end
 
+	AltPowerBarShadows()
 	raidUtilityShadows()
-	mirrorTimersShadows()
 
 	miscShadows()
 	MicroBarShadows()
@@ -272,6 +283,13 @@ function mod:Initialize()
 	MerchantFrameShadows()
 	MailFrameShadows()
 	mod:RegisterEvent('START_TIMER')
+
+	-- Widgets
+	for _, widget in pairs(_G.UIWidgetPowerBarContainerFrame.widgetFrames) do
+		B.UIWidgetTemplateStatusBarShadows(widget)
+	end
+	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, 'Setup', B.UIWidgetTemplateStatusBarShadows)
+	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, 'Setup', B.UIWidgetTemplateStatusBarShadows)
 
 	-- AddonSkins
 	mod:AddonSkins()

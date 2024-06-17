@@ -1,4 +1,4 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 
 local tinsert, tsort, tconcat, format = table.insert, table.sort, table.concat, string.format
@@ -55,19 +55,26 @@ local DONATORS = {
 	'Chris S.',
 	'Rezzurect',
 	'Ascor',
+	'Coaleyed (Chris)',
+	'FrogZilla',
+	'acesyde',
+	'DesertDwarf',
+	'Vega - FailZorD',
+	'Ken P.',
+	'Brookerz',
+	'Chris St.',
+	'Torbjörn',
+	'Azaevia',
 }
 tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
 
 local PATRONS = {
+	'Beleynn',
 	'thurin',
 	'cry1n',
-	'Beleynn',
-	'Ken P.',
-	'Brookerz',
-	'Azaevia',
-	'Vega - FailZorD',
-	'Mykey',
+	'Roshne',
+	'Valerie K.',
 }
 tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
@@ -82,11 +89,15 @@ local CODING = {
 	'Hydra',
 	'Merathilis',
 	'Repooc',
+	'Luckyone',
 	'Pristie (frFR)',
 	'|cffff005athurin|r',
 	'|TInterface/AddOns/ElvUI/Core/Media/ChatLogos/Hibiscus:15:15:0:0:64:64:5:59:5:59|t Simpy',
 	'Cara (ptBR)',
 	'nadugi (koKR)',
+	'|cff00c0faDlarge|r (deDE)',
+	'Tsxy',
+	'Eltreum',
 }
 tsort(CODING, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local CODING_STRING = tconcat(CODING, ", ")
@@ -166,12 +177,6 @@ local function Info()
 				name = BUI:cOption(L['Support'], "orange"),
 				guiInline = true,
 				args = {
-					tukui = {
-						order = 1,
-						type = 'execute',
-						name = L['Tukui.org'],
-						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.tukui.org/forum/viewforum.php?f=33") end,
-						},
 					git = {
 						order = 2,
 						type = 'execute',
@@ -192,17 +197,17 @@ local function Info()
 				name = BUI:cOption(L['Download'], "orange"),
 				guiInline = true,
 				args = {
-					tukui = {
-						order = 1,
-						type = 'execute',
-						name = L['Tukui.org'],
-						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.tukui.org/addons.php?id=11") end,
-					},
 					curse = {
-						order = 2,
+						order = 1,
 						type = 'execute',
 						name = L['Curseforge'],
 						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://www.curseforge.com/wow/addons/benikui") end,
+					},
+					wago = {
+						order = 2,
+						type = 'execute',
+						name = L['Wago.io'],
+						func = function() StaticPopup_Show("BENIKUI_CREDITS", nil, nil, "https://addons.wago.io/addons/benikui") end,
 					},
 					beta = {
 						order = 3,

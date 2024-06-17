@@ -9,7 +9,7 @@ local GetGuildInfo = GetGuildInfo
 
 local icon = "|TInterface\\AchievementFrame\\UI-Achievement-TinyShield:16:16:0:-2:100:100:4:60:4:60|t"
 
-local displayString, lastPanel = ''
+local displayString = ''
 
 local function OnClick()
 	ToggleAchievementFrame()
@@ -30,18 +30,12 @@ end
 local function OnEvent(self)
 	local points = BreakUpLargeNumbers(GetTotalAchievementPoints())
 	self.text:SetFormattedText(displayString, icon, points)
-
-	lastPanel = self
 end
 
-local function ValueColorUpdate(hex)
+local function ValueColorUpdate(self, hex)
 	displayString = strjoin('', '%s ', hex, '%s|r')
 
-	if lastPanel ~= nil then
-		OnEvent(lastPanel)
-	end
+	OnEvent(self)
 end
 
-E.valueColorUpdateFuncs[ValueColorUpdate] = true
-
-DT:RegisterDatatext('Achievement Points (BenikUI)', 'BenikUI', {'ACHIEVEMENT_EARNED'}, OnEvent, nil, OnClick, OnEnter)
+DT:RegisterDatatext('Achievement Points (BenikUI)', 'BenikUI', {'ACHIEVEMENT_EARNED'}, OnEvent, nil, OnClick, OnEnter, nil, nil, nil, ValueColorUpdate)

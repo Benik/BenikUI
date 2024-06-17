@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
@@ -20,11 +20,6 @@ function BU:Construct_TargetFrame()
 	if E.db.benikui.general.benikuiStyle == true then
 		frame.Portrait.backdrop:BuiStyle('Inside')
 		frame.Portrait.backdrop.style:Hide()
-	end
-
-	if BUI.ShadowMode then
-		frame.Power.backdrop:CreateSoftShadow()
-		frame.Power.backdrop.shadow:Hide()
 	end
 
 	local f = CreateFrame("Frame", nil, frame)
@@ -130,6 +125,14 @@ function BU:InitTarget()
 
 		if unitframeType == "target" then
 			BU:Configure_Portrait(frame, false)
+		end
+	end)
+
+	hooksecurefunc(UF, "Configure_Power", function(self, frame)
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "target" then
+			BU:UnitPowerShadows(frame)
 		end
 	end)
 end

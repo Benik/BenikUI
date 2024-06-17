@@ -1,4 +1,4 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local mod = BUI:GetModule('Widgetbars');
 
@@ -18,7 +18,7 @@ local function widgetTable()
 			mawBar = {
 				order = 1,
 				type = 'group',
-				name = L["BenikUI Maw Bar"],
+				name = L['BenikUI Maw Bar'],
 				guiInline = true,
 				args = {
 					enable = {
@@ -87,7 +87,7 @@ local function widgetTable()
 								disabled = function() return E.db.benikui.widgetbars.mawBar.barAutoColor end,
 								get = function(info)
 									local t = E.db.benikui.widgetbars.mawBar[ info[#info] ]
-									local d = P.benikui.widgetbars.mawBar[info[#info]]
+									local d = P.benikui.widgetbars.mawBar[ info[#info] ]
 									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 								end,
 								set = function(info, r, g, b, a)
@@ -103,7 +103,7 @@ local function widgetTable()
 								name = L['Text Color'],
 								get = function(info)
 									local t = E.db.benikui.widgetbars.mawBar[ info[#info] ]
-									local d = P.benikui.widgetbars.mawBar[info[#info]]
+									local d = P.benikui.widgetbars.mawBar[ info[#info] ]
 									return t.r, t.g, t.b, d.r, d.g, d.b
 								end,
 								set = function(info, r, g, b)
@@ -134,13 +134,12 @@ local function widgetTable()
 								type = 'select', dialogControl = 'LSM30_Font',
 								order = 2,
 								name = L['Font'],
-								desc = L['Choose font for all dashboards.'],
 								disabled = function() return E.db.benikui.widgetbars.mawBar.useDTfont end,
 								values = AceGUIWidgetLSMlists.font,
 							},
 							fontsize = {
 								order = 3,
-								name = L.FONT_SIZE,
+								name = L['Font Size'],
 								desc = L['Set the font size.'],
 								disabled = function() return E.db.benikui.widgetbars.mawBar.useDTfont end,
 								type = 'range',
@@ -151,14 +150,7 @@ local function widgetTable()
 								name = L['Font Outline'],
 								disabled = function() return E.db.benikui.widgetbars.mawBar.useDTfont end,
 								type = 'select',
-								values = {
-									NONE = L["NONE"],
-									OUTLINE = 'Outline',
-									THICKOUTLINE = 'Thick',
-									MONOCHROME = '|cffaaaaaaMono|r',
-									MONOCHROMEOUTLINE = '|cffaaaaaaMono|r Outline',
-									MONOCHROMETHICKOUTLINE = '|cffaaaaaaMono|r Thick',
-								},
+								values = E.Config[1].Values.FontFlags,
 							},
 							textYoffset = {
 								order = 5,
@@ -173,12 +165,10 @@ local function widgetTable()
 			halfBar = {
 				order = 2,
 				type = 'multiselect',
-				name = L["Half Bar"],
+				name = L['Half Bar'],
 				get = function(_, key) return E.db.benikui.widgetbars.halfBar[key] end,
 				set = function(_, key, value) E.db.benikui.widgetbars.halfBar[key] = value;
-					if key == 'mirrorbar' then
-						mod:MirrorBar()
-					elseif key == 'altbar' then
+					if key == 'altbar' then
 						mod:AltPowerBar()
 					end
 				end,

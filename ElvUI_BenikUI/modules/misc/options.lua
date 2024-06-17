@@ -1,4 +1,4 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 
 local tinsert = table.insert
@@ -35,7 +35,7 @@ local function miscTable()
 					},
 					fontsize = {
 						order = 3,
-						name = L.FONT_SIZE,
+						name = L['Font Size'],
 						type = 'range',
 						min = 6, max = 22, step = 1,
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
@@ -44,12 +44,7 @@ local function miscTable()
 						order = 4,
 						name = L['Font Outline'],
 						type = 'select',
-						values = {
-							['NONE'] = L['None'],
-							['OUTLINE'] = 'OUTLINE',
-							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-							['THICKOUTLINE'] = 'THICKOUTLINE',
-						},
+						values = E.Config[1].Values.FontFlags,
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 					},
 					colorStyle = {

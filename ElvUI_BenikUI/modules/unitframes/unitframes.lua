@@ -1,7 +1,14 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Units')
 local UF = E:GetModule('UnitFrames')
+local NP = E:GetModule('NamePlates')
 local AB = E:GetModule('ActionBars')
+
+local DebuffColors = E.Libs.Dispel:GetDebuffTypeColor()
+local BleedList = E.Libs.Dispel:GetBleedList()
+local BadDispels = E.Libs.Dispel:GetBadList()
+
+local groupUnits = {'party', 'raid1', 'raid2', 'raid3', 'boss', 'arena'}
 
 function mod:UnitDefaults()
 	if E.db.benikui.unitframes.player.portraitWidth == nil then
@@ -19,15 +26,29 @@ function mod:UnitDefaults()
 end
 
 function mod:UpdateUF()
-	if E.db.unitframe.units.player.enable then
+	local db = E.db.unitframe.units
+
+	if db.player.enable then
 		mod:ArrangePlayer()
 	end
 
-	if E.db.unitframe.units.target.enable then
+	if db.target.enable then
 		mod:ArrangeTarget()
 	end
 
-	if E.db.unitframe.units.party.enable then
+	if db.focus.enable then
+		mod:ArrangeFocus()
+	end
+
+	if db.pet.enable then
+		mod:ArrangePet()
+	end
+
+	if db.targettarget.enable then
+		mod:ArrangeTargetTarget()
+	end
+
+	if db.party.enable then
 		UF:CreateAndUpdateHeaderGroup('party')
 	end
 end
@@ -43,10 +64,40 @@ end
 -- Unit Shadows
 function mod:UnitShadows()
 	for _, frame in pairs(UF.units) do
-		if frame then
+		if frame and not frame.shadow then
 			frame:CreateSoftShadow()
+			frame.Health.backdrop:CreateSoftShadow()
+			frame.Health.backdrop.shadow:Hide()
+			frame.Power.backdrop:CreateSoftShadow()
+			frame.Power.backdrop.shadow:Hide()
 			frame.Buffs.PostUpdateButton = mod.PostUpdateAura
 			frame.Debuffs.PostUpdateButton = mod.PostUpdateAura
+		end
+	end
+end
+
+-- Fix unit Power Shadows
+function mod:UnitPowerShadows(frame)
+	if frame and frame.shadow and frame.Health.backdrop.shadow and frame.Power.backdrop.shadow then
+		local power = frame.Power
+		local health = frame.Health
+		
+		if frame.USE_POWERBAR then
+			if frame.USE_POWERBAR_OFFSET or frame.USE_MINI_POWERBAR then
+				frame.shadow:Hide()
+				health.backdrop.shadow:Show()
+				power.backdrop.shadow:Show()
+			elseif frame.USE_INSET_POWERBAR or frame.POWERBAR_DETACHED then
+				frame.shadow:Show()
+				health.backdrop.shadow:Hide()
+				power.backdrop.shadow:Show()
+			else
+				frame.shadow:Show()
+				health.backdrop.shadow:Hide()
+				power.backdrop.shadow:Hide()
+			end
+		else
+			frame.shadow:Show()
 		end
 	end
 end
@@ -61,6 +112,12 @@ function mod:PartyShadows()
 			local unitbutton = select(j, group:GetChildren())
 			if unitbutton then
 				unitbutton:CreateSoftShadow()
+				unitbutton.Health.backdrop:CreateSoftShadow()
+				unitbutton.Health.backdrop.shadow:Hide()
+				unitbutton.Power.backdrop:CreateSoftShadow()
+				unitbutton.Power.backdrop.shadow:Hide()
+				unitbutton.Portrait.backdrop:CreateSoftShadow()
+				unitbutton.Portrait.backdrop.shadow:Hide()
 				unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
 				unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 			end
@@ -80,6 +137,10 @@ function mod:RaidShadows()
 				local unitbutton = select(k, group:GetChildren())
 				if unitbutton then
 					unitbutton:CreateSoftShadow()
+					unitbutton.Health.backdrop:CreateSoftShadow()
+					unitbutton.Health.backdrop.shadow:Hide()
+					unitbutton.Power.backdrop:CreateSoftShadow()
+					unitbutton.Power.backdrop.shadow:Hide()
 					unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
 					unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 				end
@@ -95,6 +156,10 @@ function mod:BossShadows()
 		local unitbutton = _G["ElvUF_Boss"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
+			unitbutton.Health.backdrop:CreateSoftShadow()
+			unitbutton.Health.backdrop.shadow:Hide()
+			unitbutton.Power.backdrop:CreateSoftShadow()
+			unitbutton.Power.backdrop.shadow:Hide()
 			unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
 			unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 		end
@@ -107,9 +172,30 @@ function mod:ArenaShadows()
 		local unitbutton = _G["ElvUF_Arena"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
+			unitbutton.Trinket:CreateSoftShadow()
+			unitbutton.Health.backdrop:CreateSoftShadow()
+			unitbutton.Health.backdrop.shadow:Hide()
+			unitbutton.Power.backdrop:CreateSoftShadow()
+			unitbutton.Power.backdrop.shadow:Hide()
 			unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
 			unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 		end
+	end
+end
+
+function mod:UpdateGroupPower(unit)
+	if unit == 'party' or unit == 'raid1' or unit == 'raid2' or unit == 'raid3' then
+		for _, child in next, { UF[unit]:GetChildren() } do
+			for _, subchild in next, { child:GetChildren() } do
+				mod:UnitPowerShadows(subchild)
+			end
+		end
+	elseif unit == 'boss' or unit == 'arena' then
+		for i = 1, 10 do
+			mod:UnitPowerShadows(UF[unit..i])
+		end
+	else
+		mod:UnitPowerShadows(UF[unit])
 	end
 end
 
@@ -149,7 +235,7 @@ function mod:PostUpdateAura(_, button)
 			if db.auraByType then
 				r, g, b = .9, .1, .1
 			end
-		elseif db.auraByDispels and button.debuffType and E.BadDispels[button.spellID] and E:IsDispellableByMe(button.debuffType) then
+		elseif db.auraByDispels and button.debuffType and BadDispels[button.spellID] and E:IsDispellableByMe(button.debuffType) then
 			r, g, b = .05, .85, .94
 		elseif db.auraByType then
 			local color = _G.DebuffTypeColor[button.debuffType] or _G.DebuffTypeColor.none
@@ -208,6 +294,7 @@ function mod:Setup()
 
 	if BUI.ShadowMode then
 		mod:UnitShadows()
+		
 		mod:PartyShadows()
 		mod:RaidShadows()
 		mod:BossShadows()
@@ -215,22 +302,46 @@ function mod:Setup()
 		mod:TankShadows()
 		mod:TankTargetShadows()
 
+		for _, frame in pairs(UF.units) do
+			if frame then
+				mod:UnitPowerShadows(frame)
+			end
+		end
+
+		for _, group in pairs(groupUnits) do
+			if group then
+				mod:UpdateGroupPower(group)
+			end
+		end
+
+		hooksecurefunc(UF, "Configure_Power", function(self, frame)
+			for _, group in pairs(groupUnits) do
+				if group then
+					mod:UpdateGroupPower(group)
+				end
+			end
+		end)
+	
 		-- AuraBars Shadows
 		hooksecurefunc(UF, 'Configure_AuraBars', mod.Configure_AuraBars)
 	end
 
 	-- Group Health textures hooks
-	hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyHealthBarTexture)
-	hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidHealthBarTexture)
-	hooksecurefunc(UF, 'Update_StatusBars', mod.ChangeHealthBarTexture)
+	if E.db.benikui.unitframes.textures.enableHealth then
+		hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyHealthBarTexture)
+		hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidHealthBarTexture)
+		hooksecurefunc(UF, 'Update_StatusBars', mod.ChangeHealthBarTexture)
+	end
 
 	-- Group Power textures hooks
-	hooksecurefunc(UF, 'Update_AllFrames', mod.ChangeUnitPowerBarTexture)
-	hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidPowerBarTexture)
-	hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyPowerBarTexture)
-	hooksecurefunc(UF, 'Update_ArenaFrames', mod.ChangeArenaPowerBarTexture)
-	hooksecurefunc(UF, 'Update_BossFrames', mod.ChangeBossPowerBarTexture)
-	hooksecurefunc(UF, 'Update_StatusBars', mod.ChangePowerBarTexture)
+	if E.db.benikui.unitframes.textures.enablePower then
+		hooksecurefunc(UF, 'Update_AllFrames', mod.ChangeUnitPowerBarTexture)
+		hooksecurefunc(UF, 'Update_RaidFrames', mod.ChangeRaidPowerBarTexture)
+		hooksecurefunc(UF, 'Update_PartyFrames', mod.ChangePartyPowerBarTexture)
+		hooksecurefunc(UF, 'Update_ArenaFrames', mod.ChangeArenaPowerBarTexture)
+		hooksecurefunc(UF, 'Update_BossFrames', mod.ChangeBossPowerBarTexture)
+		hooksecurefunc(UF, 'Update_StatusBars', mod.ChangePowerBarTexture)
+	end
 
 	-- ShapeShift fix
 	hooksecurefunc(AB, 'StyleShapeShift', mod.ChangeUnitPowerBarTexture)

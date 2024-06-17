@@ -35,7 +35,6 @@ P['datatexts']['panels']['BuiMiddleDTPanel'] = {
 	[3] = 'Crit',
 }
 
--- Core
 P['benikui'] = {
 	['installed'] = nil,
 
@@ -184,9 +183,12 @@ P['benikui'] = {
 			},
 		},
 		['textures'] = {
+			['enableHealth'] = true,
 			['health'] = E.db.unitframe.statusbar,
 			['ignoreTransparency'] = false,
+			['enablePower'] = true,
 			['power'] = E.db.unitframe.statusbar,
+			['enableCastbar'] = true,
 			['castbar'] = 'BuiFlat',
 		},
 		['castbarColor'] = {
@@ -202,204 +204,242 @@ P['benikui'] = {
 	['panels'] = {
 
 	},
-}
 
--- Skins and ElvUI addons Styling
-P['benikui']['skins'] = {
-	['elvuiAddons'] = {
-		['locplus'] = true,
-		['sle'] = true,
-		['enh'] = true,
-		['pa'] = true,
-		['mer'] = true,
-		['elv'] = true,
+	-- Skins and ElvUI addons Styling
+	['skins'] = {
+		['elvuiAddons'] = {
+			['locplus'] = true,
+			['sle'] = true,
+			['enh'] = true,
+			['pa'] = true,
+			['mer'] = true,
+			['elv'] = true,
+		},
+
+		['addonSkins'] = {
+			['skada'] = true,
+			['recount'] = true,
+			['tinydps'] = true,
+			['atlasloot'] = true,
+			['altoholic'] = true,
+			['clique'] = true,
+			['ora'] = true,
+			['pawn'] = true,
+			['dbm'] = true,
+			['bigwigs'] = true,
+			['zygor'] = true,
+			['immersion'] = true,
+			['allthethings'] = true,
+			['tinyinspect'] = true,
+			['arkinventory'] = true,
+			['classTactics'] = true,
+			['hekili'] = true,
+			['wowpro'] = true,
+		},
+
+		['variousSkins'] = {
+			['talkingHead'] = true,
+			['objectiveTracker'] = true,
+			['inflight'] = true,
+			['kt'] = true,
+			['rt'] = true,
+			['wa'] = true,
+			['tomtom'] = true,
+		},
 	},
 
-	['addonSkins'] = {
-		['skada'] = true,
-		['recount'] = true,
-		['tinydps'] = true,
-		['atlasloot'] = true,
-		['altoholic'] = true,
-		['clique'] = true,
-		['ora'] = true,
-		['pawn'] = true,
-		['dbm'] = true,
-		['bigwigs'] = true,
-		['zygor'] = true,
-		['immersion'] = true,
-		['allthethings'] = true,
-		['tinyinspect'] = true,
-		['arkinventory'] = true,
-		['classTactics'] = true,
-		['hekili'] = true,
-		['wowpro'] = true,
-	},
-
-	['variousSkins'] = {
-		['talkingHead'] = true,
-		['objectiveTracker'] = true,
-		['inflight'] = true,
-		['kt'] = true,
-		['rt'] = true,
-	},
-}
-
--- Databars
-P['benikui']['databars'] = {
-	['experience'] = {
-		['enable'] = true,
-		['buiStyle'] = true,
-		['buttonStyle'] = "TRANSPARENT",
-		['notifiers'] = {
+	-- Databars
+	['databars'] = {
+		['experience'] = {
 			['enable'] = true,
-			['position'] = 'RIGHT',
+			['buiStyle'] = true,
+			['buttonStyle'] = "DEFAULT",
+			['notifiers'] = {
+				['enable'] = true,
+				['position'] = 'RIGHT',
+			},
 		},
-	},
 
-	['reputation'] = {
-		['enable'] = true,
-		['buiStyle'] = true,
-		['buttonStyle'] = "TRANSPARENT",
-		['notifiers'] = {
+		['reputation'] = {
 			['enable'] = true,
-			['position'] = 'LEFT',
+			['buiStyle'] = true,
+			['buttonStyle'] = "DEFAULT",
+			['notifiers'] = {
+				['enable'] = true,
+				['position'] = 'LEFT',
+			},
 		},
-	},
 
-	['azerite'] = {
-		['enable'] = true,
-		['buiStyle'] = true,
-		['buttonStyle'] = "TRANSPARENT",
-		['notifiers'] = {
+		['azerite'] = {
 			['enable'] = true,
-			['position'] = 'LEFT',
+			['buiStyle'] = true,
+			['buttonStyle'] = "DEFAULT",
+			['notifiers'] = {
+				['enable'] = true,
+				['position'] = 'LEFT',
+			},
 		},
-	},
 
-	['honor'] = {
-		['enable'] = true,
-		['buiStyle'] = true,
-		['buttonStyle'] = "TRANSPARENT",
-		['notifiers'] = {
+		['honor'] = {
 			['enable'] = true,
-			['position'] = 'RIGHT',
+			['buiStyle'] = true,
+			['buttonStyle'] = "DEFAULT",
+			['notifiers'] = {
+				['enable'] = true,
+				['position'] = 'RIGHT',
+			},
 		},
-	},
 
-	['threat'] = {
-		['enable'] = true,
-		['buiStyle'] = false,
-		['buttonStyle'] = "TRANSPARENT",
-		['notifiers'] = {
+		['threat'] = {
 			['enable'] = true,
-			['position'] = 'BELOW',
+			['buiStyle'] = true,
+			['buttonStyle'] = "DEFAULT",
+			['notifiers'] = {
+				['enable'] = true,
+				['position'] = 'RIGHT',
+			},
 		},
 	},
-}
 
--- Widgetbars
-P['benikui']['widgetbars'] = {
-	['mawBar'] = {
-		['enable'] = true,
-		['width'] = 222,
-		['height'] = 5,
-		['textYoffset'] = 13,
-		['barColor'] = {r = 0.192, g = 0.858, b = 0.858, a = 100},
-		['barAutoColor'] = true,
-		['textColor'] = {r = 1, g = 1, b = 1},
-		['useDTfont'] = true,
-		['font'] = E.db.datatexts.font,
-		['fontsize'] = E.db.datatexts.fontSize,
-		['fontflags'] = E.db.datatexts.fontOutline,
-		['textFormat'] = 'PERCENT',
-	},
-	['halfBar'] = {
-		['altbar'] = true,
-		['mirrorbar'] = true,
-	},
-}
-
--- Dashboards
-P['benikui']['dashboards'] = {
-	['system'] = {
-		['enableSystem'] = true,
-		['combat'] = false,
-		['width'] = 150,
-		['barHeight'] = 1,
-		['style'] = true,
-		['transparency'] = true,
-		['backdrop'] = true,
-		['mouseover'] = false,
-		['textAlign'] = 'LEFT',
-		['chooseSystem'] = {
-			['FPS'] = true,
-			['MS'] = true,
-			['Bags'] = true,
-			['Durability'] = true,
-			['Volume'] = true,
+	-- Widgetbars
+	['widgetbars'] = {
+		['mawBar'] = {
+			['enable'] = true,
+			['width'] = 222,
+			['height'] = 5,
+			['textYoffset'] = 13,
+			['barColor'] = {r = 0.192, g = 0.858, b = 0.858, a = 1},
+			['barAutoColor'] = true,
+			['textColor'] = {r = 1, g = 1, b = 1},
+			['useDTfont'] = true,
+			['font'] = E.db.datatexts.font,
+			['fontsize'] = E.db.datatexts.fontSize,
+			['fontflags'] = E.db.datatexts.fontOutline,
+			['textFormat'] = 'PERCENT',
 		},
-		['latency'] = 2,
+
+		['halfBar'] = {
+			['altbar'] = true,
+			['mirrorbar'] = true,
+		},
 	},
 
-	['tokens'] = {
-		['enableTokens'] = true,
-		['combat'] = true,
-		['mouseover'] = false,
-		['tooltip'] = true,
-		['width'] = 150,
-		['barHeight'] = 1,
-		['style'] = true,
-		['transparency'] = true,
-		['backdrop'] = true,
-		['zeroamount'] = false,
-		['weekly'] = true,
-		['iconPosition'] = 'LEFT'
-	},
+	-- Dashboards
+	['dashboards'] = {
+		['DashboardDBConverted'] = nil,
+		['system'] = {
+			['enable'] = true,
+			['combat'] = false,
+			['width'] = 150,
+			['barHeight'] = 1,
+			['style'] = true,
+			['transparency'] = true,
+			['backdrop'] = true,
+			['mouseover'] = false,
+			['textAlign'] = 'LEFT',
+			['chooseSystem'] = {
+				['FPS'] = true,
+				['MS'] = true,
+				['Bags'] = true,
+				['Durability'] = true,
+				['Volume'] = true,
+			},
+			['latency'] = 2,
+			['instance'] = true,
+			['orientation'] = 'BOTTOM',
+			['overrideColor'] = true,
+			['updateThrottle'] = 2,
+			['spacing'] = 1,
+		},
 
-	['professions'] = {
-		['enableProfessions'] = true,
-		['combat'] = true,
-		['mouseover'] = false,
-		['width'] = 150,
-		['barHeight'] = 1,
-		['style'] = true,
-		['transparency'] = true,
-		['backdrop'] = true,
-		['capped'] = false,
-		['iconPosition'] = 'RIGHT'
-	},
+		['tokens'] = {
+			['enable'] = true,
+			['combat'] = true,
+			['mouseover'] = false,
+			['tooltip'] = true,
+			['width'] = 150,
+			['barHeight'] = 1,
+			['style'] = true,
+			['transparency'] = true,
+			['backdrop'] = true,
+			['zeroamount'] = false,
+			['weekly'] = true,
+			['iconPosition'] = 'LEFT',
+			['instance'] = true,
+			['orientation'] = 'BOTTOM',
+			['spacing'] = 1,
+		},
 
-	['reputations'] = {
-		['enableReputations'] = true,
-		['combat'] = true,
-		['mouseover'] = false,
-		['width'] = 200,
-		['barHeight'] = 1,
-		['style'] = true,
-		['transparency'] = true,
-		['backdrop'] = true,
-		['barFactionColors'] = true,
-		['textFactionColors'] = true,
-		['tooltip'] = false,
-		['textAlign'] = 'LEFT',
-	},
+		['professions'] = {
+			['enable'] = true,
+			['combat'] = true,
+			['mouseover'] = false,
+			['width'] = 150,
+			['barHeight'] = 1,
+			['style'] = true,
+			['transparency'] = true,
+			['backdrop'] = true,
+			['capped'] = false,
+			['iconPosition'] = 'RIGHT',
+			['instance'] = true,
+			['orientation'] = 'BOTTOM',
+			['spacing'] = 1,
+		},
 
-	['dashfont'] = {
-		['useDTfont'] = true,
-		['dbfont'] = E.db.datatexts.font,
-		['dbfontsize'] = E.db.datatexts.fontSize,
-		['dbfontflags'] = E.db.datatexts.fontOutline,
-	},
+		['reputations'] = {
+			['enable'] = true,
+			['combat'] = true,
+			['mouseover'] = false,
+			['width'] = 200,
+			['barHeight'] = 1,
+			['style'] = true,
+			['transparency'] = true,
+			['backdrop'] = true,
+			['barFactionColors'] = true,
+			['textFactionColors'] = true,
+			['tooltip'] = false,
+			['textAlign'] = 'LEFT',
+			['instance'] = true,
+			['orientation'] = 'BOTTOM',
+			['spacing'] = 1,
+		},
 
-	['barColor'] = 1,
-	['customBarColor'] = {r = 255/255,g = 128/255,b = 0/255},
-	['textColor'] = 2,
-	['customTextColor'] = {r = 255/255,g = 255/255,b = 255/255},
+		['items'] = {
+			['enable'] = true,
+			['combat'] = true,
+			['mouseover'] = false,
+			['width'] = 150,
+			['barHeight'] = 1,
+			['style'] = true,
+			['transparency'] = true,
+			['backdrop'] = true,
+			['iconPosition'] = 'RIGHT',
+			['instance'] = true,
+			['orientation'] = 'BOTTOM',
+			['spacing'] = 1,
+			['tooltip'] = true,
+			['showMax'] = true,
+		},
+
+		['dashfont'] = {
+			['useDTfont'] = true,
+			['dbfont'] = E.db.datatexts.font,
+			['dbfontsize'] = E.db.datatexts.fontSize,
+			['dbfontflags'] = E.db.datatexts.fontOutline,
+		},
+
+		['barColor'] = 1,
+		['customBarColor'] = {r = 255/255,g = 128/255,b = 0/255},
+		['textColor'] = 2,
+		['customTextColor'] = {r = 255/255,g = 255/255,b = 255/255},
+	},
 }
 
 G['benikui'] = {
 	['CustomPanels'] = {
+		['createButton'] = false,
+	},
+	['CustomItems'] = {
 		['createButton'] = false,
 	},
 }

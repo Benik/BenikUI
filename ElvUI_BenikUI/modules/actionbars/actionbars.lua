@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Actionbars')
 local AB = E:GetModule('ActionBars')
 local T = E:GetModule('TotemTracker')
@@ -135,19 +135,20 @@ function mod:TotemShadows()
 	end
 end
 
-function mod:ApplyFlyoutShadows(btn)
+local function ApplyFlyoutShadows(btn)
 	if not btn.shadow then
 		btn:CreateSoftShadow()
 	end
 end
 
-function mod:FlyoutShadows()
-	local btn, i = _G['SpellFlyoutButton1'], 1
+local function FlyoutShadows()
+	local btn, i = _G['LABFlyoutButton1'], 1
 	while btn do
-		mod:ApplyFlyoutShadows(btn)
+		if btn.shadow then break end
+		ApplyFlyoutShadows(btn)
 
 		i = i + 1
-		btn = _G['SpellFlyoutButton'..i]
+		btn = _G['LABFlyoutButton'..i]
 	end
 end
 
@@ -171,18 +172,21 @@ function mod:ExtraAB() -- shadows
 end
 
 local function VehicleExit()
-	if E.private.actionbar.enable ~= true then
+	if E.db.actionbar.vehicleExitButton.enable ~= true then
 		return
 	end
-	local f = _G.MainMenuBarVehicleLeaveButton
-	local arrow = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow"
-	f:SetNormalTexture(arrow)
-	f:SetPushedTexture(arrow)
-	f:SetHighlightTexture(arrow)
 
-	if MasqueGroup and E.private.actionbar.masque.actionbars then return end
-	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
-	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
+	if not MasqueGroup then
+		local f = _G.MainMenuBarVehicleLeaveButton
+		local arrow = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\flightMode\\arrow"
+		f:SetNormalTexture(arrow)
+		f:SetPushedTexture(arrow)
+		f:SetHighlightTexture(arrow)
+
+		f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+		f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
+		f.backdrop:CreateSoftShadow()
+	end
 end
 
 function mod:Initialize()
@@ -202,7 +206,7 @@ function mod:Initialize()
 	hooksecurefunc(BUI, "SetupColorThemes", mod.StyleColor)
 
 	if not BUI.ShadowMode then return end
-	hooksecurefunc(_G.SpellFlyout, 'Show', mod.FlyoutShadows)
+	hooksecurefunc(AB, 'StyleFlyout', FlyoutShadows)
 	mod:ExtraAB()
 end
 

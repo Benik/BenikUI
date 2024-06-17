@@ -29,6 +29,8 @@ L['Splash Screen'] = "Écran de démarrage"
 L['Shadow'] = "Ombre"
 L['Shadow Size'] = "Taille de l'ombre"
 L['Shadow Alpha'] = true
+L['Font Size'] = true
+L["Miscellaneous"] = true
 
 -- Layout
 L['LeftClick: Toggle Configuration'] = "Clic gauche: active la configuration"
@@ -37,6 +39,7 @@ L['ShiftClick to toggle chat'] = "Shift Cliquez pour activer le chat"
 L['Click to show the Addon List'] = "Cliquez pour afficher la liste des addons complémentaires"
 
 -- Custom Panels
+L['Custom Panels'] = true
 L['Clone'] = true
 L['Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name'] = true
 L["Create"] = "Créer"
@@ -66,6 +69,7 @@ L['Inside the item slot'] = "Dans l'emplacement de l'objet"
 L['Outside the item slot'] = "En dehors de l'emplacement de l'objet"
 
 -- Flight mode
+L['Flight Mode'] = true
 L['Exit FlightMode'] = "Quitter le mode voyage"
 L['Show an enhanced game menu'] = "Afficher un menu du jeu amélioré"
 L['Toggle Location and Coords'] = "Active la localisation et les coordonnées"
@@ -153,12 +157,15 @@ L['Change the Bar Height.'] = true
 L['Change the System Dashboard width.'] = "Modifiez la largeur du tableau de bord système."
 L['Choose font for all dashboards.'] = "Choisissez la police pour tous les tableaux de bord."
 L['Click :'] = "Clic"
+L["Custom Color"] = true
 L['Dashboards'] = "tableaux de bord"
 L['Enable the System Dashboard.'] = "Active le tableau de bord système."
 L['Enable the Tokens Dashboard.'] = "Active le tableau de bord des jetons."
 L['Enable/Disable'] = "Active/Désactive"
 L['Faction Colors'] = true
 L['Fast Volume +/-'] = true
+L['Filter Capped'] = true
+L['Hide in Instance'] = true
 L['Latency (MS)'] = "Latence (MS)"
 L['MouseWheel :'] = "Roulette de la souris :"
 L['RightClick :'] = "Clic-droit :"
@@ -181,9 +188,20 @@ L['System'] = "Système"
 L['Text Alignment'] = true
 L['Tip: Click to free memory'] = "Astuce: cliquez pour libérer de la mémoire"
 L['Tip: Grayed tokens are not yet discovered'] = "Astuce: les jetons grisés ne sont pas encore découverts"
+L['Update Throttle'] = true
 L['Use DataTexts font'] = "Utiliser la police pour les textes de données"
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true
+
+-- Items
+L['Items'] = true
+L['Enable the Items Dashboard.'] = true
+L['New Item by ID'] = true
+L["The ID |cff00c0fa%d|r doesn't exist in the game."] = true
+L['The Item |cff00c0fa%s|r already exists.'] = true
+L['Change the Items Dashboard width.'] = true
+L['Show/Hide items Dashboard when in combat'] = true
+L['Show Max Amount'] = true
 
 -- Databars Options
 L['Notifiers'] = "Notificateurs"
@@ -223,6 +241,7 @@ L['This will ignore ElvUI Health Transparency setting on all Group Frames.'] = "
 L['Vertical power statusbar'] = "Barre d'état de puissance verticale"
 
 -- Castbar
+L['Castbar'] = true
 L['Force show any text placed on the InfoPanel, while casting.'] = "Force l'affichage de tout texte placé sur l'InfoPanel pendant la diffusion."
 L['Show Castbar text'] = "Afficher le texte de la barre d'incant"
 L['Show InfoPanel text'] = "Afficher le texte du panneau d'informations"
@@ -232,6 +251,14 @@ L['This applies on all available castbars.'] = "Ceci s'applique à toutes les ba
 -- Raid
 L['Class Hover'] = true
 L['Enable Class color on health border, when mouse over'] = "Active la couleur de classe sur la bordure de santé, lorsque la souris passe dessus"
+
+-- Widget Bars
+L['Widget Bars'] = true
+L['BenikUI Maw Bar'] = true
+L['Color by Tier'] = true
+L['Text yOffset'] = true
+L['Half Bar'] = true
+L["Percent"] = true
 
 -- Information
 L['Information'] = true

@@ -1,4 +1,4 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 
 local BU = BUI:GetModule('Units');
@@ -127,9 +127,17 @@ local function ufTable()
 				name = L['Textures'],
 				guiInline = true,
 				args = {
+					enableHealth = {
+						type = 'toggle',
+						order = 1,
+						name = L["Enable"],
+						--width = "full", 
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
+					},
 					health = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 1,
+						order = 2,
 						name = L['Health'],
 						desc = L['Health statusbar texture. Applies only on Group Frames'],
 						values = AceGUIWidgetLSMlists.statusbar,
@@ -138,20 +146,28 @@ local function ufTable()
 					},
 					ignoreTransparency = {
 						type = 'toggle',
-						order = 2,
+						order = 3,
 						name = L['Ignore Transparency'],
 						desc = L['This will ignore ElvUI Health Transparency setting on all Group Frames.'],
 						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UF:Update_AllFrames(); end,
 					},
 					spacer = {
-						order = 3,
+						order = 4,
 						type = 'header',
 						name = '',
 					},
+					enablePower = {
+						type = 'toggle',
+						order = 5,
+						name = L["Enable"],
+						--width = "full", 
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
+					},
 					power = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 4,
+						order = 6,
 						name = L['Power'],
 						desc = L['Power statusbar texture.'],
 						values = AceGUIWidgetLSMlists.statusbar,
@@ -159,13 +175,21 @@ local function ufTable()
 						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BU:ChangePowerBarTexture() end,
 					},
 					spacer2 = {
-						order = 5,
+						order = 7,
 						type = 'header',
 						name = '',
 					},
+					enableCastbar = {
+						type = 'toggle',
+						order = 8,
+						name = L["Enable"],
+						--width = "full", 
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
+					},
 					castbar = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 6,
+						order = 9,
 						name = L['Castbar'],
 						desc = L['This applies on all available castbars.'],
 						values = AceGUIWidgetLSMlists.statusbar,
@@ -297,7 +321,7 @@ local function ufPlayerTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
-				min = 10, max = 500, step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 6,
@@ -407,7 +431,7 @@ local function ufTargetTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return E.db.benikui.unitframes.target.getPlayerPortraitSize or not E.db.benikui.unitframes.target.detachPortrait end,
-				min = 10, max = 500, step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 7,
@@ -511,7 +535,7 @@ local function ufTargetTargetTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
-				min = 10, max = 500, step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 6,
@@ -587,7 +611,7 @@ local function ufFocusTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
-				min = 10, max = 500, step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 6,
@@ -663,7 +687,7 @@ local function ufPetTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
-				min = 10, max = 500, step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 6,

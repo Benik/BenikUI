@@ -1,4 +1,4 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 
 local tinsert, format = table.insert, string.format
@@ -41,7 +41,7 @@ local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
 	--{'BigWigs', 'BigWigs'},
 	{'DBM-Core', 'Deadly Boss Mods'},
-	{'Details', 'Details'},
+	--{'Details', 'Details'},
 	{'ElvUI_LocPlus', 'Location Plus'},
 	{'InFlight_Load', 'InFlight'},
 	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
@@ -171,6 +171,19 @@ local function SkinTable()
 				name = L['Rare Tracker'],
 				disabled = function() return not IsAddOnLoaded('RareTrackerCore') end,
 			},
+			tomtom = {
+				order = 6,
+				type = 'toggle',
+				name = L['TomTom'],
+				disabled = function() return not IsAddOnLoaded('TomTom') end,
+			},
+			wa = {
+				order = 7,
+				type = 'toggle',
+				name = L['WeakAuras'],
+				disabled = function() return not BUI.WA end,
+				hidden = function() return BUI.MER end,
+			},
 		},
 	}
 
@@ -194,10 +207,10 @@ local function SkinTable()
 			func = function()
 				if addon == 'DBM-Core' then
 					BUI:LoadDBMProfile()
-				elseif addon == 'BigWigs' then
+				--elseif addon == 'BigWigs' then
 					--BUI:LoadBigWigsProfile()
-				elseif addon == 'Details' then
-					BUI:LoadDetailsProfile()
+				--elseif addon == 'Details' then
+					--BUI:LoadDetailsProfile()
 				elseif addon == 'InFlight_Load'then
 					if E.db.benikui.skins.variousSkins.inflight then
 						BUI:LoadInFlightProfile(true)

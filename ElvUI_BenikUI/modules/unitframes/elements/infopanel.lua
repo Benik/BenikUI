@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local UF = E:GetModule('UnitFrames');
 local BU = BUI:GetModule('Units');
 local LSM = E.LSM;

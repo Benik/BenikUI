@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
@@ -18,11 +18,6 @@ function BU:Construct_PlayerFrame()
 	if E.db.benikui.general.benikuiStyle == true then
 		frame.Portrait.backdrop:BuiStyle('Inside')
 		frame.Portrait.backdrop.style:Hide()
-	end
-
-	if BUI.ShadowMode then
-		frame.Power.backdrop:CreateSoftShadow()
-		frame.Power.backdrop.shadow:Hide()
 	end
 
 	local f = CreateFrame("Frame", nil, frame)
@@ -47,7 +42,7 @@ function BU:ArrangePlayer()
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.player.portraitHeight
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.player.portraitFrameStrata
 
-		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
+		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH
 		frame.POWER_VERTICAL = db.power.vertical
 
 		frame.IS_ELTREUM = BUI.ELT and frame.InfoPanelOnTop
@@ -93,6 +88,14 @@ function BU:InitPlayer()
 
 		if unitframeType == "player" then
 			BU:Configure_Infopanel(frame)
+		end
+	end)
+
+	hooksecurefunc(UF, "Configure_Power", function(self, frame)
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "player" then
+			BU:UnitPowerShadows(frame)
 		end
 	end)
 end

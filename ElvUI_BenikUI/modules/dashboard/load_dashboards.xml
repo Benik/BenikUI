@@ -4,6 +4,7 @@
 	<Script file="tokens.lua"/>
 	<Script file="professions.lua"/>
 	<Script file="reputations.lua"/>
+	<Script file="items.lua"/>
 	<Script file="options.lua"/>
 	<Include file="panels\load_panels.xml"/>
 </Ui>

@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
 
@@ -7,22 +7,24 @@ local _G = _G
 -- GLOBALS: hooksecurefunc
 
 local CreateFrame = CreateFrame
+local IsInInstance = IsInInstance
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
+local systemDB = mod.SystemDB
 
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
-function mod:UpdateSystem()
+function mod:CreateSystem()
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
-	if(BUI.SystemDB[1]) then
-		for i = 1, getn(BUI.SystemDB) do
-			BUI.SystemDB[i]:Kill()
+	if(systemDB[1]) then
+		for i = 1, getn(systemDB) do
+			systemDB[i]:Kill()
 		end
-		twipe(BUI.SystemDB)
+		twipe(systemDB)
 		holder:Hide()
 	end
 
@@ -31,7 +33,6 @@ function mod:UpdateSystem()
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
 			holder:Show()
-			holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.SystemDB + 1)) + DASH_SPACING)
 
 			local bar = CreateFrame('Frame', 'BUI_'..name, holder)
 			bar:Height(DASH_HEIGHT)
@@ -59,6 +60,7 @@ function mod:UpdateSystem()
 			bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
 
 			bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
+			bar.Text:FontTemplate()
 			bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
 			bar.Text:SetJustifyH(db.textAlign)
 
@@ -74,16 +76,7 @@ function mod:UpdateSystem()
 				end
 			end)
 
-			tinsert(BUI.SystemDB, bar)
-		end
-	end
-
-	for key, frame in ipairs(BUI.SystemDB) do
-		frame:ClearAllPoints()
-		if(key == 1) then
-			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
-		else
-			frame:Point('TOP', BUI.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			tinsert(systemDB, bar)
 		end
 	end
 end
@@ -92,10 +85,10 @@ function mod:UpdateSystemSettings()
 	local db = E.db.benikui.dashboards.system
 	local holder = _G.BUI_SystemDashboard
 
-	mod:FontStyle(BUI.SystemDB)
-	mod:FontColor(BUI.SystemDB)
-	mod:BarColor(BUI.SystemDB)
-	mod:BarHeight('system', BUI.SystemDB)
+	mod:FontStyle(systemDB)
+	mod:FontColor(systemDB)
+	mod:BarColor(systemDB)
+	mod:BarHeight('system', systemDB)
 
 	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 end
@@ -115,16 +108,43 @@ function mod:UpdateSystemTextAlignment()
 	end
 end
 
+function mod:UpdateOrientation()
+	local db = E.db.benikui.dashboards.system
+	local holder = _G.BUI_SystemDashboard
+
+	if db.orientation == 'BOTTOM' then
+		holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#systemDB)) + DASH_SPACING)
+		holder:Width(db.width)
+	else
+		holder:Height(DASH_HEIGHT + (DASH_SPACING))
+		holder:Width(db.width * (#systemDB) + ((#systemDB -1) *db.spacing))
+	end
+
+	for key, frame in ipairs(systemDB) do
+		frame:ClearAllPoints()
+		if(key == 1) then
+			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+		else
+			if db.orientation == 'BOTTOM' then
+				frame:Point('TOP', systemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			else
+				frame:Point('LEFT', systemDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
+			end
+		end
+	end
+end
+
 function mod:CreateSystemDashboard()
 	local db = E.db.benikui.dashboards.system
 	local holder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
 	holder:Width(db.width or 150)
 
-	mod:UpdateSystem()
-	mod:UpdateHolderDimensions(holder, 'system', BUI.SystemDB)
+	mod:UpdateHolderDimensions(holder, 'system', systemDB)
 	mod:ToggleStyle(holder, 'system')
 	mod:ToggleTransparency(holder, 'system')
+	mod:CreateSystem()
+	mod:UpdateOrientation()
 
 	holder:SetScript('OnEnter', function()
 		if db.mouseover then
@@ -142,7 +162,7 @@ function mod:CreateSystemDashboard()
 end
 
 function mod:LoadSystem()
-	if E.db.benikui.dashboards.system.enableSystem ~= true then return end
+	if E.db.benikui.dashboards.system.enable ~= true then return end
 	local db = E.db.benikui.dashboards.system.chooseSystem
 
 	if (db.FPS ~= true and db.MS ~= true and db.Bags ~= true and db.Durability ~= true and db.Volume ~= true) then return end

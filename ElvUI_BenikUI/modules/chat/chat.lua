@@ -1,4 +1,4 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
+﻿local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local CH = E:GetModule('Chat')
 local BL = BUI:GetModule('Layout')
 local FM = BUI:GetModule('FlightMode')
