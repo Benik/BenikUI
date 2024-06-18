@@ -44,10 +44,10 @@ local function LoadSkin()
 
 	if db.character then
 		_G.PaperDollFrame:BuiStyle("Outside")
-		_G.ReputationFrame:BuiStyle("Outside")
-		_G.TokenFrame:BuiStyle("Outside")
-		hooksecurefunc('ReputationFrame_Update', repUpdate)
-		hooksecurefunc('TokenFrame_Update', tokenUpdate)
+		-- _G.ReputationFrame:BuiStyle("Outside")
+		-- _G.TokenFrame:BuiStyle("Outside")
+		-- hooksecurefunc('ReputationFrame_Update', repUpdate)
+		-- hooksecurefunc('TokenFrame_Update', tokenUpdate)
 	end
 
 	if db.dressingroom then
@@ -210,7 +210,7 @@ local function LoadSkin()
 	end
 
 	if db.spellbook then
-		_G.PlayerSpellsFrame:BuiStyle("Outside")
+		-- _G.PlayerSpellsFrame:BuiStyle("Outside")
 	end
 
 	if db.tabard then
