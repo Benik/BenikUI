@@ -23,6 +23,9 @@ function mod:stylePlugins()
 
 	-- Shadow & Light
 	if BUI.SLE and E.db.benikui.skins.elvuiAddons.sle then
+		local SLE = unpack(ElvUI_SLE)
+		local LP = SLE:GetModule('LocationPanel')
+
 		local sleFrames = {
 			_G.SLE_BG_1,
 			_G.SLE_BG_2,
@@ -37,16 +40,25 @@ function mod:stylePlugins()
 			_G.SLE_LocationPanel_RightClickMenu2,
 			_G.InspectArmory
 		}
+
 		for _, frame in pairs(sleFrames) do
 			if frame then
 				frame:BuiStyle("Outside")
 			end
 		end
 
+		-- fix framelevel
+		_G.SLE_LocationPanel_X.style:SetFrameLevel(3)
+		_G.SLE_LocationPanel_Y.style:SetFrameLevel(3)
+
 		-- fix shadow overlap
 		if BUI.ShadowMode then
 			_G.SLE_LocationPanel_X:Point('RIGHT', _G.SLE_LocationPanel, 'LEFT', -2, 0)
 			_G.SLE_LocationPanel_Y:Point('LEFT', _G.SLE_LocationPanel, 'RIGHT', 2, 0)
+			hooksecurefunc(LP, "PopulateDropdown", function()
+				_G.SLE_LocationPanel_RightClickMenu1:ClearAllPoints()
+				_G.SLE_LocationPanel_RightClickMenu1:Point('TOP', _G.SLE_LocationPanel, 'BOTTOM', 0, -6)
+			end)
 		end
 	end
 
