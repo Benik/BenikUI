@@ -263,10 +263,10 @@ function mod:PostUpdateAura(_, button)
 end
 
 function mod:ChangeDefaultOptions()
-	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.height.max = 300
-	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.detachGroup.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
-	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.height.max = 300
-	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.detachGroup.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
+	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.generalGroup.args.height.max = 300
+	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.generalGroup.args.detachGroup.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
+	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.generalGroup.args.height.max = 300
+	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.generalGroup.args.detachGroup.args.detachedWidth.min = ((E.db.unitframe.thinBorders or E.PixelMode) and 3 or 7)
 end
 
 function mod:ADDON_LOADED(event, addon)
