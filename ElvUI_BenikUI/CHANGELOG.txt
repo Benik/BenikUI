@@ -1,3 +1,32 @@
+v4.48 (Jun 10, 2024)
+Update for changes in dev to elvui uf changes(needs ElvUI 13.68)
+Fixed Shadow & Light Location Panel style glitches #51
+Disabled Details profile
+Actually no reason to override the text if just using default
+Update status report to match ElvUI for Other Addons Enabled
+
+v4.47 (May 9, 2024)
+Fix pet stable frame for 10.2.7. Credit Tsxy
+
+v4.46 (Mar 20, 2024)
+toc bump for 10.2.6
+Raised detached portrait max width to 1000 (for Jiberish)
+Fix Flightmode error. Credit: Tsxy
+
+v4.45 (Feb 15, 2024)
+"Fixed" Party Portrait shadow glitch, when resized
+Skin Superbloom Objective Tracker Block
+Added shadow in the Arena Trinket icon
+Fixed Group Units Power shadow glitches
+Fixed Units Power shadow glitches. At last :P
+Properly styled ObjectiveTracker blocks on some widgets. Credit: SLE
+Fixed Custom Texts shadows for Player/Target/Party, during install
+The default ObjectiveTracker font and its flags look better. I think :P
+Fixed a possible error with Castbar Icon
+Styled ObjeciveTracker Block Frames. Mythic+ needs testing
+Fixed QuestNPCModelTextFrame Shadows
+Arranged Patrons & Donators
+
 v4.44 (Jan 24, 2024)
 toc bump
 It's been 10 years? WOW

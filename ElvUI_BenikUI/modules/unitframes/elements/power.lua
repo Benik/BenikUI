@@ -16,13 +16,6 @@ function BU:Configure_Power(frame)
 			else
 				power:SetOrientation('HORIZONTAL')
 			end
-			if power.backdrop.shadow then
-				power.backdrop.shadow:Show()
-			end
-		else
-			if power.backdrop.shadow then
-				power.backdrop.shadow:Hide()
-			end
 		end
 	end
 end

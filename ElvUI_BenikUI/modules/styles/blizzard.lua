@@ -195,11 +195,16 @@ local function LoadSkin()
 	if db.quest then
 		_G.QuestFrame:BuiStyle("Outside")
 		_G.QuestLogPopupDetailFrame:BuiStyle("Outside")
-		_G.QuestModelScene:BuiStyle("Outside")
+		_G.QuestModelScene.backdrop:BuiStyle("Outside")
+
+		_G.QuestNPCModelTextFrame:ClearAllPoints()
+		_G.QuestNPCModelTextFrame:Point("TOP", _G.QuestModelScene.backdrop, "BOTTOM", 0, -4)
+		_G.QuestNPCModelTextFrame.backdrop:CreateSoftShadow()
+		_G.QuestNPCModelTextFrame.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
 	end
 
 	if db.stable then
-		_G.PetStableFrame:BuiStyle("Outside")
+		_G.StableFrame:BuiStyle("Outside")
 	end
 
 	if db.spellbook then

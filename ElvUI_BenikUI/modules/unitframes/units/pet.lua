@@ -58,4 +58,12 @@ function BU:InitPet()
 			BU:Configure_Portrait(frame, false)
 		end
 	end)
+
+	hooksecurefunc(UF, "Configure_Power", function(self, frame)
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "pet" then
+			BU:UnitPowerShadows(frame)
+		end
+	end)
 end

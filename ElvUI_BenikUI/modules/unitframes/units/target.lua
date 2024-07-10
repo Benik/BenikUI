@@ -22,11 +22,6 @@ function BU:Construct_TargetFrame()
 		frame.Portrait.backdrop.style:Hide()
 	end
 
-	if BUI.ShadowMode then
-		frame.Power.backdrop:CreateSoftShadow()
-		frame.Power.backdrop.shadow:Hide()
-	end
-
 	local f = CreateFrame("Frame", nil, frame)
 	frame.portraitmover = f
 
@@ -130,6 +125,14 @@ function BU:InitTarget()
 
 		if unitframeType == "target" then
 			BU:Configure_Portrait(frame, false)
+		end
+	end)
+
+	hooksecurefunc(UF, "Configure_Power", function(self, frame)
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "target" then
+			BU:UnitPowerShadows(frame)
 		end
 	end)
 end
