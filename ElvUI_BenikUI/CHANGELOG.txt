@@ -1,3 +1,10 @@
+v4.48 (Jun 10, 2024)
+Update for changes in dev to elvui uf changes(needs ElvUI 13.68)
+Fixed Shadow & Light Location Panel style glitches #51
+Disabled Details profile
+Actually no reason to override the text if just using default
+Update status report to match ElvUI for Other Addons Enabled
+
 v4.47 (May 9, 2024)
 Fix pet stable frame for 10.2.7. Credit Tsxy
 
