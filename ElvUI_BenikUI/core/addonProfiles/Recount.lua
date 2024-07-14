@@ -24,6 +24,15 @@ function BUI:LoadRecountProfile()
 						['g'] = 0.5,
 						['b'] = 0,
 					},
+                    ["Title"] = {
+                        ["a"] = 0,
+                    },
+                    ["Background"] = {
+                        ["a"] = 0,
+                        ["r"] = 0,
+                        ["g"] = 0,
+                        ["b"] = 0,
+                    },
 				},
 				['Bar'] = {
 					['Bar Text'] = {
