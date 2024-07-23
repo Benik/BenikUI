@@ -12,6 +12,8 @@ local hoverVisible = false
 
 local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
 local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+
 
 local classColor = E:ClassColor(E.myclass, true)
 local Garrison_OnClick = GarrisonLandingPageMinimapButton_OnClick

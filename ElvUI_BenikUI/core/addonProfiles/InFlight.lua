@@ -1,5 +1,7 @@
 ﻿local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
+local LoadAddOn = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
+
 function BUI:LoadInFlightProfile(flightMode)
 	if not BUI.IF then
 		LoadAddOn("InFlight") -- LOD addon

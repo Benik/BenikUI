@@ -4,6 +4,8 @@ local addon, Engine = ...
 
 local BUI = E.Libs.AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0")
 
+local GetAddOnMetadata = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
+
 Engine[1] = BUI
 Engine[2] = E
 Engine[3] = L

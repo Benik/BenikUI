@@ -5,6 +5,8 @@ local S = E:GetModule('Skins')
 local _G = _G
 local pairs = pairs
 local C_TimerAfter = C_Timer.After
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+
 
 local MAX_STATIC_POPUPS = 4
 
@@ -42,10 +44,10 @@ local function LoadSkin()
 
 	if db.character then
 		_G.PaperDollFrame:BuiStyle("Outside")
-		_G.ReputationFrame:BuiStyle("Outside")
-		_G.TokenFrame:BuiStyle("Outside")
-		hooksecurefunc('ReputationFrame_Update', repUpdate)
-		hooksecurefunc('TokenFrame_Update', tokenUpdate)
+		-- _G.ReputationFrame:BuiStyle("Outside")
+		-- _G.TokenFrame:BuiStyle("Outside")
+		-- hooksecurefunc('ReputationFrame_Update', repUpdate)
+		-- hooksecurefunc('TokenFrame_Update', tokenUpdate)
 	end
 
 	if db.dressingroom then
@@ -197,10 +199,10 @@ local function LoadSkin()
 		_G.QuestLogPopupDetailFrame:BuiStyle("Outside")
 		_G.QuestModelScene.backdrop:BuiStyle("Outside")
 
-		_G.QuestNPCModelTextFrame:ClearAllPoints()
-		_G.QuestNPCModelTextFrame:Point("TOP", _G.QuestModelScene.backdrop, "BOTTOM", 0, -4)
-		_G.QuestNPCModelTextFrame.backdrop:CreateSoftShadow()
-		_G.QuestNPCModelTextFrame.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
+		_G.QuestModelScene.ModelTextFrame:ClearAllPoints()
+		_G.QuestModelScene.ModelTextFrame:Point("TOP", _G.QuestModelScene.backdrop, "BOTTOM", 0, -4)
+		_G.QuestModelScene.ModelTextFrame.backdrop:CreateSoftShadow()
+		_G.QuestModelScene.ModelTextFrame.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
 	end
 
 	if db.stable then
@@ -208,7 +210,7 @@ local function LoadSkin()
 	end
 
 	if db.spellbook then
-		_G.SpellBookFrame:BuiStyle("Outside")
+		-- _G.PlayerSpellsFrame:BuiStyle("Outside")
 	end
 
 	if db.tabard then

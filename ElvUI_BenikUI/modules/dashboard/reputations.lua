@@ -396,7 +396,7 @@ function mod:CreateReputationsDashboard()
 end
 
 function mod:LoadReputations()
-	mod:CreateReputationsDashboard()
+	-- mod:CreateReputationsDashboard()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateReputations)
 	hooksecurefunc(DB, 'ReputationBar_Update', mod.UpdateReputations)

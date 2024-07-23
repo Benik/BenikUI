@@ -12,8 +12,11 @@ local join = string.join
 local GameTooltip = _G["GameTooltip"]
 local C_TimerAfter = C_Timer.After
 local CreateFrame = CreateFrame
-local UnitOnTaxi, IsAddOnLoaded = UnitOnTaxi, IsAddOnLoaded
-local GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo = GetRealZoneText, GetMinimapZoneText, GetZonePVPInfo
+local UnitOnTaxi = UnitOnTaxi
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local LoadAddOn = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
+local GetRealZoneText, GetMinimapZoneText = GetRealZoneText, GetMinimapZoneText
+local GetZonePVPInfo = (C_PvP and C_PvP.GetZonePVPInfo) or GetZonePVPInfo
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
 local GetScreenWidth = GetScreenWidth
@@ -212,7 +215,7 @@ local VisibleFrames = {}
 
 function mod:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
-	local tracking = MinimapCluster.TrackingFrame and MinimapCluster.TrackingFrame.Button or _G.MiniMapTrackingFrame or _G.MiniMapTracking
+	local tracking = MinimapCluster.Tracking.Button
 
 	if(status) then
 		mod.inFlightMode = true
