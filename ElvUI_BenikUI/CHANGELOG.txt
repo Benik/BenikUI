@@ -1,3 +1,32 @@
+v4.50 (Jul 24, 2024)
+Styled Class Talent Import Dialog
+Styled CurrencyTransferLog
+Style Rep and Tokens frame
+Styled the Talents etc frame
+This is gone
+Fixed the chat button Game menu
+Disable Objective tracker mods for now
+start on reputation dashboard fixes (thurin)
+comment out a few blizz styles throwing errors. will need to fix later (thurin)
+initial work for loading in TWW (thurin)
+fixed recount style (acesyde)
+
+
+v4.48 (Jun 10, 2024)
+Update for changes in dev to elvui uf changes(needs ElvUI 13.68)
+Fixed Shadow & Light Location Panel style glitches #51
+Disabled Details profile
+Actually no reason to override the text if just using default
+Update status report to match ElvUI for Other Addons Enabled
+
+v4.47 (May 9, 2024)
+Fix pet stable frame for 10.2.7. Credit Tsxy
+
+v4.46 (Mar 20, 2024)
+toc bump for 10.2.6
+Raised detached portrait max width to 1000 (for Jiberish)
+Fix Flightmode error. Credit: Tsxy
+
 v4.45 (Feb 15, 2024)
 "Fixed" Party Portrait shadow glitch, when resized
 Skin Superbloom Objective Tracker Block

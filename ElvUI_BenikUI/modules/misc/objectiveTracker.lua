@@ -13,14 +13,17 @@ local OBJECTIVES_TRACKER_LABEL = OBJECTIVES_TRACKER_LABEL
 local C_QuestLog_GetInfo = C_QuestLog.GetInfo
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 
-local headers = {
-	_G.ObjectiveTrackerBlocksFrame.QuestHeader,
-	_G.ObjectiveTrackerBlocksFrame.AchievementHeader,
-	_G.ObjectiveTrackerBlocksFrame.ScenarioHeader,
-	_G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader,
-	_G.BONUS_OBJECTIVE_TRACKER_MODULE.Header,
-	_G.WORLD_QUEST_TRACKER_MODULE.Header,
-	_G.ObjectiveTrackerFrame.BlocksFrame.UIWidgetsHeader
+local trackers = {
+	_G.ScenarioObjectiveTracker,
+	_G.UIWidgetObjectiveTracker,
+	_G.CampaignQuestObjectiveTracker,
+	_G.QuestObjectiveTracker,
+	_G.AdventureObjectiveTracker,
+	_G.AchievementObjectiveTracker,
+	_G.MonthlyActivitiesObjectiveTracker,
+	_G.ProfessionsRecipeTracker,
+	_G.BonusObjectiveTracker,
+	_G.WorldQuestObjectiveTracker,
 }
 
 local skinnableWidgets = {
@@ -35,8 +38,8 @@ local skinnableWidgets = {
 local function ObjectiveTrackerShadows()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or not BUI.ShadowMode then return end
 
-	_G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton:CreateSoftShadow()
-	_G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton.shadow:SetOutside()
+	_G.ObjectiveTrackerFrame.Header.MinimizeButton:CreateSoftShadow()
+	_G.ObjectiveTrackerFrame.Header.MinimizeButton.shadow:SetOutside()
 
 	local function ProgressBarsShadows(_, _, line)
 		local progressBar = line and line.ProgressBar
@@ -65,15 +68,15 @@ local function ObjectiveTrackerShadows()
 		end
 	end
 
-	hooksecurefunc(_G.BONUS_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	hooksecurefunc(_G.WORLD_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	hooksecurefunc(_G.DEFAULT_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	hooksecurefunc(_G.SCENARIO_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	hooksecurefunc(_G.CAMPAIGN_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	hooksecurefunc(_G.QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
-	hooksecurefunc(_G.QUEST_TRACKER_MODULE,"SetBlockHeader",ItemButtonShadows)
-	hooksecurefunc(_G.WORLD_QUEST_TRACKER_MODULE,"AddObjective",ItemButtonShadows)
-	hooksecurefunc(_G.CAMPAIGN_QUEST_TRACKER_MODULE,"AddObjective",ItemButtonShadows)
+	-- hooksecurefunc(_G.BONUS_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	-- hooksecurefunc(_G.WORLD_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	-- hooksecurefunc(_G.DEFAULT_OBJECTIVE_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	-- hooksecurefunc(_G.SCENARIO_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	-- hooksecurefunc(_G.CAMPAIGN_QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	-- hooksecurefunc(_G.QUEST_TRACKER_MODULE,"AddProgressBar",ProgressBarsShadows)
+	-- hooksecurefunc(_G.QUEST_TRACKER_MODULE,"SetBlockHeader",ItemButtonShadows)
+	-- hooksecurefunc(_G.WORLD_QUEST_TRACKER_MODULE,"AddObjective",ItemButtonShadows)
+	-- hooksecurefunc(_G.CAMPAIGN_QUEST_TRACKER_MODULE,"AddObjective",ItemButtonShadows)
 
 	local function FindGroupButtonShadows(block)
 		if block.hasGroupFinderButton and block.groupFinderButton then
@@ -83,10 +86,10 @@ local function ObjectiveTrackerShadows()
 			end
 		end
 	end
-	hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup",FindGroupButtonShadows)
+	-- hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup",FindGroupButtonShadows)
 
-	for _, header in pairs(headers) do
-		local minimize = header.MinimizeButton
+	for _, tracker in pairs(trackers) do
+		local minimize = tracker.MinimizeButton
 		if minimize then
 			minimize:CreateSoftShadow()
 			minimize.shadow:SetOutside()
@@ -170,21 +173,21 @@ local function StyleBlockFrames()
 		end
 	end
 
-	hooksecurefunc(_G.SCENARIO_CONTENT_TRACKER_MODULE, 'Update', StyleScenarioFrame)
-	hooksecurefunc('ScenarioBlocksFrame_OnLoad', StyleScenarioFrame)
+	-- hooksecurefunc(_G.SCENARIO_CONTENT_TRACKER_MODULE, 'Update', StyleScenarioFrame)
+	-- hooksecurefunc('ScenarioBlocksFrame_OnLoad', StyleScenarioFrame)
 
-	hooksecurefunc(ScenarioStageBlock.WidgetContainer, 'CreateWidget', function(self, widgetID)
-		local widgetFrame = self.widgetFrames[widgetID]
+	-- hooksecurefunc(ScenarioStageBlock.WidgetContainer, 'CreateWidget', function(self, widgetID)
+	-- 	local widgetFrame = self.widgetFrames[widgetID]
 
-		if skinnableWidgets[widgetID] then
-			for i = 1, widgetFrame:GetNumRegions() do
-				local region = select(i, widgetFrame:GetRegions())
-				if region and region:IsObjectType('Texture') then
-					region:SetAlpha(0)
-				end
-			end
-		end
-	end)
+	-- 	if skinnableWidgets[widgetID] then
+	-- 		for i = 1, widgetFrame:GetNumRegions() do
+	-- 			local region = select(i, widgetFrame:GetRegions())
+	-- 			if region and region:IsObjectType('Texture') then
+	-- 				region:SetAlpha(0)
+	-- 			end
+	-- 		end
+	-- 	end
+	-- end)
 
 	local function StyleChallengeModeFrame()
 		local challenge = ScenarioChallengeModeBlock
@@ -201,7 +204,7 @@ local function StyleBlockFrames()
 		end
 	end
 
-	hooksecurefunc('Scenario_ChallengeMode_ShowBlock', StyleChallengeModeFrame)
+	-- hooksecurefunc('Scenario_ChallengeMode_ShowBlock', StyleChallengeModeFrame)
 end
 
 function mod:InitializeObjectiveTracker()

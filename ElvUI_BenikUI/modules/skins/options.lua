@@ -4,7 +4,7 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack
 
-local IsAddOnLoaded = IsAddOnLoaded
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local ADDONS = ADDONS
 
 local DecorElvUIAddons = {
@@ -41,7 +41,7 @@ local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
 	--{'BigWigs', 'BigWigs'},
 	{'DBM-Core', 'Deadly Boss Mods'},
-	{'Details', 'Details'},
+	--{'Details', 'Details'},
 	{'ElvUI_LocPlus', 'Location Plus'},
 	{'InFlight_Load', 'InFlight'},
 	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
@@ -207,10 +207,10 @@ local function SkinTable()
 			func = function()
 				if addon == 'DBM-Core' then
 					BUI:LoadDBMProfile()
-				elseif addon == 'BigWigs' then
+				--elseif addon == 'BigWigs' then
 					--BUI:LoadBigWigsProfile()
-				elseif addon == 'Details' then
-					BUI:LoadDetailsProfile()
+				--elseif addon == 'Details' then
+					--BUI:LoadDetailsProfile()
 				elseif addon == 'InFlight_Load'then
 					if E.db.benikui.skins.variousSkins.inflight then
 						BUI:LoadInFlightProfile(true)

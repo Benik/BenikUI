@@ -56,7 +56,7 @@ function mod:PLAYER_ENTERING_WORLD(...)
 end
 
 function mod:Initialize()
-	mod:InitializeObjectiveTracker()
+	--mod:InitializeObjectiveTracker()
 	mod:StyleAddons()
 	StyleElvUIBindPopup()
 

@@ -158,18 +158,18 @@ local function SpellBookFrameShadows()
 		tab = _G['SpellBookFrameTabButton'..i]
 	end
 
-	for j = 1, MAX_SKILLLINE_TABS do
-		local tab = _G['SpellBookSkillLineTab'..j]
-		tab:CreateSoftShadow()
-	end
+	-- for j = 1, MAX_SKILLLINE_TABS do
+	-- 	local tab = _G['SpellBookSkillLineTab'..j]
+	-- 	tab:CreateSoftShadow()
+	-- end
 
-	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
-		function()
-			for i = 1, MAX_SKILLLINE_TABS do
-				local tab = _G['SpellBookSkillLineTab'..i]
-				tab:CreateSoftShadow()
-			end
-		end)
+	-- hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
+	-- 	function()
+	-- 		for i = 1, MAX_SKILLLINE_TABS do
+	-- 			local tab = _G['SpellBookSkillLineTab'..i]
+	-- 			tab:CreateSoftShadow()
+	-- 		end
+	-- 	end)
 end
 
 local function PVEFrameShadows()

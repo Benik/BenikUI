@@ -5,6 +5,8 @@ local S = E:GetModule('Skins')
 local _G = _G
 local pairs = pairs
 local C_TimerAfter = C_Timer.After
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+
 
 local MAX_STATIC_POPUPS = 4
 
@@ -44,8 +46,7 @@ local function LoadSkin()
 		_G.PaperDollFrame:BuiStyle("Outside")
 		_G.ReputationFrame:BuiStyle("Outside")
 		_G.TokenFrame:BuiStyle("Outside")
-		hooksecurefunc('ReputationFrame_Update', repUpdate)
-		hooksecurefunc('TokenFrame_Update', tokenUpdate)
+		_G.CurrencyTransferLog:BuiStyle("Outside")
 	end
 
 	if db.dressingroom then
@@ -204,11 +205,11 @@ local function LoadSkin()
 	end
 
 	if db.stable then
-		_G.PetStableFrame:BuiStyle("Outside")
+		_G.StableFrame:BuiStyle("Outside")
 	end
 
 	if db.spellbook then
-		_G.SpellBookFrame:BuiStyle("Outside")
+		-- _G.PlayerSpellsFrame:BuiStyle("Outside")
 	end
 
 	if db.tabard then
