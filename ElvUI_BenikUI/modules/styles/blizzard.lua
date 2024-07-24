@@ -46,6 +46,7 @@ local function LoadSkin()
 		_G.PaperDollFrame:BuiStyle("Outside")
 		_G.ReputationFrame:BuiStyle("Outside")
 		_G.TokenFrame:BuiStyle("Outside")
+		_G.CurrencyTransferLog:BuiStyle("Outside")
 	end
 
 	if db.dressingroom then
