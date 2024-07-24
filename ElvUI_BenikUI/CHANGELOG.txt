@@ -1,3 +1,17 @@
+v4.50 (Jul 24, 2024)
+Styled Class Talent Import Dialog
+Styled CurrencyTransferLog
+Style Rep and Tokens frame
+Styled the Talents etc frame
+This is gone
+Fixed the chat button Game menu
+Disable Objective tracker mods for now
+start on reputation dashboard fixes (thurin)
+comment out a few blizz styles throwing errors. will need to fix later (thurin)
+initial work for loading in TWW (thurin)
+fixed recount style (acesyde)
+
+
 v4.48 (Jun 10, 2024)
 Update for changes in dev to elvui uf changes(needs ElvUI 13.68)
 Fixed Shadow & Light Location Panel style glitches #51
