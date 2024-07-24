@@ -282,13 +282,11 @@ end
 function mod:PopulateFactionData()
 	local Collapsed = {}
 	local numFactions = GetNumFactions()
-	BUI:Print("NumFactions="..numFactions)
 	local factionIndex = 1
 	local headerIndex
 
 	while (factionIndex <= numFactions) do
 		local info = GetFactionInfo(factionIndex)
-		BUI:Print("Name="..info.name)
 		if info.isHeader and info.isCollapsed then
 			ExpandFactionHeader(factionIndex)
 			numFactions = GetNumFactions()
