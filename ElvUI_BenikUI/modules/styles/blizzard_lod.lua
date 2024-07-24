@@ -689,7 +689,7 @@ local function style_LookingForGuildUI()
 	_G.LookingForGuildFrame:BuiStyle("Outside")
 end
 
-local function LoadStyle()
+local function LoadGuildUIStyle()
 	if LookingForGuildFrame then
 		--Frame already created
 		style_LookingForGuildUI()
@@ -698,7 +698,7 @@ local function LoadStyle()
 		hooksecurefunc("LookingForGuildFrame_CreateUIElements", style_LookingForGuildUI)
 	end
 end
-S:AddCallbackForAddon("Blizzard_LookingForGuildUI", "BenikUI_LookingForGuildUI", LoadStyle)
+S:AddCallbackForAddon("Blizzard_LookingForGuildUI", "BenikUI_LookingForGuildUI", LoadGuildUIStyle)
 
 -- MacroUI
 local function style_MacroUI()
@@ -887,6 +887,18 @@ local function style_ScrappingMachineUI()
 end
 S:AddCallbackForAddon("Blizzard_ScrappingMachineUI", "BenikUI_ScrappingMachineUI", style_ScrappingMachineUI)
 
+-- PlayerSpells
+local function style_PlayerSpells()
+	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.PlayerSpellsFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_PlayerSpells", "BenikUI_PlayerSpells", style_PlayerSpells)
+
 -- Soulbinds
 local function style_Soulbinds()
 	if E.private.skins.blizzard.soulbinds ~= true or E.private.skins.blizzard.enable ~= true or
@@ -898,28 +910,6 @@ local function style_Soulbinds()
 	_G.SoulbindViewer:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Soulbinds", "BenikUI_Soulbinds", style_Soulbinds)
-
--- TalentUI
-local function style_TalentUI()
-	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true
-	then
-		return
-	end
-
-	_G.PlayerTalentFrame:BuiStyle("Outside")
-	for i = 1, 2 do
-		local tab = _G["PlayerSpecTab" .. i]
-		if tab then
-			tab:BuiStyle("Inside")
-			tab.style:SetFrameLevel(5)
-			tab:GetNormalTexture():SetTexCoord(unpack(BUI.TexCoords))
-			tab:GetNormalTexture():SetInside()
-		end
-	end
-	PlayerTalentFrameTalents.PvpTalentFrame.TalentList:BuiStyle("Outside")
-end
-S:AddCallbackForAddon("Blizzard_TalentUI", "BenikUI_TalentUI", style_TalentUI)
 
 local function style_TimeManager()
 	if E.private.skins.blizzard.timemanager ~= true or E.private.skins.blizzard.enable ~= true or
