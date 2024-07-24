@@ -94,9 +94,9 @@ function mod:UpdateReputations()
 
 		if factionID then
 			local factionInfo = GetFactionInfoByID(factionID)
-			local name = factionInfo.name
+			if factionInfo then
+				local name = factionInfo.name
 
-			if name then
 				if E.private.benikui.dashboards.reputations.chooseReputations[factionID] == true then
 					holder:SetShown(NotinInstance)
 
