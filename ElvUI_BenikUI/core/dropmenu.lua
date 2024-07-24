@@ -14,14 +14,16 @@ local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
 local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
-
 local classColor = E:ClassColor(E.myclass, true)
 local Garrison_OnClick = GarrisonLandingPageMinimapButton_OnClick
 
+local PlayerSpellsUtil = _G.PlayerSpellsUtil
+local UIParentLoadAddOn = UIParentLoadAddOn
+
 BUI.MenuList = {
 	{text = CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
-	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() ToggleFrame(_G.SpellBookFrame) end},
-	{text = TALENTS_BUTTON, func = function() ToggleTalentFrame() end},
+	{text = SPELLBOOK_ABILITIES_BUTTON, func = function() if PlayerSpellsUtil then PlayerSpellsUtil.ToggleSpellBookFrame() else ToggleFrame(_G.SpellBookFrame) end end},
+	{text = TALENTS_BUTTON, func = function() if PlayerSpellsUtil then PlayerSpellsUtil.ToggleClassTalentFrame() else _G.ToggleTalentFrame() end end},
 	{text = LFG_TITLE, func = function() ToggleLFDParentFrame() end},
 	{text = ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
@@ -35,7 +37,7 @@ BUI.MenuList = {
 	{text = TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
 	{text = HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
 	{text = WARDROBE, func = function() ToggleCollectionsJournal(5) end},
-	{text = MACROS, func = function() GameMenuButtonMacros:Click() end},
+	{text = MACROS, func = function() UIParentLoadAddOn("Blizzard_MacroUI") MacroFrame_Show() end},
 	{text = TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
 	{text = ADVENTURE_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
 	{text = SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
