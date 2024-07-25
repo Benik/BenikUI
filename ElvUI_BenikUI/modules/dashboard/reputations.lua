@@ -113,6 +113,10 @@ function mod:UpdateReputations()
 					local isMajorFaction = factionID and C_Reputation_IsMajorFaction(factionID)
 					local repInfo = factionID and C_GossipInfo_GetFriendshipReputation(factionID)
 					local currentValue, threshold, hasRewardPending, tooLowLevelForParagon
+					local standingID = factionInfo.reaction
+					local barMin = factionInfo.currentReactionThreshold
+					local barMax = factionInfo.nextReactionThreshold
+					local barValue = factionInfo.currentStanding
 
 					if repInfo and repInfo.friendshipFactionID > 0 then
 						standingLabel, barMin, barMax, barValue = repInfo.reaction, repInfo.reactionThreshold or 0, repInfo.nextThreshold or 1, repInfo.standing or 1
