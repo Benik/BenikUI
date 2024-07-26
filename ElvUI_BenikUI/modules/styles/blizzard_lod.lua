@@ -811,18 +811,16 @@ S:AddCallbackForAddon("Blizzard_PlayerChoice", "BenikUI_PlayerChoice", style_Pla
 
 -- Professions
 local function style_Professions()
-	if E.private.skins.blizzard.tradeskill ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.spellbook ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
 	end
 
-	local ProfessionsFrame = _G.ProfessionsFrame
+	local ProfessionsFrame = _G.ProfessionsBookFrame
 	ProfessionsFrame:BuiStyle("Outside")
-	ProfessionsFrame.CraftingPage.CraftingOutputLog:BuiStyle("Outside")
-	ProfessionsFrame.CraftingPage.SchematicForm.QualityDialog:BuiStyle("Outside")
 end
-S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
+S:AddCallbackForAddon("Blizzard_ProfessionsBook", "BenikUI_Professions", style_Professions)
 
 -- ProfessionsCustomerOrders
 local function style_ProfessionsCustomerOrders()

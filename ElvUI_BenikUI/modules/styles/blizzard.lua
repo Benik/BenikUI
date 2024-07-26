@@ -208,10 +208,6 @@ local function LoadSkin()
 		_G.StableFrame:BuiStyle("Outside")
 	end
 
-	if db.spellbook then
-		-- _G.PlayerSpellsFrame:BuiStyle("Outside")
-	end
-
 	if db.tabard then
 		_G.TabardFrame:BuiStyle("Outside")
 	end
