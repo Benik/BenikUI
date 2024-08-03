@@ -498,7 +498,6 @@ local function style_GarrisonUI()
 
 	-- Follower recruiting (available at the Inn)
 	_G.GarrisonRecruiterFrame:BuiStyle("Outside")
-	S:HandleDropDownBox(_G.GarrisonRecruiterFramePickThreatDropDown)
 	local rBtn = _G.GarrisonRecruiterFrame.Pick.ChooseRecruits
 	rBtn:ClearAllPoints()
 	rBtn:Point("BOTTOM", _G.GarrisonRecruiterFrame, "BOTTOM", 0, 30)
@@ -766,7 +765,7 @@ local function style_PerksProgramm()
 	if productsFrame then
 		productsFrame.PerksProgramProductDetailsContainerFrame:BuiStyle("Outside")
 		if BUI.ShadowMode then
-			productsFrame.PerksProgramFilter.FilterDropDownButton:CreateSoftShadow()
+			productsFrame.PerksProgramFilter:CreateSoftShadow()
 			productsFrame.PerksProgramCurrencyFrame.Icon:CreateBackdrop()
 			productsFrame.PerksProgramCurrencyFrame.Icon.backdrop:CreateSoftShadow()
 		end
@@ -785,6 +784,7 @@ local function style_PerksProgramm()
 		footer.RotateButtonContainer.RotateLeftButton:CreateSoftShadow()
 		footer.RotateButtonContainer.RotateRightButton:CreateSoftShadow()
 		footer.PurchaseButton:CreateSoftShadow()
+		footer.ToggleMountSpecial.backdrop:CreateSoftShadow()
 	end
 end
 S:AddCallbackForAddon("Blizzard_PerksProgram", "BenikUI_PerksProgram", style_PerksProgramm)
@@ -811,18 +811,16 @@ S:AddCallbackForAddon("Blizzard_PlayerChoice", "BenikUI_PlayerChoice", style_Pla
 
 -- Professions
 local function style_Professions()
-	if E.private.skins.blizzard.tradeskill ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.private.skins.blizzard.spellbook ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
 	end
 
-	local ProfessionsFrame = _G.ProfessionsFrame
+	local ProfessionsFrame = _G.ProfessionsBookFrame
 	ProfessionsFrame:BuiStyle("Outside")
-	ProfessionsFrame.CraftingPage.CraftingOutputLog:BuiStyle("Outside")
-	ProfessionsFrame.CraftingPage.SchematicForm.QualityDialog:BuiStyle("Outside")
 end
-S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
+S:AddCallbackForAddon("Blizzard_ProfessionsBook", "BenikUI_Professions", style_Professions)
 
 -- ProfessionsCustomerOrders
 local function style_ProfessionsCustomerOrders()

@@ -47,6 +47,15 @@ local function ScriptErrorsFrame()
 end
 S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
 
+local function StyleElvUIPopups()
+	for i = 1, 4 do
+		local frame = _G['ElvUI_StaticPopup'..i]
+		if frame and not frame.style then
+			frame:BuiStyle("Outside")
+		end
+	end
+end
+
 function mod:PLAYER_ENTERING_WORLD(...)
 	mod:styleAlertFrames()
 	mod:stylePlugins()
@@ -59,6 +68,7 @@ function mod:Initialize()
 	--mod:InitializeObjectiveTracker()
 	mod:StyleAddons()
 	StyleElvUIBindPopup()
+	StyleElvUIPopups()
 
 	hooksecurefunc(E, "ToggleOptions", StyleElvUIConfig)
 

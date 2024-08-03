@@ -25,7 +25,7 @@ BUI.AddonProfileKey = ''
 BINDING_HEADER_BENIKUI = BUI.Title
 
 function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
-	return E:GetAddOnEnableState(E.myname, addon) == 2
+	return E:GetAddOnEnableState(addon, E.myname) == 2
 end
 
 -- Check other addons
