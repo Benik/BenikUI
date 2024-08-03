@@ -766,7 +766,7 @@ local function style_PerksProgramm()
 	if productsFrame then
 		productsFrame.PerksProgramProductDetailsContainerFrame:BuiStyle("Outside")
 		if BUI.ShadowMode then
-			productsFrame.PerksProgramFilter.FilterDropDownButton:CreateSoftShadow()
+--			productsFrame.PerksProgramFilter.FilterDropDownButton:CreateSoftShadow()
 			productsFrame.PerksProgramCurrencyFrame.Icon:CreateBackdrop()
 			productsFrame.PerksProgramCurrencyFrame.Icon.backdrop:CreateSoftShadow()
 		end
