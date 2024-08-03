@@ -1,3 +1,17 @@
+v4.51 (Aug 3, 2024)
+Cleanup
+This Garrison element doesn't seem to exist
+Added shadow in the Toggle Mount check box
+Fixed the Filter button that errors on opening Trading post rewards screen
+Enable Details
+Styled ElvUI Popups
+Fixed the Addons button error
+Fixed Professions in the Game Menu and styled the Professions frame
+More rep dashboard updates - set bar defaults (thurin)
+Check for factionInfo in rep dashboard (thurin)
+Fix IsAddOnEnabled method which fixes applying style to addons (thurin)
+
+
 v4.50 (Jul 24, 2024)
 Styled Class Talent Import Dialog
 Styled CurrencyTransferLog
