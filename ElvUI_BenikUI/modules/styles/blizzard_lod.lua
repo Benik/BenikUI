@@ -498,7 +498,6 @@ local function style_GarrisonUI()
 
 	-- Follower recruiting (available at the Inn)
 	_G.GarrisonRecruiterFrame:BuiStyle("Outside")
-	S:HandleDropDownBox(_G.GarrisonRecruiterFramePickThreatDropDown)
 	local rBtn = _G.GarrisonRecruiterFrame.Pick.ChooseRecruits
 	rBtn:ClearAllPoints()
 	rBtn:Point("BOTTOM", _G.GarrisonRecruiterFrame, "BOTTOM", 0, 30)
