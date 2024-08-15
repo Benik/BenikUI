@@ -1,3 +1,7 @@
+v4.52 (Aug 15, 2024)
+Fix quest npc text error for 11.0.2 (thurin)
+Styled some tooltips
+
 v4.51 (Aug 3, 2024)
 Cleanup
 This Garrison element doesn't seem to exist

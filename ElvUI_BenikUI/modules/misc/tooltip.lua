@@ -42,8 +42,10 @@ local tooltips = {
 	_G.FloatingGarrisonFollowerAbilityTooltip,
 	_G.WarCampaignTooltip,
 	_G.GameTooltip,
-	_G.ElvUIConfigTooltip,
-	_G.ElvUISpellBookTooltip,
+	_G.ElvUI_ConfigTooltip,
+	_G.ElvUI_SpellBookTooltip,
+	_G.ElvUI_ScanTooltip,
+	_G.ElvUI_EasyMenu,
 	_G.SettingsTooltip,
 }
 

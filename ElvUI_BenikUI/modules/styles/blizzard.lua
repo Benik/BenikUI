@@ -188,10 +188,10 @@ local function LoadSkin()
 		_G.QuestLogPopupDetailFrame:BuiStyle("Outside")
 		_G.QuestModelScene.backdrop:BuiStyle("Outside")
 
-		_G.QuestNPCModelTextFrame:ClearAllPoints()
-		_G.QuestNPCModelTextFrame:Point("TOP", _G.QuestModelScene.backdrop, "BOTTOM", 0, -4)
-		_G.QuestNPCModelTextFrame.backdrop:CreateSoftShadow()
-		_G.QuestNPCModelTextFrame.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
+		_G.QuestModelScene.ModelTextFrame:ClearAllPoints()
+		_G.QuestModelScene.ModelTextFrame:Point("TOP", _G.QuestModelScene.backdrop, "BOTTOM", 0, -4)
+		_G.QuestModelScene.ModelTextFrame.backdrop:CreateSoftShadow()
+		_G.QuestModelScene.ModelTextFrame.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
 	end
 
 	if db.stable then
