@@ -961,6 +961,20 @@ local function style_TrainerUI()
 end
 S:AddCallbackForAddon("Blizzard_TrainerUI", "BenikUI_TrainerUI", style_TrainerUI)
 
+-- UIPanels_Game
+local function style_UIPanels_Game()
+	if E.private.skins.blizzard.character ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ReputationFrame.ReputationDetailFrame:BuiStyle("Outside")
+	_G.CurrencyTransferMenu:BuiStyle("Outside")
+	_G.GearManagerPopupFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_UIPanels_Game", "BenikUI_UIPanels_Game", style_UIPanels_Game)
+
 -- VoidStorageUI
 local function style_VoidStorageUI()
 	if E.private.skins.blizzard.voidstorage ~= true or E.private.skins.blizzard.enable ~= true or
