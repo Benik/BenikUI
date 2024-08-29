@@ -402,7 +402,7 @@ local function style_ExpansionLandingPage()
 		return
 	end
 
-	_G.ExpansionLandingPage:BuiStyle("Outside")
+	_G.ExpansionLandingPage.Overlay.WarWithinLandingOverlay:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ExpansionLandingPage", "BenikUI_ExpansionLandingPage", style_ExpansionLandingPage)
 

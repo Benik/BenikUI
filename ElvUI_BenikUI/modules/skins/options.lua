@@ -184,6 +184,12 @@ local function SkinTable()
 				disabled = function() return not BUI.WA end,
 				hidden = function() return BUI.MER end,
 			},
+			ba = {
+				order = 8,
+				type = 'toggle',
+				name = L['Baganator'],
+				disabled = function() return not IsAddOnLoaded('Baganator') end,
+			},
 		},
 	}
 
