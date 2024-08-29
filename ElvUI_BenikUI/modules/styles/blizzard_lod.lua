@@ -401,8 +401,12 @@ local function style_ExpansionLandingPage()
 	then
 		return
 	end
-
-	_G.ExpansionLandingPage.Overlay.WarWithinLandingOverlay:BuiStyle("Outside")
+	if _G.ExpansionLandingPage.Overlay.WarWithinLandingOverlay then
+		_G.ExpansionLandingPage.Overlay.WarWithinLandingOverlay:BuiStyle("Outside")
+	end
+	if _G.ExpansionLandingPage.Overlay.DragonflightLandingOverlay then
+		_G.ExpansionLandingPage.Overlay.DragonflightLandingOverlay:BuiStyle("Outside")
+	end
 end
 S:AddCallbackForAddon("Blizzard_ExpansionLandingPage", "BenikUI_ExpansionLandingPage", style_ExpansionLandingPage)
 
