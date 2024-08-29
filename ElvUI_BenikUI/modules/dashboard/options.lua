@@ -880,6 +880,7 @@ local function dashboardsTable()
 				type = 'group',
 				name = REPUTATION,
 				childGroups = 'tab',
+				disabled = true,
 				args = {
 					enable = {
 						order = 1,
