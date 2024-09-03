@@ -313,12 +313,10 @@ function mod:PopulateFactionData()
 
 	for k = 1, numFactions do
 		local info = GetFactionInfo(k)
-		if info then
-			if not info.name then
-				break
-			elseif info.isHeader and not info.isCollapsed and Collapsed[info.name] then
-				ExpandFactionHeader(k, false)
-			end
+		if not info.name then
+			break
+		elseif info.isHeader and not info.isCollapsed and Collapsed[info.name] then
+			ExpandFactionHeader(k, false)
 		end
 	end
 
