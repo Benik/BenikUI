@@ -50,10 +50,10 @@ function mod:stylePlugins()
 		end
 
 		-- fix framelevel
---		if E.db.benikui.general.benikuiStyle == true then
+		if E.db.benikui.general.benikuiStyle == true then
 			_G.SLE_LocationPanel_X.style:SetFrameLevel(3)
 			_G.SLE_LocationPanel_Y.style:SetFrameLevel(3)
---		end
+		end
 
 		-- fix shadow overlap
 		if BUI.ShadowMode then
