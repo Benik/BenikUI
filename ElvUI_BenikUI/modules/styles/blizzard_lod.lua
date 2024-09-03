@@ -370,6 +370,34 @@ local function style_DeathRecap()
 end
 S:AddCallbackForAddon("Blizzard_DeathRecap", "BenikUI_DeathRecap", style_DeathRecap)
 
+-- DelvesCompanionConfiguration
+local function style_DelvesCompanionConfiguration()
+	if E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local CompanionConfigurationFrame = _G.DelvesCompanionConfigurationFrame
+	CompanionConfigurationFrame:BuiStyle("Outside")
+	CompanionConfigurationFrame.CompanionPortraitFrame:SetFrameLevel(10)
+	CompanionConfigurationFrame.style:SetFrameLevel(5)
+	_G.DelvesCompanionAbilityListFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_DelvesCompanionConfiguration", "BenikUI_DelvesCompanionConfiguration", style_DelvesCompanionConfiguration)
+
+-- DelvesDifficultyPicker
+local function style_DelvesDifficultyPicker()
+	if E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.DelvesDifficultyPickerFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_DelvesDifficultyPicker", "BenikUI_DelvesDifficultyPicker", style_DelvesDifficultyPicker)
+
 -- EncounterJournal
 local function style_EncounterJournal()
 	if E.private.skins.blizzard.encounterjournal ~= true or E.private.skins.blizzard.enable ~= true or
