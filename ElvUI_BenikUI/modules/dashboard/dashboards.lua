@@ -305,7 +305,7 @@ function mod:Initialize()
 	mod:LoadSystem()
 	mod:LoadProfessions()
 	mod:LoadTokens()
---	mod:LoadReputations()
+	mod:LoadReputations()
 	mod:LoadItems()
 
 	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')

@@ -327,13 +327,13 @@ function mod:UPDATE_FACTION(_, factionID)
 	if factionID and not mod.ReputationsList[tostring(factionID)] then
 		local info = GetFactionInfoByID(factionID)
 		if info.name then
-			mod:PopulateFactionData()
+			--mod:PopulateFactionData()
 		end
 	end
 	mod:UpdateReputations()
 end
 
-local function holderOnEnter(self)
+local function holderOnEnter()
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ReputationsDashboard
 
@@ -342,7 +342,7 @@ local function holderOnEnter(self)
 	end
 end
 
-local function holderOnLeave(self)
+local function holderOnLeave()
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ReputationsDashboard
 
