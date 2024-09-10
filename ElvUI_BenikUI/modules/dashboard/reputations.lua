@@ -290,25 +290,29 @@ function mod:PopulateFactionData()
 
 	while (factionIndex <= numFactions) do
 		local info = GetFactionInfo(factionIndex)
-		if info.isHeader and info.isCollapsed then
-			ExpandFactionHeader(factionIndex)
-			numFactions = GetNumFactions()
-			Collapsed[info.name] = true
-		end
-
-		if info.isHeader and not (info.hasRep or info.isChild) then
-			tinsert(mod.ReputationsList, { info.name, info.factionID, factionIndex, info.isHeader, info.hasRep, info.isChild })
-			headerIndex = factionIndex
-		end
-
-		if not info.isHeader or not info.isChild or info.hasRep then -- hasRep needs to be passed here
-			if info.factionID then
-				mod.ReputationsList[tostring(info.factionID)] = info.name
-				tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.hasRep, info.isChild })
+		if info then
+			if info.isHeader and info.isCollapsed then
+				ExpandFactionHeader(factionIndex)
+				numFactions = GetNumFactions()
+				Collapsed[info.name] = true
 			end
-		end
 
-		factionIndex = factionIndex + 1
+			if info.isHeader and not (info.hasRep or info.isChild) then
+				tinsert(mod.ReputationsList, { info.name, info.factionID, factionIndex, info.isHeader, info.hasRep, info.isChild })
+				headerIndex = factionIndex
+			end
+
+			if not info.isHeader or not info.isChild or info.hasRep then -- hasRep needs to be passed here
+				if info.factionID then
+					mod.ReputationsList[tostring(info.factionID)] = info.name
+					tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.hasRep, info.isChild })
+				end
+			end
+
+			factionIndex = factionIndex + 1
+		else
+			break
+		end
 	end
 
 	for k = 1, numFactions do
@@ -326,8 +330,8 @@ end
 function mod:UPDATE_FACTION(_, factionID)
 	if factionID and not mod.ReputationsList[tostring(factionID)] then
 		local info = GetFactionInfoByID(factionID)
-		if info.name then
-			--mod:PopulateFactionData()
+		if info and info.name then
+			mod:PopulateFactionData()
 		end
 	end
 	mod:UpdateReputations()
