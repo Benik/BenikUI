@@ -199,7 +199,7 @@ function mod:CreateDashboardHolder(holderName, option)
 	return holder
 end
 
-function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
+function mod:CreateDashboard(barHolder, option, hasIcon, isRep, isToken)
 	local bar = CreateFrame('Button', nil, barHolder)
 	local barIconOffset = (hasIcon and -22) or -2
 	local db = E.db.benikui.dashboards[option]
@@ -264,6 +264,15 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep)
 		bar.bagCheck:Point('CENTER', bar.bag, 'CENTER', 5, -4)
 
 		bar.isRep = isRep
+	end
+
+	if isToken then
+		bar.awicon = bar:CreateTexture(nil, 'ARTWORK')
+		bar.awicon:SetAtlas("warbands-transferable-icon")
+		bar.awicon:Size(12, 16)
+		bar.awicon:Point('RIGHT', bar, 'RIGHT', -4, 0)
+
+		bar.isToken = isToken
 	end
 
 	return bar

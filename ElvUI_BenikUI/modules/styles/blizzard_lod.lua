@@ -370,6 +370,34 @@ local function style_DeathRecap()
 end
 S:AddCallbackForAddon("Blizzard_DeathRecap", "BenikUI_DeathRecap", style_DeathRecap)
 
+-- DelvesCompanionConfiguration
+local function style_DelvesCompanionConfiguration()
+	if E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local CompanionConfigurationFrame = _G.DelvesCompanionConfigurationFrame
+	CompanionConfigurationFrame:BuiStyle("Outside")
+	CompanionConfigurationFrame.CompanionPortraitFrame:SetFrameLevel(10)
+	CompanionConfigurationFrame.style:SetFrameLevel(5)
+	_G.DelvesCompanionAbilityListFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_DelvesCompanionConfiguration", "BenikUI_DelvesCompanionConfiguration", style_DelvesCompanionConfiguration)
+
+-- DelvesDifficultyPicker
+local function style_DelvesDifficultyPicker()
+	if E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.DelvesDifficultyPickerFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_DelvesDifficultyPicker", "BenikUI_DelvesDifficultyPicker", style_DelvesDifficultyPicker)
+
 -- EncounterJournal
 local function style_EncounterJournal()
 	if E.private.skins.blizzard.encounterjournal ~= true or E.private.skins.blizzard.enable ~= true or
@@ -401,8 +429,12 @@ local function style_ExpansionLandingPage()
 	then
 		return
 	end
-
-	_G.ExpansionLandingPage:BuiStyle("Outside")
+	if _G.ExpansionLandingPage.Overlay.WarWithinLandingOverlay then
+		_G.ExpansionLandingPage.Overlay.WarWithinLandingOverlay:BuiStyle("Outside")
+	end
+	if _G.ExpansionLandingPage.Overlay.DragonflightLandingOverlay then
+		_G.ExpansionLandingPage.Overlay.DragonflightLandingOverlay:BuiStyle("Outside")
+	end
 end
 S:AddCallbackForAddon("Blizzard_ExpansionLandingPage", "BenikUI_ExpansionLandingPage", style_ExpansionLandingPage)
 
@@ -811,6 +843,19 @@ S:AddCallbackForAddon("Blizzard_PlayerChoice", "BenikUI_PlayerChoice", style_Pla
 
 -- Professions
 local function style_Professions()
+	if E.private.skins.blizzard.tradeskill ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local ProfessionsFrame = _G.ProfessionsFrame
+	ProfessionsFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
+
+-- ProfessionsBook
+local function style_ProfessionsBook()
 	if E.private.skins.blizzard.spellbook ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
@@ -820,7 +865,7 @@ local function style_Professions()
 	local ProfessionsFrame = _G.ProfessionsBookFrame
 	ProfessionsFrame:BuiStyle("Outside")
 end
-S:AddCallbackForAddon("Blizzard_ProfessionsBook", "BenikUI_Professions", style_Professions)
+S:AddCallbackForAddon("Blizzard_ProfessionsBook", "BenikUI_ProfessionsBook", style_ProfessionsBook)
 
 -- ProfessionsCustomerOrders
 local function style_ProfessionsCustomerOrders()
@@ -947,6 +992,20 @@ local function style_TrainerUI()
 	_G.ClassTrainerFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_TrainerUI", "BenikUI_TrainerUI", style_TrainerUI)
+
+-- UIPanels_Game
+local function style_UIPanels_Game()
+	if E.private.skins.blizzard.character ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ReputationFrame.ReputationDetailFrame:BuiStyle("Outside")
+	_G.CurrencyTransferMenu:BuiStyle("Outside")
+	_G.GearManagerPopupFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_UIPanels_Game", "BenikUI_UIPanels_Game", style_UIPanels_Game)
 
 -- VoidStorageUI
 local function style_VoidStorageUI()

@@ -38,15 +38,12 @@ local function LoadSkin()
 		end
 	end
 
-	local function tokenUpdate()
-		_G.TokenFramePopup:BuiStyle("Outside")
-	end
-
 	if db.character then
 		_G.PaperDollFrame:BuiStyle("Outside")
 		_G.ReputationFrame:BuiStyle("Outside")
 		_G.TokenFrame:BuiStyle("Outside")
 		_G.CurrencyTransferLog:BuiStyle("Outside")
+		_G.TokenFramePopup:BuiStyle("Outside")
 	end
 
 	if db.dressingroom then

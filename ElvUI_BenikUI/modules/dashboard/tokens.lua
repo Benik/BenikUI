@@ -13,6 +13,7 @@ local C_CurrencyInfo_GetCurrencyListInfo = C_CurrencyInfo.GetCurrencyListInfo
 local C_CurrencyInfo_GetCurrencyListLink = C_CurrencyInfo.GetCurrencyListLink
 local C_CurrencyInfo_GetCurrencyIDFromLink = C_CurrencyInfo.GetCurrencyIDFromLink
 local C_CurrencyInfo_ExpandCurrencyList = C_CurrencyInfo.ExpandCurrencyList
+local C_CurrencyInfo_IsAccountTransferableCurrency = C_CurrencyInfo.IsAccountTransferableCurrency
 local GetExpansionLevel = GetExpansionLevel
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
@@ -36,9 +37,10 @@ mod.CurrencyList = {}
 
 local function OnMouseUp(self, btn)
 	if InCombatLockdown() then return end
+	local id = self.id
+
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
-			local id = self.id
 			E.private.benikui.dashboards.tokens.chooseTokens[id] = false
 			mod:UpdateTokens()
 		else
@@ -96,8 +98,9 @@ end
 
 function mod:GetTokenInfo(id)
 	local info = C_CurrencyInfo_GetCurrencyInfo(id)
+
 	if info then
-		return info.name, info.quantity, info.iconFileID, info.maxWeeklyQuantity, info.maxQuantity, info.discovered
+		return info.name, info.quantity, info.iconFileID, info.maxWeeklyQuantity, info.maxQuantity, info.discovered, info.isAccountWide
 	else
 		return
 	end
@@ -142,12 +145,13 @@ function mod:UpdateTokens()
 							holder:Width(db.tokens.width * (#tokensDB + 1) + ((#tokensDB) *db.tokens.spacing))
 						end
 
-						local bar = mod:CreateDashboard(holder, 'tokens', true)
+						local bar = mod:CreateDashboard(holder, 'tokens', true, false, true)
 						local BarColor = (db.barColor == 1 and classColor) or db.customBarColor
 						local TextColor = (db.textColor == 1 and classColor) or db.customTextColor
 						local BarMaxValue = (totalMax == 0 and amount) or ((db.tokens.weekly and weeklyMax > 0 and weeklyMax) or totalMax)
 						local TextMaxValue = 0
 						local BreakAmount = BreakUpLargeNumbers(amount)
+						local isValidCurrency = C_CurrencyInfo_IsAccountTransferableCurrency(id)
 						local displayString = ''
 
 						if totalMax == 0 then
@@ -172,6 +176,8 @@ function mod:UpdateTokens()
 						bar:SetScript('OnEnter', OnEnter)
 						bar:SetScript('OnLeave', OnLeave)
 						bar:SetScript('OnMouseUp', OnMouseUp)
+
+						bar.awicon:SetShown(isValidCurrency)
 
 						bar.id = id
 						bar.name = name

@@ -81,6 +81,17 @@ local function TomTom()
 	end
 end
 
+local function Baganator()
+	if BUI:IsAddOnEnabled('Baganator') and E.db.benikui.general.benikuiStyle and E.db.benikui.skins.variousSkins.ba then
+		_G['Baganator_SingleViewBackpackViewFrame']:BuiStyle('Outside')
+		_G['Baganator_SingleViewBankViewFrame']:BuiStyle('Outside')
+		_G['Baganator_SingleViewGuildViewFrame']:BuiStyle('Outside')
+		_G['Baganator_CategoryViewBackpackViewFrame']:BuiStyle('Outside')
+		_G['Baganator_CategoryViewBankViewFrame']:BuiStyle('Outside')
+		_G['Baganator_CharacterSelectFrame']:BuiStyle('Outside')
+	end
+end
+
 function mod:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
@@ -95,4 +106,5 @@ function mod:StyleAddons()
 	KalielsTracker()
 	RareTracker()
 	TomTom()
+	Baganator()
 end
