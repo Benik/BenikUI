@@ -1,3 +1,19 @@
+v4.53 (Sep 11, 2024)
+Implement another Rep Dashboard solution. Credit: Radu
+Fix PA import. Credit: Tsxy
+Re enabled reps in a more conservative mode.
+Delves styles
+Update elvuiPlugins.lua. Credit: Tsxy
+SLE style. Credit: Tsxy
+Fix sle style error when main bui style is disabled. Credit: Tsxy
+Renown + skins. Credit: Tsxy
+Renown DT updates. Credit: Tsxy
+Baganator Decor. Credit: Tsxy
+Adjust ExpansionLandingPage decor. Credit: Tsxy
+Tokens Dashboard: Show icon when a token is transferable (wip)
+Styled Character frames
+Fixed some missing Styles
+
 v4.52 (Aug 15, 2024)
 Fix quest npc text error for 11.0.2 (thurin)
 Styled some tooltips
