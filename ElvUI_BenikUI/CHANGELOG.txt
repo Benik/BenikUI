@@ -1,3 +1,6 @@
+v4.54 (Sep 12, 2024)
+Disable Reputations dashboard, till Blizz fixes its shiat
+
 v4.53 (Sep 11, 2024)
 Implement another Rep Dashboard solution. Credit: Radu
 Fix PA import. Credit: Tsxy
