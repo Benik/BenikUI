@@ -28,12 +28,12 @@ function BUI:LoadAddOnSkinsProfile()
 		AS.db['TransparentEmbed'] = true
 	end
 
-	--[[if BUI:IsAddOnEnabled('Details') then
+	if BUI:IsAddOnEnabled('Details') then
 		AS.db['EmbedBackdrop'] = false
 		AS.db['EmbedSystem'] = false
 		AS.db['EmbedSystemDual'] = true
 		AS.db['TransparentEmbed'] = true
-	end]]
+	end
 
 	if BUI:IsAddOnEnabled('DBM-Core') then
 		AS.db['DBMSkinHalf'] = true
