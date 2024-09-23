@@ -126,7 +126,31 @@ function mod:RecolorTooltipStyle()
 		local r, g, b = 0, 0, 0
 
 		if GameTooltipStatusBar:IsShown() then
-			r, g, b = GameTooltipStatusBar:GetStatusBarColor()
+			local _,tooltipUnit = _G.GameTooltip:GetUnit()
+			if tooltipUnit then
+				if UnitIsPlayer(tooltipUnit) then
+					local _, tooltipUnitClass = UnitClass(tooltipUnit)
+					local tooltipUnitClassColor = E:ClassColor(tooltipUnitClass, true)
+					r, g, b = tooltipUnitClassColor.r, tooltipUnitClassColor.g, tooltipUnitClassColor.b
+				else
+					local reaction = UnitReaction(tooltipUnit, "player")
+					if reaction then
+						if reaction >= 5 then
+							r, g, b =  0.2, 1,  0.2
+						elseif reaction == 4 then
+							r, g, b =  0.89, 0.89, 0
+						elseif reaction == 3 then
+							r, g, b =  0.94, 0.37, 0
+						elseif reaction == 2 or reaction == 1 then
+							r, g, b =  0.8, 0, 0
+						end
+					else
+						r, g, b = GameTooltipStatusBar:GetStatusBarColor()
+					end
+				end
+			else
+				r, g, b = GameTooltipStatusBar:GetStatusBarColor()
+			end
 		else
 			r, g, b = ttr, ttg, ttb
 		end
