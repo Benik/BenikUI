@@ -46,21 +46,25 @@ local ISLANDS_HEADER = ISLANDS_HEADER
 local ISLANDS_QUEUE_FRAME_TITLE = ISLANDS_QUEUE_FRAME_TITLE
 local ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS = ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS
 local LE_EXPANSION_BATTLE_FOR_AZEROTH = LE_EXPANSION_BATTLE_FOR_AZEROTH
-local LE_FOLLOWER_TYPE_GARRISON_6_0 = Enum.GarrisonFollowerType.FollowerType_6_0_GarrisonFollower
-local LE_FOLLOWER_TYPE_GARRISON_7_0 = Enum.GarrisonFollowerType.FollowerType_7_0_GarrisonFollower
-local LE_FOLLOWER_TYPE_GARRISON_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0_GarrisonFollower
-local LE_FOLLOWER_TYPE_GARRISON_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0_GarrisonFollower
-local GARRISONFOLLOWERTYPE_6_0_BOAT = Enum.GarrisonFollowerType.FollowerType_6_0_Boat
-local LE_GARRISON_TYPE_6_0 = Enum.GarrisonType.Type_6_0
-local LE_GARRISON_TYPE_7_0 = Enum.GarrisonType.Type_7_0
-local LE_GARRISON_TYPE_8_0 = Enum.GarrisonType.Type_8_0
-local LE_GARRISON_TYPE_9_0 = Enum.GarrisonType.Type_9_0
+local GARRISONTYPE = Enum.GarrisonType
+local GARRISONTYPE_6_0 = GARRISONTYPE.Type_6_0_Garrison or GARRISONTYPE.Type_6_0
+local GARRISONTYPE_7_0 = GARRISONTYPE.Type_7_0_Garrison or GARRISONTYPE.Type_7_0
+local GARRISONTYPE_8_0 = GARRISONTYPE.Type_8_0_Garrison or GARRISONTYPE.Type_8_0
+local GARRISONTYPE_9_0 = GARRISONTYPE.Type_9_0_Garrison or GARRISONTYPE.Type_9_0
+
+local GARRISONFOLLOWER = Enum.GarrisonFollowerType
+local GARRISONFOLLOWER_6_0_BOAT = GARRISONFOLLOWER.FollowerType_6_0_Boat
+local GARRISONFOLLOWER_6_0 = GARRISONFOLLOWER.FollowerType_6_0_GarrisonFollower
+local GARRISONFOLLOWER_7_0 = GARRISONFOLLOWER.FollowerType_7_0_GarrisonFollower
+local GARRISONFOLLOWER_8_0 = GARRISONFOLLOWER.FollowerType_8_0_GarrisonFollower
+local GARRISONFOLLOWER_9_0 = GARRISONFOLLOWER.FollowerType_9_0_GarrisonFollower
 local RESEARCH_TIME_LABEL = RESEARCH_TIME_LABEL
 
 local BODYGUARD_LEVEL_XP_FORMAT = L["Rank"] .. " %d (%d/%d)"
 local EXPANSION_NAME5 = EXPANSION_NAME5 -- "Warlords of Draenor"
 local EXPANSION_NAME6 = EXPANSION_NAME6 -- "Legion"
 local EXPANSION_NAME7 = EXPANSION_NAME7 -- "Battle for Azeroth"
+local EXPANSION_NAME8 = EXPANSION_NAME8 -- 'Shadowlands'
 
 local iconString = "|T%s:16:16:0:0:64:64:4:60:4:60|t"
 
@@ -110,10 +114,10 @@ local function LandingPage(_, ...)
 end
 
 local menuList = {
-	{text = _G.GARRISON_LANDING_PAGE_TITLE,			 func = LandingPage, arg1 = LE_GARRISON_TYPE_6_0, notCheckable = true},
-	{text = _G.ORDER_HALL_LANDING_PAGE_TITLE,		 func = LandingPage, arg1 = LE_GARRISON_TYPE_7_0, notCheckable = true},
-	{text = _G.WAR_CAMPAIGN,						 func = LandingPage, arg1 = LE_GARRISON_TYPE_8_0, notCheckable = true},
-	{text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = LandingPage, arg1 = LE_GARRISON_TYPE_9_0, notCheckable = true},
+	{text = _G.GARRISON_LANDING_PAGE_TITLE,			 func = LandingPage, arg1 = GARRISONTYPE_6_0, notCheckable = true},
+	{text = _G.ORDER_HALL_LANDING_PAGE_TITLE,		 func = LandingPage, arg1 = GARRISONTYPE_7_0, notCheckable = true},
+	{text = _G.WAR_CAMPAIGN,						 func = LandingPage, arg1 = GARRISONTYPE_8_0, notCheckable = true},
+	{text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = LandingPage, arg1 = GARRISONTYPE_9_0, notCheckable = true},
 }
 
 local data = {}
@@ -164,7 +168,7 @@ end
 
 local covenantInfo = {}
 local function AddTalentInfo(garrisonType, currentCovenant)
-	if garrisonType == LE_GARRISON_TYPE_9_0 then
+	if garrisonType == GARRISONTYPE_9_0 then
 		local current = covenantTreeIDs[currentCovenant]
 		if current then
 			wipe(covenantInfo)
@@ -180,14 +184,14 @@ local function AddTalentInfo(garrisonType, currentCovenant)
 		-- This is a talent that has completed, but has not been seen in the talent UI yet.
 		-- No longer provide relevant output in SL. Still used by old content.
 		local completeTalentID = C_Garrison_GetCompleteTalent(garrisonType)
-		if completeTalentID > 0 and garrisonType ~= LE_GARRISON_TYPE_9_0 then
+		if completeTalentID > 0 and garrisonType ~= GARRISONTYPE_9_0 then
 			DT.tooltip:AddLine(' ')
 			DT.tooltip:AddLine(RESEARCH_TIME_LABEL) -- 'Research Time:'
 
 			for _, treeID in ipairs(data) do
 				local treeInfo = C_Garrison_GetTalentTreeInfo(treeID)
 				for _, talent in ipairs(treeInfo.talents) do
-					if talent.isBeingResearched or (talent.id == completeTalentID and garrisonType ~= LE_GARRISON_TYPE_9_0)then
+					if talent.isBeingResearched or (talent.id == completeTalentID and garrisonType ~= GARRISONTYPE_9_0)then
 						if talent.timeRemaining and talent.timeRemaining == 0 then
 							DT.tooltip:AddDoubleLine(talent.name, GOAL_COMPLETED, 1, 1, 1, GREEN_FONT_COLOR:GetRGB())
 						else
@@ -215,7 +219,7 @@ local function OnEnter()
 
 	DT.tooltip:AddLine(EXPANSION_NAME8, 1, .5, 0)
 	DT.tooltip:AddDoubleLine(L["Mission(s) Report:"], AddInfo(1813), nil, nil, nil, 1, 1, 1)
-	AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_9_0)
+	AddInProgressMissions(GARRISONFOLLOWER_9_0)
 
 	if C_CovenantCallings_AreCallingsUnlocked() then
 		local questNum = 0
@@ -233,7 +237,7 @@ local function OnEnter()
 
 	local currentCovenant = C_Covenants_GetActiveCovenantID()
 	if currentCovenant and currentCovenant > 0 then
-		AddTalentInfo(LE_GARRISON_TYPE_9_0, currentCovenant)
+		AddTalentInfo(GARRISONTYPE_9_0, currentCovenant)
 	end
 
 	if IsShiftKeyDown() then
@@ -241,7 +245,7 @@ local function OnEnter()
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddLine(EXPANSION_NAME7, 1, .5, 0)
 		DT.tooltip:AddDoubleLine(L["Mission(s) Report:"], AddInfo(1560), nil, nil, nil, 1, 1, 1)
-		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_8_0)
+		AddInProgressMissions(GARRISONFOLLOWER_8_0)
 
 		-- Island Expeditions
 		if E.mylevel >= GetMaxLevelForExpansionLevel(LE_EXPANSION_BATTLE_FOR_AZEROTH) then
@@ -264,19 +268,19 @@ local function OnEnter()
 			end
 		end
 
-		AddFollowerInfo(LE_GARRISON_TYPE_7_0)
-		AddTalentInfo(LE_GARRISON_TYPE_7_0)
+		AddFollowerInfo(GARRISONTYPE_7_0)
+		AddTalentInfo(GARRISONTYPE_7_0)
 
 		-- Legion
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddLine(EXPANSION_NAME6, 1, .5, 0)
 		DT.tooltip:AddDoubleLine(L["Mission(s) Report:"], AddInfo(1220), nil, nil, nil, 1, 1, 1)
 
-		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
-		AddFollowerInfo(LE_GARRISON_TYPE_7_0)
+		AddInProgressMissions(GARRISONFOLLOWER_7_0)
+		AddFollowerInfo(GARRISONTYPE_7_0)
 
 		-- 'Loose Work Orders' (i.e. research, equipment)
-		data = C_Garrison_GetLooseShipments(LE_GARRISON_TYPE_7_0)
+		data = C_Garrison_GetLooseShipments(GARRISONTYPE_7_0)
 		if next(data) then
 			DT.tooltip:AddLine(CAPACITANCE_WORK_ORDERS) -- 'Work Orders'
 
@@ -292,20 +296,20 @@ local function OnEnter()
 			end
 		end
 
-		AddTalentInfo(LE_GARRISON_TYPE_7_0)
+		AddTalentInfo(GARRISONTYPE_7_0)
 
 		-- Warlords of Draenor
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddLine(EXPANSION_NAME5, 1, .5, 0)
 		DT.tooltip:AddDoubleLine(L["Mission(s) Report:"], AddInfo(824), nil, nil, nil, 1, 1, 1)
-		AddInProgressMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
+		AddInProgressMissions(GARRISONFOLLOWER_6_0)
 
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddDoubleLine(L["Naval Mission(s) Report:"], AddInfo(1101), nil, nil, nil, 1, 1 , 1)
-		AddInProgressMissions(GARRISONFOLLOWERTYPE_6_0_BOAT)
+		AddInProgressMissions(GARRISONFOLLOWER_6_0_BOAT)
 
 		--Buildings
-		data = C_Garrison_GetBuildings(LE_GARRISON_TYPE_6_0)
+		data = C_Garrison_GetBuildings(GARRISONTYPE_6_0)
 		if next(data) then
 			local AddLine = true
 			for _, buildings in ipairs(data) do
@@ -339,7 +343,7 @@ local function OnClick(self, btn)
 
 	if btn == 'RightButton' then
 		E:SetEasyMenuAnchor(E.EasyMenu, self)
-		EasyMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
+		E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
 	else
 		_G.ExpansionLandingPageMinimapButton:ToggleLandingPage()
 	end
@@ -347,11 +351,11 @@ end
 
 local inProgressMissions = {}
 local expansions = {
-	GARRISONFOLLOWERTYPE_6_0_BOAT,
-	LE_FOLLOWER_TYPE_GARRISON_6_0,
-	LE_FOLLOWER_TYPE_GARRISON_7_0,
-	LE_FOLLOWER_TYPE_GARRISON_8_0,
-	LE_FOLLOWER_TYPE_GARRISON_9_0
+	GARRISONFOLLOWER_6_0_BOAT,
+	GARRISONFOLLOWER_6_0,
+	GARRISONFOLLOWER_7_0,
+	GARRISONFOLLOWER_8_0,
+	GARRISONFOLLOWER_9_0
 }
 local CountInProgress = 0
 local CountCompleted = 0
@@ -374,11 +378,11 @@ local function OnEvent(self, event, ...)
 	end
 
 	if event == 'GARRISON_LANDINGPAGE_SHIPMENTS' or event == 'GARRISON_MISSION_FINISHED' or event == 'GARRISON_MISSION_NPC_CLOSED' or event == 'GARRISON_MISSION_LIST_UPDATE' then
-		CountCompleted = #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_9_0)
-		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_8_0)
-		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_7_0)
-		+ #C_Garrison_GetCompleteMissions(LE_FOLLOWER_TYPE_GARRISON_6_0)
-		+ #C_Garrison_GetCompleteMissions(GARRISONFOLLOWERTYPE_6_0_BOAT)
+		CountCompleted = #C_Garrison_GetCompleteMissions(GARRISONFOLLOWER_9_0)
+		+ #C_Garrison_GetCompleteMissions(GARRISONFOLLOWER_8_0)
+		+ #C_Garrison_GetCompleteMissions(GARRISONFOLLOWER_7_0)
+		+ #C_Garrison_GetCompleteMissions(GARRISONFOLLOWER_6_0)
+		+ #C_Garrison_GetCompleteMissions(GARRISONFOLLOWER_6_0_BOAT)
 
 		for _, expansion in ipairs(expansions) do
 			C_Garrison_GetInProgressMissions(inProgressMissions, expansion)
@@ -401,7 +405,7 @@ local function OnEvent(self, event, ...)
 		self.text:SetFormattedText(GARRISON_TYPE_8_0_LANDING_PAGE_TITLE)
 	end
 
-	if event == 'MODIFIER_STATE_CHANGED' and not IsAltKeyDown() and GetMouseFocus() == self then
+	if event == 'MODIFIER_STATE_CHANGED' and not IsAltKeyDown() and E:GetMouseFocus() == self then
 		OnEnter(self)
 	end
 end
