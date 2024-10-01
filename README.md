@@ -1,7 +1,7 @@
 # BenikUI
 BenikUI is an external ElvUI mod, adding different frame style and new features like detatched portraits, dashboards and many more, also available for WoW Classic and WotLK. 
 
-All game versions require ElvUI v13.27+ installed.
+All game versions require ElvUI v13.75+ installed.
 
 Installation:
 
@@ -17,7 +17,7 @@ Ultra Fast: Find me at BenikUI Discord Server or at TukUI Discord Server
 Fast: Report any issues by creating a ticket in Github Ticket Tracker
 
 Please try to reproduce any issues with only ElvUI, ElvUI_Options, ElvUI_BenikUI enabled.
-Suggestions, recommendations, things to add/remove or to say thanks, at BenikUI site in TukUI.org or on the comments section.
+Suggestions, recommendations, things to add/remove or to say thanks, at BenikUI Discord: https://discord.gg/8ZDDUem
  
 Recommended addons:
 - AddOnSkins, so that your addons fit with ElvUI and BenikUI style.
@@ -51,4 +51,4 @@ Features:
 - Decors to fit with BenikUI: S&L, LocationPlus, LocationLite, Square Minimap Buttons, Recount, Skada, TinyDPS, Altoholic, AtlasLoot, ZygorGuides, RareCoordinator, Clique, Decursive, oRA3. AddOnSkins required. Many more to come. Just poke me
 
 Credits:
-Elv, Tukz, Blazeflack, Azilroka, Simpy, Sinaris, Darth Predator, Dandruff, Hydra, Merathilis, Repooc, Kringel, thurin
+Elv, Tukz, Blazeflack, Azilroka, Simpy, Sinaris, Darth Predator, Dandruff, Hydra, Merathilis, Repooc, Kringel, thurin, Tsxy
