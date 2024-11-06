@@ -206,7 +206,16 @@ local AddonsToHide = {
 	{'WeakAuras', 'WeakAurasFrame'},
 	{'HeroRotation','HeroRotation_ToggleIconFrame'},
 	{'!KalielsTracker','!KalielsTrackerFrame'},
+	{'!KalielsTracker','!KalielsTrackerScrollChild'},
+	{'!KalielsTracker','!KalielsTrackerScrollBar'},
+	{'!KalielsTracker','!KalielsTrackerScroll'},
+	{'!KalielsTracker','!KalielsTrackerBackground'},
 	{'!KalielsTracker','!KalielsTrackerButtons'},
+	{'!KalielsTracker','KT_ObjectiveTracker'},
+	{'!KalielsTracker','KT_ObjectiveTrackerUIWidgetContainer'},
+	{'!KalielsTracker','KT_AchievementObjectiveTracker'},
+	{'!KalielsTracker','KT_ProfessionsRecipeTracker'},
+	{'!KalielsTracker','!KalielsTrackerHeaderButtons'},
 	{'RareTrackerCore','RT'},
 }
 

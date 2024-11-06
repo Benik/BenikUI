@@ -1,3 +1,14 @@
+v4.55 (Nov 6, 2024)
+Missed style
+toc update
+Update README.md
+Update missions.lua (Tsxy)
+hide many kt frames things for flightmode (Tsxy)
+use the unit's class instead of statusbar color (Eltreum)
+fixed Kalielstracker skin (Tsxy)
+More Styles
+Force disable Reps
+
 v4.54 (Sep 12, 2024)
 Disable Reputations dashboard, till Blizz fixes its shiat
 

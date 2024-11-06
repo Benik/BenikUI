@@ -851,6 +851,8 @@ local function style_Professions()
 
 	local ProfessionsFrame = _G.ProfessionsFrame
 	ProfessionsFrame:BuiStyle("Outside")
+	ProfessionsFrame.CraftingPage.CraftingOutputLog:BuiStyle("Outside")
+	ProfessionsFrame.OrdersPage.OrderView.CraftingOutputLog:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
 
@@ -862,8 +864,7 @@ local function style_ProfessionsBook()
 		return
 	end
 
-	local ProfessionsFrame = _G.ProfessionsBookFrame
-	ProfessionsFrame:BuiStyle("Outside")
+	_G.ProfessionsBookFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ProfessionsBook", "BenikUI_ProfessionsBook", style_ProfessionsBook)
 
