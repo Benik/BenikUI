@@ -283,20 +283,13 @@ function mod:UpdateReputations()
 end
 
 function mod:PopulateFactionData()
-	local Collapsed = {}
 	local numFactions = GetNumFactions()
 	local factionIndex = 1
 	local headerIndex
 
-	while (factionIndex <= numFactions) do
-		local info = GetFactionInfo(factionIndex)
+	for i = 1, numFactions do
+		local info = GetFactionInfo(i)
 		if info then
-			if info.isHeader and info.isCollapsed then
-				ExpandFactionHeader(factionIndex)
-				numFactions = GetNumFactions()
-				Collapsed[info.name] = true
-			end
-
 			if info.isHeader and not (info.hasRep or info.isChild) then
 				tinsert(mod.ReputationsList, { info.name, info.factionID, factionIndex, info.isHeader, info.hasRep, info.isChild })
 				headerIndex = factionIndex
@@ -310,21 +303,8 @@ function mod:PopulateFactionData()
 			end
 
 			factionIndex = factionIndex + 1
-		else
-			break
 		end
 	end
-
-	for k = 1, numFactions do
-		local info = GetFactionInfo(k)
-		if not info.name then
-			break
-		elseif info.isHeader and not info.isCollapsed and Collapsed[info.name] then
-			ExpandFactionHeader(k, false)
-		end
-	end
-
-	wipe(Collapsed)
 end
 
 function mod:UPDATE_FACTION(_, factionID)

@@ -267,7 +267,7 @@ local function UpdateAllDashboards()
 	if db.professions.enable then mod:UpdateProfessions() end
 	if db.tokens.enable then mod:UpdateTokens() end
 	if db.system.enable then mod:UpdateSystemSettings() end
-	--if db.reputations.enable then mod:UpdateReputations() end
+	if db.reputations.enable then mod:UpdateReputations() end
 	if db.items.enable then mod:UpdateItems() end
 end
 
@@ -879,7 +879,6 @@ local function dashboardsTable()
 				type = 'group',
 				name = REPUTATION,
 				childGroups = 'tab',
-				disabled = true,
 				args = {
 					enable = {
 						order = 1,

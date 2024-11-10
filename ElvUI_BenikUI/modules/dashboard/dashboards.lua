@@ -305,8 +305,7 @@ function mod:Initialize()
 	mod:LoadSystem()
 	mod:LoadProfessions()
 	mod:LoadTokens()
-	--mod:LoadReputations()
-	E.db.benikui.dashboards.reputations.enable = false
+	mod:LoadReputations()
 	mod:LoadItems()
 
 	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')
