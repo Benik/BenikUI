@@ -73,6 +73,15 @@ local function TomTom()
 			end
 		end
 
+		if TomTomDropdown then --minimap dropdown
+			TomTomDropdownBackdrop:StripTextures()
+			TomTomDropdownBackdrop:SetTemplate("Transparent")
+
+			if E.db.benikui.general.benikuiStyle then
+				TomTomDropdownBackdrop:BuiStyle('Outside')
+			end
+		end
+
 		if TomTomTooltip then
 			if E.db.benikui.general.benikuiStyle then
 				TomTomTooltip:BuiStyle('Outside')
