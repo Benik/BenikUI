@@ -1,3 +1,7 @@
+v4.56 (Dec 20, 2024)
+Fix Baganator skinning (Credit: Tsxy)
+Fix tomtom dropdown minimap (Credit: Tsxy)
+
 v4.55 (Nov 6, 2024)
 Missed style
 toc update
