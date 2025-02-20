@@ -25,6 +25,7 @@ local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local UIFrameFadeIn, UIFrameFadeOut, PlaySound = UIFrameFadeIn, UIFrameFadeOut, PlaySound
 local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 local MinimapCluster = _G.MinimapCluster
+local Minimap = _G.Minimap
 
 -- GLOBALS: UIParent, FlightModeLocation, selectioncolor, LeftChatPanel, ElvUI_ContainerFrame
 -- GLOBALS: FlightModeMenuBtn, LeftChatMover, BuiDummyChat, Minimap, AddOnSkins
@@ -236,7 +237,7 @@ function mod:SetFlightMode(status)
 		-- Hide some frames
 		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Hide() end
 		if E.private.general.minimap.enable then
-			Minimap:Hide()
+			_G.MinimapCluster:Hide()
 		end
 
 		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
@@ -364,7 +365,7 @@ function mod:SetFlightMode(status)
 		-- Show hidden frames
 		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Show() end
 		if E.private.general.minimap.enable then
-			Minimap:Show()
+			_G.MinimapCluster:Show()
 		end
 
 		tracking:SetAlpha(1)
