@@ -705,6 +705,7 @@ local function panelsTable()
 
 							-- Automatically select the newly created panel:
 							E.Libs.AceConfigDialog:SelectGroup("ElvUI", "benikui", "panels", "BenikUI_" .. PanelSetup.name)
+							PanelSetup.name = ""
 						end,
 					},
 				},
