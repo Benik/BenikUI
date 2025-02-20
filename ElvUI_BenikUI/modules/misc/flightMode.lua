@@ -25,11 +25,10 @@ local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local UIFrameFadeIn, UIFrameFadeOut, PlaySound = UIFrameFadeIn, UIFrameFadeOut, PlaySound
 local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 local MinimapCluster = _G.MinimapCluster
-local Minimap = _G.Minimap
+local ObjectiveTrackerFrame = _G.ObjectiveTrackerFrame
 
 -- GLOBALS: UIParent, FlightModeLocation, selectioncolor, LeftChatPanel, ElvUI_ContainerFrame
--- GLOBALS: FlightModeMenuBtn, LeftChatMover, BuiDummyChat, Minimap, AddOnSkins
--- GLOBALS: ObjectiveTrackerFrame, ZoneTextFrame
+-- GLOBALS: FlightModeMenuBtn, LeftChatMover, BuiDummyChat, AddOnSkins, ZoneTextFrame
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
@@ -235,7 +234,10 @@ function mod:SetFlightMode(status)
 		E.UIParent:Hide()
 
 		-- Hide some frames
-		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Hide() end
+		if ObjectiveTrackerFrame then
+			ObjectiveTrackerFrame:SetParent(E.HiddenFrame)
+		end
+
 		if E.private.general.minimap.enable then
 			_G.MinimapCluster:Hide()
 		end
@@ -363,7 +365,10 @@ function mod:SetFlightMode(status)
 		E.UIParent:Show()
 
 		-- Show hidden frames
-		if ObjectiveTrackerFrame then ObjectiveTrackerFrame:Show() end
+		if ObjectiveTrackerFrame then
+			ObjectiveTrackerFrame:SetParent(_G.UIParent)
+		end
+
 		if E.private.general.minimap.enable then
 			_G.MinimapCluster:Show()
 		end
