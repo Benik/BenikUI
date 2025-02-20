@@ -137,7 +137,7 @@ local function Datatexts()
 						name = L['Hide Mail Icon'],
 						desc = L['Show/Hide Mail Icon on minimap'],
 						get = function(info) return E.db.benikui.datatexts.mail[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.mail[ info[#info] ] = value; DT:ToggleMailFrame() end,
+						set = function(info, value) E.db.benikui.datatexts.mail[ info[#info] ] = value; BUI:GetModule('DataTexts'):ToggleMailFrame() end,
 					},
 				},
 			},

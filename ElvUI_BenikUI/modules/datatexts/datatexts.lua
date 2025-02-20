@@ -1,6 +1,7 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local DT = E:GetModule('DataTexts')
 local mod = BUI:GetModule('DataTexts')
+local C_TimerAfter = C_Timer.After
 
 function mod:BuildPanelFrame(name)
 	local Panel = DT:FetchFrame(name)
@@ -28,10 +29,18 @@ function mod:SetupTooltip()
 	DT.tooltip:BuiStyle('Outside')
 end
 
+-- Hide the mail icon from minimap
+function mod:ToggleMailFrame(event)
+	if _G.MiniMapMailIcon then
+		_G.MiniMapMailIcon:SetShown(not E.db.benikui.datatexts.mail.toggle)
+	end
+end
+
 function mod:Initialize()
 	hooksecurefunc(DT, "BuildPanelFrame", mod.BuildPanelFrame)
 	hooksecurefunc(DT, "UpdatePanelInfo", mod.UpdatePanelInfo)
 	hooksecurefunc(DT, "SetupTooltip", mod.SetupTooltip)
+	C_TimerAfter(5, mod.ToggleMailFrame)
 end
 
 BUI:RegisterModule(mod:GetName())

@@ -187,8 +187,6 @@ function BUI:Initialize()
 	BUI:LoadCommands()
 	BUI:SplashScreen()
 
-	E:GetModule('DataTexts'):ToggleMailFrame()
-
 	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
 		if initLogin or not ElvDB.BuiErrorDisabledAddOns then
 			ElvDB.BuiErrorDisabledAddOns = {}
