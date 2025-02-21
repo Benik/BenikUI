@@ -758,7 +758,7 @@ S:AddCallbackForAddon("Blizzard_MajorFactions", "BenikUI_MajorFactions", style_M
 
 -- Blizzard Menus
 local function StyleFrame(frame)
-	if frame.backdrop then
+	if frame.backdrop and not frame.backdrop.style then
 		frame.backdrop:BuiStyle("Outside")
 	end
 end
