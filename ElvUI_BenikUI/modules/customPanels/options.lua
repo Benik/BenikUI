@@ -46,6 +46,7 @@ local function updateOptions()
 			order = 10,
 			name = panelname,
 			type = 'group',
+			childGroups = 'tab',
 			args = {
 				-- Enable toggle.
 				enable = {
@@ -61,10 +62,9 @@ local function updateOptions()
 				},
 				-- BenikUI Style Options.
 				styleGroup = {
-					order = 2,
+					order = 20,
 					name = L["BenikUI Style"],
 					type = 'group',
-					guiInline = true,
 					disabled = function()
 						return E.db.benikui.general.benikuiStyle ~= true or not E.db.benikui.panels[panelname].enable
 					end,
@@ -89,6 +89,7 @@ local function updateOptions()
 							order = 3,
 							name = COLOR,
 							type = 'group',
+							guiInline = true,
 							args = {
 								styleColor = {
 									order = 1,
@@ -120,18 +121,11 @@ local function updateOptions()
 						},
 					},
 				},
-				-- Spacer.
-				spacer1 = {
-					order = 3,
-					type = 'description',
-					name = ' ',
-				},
 				-- General Panel Options.
 				generalOptions = {
-					order = 4,
+					order = 30,
 					type = 'group',
 					name = 'General Panel Options',
-					guiInline = true,
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					args = {
 						functionalityOptions = {
@@ -139,7 +133,6 @@ local function updateOptions()
 							type = 'group',
 							name = '',
 							guiInline = true,
-							width = 'full',
 							args = {
 								clickThrough = {
 									order = 1,
@@ -149,6 +142,18 @@ local function updateOptions()
 									set = function(_, value)
 										E.db.benikui.panels[panelname].clickThrough = value
 										mod:SetupPanels()
+									end,
+								},
+								-- Tooltip toggle.
+								tooltip = {
+									order = 2,
+									name = L["Name Tooltip"],
+									desc = L["Enable tooltip to reveal the panel name"],
+									type = 'toggle',
+									disabled = function() return not E.db.benikui.panels[panelname].enable end,
+									get = function() return E.db.benikui.panels[panelname].tooltip end,
+									set = function(_, value)
+										E.db.benikui.panels[panelname].tooltip = value
 									end,
 								},
 							},
@@ -254,18 +259,11 @@ local function updateOptions()
 						},
 					},
 				},
-				-- Spacer.
-				spacer2 = {
-					order = 5,
-					type = 'description',
-					name = ' ',
-				},
 				-- Size and Strata Options.
 				sizeGroup = {
-					order = 6,
+					order = 40,
 					type = 'group',
 					name = 'Size and Strata',
-					guiInline = true,
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					args = {
 						width = {
@@ -303,18 +301,11 @@ local function updateOptions()
 						},
 					},
 				},
-				-- Spacer.
-				spacer3 = {
-					order = 7,
-					type = 'description',
-					name = ' ',
-				},
 				-- Title Options.
 				titleGroup = {
-					order = 8,
+					order = 50,
 					name = L["Title"],
 					type = 'group',
-					guiInline = true,
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					get = function(info) return E.db.benikui.panels[panelname].title[ info[#info] ] end,
 					set = function(info, value)
@@ -505,18 +496,11 @@ local function updateOptions()
 						},
 					},
 				},
-				-- Spacer.
-				spacer4 = {
-					order = 9,
-					type = 'description',
-					name = ' ',
-				},
 				-- Visibility Options.
 				visibilityGroup = {
-					order = 10,
+					order = 60,
 					name = L["Visibility"],
 					type = 'group',
-					guiInline = true,
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
 					args = {
 						petHide = {
@@ -565,67 +549,52 @@ local function updateOptions()
 						},
 					},
 				},
-				-- Spacer before tooltip.
-				spacer5 = {
-					order = 11,
-					type = 'description',
-					name = ' ',
-				},
-				-- Tooltip toggle.
-				tooltip = {
-					order = 12,
-					name = L["Name Tooltip"],
-					desc = L["Enable tooltip to reveal the panel name"],
-					type = 'toggle',
-					disabled = function() return not E.db.benikui.panels[panelname].enable end,
-					get = function() return E.db.benikui.panels[panelname].tooltip end,
-					set = function(_, value)
-						E.db.benikui.panels[panelname].tooltip = value
-					end,
-				},
-				-- Header spacer.
-				spacer6 = {
-					order = 13,
-					type = 'header',
-					name = '',
-				},
 				-- Delete and Clone actions.
-				delete = {
-					order = -1,
-					name = DELETE,
-					type = 'execute',
+				actionsGroup = {
+					order = 70,
+					name = " ",
+					type = 'group',
+					guiInline = true,
 					disabled = function() return not E.db.benikui.panels[panelname].enable end,
-					func = function()
-						E.PopupDialogs["BUI_Panel_Delete"].OnAccept = function()
-							mod:Panel_Delete(panelname)
-						end
-						E.PopupDialogs["BUI_Panel_Delete"].text = format(L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"], panelname)
-						E:StaticPopup_Show("BUI_Panel_Delete")
-					end,
-				},
-				clone = {
-					order = -2,
-					name = L["Clone"],
-					type = 'execute',
-					disabled = function() return not E.db.benikui.panels[panelname].enable end,
-					func = function()
-						local noBui = panelname:gsub('BenikUI_', '')
-						E.PopupDialogs["BUI_Panel_Clone"].OnAccept = function()
-							for object in pairs(E.db.benikui.panels) do
-								if object:lower() == PanelSetup.cloneName:lower() then
-									E.PopupDialogs["BUI_Panel_Name"].text = format(L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."], noBui)
-									E:StaticPopup_Show("BUI_Panel_Name")
-									PanelSetup.cloneName = nil
-									return
+					args = {
+						delete = {
+							order = 1,
+							name = DELETE,
+							type = 'execute',
+							disabled = function() return not E.db.benikui.panels[panelname].enable end,
+							func = function()
+								E.PopupDialogs["BUI_Panel_Delete"].OnAccept = function()
+									mod:Panel_Delete(panelname)
 								end
-							end
-							mod:ClonePanel(panelname, PanelSetup.cloneName)
-							updateOptions()
-							E.Libs.AceConfigDialog:SelectGroup("ElvUI", "benikui")
-						end
-						E.PopupDialogs["BUI_Panel_Clone"].text = format(L["Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name"], panelname)
-						E:StaticPopup_Show("BUI_Panel_Clone", nil, nil, noBui)
-					end,
+								E.PopupDialogs["BUI_Panel_Delete"].text = format(L["This will delete the Custom Panel named |cff00c0fa%s|r.\nContinue?"], panelname)
+								E:StaticPopup_Show("BUI_Panel_Delete")
+							end,
+						},
+						clone = {
+							order = 2,
+							name = L["Clone"],
+							type = 'execute',
+							disabled = function() return not E.db.benikui.panels[panelname].enable end,
+							func = function()
+								local noBui = panelname:gsub('BenikUI_', '')
+								E.PopupDialogs["BUI_Panel_Clone"].OnAccept = function()
+									for object in pairs(E.db.benikui.panels) do
+										if object:lower() == PanelSetup.cloneName:lower() then
+											E.PopupDialogs["BUI_Panel_Name"].text = format(L["The Custom Panel name |cff00c0fa%s|r already exists. Please choose another one."], noBui)
+											E:StaticPopup_Show("BUI_Panel_Name")
+											PanelSetup.cloneName = ""
+											return
+										end
+									end
+									mod:ClonePanel(panelname, PanelSetup.cloneName)
+									updateOptions()
+									E.Libs.AceConfigDialog:SelectGroup("ElvUI", "benikui")
+								end
+								E.PopupDialogs["BUI_Panel_Clone"].text = format(L["Clone the Custom Panel: |cff00c0fa%s|r.\nPlease type the new Name"], panelname)
+								E:StaticPopup_Show("BUI_Panel_Clone", nil, nil, noBui)
+							end,
+						},
+					},
 				},
 			},
 		}
@@ -761,10 +730,10 @@ E.PopupDialogs["BUI_Panel_Clone"] = {
 		self.editBox:SetText("")
 		self.editBox:HighlightText()
 		self.editBox:SetJustifyH("CENTER")
-		PanelSetup.cloneName = nil
+		PanelSetup.cloneName = ""
 	end,
 	OnHide = function(self)
-		PanelSetup.cloneName = nil
+		PanelSetup.cloneName = ""
 		self.editBox:Width(self.editBox.width or 50)
 		self.editBox.width = nil
 	end,
@@ -772,7 +741,7 @@ E.PopupDialogs["BUI_Panel_Clone"] = {
 		E.noop()
 	end,
 	EditBoxOnEscapePressed = function(self)
-		PanelSetup.cloneName = nil
+		PanelSetup.cloneName = ""
 		self:GetParent():Hide()
 	end,
 	EditBoxOnTextChanged = function(self)
