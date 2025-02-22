@@ -125,8 +125,10 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 			r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
 		elseif E.db.benikui.colors.StyleColor == 3 then
 			r, g, b = BUI:unpackColor(E.db.general.valuecolor)
-		else
+		elseif E.db.benikui.colors.StyleColor == 4 then
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
+		else
+			r, g, b = BUI:unpackColor(E.db.general.classColors[E.myclass])
 		end
 		style:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 	else

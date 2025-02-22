@@ -10,6 +10,7 @@ local colorValues = {
 	[2] = CUSTOM,
 	[3] = L['Value Color'],
 	[4] = DEFAULT,
+	[5] = L["Custom Class Colors"],
 }
 
 local function Core()
