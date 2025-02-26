@@ -12,7 +12,6 @@ local C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer = C_PlayerInfo.IsExpa
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
 local COVENANT_SANCTUM_TAB_RENOWN = COVENANT_SANCTUM_TAB_RENOWN
-local DRAGONFLIGHT_LANDING_PAGE_TITLE = DRAGONFLIGHT_LANDING_PAGE_TITLE
 local LE_EXPANSION_DRAGONFLIGHT = LE_EXPANSION_DRAGONFLIGHT
 local LE_EXPANSION_WAR_WITHIN = LE_EXPANSION_WAR_WITHIN
 
@@ -110,7 +109,7 @@ local function OnEnter(self)
 					DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
 				end
 				DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
-				DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(majorFactionData.renownLevel)))
+				DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
 				DT.tooltip:AddLine(' ')
 
 				menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, checked = menu_checked, disabled = false}
@@ -124,7 +123,6 @@ local function OnEnter(self)
 		end
 
 		DT.tooltip:AddDoubleLine('Right Click:', 'Track Faction', 0.7, 0.7, 1, 0.7, 0.7, 1)
---		DT.tooltip:AddDoubleLine('Left Click:', 'DRAGONFLIGHT_LANDING_PAGE_TITLE', 0.7, 0.7, 1, 0.7, 0.7, 1)
 		DT.tooltip:AddDoubleLine('Left Click:', 'Expansion Landing Page', 0.7, 0.7, 1, 0.7, 0.7, 1)
 		DT.tooltip:Show()
 	end
