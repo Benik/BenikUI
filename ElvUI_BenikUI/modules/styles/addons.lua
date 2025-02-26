@@ -73,6 +73,15 @@ local function TomTom()
 			end
 		end
 
+		if TomTomDropdown then --minimap dropdown
+			TomTomDropdownBackdrop:StripTextures()
+			TomTomDropdownBackdrop:SetTemplate("Transparent")
+
+			if E.db.benikui.general.benikuiStyle then
+				TomTomDropdownBackdrop:BuiStyle('Outside')
+			end
+		end
+
 		if TomTomTooltip then
 			if E.db.benikui.general.benikuiStyle then
 				TomTomTooltip:BuiStyle('Outside')
@@ -81,14 +90,20 @@ local function TomTom()
 	end
 end
 
-local function Baganator()
+local function Baganator() --credits go to plusmouse here https://github.com/Benik/BenikUI/issues/62
 	if BUI:IsAddOnEnabled('Baganator') and E.db.benikui.general.benikuiStyle and E.db.benikui.skins.variousSkins.ba then
-		_G['Baganator_SingleViewBackpackViewFrame']:BuiStyle('Outside')
-		_G['Baganator_SingleViewBankViewFrame']:BuiStyle('Outside')
-		_G['Baganator_SingleViewGuildViewFrame']:BuiStyle('Outside')
-		_G['Baganator_CategoryViewBackpackViewFrame']:BuiStyle('Outside')
-		_G['Baganator_CategoryViewBankViewFrame']:BuiStyle('Outside')
-		_G['Baganator_CharacterSelectFrame']:BuiStyle('Outside')
+		_G["Baganator"].API.Skins.RegisterListener(function(details)
+			if details.regionType == "ButtonFrame" and _G["Baganator"].API.Skins.GetCurrentSkin() == "elvui" then
+				details.region:BuiStyle('Outside')
+			end
+		end)
+		if _G["Baganator"].API.Skins.GetCurrentSkin() == "elvui" then
+			for _, details in ipairs(_G["Baganator"].API.Skins.GetAllFrames()) do
+				if details.regionType == "ButtonFrame" then
+					details.region:BuiStyle('Outside')
+				end
+			end
+		end
 	end
 end
 

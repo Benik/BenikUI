@@ -93,7 +93,6 @@ local function StyleBlizzardTooltips()
 			end
 		end
 
-		_G.QuestMapFrame.QuestsFrame.StoryTooltip:BuiStyle("Outside")
 		_G.QuestScrollFrame.StoryTooltip:BuiStyle("Outside")
 		_G.QuestScrollFrame.CampaignTooltip:BuiStyle("Outside")
 

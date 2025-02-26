@@ -1026,7 +1026,7 @@ local function dashboardsTable()
 			items = {
 				order = 7,
 				type = 'group',
-				name = E.NewSign..L['Items'],
+				name = L['Items'],
 				childGroups = 'tab',
 				args = {
 					enable = {

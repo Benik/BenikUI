@@ -36,11 +36,4 @@ local function OnEnter()
 	DT.tooltip:Show()
 end
 
--- Hide the mail icon from minimap
-function DT:ToggleMailFrame()
-	if _G.MiniMapMailIcon then
-		_G.MiniMapMailIcon:SetShown(not E.db.benikui.datatexts.mail.toggle)
-	end
-end
-
 DT:RegisterDatatext('BuiMail', 'BenikUI', {'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'MAIL_SHOW'}, OnEvent, nil, nil, OnEnter, nil, 'Mail (BenikUI)')

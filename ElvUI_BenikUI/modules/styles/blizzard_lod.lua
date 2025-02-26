@@ -756,6 +756,34 @@ local function style_MajorFactions()
 end
 S:AddCallbackForAddon("Blizzard_MajorFactions", "BenikUI_MajorFactions", style_MajorFactions)
 
+-- Blizzard Menus
+local function StyleFrame(frame)
+	if frame.backdrop and not frame.backdrop.style then
+		frame.backdrop:BuiStyle("Outside")
+	end
+end
+
+local function OpenMenu(manager, _, menuDescription)
+	local menu = manager:GetOpenMenu()
+	if menu then
+		-- Initial context menu
+		StyleFrame(menu)
+		-- SubMenus
+		menuDescription:AddMenuAcquiredCallback(StyleFrame)
+	end
+end
+
+local function style_Blizzard_Menu()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc and E.db.benikui.general.benikuiStyle) then return end
+
+	local manager = _G.Menu.GetManager()
+	if manager then
+		hooksecurefunc(manager, 'OpenMenu', OpenMenu)
+		hooksecurefunc(manager, 'OpenContextMenu', OpenMenu)
+	end
+end
+S:AddCallbackForAddon("Blizzard_Menu", "BenikUI_Blizzard_Menu", style_Blizzard_Menu)
+
 -- ObliterumUI
 local function style_ObliterumUI()
 	if E.private.skins.blizzard.obliterum ~= true or E.private.skins.blizzard.enable ~= true or

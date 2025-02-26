@@ -1,6 +1,6 @@
-## Interface: 110005
+## Interface: 110100
 ## Author: Benik
-## Version: 4.55
+## Version: 4.57
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 13+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
@@ -8,7 +8,7 @@
 ## OptionalDeps: SharedMedia, AddOnSkins, ProjectAzilroka
 ## X-Tukui-ProjectID: 11
 ## X-Tukui-ProjectFolders: ElvUI_BenikUI
-## X-ElvuiVersion: 13.74
+## X-ElvuiVersion: 13.85
 ## IconTexture: Interface\AddOns\ElvUI_BenikUI\media\textures\AddonLogo
 
 locales\load_locales.xml

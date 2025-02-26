@@ -114,8 +114,10 @@ function BUI:UpdateStyleColors()
 				r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
 			elseif E.db.benikui.colors.StyleColor == 3 then
 				r, g, b = BUI:unpackColor(E.db.general.valuecolor)
-			else
+			elseif E.db.benikui.colors.StyleColor == 4 then
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
+			else
+				r, g, b = BUI:unpackColor(E.db.general.classColors[E.myclass])
 			end
 			frame:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 		else
@@ -186,8 +188,6 @@ end
 function BUI:Initialize()
 	BUI:LoadCommands()
 	BUI:SplashScreen()
-
-	E:GetModule('DataTexts'):ToggleMailFrame()
 
 	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
 		if initLogin or not ElvDB.BuiErrorDisabledAddOns then
