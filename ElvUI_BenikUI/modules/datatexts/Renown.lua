@@ -118,7 +118,7 @@ local function OnEnter(self)
 				DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
 				DT.tooltip:AddLine(' ')
 
-				menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, notCheckable = true, disabled = true}
+				menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, isTitle = true, notCheckable = true, disabled = true}
 			end
 		end
 
