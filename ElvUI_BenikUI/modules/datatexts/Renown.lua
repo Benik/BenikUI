@@ -80,6 +80,8 @@ local function OnEnter(self)
 		DT:SetupTooltip(self)
 
 		local activeFaction = E.private.benikui.datatexts.renown.factionID
+		local expansionFilter = E.private.benikui.datatexts.renownFilter.expansion
+		
 		for i, factionID in pairs(factionIDs) do
 			local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
 			local earned = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
@@ -89,6 +91,7 @@ local function OnEnter(self)
 			local factionRenownLevel = majorFactionData.renownLevel
 			local factionIsUnlocked = majorFactionData.isUnlocked
 			local isParagon = C_Reputation_IsFactionParagon(factionID)
+			local expansionID = majorFactionData.expansionID
 
 			if isParagon then
 				local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
@@ -102,21 +105,40 @@ local function OnEnter(self)
 				end
 			end
 
-			if factionIsUnlocked then
-				if activeFaction == factionID then
-					DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
-				else
-					DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
-				end
-				DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
-				DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
-				DT.tooltip:AddLine(' ')
+			if (expansionID == expansionFilter) then
+				if factionIsUnlocked then
+					if activeFaction == factionID then
+						DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
+					else
+						DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
+					end
+					DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
+					DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
+					DT.tooltip:AddLine(' ')
 
-				menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, checked = menu_checked, disabled = false}
-			else
-				DT.tooltip:AddLine(format('|cff999999%s|r', factionName))
-				DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
-				DT.tooltip:AddLine(' ')
+					menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, checked = menu_checked, disabled = false}
+				else
+					DT.tooltip:AddLine(format('|cff999999%s|r', factionName))
+					DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
+					DT.tooltip:AddLine(' ')
+				end
+			elseif expansionFilter == 0 then
+				if factionIsUnlocked then
+					if activeFaction == factionID then
+						DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
+					else
+						DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
+					end
+					DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
+					DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
+					DT.tooltip:AddLine(' ')
+
+					menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, checked = menu_checked, disabled = false}
+				else
+					DT.tooltip:AddLine(format('|cff999999%s|r', factionName))
+					DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
+					DT.tooltip:AddLine(' ')
+				end
 			end
 		end
 
