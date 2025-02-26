@@ -31,7 +31,6 @@ local factionIDs = {
 	2570, -- Hallowfall Arathi
 	2594, -- The Assembly of the Deeps
 	2600, -- The Severed Threads
-	2653, -- The Cartels of Undermine
 }
 
 local displayString, lastPanel = ''
