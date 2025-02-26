@@ -110,7 +110,7 @@ local function OnEnter(self)
 					DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
 				end
 				DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
-				DT.tooltip:AddLine(format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, factionRenownLevel))
+				DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(majorFactionData.renownLevel)))
 				DT.tooltip:AddLine(' ')
 
 				menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, checked = menu_checked, disabled = false}
