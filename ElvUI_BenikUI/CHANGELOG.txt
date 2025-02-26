@@ -1,3 +1,16 @@
+v4.57 (Feb 26, 2024)
+Fix tooltip for 11.1 (thurin)
+Added Custom Class Color support in Style colors
+Tabs for Custom Panels options
+Style Dropdown Menus
+This may fix the mail icon toggle
+Properly(?) hide the Objective Tracker during FlightMode
+Fixed an error while reloading during FlightMode
+Update ruRU.lua (ZamestoTV)
+Avoid an error while creating a new Custom Panel
+Merge pull request #64 from emdeevy/feature/custom_panels_improvements
+Refactor and Optimize Custom Panels Module (emdeevy)
+
 v4.56 (Dec 20, 2024)
 Fix Baganator skinning (Credit: Tsxy)
 Fix tomtom dropdown minimap (Credit: Tsxy)
