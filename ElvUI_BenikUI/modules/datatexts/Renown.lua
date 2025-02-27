@@ -115,8 +115,6 @@ local function OnEnter(self)
 					DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
 					DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
 					DT.tooltip:AddLine(' ')
-
-					menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, checked = menu_checked, disabled = false}
 				else
 					DT.tooltip:AddLine(format('|cff999999%s|r', factionName))
 					DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
@@ -132,14 +130,13 @@ local function OnEnter(self)
 					DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
 					DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
 					DT.tooltip:AddLine(' ')
-
-					menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, checked = menu_checked, disabled = false}
 				else
 					DT.tooltip:AddLine(format('|cff999999%s|r', factionName))
 					DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
 					DT.tooltip:AddLine(' ')
 				end
 			end
+			menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, checked = menu_checked, disabled = false}
 		end
 
 		DT.tooltip:AddDoubleLine('Right Click:', 'Track Faction', 0.7, 0.7, 1, 0.7, 0.7, 1)
