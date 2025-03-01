@@ -6,6 +6,8 @@ local LSM = E.LSM
 
 local _G = _G
 local getn = getn
+local format = format
+local ipairs = ipairs
 local tinsert, twipe, tsort, tostring = table.insert, table.wipe, table.sort, tostring
 
 local GameTooltip = _G.GameTooltip
@@ -124,8 +126,10 @@ function mod:UpdateReputations()
 			
 						standingID, barMin, barMax = 10, 0, majorFactionData.renownLevelThreshold
 						barValue = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
-						majorStandingLabel = format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
+						majorStandingLabel = format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(majorFactionData.renownLevel))
 						renownLevel = majorFactionData.renownLevel
+					elseif standingID == _G.MAX_REPUTATION_REACTION then
+						barMin, barMax, barValue = 0, 1, 1
 					else
 						standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 					end
@@ -139,8 +143,6 @@ function mod:UpdateReputations()
 								barValue = barValue + threshold
 							end
 						end
-					elseif standingID == _G.MAX_REPUTATION_REACTION then
-						barMin, barMax, barValue = 0, 1, 1
 					end
 
 					--Normalize Values
