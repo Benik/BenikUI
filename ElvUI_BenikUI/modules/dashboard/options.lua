@@ -8,6 +8,7 @@ local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local PROFESSIONS_MISSING_PROFESSION, TOKENS = PROFESSIONS_MISSING_PROFESSION, TOKENS
 local TRADE_SKILLS = TRADE_SKILLS
+local LFG_LIST_LEGACY = LFG_LIST_LEGACY
 
 -- GLOBALS: AceGUIWidgetLSMlists, hooksecurefunc
 
@@ -87,7 +88,7 @@ local function UpdateTokenOptions()
 	local optionOrder = 1
 	for i, info in ipairs(mod.CurrencyList) do
 		local name, id = unpack(info)
-		if not info[2] then
+		if not info[2] and name ~= LFG_LIST_LEGACY then
 			config.args[tostring(i)] = {
 				order = optionOrder + i,
 				type = 'group',
