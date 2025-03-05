@@ -12,6 +12,7 @@ local GetProfessionInfo = GetProfessionInfo
 local C_TradeSkillUI_OpenTradeSkill = C_TradeSkillUI.OpenTradeSkill
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
+local isPartyWalkIn = C_PartyInfo.IsPartyWalkIn
 local TRADE_SKILLS = TRADE_SKILLS
 
 -- GLOBALS: hooksecurefunc
@@ -74,7 +75,7 @@ function mod:UpdateProfessions()
 
 	if not db.professions.enable then holder:Hide() return end
 
-	local inInstance = IsInInstance()
+	local inInstance = IsInInstance() or isPartyWalkIn()
 	local NotinInstance = not (db.professions.instance and inInstance)
 
 	if(professionsDB[1]) then

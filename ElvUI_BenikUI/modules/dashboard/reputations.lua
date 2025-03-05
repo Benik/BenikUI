@@ -25,6 +25,7 @@ local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
+local isPartyWalkIn = C_PartyInfo.IsPartyWalkIn
 
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
@@ -77,7 +78,7 @@ function mod:UpdateReputations()
 		return
 	end
 
-	local inInstance = IsInInstance()
+	local inInstance = IsInInstance() or isPartyWalkIn()
 	local NotinInstance = not (db.instance and inInstance)
 
 	if(factionsDB[1]) then
