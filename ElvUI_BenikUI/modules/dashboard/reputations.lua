@@ -273,7 +273,7 @@ function mod:UpdateReputations()
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			if db.orientation == 'BOTTOM' then
-				frame:Point('TOP', factionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+				frame:Point('TOP', factionsDB[key - 1], 'BOTTOM', 0, -(E.PixelMode and 2 or 4))
 			else
 				frame:Point('LEFT', factionsDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
 			end
