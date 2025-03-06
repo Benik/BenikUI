@@ -25,7 +25,6 @@ local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
-local isPartyWalkIn = C_PartyInfo.IsPartyWalkIn
 
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
@@ -78,7 +77,7 @@ function mod:UpdateReputations()
 		return
 	end
 
-	local inInstance = IsInInstance() or isPartyWalkIn()
+	local inInstance = IsInInstance()
 	local NotinInstance = not (db.instance and inInstance)
 
 	if(factionsDB[1]) then
@@ -274,7 +273,7 @@ function mod:UpdateReputations()
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			if db.orientation == 'BOTTOM' then
-				frame:Point('TOP', factionsDB[key - 1], 'BOTTOM', 0, -(E.PixelMode and 2 or 4))
+				frame:Point('TOP', factionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 			else
 				frame:Point('LEFT', factionsDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
 			end
@@ -406,6 +405,7 @@ function mod:CreateReputationsDashboard()
 
 	E:CreateMover(holder, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
 	mod:ToggleReputations()
+	mod:EnableDisableCombat(holder, 'reputations')
 end
 
 function mod:LoadReputations()

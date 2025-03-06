@@ -12,7 +12,6 @@ local GetProfessionInfo = GetProfessionInfo
 local C_TradeSkillUI_OpenTradeSkill = C_TradeSkillUI.OpenTradeSkill
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
-local isPartyWalkIn = C_PartyInfo.IsPartyWalkIn
 local TRADE_SKILLS = TRADE_SKILLS
 
 -- GLOBALS: hooksecurefunc
@@ -75,7 +74,7 @@ function mod:UpdateProfessions()
 
 	if not db.professions.enable then holder:Hide() return end
 
-	local inInstance = IsInInstance() or isPartyWalkIn()
+	local inInstance = IsInInstance()
 	local NotinInstance = not (db.professions.instance and inInstance)
 
 	if(professionsDB[1]) then
@@ -99,7 +98,7 @@ function mod:UpdateProfessions()
 			if name and (rank < maxRank or (not db.professions.capped)) then
 				if E.private.benikui.dashboards.professions.choosePofessions[id] == true then
 					holder:SetShown(NotinInstance)
-					
+
 					if db.professions.orientation == 'BOTTOM' then
 						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#professionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 						holder:Width(db.professions.width)

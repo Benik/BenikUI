@@ -20,7 +20,6 @@ local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
-local isPartyWalkIn = C_PartyInfo.IsPartyWalkIn
 
 -- GLOBALS: hooksecurefunc
 
@@ -113,7 +112,7 @@ function mod:UpdateTokens()
 
 	if not db.tokens.enable then holder:Hide() return end
 
-	local inInstance = IsInInstance() or isPartyWalkIn()
+	local inInstance = IsInInstance()
 	local NotinInstance = not (db.tokens.instance and inInstance)
 
 	if(tokensDB[1]) then
