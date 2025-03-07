@@ -8,7 +8,6 @@ local DASH_HEIGHT = 20
 local SPACING = 1
 
 local classColor = E:ClassColor(E.myclass, true)
-local IsDelveInProgress = C_PartyInfo.IsDelveInProgress
 
 -- Dashboards bar frame tables
 mod.SystemDB = {}
@@ -189,7 +188,6 @@ function mod:CreateDashboardHolder(holderName, option)
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 			elseif event == 'PLAYER_REGEN_ENABLED' then
 				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-				--self:Show()
 			end
 		end
 	end)
