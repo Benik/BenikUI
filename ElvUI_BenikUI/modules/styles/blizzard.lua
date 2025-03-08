@@ -226,6 +226,7 @@ local function LoadSkin()
 			QuestMapFrame.MapLegendTab
 		}
 		for _, tab in next, tabs do
+			tab.backdrop:SetTemplate('Transparent')
 			tab.backdrop:CreateSoftShadow()
 			tab.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
 		end
