@@ -226,8 +226,6 @@ local function LoadSkin()
 			QuestMapFrame.MapLegendTab
 		}
 		for _, tab in next, tabs do
-			tab.backdrop:Point('TOPLEFT', 3, -3)
-			tab.backdrop:Point('BOTTOMRIGHT', -3, 3)
 			tab.backdrop:CreateSoftShadow()
 			tab.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
 		end
