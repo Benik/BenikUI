@@ -1,6 +1,6 @@
 ## Interface: 110100
 ## Author: Benik
-## Version: 4.57
+## Version: 4.58
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 13+ decorative/enhancement edit
 ## RequiredDeps: ElvUI

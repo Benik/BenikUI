@@ -1,4 +1,17 @@
-v4.57 (Feb 26, 2024)
+v4.58 (Mar 9, 2025)
+Fixed dashboards visibility when in instance
+Fixed Transferable Warband Currency Icon position
+Fix Reputations Dashboard height
+Hide the Legacy category in Tokens options
+Fixed Brann reputation + tweaks
+Re enable Reputations Dashboard
+Fixed Splash Screen not showing
+Added shadow on the new Worldmap tabs
+Added option to Filter Renown factions by expansion. There must be a more elegant way to do this. 
+Prevent selecting a Locked faction from the Renown DT list
+Fixed the %d glitch in the Renown Datatext
+
+v4.57 (Feb 26, 2025)
 Fix tooltip for 11.1 (thurin)
 Added Custom Class Color support in Style colors
 Tabs for Custom Panels options
