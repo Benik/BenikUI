@@ -8,6 +8,7 @@ local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local PROFESSIONS_MISSING_PROFESSION, TOKENS = PROFESSIONS_MISSING_PROFESSION, TOKENS
 local TRADE_SKILLS = TRADE_SKILLS
+local LFG_LIST_LEGACY = LFG_LIST_LEGACY
 
 -- GLOBALS: AceGUIWidgetLSMlists, hooksecurefunc
 
@@ -87,7 +88,7 @@ local function UpdateTokenOptions()
 	local optionOrder = 1
 	for i, info in ipairs(mod.CurrencyList) do
 		local name, id = unpack(info)
-		if not info[2] then
+		if not info[2] and name ~= LFG_LIST_LEGACY then
 			config.args[tostring(i)] = {
 				order = optionOrder + i,
 				type = 'group',
@@ -267,7 +268,7 @@ local function UpdateAllDashboards()
 	if db.professions.enable then mod:UpdateProfessions() end
 	if db.tokens.enable then mod:UpdateTokens() end
 	if db.system.enable then mod:UpdateSystemSettings() end
-	--if db.reputations.enable then mod:UpdateReputations() end
+	if db.reputations.enable then mod:UpdateReputations() end
 	if db.items.enable then mod:UpdateItems() end
 end
 
@@ -879,7 +880,6 @@ local function dashboardsTable()
 				type = 'group',
 				name = REPUTATION,
 				childGroups = 'tab',
-				disabled = true,
 				args = {
 					enable = {
 						order = 1,

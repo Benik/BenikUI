@@ -98,7 +98,7 @@ function mod:UpdateProfessions()
 			if name and (rank < maxRank or (not db.professions.capped)) then
 				if E.private.benikui.dashboards.professions.choosePofessions[id] == true then
 					holder:SetShown(NotinInstance)
-					
+
 					if db.professions.orientation == 'BOTTOM' then
 						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#professionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
 						holder:Width(db.professions.width)

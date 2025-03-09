@@ -117,12 +117,12 @@ function mod:BarHeight(option, tableName)
 end
 
 function mod:UpdateVisibility()
+	local inInstance = IsInInstance()
+
 	for i, v in ipairs(Dashboards) do
 		local holder, option = unpack(v)
 		local db = E.db.benikui.dashboards[option]
-		local inInstance = IsInInstance()
 		local NotinInstance = not (db.instance and inInstance)
-
 		if _G[holder] then
 			_G[holder]:SetShown(NotinInstance)
 		end
@@ -135,16 +135,19 @@ function mod:IconPosition(tableName, dashboard)
 
 		bar.IconBG:ClearAllPoints()
 		bar.dummy:ClearAllPoints()
+		if bar.awicon then bar.awicon:ClearAllPoints() end
 		if E.db.benikui.dashboards[dashboard].iconPosition == 'LEFT' then
 			bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', -2, 0)
 			bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', (E.PixelMode and 24 or 28), 0)
 			bar.IconBG:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', (E.PixelMode and 2 or 3), -SPACING)
 			bar.Text:Point('CENTER', bar, 'CENTER', 10, (E.PixelMode and -1 or -3))
+			if bar.awicon then bar.awicon:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING) end
 		else
 			bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, 0)
 			bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -24 or -28), 0)
 			bar.IconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 			bar.Text:Point('CENTER', bar, 'CENTER', -10, (E.PixelMode and 1 or 3))
+			if bar.awicon then bar.awicon:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', (E.PixelMode and 2 or 3), -SPACING) end
 		end
 	end
 end
@@ -179,15 +182,12 @@ function mod:CreateDashboardHolder(holderName, option)
 	holder:Hide()
 
 	holder:SetScript('OnEvent', function(self, event)
-		local inInstance = IsInInstance()
-		if (db.instance and inInstance) then return end
-	
+		if db.instance and IsInInstance() then return end
 		if db.combat then
 			if event == 'PLAYER_REGEN_DISABLED' then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 			elseif event == 'PLAYER_REGEN_ENABLED' then
 				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-				self:Show()
 			end
 		end
 	end)
@@ -305,11 +305,11 @@ function mod:Initialize()
 	mod:LoadSystem()
 	mod:LoadProfessions()
 	mod:LoadTokens()
-	--mod:LoadReputations()
-	E.db.benikui.dashboards.reputations.enable = false
+	mod:LoadReputations()
 	mod:LoadItems()
 
-	mod:RegisterEvent('PLAYER_ENTERING_WORLD', 'UpdateVisibility')
+	mod:RegisterEvent('PLAYER_ENTERING_WORLD', mod.UpdateVisibility)
+	mod:RegisterEvent('ZONE_CHANGED_NEW_AREA', mod.UpdateVisibility)
 end
 
 BUI:RegisterModule(mod:GetName())

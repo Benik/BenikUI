@@ -218,6 +218,20 @@ local function LoadSkin()
 		_G.TradeFrame:BuiStyle("Outside")
 	end
 
+	if db.worldmap then
+		local QuestMapFrame = _G.QuestMapFrame
+		local tabs = {
+			QuestMapFrame.QuestsTab,
+			QuestMapFrame.EventsTab,
+			QuestMapFrame.MapLegendTab
+		}
+		for _, tab in next, tabs do
+			tab.backdrop:SetTemplate('Transparent')
+			tab.backdrop:CreateSoftShadow()
+			tab.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
+		end
+	end
+
 	if IsAddOnLoaded('ColorPickerPlus') then return end
 	_G.ColorPickerFrame:HookScript('OnShow', function(frame)
 		if frame and not frame.style then

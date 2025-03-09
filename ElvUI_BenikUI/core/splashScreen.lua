@@ -27,7 +27,6 @@ local function CreateSplashScreen()
 	f:Point('CENTER')
 	f:SetFrameStrata('TOOLTIP')
 	f:SetAlpha(0)
-	f:Hide()
 
 	f.bg = f:CreateTexture(nil, 'BACKGROUND')
 	f.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
@@ -72,6 +71,6 @@ function BUI:SplashScreen()
 	if presentWeekday == db.day then return end
 
 	-- Show Splash Screen only if the install is completed
-	if E.db.benikui.installed == true then C_TimerAfter(6, ShowSplashScreen) end
+	if E.db.benikui.installed == true then C_TimerAfter(8, ShowSplashScreen) end
 	db.day = presentWeekday
 end

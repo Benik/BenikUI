@@ -7,7 +7,6 @@ local _G = _G
 -- GLOBALS: hooksecurefunc
 
 local CreateFrame = CreateFrame
-local IsInInstance = IsInInstance
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3

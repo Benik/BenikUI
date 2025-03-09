@@ -43,5 +43,8 @@ V['benikui'] = {
 		['renown'] = {
 			['factionID'] = 2507,
 		},
+		['renownFilter'] = {
+			['expansion'] = 10,
+		},
 	},
 }
