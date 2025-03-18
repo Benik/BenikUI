@@ -102,8 +102,8 @@ end
 
 local function CliqueDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.clique then return end
-	_G["CliqueConfig"]:BuiStyle('Small')
-	_G["CliqueDialog"]:BuiStyle('Small')
+	_G["CliqueConfig"].backdrop:BuiStyle('Outside')
+	_G["CliqueDialog"].backdrop:BuiStyle('Outside')
 	local tab = _G["CliqueSpellTab"]
 	if not tab.style then
 		tab:BuiStyle('Inside')
@@ -114,11 +114,11 @@ end
 
 local function oRA3Decor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.ora then return end
-	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"]:BuiStyle('Small'); end)
+	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"].backdrop:BuiStyle('Outside'); end)
 
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")
 	if (ReadyCheckModule) then
-		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() _G["oRA3ReadyCheck"]:BuiStyle('Small'); end)
+		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() _G["oRA3ReadyCheck"].backdrop:BuiStyle('Outside'); end)
 	end
 end
 

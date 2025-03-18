@@ -104,8 +104,6 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 		tlx, tly, brx, bry = 0, (E.PixelMode and 0 or 2), 0, (E.PixelMode and -5 or -4)
 	elseif template == 'Outside' then
 		tlx, tly, brx, bry = 0, (E.PixelMode and 4 or 7), 0, (E.PixelMode and -1 or 1)
-	elseif template == 'Small' then
-		tlx, tly, brx, bry = -(E.PixelMode and 1 or 2), (E.PixelMode and 4 or 9), (E.PixelMode and 1 or 2), (E.PixelMode and -1 or 3)
 	elseif template == 'Under' then
 		tlx, tly, brx, bry = 0, (E.PixelMode and 5 or 7), 0, (E.PixelMode and 0 or 1)
 	end
@@ -137,7 +135,7 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 
 	if E.db.benikui.general.shadows then
 		f:CreateSoftShadow()
-		if template == 'Outside' or template == 'Small' then
+		if template == 'Outside' then
 			style:CreateStyleShadow()
 		end
 	end
