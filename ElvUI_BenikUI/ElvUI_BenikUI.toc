@@ -6,10 +6,9 @@
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia, AddOnSkins, ProjectAzilroka
-## X-Tukui-ProjectID: 11
-## X-Tukui-ProjectFolders: ElvUI_BenikUI
 ## X-ElvuiVersion: 13.85
 ## IconTexture: Interface\AddOns\ElvUI_BenikUI\media\textures\AddonLogo
+## X-Wago-ID: anKWx3GE
 
 locales\load_locales.xml
 media\load_media.xml
