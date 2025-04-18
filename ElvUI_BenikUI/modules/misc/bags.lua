@@ -43,6 +43,17 @@ local function StyleBankBags()
 	if _G.ElvUI_BankContainerFrameContainerHolder then
 		_G.ElvUI_BankContainerFrameContainerHolder:Point('BOTTOMLEFT', _G.ElvUI_BankContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
 	end
+
+	if _G.ElvUI_BankContainerFrameWarbandHolder then
+		_G.ElvUI_BankContainerFrameWarbandHolder:BuiStyle('Outside')
+	end
+end
+
+function mod:StyleWarbandMenu(menu)
+	if not menu.IsStyled then
+		menu:BuiStyle('Outside')
+		menu.IsStyled = true
+	end
 end
 
 local function StyleAllBags()
@@ -75,6 +86,7 @@ end
 local function AllInOneBags()
 	StyleBags()
 	hooksecurefunc(B, "OpenBank", StyleBankBags)
+	hooksecurefunc(B, "Warband_MenuSkin", mod.StyleWarbandMenu)
 end
 
 function mod:Initialize()
