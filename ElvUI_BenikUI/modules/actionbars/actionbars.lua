@@ -143,7 +143,7 @@ local function ApplyFlyoutShadows(btn)
 	end
 end
 
-local function FlyoutShadows()
+function mod.FlyoutShadows()
 	local btn, i = _G['LABFlyoutButton1'], 1
 	while btn do
 		if btn.shadow then break end
@@ -192,13 +192,13 @@ local function VehicleExit()
 end
 
 function mod:Initialize()
-	mod.StyleBackdrops()
-	mod.PetShadows()
-	mod.StyleColor()
-	mod.LoadToggleButtons()
-	mod.ToggleStyle()
-	mod.TotemShadows()
-	mod.StancebarShadows()
+	mod:StyleBackdrops()
+	mod:PetShadows()
+	mod:StyleColor()
+	mod:LoadToggleButtons()
+	mod:ToggleStyle()
+	mod:TotemShadows()
+	mod:StancebarShadows()
 
 	VehicleExit()
 
@@ -208,7 +208,7 @@ function mod:Initialize()
 	hooksecurefunc(BUI, "SetupColorThemes", mod.StyleColor)
 
 	if not BUI.ShadowMode then return end
-	hooksecurefunc(AB, 'StyleFlyout', FlyoutShadows)
+	mod:FlyoutShadows()
 	mod:ExtraAB()
 end
 

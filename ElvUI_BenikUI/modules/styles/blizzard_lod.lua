@@ -459,7 +459,7 @@ local function style_GarrisonUI()
 		return
 	end
 
-	_G.OrderHallMissionFrame:BuiStyle("Small")
+	_G.OrderHallMissionFrame.backdrop:BuiStyle("Outside")
 	if _G.AdventureMapQuestChoiceDialog then
 		_G.AdventureMapQuestChoiceDialog:BuiStyle("Outside")
 	end
@@ -521,7 +521,7 @@ local function style_GarrisonUI()
 	local GMonument = _G.GarrisonMonumentFrame
 	GMonument:StripTextures()
 	GMonument:CreateBackdrop("Transparent")
-	GMonument:BuiStyle("Small")
+	GMonument.backdrop:BuiStyle("Outside")
 	GMonument:ClearAllPoints()
 	GMonument:Point("CENTER", E.UIParent, "CENTER", 0, -200)
 	GMonument:Height(70)
@@ -881,6 +881,7 @@ local function style_Professions()
 	ProfessionsFrame:BuiStyle("Outside")
 	ProfessionsFrame.CraftingPage.CraftingOutputLog:BuiStyle("Outside")
 	ProfessionsFrame.OrdersPage.OrderView.CraftingOutputLog:BuiStyle("Outside")
+	ProfessionsFrame.CraftingPage.SchematicForm.QualityDialog:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
 
@@ -943,7 +944,7 @@ local function style_QuestChoice()
 		return
 	end
 
-	_G.QuestChoiceFrame:BuiStyle("Small")
+	_G.QuestChoiceFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_QuestChoice", "BenikUI_QuestChoice", style_QuestChoice)
 
