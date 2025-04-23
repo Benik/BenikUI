@@ -282,6 +282,7 @@ function mod:Initialize()
 	FriendsFrameShadows()
 	MerchantFrameShadows()
 	MailFrameShadows()
+	mod:CooldownViewer_Shadows()
 	mod:RegisterEvent('START_TIMER')
 
 	-- Widgets
