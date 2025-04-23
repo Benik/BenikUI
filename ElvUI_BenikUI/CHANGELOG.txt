@@ -1,3 +1,11 @@
+v4.59 (Apr 23, 2025)
+Updated Donators, Patrons, Nitro boosters and Coding members
+Styled some missing Warband Bank frames
+Added WagoID
+Fixed Flyout buttons shadows
+Styled Professions QualityDialog frame
+Removed the 'small' style template
+
 v4.58 (Mar 9, 2025)
 Fixed dashboards visibility when in instance
 Fixed Transferable Warband Currency Icon position
