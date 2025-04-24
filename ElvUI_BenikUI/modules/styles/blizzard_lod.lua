@@ -824,6 +824,7 @@ local function style_PerksProgramm()
 	local productsFrame = frame.ProductsFrame
 	if productsFrame then
 		productsFrame.PerksProgramProductDetailsContainerFrame:BuiStyle("Outside")
+		productsFrame.PerksProgramShoppingCartFrame:BuiStyle("Outside")
 		if BUI.ShadowMode then
 			productsFrame.PerksProgramFilter:CreateSoftShadow()
 			productsFrame.PerksProgramCurrencyFrame.Icon:CreateBackdrop()
