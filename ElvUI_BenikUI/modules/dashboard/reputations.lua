@@ -311,6 +311,13 @@ function mod:PopulateFactionData()
 				end
 			end
 
+			if info.isHeader and info.isChild and info.isHeaderWithRep then
+				if info.factionID then
+					mod.ReputationsList[tostring(info.factionID)] = info.name
+					tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.isChild })
+				end
+			end
+
 			factionIndex = factionIndex + 1
 		else
 			break
