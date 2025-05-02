@@ -31,6 +31,7 @@ local factionIDs = {
 	2594, -- The Assembly of the Deeps
 	2600, -- The Severed Threads
 	2653, -- The Cartels of Undermine
+	2685, -- Gallagio Loyalty Rewards Club
 	2688, -- Flame's Radiance
 }
 
