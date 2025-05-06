@@ -140,7 +140,7 @@ function mod:CreatePanel()
 	for name, data in pairs(E.db.benikui.panels) do
 		if name and not _G[name] then
 			local panel = CreateFrame("Frame", name, E.UIParent)
-			panel:Size(data.width or 200, data.height or 200)
+			panel:Size(E:Scale(data.width or 200), E:Scale(data.height or 200))
 			panel:SetTemplate('Transparent')
 			panel:Point('CENTER', E.UIParent, 'CENTER', -600, 0)
 			panel:BuiStyle('Outside', nil, true, true)
@@ -188,7 +188,7 @@ function mod:Resize()
 	for name, data in pairs(E.db.benikui.panels) do
 		local panel = _G[name]
 		if panel and data.width and data.height then
-			panel:Size(data.width, data.height)
+			panel:Size(E:Scale(data.width), E:Scale(data.height))
 		end
 	end
 end
