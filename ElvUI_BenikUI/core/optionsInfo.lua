@@ -104,6 +104,7 @@ local CODING = {
 	'Tsxy',
 	'Eltreum',
 	'ZamestoTV (ruRU)',
+	'Emdeevy',
 }
 tsort(CODING, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local CODING_STRING = tconcat(CODING, ", ")
