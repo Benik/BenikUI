@@ -822,19 +822,26 @@ local function style_PerksProgramm()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.perks and E.db.benikui.general.benikuiStyle) then return end
 	local frame = _G.PerksProgramFrame
 	local productsFrame = frame.ProductsFrame
+
 	if productsFrame then
-		productsFrame.PerksProgramProductDetailsContainerFrame:BuiStyle("Outside")
+		productsFrame.ProductsScrollBoxContainer.backdrop:BuiStyle("Outside")
+		productsFrame.PerksProgramProductDetailsContainerFrame.backdrop:BuiStyle("Outside")
+		productsFrame.PerksProgramShoppingCartFrame.backdrop:BuiStyle("Outside")
+
 		if BUI.ShadowMode then
 			productsFrame.PerksProgramFilter:CreateSoftShadow()
 			productsFrame.PerksProgramCurrencyFrame.Icon:CreateBackdrop()
 			productsFrame.PerksProgramCurrencyFrame.Icon.backdrop:CreateSoftShadow()
 		end
-		PerksProgramTooltip:BuiStyle("Outside")
+
+		_G.PerksProgramTooltip:BuiStyle("Outside")
+
 		local productsContainer = productsFrame.ProductsScrollBoxContainer
 		productsContainer:BuiStyle("Outside")
 	end
 
 	if not BUI.ShadowMode then return end
+
 	local footer = frame.FooterFrame
 	if footer then
 		footer.LeaveButton:CreateSoftShadow()
@@ -845,6 +852,8 @@ local function style_PerksProgramm()
 		footer.RotateButtonContainer.RotateRightButton:CreateSoftShadow()
 		footer.PurchaseButton:CreateSoftShadow()
 		footer.ToggleMountSpecial.backdrop:CreateSoftShadow()
+		footer.AddToCartButton:CreateSoftShadow()
+		footer.ViewCartButton:CreateSoftShadow()
 	end
 end
 S:AddCallbackForAddon("Blizzard_PerksProgram", "BenikUI_PerksProgram", style_PerksProgramm)

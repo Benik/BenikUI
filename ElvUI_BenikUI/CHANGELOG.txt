@@ -1,3 +1,20 @@
+v4.60 (May 11, 2025)
+Fix Pixel Perfect dimensions with ElvUI's scaler (Credit: Embdeevy)
+ - fix: for those obsessed they can't have that exact 1 pixel distance between 2 frames, well, now you can
+Custom Panels Improvements (Credits: Embdeevy)
+ - feat: add color picker instead of a transparency bar
+ - chore: even though pretty, replace the inpractical documentation (useless anyway) with clean short ones
+ - fix: deep copy clones and new panels to have them editable right away
+ - chore: move some things around to prettify
+ - feat: add texture selection for title, for the weirdos that use it
+Fixed Reputations that couldn't get tracked when they were showing as Headers
+Let more reps go through
+Added Gallagio Loyalty Rewards Club in the Renown datatext
+Update PerksProgramFrame
+Skin shoppingcart (Credit: Tsxy)
+Added Shadows on the new Cooldown Manager
+Added Flame's Radiance in Renown Datatext
+
 v4.59 (Apr 23, 2025)
 Updated Donators, Patrons, Nitro boosters and Coding members
 Styled some missing Warband Bank frames

@@ -168,9 +168,9 @@ local function UpdateReputationOptions()
 
 	local optionOrder = 1
 	for i, info in ipairs(mod.ReputationsList) do
-		local name, factionID, headerIndex, isHeader, hasRep, isChild = unpack(info)
+		local name, factionID, headerIndex, isHeader, isChild, isHeaderWithRep = unpack(info)
 
-		if isHeader and not (hasRep or isChild) then
+		if isHeader and not isChild then
 			config.args[tostring(headerIndex)] = {
 				order = optionOrder + 1,
 				type = 'group',

@@ -299,15 +299,15 @@ function mod:PopulateFactionData()
 				Collapsed[info.name] = true
 			end
 
-			if info.isHeader and not (info.hasRep or info.isChild) then
-				tinsert(mod.ReputationsList, { info.name, info.factionID, factionIndex, info.isHeader, info.hasRep, info.isChild })
+			if (info.isHeader or info.isHeaderWithRep) and not info.isChild then
+				tinsert(mod.ReputationsList, { info.name, info.factionID, factionIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
 				headerIndex = factionIndex
 			end
 
-			if not info.isHeader or not info.isChild or info.hasRep then -- hasRep needs to be passed here
+			if (not info.isHeader or not info.isChild) or (info.isHeader and info.isChild and info.isHeaderWithRep) then
 				if info.factionID then
 					mod.ReputationsList[tostring(info.factionID)] = info.name
-					tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.hasRep, info.isChild })
+					tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
 				end
 			end
 
