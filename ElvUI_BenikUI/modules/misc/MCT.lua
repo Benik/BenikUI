@@ -42,7 +42,7 @@ end
 --[[
 Populates or validates the saved variables with defaults, ensuring
 everything is initialized correctly even if the user doesn't have them in the config.
-]]
+--]]
 function mod:ApplyDefaults()
     if E.db.benikui.misc.mct == nil then
         E.db.benikui.misc.mct = {}

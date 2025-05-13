@@ -1,7 +1,6 @@
 --[[
 	BenikUI Miscellaneous Options
 	This file sets up the ElvUI config table for various "miscellaneous" features of BenikUI,
-	including M's Cursor Tracker (MCT).
 --]]
 
 local BUI, E, _, V, P, G = unpack((select(2, ...)))
