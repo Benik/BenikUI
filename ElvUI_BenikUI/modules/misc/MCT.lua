@@ -19,24 +19,24 @@ function mod:Initialize()
     if E.db.benikui.misc.mct.enable == false then return end
 
     -- Create the main tracking frame and texture
-    self.frame = CreateFrame("Frame", "BUI_MCTFrame", UIParent)
-    self.frame.texture = self.frame:CreateTexture(nil, "OVERLAY")
-    self.frame.texture:SetAllPoints()
-    self.frame.texture:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\arrowOutlined.tga')
+    mod.frame = CreateFrame("Frame", "BUI_MCTFrame", UIParent)
+    mod.frame.texture = mod.frame:CreateTexture(nil, "OVERLAY")
+    mod.frame.texture:SetAllPoints()
+    mod.frame.texture:SetTexture('Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\arrowOutlined.tga')
 
-    self.frame:Hide()
+    mod.frame:Hide()
 
     -- Track states for looking (left mouse) and turning (right mouse)
-    self.looking = false
-    self.turning = false
+    mod.looking = false
+    mod.turning = false
 
     -- Register relevant events
-    self:RegisterEvent("PLAYER_STARTED_LOOKING", "OnMouseLookStart")
-    self:RegisterEvent("PLAYER_STARTED_TURNING", "OnMouseLookStart")
-    self:RegisterEvent("PLAYER_STOPPED_LOOKING", "OnMouseLookStop")
-    self:RegisterEvent("PLAYER_STOPPED_TURNING", "OnMouseLookStop")
+    mod:RegisterEvent("PLAYER_STARTED_LOOKING", "OnMouseLookStart")
+    mod:RegisterEvent("PLAYER_STARTED_TURNING", "OnMouseLookStart")
+    mod:RegisterEvent("PLAYER_STOPPED_LOOKING", "OnMouseLookStop")
+    mod:RegisterEvent("PLAYER_STOPPED_TURNING", "OnMouseLookStop")
 
-    self:UpdateSettings()
+    mod:UpdateSettings()
 end
 
 --[[
@@ -65,68 +65,68 @@ end
 -- Applies the current database settings to the in-game tracker frame
 function mod:UpdateSettings()
     local db = E.db.benikui.misc.mct
-    self.db = db
+    mod.db = db
 
     -- Disable completely if 'enable' is false
     if not db.enable then
-        self:UnregisterAllEvents()
-        self.frame:Hide()
+        mod:UnregisterAllEvents()
+        mod.frame:Hide()
         return
     else
         -- Re-register events in case we previously unregistered
-        self:RegisterEvent("PLAYER_STARTED_LOOKING", "OnMouseLookStart")
-        self:RegisterEvent("PLAYER_STARTED_TURNING", "OnMouseLookStart")
-        self:RegisterEvent("PLAYER_STOPPED_LOOKING", "OnMouseLookStop")
-        self:RegisterEvent("PLAYER_STOPPED_TURNING", "OnMouseLookStop")
+        mod:RegisterEvent("PLAYER_STARTED_LOOKING", "OnMouseLookStart")
+        mod:RegisterEvent("PLAYER_STARTED_TURNING", "OnMouseLookStart")
+        mod:RegisterEvent("PLAYER_STOPPED_LOOKING", "OnMouseLookStop")
+        mod:RegisterEvent("PLAYER_STOPPED_TURNING", "OnMouseLookStop")
     end
 
     -- Adjust size based on lockRatio
     if db.lockRatio then
-        self.frame:SetSize(db.size, db.size)
+        mod.frame:SetSize(db.size, db.size)
     else
-        self.frame:SetSize(db.width, db.height)
+        mod.frame:SetSize(db.width, db.height)
     end
 
-    self.frame:SetFrameStrata(db.strata)
-    self.frame:SetFrameLevel(db.level)
+    mod.frame:SetFrameStrata(db.strata)
+    mod.frame:SetFrameLevel(db.level)
 
     -- Update arrow color
     local c = db.color
-    self.frame.texture:SetVertexColor(c.r, c.g, c.b, c.a)
+    mod.frame.texture:SetVertexColor(c.r, c.g, c.b, c.a)
 
     -- If the cursor is not currently hidden, keep the arrow hidden
-    if not self.looking and not self.turning then
-        self.frame:Hide()
+    if not mod.looking and not mod.turning then
+        mod.frame:Hide()
     end
 end
 
 -- Called whenever the game hides the cursor (e.g., the player starts looking or turning)
 function mod:OnMouseLookStart(event)
     if event == "PLAYER_STARTED_LOOKING" then
-        self.looking = true
+        mod.looking = true
     elseif event == "PLAYER_STARTED_TURNING" then
-        self.turning = true
+        mod.turning = true
     end
-    self:ShowArrowAtCursor()
+    mod:ShowArrowAtCursor()
 end
 
 -- Called when the cursor reappears
 function mod:OnMouseLookStop(event)
     if event == "PLAYER_STOPPED_LOOKING" then
-        self.looking = false
+        mod.looking = false
     elseif event == "PLAYER_STOPPED_TURNING" then
-        self.turning = false
+        mod.turning = false
     end
 
     -- Hide the frame only if both looking and turning are false
-    if not self.looking and not self.turning then
-        self.frame:Hide()
+    if not mod.looking and not mod.turning then
+        mod.frame:Hide()
     end
 end
 
 -- Positions (and possibly rotates) the arrow so its tip is at the cursor's last known position
 function mod:ShowArrowAtCursor()
-    local db = self.db
+    local db = mod.db
     local x, y = GetCursorPosition()
     local scale = UIParent:GetEffectiveScale()
     x, y = x / scale, y / scale
@@ -147,7 +147,7 @@ function mod:ShowArrowAtCursor()
         local dy = y - centerY
         local angle = atan2(dy, dx)
         local arrowAngle = angle - (pi / 2)
-        self.frame.texture:SetRotation(arrowAngle)
+        mod.frame.texture:SetRotation(arrowAngle)
 
         -- Move arrow tip to the cursor
         local offsetX = hHalf * math.sin(arrowAngle)
@@ -163,7 +163,7 @@ function mod:ShowArrowAtCursor()
         local dy = centerY - y
         local angle = atan2(dy, dx)
         local arrowAngle = angle - (pi / 2)
-        self.frame.texture:SetRotation(arrowAngle)
+        mod.frame.texture:SetRotation(arrowAngle)
 
         -- Move arrow tip to the cursor
         local offsetX = hHalf * math.sin(arrowAngle)
@@ -178,25 +178,25 @@ function mod:ShowArrowAtCursor()
         -- Default arrow is down at rotation=0
         if db.direction == "Down" then
             y = y + hHalf
-            self.frame.texture:SetRotation(0)
+            mod.frame.texture:SetRotation(0)
 
         elseif db.direction == "Up" then
             y = y - hHalf
-            self.frame.texture:SetRotation(pi)
+            mod.frame.texture:SetRotation(pi)
 
         elseif db.direction == "Left" then
             x = x + wHalf
-            self.frame.texture:SetRotation(-pi/2)
+            mod.frame.texture:SetRotation(-pi/2)
 
         elseif db.direction == "Right" then
             x = x - wHalf
-            self.frame.texture:SetRotation(pi/2)
+            mod.frame.texture:SetRotation(pi/2)
         end
     end
 
-    self.frame:ClearAllPoints()
-    self.frame:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y)
-    self.frame:Show()
+    mod.frame:ClearAllPoints()
+    mod.frame:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y)
+    mod.frame:Show()
 end
 
 BUI:RegisterModule(mod:GetName())
