@@ -37,6 +37,7 @@ BUI.Styles = BUI:NewModule('Styles', 'AceHook-3.0', 'AceEvent-3.0')
 BUI.Tooltip = BUI:NewModule('Tooltip', 'AceHook-3.0')
 BUI.Units = BUI:NewModule('Units', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 BUI.Widgetbars = BUI:NewModule('Widgetbars', 'AceHook-3.0', 'AceEvent-3.0')
+BUI.MCT = BUI:NewModule('MCT', 'AceEvent-3.0')
 
 function BUI:RegisterModule(name)
 	if self.initialized then

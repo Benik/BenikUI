@@ -5,6 +5,7 @@
 	<script file="afk.lua"/>
 	<script file="flightMode.lua"/>
 	<script file="ilevel.lua"/>
+	<script file="MCT.lua"/>
 	<!-- <script file="objectiveTracker.lua"/> -->
 	<script file="options.lua"/>
 </Ui>
