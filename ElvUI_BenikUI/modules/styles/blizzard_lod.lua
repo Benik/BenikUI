@@ -381,6 +381,7 @@ local function style_DelvesCompanionConfiguration()
 	local CompanionConfigurationFrame = _G.DelvesCompanionConfigurationFrame
 	CompanionConfigurationFrame:BuiStyle("Outside")
 	CompanionConfigurationFrame.CompanionPortraitFrame:SetFrameLevel(10)
+	CompanionConfigurationFrame.CompanionExperienceRingFrame:SetFrameLevel(10)
 	CompanionConfigurationFrame.style:SetFrameLevel(5)
 	_G.DelvesCompanionAbilityListFrame:BuiStyle("Outside")
 end
