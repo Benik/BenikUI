@@ -1,3 +1,7 @@
+v4.61 (Jul 4, 2025)
+toc update for the new patch
+moved up CompanionExperienceRingFrame so its not behind brann portrait. Credit: Tsxy
+
 v4.60 (May 11, 2025)
 Fix Pixel Perfect dimensions with ElvUI's scaler (Credit: Embdeevy)
  - fix: for those obsessed they can't have that exact 1 pixel distance between 2 frames, well, now you can
