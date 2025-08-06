@@ -86,7 +86,7 @@ end
 local function AllInOneBags()
 	StyleBags()
 	hooksecurefunc(B, "OpenBank", StyleBankBags)
-	hooksecurefunc(B, "Warband_MenuSkin", mod.StyleWarbandMenu)
+	hooksecurefunc(B, "BankTabs_MenuSkin", mod.StyleWarbandMenu)
 end
 
 function mod:Initialize()
