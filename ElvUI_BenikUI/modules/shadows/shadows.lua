@@ -67,6 +67,7 @@ hooksecurefunc(S, "HandleTab", mod.TabShadows)
 function mod:ItemButtonShadows(button)
 	if not BUI.ShadowMode then return end
 	if not button then return end
+	if Baganator then return end
 
 	if button.backdrop then
 		button.backdrop:SetTemplate("Transparent")
