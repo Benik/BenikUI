@@ -37,15 +37,15 @@ end
 local function StyleBankBags()
 	if _G.ElvUI_BankContainerFrame then
 		_G.ElvUI_BankContainerFrame:BuiStyle('Outside')
-		_G.ElvUI_BankContainerFrameContainerHolder:BuiStyle('Outside')
+		_G.ElvUI_BankContainerFrameBankTabs:BuiStyle('Outside')
 	end
 
-	if _G.ElvUI_BankContainerFrameContainerHolder then
-		_G.ElvUI_BankContainerFrameContainerHolder:Point('BOTTOMLEFT', _G.ElvUI_BankContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
+	if _G.ElvUI_BankContainerFrameBankTabs then
+		_G.ElvUI_BankContainerFrameBankTabs:Point('BOTTOMLEFT', _G.ElvUI_BankContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
 	end
 
-	if _G.ElvUI_BankContainerFrameWarbandHolder then
-		_G.ElvUI_BankContainerFrameWarbandHolder:BuiStyle('Outside')
+	if _G.ElvUI_BankContainerFrameWarbandTabs then
+		_G.ElvUI_BankContainerFrameWarbandTabs:BuiStyle('Outside')
 	end
 end
 
