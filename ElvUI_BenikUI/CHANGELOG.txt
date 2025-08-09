@@ -1,3 +1,12 @@
+v4.62 (Aug 9, 2025)
+prep for 4.62 (Credit: Repooc)
+Update interface version (Credit: Tsxy)
+Update bags.lua (Credit: Tsxy)
+Adjust bag  theming for 13.95 (Credit: Tsxy)
+Update shadows.lua (Credit: Tsxy)
+Dont shadow buttons in baganator (Credit: Tsxy)
+Update README.md (Credit: Tsxy)
+
 v4.61 (Jul 4, 2025)
 toc update for the new patch
 moved up CompanionExperienceRingFrame so its not behind brann portrait. Credit: Tsxy
