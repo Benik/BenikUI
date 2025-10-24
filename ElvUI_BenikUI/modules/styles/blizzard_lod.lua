@@ -888,10 +888,12 @@ local function style_Professions()
 	end
 
 	local ProfessionsFrame = _G.ProfessionsFrame
+	local InspectRecipeFrame = _G.InspectRecipeFrame
 	ProfessionsFrame:BuiStyle("Outside")
 	ProfessionsFrame.CraftingPage.CraftingOutputLog:BuiStyle("Outside")
 	ProfessionsFrame.OrdersPage.OrderView.CraftingOutputLog:BuiStyle("Outside")
 	ProfessionsFrame.CraftingPage.SchematicForm.QualityDialog:BuiStyle("Outside")
+	InspectRecipeFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
 
