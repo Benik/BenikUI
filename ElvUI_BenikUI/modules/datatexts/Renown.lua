@@ -33,6 +33,8 @@ local factionIDs = {
 	2653, -- The Cartels of Undermine
 	2685, -- Gallagio Loyalty Rewards Club
 	2688, -- Flame's Radiance
+	2658, -- The K'aresh Trust
+	2736, -- Manaforge Vandals
 }
 
 local displayString, lastPanel = ''
