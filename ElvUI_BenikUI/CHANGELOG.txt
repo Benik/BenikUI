@@ -1,3 +1,8 @@
+v4.63 (Nov 7, 2025)
+Style InspectRecipeFrame
+Change E.myname to E.myguid
+Keep bugsack/buggrabber enabled during buierror on (off during buierror 1) following elvui edebug
+
 v4.62 (Aug 9, 2025)
 prep for 4.62 (Credit: Repooc)
 Update interface version (Credit: Tsxy)
