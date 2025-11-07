@@ -1,3 +1,21 @@
+v4.63 (Nov 7, 2025)
+Style InspectRecipeFrame
+Change E.myname to E.myguid
+Keep bugsack/buggrabber enabled during buierror on (off during buierror 1) following elvui edebug
+
+v4.62 (Aug 9, 2025)
+prep for 4.62 (Credit: Repooc)
+Update interface version (Credit: Tsxy)
+Update bags.lua (Credit: Tsxy)
+Adjust bag  theming for 13.95 (Credit: Tsxy)
+Update shadows.lua (Credit: Tsxy)
+Dont shadow buttons in baganator (Credit: Tsxy)
+Update README.md (Credit: Tsxy)
+
+v4.61 (Jul 4, 2025)
+toc update for the new patch
+moved up CompanionExperienceRingFrame so its not behind brann portrait. Credit: Tsxy
+
 v4.60 (May 11, 2025)
 Fix Pixel Perfect dimensions with ElvUI's scaler (Credit: Embdeevy)
  - fix: for those obsessed they can't have that exact 1 pixel distance between 2 frames, well, now you can

@@ -381,6 +381,7 @@ local function style_DelvesCompanionConfiguration()
 	local CompanionConfigurationFrame = _G.DelvesCompanionConfigurationFrame
 	CompanionConfigurationFrame:BuiStyle("Outside")
 	CompanionConfigurationFrame.CompanionPortraitFrame:SetFrameLevel(10)
+	CompanionConfigurationFrame.CompanionExperienceRingFrame:SetFrameLevel(10)
 	CompanionConfigurationFrame.style:SetFrameLevel(5)
 	_G.DelvesCompanionAbilityListFrame:BuiStyle("Outside")
 end
@@ -887,10 +888,12 @@ local function style_Professions()
 	end
 
 	local ProfessionsFrame = _G.ProfessionsFrame
+	local InspectRecipeFrame = _G.InspectRecipeFrame
 	ProfessionsFrame:BuiStyle("Outside")
 	ProfessionsFrame.CraftingPage.CraftingOutputLog:BuiStyle("Outside")
 	ProfessionsFrame.OrdersPage.OrderView.CraftingOutputLog:BuiStyle("Outside")
 	ProfessionsFrame.CraftingPage.SchematicForm.QualityDialog:BuiStyle("Outside")
+	InspectRecipeFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
 

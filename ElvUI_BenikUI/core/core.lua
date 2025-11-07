@@ -25,7 +25,7 @@ BUI.AddonProfileKey = ''
 BINDING_HEADER_BENIKUI = BUI.Title
 
 function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
-	return E:GetAddOnEnableState(addon, E.myname) == 2
+	return E:GetAddOnEnableState(addon, E.myguid) == 2
 end
 
 -- Check other addons
@@ -71,11 +71,12 @@ end
 
 function BUI:LuaError(msg)
 	local switch = lower(msg)
+	local bugsack = E.Status_Bugsack
 	if switch == 'on' or switch == '1' then
 		for i=1, GetNumAddOns() do
 			local name = GetAddOnInfo(i)
-			if (name ~= 'ElvUI' and name ~= 'ElvUI_Options' and name ~= 'ElvUI_Libraries' and name ~= 'ElvUI_BenikUI') and E:IsAddOnEnabled(name) then
-				DisableAddOn(name, E.myname)
+			if (name ~= 'ElvUI' and name ~= 'ElvUI_Options' and name ~= 'ElvUI_Libraries' and name ~= 'ElvUI_BenikUI' and (switch == '1' or not bugsack[name])) and E:IsAddOnEnabled(name) then
+				DisableAddOn(name, E.myguid)
 				ElvDB.BuiErrorDisabledAddOns[name] = i
 			end
 		end
@@ -90,7 +91,7 @@ function BUI:LuaError(msg)
 
 		if next(ElvDB.BuiErrorDisabledAddOns) then
 			for name in pairs(ElvDB.BuiErrorDisabledAddOns) do
-				EnableAddOn(name, E.myname)
+				EnableAddOn(name, E.myguid)
 			end
 
 			wipe(ElvDB.BuiErrorDisabledAddOns)
