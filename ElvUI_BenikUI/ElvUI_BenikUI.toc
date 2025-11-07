@@ -6,7 +6,7 @@
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia, AddOnSkins, ProjectAzilroka
-## X-ElvuiVersion: 14.02
+## X-ElvuiVersion: 14.03
 ## IconTexture: Interface\AddOns\ElvUI_BenikUI\media\textures\AddonLogo
 ## X-Wago-ID: anKWx3GE
 
