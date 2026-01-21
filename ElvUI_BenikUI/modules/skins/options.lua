@@ -218,11 +218,7 @@ local function SkinTable()
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
 				elseif addon == 'InFlight_Load'then
-					if E.db.benikui.skins.variousSkins.inflight then
-						BUI:LoadInFlightProfile(true)
-					else
-						BUI:LoadInFlightProfile(false)
-					end
+					BUI:LoadInFlightProfile()
 				elseif addon == 'ElvUI_LocPlus' then
 					BUI:LoadLocationPlusProfile()
 				elseif addon == 'MikScrollingBattleText' then
