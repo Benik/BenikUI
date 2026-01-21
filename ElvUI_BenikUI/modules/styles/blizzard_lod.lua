@@ -251,8 +251,6 @@ local function style_Collections()
 	end
 
 	_G.CollectionsJournal:BuiStyle("Outside")
-	_G.WardrobeFrame:BuiStyle("Outside")
-	_G.WardrobeOutfitEditFrame:BuiStyle("Outside")
 	if E.private.skins.blizzard.tooltip then
 		_G.PetJournalPrimaryAbilityTooltip:BuiStyle("Outside")
 	end
@@ -1034,6 +1032,18 @@ local function style_TrainerUI()
 	_G.ClassTrainerFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_TrainerUI", "BenikUI_TrainerUI", style_TrainerUI)
+
+-- Transmog
+local function style_Transmog()
+	if E.private.skins.blizzard.transmogrify ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.TransmogFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_Transmog", "BenikUI_Transmog", style_Transmog)
 
 -- UIPanels_Game
 local function style_UIPanels_Game()
