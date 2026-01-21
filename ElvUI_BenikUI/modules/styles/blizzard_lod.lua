@@ -755,7 +755,7 @@ local function style_MajorFactions()
 
 	_G.MajorFactionRenownFrame:BuiStyle("Outside")
 end
-S:AddCallbackForAddon("Blizzard_MajorFactions", "BenikUI_MajorFactions", style_MajorFactions)
+--S:AddCallbackForAddon("Blizzard_MajorFactions", "BenikUI_MajorFactions", style_MajorFactions)
 
 -- Blizzard Menus
 local function StyleFrame(frame)
