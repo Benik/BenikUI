@@ -4,8 +4,6 @@ local UF = E:GetModule('UnitFrames')
 local NP = E:GetModule('NamePlates')
 local AB = E:GetModule('ActionBars')
 
-local DebuffColors = E.Libs.Dispel:GetDebuffTypeColor()
-local BleedList = E.Libs.Dispel:GetBleedList()
 local BadDispels = E.Libs.Dispel:GetBadList()
 
 local groupUnits = {'party', 'raid1', 'raid2', 'raid3', 'boss', 'arena'}
