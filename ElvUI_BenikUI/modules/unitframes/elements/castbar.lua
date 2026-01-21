@@ -24,7 +24,7 @@ local INVERT_ANCHORPOINT = {
 	BOTTOM = 'TOP',
 }
 
-local MAX_BOSS_FRAMES = 8
+local MAX_BOSS_FRAMES = 5
 local units = {"Player", "Target", "Focus", "Pet"}
 
 -- GLOBALS: hooksecurefunc
