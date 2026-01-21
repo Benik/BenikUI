@@ -28,9 +28,9 @@ BUI.MenuList = {
 	{text = _G.LFG_TITLE, func = function() ToggleLFDParentFrame() end},
 	{text = _G.ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = _G.REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
-	{text = _G.GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, func = function()
-		if Garrison_OnClick then Garrison_OnClick(_G.GarrisonLandingPageMinimapButton) else _G.ExpansionLandingPageMinimapButton:ToggleLandingPage() end
-	end},
+	--{text = _G.GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, func = function()
+		--if Garrison_OnClick then Garrison_OnClick(_G.GarrisonLandingPageMinimapButton) else _G.ExpansionLandingPageMinimapButton:ToggleLandingPage() end
+	--end},
 	{text = _G.COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
 	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
 	{text = _G.MOUNTS, func = function() ToggleCollectionsJournal(1) end},
