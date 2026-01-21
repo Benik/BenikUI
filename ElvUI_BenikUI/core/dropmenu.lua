@@ -38,6 +38,7 @@ BUI.MenuList = {
 	{text = _G.TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
 	{text = _G.HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
 	{text = _G.WARDROBE, func = function() ToggleCollectionsJournal(5) end},
+	{text = _G.WARBAND_SCENES, func = function() ToggleCollectionsJournal(6) end},
 	{text = _G.MACROS, func = function() UIParentLoadAddOn("Blizzard_MacroUI") MacroFrame_Show() end},
 	{text = _G.TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
 	{text = _G.ADVENTURE_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
