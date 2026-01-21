@@ -12,7 +12,7 @@ local UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction = UnitC
 function BU:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
 
-	if not frame.Portrait.backdrop.shadow then
+	--[[if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateSoftShadow()
 		frame.Portrait.backdrop.shadow:Hide()
 	end
@@ -23,7 +23,7 @@ function BU:Construct_TargetFrame()
 	end
 
 	local f = CreateFrame("Frame", nil, frame)
-	frame.portraitmover = f
+	frame.portraitmover = f]]
 
 	self:ArrangeTarget()
 end
@@ -74,7 +74,7 @@ function BU:ArrangeTarget()
 	local db = E.db['unitframe']['units'].target
 
 	do
-		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.target.detachPortrait
+		--[[frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.target.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.target.portraitTransparent
 		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.target.portraitShadow
 		frame.PORTRAIT_BACKDROP = E.db.benikui.unitframes.target.portraitBackdrop
@@ -85,7 +85,7 @@ function BU:ArrangeTarget()
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.target.getPlayerPortraitSize and E.db.benikui.unitframes.player.portraitHeight or E.db.benikui.unitframes.target.portraitHeight
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.target.portraitFrameStrata
 
-		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
+		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH]]
 		frame.POWER_VERTICAL = db.power.vertical
 
 		frame.IS_ELTREUM = BUI.ELT and frame.InfoPanelOnTop
@@ -98,7 +98,7 @@ function BU:ArrangeTarget()
 	BU:Configure_Infopanel(frame)
 
 	-- Portrait
-	BU:Configure_Portrait(frame, false)
+	--BU:Configure_Portrait(frame, false)
 
 	-- AuraBars shadows
 	BU:Configure_AuraBars(frame)
@@ -107,7 +107,7 @@ function BU:ArrangeTarget()
 end
 
 function BU:PLAYER_TARGET_CHANGED()
-	BU:RecolorTargetDetachedPortraitStyle()
+	--BU:RecolorTargetDetachedPortraitStyle()
 	BU:UnitInfoPanelColor()
 end
 
@@ -115,18 +115,18 @@ function BU:InitTarget()
 	if not E.db.unitframe.units.target.enable then return end
 	self:Construct_TargetFrame()
 	hooksecurefunc(UF, 'Update_TargetFrame', BU.ArrangeTarget)
-	hooksecurefunc(UF, 'Update_TargetFrame', BU.RecolorTargetDetachedPortraitStyle)
+	--hooksecurefunc(UF, 'Update_TargetFrame', BU.RecolorTargetDetachedPortraitStyle)
 	
 	self:RegisterEvent('PLAYER_TARGET_CHANGED')
 
-	-- Needed for some post updates
+	--[[ Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "target" then
 			BU:Configure_Portrait(frame, false)
 		end
-	end)
+	end)]]
 
 	hooksecurefunc(UF, "Configure_Power", function(self, frame)
 		local unitframeType = frame.unitframeType
