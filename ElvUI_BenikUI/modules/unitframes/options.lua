@@ -269,7 +269,7 @@ end
 tinsert(BUI.Config, ufTable)
 
 local function ufPlayerTable()
-	E.Options.args.unitframe.args.individualUnits.args.player.args.portrait.args.benikui = {
+--[[	E.Options.args.unitframe.args.individualUnits.args.player.args.portrait.args.benikui = {
 		order = 100,
 		type = 'group',
 		name = BUI.Title,
@@ -359,7 +359,7 @@ local function ufPlayerTable()
 				},
 			},
 		},
-	}
+	}]]--
 
 	E.Options.args.unitframe.args.individualUnits.args.player.args.power.args.vertical = {
 		order = 15,
@@ -372,7 +372,7 @@ end
 tinsert(BUI.Config, ufPlayerTable)
 
 local function ufTargetTable()
-	E.Options.args.unitframe.args.individualUnits.args.target.args.portrait.args.benikui = {
+--[[	E.Options.args.unitframe.args.individualUnits.args.target.args.portrait.args.benikui = {
 		order = 100,
 		type = 'group',
 		name = BUI.Title,
@@ -469,7 +469,7 @@ local function ufTargetTable()
 				},
 			},
 		},
-	}
+	}]]--
 
 	E.Options.args.unitframe.args.individualUnits.args.target.args.power.args.vertical = {
 		order = 15,
@@ -482,7 +482,7 @@ end
 tinsert(BUI.Config, ufTargetTable)
 
 local function ufTargetTargetTable()
-	E.Options.args.unitframe.args.individualUnits.args.targettarget.args.portrait.args.benikui = {
+--[[	E.Options.args.unitframe.args.individualUnits.args.targettarget.args.portrait.args.benikui = {
 		order = 100,
 		type = 'group',
 		name = BUI.Title,
@@ -553,12 +553,12 @@ local function ufTargetTargetTable()
 				values = strataValues,
 			},
 		},
-	}
+	}]]--
 end
 tinsert(BUI.Config, ufTargetTargetTable)
 
 local function ufFocusTable()
-	E.Options.args.unitframe.args.individualUnits.args.focus.args.portrait.args.benikui = {
+--[[	E.Options.args.unitframe.args.individualUnits.args.focus.args.portrait.args.benikui = {
 		order = 100,
 		type = 'group',
 		name = BUI.Title,
@@ -629,12 +629,12 @@ local function ufFocusTable()
 				values = strataValues,
 			},
 		},
-	}
+	}]]--
 end
 tinsert(BUI.Config, ufFocusTable)
 
 local function ufPetTable()
-	E.Options.args.unitframe.args.individualUnits.args.pet.args.portrait.args.benikui = {
+--[[	E.Options.args.unitframe.args.individualUnits.args.pet.args.portrait.args.benikui = {
 		order = 100,
 		type = 'group',
 		name = BUI.Title,
@@ -705,12 +705,12 @@ local function ufPetTable()
 				values = strataValues,
 			},
 		},
-	}
+	}]]--
 end
 tinsert(BUI.Config, ufPetTable)
 
 local function injectPartyOptions()
-	E.Options.args.unitframe.args.groupUnits.args.party.args.portrait.args.height = {
+--[[	E.Options.args.unitframe.args.groupUnits.args.party.args.portrait.args.height = {
 		type = 'range',
 		order = 15,
 		name = BUI:cOption("+ "..L["Height"], "blue"),
@@ -723,6 +723,6 @@ local function injectPartyOptions()
 		name = BUI:cOption(L['Transparent'], "blue"),
 		desc = L['Makes the portrait backdrop transparent'],
 		disabled = function() return E.db.unitframe.units.party.portrait.overlay end,
-	}
+	}]]--
 end
 tinsert(BUI.Config, injectPartyOptions)

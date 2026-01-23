@@ -1,4 +1,4 @@
-﻿local BUI, E, L, V, P, G = unpack((select(2, ...)))
+﻿--[[local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
@@ -156,4 +156,4 @@ f:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent(event)
 	ResetPostUpdate()
 	hooksecurefunc(UF, "PortraitUpdate", BU.Configure_Portrait)
-end)
+end)]]--

@@ -18,7 +18,7 @@ function BU:Update_PartyFrames(frame, db)
 		BU:Configure_Infopanel(frame)
 
 		-- Portrait
-		BU:Configure_Portrait(frame)
+--		BU:Configure_Portrait(frame)
 
 		-- Threat
 		BU:Configure_Threat(frame)
@@ -34,7 +34,7 @@ function BU:InitParty()
 	if not E.db.unitframe.units.party.enable then return end
 	hooksecurefunc(UF, 'Update_PartyFrames', BU.Update_PartyFrames)
 
-	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
-		BU:Configure_Portrait(frame)
-	end)
+--	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
+--		BU:Configure_Portrait(frame)
+--	end)
 end
