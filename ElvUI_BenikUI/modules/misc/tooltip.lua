@@ -126,7 +126,7 @@ function mod:RecolorTooltipStyle()
 
 		if GameTooltipStatusBar:IsShown() then
 			local _,tooltipUnit = _G.GameTooltip:GetUnit()
-			if tooltipUnit then
+			if tooltipUnit and E:NotSecretValue(tooltipUnit) then
 				if UnitIsPlayer(tooltipUnit) then
 					local _, tooltipUnitClass = UnitClass(tooltipUnit)
 					local tooltipUnitClassColor = E:ClassColor(tooltipUnitClass, true)
