@@ -1,3 +1,7 @@
+v5.01 (Jan 26, 2026)
+Prevent errors in Threat & TargetGlow
+Fixed Auras error
+
 v5.00 (Jan 26, 2026)
 Disable portrait bits
 Check if an addon is incompatible.
