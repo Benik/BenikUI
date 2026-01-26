@@ -16,7 +16,7 @@ function mod:ApplyAuraBarShadows(bar)
 		bar.hasShadow = true
 	end
 end
-hooksecurefunc(UF, 'AuraBars_UpdateBar', mod.ApplyAuraBarShadows)
+--hooksecurefunc(UF, 'AuraBars_UpdateBar', mod.ApplyAuraBarShadows)
 
 function mod:Configure_AuraBars(frame)
 	local bars = frame.AuraBars
