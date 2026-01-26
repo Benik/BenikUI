@@ -1,3 +1,23 @@
+v5.00 (Jan 26, 2026)
+Disable portrait bits
+Check if an addon is incompatible.
+Check tooltip unit for secret value
+Disabled portraits options
+Fixed inFlight addon profile loading. Not sure why I had it that way :D
+Added Campsites in the Game Menu
+Disabled erroring Missions from the Game Menu
+Removed outdated frames and styled the new Transmog frame
+Fixed isParagon showing on wrong reps
+Fixed Renown Datatext
+Fixed BossFrames Castbar
+Disable Party Portraits
+Disable Potraits on Target, Focus, Pet and TargetTarget
+Disable Player Portrait
+Removed some Blizz frame styles
+Disable nameplate portrait shadows
+toc update for Midnight
+2025 -> 2026, minor toc things
+
 v4.63 (Nov 7, 2025)
 Style InspectRecipeFrame
 Change E.myname to E.myguid
