@@ -11,10 +11,10 @@ local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
 local function StyleTooltip()
 	if GameTooltip.style then return end
-	GameTooltip:BuiStyle('Outside')
-	GameTooltip.style:SetClampedToScreen(true)
+	--GameTooltip:BuiStyle('Outside')
+	--GameTooltip.style:SetClampedToScreen(true)
 
-	GameTooltipStatusBar:SetFrameLevel(GameTooltip.style:GetFrameLevel() +2)
+	--GameTooltipStatusBar:SetFrameLevel(GameTooltip.style:GetFrameLevel() +2)
 
 	-- FreebTip support
 	if BUI:IsAddOnEnabled('FreebTip') then
@@ -104,7 +104,7 @@ local function StyleBlizzardTooltips()
 		end
 	end
 end
-S:AddCallback("BenikUI_StyleBlizzardTooltips", StyleBlizzardTooltips)
+--S:AddCallback("BenikUI_StyleBlizzardTooltips", StyleBlizzardTooltips)
 
 local ttr, ttg, ttb = 0, 0, 0
 function mod:CheckTooltipStyleColor()
@@ -199,11 +199,11 @@ function mod:Initialize()
 
 	StyleTooltip()
 
-	mod:CheckTooltipStyleColor()
-	mod:SecureHookScript(GameTooltip, 'OnTooltipCleared', 'GameTooltip_OnTooltipCleared')
-	mod:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
-	hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", mod.SetupStyleAndShadow)
-	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
+	--mod:CheckTooltipStyleColor()
+	--mod:SecureHookScript(GameTooltip, 'OnTooltipCleared', 'GameTooltip_OnTooltipCleared')
+	--mod:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
+	--hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", mod.SetupStyleAndShadow)
+	--hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
 end
 
 BUI:RegisterModule(mod:GetName())
