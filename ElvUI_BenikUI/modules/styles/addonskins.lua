@@ -7,8 +7,8 @@ local CreateFrame = CreateFrame
 
 -- GLOBALS: hooksecurefunc, Skada, Recount, oRA3, RC, RCnotify, RCminimized
 
-local AS = _G.AddOnSkins and _G.AddOnSkins[1]
-if not AS then return end
+if not BUI.AS then return end
+local AS = unpack(AddOnSkins)
 
 local classColor = E:ClassColor(E.myclass, true)
 

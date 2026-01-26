@@ -10,6 +10,8 @@ local DisableAddOn = (C_AddOns and C_AddOns.DisableAddOn) or DisableAddOn
 local EnableAddOn = (C_AddOns and C_AddOns.EnableAddOn) or EnableAddOn
 local GetAddOnInfo = (C_AddOns and C_AddOns.GetAddOnInfo) or GetAddOnInfo
 local GetNumAddOns = (C_AddOns and C_AddOns.GetNumAddOns) or GetNumAddOns
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoadable = C_AddOns.IsAddOnLoadable
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
 
@@ -24,8 +26,14 @@ BUI.ShadowMode = false
 BUI.AddonProfileKey = ''
 BINDING_HEADER_BENIKUI = BUI.Title
 
+local function IsAddonIncompatible(addon)
+    local loadable, reason = IsAddOnLoadable(addon)
+    return loadable == false and reason == "INCOMPATIBLE"
+end
+
 function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
-	return E:GetAddOnEnableState(addon, E.myguid) == 2
+	if IsAddonIncompatible(addon) then return end
+	return IsAddOnLoaded and E:GetAddOnEnableState(addon, E.myguid) == 2
 end
 
 -- Check other addons

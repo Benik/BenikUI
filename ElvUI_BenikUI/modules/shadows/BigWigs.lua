@@ -1,7 +1,7 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
-local AS = _G.AddOnSkins and _G.AddOnSkins[1]
-if not AS then return end
+if not BUI.AS then return end
+local AS = unpack(AddOnSkins)
 
 if not AS:CheckAddOn('BigWigs') then return end
 
