@@ -5,6 +5,7 @@ local NP = E:GetModule('NamePlates')
 local AB = E:GetModule('ActionBars')
 
 local BadDispels = E.Libs.Dispel:GetBadList()
+local DebuffColors = E.Libs.Dispel:GetDebuffTypeColor()
 
 local groupUnits = {'party', 'raid1', 'raid2', 'raid3', 'boss', 'arena'}
 
@@ -219,28 +220,35 @@ function mod:TankTargetShadows()
 	end
 end
 
-function mod:PostUpdateAura(_, button)
-	local db = (self.isNameplate and NP.db.colors) or UF.db.colors
+function mod:PostUpdateAura(unit, button)
+	local db, r, g, b = (self.isNameplate and NP.db.colors) or UF.db.colors
 	local enemyNPC = not button.isFriend and not button.isPlayer
+	local steal = DebuffColors.Stealable
 
 	if not button.shadow then
 		button:CreateSoftShadow()
 	end
 
-	local r, g, b
-	if button.isDebuff then
+	local color = E.Retail and not self.forceShow and UF:GetAuraCurve(unit, button, db.auraByType)
+	if color then
+		r, g, b = color:GetRGB()
+	elseif button.isDebuff then
+		local debuffType = E:NotSecretValue(button.debuffType) and button.debuffType or nil
+		local spellID = E:NotSecretValue(button.spellID) and button.spellID or nil
+		local bad, enemy = DebuffColors.BadDispel, DebuffColors.EnemyNPC
+
 		if enemyNPC then
-			if db.auraByType then
-				r, g, b = .9, .1, .1
+			if enemy and db.auraByType then
+				r, g, b = enemy.r, enemy.g, enemy.b
 			end
-		elseif db.auraByDispels and button.debuffType and BadDispels[button.spellID] and E:IsDispellableByMe(button.debuffType) then
-			r, g, b = .05, .85, .94
-		elseif db.auraByType then
-			local color = _G.DebuffTypeColor[button.debuffType] or _G.DebuffTypeColor.none
-			r, g, b = color.r * 0.6, color.g * 0.6, color.b * 0.6
+		elseif bad and db.auraByDispels and (spellID and BadDispels[spellID]) and (debuffType and DispelTypes[debuffType]) then
+			r, g, b = bad.r, bad.g, bad.b
+		elseif db.auraByType and debuffType then
+			local debuffColor = DebuffColors[debuffType or 'None']
+			r, g, b = debuffColor.r * 0.6, debuffColor.g * 0.6, debuffColor.b * 0.6
 		end
-	elseif db.auraByDispels and button.isStealable and not button.isFriend then
-		r, g, b = .93, .91, .55
+	elseif steal and db.auraByDispels and button.isStealable and not button.isFriend then
+		r, g, b = steal.r, steal.g, steal.b
 	end
 
 	if not r then
@@ -250,13 +258,24 @@ function mod:PostUpdateAura(_, button)
 	button:SetBackdropBorderColor(r, g, b)
 	button.Icon:SetDesaturated(button.isDebuff and enemyNPC and button.canDesaturate)
 
+	if button.Text then
+		local bdb = button.db
+		local aura = bdb and bdb.sourceText and bdb.sourceText.enable and button.aura
+		if aura then
+			local text = aura.unitName or UNKNOWN
+			local length = bdb.sourceText.length
+			local shortText = length and length > 0 and utf8sub(text, 1, length)
+			local classColor = E:ClassColor(aura.unitClassFilename) or PRIEST_COLOR
+			button.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
+			button.Text:SetText(shortText or text)
+		else
+			button.Text:SetText('')
+		end
+	end
+
 	if button.needsButtonTrim then
 		AB:TrimIcon(button)
 		button.needsButtonTrim = nil
-	end
-
-	if button.needsUpdateCooldownPosition and (button.Cooldown and button.Cooldown.timer and button.Cooldown.timer.text) then
-		UF:UpdateAuraCooldownPosition(button)
 	end
 end
 
