@@ -980,6 +980,7 @@ local function style_PlayerSpells()
 
 	_G.PlayerSpellsFrame:BuiStyle("Outside")
 	_G.ClassTalentLoadoutImportDialog:BuiStyle("Outside")
+	_G.ClassTalentLoadoutCreateDialog:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_PlayerSpells", "BenikUI_PlayerSpells", style_PlayerSpells)
 
