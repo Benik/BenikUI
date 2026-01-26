@@ -12,8 +12,8 @@ function mod:TabShadowsAS(tab)
 end
 
 function mod:DBMShadows()
-	if not BUI.AS then return end
-	local AS = unpack(AddOnSkins) -- this is needed cause it's ADDON_LOADED
+	local AS = _G.AddOnSkins and _G.AddOnSkins[1]
+	if not AS then return end
 
 	local function SkinBars(s)
 		for bar in s:GetBarIterator() do
@@ -86,8 +86,9 @@ function mod:DBMShadows()
 end
 
 function mod:AddonSkins()
-	if not BUI.AS then return end
-	local AS = unpack(AddOnSkins)
+	local AS = _G.AddOnSkins and _G.AddOnSkins[1]
+
+	if not AS then return end
 
 	hooksecurefunc(AS, "SkinTab", mod.TabShadowsAS)
 
