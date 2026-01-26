@@ -10,13 +10,13 @@ local CreateFrame = CreateFrame
 function BU:Construct_FocusFrame()
 	local frame = _G["ElvUF_Focus"]
 
-	if not frame.Portrait.backdrop.shadow then
+	--[[if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateSoftShadow()
 		frame.Portrait.backdrop.shadow:Hide()
 	end
 
 	local f = CreateFrame("Frame", nil, frame)
-	frame.portraitmover = f
+	frame.portraitmover = f]]
 
 	self:ArrangeFocus()
 end
@@ -24,7 +24,7 @@ end
 function BU:ArrangeFocus()
 	local frame = _G["ElvUF_Focus"]
 
-	do
+	--[[do
 		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.focus.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.focus.portraitTransparent
 		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.focus.portraitShadow
@@ -35,10 +35,10 @@ function BU:ArrangeFocus()
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.focus.portraitHeight
 
 		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH
-	end
+	end]]
 
 	-- Portrait
-	BU:Configure_Portrait(frame)
+	--BU:Configure_Portrait(frame)
 
 	-- InfoPanel
 	BU:Configure_Infopanel(frame)
@@ -54,14 +54,14 @@ function BU:InitFocus()
 	self:Construct_FocusFrame()
 	hooksecurefunc(UF, 'Update_FocusFrame', BU.ArrangeFocus)
 
-	-- Needed for some post updates
+	--[[ Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "focus" then
 			BU:Configure_Portrait(frame, false)
 		end
-	end)
+	end)]]
 
 	hooksecurefunc(UF, "Configure_Power", function(self, frame)
 		local unitframeType = frame.unitframeType

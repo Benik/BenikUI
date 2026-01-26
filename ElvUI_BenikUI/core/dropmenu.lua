@@ -28,9 +28,9 @@ BUI.MenuList = {
 	{text = _G.LFG_TITLE, func = function() ToggleLFDParentFrame() end},
 	{text = _G.ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = _G.REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
-	{text = _G.GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, func = function()
-		if Garrison_OnClick then Garrison_OnClick(_G.GarrisonLandingPageMinimapButton) else _G.ExpansionLandingPageMinimapButton:ToggleLandingPage() end
-	end},
+	--{text = _G.GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, func = function()
+		--if Garrison_OnClick then Garrison_OnClick(_G.GarrisonLandingPageMinimapButton) else _G.ExpansionLandingPageMinimapButton:ToggleLandingPage() end
+	--end},
 	{text = _G.COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
 	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
 	{text = _G.MOUNTS, func = function() ToggleCollectionsJournal(1) end},
@@ -38,6 +38,7 @@ BUI.MenuList = {
 	{text = _G.TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
 	{text = _G.HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
 	{text = _G.WARDROBE, func = function() ToggleCollectionsJournal(5) end},
+	{text = _G.WARBAND_SCENES, func = function() ToggleCollectionsJournal(6) end},
 	{text = _G.MACROS, func = function() UIParentLoadAddOn("Blizzard_MacroUI") MacroFrame_Show() end},
 	{text = _G.TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
 	{text = _G.ADVENTURE_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},

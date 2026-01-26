@@ -10,7 +10,7 @@ local CreateFrame = CreateFrame
 function BU:Construct_PlayerFrame()
 	local frame = _G["ElvUF_Player"]
 
-	if not frame.Portrait.backdrop.shadow then
+	--[[if not frame.Portrait.backdrop.shadow then
 		frame.Portrait.backdrop:CreateSoftShadow()
 		frame.Portrait.backdrop.shadow:Hide()
 	end
@@ -21,7 +21,7 @@ function BU:Construct_PlayerFrame()
 	end
 
 	local f = CreateFrame("Frame", nil, frame)
-	frame.portraitmover = f
+	frame.portraitmover = f]]
 
 	self:ArrangePlayer()
 end
@@ -31,7 +31,7 @@ function BU:ArrangePlayer()
 	local db = E.db['unitframe']['units'].player
 
 	do
-		frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.player.detachPortrait
+		--[[frame.PORTRAIT_DETACHED = E.db.benikui.unitframes.player.detachPortrait
 		frame.PORTRAIT_TRANSPARENCY = E.db.benikui.unitframes.player.portraitTransparent
 		frame.PORTRAIT_SHADOW = E.db.benikui.unitframes.player.portraitShadow
 		frame.PORTRAIT_BACKDROP = E.db.benikui.unitframes.player.portraitBackdrop
@@ -42,7 +42,7 @@ function BU:ArrangePlayer()
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.player.portraitHeight
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.player.portraitFrameStrata
 
-		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH
+		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH]]
 		frame.POWER_VERTICAL = db.power.vertical
 
 		frame.IS_ELTREUM = BUI.ELT and frame.InfoPanelOnTop
@@ -55,7 +55,7 @@ function BU:ArrangePlayer()
 	BU:Configure_Infopanel(frame)
 
 	-- Portrait
-	BU:Configure_Portrait(frame, true)
+	--BU:Configure_Portrait(frame, true)
 
 	-- Rest Icon
 	BU:Configure_RestingIndicator(frame)
@@ -74,14 +74,14 @@ function BU:InitPlayer()
 	self:Construct_PlayerFrame()
 	hooksecurefunc(UF, 'Update_PlayerFrame', BU.ArrangePlayer)
 
-	-- Needed for some post updates
+	--[[ Needed for some post updates
 	hooksecurefunc(UF, "Configure_Portrait", function(self, frame)
 		local unitframeType = frame.unitframeType
 
 		if unitframeType == "player" then
 			BU:Configure_Portrait(frame, true)
 		end
-	end)
+	end)]]
 
 	hooksecurefunc(UF, "Configure_InfoPanel", function(self, frame) -- fix Player infoPanel glitch #26
 		local unitframeType = frame.unitframeType

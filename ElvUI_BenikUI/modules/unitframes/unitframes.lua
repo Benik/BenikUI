@@ -4,14 +4,12 @@ local UF = E:GetModule('UnitFrames')
 local NP = E:GetModule('NamePlates')
 local AB = E:GetModule('ActionBars')
 
-local DebuffColors = E.Libs.Dispel:GetDebuffTypeColor()
-local BleedList = E.Libs.Dispel:GetBleedList()
 local BadDispels = E.Libs.Dispel:GetBadList()
 
 local groupUnits = {'party', 'raid1', 'raid2', 'raid3', 'boss', 'arena'}
 
 function mod:UnitDefaults()
-	if E.db.benikui.unitframes.player.portraitWidth == nil then
+--[[	if E.db.benikui.unitframes.player.portraitWidth == nil then
 		E.db.benikui.unitframes.player.portraitWidth = 110
 	end
 	if E.db.benikui.unitframes.player.portraitHeight == nil then
@@ -22,7 +20,7 @@ function mod:UnitDefaults()
 	end
 	if E.db.benikui.unitframes.target.portraitHeight == nil then
 		E.db.benikui.unitframes.target.portraitHeight = 85
-	end
+	end]]--
 end
 
 function mod:UpdateUF()
@@ -116,8 +114,8 @@ function mod:PartyShadows()
 				unitbutton.Health.backdrop.shadow:Hide()
 				unitbutton.Power.backdrop:CreateSoftShadow()
 				unitbutton.Power.backdrop.shadow:Hide()
-				unitbutton.Portrait.backdrop:CreateSoftShadow()
-				unitbutton.Portrait.backdrop.shadow:Hide()
+				--unitbutton.Portrait.backdrop:CreateSoftShadow()
+				--unitbutton.Portrait.backdrop.shadow:Hide()
 				unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
 				unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
 			end

@@ -2032,7 +2032,7 @@ local function SetupAddons()
 
 	-- InFlight
 	if BUI:IsAddOnEnabled('InFlight_Load') then
-		BUI:LoadInFlightProfile(true)
+		BUI:LoadInFlightProfile()
 		tinsert(addonNames, 'InFlight')
 	end
 
@@ -2103,6 +2103,7 @@ end
 local function SetupDataTexts(role)
 	-- Data Texts
 	if BUI.LP then
+		print('beeeeeeeeeeep')
 		E.db["datatexts"]["panels"]["LocPlusRightDT"][1] = 'Time'
 		E.db["datatexts"]["panels"]["LocPlusLeftDT"][1] = 'MovementSpeed'
 		E.DataTexts:UpdatePanelInfo('LocPlusRightDT')

@@ -7,7 +7,7 @@ local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
 local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
-local C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer = C_PlayerInfo.IsExpansionLandingPageUnlockedForPlayer
+local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
@@ -40,7 +40,7 @@ local displayString, lastPanel = ''
 local function OnEvent(self)
 	local factionID = E.private.benikui.datatexts.renown.factionID
 
-	if (C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer(LE_EXPANSION_DRAGONFLIGHT) or C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer(LE_EXPANSION_WAR_WITHIN)) then
+	if (GetExpansionDisplayInfo(LE_EXPANSION_DRAGONFLIGHT) or GetExpansionDisplayInfo(LE_EXPANSION_WAR_WITHIN)) then
 		local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
 		self.text:SetFormattedText(displayString, COVENANT_SANCTUM_TAB_RENOWN, majorFactionData.renownLevel)
 	else
@@ -65,7 +65,7 @@ local function menu_checked(data) return data and data.arg1 == E.private.benikui
 
 local function OnClick(self, btn)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
-	if not (C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer(LE_EXPANSION_DRAGONFLIGHT) or C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer(LE_EXPANSION_WAR_WITHIN)) then return end
+	if not (GetExpansionDisplayInfo(LE_EXPANSION_DRAGONFLIGHT) or GetExpansionDisplayInfo(LE_EXPANSION_WAR_WITHIN)) then return end
 
 	if btn == 'RightButton' then
 		E:SetEasyMenuAnchor(E.EasyMenu, self)
@@ -78,7 +78,7 @@ local function OnClick(self, btn)
 end
 
 local function OnEnter(self)
-	if (C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer(LE_EXPANSION_DRAGONFLIGHT) or C_PlayerInfo_IsExpansionLandingPageUnlockedForPlayer(LE_EXPANSION_WAR_WITHIN)) then
+	if (GetExpansionDisplayInfo(LE_EXPANSION_DRAGONFLIGHT) or GetExpansionDisplayInfo(LE_EXPANSION_WAR_WITHIN)) then
 		DT:SetupTooltip(self)
 
 		local activeFaction = E.private.benikui.datatexts.renown.factionID

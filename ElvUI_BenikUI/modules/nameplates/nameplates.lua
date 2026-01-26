@@ -15,9 +15,9 @@ function mod:NameplateShadows(nameplate)
 	if not nameplate.Castbar.Button.shadow then
 		nameplate.Castbar.Button:CreateSoftShadow()
 	end
-	if not nameplate.Portrait.backdrop.shadow then
-		nameplate.Portrait.backdrop:CreateSoftShadow()
-	end
+	--if not nameplate.Portrait.backdrop.shadow then
+		--nameplate.Portrait.backdrop:CreateSoftShadow()
+	--end
 end
 
 function mod:Construct_AuraIcon(button)
