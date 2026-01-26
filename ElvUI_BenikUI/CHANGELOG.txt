@@ -1,3 +1,8 @@
+v5.02 (Jan 26, 2026)
+Disable AuraBars shadows for now
+Disable Tooltip Style for now
+Styled ClassTalentLoadoutCreateDialog
+
 v5.01 (Jan 26, 2026)
 Prevent errors in Threat & TargetGlow
 Fixed Auras error
