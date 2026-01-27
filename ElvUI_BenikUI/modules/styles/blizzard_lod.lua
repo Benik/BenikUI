@@ -304,6 +304,24 @@ local function style_Contribution()
 end
 S:AddCallbackForAddon("Blizzard_Contribution", "BenikUI_Contribution", style_Contribution)
 
+-- CooldownViewer
+local function style_CooldownViewer()
+	if E.private.skins.blizzard.cooldownManager ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local CooldownViewer = _G.CooldownViewerSettings
+	if CooldownViewer then
+		CooldownViewer:BuiStyle("Outside")
+		for i, tab in next, { CooldownViewer.SpellsTab, CooldownViewer.AurasTab } do
+			tab:CreateSoftShadow()
+		end
+	end
+end
+S:AddCallbackForAddon("Blizzard_CooldownViewer", "BenikUI_CooldownViewer", style_CooldownViewer)
+
 -- CovenantPreviewUI
 local function style_CovenantPreviewUI()
 	if E.private.skins.blizzard.covenantPreview ~= true or E.private.skins.blizzard.enable ~= true or
