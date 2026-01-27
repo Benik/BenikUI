@@ -674,7 +674,13 @@ local function style_HousingDashboard()
 		return
 	end
 
-	_G.HousingDashboardFrame:BuiStyle("Outside")
+	local DashBoardFrame = _G.HousingDashboardFrame
+	DashBoardFrame:BuiStyle("Outside")
+	for i, tab in next, { DashBoardFrame.HouseInfoTabButton, DashBoardFrame.CatalogTabButton } do
+		if tab then
+			tab:CreateSoftShadow()
+		end
+	end
 end
 S:AddCallbackForAddon("Blizzard_HousingDashboard", "BenikUI_HousingDashboard", style_HousingDashboard)
 
