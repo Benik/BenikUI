@@ -45,10 +45,23 @@ function mod:CooldownManager_HandleViewer(element)
 end
 
 function mod:CooldownViewer_Shadows()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.cooldownManager) then return end
+	if E.private.skins.blizzard.cooldownManager ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
 
 	mod:CooldownManager_HandleViewer(_G.UtilityCooldownViewer)
 	mod:CooldownManager_HandleViewer(_G.BuffBarCooldownViewer)
 	mod:CooldownManager_HandleViewer(_G.BuffIconCooldownViewer)
 	mod:CooldownManager_HandleViewer(_G.EssentialCooldownViewer)
+
+	local CooldownViewer = _G.CooldownViewerSettings
+	if CooldownViewer then
+		CooldownViewer:BuiStyle("Outside")
+		for i, tab in next, { CooldownViewer.SpellsTab, CooldownViewer.AurasTab } do
+			tab:CreateSoftShadow()
+		end
+	end
 end
+S:AddCallbackForAddon("Blizzard_CooldownViewer", "BenikUI_CooldownViewer", mod.CooldownViewer_Shadows)
