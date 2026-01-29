@@ -45,7 +45,7 @@ BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')
 BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
 BUI.CT = BUI:IsAddOnEnabled('ClassTactics')
-BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
+BUI.IF = BUI:IsAddOnEnabled('InFlight')
 BUI.ZG = BUI:IsAddOnEnabled('ZygorGuidesViewer')
 
 local classColor = E:ClassColor(E.myclass, true)

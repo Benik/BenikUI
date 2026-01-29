@@ -2031,7 +2031,7 @@ local function SetupAddons()
 	end
 
 	-- InFlight
-	if BUI:IsAddOnEnabled('InFlight_Load') then
+	if BUI:IsAddOnEnabled('InFlight') then
 		BUI:LoadInFlightProfile()
 		tinsert(addonNames, 'InFlight')
 	end
