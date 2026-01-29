@@ -203,7 +203,6 @@ local AddonsToHide = {
 	{'WorldQuestTracker', 'WorldQuestTrackerFinderFrame'},
 	{'XIV_Databar', 'XIV_Databar'},
 	{'VuhDo', 'VuhDoBuffWatchMainFrame'},
-	{'WeakAuras', 'WeakAurasFrame'},
 	{'HeroRotation','HeroRotation_ToggleIconFrame'},
 	{'!KalielsTracker','!KalielsTrackerFrame'},
 	{'!KalielsTracker','!KalielsTrackerScrollChild'},

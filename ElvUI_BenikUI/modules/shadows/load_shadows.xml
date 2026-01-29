@@ -3,5 +3,4 @@
 	<script file="CooldownManager.lua"/>
 	<script file="addonskins.lua"/>
 	<script file="BigWigs.lua"/>
-	<script file="WeakAuras.lua"/>
 </Ui>
