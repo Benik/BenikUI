@@ -51,10 +51,10 @@ function mod:CooldownViewer_Shadows()
 		return
 	end
 
-	mod:CooldownManager_HandleViewer(_G.UtilityCooldownViewer)
-	mod:CooldownManager_HandleViewer(_G.BuffBarCooldownViewer)
-	mod:CooldownManager_HandleViewer(_G.BuffIconCooldownViewer)
-	mod:CooldownManager_HandleViewer(_G.EssentialCooldownViewer)
+	--mod:CooldownManager_HandleViewer(_G.UtilityCooldownViewer)
+	--mod:CooldownManager_HandleViewer(_G.BuffBarCooldownViewer)
+	--mod:CooldownManager_HandleViewer(_G.BuffIconCooldownViewer)
+	--mod:CooldownManager_HandleViewer(_G.EssentialCooldownViewer)
 
 	local CooldownViewer = _G.CooldownViewerSettings
 	if CooldownViewer then
