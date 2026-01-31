@@ -1,3 +1,14 @@
+v5.03 (Jan 31, 2026)
+Updated Donators and Patrons <3
+Added chat prints for the tag fixes
+Added commands that fix the missing tags. /fixtags1, /fixtags2, /fixtags3 for each profile. Also made minor changes in the installer
+Added fang's API fix and enabled Tooltip style
+Updated the installer with the new tags
+Fixed InFlight addon references
+Removed WeakAuras
+Styled Cooldown Manager options
+Added Housing in the Game menu and styled the Housing Dashboard
+
 v5.02 (Jan 26, 2026)
 Disable AuraBars shadows for now
 Disable Tooltip Style for now
