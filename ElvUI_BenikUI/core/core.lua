@@ -191,6 +191,11 @@ function BUI:LoadCommands()
 	self:RegisterChatCommand("benikui", "DasOptions")
 	self:RegisterChatCommand("benikuisetup", "SetupBenikUI")
 	self:RegisterChatCommand("buierror", "LuaError")
+
+	-- tag fixing commands
+	self:RegisterChatCommand("fixtags1", "FixTags1")
+	self:RegisterChatCommand("fixtags2", "FixTags2")
+	self:RegisterChatCommand("fixtags3", "FixTags3")
 end
 
 do -- Midnight API Fix. Credit: fang (WindTools)
