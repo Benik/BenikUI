@@ -72,6 +72,7 @@ function BUI:FixTags1()
     E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
 
     E:StaggeredUpdateAll(nil, true)
+    BUI:Print('Tag fixes have been applied for profile 1')
 end
 
 function BUI:FixTags2()
@@ -142,6 +143,7 @@ function BUI:FixTags2()
     E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 2
 
     E:StaggeredUpdateAll(nil, true)
+    BUI:Print('Tag fixes have been applied for profile 2')
 end
 
 function BUI:FixTags3()
@@ -214,4 +216,5 @@ function BUI:FixTags3()
     E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 0
 
     E:StaggeredUpdateAll(nil, true)
+    BUI:Print('Tag fixes have been applied for profile 3')
 end
