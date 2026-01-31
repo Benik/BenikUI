@@ -84,6 +84,11 @@ local function StyleBlizzardTooltips()
 		for _, tt in pairs(tooltips) do
 			if tt and not tt.style then
 				tt:BuiStyle("Outside")
+
+				local CompareHeader = tt.CompareHeader
+				if CompareHeader then
+					CompareHeader:SetFrameLevel(tt.style:GetFrameLevel()+2)
+				end
 			end
 		end
 
