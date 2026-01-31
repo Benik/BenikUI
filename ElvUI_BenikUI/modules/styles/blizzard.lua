@@ -4,11 +4,8 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
-local C_TimerAfter = C_Timer.After
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
-
-local MAX_STATIC_POPUPS = 4
 
 local function LoadSkin()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -30,12 +27,6 @@ local function LoadSkin()
 		_G.ReadyCheckListenerFrame:BuiStyle("Outside")
 		_G.SplashFrame:CreateBackdrop("Transparent")
 		_G.SplashFrame.backdrop:BuiStyle("Outside")
-	end
-
-	local function repUpdate()
-		if _G.ReputationDetailFrame then
-			_G.ReputationDetailFrame:BuiStyle("Outside")
-		end
 	end
 
 	if db.character then
