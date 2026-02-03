@@ -356,6 +356,22 @@ local function style_CovenantSanctum()
 end
 S:AddCallbackForAddon("Blizzard_CovenantSanctum", "BenikUI_CovenantSanctum", style_CovenantSanctum)
 
+-- DamageMeter
+function BUI:ApplyDamageMeterStyle(window)
+	if E.private.skins.blizzard.damageMeter ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	if not window or not window.backdrop then return end
+
+	if not window.backdrop.style then
+		window.backdrop:BuiStyle("Outside")
+	end
+end
+hooksecurefunc(S, "DamageMeter_HandleBackground", BUI.ApplyDamageMeterStyle)
+
 -- DeathRecap
 local function style_DeathRecap()
 	if E.private.skins.blizzard.deathRecap ~= true or E.private.skins.blizzard.enable ~= true or
