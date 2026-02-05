@@ -242,6 +242,20 @@ local function style_ClassTalents()
 end
 S:AddCallbackForAddon("Blizzard_ClassTalentUI", "BenikUI_ClassTalents", style_ClassTalents)
 
+-- ClickBindingUI
+local function style_ClickBinding()
+	if E.private.skins.blizzard.binding ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.ClickBindingFrame
+	frame:BuiStyle("Outside")
+	frame.TutorialFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ClickBindingUI", "BenikUI_ClickBindingUI", style_ClickBinding)
+
 -- Collections
 local function style_Collections()
 	if E.private.skins.blizzard.collections ~= true or E.private.skins.blizzard.enable ~= true or
