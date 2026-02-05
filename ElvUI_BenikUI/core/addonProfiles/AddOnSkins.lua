@@ -11,7 +11,6 @@ function BUI:LoadAddOnSkinsProfile()
 		font = "Bui Prototype"
 	end
 
-	AS.db['WeakAuraAuraBar'] = true
 	AS.db['SkinTemplate'] = 'Transparent'
 
 	if BUI:IsAddOnEnabled('Recount') then

@@ -77,7 +77,6 @@ local stats = {
 	5693,	-- Rated battleground played the most
 	5695,	-- Rated battleground won the most
 	5694,	-- Rated battlegrounds won
-	7399,	-- Challenge mode dungeons completed
 	8278,	-- Pet Battles won at max level
 }
 

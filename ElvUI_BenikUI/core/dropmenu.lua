@@ -55,6 +55,7 @@ BUI.MenuList = {
 		end
 	end},
 	{text = _G.HELP_BUTTON, func = function() ToggleHelpFrame() end},
+	{text = _G.HOUSING_MICRO_BUTTON, func = function() _G.HousingFramesUtil.ToggleHousingDashboard() end},
 }
 
 local function sortFunction(a, b)

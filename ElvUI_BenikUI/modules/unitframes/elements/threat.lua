@@ -27,7 +27,7 @@ function BU:Configure_Threat(frame)
 				threat.PowerGlow:Point("TOPLEFT", frame.Power.backdrop, "TOPLEFT", -frame.SHADOW_SPACING - UF.SPACING, frame.SHADOW_SPACING + UF.SPACING)
 				threat.PowerGlow:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMRIGHT", frame.SHADOW_SPACING + UF.SPACING, -frame.SHADOW_SPACING - UF.SPACING)
 			else
-				if frame.PORTRAIT_HEIGHT > 0 then
+				if frame.PORTRAIT_HEIGHT and frame.PORTRAIT_HEIGHT > 0 then
 					threat:SetFrameStrata('MEDIUM')
 					threat.MainGlow:SetFrameStrata('MEDIUM')
 					if frame.ORIENTATION == "RIGHT" then

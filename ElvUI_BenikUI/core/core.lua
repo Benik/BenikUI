@@ -45,9 +45,8 @@ BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')
 BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
 BUI.CT = BUI:IsAddOnEnabled('ClassTactics')
-BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
+BUI.IF = BUI:IsAddOnEnabled('InFlight')
 BUI.ZG = BUI:IsAddOnEnabled('ZygorGuidesViewer')
-BUI.WA = BUI:IsAddOnEnabled('WeakAuras')
 
 local classColor = E:ClassColor(E.myclass, true)
 
@@ -192,6 +191,20 @@ function BUI:LoadCommands()
 	self:RegisterChatCommand("benikui", "DasOptions")
 	self:RegisterChatCommand("benikuisetup", "SetupBenikUI")
 	self:RegisterChatCommand("buierror", "LuaError")
+
+	-- tag fixing commands
+	self:RegisterChatCommand("fixtags1", "FixTags1")
+	self:RegisterChatCommand("fixtags2", "FixTags2")
+	self:RegisterChatCommand("fixtags3", "FixTags3")
+end
+
+do -- Midnight API Fix. Credit: fang (WindTools)
+	local BackdropTemplateMixin_SetupTextureCoordinates = _G.BackdropTemplateMixin.SetupTextureCoordinates
+	function _G.BackdropTemplateMixin:SetupTextureCoordinates(...)
+		if E:NotSecretValue(self:GetWidth()) then
+			BackdropTemplateMixin_SetupTextureCoordinates(self, ...)
+		end
+	end
 end
 
 function BUI:Initialize()

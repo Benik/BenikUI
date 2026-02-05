@@ -356,6 +356,22 @@ local function style_CovenantSanctum()
 end
 S:AddCallbackForAddon("Blizzard_CovenantSanctum", "BenikUI_CovenantSanctum", style_CovenantSanctum)
 
+-- DamageMeter
+function BUI:ApplyDamageMeterStyle(window)
+	if E.private.skins.blizzard.damageMeter ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	if not window or not window.backdrop then return end
+
+	if not window.backdrop.style then
+		window.backdrop:BuiStyle("Outside")
+	end
+end
+hooksecurefunc(S, "DamageMeter_HandleBackground", BUI.ApplyDamageMeterStyle)
+
 -- DeathRecap
 local function style_DeathRecap()
 	if E.private.skins.blizzard.deathRecap ~= true or E.private.skins.blizzard.enable ~= true or
@@ -647,6 +663,24 @@ local function style_GuildControlUI()
 	_G.GuildControlUI:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_GuildControlUI", "BenikUI_GuildControlUI", style_GuildControlUI)
+
+-- HousingDashboard
+local function style_HousingDashboard()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local DashBoardFrame = _G.HousingDashboardFrame
+	DashBoardFrame:BuiStyle("Outside")
+	for i, tab in next, { DashBoardFrame.HouseInfoTabButton, DashBoardFrame.CatalogTabButton } do
+		if tab then
+			tab:CreateSoftShadow()
+		end
+	end
+end
+S:AddCallbackForAddon("Blizzard_HousingDashboard", "BenikUI_HousingDashboard", style_HousingDashboard)
 
 -- IslandsQueueUI
 local function style_IslandsQueueUI()
@@ -980,6 +1014,7 @@ local function style_PlayerSpells()
 
 	_G.PlayerSpellsFrame:BuiStyle("Outside")
 	_G.ClassTalentLoadoutImportDialog:BuiStyle("Outside")
+	_G.ClassTalentLoadoutCreateDialog:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_PlayerSpells", "BenikUI_PlayerSpells", style_PlayerSpells)
 
