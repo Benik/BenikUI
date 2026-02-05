@@ -1,3 +1,9 @@
+v5.04 (Feb 5, 2026)
+Style blizz Damage Meter.
+Portraits back on the menu. Credit: Tsxy
+Fixed Style level on Tooltips with the Equipped header.
+Re enabled and updated the Objective Tracker.
+
 v5.03 (Jan 31, 2026)
 Updated Donators and Patrons <3
 Added chat prints for the tag fixes
