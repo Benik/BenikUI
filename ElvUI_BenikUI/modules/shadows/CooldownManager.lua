@@ -46,7 +46,7 @@ end
 
 function mod:CooldownViewer_Shadows()
 	if E.private.skins.blizzard.cooldownManager ~= true or E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true
+		E.db.benikui.general.benikuiStyle ~= true or not BUI.ShadowMode
 	then
 		return
 	end
