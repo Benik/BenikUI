@@ -45,6 +45,17 @@ end
 
 local function QuestIconsShadows(_, block)
 	AddShadowsQuestIcon(block.ItemButton)
+
+	local frame = block.rightEdgeFrame
+	if not frame then
+		return
+	end
+
+	if frame.template == "QuestObjectiveItemButtonTemplate" then
+		if not frame.shadow then
+			frame:CreateSoftShadow()
+		end
+	end
 end
 
 local function ProgressBarsShadows(tracker, key)
@@ -68,7 +79,12 @@ local function ProgressBarsShadows(tracker, key)
 end
 
 function mod:InitializeObjectiveTracker()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker) then return end
+	if E.private.skins.blizzard.objectiveTracker ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.shadows ~= true
+	then
+		return
+	end
+
 	if BUI:IsAddOnEnabled('!KalielsTracker') then return end
 
 	for _, tracker in pairs(trackers) do
