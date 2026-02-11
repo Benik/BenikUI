@@ -635,11 +635,14 @@ local function style_GuildBankUI()
 	end
 
 	_G.GuildBankFrame:BuiStyle("Outside")
-	for i = 1, 8 do
-		local tab = _G['GuildBankTab'..i]
-		local button = tab.Button
-		button:SetTemplate("Transparent")
-		button:CreateSoftShadow()
+
+	if BUI.ShadowMode then
+		for i = 1, 8 do
+			local tab = _G['GuildBankTab'..i]
+			local button = tab.Button
+			button:SetTemplate("Transparent")
+			button:CreateSoftShadow()
+		end
 	end
 end
 S:AddCallbackForAddon("Blizzard_GuildBankUI", "BenikUI_GuildBankUI", style_GuildBankUI)
@@ -690,9 +693,12 @@ local function style_HousingDashboard()
 
 	local DashBoardFrame = _G.HousingDashboardFrame
 	DashBoardFrame:BuiStyle("Outside")
-	for i, tab in next, { DashBoardFrame.HouseInfoTabButton, DashBoardFrame.CatalogTabButton } do
-		if tab then
-			tab:CreateSoftShadow()
+
+	if BUI.ShadowMode then
+		for i, tab in next, { DashBoardFrame.HouseInfoTabButton, DashBoardFrame.CatalogTabButton } do
+			if tab then
+				tab.backdrop:CreateSoftShadow()
+			end
 		end
 	end
 end
