@@ -746,6 +746,26 @@ local function style_HousingCornerstone()
 end
 S:AddCallbackForAddon("Blizzard_HousingCornerstone", "BenikUI_HousingCornerstone", style_HousingCornerstone)
 
+-- HouseEditor
+local function style_HouseEditor()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local EditorFrame = _G.HouseEditorFrame
+	local StoragePanel = EditorFrame.StoragePanel
+	StoragePanel:BuiStyle("Outside")
+
+	if BUI.ShadowMode then
+		StoragePanel.CollapseButton:CreateSoftShadow()
+		EditorFrame.StorageButton:CreateSoftShadow()
+	end
+end
+S:AddCallbackForAddon("Blizzard_HouseEditor", "BenikUI_HouseEditor", style_HouseEditor)
+
+
 -- HousingHouseSettings
 local function style_HousingHouseSettings()
 	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
@@ -755,7 +775,7 @@ local function style_HousingHouseSettings()
 	end
 
 	_G.HousingHouseSettingsFrame:BuiStyle("Outside")
-
+	_G.AbandonHouseConfirmationDialog:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_HousingHouseSettings", "BenikUI_HousingHouseSettings", style_HousingHouseSettings)
 
