@@ -242,6 +242,20 @@ local function style_ClassTalents()
 end
 S:AddCallbackForAddon("Blizzard_ClassTalentUI", "BenikUI_ClassTalents", style_ClassTalents)
 
+-- ClickBindingUI
+local function style_ClickBinding()
+	if E.private.skins.blizzard.binding ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.ClickBindingFrame
+	frame:BuiStyle("Outside")
+	frame.TutorialFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_ClickBindingUI", "BenikUI_ClickBindingUI", style_ClickBinding)
+
 -- Collections
 local function style_Collections()
 	if E.private.skins.blizzard.collections ~= true or E.private.skins.blizzard.enable ~= true or
@@ -1012,9 +1026,15 @@ local function style_PlayerSpells()
 		return
 	end
 
-	_G.PlayerSpellsFrame:BuiStyle("Outside")
+	local PlayerSpellsFrame = _G.PlayerSpellsFrame
+	PlayerSpellsFrame:BuiStyle("Outside")
+
+	local TalentsFrame = PlayerSpellsFrame.TalentsFrame
+	TalentsFrame.PvPTalentList.backdrop:BuiStyle("Outside")
+
 	_G.ClassTalentLoadoutImportDialog:BuiStyle("Outside")
 	_G.ClassTalentLoadoutCreateDialog:BuiStyle("Outside")
+	_G.HeroTalentsSelectionDialog:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_PlayerSpells", "BenikUI_PlayerSpells", style_PlayerSpells)
 
