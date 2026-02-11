@@ -1,3 +1,12 @@
+v5.05 (Feb 11, 2026)
+toc update for game version 12.01
+Styled some elements in the PlayerSpellsFrame
+Update reputations.lua. Credit: Tsxy
+Added shadow on the quest item in Objective Tracker
+Don't show CDM shadows, when global shadows are disabled
+Style ClickBindingUI
+
+
 v5.04 (Feb 5, 2026)
 Style blizz Damage Meter.
 Portraits back on the menu. Credit: Tsxy
