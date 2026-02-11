@@ -1,4 +1,4 @@
-## Interface: 120000
+## Interface: 120000, 120001
 ## Author: Benik
 ## Version: 5.04
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
