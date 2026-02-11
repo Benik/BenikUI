@@ -52,6 +52,7 @@ local function LoadSkin()
 	if db.friends then
 		_G.AddFriendFrame:BuiStyle("Outside")
 		_G.FriendsFrame:BuiStyle("Outside")
+		_G.FriendsFrame.IgnoreListWindow:BuiStyle("Outside")
 		_G.FriendsFriendsFrame:BuiStyle("Outside")
 		_G.QuickJoinRoleSelectionFrame:BuiStyle("Outside")
 		_G.RecruitAFriendFrame:BuiStyle("Outside")

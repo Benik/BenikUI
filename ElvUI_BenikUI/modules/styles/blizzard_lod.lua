@@ -696,7 +696,7 @@ local function style_HousingDashboard()
 end
 S:AddCallbackForAddon("Blizzard_HousingDashboard", "BenikUI_HousingDashboard", style_HousingDashboard)
 
--- HousingDashboard
+-- HousingBulletinBoard
 local function style_HousingBulletinBoard()
 	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
@@ -710,6 +710,54 @@ local function style_HousingBulletinBoard()
 	end
 end
 S:AddCallbackForAddon("Blizzard_HousingBulletinBoard", "BenikUI_HousingBulletinBoard", style_HousingBulletinBoard)
+
+-- HousingCornerstone
+local function style_HousingCornerstone()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local CornerVisitorFrame = _G.HousingCornerstoneVisitorFrame
+	if CornerVisitorFrame then
+		CornerVisitorFrame.backdrop:BuiStyle("Outside")
+	end
+
+	local CornerInfoFrame = _G.HousingCornerstoneHouseInfoFrame
+	if CornerInfoFrame then
+		CornerInfoFrame.backdrop:BuiStyle("Outside")
+	end
+
+	local PurchaseFrame = _G.HousingCornerstonePurchaseFrame
+	if PurchaseFrame then
+		PurchaseFrame.backdrop:BuiStyle("Outside")
+	end
+
+	local SaleSign = PurchaseFrame.ForSaleSign
+	SaleSign:StripTextures()
+	SaleSign:SetTemplate()
+	SaleSign:SetFrameLevel(PurchaseFrame.backdrop.style:GetFrameLevel() + 2)
+
+	local MoveHouseConfirmation = _G.MoveHouseConfirmationDialog
+	if MoveHouseConfirmation then
+		MoveHouseConfirmation.backdrop:BuiStyle("Outside")
+	end
+end
+S:AddCallbackForAddon("Blizzard_HousingCornerstone", "BenikUI_HousingCornerstone", style_HousingCornerstone)
+
+-- HousingHouseSettings
+local function style_HousingHouseSettings()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.HousingHouseSettingsFrame:BuiStyle("Outside")
+
+end
+S:AddCallbackForAddon("Blizzard_HousingHouseSettings", "BenikUI_HousingHouseSettings", style_HousingHouseSettings)
 
 -- IslandsQueueUI
 local function style_IslandsQueueUI()
