@@ -755,6 +755,7 @@ local function style_HouseEditor()
 	end
 
 	local EditorFrame = _G.HouseEditorFrame
+	EditorFrame.ExteriorCustomizationModeFrame.FixtureOptionList:BuiStyle("Outside")
 	local StoragePanel = EditorFrame.StoragePanel
 	StoragePanel:BuiStyle("Outside")
 
