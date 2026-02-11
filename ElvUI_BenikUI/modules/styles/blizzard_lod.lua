@@ -1026,9 +1026,15 @@ local function style_PlayerSpells()
 		return
 	end
 
-	_G.PlayerSpellsFrame:BuiStyle("Outside")
+	local PlayerSpellsFrame = _G.PlayerSpellsFrame
+	PlayerSpellsFrame:BuiStyle("Outside")
+
+	local TalentsFrame = PlayerSpellsFrame.TalentsFrame
+	TalentsFrame.PvPTalentList.backdrop:BuiStyle("Outside")
+
 	_G.ClassTalentLoadoutImportDialog:BuiStyle("Outside")
 	_G.ClassTalentLoadoutCreateDialog:BuiStyle("Outside")
+	_G.HeroTalentsSelectionDialog:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_PlayerSpells", "BenikUI_PlayerSpells", style_PlayerSpells)
 
