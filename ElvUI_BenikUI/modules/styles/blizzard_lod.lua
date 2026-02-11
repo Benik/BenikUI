@@ -437,10 +437,12 @@ local function style_EncounterJournal()
 
 	_G.EncounterJournal:BuiStyle("Outside")
 
-	for _, name in next, { 'overviewTab', 'modelTab', 'bossTab', 'lootTab' } do
-		local tab = _G.EncounterJournal.encounter.info[name]
-		if tab then
-			tab:CreateSoftShadow()
+	if BUI.ShadowMode then
+		for _, name in next, { 'overviewTab', 'modelTab', 'bossTab', 'lootTab' } do
+			local tab = _G.EncounterJournal.encounter.info[name]
+			if tab then
+				tab.backdrop:CreateSoftShadow()
+			end
 		end
 	end
 
