@@ -766,6 +766,17 @@ local function style_HouseEditor()
 end
 S:AddCallbackForAddon("Blizzard_HouseEditor", "BenikUI_HouseEditor", style_HouseEditor)
 
+-- HousingHouseFinder
+local function style_HousingHouseFinder()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.HouseFinderFrame:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_HousingHouseFinder", "BenikUI_HousingHouseFinder", style_HousingHouseFinder)
 
 -- HousingHouseSettings
 local function style_HousingHouseSettings()
