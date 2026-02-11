@@ -875,18 +875,6 @@ local function style_MacroUI()
 end
 S:AddCallbackForAddon("Blizzard_MacroUI", "BenikUI_MacroUI", style_MacroUI)
 
--- Major Factions
-local function style_MajorFactions()
-	if E.private.skins.blizzard.majorFactions ~= true or E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true
-	then
-		return
-	end
-
-	_G.MajorFactionRenownFrame:BuiStyle("Outside")
-end
---S:AddCallbackForAddon("Blizzard_MajorFactions", "BenikUI_MajorFactions", style_MajorFactions)
-
 -- Blizzard Menus
 local function StyleFrame(frame)
 	if frame.backdrop and not frame.backdrop.style then
@@ -1197,38 +1185,6 @@ local function style_UIPanels_Game()
 	_G.GearManagerPopupFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_UIPanels_Game", "BenikUI_UIPanels_Game", style_UIPanels_Game)
-
--- VoidStorageUI
-local function style_VoidStorageUI()
-	if E.private.skins.blizzard.voidstorage ~= true or E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true
-	then
-		return
-	end
-
-	local frame = _G.VoidStorageFrame
-	frame:BuiStyle("Outside")
-	for i = 1, 2 do
-		local tab = frame["Page" .. i]
-		tab:SetTemplate("Transparent")
-		tab:CreateSoftShadow()
-	end
-end
-S:AddCallbackForAddon("Blizzard_VoidStorageUI", "BenikUI_VoidStorageUI", style_VoidStorageUI)
-
--- WarboardUI
-local function style_WarboardUI()
-	if E.private.skins.blizzard.warboard ~= true or E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true
-	then
-		return
-	end
-
-	local frame = _G.WarboardQuestChoiceFrame
-	frame:BuiStyle("Outside")
-	frame.style:SetFrameLevel(1)
-end
-S:AddCallbackForAddon("Blizzard_WarboardUI", "BenikUI_WarboardUI", style_WarboardUI)
 
 -- WeeklyRewards
 local function style_WeeklyRewards()
