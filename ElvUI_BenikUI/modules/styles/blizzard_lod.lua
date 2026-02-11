@@ -696,6 +696,21 @@ local function style_HousingDashboard()
 end
 S:AddCallbackForAddon("Blizzard_HousingDashboard", "BenikUI_HousingDashboard", style_HousingDashboard)
 
+-- HousingDashboard
+local function style_HousingBulletinBoard()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local BulletinBoardFrame = _G.HousingBulletinBoardFrame
+	if BulletinBoardFrame then
+		BulletinBoardFrame:BuiStyle("Outside")
+	end
+end
+S:AddCallbackForAddon("Blizzard_HousingBulletinBoard", "BenikUI_HousingBulletinBoard", style_HousingBulletinBoard)
+
 -- IslandsQueueUI
 local function style_IslandsQueueUI()
 	if E.private.skins.blizzard.islandQueue ~= true or E.private.skins.blizzard.enable ~= true or
