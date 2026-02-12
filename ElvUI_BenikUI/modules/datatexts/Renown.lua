@@ -5,7 +5,7 @@ local strjoin = strjoin
 
 local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
 local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
-local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
+local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagonForCurrentPlayer
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 
