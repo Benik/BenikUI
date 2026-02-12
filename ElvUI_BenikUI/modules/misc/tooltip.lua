@@ -14,7 +14,7 @@ local function StyleTooltip()
 	GameTooltip:BuiStyle('Outside')
 	GameTooltip.style:SetClampedToScreen(true)
 
-	GameTooltipStatusBar:SetFrameLevel(GameTooltip.style:GetFrameLevel() +2)
+	GameTooltipStatusBar:OffsetFrameLevel(2, GameTooltip.style)
 
 	-- FreebTip support
 	if BUI:IsAddOnEnabled('FreebTip') then
@@ -87,7 +87,7 @@ local function StyleBlizzardTooltips()
 
 				local CompareHeader = tt.CompareHeader
 				if CompareHeader then
-					CompareHeader:SetFrameLevel(tt.style:GetFrameLevel()+2)
+					CompareHeader:OffsetFrameLevel(2, tt.style)
 				end
 			end
 		end

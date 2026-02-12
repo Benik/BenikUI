@@ -745,7 +745,7 @@ local function style_HousingCornerstone()
 	local SaleSign = PurchaseFrame.ForSaleSign
 	SaleSign:StripTextures()
 	SaleSign:SetTemplate()
-	SaleSign:SetFrameLevel(PurchaseFrame.backdrop.style:GetFrameLevel() + 2)
+	SaleSign:OffsetFrameLevel(2, PurchaseFrame.backdrop.style)
 
 	local MoveHouseConfirmation = _G.MoveHouseConfirmationDialog
 	if MoveHouseConfirmation then

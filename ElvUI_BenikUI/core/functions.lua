@@ -96,7 +96,7 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 		style.ignoreVisibility = ignoreVisibility
 	end
 
-	style:SetFrameLevel(f:GetFrameLevel() + 2)
+	style:OffsetFrameLevel(2, f)
 
 	local tlx, tly, brx, bry
 

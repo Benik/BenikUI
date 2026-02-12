@@ -34,7 +34,7 @@ local function changeCastbarLevel(unit, unitframe)
 	if not castbar then return end
 
 	castbar:SetFrameStrata("LOW")
-	castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel() + 10)
+	castbar:OffsetFrameLevel(10, unitframe.InfoPanel)
 end
 
 local function resetCastbarLevel(unit, unitframe)

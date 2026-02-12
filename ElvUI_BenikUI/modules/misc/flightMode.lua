@@ -923,7 +923,7 @@ function mod:Initialize()
 	-- Add Shadow at the left chat
 	LeftChatPanel.backdrop:CreateWideShadow()
 	LeftChatPanel.backdrop.wideshadow:Hide()
-	LeftChatPanel.backdrop.wideshadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
+	LeftChatPanel.backdrop.wideshadow:OffsetFrameLevel(-1, LeftChatPanel.backdrop)
 
 	mod:Toggle()
 	mod:ToggleLogo()

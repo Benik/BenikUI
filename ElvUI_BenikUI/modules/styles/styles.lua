@@ -36,7 +36,7 @@ local function StyleElvUIBindPopup()
 	local bind = _G.ElvUIBindPopupWindow
 	if bind then
 		bind:BuiStyle("Outside")
-		bind.header:SetFrameLevel(bind.style:GetFrameLevel() + 1)
+		bind.header:OffsetFrameLevel(1, bind.style)
 	end
 end
 
