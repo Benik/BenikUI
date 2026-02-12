@@ -799,6 +799,18 @@ local function style_HousingHouseSettings()
 end
 S:AddCallbackForAddon("Blizzard_HousingHouseSettings", "BenikUI_HousingHouseSettings", style_HousingHouseSettings)
 
+-- HousingModelPreview
+local function style_HousingModelPreview()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.HousingModelPreviewFrame.backdrop:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_HousingModelPreview", "BenikUI_HousingModelPreview", style_HousingModelPreview)
+
 -- IslandsQueueUI
 local function style_IslandsQueueUI()
 	if E.private.skins.blizzard.islandQueue ~= true or E.private.skins.blizzard.enable ~= true or
