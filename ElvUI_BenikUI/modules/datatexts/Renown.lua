@@ -7,6 +7,7 @@ local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
 local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagonForCurrentPlayer
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
@@ -14,6 +15,7 @@ local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
 local COVENANT_SANCTUM_TAB_RENOWN = COVENANT_SANCTUM_TAB_RENOWN
 local LE_EXPANSION_DRAGONFLIGHT = LE_EXPANSION_DRAGONFLIGHT
 local LE_EXPANSION_WAR_WITHIN = LE_EXPANSION_WAR_WITHIN
+local LE_EXPANSION_MIDNIGHT = LE_EXPANSION_MIDNIGHT
 
 local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
 
@@ -42,7 +44,7 @@ local displayString, lastPanel = ''
 local function OnEvent(self)
 	local factionID = E.private.benikui.datatexts.renown.factionID
 
-	if (GetExpansionDisplayInfo(LE_EXPANSION_DRAGONFLIGHT) or GetExpansionDisplayInfo(LE_EXPANSION_WAR_WITHIN)) then
+	if (GetExpansionDisplayInfo(LE_EXPANSION_DRAGONFLIGHT) or GetExpansionDisplayInfo(LE_EXPANSION_WAR_WITHIN) or GetExpansionDisplayInfo(LE_EXPANSION_MIDNIGHT)) then
 		local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
 		self.text:SetFormattedText(displayString, COVENANT_SANCTUM_TAB_RENOWN, majorFactionData.renownLevel)
 	else
@@ -67,20 +69,19 @@ local function menu_checked(data) return data and data.arg1 == E.private.benikui
 
 local function OnClick(self, btn)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
-	if not (GetExpansionDisplayInfo(LE_EXPANSION_DRAGONFLIGHT) or GetExpansionDisplayInfo(LE_EXPANSION_WAR_WITHIN)) then return end
+	if not (GetExpansionDisplayInfo(LE_EXPANSION_DRAGONFLIGHT) or GetExpansionDisplayInfo(LE_EXPANSION_WAR_WITHIN) or GetExpansionDisplayInfo(LE_EXPANSION_MIDNIGHT)) then return end
 
 	if btn == 'RightButton' then
 		E:SetEasyMenuAnchor(E.EasyMenu, self)
 		E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
 	else
-		if _G.ExpansionLandingPageMinimapButton then
-			_G.ExpansionLandingPageMinimapButton:ToggleLandingPage()
-		end
+		if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end
+		ToggleEncounterJournal()
 	end
 end
 
 local function OnEnter(self)
-	if (GetExpansionDisplayInfo(LE_EXPANSION_DRAGONFLIGHT) or GetExpansionDisplayInfo(LE_EXPANSION_WAR_WITHIN)) then
+	if (GetExpansionDisplayInfo(LE_EXPANSION_DRAGONFLIGHT) or GetExpansionDisplayInfo(LE_EXPANSION_WAR_WITHIN) or GetExpansionDisplayInfo(LE_EXPANSION_MIDNIGHT)) then
 		DT:SetupTooltip(self)
 
 		local activeFaction = E.private.benikui.datatexts.renown.factionID
@@ -109,22 +110,7 @@ local function OnEnter(self)
 				end
 			end
 
-			if (expansionID == expansionFilter) then
-				if factionIsUnlocked then
-					if activeFaction == factionID then
-						DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
-					else
-						DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
-					end
-					DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
-					DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
-					DT.tooltip:AddLine(' ')
-				else
-					DT.tooltip:AddLine(format('|cff999999%s|r', factionName))
-					DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
-					DT.tooltip:AddLine(' ')
-				end
-			elseif expansionFilter == 0 then
+			if (expansionID == expansionFilter) or expansionFilter == 0 then
 				if factionIsUnlocked then
 					if activeFaction == factionID then
 						DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
