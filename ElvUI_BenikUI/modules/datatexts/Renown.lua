@@ -75,8 +75,17 @@ local function OnClick(self, btn)
 		E:SetEasyMenuAnchor(E.EasyMenu, self)
 		E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
 	else
-		if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end
-		ToggleEncounterJournal()
+		if not IsAddOnLoaded('Blizzard_EncounterJournal') then
+			EncounterJournal_LoadUI()
+		end
+
+		if not _G.EncounterJournal:IsShown() then
+			ShowUIPanel(EncounterJournal)
+		end
+
+		local factionID = E.private.benikui.datatexts.renown.factionID
+		EJ_ContentTab_Select(_G.EncounterJournal.JourneysTab:GetID())
+		_G.EncounterJournalJourneysFrame:ResetView(nil, factionID)
 	end
 end
 
