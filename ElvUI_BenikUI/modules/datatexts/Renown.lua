@@ -84,7 +84,6 @@ local function OnClick(self, btn)
 		end
 
 		local factionID = E.private.benikui.datatexts.renown.factionID
-		EJ_ContentTab_Select(_G.EncounterJournal.JourneysTab:GetID())
 		_G.EncounterJournalJourneysFrame:ResetView(nil, factionID)
 	end
 end
