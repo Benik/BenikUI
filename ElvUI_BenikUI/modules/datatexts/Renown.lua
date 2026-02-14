@@ -1,55 +1,101 @@
 local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
-local strjoin = strjoin
+local strjoin, wipe, format, next = strjoin, wipe, format, next
 
 local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
 local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
+local C_MajorFactions_GetMajorFactionIDs = C_MajorFactions.GetMajorFactionIDs
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagonForCurrentPlayer
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
+local C_SeasonInfo_GetCurrentDisplaySeasonExpansion = C_SeasonInfo.GetCurrentDisplaySeasonExpansion
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
+local GetExpansionLevel = GetExpansionLevel
+local InCombatLockdown = InCombatLockdown
+local ShowUIPanel = ShowUIPanel
 
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
-local COVENANT_SANCTUM_TAB_RENOWN = COVENANT_SANCTUM_TAB_RENOWN
+local LANDING_PAGE_RENOWN_LABEL = LANDING_PAGE_RENOWN_LABEL
+local JOURNEYS_RENOWN_LABEL = JOURNEYS_RENOWN_LABEL
+local JOURNEYS_TOOLTIP_VIEW_JOURNEY = JOURNEYS_TOOLTIP_VIEW_JOURNEY
 local LE_EXPANSION_DRAGONFLIGHT = LE_EXPANSION_DRAGONFLIGHT
 local LE_EXPANSION_WAR_WITHIN = LE_EXPANSION_WAR_WITHIN
 local LE_EXPANSION_MIDNIGHT = LE_EXPANSION_MIDNIGHT
 
 local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
 
-local factionIDs = {
-	-- DF
-	2503, -- Maruuk Centaur
-	2507, -- Dragonscale Expedition
-	2510, -- Valdrakken Accord
-	2511, -- Iskaara Tuskarr
-	2564, -- Loamm Niffen
-	2574, -- Dream Wardens
-	-- TWW
-	2590, -- Council of Dornogal
-	2570, -- Hallowfall Arathi
-	2594, -- The Assembly of the Deeps
-	2600, -- The Severed Threads
-	2653, -- The Cartels of Undermine
-	2685, -- Gallagio Loyalty Rewards Club
-	2688, -- Flame's Radiance
-	2658, -- The K'aresh Trust
-	2736, -- Manaforge Vandals
+local factionIDs = {}
+
+local DelvesBlacklist = {
+    [2644] = true,	-- Season 1
+    [2683] = true,	-- Season 2
+	[2722] = true,	-- Season 3
 }
 
 local displayString, lastPanel = ''
+
+local function FilteredRenownFactions(factionID)
+	if factionID then
+		local data = C_MajorFactions_GetMajorFactionData(factionID)
+		if not data then return false end
+
+		-- Get rid of Delves Seasons
+		if DelvesBlacklist[factionID] then
+			return false
+		end
+
+		-- Check for current Expansion Factions
+		local FactionExpansionID = data.expansionID
+		local GameExpansionID = C_SeasonInfo_GetCurrentDisplaySeasonExpansion()
+		if FactionExpansionID ~= GameExpansionID then
+			return false
+		end
+
+		-- Check if a Faction is unlocked
+		if not data.isUnlocked then
+			return false
+		end
+
+		-- Must have renown levels?
+		local renownValue = data.renownLevel
+		if not renownValue or renownValue == 0 then
+			return false
+		end
+
+		return true
+	end
+end
+
+local function UpdateDB()
+	wipe(factionIDs)
+
+	for _, factionID in next, C_MajorFactions_GetMajorFactionIDs() do
+		if FilteredRenownFactions(factionID) then
+			factionIDs[#factionIDs + 1] = factionID
+		end
+	end
+end
+
+local function ExpansionLevel()
+	local currExpID = GetExpansionLevel()
+	local expName = _G["EXPANSION_NAME"..currExpID]
+
+	return expName
+end
 
 local function OnEvent(self)
 	local factionID = E.private.benikui.datatexts.renown.factionID
 
 	if (GetExpansionDisplayInfo(LE_EXPANSION_DRAGONFLIGHT) or GetExpansionDisplayInfo(LE_EXPANSION_WAR_WITHIN) or GetExpansionDisplayInfo(LE_EXPANSION_MIDNIGHT)) then
 		local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
-		self.text:SetFormattedText(displayString, COVENANT_SANCTUM_TAB_RENOWN, majorFactionData.renownLevel)
+		self.text:SetFormattedText(displayString, LANDING_PAGE_RENOWN_LABEL, majorFactionData.renownLevel)
 	else
-		self.text:SetFormattedText(displayString, COVENANT_SANCTUM_TAB_RENOWN, "-")
+		self.text:SetFormattedText(displayString, LANDING_PAGE_RENOWN_LABEL, "-")
 	end
+
+	UpdateDB()
 
 	lastPanel = self
 end
@@ -57,15 +103,19 @@ end
 local function setSelectedFaction(_, ...)
 	local factionID = (...)
 	E.private.benikui.datatexts.renown.factionID = factionID
+
+	DT:CloseMenus()
 	OnEvent(lastPanel)
 end
 
 local menuList = {
-	{text = L["Renown"], isTitle = true, notCheckable = true },
-	{text = nil, func = setSelectedFaction, arg1 = nil, notCheckable = true, disabled = true},
+	{text = (format('%s (%s)', JOURNEYS_RENOWN_LABEL, ExpansionLevel())), isTitle = true, notCheckable = true },
+	{text = nil, func = setSelectedFaction, arg1 = nil, notCheckable = true},
 }
 
-local function menu_checked(data) return data and data.arg1 == E.private.benikui.datatexts.renown.factionID end
+local function menu_checked(data)
+	return data and data.arg1 == E.private.benikui.datatexts.renown.factionID
+end
 
 local function OnClick(self, btn)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
@@ -80,7 +130,7 @@ local function OnClick(self, btn)
 		end
 
 		if not _G.EncounterJournal:IsShown() then
-			ShowUIPanel(EncounterJournal)
+			ShowUIPanel(_G.EncounterJournal)
 		end
 
 		local factionID = E.private.benikui.datatexts.renown.factionID
@@ -93,18 +143,15 @@ local function OnEnter(self)
 		DT:SetupTooltip(self)
 
 		local activeFaction = E.private.benikui.datatexts.renown.factionID
-		local expansionFilter = E.private.benikui.datatexts.renownFilter.expansion
-		
-		for i, factionID in pairs(factionIDs) do
+
+		for i, factionID in next, factionIDs do
 			local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
 			local earned = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
 			local max = majorFactionData.renownLevelThreshold
 			local percent = earned / max * 100
 			local factionName = majorFactionData.name
 			local factionRenownLevel = majorFactionData.renownLevel
-			local factionIsUnlocked = majorFactionData.isUnlocked
 			local isParagon = C_Reputation_IsFactionParagon(factionID)
-			local expansionID = majorFactionData.expansionID
 
 			if isParagon then
 				local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
@@ -118,27 +165,20 @@ local function OnEnter(self)
 				end
 			end
 
-			if (expansionID == expansionFilter) or expansionFilter == 0 then
-				if factionIsUnlocked then
-					if activeFaction == factionID then
-						DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
-					else
-						DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
-					end
-					DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
-					DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
-					DT.tooltip:AddLine(' ')
-				else
-					DT.tooltip:AddLine(format('|cff999999%s|r', factionName))
-					DT.tooltip:AddLine(format('|cffAFAF01%s|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
-					DT.tooltip:AddLine(' ')
-				end
+			if activeFaction == factionID then
+				DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
+			else
+				DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
 			end
-			menuList[i + 1] = {text = factionName,	func = setSelectedFaction, arg1 = factionID, checked = menu_checked, disabled = false}
+			DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
+			DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
+			DT.tooltip:AddLine(' ')
+
+			menuList[i + 1] = {text = (format('%s %s(%s)|r', factionName, BLUE_COLOR_HEX, factionRenownLevel)),	func = setSelectedFaction, arg1 = factionID, checked = menu_checked}
 		end
 
 		DT.tooltip:AddDoubleLine('Right Click:', 'Track Faction', 0.7, 0.7, 1, 0.7, 0.7, 1)
-		DT.tooltip:AddDoubleLine('Left Click:', 'Expansion Landing Page', 0.7, 0.7, 1, 0.7, 0.7, 1)
+		DT.tooltip:AddDoubleLine('Left Click:', JOURNEYS_TOOLTIP_VIEW_JOURNEY, 0.7, 0.7, 1, 0.7, 0.7, 1)
 		DT.tooltip:Show()
 	end
 end
