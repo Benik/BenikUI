@@ -113,3 +113,40 @@ function mod:stylePlugins()
 		end
 	end
 end
+
+function mod:StyleWindTools()
+	if not (BUI.WT and E.db.benikui.skins.elvuiAddons.wt) then return end
+
+	local W = unpack(WindTools)
+
+	-- Minimap Buttons
+	local MB = W:GetModule("MinimapButtons")
+	hooksecurefunc(MB, 'CreateFrames', function(self)
+		self.db = E.private.WT.maps.minimapButtons
+		if not self.db.enable then
+			return
+		end
+		self.bar.backdrop:BuiStyle('Outside')
+	end)
+
+	-- Inspect Frames
+	local I = W:GetModule("Inspect")
+	hooksecurefunc(I, 'CreatePanel', function(self, parent)
+		self.db = E.db.WT.item.inspect
+		if not self.db.enable then
+			return
+		end
+
+		parent.WTInspect:BuiStyle('Outside')
+	end)
+
+	-- Stats Compare
+	hooksecurefunc(I, 'CreateStatsComparePanel', function(self, parent)
+		self.db = E.db.WT.item.inspect
+		if not self.db.enable then
+			return
+		end
+
+		parent.WTInspectStatsCompare:BuiStyle('Outside')
+	end)
+end

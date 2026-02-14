@@ -66,6 +66,7 @@ end
 
 function mod:Initialize()
 	mod:StyleAddons()
+	mod:StyleWindTools()
 	StyleElvUIBindPopup()
 	StyleElvUIPopups()
 

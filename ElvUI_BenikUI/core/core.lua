@@ -40,6 +40,7 @@ end
 BUI.SLE = BUI:IsAddOnEnabled('ElvUI_SLE')
 BUI.MER = BUI:IsAddOnEnabled('ElvUI_MerathilisUI')
 BUI.ELT = BUI:IsAddOnEnabled('ElvUI_EltreumUI')
+BUI.WT = BUI:IsAddOnEnabled('ElvUI_WindTools')
 BUI.PA = BUI:IsAddOnEnabled('ProjectAzilroka')
 BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')

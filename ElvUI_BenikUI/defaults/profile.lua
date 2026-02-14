@@ -210,7 +210,7 @@ P['benikui'] = {
 		['elvuiAddons'] = {
 			['locplus'] = true,
 			['sle'] = true,
-			['enh'] = true,
+			['wt'] = true,
 			['pa'] = true,
 			['mer'] = true,
 			['elv'] = true,
@@ -243,7 +243,6 @@ P['benikui'] = {
 			['inflight'] = true,
 			['kt'] = true,
 			['rt'] = true,
-			['wa'] = true,
 			['tomtom'] = true,
 		},
 	},
