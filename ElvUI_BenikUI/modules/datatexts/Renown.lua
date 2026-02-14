@@ -36,6 +36,14 @@ local DelvesBlacklist = {
 
 local displayString, lastPanel = ''
 
+local ExpansionName = ""
+do
+	local currExpID = GetExpansionLevel()
+	local expName = _G["EXPANSION_NAME"..currExpID]
+
+	ExpansionName = expName
+end
+
 local function FilteredRenownFactions(factionID)
 	if factionID then
 		local data = C_MajorFactions_GetMajorFactionData(factionID)
@@ -78,13 +86,6 @@ local function UpdateDB()
 	end
 end
 
-local function ExpansionLevel()
-	local currExpID = GetExpansionLevel()
-	local expName = _G["EXPANSION_NAME"..currExpID]
-
-	return expName
-end
-
 local function OnEvent(self)
 	local factionID = E.private.benikui.datatexts.renown.factionID
 
@@ -109,7 +110,7 @@ local function setSelectedFaction(_, ...)
 end
 
 local menuList = {
-	{text = (format('%s (%s)', JOURNEYS_RENOWN_LABEL, ExpansionLevel())), isTitle = true, notCheckable = true },
+	{text = (format('%s (%s)', JOURNEYS_RENOWN_LABEL, ExpansionName)), isTitle = true, notCheckable = true },
 	{text = nil, func = setSelectedFaction, arg1 = nil, notCheckable = true},
 }
 
