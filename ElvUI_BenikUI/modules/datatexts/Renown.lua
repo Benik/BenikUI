@@ -10,7 +10,6 @@ local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagonForCurrentPla
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local C_SeasonInfo_GetCurrentDisplaySeasonExpansion = C_SeasonInfo.GetCurrentDisplaySeasonExpansion
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
-local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 local GetExpansionLevel = GetExpansionLevel
 local InCombatLockdown = InCombatLockdown
 local ShowUIPanel = ShowUIPanel
@@ -39,8 +38,8 @@ local function IsExpansionAvailable()
 	return GetExpansionLevel() >= LE_EXPANSION_DRAGONFLIGHT
 end
 
-local function FilteredRenownFactions(factionID)
-	if not factionID then return end
+local function FilteredRenownFactions(factionID, currentExpansionID)
+	if not factionID then return false end
 
 	local data = C_MajorFactions_GetMajorFactionData(factionID)
 	if not data then return false end
@@ -51,9 +50,7 @@ local function FilteredRenownFactions(factionID)
 	end
 
 	-- Check for current Expansion Factions
-	local FactionExpansionID = data.expansionID
-	local GameExpansionID = C_SeasonInfo_GetCurrentDisplaySeasonExpansion()
-	if FactionExpansionID ~= GameExpansionID then
+	if data.expansionID ~= currentExpansionID then
 		return false
 	end
 
@@ -74,8 +71,9 @@ end
 local function UpdateDB()
 	wipe(factionIDs)
 
+	local currentExpansionID = C_SeasonInfo_GetCurrentDisplaySeasonExpansion()
 	for _, factionID in next, C_MajorFactions_GetMajorFactionIDs() do
-		if FilteredRenownFactions(factionID) then
+		if FilteredRenownFactions(factionID, currentExpansionID) then
 			factionIDs[#factionIDs + 1] = factionID
 		end
 	end
@@ -149,35 +147,39 @@ local function OnEnter(self)
 
 	for i, factionID in next, factionIDs do
 		local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
-		local earned = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
-		local max = majorFactionData.renownLevelThreshold
-		local percent = earned / max * 100
-		local factionName = majorFactionData.name
-		local factionRenownLevel = majorFactionData.renownLevel
-		local isParagon = C_Reputation_IsFactionParagon(factionID)
+		if majorFactionData then
+			local isMaxRenown = C_MajorFactions_HasMaximumRenown(factionID)
+			local earned = isMaxRenown and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+			local max = majorFactionData.renownLevelThreshold
+			local factionName = majorFactionData.name
+			local factionRenownLevel = majorFactionData.renownLevel
+			local isParagon = C_Reputation_IsFactionParagon(factionID)
 
-		if isParagon then
-			local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
-			if currentValue and threshold then
-				max = threshold
-				earned = currentValue % threshold
-				if hasRewardPending then
-					earned = earned + threshold
+			if isParagon then
+				local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
+				if currentValue and threshold and threshold > 0 then
+					max = threshold
+					earned = currentValue % threshold
+					if hasRewardPending then
+						earned = earned + threshold
+					end
 				end
-				percent = earned / max * 100
 			end
-		end
 
-		if activeFaction == factionID then
-			DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
-		else
-			DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
-		end
-		DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
-		DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
-		DT.tooltip:AddLine(' ')
+			local percent = (max and max > 0) and (earned / max * 100) or 0
 
-		menuList[i + 1] = {text = (format('%s %s(%s)|r', factionName, BLUE_COLOR_HEX, factionRenownLevel)),	func = setSelectedFaction, arg1 = factionID, checked = menu_checked}
+			if activeFaction == factionID then
+				DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
+			else
+				DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
+			end
+
+			DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
+			DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
+			DT.tooltip:AddLine(' ')
+
+			menuList[i + 1] = {text = (format('%s %s(%s)|r', factionName, BLUE_COLOR_HEX, factionRenownLevel)),	func = setSelectedFaction, arg1 = factionID, checked = menu_checked}
+		end
 	end
 
 	DT.tooltip:AddDoubleLine('Right Click:', 'Track Faction', 0.7, 0.7, 1, 0.7, 0.7, 1)
