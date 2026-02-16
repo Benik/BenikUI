@@ -35,14 +35,7 @@ local DelvesBlacklist = {
 }
 
 local displayString, lastPanel = ''
-
-local ExpansionName = ""
-do
-	local currExpID = GetExpansionLevel()
-	local expName = _G["EXPANSION_NAME"..currExpID]
-
-	ExpansionName = expName
-end
+local expansionName = _G["EXPANSION_NAME" .. GetExpansionLevel()] or ""
 
 local function FilteredRenownFactions(factionID)
 	if factionID then
@@ -110,7 +103,7 @@ local function setSelectedFaction(_, ...)
 end
 
 local menuList = {
-	{text = (format('%s (%s)', JOURNEYS_RENOWN_LABEL, ExpansionName)), isTitle = true, notCheckable = true },
+	{text = (format('%s (%s)', JOURNEYS_RENOWN_LABEL, expansionName)), isTitle = true, notCheckable = true },
 	{text = nil, func = setSelectedFaction, arg1 = nil, notCheckable = true},
 }
 
