@@ -114,6 +114,7 @@ end
 
 local function OnClick(self, btn)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
+
 	if not IsExpansionAvailable() then return end
 
 	if btn == 'RightButton' then
@@ -124,12 +125,18 @@ local function OnClick(self, btn)
 			EncounterJournal_LoadUI()
 		end
 
-		if not _G.EncounterJournal:IsShown() then
-			ShowUIPanel(_G.EncounterJournal)
-		end
+		local ej = _G.EncounterJournal
+		if ej then
+			if not ej:IsShown() then
+				ShowUIPanel(ej)
+			end
 
-		local factionID = E.private.benikui.datatexts.renown.factionID
-		_G.EncounterJournalJourneysFrame:ResetView(nil, factionID)
+			local journeys = _G.EncounterJournalJourneysFrame
+			if journeys then
+				local factionID = E.private.benikui.datatexts.renown.factionID
+				journeys:ResetView(nil, factionID)
+			end
+		end
 	end
 end
 
