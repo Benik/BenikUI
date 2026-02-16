@@ -106,7 +106,6 @@ end
 
 local menuList = {
 	{text = (format('%s (%s)', JOURNEYS_RENOWN_LABEL, expansionName)), isTitle = true, notCheckable = true },
-	{text = nil, func = setSelectedFaction, arg1 = nil, notCheckable = true},
 }
 
 local function menu_checked(data)
