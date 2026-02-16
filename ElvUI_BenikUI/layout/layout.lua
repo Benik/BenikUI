@@ -23,7 +23,7 @@ local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 -- GLOBALS: BuiMiddleDTPanel, BuiRightChatDTPanel, BuiGameClickMenu
 -- GLOBALS: EncounterJournal_LoadUI, EncounterJournal
 -- GLOBALS: MinimapPanel, Minimap
--- GLOBALS: LeftChatPanel, RightChatPanel, CopyChatFrame
+-- GLOBALS: LeftChatPanel, RightChatPanel
 
 local PANEL_HEIGHT = 19;
 local SPACING = (E.PixelMode and 1 or 3)
@@ -433,7 +433,7 @@ function mod:CreateLayout()
 		mod:ResizeMinimapPanels()
 	end
 
-	if CopyChatFrame then CopyChatFrame:BuiStyle('Outside') end
+	if _G.ElvUI_CopyChatFrame then _G.ElvUI_CopyChatFrame:BuiStyle('Outside') end
 
 	self:ToggleTransparency()
 end
