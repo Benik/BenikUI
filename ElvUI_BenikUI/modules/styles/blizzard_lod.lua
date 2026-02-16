@@ -75,7 +75,7 @@ local function style_ArtifactUI()
 	local frame = _G.ArtifactFrame
 	frame:BuiStyle("Outside")
 	frame.CloseButton:ClearAllPoints()
-	frame.CloseButton:Point("TOPRIGHT", ArtifactFrame, "TOPRIGHT", 2, 2)
+	frame.CloseButton:Point("TOPRIGHT", frame, "TOPRIGHT", 2, 2)
 end
 S:AddCallbackForAddon("Blizzard_ArtifactUI", "BenikUI_ArtifactUI", style_ArtifactUI)
 
@@ -314,7 +314,7 @@ local function style_Contribution()
 	if E.private.skins.blizzard.tooltip ~= true then
 		return
 	end
-	ContributionBuffTooltip:BuiStyle("Outside")
+	_G.ContributionBuffTooltip:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Contribution", "BenikUI_Contribution", style_Contribution)
 
@@ -460,11 +460,13 @@ local function style_ExpansionLandingPage()
 	then
 		return
 	end
-	if _G.ExpansionLandingPage.Overlay.WarWithinLandingOverlay then
-		_G.ExpansionLandingPage.Overlay.WarWithinLandingOverlay:BuiStyle("Outside")
+
+	local frame = _G.ExpansionLandingPage
+	if frame.Overlay.WarWithinLandingOverlay then
+		frame.Overlay.WarWithinLandingOverlay:BuiStyle("Outside")
 	end
-	if _G.ExpansionLandingPage.Overlay.DragonflightLandingOverlay then
-		_G.ExpansionLandingPage.Overlay.DragonflightLandingOverlay:BuiStyle("Outside")
+	if frame.Overlay.DragonflightLandingOverlay then
+		frame.Overlay.DragonflightLandingOverlay:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_ExpansionLandingPage", "BenikUI_ExpansionLandingPage", style_ExpansionLandingPage)
@@ -512,8 +514,11 @@ local function style_GarrisonUI()
 	CovenantMissionFrame.BotRightCorner:Hide()
 	CovenantMissionFrame.BotLeftCorner:Hide()
 
-	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
-	GarrisonCapacitiveDisplayFrame.IncrementButton:Point("LEFT", GarrisonCapacitiveDisplayFrame.Count, "RIGHT", 4, 0)
+	local capacitiveDisplay = _G.GarrisonCapacitiveDisplayFrame
+	capacitiveDisplay:BuiStyle("Outside")
+	capacitiveDisplay.IncrementButton:ClearAllPoints()
+	capacitiveDisplay.IncrementButton:Point("LEFT", capacitiveDisplay.Count, "RIGHT", 4, 0)
+
 	if E.private.skins.blizzard.tooltip then
 		_G.GarrisonFollowerAbilityWithoutCountersTooltip:BuiStyle("Outside")
 		_G.GarrisonFollowerMissionAbilityWithoutCountersTooltip:BuiStyle("Outside")
@@ -522,95 +527,102 @@ local function style_GarrisonUI()
 	_G.GarrisonMissionFrame:BuiStyle("Outside")
 	_G.GarrisonLandingPage:BuiStyle("Outside")
 	_G.GarrisonBuildingFrame:BuiStyle("Outside")
-	_G.GarrisonCapacitiveDisplayFrame:BuiStyle("Outside")
 
 	-- ShipYard
 	_G.GarrisonShipyardFrame:BuiStyle("Outside")
+
 	-- Tooltips
 	if E.private.skins.blizzard.tooltip then
 		_G.GarrisonShipyardMapMissionTooltip:BuiStyle("Outside")
-		_G.GarrisonBonusAreaTooltip:StripTextures()
-		_G.GarrisonBonusAreaTooltip:CreateBackdrop("Transparent")
-		_G.GarrisonBonusAreaTooltip:BuiStyle("Outside")
-		_G.GarrisonMissionMechanicFollowerCounterTooltip:BuiStyle("Outside")
+
+		local bonusAreaTT = _G.GarrisonBonusAreaTooltip
+		bonusAreaTT:StripTextures()
+		bonusAreaTT:CreateBackdrop("Transparent")
+		bonusAreaTT:BuiStyle("Outside")
+
 		_G.GarrisonMissionMechanicTooltip:BuiStyle("Outside")
 		_G.FloatingGarrisonShipyardFollowerTooltip:BuiStyle("Outside")
 		_G.GarrisonShipyardFollowerTooltip:BuiStyle("Outside")
 		_G.GarrisonBuildingFrame.BuildingLevelTooltip:BuiStyle("Outside")
 		_G.GarrisonFollowerAbilityTooltip:BuiStyle("Outside")
-		_G.GarrisonMissionMechanicTooltip:StripTextures()
-		_G.GarrisonMissionMechanicTooltip:CreateBackdrop("Transparent")
-		_G.GarrisonMissionMechanicTooltip:BuiStyle("Outside")
-		_G.GarrisonMissionMechanicFollowerCounterTooltip:StripTextures()
-		_G.GarrisonMissionMechanicFollowerCounterTooltip:CreateBackdrop("Transparent")
-		_G.GarrisonMissionMechanicFollowerCounterTooltip:BuiStyle("Outside")
+
+		local missionMechanicTT = _G.GarrisonMissionMechanicTooltip
+		missionMechanicTT:StripTextures()
+		missionMechanicTT:CreateBackdrop("Transparent")
+		missionMechanicTT:BuiStyle("Outside")
+
+		local missionMechFollowerTT = _G.GarrisonMissionMechanicFollowerCounterTooltip
+		missionMechFollowerTT:StripTextures()
+		missionMechFollowerTT:CreateBackdrop("Transparent")
+		missionMechFollowerTT:BuiStyle("Outside")
+
 		_G.FloatingGarrisonFollowerTooltip:BuiStyle("Outside")
 		_G.GarrisonFollowerTooltip:BuiStyle("Outside")
 	end
 
 	-- Garrison Monument
-	local GMonument = _G.GarrisonMonumentFrame
-	GMonument:StripTextures()
-	GMonument:CreateBackdrop("Transparent")
-	GMonument.backdrop:BuiStyle("Outside")
-	GMonument:ClearAllPoints()
-	GMonument:Point("CENTER", E.UIParent, "CENTER", 0, -200)
-	GMonument:Height(70)
-	GMonument.RightBtn:Size(25, 25)
-	GMonument.LeftBtn:Size(25, 25)
+	local gMonument = _G.GarrisonMonumentFrame
+	gMonument:StripTextures()
+	gMonument:CreateBackdrop("Transparent")
+	gMonument.backdrop:BuiStyle("Outside")
+	gMonument:ClearAllPoints()
+	gMonument:Point("CENTER", E.UIParent, "CENTER", 0, -200)
+	gMonument:Height(70)
+	gMonument.RightBtn:Size(25, 25)
+	gMonument.LeftBtn:Size(25, 25)
 
 	-- Follower recruiting (available at the Inn)
-	_G.GarrisonRecruiterFrame:BuiStyle("Outside")
-	local rBtn = _G.GarrisonRecruiterFrame.Pick.ChooseRecruits
+	local recruiterFrame = _G.GarrisonRecruiterFrame
+	recruiterFrame:BuiStyle("Outside")
+	local rBtn = recruiterFrame.Pick.ChooseRecruits
 	rBtn:ClearAllPoints()
-	rBtn:Point("BOTTOM", _G.GarrisonRecruiterFrame, "BOTTOM", 0, 30)
+	rBtn:Point("BOTTOM", recruiterFrame, "BOTTOM", 0, 30)
 	S:HandleButton(rBtn)
 
-	local GRecruitSelect = _G.GarrisonRecruitSelectFrame
-	GRecruitSelect:StripTextures()
-	GRecruitSelect:CreateBackdrop("Transparent")
-	GRecruitSelect:BuiStyle("Outside")
-	S:HandleCloseButton(GRecruitSelect.CloseButton)
-	S:HandleEditBox(GRecruitSelect.FollowerList.SearchBox)
+	local recruitSelect = _G.GarrisonRecruitSelectFrame
+	recruitSelect:StripTextures()
+	recruitSelect:CreateBackdrop("Transparent")
+	recruitSelect:BuiStyle("Outside")
+	S:HandleCloseButton(recruitSelect.CloseButton)
+	S:HandleEditBox(recruitSelect.FollowerList.SearchBox)
 
-	GRecruitSelect.FollowerList:StripTextures()
-	--S:HandleScrollBar(_G.GarrisonRecruitSelectFrameListScrollFrameScrollBar)
-	GRecruitSelect.FollowerSelection:StripTextures()
+	recruitSelect.FollowerList:StripTextures()
+	recruitSelect.FollowerSelection:StripTextures()
 
-	GRecruitSelect.FollowerSelection.Recruit1:CreateBackdrop()
-	GRecruitSelect.FollowerSelection.Recruit1:ClearAllPoints()
-	GRecruitSelect.FollowerSelection.Recruit1:Point("LEFT", GRecruitSelect.FollowerSelection, "LEFT", 6, 0)
-	GRecruitSelect.FollowerSelection.Recruit2:CreateBackdrop()
-	GRecruitSelect.FollowerSelection.Recruit2:ClearAllPoints()
-	GRecruitSelect.FollowerSelection.Recruit2:Point("LEFT", GRecruitSelect.FollowerSelection.Recruit1, "RIGHT", 6, 0)
-	GRecruitSelect.FollowerSelection.Recruit3:CreateBackdrop()
-	GRecruitSelect.FollowerSelection.Recruit3:ClearAllPoints()
-	GRecruitSelect.FollowerSelection.Recruit3:Point("LEFT", GRecruitSelect.FollowerSelection.Recruit2, "RIGHT", 6, 0)
+	recruitSelect.FollowerSelection.Recruit1:CreateBackdrop()
+	recruitSelect.FollowerSelection.Recruit1:ClearAllPoints()
+	recruitSelect.FollowerSelection.Recruit1:Point("LEFT", recruitSelect.FollowerSelection, "LEFT", 6, 0)
+	recruitSelect.FollowerSelection.Recruit2:CreateBackdrop()
+	recruitSelect.FollowerSelection.Recruit2:ClearAllPoints()
+	recruitSelect.FollowerSelection.Recruit2:Point("LEFT", recruitSelect.FollowerSelection.Recruit1, "RIGHT", 6, 0)
+	recruitSelect.FollowerSelection.Recruit3:CreateBackdrop()
+	recruitSelect.FollowerSelection.Recruit3:ClearAllPoints()
+	recruitSelect.FollowerSelection.Recruit3:Point("LEFT", recruitSelect.FollowerSelection.Recruit2, "RIGHT", 6, 0)
 
 	for i = 1, 3 do
 		fRecruits[i] = CreateFrame("Frame", nil, E.UIParent)
 		fRecruits[i]:SetTemplate("Default", true)
 		fRecruits[i]:Size(190, 60)
 		if i == 1 then
-			fRecruits[i]:SetParent(GRecruitSelect.FollowerSelection.Recruit1)
-			fRecruits[i]:Point("TOP", GRecruitSelect.FollowerSelection.Recruit1, "TOP")
-			fRecruits[i]:SetFrameLevel(GRecruitSelect.FollowerSelection.Recruit1:GetFrameLevel())
-			GRecruitSelect.FollowerSelection.Recruit1.Class:Size(60, 58)
+			fRecruits[i]:SetParent(recruitSelect.FollowerSelection.Recruit1)
+			fRecruits[i]:Point("TOP", recruitSelect.FollowerSelection.Recruit1, "TOP")
+			fRecruits[i]:SetFrameLevel(recruitSelect.FollowerSelection.Recruit1:GetFrameLevel())
+			recruitSelect.FollowerSelection.Recruit1.Class:Size(60, 58)
 		elseif i == 2 then
-			fRecruits[i]:SetParent(GRecruitSelect.FollowerSelection.Recruit2)
-			fRecruits[i]:Point("TOP", GRecruitSelect.FollowerSelection.Recruit2, "TOP")
-			fRecruits[i]:SetFrameLevel(GRecruitSelect.FollowerSelection.Recruit2:GetFrameLevel())
-			GRecruitSelect.FollowerSelection.Recruit2.Class:Size(60, 58)
+			fRecruits[i]:SetParent(recruitSelect.FollowerSelection.Recruit2)
+			fRecruits[i]:Point("TOP", recruitSelect.FollowerSelection.Recruit2, "TOP")
+			fRecruits[i]:SetFrameLevel(recruitSelect.FollowerSelection.Recruit2:GetFrameLevel())
+			recruitSelect.FollowerSelection.Recruit2.Class:Size(60, 58)
 		elseif i == 3 then
-			fRecruits[i]:SetParent(GRecruitSelect.FollowerSelection.Recruit3)
-			fRecruits[i]:Point("TOP", GRecruitSelect.FollowerSelection.Recruit3, "TOP")
-			fRecruits[i]:SetFrameLevel(GRecruitSelect.FollowerSelection.Recruit3:GetFrameLevel())
-			GRecruitSelect.FollowerSelection.Recruit3.Class:Size(60, 58)
+			fRecruits[i]:SetParent(recruitSelect.FollowerSelection.Recruit3)
+			fRecruits[i]:Point("TOP", recruitSelect.FollowerSelection.Recruit3, "TOP")
+			fRecruits[i]:SetFrameLevel(recruitSelect.FollowerSelection.Recruit3:GetFrameLevel())
+			recruitSelect.FollowerSelection.Recruit3.Class:Size(60, 58)
 		end
 	end
-	S:HandleButton(GRecruitSelect.FollowerSelection.Recruit1.HireRecruits)
-	S:HandleButton(GRecruitSelect.FollowerSelection.Recruit2.HireRecruits)
-	S:HandleButton(GRecruitSelect.FollowerSelection.Recruit3.HireRecruits)
+	S:HandleButton(recruitSelect.FollowerSelection.Recruit1.HireRecruits)
+	S:HandleButton(recruitSelect.FollowerSelection.Recruit2.HireRecruits)
+	S:HandleButton(recruitSelect.FollowerSelection.Recruit3.HireRecruits)
 end
 S:AddCallbackForAddon("Blizzard_GarrisonUI", "BenikUI_GarrisonUI", style_GarrisonUI)
 
@@ -691,11 +703,11 @@ local function style_HousingDashboard()
 		return
 	end
 
-	local DashBoardFrame = _G.HousingDashboardFrame
-	DashBoardFrame:BuiStyle("Outside")
+	local dashBoardFrame = _G.HousingDashboardFrame
+	dashBoardFrame:BuiStyle("Outside")
 
 	if BUI.ShadowMode then
-		for i, tab in next, { DashBoardFrame.HouseInfoTabButton, DashBoardFrame.CatalogTabButton } do
+		for i, tab in next, { dashBoardFrame.HouseInfoTabButton, dashBoardFrame.CatalogTabButton } do
 			if tab then
 				tab.backdrop:CreateSoftShadow()
 			end
@@ -712,9 +724,9 @@ local function style_HousingBulletinBoard()
 		return
 	end
 
-	local BulletinBoardFrame = _G.HousingBulletinBoardFrame
-	if BulletinBoardFrame then
-		BulletinBoardFrame:BuiStyle("Outside")
+	local bulletinBoardFrame = _G.HousingBulletinBoardFrame
+	if bulletinBoardFrame then
+		bulletinBoardFrame:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_HousingBulletinBoard", "BenikUI_HousingBulletinBoard", style_HousingBulletinBoard)
@@ -727,29 +739,29 @@ local function style_HousingCornerstone()
 		return
 	end
 
-	local CornerVisitorFrame = _G.HousingCornerstoneVisitorFrame
-	if CornerVisitorFrame then
-		CornerVisitorFrame.backdrop:BuiStyle("Outside")
+	local cornerVisitorFrame = _G.HousingCornerstoneVisitorFrame
+	if cornerVisitorFrame then
+		cornerVisitorFrame.backdrop:BuiStyle("Outside")
 	end
 
-	local CornerInfoFrame = _G.HousingCornerstoneHouseInfoFrame
-	if CornerInfoFrame then
-		CornerInfoFrame.backdrop:BuiStyle("Outside")
+	local cornerInfoFrame = _G.HousingCornerstoneHouseInfoFrame
+	if cornerInfoFrame then
+		cornerInfoFrame.backdrop:BuiStyle("Outside")
 	end
 
-	local PurchaseFrame = _G.HousingCornerstonePurchaseFrame
-	if PurchaseFrame then
-		PurchaseFrame.backdrop:BuiStyle("Outside")
+	local purchaseFrame = _G.HousingCornerstonePurchaseFrame
+	if purchaseFrame then
+		purchaseFrame.backdrop:BuiStyle("Outside")
 	end
 
-	local SaleSign = PurchaseFrame.ForSaleSign
-	SaleSign:StripTextures()
-	SaleSign:SetTemplate()
-	SaleSign:OffsetFrameLevel(2, PurchaseFrame.backdrop.style)
+	local saleSign = purchaseFrame.ForSaleSign
+	saleSign:StripTextures()
+	saleSign:SetTemplate()
+	saleSign:OffsetFrameLevel(2, purchaseFrame.backdrop.style)
 
-	local MoveHouseConfirmation = _G.MoveHouseConfirmationDialog
-	if MoveHouseConfirmation then
-		MoveHouseConfirmation.backdrop:BuiStyle("Outside")
+	local moveHouseConfirmation = _G.MoveHouseConfirmationDialog
+	if moveHouseConfirmation then
+		moveHouseConfirmation.backdrop:BuiStyle("Outside")
 	end
 end
 S:AddCallbackForAddon("Blizzard_HousingCornerstone", "BenikUI_HousingCornerstone", style_HousingCornerstone)
@@ -762,14 +774,14 @@ local function style_HouseEditor()
 		return
 	end
 
-	local EditorFrame = _G.HouseEditorFrame
-	EditorFrame.ExteriorCustomizationModeFrame.FixtureOptionList:BuiStyle("Outside")
-	local StoragePanel = EditorFrame.StoragePanel
-	StoragePanel:BuiStyle("Outside")
+	local editorFrame = _G.HouseEditorFrame
+	editorFrame.ExteriorCustomizationModeFrame.FixtureOptionList:BuiStyle("Outside")
+	local storagePanel = editorFrame.StoragePanel
+	storagePanel:BuiStyle("Outside")
 
 	if BUI.ShadowMode then
-		StoragePanel.CollapseButton:CreateSoftShadow()
-		EditorFrame.StorageButton:CreateSoftShadow()
+		storagePanel.CollapseButton:CreateSoftShadow()
+		editorFrame.StorageButton:CreateSoftShadow()
 	end
 end
 S:AddCallbackForAddon("Blizzard_HouseEditor", "BenikUI_HouseEditor", style_HouseEditor)
@@ -883,7 +895,7 @@ local function style_LookingForGuildUI()
 end
 
 local function LoadGuildUIStyle()
-	if LookingForGuildFrame then
+	if _G.LookingForGuildFrame then
 		--Frame already created
 		style_LookingForGuildUI()
 	else
@@ -984,10 +996,12 @@ local function style_PerksProgramm()
 			productsFrame.PerksProgramCurrencyFrame.Icon.backdrop:CreateSoftShadow()
 		end
 
-		_G.PerksProgramTooltip:BuiStyle("Outside")
-
 		local productsContainer = productsFrame.ProductsScrollBoxContainer
 		productsContainer:BuiStyle("Outside")
+
+		if E.private.skins.blizzard.tooltip then
+			_G.PerksProgramTooltip:BuiStyle("Outside")
+		end
 	end
 
 	if not BUI.ShadowMode then return end
@@ -1036,13 +1050,13 @@ local function style_Professions()
 		return
 	end
 
-	local ProfessionsFrame = _G.ProfessionsFrame
-	local InspectRecipeFrame = _G.InspectRecipeFrame
-	ProfessionsFrame:BuiStyle("Outside")
-	ProfessionsFrame.CraftingPage.CraftingOutputLog:BuiStyle("Outside")
-	ProfessionsFrame.OrdersPage.OrderView.CraftingOutputLog:BuiStyle("Outside")
-	ProfessionsFrame.CraftingPage.SchematicForm.QualityDialog:BuiStyle("Outside")
-	InspectRecipeFrame:BuiStyle("Outside")
+	local professionsFrame = _G.ProfessionsFrame
+	local inspectRecipeFrame = _G.InspectRecipeFrame
+	professionsFrame:BuiStyle("Outside")
+	professionsFrame.CraftingPage.CraftingOutputLog:BuiStyle("Outside")
+	professionsFrame.OrdersPage.OrderView.CraftingOutputLog:BuiStyle("Outside")
+	professionsFrame.CraftingPage.SchematicForm.QualityDialog:BuiStyle("Outside")
+	inspectRecipeFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
 
@@ -1066,8 +1080,7 @@ local function style_ProfessionsCustomerOrders()
 		return
 	end
 
-	local ProfessionsCustomerOrdersFrame = _G.ProfessionsCustomerOrdersFrame
-	ProfessionsCustomerOrdersFrame:BuiStyle("Outside")
+	_G.ProfessionsCustomerOrdersFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_ProfessionsCustomerOrders", "BenikUI_ProfessionsCustomerOrders", style_ProfessionsCustomerOrders)
 
@@ -1080,7 +1093,9 @@ local function style_PVPUI()
 		return
 	end
 
-	_G.ConquestTooltip:BuiStyle("Outside")
+	if E.private.skins.blizzard.tooltip then
+		_G.ConquestTooltip:BuiStyle("Outside")
+	end
 end
 S:AddCallbackForAddon("Blizzard_PVPUI", "BenikUI_PVPUI", style_PVPUI)
 
@@ -1129,10 +1144,10 @@ local function style_PlayerSpells()
 		return
 	end
 
-	local PlayerSpellsFrame = _G.PlayerSpellsFrame
-	PlayerSpellsFrame:BuiStyle("Outside")
+	local playerSpells = _G.PlayerSpellsFrame
+	playerSpells:BuiStyle("Outside")
 
-	local TalentsFrame = PlayerSpellsFrame.TalentsFrame
+	local TalentsFrame = playerSpells.TalentsFrame
 	TalentsFrame.PvPTalentList.backdrop:BuiStyle("Outside")
 
 	_G.ClassTalentLoadoutImportDialog:BuiStyle("Outside")
@@ -1225,7 +1240,6 @@ local function style_WeeklyRewards()
 		return
 	end
 
-	local frame = _G.WeeklyRewardsFrame
-	frame:BuiStyle("Outside")
+	_G.WeeklyRewardsFrame:BuiStyle("Outside")
 end
 S:AddCallbackForAddon("Blizzard_WeeklyRewards", "BenikUI_WeeklyRewards", style_WeeklyRewards)

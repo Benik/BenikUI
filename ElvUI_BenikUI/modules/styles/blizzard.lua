@@ -3,9 +3,9 @@ local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 
 local _G = _G
-local pairs = pairs
+local next = next
+local hooksecurefunc = hooksecurefunc
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
-
 
 local function LoadSkin()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -93,6 +93,7 @@ local function LoadSkin()
 			end
 			button.isSkinned = true
 		end
+
 		forceTabFont(_G.LFGListFrame.ApplicationViewer.NameColumnHeader)
 		forceTabFont(_G.LFGListFrame.ApplicationViewer.RoleColumnHeader)
 		forceTabFont(_G.LFGListFrame.ApplicationViewer.ItemLevelColumnHeader)
@@ -103,7 +104,10 @@ local function LoadSkin()
 		_G.MasterLooterFrame:BuiStyle("Outside")
 		_G.BonusRollFrame:BuiStyle("Outside")
 		_G.GroupLootHistoryFrame:BuiStyle("Outside")
-		_G.GroupLootHistoryFrame.ResizeButton:CreateSoftShadow()
+
+		if BUI.ShadowMode then
+			_G.GroupLootHistoryFrame.ResizeButton:CreateSoftShadow()
+		end
 	end
 
 	if db.mail then
@@ -125,14 +129,13 @@ local function LoadSkin()
 			_G.VoiceMacroMenu,
 		}
 
-		for _, menu in pairs(ChatMenus) do
+		for _, menu in next, ChatMenus do
 			if menu then
 				menu:BuiStyle('Outside')
 			end
 		end
 
 		_G.BNToastFrame:BuiStyle("Outside")
-		--_G.CinematicFrameCloseDialog:BuiStyle("Outside")
 		_G.GameMenuFrame:BuiStyle("Outside")
 		_G.GhostFrame:BuiStyle("Outside")
 		_G.LFDRoleCheckPopup:BuiStyle("Outside")
@@ -173,12 +176,16 @@ local function LoadSkin()
 	if db.quest then
 		_G.QuestFrame:BuiStyle("Outside")
 		_G.QuestLogPopupDetailFrame:BuiStyle("Outside")
-		_G.QuestModelScene.backdrop:BuiStyle("Outside")
 
-		_G.QuestModelScene.ModelTextFrame:ClearAllPoints()
-		_G.QuestModelScene.ModelTextFrame:Point("TOP", _G.QuestModelScene.backdrop, "BOTTOM", 0, -4)
-		_G.QuestModelScene.ModelTextFrame.backdrop:CreateSoftShadow()
-		_G.QuestModelScene.ModelTextFrame.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
+		local questModelScene = _G.QuestModelScene
+		questModelScene.backdrop:BuiStyle("Outside")
+		questModelScene.ModelTextFrame:ClearAllPoints()
+		questModelScene.ModelTextFrame:Point("TOP", questModelScene.backdrop, "BOTTOM", 0, -4)
+
+		if BUI.ShadowMode then
+			questModelScene.ModelTextFrame.backdrop:CreateSoftShadow()
+			questModelScene.ModelTextFrame.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
+		end
 	end
 
 	if db.stable then
@@ -190,12 +197,12 @@ local function LoadSkin()
 	end
 
 	if db.talkinghead then
-		local TalkingHeadFrame = _G.TalkingHeadFrame
+		local talkingHeadFrame = _G.TalkingHeadFrame
 
 		if E.db.general.talkingHeadFrameBackdrop then
-			TalkingHeadFrame:BuiStyle("Outside")
+			talkingHeadFrame:BuiStyle("Outside")
 		else
-			TalkingHeadFrame.MainFrame.Model.backdrop:BuiStyle("Outside")
+			talkingHeadFrame.MainFrame.Model.backdrop:BuiStyle("Outside")
 		end
 	end
 
@@ -208,16 +215,19 @@ local function LoadSkin()
 	end
 
 	if db.worldmap then
-		local QuestMapFrame = _G.QuestMapFrame
+		local questMapFrame = _G.QuestMapFrame
 		local tabs = {
-			QuestMapFrame.QuestsTab,
-			QuestMapFrame.EventsTab,
-			QuestMapFrame.MapLegendTab
+			questMapFrame.QuestsTab,
+			questMapFrame.EventsTab,
+			questMapFrame.MapLegendTab
 		}
 		for _, tab in next, tabs do
 			tab.backdrop:SetTemplate('Transparent')
-			tab.backdrop:CreateSoftShadow()
-			tab.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
+
+			if BUI.ShadowMode then
+				tab.backdrop:CreateSoftShadow()
+				tab.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
+			end
 		end
 	end
 
