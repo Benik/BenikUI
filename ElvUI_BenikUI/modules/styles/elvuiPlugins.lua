@@ -149,4 +149,15 @@ function mod:StyleWindTools()
 
 		parent.WTInspectStatsCompare:BuiStyle('Outside')
 	end)
+
+	-- Quick Access
+	local LL = W:GetModule("LFGList")
+	hooksecurefunc(LL, 'InitializeRightPanel', function(self)
+		self.db = E.private.WT.misc.lfgList
+		if not self.db.enable then
+			return
+		end
+
+		self.RightPanel:BuiStyle('Outside')
+	end)
 end
