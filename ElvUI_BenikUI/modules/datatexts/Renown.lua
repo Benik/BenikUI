@@ -145,6 +145,11 @@ local function OnEnter(self)
 
 	local activeFaction = E.private.benikui.datatexts.renown.factionID
 
+	-- keep the title at index 1
+	for i = #menuList, 2, -1 do
+		menuList[i] = nil
+	end
+
 	for i, factionID in next, factionIDs do
 		local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
 		if majorFactionData then
