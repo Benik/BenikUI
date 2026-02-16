@@ -25,17 +25,15 @@ local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FON
 
 local factionIDs = {}
 
-local DelvesBlacklist = {
-    [2644] = true,	-- Season 1
-    [2683] = true,	-- Season 2
-	[2722] = true,	-- Season 3
-}
-
 local displayString, lastPanel = ''
 local expansionName = _G["EXPANSION_NAME" .. GetExpansionLevel()] or ""
 
 local function IsExpansionAvailable()
 	return GetExpansionLevel() >= LE_EXPANSION_DRAGONFLIGHT
+end
+
+local function IsDelvesSeasonFaction(data)
+	return data.textureKit and data.textureKit:lower():find("delve") ~= nil
 end
 
 local function FilteredRenownFactions(factionID, currentExpansionID)
@@ -45,7 +43,7 @@ local function FilteredRenownFactions(factionID, currentExpansionID)
 	if not data then return false end
 
 	-- Get rid of Delves Seasons
-	if DelvesBlacklist[factionID] then
+	if IsDelvesSeasonFaction(data) then
 		return false
 	end
 
