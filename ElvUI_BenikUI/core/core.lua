@@ -4,7 +4,8 @@ local LSM = E.LSM
 
 local _G = _G
 local pairs, print, tinsert, strjoin, lower, next, wipe = pairs, print, table.insert, strjoin, strlower, next, wipe
-local format = string.format
+local format = format
+local hooksecurefunc = hooksecurefunc
 local GetAddOnMetadata = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
 local DisableAddOn = (C_AddOns and C_AddOns.DisableAddOn) or DisableAddOn
 local EnableAddOn = (C_AddOns and C_AddOns.EnableAddOn) or EnableAddOn
@@ -14,8 +15,6 @@ local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local IsAddOnLoadable = C_AddOns.IsAddOnLoadable
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
-
--- GLOBALS: LibStub, ElvDB, test
 
 BUI["styles"] = {}
 BUI["softGlow"] = {}
@@ -181,7 +180,7 @@ end
 
 function BUI:DasOptions()
 	E:ToggleOptions()
-	LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
+	_G.LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
 function BUI:SetupBenikUI()

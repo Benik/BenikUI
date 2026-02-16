@@ -2,7 +2,7 @@
 -- Edit ElvUI dropdown.lua to make a steady dropup menu. The menu position is not related anymore on where the mouse is clicked.
 -- args: menuList, menuFrame, parentButtonName, position, xOffset, yOffset, delay
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local tinsert, unpack = table.insert, unpack
+local tinsert = table.insert
 
 local PADDING = 10
 local BUTTON_HEIGHT = 16
@@ -11,11 +11,17 @@ local counter = 0
 local hoverVisible = false
 
 local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
-local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
+local UIFrameFadeOut, UIFrameFadeIn = UIFrameFadeOut, UIFrameFadeIn
+local CloseMenus = CloseMenus
+local CloseAllWindows = CloseAllWindows
+local ShowUIPanel = ShowUIPanel
+local HideUIPanel = HideUIPanel
+local ToggleFrame = ToggleFrame
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
+local MainMenuMicroButton = MainMenuMicroButton
+
 local classColor = E:ClassColor(E.myclass, true)
-local Garrison_OnClick = GarrisonLandingPageMinimapButton_OnClick
 
 local PlayerSpellsUtil = _G.PlayerSpellsUtil
 local UIParentLoadAddOn = UIParentLoadAddOn
