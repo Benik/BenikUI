@@ -215,73 +215,76 @@ function mod:UpdateReputations()
 						standingLabel = _G['FACTION_STANDING_LABEL'..standingID] or UNKNOWN
 					end
 
-					local bar = mod:CreateDashboard(holder, 'reputations', false, true)
-					bar.Status:SetMinMaxValues(barMin, barMax)
-					bar.Status:SetValue(barValue)
+					local bar
+					if not bar then
+						bar = mod:CreateDashboard(holder, 'reputations', false, true)
+						bar.Status:SetMinMaxValues(barMin, barMax)
+						bar.Status:SetValue(barValue)
 
-					local customColors = E.db.databars.colors.useCustomFactionColors
-					local customReaction = standingID == 9 or standingID == 10 -- 9 is paragon, 10 is renown
-					local color = (customColors or customReaction) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID]
-					local hexColor = E:RGBToHex(color.r, color.g, color.b)
+						local customColors = E.db.databars.colors.useCustomFactionColors
+						local customReaction = standingID == 9 or standingID == 10 -- 9 is paragon, 10 is renown
+						local color = (customColors or customReaction) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID]
+						local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
-					-- cut down Artisan's Consortium name
-					if factionID == 2544 then name = E:ShortenString(name, 20) end
+						-- cut down Artisan's Consortium name
+						if factionID == 2544 then name = E:ShortenString(name, 20) end
 
-					name = isMajorFaction and format('%s%s (%s)|r', name, BLUE_COLOR_HEX, renownLevel) or name
+						name = isMajorFaction and format('%s%s (%s)|r', name, BLUE_COLOR_HEX, renownLevel) or name
 
-					if not db.barFactionColors then
-						if E.db.benikui.dashboards.barColor == 1 then
-							bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+						if not db.barFactionColors then
+							if E.db.benikui.dashboards.barColor == 1 then
+								bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+							else
+								bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
+							end
 						else
-							bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
+							bar.Status:SetStatusBarColor(color.r, color.g, color.b)
 						end
-					else
-						bar.Status:SetStatusBarColor(color.r, color.g, color.b)
-					end
 
-					if db.textFactionColors then
-						bar.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
-					else
-						bar.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
-					end
-
-					bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
-					bar.Text:SetJustifyH(db.textAlign)
-
-					bar.bag:SetShown(isParagon)
-					bar.bagGlow:SetShown(not tooLowLevelForParagon and hasRewardPending)
-					bar.bagCheck:SetShown(not tooLowLevelForParagon and hasRewardPending)
-
-					if isParagon then
-						bar.bag:ClearAllPoints()
-						if db.textAlign == 'LEFT' or db.textAlign == 'CENTER' then
-							bar.bag:Point('RIGHT', bar, 'RIGHT', -4, 0)
-						elseif db.textAlign == 'RIGHT' then
-							bar.bag:Point('LEFT', bar, 'LEFT', 4, 0)
+						if db.textFactionColors then
+							bar.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
+						else
+							bar.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
 						end
+
+						bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+						bar.Text:SetJustifyH(db.textAlign)
+
+						bar.bag:SetShown(isParagon)
+						bar.bagGlow:SetShown(not tooLowLevelForParagon and hasRewardPending)
+						bar.bagCheck:SetShown(not tooLowLevelForParagon and hasRewardPending)
+
+						if isParagon then
+							bar.bag:ClearAllPoints()
+							if db.textAlign == 'LEFT' or db.textAlign == 'CENTER' then
+								bar.bag:Point('RIGHT', bar, 'RIGHT', -4, 0)
+							elseif db.textAlign == 'RIGHT' then
+								bar.bag:Point('LEFT', bar, 'LEFT', 4, 0)
+							end
+						end
+
+						bar:SetScript('OnEnter', barOnEnter)
+						bar:SetScript('OnLeave', barOnLeave)
+						bar:SetScript('OnMouseUp', OnMouseUp)
+
+						bar.factionID = factionID
+						bar.name = name
+						bar.color = color
+						bar.barValue = barValue
+						bar.barMin = barMin
+						bar.barMax = barMax
+						bar.maxMinDiff = maxMinDiff
+
+						bar.standingLabel = standingLabel
+						bar.isParagon = isParagon
+						bar.isMajorFaction = isMajorFaction
+						bar.majorStandingLabel = majorStandingLabel
+						bar.isFriend = isFriend
+						bar.friendText = friendText
+						bar.standingID = standingID
+
+						tinsert(factionsDB, bar)
 					end
-
-                    bar:SetScript('OnEnter', barOnEnter)
-                    bar:SetScript('OnLeave', barOnLeave)
-					bar:SetScript('OnMouseUp', OnMouseUp)
-
-					bar.factionID = factionID
-					bar.name = name
-                    bar.color = color
-                    bar.barValue = barValue
-                    bar.barMin = barMin
-					bar.barMax = barMax
-                    bar.maxMinDiff = maxMinDiff
-
-                    bar.standingLabel = standingLabel
-                    bar.isParagon = isParagon
-                    bar.isMajorFaction = isMajorFaction
-                    bar.majorStandingLabel = majorStandingLabel
-                    bar.isFriend = isFriend
-                    bar.friendText = friendText
-					bar.standingID = standingID
-
-					tinsert(factionsDB, bar)
 				end
 			end
 		end
