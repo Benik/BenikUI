@@ -139,7 +139,7 @@ function mod:UpdateReputations()
 
 	if(factionsDB[1]) then
 		for i = 1, #factionsDB do
-			factionsDB[i]:Kill()
+			factionsDB[i]:Hide()
 		end
 		twipe(factionsDB)
 		holder:Hide()
