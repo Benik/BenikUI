@@ -2,13 +2,13 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards')
 local DT = E:GetModule('DataTexts')
 local DB = E:GetModule('DataBars')
-local LSM = E.LSM
 
 local _G = _G
-local getn = getn
 local format = format
 local ipairs = ipairs
 local tinsert, twipe, tsort, tostring = table.insert, table.wipe, table.sort, tostring
+local hooksecurefunc = hooksecurefunc
+local selectioncolor = selectioncolor
 
 local GameTooltip = _G.GameTooltip
 local GetFactionInfoByID = C_Reputation.GetFactionDataByID
@@ -28,13 +28,12 @@ local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
+local PARAGON_REPUTATION_TOOLTIP_TEXT = PARAGON_REPUTATION_TOOLTIP_TEXT
 local REPUTATION = REPUTATION
 local STANDING = STANDING
 local UNKNOWN = UNKNOWN
 
 local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
-
--- GLOBALS: hooksecurefunc
 
 local position, Xoffset
 
@@ -69,7 +68,7 @@ end
 
 function mod:UpdateReputations()
 	local db = E.db.benikui.dashboards.reputations
-	local holder = _G.BUI_ReputationsDashboard
+	local holder = mod.repHolder
 
 	if not db.enable then
 		holder:Hide()
@@ -81,7 +80,7 @@ function mod:UpdateReputations()
 	local NotinInstance = not (db.instance and inInstance)
 
 	if(factionsDB[1]) then
-		for i = 1, getn(factionsDB) do
+		for i = 1, #factionsDB do
 			factionsDB[i]:Kill()
 		end
 		twipe(factionsDB)
@@ -326,7 +325,7 @@ function mod:PopulateFactionData()
 		end
 	end
 
-	wipe(Collapsed)
+	twipe(Collapsed)
 end
 
 function mod:UPDATE_FACTION(_, factionID)
@@ -339,7 +338,7 @@ function mod:UPDATE_FACTION(_, factionID)
 	mod:UpdateReputations()
 end
 
-local function holderOnEnter()
+local function holderOnEnter(self)
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ReputationsDashboard
 
@@ -348,7 +347,7 @@ local function holderOnEnter()
 	end
 end
 
-local function holderOnLeave()
+local function holderOnLeave(self)
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ReputationsDashboard
 
@@ -360,12 +359,12 @@ end
 local function CheckReputationsPosition()
 	if E.db.benikui.dashboards.reputations.enable ~= true then return end
 
-	position, Xoffset = mod:CheckPositionForTooltip(_G.BUI_ReputationsDashboard)
+	position, Xoffset = mod:CheckPositionForTooltip(mod.repHolder)
 end
 
 function mod:ToggleReputations()
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ReputationsDashboard
+	local holder = mod.repHolder
 
 	if db.reputations.enable then
 		E:EnableMover(holder.mover.name)
@@ -402,6 +401,8 @@ function mod:CreateReputationsDashboard()
 	local holder = mod:CreateDashboardHolder('BUI_ReputationsDashboard', 'reputations')
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
 	holder:Width(db.width or 150)
+
+    mod.repHolder = holder
 
 	E:CreateMover(holder, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
 	mod:ToggleReputations()
