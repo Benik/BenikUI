@@ -343,7 +343,7 @@ local function holderOnEnter()
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ReputationsDashboard
 
-	if db.professions.mouseover then
+	if db.reputations.mouseover then
 		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 	end
 end
@@ -352,7 +352,7 @@ local function holderOnLeave()
 	local db = E.db.benikui.dashboards
 	local holder = _G.BUI_ReputationsDashboard
 
-	if db.professions.mouseover then
+	if db.reputations.mouseover then
 		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 	end
 end
