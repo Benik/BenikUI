@@ -8,7 +8,6 @@ local format = format
 local ipairs = ipairs
 local tinsert, twipe, tsort, tostring = table.insert, table.wipe, table.sort, tostring
 local hooksecurefunc = hooksecurefunc
-local selectioncolor = selectioncolor
 
 local GameTooltip = _G.GameTooltip
 local GetFactionInfoByID = C_Reputation.GetFactionDataByID
@@ -59,6 +58,63 @@ local function OnMouseUp(self, btn)
 			local ACD = E.Libs.AceConfigDialog
 			if ACD then ACD:SelectGroup("ElvUI", "benikui") end
 		end
+	end
+end
+
+local function barOnEnter(self)
+    local db = E.db.benikui.dashboards.reputations
+    local holder = self:GetParent()
+    local hexColor = E:RGBToHex(self.color.r, self.color.g, self.color.b)
+
+	self.standingLabel = self.isParagon and L["Paragon"] or self.isMajorFaction and self.majorStandingLabel or self.standingLabel
+
+	self.Text:SetFormattedText('%s / %s %s(%s)|r', (self.barValue), (self.barMax), hexColor, self.isFriend and self.friendText or self.standingLabel)
+
+	if db.mouseover then
+		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+	end
+
+	if db.tooltip then
+		GameTooltip:SetOwner(self, position, Xoffset, 0)
+		GameTooltip:AddLine(self.name)
+		GameTooltip:AddLine(' ')
+
+		if self.isParagon then
+			GameTooltip:AddLine(format(PARAGON_REPUTATION_TOOLTIP_TEXT, '\n'..(self.name)), 1, 1, 1)
+			GameTooltip:AddLine(' ')
+        end
+
+		if self.isMajorFaction then
+			GameTooltip:AddLine(format('%s%s|r', hexColor, self.isFriend and self.friendText or self.standingLabel), 1, 1, 1)
+		else
+			GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, self.isFriend and self.friendText or self.standingLabel), 1, 1, 1)
+		end
+
+		if self.standingID ~= _G.MAX_REPUTATION_REACTION or self.isParagon then
+			GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', self.barValue - self.barMin, self.barMax - self.barMin, (self.barValue - self.barMin) / ((self.barMax - self.barMin == 0) and self.barMax or (self.barMax - self.barMin)) * 100), 1, 1, 1)
+		end
+
+		GameTooltip:AddLine(' ')
+		GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', self.factionID), 0.7, 0.7, 1)
+		GameTooltip:Show()
+    end
+end
+
+local function barOnLeave(self)
+	local db = E.db.benikui.dashboards.reputations
+	local holder = self:GetParent()
+	local hexColor = E:RGBToHex(self.color.r, self.color.g, self.color.b)
+
+	if db.textFactionColors then
+		self.Text:SetFormattedText('%s: %s%d%%|r', self.name, hexColor, ((self.barValue - self.barMin) / (self.maxMinDiff) * 100))
+	else
+		self.Text:SetFormattedText('%s: %d%%|r', self.name, ((self.barValue - self.barMin) / (self.maxMinDiff) * 100))
+	end
+
+	if db.tooltip then GameTooltip:Hide() end
+
+	if db.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 	end
 end
 
@@ -205,58 +261,25 @@ function mod:UpdateReputations()
 						end
 					end
 
-					bar:SetScript('OnEnter', function(self)
-						standingLabel = isParagon and L["Paragon"] or isMajorFaction and majorStandingLabel or standingLabel
-
-						self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
-
-						if db.mouseover then
-							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-						end
-
-						if db.tooltip then
-							GameTooltip:SetOwner(self, position, Xoffset, 0)
-							GameTooltip:AddLine(name)
-							GameTooltip:AddLine(' ')
-
-							if isParagon then
-								GameTooltip:AddLine(format(PARAGON_REPUTATION_TOOLTIP_TEXT, '\n'..name), selectioncolor)
-								GameTooltip:AddLine(' ')
-							end
-
-							if isMajorFaction then
-								GameTooltip:AddLine(format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
-							else
-								GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
-							end
-
-							if standingID ~= _G.MAX_REPUTATION_REACTION or isParagon then
-								GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
-							end
-
-							GameTooltip:AddLine(' ')
-							GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', factionID), 0.7, 0.7, 1)
-							GameTooltip:Show()
-						end
-					end)
-
-					bar:SetScript('OnLeave', function(self)
-						if db.textFactionColors then
-							self.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
-						else
-							self.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
-						end
-						if db.tooltip then GameTooltip:Hide() end
-
-						if db.mouseover then
-							E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-						end
-					end)
-					
+                    bar:SetScript('OnEnter', barOnEnter)
+                    bar:SetScript('OnLeave', barOnLeave)
 					bar:SetScript('OnMouseUp', OnMouseUp)
 
 					bar.factionID = factionID
 					bar.name = name
+                    bar.color = color
+                    bar.barValue = barValue
+                    bar.barMin = barMin
+					bar.barMax = barMax
+                    bar.maxMinDiff = maxMinDiff
+
+                    bar.standingLabel = standingLabel
+                    bar.isParagon = isParagon
+                    bar.isMajorFaction = isMajorFaction
+                    bar.majorStandingLabel = majorStandingLabel
+                    bar.isFriend = isFriend
+                    bar.friendText = friendText
+					bar.standingID = standingID
 
 					tinsert(factionsDB, bar)
 				end
@@ -338,18 +361,18 @@ function mod:UPDATE_FACTION(_, factionID)
 	mod:UpdateReputations()
 end
 
-local function holderOnEnter()
+function mod:repHolderOnEnter()
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ReputationsDashboard
+	local holder = mod.repHolder
 
 	if db.reputations.mouseover then
 		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 	end
 end
 
-local function holderOnLeave()
+function mod:repHolderOnLeave()
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ReputationsDashboard
+	local holder = mod.repHolder
 
 	if db.reputations.mouseover then
 		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
@@ -376,8 +399,8 @@ function mod:ToggleReputations()
 		mod:ToggleStyle(holder, 'reputations')
 		mod:ToggleTransparency(holder, 'reputations')
 
-		holder:SetScript('OnEnter', holderOnEnter)
-		holder:SetScript('OnLeave', holderOnLeave)
+		holder:SetScript('OnEnter', mod.repHolderOnEnter)
+		holder:SetScript('OnLeave', mod.repHolderOnLeave)
 
 		mod:PopulateFactionData()
 	else
