@@ -5,7 +5,7 @@ local DB = E:GetModule('DataBars')
 
 local _G = _G
 local format = format
-local ipairs = ipairs
+local next, ipairs = next, ipairs
 local tinsert, twipe, tsort, tostring = table.insert, table.wipe, table.sort, tostring
 local hooksecurefunc = hooksecurefunc
 
@@ -289,9 +289,9 @@ function mod:UpdateReputations()
 
 	tsort(factionsDB, sortFunction)
 
-	for key, frame in pairs(factionsDB) do
+	for key, frame in next, factionsDB do
 		frame:ClearAllPoints()
-		if(key == 1) then
+		if (key == 1) then
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			if db.orientation == 'BOTTOM' then
@@ -307,6 +307,8 @@ function mod:UpdateReputations()
 end
 
 function mod:PopulateFactionData()
+	twipe(mod.ReputationsList)
+
 	local Collapsed = {}
 	local numFactions = GetNumFactions()
 	local factionIndex = 1
