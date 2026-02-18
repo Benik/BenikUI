@@ -10,20 +10,22 @@ local tinsert, twipe, tsort, tostring = table.insert, table.wipe, table.sort, to
 local hooksecurefunc = hooksecurefunc
 
 local GameTooltip = _G.GameTooltip
-local GetFactionInfoByID = C_Reputation.GetFactionDataByID
-local GetFactionInfo = C_Reputation.GetFactionDataByIndex
-local GetNumFactions = C_Reputation.GetNumFactions
-local ExpandFactionHeader = C_Reputation.ExpandFactionHeader
-local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
-local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagonForCurrentPlayer
-local C_GossipInfo_GetFriendshipReputation = C_GossipInfo.GetFriendshipReputation
-local C_Reputation_IsMajorFaction = C_Reputation.IsMajorFaction
-local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
-local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
+
+local C_Reputation_CollapseFactionHeader = C_Reputation.CollapseFactionHeader
+local C_Reputation_ExpandFactionHeader = C_Reputation.ExpandFactionHeader
+local C_Reputation_GetFactionDataByIndex = C_Reputation.GetFactionDataByIndex
+
+local C_GossipInfo_GetFriendshipReputation = C_GossipInfo.GetFriendshipReputation
+local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
+local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
+local C_Reputation_GetFactionInfoByID = C_Reputation.GetFactionDataByID
+local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
+local C_Reputation_IsFactionParagonForCurrentPlayer = C_Reputation.IsFactionParagonForCurrentPlayer
+local C_Reputation_IsMajorFaction = C_Reputation.IsMajorFaction
 
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
@@ -149,7 +151,7 @@ function mod:UpdateReputations()
 		local _, factionID = unpack(info)
 
 		if factionID then
-			local factionInfo = GetFactionInfoByID(factionID)
+			local factionInfo = C_Reputation_GetFactionInfoByID(factionID)
 			if factionInfo then
 				local name = factionInfo.name
 
@@ -165,7 +167,7 @@ function mod:UpdateReputations()
 					end
 
 					local isFriend, friendText, standingLabel, majorStandingLabel, renownLevel
-					local isParagon = C_Reputation_IsFactionParagon(factionID)
+					local isParagon = C_Reputation_IsFactionParagonForCurrentPlayer(factionID)
 					local isMajorFaction = factionID and C_Reputation_IsMajorFaction(factionID)
 					local repInfo = factionID and C_GossipInfo_GetFriendshipReputation(factionID)
 					local currentValue, threshold, hasRewardPending, tooLowLevelForParagon
@@ -178,7 +180,7 @@ function mod:UpdateReputations()
 						standingLabel, barMin, barMax, barValue = repInfo.reaction, repInfo.reactionThreshold or 0, repInfo.nextThreshold or 1, repInfo.standing or 1
 					elseif isMajorFaction then
 						local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
-			
+
 						standingID, barMin, barMax = 10, 0, majorFactionData.renownLevelThreshold
 						barValue = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
 						majorStandingLabel = format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(majorFactionData.renownLevel))
@@ -298,9 +300,9 @@ function mod:UpdateReputations()
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			if db.orientation == 'BOTTOM' then
-				frame:Point('TOP', factionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+				frame:Point('TOP', factionsDB[key - 1], 'BOTTOM', 0, -SPACING - (E.PixelMode and 0 or 2))
 			else
-				frame:Point('LEFT', factionsDB[key - 1], 'RIGHT', db.spacing +(E.PixelMode and 0 or 2), 0)
+				frame:Point('LEFT', factionsDB[key - 1], 'RIGHT', db.spacing + (E.PixelMode and 0 or 2), 0)
 			end
 		end
 	end
@@ -313,52 +315,48 @@ function mod:PopulateFactionData()
 	twipe(mod.ReputationsList)
 
 	local Collapsed = {}
-	local numFactions = GetNumFactions()
-	local factionIndex = 1
-	local headerIndex
+	local headerIndex = 0
+	local i = 1
 
-	while (factionIndex <= numFactions) do
-		local info = GetFactionInfo(factionIndex)
-		if info then
-			if info.isHeader and info.isCollapsed then
-				ExpandFactionHeader(factionIndex)
-				numFactions = GetNumFactions()
-				Collapsed[info.name] = true
-			end
+	while true do
+		local info = C_Reputation_GetFactionDataByIndex(i)
+		if not info then break end
 
-			if (info.isHeader or info.isHeaderWithRep) and not info.isChild then
-				tinsert(mod.ReputationsList, { info.name, info.factionID, factionIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
-				headerIndex = factionIndex
-			end
-
-			if (not info.isHeader or not info.isChild) or (info.isHeader and info.isChild and info.isHeaderWithRep) then
-				if info.factionID then
-					mod.ReputationsList[tostring(info.factionID)] = info.name
-					tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
-				end
-			end
-
-			factionIndex = factionIndex + 1
-		else
-			break
+		if info.isCollapsed then
+			tinsert(Collapsed, i)
+			C_Reputation_ExpandFactionHeader(i)
+			info = C_Reputation_GetFactionDataByIndex(i)
+			if not info then break end
 		end
+
+		if (info.isHeader or info.isHeaderWithRep) and not info.isChild then
+			headerIndex = i
+			tinsert(mod.ReputationsList, { info.name, 0, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
+		end
+
+		if not info.isHeader and not info.isHeaderWithRep then
+			if info.factionID then
+				mod.ReputationsList[tostring(info.factionID)] = info.name
+				tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
+			end
+		elseif info.isChild and (info.isHeader or info.isHeaderWithRep) then
+			if info.factionID then
+				mod.ReputationsList[tostring(info.factionID)] = info.name
+				tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
+			end
+		end
+
+		i = i + 1
 	end
 
-	for k = 1, numFactions do
-		local info = GetFactionInfo(k)
-		if not info or not info.name then
-			break
-		elseif info.isHeader and not info.isCollapsed and Collapsed[info.name] then
-			ExpandFactionHeader(k, false)
-		end
+	for j = #Collapsed, 1, -1 do
+		C_Reputation_CollapseFactionHeader(Collapsed[j])
 	end
-
-	twipe(Collapsed)
 end
 
 function mod:UPDATE_FACTION(_, factionID)
 	if factionID and not mod.ReputationsList[tostring(factionID)] then
-		local info = GetFactionInfoByID(factionID)
+		local info = C_Reputation_GetFactionInfoByID(factionID)
 		if info and info.name then
 			mod:PopulateFactionData()
 		end
