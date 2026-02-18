@@ -4,6 +4,7 @@ local UF = E:GetModule('UnitFrames');
 
 function BU:Configure_Portrait(frame, isPlayer)
 	local db = frame.db
+	if not db then return end
 	local portrait = (db.portrait.style == '3D' and frame.Portrait3D) or frame.Portrait2D
 	portrait.db = db.portrait
 
