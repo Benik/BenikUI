@@ -68,7 +68,7 @@ local function barOnEnter(self)
 
 	self.standingLabel = self.isParagon and L["Paragon"] or self.isMajorFaction and self.majorStandingLabel or self.standingLabel
 
-	self.Text:SetFormattedText('%s / %s %s(%s)|r', (self.barValue), (self.barMax), hexColor, self.isFriend and self.friendText or self.standingLabel)
+	self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(self.barValue), BreakUpLargeNumbers(self.barMax), hexColor, self.isFriend and self.friendText or self.standingLabel)
 
 	if db.mouseover then
 		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
