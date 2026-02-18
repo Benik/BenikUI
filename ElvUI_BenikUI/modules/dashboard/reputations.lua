@@ -68,32 +68,45 @@ local function barOnEnter(self)
     local holder = self:GetParent()
     local hexColor = E:RGBToHex(self.color.r, self.color.g, self.color.b)
 
-	self.standingLabel = self.isParagon and L["Paragon"] or self.isMajorFaction and self.majorStandingLabel or self.standingLabel
+	local text = self.Text
+	local standingLabel = self.standingLabel
+	local isParagon = self.isParagon
+	local isMajorFaction = self.isMajorFaction
+	local majorStandingLabel = self.majorStandingLabel
+	local barValue = self.barValue
+	local barMax = self.barMax
+	local isFriend = self.isFriend
+	local friendText = self.friendText
 
-	self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(self.barValue), BreakUpLargeNumbers(self.barMax), hexColor, self.isFriend and self.friendText or self.standingLabel)
+	standingLabel = isParagon and L["Paragon"] or isMajorFaction and majorStandingLabel or standingLabel
+
+	text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
 
 	if db.mouseover then
 		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 	end
 
 	if db.tooltip then
+		local name = self.name
+		local barMin = self.barMin
+
 		GameTooltip:SetOwner(self, position, Xoffset, 0)
-		GameTooltip:AddLine(self.name)
+		GameTooltip:AddLine(name)
 		GameTooltip:AddLine(' ')
 
-		if self.isParagon then
-			GameTooltip:AddLine(format(PARAGON_REPUTATION_TOOLTIP_TEXT, '\n'..(self.name)), 1, 1, 1)
+		if isParagon then
+			GameTooltip:AddLine(format(PARAGON_REPUTATION_TOOLTIP_TEXT, '\n'..(name)), 1, 1, 1)
 			GameTooltip:AddLine(' ')
         end
 
-		if self.isMajorFaction then
-			GameTooltip:AddLine(format('%s%s|r', hexColor, self.isFriend and self.friendText or self.standingLabel), 1, 1, 1)
+		if isMajorFaction then
+			GameTooltip:AddLine(format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
 		else
-			GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, self.isFriend and self.friendText or self.standingLabel), 1, 1, 1)
+			GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
 		end
 
-		if self.standingID ~= _G.MAX_REPUTATION_REACTION or self.isParagon then
-			GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', self.barValue - self.barMin, self.barMax - self.barMin, (self.barValue - self.barMin) / ((self.barMax - self.barMin == 0) and self.barMax or (self.barMax - self.barMin)) * 100), 1, 1, 1)
+		if self.standingID ~= _G.MAX_REPUTATION_REACTION or isParagon then
+			GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
 		end
 
 		GameTooltip:AddLine(' ')
@@ -107,10 +120,16 @@ local function barOnLeave(self)
 	local holder = self:GetParent()
 	local hexColor = E:RGBToHex(self.color.r, self.color.g, self.color.b)
 
+	local name = self.name
+	local text = self.Text
+	local barValue = self.barValue
+	local barMin = self.barMin
+	local maxMinDiff = self.maxMinDiff
+
 	if db.textFactionColors then
-		self.Text:SetFormattedText('%s: %s%d%%|r', self.name, hexColor, ((self.barValue - self.barMin) / (self.maxMinDiff) * 100))
+		text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
 	else
-		self.Text:SetFormattedText('%s: %d%%|r', self.name, ((self.barValue - self.barMin) / (self.maxMinDiff) * 100))
+		text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
 	end
 
 	if db.tooltip then GameTooltip:Hide() end
