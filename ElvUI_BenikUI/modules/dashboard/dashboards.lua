@@ -2,7 +2,10 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards')
 local LSM = E.LSM
 
+local next = next
 local CreateFrame = CreateFrame
+
+local IsInInstance = IsInInstance
 
 local DASH_HEIGHT = 20
 local SPACING = 1
@@ -43,7 +46,7 @@ function mod:UpdateHolderDimensions(holder, option, tableName, isSystem)
 		holder:Width(db.width)
 	end
 
-	for _, frame in pairs(tableName) do
+	for _, frame in next, tableName do
 		frame:Width(db.width)
 	end
 end
@@ -77,7 +80,7 @@ end
 
 function mod:FontStyle(tableName)
 	local db = E.db.benikui.dashboards.dashfont
-	for _, bar in pairs(tableName) do
+	for _, bar in next, tableName do
 		if E.db.benikui.dashboards.dashfont.useDTfont then
 			bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
@@ -88,7 +91,7 @@ end
 
 function mod:FontColor(tableName)
 	local db = E.db.benikui.dashboards
-	for _, bar in pairs(tableName) do
+	for _, bar in next, tableName do
 		if db.textColor == 1 then
 			bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		else
@@ -99,7 +102,7 @@ end
 
 function mod:BarColor(tableName)
 	local db = E.db.benikui.dashboards
-	for _, bar in pairs(tableName) do
+	for _, bar in next, tableName do
 		if db.barColor == 1 then
 			bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		else
@@ -110,7 +113,7 @@ end
 
 function mod:BarHeight(option, tableName)
 	local db = E.db.benikui.dashboards[option]
-	for _, bar in pairs(tableName) do
+	for _, bar in next, tableName do
 		bar.dummy:Height(db.barHeight)
 		bar.spark:Height(5 + db.barHeight)
 	end
@@ -119,7 +122,7 @@ end
 function mod:UpdateVisibility()
 	local inInstance = IsInInstance()
 
-	for i, v in ipairs(Dashboards) do
+	for _, v in next, Dashboards do
 		local holder, option = unpack(v)
 		local db = E.db.benikui.dashboards[option]
 		local NotinInstance = not (db.instance and inInstance)
@@ -130,7 +133,7 @@ function mod:UpdateVisibility()
 end
 
 function mod:IconPosition(tableName, dashboard)
-	for _, bar in pairs(tableName) do
+	for _, bar in next, tableName do
 		if not bar.hasIcon then return end
 
 		bar.IconBG:ClearAllPoints()
@@ -172,7 +175,6 @@ function mod:CheckPositionForTooltip(frame)
 end
 
 function mod:CreateDashboardHolder(holderName, option)
-	local db = E.db.benikui.dashboards[option]
 
 	local holder = CreateFrame('Frame', holderName, E.UIParent)
 	holder:CreateBackdrop('Transparent')
@@ -182,12 +184,14 @@ function mod:CreateDashboardHolder(holderName, option)
 	holder:Hide()
 
 	holder:SetScript('OnEvent', function(self, event)
+		local db = E.db.benikui.dashboards[option]
+
 		if db.instance and IsInInstance() then return end
 		if db.combat then
 			if event == 'PLAYER_REGEN_DISABLED' then
-				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+				E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 			elseif event == 'PLAYER_REGEN_ENABLED' then
-				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+				E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 			end
 		end
 	end)
@@ -278,30 +282,7 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep, isToken)
 	return bar
 end
 
-local function ConvertDB()
-	if E.db.benikui.dashboards.DashboardDBConverted == nil then
-		if E.db.benikui.dashboards.enableSystem ~= nil then
-			E.db.benikui.dashboards.system.enable = E.db.benikui.dashboards.enableSystem
-			E.db.benikui.dashboards.enableSystem = nil
-		end
-		if E.db.benikui.dashboards.enableProfessions ~= nil then
-			E.db.benikui.dashboards.professions.enable = E.db.benikui.dashboards.enableProfessions
-			E.db.benikui.dashboards.enableProfessions = nil
-		end
-		if E.db.benikui.dashboards.enableTokens ~= nil then
-			E.db.benikui.dashboards.tokens.enable = E.db.benikui.dashboards.enableTokens
-			E.db.benikui.dashboards.enableTokens = nil
-		end
-		if E.db.benikui.dashboards.enableReputations ~= nil then
-			E.db.benikui.dashboards.reputations.enable = E.db.benikui.dashboards.enableReputations
-			E.db.benikui.dashboards.enableReputations = nil
-		end
-		E.db.benikui.dashboards.DashboardDBConverted = BUI.Version
-	end
-end
-
 function mod:Initialize()
-	ConvertDB()
 	mod:LoadSystem()
 	mod:LoadProfessions()
 	mod:LoadTokens()
