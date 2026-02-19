@@ -255,13 +255,12 @@ local function UpdateReputationOptions()
 end
 
 local function UpdateItemsOptions()
-	local db = E.db.benikui.dashboards.items
-	local vdb = E.private.benikui.dashboards.items.chooseItems
+	local db = E.private.benikui.dashboards.items.chooseItems
 	local config = E.Options.args.benikui.args.dashboards.args.items.args.selectItems
 	local optionOrder = 10
 
 	for itemID in next, mod.ItemsList do
-		local itemName, icon, amount, totalMax = mod:GetItemsInfo(itemID)
+		local itemName, icon = mod:GetItemsInfo(itemID)
 		if itemName then
 			config.args[tostring(itemID)] = {
 				order = optionOrder + 1,
@@ -274,8 +273,8 @@ local function UpdateItemsOptions()
 						type = 'toggle',
 						width = 'full',
 						name = format('%s %s|cfffcba03 (%s)|r', ENABLE, itemName, itemID),
-						get = function(_) if vdb[itemID] and vdb[itemID].enable then return vdb[itemID].enable end end,
-						set = function(_, value) vdb[itemID].enable = value mod:GetUserItems() end,
+						get = function(_) if db[itemID] and db[itemID].enable then return db[itemID].enable end end,
+						set = function(_, value) db[itemID].enable = value mod:GetUserItems() end,
 					},
 					spacer = {
 						order = 2,
@@ -286,19 +285,19 @@ local function UpdateItemsOptions()
 						order = 10,
 						type = 'toggle',
 						name = L['Use Custom Stack'],
-						disabled = function() return not vdb[itemID].enable end,
-						get = function(_) if vdb[itemID] and vdb[itemID].useCustomStack then return vdb[itemID].useCustomStack end end,
-						set = function(_, value) vdb[itemID].useCustomStack = value mod:UpdateItems() end,
+						disabled = function() return not db[itemID].enable end,
+						get = function(_) if db[itemID] and db[itemID].useCustomStack then return db[itemID].useCustomStack end end,
+						set = function(_, value) db[itemID].useCustomStack = value mod:UpdateItems() end,
 					},
 					customStack = {
 						order = 11,
 						type = 'input',
 						width = 'half',
 						name = L['Custom Stack'],
-						hidden = function() if vdb[itemID] and vdb[itemID].customStack then return not vdb[itemID].useCustomStack end end,
-						get = function(_) if vdb[itemID] and vdb[itemID].customStack then return vdb[itemID].customStack end end,
+						hidden = function() if db[itemID] and db[itemID].customStack then return not db[itemID].useCustomStack end end,
+						get = function(_) if db[itemID] and db[itemID].customStack then return db[itemID].customStack end end,
 						set = function(_, value)
-							vdb[itemID].customStack = tonumber(value)
+							db[itemID].customStack = tonumber(value)
 							mod:UpdateItems()
 						end,
 					},
@@ -311,10 +310,10 @@ local function UpdateItemsOptions()
 						order = 21,
 						name = DELETE,
 						type = 'execute',
-						disabled = function() return not vdb[itemID].enable end,
+						disabled = function() return not db[itemID].enable end,
 						func = function()
 							config.args[tostring(itemID)] = nil
-							vdb[itemID] = nil
+							db[itemID] = nil
 							mod.ItemsList[itemID] = nil
 							mod:GetUserItems()
 						end,
