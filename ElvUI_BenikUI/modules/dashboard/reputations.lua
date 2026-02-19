@@ -15,6 +15,7 @@ local IsInInstance = IsInInstance
 local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
+local CollapseFactionHeader = C_Reputation.CollapseFactionHeader
 local ExpandFactionHeader = C_Reputation.ExpandFactionHeader
 local GetNumFactions = C_Reputation.GetNumFactions
 local GetFactionInfo = C_Reputation.GetFactionDataByIndex
@@ -336,41 +337,44 @@ function mod:PopulateFactionData()
 	local Collapsed = {}
 	local numFactions = GetNumFactions()
 	local factionIndex = 1
-	local headerIndex
+	local headerIndex = 0
 
 	while (factionIndex <= numFactions) do
 		local info = GetFactionInfo(factionIndex)
-		if info then
-			if info.isHeader and info.isCollapsed then
-				ExpandFactionHeader(factionIndex)
-				numFactions = GetNumFactions()
-				Collapsed[info.name] = true
-			end
+		if not info or not info.name then break end
 
-			if (info.isHeader or info.isHeaderWithRep) and not info.isChild then
-				tinsert(mod.ReputationsList, { info.name, info.factionID, factionIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
-				headerIndex = factionIndex
-			end
-
-			if (not info.isHeader or not info.isChild) or (info.isHeader and info.isChild and info.isHeaderWithRep) then
-				if info.factionID then
-					mod.ReputationsList[tostring(info.factionID)] = info.name
-					tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
-				end
-			end
-
-			factionIndex = factionIndex + 1
-		else
-			break
+		if info.isHeader and info.isCollapsed then
+			ExpandFactionHeader(factionIndex)
+			numFactions = GetNumFactions()
+			Collapsed[info.name] = true
 		end
+
+		if (info.isHeader or info.isHeaderWithRep) and not info.isChild then
+			headerIndex = factionIndex
+			tinsert(mod.ReputationsList, { info.name, 0, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
+        end
+
+		if not info.isHeader and not info.isHeaderWithRep then
+			if info.factionID then
+				mod.ReputationsList[tostring(info.factionID)] = info.name
+				tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
+			end
+		elseif info.isChild and (info.isHeader or info.isHeaderWithRep) then
+			if info.factionID then
+				mod.ReputationsList[tostring(info.factionID)] = info.name
+				tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
+			end
+		end
+
+		factionIndex = factionIndex + 1
 	end
 
 	for k = 1, numFactions do
 		local info = GetFactionInfo(k)
-		if not info or not info.name then
-			break
-		elseif info.isHeader and not info.isCollapsed and Collapsed[info.name] then
-			ExpandFactionHeader(k, false)
+		if not info or not info.name then break end
+
+		if info.isHeader and not info.isCollapsed and Collapsed[info.name] then
+			CollapseFactionHeader(k)
 		end
 	end
 
