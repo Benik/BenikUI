@@ -2,15 +2,26 @@ local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local mod = BUI:GetModule('Dashboards')
 
-local tinsert, pairs, ipairs, gsub, unpack, format, tostring = table.insert, pairs, ipairs, gsub, unpack, string.format, tostring
-local GetProfessions, GetProfessionInfo = GetProfessions, GetProfessionInfo
+local hooksecurefunc = hooksecurefunc
+
+local tinsert, pairs, ipairs, format, tostring, tonumber, strmatch = table.insert, pairs, ipairs, format, tostring, tonumber, strmatch
+
+local AceGUIWidgetLSMlists = AceGUIWidgetLSMlists
 local BreakUpLargeNumbers = BreakUpLargeNumbers
+local GetProfessions = GetProfessions
+local GetProfessionInfo = GetProfessionInfo
+local GetItemInfo = C_Item.GetItemInfo
 
-local PROFESSIONS_MISSING_PROFESSION, TOKENS = PROFESSIONS_MISSING_PROFESSION, TOKENS
-local TRADE_SKILLS = TRADE_SKILLS
+local ADD = ADD
+local COLOR_PICKER = COLOR_PICKER
+local DELETE = DELETE
+local ENABLE = ENABLE
+local KEY_INSERT = KEY_INSERT
 local LFG_LIST_LEGACY = LFG_LIST_LEGACY
-
--- GLOBALS: AceGUIWidgetLSMlists, hooksecurefunc
+local PROFESSIONS_MISSING_PROFESSION = PROFESSIONS_MISSING_PROFESSION
+local REPUTATION = REPUTATION
+local TOKENS = TOKENS
+local TRADE_SKILLS = TRADE_SKILLS
 
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
@@ -168,7 +179,7 @@ local function UpdateReputationOptions()
 
 	local optionOrder = 1
 	for i, info in ipairs(mod.ReputationsList) do
-		local name, factionID, headerIndex, isHeader, isChild, isHeaderWithRep = unpack(info)
+		local name, factionID, headerIndex, isHeader, isChild = unpack(info)
 
 		if isHeader and not isChild then
 			config.args[tostring(headerIndex)] = {
@@ -274,6 +285,13 @@ end
 
 local function dashboardsTable()
 	local db = E.db.benikui.dashboards
+
+	local BUI_SystemDashboard = _G.BUI_SystemDashboard
+	local BUI_TokensDashboard = _G.BUI_TokensDashboard
+	local BUI_ProfessionsDashboard = _G.BUI_ProfessionsDashboard
+	local BUI_ReputationsDashboard = _G.BUI_ReputationsDashboard
+	local BUI_ItemsDashboard = _G.BUI_ItemsDashboard
+
 	E.Options.args.benikui.args.dashboards = {
 		order = 60,
 		type = 'group',
