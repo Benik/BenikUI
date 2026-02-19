@@ -4,7 +4,7 @@ local mod = BUI:GetModule('Dashboards')
 
 local hooksecurefunc = hooksecurefunc
 
-local tinsert, twipe, ipairs = table.insert, table.wipe, ipairs
+local tinsert, twipe, ipairs, next = table.insert, table.wipe, ipairs, next
 local format, tostring, tonumber, strmatch, type = format, tostring, tonumber, strmatch, type
 
 local AceGUIWidgetLSMlists = AceGUIWidgetLSMlists
@@ -260,7 +260,7 @@ local function UpdateItemsOptions()
 	local config = E.Options.args.benikui.args.dashboards.args.items.args.selectItems
 	local optionOrder = 10
 
-	for itemID in ipairs(mod.ItemsList) do
+	for itemID in next, mod.ItemsList do
 		local itemName, icon, amount, totalMax = mod:GetItemsInfo(itemID)
 		if itemName then
 			config.args[tostring(itemID)] = {
