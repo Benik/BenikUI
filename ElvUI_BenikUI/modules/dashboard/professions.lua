@@ -3,18 +3,18 @@ local mod = BUI:GetModule('Dashboards')
 local DT = E:GetModule('DataTexts')
 
 local _G = _G
-local getn = getn
-local pairs, ipairs = pairs, ipairs
-local tinsert, tsort = table.insert, table.sort
+local format = format
+local next, ipairs = next, ipairs
+local tinsert, twipe, tsort, tostring = table.insert, table.wipe, table.sort, tostring
+local hooksecurefunc = hooksecurefunc
 
+local GameTooltip = _G.GameTooltip
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
 local C_TradeSkillUI_OpenTradeSkill = C_TradeSkillUI.OpenTradeSkill
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local TRADE_SKILLS = TRADE_SKILLS
-
--- GLOBALS: hooksecurefunc
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -70,7 +70,7 @@ end
 
 function mod:UpdateProfessions()
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ProfessionsDashboard
+	local holder = mod.proHolder
 
 	if not db.professions.enable then holder:Hide() return end
 
@@ -78,10 +78,10 @@ function mod:UpdateProfessions()
 	local NotinInstance = not (db.professions.instance and inInstance)
 
 	if(professionsDB[1]) then
-		for i = 1, getn(professionsDB) do
-			professionsDB[i]:Kill()
+		for i = 1, #professionsDB do
+			professionsDB[i]:Hide()
 		end
-		wipe(professionsDB)
+		twipe(professionsDB)
 		holder:Hide()
 	end
 
@@ -92,7 +92,7 @@ function mod:UpdateProfessions()
 	if (prof1 or prof2 or archy or fishing or cooking) then
 		local proftable = { GetProfessions() }
 
-		for _, id in pairs(proftable) do
+		for _, id in ipairs(proftable) do
 			local name, icon, rank, maxRank, _, _, skillLine, rankModifier, _, _, skillLineName = GetProfessionInfo(id)
 
 			if name and (rank < maxRank or (not db.professions.capped)) then
@@ -107,41 +107,44 @@ function mod:UpdateProfessions()
 						holder:Width(db.professions.width * (#professionsDB + 1) + ((#professionsDB) *db.professions.spacing))
 					end
 
-					local bar = mod:CreateDashboard(holder, 'professions', true)
+					local bar
+					if not bar then
+						bar = mod:CreateDashboard(holder, 'professions', true)
 
-					bar:SetScript('OnEnter', OnEnter)
-					bar:SetScript('OnLeave', OnLeave)
-					bar:SetScript('OnMouseUp', OnMouseUp)
+						local RankModifier = (rankModifier and rankModifier > 0)
+						local MaxValue = (RankModifier and (maxRank + rankModifier)) or maxRank
+						local StatusBarValue = (RankModifier and (rank + rankModifier)) or rank
+						local BarColor = (db.barColor == 1 and classColor) or db.customBarColor
+						local TextColor = (db.textColor == 1 and classColor) or db.customTextColor
+						local displayString = ''
 
-					local RankModifier = (rankModifier and rankModifier > 0)
-					local MaxValue = (RankModifier and (maxRank + rankModifier)) or maxRank
-					local StatusBarValue = (RankModifier and (rank + rankModifier)) or rank
-					local BarColor = (db.barColor == 1 and classColor) or db.customBarColor
-					local TextColor = (db.textColor == 1 and classColor) or db.customTextColor
-					local displayString = ''
+						bar.Status:SetMinMaxValues(1, MaxValue)
+						bar.Status:SetValue(StatusBarValue)
+						bar.Status:SetStatusBarColor(BarColor.r, BarColor.g, BarColor.b)
 
-					bar.Status:SetMinMaxValues(1, MaxValue)
-					bar.Status:SetValue(StatusBarValue)
-					bar.Status:SetStatusBarColor(BarColor.r, BarColor.g, BarColor.b)
+						if RankModifier then
+							displayString = format('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
+						else
+							displayString = format('%s / %s', rank, maxRank)
+						end
 
-					if RankModifier then
-						displayString = format('%s |cFF6b8df4+%s|r / %s', rank, rankModifier, maxRank)
-					else
-						displayString = format('%s / %s', rank, maxRank)
+						bar:SetScript('OnEnter', OnEnter)
+						bar:SetScript('OnLeave', OnLeave)
+						bar:SetScript('OnMouseUp', OnMouseUp)
+
+						bar.Text:SetText(displayString)
+						bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
+						bar.IconBG.Icon:SetTexture(icon)
+
+						bar.db = db
+						bar.name = name
+						bar.skillLine = skillLine
+						bar.rank = rank
+						bar.maxRank = maxRank
+						bar.rankModifier = rankModifier
+
+						tinsert(professionsDB, bar)
 					end
-
-					bar.Text:SetText(displayString)
-					bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
-					bar.IconBG.Icon:SetTexture(icon)
-
-					bar.db = db
-					bar.name = name
-					bar.skillLine = skillLine
-					bar.rank = rank
-					bar.maxRank = maxRank
-					bar.rankModifier = rankModifier
-
-					tinsert(professionsDB, bar)
 				end
 			end
 		end
@@ -149,7 +152,7 @@ function mod:UpdateProfessions()
 
 	tsort(professionsDB, sortFunction)
 
-	for key, frame in pairs(professionsDB) do
+	for key, frame in next, professionsDB do
 		frame:ClearAllPoints()
 		if(key == 1) then
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
@@ -170,25 +173,23 @@ end
 
 local function holderOnEnter(self)
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ProfessionsDashboard
 
 	if db.professions.mouseover then
-		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 	end
 end
 
 local function holderOnLeave(self)
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ProfessionsDashboard
 
 	if db.professions.mouseover then
-		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 	end
 end
 
 function mod:ToggleProfessions()
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ProfessionsDashboard
+	local holder = mod.proHolder
 
 	if db.professions.enable then
 		E:EnableMover(holder.mover.name)
@@ -197,7 +198,7 @@ function mod:ToggleProfessions()
 
 		mod:ToggleStyle(holder, 'professions')
 		mod:ToggleTransparency(holder, 'professions')
-	
+
 		holder:SetScript('OnEnter', holderOnEnter)
 		holder:SetScript('OnLeave', holderOnLeave)
 	else
@@ -213,18 +214,21 @@ end
 
 function mod:CreateProfessionsDashboard()
 	local db = E.db.benikui.dashboards
-	local mapholderWidth = E.private.general.minimap.enable and _G.ElvUI_MinimapClusterHolder:GetWidth() or 150
+	local ElvUI_MinimapClusterHolder = _G.ElvUI_MinimapClusterHolder
+	local mapholderWidth = E.private.general.minimap.enable and ElvUI_MinimapClusterHolder:GetWidth() or 150
 	local DASH_WIDTH = db.professions.width or 150
 
 	local holder = mod:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
 
 	if E.private.general.minimap.enable then
-		holder:Point('TOPLEFT', _G.ElvUI_MinimapClusterHolder, 'BOTTOMLEFT', 0, -5)
+		holder:Point('TOPLEFT', ElvUI_MinimapClusterHolder, 'BOTTOMLEFT', 0, -5)
 	else
 		holder:Point('TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -184)
 	end
 
 	holder:Width(mapholderWidth or DASH_WIDTH)
+
+	mod.proHolder = holder
 
 	E:CreateMover(holder, 'ProfessionsMover', TRADE_SKILLS, nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,professions')
 	mod:ToggleProfessions()

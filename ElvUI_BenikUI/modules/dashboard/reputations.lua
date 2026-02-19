@@ -455,7 +455,7 @@ function mod:CreateReputationsDashboard()
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
 	holder:Width(db.width or 150)
 
-    mod.repHolder = holder
+	mod.repHolder = holder
 
 	E:CreateMover(holder, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
 	mod:ToggleReputations()

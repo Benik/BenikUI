@@ -4,7 +4,7 @@ local mod = BUI:GetModule('Dashboards')
 
 local hooksecurefunc = hooksecurefunc
 
-local tinsert, twipe, pairs, ipairs = table.insert, table.wipe, pairs, ipairs
+local tinsert, twipe, ipairs = table.insert, table.wipe, ipairs
 local format, tostring, tonumber, strmatch, type = format, tostring, tonumber, strmatch, type
 
 local AceGUIWidgetLSMlists = AceGUIWidgetLSMlists
@@ -67,7 +67,7 @@ local function UpdateSystemOptions()
 	local config = E.Options.args.benikui.args.dashboards.args.system.args.chooseSystem
 	local db = E.db.benikui.dashboards.system
 
-	for _, boardname in pairs(boards) do
+	for _, boardname in ipairs(boards) do
 		local optionOrder = 1
 		config.args.systemGroup.args[boardname] = {
 			order = optionOrder + 1,
@@ -193,7 +193,7 @@ local function UpdateProfessionOptions()
 			},
 		}
 		local proftable = { GetProfessions() }
-		for _, id in pairs(proftable) do
+		for _, id in ipairs(proftable) do
 			local pname, icon = GetProfessionInfo(id)
 			if pname then
 				config.args.choosePofessions.args[pname] = {
@@ -260,7 +260,7 @@ local function UpdateItemsOptions()
 	local config = E.Options.args.benikui.args.dashboards.args.items.args.selectItems
 	local optionOrder = 10
 
-	for itemID in pairs(mod.ItemsList) do
+	for itemID in ipairs(mod.ItemsList) do
 		local itemName, icon, amount, totalMax = mod:GetItemsInfo(itemID)
 		if itemName then
 			config.args[tostring(itemID)] = {
@@ -1163,7 +1163,7 @@ local function dashboardsTable()
 												E:StaticPopup_Show("BUI_Panel_Name")
 												ItemSetup.id = nil
 											elseif not checkDuplicate then
-												for object in pairs(mod.ItemsList) do
+												for object in ipairs(mod.ItemsList) do
 													if object == tonumber(ItemSetup.id) then
 														E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The Item |cff00c0fa%s|r already exists."], name))
 														E:StaticPopup_Show("BUI_Panel_Name")
