@@ -284,7 +284,12 @@ local function UpdateItemsOptions()
 					useCustomStack = {
 						order = 10,
 						type = 'toggle',
-						name = L['Use Custom Stack'],
+						name = function()
+							if db[itemID] and db[itemID].customStack then
+								return format('%s |cfffcba03(%s)|r', L['Use Custom Stack'], db[itemID].customStack)
+							end
+							return L['Use Custom Stack']
+						end,
 						disabled = function() return not db[itemID].enable end,
 						get = function() if db[itemID] and db[itemID].useCustomStack then return db[itemID].useCustomStack end end,
 						set = function(_, value) db[itemID].useCustomStack = value mod:UpdateItems() end,
@@ -298,6 +303,18 @@ local function UpdateItemsOptions()
 						get = function() if db[itemID] and db[itemID].customStack then return db[itemID].customStack end end,
 						set = function(_, value)
 							db[itemID].customStack = tonumber(value)
+							mod:UpdateItems()
+						end,
+					},
+					clearCustomStack = {
+						order = 12,
+						type = 'execute',
+						name = 'X', -- this needs some love
+						width = 0.25,
+						hidden = function() if db[itemID] and db[itemID].customStack then return not db[itemID].useCustomStack end end,
+						disabled = function() return not db[itemID].customStack end,
+						func = function()
+							db[itemID].customStack = nil
 							mod:UpdateItems()
 						end,
 					},
