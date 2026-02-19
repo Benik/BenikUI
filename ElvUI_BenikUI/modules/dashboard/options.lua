@@ -4,7 +4,8 @@ local mod = BUI:GetModule('Dashboards')
 
 local hooksecurefunc = hooksecurefunc
 
-local tinsert, twipe, pairs, ipairs, format, tostring, tonumber, strmatch = table.insert, table.wipe, pairs, ipairs, format, tostring, tonumber, strmatch
+local tinsert, twipe, pairs, ipairs = table.insert, table.wipe, pairs, ipairs
+local format, tostring, tonumber, strmatch, type = format, tostring, tonumber, strmatch, type
 
 local AceGUIWidgetLSMlists = AceGUIWidgetLSMlists
 local BreakUpLargeNumbers = BreakUpLargeNumbers
@@ -97,7 +98,7 @@ local function isSeasonHeader(name)
 end
 
 local function isLegacyHeader(name)
-	return name == LFG_LIST_LEGACY or name == LEGACY or name == "Legacy"
+	return type(LFG_LIST_LEGACY) == "string" and name == LFG_LIST_LEGACY
 end
 
 local function UpdateTokenOptions()
