@@ -3,8 +3,11 @@ local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
 
 local _G = _G
-local getn = getn
+local hooksecurefunc = hooksecurefunc
 local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
+local ipairs, next = ipairs, next
+local format = format
+local strfind, tostring = strfind, tostring
 
 local GameTooltip = _G.GameTooltip
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
@@ -20,6 +23,7 @@ local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
+local MISCELLANEOUS = MISCELLANEOUS
 
 -- GLOBALS: hooksecurefunc
 
@@ -53,7 +57,6 @@ end
 
 local function OnEnter(self)
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
 	local id = self.id
 
 	if db.tokens.tooltip then
@@ -66,13 +69,12 @@ local function OnEnter(self)
 
 	self.Text:SetFormattedText('%s', self.name)
 	if db.tokens.mouseover then
-		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 	end
 end
 
 local function OnLeave(self)
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
 	local BreakAmount = BreakUpLargeNumbers(self.amount)
 
 	if self.totalMax == 0 then
@@ -88,7 +90,7 @@ local function OnLeave(self)
 	GameTooltip:Hide()
 
 	if db.tokens.mouseover then
-		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 	end
 end
 
@@ -108,7 +110,7 @@ end
 
 function mod:UpdateTokens()
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
+	local holder = mod.tokensHolder
 
 	if not db.tokens.enable then holder:Hide() return end
 
@@ -117,7 +119,7 @@ function mod:UpdateTokens()
 
 	if(tokensDB[1]) then
 		for i = 1, getn(tokensDB) do
-			tokensDB[i]:Kill()
+			tokensDB[i]:Hide()
 		end
 		twipe(tokensDB)
 		holder:Hide()
@@ -194,7 +196,7 @@ function mod:UpdateTokens()
 
 	tsort(tokensDB, sortFunction)
 
-	for key, frame in pairs(tokensDB) do
+	for key, frame in next, tokensDB do
 		frame:ClearAllPoints()
 		if(key == 1) then
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
@@ -251,7 +253,7 @@ function mod:PopulateCurrencyData()
 		end
 	end
 
-	wipe(Collapsed)
+	twipe(Collapsed)
 end
 
 function mod:CURRENCY_DISPLAY_UPDATE(_, currencyID)
@@ -266,31 +268,29 @@ end
 
 local function holderOnEnter(self)
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
 
 	if db.tokens.mouseover then
-		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 	end
 end
 
 local function holderOnLeave(self)
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
 
 	if db.tokens.mouseover then
-		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 	end
 end
 
 local function CheckTokensPosition()
 	if E.db.benikui.dashboards.tokens.enable ~= true then return end
 
-	position, Xoffset = mod:CheckPositionForTooltip(_G.BUI_TokensDashboard)
+	position, Xoffset = mod:CheckPositionForTooltip(mod.tokensHolder)
 end
 
 function mod:ToggleTokens()
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
+	local holder = mod.tokensHolder
 
 	if db.tokens.enable then
 		E:EnableMover(holder.mover.name)
@@ -299,7 +299,7 @@ function mod:ToggleTokens()
 		mod:PopulateCurrencyData()
 		mod:ToggleStyle(holder, 'tokens')
 		mod:ToggleTransparency(holder, 'tokens')
-		
+
 		holder:SetScript('OnEnter', holderOnEnter)
 		holder:SetScript('OnLeave', holderOnLeave)
 	else
@@ -320,6 +320,8 @@ function mod:CreateTokensDashboard()
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
 	holder:Width(db.tokens.width or 150)
 
+	mod.tokensHolder = holder
+
 	E:CreateMover(holder, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,tokens')
 	mod:ToggleTokens()
 end
@@ -328,6 +330,6 @@ function mod:LoadTokens()
 	mod:CreateTokensDashboard()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokens)
-	-- hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
 	hooksecurefunc(E, 'ToggleMoveMode', CheckTokensPosition)
+	mod:SecureHook(_G.TokenFrame, 'Update', mod.PopulateCurrencyData)
 end
