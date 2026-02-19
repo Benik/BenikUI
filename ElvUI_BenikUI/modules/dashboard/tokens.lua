@@ -118,7 +118,7 @@ function mod:UpdateTokens()
 	local NotinInstance = not (db.tokens.instance and inInstance)
 
 	if(tokensDB[1]) then
-		for i = 1, getn(tokensDB) do
+		for i = 1, #tokensDB do
 			tokensDB[i]:Hide()
 		end
 		twipe(tokensDB)
