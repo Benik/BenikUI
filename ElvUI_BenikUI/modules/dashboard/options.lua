@@ -4,7 +4,7 @@ local mod = BUI:GetModule('Dashboards')
 
 local hooksecurefunc = hooksecurefunc
 
-local tinsert, pairs, ipairs, format, tostring, tonumber, strmatch = table.insert, pairs, ipairs, format, tostring, tonumber, strmatch
+local tinsert, twipe, pairs, ipairs, format, tostring, tonumber, strmatch = table.insert, table.wipe, pairs, ipairs, format, tostring, tonumber, strmatch
 
 local AceGUIWidgetLSMlists = AceGUIWidgetLSMlists
 local BreakUpLargeNumbers = BreakUpLargeNumbers
@@ -92,34 +92,86 @@ local function UpdateSystemOptions()
 	}
 end
 
+local function isSeasonHeader(name)
+	return type(name) == "string" and name:match("^Season%s+%d+$") ~= nil
+end
+
+local function isLegacyHeader(name)
+	return name == LFG_LIST_LEGACY or name == LEGACY or name == "Legacy"
+end
+
 local function UpdateTokenOptions()
 	local config = E.Options.args.benikui.args.dashboards.args.tokens.args.selectTokens
 	local db = E.db.benikui.dashboards.tokens
-
 	local optionOrder = 1
-	for i, info in ipairs(mod.CurrencyList) do
-		local name, id = unpack(info)
-		if not info[2] and name ~= LFG_LIST_LEGACY then
-			config.args[tostring(i)] = {
-				order = optionOrder + i,
-				type = 'group',
-				name = name,
-				disabled = function() return not db.enable end,
-				args = {
-				},
-			}
-		elseif info[3] then
-			local tname, amount, icon = mod:GetTokenInfo(id)
-			if tname then
-				config.args[tostring(info[3])].args[tostring(i)] = {
-					order = optionOrder + 2,
-					type = 'toggle',
-					name = (icon and '|T'..icon..':18|t '..tname) or tname,
-					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], BreakUpLargeNumbers(amount)),
+
+	config.args = config.args or {}
+	twipe(config.args)
+
+	local foldHeaderTo = {}
+	local lastRealHeaderIndex
+
+	for i, row in ipairs(mod.CurrencyList) do
+		local name = row[1]
+
+		if not row[2] then
+			if isLegacyHeader(name) then
+				print("faaaaaaaaaaaaaaart")
+				-- do nothing and get rid of Legacy Header
+			elseif isSeasonHeader(name) then
+				print("header: ", name) --prints seasons
+				if lastRealHeaderIndex then
+					foldHeaderTo[i] = lastRealHeaderIndex
+				else
+					config.args[tostring(i)] = {
+						order = optionOrder + i,
+						type = "group",
+						name = name,
+						disabled = function() return not db.enable end,
+						args = {
+						},
+					}
+					lastRealHeaderIndex = i
+				end
+			else
+				config.args[tostring(i)] = {
+					order = optionOrder + i,
+					type = "group",
+					name = name,
 					disabled = function() return not db.enable end,
-					get = function(info) return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
-					set = function(info, value) E.private.benikui.dashboards.tokens.chooseTokens[id] = value mod:UpdateTokens() end,
+					args = {
+					},
 				}
+				lastRealHeaderIndex = i
+			end
+		end
+	end
+
+	for i, row in ipairs(mod.CurrencyList) do
+		local id = row[2]
+		local parentHeaderIndex = row[3]
+
+		if parentHeaderIndex and id then
+			parentHeaderIndex = foldHeaderTo[parentHeaderIndex] or parentHeaderIndex
+
+			local parentGroup = config.args[tostring(parentHeaderIndex)]
+			if parentGroup then
+				local name, amount, icon = mod:GetTokenInfo(id)
+				if name then
+					parentGroup.args[tostring(i)] = {
+						order = optionOrder + 2,
+						type = "toggle",
+						name = (icon and "|T"..icon..":18|t "..name) or name,
+						desc = format("%s %s\n\n|cffffff00%s: %s|r",
+							L["Enable/Disable"], name, L["Amount"], BreakUpLargeNumbers(amount)),
+						disabled = function() return not db.enable end,
+						get = function() return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
+						set = function(_, value)
+							E.private.benikui.dashboards.tokens.chooseTokens[id] = value
+							mod:UpdateTokens()
+						end,
+					}
+				end
 			end
 		end
 	end
