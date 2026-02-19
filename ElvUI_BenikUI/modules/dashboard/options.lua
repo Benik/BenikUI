@@ -273,7 +273,7 @@ local function UpdateItemsOptions()
 						type = 'toggle',
 						width = 'full',
 						name = format('%s %s|cfffcba03 (%s)|r', ENABLE, itemName, itemID),
-						get = function(_) if db[itemID] and db[itemID].enable then return db[itemID].enable end end,
+						get = function() if db[itemID] and db[itemID].enable then return db[itemID].enable end end,
 						set = function(_, value) db[itemID].enable = value mod:GetUserItems() end,
 					},
 					spacer = {
@@ -286,7 +286,7 @@ local function UpdateItemsOptions()
 						type = 'toggle',
 						name = L['Use Custom Stack'],
 						disabled = function() return not db[itemID].enable end,
-						get = function(_) if db[itemID] and db[itemID].useCustomStack then return db[itemID].useCustomStack end end,
+						get = function() if db[itemID] and db[itemID].useCustomStack then return db[itemID].useCustomStack end end,
 						set = function(_, value) db[itemID].useCustomStack = value mod:UpdateItems() end,
 					},
 					customStack = {
@@ -295,7 +295,7 @@ local function UpdateItemsOptions()
 						width = 'half',
 						name = L['Custom Stack'],
 						hidden = function() if db[itemID] and db[itemID].customStack then return not db[itemID].useCustomStack end end,
-						get = function(_) if db[itemID] and db[itemID].customStack then return db[itemID].customStack end end,
+						get = function() if db[itemID] and db[itemID].customStack then return db[itemID].customStack end end,
 						set = function(_, value)
 							db[itemID].customStack = tonumber(value)
 							mod:UpdateItems()
