@@ -116,10 +116,8 @@ local function UpdateTokenOptions()
 
 		if not row[2] then
 			if isLegacyHeader(name) then
-				print("faaaaaaaaaaaaaaart")
 				-- do nothing and get rid of Legacy Header
 			elseif isSeasonHeader(name) then
-				print("header: ", name) --prints seasons
 				if lastRealHeaderIndex then
 					foldHeaderTo[i] = lastRealHeaderIndex
 				else
