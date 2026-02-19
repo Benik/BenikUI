@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local mod = BUI:GetModule('Dashboards');
-local DT = E:GetModule('DataTexts');
+local mod = BUI:GetModule('Dashboards')
+local DT = E:GetModule('DataTexts')
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -24,8 +24,6 @@ local IsInInstance = IsInInstance
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
 local MISCELLANEOUS = MISCELLANEOUS
-
--- GLOBALS: hooksecurefunc
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
