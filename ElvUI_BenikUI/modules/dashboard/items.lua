@@ -49,6 +49,7 @@ end
 
 local function barOnEnter(self)
 	local db = E.db.benikui.dashboards
+	local holder = self:GetParent()
 	local id = self.id
 
 	if db.items.tooltip then
@@ -61,12 +62,13 @@ local function barOnEnter(self)
 
 	self.Text:SetFormattedText('%s', self.name)
 	if db.items.mouseover then
-		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
 	end
 end
 
 local function barOnLeave(self)
 	local db = E.db.benikui.dashboards
+	local holder = self:GetParent()
 	local BreakAmount = BreakUpLargeNumbers(self.amount)
 	local BreakMax = BreakUpLargeNumbers(self.maxValue)
 
@@ -77,7 +79,7 @@ local function barOnLeave(self)
 	end
 
 	if db.items.mouseover then
-		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
 	end
 end
 
