@@ -37,7 +37,17 @@ local expansion = _G['EXPANSION_NAME'..GetExpansionLevel()]
 
 mod.CurrencyList = {}
 
-local function OnMouseUp(self, btn)
+local function sortFunction(a, b)
+	return a.name < b.name
+end
+
+local function CheckTokensPosition()
+	if E.db.benikui.dashboards.tokens.enable ~= true then return end
+
+	position, Xoffset = mod:CheckPositionForTooltip(mod.tokensHolder)
+end
+
+local function barOnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 	local id = self.id
 
@@ -53,7 +63,7 @@ local function OnMouseUp(self, btn)
 	end
 end
 
-local function OnEnter(self)
+local function barOnEnter(self)
 	local db = E.db.benikui.dashboards
 	local id = self.id
 
@@ -71,7 +81,7 @@ local function OnEnter(self)
 	end
 end
 
-local function OnLeave(self)
+local function barOnLeave(self)
 	local db = E.db.benikui.dashboards
 	local BreakAmount = BreakUpLargeNumbers(self.amount)
 
@@ -92,8 +102,20 @@ local function OnLeave(self)
 	end
 end
 
-local function sortFunction(a, b)
-	return a.name < b.name
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards
+
+	if db.tokens.mouseover then
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	end
+end
+
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards
+
+	if db.tokens.mouseover then
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+	end
 end
 
 function mod:GetTokenInfo(id)
@@ -173,9 +195,9 @@ function mod:UpdateTokens()
 						bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 						bar.IconBG.Icon:SetTexture(icon)
 
-						bar:SetScript('OnEnter', OnEnter)
-						bar:SetScript('OnLeave', OnLeave)
-						bar:SetScript('OnMouseUp', OnMouseUp)
+						bar:SetScript('OnEnter', barOnEnter)
+						bar:SetScript('OnLeave', barOnLeave)
+						bar:SetScript('OnMouseUp', barOnMouseUp)
 
 						bar.awicon:SetShown(isValidCurrency)
 
@@ -262,28 +284,6 @@ function mod:CURRENCY_DISPLAY_UPDATE(_, currencyID)
 		end
 	end
 	mod:UpdateTokens()
-end
-
-local function holderOnEnter(self)
-	local db = E.db.benikui.dashboards
-
-	if db.tokens.mouseover then
-		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-	end
-end
-
-local function holderOnLeave(self)
-	local db = E.db.benikui.dashboards
-
-	if db.tokens.mouseover then
-		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-	end
-end
-
-local function CheckTokensPosition()
-	if E.db.benikui.dashboards.tokens.enable ~= true then return end
-
-	position, Xoffset = mod:CheckPositionForTooltip(mod.tokensHolder)
 end
 
 function mod:ToggleTokens()

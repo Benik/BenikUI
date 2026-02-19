@@ -31,7 +31,17 @@ mod.ItemsList = {}
 
 local classColor = E:ClassColor(E.myclass, true)
 
-local function OnMouseUp(self, btn)
+local function sortFunction(a, b)
+	return a.name < b.name
+end
+
+local function CheckItemsPosition()
+	if E.db.benikui.dashboards.items.enable ~= true then return end
+
+	position, Xoffset = mod:CheckPositionForTooltip(mod.itemHolder)
+end
+
+local function barOnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 
 	if btn == "RightButton" then
@@ -83,8 +93,20 @@ local function barOnLeave(self)
 	end
 end
 
-local function sortFunction(a, b)
-	return a.name < b.name
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards
+
+	if db.items.mouseover then
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	end
+end
+
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards
+
+	if db.items.mouseover then
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+	end
 end
 
 function mod:GetItemsInfo(id)
@@ -154,7 +176,7 @@ function mod:UpdateItems()
 
 				bar:SetScript('OnEnter', barOnEnter)
 				bar:SetScript('OnLeave', barOnLeave)
-				bar:SetScript('OnMouseUp', OnMouseUp)
+				bar:SetScript('OnMouseUp', barOnMouseUp)
 
 				bar.id = id
 				bar.name = name
@@ -193,28 +215,6 @@ function mod:GetUserItems()
 		mod.ItemsList[id] = id
 	end
 	mod:UpdateItems()
-end
-
-local function holderOnEnter(self)
-	local db = E.db.benikui.dashboards
-
-	if db.items.mouseover then
-		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-	end
-end
-
-local function holderOnLeave(self)
-	local db = E.db.benikui.dashboards
-
-	if db.items.mouseover then
-		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-	end
-end
-
-local function CheckItemsPosition()
-	if E.db.benikui.dashboards.items.enable ~= true then return end
-
-	position, Xoffset = mod:CheckPositionForTooltip(mod.itemHolder)
 end
 
 function mod:ToggleItems()

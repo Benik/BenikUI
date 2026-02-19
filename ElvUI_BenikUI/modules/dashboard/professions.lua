@@ -27,7 +27,7 @@ local function sortFunction(a, b)
 	return a.name < b.name
 end
 
-local function OnMouseUp(self, btn)
+local function barOnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 	local skillLine = self.skillLine
 
@@ -40,7 +40,7 @@ local function OnMouseUp(self, btn)
 	end
 end
 
-local function OnEnter(self)
+local function barOnEnter(self)
 	local db = E.db.benikui.dashboards
 	local holder = self:GetParent()
 
@@ -51,7 +51,7 @@ local function OnEnter(self)
 	end
 end
 
-local function OnLeave(self)
+local function barOnLeave(self)
 	local db = E.db.benikui.dashboards
 	local holder = self:GetParent()
 
@@ -65,6 +65,22 @@ local function OnLeave(self)
 
 	if db.professions.mouseover then
 		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+	end
+end
+
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards
+
+	if db.professions.mouseover then
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	end
+end
+
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards
+
+	if db.professions.mouseover then
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 	end
 end
 
@@ -128,9 +144,9 @@ function mod:UpdateProfessions()
 							displayString = format('%s / %s', rank, maxRank)
 						end
 
-						bar:SetScript('OnEnter', OnEnter)
-						bar:SetScript('OnLeave', OnLeave)
-						bar:SetScript('OnMouseUp', OnMouseUp)
+						bar:SetScript('OnEnter', barOnEnter)
+						bar:SetScript('OnLeave', barOnLeave)
+						bar:SetScript('OnMouseUp', barOnMouseUp)
 
 						bar.Text:SetText(displayString)
 						bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
@@ -169,22 +185,6 @@ function mod:UpdateProfessions()
 	mod:FontColor(professionsDB)
 	mod:BarColor(professionsDB)
 	mod:IconPosition(professionsDB, 'professions')
-end
-
-local function holderOnEnter(self)
-	local db = E.db.benikui.dashboards
-
-	if db.professions.mouseover then
-		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-	end
-end
-
-local function holderOnLeave(self)
-	local db = E.db.benikui.dashboards
-
-	if db.professions.mouseover then
-		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-	end
 end
 
 function mod:ToggleProfessions()

@@ -49,7 +49,17 @@ local factionsDB = mod.FactionsDB
 
 local classColor = E:ClassColor(E.myclass, true)
 
-local function OnMouseUp(self, btn)
+local function sortFunction(a, b)
+	return a.name < b.name
+end
+
+local function CheckReputationsPosition()
+	if E.db.benikui.dashboards.reputations.enable ~= true then return end
+
+	position, Xoffset = mod:CheckPositionForTooltip(mod.repHolder)
+end
+
+local function barOnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
@@ -140,8 +150,20 @@ local function barOnLeave(self)
 	end
 end
 
-local function sortFunction(a, b)
-	return a.name < b.name
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards
+
+	if db.reputations.mouseover then
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	end
+end
+
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards
+
+	if db.reputations.mouseover then
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+	end
 end
 
 function mod:UpdateReputations()
@@ -287,7 +309,7 @@ function mod:UpdateReputations()
 
 						bar:SetScript('OnEnter', barOnEnter)
 						bar:SetScript('OnLeave', barOnLeave)
-						bar:SetScript('OnMouseUp', OnMouseUp)
+						bar:SetScript('OnMouseUp', barOnMouseUp)
 
 						bar.factionID = factionID
 						bar.name = name
@@ -391,30 +413,6 @@ function mod:UPDATE_FACTION(_, factionID)
 	mod:UpdateReputations()
 end
 
-function mod:repHolderOnEnter()
-	local db = E.db.benikui.dashboards
-	local holder = mod.repHolder
-
-	if db.reputations.mouseover then
-		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-	end
-end
-
-function mod:repHolderOnLeave()
-	local db = E.db.benikui.dashboards
-	local holder = mod.repHolder
-
-	if db.reputations.mouseover then
-		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-	end
-end
-
-local function CheckReputationsPosition()
-	if E.db.benikui.dashboards.reputations.enable ~= true then return end
-
-	position, Xoffset = mod:CheckPositionForTooltip(mod.repHolder)
-end
-
 function mod:ToggleReputations()
 	local db = E.db.benikui.dashboards
 	local holder = mod.repHolder
@@ -429,8 +427,8 @@ function mod:ToggleReputations()
 		mod:ToggleStyle(holder, 'reputations')
 		mod:ToggleTransparency(holder, 'reputations')
 
-		holder:SetScript('OnEnter', mod.repHolderOnEnter)
-		holder:SetScript('OnLeave', mod.repHolderOnLeave)
+		holder:SetScript('OnEnter', holderOnEnter)
+		holder:SetScript('OnLeave', holderOnLeave)
 
 		mod:PopulateFactionData()
 	else
