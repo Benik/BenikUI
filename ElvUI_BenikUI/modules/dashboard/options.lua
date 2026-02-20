@@ -309,7 +309,7 @@ local function UpdateItemsOptions()
 					clearCustomStack = {
 						order = 12,
 						type = 'execute',
-						name = 'X', -- this needs some love
+						name = '|TInterface\\AddOns\\ElvUI\\Game\\Shared\\Media\\Textures\\Close.tga:12:12|t',
 						width = 0.25,
 						hidden = function() if db[itemID] and db[itemID].customStack then return not db[itemID].useCustomStack end end,
 						disabled = function() return not db[itemID].customStack end,
