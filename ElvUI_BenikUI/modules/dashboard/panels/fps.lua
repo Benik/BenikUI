@@ -157,7 +157,7 @@ end
 function mod:CreateFps()
 	local bar = _G['BUI_FPS']
 	local db = E.db.benikui.dashboards.system
-	local holder = mod.systemHolder or _G.BUI_SystemDashboard
+	local holder = mod.systemHolder
 	bar.db = db
 	bar:SetParent(holder)
 

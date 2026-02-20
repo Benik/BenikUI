@@ -95,7 +95,7 @@ end
 
 local function OnLeave(self)
 	local db = self.db
-	local holder = mod.systemHolder or _G.BUI_SystemDashboard
+	local holder = mod.systemHolder
 
 	if db.mouseover then
 		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
@@ -106,7 +106,7 @@ end
 function mod:CreateMs()
 	local bar = _G['BUI_MS']
 	local db = E.db.benikui.dashboards.system
-	local holder = mod.systemHolder or _G.BUI_SystemDashboard
+	local holder = mod.systemHolder
 	bar:SetParent(holder)
 	bar.db = db
 

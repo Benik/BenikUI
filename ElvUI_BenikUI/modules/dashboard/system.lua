@@ -51,7 +51,7 @@ end
 
 function mod:CreateSystem()
 	local db = E.db.benikui.dashboards.system
-	local holder = mod.systemHolder or _G.BUI_SystemDashboard
+	local holder = mod.systemHolder
 
 	if(systemDB[1]) then
 		for i = 1, #systemDB do
@@ -107,7 +107,7 @@ end
 
 function mod:UpdateSystemSettings()
 	local db = E.db.benikui.dashboards.system
-	local holder = mod.systemHolder or _G.BUI_SystemDashboard
+	local holder = mod.systemHolder
 
 	mod:FontStyle(systemDB)
 	mod:FontColor(systemDB)
@@ -134,7 +134,7 @@ end
 
 function mod:UpdateOrientation()
 	local db = E.db.benikui.dashboards.system
-	local holder = mod.systemHolder or _G.BUI_SystemDashboard
+	local holder = mod.systemHolder
 
 	if db.orientation == 'BOTTOM' then
 		holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#systemDB)) + DASH_SPACING)
@@ -164,14 +164,13 @@ function mod:CreateSystemDashboard()
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
 	holder:Width(db.width or 150)
 
+	mod.systemHolder = holder
+
+	mod:CreateSystem()
 	mod:UpdateHolderDimensions(holder, 'system', systemDB)
 	mod:ToggleStyle(holder, 'system')
 	mod:ToggleTransparency(holder, 'system')
-	mod:CreateSystem()
 	mod:UpdateOrientation()
-
-	mod.systemHolder = holder
-
 	mod:UpdateSystemSettings()
 
 	holder:SetScript('OnEnter', holderOnEnter)
