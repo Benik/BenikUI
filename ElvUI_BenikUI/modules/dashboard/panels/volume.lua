@@ -6,15 +6,15 @@ local _G = _G
 local join, tonumber, floor = string.join, tonumber, floor
 
 local CreateFrame = CreateFrame
-local GameTooltip = _G["GameTooltip"]
+local GameTooltip = _G.GameTooltip
 local GetCVar, SetCVar = GetCVar, SetCVar
 local Sound_ToggleSound = Sound_ToggleSound
 local Sound_ToggleMusic = Sound_ToggleMusic
+local IsShiftKeyDown = IsShiftKeyDown
 
 local MASTER_VOLUME, MUTED, ENABLE_SOUNDFX, MUSIC_VOLUME, VOICE_AMBIENCE, VOLUME = MASTER_VOLUME, MUTED, ENABLE_SOUNDFX, MUSIC_VOLUME, VOICE_AMBIENCE, VOLUME
+local SOUND_OPTIONS = SOUND_OPTIONS
 local BINDING_NAME_TOGGLESOUND, BINDING_NAME_TOGGLEMUSIC = BINDING_NAME_TOGGLESOUND, BINDING_NAME_TOGGLEMUSIC
-
--- GLOBALS: selectioncolor
 
 local statusColors = {
 	'cff0CD809',	-- green
@@ -116,14 +116,14 @@ local function IconOnEnter(self)
 	local ambience = GetVolumePercent('Sound_AmbienceVolume');
 
 	if (GetCVar('Sound_EnableAllSound') == '0') then
-		GameTooltip:AddDoubleLine(MASTER_VOLUME, MUTED, 1, 1, 1, selectioncolor)
+		GameTooltip:AddDoubleLine(MASTER_VOLUME, MUTED, 1, 1, 1, 1, 1, 1)
 	else
-		GameTooltip:AddDoubleLine(MASTER_VOLUME, master..'%', 1, 1, 1, selectioncolor)
+		GameTooltip:AddDoubleLine(MASTER_VOLUME, master..'%', 1, 1, 1, 1, 1, 1)
 	end
 
-	GameTooltip:AddDoubleLine(ENABLE_SOUNDFX, effects..'%', 1, 1, 1, selectioncolor)
-	GameTooltip:AddDoubleLine(MUSIC_VOLUME, music..'%', 1, 1, 1, selectioncolor)
-	GameTooltip:AddDoubleLine(VOICE_AMBIENCE, ambience..'%', 1, 1, 1, selectioncolor)
+	GameTooltip:AddDoubleLine(ENABLE_SOUNDFX, effects..'%', 1, 1, 1, 1, 1, 1)
+	GameTooltip:AddDoubleLine(MUSIC_VOLUME, music..'%', 1, 1, 1, 1, 1, 1)
+	GameTooltip:AddDoubleLine(VOICE_AMBIENCE, ambience..'%', 1, 1, 1, 1, 1, 1)
 	GameTooltip:AddLine(' ')
 	GameTooltip:AddDoubleLine(L['Click :'], BINDING_NAME_TOGGLESOUND, 0.7, 0.7, 1, 0.7, 0.7, 1)
 	GameTooltip:AddDoubleLine(L['RightClick :'], BINDING_NAME_TOGGLEMUSIC, 0.7, 0.7, 1, 0.7, 0.7, 1)

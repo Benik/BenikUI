@@ -5,7 +5,7 @@ local _G = _G
 local join, floor = string.join, floor
 local select, collectgarbage = select, collectgarbage
 local sort, wipe = table.sort, table.wipe
-local format = string.format
+local format = format
 
 local GetFramerate = GetFramerate
 local GetNumAddOns = (C_AddOns and C_AddOns.GetNumAddOns) or GetNumAddOns
@@ -14,7 +14,8 @@ local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local GetAddOnMemoryUsage = GetAddOnMemoryUsage
 local InCombatLockdown = InCombatLockdown
-local GameTooltip = _G["GameTooltip"]
+local IsInInstance = IsInInstance
+local GameTooltip = _G.GameTooltip
 
 local kiloByteString = '|cfff6a01a %d|r'..' kb'
 local megaByteString = '|cfff6a01a %.2f|r'..' mb'

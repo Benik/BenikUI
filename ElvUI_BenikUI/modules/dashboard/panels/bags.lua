@@ -7,6 +7,8 @@ local C_Container_GetContainerNumFreeSlots = C_Container.GetContainerNumFreeSlot
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS + 1
 
+local ToggleAllBags = _G.ToggleAllBags
+
 local statusColors = {
 	'cff0CD809',	-- green
 	'cffE8DA0F',	-- yellow
@@ -43,7 +45,7 @@ local function OnEvent(self)
 end
 
 local function OnClick()
-	_G.ToggleAllBags()
+	ToggleAllBags()
 end
 
 function mod:CreateBags()

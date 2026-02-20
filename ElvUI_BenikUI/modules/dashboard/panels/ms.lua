@@ -1,18 +1,24 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards');
 
-local LastUpdate = 1
+local _G = _G
 local select = select
 local join = string.join
-local _G = _G
 
+local GameTooltip = _G.GameTooltip
 local GetNetStats = GetNetStats
+local InCombatLockdown = InCombatLockdown
+local IsInInstance = IsInInstance
+local HOME = HOME
+local WORLD = WORLD
 
 local statusColors = {
 	'cff0CD809',	-- green
 	'cffE8DA0F',	-- yellow
 	'cffD80909',	-- red
 }
+
+local LastUpdate = 1
 
 local function OnEnter(self)
 	local db = self.db

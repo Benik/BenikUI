@@ -2,7 +2,7 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards');
 
 local _G = _G
-local pairs, format, join = pairs, string.format, string.join
+local pairs, format = pairs, format
 
 local GameTooltip = _G["GameTooltip"]
 local GetInventorySlotInfo = GetInventorySlotInfo
