@@ -49,7 +49,7 @@ end
 function mod:CreateBags()
 	local bar = _G['BUI_Bags']
 	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
+	local holder = mod.systemHolder or _G.BUI_SystemDashboard
 	bar.db = db
 	bar:SetParent(holder)
 

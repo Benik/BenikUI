@@ -2,9 +2,9 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards');
 local DT = E:GetModule('DataTexts');
 
-local tinsert, twipe, getn, pairs, ipairs = table.insert, table.wipe, getn, pairs, ipairs
 local _G = _G
--- GLOBALS: hooksecurefunc
+local tinsert, twipe, next = table.insert, table.wipe, next
+local hooksecurefunc = hooksecurefunc
 
 local CreateFrame = CreateFrame
 
@@ -15,13 +15,47 @@ local systemDB = mod.SystemDB
 
 local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
 
+local function barOnEnter(self)
+	local db = E.db.benikui.dashboards.system
+	local holder = self:GetParent()
+
+	if db.mouseover then
+		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+	end
+end
+
+local function barOnLeave(self)
+	local db = E.db.benikui.dashboards.system
+	local holder = self:GetParent()
+
+	if db.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+	end
+end
+
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards.system
+
+	if db.mouseover then
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	end
+end
+
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards.system
+
+	if db.mouseover then
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+	end
+end
+
 function mod:CreateSystem()
 	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
+	local holder = mod.systemHolder or _G.BUI_SystemDashboard
 
 	if(systemDB[1]) then
-		for i = 1, getn(systemDB) do
-			systemDB[i]:Kill()
+		for i = 1, #systemDB do
+			systemDB[i]:Hide()
 		end
 		twipe(systemDB)
 		holder:Hide()
@@ -29,7 +63,7 @@ function mod:CreateSystem()
 
 	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 
-	for _, name in pairs(boards) do
+	for _, name in next, boards do
 		if db.chooseSystem[name] == true then
 			holder:Show()
 
@@ -63,17 +97,8 @@ function mod:CreateSystem()
 			bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
 			bar.Text:SetJustifyH(db.textAlign)
 
-			bar:SetScript('OnEnter', function(self)
-				if db.mouseover then
-					E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-				end
-			end)
-
-			bar:SetScript('OnLeave', function(self)
-				if db.mouseover then
-					E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-				end
-			end)
+			bar:SetScript('OnEnter', barOnEnter)
+			bar:SetScript('OnLeave', barOnLeave)
 
 			tinsert(systemDB, bar)
 		end
@@ -82,7 +107,7 @@ end
 
 function mod:UpdateSystemSettings()
 	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
+	local holder = mod.systemHolder or _G.BUI_SystemDashboard
 
 	mod:FontStyle(systemDB)
 	mod:FontColor(systemDB)
@@ -95,7 +120,7 @@ end
 function mod:UpdateSystemTextAlignment()
 	local db = E.db.benikui.dashboards.system
 
-	for _, name in pairs(boards) do
+	for _, name in next, boards do
 		if db.chooseSystem[name] == true then
 			local bar = _G['BUI_'..name]
 			if bar then
@@ -109,7 +134,7 @@ end
 
 function mod:UpdateOrientation()
 	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
+	local holder = mod.systemHolder or _G.BUI_SystemDashboard
 
 	if db.orientation == 'BOTTOM' then
 		holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#systemDB)) + DASH_SPACING)
@@ -119,7 +144,7 @@ function mod:UpdateOrientation()
 		holder:Width(db.width * (#systemDB) + ((#systemDB -1) *db.spacing))
 	end
 
-	for key, frame in ipairs(systemDB) do
+	for key, frame in next, systemDB do
 		frame:ClearAllPoints()
 		if(key == 1) then
 			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
@@ -135,7 +160,7 @@ end
 
 function mod:CreateSystemDashboard()
 	local db = E.db.benikui.dashboards.system
-	local holder = self:CreateDashboardHolder('BUI_SystemDashboard', 'system')
+	local holder = mod:CreateDashboardHolder('BUI_SystemDashboard', 'system')
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -8)
 	holder:Width(db.width or 150)
 
@@ -145,19 +170,14 @@ function mod:CreateSystemDashboard()
 	mod:CreateSystem()
 	mod:UpdateOrientation()
 
-	holder:SetScript('OnEnter', function()
-		if db.mouseover then
-			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-		end
-	end)
+	mod.systemHolder = holder
 
-	holder:SetScript('OnLeave', function()
-		if db.mouseover then
-			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-		end
-	end)
+	mod:UpdateSystemSettings()
 
-	E:CreateMover(_G.BUI_SystemDashboard, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,system')
+	holder:SetScript('OnEnter', holderOnEnter)
+	holder:SetScript('OnLeave', holderOnLeave)
+
+	E:CreateMover(holder, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,system')
 end
 
 function mod:LoadSystem()
@@ -167,7 +187,6 @@ function mod:LoadSystem()
 	if (db.FPS ~= true and db.MS ~= true and db.Bags ~= true and db.Durability ~= true and db.Volume ~= true) then return end
 
 	mod:CreateSystemDashboard()
-	mod:UpdateSystemSettings()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateSystemSettings)
 

@@ -95,7 +95,7 @@ end
 function mod:CreateDurability()
 	local bar = _G['BUI_Durability']
 	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
+	local holder = mod.systemHolder or _G.BUI_SystemDashboard
 	bar:SetParent(holder)
 	bar.db = db
 
