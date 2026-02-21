@@ -130,11 +130,7 @@ L['You are now finished with the installation process. If you are in need of tec
 -- actionbar options
 L['Bar 1'] = "Leiste 1"
 L['Bar 2'] = "Leiste 2"
-L['Choose Actionbar to show to'] = "Wähle Aktionsleiste zum Anzeigen"
 L['Request Stop button'] = "Haltewunschtaste"
-L['Show in:'] = "Zeige in:"
-L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Zeigt kleine Tasten über Aktionsleiste 1 oder 2, um Aktionsleiste 3 oder 5 anzuzeigen/auszublenden."
-L['Switch Buttons (requires BenikUI Style)'] = "Tasten wechseln (benötigt BenikUI Stil)"
 
 -- Request stop button
 L['LeftClick to Request Stop'] = "Links-Klick um am nächsten Flugpunkt zu landen"

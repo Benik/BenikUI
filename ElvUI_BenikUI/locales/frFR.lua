@@ -130,11 +130,7 @@ L['You are now finished with the installation process. If you are in need of tec
 -- actionbar options
 L['Bar 1'] = "Barre 1"
 L['Bar 2'] = "Barre 2"
-L['Choose Actionbar to show to'] = "Choisissez la barre d'action pour l'afficher à"
 L['Request Stop button'] = "Bouton de demande d'arrêt"
-L['Show in:'] = "Afficher dans"
-L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Affiche des petits boutons au-dessus de la décoration de la barre d'action 1 ou 2, pour affiche/masque les barres d'action 3 ou 5."
-L['Switch Buttons (requires BenikUI Style)'] = "Change les Boutons (nécessite le style BenikUI)"
 
 -- Request stop button
 L['LeftClick to Request Stop'] = "Clic gauche pour demander un arrêt"

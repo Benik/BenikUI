@@ -130,11 +130,7 @@ L['You are now finished with the installation process. If you are in need of tec
 -- Опции панелей действий
 L['Bar 1'] = "Панель 1"
 L['Bar 2'] = "Панель 2"
-L['Choose Actionbar to show to'] = "Выберите панель действий для отображения"
 L['Request Stop button'] = "Кнопка запроса остановки"
-L['Show in:'] = "Показать в:"
-L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Показать маленькие кнопки над декором панели действий 1 или 2, чтобы показать/скрыть панели действий 3 или 5."
-L['Switch Buttons (requires BenikUI Style)'] = "Переключить кнопки (требуется стиль BenikUI)"
 
 -- Кнопка запроса остановки
 L['LeftClick to Request Stop'] = "ЛКМ для запроса остановки"
