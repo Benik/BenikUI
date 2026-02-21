@@ -112,16 +112,16 @@ end
 function mod:GetItemsInfo(id)
 	local name, icon, amount, totalMax
 
-    for bagID = 0, NUM_BAG_SLOTS do
+	for bagID = 0, NUM_BAG_SLOTS do
 		for slot = 1, C_Container_GetContainerNumSlots(bagID) do
-            if id then
-                name, _, _, _, _, _, _, totalMax = GetItemInfo(id)
+			if id then
+				name, _, _, _, _, _, _, totalMax = GetItemInfo(id)
 				icon = C_Item_GetItemIconByID(id)
-                amount = GetItemCount(id, true)
-                return name, icon, amount, totalMax
-            end
-        end
-    end
+				amount = GetItemCount(id, true)
+				return name, icon, amount, totalMax
+			end
+		end
+	end
 end
 
 function mod:UpdateItems()

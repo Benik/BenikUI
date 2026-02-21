@@ -75,9 +75,9 @@ local function barOnMouseUp(self, btn)
 end
 
 local function barOnEnter(self)
-    local db = E.db.benikui.dashboards.reputations
-    local holder = self:GetParent()
-    local hexColor = E:RGBToHex(self.color.r, self.color.g, self.color.b)
+	local db = E.db.benikui.dashboards.reputations
+	local holder = self:GetParent()
+	local hexColor = E:RGBToHex(self.color.r, self.color.g, self.color.b)
 
 	local text = self.Text
 	local standingLabel = self.standingLabel
@@ -108,7 +108,7 @@ local function barOnEnter(self)
 		if isParagon then
 			GameTooltip:AddLine(format(PARAGON_REPUTATION_TOOLTIP_TEXT, '\n'..(name)), 1, 1, 1)
 			GameTooltip:AddLine(' ')
-        end
+		end
 
 		if isMajorFaction then
 			GameTooltip:AddLine(format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
@@ -123,7 +123,7 @@ local function barOnEnter(self)
 		GameTooltip:AddLine(' ')
 		GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', self.factionID), 0.7, 0.7, 1)
 		GameTooltip:Show()
-    end
+	end
 end
 
 local function barOnLeave(self)
@@ -374,7 +374,7 @@ function mod:PopulateFactionData()
 		if (info.isHeader or info.isHeaderWithRep) and not info.isChild then
 			headerIndex = factionIndex
 			tinsert(mod.ReputationsList, { info.name, 0, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
-        end
+		end
 
 		if not info.isHeader and not info.isHeaderWithRep then
 			if info.factionID then
