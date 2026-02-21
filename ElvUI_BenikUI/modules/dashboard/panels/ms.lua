@@ -99,7 +99,7 @@ end
 mod:RegisterSystemBoard('MS', function()
 	local bar = mod:CreateSystemBar('MS', OnEnter, OnLeave)
 	bar.elapsed = 0
-	bar.OnUpdate = OnUpdate
+	bar.UpdateFunc = OnUpdate
 	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
 	bar:SetScript('OnUpdate', mod.CommonOnUpdate)
 end)

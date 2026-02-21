@@ -151,7 +151,7 @@ end
 mod:RegisterSystemBoard('FPS', function()
 	local bar = mod:CreateSystemBar('FPS', OnEnter, OnLeave, OnClick)
 	bar.elapsed = 0
-	bar.OnUpdate = OnUpdate
+	bar.UpdateFunc = OnUpdate
 	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
 	bar:SetScript('OnUpdate', mod.CommonOnUpdate)
 end)

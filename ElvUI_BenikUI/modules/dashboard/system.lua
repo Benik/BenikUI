@@ -50,11 +50,11 @@ local function holderOnLeave(self)
 end
 
 function mod.CommonOnUpdate(self, elapsed) -- this needs a dot
-    self.elapsed = self.elapsed + elapsed
-    if self.elapsed >= (self.db.updateThrottle or 1) then
-        self.elapsed = 0
-        self:OnUpdate()
-    end
+	self.elapsed = self.elapsed + elapsed
+	if self.elapsed >= (self.db.updateThrottle or 1) then
+		self.elapsed = 0
+		self:UpdateFunc()
+	end
 end
 
 function mod:UpdateSystemSettings()
@@ -176,10 +176,10 @@ function mod:CreateSystemDashboard()
 end
 
 function mod:RegisterSystemBoard(name, createFunc)
-    self.systemBoards[#self.systemBoards + 1] = {
-        name = name,
-        create = createFunc,
-    }
+	self.systemBoards[#self.systemBoards + 1] = {
+		name = name,
+		create = createFunc,
+	}
 end
 
 function mod:LoadSystem()
