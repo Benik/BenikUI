@@ -2,6 +2,7 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Actionbars');
 
 local _G = _G
+local next = next
 local GameTooltip = _G.GameTooltip
 local CreateFrame = CreateFrame
 local UnitOnTaxi = UnitOnTaxi
@@ -10,10 +11,6 @@ local C_TimerAfter = C_Timer.After
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 local IsInInstance = IsInInstance
 local TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION = TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION
-
-local MainMenuBarVehicleLeaveButton = _G.MainMenuBarVehicleLeaveButton
-
--- GLOBALS: GameTooltip_Hide, BuiTaxiButton, LeaveVehicleButton
 
 local noFlightMapIDs = {
 	-- Antoran Wastes (Legion)
@@ -25,7 +22,7 @@ local noFlightMapIDs = {
 }
 
 function BUI:CheckFlightMapID()
-	for _, id in pairs (noFlightMapIDs) do
+	for _, id in next, noFlightMapIDs do
 		local noFlightMapIDs = C_Map_GetBestMapForUnit("player")
 		if id == noFlightMapIDs then return true end
 	end
@@ -35,6 +32,7 @@ local function TaxiButton_OnEvent(self)
 	local forbiddenArea = BUI:CheckFlightMapID()
 
 	if (UnitOnTaxi("player") and not IsInInstance() and not forbiddenArea) then
+		local MainMenuBarVehicleLeaveButton = _G.MainMenuBarVehicleLeaveButton
 		C_TimerAfter(0.05, function() MainMenuBarVehicleLeaveButton:Hide() end)
 		E:UIFrameFadeIn(self, 1, 0, 1)
 		self:Show()
