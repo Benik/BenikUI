@@ -194,12 +194,8 @@ local function OnEvent(self)
 	end
 end
 
-function mod:CreateVolume()
-	local bar = _G['BUI_Volume']
-	local db = E.db.benikui.dashboards.system
-	local holder = mod.systemHolder
-	bar:SetParent(holder)
-	bar.db = db
+mod:RegisterSystemBoard('Volume', function()
+	local bar = mod:CreateSystemBar('Volume')
 
 	local iconBG = CreateFrame('Frame', nil, bar)
 	iconBG:Size(16, 16)
@@ -215,15 +211,15 @@ function mod:CreateVolume()
 	iconBG:EnableMouse(true)
 	iconBG:EnableMouseWheel(true)
 
-	bar.iconBG = iconBG
-
 	iconBG:SetScript('OnEnter', IconOnEnter)
 	iconBG:SetScript('OnLeave', IconOnLeave)
 	iconBG:SetScript('OnMouseWheel', iconBG_OnMouseWheel)
 	iconBG:SetScript('OnMouseUp', iconBG_OnClick)
 
-	bar:SetScript('OnEvent', OnEvent)
+	bar.iconBG = iconBG
+
 	bar:RegisterEvent('VARIABLES_LOADED')
 	bar:RegisterEvent('CVAR_UPDATE')
 	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
-end
+	bar:SetScript('OnEvent', OnEvent)
+end)

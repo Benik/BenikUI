@@ -24,8 +24,6 @@ local REPUTATION = REPUTATION
 local TOKENS = TOKENS
 local TRADE_SKILLS = TRADE_SKILLS
 
-local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
-
 local iconOrientationValues = {
 	['LEFT'] = L['Left'],
 	['RIGHT'] = L['Right'],
@@ -67,8 +65,10 @@ local function UpdateSystemOptions()
 	local config = E.Options.args.benikui.args.dashboards.args.system.args.chooseSystem
 	local db = E.db.benikui.dashboards.system
 
-	for _, boardname in ipairs(boards) do
+	for _, board in next, mod.systemBoards do
 		local optionOrder = 1
+		local boardname = board.name
+
 		config.args.systemGroup.args[boardname] = {
 			order = optionOrder + 1,
 			type = 'toggle',

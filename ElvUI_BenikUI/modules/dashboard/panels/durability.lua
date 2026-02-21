@@ -92,21 +92,10 @@ local function OnLeave(self)
 	GameTooltip:Hide()
 end
 
-function mod:CreateDurability()
-	local bar = _G['BUI_Durability']
-	local db = E.db.benikui.dashboards.system
-	local holder = mod.systemHolder
-	bar:SetParent(holder)
-	bar.db = db
-
-	bar:SetScript('OnEvent', OnEvent)
-
-	bar:EnableMouse(true)
-	bar:SetScript('OnEnter', OnEnter)
-	bar:SetScript('OnLeave', OnLeave)
-	bar:SetScript('OnMouseUp', OnMouseUp)
-
+mod:RegisterSystemBoard('Durability', function()
+	local bar = mod:CreateSystemBar('Durability', OnEnter, OnLeave, OnMouseUp)
 	bar:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
 	bar:RegisterEvent('MERCHANT_SHOW')
 	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
-end
+	bar:SetScript('OnEvent', OnEvent)
+end)

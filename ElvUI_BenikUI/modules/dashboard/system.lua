@@ -13,7 +13,7 @@ local DASH_SPACING = 3
 local SPACING = 1
 local systemDB = mod.SystemDB
 
-local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
+mod.systemBoards = {}
 
 local function barOnEnter(self)
 	local db = E.db.benikui.dashboards.system
@@ -49,60 +49,12 @@ local function holderOnLeave(self)
 	end
 end
 
-function mod:CreateSystem()
-	local db = E.db.benikui.dashboards.system
-	local holder = mod.systemHolder
-
-	if(systemDB[1]) then
-		for i = 1, #systemDB do
-			systemDB[i]:Hide()
-		end
-		twipe(systemDB)
-		holder:Hide()
-	end
-
-	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
-
-	for _, name in next, boards do
-		if db.chooseSystem[name] == true then
-			holder:Show()
-
-			local bar = CreateFrame('Frame', 'BUI_'..name, holder)
-			bar:Height(DASH_HEIGHT)
-			bar:Width(db.width or 150)
-			bar:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
-			bar:EnableMouse(true)
-
-			bar.dummy = CreateFrame('Frame', nil, bar)
-			bar.dummy:SetTemplate('Transparent', nil, true, true)
-			bar.dummy:SetBackdropBorderColor(0, 0, 0, 0)
-			bar.dummy:SetBackdropColor(1, 1, 1, .2)
-			bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, 0)
-			bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
-			bar.dummy:Height(db.barHeight or (E.PixelMode and 1 or 3))
-
-			bar.Status = CreateFrame('StatusBar', nil, bar.dummy)
-			bar.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
-			bar.Status:SetMinMaxValues(0, 100)
-			bar.Status:SetAllPoints()
-
-			bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil);
-			bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-			bar.spark:Size(12, ((db.barHeight + 5) or 6))
-			bar.spark:SetBlendMode('ADD')
-			bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
-
-			bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
-			bar.Text:FontTemplate()
-			bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
-			bar.Text:SetJustifyH(db.textAlign)
-
-			bar:SetScript('OnEnter', barOnEnter)
-			bar:SetScript('OnLeave', barOnLeave)
-
-			tinsert(systemDB, bar)
-		end
-	end
+function mod.CommonOnUpdate(self, elapsed) -- this needs a dot
+    self.elapsed = self.elapsed + elapsed
+    if self.elapsed >= (self.db.updateThrottle or 1) then
+        self.elapsed = 0
+        self:OnUpdate()
+    end
 end
 
 function mod:UpdateSystemSettings()
@@ -120,12 +72,12 @@ end
 function mod:UpdateSystemTextAlignment()
 	local db = E.db.benikui.dashboards.system
 
-	for _, name in next, boards do
-		if db.chooseSystem[name] == true then
-			local bar = _G['BUI_'..name]
+	for _, board in next, mod.systemBoards do
+		if db.chooseSystem[board.name] == true then
+			local bar = _G['BUI_'..board.name]
 			if bar then
 				bar.Text:ClearAllPoints()
-				bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+				bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and board.name == "Volume" and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
 				bar.Text:SetJustifyH(db.textAlign)
 			end
 		end
@@ -158,6 +110,51 @@ function mod:UpdateOrientation()
 	end
 end
 
+function mod:CreateSystemBar(name, onEnter, onLeave, onClick)
+	local db = E.db.benikui.dashboards.system
+	local holder = mod.systemHolder
+
+	local bar = CreateFrame('Frame', 'BUI_'..name, holder)
+	bar:Height(DASH_HEIGHT)
+	bar:Width(db.width or 150)
+	bar:EnableMouse(true)
+	bar.db = db
+
+	bar.dummy = CreateFrame('Frame', nil, bar)
+	bar.dummy:SetTemplate('Transparent', nil, true, true)
+	bar.dummy:SetBackdropBorderColor(0, 0, 0, 0)
+	bar.dummy:SetBackdropColor(1, 1, 1, .2)
+	bar.dummy:Point('BOTTOMLEFT', bar, 'BOTTOMLEFT', 2, 0)
+	bar.dummy:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
+	bar.dummy:Height(db.barHeight or (E.PixelMode and 1 or 3))
+
+	bar.Status = CreateFrame('StatusBar', nil, bar.dummy)
+	bar.Status:SetStatusBarTexture(E.Media.Textures.White8x8)
+	bar.Status:SetMinMaxValues(0, 100)
+	bar.Status:SetAllPoints()
+
+	bar.spark = bar.Status:CreateTexture(nil, 'OVERLAY', nil)
+	bar.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
+	bar.spark:Size(12, ((db.barHeight + 5) or 6))
+	bar.spark:SetBlendMode('ADD')
+	bar.spark:Point('CENTER', bar.Status:GetStatusBarTexture(), 'RIGHT')
+
+	bar.Text = bar.Status:CreateFontString(nil, 'OVERLAY')
+	bar.Text:FontTemplate()
+	bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and name == 'Volume' and -20) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+	bar.Text:SetJustifyH(db.textAlign)
+
+	bar:SetScript('OnEnter', onEnter or barOnEnter)
+	bar:SetScript('OnLeave', onLeave or barOnLeave)
+	if onClick then
+		bar:SetScript('OnMouseDown', onClick)
+	end
+
+	tinsert(systemDB, bar)
+
+	return bar
+end
+
 function mod:CreateSystemDashboard()
 	local db = E.db.benikui.dashboards.system
 	local holder = mod:CreateDashboardHolder('BUI_SystemDashboard', 'system')
@@ -166,7 +163,6 @@ function mod:CreateSystemDashboard()
 
 	mod.systemHolder = holder
 
-	mod:CreateSystem()
 	mod:UpdateHolderDimensions(holder, 'system', systemDB)
 	mod:ToggleStyle(holder, 'system')
 	mod:ToggleTransparency(holder, 'system')
@@ -179,19 +175,45 @@ function mod:CreateSystemDashboard()
 	E:CreateMover(holder, 'BuiDashboardMover', L['System'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,system')
 end
 
+function mod:RegisterSystemBoard(name, createFunc)
+    self.systemBoards[#self.systemBoards + 1] = {
+        name = name,
+        create = createFunc,
+    }
+end
+
 function mod:LoadSystem()
 	if E.db.benikui.dashboards.system.enable ~= true then return end
+
 	local db = E.db.benikui.dashboards.system.chooseSystem
 
-	if (db.FPS ~= true and db.MS ~= true and db.Bags ~= true and db.Durability ~= true and db.Volume ~= true) then return end
+	local anyEnabled = false
+	for _, board in next, mod.systemBoards do
+		if db[board.name] then
+			anyEnabled = true
+			break
+		end
+	end
+	if not anyEnabled then return end
 
 	mod:CreateSystemDashboard()
 
-	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateSystemSettings)
+	for _, board in next, mod.systemBoards do
+		if db[board.name] then
+			board.create()
+		end
+	end
 
-	if db.FPS then mod:CreateFps() end
-	if db.MS then mod:CreateMs() end
-	if db.Bags then mod:CreateBags() end
-	if db.Durability then mod:CreateDurability() end
-	if db.Volume then mod:CreateVolume() end
+	local holder = mod.systemHolder
+	if #systemDB > 0 then
+		holder:Show()
+	end
+
+	mod:UpdateHolderDimensions(holder, 'system', systemDB)
+	mod:ToggleStyle(holder, 'system')
+	mod:ToggleTransparency(holder, 'system')
+	mod:UpdateOrientation()
+	mod:UpdateSystemSettings()
+
+	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateSystemSettings)
 end
