@@ -2,7 +2,7 @@ local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local mod = BUI:GetModule('Actionbars');
 
-local tinsert = table.insert
+local tinsert, ipairs = table.insert, ipairs
 
 local function abTable()
 	E.Options.args.benikui.args.actionbars = {
