@@ -78,7 +78,7 @@ local function Sound_MasterVolumeDown()
 	end
 end
 
-local function iconBG_OnMouseWheel(self, d)
+local function iconBG_OnMouseWheel(_, d)
 	if (d > 0) then
 		Sound_MasterVolumeUp()
 	else
@@ -87,7 +87,7 @@ local function iconBG_OnMouseWheel(self, d)
 end
 
 -- Toggle all sounds
-local function iconBG_OnClick(self, btn)
+local function iconBG_OnClick(_, btn)
 	if btn == 'LeftButton' then
 		if IsShiftKeyDown() then
 			_G.Settings.OpenToCategory(_G.Settings.AUDIO_CATEGORY_ID)
@@ -225,4 +225,5 @@ function mod:CreateVolume()
 	bar:SetScript('OnEvent', OnEvent)
 	bar:RegisterEvent('VARIABLES_LOADED')
 	bar:RegisterEvent('CVAR_UPDATE')
+	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
