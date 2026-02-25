@@ -223,9 +223,8 @@ local function LoadSkin()
 		for _, tab in next, tabs do
 			tab.backdrop:SetTemplate('Transparent')
 
-			if BUI.ShadowMode then
+			if E.db.benikui.general.shadows then
 				tab.backdrop:CreateSoftShadow()
-				tab.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
 			end
 		end
 	end
