@@ -166,7 +166,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 
 	frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2)
 	frame:Width(BUTTON_WIDTH + PADDING * 2 + (addedSize or 0))
-	frame:BuiStyle('Outside')
+	frame:BuiStyle()
 	frame:ClearAllPoints()
 	frame:SetFrameStrata('DIALOG')
 

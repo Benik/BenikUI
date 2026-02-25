@@ -105,7 +105,7 @@ function mod:TaxiButton()
 	tbtn:Size(240, 40)
 	tbtn:Point('TOP', E.UIParent, 'TOP', 0, -150)
 	tbtn:SetTemplate("Transparent")
-	tbtn:BuiStyle('Outside')
+	tbtn:BuiStyle()
 	tbtn:RegisterForClicks("AnyUp")
 
 	tbtn.IconBG = CreateFrame('Frame', nil, tbtn)

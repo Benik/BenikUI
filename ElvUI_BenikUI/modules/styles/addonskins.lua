@@ -16,7 +16,7 @@ local function SkadaDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.skada then return end
 	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
 		local skada = win.bargroup
-		skada.backdrop:BuiStyle('Outside')
+		skada.backdrop:BuiStyle()
 		if win.db.enabletitle then
 			skada.button:StripTextures()
 		end
@@ -76,7 +76,7 @@ local function TinyDPSDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.tinydps then return end
 	if _G["tdpsFrame"] then
 		if not _G["tdpsFrame"].style then
-			_G["tdpsFrame"]:BuiStyle('Outside')
+			_G["tdpsFrame"]:BuiStyle()
 		end
 	end
 end
@@ -86,7 +86,7 @@ local function AtlasLootDecor()
 	local AtlasLootFrame = _G["AtlasLoot_GUI-Frame"]
 	if AtlasLootFrame then
 		if not AtlasLootFrame.style then
-			AtlasLootFrame:BuiStyle('Outside')
+			AtlasLootFrame:BuiStyle()
 		end
 	end
 end
@@ -95,15 +95,15 @@ local function AltoholicDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.altoholic then return end
 	if _G["AltoholicFrame"] then
 		if not _G["AltoholicFrame"].style then
-			_G["AltoholicFrame"]:BuiStyle('Outside')
+			_G["AltoholicFrame"]:BuiStyle()
 		end
 	end
 end
 
 local function CliqueDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.clique then return end
-	_G["CliqueConfig"].backdrop:BuiStyle('Outside')
-	_G["CliqueDialog"].backdrop:BuiStyle('Outside')
+	_G["CliqueConfig"].backdrop:BuiStyle()
+	_G["CliqueDialog"].backdrop:BuiStyle()
 	local tab = _G["CliqueSpellTab"]
 	if not tab.style then
 		tab:BuiStyle('Inside')
@@ -114,11 +114,11 @@ end
 
 local function oRA3Decor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.ora then return end
-	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"].backdrop:BuiStyle('Outside'); end)
+	hooksecurefunc(oRA3, "ToggleFrame", function() _G["oRA3Frame"].backdrop:BuiStyle(); end)
 
 	local ReadyCheckModule = oRA3:GetModule("ReadyCheck")
 	if (ReadyCheckModule) then
-		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() _G["oRA3ReadyCheck"].backdrop:BuiStyle('Outside'); end)
+		hooksecurefunc(ReadyCheckModule, "READY_CHECK", function() _G["oRA3ReadyCheck"].backdrop:BuiStyle(); end)
 	end
 end
 
@@ -127,7 +127,7 @@ local function PawnDecor()
 	local frame = PawnUIFrame
 
 	if not frame.style then
-		frame:BuiStyle('Outside')
+		frame:BuiStyle()
 	end
 end
 
@@ -147,7 +147,7 @@ local function DbmDecor(_, event)
 
 		if DBMRangeCheck then
 			if not DBMRangeCheck.style then
-				DBMRangeCheck:BuiStyle('Outside')
+				DBMRangeCheck:BuiStyle()
 			end
 		end
 	end
@@ -170,7 +170,7 @@ local function BugSackDecor()
 	hooksecurefunc(BugSack, "OpenSack", function()
 		if BugSackFrame.IsStyled then return end
 		if not BugSackFrame.style then
-			BugSackFrame:BuiStyle('Outside')
+			BugSackFrame:BuiStyle()
 		end
 		BugSackFrame.IsStyled = true
 	end)
@@ -182,7 +182,7 @@ local function LibrariesDecor()
 	if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType('GameTooltip') then
 		DBIcon.tooltip:HookScript("OnShow", function(self)
 			if not self.style then
-				self:BuiStyle('Outside')
+				self:BuiStyle()
 			end
 		end)
 	end
@@ -191,7 +191,7 @@ end
 local function ZygorDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.zygor then return end
 
-	_G['ZygorGuidesViewerFrame_Border']:BuiStyle('Outside')
+	_G['ZygorGuidesViewerFrame_Border']:BuiStyle()
 end
 
 local function ImmersionDecor()
@@ -224,19 +224,19 @@ local function AllTheThingsDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.allthethings then return end
 	for _, Instance in pairs({ 'Prime', 'CurrentInstance' }) do
 		local Window = AllTheThings:GetWindow(Instance)
-		Window:BuiStyle('Outside')
+		Window:BuiStyle()
 	end
 end
 
 local function TinyInspectDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.tinyinspect then return end
-	TinyInspectRaidFrame:BuiStyle('Outside') -- not tested
-	TinyInspectRaidFrame.panel:BuiStyle('Outside') -- not tested
+	TinyInspectRaidFrame:BuiStyle() -- not tested
+	TinyInspectRaidFrame.panel:BuiStyle() -- not tested
 
 	PaperDollFrame:HookScript("OnShow", function(self)
 		if self.inspectFrame then
 			if not self.inspectFrame.style then
-				self.inspectFrame:BuiStyle('Outside')
+				self.inspectFrame:BuiStyle()
 			end
 			self.inspectFrame:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		end
@@ -248,14 +248,14 @@ local function ArkInventoryDecor()
 	hooksecurefunc(ArkInventory, 'Frame_Main_Paint', function(frame)
 		if not ArkInventory.ValidFrame(frame, true) then return end
 		if not frame.style then
-			frame:BuiStyle('Outside')
+			frame:BuiStyle()
 		end
 	end)
 end
 
 local function StorylineDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.storyline then return end
-	_G.Storyline_NPCFrame:BuiStyle("Outside")
+	_G.Storyline_NPCFrame:BuiStyle()
 end
 
 local function ClassTactics(event, addon)
@@ -275,8 +275,8 @@ local function ClassTactics(event, addon)
 		CT.TalentsFrames:SetPoint('TOPLEFT', _G.PlayerTalentFrame, 'TOPRIGHT', 2, 0)
 		CT.TalentsFrames.TitleText:SetFont(CT.Libs.LSM:Fetch('font', 'Expressway'), 12, 'OUTLINE')
 		CT.TalentsFrames.PvPTalents.TitleText:SetFont(CT.Libs.LSM:Fetch('font', 'Expressway'), 12, 'OUTLINE')
-		CT.TalentsFrames:BuiStyle('Outside')
-		CT.TalentsFrames.PvPTalents:BuiStyle('Outside')
+		CT.TalentsFrames:BuiStyle()
+		CT.TalentsFrames.PvPTalents:BuiStyle()
 	end)
 	
 end
@@ -290,7 +290,7 @@ local function HekiliDecor()
 		local b = Hekili.DisplayPool[dispID].Buttons[id]
 		if b and not b.backdrop then
 			b:CreateBackdrop()
-			b.backdrop:BuiStyle('Outside')
+			b.backdrop:BuiStyle()
 		end
 	end)
 end
@@ -299,7 +299,7 @@ local function WoWProDecor()
 	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.wowpro then return end
 	local frame = _G['WoWPro.MainFrame']
 	if not frame.style then
-		frame:BuiStyle('Outside')
+		frame:BuiStyle()
 	end
 end
 

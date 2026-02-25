@@ -18,7 +18,7 @@ function mod:stylePlugins()
 		}
 		for _, frame in pairs(framestoskin) do
 			if frame then
-				frame:BuiStyle("Outside")
+				frame:BuiStyle()
 			end
 		end
 	end
@@ -45,7 +45,7 @@ function mod:stylePlugins()
 
 		for _, frame in pairs(sleFrames) do
 			if frame then
-				frame:BuiStyle("Outside")
+				frame:BuiStyle()
 			end
 		end
 
@@ -70,18 +70,18 @@ function mod:stylePlugins()
 	if BUI.PA and E.db.benikui.skins.elvuiAddons.pa then
 		local smbFrame = _G.SquareMinimapButtonBar
 		if smbFrame then
-			smbFrame:BuiStyle("Outside")
+			smbFrame:BuiStyle()
 		end
 	end
 
 	-- ElvUI_Enhanced
 	if IsAddOnLoaded("ElvUI_Enhanced") and E.db.benikui.skins.elvuiAddons.enh then
 		if _G.MinimapButtonBar then
-			_G.MinimapButtonBar:BuiStyle("Outside")
+			_G.MinimapButtonBar:BuiStyle()
 		end
 
 		if _G.RaidMarkerBar then
-			_G.RaidMarkerBar:BuiStyle("Outside")
+			_G.RaidMarkerBar:BuiStyle()
 		end
 	end
 
@@ -89,13 +89,13 @@ function mod:stylePlugins()
 	if BUI.PA and E.db.benikui.skins.elvuiAddons.pa then
 		local stFrame = _G.stAMFrame
 		if stFrame then
-			stFrame:BuiStyle("Outside")
+			stFrame:BuiStyle()
 			stAMAddOns:SetTemplate("Transparent")
 		end
 
 		local profileFrame = _G.stAMProfileMenu
 		if profileFrame then
-			profileFrame:BuiStyle("Outside")
+			profileFrame:BuiStyle()
 		end
 	end
 
@@ -109,7 +109,7 @@ function mod:stylePlugins()
 		end
 
 		if bottomPanel then
-			bottomPanel:BuiStyle('Outside')
+			bottomPanel:BuiStyle()
 		end
 	end
 end
@@ -126,7 +126,7 @@ function mod:StyleWindTools()
 		if not self.db.enable then
 			return
 		end
-		self.bar.backdrop:BuiStyle('Outside')
+		self.bar.backdrop:BuiStyle()
 	end)
 
 	-- Inspect Frames
@@ -137,7 +137,7 @@ function mod:StyleWindTools()
 			return
 		end
 
-		parent.WTInspect:BuiStyle('Outside')
+		parent.WTInspect:BuiStyle()
 	end)
 
 	-- Stats Compare
@@ -147,7 +147,7 @@ function mod:StyleWindTools()
 			return
 		end
 
-		parent.WTInspectStatsCompare:BuiStyle('Outside')
+		parent.WTInspectStatsCompare:BuiStyle()
 	end)
 
 	-- Quick Access
@@ -158,6 +158,6 @@ function mod:StyleWindTools()
 			return
 		end
 
-		self.RightPanel:BuiStyle('Outside')
+		self.RightPanel:BuiStyle()
 	end)
 end

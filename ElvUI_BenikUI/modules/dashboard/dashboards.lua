@@ -180,7 +180,7 @@ function mod:CreateDashboardHolder(holderName, option)
 	holder:CreateBackdrop('Transparent')
 	holder:SetFrameStrata('BACKGROUND')
 	holder:SetFrameLevel(5)
-	holder.backdrop:BuiStyle('Outside')
+	holder.backdrop:BuiStyle()
 	holder:Hide()
 
 	holder:SetScript('OnEvent', function(self, event)

@@ -17,7 +17,7 @@ local function SellFrame()
 	local elvuiVendorGraysFrame = _G.ElvUIVendorGraysFrame
 
 	if elvuiVendorGraysFrame then
-		elvuiVendorGraysFrame:BuiStyle('Outside')
+		elvuiVendorGraysFrame:BuiStyle()
 	end
 end
 hooksecurefunc(B, "CreateSellFrame", SellFrame)
@@ -28,16 +28,16 @@ local function StyleBags()
 	local elvuiBags = _G.ElvUIBags
 
 	if elvuiContainerFrame then
-		elvuiContainerFrame:BuiStyle('Outside')
+		elvuiContainerFrame:BuiStyle()
 	end
 
 	if elvuiContainerFrameContainerHolder then
-		elvuiContainerFrameContainerHolder:BuiStyle('Outside')
+		elvuiContainerFrameContainerHolder:BuiStyle()
 		elvuiContainerFrameContainerHolder:Point('BOTTOMLEFT', elvuiContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
 	end
 
 	if elvuiBags then
-		elvuiBags.backdrop:BuiStyle('Outside')
+		elvuiBags.backdrop:BuiStyle()
 		elvuiBags.backdrop:SetTemplate('Transparent')
 	end
 end
@@ -45,24 +45,24 @@ end
 local function StyleBankBags()
 	local elvuiBankContainerFrame = _G.ElvUI_BankContainerFrame
 	if elvuiBankContainerFrame then
-		elvuiBankContainerFrame:BuiStyle('Outside')
+		elvuiBankContainerFrame:BuiStyle()
 	end
 
 	local elvuiBankContainerFrameBankTabs = _G.ElvUI_BankContainerFrameBankTabs
 	if elvuiBankContainerFrameBankTabs then
-		elvuiBankContainerFrameBankTabs:BuiStyle('Outside')
+		elvuiBankContainerFrameBankTabs:BuiStyle()
 		elvuiBankContainerFrameBankTabs:Point('BOTTOMLEFT', elvuiBankContainerFrame.style, 'TOPLEFT', 0, SPACING + BORDER)
 	end
 
 	local elvuiBankContainerFrameWarbandTabs = _G.ElvUI_BankContainerFrameWarbandTabs
 	if elvuiBankContainerFrameWarbandTabs then
-		elvuiBankContainerFrameWarbandTabs:BuiStyle('Outside')
+		elvuiBankContainerFrameWarbandTabs:BuiStyle()
 	end
 end
 
 function mod:StyleWarbandMenu(menu)
 	if not menu.IsStyled then
-		menu:BuiStyle('Outside')
+		menu:BuiStyle()
 		menu.IsStyled = true
 	end
 end
@@ -79,7 +79,7 @@ local function StyleAllBags()
 
 	local bankFrame = _G.BankFrame
 	if bankFrame then
-		bankFrame:BuiStyle('Outside')
+		bankFrame:BuiStyle()
 	end
 end
 
@@ -87,7 +87,7 @@ local function StyleBagBar()
 	if not E.private.bags.bagBar then return end
 
 	local elvuiBagBar = _G.ElvUIBagBar
-	elvuiBagBar.backdrop:BuiStyle('Outside')
+	elvuiBagBar.backdrop:BuiStyle()
 
 	if not BUI.ShadowMode then return end
 

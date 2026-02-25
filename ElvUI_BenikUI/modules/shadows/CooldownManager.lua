@@ -58,7 +58,7 @@ function mod:CooldownViewer_Shadows()
 
 	local CooldownViewer = _G.CooldownViewerSettings
 	if CooldownViewer then
-		CooldownViewer:BuiStyle("Outside")
+		CooldownViewer:BuiStyle()
 		for i, tab in next, { CooldownViewer.SpellsTab, CooldownViewer.AurasTab } do
 			tab:CreateSoftShadow()
 		end

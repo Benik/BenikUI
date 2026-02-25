@@ -137,7 +137,7 @@ function mod:TotemShadows()
 	if not E.private.general.totemTracker then return end
 	for i = 1, MAX_TOTEMS do
 		local button = T.bar[i]
-		button:BuiStyle("Outside")
+		button:BuiStyle()
 	end
 end
 

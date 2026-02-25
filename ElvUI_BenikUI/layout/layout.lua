@@ -20,13 +20,9 @@ local EncounterJournal_LoadUI = EncounterJournal_LoadUI
 local C_TimerAfter = C_Timer.After
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
-local selectioncolor = selectioncolor
 local MAINMENU_BUTTON = MAINMENU_BUTTON
 local LFG_TITLE = LFG_TITLE
 local ADVENTURE_JOURNAL = ADVENTURE_JOURNAL
-
--- GLOBALS: AddOnSkins
--- GLOBALS: BuiMiddleDTPanel, BuiGameClickMenu
 
 local dtButtons = {}
 
@@ -355,7 +351,7 @@ function mod:CreateLayout()
 				self.btn:SetVertexColor(1, 1, 1, .7)
 				GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT', 0, 2 )
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(MAINMENU_BUTTON, selectioncolor)
+				GameTooltip:AddLine(MAINMENU_BUTTON, 1, 1, 1)
 				GameTooltip:Show()
 				if InCombatLockdown() then GameTooltip:Hide() end
 			end)
@@ -444,8 +440,8 @@ function mod:CreateLayout()
 	elvuiTopPanel:SetFrameLevel(0)
 	elvuiTopPanel:SetFrameStrata('BACKGROUND')
 
-	elvuiLeftChatPanel.backdrop:BuiStyle('Outside')
-	elvuiRightChatPanel.backdrop:BuiStyle('Outside')
+	elvuiLeftChatPanel.backdrop:BuiStyle()
+	elvuiRightChatPanel.backdrop:BuiStyle()
 
 	if BUI.ShadowMode then
 		elvuiMinimapPanel:CreateSoftShadow()
@@ -458,13 +454,13 @@ function mod:CreateLayout()
 	-- Minimap elements styling
 	if E.private.general.minimap.enable then
 		local elvuiMinimapRightClickMenu = _G.MinimapRightClickMenu
-		elvuiMinimap.backdrop:BuiStyle('Outside')
-		elvuiMinimapRightClickMenu:BuiStyle('Outside')
+		elvuiMinimap.backdrop:BuiStyle()
+		elvuiMinimapRightClickMenu:BuiStyle()
 		mod:ResizeMinimapPanels()
 	end
 
 	local elvuiCopyChatFrame = _G.ElvUI_CopyChatFrame
-	if elvuiCopyChatFrame then elvuiCopyChatFrame:BuiStyle('Outside') end
+	if elvuiCopyChatFrame then elvuiCopyChatFrame:BuiStyle() end
 
 	self:ToggleTransparency()
 end

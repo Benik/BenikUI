@@ -5,7 +5,7 @@ local C_TimerAfter = C_Timer.After
 
 function mod:BuildPanelFrame(name)
 	local Panel = DT:FetchFrame(name)
-	Panel:BuiStyle('Outside')
+	Panel:BuiStyle()
 end
 
 function mod:UpdatePanelInfo(panelName, panel, ...)
@@ -14,7 +14,7 @@ function mod:UpdatePanelInfo(panelName, panel, ...)
 	if not db then return end
 
 	if not (panel == _G.LocPlusLeftDT or panel == _G.LocPlusRightDT or panel == _G.MinimapPanel or panel == _G.LeftChatDataPanel or panel == _G.RightChatDataPanel) then
-		panel:BuiStyle('Outside')
+		panel:BuiStyle()
 		if panel.style then
 			panel.style:SetShown(db.benikuiStyle)
 		end
@@ -26,7 +26,7 @@ function mod:UpdatePanelInfo(panelName, panel, ...)
 end
 
 function mod:SetupTooltip()
-	DT.tooltip:BuiStyle('Outside')
+	DT.tooltip:BuiStyle()
 end
 
 -- Hide the mail icon from minimap

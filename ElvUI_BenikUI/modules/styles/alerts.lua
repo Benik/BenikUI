@@ -6,7 +6,7 @@ local hooksecurefunc = hooksecurefunc
 local function StyleAlert(frame)
 	if frame.backdrop then
 		if not frame.backdrop.style then
-			frame.backdrop:BuiStyle('Outside')
+			frame.backdrop:BuiStyle()
 		end
 	end
 end
@@ -63,8 +63,8 @@ function mod:styleAlertFrames()
 	hooksecurefunc(_G.NewWarbandSceneAlertSystem, 'setUpFunction', StyleAlert)
 
 	local BonusRollMoneyWonFrame = _G.BonusRollMoneyWonFrame
-	BonusRollMoneyWonFrame.backdrop:BuiStyle('Outside')
+	BonusRollMoneyWonFrame.backdrop:BuiStyle()
 
 	local BonusRollLootWonFrame = _G.BonusRollLootWonFrame
-	BonusRollLootWonFrame.backdrop:BuiStyle('Outside')
+	BonusRollLootWonFrame.backdrop:BuiStyle()
 end
