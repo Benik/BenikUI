@@ -182,9 +182,8 @@ local function LoadSkin()
 		questModelScene.ModelTextFrame:ClearAllPoints()
 		questModelScene.ModelTextFrame:Point("TOP", questModelScene.backdrop, "BOTTOM", 0, -4)
 
-		if BUI.ShadowMode then
+		if E.db.benikui.general.shadows then
 			questModelScene.ModelTextFrame.backdrop:CreateSoftShadow()
-			questModelScene.ModelTextFrame.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
 		end
 	end
 
