@@ -298,7 +298,19 @@ function mod:SetFlightMode(status)
 			end
 		end
 
-		for i, v in ipairs(AddonsToHide) do
+		-- Details
+		if IsAddOnLoaded('Details') then
+			local Details = _G._detalhes
+			local instances_amount = Details:GetNumInstancesAmount()
+
+			for i = 1, instances_amount do
+				_G['DetailsBaseFrame'..i]:Hide()
+				_G['Details_SwitchButtonFrame'..i]:Hide()
+				_G['DetailsRowFrame'..i]:Hide()
+			end
+		end
+
+		for _, v in ipairs(AddonsToHide) do
 			local addon, frame = unpack(v)
 			if IsAddOnLoaded(addon) then
 				if _G[frame] then
@@ -429,6 +441,18 @@ function mod:SetFlightMode(status)
 		if IsAddOnLoaded('VuhDo') then
 			if VisibleFrames['VuhDoHealPanels'] then
 				VUHDO_slashCmd('show')
+			end
+		end
+
+		-- Details
+		if IsAddOnLoaded('Details') then
+			local Details = _G._detalhes
+			local instances_amount = Details:GetNumInstancesAmount()
+
+			for i = 1, instances_amount do
+				_G['DetailsBaseFrame'..i]:Show()
+				_G['Details_SwitchButtonFrame'..i]:Show()
+				_G['DetailsRowFrame'..i]:Show()
 			end
 		end
 
