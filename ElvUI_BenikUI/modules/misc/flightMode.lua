@@ -348,14 +348,14 @@ function mod:SetFlightMode(status)
 			end
 		end
 
-		--AllTheThings
+		-- AllTheThings
 		if IsAddOnLoaded('AllTheThings') then
-			for _, Instance in pairs({ 'Prime', 'CurrentInstance' }) do
-				local Window = AllTheThings:GetWindow(Instance)
-				if Window:IsShown() then
-					tinsert(AllTheThingsFrames, Window)
+			local att = _G.AllTheThings
+			for _, window in pairs(att.Windows) do
+				if window:IsShown() then
+					window:Hide()
+					tinsert(AllTheThingsFrames, window)
 				end
-				Window:Hide()
 			end
 		end
 
@@ -484,7 +484,7 @@ function mod:SetFlightMode(status)
 			end
 		end
 
-		--AllTheThings
+		-- AllTheThings
 		if IsAddOnLoaded('AllTheThings') then
 			for _, frame in pairs(AllTheThingsFrames) do
 				frame:Show()
