@@ -244,6 +244,8 @@ P['benikui'] = {
 			['kt'] = true,
 			['rt'] = true,
 			['tomtom'] = true,
+			['ba'] = true,
+			['alltheThings'] = true,
 		},
 	},
 

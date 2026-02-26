@@ -2,6 +2,7 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
 
 local CreateFrame = CreateFrame
+local S = E:GetModule('Skins')
 
 local function StyleDBM_Options()
 	if not E.db.benikui.skins.addonSkins.dbm or not BUI.AS then
@@ -107,6 +108,34 @@ local function Baganator() --credits go to plusmouse here https://github.com/Ben
 	end
 end
 
+local function SkinAllTheThings()
+	local att = _G.AllTheThings
+
+	local miniList = att:GetWindow("MiniList")
+	if miniList and not miniList.IsSkinned then
+		S:HandleFrame(miniList)
+		S:HandleScrollBar(miniList.ScrollBar)
+		miniList:BuiStyle()
+		miniList.IsSkinned = true
+	end
+
+	local prime = att:GetWindow("Prime")
+	if prime and not prime.IsSkinned then
+		S:HandleFrame(prime)
+		S:HandleScrollBar(prime.ScrollBar)
+		prime:BuiStyle()
+		prime.IsSkinned = true
+	end
+end
+
+local function AllTheThings()
+	if not (BUI:IsAddOnEnabled('AllTheThings') and E.db.benikui.general.benikuiStyle and E.db.benikui.skins.variousSkins.alltheThings) then return end
+
+	local att = _G.AllTheThings
+	att.AddEventHandler("OnReady", SkinAllTheThings)
+	att.AddEventHandler("OnWindowCreated", SkinAllTheThings)
+end
+
 function mod:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
@@ -122,4 +151,5 @@ function mod:StyleAddons()
 	RareTracker()
 	TomTom()
 	Baganator()
+	AllTheThings()
 end

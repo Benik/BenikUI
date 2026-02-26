@@ -183,6 +183,12 @@ local function SkinTable()
 				name = L['Baganator'],
 				disabled = function() return not IsAddOnLoaded('Baganator') end,
 			},
+			alltheThings = {
+				order = 8,
+				type = 'toggle',
+				name = L['All The Things'],
+				disabled = function() return not IsAddOnLoaded('AllTheThings') end,
+			},
 		},
 	}
 
