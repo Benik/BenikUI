@@ -313,9 +313,17 @@ function mod:SetFlightMode(status)
 
 			if instances_amount > 0 then
 				for i = 1, instances_amount do
-					_G['DetailsBaseFrame'..i]:Hide()
-					_G['Details_SwitchButtonFrame'..i]:Hide()
-					_G['DetailsRowFrame'..i]:Hide()
+					if _G['DetailsBaseFrame'..i] then
+						_G['DetailsBaseFrame'..i]:Hide()
+					end
+
+					if _G['Details_SwitchButtonFrame'..i] then
+						_G['Details_SwitchButtonFrame'..i]:Hide()
+					end
+
+					if _G['DetailsRowFrame'..i] then
+						_G['DetailsRowFrame'..i]:Hide()
+					end
 				end
 			end
 		end
@@ -461,9 +469,17 @@ function mod:SetFlightMode(status)
 
 			if instances_amount > 0 then
 				for i = 1, instances_amount do
-					_G['DetailsBaseFrame'..i]:Show()
-					_G['Details_SwitchButtonFrame'..i]:Show()
-					_G['DetailsRowFrame'..i]:Show()
+					if _G['DetailsBaseFrame'..i] then
+						_G['DetailsBaseFrame'..i]:Show()
+					end
+
+					if _G['Details_SwitchButtonFrame'..i] then
+						_G['Details_SwitchButtonFrame'..i]:Show()
+					end
+
+					if _G['DetailsRowFrame'..i] then
+						_G['DetailsRowFrame'..i]:Show()
+					end
 				end
 			end
 		end
