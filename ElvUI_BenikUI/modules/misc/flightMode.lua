@@ -311,10 +311,12 @@ function mod:SetFlightMode(status)
 			local Details = _G._detalhes
 			local instances_amount = Details:GetNumInstancesAmount()
 
-			for i = 1, instances_amount do
-				_G['DetailsBaseFrame'..i]:Hide()
-				_G['Details_SwitchButtonFrame'..i]:Hide()
-				_G['DetailsRowFrame'..i]:Hide()
+			if instances_amount > 0 then
+				for i = 1, instances_amount do
+					_G['DetailsBaseFrame'..i]:Hide()
+					_G['Details_SwitchButtonFrame'..i]:Hide()
+					_G['DetailsRowFrame'..i]:Hide()
+				end
 			end
 		end
 
@@ -457,10 +459,12 @@ function mod:SetFlightMode(status)
 			local Details = _G._detalhes
 			local instances_amount = Details:GetNumInstancesAmount()
 
-			for i = 1, instances_amount do
-				_G['DetailsBaseFrame'..i]:Show()
-				_G['Details_SwitchButtonFrame'..i]:Show()
-				_G['DetailsRowFrame'..i]:Show()
+			if instances_amount > 0 then
+				for i = 1, instances_amount do
+					_G['DetailsBaseFrame'..i]:Show()
+					_G['Details_SwitchButtonFrame'..i]:Show()
+					_G['DetailsRowFrame'..i]:Show()
+				end
 			end
 		end
 
