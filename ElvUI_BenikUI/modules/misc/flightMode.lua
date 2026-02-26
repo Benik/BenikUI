@@ -365,6 +365,15 @@ function mod:SetFlightMode(status)
 			end
 		end)
 
+		-- Cooldown Manager
+		if _G.EssentialCooldownViewer then
+			_G.EssentialCooldownViewer:Hide()
+		end
+
+		if _G.UtilityCooldownViewer then
+			_G.UtilityCooldownViewer:Hide()
+		end
+
 		-- AllTheThings
 		if IsAddOnLoaded('AllTheThings') then
 			local att = _G.AllTheThings
@@ -516,6 +525,15 @@ function mod:SetFlightMode(status)
 			end
 		end
 		twipe(DamageMeterFrames)
+
+		-- Cooldown Manager
+		if _G.EssentialCooldownViewer then
+			_G.EssentialCooldownViewer:Show()
+		end
+
+		if _G.UtilityCooldownViewer then
+			_G.UtilityCooldownViewer:Show()
+		end
 
 		-- special handling for Elkano Buff Bars
 		if IsAddOnLoaded('ElkBuffBars') then
