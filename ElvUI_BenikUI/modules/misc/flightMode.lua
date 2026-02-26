@@ -224,6 +224,7 @@ local AddonsToHide = {
 }
 
 local AllTheThingsFrames = {}
+local DamageMeterFrames = {}
 local VisibleFrames = {}
 
 function mod:SetFlightMode(status)
@@ -347,6 +348,22 @@ function mod:SetFlightMode(status)
 				VUHDO_slashCmd('hide')
 			end
 		end
+
+		-- Blizzard DamageMeter
+		local currentCount = 0
+		_G.DamageMeter:ForEachSessionWindow(function(sessionWindow)
+			if sessionWindow:IsShown() then
+				currentCount = currentCount + 1
+			end
+			if currentCount > 0 then
+				for i = 1, currentCount do
+					if _G['DamageMeterSessionWindow'..i] then
+						_G['DamageMeterSessionWindow'..i]:Hide()
+						tinsert(DamageMeterFrames, _G['DamageMeterSessionWindow'..i])
+					end
+				end
+			end
+		end)
 
 		-- AllTheThings
 		if IsAddOnLoaded('AllTheThings') then
@@ -491,6 +508,14 @@ function mod:SetFlightMode(status)
 			end
 			twipe(AllTheThingsFrames)
 		end
+
+		-- Blizzard DamageMeter
+		for _, frame in pairs(DamageMeterFrames) do
+			if frame then
+				frame:Show()
+			end
+		end
+		twipe(DamageMeterFrames)
 
 		-- special handling for Elkano Buff Bars
 		if IsAddOnLoaded('ElkBuffBars') then
