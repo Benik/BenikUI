@@ -162,13 +162,14 @@ function mod:CheckPositionForTooltip(frame)
 	if not x then return end
 
 	local position, Xoffset
+	local shadows = E.db.benikui.general.shadows
 
 	if x > (E.screenWidth * 0.5) then
 		position = 'ANCHOR_LEFT'
-		Xoffset = E.db.benikui.general.shadows and -3 or 0
+		Xoffset = shadows and -3 or 0
 	else
 		position = 'ANCHOR_RIGHT'
-		Xoffset = E.db.benikui.general.shadows and 3 or 0
+		Xoffset = shadows and 3 or 0
 	end
 
 	return position, Xoffset

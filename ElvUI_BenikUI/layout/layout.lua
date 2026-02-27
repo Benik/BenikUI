@@ -108,6 +108,7 @@ end
 
 function mod:ToggleTransparency()
 	local db = E.db.benikui.datatexts.chat
+	local shadows = E.db.benikui.general.shadows 
 	local buiLeftDT = _G.BuiLeftChatDTPanel
 	local buiRightDT = _G.BuiRightChatDTPanel
 
@@ -116,11 +117,11 @@ function mod:ToggleTransparency()
 		buiRightDT:SetTemplate('NoBackdrop')
 		for i = 1, NUM_BUTTONS do
 			dtButtons[i]:SetTemplate('NoBackdrop')
-			if E.db.benikui.general.shadows then
+			if shadows then
 				dtButtons[i].shadow:Hide()
 			end
 		end
-		if E.db.benikui.general.shadows then
+		if shadows then
 			buiLeftDT.shadow:Hide()
 			buiRightDT.shadow:Hide()
 		end
@@ -138,7 +139,7 @@ function mod:ToggleTransparency()
 				dtButtons[i]:SetTemplate('Default', true)
 			end
 		end
-		if E.db.benikui.general.shadows then
+		if shadows then
 			buiLeftDT.shadow:Show()
 			buiRightDT.shadow:Show()
 			for i = 1, NUM_BUTTONS do
@@ -147,7 +148,7 @@ function mod:ToggleTransparency()
 		end
 	end
 
-	if not E.db.benikui.general.shadows then return end
+	if not shadows then return end
 
 	local leftChatDataPanel = _G.LeftChatDataPanel
 	local rightChatDataPanel = _G.RightChatDataPanel

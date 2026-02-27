@@ -236,6 +236,7 @@ end
 
 -- Applies settings: visibility, templates, shadows, styles
 function mod:SetupPanels()
+	local shadows = E.db.benikui.general.shadows
 	for panelName, data in pairs(E.db.benikui.panels) do
 		local panel = _G[panelName]
 		if panel then
@@ -265,7 +266,7 @@ function mod:SetupPanels()
 				panel:SetTemplate("Default", true)
 			end
 
-			if E.db.benikui.general.shadows and panel.shadow and panel.style and panel.style.styleShadow then
+			if shadows and panel.shadow and panel.style and panel.style.styleShadow then
 				panel.shadow:SetShown(data.shadow)
 				panel.style.styleShadow:SetShown(data.shadow)
 			end
@@ -274,14 +275,14 @@ function mod:SetupPanels()
 				panel.style:SetShown(data.style)
 				if data.stylePosition == 'BOTTOM' then
 					panel.style:ClearAllPoints()
-					if E.db.benikui.general.shadows and panel.style.styleShadow then
+					if shadows and panel.style.styleShadow then
 						panel.style.styleShadow:Hide()
 					end
 					panel.style:Point('TOPRIGHT', panel, 'BOTTOMRIGHT', 0, (E.PixelMode and 5 or 7))
 					panel.style:Point('BOTTOMLEFT', panel, 'BOTTOMLEFT', 0, 1)
 				else
 					panel.style:ClearAllPoints()
-					if E.db.benikui.general.shadows and data.shadow and panel.style.styleShadow then
+					if shadows and data.shadow and panel.style.styleShadow then
 						panel.style.styleShadow:Show()
 					end
 					panel.style:Point('TOPLEFT', panel, 'TOPLEFT', 0, (E.PixelMode and 4 or 7))

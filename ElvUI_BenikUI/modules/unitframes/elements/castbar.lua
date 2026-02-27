@@ -194,11 +194,12 @@ function mod:PostCastInterruptible(unit, unitframe)
 end
 
 function mod:CastBarHooks()
+	local shadows = E.db.benikui.general.shadows
 	for _, unit in pairs(units) do
 		local unitframe = _G["ElvUF_"..unit];
 		local castbar = unitframe and unitframe.Castbar
 		if castbar then
-			if E.db.benikui.general.shadows then
+			if shadows then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
@@ -211,7 +212,7 @@ function mod:CastBarHooks()
 	for i = 1, 5 do
 		local castbar = _G["ElvUF_Arena"..i].Castbar
 		if castbar then
-			if E.db.benikui.general.shadows then
+			if shadows then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
@@ -224,7 +225,7 @@ function mod:CastBarHooks()
 	for i = 1, MAX_BOSS_FRAMES do
 		local castbar = _G["ElvUF_Boss"..i].Castbar
 		if castbar then
-			if E.db.benikui.general.shadows then
+			if shadows then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
