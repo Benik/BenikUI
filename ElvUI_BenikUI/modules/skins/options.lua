@@ -6,6 +6,7 @@ local ipairs, unpack = ipairs, unpack
 
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local ADDONS = ADDONS
+local OBJECTIVES_TRACKER_LABEL = OBJECTIVES_TRACKER_LABEL
 
 local DecorElvUIAddons = {
 	{'ElvUI_LocPlus', L['LocationPlus'], 'locplus'},
