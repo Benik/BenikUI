@@ -8,7 +8,6 @@ local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
 local C_MajorFactions_GetMajorFactionIDs = C_MajorFactions.GetMajorFactionIDs
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagonForCurrentPlayer
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
-local C_SeasonInfo_GetCurrentDisplaySeasonExpansion = C_SeasonInfo.GetCurrentDisplaySeasonExpansion
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local GetExpansionLevel = GetExpansionLevel
 local InCombatLockdown = InCombatLockdown

@@ -8,7 +8,9 @@ local CH = E:GetModule('Chat')
 
 if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
+local hooksecurefunc = hooksecurefunc
 
+local ALL = ALL
 local MAIL_LABEL = MAIL_LABEL
 local EXPANSION_NAME9 = EXPANSION_NAME9
 local EXPANSION_NAME10 = EXPANSION_NAME10
