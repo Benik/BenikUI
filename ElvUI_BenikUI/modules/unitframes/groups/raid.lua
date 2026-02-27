@@ -17,7 +17,7 @@ function BU:Update_RaidFrames(frame, db)
 	-- Role Icon
 	BU:Configure_RoleIcons(frame)
 
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		frame:CreateSoftShadow()
 	end
 

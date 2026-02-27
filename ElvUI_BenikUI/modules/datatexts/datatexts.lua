@@ -19,7 +19,7 @@ function mod:UpdatePanelInfo(panelName, panel, ...)
 			panel.style:SetShown(db.benikuiStyle)
 		end
 
-		if BUI.ShadowMode then
+		if E.db.benikui.general.shadows then
 			panel.shadow:SetShown((db.border and db.backdrop or db.backdrop))
 		end
 	end

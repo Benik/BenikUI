@@ -3,7 +3,7 @@ local UF = E:GetModule('UnitFrames');
 local mod = BUI:GetModule('Units');
 
 function mod:ApplyAuraBarShadows(bar)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 
 	local bars = bar:GetParent()
 	bar.db = bars.db

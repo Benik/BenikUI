@@ -21,7 +21,6 @@ BUI["softGlow"] = {}
 BUI["shadows"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
-BUI.ShadowMode = false
 BUI.AddonProfileKey = ''
 BINDING_HEADER_BENIKUI = BUI.Title
 
@@ -227,8 +226,6 @@ function BUI:Initialize()
 	if E.db.benikui.general.loginMessage then
 		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('https://github.com/Benik/BenikUI/issues')))
 	end
-
-	BUI.ShadowMode = E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows or false
 
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BENIKUI")
 	E.ConfigModeLocalizedStrings["BENIKUI"] = BUI.Title

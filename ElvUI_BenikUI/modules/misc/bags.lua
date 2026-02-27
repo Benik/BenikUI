@@ -89,7 +89,7 @@ local function StyleBagBar()
 	local elvuiBagBar = _G.ElvUIBagBar
 	elvuiBagBar.backdrop:BuiStyle()
 
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 
 	local mainMenuBarBackpackButton = _G.MainMenuBarBackpackButton
 	mainMenuBarBackpackButton:CreateSoftShadow()

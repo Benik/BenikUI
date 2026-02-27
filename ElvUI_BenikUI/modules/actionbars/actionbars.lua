@@ -22,7 +22,7 @@ function mod:StyleBackdrops()
 		if bar then
 			bar.backdrop:BuiStyle('Outside', nil, true, true)
 
-			if BUI.ShadowMode and not MasqueGroup then
+			if E.db.benikui.general.shadows and not MasqueGroup then
 				for _, button in next, bar.buttons do
 					if button then
 						button:CreateSoftShadow()
@@ -118,7 +118,7 @@ function mod:PetShadows()
 	-- Pet Buttons
 	for i = 1, _G.NUM_PET_ACTION_SLOTS do
 		local button = _G['PetActionButton'..i]
-		if (button and BUI.ShadowMode) and not MasqueGroup then
+		if (button and E.db.benikui.general.shadows) and not MasqueGroup then
 			button:CreateSoftShadow()
 		end
 	end
@@ -127,7 +127,7 @@ end
 function mod:StancebarShadows()
 	for i = 1, MAX_STANCES do
 		local button = _G['ElvUI_StanceBarButton'..i]
-		if (button and BUI.ShadowMode) and not MasqueGroup then
+		if (button and E.db.benikui.general.shadows) and not MasqueGroup then
 			button:CreateSoftShadow()
 		end
 	end
@@ -210,7 +210,7 @@ function mod:Initialize()
 
 	hooksecurefunc(BUI, "SetupColorThemes", mod.StyleColor)
 
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 	mod:FlyoutShadows()
 	mod:ExtraAB()
 end

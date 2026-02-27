@@ -116,11 +116,11 @@ function mod:ToggleTransparency()
 		buiRightDT:SetTemplate('NoBackdrop')
 		for i = 1, NUM_BUTTONS do
 			dtButtons[i]:SetTemplate('NoBackdrop')
-			if BUI.ShadowMode then
+			if E.db.benikui.general.shadows then
 				dtButtons[i].shadow:Hide()
 			end
 		end
-		if BUI.ShadowMode then
+		if E.db.benikui.general.shadows then
 			buiLeftDT.shadow:Hide()
 			buiRightDT.shadow:Hide()
 		end
@@ -138,7 +138,7 @@ function mod:ToggleTransparency()
 				dtButtons[i]:SetTemplate('Default', true)
 			end
 		end
-		if BUI.ShadowMode then
+		if E.db.benikui.general.shadows then
 			buiLeftDT.shadow:Show()
 			buiRightDT.shadow:Show()
 			for i = 1, NUM_BUTTONS do
@@ -147,7 +147,7 @@ function mod:ToggleTransparency()
 		end
 	end
 
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 
 	local leftChatDataPanel = _G.LeftChatDataPanel
 	local rightChatDataPanel = _G.RightChatDataPanel
@@ -443,7 +443,7 @@ function mod:CreateLayout()
 	elvuiLeftChatPanel.backdrop:BuiStyle()
 	elvuiRightChatPanel.backdrop:BuiStyle()
 
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		elvuiMinimapPanel:CreateSoftShadow()
 		leftChatDataPanel:CreateSoftShadow()
 		leftChatToggleButton:CreateSoftShadow()

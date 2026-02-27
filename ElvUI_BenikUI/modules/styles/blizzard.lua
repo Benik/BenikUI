@@ -105,7 +105,7 @@ local function LoadSkin()
 		_G.BonusRollFrame:BuiStyle()
 		_G.GroupLootHistoryFrame:BuiStyle()
 
-		if BUI.ShadowMode then
+		if E.db.benikui.general.shadows then
 			_G.GroupLootHistoryFrame.ResizeButton:CreateSoftShadow()
 		end
 	end

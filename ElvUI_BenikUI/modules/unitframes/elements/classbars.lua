@@ -3,7 +3,7 @@ local UF = E:GetModule('UnitFrames');
 local BU = BUI:GetModule('Units');
 
 function BU:Configure_ClassBar(frame)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 
 	local db = E.db.benikui.general
 	local bars = frame[frame.ClassBar]

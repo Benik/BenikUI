@@ -290,6 +290,13 @@ local function style_Communities()
 	_G.CommunitiesAvatarPickerDialog:BuiStyle()
 	_G.ClubFinderCommunityAndGuildFinderFrame.RequestToJoinFrame:BuiStyle()
 	_G.ClubFinderGuildFinderFrame.RequestToJoinFrame:BuiStyle()
+
+	if E.db.benikui.general.shadows then
+		frame.ChatTab:CreateSoftShadow()
+		frame.RosterTab:CreateSoftShadow()
+		frame.GuildBenefitsTab:CreateSoftShadow()
+		frame.GuildInfoTab:CreateSoftShadow()
+	end
 end
 S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Communities", style_Communities)
 
@@ -437,7 +444,7 @@ local function style_EncounterJournal()
 
 	_G.EncounterJournal:BuiStyle()
 
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		for _, name in next, { 'overviewTab', 'modelTab', 'bossTab', 'lootTab' } do
 			local tab = _G.EncounterJournal.encounter.info[name]
 			if tab then
@@ -648,7 +655,7 @@ local function style_GuildBankUI()
 
 	_G.GuildBankFrame:BuiStyle()
 
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		for i = 1, 8 do
 			local tab = _G['GuildBankTab'..i]
 			local button = tab.Button
@@ -706,7 +713,7 @@ local function style_HousingDashboard()
 	local dashBoardFrame = _G.HousingDashboardFrame
 	dashBoardFrame:BuiStyle()
 
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		for i, tab in next, { dashBoardFrame.HouseInfoTabButton, dashBoardFrame.CatalogTabButton } do
 			if tab then
 				tab.backdrop:CreateSoftShadow()
@@ -779,7 +786,7 @@ local function style_HouseEditor()
 	local storagePanel = editorFrame.StoragePanel
 	storagePanel:BuiStyle()
 
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		storagePanel.CollapseButton:CreateSoftShadow()
 		editorFrame.StorageButton:CreateSoftShadow()
 	end
@@ -990,7 +997,7 @@ local function style_PerksProgramm()
 		productsFrame.PerksProgramProductDetailsContainerFrame.backdrop:BuiStyle()
 		productsFrame.PerksProgramShoppingCartFrame.backdrop:BuiStyle()
 
-		if BUI.ShadowMode then
+		if E.db.benikui.general.shadows then
 			productsFrame.PerksProgramFilter:CreateSoftShadow()
 			productsFrame.PerksProgramCurrencyFrame.Icon:CreateBackdrop()
 			productsFrame.PerksProgramCurrencyFrame.Icon.backdrop:CreateSoftShadow()
@@ -1004,7 +1011,7 @@ local function style_PerksProgramm()
 		end
 	end
 
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 
 	local footer = frame.FooterFrame
 	if footer then

@@ -46,14 +46,14 @@ local function CalendarEventButtonShadows()
 end
 
 local function miscShadows()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or BUI.ShadowMode ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.db.benikui.general.shadows ~= true then return end
 
 	_G.EquipmentFlyoutFrameButtons:CreateSoftShadow()
 end
 
 -- ElvUI tabs
 function mod:TabShadows(tab)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 	if not tab then return end
 
 	if tab.backdrop then
@@ -65,7 +65,7 @@ hooksecurefunc(S, "HandleTab", mod.TabShadows)
 
 -- ElvUI item buttons
 function mod:ItemButtonShadows(button)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 	if not button then return end
 	if Baganator then return end
 
@@ -270,7 +270,7 @@ function B:UIWidgetTemplateStatusBarShadows()
 end
 
 function mod:Initialize()
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 
 	AltPowerBarShadows()
 	raidUtilityShadows()

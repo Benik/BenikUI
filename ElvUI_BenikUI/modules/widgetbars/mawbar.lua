@@ -79,7 +79,7 @@ function mod:LoadMaw()
 	bar:SetSize(200, 20)
 	bar:SetMinMaxValues(0, maxValue)
 	bar:CreateBackdrop('Transparent')
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		bar.backdrop:CreateSoftShadow()
 	end
 	
