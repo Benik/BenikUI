@@ -232,6 +232,7 @@ P['benikui'] = {
 			['allthethings'] = true,
 			['tinyinspect'] = true,
 			['arkinventory'] = true,
+			['storyline'] = true,
 			['classTactics'] = true,
 			['hekili'] = true,
 			['wowpro'] = true,
