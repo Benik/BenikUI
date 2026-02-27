@@ -36,7 +36,7 @@ local function IsDelvesSeasonFaction(data)
 	return data.textureKit and data.textureKit:lower():find("delve") ~= nil
 end
 
-local function FilteredRenownFactions(factionID)
+local function FilteredRenownFactions(factionID, currentExpansionID)
 	if not factionID then return false end
 
 	local data = C_MajorFactions_GetMajorFactionData(factionID)
@@ -47,9 +47,8 @@ local function FilteredRenownFactions(factionID)
 		return false
 	end
 
-	-- Filter Factions by Expansion
-	local selectedExpansion = E.private.benikui.datatexts.renownFilter.expansion or 0
-	if selectedExpansion ~= 0 and data.expansionID ~= selectedExpansion then
+	-- Check for current Expansion Factions
+	if data.expansionID ~= currentExpansionID then
 		return false
 	end
 
@@ -70,8 +69,9 @@ end
 local function UpdateDB()
 	wipe(factionIDs)
 
+	local currentExpansionID = C_SeasonInfo_GetCurrentDisplaySeasonExpansion()
 	for _, factionID in next, C_MajorFactions_GetMajorFactionIDs() do
-		if FilteredRenownFactions(factionID) then
+		if FilteredRenownFactions(factionID, currentExpansionID) then
 			factionIDs[#factionIDs + 1] = factionID
 		end
 	end
