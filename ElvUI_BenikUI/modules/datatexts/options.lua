@@ -10,8 +10,9 @@ if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
 
 local MAIL_LABEL = MAIL_LABEL
---local EXPANSION_NAME9 = EXPANSION_NAME9
---local EXPANSION_NAME10 = EXPANSION_NAME10
+local EXPANSION_NAME9 = EXPANSION_NAME9
+local EXPANSION_NAME10 = EXPANSION_NAME10
+local EXPANSION_NAME11 = EXPANSION_NAME11
 
 local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {
@@ -143,7 +144,7 @@ local function Datatexts()
 					},
 				},
 			},
-			--[[renownFilter = {
+			renownFilter = {
 				order = 40,
 				type = 'group',
 				name = L["Renown"],
@@ -153,12 +154,12 @@ local function Datatexts()
 						order = 1,
 						type = 'select',
 						name = L['Filter Factions by Expansion'],
-						values = {[9] = EXPANSION_NAME9, [10] = EXPANSION_NAME10, [0] = ALL},
+						values = {[9] = EXPANSION_NAME9, [10] = EXPANSION_NAME10, [11] = EXPANSION_NAME11, [0] = ALL},
 						get = function(info) return E.private.benikui.datatexts.renownFilter[ info[#info] ] end,
-						set = function(info, value) E.private.benikui.datatexts.renownFilter[ info[#info] ] = value; end,
+						set = function(info, value) E.private.benikui.datatexts.renownFilter[ info[#info] ] = value; DT:ForceUpdate_DataText('Renown (BenikUI)') end,
 					},
 				},
-			},]]--
+			},
 		},
 	}
 end
