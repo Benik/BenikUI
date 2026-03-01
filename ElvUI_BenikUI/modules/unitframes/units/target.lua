@@ -5,9 +5,16 @@ local UF = E:GetModule('UnitFrames');
 local _G = _G
 local select = select
 local CreateFrame = CreateFrame
-local UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction = UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction
+local hooksecurefunc = hooksecurefunc
 
--- GLOBALS: hooksecurefunc, ElvUF
+local UnitClass = UnitClass
+local UnitPowerMax = UnitPowerMax
+local UnitPowerType = UnitPowerType
+local UnitIsPlayer = UnitIsPlayer
+local UnitReaction = UnitReaction
+
+local CUSTOM_CLASS_COLORS = _G.CUSTOM_CLASS_COLORS
+local RAID_CLASS_COLORS = _G.RAID_CLASS_COLORS
 
 function BU:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
@@ -108,7 +115,6 @@ end
 
 function BU:PLAYER_TARGET_CHANGED()
 	BU:RecolorTargetDetachedPortraitStyle()
-	BU:UnitInfoPanelColor()
 end
 
 function BU:InitTarget()
