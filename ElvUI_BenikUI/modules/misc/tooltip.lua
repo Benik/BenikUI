@@ -5,9 +5,14 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
-local GameTooltip, GameTooltipStatusBar = _G.GameTooltip, _G.GameTooltipStatusBar
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local hooksecurefunc = hooksecurefunc
+local CreateFrame = CreateFrame
+local GameTooltip = _G.GameTooltip
+local GameTooltipStatusBar = _G.GameTooltipStatusBar
 
+local UnitIsPlayer = UnitIsPlayer
+local UnitClass = UnitClass
+local UnitReaction = UnitReaction
 
 local function StyleTooltip()
 	if GameTooltip.style then return end
@@ -15,13 +20,6 @@ local function StyleTooltip()
 	GameTooltip.style:SetClampedToScreen(true)
 
 	GameTooltipStatusBar:OffsetFrameLevel(2, GameTooltip.style)
-
-	-- FreebTip support
-	if BUI:IsAddOnEnabled('FreebTip') then
-		GameTooltip.style:ClearAllPoints()
-		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
-		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
-	end
 end
 
 local function StyleCagedBattlePetTooltip(tooltipFrame)
@@ -98,8 +96,9 @@ local function StyleBlizzardTooltips()
 			end
 		end
 
-		_G.QuestScrollFrame.StoryTooltip:BuiStyle()
-		_G.QuestScrollFrame.CampaignTooltip:BuiStyle()
+		local questScroll = _G.QuestScrollFrame
+		questScroll.StoryTooltip:BuiStyle()
+		questScroll.CampaignTooltip:BuiStyle()
 
 		local shoppingTooltips = {_G.WorldMapCompareTooltip1, _G.WorldMapCompareTooltip2}
 		for _, tooltip in pairs(shoppingTooltips) do
@@ -130,7 +129,7 @@ function mod:RecolorTooltipStyle()
 		local r, g, b = 0, 0, 0
 
 		if GameTooltipStatusBar:IsShown() then
-			local _,tooltipUnit = _G.GameTooltip:GetUnit()
+			local _,tooltipUnit = GameTooltip:GetUnit()
 			if tooltipUnit and E:NotSecretValue(tooltipUnit) then
 				if UnitIsPlayer(tooltipUnit) then
 					local _, tooltipUnitClass = UnitClass(tooltipUnit)
