@@ -12,12 +12,12 @@ local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local GetExpansionLevel = GetExpansionLevel
 local InCombatLockdown = InCombatLockdown
 local ShowUIPanel = ShowUIPanel
+local IsShiftKeyDown = IsShiftKeyDown
 
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
 local LANDING_PAGE_RENOWN_LABEL = LANDING_PAGE_RENOWN_LABEL
 local JOURNEYS_RENOWN_LABEL = JOURNEYS_RENOWN_LABEL
-local JOURNEYS_TOOLTIP_VIEW_JOURNEY = JOURNEYS_TOOLTIP_VIEW_JOURNEY
 local LE_EXPANSION_DRAGONFLIGHT = LE_EXPANSION_DRAGONFLIGHT
 
 local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
@@ -115,6 +115,12 @@ local function OnClick(self, btn)
 	if btn == 'RightButton' then
 		E:SetEasyMenuAnchor(E.EasyMenu, self)
 		E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
+
+		if IsShiftKeyDown() then
+			E:ToggleOptions()
+			local ACD = E.Libs.AceConfigDialog
+			if ACD then ACD:SelectGroup("ElvUI", "benikui", "datatexts") end
+		end
 	else
 		if not IsAddOnLoaded('Blizzard_EncounterJournal') then
 			EncounterJournal_LoadUI()
@@ -184,8 +190,9 @@ local function OnEnter(self)
 		end
 	end
 
-	DT.tooltip:AddDoubleLine('Right Click:', 'Track Faction', 0.7, 0.7, 1, 0.7, 0.7, 1)
-	DT.tooltip:AddDoubleLine('Left Click:', JOURNEYS_TOOLTIP_VIEW_JOURNEY, 0.7, 0.7, 1, 0.7, 0.7, 1)
+	DT.tooltip:AddDoubleLine('Click:', 'View Faction Journey', 0.7, 0.7, 1, 0.7, 0.7, 1)
+	DT.tooltip:AddDoubleLine('Right Click:', 'Select Tracked Faction', 0.7, 0.7, 1, 0.7, 0.7, 1)
+	DT.tooltip:AddDoubleLine('Shift + RightClick:', 'Datatext Options', 0.7, 0.7, 1, 0.7, 0.7, 1)
 	DT.tooltip:Show()
 end
 
