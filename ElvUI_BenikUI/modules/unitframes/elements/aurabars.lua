@@ -2,6 +2,8 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local UF = E:GetModule('UnitFrames');
 local mod = BUI:GetModule('Units');
 
+local hooksecurefunc = hooksecurefunc
+
 function mod:ApplyAuraBarShadows(bar)
 	if not E.db.benikui.general.shadows then return end
 
@@ -16,7 +18,7 @@ function mod:ApplyAuraBarShadows(bar)
 		bar.hasShadow = true
 	end
 end
---hooksecurefunc(UF, 'AuraBars_UpdateBar', mod.ApplyAuraBarShadows)
+hooksecurefunc(UF, 'AuraBars_UpdateBar', mod.ApplyAuraBarShadows)
 
 function mod:Configure_AuraBars(frame)
 	local bars = frame.AuraBars
