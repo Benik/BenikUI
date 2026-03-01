@@ -2,7 +2,7 @@
 local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
--- GLOBALS: hooksecurefunc
+local hooksecurefunc = hooksecurefunc
 
 function BU:Update_PartyFrames(frame, db)
 	frame.db = db
