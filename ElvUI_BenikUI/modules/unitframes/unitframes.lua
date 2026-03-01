@@ -4,6 +4,13 @@ local UF = E:GetModule('UnitFrames')
 local NP = E:GetModule('NamePlates')
 local AB = E:GetModule('ActionBars')
 
+local _G = _G
+local pairs, next, select = pairs, next, select
+local hooksecurefunc = hooksecurefunc
+
+local UNKNOWN = UNKNOWN
+local PRIEST_COLOR = RAID_CLASS_COLORS.PRIEST
+
 local BadDispels = E.Libs.Dispel:GetBadList()
 local DebuffColors = E.Libs.Dispel:GetDebuffTypeColor()
 
@@ -305,13 +312,12 @@ function mod:Setup()
 
 	mod:ChangePowerBarTexture()
 	mod:ChangeHealthBarTexture()
-	mod:InfoPanelColor()
 
 	mod:Configure_RoleIcons()
 
 	if E.db.benikui.general.shadows then
 		mod:UnitShadows()
-		
+
 		mod:PartyShadows()
 		mod:RaidShadows()
 		mod:BossShadows()
