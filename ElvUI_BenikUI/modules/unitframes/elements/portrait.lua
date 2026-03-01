@@ -1,6 +1,9 @@
 ﻿local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local BU = BUI:GetModule('Units');
-local UF = E:GetModule('UnitFrames');
+local BU = BUI:GetModule('Units')
+local UF = E:GetModule('UnitFrames')
+
+local pairs, select = pairs, select
+local hooksecurefunc = hooksecurefunc
 
 function BU:Configure_Portrait(frame, isPlayer)
 	local db = frame.db

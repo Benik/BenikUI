@@ -2,8 +2,6 @@
 local UF = E:GetModule('UnitFrames');
 local BU = BUI:GetModule('Units');
 
--- GLOBALS: hooksecurefunc
-
 function BU:Configure_RoleIcons()
 	if E.db.benikui.unitframes.misc.svui ~= true then return end
 
