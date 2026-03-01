@@ -1,7 +1,7 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local mod = BUI:NewModule('Castbar', 'AceTimer-3.0', 'AceEvent-3.0')
-local UF = E:GetModule('UnitFrames');
-local LSM = LibStub("LibSharedMedia-3.0");
+local mod = BUI:GetModule('Castbar')
+local UF = E:GetModule('UnitFrames')
+local LSM = LibStub("LibSharedMedia-3.0")
 
 --[[
 	CREDIT:
@@ -11,6 +11,7 @@ local LSM = LibStub("LibSharedMedia-3.0");
 ]]
 
 local _G = _G
+local hooksecurefunc = hooksecurefunc
 
 local INVERT_ANCHORPOINT = {
 	TOPLEFT = 'BOTTOMRIGHT',
@@ -26,8 +27,6 @@ local INVERT_ANCHORPOINT = {
 
 local MAX_BOSS_FRAMES = 5
 local units = {"Player", "Target", "Focus", "Pet"}
-
--- GLOBALS: hooksecurefunc
 
 local function changeCastbarLevel(unit, unitframe)
 	local castbar = unitframe.Castbar

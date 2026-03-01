@@ -22,6 +22,7 @@ BUI.Erelease = tonumber(GetAddOnMetadata("ElvUI_BenikUI", "X-ElvuiVersion"))
 
 BUI.Actionbars = BUI:NewModule('Actionbars', 'AceEvent-3.0')
 BUI.Bags = BUI:NewModule('Bags', 'AceHook-3.0')
+BUI.Castbars = BUI:NewModule('Castbar', 'AceTimer-3.0', 'AceEvent-3.0')
 BUI.Chat = BUI:NewModule('Chat', 'AceHook-3.0', 'AceEvent-3.0')
 BUI.CustomPanels = BUI:NewModule('CustomPanels', 'AceEvent-3.0')
 BUI.Dashboards = BUI:NewModule('Dashboards', 'AceEvent-3.0', 'AceHook-3.0')
