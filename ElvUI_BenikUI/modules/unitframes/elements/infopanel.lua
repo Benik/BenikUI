@@ -1,7 +1,17 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local UF = E:GetModule('UnitFrames');
-local BU = BUI:GetModule('Units');
-local LSM = E.LSM;
+local UF = E:GetModule('UnitFrames')
+local BU = BUI:GetModule('Units')
+local LSM = E.LSM
+
+local pairs, select = pairs, select
+
+local hooksecurefunc = hooksecurefunc
+
+local UnitReaction = UnitReaction
+local UnitIsPlayer = UnitIsPlayer
+local UnitClass = UnitClass
+
+local CUSTOM_CLASS_COLORS = G.CUSTOM_CLASS_COLORS
 
 function BU:Configure_Infopanel(frame)
 	if frame.IS_ELTREUM then return end
@@ -37,7 +47,7 @@ local function GetClassColor(unit)
 
 	if (unitPlayer) then
 		local _, unitClass = UnitClass(unit)
-		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[unitClass] or RAID_CLASS_COLORS[unitClass])
+		local classColor = unitClass and E:ClassColor(unitClass)
 		return classColor.r, classColor.g, classColor.b
 	elseif (unitReaction) then
 		local reaction = ElvUF.colors.reaction[unitReaction]
@@ -54,6 +64,7 @@ function BU:UnitInfoPanelColor()
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.infoPanel.texture)
 	for unit, frame in pairs(UF.units) do
 		if frame and frame.InfoPanel then
+			local r, g, b
 			if not frame.InfoPanel.color then
 				frame.InfoPanel.color = frame.InfoPanel:CreateTexture(nil, 'OVERLAY')
 				frame.InfoPanel.color:SetAllPoints()
