@@ -2,10 +2,7 @@
 local UF = E:GetModule('UnitFrames');
 local BU = BUI:GetModule('Units');
 
-local select, unpack = select, unpack
-
-local UnitClass = UnitClass
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local hooksecurefunc = hooksecurefunc
 
 function BU:Update_RaidFrames(frame, db)
 	frame.db = db
@@ -25,5 +22,5 @@ function BU:Update_RaidFrames(frame, db)
 end
 
 function BU:InitRaid()
-	--hooksecurefunc(UF, 'Update_RaidFrames', BU.Update_RaidFrames)
+	hooksecurefunc(UF, 'Update_RaidFrames', BU.Update_RaidFrames)
 end
