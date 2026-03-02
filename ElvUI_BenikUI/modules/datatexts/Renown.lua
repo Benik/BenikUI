@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
-local strjoin, wipe, format, next = strjoin, wipe, format, next
+local strjoin, wipe, format, next, tsort, ipairs = strjoin, wipe, format, next, table.sort, ipairs
 
 local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
 local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
@@ -9,31 +9,24 @@ local C_MajorFactions_GetMajorFactionIDs = C_MajorFactions.GetMajorFactionIDs
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagonForCurrentPlayer
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
-local GetExpansionLevel = GetExpansionLevel
 local InCombatLockdown = InCombatLockdown
 local ShowUIPanel = ShowUIPanel
-local IsShiftKeyDown = IsShiftKeyDown
 
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
 local LANDING_PAGE_RENOWN_LABEL = LANDING_PAGE_RENOWN_LABEL
-local JOURNEYS_RENOWN_LABEL = JOURNEYS_RENOWN_LABEL
-local LE_EXPANSION_DRAGONFLIGHT = LE_EXPANSION_DRAGONFLIGHT
-local ALL = ALL
 
 local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
 
 local factionIDs = {}
 
 local displayString, lastPanel = ''
-local expansionName = _G["EXPANSION_NAME" .. GetExpansionLevel()] or ""
 
-local function IsExpansionAvailable()
-	return GetExpansionLevel() >= LE_EXPANSION_DRAGONFLIGHT
-end
+local function IsSeasonalFaction(data)
+	if not data.textureKit then return false end
 
-local function IsDelvesSeasonFaction(data)
-	return data.textureKit and data.textureKit:lower():find("delve") ~= nil
+	local kit = data.textureKit:lower()
+	return kit:find("delve") ~= nil or kit:find("prey") ~= nil
 end
 
 local function FilteredRenownFactions(factionID)
@@ -42,14 +35,14 @@ local function FilteredRenownFactions(factionID)
 	local data = C_MajorFactions_GetMajorFactionData(factionID)
 	if not data then return false end
 
-	-- Get rid of Delves Seasons
-	if IsDelvesSeasonFaction(data) then
+	-- Get rid of Delves and Prey Seasons
+	if IsSeasonalFaction(data) then
 		return false
 	end
 
 	-- Filter Factions by Expansion
-	local selectedExpansion = E.private.benikui.datatexts.renownFilter.expansion or 0
-	if selectedExpansion ~= 0 and data.expansionID ~= selectedExpansion then
+	local savedExpansion = E.private.benikui.datatexts.renown.expansionID
+	if savedExpansion and data.expansionID ~= savedExpansion then
 		return false
 	end
 
@@ -107,35 +100,86 @@ local function OnEvent(self)
 end
 
 local function setSelectedFaction(_, ...)
-	local factionID = (...)
+	local factionID, expansionID = ...
 	E.private.benikui.datatexts.renown.factionID = factionID
+	E.private.benikui.datatexts.renown.expansionID = expansionID
 
 	DT:CloseMenus()
 	OnEvent(lastPanel)
 end
 
-local menuList = {
-	{text = (format('%s (%s)', JOURNEYS_RENOWN_LABEL, expansionName)), isTitle = true, notCheckable = true },
-}
+local menuList = {}
 
 local function menu_checked(data)
 	return data and data.arg1 == E.private.benikui.datatexts.renown.factionID
 end
 
+local function BuildMenu()
+	for i = #menuList, 2, -1 do
+		menuList[i] = nil
+	end
+
+	local factionsByExpansion = {}
+	local expansionOrder = {}
+
+	for _, factionID in next, C_MajorFactions_GetMajorFactionIDs() do
+		local data = C_MajorFactions_GetMajorFactionData(factionID)
+
+		if data and not IsSeasonalFaction(data) then
+			local expID = data.expansionID
+
+			if not factionsByExpansion[expID] then
+				factionsByExpansion[expID] = {}
+				expansionOrder[#expansionOrder + 1] = expID
+			end
+
+			local t = factionsByExpansion[expID]
+			t[#t + 1] = factionID
+		end
+	end
+
+	tsort(expansionOrder, function(a, b) return a > b end) -- Newest expansion first
+
+	for i, expID in ipairs(expansionOrder) do
+		local subMenu = {{ text = _G["EXPANSION_NAME"..expID], isTitle = true, notCheckable = true },}
+
+		for _, factionID in next, factionsByExpansion[expID] do
+			local data = C_MajorFactions_GetMajorFactionData(factionID)
+			if data then
+				if data.isUnlocked and data.renownLevel and data.renownLevel > 0 then
+					subMenu[#subMenu + 1] = {
+						text = format('%s %s(%s)|r', data.name, BLUE_COLOR_HEX, data.renownLevel),
+						func = setSelectedFaction,
+						arg1 = factionID,
+						arg2 = expID,
+						checked = menu_checked,
+					}
+				else
+					subMenu[#subMenu + 1] = {
+						text = format('|cff808080%s|r', data.name), -- cheat disabled
+						func = function() end,		-- cheat to show the arrow
+						checked = function() end,	-- cheat disabled
+						--disabled = true, -- not working
+					}
+				end
+			end
+		end
+
+		menuList[i + 1] = {
+			text = _G["EXPANSION_NAME"..expID],
+			hasArrow = true,
+			notCheckable = true,
+			menuList = subMenu,
+		}
+	end
+end
+
 local function OnClick(self, btn)
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
 
-	if not IsExpansionAvailable() then return end
-
 	if btn == 'RightButton' then
-		if IsShiftKeyDown() then
-			E:ToggleOptions()
-			local ACD = E.Libs.AceConfigDialog
-			if ACD then ACD:SelectGroup("ElvUI", "benikui", "datatexts") end
-		elseif factionIDs[1] then
-			E:SetEasyMenuAnchor(E.EasyMenu, self)
-			E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
-		end
+		E:SetEasyMenuAnchor(E.EasyMenu, self)
+		E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
 	else
 		if not IsAddOnLoaded('Blizzard_EncounterJournal') then
 			EncounterJournal_LoadUI()
@@ -157,29 +201,18 @@ local function OnClick(self, btn)
 end
 
 local function OnEnter(self)
-	if not IsExpansionAvailable() then return end
-
 	DT:SetupTooltip(self)
 
-	local activeFaction = E.private.benikui.datatexts.renown.factionID
-
-	for i = #menuList, 2, -1 do
-		menuList[i] = nil
-	end
-
-	-- update the menu title
-	local selectedExpansion = E.private.benikui.datatexts.renownFilter.expansion or 0
-	local headerName = selectedExpansion ~= 0 and _G["EXPANSION_NAME"..selectedExpansion] or ALL
-	menuList[1].text = format('%s (%s)', JOURNEYS_RENOWN_LABEL, headerName)
+	BuildMenu()
 
 	if not factionIDs[1] then
-		DT.tooltip:AddLine('No factions available for the selected expansion.', 1, 0.5, 0.5)
-		DT.tooltip:AddDoubleLine('Shift + Right Click:', 'Datatext Options', 0.7, 0.7, 1, 0.7, 0.7, 1)
+		DT.tooltip:AddLine('No renown factions available.', 1, 0.5, 0.5)
 		DT.tooltip:Show()
-    	return
+		return
 	end
 
-	for i, factionID in next, factionIDs do
+	local activeFaction = E.private.benikui.datatexts.renown.factionID
+	for _, factionID in next, factionIDs do
 		local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
 		if majorFactionData then
 			local isMaxRenown = C_MajorFactions_HasMaximumRenown(factionID)
@@ -211,17 +244,12 @@ local function OnEnter(self)
 			DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
 			DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
 			DT.tooltip:AddLine(' ')
-
-			menuList[i + 1] = {text = (format('%s %s(%s)|r', factionName, BLUE_COLOR_HEX, factionRenownLevel)),	func = setSelectedFaction, arg1 = factionID, checked = menu_checked}
 		end
 	end
 
-	if factionIDs[1] then
-		DT.tooltip:AddDoubleLine('Click:', 'View Faction Journey', 0.7, 0.7, 1, 0.7, 0.7, 1)
-		DT.tooltip:AddDoubleLine('Right Click:', 'Select Tracked Faction', 0.7, 0.7, 1, 0.7, 0.7, 1)
-		DT.tooltip:AddDoubleLine('Shift + RightClick:', 'Datatext Options', 0.7, 0.7, 1, 0.7, 0.7, 1)
-		DT.tooltip:Show()
-	end
+	DT.tooltip:AddDoubleLine('Click:', 'View Faction Journey', 0.7, 0.7, 1, 0.7, 0.7, 1)
+	DT.tooltip:AddDoubleLine('Right Click:', 'Select Tracked Faction', 0.7, 0.7, 1, 0.7, 0.7, 1)
+	DT.tooltip:Show()
 end
 
 local function ValueColorUpdate(self, hex)

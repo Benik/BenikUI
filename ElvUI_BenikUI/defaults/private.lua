@@ -42,9 +42,7 @@ V['benikui'] = {
 	['datatexts'] = {
 		['renown'] = {
 			['factionID'] = 2570,
-		},
-		['renownFilter'] = {
-			['expansion'] = 10,
+			['expansionID'] = 10,
 		},
 	},
 }

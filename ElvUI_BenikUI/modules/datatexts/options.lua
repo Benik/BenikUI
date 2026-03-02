@@ -146,22 +146,6 @@ local function Datatexts()
 					},
 				},
 			},
-			renownFilter = {
-				order = 40,
-				type = 'group',
-				name = L["Renown"],
-				guiInline = true,
-				args = {
-					expansion = {
-						order = 1,
-						type = 'select',
-						name = L['Filter Factions by Expansion'],
-						values = {[9] = EXPANSION_NAME9, [10] = EXPANSION_NAME10, [11] = EXPANSION_NAME11, [0] = ALL},
-						get = function(info) return E.private.benikui.datatexts.renownFilter[ info[#info] ] end,
-						set = function(info, value) E.private.benikui.datatexts.renownFilter[ info[#info] ] = value; DT:ForceUpdate_DataText('Renown (BenikUI)') end,
-					},
-				},
-			},
 		},
 	}
 end
