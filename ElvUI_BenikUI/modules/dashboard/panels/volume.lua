@@ -7,7 +7,8 @@ local join, tonumber, floor = string.join, tonumber, floor
 
 local CreateFrame = CreateFrame
 local GameTooltip = _G.GameTooltip
-local GetCVar, SetCVar = GetCVar, SetCVar
+local GetCVar = C_CVar.GetCVar
+local SetCVar = C_CVar.SetCVar
 local Sound_ToggleSound = Sound_ToggleSound
 local Sound_ToggleMusic = Sound_ToggleMusic
 local IsShiftKeyDown = IsShiftKeyDown
