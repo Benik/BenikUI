@@ -34,6 +34,8 @@ local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 local MinimapCluster = _G.MinimapCluster
 local ObjectiveTrackerFrame = _G.ObjectiveTrackerFrame
 
+local GetCVar = C_CVar.GetCVar
+
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
 menuFrame:CreateWideShadow()
@@ -350,28 +352,32 @@ function mod:SetFlightMode(status)
 		end
 
 		-- Blizzard DamageMeter
-		local currentCount = 0
-		_G.DamageMeter:ForEachSessionWindow(function(sessionWindow)
-			if sessionWindow:IsShown() then
-				currentCount = currentCount + 1
-			end
-			if currentCount > 0 then
-				for i = 1, currentCount do
-					if _G['DamageMeterSessionWindow'..i] then
-						_G['DamageMeterSessionWindow'..i]:Hide()
-						tinsert(DamageMeterFrames, _G['DamageMeterSessionWindow'..i])
+		if GetCVar("damageMeterEnabled") == "1" then
+			local currentCount = 0
+			_G.DamageMeter:ForEachSessionWindow(function(sessionWindow)
+				if sessionWindow:IsShown() then
+					currentCount = currentCount + 1
+				end
+				if currentCount > 0 then
+					for i = 1, currentCount do
+						if _G['DamageMeterSessionWindow'..i] then
+							_G['DamageMeterSessionWindow'..i]:Hide()
+							tinsert(DamageMeterFrames, _G['DamageMeterSessionWindow'..i])
+						end
 					end
 				end
-			end
-		end)
-
-		-- Cooldown Manager
-		if _G.EssentialCooldownViewer then
-			_G.EssentialCooldownViewer:Hide()
+			end)
 		end
 
-		if _G.UtilityCooldownViewer then
-			_G.UtilityCooldownViewer:Hide()
+		-- Cooldown Manager
+		if GetCVar("cooldownViewerEnabled") == "1" then
+			if _G.EssentialCooldownViewer then
+				_G.EssentialCooldownViewer:Hide()
+			end
+
+			if _G.UtilityCooldownViewer then
+				_G.UtilityCooldownViewer:Hide()
+			end
 		end
 
 		-- AllTheThings
@@ -519,20 +525,24 @@ function mod:SetFlightMode(status)
 		end
 
 		-- Blizzard DamageMeter
-		for _, frame in pairs(DamageMeterFrames) do
-			if frame then
-				frame:Show()
+		if GetCVar("damageMeterEnabled") == "1" then
+			for _, frame in pairs(DamageMeterFrames) do
+				if frame then
+					frame:Show()
+				end
 			end
+			twipe(DamageMeterFrames)
 		end
-		twipe(DamageMeterFrames)
 
 		-- Cooldown Manager
-		if _G.EssentialCooldownViewer then
-			_G.EssentialCooldownViewer:Show()
-		end
+		if GetCVar("cooldownViewerEnabled") == "1" then
+			if _G.EssentialCooldownViewer then
+				_G.EssentialCooldownViewer:Show()
+			end
 
-		if _G.UtilityCooldownViewer then
-			_G.UtilityCooldownViewer:Show()
+			if _G.UtilityCooldownViewer then
+				_G.UtilityCooldownViewer:Show()
+			end
 		end
 
 		-- special handling for Elkano Buff Bars
