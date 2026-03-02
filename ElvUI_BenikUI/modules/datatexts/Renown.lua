@@ -19,6 +19,7 @@ local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
 local LANDING_PAGE_RENOWN_LABEL = LANDING_PAGE_RENOWN_LABEL
 local JOURNEYS_RENOWN_LABEL = JOURNEYS_RENOWN_LABEL
 local LE_EXPANSION_DRAGONFLIGHT = LE_EXPANSION_DRAGONFLIGHT
+local ALL = ALL
 
 local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
 
@@ -80,6 +81,20 @@ local function OnEvent(self)
 	UpdateDB()
 
 	local factionID = E.private.benikui.datatexts.renown.factionID
+
+	local factionIsValid = false
+	for _, id in next, factionIDs do
+		if id == factionID then
+			factionIsValid = true
+			break
+		end
+	end
+
+	if not factionIsValid then
+		factionID = factionIDs[1] or nil
+		E.private.benikui.datatexts.renown.factionID = factionID
+	end
+
 	local majorFactionData = factionID and C_MajorFactions_GetMajorFactionData(factionID)
 
 	if majorFactionData then
@@ -113,13 +128,13 @@ local function OnClick(self, btn)
 	if not IsExpansionAvailable() then return end
 
 	if btn == 'RightButton' then
-		E:SetEasyMenuAnchor(E.EasyMenu, self)
-		E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
-
 		if IsShiftKeyDown() then
 			E:ToggleOptions()
 			local ACD = E.Libs.AceConfigDialog
 			if ACD then ACD:SelectGroup("ElvUI", "benikui", "datatexts") end
+		elseif factionIDs[1] then
+			E:SetEasyMenuAnchor(E.EasyMenu, self)
+			E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
 		end
 	else
 		if not IsAddOnLoaded('Blizzard_EncounterJournal') then
@@ -148,9 +163,20 @@ local function OnEnter(self)
 
 	local activeFaction = E.private.benikui.datatexts.renown.factionID
 
-	-- keep the title at index 1
 	for i = #menuList, 2, -1 do
 		menuList[i] = nil
+	end
+
+	-- update the menu title
+	local selectedExpansion = E.private.benikui.datatexts.renownFilter.expansion or 0
+	local headerName = selectedExpansion ~= 0 and _G["EXPANSION_NAME"..selectedExpansion] or ALL
+	menuList[1].text = format('%s (%s)', JOURNEYS_RENOWN_LABEL, headerName)
+
+	if not factionIDs[1] then
+		DT.tooltip:AddLine('No factions available for the selected expansion.', 1, 0.5, 0.5)
+		DT.tooltip:AddDoubleLine('Shift + Right Click:', 'Datatext Options', 0.7, 0.7, 1, 0.7, 0.7, 1)
+		DT.tooltip:Show()
+    	return
 	end
 
 	for i, factionID in next, factionIDs do
@@ -190,10 +216,12 @@ local function OnEnter(self)
 		end
 	end
 
-	DT.tooltip:AddDoubleLine('Click:', 'View Faction Journey', 0.7, 0.7, 1, 0.7, 0.7, 1)
-	DT.tooltip:AddDoubleLine('Right Click:', 'Select Tracked Faction', 0.7, 0.7, 1, 0.7, 0.7, 1)
-	DT.tooltip:AddDoubleLine('Shift + RightClick:', 'Datatext Options', 0.7, 0.7, 1, 0.7, 0.7, 1)
-	DT.tooltip:Show()
+	if factionIDs[1] then
+		DT.tooltip:AddDoubleLine('Click:', 'View Faction Journey', 0.7, 0.7, 1, 0.7, 0.7, 1)
+		DT.tooltip:AddDoubleLine('Right Click:', 'Select Tracked Faction', 0.7, 0.7, 1, 0.7, 0.7, 1)
+		DT.tooltip:AddDoubleLine('Shift + RightClick:', 'Datatext Options', 0.7, 0.7, 1, 0.7, 0.7, 1)
+		DT.tooltip:Show()
+	end
 end
 
 local function ValueColorUpdate(self, hex)
