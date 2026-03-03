@@ -15,6 +15,7 @@ local ShowUIPanel = ShowUIPanel
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
 local LANDING_PAGE_RENOWN_LABEL = LANDING_PAGE_RENOWN_LABEL
+local MAJOR_FACTION_BUTTON_FACTION_LOCKED = MAJOR_FACTION_BUTTON_FACTION_LOCKED
 
 local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
 
@@ -48,7 +49,7 @@ local function FilteredRenownFactions(factionID)
 
 	-- Check if a Faction is unlocked
 	if not data.isUnlocked then
-		return false
+		return true
 	end
 
 	-- Must have renown levels?
@@ -221,6 +222,7 @@ local function OnEnter(self)
 			local factionName = majorFactionData.name
 			local factionRenownLevel = majorFactionData.renownLevel
 			local isParagon = C_Reputation_IsFactionParagon(factionID)
+			local isUnlocked = majorFactionData.isUnlocked
 
 			if isParagon then
 				local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
@@ -235,14 +237,20 @@ local function OnEnter(self)
 
 			local percent = (max and max > 0) and (earned / max * 100) or 0
 
-			if activeFaction == factionID then
-				DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
-			else
-				DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
-			end
 
-			DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
-			DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
+			if isUnlocked then
+				if activeFaction == factionID then
+					DT.tooltip:AddLine(format('|cff3CEF3D%s (Active)|r', factionName))
+				else
+					DT.tooltip:AddLine(format('|cffFFFFFF%s|r', factionName))
+				end
+
+				DT.tooltip:AddLine(format('%s/%s (%d%%)', earned, max, percent))
+				DT.tooltip:AddLine(format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(factionRenownLevel)))
+			else
+				DT.tooltip:AddLine(format('|cff808080%s|r', factionName))
+				DT.tooltip:AddLine(format('|cff808080(%s)|r', MAJOR_FACTION_BUTTON_FACTION_LOCKED))
+			end
 			DT.tooltip:AddLine(' ')
 		end
 	end
