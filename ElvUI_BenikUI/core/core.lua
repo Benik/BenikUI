@@ -4,7 +4,8 @@ local LSM = E.LSM
 
 local _G = _G
 local pairs, print, tinsert, strjoin, lower, next, wipe = pairs, print, table.insert, strjoin, strlower, next, wipe
-local format = string.format
+local format = format
+local hooksecurefunc = hooksecurefunc
 local GetAddOnMetadata = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
 local DisableAddOn = (C_AddOns and C_AddOns.DisableAddOn) or DisableAddOn
 local EnableAddOn = (C_AddOns and C_AddOns.EnableAddOn) or EnableAddOn
@@ -15,20 +16,17 @@ local IsAddOnLoadable = C_AddOns.IsAddOnLoadable
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
 
--- GLOBALS: LibStub, ElvDB, test
-
 BUI["styles"] = {}
 BUI["softGlow"] = {}
 BUI["shadows"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
-BUI.ShadowMode = false
 BUI.AddonProfileKey = ''
 BINDING_HEADER_BENIKUI = BUI.Title
 
 local function IsAddonIncompatible(addon)
-    local loadable, reason = IsAddOnLoadable(addon)
-    return loadable == false and reason == "INCOMPATIBLE"
+	local loadable, reason = IsAddOnLoadable(addon)
+	return loadable == false and reason == "INCOMPATIBLE"
 end
 
 function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
@@ -40,6 +38,7 @@ end
 BUI.SLE = BUI:IsAddOnEnabled('ElvUI_SLE')
 BUI.MER = BUI:IsAddOnEnabled('ElvUI_MerathilisUI')
 BUI.ELT = BUI:IsAddOnEnabled('ElvUI_EltreumUI')
+BUI.WT = BUI:IsAddOnEnabled('ElvUI_WindTools')
 BUI.PA = BUI:IsAddOnEnabled('ProjectAzilroka')
 BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')
@@ -180,7 +179,7 @@ end
 
 function BUI:DasOptions()
 	E:ToggleOptions()
-	LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
+	_G.LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
 function BUI:SetupBenikUI()
@@ -227,8 +226,6 @@ function BUI:Initialize()
 	if E.db.benikui.general.loginMessage then
 		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('https://github.com/Benik/BenikUI/issues')))
 	end
-
-	BUI.ShadowMode = E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows or false
 
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BENIKUI")
 	E.ConfigModeLocalizedStrings["BENIKUI"] = BUI.Title

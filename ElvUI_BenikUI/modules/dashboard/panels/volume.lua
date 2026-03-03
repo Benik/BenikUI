@@ -6,15 +6,16 @@ local _G = _G
 local join, tonumber, floor = string.join, tonumber, floor
 
 local CreateFrame = CreateFrame
-local GameTooltip = _G["GameTooltip"]
-local GetCVar, SetCVar = GetCVar, SetCVar
+local GameTooltip = _G.GameTooltip
+local GetCVar = C_CVar.GetCVar
+local SetCVar = C_CVar.SetCVar
 local Sound_ToggleSound = Sound_ToggleSound
 local Sound_ToggleMusic = Sound_ToggleMusic
+local IsShiftKeyDown = IsShiftKeyDown
 
 local MASTER_VOLUME, MUTED, ENABLE_SOUNDFX, MUSIC_VOLUME, VOICE_AMBIENCE, VOLUME = MASTER_VOLUME, MUTED, ENABLE_SOUNDFX, MUSIC_VOLUME, VOICE_AMBIENCE, VOLUME
+local SOUND_OPTIONS = SOUND_OPTIONS
 local BINDING_NAME_TOGGLESOUND, BINDING_NAME_TOGGLEMUSIC = BINDING_NAME_TOGGLESOUND, BINDING_NAME_TOGGLEMUSIC
-
--- GLOBALS: selectioncolor
 
 local statusColors = {
 	'cff0CD809',	-- green
@@ -78,7 +79,7 @@ local function Sound_MasterVolumeDown()
 	end
 end
 
-local function iconBG_OnMouseWheel(self, d)
+local function iconBG_OnMouseWheel(_, d)
 	if (d > 0) then
 		Sound_MasterVolumeUp()
 	else
@@ -87,7 +88,7 @@ local function iconBG_OnMouseWheel(self, d)
 end
 
 -- Toggle all sounds
-local function iconBG_OnClick(self, btn)
+local function iconBG_OnClick(_, btn)
 	if btn == 'LeftButton' then
 		if IsShiftKeyDown() then
 			_G.Settings.OpenToCategory(_G.Settings.AUDIO_CATEGORY_ID)
@@ -116,14 +117,14 @@ local function IconOnEnter(self)
 	local ambience = GetVolumePercent('Sound_AmbienceVolume');
 
 	if (GetCVar('Sound_EnableAllSound') == '0') then
-		GameTooltip:AddDoubleLine(MASTER_VOLUME, MUTED, 1, 1, 1, selectioncolor)
+		GameTooltip:AddDoubleLine(MASTER_VOLUME, MUTED, 1, 1, 1, 1, 1, 1)
 	else
-		GameTooltip:AddDoubleLine(MASTER_VOLUME, master..'%', 1, 1, 1, selectioncolor)
+		GameTooltip:AddDoubleLine(MASTER_VOLUME, master..'%', 1, 1, 1, 1, 1, 1)
 	end
 
-	GameTooltip:AddDoubleLine(ENABLE_SOUNDFX, effects..'%', 1, 1, 1, selectioncolor)
-	GameTooltip:AddDoubleLine(MUSIC_VOLUME, music..'%', 1, 1, 1, selectioncolor)
-	GameTooltip:AddDoubleLine(VOICE_AMBIENCE, ambience..'%', 1, 1, 1, selectioncolor)
+	GameTooltip:AddDoubleLine(ENABLE_SOUNDFX, effects..'%', 1, 1, 1, 1, 1, 1)
+	GameTooltip:AddDoubleLine(MUSIC_VOLUME, music..'%', 1, 1, 1, 1, 1, 1)
+	GameTooltip:AddDoubleLine(VOICE_AMBIENCE, ambience..'%', 1, 1, 1, 1, 1, 1)
 	GameTooltip:AddLine(' ')
 	GameTooltip:AddDoubleLine(L['Click :'], BINDING_NAME_TOGGLESOUND, 0.7, 0.7, 1, 0.7, 0.7, 1)
 	GameTooltip:AddDoubleLine(L['RightClick :'], BINDING_NAME_TOGGLEMUSIC, 0.7, 0.7, 1, 0.7, 0.7, 1)
@@ -194,12 +195,8 @@ local function OnEvent(self)
 	end
 end
 
-function mod:CreateVolume()
-	local bar = _G['BUI_Volume']
-	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
-	bar:SetParent(holder)
-	bar.db = db
+mod:RegisterSystemBoard('Volume', function()
+	local bar = mod:CreateSystemBar('Volume')
 
 	local iconBG = CreateFrame('Frame', nil, bar)
 	iconBG:Size(16, 16)
@@ -215,14 +212,15 @@ function mod:CreateVolume()
 	iconBG:EnableMouse(true)
 	iconBG:EnableMouseWheel(true)
 
-	bar.iconBG = iconBG
-
 	iconBG:SetScript('OnEnter', IconOnEnter)
 	iconBG:SetScript('OnLeave', IconOnLeave)
 	iconBG:SetScript('OnMouseWheel', iconBG_OnMouseWheel)
 	iconBG:SetScript('OnMouseUp', iconBG_OnClick)
 
-	bar:SetScript('OnEvent', OnEvent)
+	bar.iconBG = iconBG
+
 	bar:RegisterEvent('VARIABLES_LOADED')
 	bar:RegisterEvent('CVAR_UPDATE')
-end
+	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
+	bar:SetScript('OnEvent', OnEvent)
+end)

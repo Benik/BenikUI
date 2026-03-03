@@ -6,11 +6,12 @@ local ipairs, unpack = ipairs, unpack
 
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local ADDONS = ADDONS
+local OBJECTIVES_TRACKER_LABEL = OBJECTIVES_TRACKER_LABEL
 
 local DecorElvUIAddons = {
 	{'ElvUI_LocPlus', L['LocationPlus'], 'locplus'},
 	{'ElvUI_SLE', L['Shadow & Light'], 'sle'},
-	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
+	{'ElvUI_WindTools', L['WindTools'], 'wt'},
 	{'ElvUI_MerathilisUI', L['MerathilisUI'], 'mer'},
 	{'ElvUI_Options', L['ElvUI Options'], 'elv'},
 }
@@ -64,6 +65,7 @@ local function SkinTable()
 		order = 100,
 		type = 'group',
 		name = BUI:cOption(ADDONS, "orange"),
+		childGroups = "tab",
 		args = {
 			desc = {
 				order = 2,
@@ -76,7 +78,6 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins.args.elvuiaddons = {
 		order = 3,
 		type = 'group',
-		guiInline = true,
 		name = L['ElvUI AddOns'],
 		get = function(info) return E.db.benikui.skins.elvuiAddons[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.skins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
@@ -108,7 +109,6 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins.args.addonskins = {
 		order = 4,
 		type = 'group',
-		guiInline = true,
 		name = L['AddOnSkins'],
 		get = function(info) return E.db.benikui.skins.addonSkins[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
@@ -131,7 +131,6 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins.args.variousSkins = {
 		order = 5,
 		type = 'group',
-		guiInline = true,
 		name = L['Skins'],
 		get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
@@ -183,13 +182,18 @@ local function SkinTable()
 				name = L['Baganator'],
 				disabled = function() return not IsAddOnLoaded('Baganator') end,
 			},
+			alltheThings = {
+				order = 8,
+				type = 'toggle',
+				name = L['All The Things'],
+				disabled = function() return not IsAddOnLoaded('AllTheThings') end,
+			},
 		},
 	}
 
 	E.Options.args.benikui.args.skins.args.profiles = {
 		order = 6,
 		type = 'group',
-		guiInline = true,
 		name = L['Profiles'],
 		args = {
 		},

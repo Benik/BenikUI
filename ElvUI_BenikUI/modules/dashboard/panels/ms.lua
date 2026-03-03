@@ -1,12 +1,16 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards');
 
-local LastUpdate = 1
+local _G = _G
 local select = select
 local join = string.join
-local _G = _G
 
+local GameTooltip = _G.GameTooltip
 local GetNetStats = GetNetStats
+local InCombatLockdown = InCombatLockdown
+local IsInInstance = IsInInstance
+local HOME = HOME
+local WORLD = WORLD
 
 local statusColors = {
 	'cff0CD809',	-- green
@@ -42,54 +46,9 @@ local function OnEnter(self)
 	end
 end
 
-local function OnUpdate(self, elapsed)
-	local db = self.db
-	if db.instance and IsInInstance() then return end
-
-	LastUpdate = LastUpdate - elapsed
-
-	if(LastUpdate < 0) then
-		LastUpdate = db.updateThrottle or 1
-		self.Status:SetMinMaxValues(0, 200)
-		local value = 0
-		local displayFormat = ""
-		local max = 100
-		local mscolor
-
-		if db.latency == 1 then
-			value = (select(3, GetNetStats())) -- Home
-		else
-			value = (select(4, GetNetStats())) -- World
-		end
-
-		self.Status:SetValue(value)
-
-		if( value * 100 / max <= 30) then
-			mscolor = 1
-		elseif value * 100 / max > 30 and value * 100 / max < 60 then
-			mscolor = 2
-		else
-			mscolor = 3
-		end
-
-		if db.latency == 1 then
-			displayFormat = join('', 'MS (', HOME, ') : |', statusColors[mscolor], '%d|r')
-		else
-			displayFormat = join('', 'MS (', WORLD, ') : |', statusColors[mscolor], '%d|r')
-		end
-
-		self.Text:SetFormattedText(displayFormat, value)
-
-		if db.overrideColor then
-			local r, g, b = E:HexToRGB(statusColors[mscolor])
-			self.Status:SetStatusBarColor(r/255, g/255, b/255)
-		end
-	end
-end
-
 local function OnLeave(self)
 	local db = self.db
-	local holder = self:GetParent()
+	local holder = mod.systemHolder
 
 	if db.mouseover then
 		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
@@ -97,14 +56,50 @@ local function OnLeave(self)
 	GameTooltip:Hide()
 end
 
-function mod:CreateMs()
-	local bar = _G['BUI_MS']
-	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
-	bar:SetParent(holder)
-	bar.db = db
+local function OnUpdate(self)
+	local db = self.db
+	if db.instance and IsInInstance() then return end
 
-	bar:SetScript('OnEnter', OnEnter)
-	bar:SetScript('OnLeave', OnLeave)
-	bar:SetScript('OnUpdate', OnUpdate)
+	self.Status:SetMinMaxValues(0, 200)
+	local value = 0
+	local displayFormat = ""
+	local max = 100
+	local mscolor
+
+	if db.latency == 1 then
+		value = (select(3, GetNetStats())) -- Home
+	else
+		value = (select(4, GetNetStats())) -- World
+	end
+
+	self.Status:SetValue(value)
+
+	if( value * 100 / max <= 30) then
+		mscolor = 1
+	elseif value * 100 / max > 30 and value * 100 / max < 60 then
+		mscolor = 2
+	else
+		mscolor = 3
+	end
+
+	if db.latency == 1 then
+		displayFormat = join('', 'MS (', HOME, ') : |', statusColors[mscolor], '%d|r')
+	else
+		displayFormat = join('', 'MS (', WORLD, ') : |', statusColors[mscolor], '%d|r')
+	end
+
+	self.Text:SetFormattedText(displayFormat, value)
+
+	if db.overrideColor then
+		local r, g, b = E:HexToRGB(statusColors[mscolor])
+		self.Status:SetStatusBarColor(r/255, g/255, b/255)
+	end
 end
+
+mod:RegisterSystemBoard('MS', function()
+	local bar = mod:CreateSystemBar('MS', OnEnter, OnLeave)
+	bar.elapsed = 0
+	bar.UpdateFunc = OnUpdate
+	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
+	bar:SetScript('OnUpdate', mod.CommonOnUpdate)
+end)

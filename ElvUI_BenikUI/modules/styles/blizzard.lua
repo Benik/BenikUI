@@ -3,9 +3,9 @@ local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 
 local _G = _G
-local pairs = pairs
+local next = next
+local hooksecurefunc = hooksecurefunc
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
-
 
 local function LoadSkin()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -17,70 +17,71 @@ local function LoadSkin()
 	local db = E.private.skins.blizzard
 
 	if db.addonManager then
-		_G.AddonList:BuiStyle("Outside")
+		_G.AddonList:BuiStyle()
 	end
 
 	if db.blizzardOptions then
-		_G.SettingsPanel.backdrop:BuiStyle("Outside")
-		_G.ChatConfigFrame:BuiStyle("Outside")
-		_G.ReadyCheckFrame:BuiStyle("Outside")
-		_G.ReadyCheckListenerFrame:BuiStyle("Outside")
+		_G.SettingsPanel.backdrop:BuiStyle()
+		_G.ChatConfigFrame:BuiStyle()
+		_G.ReadyCheckFrame:BuiStyle()
+		_G.ReadyCheckListenerFrame:BuiStyle()
 		_G.SplashFrame:CreateBackdrop("Transparent")
-		_G.SplashFrame.backdrop:BuiStyle("Outside")
+		_G.SplashFrame.backdrop:BuiStyle()
 	end
 
 	if db.character then
-		_G.PaperDollFrame:BuiStyle("Outside")
-		_G.ReputationFrame:BuiStyle("Outside")
-		_G.TokenFrame:BuiStyle("Outside")
-		_G.CurrencyTransferLog:BuiStyle("Outside")
-		_G.TokenFramePopup:BuiStyle("Outside")
+		_G.PaperDollFrame:BuiStyle()
+		_G.ReputationFrame:BuiStyle()
+		_G.TokenFrame:BuiStyle()
+		_G.CurrencyTransferLog:BuiStyle()
+		_G.TokenFramePopup:BuiStyle()
 	end
 
 	if db.dressingroom then
-		_G.DressUpFrame:BuiStyle("Outside")
-		_G.DressUpFrame.SetSelectionPanel:BuiStyle("Outside")
+		_G.DressUpFrame:BuiStyle()
+		_G.DressUpFrame.SetSelectionPanel:BuiStyle()
 	end
 
 	if db.editor then
-		_G.EditModeManagerFrame.backdrop:BuiStyle("Outside")
-		_G.EditModeUnsavedChangesDialog.backdrop:BuiStyle("Outside")
-		_G.EditModeImportLayoutDialog.backdrop:BuiStyle("Outside")
-		_G.EditModeSystemSettingsDialog.backdrop:BuiStyle("Outside")
+		_G.EditModeManagerFrame.backdrop:BuiStyle()
+		_G.EditModeUnsavedChangesDialog.backdrop:BuiStyle()
+		_G.EditModeImportLayoutDialog.backdrop:BuiStyle()
+		_G.EditModeSystemSettingsDialog.backdrop:BuiStyle()
 	end
 
 	if db.friends then
-		_G.AddFriendFrame:BuiStyle("Outside")
-		_G.FriendsFrame:BuiStyle("Outside")
-		_G.FriendsFriendsFrame:BuiStyle("Outside")
-		_G.QuickJoinRoleSelectionFrame:BuiStyle("Outside")
-		_G.RecruitAFriendFrame:BuiStyle("Outside")
+		_G.AddFriendFrame:BuiStyle()
+		_G.FriendsFrame:BuiStyle()
+		_G.FriendsFrame.IgnoreListWindow:BuiStyle()
+		_G.FriendsFriendsFrame:BuiStyle()
+		_G.QuickJoinRoleSelectionFrame:BuiStyle()
+		_G.RecruitAFriendFrame:BuiStyle()
 	end
 
 	if db.gossip then
-		_G.GossipFrame:BuiStyle("Outside")
-		_G.ItemTextFrame:BuiStyle("Outside")
+		_G.GossipFrame:BuiStyle()
+		_G.ItemTextFrame:BuiStyle()
 	end
 
 	if db.guild then
-		_G.GuildInviteFrame:BuiStyle("Outside")
+		_G.GuildInviteFrame:BuiStyle()
 	end
 
 	if db.guildregistrar then
-		_G.GuildRegistrarFrame:BuiStyle("Outside")
+		_G.GuildRegistrarFrame:BuiStyle()
 	end
 
 	if db.help then
-		_G.HelpFrame.backdrop:BuiStyle("Outside")
+		_G.HelpFrame.backdrop:BuiStyle()
 	end
 
 	if db.lfg then
-		_G.LFGInvitePopup:BuiStyle("Outside")
-		_G.LFGDungeonReadyDialog:BuiStyle("Outside")
-		_G.LFGDungeonReadyStatus:BuiStyle("Outside")
-		_G.LFGListApplicationDialog:BuiStyle("Outside")
-		_G.LFGListInviteDialog:BuiStyle("Outside")
-		_G.PVEFrame:BuiStyle("Outside")
+		_G.LFGInvitePopup:BuiStyle()
+		_G.LFGDungeonReadyDialog:BuiStyle()
+		_G.LFGDungeonReadyStatus:BuiStyle()
+		_G.LFGListApplicationDialog:BuiStyle()
+		_G.LFGListInviteDialog:BuiStyle()
+		_G.PVEFrame:BuiStyle()
 
 		local function forceTabFont(button)
 			if button.isSkinned then
@@ -92,27 +93,31 @@ local function LoadSkin()
 			end
 			button.isSkinned = true
 		end
+
 		forceTabFont(_G.LFGListFrame.ApplicationViewer.NameColumnHeader)
 		forceTabFont(_G.LFGListFrame.ApplicationViewer.RoleColumnHeader)
 		forceTabFont(_G.LFGListFrame.ApplicationViewer.ItemLevelColumnHeader)
 	end
 
 	if db.loot then
-		_G.LootFrame:BuiStyle("Outside")
-		_G.MasterLooterFrame:BuiStyle("Outside")
-		_G.BonusRollFrame:BuiStyle("Outside")
-		_G.GroupLootHistoryFrame:BuiStyle("Outside")
-		_G.GroupLootHistoryFrame.ResizeButton:CreateSoftShadow()
+		_G.LootFrame:BuiStyle()
+		_G.MasterLooterFrame:BuiStyle()
+		_G.BonusRollFrame:BuiStyle()
+		_G.GroupLootHistoryFrame:BuiStyle()
+
+		if E.db.benikui.general.shadows then
+			_G.GroupLootHistoryFrame.ResizeButton:CreateSoftShadow()
+		end
 	end
 
 	if db.mail then
-		_G.MailFrame:BuiStyle("Outside")
-		_G.OpenMailFrame:BuiStyle("Outside")
+		_G.MailFrame:BuiStyle()
+		_G.OpenMailFrame:BuiStyle()
 	end
 
 	if db.merchant then
 		if _G.MerchantFrame then
-			_G.MerchantFrame:BuiStyle("Outside")
+			_G.MerchantFrame:BuiStyle()
 		end
 	end
 
@@ -124,106 +129,110 @@ local function LoadSkin()
 			_G.VoiceMacroMenu,
 		}
 
-		for _, menu in pairs(ChatMenus) do
+		for _, menu in next, ChatMenus do
 			if menu then
-				menu:BuiStyle('Outside')
+				menu:BuiStyle()
 			end
 		end
 
-		_G.BNToastFrame:BuiStyle("Outside")
-		--_G.CinematicFrameCloseDialog:BuiStyle("Outside")
-		_G.GameMenuFrame:BuiStyle("Outside")
-		_G.GhostFrame:BuiStyle("Outside")
-		_G.LFDRoleCheckPopup:BuiStyle("Outside")
-		_G.ReportFrame:BuiStyle("Outside")
-		_G.QueueStatusFrame:BuiStyle("Outside")
-		_G.ReportCheatingDialog:BuiStyle("Outside")
-		_G.SideDressUpFrame:BuiStyle("Outside")
-		_G.StackSplitFrame:BuiStyle("Outside")
-		_G.StaticPopup1:BuiStyle("Outside")
-		_G.StaticPopup2:BuiStyle("Outside")
-		_G.StaticPopup3:BuiStyle("Outside")
-		_G.StaticPopup4:BuiStyle("Outside")
-		_G.TicketStatusFrameButton:BuiStyle("Outside")
+		_G.BNToastFrame:BuiStyle()
+		_G.GameMenuFrame:BuiStyle()
+		_G.GhostFrame:BuiStyle()
+		_G.LFDRoleCheckPopup:BuiStyle()
+		_G.ReportFrame:BuiStyle()
+		_G.QueueStatusFrame:BuiStyle()
+		_G.ReportCheatingDialog:BuiStyle()
+		_G.SideDressUpFrame:BuiStyle()
+		_G.StackSplitFrame:BuiStyle()
+		_G.StaticPopup1:BuiStyle()
+		_G.StaticPopup2:BuiStyle()
+		_G.StaticPopup3:BuiStyle()
+		_G.StaticPopup4:BuiStyle()
+		_G.TicketStatusFrameButton:BuiStyle()
 
 		hooksecurefunc('UIDropDownMenu_CreateFrames', function(level)
 			local listFrame = _G['DropDownList'..level];
 			local listFrameName = listFrame:GetName();
 			local Backdrop = _G[listFrameName..'Backdrop']
-			Backdrop:BuiStyle("Outside")
+			Backdrop:BuiStyle()
 
 			local menuBackdrop = _G[listFrameName..'MenuBackdrop']
-			menuBackdrop:BuiStyle("Outside")
+			menuBackdrop:BuiStyle()
 		end)
 	end
 
 	if db.nonraid then
-		_G.RaidInfoFrame:BuiStyle("Outside")
+		_G.RaidInfoFrame:BuiStyle()
 	end
 
 	if db.petition then
-		_G.PetitionFrame:BuiStyle("Outside")
+		_G.PetitionFrame:BuiStyle()
 	end
 
 	if db.pvp then
-		_G.PVPReadyDialog:BuiStyle("Outside")
+		_G.PVPReadyDialog:BuiStyle()
 	end
 
 	if db.quest then
-		_G.QuestFrame:BuiStyle("Outside")
-		_G.QuestLogPopupDetailFrame:BuiStyle("Outside")
-		_G.QuestModelScene.backdrop:BuiStyle("Outside")
+		_G.QuestFrame:BuiStyle()
+		_G.QuestLogPopupDetailFrame:BuiStyle()
 
-		_G.QuestModelScene.ModelTextFrame:ClearAllPoints()
-		_G.QuestModelScene.ModelTextFrame:Point("TOP", _G.QuestModelScene.backdrop, "BOTTOM", 0, -4)
-		_G.QuestModelScene.ModelTextFrame.backdrop:CreateSoftShadow()
-		_G.QuestModelScene.ModelTextFrame.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
+		local questModelScene = _G.QuestModelScene
+		questModelScene.backdrop:BuiStyle()
+		questModelScene.ModelTextFrame:ClearAllPoints()
+		questModelScene.ModelTextFrame:Point("TOP", questModelScene.backdrop, "BOTTOM", 0, -4)
+
+		if E.db.benikui.general.shadows then
+			questModelScene.ModelTextFrame.backdrop:CreateSoftShadow()
+		end
 	end
 
 	if db.stable then
-		_G.StableFrame:BuiStyle("Outside")
+		_G.StableFrame:BuiStyle()
 	end
 
 	if db.tabard then
-		_G.TabardFrame:BuiStyle("Outside")
+		_G.TabardFrame:BuiStyle()
 	end
 
 	if db.talkinghead then
-		local TalkingHeadFrame = _G.TalkingHeadFrame
+		local talkingHeadFrame = _G.TalkingHeadFrame
 
 		if E.db.general.talkingHeadFrameBackdrop then
-			TalkingHeadFrame:BuiStyle("Outside")
+			talkingHeadFrame:BuiStyle()
 		else
-			TalkingHeadFrame.MainFrame.Model.backdrop:BuiStyle("Outside")
+			talkingHeadFrame.MainFrame.Model.backdrop:BuiStyle()
 		end
 	end
 
 	if db.taxi then
-		_G.TaxiFrame:BuiStyle("Outside")
+		_G.TaxiFrame:BuiStyle()
 	end
 
 	if db.trade then
-		_G.TradeFrame:BuiStyle("Outside")
+		_G.TradeFrame:BuiStyle()
 	end
 
 	if db.worldmap then
-		local QuestMapFrame = _G.QuestMapFrame
+		local questMapFrame = _G.QuestMapFrame
 		local tabs = {
-			QuestMapFrame.QuestsTab,
-			QuestMapFrame.EventsTab,
-			QuestMapFrame.MapLegendTab
+			questMapFrame.QuestsTab,
+			questMapFrame.EventsTab,
+			questMapFrame.MapLegendTab
 		}
 		for _, tab in next, tabs do
 			tab.backdrop:SetTemplate('Transparent')
-			tab.backdrop:CreateSoftShadow()
-			tab.backdrop.shadow:SetShown(E.db.benikui.general.shadows)
+
+			if E.db.benikui.general.shadows then
+				tab.backdrop:CreateSoftShadow()
+			end
 		end
 	end
 
 	if IsAddOnLoaded('ColorPickerPlus') then return end
 	_G.ColorPickerFrame:HookScript('OnShow', function(frame)
 		if frame and not frame.style then
-			frame:BuiStyle("Outside")
+			frame:BuiStyle()
 		end
 	end)
 end
@@ -237,6 +246,6 @@ function mod:styleWorldMap()
 
 	local mapFrame = _G.WorldMapFrame
 	if not mapFrame.backdrop.style then
-		mapFrame.backdrop:BuiStyle("Outside")
+		mapFrame.backdrop:BuiStyle()
 	end
 end

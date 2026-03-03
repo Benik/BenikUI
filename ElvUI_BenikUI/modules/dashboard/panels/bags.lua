@@ -7,6 +7,8 @@ local C_Container_GetContainerNumFreeSlots = C_Container.GetContainerNumFreeSlot
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS + 1
 
+local ToggleAllBags = _G.ToggleAllBags
+
 local statusColors = {
 	'cff0CD809',	-- green
 	'cffE8DA0F',	-- yellow
@@ -17,6 +19,7 @@ local function OnEvent(self)
 	local db = self.db
 	local free, total = 0, 0
 	local textColor = 1
+
 	for i = 0, NUM_BAG_SLOTS do
 		free, total = free + C_Container_GetContainerNumFreeSlots(i), total + C_Container_GetContainerNumSlots(i)
 	end
@@ -43,19 +46,12 @@ local function OnEvent(self)
 end
 
 local function OnClick()
-	_G.ToggleAllBags()
+	ToggleAllBags()
 end
 
-function mod:CreateBags()
-	local bar = _G['BUI_Bags']
-	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
-	bar.db = db
-	bar:SetParent(holder)
-
-	bar:SetScript('OnEvent', OnEvent)
-	bar:SetScript('OnMouseDown', OnClick)
-
+mod:RegisterSystemBoard('Bags', function()
+	local bar = mod:CreateSystemBar('Bags', nil, nil, OnClick)
 	bar:RegisterEvent('BAG_UPDATE')
 	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
-end
+	bar:SetScript('OnEvent', OnEvent)
+end)

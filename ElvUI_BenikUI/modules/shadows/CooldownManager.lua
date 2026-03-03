@@ -46,7 +46,7 @@ end
 
 function mod:CooldownViewer_Shadows()
 	if E.private.skins.blizzard.cooldownManager ~= true or E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true or not BUI.ShadowMode
+		E.db.benikui.general.benikuiStyle ~= true or not E.db.benikui.general.shadows
 	then
 		return
 	end
@@ -58,7 +58,7 @@ function mod:CooldownViewer_Shadows()
 
 	local CooldownViewer = _G.CooldownViewerSettings
 	if CooldownViewer then
-		CooldownViewer:BuiStyle("Outside")
+		CooldownViewer:BuiStyle()
 		for i, tab in next, { CooldownViewer.SpellsTab, CooldownViewer.AurasTab } do
 			tab:CreateSoftShadow()
 		end

@@ -6,7 +6,8 @@ local T = E:GetModule('TotemTracker')
 if E.private.actionbar.enable ~= true then return end
 
 local _G = _G
-local pairs = pairs
+local next = next
+local hooksecurefunc = hooksecurefunc
 local MAX_TOTEMS = MAX_TOTEMS
 local MAX_STANCES = GetNumShapeshiftForms()
 local Masque = E.Masque
@@ -14,15 +15,15 @@ local MasqueGroup = Masque and E.private.actionbar.masque.actionbars
 
 local classColor = E:ClassColor(E.myclass, true)
 
-local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_MicroBar}
+local otherBackdops = {ElvUI_BarPet, ElvUI_StanceBar, ElvUI_MicroBar}
 
 function mod:StyleBackdrops()
-	for _, bar in pairs(AB.handledBars) do
+	for _, bar in next, AB.handledBars do
 		if bar then
 			bar.backdrop:BuiStyle('Outside', nil, true, true)
 
-			if BUI.ShadowMode and not MasqueGroup then
-				for _, button in ipairs(bar.buttons) do
+			if E.db.benikui.general.shadows and not MasqueGroup then
+				for _, button in next, bar.buttons do
 					if button then
 						button:CreateSoftShadow()
 					end
@@ -32,7 +33,7 @@ function mod:StyleBackdrops()
 	end
 
 	-- Other bar backdrops
-	for _, frame in pairs(styleOtherBacks) do
+	for _, frame in next, otherBackdops do
 		if frame.backdrop then
 			frame.backdrop:BuiStyle('Outside', nil, true, true)
 		end
@@ -55,16 +56,19 @@ function mod:ToggleStyle()
 	end
 
 	-- Other bar backdrops
-	if _G.ElvUI_BarPet.backdrop.style then
-		_G.ElvUI_BarPet.backdrop.style:SetShown(db.petbar)
+	local elvPetBar = _G.ElvUI_BarPet
+	if elvPetBar.backdrop.style then
+		elvPetBar.backdrop.style:SetShown(db.petbar)
 	end
 
-	if _G.ElvUI_StanceBar.backdrop.style then
-		_G.ElvUI_StanceBar.backdrop.style:SetShown(db.stancebar)
+	local elvStanceBar = _G.ElvUI_StanceBar
+	if elvStanceBar.backdrop.style then
+		elvStanceBar.backdrop.style:SetShown(db.stancebar)
 	end
 
-	if _G.ElvUI_MicroBar.backdrop.style then
-		_G.ElvUI_MicroBar.backdrop.style:SetShown(db.microbar)
+	local elvMicroBar = _G.ElvUI_MicroBar
+	if elvMicroBar.backdrop.style then
+		elvMicroBar.backdrop.style:SetShown(db.microbar)
 	end
 end
 
@@ -73,7 +77,7 @@ function mod:StyleColor()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local db = E.db.benikui.colors
 
-	for _, bar in pairs(AB.handledBars) do
+	for _, bar in next, AB.handledBars do
 		if bar then
 			if db.abStyleColor == 1 then
 				r, g, b = classColor.r, classColor.g, classColor.b
@@ -92,7 +96,7 @@ function mod:StyleColor()
 		end
 	end
 
-	for _, frame in pairs(styleOtherBacks) do
+	for _, frame in next, otherBackdops do
 		local name = _G[frame:GetName()].backdrop.style
 
 		if db.abStyleColor == 1 then
@@ -114,7 +118,7 @@ function mod:PetShadows()
 	-- Pet Buttons
 	for i = 1, _G.NUM_PET_ACTION_SLOTS do
 		local button = _G['PetActionButton'..i]
-		if (button and BUI.ShadowMode) and not MasqueGroup then
+		if (button and E.db.benikui.general.shadows) and not MasqueGroup then
 			button:CreateSoftShadow()
 		end
 	end
@@ -123,7 +127,7 @@ end
 function mod:StancebarShadows()
 	for i = 1, MAX_STANCES do
 		local button = _G['ElvUI_StanceBarButton'..i]
-		if (button and BUI.ShadowMode) and not MasqueGroup then
+		if (button and E.db.benikui.general.shadows) and not MasqueGroup then
 			button:CreateSoftShadow()
 		end
 	end
@@ -133,7 +137,7 @@ function mod:TotemShadows()
 	if not E.private.general.totemTracker then return end
 	for i = 1, MAX_TOTEMS do
 		local button = T.bar[i]
-		button:BuiStyle("Outside")
+		button:BuiStyle()
 	end
 end
 
@@ -195,7 +199,6 @@ function mod:Initialize()
 	mod:StyleBackdrops()
 	mod:PetShadows()
 	mod:StyleColor()
-	mod:LoadToggleButtons()
 	mod:ToggleStyle()
 	mod:TotemShadows()
 	mod:StancebarShadows()
@@ -207,7 +210,7 @@ function mod:Initialize()
 
 	hooksecurefunc(BUI, "SetupColorThemes", mod.StyleColor)
 
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 	mod:FlyoutShadows()
 	mod:ExtraAB()
 end

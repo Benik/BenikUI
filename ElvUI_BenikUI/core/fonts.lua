@@ -16,10 +16,6 @@ end
 -- Add some more fonts
 function BUI:UpdateBlizzardFonts()
 	local NORMAL     = E["media"].normFont
-	local SHADOWCOLOR = 0, 0, 0, .4 	-- add alpha for shadows
-	local NO_OFFSET = 0, 0
-	local NORMALOFFSET = 1.25, -1.25 	-- shadow offset for small fonts
-	local BIGOFFSET = 2, -2 			-- shadow offset for large fonts
 
 	if E.private.general.replaceBlizzFonts then
 		SetFont(_G.Fancy16Font, 						NORMAL, 14);								-- Allied Races Blizzard tryout font
@@ -28,8 +24,6 @@ function BUI:UpdateBlizzardFonts()
 		SetFont(_G.Fancy27Font, 						NORMAL, 25);								-- Allied Races Blizzard tryout font
 		SetFont(_G.Fancy30Font, 						NORMAL, 28);								-- Allied Races Blizzard tryout font
 		SetFont(_G.Fancy32Font, 						NORMAL, 30);								-- Allied Races Blizzard tryout font
-		SetFont(_G.Game20Font, 							NORMAL, 20);								-- WarboardUI Options
-		SetFont(_G.GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET)	-- Used at the install steps
 		SetFont(_G.WhiteNormalNumberFont,				NORMAL, E.db.general.fontSize);				-- Statusbar Numbers on TradeSkill frame
 		SetFont(_G.Fancy40Font,							NORMAL, 40);								-- MajorFaction
 		SetFont(_G.Fancy48Font,							NORMAL, 42);								-- ExpansionLandingPage, 48 is way too big

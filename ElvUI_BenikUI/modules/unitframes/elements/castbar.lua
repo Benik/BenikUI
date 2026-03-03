@@ -1,7 +1,7 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local mod = BUI:NewModule('Castbar', 'AceTimer-3.0', 'AceEvent-3.0')
-local UF = E:GetModule('UnitFrames');
-local LSM = LibStub("LibSharedMedia-3.0");
+local mod = BUI:GetModule('Castbar')
+local UF = E:GetModule('UnitFrames')
+local LSM = LibStub("LibSharedMedia-3.0")
 
 --[[
 	CREDIT:
@@ -11,6 +11,7 @@ local LSM = LibStub("LibSharedMedia-3.0");
 ]]
 
 local _G = _G
+local hooksecurefunc = hooksecurefunc
 
 local INVERT_ANCHORPOINT = {
 	TOPLEFT = 'BOTTOMRIGHT',
@@ -27,14 +28,12 @@ local INVERT_ANCHORPOINT = {
 local MAX_BOSS_FRAMES = 5
 local units = {"Player", "Target", "Focus", "Pet"}
 
--- GLOBALS: hooksecurefunc
-
 local function changeCastbarLevel(unit, unitframe)
 	local castbar = unitframe.Castbar
 	if not castbar then return end
 
 	castbar:SetFrameStrata("LOW")
-	castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel() + 10)
+	castbar:OffsetFrameLevel(10, unitframe.InfoPanel)
 end
 
 local function resetCastbarLevel(unit, unitframe)
@@ -56,7 +55,7 @@ local function resetCastbarLevel(unit, unitframe)
 end
 
 local function ConfigureCastbarShadow(unit, unitframe)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 	local castbar = unitframe.Castbar
 
 	if not castbar then return end
@@ -194,11 +193,12 @@ function mod:PostCastInterruptible(unit, unitframe)
 end
 
 function mod:CastBarHooks()
+	local shadows = E.db.benikui.general.shadows
 	for _, unit in pairs(units) do
 		local unitframe = _G["ElvUF_"..unit];
 		local castbar = unitframe and unitframe.Castbar
 		if castbar then
-			if BUI.ShadowMode then
+			if shadows then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
@@ -211,7 +211,7 @@ function mod:CastBarHooks()
 	for i = 1, 5 do
 		local castbar = _G["ElvUF_Arena"..i].Castbar
 		if castbar then
-			if BUI.ShadowMode then
+			if shadows then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
@@ -224,7 +224,7 @@ function mod:CastBarHooks()
 	for i = 1, MAX_BOSS_FRAMES do
 		local castbar = _G["ElvUF_Boss"..i].Castbar
 		if castbar then
-			if BUI.ShadowMode then
+			if shadows then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()

@@ -171,11 +171,6 @@ P['benikui'] = {
 		},
 		['infoPanel'] = {
 			['fixInfoPanel'] = true,
-			['texture'] = 'BuiEmpty',
-			['enableColor'] = false,
-			['customColor'] = 2,
-			['color'] = {r = .9, g = .7, b = 0, a = .7},
-			['groupColor'] = {r = .9, g = .7, b = 0, a = .7},
 		},
 		['castbar'] = {
 			['text'] = {
@@ -210,7 +205,7 @@ P['benikui'] = {
 		['elvuiAddons'] = {
 			['locplus'] = true,
 			['sle'] = true,
-			['enh'] = true,
+			['wt'] = true,
 			['pa'] = true,
 			['mer'] = true,
 			['elv'] = true,
@@ -232,6 +227,7 @@ P['benikui'] = {
 			['allthethings'] = true,
 			['tinyinspect'] = true,
 			['arkinventory'] = true,
+			['storyline'] = true,
 			['classTactics'] = true,
 			['hekili'] = true,
 			['wowpro'] = true,
@@ -243,8 +239,9 @@ P['benikui'] = {
 			['inflight'] = true,
 			['kt'] = true,
 			['rt'] = true,
-			['wa'] = true,
 			['tomtom'] = true,
+			['ba'] = true,
+			['alltheThings'] = true,
 		},
 	},
 

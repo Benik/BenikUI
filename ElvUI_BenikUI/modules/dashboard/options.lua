@@ -2,17 +2,27 @@ local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local mod = BUI:GetModule('Dashboards')
 
-local tinsert, pairs, ipairs, gsub, unpack, format, tostring = table.insert, pairs, ipairs, gsub, unpack, string.format, tostring
-local GetProfessions, GetProfessionInfo = GetProfessions, GetProfessionInfo
+local hooksecurefunc = hooksecurefunc
+
+local tinsert, twipe, ipairs, next = table.insert, table.wipe, ipairs, next
+local format, tostring, tonumber, strmatch, type = format, tostring, tonumber, strmatch, type
+
+local AceGUIWidgetLSMlists = AceGUIWidgetLSMlists
 local BreakUpLargeNumbers = BreakUpLargeNumbers
+local GetProfessions = GetProfessions
+local GetProfessionInfo = GetProfessionInfo
+local GetItemInfo = C_Item.GetItemInfo
 
-local PROFESSIONS_MISSING_PROFESSION, TOKENS = PROFESSIONS_MISSING_PROFESSION, TOKENS
-local TRADE_SKILLS = TRADE_SKILLS
+local ADD = ADD
+local COLOR_PICKER = COLOR_PICKER
+local DELETE = DELETE
+local ENABLE = ENABLE
+local KEY_INSERT = KEY_INSERT
 local LFG_LIST_LEGACY = LFG_LIST_LEGACY
-
--- GLOBALS: AceGUIWidgetLSMlists, hooksecurefunc
-
-local boards = {"FPS", "MS", "Durability", "Bags", "Volume"}
+local PROFESSIONS_MISSING_PROFESSION = PROFESSIONS_MISSING_PROFESSION
+local REPUTATION = REPUTATION
+local TOKENS = TOKENS
+local TRADE_SKILLS = TRADE_SKILLS
 
 local iconOrientationValues = {
 	['LEFT'] = L['Left'],
@@ -55,8 +65,10 @@ local function UpdateSystemOptions()
 	local config = E.Options.args.benikui.args.dashboards.args.system.args.chooseSystem
 	local db = E.db.benikui.dashboards.system
 
-	for _, boardname in pairs(boards) do
+	for _, board in next, mod.systemBoards do
 		local optionOrder = 1
+		local boardname = board.name
+
 		config.args.systemGroup.args[boardname] = {
 			order = optionOrder + 1,
 			type = 'toggle',
@@ -81,34 +93,84 @@ local function UpdateSystemOptions()
 	}
 end
 
+local function isSeasonHeader(name)
+	return type(name) == "string" and name:match("^Season%s+%d+$") ~= nil
+end
+
+local function isLegacyHeader(name)
+	return type(LFG_LIST_LEGACY) == "string" and name == LFG_LIST_LEGACY
+end
+
 local function UpdateTokenOptions()
 	local config = E.Options.args.benikui.args.dashboards.args.tokens.args.selectTokens
 	local db = E.db.benikui.dashboards.tokens
-
 	local optionOrder = 1
-	for i, info in ipairs(mod.CurrencyList) do
-		local name, id = unpack(info)
-		if not info[2] and name ~= LFG_LIST_LEGACY then
-			config.args[tostring(i)] = {
-				order = optionOrder + i,
-				type = 'group',
-				name = name,
-				disabled = function() return not db.enable end,
-				args = {
-				},
-			}
-		elseif info[3] then
-			local tname, amount, icon = mod:GetTokenInfo(id)
-			if tname then
-				config.args[tostring(info[3])].args[tostring(i)] = {
-					order = optionOrder + 2,
-					type = 'toggle',
-					name = (icon and '|T'..icon..':18|t '..tname) or tname,
-					desc = format('%s %s\n\n|cffffff00%s: %s|r', L['Enable/Disable'], tname, L['Amount'], BreakUpLargeNumbers(amount)),
+
+	config.args = config.args or {}
+	twipe(config.args)
+
+	local foldHeaderTo = {}
+	local lastRealHeaderIndex
+
+	for i, row in ipairs(mod.CurrencyList) do
+		local name = row[1]
+
+		if not row[2] then
+			if isLegacyHeader(name) then
+				-- do nothing and get rid of Legacy Header
+			elseif isSeasonHeader(name) then
+				if lastRealHeaderIndex then
+					foldHeaderTo[i] = lastRealHeaderIndex
+				else
+					config.args[tostring(i)] = {
+						order = optionOrder + i,
+						type = "group",
+						name = name,
+						disabled = function() return not db.enable end,
+						args = {
+						},
+					}
+					lastRealHeaderIndex = i
+				end
+			else
+				config.args[tostring(i)] = {
+					order = optionOrder + i,
+					type = "group",
+					name = name,
 					disabled = function() return not db.enable end,
-					get = function(info) return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
-					set = function(info, value) E.private.benikui.dashboards.tokens.chooseTokens[id] = value mod:UpdateTokens() end,
+					args = {
+					},
 				}
+				lastRealHeaderIndex = i
+			end
+		end
+	end
+
+	for i, row in ipairs(mod.CurrencyList) do
+		local id = row[2]
+		local parentHeaderIndex = row[3]
+
+		if parentHeaderIndex and id then
+			parentHeaderIndex = foldHeaderTo[parentHeaderIndex] or parentHeaderIndex
+
+			local parentGroup = config.args[tostring(parentHeaderIndex)]
+			if parentGroup then
+				local name, amount, icon = mod:GetTokenInfo(id)
+				if name then
+					parentGroup.args[tostring(i)] = {
+						order = optionOrder + 2,
+						type = "toggle",
+						name = (icon and "|T"..icon..":18|t "..name) or name,
+						desc = format("%s %s\n\n|cffffff00%s: %s|r",
+							L["Enable/Disable"], name, L["Amount"], BreakUpLargeNumbers(amount)),
+						disabled = function() return not db.enable end,
+						get = function() return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
+						set = function(_, value)
+							E.private.benikui.dashboards.tokens.chooseTokens[id] = value
+							mod:UpdateTokens()
+						end,
+					}
+				end
 			end
 		end
 	end
@@ -131,7 +193,7 @@ local function UpdateProfessionOptions()
 			},
 		}
 		local proftable = { GetProfessions() }
-		for _, id in pairs(proftable) do
+		for _, id in ipairs(proftable) do
 			local pname, icon = GetProfessionInfo(id)
 			if pname then
 				config.args.choosePofessions.args[pname] = {
@@ -168,7 +230,7 @@ local function UpdateReputationOptions()
 
 	local optionOrder = 1
 	for i, info in ipairs(mod.ReputationsList) do
-		local name, factionID, headerIndex, isHeader, isChild, isHeaderWithRep = unpack(info)
+		local name, factionID, headerIndex, isHeader, isChild = unpack(info)
 
 		if isHeader and not isChild then
 			config.args[tostring(headerIndex)] = {
@@ -193,13 +255,12 @@ local function UpdateReputationOptions()
 end
 
 local function UpdateItemsOptions()
-	local db = E.db.benikui.dashboards.items
-	local vdb = E.private.benikui.dashboards.items.chooseItems
+	local db = E.private.benikui.dashboards.items.chooseItems
 	local config = E.Options.args.benikui.args.dashboards.args.items.args.selectItems
 	local optionOrder = 10
 
-	for itemID in pairs(mod.ItemsList) do
-		local itemName, icon, amount, totalMax = mod:GetItemsInfo(itemID)
+	for itemID in next, mod.ItemsList do
+		local itemName, icon = mod:GetItemsInfo(itemID)
 		if itemName then
 			config.args[tostring(itemID)] = {
 				order = optionOrder + 1,
@@ -212,8 +273,8 @@ local function UpdateItemsOptions()
 						type = 'toggle',
 						width = 'full',
 						name = format('%s %s|cfffcba03 (%s)|r', ENABLE, itemName, itemID),
-						get = function(_) if vdb[itemID] and vdb[itemID].enable then return vdb[itemID].enable end end,
-						set = function(_, value) vdb[itemID].enable = value mod:GetUserItems() end,
+						get = function() if db[itemID] and db[itemID].enable then return db[itemID].enable end end,
+						set = function(_, value) db[itemID].enable = value mod:GetUserItems() end,
 					},
 					spacer = {
 						order = 2,
@@ -223,20 +284,37 @@ local function UpdateItemsOptions()
 					useCustomStack = {
 						order = 10,
 						type = 'toggle',
-						name = L['Use Custom Stack'],
-						disabled = function() return not vdb[itemID].enable end,
-						get = function(_) if vdb[itemID] and vdb[itemID].useCustomStack then return vdb[itemID].useCustomStack end end,
-						set = function(_, value) vdb[itemID].useCustomStack = value mod:UpdateItems() end,
+						name = function()
+							if db[itemID] and db[itemID].customStack then
+								return format('%s |cfffcba03(%s)|r', L['Use Custom Stack'], db[itemID].customStack)
+							end
+							return L['Use Custom Stack']
+						end,
+						disabled = function() return not db[itemID].enable end,
+						get = function() if db[itemID] and db[itemID].useCustomStack then return db[itemID].useCustomStack end end,
+						set = function(_, value) db[itemID].useCustomStack = value mod:UpdateItems() end,
 					},
 					customStack = {
 						order = 11,
 						type = 'input',
 						width = 'half',
 						name = L['Custom Stack'],
-						hidden = function() if vdb[itemID] and vdb[itemID].customStack then return not vdb[itemID].useCustomStack end end,
-						get = function(_) if vdb[itemID] and vdb[itemID].customStack then return vdb[itemID].customStack end end,
+						hidden = function() if db[itemID] and db[itemID].customStack then return not db[itemID].useCustomStack end end,
+						get = function() if db[itemID] and db[itemID].customStack then return db[itemID].customStack end end,
 						set = function(_, value)
-							vdb[itemID].customStack = tonumber(value)
+							db[itemID].customStack = tonumber(value)
+							mod:UpdateItems()
+						end,
+					},
+					clearCustomStack = {
+						order = 12,
+						type = 'execute',
+						name = '|TInterface\\AddOns\\ElvUI\\Game\\Shared\\Media\\Textures\\Close.tga:12:12|t',
+						width = 0.25,
+						hidden = function() if db[itemID] and db[itemID].customStack then return not db[itemID].useCustomStack end end,
+						disabled = function() return not db[itemID].customStack end,
+						func = function()
+							db[itemID].customStack = nil
 							mod:UpdateItems()
 						end,
 					},
@@ -249,10 +327,10 @@ local function UpdateItemsOptions()
 						order = 21,
 						name = DELETE,
 						type = 'execute',
-						disabled = function() return not vdb[itemID].enable end,
+						disabled = function() return not db[itemID].enable end,
 						func = function()
 							config.args[tostring(itemID)] = nil
-							vdb[itemID] = nil
+							db[itemID] = nil
 							mod.ItemsList[itemID] = nil
 							mod:GetUserItems()
 						end,
@@ -274,6 +352,13 @@ end
 
 local function dashboardsTable()
 	local db = E.db.benikui.dashboards
+
+	local BUI_SystemDashboard = _G.BUI_SystemDashboard
+	local BUI_TokensDashboard = _G.BUI_TokensDashboard
+	local BUI_ProfessionsDashboard = _G.BUI_ProfessionsDashboard
+	local BUI_ReputationsDashboard = _G.BUI_ReputationsDashboard
+	local BUI_ItemsDashboard = _G.BUI_ItemsDashboard
+
 	E.Options.args.benikui.args.dashboards = {
 		order = 60,
 		type = 'group',
@@ -1094,7 +1179,7 @@ local function dashboardsTable()
 												E:StaticPopup_Show("BUI_Panel_Name")
 												ItemSetup.id = nil
 											elseif not checkDuplicate then
-												for object in pairs(mod.ItemsList) do
+												for object in ipairs(mod.ItemsList) do
 													if object == tonumber(ItemSetup.id) then
 														E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The Item |cff00c0fa%s|r already exists."], name))
 														E:StaticPopup_Show("BUI_Panel_Name")

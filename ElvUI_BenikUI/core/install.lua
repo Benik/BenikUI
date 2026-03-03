@@ -2130,8 +2130,8 @@ BUI.installTable = {
 	["tutorialImage"] = [[Interface\AddOns\ElvUI_BenikUI\media\textures\logo_benikui.tga]],
 	["Pages"] = {
 		[1] = function()
-			PluginInstallFrame:BuiStyle('Outside')
-			PluginInstallTitleFrame:BuiStyle('Outside')
+			PluginInstallFrame:BuiStyle()
+			PluginInstallTitleFrame:BuiStyle()
 			PluginInstallTutorialImage:Size(384, 96)
 			PluginInstallTutorialImage:Point('BOTTOM', 0, 100)
 			PluginInstallTutorialImage2:SetTexture(nil)

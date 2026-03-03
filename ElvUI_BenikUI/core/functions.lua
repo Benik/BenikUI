@@ -78,12 +78,10 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 	if f.style or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local style = CreateFrame('Frame', name or nil, f, 'BackdropTemplate')
-	if not template then
-		style:CreateBackdrop('Transparent', true)
-	else
-		style:SetTemplate('Transparent', true)
-	end
-	
+	style:SetTemplate('Transparent', true)
+
+	template = template or 'Outside'
+
 	if style.eltruismbgtexture then style.eltruismbgtexture:Hide() end --Hide Eltruism's Skin if it exists
 
 	style.ignoreUpdates = true
@@ -96,7 +94,7 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 		style.ignoreVisibility = ignoreVisibility
 	end
 
-	style:SetFrameLevel(f:GetFrameLevel() + 2)
+	style:OffsetFrameLevel(2, f)
 
 	local tlx, tly, brx, bry
 

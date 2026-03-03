@@ -1,3 +1,64 @@
+v5.06 (Mar 3, 2026)
+Renown DT: New sub menu for each expansion. No need to go to the options
+Renown DT: Fixed the menu expansion title. Also added another tooltip that shows when no faction is known for the selected expansion
+Fixed DamageMeter and CooldownManager toggling while in flightMode
+Cleanup Units
+Ditch InfoPanel Color
+Group units cleanup
+Cleanup uf elements
+Cleanup Widgetbars
+Moved Castbar module in the init file
+Re enable Aurabars Shadows
+Tooltip cleanup
+Cache shadows db
+Removed BUI.ShadowMode. The cache was failing
+Renown Datatext: Added back the Filter by Expansion option
+Added AllTheThings skin
+Hide CooldownManager during FlightMode
+Hide Blizzard DamageMeter during FlightMode
+Fixed AllTheThings error during FlightMode
+Prevent Details error during flightMode
+FlightMode cleanup
+Hide Details during FlightMode
+Fixed tab shadows
+Fixed ModelTextFrame shadow
+Set 'Outside' style as default
+Actionbars cleanup
+Removed the Toggle buttons. No one knows it, no one uses it. Me either :P
+Better approach for the System Dashboard. Now it's easier to add more bars
+Updated RequestStop
+Use texture in the Item amount delete button. Looks a bit better
+Fixed the System Holder
+Updated System sub modules
+Updated System Dashboard
+Items dash: the set Custom Stack amount is now also shown in the options, along with a button to clear it
+Items options cleanup
+Fixed bar visibility
+Updated Items Dashboard
+Updated Professions
+Tokens options: Get rid of Legacy and Season headers. Expansions should show under their own headers
+Updated Tokens dashboard
+Updated Dashboards options
+Dashboards tweaks
+Portrtait db check
+Rep dashboard: moved scripts
+Update Reputations dashboard
+Updated Blizz style files
+Updated core and dropmenu files
+Updated the bags file
+Updated the layout file
+Fixed ElvUI_CopyChatFrame style
+Styled WindTools LFG Quick Access panel
+Added Styles for WindTools Inspect and Minimap buttons
+Renown DT overhaul. It will now populate with the current exp factions only
+Renown DT: On click it will show the Active Faction in the Journeys tab
+Renown DT: Added support for Midnight and fixed the click error
+Use ElvUI API (OffsetFrameLevel)
+Fixed some more tab shadows
+Fixed Encounter Journal tabs shadows
+Styled Housing frames
+
+
 v5.05 (Feb 11, 2026)
 toc update for game version 12.01
 Styled some elements in the PlayerSpellsFrame

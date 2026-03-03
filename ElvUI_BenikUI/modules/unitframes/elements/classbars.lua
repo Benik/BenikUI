@@ -1,9 +1,12 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local UF = E:GetModule('UnitFrames');
-local BU = BUI:GetModule('Units');
+local UF = E:GetModule('UnitFrames')
+local BU = BUI:GetModule('Units')
+
+local max = max
+local MAX_COMBO_POINTS = MAX_COMBO_POINTS
 
 function BU:Configure_ClassBar(frame)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 
 	local db = E.db.benikui.general
 	local bars = frame[frame.ClassBar]
@@ -29,7 +32,7 @@ function BU:Configure_ClassBar(frame)
 	end
 
 	if (frame.ClassBar == 'ClassPower' or frame.ClassBar == 'Runes') then
-		local maxBars = max(UF['classMaxResourceBar'][E.myclass] or 0, MAX_COMBO_POINTS)
+		local maxBars = max(UF.classMaxResourceBar[E.myclass] or 0, MAX_COMBO_POINTS)
 		for i = 1, maxBars do
 			if not bars[i].backdrop.shadow then
 				bars[i].backdrop:CreateSoftShadow()

@@ -113,7 +113,7 @@ function mod:StyleBar(bar, onClick)
 
 	bar.fb:SetScript('OnClick', onClick)
 
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		bar.fb:CreateSoftShadow()
 	end
 

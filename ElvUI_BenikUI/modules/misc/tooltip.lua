@@ -5,28 +5,26 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
-local GameTooltip, GameTooltipStatusBar = _G.GameTooltip, _G.GameTooltipStatusBar
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local hooksecurefunc = hooksecurefunc
+local CreateFrame = CreateFrame
+local GameTooltip = _G.GameTooltip
+local GameTooltipStatusBar = _G.GameTooltipStatusBar
 
+local UnitIsPlayer = UnitIsPlayer
+local UnitClass = UnitClass
+local UnitReaction = UnitReaction
 
 local function StyleTooltip()
 	if GameTooltip.style then return end
-	GameTooltip:BuiStyle('Outside')
+	GameTooltip:BuiStyle()
 	GameTooltip.style:SetClampedToScreen(true)
 
-	GameTooltipStatusBar:SetFrameLevel(GameTooltip.style:GetFrameLevel() +2)
-
-	-- FreebTip support
-	if BUI:IsAddOnEnabled('FreebTip') then
-		GameTooltip.style:ClearAllPoints()
-		GameTooltip.style:Point('TOPLEFT', GameTooltip, 'TOPLEFT', (E.PixelMode and 1 or 0), (E.PixelMode and -1 or 7))
-		GameTooltip.style:Point('BOTTOMRIGHT', GameTooltip, 'TOPRIGHT', (E.PixelMode and -1 or 0), (E.PixelMode and -6 or 1))
-	end
+	GameTooltipStatusBar:OffsetFrameLevel(2, GameTooltip.style)
 end
 
 local function StyleCagedBattlePetTooltip(tooltipFrame)
 	if not tooltipFrame.style then
-		tooltipFrame:BuiStyle("Outside")
+		tooltipFrame:BuiStyle()
 	end
 end
 
@@ -83,11 +81,11 @@ local function StyleBlizzardTooltips()
 	if E.private.skins.blizzard.tooltip then
 		for _, tt in pairs(tooltips) do
 			if tt and not tt.style then
-				tt:BuiStyle("Outside")
+				tt:BuiStyle()
 
 				local CompareHeader = tt.CompareHeader
 				if CompareHeader then
-					CompareHeader:SetFrameLevel(tt.style:GetFrameLevel()+2)
+					CompareHeader:OffsetFrameLevel(2, tt.style)
 				end
 			end
 		end
@@ -98,13 +96,14 @@ local function StyleBlizzardTooltips()
 			end
 		end
 
-		_G.QuestScrollFrame.StoryTooltip:BuiStyle("Outside")
-		_G.QuestScrollFrame.CampaignTooltip:BuiStyle("Outside")
+		local questScroll = _G.QuestScrollFrame
+		questScroll.StoryTooltip:BuiStyle()
+		questScroll.CampaignTooltip:BuiStyle()
 
 		local shoppingTooltips = {_G.WorldMapCompareTooltip1, _G.WorldMapCompareTooltip2}
 		for _, tooltip in pairs(shoppingTooltips) do
 			if not tooltip.style then
-				tooltip:BuiStyle("Outside")
+				tooltip:BuiStyle()
 			end
 		end
 	end
@@ -130,7 +129,7 @@ function mod:RecolorTooltipStyle()
 		local r, g, b = 0, 0, 0
 
 		if GameTooltipStatusBar:IsShown() then
-			local _,tooltipUnit = _G.GameTooltip:GetUnit()
+			local _,tooltipUnit = GameTooltip:GetUnit()
 			if tooltipUnit and E:NotSecretValue(tooltipUnit) then
 				if UnitIsPlayer(tooltipUnit) then
 					local _, tooltipUnitClass = UnitClass(tooltipUnit)
@@ -178,7 +177,7 @@ function mod:SetupStyleAndShadow(tt)
 		end
 	end
 
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		if tt.StatusBar.backdrop and not tt.StatusBar.backdrop.shadow then
 			tt.StatusBar.backdrop:CreateSoftShadow()
 		end
@@ -192,7 +191,7 @@ end
 
 function mod:StyleAceTooltip()
 	if not self.style then
-		self:BuiStyle('Outside')
+		self:BuiStyle()
 	end
 end
 hooksecurefunc(S, "Ace3_StyleTooltip", mod.StyleAceTooltip)

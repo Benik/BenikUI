@@ -51,7 +51,7 @@ function mod:MawBar_Update()
 		else
 			bar.text:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
-		
+
 		if db.textFormat == 'PERCENT' then
 			if tier == 5 then
 				bar.text:SetFormattedText('%s: %s', GARRISON_TIER, tier)
@@ -79,10 +79,10 @@ function mod:LoadMaw()
 	bar:SetSize(200, 20)
 	bar:SetMinMaxValues(0, maxValue)
 	bar:CreateBackdrop('Transparent')
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		bar.backdrop:CreateSoftShadow()
 	end
-	
+
 	bar:SetStatusBarTexture(E.media.normTex)
 	E:RegisterStatusBar(bar)
 

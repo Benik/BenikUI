@@ -4,8 +4,8 @@ local mod = BUI:GetModule('Dashboards');
 local _G = _G
 local join, floor = string.join, floor
 local select, collectgarbage = select, collectgarbage
-local sort, wipe = table.sort, table.wipe
-local format = string.format
+local sort, twipe = table.sort, table.wipe
+local format = format
 
 local GetFramerate = GetFramerate
 local GetNumAddOns = (C_AddOns and C_AddOns.GetNumAddOns) or GetNumAddOns
@@ -14,13 +14,13 @@ local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local GetAddOnMemoryUsage = GetAddOnMemoryUsage
 local InCombatLockdown = InCombatLockdown
-local GameTooltip = _G["GameTooltip"]
+local IsInInstance = IsInInstance
+local GameTooltip = _G.GameTooltip
 
 local kiloByteString = '|cfff6a01a %d|r'..' kb'
 local megaByteString = '|cfff6a01a %.2f|r'..' mb'
 
 local totalMemory = 0
-local LastUpdate = 1
 
 local statusColors = {
 	'cff0CD809',	-- green
@@ -53,7 +53,7 @@ local function RebuildAddonList()
 	if (addOnCount == #memoryTable) then return end
 
 	-- Number of loaded addons changed, create new memoryTable for all addons
-	wipe(memoryTable)
+	twipe(memoryTable)
 
 	for i = 1, addOnCount do
 		memoryTable[i] = { i, select(2, GetAddOnInfo(i)), 0, IsAddOnLoaded(i) }
@@ -73,7 +73,7 @@ local function UpdateMemory()
 	sort(memoryTable, sortByMemory)
 end
 
-local function OnMouseDown(self)
+local function OnClick(self)
 	if(not InCombatLockdown()) then
 		collectgarbage('collect')
 	end
@@ -121,48 +121,37 @@ local function OnLeave(self)
 	GameTooltip:Hide()
 end
 
-local function OnUpdate(self, elapsed)
+local function OnUpdate(self)
 	local db = self.db
 	if db.instance and IsInInstance() then return end
 
-	LastUpdate = LastUpdate - elapsed
+	self.Status:SetMinMaxValues(0, 200)
+	local value = floor(GetFramerate())
+	local max = 100
+	local fpscolor
+	self.Status:SetValue(value)
 
-	if(LastUpdate < 0) then
-		LastUpdate = db.updateThrottle or 1
-		self.Status:SetMinMaxValues(0, 200)
-		local value = floor(GetFramerate())
-		local max = 100
-		local fpscolor
-		self.Status:SetValue(value)
+	if(value * 100 / max >= 45) then
+		fpscolor = 1
+	elseif value * 100 / max < 45 and value * 100 / max > 30 then
+		fpscolor = 2
+	else
+		fpscolor = 3
+	end
 
-		if(value * 100 / max >= 45) then
-			fpscolor = 1
-		elseif value * 100 / max < 45 and value * 100 / max > 30 then
-			fpscolor = 2
-		else
-			fpscolor = 3
-		end
+	local displayFormat = join('', 'FPS: |', statusColors[fpscolor], '%d|r')
+	self.Text:SetFormattedText(displayFormat, value)
 
-		local displayFormat = join('', 'FPS: |', statusColors[fpscolor], '%d|r')
-		self.Text:SetFormattedText(displayFormat, value)
-
-		if db.overrideColor then
-			local r, g, b = E:HexToRGB(statusColors[fpscolor])
-			self.Status:SetStatusBarColor(r/255, g/255, b/255)
-		end
+	if db.overrideColor then
+		local r, g, b = E:HexToRGB(statusColors[fpscolor])
+		self.Status:SetStatusBarColor(r/255, g/255, b/255)
 	end
 end
 
-function mod:CreateFps()
-	local bar = _G['BUI_FPS']
-	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
-	bar.db = db
-	bar:SetParent(holder)
-
-	bar:SetScript('OnMouseDown', OnMouseDown)
-	bar:SetScript('OnEnter', OnEnter)
-	bar:SetScript('OnLeave', OnLeave)
-
-	bar:SetScript('OnUpdate', OnUpdate)
-end
+mod:RegisterSystemBoard('FPS', function()
+	local bar = mod:CreateSystemBar('FPS', OnEnter, OnLeave, OnClick)
+	bar.elapsed = 0
+	bar.UpdateFunc = OnUpdate
+	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
+	bar:SetScript('OnUpdate', mod.CommonOnUpdate)
+end)
