@@ -44,7 +44,7 @@ local SupportedProfiles = {
 	{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
 	{'ElvUI_LocPlus', 'Location Plus'},
-	{'InFlight_Load', 'InFlight'},
+	{'InFlight', 'InFlight'},
 	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
 	{'Pawn', 'Pawn'},
 	{'Recount', 'Recount'},
