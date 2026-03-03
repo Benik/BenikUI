@@ -1,3 +1,7 @@
+v5.07 (Mar 4, 2026)
+Prevent a strange shadow error
+Fixed InFlight profile option
+
 v5.06 (Mar 3, 2026)
 Renown DT: New sub menu for each expansion. No need to go to the options
 Renown DT: Fixed the menu expansion title. Also added another tooltip that shows when no faction is known for the selected expansion
