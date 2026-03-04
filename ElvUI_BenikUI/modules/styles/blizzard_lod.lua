@@ -2,7 +2,7 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local S = E:GetModule("Skins")
 
 local _G = _G
-local pairs, unpack = pairs, unpack
+local pairs= pairs
 local hooksecurefunc = hooksecurefunc
 
 -- AchievementUI
@@ -21,6 +21,22 @@ local function style_AchievementUI()
 	end
 end
 S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
+
+-- AdventureMap
+local function style_AdventureMap()
+	if E.private.skins.blizzard.adventureMap ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	-- only create a wide shadow for this
+	if E.db.benikui.general.shadows then
+		local frame = _G.AdventureMapQuestChoiceDialog
+		frame.backdrop:CreateWideShadow()
+	end
+end
+S:AddCallbackForAddon("Blizzard_AdventureMap", "BenikUI_AdventureMap", style_AdventureMap)
 
 -- AlliedRacesUI
 local function style_AlliedRacesUI()
@@ -500,9 +516,6 @@ local function style_GarrisonUI()
 	end
 
 	_G.OrderHallMissionFrame.backdrop:BuiStyle()
-	if _G.AdventureMapQuestChoiceDialog then
-		_G.AdventureMapQuestChoiceDialog:BuiStyle()
-	end
 
 	_G.BFAMissionFrame:BuiStyle()
 	local CovenantMissionFrame = _G.CovenantMissionFrame
