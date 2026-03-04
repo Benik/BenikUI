@@ -1,8 +1,9 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
-
-local CreateFrame = CreateFrame
 local S = E:GetModule('Skins')
+
+local next = next
+local CreateFrame = CreateFrame
 
 local function StyleDBM_Options()
 	if not E.db.benikui.skins.addonSkins.dbm or not BUI.AS then
@@ -111,28 +112,20 @@ end
 local function SkinAllTheThings()
 	local att = _G.AllTheThings
 
-	local miniList = att:GetWindow("MiniList")
-	if miniList and not miniList.IsSkinned then
-		S:HandleFrame(miniList)
-		S:HandleScrollBar(miniList.ScrollBar)
-		miniList:BuiStyle()
-		miniList.IsSkinned = true
-	end
+	local attFrames = {
+		"MiniList",
+		"Prime",
+		"Tradeskills",
+	}
 
-	local prime = att:GetWindow("Prime")
-	if prime and not prime.IsSkinned then
-		S:HandleFrame(prime)
-		S:HandleScrollBar(prime.ScrollBar)
-		prime:BuiStyle()
-		prime.IsSkinned = true
-	end
-
-	local tradeSkills = att:GetWindow("Tradeskills")
-	if tradeSkills and not tradeSkills.IsSkinned then
-		S:HandleFrame(tradeSkills)
-		S:HandleScrollBar(tradeSkills.ScrollBar)
-		tradeSkills:BuiStyle()
-		tradeSkills.IsSkinned = true
+	for _, frame in next, (attFrames) do
+		local skinFrame = att:GetWindow(frame)
+		if skinFrame and not skinFrame.IsSkinned then
+			S:HandleFrame(skinFrame)
+			S:HandleScrollBar(skinFrame.ScrollBar)
+			skinFrame:BuiStyle()
+			skinFrame.IsSkinned = true
+		end
 	end
 end
 
