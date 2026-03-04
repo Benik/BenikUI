@@ -126,6 +126,14 @@ local function SkinAllTheThings()
 		prime:BuiStyle()
 		prime.IsSkinned = true
 	end
+
+	local tradeSkills = att:GetWindow("Tradeskills")
+	if tradeSkills and not tradeSkills.IsSkinned then
+		S:HandleFrame(tradeSkills)
+		S:HandleScrollBar(tradeSkills.ScrollBar)
+		tradeSkills:BuiStyle()
+		tradeSkills.IsSkinned = true
+	end
 end
 
 local function AllTheThings()
