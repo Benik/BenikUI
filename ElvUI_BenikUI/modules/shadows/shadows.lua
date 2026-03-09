@@ -249,8 +249,8 @@ local function MailFrameShadows()
 	end
 end
 
-local ignoreWidgets = {
-	[283] = true -- Cosmic Energy
+local ignoreWidget = {
+	[283] = 3463 -- Cosmic Energy
 }
 
 function B:UIWidgetTemplateStatusBarShadows()
@@ -260,7 +260,7 @@ function B:UIWidgetTemplateStatusBarShadows()
 	if forbidden and bar then
 		if bar.tooltip then bar.tooltip = nil end -- EmbeddedItemTooltip is tainted just block the tooltip
 		return
-	elseif forbidden or ignoreWidgets[self.widgetSetID] or not bar then
+	elseif forbidden or (self.widgetID == ignoreWidget[self.widgetSetID]) or not bar then
 		return -- we don't want to handle these widgets
 	end
 
