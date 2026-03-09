@@ -5,6 +5,8 @@ local M = E:GetModule('Misc')
 local B = E:GetModule('Blizzard')
 
 local _G = _G
+local pairs = pairs
+local hooksecurefunc = hooksecurefunc
 
 local CLASS_SORT_ORDER = CLASS_SORT_ORDER
 
@@ -158,19 +160,6 @@ local function SpellBookFrameShadows()
 		i = i + 1
 		tab = _G['SpellBookFrameTabButton'..i]
 	end
-
-	-- for j = 1, MAX_SKILLLINE_TABS do
-	-- 	local tab = _G['SpellBookSkillLineTab'..j]
-	-- 	tab:CreateSoftShadow()
-	-- end
-
-	-- hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
-	-- 	function()
-	-- 		for i = 1, MAX_SKILLLINE_TABS do
-	-- 			local tab = _G['SpellBookSkillLineTab'..i]
-	-- 			tab:CreateSoftShadow()
-	-- 		end
-	-- 	end)
 end
 
 local function PVEFrameShadows()
