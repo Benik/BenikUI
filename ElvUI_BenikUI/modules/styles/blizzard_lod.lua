@@ -1127,8 +1127,8 @@ local function style_PVPMatch()
 		return
 	end
 
-	_G.PVPMatchScoreboard:BuiStyle()
-	_G.PVPMatchResults:BuiStyle()
+	--_G.PVPMatchScoreboard.backdrop:BuiStyle()
+	--_G.PVPMatchResults.backdrop:BuiStyle()
 end
 S:AddCallbackForAddon("Blizzard_PVPMatch", "BenikUI_PVPMatch", style_PVPMatch)
 
