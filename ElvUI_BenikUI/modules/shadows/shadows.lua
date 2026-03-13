@@ -63,7 +63,7 @@ function mod:TabShadows(tab)
 		tab.backdrop:CreateSoftShadow()
 	end
 end
-hooksecurefunc(S, "HandleTab", mod.TabShadows)
+--hooksecurefunc(S, "HandleTab", mod.TabShadows) -- this errors on BGs
 
 -- ElvUI item buttons
 function mod:ItemButtonShadows(button)
