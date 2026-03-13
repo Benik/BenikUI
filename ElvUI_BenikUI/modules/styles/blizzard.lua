@@ -135,8 +135,11 @@ local function LoadSkin()
 			end
 		end
 
+		if not E.OtherAddons.ConsolePort then
+			_G.GameMenuFrame:BuiStyle()
+		end
+
 		_G.BNToastFrame:BuiStyle()
-		_G.GameMenuFrame:BuiStyle()
 		_G.GhostFrame:BuiStyle()
 		_G.LFDRoleCheckPopup:BuiStyle()
 		_G.ReportFrame:BuiStyle()
