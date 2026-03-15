@@ -1,3 +1,12 @@
+v5.08 (Mar 15, 2026)
+Prevent a pvp error
+Stop styling gamemenu when consoleport_menu is enabled
+Fixed the System dashboard module order
+Fixed WidgetBar shadows
+Show all professions that are trained (thurin)
+Removed the "broken" style in AdventureMapQuestChoiceDialog frame and just added a shadow
+Skinned AllTheThings Tradeskills frame
+
 v5.07 (Mar 4, 2026)
 Prevent a strange shadow error
 Fixed InFlight profile option
