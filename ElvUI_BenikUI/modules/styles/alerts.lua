@@ -46,10 +46,12 @@ function mod:styleAlertFrames()
 	hooksecurefunc(_G.EntitlementDeliveredAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.RafRewardDeliveredAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.HousingItemEarnedAlertFrameSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(_G.InitiativeTaskCompleteAlertFrameSystem, 'setUpFunction', StyleAlert)
 
 	-- Professions
 	hooksecurefunc(_G.DigsiteCompleteAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.NewRecipeLearnedAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(_G.SkillLineSpecsUnlockedAlertSystem, 'setUpFunction', StyleAlert)
 
 	-- Pets/Mounts/Toys
 	hooksecurefunc(_G.NewPetAlertSystem, "setUpFunction", StyleAlert)
