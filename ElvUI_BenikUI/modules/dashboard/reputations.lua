@@ -11,7 +11,6 @@ local hooksecurefunc = hooksecurefunc
 
 local GameTooltip = _G.GameTooltip
 local InCombatLockdown = InCombatLockdown
-local IsInInstance = IsInInstance
 local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
@@ -176,9 +175,6 @@ function mod:UpdateReputations()
 		return
 	end
 
-	local inInstance = IsInInstance()
-	local NotinInstance = not (db.instance and inInstance)
-
 	if(factionsDB[1]) then
 		for i = 1, #factionsDB do
 			factionsDB[i]:Hide()
@@ -198,7 +194,7 @@ function mod:UpdateReputations()
 				local name = factionInfo.name
 
 				if E.private.benikui.dashboards.reputations.chooseReputations[factionID] == true then
-					holder:SetShown(NotinInstance)
+					holder:SetShown(mod:ShouldShowDashboard('reputations'))
 
 					if db.orientation == 'BOTTOM' then
 						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#factionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))

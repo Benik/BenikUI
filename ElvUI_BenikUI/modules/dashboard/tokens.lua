@@ -20,7 +20,6 @@ local C_CurrencyInfo_IsAccountTransferableCurrency = C_CurrencyInfo.IsAccountTra
 local GetExpansionLevel = GetExpansionLevel
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
-local IsInInstance = IsInInstance
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
 local MISCELLANEOUS = MISCELLANEOUS
@@ -134,9 +133,6 @@ function mod:UpdateTokens()
 
 	if not db.tokens.enable then holder:Hide() return end
 
-	local inInstance = IsInInstance()
-	local NotinInstance = not (db.tokens.instance and inInstance)
-
 	if(tokensDB[1]) then
 		for i = 1, #tokensDB do
 			tokensDB[i]:Hide()
@@ -157,7 +153,7 @@ function mod:UpdateTokens()
 
 				if E.private.benikui.dashboards.tokens.chooseTokens[id] == true then
 					if db.tokens.zeroamount or amount > 0 then
-						holder:SetShown(NotinInstance)
+						holder:SetShown(mod:ShouldShowDashboard('tokens'))
 
 						if db.tokens.orientation == 'BOTTOM' then
 							holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#tokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
