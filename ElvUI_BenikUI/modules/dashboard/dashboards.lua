@@ -200,19 +200,12 @@ function mod:CreateDashboardHolder(holderName, option)
 	holder:SetScript('OnEvent', function(self, event)
 		local db = E.db.benikui.dashboards[option]
 
-		if event == 'PLAYER_ENTERING_WORLD' or event == 'ZONE_CHANGED_NEW_AREA' then
+		if event == 'PLAYER_REGEN_DISABLED' then
+			if db.combat then E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0) end
+		elseif event == 'PLAYER_REGEN_ENABLED' then
+			if db.combat then E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end
+		else
 			self:SetShown(mod:ShouldShowDashboard(option))
-			return
-		end
-
-		if not mod:ShouldShowDashboard(option) then return end
-
-		if db.combat then
-			if event == 'PLAYER_REGEN_DISABLED' then
-				E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			elseif event == 'PLAYER_REGEN_ENABLED' then
-				E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-			end
 		end
 	end)
 
