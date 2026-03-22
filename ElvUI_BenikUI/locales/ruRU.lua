@@ -251,6 +251,7 @@ L['Enable Class color on health border, when mouse over'] = "Включить ц
 -- Widget Bars
 L['Widget Bars'] = "Виджеты"
 L['BenikUI Maw Bar'] = "BenikUI Maw Bar"
+L['BenikUI Prey Bar'] = true
 L['Color by Tier'] = "Цвет по уровню"
 L['Text yOffset'] = "Смещение текста по Y"
 L['Half Bar'] = "Половина полосы"

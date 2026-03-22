@@ -250,6 +250,7 @@ L['Enable Class color on health border, when mouse over'] = true
 -- Widget Bars
 L['Widget Bars'] = true
 L['BenikUI Maw Bar'] = true
+L['BenikUI Prey Bar'] = true
 L['Color by Tier'] = true
 L['Text yOffset'] = true
 L['Half Bar'] = true

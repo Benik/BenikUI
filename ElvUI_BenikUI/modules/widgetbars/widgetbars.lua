@@ -49,6 +49,7 @@ end
 function mod:Initialize()
 	mod:LoadMaw()
 	mod:AltPowerBar()
+	mod:LoadPrey()
 	hooksecurefunc(B, "UpdateAltPowerBarSettings", mod.AltPowerBar)
 	hooksecurefunc(_G.MirrorTimerContainer, 'SetupTimer', SetupTimer)
 end
