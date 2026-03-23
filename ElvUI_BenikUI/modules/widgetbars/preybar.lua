@@ -8,6 +8,9 @@ local ipairs = ipairs
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
 local GameTooltip_Hide = GameTooltip_Hide
+local ToggleFrame = ToggleFrame
+
+local WorldMapFrame = _G.WorldMapFrame
 
 local C_UIWidgetManager_GetPowerBarWidgetSetID = C_UIWidgetManager.GetPowerBarWidgetSetID
 local C_UIWidgetManager_GetAllWidgetsBySetID = C_UIWidgetManager.GetAllWidgetsBySetID
@@ -166,6 +169,9 @@ function mod:LoadPrey()
 	end)
 
 	bar:SetScript("OnLeave", GameTooltip_Hide)
+	bar:SetScript("OnMouseDown", function()
+		ToggleFrame(WorldMapFrame)
+	end)
 
 	-- needed to grab the widget
 	local eventFrame = CreateFrame("Frame")
