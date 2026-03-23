@@ -121,9 +121,12 @@ function mod:PreyBar_Update()
 
 		if blizzPreyFrame and blizzPreyFrame:IsShown() then
 			blizzPreyFrame:Hide()
+			if blizzPreyFrame.GainProgressAnim then blizzPreyFrame.GainProgressAnim:Stop() end
+			if blizzPreyFrame.ShineFrame and blizzPreyFrame.ShineFrame.Anim then blizzPreyFrame.ShineFrame.Anim:Stop() end
+			if blizzPreyFrame.TransitionAnim then blizzPreyFrame.TransitionAnim:Stop() end
 		end
 
-		bar:Show()
+		if not bar:IsShown() then bar:Show() end
 	else
 		bar:Hide()
 	end
