@@ -256,6 +256,9 @@ L['Color by Tier'] = "Цвет по уровню"
 L['Text yOffset'] = "Смещение текста по Y"
 L['Half Bar'] = "Половина полосы"
 L["Percent"] = "Процент"
+L['Preview Bar'] = true
+L['Hide Preview'] = true
+L['Force show the bar to adjust font and color settings.'] = true
 
 -- Information
 L['Information'] = "Информация"

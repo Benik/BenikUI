@@ -255,6 +255,9 @@ L['Color by Tier'] = true
 L['Text yOffset'] = true
 L['Half Bar'] = true
 L["Percent"] = true
+L['Preview Bar'] = true
+L['Hide Preview'] = true
+L['Force show the bar to adjust font and color settings.'] = true
 
 -- Information
 L['Information'] = "Informação"

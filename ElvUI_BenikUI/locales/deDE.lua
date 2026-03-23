@@ -256,6 +256,9 @@ L['Color by Tier'] = "Farbe nach Stufe"
 L['Text yOffset'] = "Text Y-Versatz"
 L['Half Bar'] = "Halbe Leisten"
 L["Percent"] = "Prozent"
+L['Preview Bar'] = true
+L['Hide Preview'] = true
+L['Force show the bar to adjust font and color settings.'] = true
 
 -- Information
 L['Information'] = "Informationen"
