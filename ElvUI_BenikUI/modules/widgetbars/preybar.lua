@@ -82,8 +82,7 @@ function mod:PreyBar_Update()
 	local db = E.db.benikui.widgetbars.preyBar
 	if not db then return end
 
-	local blizzFrame = FindBlizzardPreyFrame()
-
+	local blizzPreyFrame = FindBlizzardPreyFrame()
 	local state = GetPreyBarState()
 
 	if state then
@@ -95,20 +94,17 @@ function mod:PreyBar_Update()
 		bar.text:SetTextColor(1, 1, 1)
 		bar.text:Point('CENTER', 0, db.textYoffset or 0)
 
-		if db.useDTfont then
-			bar.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-		else
-			bar.text:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
-		end
-
+		bar.text:FontTemplate(LSM:Fetch('font', db.useDTfont and E.db.datatexts.font or db.font), db.useDTfont and E.db.datatexts.fontSize or db.fontsize, db.useDTfont and E.db.datatexts.fontOutline or db.fontflags)
 		bar.text:SetFormattedText('Prey: %s', PreyStateLabel[state] or '')
 
 		bar:SetValue(PreyStateStep[state] or 0)
 
-		if blizzFrame then blizzFrame:Hide() end
+		if blizzPreyFrame and blizzPreyFrame:IsShown() then
+			blizzPreyFrame:Hide()
+		end
+
 		bar:Show()
 	else
-		if blizzFrame then blizzFrame:Show() end
 		bar:Hide()
 	end
 end
