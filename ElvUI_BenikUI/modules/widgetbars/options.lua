@@ -174,13 +174,24 @@ local function widgetTable()
 						get = function(info) return E.db.benikui.widgetbars.preyBar[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.widgetbars.preyBar[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer1 = {
+					previewBar = {
 						order = 2,
+						type = 'execute',
+						name = function()
+							return mod.previewActive and L['Hide Preview'] or L['Preview Bar']
+						end,
+						desc = L['Force show the bar to adjust font and color settings.'],
+						func = function()
+							mod:PreyBar_Preview()
+						end,
+					},
+					spacer1 = {
+						order = 3,
 						type = 'description',
 						name = '',
 					},
 					sizeGroup = {
-						order = 3,
+						order = 4,
 						type = 'group',
 						name = L["Size"],
 						guiInline = true,

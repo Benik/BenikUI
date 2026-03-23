@@ -75,6 +75,25 @@ local function GetPreyBarState()
 	end
 end
 
+mod.previewActive = false
+
+function mod:PreyBar_Preview()
+	local bar = _G.BUIPreyBar
+	if not bar then return end
+
+	mod.previewActive = not mod.previewActive
+
+	if mod.previewActive then
+		bar:SetValue(2)
+		bar:SetStatusBarColor(1.0, 0.85, 0.1)
+		bar.text:SetFormattedText('Prey: %s', PreyStateLabel[Enum.PreyHuntProgressState.Warm]) -- this might be used sneaky :P
+		bar:Show()
+	else
+		mod.previewActive = false
+		mod:PreyBar_Update()
+	end
+end
+
 function mod:PreyBar_Update()
 	local bar = _G.BUIPreyBar
 	if not bar then return end
@@ -84,20 +103,21 @@ function mod:PreyBar_Update()
 
 	local blizzPreyFrame = FindBlizzardPreyFrame()
 	local state = GetPreyBarState()
+	local displayState = state or (mod.previewActive and Enum.PreyHuntProgressState.Warm)
 
-	if state then
+	if displayState then
 		bar:SetSize(db.width, db.height)
 
-		local color = PreyStateColor[state] or {0.5, 0.5, 0.5}
+		local color = PreyStateColor[displayState] or {0.5, 0.5, 0.5}
 		bar:SetStatusBarColor(unpack(color))
 
 		bar.text:SetTextColor(1, 1, 1)
 		bar.text:Point('CENTER', 0, db.textYoffset or 0)
 
 		bar.text:FontTemplate(LSM:Fetch('font', db.useDTfont and E.db.datatexts.font or db.font), db.useDTfont and E.db.datatexts.fontSize or db.fontsize, db.useDTfont and E.db.datatexts.fontOutline or db.fontflags)
-		bar.text:SetFormattedText('Prey: %s', PreyStateLabel[state] or '')
+		bar.text:SetFormattedText('Prey: %s', PreyStateLabel[displayState] or '')
 
-		bar:SetValue(PreyStateStep[state] or 0)
+		bar:SetValue(PreyStateStep[displayState] or 0)
 
 		if blizzPreyFrame and blizzPreyFrame:IsShown() then
 			blizzPreyFrame:Hide()
