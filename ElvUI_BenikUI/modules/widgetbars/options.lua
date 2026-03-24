@@ -19,7 +19,7 @@ local function widgetTable()
 			mawBar = {
 				order = 2,
 				type = 'group',
-				name = L['BenikUI Maw Bar'],
+				name = L['Maw Bar'],
 				args = {
 					enable = {
 						order = 1,
@@ -165,7 +165,7 @@ local function widgetTable()
 			preyBar = {
 				order = 1,
 				type = 'group',
-				name = E.NewSign..L['BenikUI Prey Bar'],
+				name = E.NewSign..L['Prey Bar'],
 				args = {
 					enable = {
 						order = 1,
@@ -177,10 +177,10 @@ local function widgetTable()
 					previewBar = {
 						order = 2,
 						type = 'execute',
+						disabled = function() return not E.db.benikui.widgetbars.preyBar.enable end,
 						name = function()
 							return mod.previewActive and L['Hide Preview'] or L['Preview Bar']
 						end,
-						desc = L['Force show the bar to adjust font and color settings.'],
 						func = function()
 							mod:PreyBar_Preview()
 						end,
