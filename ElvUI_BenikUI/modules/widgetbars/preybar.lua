@@ -73,28 +73,28 @@ local function GetPreyBarState()
 	if not activePreyWidgetID then return end
 
 	local widgetInfo = C_UIWidgetManager_GetPreyHuntProgressWidgetVisualizationInfo(activePreyWidgetID)
-	if widgetInfo and widgetInfo.shownState ~= Enum.WidgetShownState.Hidden then
+	if widgetInfo and widgetInfo.shownState ~= 0 then
 		return widgetInfo.progressState, widgetInfo.tooltip
 	end
 end
 
-mod.previewActive = false
+mod.preyPreviewActive = false
 
 function mod:PreyBar_Preview()
 	local bar = _G.BUIPreyBar
 	if not bar then return end
 
-	mod.previewActive = not mod.previewActive
+	mod.preyPreviewActive = not mod.preyPreviewActive
 
-	if mod.previewActive then
+	if mod.preyPreviewActive then
 		bar:SetValue(2)
 		bar:SetStatusBarColor(1.0, 0.85, 0.1)
 		bar.text:SetFormattedText('Prey: %s', PreyStateLabel[Enum.PreyHuntProgressState.Warm]) -- this might be used sneaky :P
 		bar:Show()
 	else
-		mod.previewActive = false
-		mod:PreyBar_Update()
+		mod.preyPreviewActive = false
 	end
+	mod:PreyBar_Update()
 end
 
 function mod:PreyBar_Update()
@@ -104,9 +104,8 @@ function mod:PreyBar_Update()
 	local db = E.db.benikui.widgetbars.preyBar
 	if not db then return end
 
-	local blizzPreyFrame = FindBlizzardPreyFrame()
 	local state = GetPreyBarState()
-	local displayState = state or (mod.previewActive and Enum.PreyHuntProgressState.Warm)
+	local displayState = state or (mod.preyPreviewActive and Enum.PreyHuntProgressState.Warm)
 
 	if displayState then
 		bar:SetSize(db.width, db.height)
@@ -122,17 +121,25 @@ function mod:PreyBar_Update()
 
 		bar:SetValue(PreyStateStep[displayState] or 0)
 
-		if blizzPreyFrame and blizzPreyFrame:IsShown() then
-			blizzPreyFrame:Hide()
-			if blizzPreyFrame.GainProgressAnim then blizzPreyFrame.GainProgressAnim:Stop() end
-			if blizzPreyFrame.ShineFrame and blizzPreyFrame.ShineFrame.Anim then blizzPreyFrame.ShineFrame.Anim:Stop() end
-			if blizzPreyFrame.TransitionAnim then blizzPreyFrame.TransitionAnim:Stop() end
-		end
-
 		if not bar:IsShown() then bar:Show() end
 	else
 		bar:Hide()
 	end
+end
+
+function mod:PreyBar_OnEvent()
+	if not activePreyWidgetID then
+		ScanForPreyWidget()
+	end
+
+	local blizzPreyFrame = FindBlizzardPreyFrame()
+	if blizzPreyFrame and blizzPreyFrame:IsShown() then
+		blizzPreyFrame:Hide()
+		if blizzPreyFrame.GainProgressAnim then blizzPreyFrame.GainProgressAnim:Stop() end
+		if blizzPreyFrame.ShineFrame and blizzPreyFrame.ShineFrame.Anim then blizzPreyFrame.ShineFrame.Anim:Stop() end
+		if blizzPreyFrame.TransitionAnim then blizzPreyFrame.TransitionAnim:Stop() end
+	end
+	mod:PreyBar_Update()
 end
 
 function mod:LoadPrey()
@@ -173,27 +180,8 @@ function mod:LoadPrey()
 		ToggleFrame(WorldMapFrame)
 	end)
 
-	-- needed to grab the widget
-	local eventFrame = CreateFrame("Frame")
-	eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-	eventFrame:RegisterEvent("UPDATE_UI_WIDGET")
-	eventFrame:RegisterEvent("UPDATE_ALL_UI_WIDGETS")
-
-	eventFrame:SetScript("OnEvent", function(_, event, info)
-		if event == "PLAYER_ENTERING_WORLD" then
-			activePreyWidgetID = nil
-			ScanForPreyWidget()
-			mod:PreyBar_Update()
-		elseif event == "UPDATE_ALL_UI_WIDGETS" then
-			ScanForPreyWidget()
-			mod:PreyBar_Update()
-		elseif event == "UPDATE_UI_WIDGET" then
-			if not activePreyWidgetID then
-				ScanForPreyWidget()
-			end
-			mod:PreyBar_Update()
-		end
-	end)
+	mod:RegisterEvent("PLAYER_ENTERING_WORLD", mod.PreyBar_OnEvent)
+	mod:RegisterEvent("UPDATE_UI_WIDGET", mod.PreyBar_OnEvent)
 
 	ScanForPreyWidget()
 	mod:PreyBar_Update()
