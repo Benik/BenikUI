@@ -28,13 +28,24 @@ local function widgetTable()
 						get = function(info) return E.db.benikui.widgetbars.mawBar[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.widgetbars.mawBar[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer1 = {
+					previewBar = {
 						order = 2,
+						type = 'execute',
+						disabled = function() return not E.db.benikui.widgetbars.mawBar.enable end,
+						name = function()
+							return mod.mawPreviewActive and L['Hide Preview'] or L['Preview Bar']
+						end,
+						func = function()
+							mod:MawBar_Preview()
+						end,
+					},
+					spacer1 = {
+						order = 3,
 						type = 'description',
 						name = '',
 					},
 					textFormat = {
-						order = 3,
+						order = 4,
 						name = L["Text Format"],
 						disabled = function() return not E.db.benikui.widgetbars.mawBar.enable end,
 						type = 'select',
@@ -43,7 +54,7 @@ local function widgetTable()
 						set = function(info, value) E.db.benikui.widgetbars.mawBar[ info[#info] ] = value mod:MawBar_Update() end,
 					},
 					sizeGroup = {
-						order = 4,
+						order = 5,
 						type = 'group',
 						name = L["Size"],
 						guiInline = true,
@@ -66,7 +77,7 @@ local function widgetTable()
 						},
 					},
 					colorGroup = {
-						order = 5,
+						order = 6,
 						type = 'group',
 						name = L.COLOR,
 						guiInline = true,
@@ -116,7 +127,7 @@ local function widgetTable()
 						},
 					},
 					fontGroup = {
-						order = 6,
+						order = 7,
 						type = 'group',
 						name = L['Fonts'],
 						guiInline = true,
@@ -179,7 +190,7 @@ local function widgetTable()
 						type = 'execute',
 						disabled = function() return not E.db.benikui.widgetbars.preyBar.enable end,
 						name = function()
-							return mod.previewActive and L['Hide Preview'] or L['Preview Bar']
+							return mod.preyPreviewActive and L['Hide Preview'] or L['Preview Bar']
 						end,
 						func = function()
 							mod:PreyBar_Preview()
