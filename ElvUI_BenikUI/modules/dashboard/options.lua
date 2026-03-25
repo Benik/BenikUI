@@ -4,7 +4,7 @@ local mod = BUI:GetModule('Dashboards')
 
 local hooksecurefunc = hooksecurefunc
 
-local tinsert, twipe, ipairs, next = table.insert, table.wipe, ipairs, next
+local tinsert, pairs, ipairs, next = table.insert, pairs, ipairs, next
 local format, tostring, tonumber, strmatch, type = format, tostring, tonumber, strmatch, type
 
 local AceGUIWidgetLSMlists = AceGUIWidgetLSMlists
@@ -107,7 +107,9 @@ local function UpdateTokenOptions()
 	local optionOrder = 1
 
 	config.args = config.args or {}
-	twipe(config.args)
+	for k in pairs(config.args) do
+		if tonumber(k) then config.args[k] = nil end
+	end
 
 	local foldHeaderTo = {}
 	local lastRealHeaderIndex
