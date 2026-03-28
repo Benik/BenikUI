@@ -197,15 +197,6 @@ function BUI:LoadCommands()
 	self:RegisterChatCommand("fixtags3", "FixTags3")
 end
 
-do -- Midnight API Fix. Credit: fang (WindTools)
-	local BackdropTemplateMixin_SetupTextureCoordinates = _G.BackdropTemplateMixin.SetupTextureCoordinates
-	function _G.BackdropTemplateMixin:SetupTextureCoordinates(...)
-		if E:NotSecretValue(self:GetWidth()) then
-			BackdropTemplateMixin_SetupTextureCoordinates(self, ...)
-		end
-	end
-end
-
 function BUI:Initialize()
 	BUI:LoadCommands()
 	BUI:SplashScreen()
