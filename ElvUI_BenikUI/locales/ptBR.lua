@@ -66,6 +66,9 @@ L['iLevel'] = "iLevel"
 L['Show item level per slot, on the character info frame'] = "Mostrar nivel dos items por slot, na folha de informação do personagem"
 L['Inside the item slot'] = "Dentro do slot do item"
 L['Outside the item slot'] = "Fora do slot do item"
+L['Chat EditBox'] = true
+L['Position'] = true
+L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'] = true
 
 -- Flight mode
 L['Flight Mode'] = true
