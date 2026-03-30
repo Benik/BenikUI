@@ -1,5 +1,7 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
+local hooksecurefunc = hooksecurefunc
+
 local function CreateStatusFrame()
 	local StatusFrame = ElvUIStatusReport
 

@@ -2,6 +2,7 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
 local CreateFrame = CreateFrame
 local getmetatable = getmetatable
+local EnumerateFrames = EnumerateFrames
 
 local classColor = E:ClassColor(E.myclass, true)
 
