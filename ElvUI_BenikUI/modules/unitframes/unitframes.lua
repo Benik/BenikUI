@@ -76,8 +76,8 @@ function mod:UnitShadows()
 			frame.Health.backdrop.shadow:Hide()
 			frame.Power.backdrop:CreateSoftShadow()
 			frame.Power.backdrop.shadow:Hide()
-			frame.Buffs.PostUpdateButton = mod.PostUpdateAura
-			frame.Debuffs.PostUpdateButton = mod.PostUpdateAura
+			frame.Buffs.PostUpdateButton = UF.PostUpdateAura
+			frame.Debuffs.PostUpdateButton = UF.PostUpdateAura
 		end
 	end
 end
@@ -124,8 +124,8 @@ function mod:PartyShadows()
 				unitbutton.Power.backdrop.shadow:Hide()
 				unitbutton.Portrait.backdrop:CreateSoftShadow()
 				unitbutton.Portrait.backdrop.shadow:Hide()
-				unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
-				unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
+				unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
+				unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
 			end
 		end
 	end
@@ -147,8 +147,8 @@ function mod:RaidShadows()
 					unitbutton.Health.backdrop.shadow:Hide()
 					unitbutton.Power.backdrop:CreateSoftShadow()
 					unitbutton.Power.backdrop.shadow:Hide()
-					unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
-					unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
+					unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
+					unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
 				end
 			end
 		end
@@ -166,8 +166,8 @@ function mod:BossShadows()
 			unitbutton.Health.backdrop.shadow:Hide()
 			unitbutton.Power.backdrop:CreateSoftShadow()
 			unitbutton.Power.backdrop.shadow:Hide()
-			unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
+			unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
 		end
 	end
 end
@@ -183,8 +183,8 @@ function mod:ArenaShadows()
 			unitbutton.Health.backdrop.shadow:Hide()
 			unitbutton.Power.backdrop:CreateSoftShadow()
 			unitbutton.Power.backdrop.shadow:Hide()
-			unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
+			unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
 		end
 	end
 end
@@ -211,8 +211,8 @@ function mod:TankShadows()
 		local unitbutton = _G["ElvUF_TankUnitButton"..i]
 		if unitbutton then
 			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateButton = mod.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateButton = mod.PostUpdateAura
+			unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
 		end
 	end
 end
@@ -227,62 +227,45 @@ function mod:TankTargetShadows()
 	end
 end
 
-function mod:PostUpdateAura(unit, button)
-	local db, r, g, b = (self.isNameplate and NP.db.colors) or UF.db.colors
-	local enemyNPC = not button.isFriend and not button.isPlayer
-	local steal = DebuffColors.Stealable
+-- Assist shadows
+function mod:AssistShadows()
+	for i = 1, 2 do
+		local unitbutton = _G["ElvUF_AssistUnitButton"..i]
+		if unitbutton then
+			unitbutton:CreateSoftShadow()
+			unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
+		end
+	end
+end
 
-	if not button.shadow then
+-- AssistTarget shadows
+function mod:AssistTargetShadows()
+	for i = 1, 2 do
+		local unitbutton = _G["ElvUF_AssistUnitButton"..i.."Target"]
+		if unitbutton then
+			unitbutton:CreateSoftShadow()
+		end
+	end
+end
+
+-- Raidpet Shadows
+function mod:RaidpetShadows()
+	for i = 1, 40 do
+		local unitbutton = _G["ElvUF_RaidpetGroup1UnitButton"..i]
+		if unitbutton then
+			unitbutton:CreateSoftShadow()
+			unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
+			unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
+		end
+	end
+end
+
+local originalPostUpdateAura = UF.PostUpdateAura
+UF.PostUpdateAura = function(self, unit, button)
+	originalPostUpdateAura(self, unit, button)
+	if button and not button.shadow then
 		button:CreateSoftShadow()
-	end
-
-	local color = E.Retail and not self.forceShow and UF:GetAuraCurve(unit, button, db.auraByType)
-	if color then
-		r, g, b = color:GetRGB()
-	elseif button.isDebuff then
-		local debuffType = E:NotSecretValue(button.debuffType) and button.debuffType or nil
-		local spellID = E:NotSecretValue(button.spellID) and button.spellID or nil
-		local bad, enemy = DebuffColors.BadDispel, DebuffColors.EnemyNPC
-
-		if enemyNPC then
-			if enemy and db.auraByType then
-				r, g, b = enemy.r, enemy.g, enemy.b
-			end
-		elseif bad and db.auraByDispels and (spellID and BadDispels[spellID]) and (debuffType and DispelTypes[debuffType]) then
-			r, g, b = bad.r, bad.g, bad.b
-		elseif db.auraByType and debuffType then
-			local debuffColor = DebuffColors[debuffType or 'None']
-			r, g, b = debuffColor.r * 0.6, debuffColor.g * 0.6, debuffColor.b * 0.6
-		end
-	elseif steal and db.auraByDispels and button.isStealable and not button.isFriend then
-		r, g, b = steal.r, steal.g, steal.b
-	end
-
-	if not r then
-		r, g, b = unpack((self.isNameplate and E.media.bordercolor) or E.media.unitframeBorderColor)
-	end
-
-	button:SetBackdropBorderColor(r, g, b)
-	button.Icon:SetDesaturated(button.isDebuff and enemyNPC and button.canDesaturate)
-
-	if button.Text then
-		local bdb = button.db
-		local aura = bdb and bdb.sourceText and bdb.sourceText.enable and button.aura
-		if aura then
-			local text = aura.unitName or UNKNOWN
-			local length = bdb.sourceText.length
-			local shortText = length and length > 0 and utf8sub(text, 1, length)
-			local classColor = E:ClassColor(aura.unitClassFilename) or PRIEST_COLOR
-			button.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
-			button.Text:SetText(shortText or text)
-		else
-			button.Text:SetText('')
-		end
-	end
-
-	if button.needsButtonTrim then
-		AB:TrimIcon(button)
-		button.needsButtonTrim = nil
 	end
 end
 
@@ -324,6 +307,9 @@ function mod:Setup()
 		mod:ArenaShadows()
 		mod:TankShadows()
 		mod:TankTargetShadows()
+		mod:AssistShadows()
+		mod:AssistTargetShadows()
+		mod:RaidpetShadows()
 
 		for _, frame in pairs(UF.units) do
 			if frame then
@@ -344,7 +330,7 @@ function mod:Setup()
 				end
 			end
 		end)
-	
+
 		-- AuraBars Shadows
 		hooksecurefunc(UF, 'Configure_AuraBars', mod.Configure_AuraBars)
 	end
