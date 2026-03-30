@@ -8,13 +8,7 @@ local _G = _G
 local pairs, next, select = pairs, next, select
 local hooksecurefunc = hooksecurefunc
 
-local UNKNOWN = UNKNOWN
-local PRIEST_COLOR = RAID_CLASS_COLORS.PRIEST
-
-local BadDispels = E.Libs.Dispel:GetBadList()
-local DebuffColors = E.Libs.Dispel:GetDebuffTypeColor()
-
-local groupUnits = {'party', 'raid1', 'raid2', 'raid3', 'boss', 'arena'}
+local groupUnits = {'party', 'raid1', 'raid2', 'raid3', 'boss', 'arena', 'raidpet'}
 
 function mod:UnitDefaults()
 	if E.db.benikui.unitframes.player.portraitWidth == nil then
@@ -70,7 +64,8 @@ end
 -- Unit Shadows
 function mod:UnitShadows()
 	for _, frame in pairs(UF.units) do
-		if frame and not frame.shadow then
+		if frame and not frame.hasShadow then
+			frame.hasShadow = true
 			frame:CreateSoftShadow()
 			frame.Health.backdrop:CreateSoftShadow()
 			frame.Health.backdrop.shadow:Hide()
@@ -116,7 +111,8 @@ function mod:PartyShadows()
 
 		for j = 1, group:GetNumChildren() do
 			local unitbutton = select(j, group:GetChildren())
-			if unitbutton then
+			if unitbutton and not unitbutton.hasShadow then
+				unitbutton.hasShadow = true
 				unitbutton:CreateSoftShadow()
 				unitbutton.Health.backdrop:CreateSoftShadow()
 				unitbutton.Health.backdrop.shadow:Hide()
@@ -141,7 +137,8 @@ function mod:RaidShadows()
 
 			for k = 1, group:GetNumChildren() do
 				local unitbutton = select(k, group:GetChildren())
-				if unitbutton then
+				if unitbutton and not unitbutton.hasShadow then
+					unitbutton.hasShadow = true
 					unitbutton:CreateSoftShadow()
 					unitbutton.Health.backdrop:CreateSoftShadow()
 					unitbutton.Health.backdrop.shadow:Hide()
@@ -160,7 +157,8 @@ local MAX_BOSS_FRAMES = 8
 function mod:BossShadows()
 	for i = 1, MAX_BOSS_FRAMES do
 		local unitbutton = _G["ElvUF_Boss"..i]
-		if unitbutton then
+		if unitbutton and not unitbutton.hasShadow then
+			unitbutton.hasShadow = true
 			unitbutton:CreateSoftShadow()
 			unitbutton.Health.backdrop:CreateSoftShadow()
 			unitbutton.Health.backdrop.shadow:Hide()
@@ -176,7 +174,8 @@ end
 function mod:ArenaShadows()
 	for i = 1, 5 do
 		local unitbutton = _G["ElvUF_Arena"..i]
-		if unitbutton then
+		if unitbutton and not unitbutton.hasShadow then
+			unitbutton.hasShadow = true
 			unitbutton:CreateSoftShadow()
 			unitbutton.Trinket:CreateSoftShadow()
 			unitbutton.Health.backdrop:CreateSoftShadow()
@@ -209,7 +208,8 @@ end
 function mod:TankShadows()
 	for i = 1, 2 do
 		local unitbutton = _G["ElvUF_TankUnitButton"..i]
-		if unitbutton then
+		if unitbutton and not unitbutton.hasShadow then
+			unitbutton.hasShadow = true
 			unitbutton:CreateSoftShadow()
 			unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
 			unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
@@ -221,7 +221,8 @@ end
 function mod:TankTargetShadows()
 	for i = 1, 2 do
 		local unitbutton = _G["ElvUF_TankUnitButton"..i.."Target"]
-		if unitbutton then
+		if unitbutton and not unitbutton.hasShadow then
+			unitbutton.hasShadow = true
 			unitbutton:CreateSoftShadow()
 		end
 	end
@@ -242,7 +243,8 @@ end
 function mod:RaidpetShadows()
 	for i = 1, 40 do
 		local unitbutton = _G["ElvUF_RaidpetGroup1UnitButton"..i]
-		if unitbutton then
+		if unitbutton and not unitbutton.hasShadow then
+			unitbutton.hasShadow = true
 			unitbutton:CreateSoftShadow()
 			unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
 			unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
@@ -254,7 +256,8 @@ end
 local originalPostUpdateAura = UF.PostUpdateAura
 UF.PostUpdateAura = function(self, unit, button)
 	originalPostUpdateAura(self, unit, button)
-	if button and not button.shadow then
+	if button and not button.hasShadow then
+		button.hasShadow = true
 		button:CreateSoftShadow()
 	end
 end
