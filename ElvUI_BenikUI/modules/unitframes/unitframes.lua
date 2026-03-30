@@ -229,24 +229,13 @@ end
 
 -- Assist shadows
 function mod:AssistShadows()
-	for i = 1, 2 do
-		local unitbutton = _G["ElvUF_AssistUnitButton"..i]
-		if unitbutton then
-			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
+	-- this should also cover the AssistTarget frames since they are children of the Assist header
+	hooksecurefunc(UF, "Update_AssistFrames", function(_, frame)
+		if frame and not frame.hasShadow then
+			frame.hasShadow = true
+			frame:CreateSoftShadow()
 		end
-	end
-end
-
--- AssistTarget shadows
-function mod:AssistTargetShadows()
-	for i = 1, 2 do
-		local unitbutton = _G["ElvUF_AssistUnitButton"..i.."Target"]
-		if unitbutton then
-			unitbutton:CreateSoftShadow()
-		end
-	end
+	end)
 end
 
 -- Raidpet Shadows
@@ -261,6 +250,7 @@ function mod:RaidpetShadows()
 	end
 end
 
+-- Hook doesn't work, so wrap instead
 local originalPostUpdateAura = UF.PostUpdateAura
 UF.PostUpdateAura = function(self, unit, button)
 	originalPostUpdateAura(self, unit, button)
@@ -308,7 +298,6 @@ function mod:Setup()
 		mod:TankShadows()
 		mod:TankTargetShadows()
 		mod:AssistShadows()
-		mod:AssistTargetShadows()
 		mod:RaidpetShadows()
 
 		for _, frame in pairs(UF.units) do
