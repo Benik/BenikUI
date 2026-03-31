@@ -5,7 +5,7 @@ local BU = BUI:GetModule('Units');
 local BC = BUI:GetModule('Castbar');
 local UF = E:GetModule('UnitFrames');
 
-local tinsert, format = table.insert, format
+local tinsert = table.insert
 local PLAYER, TARGET = PLAYER, TARGET
 
 local strataValues = {
