@@ -6,6 +6,7 @@ local LSM = E.LSM;
 
 local _G = _G
 local floor = floor
+local hooksecurefunc = hooksecurefunc
 
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_AzeriteBar
 

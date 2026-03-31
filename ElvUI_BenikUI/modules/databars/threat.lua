@@ -4,8 +4,7 @@ local DB = E:GetModule('DataBars');
 local DT = E:GetModule('DataTexts');
 
 local _G = _G
-
--- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ThreatBar
+local hooksecurefunc = hooksecurefunc
 
 function mod:ApplyThreatStyling()
 	local bar = _G.ElvUI_ThreatBar

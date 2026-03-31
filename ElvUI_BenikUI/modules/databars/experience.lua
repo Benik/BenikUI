@@ -4,19 +4,18 @@ local DT = E:GetModule('DataTexts');
 local DB = E:GetModule('DataBars');
 
 local _G = _G
+local hooksecurefunc = hooksecurefunc
 
 local HideUIPanel, ShowUIPanel = HideUIPanel, ShowUIPanel
 
--- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ExperienceBar, SpellBookFrame
-
 local function OnClick(self)
 	if self.template == 'NoBackdrop' then return end
-	if not SpellBookFrame:IsShown() then ShowUIPanel(SpellBookFrame) else HideUIPanel(SpellBookFrame) end
+	if not _G.SpellBookFrame:IsShown() then ShowUIPanel(_G.SpellBookFrame) else HideUIPanel(_G.SpellBookFrame) end
 end
 
 function mod:ApplyXpStyling()
 	local bar = _G.ElvUI_ExperienceBar
-	
+
 	mod:ApplyStyle(bar, "experience")
 end
 

@@ -7,6 +7,7 @@ local _G = _G
 local floor = floor
 
 local CreateFrame = CreateFrame
+local GameTooltip_Hide = GameTooltip_Hide
 local SplitTextIntoHeaderAndNonHeader = SplitTextIntoHeaderAndNonHeader
 local C_UIWidgetManager_GetDiscreteProgressStepsVisualizationInfo = C_UIWidgetManager.GetDiscreteProgressStepsVisualizationInfo
 local C_UIWidgetManager_GetTextureWithAnimationVisualizationInfo = C_UIWidgetManager.GetTextureWithAnimationVisualizationInfo
@@ -52,7 +53,7 @@ function mod:MawBar_Update()
 		else
 			bar.text:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
-		
+
 		if db.textFormat == 'PERCENT' then
 			if tier == 5 then
 				bar.text:SetFormattedText('%s: %s', GARRISON_TIER, tier)
@@ -83,7 +84,7 @@ function mod:LoadMaw()
 	if E.db.benikui.general.shadows then
 		bar.backdrop:CreateSoftShadow()
 	end
-	
+
 	bar:SetStatusBarTexture(E.media.normTex)
 	E:RegisterStatusBar(bar)
 
