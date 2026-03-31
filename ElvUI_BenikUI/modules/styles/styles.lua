@@ -3,6 +3,7 @@ local mod = BUI:GetModule('Styles')
 local S = E:GetModule('Skins')
 
 local _G = _G
+local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
 
 local function StyleElvUIConfig()

@@ -113,7 +113,7 @@ function mod:START_TIMER()
 	end
 end
 
-function mod:ChatBubbles(frame, holder)
+function mod:ChatBubbles(_, holder)
 	if E.private.general.chatBubbles == 'backdrop' then
 		if holder then
 			if not holder.shadow then
