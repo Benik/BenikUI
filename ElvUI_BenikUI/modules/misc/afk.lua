@@ -1,9 +1,15 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local AFK = E:GetModule('AFK')
 
-local format, random, floor = string.format, random, floor
+local _G = _G
+local format, random, floor, select = string.format, random, floor, select
+local hooksecurefunc = hooksecurefunc
 
 local CreateFrame = CreateFrame
+local GetTime = GetTime
+local date = date
+local UnitRace = UnitRace
+local UnitClass = UnitClass
 local GetScreenHeight, GetScreenWidth = GetScreenHeight, GetScreenWidth
 local GetAchievementInfo = GetAchievementInfo
 local GetStatistic = GetStatistic
@@ -19,8 +25,10 @@ local GetAverageItemLevel = GetAverageItemLevel
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 
-local LEVEL, NONE = LEVEL, NONE
-local ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY
+local LEVEL = LEVEL
+local NONE = NONE
+local ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL = ITEM_UPGRADE_STAT_AVERAGE_ITEM_LEVEL
+local MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY
 
 local classColor = E:ClassColor(E.myclass, true)
 
@@ -197,7 +205,7 @@ function AFK:SetAFK(status)
 		end
 
 		displayline = (format("%s - %s\n%s %s %s %s %s\n%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl))
-	
+
 		self.AFKMode.bottom.name:SetText(displayline)
 		self.isAFK = true
 	else
@@ -256,7 +264,7 @@ local function Initialize()
 	AFK.AFKMode.top:Width(GetScreenWidth() + (E.Border*2))
 
 	--Top Animation
-	AFK.AFKMode.top.anim = CreateAnimationGroup(AFK.AFKMode.top)
+	AFK.AFKMode.top.anim = _G.CreateAnimationGroup(AFK.AFKMode.top)
 	AFK.AFKMode.top.anim.height = AFK.AFKMode.top.anim:CreateAnimation("Height")
 	AFK.AFKMode.top.anim.height:SetChange(GetScreenHeight() * (1 / 20))
 	AFK.AFKMode.top.anim.height:SetDuration(1)
@@ -273,11 +281,13 @@ local function Initialize()
 	AFK.AFKMode.top.wowlogo:SetFrameLevel(10)
 	AFK.AFKMode.top.wowlogo:Size(300, 150)
 	AFK.AFKMode.top.wowlogo.tex = AFK.AFKMode.top.wowlogo:CreateTexture(nil, 'OVERLAY')
-	local currentExpansionLevel = GetClampedCurrentExpansionLevel();
-	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel);
+
+	local currentExpansionLevel = GetClampedCurrentExpansionLevel()
+	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel)
 	if expansionDisplayInfo then
 		AFK.AFKMode.top.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
 	end
+
 	AFK.AFKMode.top.wowlogo.tex:SetInside()
 
 	-- Server/Local Time text
@@ -313,7 +323,7 @@ local function Initialize()
 	AFK.AFKMode.bottom.modelHolder:SetFrameLevel(7)
 
 	-- Bottom Frame Animation
-	AFK.AFKMode.bottom.anim = CreateAnimationGroup(AFK.AFKMode.bottom)
+	AFK.AFKMode.bottom.anim = _G.CreateAnimationGroup(AFK.AFKMode.bottom)
 	AFK.AFKMode.bottom.anim.height = AFK.AFKMode.bottom.anim:CreateAnimation("Height")
 	AFK.AFKMode.bottom.anim.height:SetChange(GetScreenHeight() * (1 / 9))
 	AFK.AFKMode.bottom.anim.height:SetDuration(1)
