@@ -1,6 +1,10 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local DT = E:GetModule('DataTexts')
 local mod = BUI:GetModule('DataTexts')
+
+local _G = _G
+local hooksecurefunc = hooksecurefunc
+
 local C_TimerAfter = C_Timer.After
 
 function mod:BuildPanelFrame(name)
