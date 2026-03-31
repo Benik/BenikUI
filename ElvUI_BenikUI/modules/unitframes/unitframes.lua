@@ -241,15 +241,12 @@ end
 
 -- Raidpet Shadows
 function mod:RaidpetShadows()
-	for i = 1, 40 do
-		local unitbutton = _G["ElvUF_RaidpetGroup1UnitButton"..i]
-		if unitbutton and not unitbutton.hasShadow then
-			unitbutton.hasShadow = true
-			unitbutton:CreateSoftShadow()
-			unitbutton.Buffs.PostUpdateButton = UF.PostUpdateAura
-			unitbutton.Debuffs.PostUpdateButton = UF.PostUpdateAura
+	hooksecurefunc(UF, "Update_RaidpetFrames", function(_, frame)
+		if frame and not frame.hasShadow then
+			frame.hasShadow = true
+			frame:CreateSoftShadow()
 		end
-	end
+	end)
 end
 
 -- Hook doesn't work, so wrap instead
