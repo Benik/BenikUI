@@ -162,6 +162,18 @@ local function LoadSkin()
 			local menuBackdrop = _G[listFrameName..'MenuBackdrop']
 			menuBackdrop:BuiStyle()
 		end)
+
+		hooksecurefunc('MovieFrame_PlayMovie', function(frame)
+			if frame and frame.closeDialog then
+				frame.closeDialog:BuiStyle()
+			end
+		end)
+
+		hooksecurefunc('CinematicFrame_UpdateLettboxForAspectRatio', function(frame)
+			if frame and frame.closeDialog then
+				frame.closeDialog:BuiStyle()
+			end
+		end)
 	end
 
 	if db.nonraid then
