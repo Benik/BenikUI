@@ -157,14 +157,14 @@ local function UpdateTokenOptions()
 
 			local parentGroup = config.args[tostring(parentHeaderIndex)]
 			if parentGroup then
-				local name, amount, icon = mod:GetTokenInfo(id)
+				local name, amount, icon, _, _, _, _, _, _, _, description = mod:GetTokenInfo(id)
 				if name then
 					parentGroup.args[tostring(i)] = {
 						order = optionOrder + 2,
 						type = "toggle",
 						name = (icon and "|T"..icon..":18|t "..name) or name,
-						desc = format("%s %s\n\n|cffffff00%s: %s|r",
-							L["Enable/Disable"], name, L["Amount"], BreakUpLargeNumbers(amount)),
+						desc = format("%s %s\n\n|cffffff00%s: %s|r %s",
+							L["Enable/Disable"], name, L["Amount"], BreakUpLargeNumbers(amount), description and format("\n\n|cffffff00%s:|r %s", L["Description"], description) or ""),
 						disabled = function() return not db.enable end,
 						get = function() return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
 						set = function(_, value)
