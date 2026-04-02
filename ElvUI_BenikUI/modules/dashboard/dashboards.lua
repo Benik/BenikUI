@@ -88,9 +88,12 @@ function mod:FontStyle(tableName)
 	end
 end
 
-function mod:FontColor(tableName)
+function mod:FontColor(tableName, override)
 	local db = E.db.benikui.dashboards
+
 	for _, bar in next, tableName do
+		if override then return end
+
 		if db.textColor == 1 then
 			bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		else

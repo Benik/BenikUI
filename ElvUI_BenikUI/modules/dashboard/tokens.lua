@@ -82,21 +82,14 @@ end
 
 local function barOnLeave(self)
 	local db = E.db.benikui.dashboards
-	local BreakAmount = BreakUpLargeNumbers(self.amount)
-	local TextMaxValue, displayString
+	local displayString
 
-	if db.tokens.weekly and self.weeklyMax and self.weeklyMax > 0 then
-		TextMaxValue = self.weeklyMax
-	elseif self.totalMax and self.totalMax > 0 then
-		TextMaxValue = self.totalMax
+	if self.capped and self.capValue > 0 then
+		displayString = format('%s / %s', BreakUpLargeNumbers(self.progress), BreakUpLargeNumbers(self.capValue))
+	elseif self.capValue > 0 then
+		displayString = format('%s / %s', BreakUpLargeNumbers(self.amount), BreakUpLargeNumbers(self.capValue))
 	else
-		TextMaxValue = self.amount
-	end
-
-	if TextMaxValue == 0 or TextMaxValue == self.amount then
-		displayString = format('%s', BreakAmount)
-	else
-		displayString = format('%s / %s', BreakAmount, TextMaxValue)
+		displayString = format('%s', BreakUpLargeNumbers(self.amount))
 	end
 
 	self.Text:SetText(displayString)
@@ -128,7 +121,7 @@ function mod:GetTokenInfo(id)
 	local info = C_CurrencyInfo_GetCurrencyInfo(id)
 
 	if info then
-		return info.name, info.quantity, info.iconFileID, info.maxWeeklyQuantity, info.maxQuantity, info.discovered, info.isAccountWide
+		return info.name, info.quantity, info.iconFileID, info.maxWeeklyQuantity, info.maxQuantity, info.discovered, info.quantityEarnedThisWeek, info.totalEarned, info.trackedQuantity, info.useTotalEarnedForMaxQty, info.description
 	else
 		return
 	end
@@ -154,7 +147,7 @@ function mod:UpdateTokens()
 		local _, id = unpack(info)
 
 		if id then
-			local name, amount, icon, weeklyMax, totalMax, isDiscovered = mod:GetTokenInfo(id)
+			local name, amount, icon, weeklyMax, totalMax, isDiscovered, quantityEarnedThisWeek, totalEarned, trackedQuantity, useTotalEarnedForMaxQty = mod:GetTokenInfo(id)
 			if name then
 				if isDiscovered == false then E.private.benikui.dashboards.tokens.chooseTokens[id] = nil end
 
@@ -173,34 +166,44 @@ function mod:UpdateTokens()
 						local bar = mod:CreateDashboard(holder, 'tokens', true, false, true)
 						local BarColor = (db.barColor == 1 and classColor) or db.customBarColor
 						local TextColor = (db.textColor == 1 and classColor) or db.customTextColor
-						local BarMaxValue, TextMaxValue
-						local BreakAmount = BreakUpLargeNumbers(amount)
 						local isValidCurrency = C_CurrencyInfo_IsAccountTransferableCurrency(id)
+						local isWeeklyCapped = weeklyMax == quantityEarnedThisWeek and weeklyMax > 0
+						local isSeasonCapped = useTotalEarnedForMaxQty and totalMax == totalEarned and totalMax > 0
+						local capped = isWeeklyCapped or isSeasonCapped
+						local capValue = (db.tokens.weekly and weeklyMax and weeklyMax > 0) and weeklyMax or (totalMax and totalMax > 0 and totalMax) or 0
+						local BarMaxValue
 						local displayString = ''
 
-						if db.tokens.weekly and weeklyMax and weeklyMax > 0 then
-							BarMaxValue = weeklyMax
-							TextMaxValue = weeklyMax
-						elseif totalMax and totalMax > 0 then
-							BarMaxValue = totalMax
-							TextMaxValue = totalMax
-						else
-							BarMaxValue = amount > 0 and amount or 1
-							TextMaxValue = amount
+						local progress = amount
+						if useTotalEarnedForMaxQty and totalEarned and totalEarned > 0 then
+							progress = totalEarned
+						elseif (db.tokens.weekly and quantityEarnedThisWeek and quantityEarnedThisWeek > 0) then
+							progress = quantityEarnedThisWeek
+						elseif trackedQuantity and trackedQuantity > 0 then
+							progress = trackedQuantity
 						end
 
-						if TextMaxValue == 0 or TextMaxValue == amount then
-							displayString = format('%s', BreakAmount)
+						if capped and capValue > 0 then
+							displayString = format('%s / %s', BreakUpLargeNumbers(progress), BreakUpLargeNumbers(capValue))
+						elseif capValue > 0 then
+							displayString = format('%s / %s', BreakUpLargeNumbers(amount), BreakUpLargeNumbers(capValue))
 						else
-							displayString = format('%s / %s', BreakAmount, TextMaxValue)
+							displayString = format('%s', BreakUpLargeNumbers(amount))
 						end
+
+						BarMaxValue = (capValue > 0) and capValue or ((progress > 0) and progress or (amount > 0 and amount or 1))
 
 						bar.Status:SetMinMaxValues(0, BarMaxValue)
 						bar.Status:SetValue(amount)
 						bar.Status:SetStatusBarColor(BarColor.r, BarColor.g, BarColor.b)
 
+						if capped then
+							bar.Text:SetTextColor(1, 0.2, 0.2)
+						else
+							bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
+						end
+
 						bar.Text:SetText(displayString)
-						bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 						bar.IconBG.Icon:SetTexture(icon)
 
 						bar:SetScript('OnEnter', barOnEnter)
@@ -214,6 +217,9 @@ function mod:UpdateTokens()
 						bar.totalMax = totalMax
 						bar.amount = amount
 						bar.weeklyMax = weeklyMax
+						bar.capped = capped
+						bar.progress = progress
+						bar.capValue = capValue
 
 						tinsert(tokensDB, bar)
 					end
@@ -238,7 +244,7 @@ function mod:UpdateTokens()
 	end
 
 	mod:FontStyle(tokensDB)
-	mod:FontColor(tokensDB)
+	mod:FontColor(tokensDB, true)
 	mod:BarColor(tokensDB)
 	mod:IconPosition(tokensDB, 'tokens')
 end
