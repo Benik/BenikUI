@@ -182,6 +182,7 @@ function mod:LoadPrey()
 
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD", mod.PreyBar_OnEvent)
 	mod:RegisterEvent("UPDATE_UI_WIDGET", mod.PreyBar_OnEvent)
+	mod:RegisterEvent("UPDATE_ALL_UI_WIDGETS", mod.PreyBar_OnEvent)
 
 	ScanForPreyWidget()
 	mod:PreyBar_Update()
