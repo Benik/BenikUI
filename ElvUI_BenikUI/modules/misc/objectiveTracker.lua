@@ -61,7 +61,7 @@ local function ProgressBarsShadows(tracker, key)
 		bar.backdrop:CreateSoftShadow()
 
 		local icon = bar.Icon
-		if icon then
+		if icon and icon:IsShown() then
 			icon:Point('LEFT', bar, 'RIGHT', E.PixelMode and 5 or 9, 0)
 			icon:Size(18, 18) -- I like this better
 			icon:CreateBackdrop()
