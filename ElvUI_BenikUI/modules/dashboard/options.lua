@@ -23,6 +23,7 @@ local PROFESSIONS_MISSING_PROFESSION = PROFESSIONS_MISSING_PROFESSION
 local REPUTATION = REPUTATION
 local TOKENS = TOKENS
 local TRADE_SKILLS = TRADE_SKILLS
+local DESCRIPTION = DESCRIPTION
 
 local iconOrientationValues = {
 	['LEFT'] = L['Left'],
@@ -164,7 +165,7 @@ local function UpdateTokenOptions()
 						type = "toggle",
 						name = (icon and "|T"..icon..":18|t "..name) or name,
 						desc = format("%s %s\n\n|cffffff00%s: %s|r %s",
-							L["Enable/Disable"], name, L["Amount"], BreakUpLargeNumbers(amount), description and format("\n\n|cffffff00%s:|r %s", L["Description"], description) or ""),
+							L["Enable/Disable"], name, L["Amount"], BreakUpLargeNumbers(amount), description and format("\n\n|cffffff00%s:|r %s", DESCRIPTION, description) or ""),
 						disabled = function() return not db.enable end,
 						get = function() return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
 						set = function(_, value)
