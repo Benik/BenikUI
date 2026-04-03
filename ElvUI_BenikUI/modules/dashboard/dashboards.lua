@@ -308,8 +308,6 @@ function mod:Initialize()
 	mod:LoadTokens()
 	mod:LoadReputations()
 	mod:LoadItems()
-
-
 end
 
 BUI:RegisterModule(mod:GetName())

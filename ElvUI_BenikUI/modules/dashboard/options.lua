@@ -343,7 +343,7 @@ local function UpdateProfessionOptions()
 	local prof1, prof2, archy, fishing, cooking = GetProfessions()
 	local optionOrder = 1
 	if (prof1 or prof2 or archy or fishing or cooking) then
-		config.args.choosePofessions = {
+		config.args.chooseProfessions = {
 			order = optionOrder + 1,
 			type = 'group',
 			guiInline = true,
@@ -358,19 +358,19 @@ local function UpdateProfessionOptions()
 			if id then
 				local pname, icon = GetProfessionInfo(id)
 				if pname then
-					config.args.choosePofessions.args[pname] = {
+					config.args.chooseProfessions.args[pname] = {
 						order = optionOrder + 2,
 						type = 'toggle',
 						name = '|T'..icon..':18|t '..pname,
 						desc = format('%s %s', L['Enable/Disable'], pname),
-						get = function() return E.private.benikui.dashboards.professions.choosePofessions[id] end,
-						set = function(_, value) E.private.benikui.dashboards.professions.choosePofessions[id] = value mod:UpdateProfessions() end,
+						get = function() return E.private.benikui.dashboards.professions.chooseProfessions[id] end,
+						set = function(_, value) E.private.benikui.dashboards.professions.chooseProfessions[id] = value mod:UpdateProfessions() end,
 					}
 				end
 			end
 		end
 	else
-		config.args.choosePofessions = {
+		config.args.chooseProfessions = {
 			order = 50,
 			type = 'group',
 			guiInline = true,

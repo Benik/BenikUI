@@ -110,7 +110,7 @@ function mod:UpdateProfessions()
 				local name, icon, rank, maxRank, _, _, skillLine, rankModifier, _, _, skillLineName = GetProfessionInfo(id)
 
 				if name and (rank < maxRank or (not db.professions.capped)) then
-					if E.private.benikui.dashboards.professions.choosePofessions[id] == true then
+					if E.private.benikui.dashboards.professions.chooseProfessions[id] == true then
 						holder:SetShown(mod:ShouldShowDashboard('professions'))
 
 						if db.professions.orientation == 'BOTTOM' then
@@ -233,7 +233,22 @@ function mod:CreateProfessionsDashboard()
 	mod:ToggleProfessions()
 end
 
+local CopyTable = CopyTable
+local function fixChooseProfessionsTypo()
+	local db = E.private.benikui.dashboards.professions
+
+	if not db.choosePofessions then return end
+
+	if not db.chooseProfessions then
+		db.chooseProfessions = CopyTable(db.choosePofessions)
+	end
+
+	db.choosePofessions = nil
+end
+
 function mod:LoadProfessions()
+	fixChooseProfessionsTypo() -- temp
+
 	mod:CreateProfessionsDashboard()
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateProfessions)
 end
