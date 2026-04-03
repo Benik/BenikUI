@@ -206,6 +206,13 @@ local function BuildVisibilityGroup(key, dashboardFrame, updateFunc)
 			get = function(info) return db[key][ info[#info] ] end,
 			set = function(info, value) db[key][ info[#info] ] = value mod:UpdateVisibility() end,
 		},
+		housing = {
+			order = 4,
+			name = L['Hide in Housing'],
+			type = 'toggle',
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value) db[key][ info[#info] ] = value mod:UpdateVisibility() end,
+		},
 	}
 end
 

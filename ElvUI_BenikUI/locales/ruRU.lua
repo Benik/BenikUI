@@ -191,6 +191,7 @@ L['Update Throttle'] = "Ограничение обновлений"
 L['Use DataTexts font'] = "Использовать шрифт DataTexts"
 L['Use Faction Colors on Bars'] = "Использовать цвета фракций на полосах"
 L['Use Faction Colors on Text'] = "Использовать цвета фракций в тексте"
+L['Hide in Housing'] = true
 
 -- Items
 L['Items'] = "Предметы"

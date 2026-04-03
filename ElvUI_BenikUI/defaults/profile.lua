@@ -358,6 +358,7 @@ P['benikui'] = {
 			['overrideColor'] = true,
 			['updateThrottle'] = 2,
 			['spacing'] = 1,
+			['housing'] = false,
 		},
 
 		['tokens'] = {
@@ -376,6 +377,7 @@ P['benikui'] = {
 			['instance'] = true,
 			['orientation'] = 'BOTTOM',
 			['spacing'] = 1,
+			['housing'] = true,
 		},
 
 		['professions'] = {
@@ -392,6 +394,7 @@ P['benikui'] = {
 			['instance'] = true,
 			['orientation'] = 'BOTTOM',
 			['spacing'] = 1,
+			['housing'] = true,
 		},
 
 		['reputations'] = {
@@ -410,6 +413,7 @@ P['benikui'] = {
 			['instance'] = true,
 			['orientation'] = 'BOTTOM',
 			['spacing'] = 1,
+			['housing'] = true,
 		},
 
 		['items'] = {
@@ -427,6 +431,7 @@ P['benikui'] = {
 			['spacing'] = 1,
 			['tooltip'] = true,
 			['showMax'] = true,
+			['housing'] = true,
 		},
 
 		['dashfont'] = {

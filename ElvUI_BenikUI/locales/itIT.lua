@@ -190,6 +190,7 @@ L['Update Throttle'] = true
 L['Use DataTexts font'] = true
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true
+L['Hide in Housing'] = true
 
 -- Items
 L['Items'] = true

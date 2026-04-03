@@ -191,6 +191,7 @@ L['Update Throttle'] = "Aktualisierung drosseln"
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
 L['Use Faction Colors on Bars'] = "Benutze Fraktionsfarben auf Leisten"
 L['Use Faction Colors on Text'] = "Benutze Fraktionsfarben auf Texten"
+L['Hide in Housing'] = true
 
 -- Items
 L['Items'] = "Gegenstände"

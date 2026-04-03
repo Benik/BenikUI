@@ -4,6 +4,8 @@ local LSM = E.LSM
 
 local next = next
 local CreateFrame = CreateFrame
+local GetInstanceInfo = GetInstanceInfo
+local GetZonePVPInfo = C_PvP.GetZonePVPInfo or GetZonePVPInfo
 
 local DASH_HEIGHT = 20
 local SPACING = 1
@@ -124,18 +126,17 @@ end
 function mod:ShouldShowDashboard(option)
 	local db = E.db.benikui.dashboards[option]
 	if not db then return true end
-	if not db.instance then return true end
 
 	local _, instanceType = GetInstanceInfo()
 	local inInstance = instanceType ~= 'none'
 
-	if not inInstance then return true end
-
-	-- FIX: housing area is an instance but is a sanctuary — don't hide it
 	local pvpType = GetZonePVPInfo()
-	if pvpType == 'sanctuary' then return true end
+	local inHousing = inInstance and pvpType == 'sanctuary'
 
-	return false
+	if inHousing and db.housing then return false end
+	if inInstance and not inHousing and db.instance then return false end
+
+	return true
 end
 
 function mod:UpdateVisibility()
