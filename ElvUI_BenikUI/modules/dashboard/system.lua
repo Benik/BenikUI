@@ -65,6 +65,8 @@ function mod:UpdateSystemSettings()
 	mod:FontColor(systemDB)
 	mod:BarColor(systemDB)
 	mod:BarHeight('system', systemDB)
+	mod:UpdateSystemTextAlignment()
+	mod:UpdateOrientation()
 
 	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 end
@@ -166,7 +168,6 @@ function mod:CreateSystemDashboard()
 	mod:UpdateHolderDimensions(holder, 'system', systemDB)
 	mod:ToggleStyle(holder, 'system')
 	mod:ToggleTransparency(holder, 'system')
-	mod:UpdateOrientation()
 	mod:UpdateSystemSettings()
 
 	holder:SetScript('OnEnter', holderOnEnter)
