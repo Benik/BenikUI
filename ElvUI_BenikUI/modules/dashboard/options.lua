@@ -447,14 +447,20 @@ local function UpdateItemsOptions()
 						order = 10,
 						type = 'toggle',
 						name = function()
-							if db[itemID] and db[itemID].customStack then
+							if db[itemID] and db[itemID].useCustomStack and db[itemID].customStack then
 								return format('%s |cfffcba03(%s)|r', L['Use Custom Stack'], db[itemID].customStack)
 							end
 							return L['Use Custom Stack']
 						end,
 						disabled = function() return not db[itemID].enable end,
 						get = function() if db[itemID] and db[itemID].useCustomStack then return db[itemID].useCustomStack end end,
-						set = function(_, value) db[itemID].useCustomStack = value mod:UpdateItems() end,
+						set = function(_, value)
+							db[itemID].useCustomStack = value
+							if not value then
+								db[itemID].customStack = nil
+							end
+							mod:UpdateItems()
+						end,
 					},
 					customStack = {
 						order = 11,
