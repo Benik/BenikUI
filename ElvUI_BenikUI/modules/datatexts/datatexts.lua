@@ -1,6 +1,10 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local DT = E:GetModule('DataTexts')
 local mod = BUI:GetModule('DataTexts')
+
+local _G = _G
+local hooksecurefunc = hooksecurefunc
+
 local C_TimerAfter = C_Timer.After
 
 function mod:BuildPanelFrame(name)
@@ -19,7 +23,7 @@ function mod:UpdatePanelInfo(panelName, panel, ...)
 			panel.style:SetShown(db.benikuiStyle)
 		end
 
-		if E.db.benikui.general.shadows then
+		if E.db.benikui.general.shadows and panel.shadow then
 			panel.shadow:SetShown((db.border and db.backdrop or db.backdrop))
 		end
 	end

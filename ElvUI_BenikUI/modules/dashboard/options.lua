@@ -2,9 +2,7 @@ local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local mod = BUI:GetModule('Dashboards')
 
-local hooksecurefunc = hooksecurefunc
-
-local tinsert, twipe, ipairs, next = table.insert, table.wipe, ipairs, next
+local tinsert, pairs, ipairs, next = table.insert, pairs, ipairs, next
 local format, tostring, tonumber, strmatch, type = format, tostring, tonumber, strmatch, type
 
 local AceGUIWidgetLSMlists = AceGUIWidgetLSMlists
@@ -23,6 +21,7 @@ local PROFESSIONS_MISSING_PROFESSION = PROFESSIONS_MISSING_PROFESSION
 local REPUTATION = REPUTATION
 local TOKENS = TOKENS
 local TRADE_SKILLS = TRADE_SKILLS
+local DESCRIPTION = DESCRIPTION
 
 local iconOrientationValues = {
 	['LEFT'] = L['Left'],
@@ -61,9 +60,170 @@ local ItemDefaultValues = {
 	['customStack'] = 100,
 }
 
+local function BuildLayoutGroup(key, dashboardFrame, updateFunc, dashboardDB, hasOption)
+	hasOption = hasOption or {}
+	local db = E.db.benikui.dashboards
+
+	local args = {
+		width = {
+			order = 1,
+			type = 'range',
+			name = L['Width'],
+			desc = format(L['Change the %s Dashboard width.'], key),
+			min = 120, max = 520, step = 1,
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value)
+				db[key][ info[#info] ] = value
+				mod:UpdateHolderDimensions(dashboardFrame, key, dashboardDB, true)
+				updateFunc()
+			end,
+		},
+		barHeight = {
+			order = 2,
+			type = 'range',
+			name = L['Bar Height'],
+			desc = L['Change the Bar Height.'],
+			min = 1, max = 20, step = 1,
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value)
+				db[key][ info[#info] ] = value
+				mod:BarHeight(key, dashboardDB)
+			end,
+		},
+		spacer = {
+			order = 4,
+			type = 'header',
+			name = '',
+		},
+		orientation = {
+			order = 6,
+			name = L['Frame Orientation'],
+			type = 'select',
+			values = frameOrientationValues,
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value) db[key][ info[#info] ] = value updateFunc() end,
+		},
+		spacing = {
+			order = 7,
+			type = 'range',
+			name = L["Spacing"],
+			min = 1, max = 30, step = 1,
+			disabled = function() return db[key].orientation == 'BOTTOM' end,
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value) db[key][ info[#info] ] = value updateFunc() end,
+		},
+		layoutOptions = {
+			order = 10,
+			type = 'multiselect',
+			name = ' ',
+			get = function(_, k) return db[key][k] end,
+			set = function(_, k, value)
+				db[key][k] = value
+				mod:ToggleStyle(dashboardFrame, key)
+				mod:ToggleTransparency(dashboardFrame, key)
+			end,
+			values = layoutStyles,
+		},
+	}
+
+	if hasOption.iconPosition then
+		args.iconPosition = {
+			order = 5,
+			type = 'select',
+			name = L['Icon Position'],
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value) db[key][ info[#info] ] = value updateFunc() end,
+			values = iconOrientationValues,
+		}
+	end
+
+	if hasOption.textAlign then
+		args.textAlign = {
+			order = 5,
+			name = L['Text Alignment'],
+			type = 'select',
+			values = textAlignValues,
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value) db[key][ info[#info] ] = value updateFunc() end,
+		}
+	end
+
+	if hasOption.updateThrottle then
+		args.updateThrottle = {
+			order = 5,
+			type = 'range',
+			name = L['Update Throttle'],
+			min = 1, max = 10, step = 1,
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value) db[key][ info[#info] ] = value end,
+		}
+		args.spacer2 = {
+			order = 8,
+			type = 'header',
+			name = '',
+		}
+	end
+
+	if hasOption.overrideColor then
+		args.overrideColor = {
+			order = 9,
+			name = L['Value Color'],
+			type = 'toggle',
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value) db[key][ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL') end,
+		}
+	end
+
+	return args
+end
+
+local function BuildVisibilityGroup(key, dashboardFrame, updateFunc)
+	local db = E.db.benikui.dashboards
+	return {
+		combat = {
+			order = 1,
+			name = L['Hide In Combat'],
+			desc = format(L['Show/Hide %s Dashboard when in combat'], key),
+			type = 'toggle',
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value)
+				db[key][ info[#info] ] = value
+				mod:EnableDisableCombat(dashboardFrame, key)
+			end,
+		},
+		mouseover = {
+			order = 2,
+			name = L['Mouse Over'],
+			desc = L['The dashboard is not shown unless you mouse over the dashboard.'],
+			type = 'toggle',
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value) db[key][ info[#info] ] = value updateFunc() end,
+		},
+		instance = {
+			order = 3,
+			name = L['Hide in Instance'],
+			type = 'toggle',
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value) db[key][ info[#info] ] = value mod:UpdateVisibility() end,
+		},
+		housing = {
+			order = 4,
+			name = L['Hide in Housing'],
+			type = 'toggle',
+			get = function(info) return db[key][ info[#info] ] end,
+			set = function(info, value) db[key][ info[#info] ] = value mod:UpdateVisibility() end,
+		},
+	}
+end
+
+local function GetDashboardConfig(key)
+	local config = E.Options.args.benikui.args.dashboards.args[key].args.select
+	local db = E.db.benikui.dashboards[key]
+	return config, db
+end
+
 local function UpdateSystemOptions()
-	local config = E.Options.args.benikui.args.dashboards.args.system.args.chooseSystem
-	local db = E.db.benikui.dashboards.system
+	local config, db = GetDashboardConfig('system')
 
 	for _, board in next, mod.systemBoards do
 		local optionOrder = 1
@@ -74,8 +234,8 @@ local function UpdateSystemOptions()
 			type = 'toggle',
 			name = boardname,
 			desc = L['Enable/Disable ']..boardname,
-			get = function(info) return db.chooseSystem[boardname] end,
-			set = function(info, value) db.chooseSystem[boardname] = value E:StaticPopup_Show('PRIVATE_RL') end,
+			get = function() return db.chooseSystem[boardname] end,
+			set = function(_, value) db.chooseSystem[boardname] = value E:StaticPopup_Show('PRIVATE_RL') end,
 		}
 	end
 
@@ -88,8 +248,8 @@ local function UpdateSystemOptions()
 			[2] = L.WORLD,
 		},
 		disabled = function() return not db.chooseSystem.MS end,
-		get = function(info) return db.latency end,
-		set = function(info, value) db.latency = value E:StaticPopup_Show('PRIVATE_RL') end,
+		get = function() return db.latency end,
+		set = function(_, value) db.latency = value E:StaticPopup_Show('PRIVATE_RL') end,
 	}
 end
 
@@ -102,12 +262,13 @@ local function isLegacyHeader(name)
 end
 
 local function UpdateTokenOptions()
-	local config = E.Options.args.benikui.args.dashboards.args.tokens.args.selectTokens
-	local db = E.db.benikui.dashboards.tokens
+	local config, db = GetDashboardConfig('tokens')
 	local optionOrder = 1
 
 	config.args = config.args or {}
-	twipe(config.args)
+	for k in pairs(config.args) do
+		if tonumber(k) then config.args[k] = nil end
+	end
 
 	local foldHeaderTo = {}
 	local lastRealHeaderIndex
@@ -155,14 +316,14 @@ local function UpdateTokenOptions()
 
 			local parentGroup = config.args[tostring(parentHeaderIndex)]
 			if parentGroup then
-				local name, amount, icon = mod:GetTokenInfo(id)
+				local name, amount, icon, _, _, _, _, _, _, _, description = mod:GetTokenInfo(id)
 				if name then
 					parentGroup.args[tostring(i)] = {
 						order = optionOrder + 2,
 						type = "toggle",
 						name = (icon and "|T"..icon..":18|t "..name) or name,
-						desc = format("%s %s\n\n|cffffff00%s: %s|r",
-							L["Enable/Disable"], name, L["Amount"], BreakUpLargeNumbers(amount)),
+						desc = format("%s %s\n\n|cffffff00%s: %s|r %s",
+							L["Enable/Disable"], name, L["Amount"], BreakUpLargeNumbers(amount), description and format("\n\n|cffffff00%s:|r %s", DESCRIPTION, description) or ""),
 						disabled = function() return not db.enable end,
 						get = function() return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
 						set = function(_, value)
@@ -177,13 +338,12 @@ local function UpdateTokenOptions()
 end
 
 local function UpdateProfessionOptions()
-	local config = E.Options.args.benikui.args.dashboards.args.professions.args.selectProfessions
-	local db = E.db.benikui.dashboards.professions
+	local config, db = GetDashboardConfig('professions')
 
 	local prof1, prof2, archy, fishing, cooking = GetProfessions()
 	local optionOrder = 1
 	if (prof1 or prof2 or archy or fishing or cooking) then
-		config.args.choosePofessions = {
+		config.args.chooseProfessions = {
 			order = optionOrder + 1,
 			type = 'group',
 			guiInline = true,
@@ -193,21 +353,24 @@ local function UpdateProfessionOptions()
 			},
 		}
 		local proftable = { GetProfessions() }
-		for _, id in ipairs(proftable) do
-			local pname, icon = GetProfessionInfo(id)
-			if pname then
-				config.args.choosePofessions.args[pname] = {
-					order = optionOrder + 2,
-					type = 'toggle',
-					name = '|T'..icon..':18|t '..pname,
-					desc = format('%s %s', L['Enable/Disable'], pname),
-					get = function(info) return E.private.benikui.dashboards.professions.choosePofessions[id] end,
-					set = function(info, value) E.private.benikui.dashboards.professions.choosePofessions[id] = value mod:UpdateProfessions() end,
-				}
+		for i = 1, 5 do
+			local id = proftable[i]
+			if id then
+				local pname, icon = GetProfessionInfo(id)
+				if pname then
+					config.args.chooseProfessions.args[pname] = {
+						order = optionOrder + 2,
+						type = 'toggle',
+						name = '|T'..icon..':18|t '..pname,
+						desc = format('%s %s', L['Enable/Disable'], pname),
+						get = function() return E.private.benikui.dashboards.professions.chooseProfessions[id] end,
+						set = function(_, value) E.private.benikui.dashboards.professions.chooseProfessions[id] = value mod:UpdateProfessions() end,
+					}
+				end
 			end
 		end
 	else
-		config.args.choosePofessions = {
+		config.args.chooseProfessions = {
 			order = 50,
 			type = 'group',
 			guiInline = true,
@@ -225,8 +388,7 @@ local function UpdateProfessionOptions()
 end
 
 local function UpdateReputationOptions()
-	local config = E.Options.args.benikui.args.dashboards.args.reputations.args.selectReputations
-	local db = E.db.benikui.dashboards.reputations
+	local config, db = GetDashboardConfig('reputations')
 
 	local optionOrder = 1
 	for i, info in ipairs(mod.ReputationsList) do
@@ -247,16 +409,16 @@ local function UpdateReputationOptions()
 				name = name,
 				desc = format('%s %s', L['Enable/Disable'], name),
 				disabled = function() return not db.enable end,
-				get = function(info) return E.private.benikui.dashboards.reputations.chooseReputations[factionID] end,
-				set = function(info, value) E.private.benikui.dashboards.reputations.chooseReputations[factionID] = value mod:UpdateReputations() end,
+				get = function() return E.private.benikui.dashboards.reputations.chooseReputations[factionID] end,
+				set = function(_, value) E.private.benikui.dashboards.reputations.chooseReputations[factionID] = value mod:UpdateReputations() end,
 			}
 		end
 	end
 end
 
 local function UpdateItemsOptions()
+	local config = GetDashboardConfig('items')
 	local db = E.private.benikui.dashboards.items.chooseItems
-	local config = E.Options.args.benikui.args.dashboards.args.items.args.selectItems
 	local optionOrder = 10
 
 	for itemID in next, mod.ItemsList do
@@ -285,21 +447,27 @@ local function UpdateItemsOptions()
 						order = 10,
 						type = 'toggle',
 						name = function()
-							if db[itemID] and db[itemID].customStack then
+							if db[itemID] and db[itemID].useCustomStack and db[itemID].customStack then
 								return format('%s |cfffcba03(%s)|r', L['Use Custom Stack'], db[itemID].customStack)
 							end
 							return L['Use Custom Stack']
 						end,
 						disabled = function() return not db[itemID].enable end,
 						get = function() if db[itemID] and db[itemID].useCustomStack then return db[itemID].useCustomStack end end,
-						set = function(_, value) db[itemID].useCustomStack = value mod:UpdateItems() end,
+						set = function(_, value)
+							db[itemID].useCustomStack = value
+							if not value then
+								db[itemID].customStack = nil
+							end
+							mod:UpdateItems()
+						end,
 					},
 					customStack = {
 						order = 11,
 						type = 'input',
 						width = 'half',
 						name = L['Custom Stack'],
-						hidden = function() if db[itemID] and db[itemID].customStack then return not db[itemID].useCustomStack end end,
+						hidden = function() return not (db[itemID] and db[itemID].useCustomStack) end,
 						get = function() if db[itemID] and db[itemID].customStack then return db[itemID].customStack end end,
 						set = function(_, value)
 							db[itemID].customStack = tonumber(value)
@@ -311,7 +479,7 @@ local function UpdateItemsOptions()
 						type = 'execute',
 						name = '|TInterface\\AddOns\\ElvUI\\Game\\Shared\\Media\\Textures\\Close.tga:12:12|t',
 						width = 0.25,
-						hidden = function() if db[itemID] and db[itemID].customStack then return not db[itemID].useCustomStack end end,
+						hidden = function() return not (db[itemID] and db[itemID].useCustomStack) end,
 						disabled = function() return not db[itemID].customStack end,
 						func = function()
 							db[itemID].customStack = nil
@@ -353,11 +521,11 @@ end
 local function dashboardsTable()
 	local db = E.db.benikui.dashboards
 
-	local BUI_SystemDashboard = _G.BUI_SystemDashboard
-	local BUI_TokensDashboard = _G.BUI_TokensDashboard
-	local BUI_ProfessionsDashboard = _G.BUI_ProfessionsDashboard
-	local BUI_ReputationsDashboard = _G.BUI_ReputationsDashboard
-	local BUI_ItemsDashboard = _G.BUI_ItemsDashboard
+	local BUI_SystemDashboard		= _G.BUI_SystemDashboard
+	local BUI_TokensDashboard		= _G.BUI_TokensDashboard
+	local BUI_ProfessionsDashboard	= _G.BUI_ProfessionsDashboard
+	local BUI_ReputationsDashboard	= _G.BUI_ReputationsDashboard
+	local BUI_ItemsDashboard		= _G.BUI_ItemsDashboard
 
 	E.Options.args.benikui.args.dashboards = {
 		order = 60,
@@ -423,7 +591,7 @@ local function dashboardsTable()
 									local t = db[ info[#info] ]
 									local d = P.benikui.dashboards[info[#info]]
 									return t.r, t.g, t.b, t.a, d.r, d.g, d.b
-									end,
+								end,
 								set = function(info, r, g, b, a)
 									db[ info[#info] ] = {}
 									local t = db[ info[#info] ]
@@ -438,7 +606,11 @@ local function dashboardsTable()
 						type = 'group',
 						name = L['Fonts'],
 						guiInline = true,
-						disabled = function() return not db.system.enable and not db.tokens.enable and not db.professions.enable and not db.reputations.enable and not db.items.enable end,
+						disabled = function()
+							return not db.system.enable and not db.tokens.enable
+								and not db.professions.enable and not db.reputations.enable
+								and not db.items.enable
+						end,
 						get = function(info) return db.dashfont[ info[#info] ] end,
 						set = function(info, value) db.dashfont[ info[#info] ] = value UpdateAllDashboards() end,
 						args = {
@@ -475,6 +647,7 @@ local function dashboardsTable()
 					},
 				},
 			},
+
 			system = {
 				order = 3,
 				type = 'group',
@@ -490,7 +663,7 @@ local function dashboardsTable()
 						get = function(info) return db.system.enable end,
 						set = function(info, value) db.system.enable = value E:StaticPopup_Show('PRIVATE_RL') end,
 					},
-					chooseSystem = {
+					select = {
 						order = 10,
 						type = 'group',
 						name = L['Select System Board'],
@@ -517,85 +690,11 @@ local function dashboardsTable()
 								type = 'group',
 								name = L['Layout'],
 								guiInline = true,
-								args = {
-									width = {
-										order = 1,
-										type = 'range',
-										name = L['Width'],
-										desc = L['Change the System Dashboard width.'],
-										min = 120, max = 520, step = 1,
-										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateHolderDimensions(BUI_SystemDashboard, 'system', mod.SystemDB, true) mod:UpdateSystemSettings() end,
-									},
-									barHeight = {
-										order = 2,
-										type = 'range',
-										name = L['Bar Height'],
-										desc = L['Change the Bar Height.'],
-										min = 1, max = 20, step = 1,
-										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value mod:BarHeight('system', mod.SystemDB) end,
-									},
-									spacing = {
-										order = 3,
-										type = 'range',
-										name = L["Spacing"],
-										min = 1, max = 30, step = 1,
-										disabled = function() return db.system.orientation == 'BOTTOM' end,
-										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateOrientation() end,
-									},
-									spacer = {
-										order = 4,
-										type = 'header',
-										name = '',
-									},
-									updateThrottle = {
-										order = 5,
-										type = 'range',
-										name = L['Update Throttle'],
-										min = 1, max = 10, step = 1,
-										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value end,
-									},
-									textAlign = {
-										order = 6,
-										name = L['Text Alignment'],
-										type = 'select',
-										values = textAlignValues,
-										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateSystemTextAlignment() end,
-									},
-									orientation = {
-										order = 7,
-										name = L['Frame Orientation'],
-										type = 'select',
-										values = frameOrientationValues,
-										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateOrientation() end,
-									},
-									spacer2 = {
-										order = 8,
-										type = 'header',
-										name = '',
-									},
-									overrideColor = {
-										order = 9,
-										name = L['Value Color'],
-										type = 'toggle',
-										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL') end,
-									},
-									layoutOptions = {
-										order = 10,
-										type = 'multiselect',
-										name = ' ',
-										disabled = function() return not db.system.enable end,
-										get = function(_, key) return db.system[key] end,
-										set = function(_, key, value) db.system[key] = value mod:ToggleStyle(BUI_SystemDashboard, 'system') mod:ToggleTransparency(BUI_SystemDashboard, 'system') end,
-										values = layoutStyles,
-									},
-								},
+								args = BuildLayoutGroup('system', BUI_SystemDashboard, function() mod:UpdateSystemSettings() end, mod.SystemDB, {
+									textAlign		= true,
+									updateThrottle	= true,
+									overrideColor	= true,
+								}),
 							},
 						},
 					},
@@ -610,36 +709,14 @@ local function dashboardsTable()
 								type = 'group',
 								name = L["Visibility"],
 								guiInline = true,
-								args = {
-									combat = {
-										order = 1,
-										name = L['Hide In Combat'],
-										desc = L['Show/Hide System Dashboard when in combat'],
-										type = 'toggle',
-										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value mod:EnableDisableCombat(BUI_SystemDashboard, 'system') end,
-									},
-									mouseover = {
-										order = 2,
-										name = L['Mouse Over'],
-										desc = L['The frame is not shown unless you mouse over the frame.'],
-										type = 'toggle',
-										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateSystemSettings() end,
-									},
-									instance = {
-										order = 3,
-										name = L['Hide in Instance'],
-										type = 'toggle',
-										get = function(info) return db.system[ info[#info] ] end,
-										set = function(info, value) db.system[ info[#info] ] = value mod:UpdateVisibility() end,
-									},
-								},
+								args = BuildVisibilityGroup('system', BUI_SystemDashboard, function() mod:UpdateSystemSettings() end,
+									L['Show/Hide System Dashboard when in combat']),
 							},
 						},
 					},
 				},
 			},
+
 			tokens = {
 				order = 4,
 				type = 'group',
@@ -652,14 +729,16 @@ local function dashboardsTable()
 						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the Tokens Dashboard.'],
-						get = function(info) return db.tokens.enable end,
-						set = function(info, value) db.tokens.enable = value mod:ToggleTokens() end,
+						get = function() return db.tokens.enable end,
+						set = function(_, value) db.tokens.enable = value mod:ToggleTokens() end,
 					},
-					selectTokens = {
+					select = {
 						order = 2,
 						type = 'group',
 						name = TOKENS,
 						disabled = function() return not db.tokens.enable end,
+						get = function(info) return db.tokens[ info[#info] ] end,
+						set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 						args = {
 							variousGroup = {
 								order = 1,
@@ -672,24 +751,18 @@ local function dashboardsTable()
 										name = L['Show zero amount tokens'],
 										desc = L['Show the token, even if the amount is 0'],
 										type = 'toggle',
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 									weekly = {
-										order =2,
+										order = 2,
 										name = L['Show Weekly max'],
 										desc = L['Show Weekly max tokens instead of total max'],
 										type = 'toggle',
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 									tooltip = {
 										order = 3,
 										name = L['Tooltip'],
 										desc = L['Show/Hide Tooltips'],
 										type = 'toggle',
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
 									},
 								},
 							},
@@ -706,64 +779,9 @@ local function dashboardsTable()
 								type = 'group',
 								name = L['Layout'],
 								guiInline = true,
-								args = {
-									width = {
-										order = 1,
-										type = 'range',
-										name = L['Width'],
-										desc = L['Change the Tokens Dashboard width.'],
-										min = 120, max = 520, step = 1,
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
-									},
-									barHeight = {
-										order = 2,
-										type = 'range',
-										name = L['Bar Height'],
-										desc = L['Change the Bar Height.'],
-										min = 1, max = 20, step = 1,
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:BarHeight('tokens', mod.TokensDB) end,
-									},
-									spacing = {
-										order = 3,
-										type = 'range',
-										name = L["Spacing"],
-										min = 1, max = 30, step = 1,
-										disabled = function() return db.tokens.orientation == 'BOTTOM' end,
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
-									},
-									spacer = {
-										order = 4,
-										type = 'header',
-										name = '',
-									},
-									iconPosition = {
-										order = 5,
-										type = 'select',
-										name = L['Icon Position'],
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
-										values = iconOrientationValues,
-									},
-									orientation = {
-										order = 6,
-										name = L['Frame Orientation'],
-										type = 'select',
-										values = frameOrientationValues,
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
-									},
-									layoutOptions = {
-										order = 10,
-										type = 'multiselect',
-										name = ' ',
-										get = function(_, key) return db.tokens[key] end,
-										set = function(_, key, value) db.tokens[key] = value mod:ToggleStyle(BUI_TokensDashboard, 'tokens') mod:ToggleTransparency(BUI_TokensDashboard, 'tokens') end,
-										values = layoutStyles,
-									},
-								},
+								args = BuildLayoutGroup('tokens', BUI_TokensDashboard, function() mod:UpdateTokens() end, mod.TokensDB, {
+									iconPosition = true,
+								}),
 							},
 						},
 					},
@@ -778,36 +796,14 @@ local function dashboardsTable()
 								type = 'group',
 								name = L["Visibility"],
 								guiInline = true,
-								args = {
-									combat = {
-										order = 1,
-										name = L['Hide In Combat'],
-										desc = L['Show/Hide Tokens Dashboard when in combat'],
-										type = 'toggle',
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:EnableDisableCombat(BUI_TokensDashboard, 'tokens') end,
-									},
-									mouseover = {
-										order = 2,
-										name = L['Mouse Over'],
-										desc = L['The frame is not shown unless you mouse over the frame.'],
-										type = 'toggle',
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
-									},
-									instance = {
-										order = 3,
-										name = L['Hide in Instance'],
-										type = 'toggle',
-										get = function(info) return db.tokens[ info[#info] ] end,
-										set = function(info, value) db.tokens[ info[#info] ] = value mod:UpdateTokens() end,
-									},
-								},
+								args = BuildVisibilityGroup('tokens', BUI_TokensDashboard, function() mod:UpdateTokens() end,
+									L['Show/Hide Tokens Dashboard when in combat']),
 							},
 						},
 					},
 				},
 			},
+
 			professions = {
 				order = 5,
 				type = 'group',
@@ -823,7 +819,7 @@ local function dashboardsTable()
 						get = function(info) return db.professions[ info[#info] ] end,
 						set = function(info, value) db.professions[ info[#info] ] = value mod:ToggleProfessions() end,
 					},
-					selectProfessions = {
+					select = {
 						order = 2,
 						type = 'group',
 						name = TRADE_SKILLS,
@@ -858,64 +854,9 @@ local function dashboardsTable()
 								type = 'group',
 								name = L['Layout'],
 								guiInline = true,
-								args = {
-									width = {
-										order = 1,
-										type = 'range',
-										name = L['Width'],
-										desc = L['Change the Professions Dashboard width.'],
-										min = 120, max = 520, step = 1,
-										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
-									},
-									barHeight = {
-										order = 2,
-										type = 'range',
-										name = L['Bar Height'],
-										desc = L['Change the Bar Height.'],
-										min = 1, max = 20, step = 1,
-										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value mod:BarHeight('professions', mod.ProfessionsDB) end,
-									},
-									spacing = {
-										order = 3,
-										type = 'range',
-										name = L["Spacing"],
-										min = 1, max = 30, step = 1,
-										disabled = function() return db.professions.orientation == 'BOTTOM' end,
-										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
-									},
-									spacer = {
-										order = 4,
-										type = 'header',
-										name = '',
-									},
-									iconPosition = {
-										order = 5,
-										type = 'select',
-										name = L['Icon Position'],
-										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
-										values = iconOrientationValues,
-									},
-									orientation = {
-										order = 6,
-										name = L['Frame Orientation'],
-										type = 'select',
-										values = frameOrientationValues,
-										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
-									},
-									layoutOptions = {
-										order = 10,
-										type = 'multiselect',
-										name = ' ',
-										get = function(_, key) return db.professions[key] end,
-										set = function(_, key, value) db.professions[key] = value mod:ToggleStyle(BUI_ProfessionsDashboard, 'professions') mod:ToggleTransparency(BUI_ProfessionsDashboard, 'professions') end,
-										values = layoutStyles,
-									},
-								},
+								args = BuildLayoutGroup('professions', BUI_ProfessionsDashboard, function() mod:UpdateProfessions() end, mod.ProfessionsDB, {
+									iconPosition = true,
+								}),
 							},
 						},
 					},
@@ -930,36 +871,14 @@ local function dashboardsTable()
 								type = 'group',
 								name = L["Visibility"],
 								guiInline = true,
-								args = {
-									combat = {
-										order = 1,
-										name = L['Hide In Combat'],
-										desc = L['Show/Hide Professions Dashboard when in combat'],
-										type = 'toggle',
-										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value mod:EnableDisableCombat(BUI_ProfessionsDashboard, 'professions') end,
-									},
-									mouseover = {
-										order = 2,
-										name = L['Mouse Over'],
-										desc = L['The frame is not shown unless you mouse over the frame.'],
-										type = 'toggle',
-										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
-									},
-									instance = {
-										order = 3,
-										name = L['Hide in Instance'],
-										type = 'toggle',
-										get = function(info) return db.professions[ info[#info] ] end,
-										set = function(info, value) db.professions[ info[#info] ] = value mod:UpdateProfessions() end,
-									},
-								},
+								args = BuildVisibilityGroup('professions', BUI_ProfessionsDashboard, function() mod:UpdateProfessions() end,
+									L['Show/Hide Professions Dashboard when in combat']),
 							},
-						},	
+						},
 					},
 				},
 			},
+
 			reputations = {
 				order = 6,
 				type = 'group',
@@ -975,7 +894,7 @@ local function dashboardsTable()
 						get = function(info) return db.reputations[ info[#info] ] end,
 						set = function(info, value) db.reputations[ info[#info] ] = value mod:ToggleReputations() end,
 					},
-					selectReputations = {
+					select = {
 						order = 2,
 						type = 'group',
 						name = REPUTATION,
@@ -988,9 +907,9 @@ local function dashboardsTable()
 								get = function(_, key) return db.reputations[key] end,
 								set = function(_, key, value) db.reputations[key] = value mod:UpdateReputations() end,
 								values = {
-									barFactionColors = L['Use Faction Colors on Bars'],
-									textFactionColors = L['Use Faction Colors on Text'],
-									tooltip = L['Tooltip'],
+									barFactionColors	= L['Use Faction Colors on Bars'],
+									textFactionColors	= L['Use Faction Colors on Text'],
+									tooltip				= L['Tooltip'],
 								},
 							},
 						},
@@ -1006,64 +925,9 @@ local function dashboardsTable()
 								type = 'group',
 								name = L['Layout'],
 								guiInline = true,
-								args = {
-									width = {
-										order = 1,
-										type = 'range',
-										name = L['Width'],
-										desc = L['Change the Reputations Dashboard width.'],
-										min = 120, max = 520, step = 1,
-										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
-									},
-									barHeight = {
-										order = 2,
-										type = 'range',
-										name = L['Bar Height'],
-										desc = L['Change the Bar Height.'],
-										min = 1, max = 20, step = 1,
-										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:BarHeight('reputations', mod.FactionsDB) end,
-									},
-									spacing = {
-										order = 3,
-										type = 'range',
-										name = L["Spacing"],
-										min = 1, max = 30, step = 1,
-										disabled = function() return db.reputations.orientation == 'BOTTOM' end,
-										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
-									},
-									spacer = {
-										order = 4,
-										type = 'header',
-										name = '',
-									},
-									textAlign ={
-										order = 5,
-										name = L['Text Alignment'],
-										type = 'select',
-										values = textAlignValues,
-										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
-									},
-									orientation = {
-										order = 6,
-										name = L['Frame Orientation'],
-										type = 'select',
-										values = frameOrientationValues,
-										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
-									},
-									layoutOptions = {
-										order = 10,
-										type = 'multiselect',
-										name = ' ',
-										get = function(_, key) return db.reputations[key] end,
-										set = function(_, key, value) db.reputations[key] = value mod:ToggleStyle(BUI_ReputationsDashboard, 'reputations') mod:ToggleTransparency(BUI_ReputationsDashboard, 'reputations') end,
-										values = layoutStyles,
-									},
-								},
+								args = BuildLayoutGroup('reputations', BUI_ReputationsDashboard, function() mod:UpdateReputations() end, mod.FactionsDB, {
+									textAlign = true,
+								}),
 							},
 						},
 					},
@@ -1078,36 +942,14 @@ local function dashboardsTable()
 								type = 'group',
 								name = L["Visibility"],
 								guiInline = true,
-								args = {
-									combat = {
-										order = 1,
-										name = L['Hide In Combat'],
-										desc = L['Show/Hide Reputations Dashboard when in combat'],
-										type = 'toggle',
-										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:EnableDisableCombat(BUI_ReputationsDashboard, 'reputations') end,
-									},
-									mouseover = {
-										order = 2,
-										name = L['Mouse Over'],
-										desc = L['The frame is not shown unless you mouse over the frame.'],
-										type = 'toggle',
-										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
-									},
-									instance = {
-										order = 3,
-										name = L['Hide in Instance'],
-										type = 'toggle',
-										get = function(info) return db.reputations[ info[#info] ] end,
-										set = function(info, value) db.reputations[ info[#info] ] = value mod:UpdateReputations() end,
-									},
-								},
+								args = BuildVisibilityGroup('reputations', BUI_ReputationsDashboard, function() mod:UpdateReputations() end,
+									L['Show/Hide Reputations Dashboard when in combat']),
 							},
 						},
 					},
 				},
 			},
+
 			items = {
 				order = 7,
 				type = 'group',
@@ -1120,10 +962,10 @@ local function dashboardsTable()
 						name = L["Enable"],
 						width = 'full',
 						desc = L['Enable the Items Dashboard.'],
-						get = function(info) return db.items.enable end,
-						set = function(info, value) db.items.enable = value mod:ToggleItems() end,
+						get = function() return db.items.enable end,
+						set = function(_, value) db.items.enable = value mod:ToggleItems() end,
 					},
-					selectItems = {
+					select = {
 						order = 2,
 						type = 'group',
 						name = L['Items'],
@@ -1146,8 +988,8 @@ local function dashboardsTable()
 								order = 2,
 								type = 'toggle',
 								name = L['Tooltip'],
-								get = function(info) return db.items.tooltip end,
-								set = function(info, value) db.items.tooltip = value end,
+								get = function() return db.items.tooltip end,
+								set = function(_, value) db.items.tooltip = value end,
 							},
 							showMax = {
 								order = 3,
@@ -1155,6 +997,11 @@ local function dashboardsTable()
 								name = L['Show Max Amount'],
 								get = function(info) return db.items[ info[#info] ] end,
 								set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
+							},
+							spacer = {
+								order = 4,
+								type = 'header',
+								name = '',
 							},
 							newItem = {
 								order = 10,
@@ -1179,8 +1026,8 @@ local function dashboardsTable()
 												E:StaticPopup_Show("BUI_Panel_Name")
 												ItemSetup.id = nil
 											elseif not checkDuplicate then
-												for object in ipairs(mod.ItemsList) do
-													if object == tonumber(ItemSetup.id) then
+												for itemID in next, mod.ItemsList do
+													if itemID == tonumber(ItemSetup.id) then
 														E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The Item |cff00c0fa%s|r already exists."], name))
 														E:StaticPopup_Show("BUI_Panel_Name")
 														ItemSetup.id = nil
@@ -1224,64 +1071,9 @@ local function dashboardsTable()
 								type = 'group',
 								name = L['Layout'],
 								guiInline = true,
-								args = {
-									width = {
-										order = 1,
-										type = 'range',
-										name = L['Width'],
-										desc = L['Change the Items Dashboard width.'],
-										min = 120, max = 520, step = 1,
-										get = function(info) return db.items[ info[#info] ] end,
-										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
-									},
-									barHeight = {
-										order = 2,
-										type = 'range',
-										name = L['Bar Height'],
-										desc = L['Change the Bar Height.'],
-										min = 1, max = 20, step = 1,
-										get = function(info) return db.items[ info[#info] ] end,
-										set = function(info, value) db.items[ info[#info] ] = value mod:BarHeight('items', mod.ItemsDB) end,
-									},
-									spacing = {
-										order = 3,
-										type = 'range',
-										name = L["Spacing"],
-										min = 1, max = 30, step = 1,
-										disabled = function() return db.items.orientation == 'BOTTOM' end,
-										get = function(info) return db.items[ info[#info] ] end,
-										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
-									},
-									spacer = {
-										order = 4,
-										type = 'header',
-										name = '',
-									},
-									iconPosition = {
-										order = 5,
-										type = 'select',
-										name = L['Icon Position'],
-										get = function(info) return db.items[ info[#info] ] end,
-										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
-										values = iconOrientationValues,
-									},
-									orientation = {
-										order = 6,
-										name = L['Frame Orientation'],
-										type = 'select',
-										values = frameOrientationValues,
-										get = function(info) return db.items[ info[#info] ] end,
-										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
-									},
-									layoutOptions = {
-										order = 10,
-										type = 'multiselect',
-										name = ' ',
-										get = function(_, key) return db.items[key] end,
-										set = function(_, key, value) db.items[key] = value mod:ToggleStyle(BUI_ItemsDashboard, 'items') mod:ToggleTransparency(BUI_ItemsDashboard, 'items') end,
-										values = layoutStyles,
-									},
-								},
+								args = BuildLayoutGroup('items', BUI_ItemsDashboard, function() mod:UpdateItems() end, mod.ItemsDB, {
+									iconPosition = true,
+								}),
 							},
 						},
 					},
@@ -1296,31 +1088,8 @@ local function dashboardsTable()
 								type = 'group',
 								name = L["Visibility"],
 								guiInline = true,
-								args = {
-									combat = {
-										order = 1,
-										name = L['Hide In Combat'],
-										desc = L['Show/Hide items Dashboard when in combat'],
-										type = 'toggle',
-										get = function(info) return db.items[ info[#info] ] end,
-										set = function(info, value) db.items[ info[#info] ] = value mod:EnableDisableCombat(BUI_ItemsDashboard, 'items') end,
-									},
-									mouseover = {
-										order = 2,
-										name = L['Mouse Over'],
-										desc = L['The frame is not shown unless you mouse over the frame.'],
-										type = 'toggle',
-										get = function(info) return db.items[ info[#info] ] end,
-										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
-									},
-									instance = {
-										order = 3,
-										name = L['Hide in Instance'],
-										type = 'toggle',
-										get = function(info) return db.items[ info[#info] ] end,
-										set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
-									},
-								},
+								args = BuildVisibilityGroup('items', BUI_ItemsDashboard, function() mod:UpdateItems() end,
+									L['Show/Hide items Dashboard when in combat']),
 							},
 						},
 					},
@@ -1328,13 +1097,18 @@ local function dashboardsTable()
 			},
 		},
 	}
-	hooksecurefunc(mod, 'ToggleTokens', UpdateTokenOptions)
-	hooksecurefunc(mod, 'ToggleReputations', UpdateReputationOptions)
 end
 
 tinsert(BUI.Config, dashboardsTable)
-tinsert(BUI.Config, UpdateSystemOptions)
-tinsert(BUI.Config, UpdateTokenOptions)
-tinsert(BUI.Config, UpdateProfessionOptions)
-tinsert(BUI.Config, UpdateReputationOptions)
-tinsert(BUI.Config, UpdateItemsOptions)
+
+local UpdateSelectOptions = {
+	system		= UpdateSystemOptions,
+	tokens		= UpdateTokenOptions,
+	professions	= UpdateProfessionOptions,
+	reputations	= UpdateReputationOptions,
+	items		= UpdateItemsOptions,
+}
+
+for _, updateFunc in next, UpdateSelectOptions do
+	tinsert(BUI.Config, updateFunc)
+end

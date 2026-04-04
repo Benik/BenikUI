@@ -5,6 +5,7 @@ local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
 local _G = _G
 local pairs = pairs
+local hooksecurefunc = hooksecurefunc
 
 function mod:stylePlugins()
 	-- LocationPlus

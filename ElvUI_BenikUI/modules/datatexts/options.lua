@@ -10,11 +10,7 @@ if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
 local hooksecurefunc = hooksecurefunc
 
-local ALL = ALL
 local MAIL_LABEL = MAIL_LABEL
-local EXPANSION_NAME9 = EXPANSION_NAME9
-local EXPANSION_NAME10 = EXPANSION_NAME10
-local EXPANSION_NAME11 = EXPANSION_NAME11
 
 local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {
@@ -70,22 +66,6 @@ local function Datatexts()
 						order = 6,
 						type = 'description',
 						name = '',
-					},
-					editBoxPosition = {
-						order = 7,
-						type = 'select',
-						name = L['Chat EditBox Position'],
-						desc = L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'],
-						values = {
-							['BELOW_CHAT'] = L['Below Chat'],
-							['ABOVE_CHAT'] = L['Above Chat'],
-							['MIDDLE_DT'] = L['Middle Datatext'],
-							['EAB_1'] = L['Actionbar 1'],
-							['EAB_2'] = L['Actionbar 2'],
-						},
-						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
-						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; CH:UpdateEditboxAnchors() end,
 					},
 					showChatDt = {
 						order = 8,

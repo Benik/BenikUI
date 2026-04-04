@@ -15,7 +15,6 @@ local GetItemCount = C_Item.GetItemCount
 local GetItemInfo = C_Item.GetItemInfo
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
-local IsInInstance = IsInInstance
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS + (E.Retail and 1 or 0)
@@ -131,9 +130,6 @@ function mod:UpdateItems()
 
 	if not db.items.enable then holder:Hide() return end
 
-	local inInstance = IsInInstance()
-	local NotinInstance = not (db.items.instance and inInstance)
-
 	if(itemsDB[1]) then
 		for i = 1, #itemsDB do
 			itemsDB[i]:Hide()
@@ -149,7 +145,7 @@ function mod:UpdateItems()
 
 		if id and name then
 			if vdb[id] and vdb[id].enable == true then
-				holder:SetShown(NotinInstance)
+				holder:SetShown(mod:ShouldShowDashboard('items'))
 
 				if db.items.orientation == 'BOTTOM' then
 					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#itemsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))

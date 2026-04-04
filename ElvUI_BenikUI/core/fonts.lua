@@ -2,6 +2,7 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local LSM = E.LSM
 
 local _G = _G
+local hooksecurefunc = hooksecurefunc
 
 -- add alpha in shadow color (sa) and moved the r, g, b to the end cause of Blizz auto coloring
 -- some fonts like Fancy32Font or Fancy30Font are kinda big so I adjusted their size -2

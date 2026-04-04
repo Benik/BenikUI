@@ -27,7 +27,8 @@ function mod:Configure_AuraBars(frame)
 
 	if db.enable then
 		local detached = db.attachTo == 'DETACHED'
-		local POWER_OFFSET, BAR_WIDTH = 0
+		local POWER_OFFSET = 0
+		local BAR_WIDTH = 0
 		local BORDER = UF.BORDER + UF.SPACING
 
 		if detached then

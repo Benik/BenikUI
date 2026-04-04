@@ -41,10 +41,10 @@ function BU:ArrangeFocus()
 
 	-- InfoPanel
 	BU:Configure_Infopanel(frame)
-	
+
 	-- AuraBars shadows
 	BU:Configure_AuraBars(frame)
-	
+
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 

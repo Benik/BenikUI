@@ -3,11 +3,11 @@ local mod = BUI:GetModule('Bags')
 local B = E:GetModule('Bags')
 
 local _G = _G
-local hooksecurefunc = hooksecurefunc
 local next = next
-local NUM_CONTAINER_FRAMES = NUM_CONTAINER_FRAMES
 
--- GLOBALS: hooksecurefunc
+local hooksecurefunc = hooksecurefunc
+
+local NUM_CONTAINER_FRAMES = NUM_CONTAINER_FRAMES
 
 local SPACING = E.Spacing
 local BORDER = E.Border

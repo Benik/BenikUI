@@ -28,7 +28,7 @@ local INVERT_ANCHORPOINT = {
 local MAX_BOSS_FRAMES = 5
 local units = {"Player", "Target", "Focus", "Pet"}
 
-local function changeCastbarLevel(unit, unitframe)
+local function changeCastbarLevel(_, unitframe)
 	local castbar = unitframe.Castbar
 	if not castbar then return end
 
@@ -144,7 +144,7 @@ function mod:UpdateAllCastbars()
 end
 
 --Castbar texture
-function mod:PostCast(unit, unitframe)
+function mod:PostCast()
 	if E.db.benikui.unitframes.textures.enableCastbar and not self.isTransparent then
 		self:SetStatusBarTexture(LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar))
 	end
@@ -167,7 +167,7 @@ function mod:PostCast(unit, unitframe)
 	end
 end
 
-function mod:PostCastInterruptible(unit, unitframe)
+function mod:PostCastInterruptible(unit)
 	if unit == "vehicle" or unit == "player" then return end
 
 	if E.db.benikui.unitframes.textures.enableCastbar and not self.isTransparent then

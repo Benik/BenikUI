@@ -315,6 +315,17 @@ P['benikui'] = {
 			['textFormat'] = 'PERCENT',
 		},
 
+		['preyBar'] = {
+			['enable'] = true,
+			['width'] = 222,
+			['height'] = 5,
+			['textYoffset'] = 13,
+			['useDTfont'] = true,
+			['font'] = E.db.datatexts.font,
+			['fontsize'] = E.db.datatexts.fontSize,
+			['fontflags'] = E.db.datatexts.fontOutline,
+		},
+
 		['halfBar'] = {
 			['altbar'] = true,
 			['mirrorbar'] = true,
@@ -347,6 +358,7 @@ P['benikui'] = {
 			['overrideColor'] = true,
 			['updateThrottle'] = 2,
 			['spacing'] = 1,
+			['housing'] = false,
 		},
 
 		['tokens'] = {
@@ -365,6 +377,7 @@ P['benikui'] = {
 			['instance'] = true,
 			['orientation'] = 'BOTTOM',
 			['spacing'] = 1,
+			['housing'] = true,
 		},
 
 		['professions'] = {
@@ -381,6 +394,7 @@ P['benikui'] = {
 			['instance'] = true,
 			['orientation'] = 'BOTTOM',
 			['spacing'] = 1,
+			['housing'] = true,
 		},
 
 		['reputations'] = {
@@ -399,6 +413,7 @@ P['benikui'] = {
 			['instance'] = true,
 			['orientation'] = 'BOTTOM',
 			['spacing'] = 1,
+			['housing'] = true,
 		},
 
 		['items'] = {
@@ -416,6 +431,7 @@ P['benikui'] = {
 			['spacing'] = 1,
 			['tooltip'] = true,
 			['showMax'] = true,
+			['housing'] = true,
 		},
 
 		['dashfont'] = {

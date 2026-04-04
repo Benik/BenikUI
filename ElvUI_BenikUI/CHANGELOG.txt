@@ -1,3 +1,39 @@
+v5.09 (Apr 4, 2026)
+Items Dash: Fixed the Popup warning not showing when the user adds an item that is already added
+Items Dash: Clear the custom stack text
+Items Dash: Fix the Custom Stack option not being properly disabled and hidden when not used. Also added a spacer
+Fixed an old typo
+Dashboards: Added option to Show/Hide while in Housing areas
+Overhauled the Dashboards options simplifying common settings for better maintenance
+Style the Movies and Cinematics cancel confirmation frame
+Tokens Dash: Added Token description when hovering the token in the options
+Tokens Dash: Tokens with Weekly or Season cap, will now show in red text when capped
+Fixed Objective Tracker icon showing when it doesn't supposed to
+Moved the Chat Edit Box options from Datatexts to Misc
+Cleanup and cache on all files (at last)
+Fixed Assist Target shadows
+Added some missing Group UFs Shadows and wrapped on the UF.PostUpdateAura
+Apply Simpy's fix for the width error
+Tokens Dashboard: Fixed weekly max values not showing
+Added Maw Bar preview
+New: Added Prey Bar
+Fixed ObjectiveTracker Icon shadows
+Fixed Dashboards visibility while in Instance. Housing areas are considered as instances, had to go around this, so Dashboards are only hiding in Delves, Dungeons, etc
+Styled some missing Alert frames
+
+v5.08 (Mar 15, 2026)
+Prevent a pvp error
+Stop styling gamemenu when consoleport_menu is enabled
+Fixed the System dashboard module order
+Fixed WidgetBar shadows
+Show all professions that are trained (thurin)
+Removed the "broken" style in AdventureMapQuestChoiceDialog frame and just added a shadow
+Skinned AllTheThings Tradeskills frame
+
+v5.07 (Mar 4, 2026)
+Prevent a strange shadow error
+Fixed InFlight profile option
+
 v5.06 (Mar 3, 2026)
 Renown DT: New sub menu for each expansion. No need to go to the options
 Renown DT: Fixed the menu expansion title. Also added another tooltip that shows when no faction is known for the selected expansion

@@ -67,6 +67,9 @@ L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = "Affiche le niveau d'objet par emplacement, dans le cadre d'informations de votre personnage"
 L['Inside the item slot'] = "Dans l'emplacement de l'objet"
 L['Outside the item slot'] = "En dehors de l'emplacement de l'objet"
+L['Chat EditBox'] = true
+L['Position'] = true
+L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'] = true
 
 -- Flight mode
 L['Flight Mode'] = true
@@ -188,6 +191,7 @@ L['Update Throttle'] = true
 L['Use DataTexts font'] = "Utiliser la police pour les textes de données"
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true
+L['Hide in Housing'] = true
 
 -- Items
 L['Items'] = true
@@ -250,11 +254,14 @@ L['Enable Class color on health border, when mouse over'] = "Active la couleur d
 
 -- Widget Bars
 L['Widget Bars'] = true
-L['BenikUI Maw Bar'] = true
+L['Maw Bar'] = true
+L['Prey Bar'] = true
 L['Color by Tier'] = true
 L['Text yOffset'] = true
 L['Half Bar'] = true
 L["Percent"] = true
+L['Preview Bar'] = true
+L['Hide Preview'] = true
 
 -- Information
 L['Information'] = true

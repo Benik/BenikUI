@@ -4,7 +4,8 @@ local DT = E:GetModule('DataTexts');
 local DB = E:GetModule('DataBars');
 
 local _G = _G
--- GLOBALS: hooksecurefunc, ElvUI_ReputationBar, ToggleCharacter
+local hooksecurefunc = hooksecurefunc
+local ToggleCharacter = ToggleCharacter
 
 local function OnClick(self)
 	if self.template == 'NoBackdrop' then return end
@@ -20,13 +21,13 @@ end
 function mod:ToggleRepBackdrop()
 	if E.db.benikui.databars.reputation.enable ~= true then return end
 	local bar = _G.ElvUI_ReputationBar
-	
+
 	mod:ToggleBackdrop(bar, "reputation")
 end
 
 function mod:UpdateRepNotifierPositions()
 	local bar = _G.ElvUI_ReputationBar
-	
+
 	mod:UpdateNotifierPositions(bar, "reputation")
 end
 

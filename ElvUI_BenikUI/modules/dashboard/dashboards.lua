@@ -4,8 +4,8 @@ local LSM = E.LSM
 
 local next = next
 local CreateFrame = CreateFrame
-
-local IsInInstance = IsInInstance
+local GetInstanceInfo = GetInstanceInfo
+local GetZonePVPInfo = C_PvP.GetZonePVPInfo or GetZonePVPInfo
 
 local DASH_HEIGHT = 20
 local SPACING = 1
@@ -24,6 +24,7 @@ local Dashboards = {
 	{'BUI_SystemDashboard', 'system'},
 	{'BUI_ProfessionsDashboard', 'professions'},
 	{'BUI_TokensDashboard', 'tokens'},
+	{'BUI_ItemsDashboard', 'items'},
 }
 
 function mod:EnableDisableCombat(holder, option)
@@ -89,9 +90,12 @@ function mod:FontStyle(tableName)
 	end
 end
 
-function mod:FontColor(tableName)
+function mod:FontColor(tableName, override)
 	local db = E.db.benikui.dashboards
+
 	for _, bar in next, tableName do
+		if override then return end
+
 		if db.textColor == 1 then
 			bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		else
@@ -119,15 +123,29 @@ function mod:BarHeight(option, tableName)
 	end
 end
 
-function mod:UpdateVisibility()
-	local inInstance = IsInInstance()
+function mod:ShouldShowDashboard(option)
+	local db = E.db.benikui.dashboards[option]
+	if not db then return true end
 
+	local _, instanceType = GetInstanceInfo()
+	local inInstance = instanceType ~= 'none'
+
+	local pvpType = GetZonePVPInfo()
+	local inHousing = inInstance and pvpType == 'sanctuary'
+
+	if inHousing and db.housing then return false end
+	if inInstance and not inHousing and db.instance then return false end
+
+	return true
+end
+
+function mod:UpdateVisibility()
 	for _, v in next, Dashboards do
-		local holder, option = unpack(v)
-		local db = E.db.benikui.dashboards[option]
-		local NotinInstance = not (db.instance and inInstance)
-		if _G[holder] then
-			_G[holder]:SetShown(NotinInstance)
+		local holderName, option = unpack(v)
+		local holder = _G[holderName]
+
+		if holder then
+			holder:SetShown(mod:ShouldShowDashboard(option))
 		end
 	end
 end
@@ -176,7 +194,6 @@ function mod:CheckPositionForTooltip(frame)
 end
 
 function mod:CreateDashboardHolder(holderName, option)
-
 	local holder = CreateFrame('Frame', holderName, E.UIParent)
 	holder:CreateBackdrop('Transparent')
 	holder:SetFrameStrata('BACKGROUND')
@@ -187,19 +204,21 @@ function mod:CreateDashboardHolder(holderName, option)
 	holder:SetScript('OnEvent', function(self, event)
 		local db = E.db.benikui.dashboards[option]
 
-		if db.instance and IsInInstance() then return end
-		if db.combat then
-			if event == 'PLAYER_REGEN_DISABLED' then
-				E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			elseif event == 'PLAYER_REGEN_ENABLED' then
-				E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-			end
+		if event == 'PLAYER_REGEN_DISABLED' then
+			if db.combat then E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0) end
+		elseif event == 'PLAYER_REGEN_ENABLED' then
+			if db.combat then E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end
+		else
+			self:SetShown(mod:ShouldShowDashboard(option))
 		end
 	end)
 
 	mod:EnableDisableCombat(holder, option)
 
 	E.FrameLocks[holder] = { parent = E.UIParent }
+
+	holder:RegisterEvent('PLAYER_ENTERING_WORLD')
+	holder:RegisterEvent('ZONE_CHANGED_NEW_AREA')
 
 	return holder
 end
@@ -289,9 +308,6 @@ function mod:Initialize()
 	mod:LoadTokens()
 	mod:LoadReputations()
 	mod:LoadItems()
-
-	mod:RegisterEvent('PLAYER_ENTERING_WORLD', mod.UpdateVisibility)
-	mod:RegisterEvent('ZONE_CHANGED_NEW_AREA', mod.UpdateVisibility)
 end
 
 BUI:RegisterModule(mod:GetName())

@@ -659,10 +659,10 @@ end
 
 function mod:Initialize()
 	local db = E.db.benikui.colors
-	mod.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", UIParent)
+	mod.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", _G.UIParent)
 	mod.FlightMode:SetFrameLevel(1)
 	mod.FlightMode:SetFrameStrata('BACKGROUND')
-	mod.FlightMode:SetAllPoints(UIParent)
+	mod.FlightMode:SetAllPoints(_G.UIParent)
 	mod.FlightMode:Hide()
 
 	-- Top frame
@@ -815,11 +815,13 @@ function mod:Initialize()
 	mod.FlightMode.bottom.wowlogo:SetFrameStrata("MEDIUM")
 	mod.FlightMode.bottom.wowlogo:Size(300, 150)
 	mod.FlightMode.bottom.wowlogo.tex = mod.FlightMode.bottom.wowlogo:CreateTexture(nil, 'OVERLAY')
+
 	local currentExpansionLevel = GetClampedCurrentExpansionLevel();
 	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel);
 	if expansionDisplayInfo then
 		mod.FlightMode.bottom.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
 	end
+
 	mod.FlightMode.bottom.wowlogo.tex:SetInside()
 	mod.FlightMode.bottom.wowlogo:Hide()
 

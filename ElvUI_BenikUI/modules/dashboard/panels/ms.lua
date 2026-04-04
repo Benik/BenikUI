@@ -8,7 +8,6 @@ local join = string.join
 local GameTooltip = _G.GameTooltip
 local GetNetStats = GetNetStats
 local InCombatLockdown = InCombatLockdown
-local IsInInstance = IsInInstance
 local HOME = HOME
 local WORLD = WORLD
 
@@ -58,7 +57,12 @@ end
 
 local function OnUpdate(self)
 	local db = self.db
-	if db.instance and IsInInstance() then return end
+
+	if not mod:ShouldShowDashboard('system') then
+		self.Text:SetText('')
+		self.Status:SetValue(0)
+		return
+	end
 
 	self.Status:SetMinMaxValues(0, 200)
 	local value = 0

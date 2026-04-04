@@ -1,14 +1,7 @@
--- BenikUI
--- Edit ElvUI dropdown.lua to make a steady dropup menu. The menu position is not related anymore on where the mouse is clicked.
--- args: menuList, menuFrame, parentButtonName, position, xOffset, yOffset, delay
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local tinsert = table.insert
 
-local PADDING = 10
-local BUTTON_HEIGHT = 16
-local BUTTON_WIDTH = 135
-local counter = 0
-local hoverVisible = false
+local _G = _G
+local tinsert = table.insert
 
 local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
 local UIFrameFadeOut, UIFrameFadeIn = UIFrameFadeOut, UIFrameFadeIn
@@ -18,6 +11,12 @@ local ShowUIPanel = ShowUIPanel
 local HideUIPanel = HideUIPanel
 local ToggleFrame = ToggleFrame
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+
+local PADDING = 10
+local BUTTON_HEIGHT = 16
+local BUTTON_WIDTH = 135
+local counter = 0
+local hoverVisible = false
 
 local MainMenuMicroButton = MainMenuMicroButton
 

@@ -1,8 +1,11 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
-
-local CreateFrame = CreateFrame
 local S = E:GetModule('Skins')
+
+local _G = _G
+
+local next = next
+local CreateFrame = CreateFrame
 
 local function StyleDBM_Options()
 	if not E.db.benikui.skins.addonSkins.dbm or not BUI.AS then
@@ -56,36 +59,36 @@ end
 local function TomTom()
 	if BUI:IsAddOnEnabled('TomTom') and E.db.benikui.skins.variousSkins.tomtom then
 
-		if MyFrameDropDownBackdrop then
-			MyFrameDropDownBackdrop:StripTextures()
-			MyFrameDropDownBackdrop:SetTemplate("Transparent")
+		if _G.MyFrameDropDownBackdrop then
+			_G.MyFrameDropDownBackdrop:StripTextures()
+			_G.MyFrameDropDownBackdrop:SetTemplate("Transparent")
 
 			if E.db.benikui.general.benikuiStyle then
-				MyFrameDropDownBackdrop:BuiStyle()
+				_G.MyFrameDropDownBackdrop:BuiStyle()
 			end
 		end
 
-		if TomTomWorldMapDropdownBackdrop then
-			TomTomWorldMapDropdownBackdrop:StripTextures()
-			TomTomWorldMapDropdownBackdrop:SetTemplate("Transparent")
+		if _G.TomTomWorldMapDropdownBackdrop then
+			_G.TomTomWorldMapDropdownBackdrop:StripTextures()
+			_G.TomTomWorldMapDropdownBackdrop:SetTemplate("Transparent")
 
 			if E.db.benikui.general.benikuiStyle then
-				TomTomWorldMapDropdownBackdrop:BuiStyle()
+				_G.TomTomWorldMapDropdownBackdrop:BuiStyle()
 			end
 		end
 
-		if TomTomDropdown then --minimap dropdown
-			TomTomDropdownBackdrop:StripTextures()
-			TomTomDropdownBackdrop:SetTemplate("Transparent")
+		if _G.TomTomDropdown then --minimap dropdown
+			_G.TomTomDropdownBackdrop:StripTextures()
+			_G.TomTomDropdownBackdrop:SetTemplate("Transparent")
 
 			if E.db.benikui.general.benikuiStyle then
-				TomTomDropdownBackdrop:BuiStyle()
+				_G.TomTomDropdownBackdrop:BuiStyle()
 			end
 		end
 
-		if TomTomTooltip then
+		if _G.TomTomTooltip then
 			if E.db.benikui.general.benikuiStyle then
-				TomTomTooltip:BuiStyle()
+				_G.TomTomTooltip:BuiStyle()
 			end
 		end
 	end
@@ -111,20 +114,20 @@ end
 local function SkinAllTheThings()
 	local att = _G.AllTheThings
 
-	local miniList = att:GetWindow("MiniList")
-	if miniList and not miniList.IsSkinned then
-		S:HandleFrame(miniList)
-		S:HandleScrollBar(miniList.ScrollBar)
-		miniList:BuiStyle()
-		miniList.IsSkinned = true
-	end
+	local attFrames = {
+		"MiniList",
+		"Prime",
+		"Tradeskills",
+	}
 
-	local prime = att:GetWindow("Prime")
-	if prime and not prime.IsSkinned then
-		S:HandleFrame(prime)
-		S:HandleScrollBar(prime.ScrollBar)
-		prime:BuiStyle()
-		prime.IsSkinned = true
+	for _, frame in next, (attFrames) do
+		local skinFrame = att:GetWindow(frame)
+		if skinFrame and not skinFrame.IsSkinned then
+			S:HandleFrame(skinFrame)
+			S:HandleScrollBar(skinFrame.ScrollBar)
+			skinFrame:BuiStyle()
+			skinFrame.IsSkinned = true
+		end
 	end
 end
 

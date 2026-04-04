@@ -3,6 +3,8 @@ local mod = BUI:GetModule('Databars')
 local S = E:GetModule('Skins')
 local LSM = E.LSM
 
+local CreateFrame = CreateFrame
+
 local SPACING = (E.PixelMode and 1 or 3)
 
 function mod:CreateNotifier(bar)
@@ -63,7 +65,7 @@ function mod:UpdateNotifierPositions(bar, option)
 			bar.f.arrow:SetRotation(S.ArrowRotation.down)
 		end
 	end
-	
+
 	local toggleCondition = not (E.db.databars[option].orientation == 'VERTICAL' and (db.position == 'ABOVE' or db.position == 'BELOW')) or
 		(E.db.databars[option].orientation == 'HORIZONTAL' and (db.position == 'LEFT' or db.position == 'RIGHT'))
 	bar.f.arrow:SetShown(toggleCondition)
@@ -73,7 +75,7 @@ end
 
 function mod:ToggleBackdrop(bar, option)
 	local db = E.db.benikui.databars[option]
-	
+
 	if bar.fb then
 		if db.buttonStyle == 'DEFAULT' then
 			bar.fb:SetTemplate('Default', true)

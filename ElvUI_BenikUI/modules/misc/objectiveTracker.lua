@@ -32,13 +32,8 @@ end
 local function AddShadowsQuestIcon(button)
 	if not button then return end
 
-	if not button.hasShadow then
-		local icon = button.icon or button.Icon
-		if icon and not icon.backdrop then
-			icon:CreateBackdrop('Transparent')
-			icon.backdrop:CreateSoftShadow()
-		end
-
+	if button.backdrop and not button.hasShadow then
+		button.backdrop:CreateSoftShadow()
 		button.hasShadow = true
 	end
 end
@@ -61,20 +56,19 @@ end
 local function ProgressBarsShadows(tracker, key)
 	local progressBar = tracker.usedProgressBars[key]
 	local bar = progressBar and progressBar.Bar
-	if not bar then return end
-	local icon = bar.Icon
 
-	if not progressBar.hasShadow then
+	if bar and not bar.hasShadow then
 		bar.backdrop:CreateSoftShadow()
 
-		if icon and icon:GetTexture() then
-			icon:ClearAllPoints()
-			icon:Point('LEFT', bar, 'RIGHT', E.PixelMode and 6 or 10, 0)
+		local icon = bar.Icon
+		if icon and icon:IsShown() then
+			icon:Point('LEFT', bar, 'RIGHT', E.PixelMode and 5 or 9, 0)
 			icon:Size(18, 18) -- I like this better
-			icon:CreateBackdrop('Transparent')
+			icon:CreateBackdrop()
 			icon.backdrop:CreateSoftShadow()
 		end
-		progressBar.hasShadow = true
+
+		bar.hasShadow = true
 	end
 end
 

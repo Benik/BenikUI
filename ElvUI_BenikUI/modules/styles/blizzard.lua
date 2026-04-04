@@ -135,8 +135,11 @@ local function LoadSkin()
 			end
 		end
 
+		if not E.OtherAddons.ConsolePort then
+			_G.GameMenuFrame:BuiStyle()
+		end
+
 		_G.BNToastFrame:BuiStyle()
-		_G.GameMenuFrame:BuiStyle()
 		_G.GhostFrame:BuiStyle()
 		_G.LFDRoleCheckPopup:BuiStyle()
 		_G.ReportFrame:BuiStyle()
@@ -158,6 +161,18 @@ local function LoadSkin()
 
 			local menuBackdrop = _G[listFrameName..'MenuBackdrop']
 			menuBackdrop:BuiStyle()
+		end)
+
+		hooksecurefunc('MovieFrame_PlayMovie', function(frame)
+			if frame and frame.closeDialog then
+				frame.closeDialog:BuiStyle()
+			end
+		end)
+
+		hooksecurefunc('CinematicFrame_UpdateLettboxForAspectRatio', function(frame)
+			if frame and frame.closeDialog then
+				frame.closeDialog:BuiStyle()
+			end
 		end)
 	end
 

@@ -14,12 +14,12 @@ local function widgetTable()
 		order = 85,
 		type = 'group',
 		name = BUI:cOption(L['Widget Bars'], "orange"),
+		childGroups = "tab",
 		args = {
 			mawBar = {
-				order = 1,
+				order = 2,
 				type = 'group',
-				name = L['BenikUI Maw Bar'],
-				guiInline = true,
+				name = L['Maw Bar'],
 				args = {
 					enable = {
 						order = 1,
@@ -28,13 +28,24 @@ local function widgetTable()
 						get = function(info) return E.db.benikui.widgetbars.mawBar[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.widgetbars.mawBar[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					spacer1 = {
+					previewBar = {
 						order = 2,
+						type = 'execute',
+						disabled = function() return not E.db.benikui.widgetbars.mawBar.enable end,
+						name = function()
+							return mod.mawPreviewActive and L['Hide Preview'] or L['Preview Bar']
+						end,
+						func = function()
+							mod:MawBar_Preview()
+						end,
+					},
+					spacer1 = {
+						order = 3,
 						type = 'description',
 						name = '',
 					},
 					textFormat = {
-						order = 3,
+						order = 4,
 						name = L["Text Format"],
 						disabled = function() return not E.db.benikui.widgetbars.mawBar.enable end,
 						type = 'select',
@@ -43,7 +54,7 @@ local function widgetTable()
 						set = function(info, value) E.db.benikui.widgetbars.mawBar[ info[#info] ] = value mod:MawBar_Update() end,
 					},
 					sizeGroup = {
-						order = 4,
+						order = 5,
 						type = 'group',
 						name = L["Size"],
 						guiInline = true,
@@ -66,7 +77,7 @@ local function widgetTable()
 						},
 					},
 					colorGroup = {
-						order = 5,
+						order = 6,
 						type = 'group',
 						name = L.COLOR,
 						guiInline = true,
@@ -116,7 +127,7 @@ local function widgetTable()
 						},
 					},
 					fontGroup = {
-						order = 6,
+						order = 7,
 						type = 'group',
 						name = L['Fonts'],
 						guiInline = true,
@@ -162,20 +173,125 @@ local function widgetTable()
 					},
 				},
 			},
-			halfBar = {
-				order = 2,
-				type = 'multiselect',
+			preyBar = {
+				order = 1,
+				type = 'group',
+				name = E.NewSign..L['Prey Bar'],
+				args = {
+					enable = {
+						order = 1,
+						type = 'toggle',
+						name = L["Enable"],
+						get = function(info) return E.db.benikui.widgetbars.preyBar[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.widgetbars.preyBar[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					previewBar = {
+						order = 2,
+						type = 'execute',
+						disabled = function() return not E.db.benikui.widgetbars.preyBar.enable end,
+						name = function()
+							return mod.preyPreviewActive and L['Hide Preview'] or L['Preview Bar']
+						end,
+						func = function()
+							mod:PreyBar_Preview()
+						end,
+					},
+					spacer1 = {
+						order = 3,
+						type = 'description',
+						name = '',
+					},
+					sizeGroup = {
+						order = 4,
+						type = 'group',
+						name = L["Size"],
+						guiInline = true,
+						disabled = function() return not E.db.benikui.widgetbars.preyBar.enable end,
+						get = function(info) return E.db.benikui.widgetbars.preyBar[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.widgetbars.preyBar[ info[#info] ] = value mod:PreyBar_Update() end,
+						args = {
+							width = {
+								order = 1,
+								type = 'range',
+								name = L['Width'],
+								min = 40, max = 400, step = 1,
+							},
+							height = {
+								order = 2,
+								type = 'range',
+								name = L['Height'],
+								min = 5, max = 30, step = 1,
+							},
+						},
+					},
+					fontGroup = {
+						order = 6,
+						type = 'group',
+						name = L['Fonts'],
+						guiInline = true,
+						disabled = function() return not E.db.benikui.widgetbars.preyBar.enable end,
+						get = function(info) return E.db.benikui.widgetbars.preyBar[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.widgetbars.preyBar[ info[#info] ] = value mod:PreyBar_Update() end,
+						args = {
+							useDTfont = {
+								order = 1,
+								name = L['Use DataTexts font'],
+								type = 'toggle',
+								width = 'full',
+							},
+							font = {
+								type = 'select', dialogControl = 'LSM30_Font',
+								order = 2,
+								name = L['Font'],
+								disabled = function() return E.db.benikui.widgetbars.preyBar.useDTfont end,
+								values = AceGUIWidgetLSMlists.font,
+							},
+							fontsize = {
+								order = 3,
+								name = L['Font Size'],
+								desc = L['Set the font size.'],
+								disabled = function() return E.db.benikui.widgetbars.preyBar.useDTfont end,
+								type = 'range',
+								min = 6, max = 22, step = 1,
+							},
+							fontflags = {
+								order = 4,
+								name = L['Font Outline'],
+								disabled = function() return E.db.benikui.widgetbars.preyBar.useDTfont end,
+								type = 'select',
+								values = E.Config[1].Values.FontFlags,
+							},
+							textYoffset = {
+								order = 5,
+								type = "range",
+								min = -30, max = 30, step = 1,
+								name = L['Text yOffset'],
+							},
+						},
+					},
+				},
+			},
+			halfBarGroup = {
+				order = 3,
+				type = 'group',
 				name = L['Half Bar'],
-				get = function(_, key) return E.db.benikui.widgetbars.halfBar[key] end,
-				set = function(_, key, value) E.db.benikui.widgetbars.halfBar[key] = value;
-					if key == 'altbar' then
-						mod:AltPowerBar()
-					end
-				end,
-				values = {
-					altbar = L["Alternative Power"],
-					mirrorbar = L["Mirror Timers"],
-				}
+				args = {
+					halfBar = {
+						order = 3,
+						type = 'multiselect',
+						name = '',
+						get = function(_, key) return E.db.benikui.widgetbars.halfBar[key] end,
+						set = function(_, key, value) E.db.benikui.widgetbars.halfBar[key] = value;
+							if key == 'altbar' then
+								mod:AltPowerBar()
+							end
+						end,
+						values = {
+							altbar = L["Alternative Power"],
+							mirrorbar = L["Mirror Timers"],
+						},
+					},
+				},
 			},
 		},
 	}

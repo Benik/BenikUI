@@ -14,7 +14,6 @@ local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local GetAddOnMemoryUsage = GetAddOnMemoryUsage
 local InCombatLockdown = InCombatLockdown
-local IsInInstance = IsInInstance
 local GameTooltip = _G.GameTooltip
 
 local kiloByteString = '|cfff6a01a %d|r'..' kb'
@@ -123,7 +122,12 @@ end
 
 local function OnUpdate(self)
 	local db = self.db
-	if db.instance and IsInInstance() then return end
+
+	if not mod:ShouldShowDashboard('system') then
+		self.Text:SetText('')
+		self.Status:SetValue(0)
+		return
+	end
 
 	self.Status:SetMinMaxValues(0, 200)
 	local value = floor(GetFramerate())

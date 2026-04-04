@@ -1,6 +1,7 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
 
+local _G = _G
 local hooksecurefunc = hooksecurefunc
 
 local function StyleAlert(frame)
@@ -46,10 +47,12 @@ function mod:styleAlertFrames()
 	hooksecurefunc(_G.EntitlementDeliveredAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.RafRewardDeliveredAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.HousingItemEarnedAlertFrameSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(_G.InitiativeTaskCompleteAlertFrameSystem, 'setUpFunction', StyleAlert)
 
 	-- Professions
 	hooksecurefunc(_G.DigsiteCompleteAlertSystem, "setUpFunction", StyleAlert)
 	hooksecurefunc(_G.NewRecipeLearnedAlertSystem, "setUpFunction", StyleAlert)
+	hooksecurefunc(_G.SkillLineSpecsUnlockedAlertSystem, 'setUpFunction', StyleAlert)
 
 	-- Pets/Mounts/Toys
 	hooksecurefunc(_G.NewPetAlertSystem, "setUpFunction", StyleAlert)

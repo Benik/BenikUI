@@ -67,6 +67,9 @@ L['iLevel'] = true --No need to translate
 L['Show item level per slot, on the character info frame'] = "Zeigt das Gegenstandslevel pro Slot, im Spielerfenster"
 L['Inside the item slot'] = "Innerhalb des Ausrüstungsplatz"
 L['Outside the item slot'] = "Ausserhalb des Ausrüstungsplatz"
+L['Chat EditBox'] = true
+L['Position'] = true
+L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'] = true
 
 -- Flight mode
 L['Flight Mode'] = "Flugmodus"
@@ -188,6 +191,7 @@ L['Update Throttle'] = "Aktualisierung drosseln"
 L['Use DataTexts font'] = "Benutze Infotext Schriftart"
 L['Use Faction Colors on Bars'] = "Benutze Fraktionsfarben auf Leisten"
 L['Use Faction Colors on Text'] = "Benutze Fraktionsfarben auf Texten"
+L['Hide in Housing'] = true
 
 -- Items
 L['Items'] = "Gegenstände"
@@ -250,11 +254,14 @@ L['Enable Class color on health border, when mouse over'] = "Aktiviert den Klass
 
 -- Widget Bars
 L['Widget Bars'] = "Widget Leisten"
-L['BenikUI Maw Bar'] = "BenikUI Schlundleiste"
+L['Maw Bar'] = "Schlundleiste"
+L['Prey Bar'] = true
 L['Color by Tier'] = "Farbe nach Stufe"
 L['Text yOffset'] = "Text Y-Versatz"
 L['Half Bar'] = "Halbe Leisten"
 L["Percent"] = "Prozent"
+L['Preview Bar'] = true
+L['Hide Preview'] = true
 
 -- Information
 L['Information'] = "Informationen"

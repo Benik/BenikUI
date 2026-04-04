@@ -16,8 +16,7 @@ V['benikui'] = {
 		},
 
 		['professions'] = {
-			['choosePofessions'] = {
-				[5] = true,
+			['chooseProfessions'] = {
 				[6] = true,
 				[7] = true,
 				[8] = true,
