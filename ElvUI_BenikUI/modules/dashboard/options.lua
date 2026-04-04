@@ -461,7 +461,7 @@ local function UpdateItemsOptions()
 						type = 'input',
 						width = 'half',
 						name = L['Custom Stack'],
-						hidden = function() if db[itemID] and db[itemID].customStack then return not db[itemID].useCustomStack end end,
+						hidden = function() return not (db[itemID] and db[itemID].useCustomStack) end,
 						get = function() if db[itemID] and db[itemID].customStack then return db[itemID].customStack end end,
 						set = function(_, value)
 							db[itemID].customStack = tonumber(value)
@@ -473,7 +473,7 @@ local function UpdateItemsOptions()
 						type = 'execute',
 						name = '|TInterface\\AddOns\\ElvUI\\Game\\Shared\\Media\\Textures\\Close.tga:12:12|t',
 						width = 0.25,
-						hidden = function() if db[itemID] and db[itemID].customStack then return not db[itemID].useCustomStack end end,
+						hidden = function() return not (db[itemID] and db[itemID].useCustomStack) end,
 						disabled = function() return not db[itemID].customStack end,
 						func = function()
 							db[itemID].customStack = nil
@@ -991,6 +991,11 @@ local function dashboardsTable()
 								name = L['Show Max Amount'],
 								get = function(info) return db.items[ info[#info] ] end,
 								set = function(info, value) db.items[ info[#info] ] = value mod:UpdateItems() end,
+							},
+							spacer = {
+								order = 4,
+								type = 'header',
+								name = '',
 							},
 							newItem = {
 								order = 10,
