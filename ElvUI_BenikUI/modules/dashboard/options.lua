@@ -1026,7 +1026,7 @@ local function dashboardsTable()
 												E:StaticPopup_Show("BUI_Panel_Name")
 												ItemSetup.id = nil
 											elseif not checkDuplicate then
-												for object in ipairs(mod.ItemsList) do
+												for object in next, mod.ItemsList do
 													if object == tonumber(ItemSetup.id) then
 														E.PopupDialogs["BUI_Panel_Name"].text = (format(L["The Item |cff00c0fa%s|r already exists."], name))
 														E:StaticPopup_Show("BUI_Panel_Name")
