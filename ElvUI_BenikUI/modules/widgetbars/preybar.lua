@@ -1,8 +1,9 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Widgetbars')
 local LSM = E.LSM
-local _G = _G
 
+local _G = _G
+local hooksecurefunc = hooksecurefunc
 local ipairs = ipairs
 
 local CreateFrame = CreateFrame
@@ -56,8 +57,6 @@ local function ScanForPreyWidget()
 	end
 end
 
--- this will grab the Prey widget (.progressState) to hide/show.
--- should add a similar thingy in the Maw bar
 local function FindBlizzardPreyFrame()
 	local container = _G.UIWidgetPowerBarContainerFrame
 	if not container then return end
@@ -121,6 +120,9 @@ function mod:PreyBar_Update()
 
 		bar:SetValue(PreyStateStep[displayState] or 0)
 
+		local blizzPreyFrame = FindBlizzardPreyFrame()
+		if blizzPreyFrame and blizzPreyFrame:IsShown() then blizzPreyFrame:Hide() end
+
 		if not bar:IsShown() then bar:Show() end
 	else
 		bar:Hide()
@@ -132,13 +134,6 @@ function mod:PreyBar_OnEvent()
 		ScanForPreyWidget()
 	end
 
-	local blizzPreyFrame = FindBlizzardPreyFrame()
-	if blizzPreyFrame and blizzPreyFrame:IsShown() then
-		blizzPreyFrame:Hide()
-		if blizzPreyFrame.GainProgressAnim then blizzPreyFrame.GainProgressAnim:Stop() end
-		if blizzPreyFrame.ShineFrame and blizzPreyFrame.ShineFrame.Anim then blizzPreyFrame.ShineFrame.Anim:Stop() end
-		if blizzPreyFrame.TransitionAnim then blizzPreyFrame.TransitionAnim:Stop() end
-	end
 	mod:PreyBar_Update()
 end
 
@@ -183,6 +178,32 @@ function mod:LoadPrey()
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD", mod.PreyBar_OnEvent)
 	mod:RegisterEvent("UPDATE_UI_WIDGET", mod.PreyBar_OnEvent)
 	mod:RegisterEvent("UPDATE_ALL_UI_WIDGETS", mod.PreyBar_OnEvent)
+
+	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "PlayGainProgressAnim", function(self)
+		if _G.BUIPreyBar and _G.BUIPreyBar:IsShown() then
+			self:Hide()
+			self.GainProgressAnim:Stop()
+			self.ShineFrame:Hide()
+			self.ShineFrame.Anim:Stop()
+		end
+	end)
+
+	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "PlayTransitionAnim", function(self)
+		if _G.BUIPreyBar and _G.BUIPreyBar:IsShown() then
+			self:Hide()
+			self.GainProgressAnim:Stop()
+			self.ShineFrame:Hide()
+			self.ShineFrame.Anim:Stop()
+			self.TransitionAnim:Stop()
+		end
+	end)
+
+	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "OnReset", function(self)
+		self.GainProgressAnim:Stop()
+		self.ShineFrame:Hide()
+		self.ShineFrame.Anim:Stop()
+		self.TransitionAnim:Stop()
+	end)
 
 	ScanForPreyWidget()
 	mod:PreyBar_Update()
