@@ -179,30 +179,24 @@ function mod:LoadPrey()
 	mod:RegisterEvent("UPDATE_UI_WIDGET", mod.PreyBar_OnEvent)
 	mod:RegisterEvent("UPDATE_ALL_UI_WIDGETS", mod.PreyBar_OnEvent)
 
-	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "PlayGainProgressAnim", function(self)
-		if _G.BUIPreyBar and _G.BUIPreyBar:IsShown() then
-			self:Hide()
-			self.GainProgressAnim:Stop()
+	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "Setup", function(self)
+		if not (_G.BUIPreyBar and _G.BUIPreyBar:IsShown()) then return end
+		self:Hide()
+		if self.GainProgressAnim then self.GainProgressAnim:Stop() end
+		if self.TransitionAnim then self.TransitionAnim:Stop() end
+		if self.ShineFrame then
 			self.ShineFrame:Hide()
-			self.ShineFrame.Anim:Stop()
-		end
-	end)
-
-	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "PlayTransitionAnim", function(self)
-		if _G.BUIPreyBar and _G.BUIPreyBar:IsShown() then
-			self:Hide()
-			self.GainProgressAnim:Stop()
-			self.ShineFrame:Hide()
-			self.ShineFrame.Anim:Stop()
-			self.TransitionAnim:Stop()
+			if self.ShineFrame.Anim then self.ShineFrame.Anim:Stop() end
 		end
 	end)
 
 	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "OnReset", function(self)
-		self.GainProgressAnim:Stop()
-		self.ShineFrame:Hide()
-		self.ShineFrame.Anim:Stop()
-		self.TransitionAnim:Stop()
+		if self.GainProgressAnim then self.GainProgressAnim:Stop() end
+		if self.TransitionAnim then self.TransitionAnim:Stop() end
+		if self.ShineFrame then
+			self.ShineFrame:Hide()
+			if self.ShineFrame.Anim then self.ShineFrame.Anim:Stop() end
+		end
 	end)
 
 	ScanForPreyWidget()
