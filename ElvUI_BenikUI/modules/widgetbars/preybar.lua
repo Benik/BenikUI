@@ -104,6 +104,7 @@ function mod:PreyBar_Update()
 	if not db then return end
 
 	local state = GetPreyBarState()
+	local blizzPreyFrame = FindBlizzardPreyFrame()
 	local displayState = state or (mod.preyPreviewActive and Enum.PreyHuntProgressState.Warm)
 
 	if displayState then
@@ -120,11 +121,18 @@ function mod:PreyBar_Update()
 
 		bar:SetValue(PreyStateStep[displayState] or 0)
 
-		local blizzPreyFrame = FindBlizzardPreyFrame()
-		if blizzPreyFrame and blizzPreyFrame:IsShown() then blizzPreyFrame:Hide() end
+		if blizzPreyFrame and blizzPreyFrame:IsShown() then
+			blizzPreyFrame:Hide()
+			blizzPreyFrame:ClearAllPoints()
+			blizzPreyFrame:Point("TOP", bar, "BOTTOM")
+		end
 
 		if not bar:IsShown() then bar:Show() end
 	else
+		if blizzPreyFrame then
+			blizzPreyFrame:ClearAllPoints()
+			blizzPreyFrame:Point("TOPLEFT", _G.UIWidgetPowerBarContainerFrame, "TOPLEFT")
+		end
 		bar:Hide()
 	end
 end
@@ -178,26 +186,6 @@ function mod:LoadPrey()
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD", mod.PreyBar_OnEvent)
 	mod:RegisterEvent("UPDATE_UI_WIDGET", mod.PreyBar_OnEvent)
 	mod:RegisterEvent("UPDATE_ALL_UI_WIDGETS", mod.PreyBar_OnEvent)
-
-	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "Setup", function(self)
-		if not (_G.BUIPreyBar and _G.BUIPreyBar:IsShown()) then return end
-		self:Hide()
-		if self.GainProgressAnim then self.GainProgressAnim:Stop() end
-		if self.TransitionAnim then self.TransitionAnim:Stop() end
-		if self.ShineFrame then
-			self.ShineFrame:Hide()
-			if self.ShineFrame.Anim then self.ShineFrame.Anim:Stop() end
-		end
-	end)
-
-	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "OnReset", function(self)
-		if self.GainProgressAnim then self.GainProgressAnim:Stop() end
-		if self.TransitionAnim then self.TransitionAnim:Stop() end
-		if self.ShineFrame then
-			self.ShineFrame:Hide()
-			if self.ShineFrame.Anim then self.ShineFrame.Anim:Stop() end
-		end
-	end)
 
 	ScanForPreyWidget()
 	mod:PreyBar_Update()
