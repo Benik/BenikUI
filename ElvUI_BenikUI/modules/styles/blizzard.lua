@@ -110,6 +110,12 @@ local function LoadSkin()
 		end
 	end
 
+	if db.losscontrol then
+		if E.db.benikui.general.shadows then
+			_G.LossOfControlFrame:CreateSoftShadow()
+		end
+	end
+
 	if db.mail then
 		_G.MailFrame:BuiStyle()
 		_G.OpenMailFrame:BuiStyle()
