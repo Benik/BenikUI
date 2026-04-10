@@ -112,7 +112,11 @@ local function LoadSkin()
 
 	if db.losscontrol then
 		if E.db.benikui.general.shadows then
-			_G.LossOfControlFrame:CreateSoftShadow()
+			local lossControlIcon = _G.LossOfControlFrame.Icon
+			if lossControlIcon and not lossControlIcon.backdrop then
+				lossControlIcon:CreateBackdrop()
+				lossControlIcon.backdrop:CreateSoftShadow()
+			end
 		end
 	end
 
