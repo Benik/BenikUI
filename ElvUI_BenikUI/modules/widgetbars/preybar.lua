@@ -77,6 +77,31 @@ local function GetPreyBarState()
 	end
 end
 
+local function HideContainerScenes()
+	local container = _G.UIWidgetPowerBarContainerFrame
+	if not container then return end
+
+	local scenes = { container.FrontModelScene, container.BackModelScene }
+	for _, scene in ipairs(scenes) do
+		if scene then
+			scene:Hide()
+			scene:SetAlpha(0)
+		end
+	end
+end
+
+local function RestoreContainerScenes()
+	local container = _G.UIWidgetPowerBarContainerFrame
+	if not container then return end
+
+	local scenes = { container.FrontModelScene, container.BackModelScene }
+	for _, scene in ipairs(scenes) do
+		if scene then
+			scene:SetAlpha(1)
+		end
+	end
+end
+
 mod.preyPreviewActive = false
 
 function mod:PreyBar_Preview()
@@ -107,6 +132,8 @@ function mod:PreyBar_Update()
 	local displayState = state or (mod.preyPreviewActive and Enum.PreyHuntProgressState.Warm)
 
 	if displayState then
+		if not bar:IsShown() then bar:Show() end
+
 		bar:SetSize(db.width, db.height)
 
 		local color = PreyStateColor[displayState] or {0.5, 0.5, 0.5}
@@ -126,9 +153,12 @@ function mod:PreyBar_Update()
 			blizzPreyFrame:SetAlpha(0)
 		end
 
-		if not bar:IsShown() then bar:Show() end
+		if displayState == Enum.PreyHuntProgressState.Final then
+			HideContainerScenes()
+		end
 	else
 		bar:Hide()
+		RestoreContainerScenes()
 	end
 end
 
@@ -181,36 +211,6 @@ function mod:LoadPrey()
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD", mod.PreyBar_OnEvent)
 	mod:RegisterEvent("UPDATE_UI_WIDGET", mod.PreyBar_OnEvent)
 	mod:RegisterEvent("UPDATE_ALL_UI_WIDGETS", mod.PreyBar_OnEvent)
-
-	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "Setup", function(self)
-		if _G.BUIPreyBar and _G.BUIPreyBar:IsShown() then
-			if self.GainProgressAnim then self.GainProgressAnim:Stop() end
-			if self.TransitionAnim then self.TransitionAnim:Stop() end
-			if self.PulseAnim then self.PulseAnim:Stop() end
-			if self.FinalStatePulseAnim then self.FinalStatePulseAnim:Stop() end
-
-			if self.ShineFrame then
-				self.ShineFrame:Hide()
-				if self.ShineFrame.Anim then self.ShineFrame.Anim:Stop() end
-			end
-
-			self:SetAlpha(0)
-			self:Hide()
-		end
-	end)
-
-	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "PlayGainProgressAnim", function(self)
-		if _G.BUIPreyBar and _G.BUIPreyBar:IsShown() then
-			if self.GainProgressAnim then self.GainProgressAnim:Stop() end
-		end
-	end)
-
-	hooksecurefunc(UIWidgetTemplatePreyHuntProgressMixin, "PlayTransitionAnim", function(self)
-		if _G.BUIPreyBar and _G.BUIPreyBar:IsShown() then
-			if self.TransitionAnim then self.TransitionAnim:Stop() end
-			if self.FinalStatePulseAnim then self.FinalStatePulseAnim:Stop() end
-		end
-	end)
 
 	ScanForPreyWidget()
 	mod:PreyBar_Update()
