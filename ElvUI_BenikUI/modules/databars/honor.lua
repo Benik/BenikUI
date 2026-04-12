@@ -4,8 +4,7 @@ local DT = E:GetModule('DataTexts');
 local DB = E:GetModule('DataBars');
 
 local _G = _G
-
--- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_HonorBar
+local hooksecurefunc = hooksecurefunc
 
 local function OnClick(self)
 	if self.template == 'NoBackdrop' then return end

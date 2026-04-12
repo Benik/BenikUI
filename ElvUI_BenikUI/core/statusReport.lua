@@ -1,11 +1,13 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
+local hooksecurefunc = hooksecurefunc
+
 local function CreateStatusFrame()
 	local StatusFrame = ElvUIStatusReport
 
 	-- style
-	StatusFrame.backdrop:BuiStyle('Outside')
-	StatusFrame.PluginFrame.backdrop:BuiStyle('Outside')
+	StatusFrame.backdrop:BuiStyle()
+	StatusFrame.PluginFrame.backdrop:BuiStyle()
 	-- hide the logo. Sorry Elv :P
 	StatusFrame.TitleLogoFrame.LogoTop:SetTexture(nil)
 	StatusFrame.TitleLogoFrame.LogoBottom:SetTexture(nil)

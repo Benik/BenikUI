@@ -1,6 +1,6 @@
 ﻿local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
-local format, lower, tonumber = string.format, string.lower, tonumber
+local format, tonumber, date, lower = string.format, tonumber, date, strlower
 
 local GetGameTime = GetGameTime
 local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
@@ -39,15 +39,15 @@ function BUI:createDate()
 	local presentMonth = date.month
 	local presentDay = date.monthDay
 	local presentYear = date.year
-    local days = daysAbr[presentWeekday]
-    local months = monthAbr[presentMonth]
+	local days = daysAbr[presentWeekday]
+	local months = monthAbr[presentMonth]
 
-    return days, months, presentDay, presentYear
+	return days, months, presentDay, presentYear
 end
 
 -- Create Time
 function BUI:createTime()
-    local db = E.global.datatexts.settings.Time
+	local db = E.global.datatexts.settings.Time
 	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
 	local sHour, sMinute = GetGameTime()
 
@@ -57,8 +57,8 @@ function BUI:createTime()
 	local realmTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute)
 
 	if db.localTime then
-        return db.time24 and localTime24 or localTime
+		return db.time24 and localTime24 or localTime
 	else
-        return db.time24 and realmTime24 or realmTime
+		return db.time24 and realmTime24 or realmTime
 	end
 end

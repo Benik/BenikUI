@@ -5,7 +5,6 @@ local _G = _G
 local next = next
 local format, sort, select = format, sort, select
 local wipe, ipairs = wipe, ipairs
-local GetMouseFocus = GetMouseFocus
 local HideUIPanel = HideUIPanel
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
@@ -26,7 +25,6 @@ local C_Garrison_GetTalentTreeInfo = C_Garrison.GetTalentTreeInfo
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
-local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
 local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 local C_CovenantCallings_AreCallingsUnlocked = C_CovenantCallings.AreCallingsUnlocked
 local CovenantCalling_Create = CovenantCalling_Create
@@ -39,6 +37,8 @@ local CAPACITANCE_WORK_ORDERS = CAPACITANCE_WORK_ORDERS
 local FOLLOWERLIST_LABEL_TROOPS = FOLLOWERLIST_LABEL_TROOPS
 local GARRISON_EMPTY_IN_PROGRESS_LIST = GARRISON_EMPTY_IN_PROGRESS_LIST
 local GARRISON_LANDING_SHIPMENT_COUNT = GARRISON_LANDING_SHIPMENT_COUNT
+local GARRISON_TYPE_8_0_LANDING_PAGE_TITLE = GARRISON_TYPE_8_0_LANDING_PAGE_TITLE
+local GARRISON_MISSIONS = GARRISON_MISSIONS
 local GOAL_COMPLETED = GOAL_COMPLETED
 local GARRISON_MISSION_IN_PROGRESS_TOOLTIP = GARRISON_MISSION_IN_PROGRESS_TOOLTIP
 local GREEN_FONT_COLOR = GREEN_FONT_COLOR
@@ -60,7 +60,6 @@ local GARRISONFOLLOWER_8_0 = GARRISONFOLLOWER.FollowerType_8_0_GarrisonFollower
 local GARRISONFOLLOWER_9_0 = GARRISONFOLLOWER.FollowerType_9_0_GarrisonFollower
 local RESEARCH_TIME_LABEL = RESEARCH_TIME_LABEL
 
-local BODYGUARD_LEVEL_XP_FORMAT = L["Rank"] .. " %d (%d/%d)"
 local EXPANSION_NAME5 = EXPANSION_NAME5 -- "Warlords of Draenor"
 local EXPANSION_NAME6 = EXPANSION_NAME6 -- "Legion"
 local EXPANSION_NAME7 = EXPANSION_NAME7 -- "Battle for Azeroth"
@@ -357,6 +356,7 @@ local expansions = {
 	GARRISONFOLLOWER_8_0,
 	GARRISONFOLLOWER_9_0
 }
+
 local CountInProgress = 0
 local CountCompleted = 0
 

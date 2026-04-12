@@ -68,6 +68,9 @@ L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = true
 L['Inside the item slot'] = true
 L['Outside the item slot'] = true
+L['Chat EditBox'] = true
+L['Position'] = true
+L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'] = true
 
 -- Flight mode
 L['Flight Mode'] = true
@@ -131,11 +134,7 @@ L['You are now finished with the installation process. If you are in need of tec
 -- actionbar options
 L['Bar 1'] = true
 L['Bar 2'] = true
-L['Choose Actionbar to show to'] = true
 L['Request Stop button'] = true
-L['Show in:'] = true
-L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = true
-L['Switch Buttons (requires BenikUI Style)'] = true
 
 -- Request stop button
 L['LeftClick to Request Stop'] = true
@@ -192,6 +191,7 @@ L['Update Throttle'] = true
 L['Use DataTexts font'] = true
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true
+L['Hide in Housing'] = true
 
 -- Items
 L['Items'] = true
@@ -254,11 +254,14 @@ L['Enable Class color on health border, when mouse over'] = true
 
 -- Widget Bars
 L['Widget Bars'] = true
-L['BenikUI Maw Bar'] = true
+L['Maw Bar'] = true
+L['Prey Bar'] = true
 L['Color by Tier'] = true
 L['Text yOffset'] = true
 L['Half Bar'] = true
 L["Percent"] = true
+L['Preview Bar'] = true
+L['Hide Preview'] = true
 
 -- Information
 L['Information'] = true

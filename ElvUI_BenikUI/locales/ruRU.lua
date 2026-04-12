@@ -67,6 +67,9 @@ L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = "Показать уровень предметов для каждого слота в окне информации о персонаже"
 L['Inside the item slot'] = "Внутри слота предмета"
 L['Outside the item slot'] = "Снаружи слота предмета"
+L['Chat EditBox'] = true
+L['Position'] = true
+L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'] = true
 
 -- Режим полета
 L['Flight Mode'] = "Режим полета"
@@ -130,11 +133,7 @@ L['You are now finished with the installation process. If you are in need of tec
 -- Опции панелей действий
 L['Bar 1'] = "Панель 1"
 L['Bar 2'] = "Панель 2"
-L['Choose Actionbar to show to'] = "Выберите панель действий для отображения"
 L['Request Stop button'] = "Кнопка запроса остановки"
-L['Show in:'] = "Показать в:"
-L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Показать маленькие кнопки над декором панели действий 1 или 2, чтобы показать/скрыть панели действий 3 или 5."
-L['Switch Buttons (requires BenikUI Style)'] = "Переключить кнопки (требуется стиль BenikUI)"
 
 -- Кнопка запроса остановки
 L['LeftClick to Request Stop'] = "ЛКМ для запроса остановки"
@@ -192,6 +191,7 @@ L['Update Throttle'] = "Ограничение обновлений"
 L['Use DataTexts font'] = "Использовать шрифт DataTexts"
 L['Use Faction Colors on Bars'] = "Использовать цвета фракций на полосах"
 L['Use Faction Colors on Text'] = "Использовать цвета фракций в тексте"
+L['Hide in Housing'] = true
 
 -- Items
 L['Items'] = "Предметы"
@@ -254,11 +254,14 @@ L['Enable Class color on health border, when mouse over'] = "Включить ц
 
 -- Widget Bars
 L['Widget Bars'] = "Виджеты"
-L['BenikUI Maw Bar'] = "BenikUI Maw Bar"
+L['Maw Bar'] = "Maw Bar"
+L['Prey Bar'] = true
 L['Color by Tier'] = "Цвет по уровню"
 L['Text yOffset'] = "Смещение текста по Y"
 L['Half Bar'] = "Половина полосы"
 L["Percent"] = "Процент"
+L['Preview Bar'] = true
+L['Hide Preview'] = true
 
 -- Information
 L['Information'] = "Информация"

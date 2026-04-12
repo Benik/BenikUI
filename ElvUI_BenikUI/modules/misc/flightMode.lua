@@ -6,13 +6,20 @@ local M = E:GetModule('WorldMap')
 
 local _G = _G
 local GetTime = GetTime
-local unpack, floor, pairs, tinsert, twipe = unpack, floor, pairs, table.insert, table.wipe
+local unpack, floor, pairs, ipairs, tinsert, twipe = unpack, floor, pairs, ipairs, table.insert, table.wipe
 local join = string.join
+local hooksecurefunc = hooksecurefunc
 
-local GameTooltip = _G["GameTooltip"]
+local GameTooltip = _G.GameTooltip
 local C_TimerAfter = C_Timer.After
 local CreateFrame = CreateFrame
 local UnitOnTaxi = UnitOnTaxi
+local GetFramerate = GetFramerate
+local GetBattlefieldStatus = GetBattlefieldStatus
+local IsInInstance = IsInInstance
+local ToggleWorldMap = ToggleWorldMap
+local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
+local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local LoadAddOn = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
 local GetRealZoneText, GetMinimapZoneText = GetRealZoneText, GetMinimapZoneText
@@ -27,8 +34,7 @@ local TAXI_CANCEL_DESCRIPTION, UNKNOWN = TAXI_CANCEL_DESCRIPTION, UNKNOWN
 local MinimapCluster = _G.MinimapCluster
 local ObjectiveTrackerFrame = _G.ObjectiveTrackerFrame
 
--- GLOBALS: UIParent, FlightModeLocation, selectioncolor, LeftChatPanel, ElvUI_ContainerFrame
--- GLOBALS: FlightModeMenuBtn, LeftChatMover, BuiDummyChat, AddOnSkins, ZoneTextFrame
+local GetCVar = C_CVar.GetCVar
 
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
@@ -143,18 +149,19 @@ function mod:SetFrameParent()
 	if E.db.benikui.misc.flightMode.enable ~= true then return end
 
 	local WorldMapFrame = _G.WorldMapFrame
+	local buttonBar = _G.SquareMinimapButtonBar
 	if mod.inFlightMode == true then
 		WorldMapFrame:SetParent(_G.UIParent)
 		if BUI.PA then
-			if SquareMinimapButtonBar then
-				SquareMinimapButtonBar:SetParent(E.UIParent)
+			if buttonBar then
+				buttonBar:SetParent(E.UIParent)
 			end
 		end
 	else
 		WorldMapFrame:SetParent(E.UIParent)
 		if BUI.PA then
-			if SquareMinimapButtonBar then
-				SquareMinimapButtonBar:SetParent(_G.UIParent)
+			if buttonBar then
+				buttonBar:SetParent(_G.UIParent)
 			end
 		end
 	end
@@ -186,10 +193,10 @@ local DCR = _G.LibStub('AceAddon-3.0'):GetAddon('Decursive', true)
 local function Decursive(hide)
 	if not DCR then return end
 	if hide then
-		DcrMUFsContainer:Hide()
+		_G.DcrMUFsContainer:Hide()
 	else
 		if DCR.profile.ShowDebuffsFrame == true then
-			DcrMUFsContainer:Show()
+			_G.DcrMUFsContainer:Show()
 		end
 	end
 end
@@ -203,7 +210,6 @@ local AddonsToHide = {
 	{'WorldQuestTracker', 'WorldQuestTrackerFinderFrame'},
 	{'XIV_Databar', 'XIV_Databar'},
 	{'VuhDo', 'VuhDoBuffWatchMainFrame'},
-	{'WeakAuras', 'WeakAurasFrame'},
 	{'HeroRotation','HeroRotation_ToggleIconFrame'},
 	{'!KalielsTracker','!KalielsTrackerFrame'},
 	{'!KalielsTracker','!KalielsTrackerScrollChild'},
@@ -220,11 +226,15 @@ local AddonsToHide = {
 }
 
 local AllTheThingsFrames = {}
+local DamageMeterFrames = {}
 local VisibleFrames = {}
 
 function mod:SetFlightMode(status)
 	if(InCombatLockdown()) then return end
 	local tracking = MinimapCluster.Tracking.Button
+	local containerFrame = _G.ElvUI_ContainerFrame
+	local zoneFrame = _G.ZoneTextFrame
+	local leftPanel = _G.LeftChatPanel
 
 	if(status) then
 		mod.inFlightMode = true
@@ -259,34 +269,34 @@ function mod:SetFlightMode(status)
 		mod.FlightMode.top.menuButton:EnableMouse(true)
 
 		-- Bags
-		if ElvUI_ContainerFrame then
-			ElvUI_ContainerFrame:SetParent(mod.FlightMode)
-			if ElvUI_ContainerFrame.wideshadow then
-				ElvUI_ContainerFrame.wideshadow:Show()
+		if containerFrame then
+			containerFrame:SetParent(mod.FlightMode)
+			if containerFrame.wideshadow then
+				containerFrame.wideshadow:Show()
 			end
-			if ElvUI_ContainerFrame.shadow then
-				ElvUI_ContainerFrame.shadow:Hide()
+			if containerFrame.shadow then
+				containerFrame.shadow:Hide()
 			end
 		end
 
 		-- Left Chat
 		if E.private.chat.enable then
-			BuiDummyChat:SetParent(mod.FlightMode)
-			LeftChatPanel:SetParent(mod.FlightMode)
-			if LeftChatPanel.backdrop.shadow then
-				LeftChatPanel.backdrop.shadow:Hide()
+			_G.BuiDummyChat:SetParent(mod.FlightMode)
+			leftPanel:SetParent(mod.FlightMode)
+			if leftPanel.backdrop.shadow then
+				leftPanel.backdrop.shadow:Hide()
 			end
-			LeftChatPanel.backdrop.wideshadow:Show()
-			LeftChatPanel.backdrop.wideshadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
-			LeftChatPanel:ClearAllPoints()
-			LeftChatPanel:Point("BOTTOMLEFT", mod.FlightMode.bottom, "TOPLEFT", 24, 24)
+			leftPanel.backdrop.wideshadow:Show()
+			leftPanel.backdrop.wideshadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
+			leftPanel:ClearAllPoints()
+			leftPanel:Point("BOTTOMLEFT", mod.FlightMode.bottom, "TOPLEFT", 24, 24)
 
-			if LeftChatPanel.backdrop.style then
-				LeftChatPanel.backdrop.style:SetFrameStrata('BACKGROUND')
-				LeftChatPanel.backdrop.style:SetFrameLevel(2)
-				if LeftChatPanel.backdrop.style.styleShadow then
-					LeftChatPanel.backdrop.style.styleShadow:SetFrameStrata('BACKGROUND')
-					LeftChatPanel.backdrop.style.styleShadow:SetFrameLevel(0)
+			if leftPanel.backdrop.style then
+				leftPanel.backdrop.style:SetFrameStrata('BACKGROUND')
+				leftPanel.backdrop.style:SetFrameLevel(2)
+				if leftPanel.backdrop.style.styleShadow then
+					leftPanel.backdrop.style.styleShadow:SetFrameStrata('BACKGROUND')
+					leftPanel.backdrop.style.styleShadow:SetFrameLevel(0)
 				end
 			end
 			_G.LeftChatDataPanel:Hide()
@@ -294,12 +304,34 @@ function mod:SetFlightMode(status)
 
 		-- Hide SquareMinimapButtonBar
 		if BUI.PA then
-			if SquareMinimapButtonBar then
-				SquareMinimapButtonBar:Hide()
+			if _G.SquareMinimapButtonBar then
+				_G.SquareMinimapButtonBar:Hide()
 			end
 		end
 
-		for i, v in ipairs(AddonsToHide) do
+		-- Details
+		if IsAddOnLoaded('Details') then
+			local Details = _G._detalhes
+			local instances_amount = Details:GetNumInstancesAmount()
+
+			if instances_amount > 0 then
+				for i = 1, instances_amount do
+					if _G['DetailsBaseFrame'..i] then
+						_G['DetailsBaseFrame'..i]:Hide()
+					end
+
+					if _G['Details_SwitchButtonFrame'..i] then
+						_G['Details_SwitchButtonFrame'..i]:Hide()
+					end
+
+					if _G['DetailsRowFrame'..i] then
+						_G['DetailsRowFrame'..i]:Hide()
+					end
+				end
+			end
+		end
+
+		for _, v in ipairs(AddonsToHide) do
 			local addon, frame = unpack(v)
 			if IsAddOnLoaded(addon) then
 				if _G[frame] then
@@ -319,14 +351,43 @@ function mod:SetFlightMode(status)
 			end
 		end
 
-		--AllTheThings
-		if IsAddOnLoaded('AllTheThings') then
-			for _, Instance in pairs({ 'Prime', 'CurrentInstance' }) do
-				local Window = AllTheThings:GetWindow(Instance)
-				if Window:IsShown() then
-					tinsert(AllTheThingsFrames, Window)
+		-- Blizzard DamageMeter
+		if GetCVar("damageMeterEnabled") == "1" then
+			local currentCount = 0
+			_G.DamageMeter:ForEachSessionWindow(function(sessionWindow)
+				if sessionWindow:IsShown() then
+					currentCount = currentCount + 1
 				end
-				Window:Hide()
+				if currentCount > 0 then
+					for i = 1, currentCount do
+						if _G['DamageMeterSessionWindow'..i] then
+							_G['DamageMeterSessionWindow'..i]:Hide()
+							tinsert(DamageMeterFrames, _G['DamageMeterSessionWindow'..i])
+						end
+					end
+				end
+			end)
+		end
+
+		-- Cooldown Manager
+		if GetCVar("cooldownViewerEnabled") == "1" then
+			if _G.EssentialCooldownViewer then
+				_G.EssentialCooldownViewer:Hide()
+			end
+
+			if _G.UtilityCooldownViewer then
+				_G.UtilityCooldownViewer:Hide()
+			end
+		end
+
+		-- AllTheThings
+		if IsAddOnLoaded('AllTheThings') then
+			local att = _G.AllTheThings
+			for _, window in pairs(att.Windows) do
+				if window:IsShown() then
+					window:Hide()
+					tinsert(AllTheThingsFrames, window)
+				end
 			end
 		end
 
@@ -348,7 +409,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- Disable Blizz location messsages
-		ZoneTextFrame:UnregisterAllEvents()
+		zoneFrame:UnregisterAllEvents()
 
 		mod.startTime = GetTime()
 		mod.timer = mod:ScheduleRepeatingTimer('UpdateTimer', 1)
@@ -390,11 +451,11 @@ function mod:SetFlightMode(status)
 		-- Enable Blizz location messsages.
 		-- Added support for LocationPlus & NutsAndBolts LocationLite
 		if (BUI.LP and E.db.locplus.zonetext) or (BUI.NB and not E.db.NutsAndBolts.LocationLite.hideDefaultZonetext) then
-			ZoneTextFrame:UnregisterAllEvents()
+			zoneFrame:UnregisterAllEvents()
 		else
-			ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-			ZoneTextFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
-			ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
+			zoneFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+			zoneFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
+			zoneFrame:RegisterEvent("ZONE_CHANGED")
 		end
 
 		mod:CancelAllTimers()
@@ -405,13 +466,13 @@ function mod:SetFlightMode(status)
 		mod.FlightMode.message:Hide()
 
 		-- Revert Bags
-		if ElvUI_ContainerFrame then
-			ElvUI_ContainerFrame:SetParent(E.UIParent)
-			if ElvUI_ContainerFrame.wideshadow then
-				ElvUI_ContainerFrame.wideshadow:Hide()
+		if containerFrame then
+			containerFrame:SetParent(E.UIParent)
+			if containerFrame.wideshadow then
+				containerFrame.wideshadow:Hide()
 			end
-			if ElvUI_ContainerFrame.shadow then
-				ElvUI_ContainerFrame.shadow:Show()
+			if containerFrame.shadow then
+				containerFrame.shadow:Show()
 			end
 		end
 
@@ -433,12 +494,55 @@ function mod:SetFlightMode(status)
 			end
 		end
 
-		--AllTheThings
+		-- Details
+		if IsAddOnLoaded('Details') then
+			local Details = _G._detalhes
+			local instances_amount = Details:GetNumInstancesAmount()
+
+			if instances_amount > 0 then
+				for i = 1, instances_amount do
+					if _G['DetailsBaseFrame'..i] then
+						_G['DetailsBaseFrame'..i]:Show()
+					end
+
+					if _G['Details_SwitchButtonFrame'..i] then
+						_G['Details_SwitchButtonFrame'..i]:Show()
+					end
+
+					if _G['DetailsRowFrame'..i] then
+						_G['DetailsRowFrame'..i]:Show()
+					end
+				end
+			end
+		end
+
+		-- AllTheThings
 		if IsAddOnLoaded('AllTheThings') then
 			for _, frame in pairs(AllTheThingsFrames) do
 				frame:Show()
 			end
 			twipe(AllTheThingsFrames)
+		end
+
+		-- Blizzard DamageMeter
+		if GetCVar("damageMeterEnabled") == "1" then
+			for _, frame in pairs(DamageMeterFrames) do
+				if frame then
+					frame:Show()
+				end
+			end
+			twipe(DamageMeterFrames)
+		end
+
+		-- Cooldown Manager
+		if GetCVar("cooldownViewerEnabled") == "1" then
+			if _G.EssentialCooldownViewer then
+				_G.EssentialCooldownViewer:Show()
+			end
+
+			if _G.UtilityCooldownViewer then
+				_G.UtilityCooldownViewer:Show()
+			end
 		end
 
 		-- special handling for Elkano Buff Bars
@@ -451,25 +555,25 @@ function mod:SetFlightMode(status)
 
 		-- revert Left Chat
 		if E.private.chat.enable then
-			BuiDummyChat:SetParent(E.UIParent)
-			LeftChatPanel:SetParent(E.UIParent)
-			if LeftChatPanel.backdrop.shadow then
-				LeftChatPanel.backdrop.shadow:Show()
-				LeftChatPanel.backdrop.shadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
-				LeftChatPanel.backdrop.shadow:SetFrameLevel(0)
+			_G.BuiDummyChat:SetParent(E.UIParent)
+			leftPanel:SetParent(E.UIParent)
+			if leftPanel.backdrop.shadow then
+				leftPanel.backdrop.shadow:Show()
+				leftPanel.backdrop.shadow:SetFrameStrata('BACKGROUND') -- it loses its framestrata somehow. Needs digging
+				leftPanel.backdrop.shadow:SetFrameLevel(0)
 			end
-			if LeftChatPanel.backdrop.style then
-				LeftChatPanel.backdrop.style:SetFrameStrata('BACKGROUND')
-				LeftChatPanel.backdrop.style:SetFrameLevel(2)
-				if LeftChatPanel.backdrop.style.styleShadow then
-					LeftChatPanel.backdrop.style.styleShadow:SetFrameStrata('BACKGROUND')
-					LeftChatPanel.backdrop.style.styleShadow:SetFrameLevel(0)
+			if leftPanel.backdrop.style then
+				leftPanel.backdrop.style:SetFrameStrata('BACKGROUND')
+				leftPanel.backdrop.style:SetFrameLevel(2)
+				if leftPanel.backdrop.style.styleShadow then
+					leftPanel.backdrop.style.styleShadow:SetFrameStrata('BACKGROUND')
+					leftPanel.backdrop.style.styleShadow:SetFrameLevel(0)
 				end
 			end
-			LeftChatPanel.backdrop.wideshadow:Hide()
-			LeftChatPanel:ClearAllPoints()
-			LeftChatPanel:Point("BOTTOMLEFT", LeftChatMover, "BOTTOMLEFT")
-			LeftChatPanel:SetFrameStrata('BACKGROUND')
+			leftPanel.backdrop.wideshadow:Hide()
+			leftPanel:ClearAllPoints()
+			leftPanel:Point("BOTTOMLEFT", _G.LeftChatMover, "BOTTOMLEFT")
+			leftPanel:SetFrameStrata('BACKGROUND')
 			LO:RepositionChatDataPanels()
 			LO:ToggleChatPanels()
 		end
@@ -481,8 +585,8 @@ function mod:SetFlightMode(status)
 
 		-- Show SquareMinimapButtonBar
 		if BUI.PA then
-			if SquareMinimapButtonBar then
-				SquareMinimapButtonBar:Show()
+			if _G.SquareMinimapButtonBar then
+				_G.SquareMinimapButtonBar:Show()
 			end
 		end
 
@@ -544,23 +648,21 @@ function mod:Toggle()
 		mod:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
 		mod:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
 		mod:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
-		BUI:LoadInFlightProfile(true)
 	else
 		mod:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
 		mod:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
 		mod:UnregisterEvent("LFG_PROPOSAL_SHOW")
 		mod:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
 		mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		BUI:LoadInFlightProfile(false)
 	end
 end
 
 function mod:Initialize()
 	local db = E.db.benikui.colors
-	mod.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", UIParent)
+	mod.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", _G.UIParent)
 	mod.FlightMode:SetFrameLevel(1)
 	mod.FlightMode:SetFrameStrata('BACKGROUND')
-	mod.FlightMode:SetAllPoints(UIParent)
+	mod.FlightMode:SetAllPoints(_G.UIParent)
 	mod.FlightMode:Hide()
 
 	-- Top frame
@@ -587,7 +689,7 @@ function mod:Initialize()
 	mod.FlightMode.top.menuButton:SetScript('OnEnter', function()
 		GameTooltip:SetOwner(mod.FlightMode.top.menuButton, 'ANCHOR_BOTTOMRIGHT', 4, -4)
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L['Show an enhanced game menu'], selectioncolor)
+		GameTooltip:AddLine(L['Show an enhanced game menu'], 1, 1, 1)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
 			mod.FlightMode.top.menuButton.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
@@ -604,7 +706,7 @@ function mod:Initialize()
 	end)
 
 	mod.FlightMode.top.menuButton:SetScript('OnClick', function()
-		BUI:Dropmenu(BUI.MenuList, menuFrame, FlightModeMenuBtn, 'bRight', (E.PixelMode and -32 or -30), (E.PixelMode and -13 or -15), 4, 36)
+		BUI:Dropmenu(BUI.MenuList, menuFrame, _G.FlightModeMenuBtn, 'bRight', (E.PixelMode and -32 or -30), (E.PixelMode and -13 or -15), 4, 36)
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 	end)
 
@@ -621,7 +723,7 @@ function mod:Initialize()
 	mod.FlightMode.top.closeButton:SetScript('OnEnter', function()
 		GameTooltip:SetOwner(mod.FlightMode.top.closeButton, 'ANCHOR_BOTTOMLEFT', -4, -4)
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L['Exit FlightMode'], selectioncolor)
+		GameTooltip:AddLine(L['Exit FlightMode'], 1, 1, 1)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
 			mod.FlightMode.top.closeButton.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
@@ -713,11 +815,13 @@ function mod:Initialize()
 	mod.FlightMode.bottom.wowlogo:SetFrameStrata("MEDIUM")
 	mod.FlightMode.bottom.wowlogo:Size(300, 150)
 	mod.FlightMode.bottom.wowlogo.tex = mod.FlightMode.bottom.wowlogo:CreateTexture(nil, 'OVERLAY')
+
 	local currentExpansionLevel = GetClampedCurrentExpansionLevel();
 	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel);
 	if expansionDisplayInfo then
 		mod.FlightMode.bottom.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
 	end
+
 	mod.FlightMode.bottom.wowlogo.tex:SetInside()
 	mod.FlightMode.bottom.wowlogo:Hide()
 
@@ -757,7 +861,7 @@ function mod:Initialize()
 	mod.FlightMode.bottom.requestStop:SetScript('OnEnter', function()
 		GameTooltip:SetOwner(mod.FlightMode.bottom.requestStop, 'ANCHOR_RIGHT', 1, 0)
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, selectioncolor)
+		GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, 1, 1, 1)
 		GameTooltip:AddLine(L['LeftClick to Request Stop'], 0.7, 0.7, 1)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
@@ -801,7 +905,7 @@ function mod:Initialize()
 	mod.FlightMode.bottom.info:SetScript('OnEnter', function()
 		GameTooltip:SetOwner(mod.FlightMode.bottom.info, 'ANCHOR_RIGHT', 1, 0)
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L['Toggle Location and Coords'], selectioncolor)
+		GameTooltip:AddLine(L['Toggle Location and Coords'], 1, 1, 1)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
 			mod.FlightMode.bottom.info.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
@@ -819,10 +923,10 @@ function mod:Initialize()
 
 	mod.FlightMode.bottom.info:SetScript('OnClick', function()
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
-		if FlightModeLocation:GetAlpha() == 1 then
-			UIFrameFadeOut(FlightModeLocation, 0.2, 1, 0)
+		if _G.FlightModeLocation:GetAlpha() == 1 then
+			UIFrameFadeOut(_G.FlightModeLocation, 0.2, 1, 0)
 		else
-			UIFrameFadeIn(FlightModeLocation, 0.2, 0, 1)
+			UIFrameFadeIn(_G.FlightModeLocation, 0.2, 0, 1)
 		end
 	end)
 
@@ -839,7 +943,7 @@ function mod:Initialize()
 	mod.FlightMode.bottom.map:SetScript('OnEnter', function()
 		GameTooltip:SetOwner(mod.FlightMode.bottom.map, 'ANCHOR_RIGHT', 1, 0)
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L['Toggle World Map'], selectioncolor)
+		GameTooltip:AddLine(L['Toggle World Map'], 1, 1, 1)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
 			mod.FlightMode.bottom.map.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
@@ -873,7 +977,7 @@ function mod:Initialize()
 	mod.FlightMode.bottom.bags:SetScript('OnEnter', function()
 		GameTooltip:SetOwner(mod.FlightMode.bottom.bags, 'ANCHOR_RIGHT', 1, 0)
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L['Toggle Bags'], selectioncolor)
+		GameTooltip:AddLine(L['Toggle Bags'], 1, 1, 1)
 		GameTooltip:Show()
 		if db.gameMenuColor == 1 then
 			mod.FlightMode.bottom.bags.img:SetVertexColor(classColor.r, classColor.g, classColor.b)
@@ -918,22 +1022,24 @@ function mod:Initialize()
 	mod.FlightMode.bottom.fps.txt:SetText("")
 
 	-- Add Shadow at the bags
-	if ElvUI_ContainerFrame then
-		ElvUI_ContainerFrame:CreateWideShadow()
-		ElvUI_ContainerFrame.wideshadow:Hide()
+	local containerFrame = _G.ElvUI_ContainerFrame
+	if containerFrame then
+		containerFrame:CreateWideShadow()
+		containerFrame.wideshadow:Hide()
 	end
 
 	-- Add Shadow at the left chat
-	LeftChatPanel.backdrop:CreateWideShadow()
-	LeftChatPanel.backdrop.wideshadow:Hide()
-	LeftChatPanel.backdrop.wideshadow:SetFrameLevel(LeftChatPanel.backdrop:GetFrameLevel() - 1)
+	local leftPanel = _G.LeftChatPanel
+	leftPanel.backdrop:CreateWideShadow()
+	leftPanel.backdrop.wideshadow:Hide()
+	leftPanel.backdrop.wideshadow:OffsetFrameLevel(-1, leftPanel.backdrop)
 
 	mod:Toggle()
 	mod:ToggleLogo()
 
 	hooksecurefunc(M, "SetLargeWorldMap", mod.SetFrameParent)
 	hooksecurefunc(M, "SetSmallWorldMap", mod.SetFrameParent)
-	
+
 	-- force databars parent. This should fix databars showing after a Pet Battle
 	E.FrameLocks['ElvUI_ExperienceBar'] = { parent = E.UIParent }
 	E.FrameLocks['ElvUI_ReputationBar'] = { parent = E.UIParent }

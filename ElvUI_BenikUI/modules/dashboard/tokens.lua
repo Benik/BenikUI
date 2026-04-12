@@ -1,10 +1,13 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local mod = BUI:GetModule('Dashboards');
-local DT = E:GetModule('DataTexts');
+local mod = BUI:GetModule('Dashboards')
+local DT = E:GetModule('DataTexts')
 
 local _G = _G
-local getn = getn
+local hooksecurefunc = hooksecurefunc
 local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
+local ipairs, next = ipairs, next
+local format = format
+local strfind, tostring = strfind, tostring
 
 local GameTooltip = _G.GameTooltip
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
@@ -17,11 +20,9 @@ local C_CurrencyInfo_IsAccountTransferableCurrency = C_CurrencyInfo.IsAccountTra
 local GetExpansionLevel = GetExpansionLevel
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
-local IsInInstance = IsInInstance
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
-
--- GLOBALS: hooksecurefunc
+local MISCELLANEOUS = MISCELLANEOUS
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -35,7 +36,17 @@ local expansion = _G['EXPANSION_NAME'..GetExpansionLevel()]
 
 mod.CurrencyList = {}
 
-local function OnMouseUp(self, btn)
+local function sortFunction(a, b)
+	return a.name < b.name
+end
+
+local function CheckTokensPosition()
+	if E.db.benikui.dashboards.tokens.enable ~= true then return end
+
+	position, Xoffset = mod:CheckPositionForTooltip(mod.tokensHolder)
+end
+
+local function barOnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 	local id = self.id
 
@@ -51,9 +62,8 @@ local function OnMouseUp(self, btn)
 	end
 end
 
-local function OnEnter(self)
+local function barOnEnter(self)
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
 	local id = self.id
 
 	if db.tokens.tooltip then
@@ -66,41 +76,52 @@ local function OnEnter(self)
 
 	self.Text:SetFormattedText('%s', self.name)
 	if db.tokens.mouseover then
-		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 	end
 end
 
-local function OnLeave(self)
+local function barOnLeave(self)
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
-	local BreakAmount = BreakUpLargeNumbers(self.amount)
+	local displayString
 
-	if self.totalMax == 0 then
-		self.Text:SetFormattedText('%s', BreakAmount)
+	if self.capped and self.capValue > 0 then
+		displayString = format('%s / %s', BreakUpLargeNumbers(self.progress), BreakUpLargeNumbers(self.capValue))
+	elseif self.capValue > 0 then
+		displayString = format('%s / %s', BreakUpLargeNumbers(self.amount), BreakUpLargeNumbers(self.capValue))
 	else
-		if db.tokens.weekly and self.weeklyMax > 0 then
-			self.Text:SetFormattedText('%s / %s', BreakAmount, self.weeklyMax)
-		else
-			self.Text:SetFormattedText('%s / %s', BreakAmount, self.totalMax)
-		end
+		displayString = format('%s', BreakUpLargeNumbers(self.amount))
 	end
+
+	self.Text:SetText(displayString)
 
 	GameTooltip:Hide()
 
 	if db.tokens.mouseover then
-		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 	end
 end
 
-local function sortFunction(a, b)
-	return a.name < b.name
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards
+
+	if db.tokens.mouseover then
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	end
+end
+
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards
+
+	if db.tokens.mouseover then
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+	end
 end
 
 function mod:GetTokenInfo(id)
 	local info = C_CurrencyInfo_GetCurrencyInfo(id)
 
 	if info then
-		return info.name, info.quantity, info.iconFileID, info.maxWeeklyQuantity, info.maxQuantity, info.discovered, info.isAccountWide
+		return info.name, info.quantity, info.iconFileID, info.maxWeeklyQuantity, info.maxQuantity, info.discovered, info.quantityEarnedThisWeek, info.totalEarned, info.trackedQuantity, info.useTotalEarnedForMaxQty, info.description
 	else
 		return
 	end
@@ -108,16 +129,13 @@ end
 
 function mod:UpdateTokens()
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
+	local holder = mod.tokensHolder
 
 	if not db.tokens.enable then holder:Hide() return end
 
-	local inInstance = IsInInstance()
-	local NotinInstance = not (db.tokens.instance and inInstance)
-
 	if(tokensDB[1]) then
-		for i = 1, getn(tokensDB) do
-			tokensDB[i]:Kill()
+		for i = 1, #tokensDB do
+			tokensDB[i]:Hide()
 		end
 		twipe(tokensDB)
 		holder:Hide()
@@ -129,13 +147,13 @@ function mod:UpdateTokens()
 		local _, id = unpack(info)
 
 		if id then
-			local name, amount, icon, weeklyMax, totalMax, isDiscovered = mod:GetTokenInfo(id)
+			local name, amount, icon, weeklyMax, totalMax, isDiscovered, quantityEarnedThisWeek, totalEarned, trackedQuantity, useTotalEarnedForMaxQty = mod:GetTokenInfo(id)
 			if name then
 				if isDiscovered == false then E.private.benikui.dashboards.tokens.chooseTokens[id] = nil end
 
 				if E.private.benikui.dashboards.tokens.chooseTokens[id] == true then
 					if db.tokens.zeroamount or amount > 0 then
-						holder:SetShown(NotinInstance)
+						holder:SetShown(mod:ShouldShowDashboard('tokens'))
 
 						if db.tokens.orientation == 'BOTTOM' then
 							holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#tokensDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
@@ -148,34 +166,49 @@ function mod:UpdateTokens()
 						local bar = mod:CreateDashboard(holder, 'tokens', true, false, true)
 						local BarColor = (db.barColor == 1 and classColor) or db.customBarColor
 						local TextColor = (db.textColor == 1 and classColor) or db.customTextColor
-						local BarMaxValue = (totalMax == 0 and amount) or ((db.tokens.weekly and weeklyMax > 0 and weeklyMax) or totalMax)
-						local TextMaxValue = 0
-						local BreakAmount = BreakUpLargeNumbers(amount)
 						local isValidCurrency = C_CurrencyInfo_IsAccountTransferableCurrency(id)
+						local isWeeklyCapped = weeklyMax == quantityEarnedThisWeek and weeklyMax > 0
+						local isSeasonCapped = useTotalEarnedForMaxQty and totalMax == totalEarned and totalMax > 0
+						local capped = isWeeklyCapped or isSeasonCapped
+						local capValue = (db.tokens.weekly and weeklyMax and weeklyMax > 0) and weeklyMax or (totalMax and totalMax > 0 and totalMax) or 0
+						local BarMaxValue
 						local displayString = ''
 
-						if totalMax == 0 then
-							displayString = format('%s', BreakAmount)
-						else
-							if db.tokens.weekly and weeklyMax > 0 then
-								TextMaxValue = weeklyMax
-							else
-								TextMaxValue = totalMax
-							end
-							displayString = format('%s / %s', BreakAmount, TextMaxValue)
+						local progress = amount
+						if useTotalEarnedForMaxQty and totalEarned and totalEarned > 0 then
+							progress = totalEarned
+						elseif (db.tokens.weekly and quantityEarnedThisWeek and quantityEarnedThisWeek > 0) then
+							progress = quantityEarnedThisWeek
+						elseif trackedQuantity and trackedQuantity > 0 then
+							progress = trackedQuantity
 						end
+
+						if capped and capValue > 0 then
+							displayString = format('%s / %s', BreakUpLargeNumbers(progress), BreakUpLargeNumbers(capValue))
+						elseif capValue > 0 then
+							displayString = format('%s / %s', BreakUpLargeNumbers(amount), BreakUpLargeNumbers(capValue))
+						else
+							displayString = format('%s', BreakUpLargeNumbers(amount))
+						end
+
+						BarMaxValue = (capValue > 0) and capValue or ((progress > 0) and progress or (amount > 0 and amount or 1))
 
 						bar.Status:SetMinMaxValues(0, BarMaxValue)
 						bar.Status:SetValue(amount)
 						bar.Status:SetStatusBarColor(BarColor.r, BarColor.g, BarColor.b)
 
+						if capped then
+							bar.Text:SetTextColor(1, 0.2, 0.2)
+						else
+							bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
+						end
+
 						bar.Text:SetText(displayString)
-						bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 						bar.IconBG.Icon:SetTexture(icon)
 
-						bar:SetScript('OnEnter', OnEnter)
-						bar:SetScript('OnLeave', OnLeave)
-						bar:SetScript('OnMouseUp', OnMouseUp)
+						bar:SetScript('OnEnter', barOnEnter)
+						bar:SetScript('OnLeave', barOnLeave)
+						bar:SetScript('OnMouseUp', barOnMouseUp)
 
 						bar.awicon:SetShown(isValidCurrency)
 
@@ -184,6 +217,9 @@ function mod:UpdateTokens()
 						bar.totalMax = totalMax
 						bar.amount = amount
 						bar.weeklyMax = weeklyMax
+						bar.capped = capped
+						bar.progress = progress
+						bar.capValue = capValue
 
 						tinsert(tokensDB, bar)
 					end
@@ -194,7 +230,7 @@ function mod:UpdateTokens()
 
 	tsort(tokensDB, sortFunction)
 
-	for key, frame in pairs(tokensDB) do
+	for key, frame in next, tokensDB do
 		frame:ClearAllPoints()
 		if(key == 1) then
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
@@ -208,7 +244,7 @@ function mod:UpdateTokens()
 	end
 
 	mod:FontStyle(tokensDB)
-	mod:FontColor(tokensDB)
+	mod:FontColor(tokensDB, true)
 	mod:BarColor(tokensDB)
 	mod:IconPosition(tokensDB, 'tokens')
 end
@@ -251,7 +287,7 @@ function mod:PopulateCurrencyData()
 		end
 	end
 
-	wipe(Collapsed)
+	twipe(Collapsed)
 end
 
 function mod:CURRENCY_DISPLAY_UPDATE(_, currencyID)
@@ -264,33 +300,9 @@ function mod:CURRENCY_DISPLAY_UPDATE(_, currencyID)
 	mod:UpdateTokens()
 end
 
-local function holderOnEnter(self)
-	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
-
-	if db.tokens.mouseover then
-		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-	end
-end
-
-local function holderOnLeave(self)
-	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
-
-	if db.tokens.mouseover then
-		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-	end
-end
-
-local function CheckTokensPosition()
-	if E.db.benikui.dashboards.tokens.enable ~= true then return end
-
-	position, Xoffset = mod:CheckPositionForTooltip(_G.BUI_TokensDashboard)
-end
-
 function mod:ToggleTokens()
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_TokensDashboard
+	local holder = mod.tokensHolder
 
 	if db.tokens.enable then
 		E:EnableMover(holder.mover.name)
@@ -299,7 +311,7 @@ function mod:ToggleTokens()
 		mod:PopulateCurrencyData()
 		mod:ToggleStyle(holder, 'tokens')
 		mod:ToggleTransparency(holder, 'tokens')
-		
+
 		holder:SetScript('OnEnter', holderOnEnter)
 		holder:SetScript('OnLeave', holderOnLeave)
 	else
@@ -320,6 +332,8 @@ function mod:CreateTokensDashboard()
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -123)
 	holder:Width(db.tokens.width or 150)
 
+	mod.tokensHolder = holder
+
 	E:CreateMover(holder, 'tokenHolderMover', L['Tokens'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,tokens')
 	mod:ToggleTokens()
 end
@@ -328,6 +342,6 @@ function mod:LoadTokens()
 	mod:CreateTokensDashboard()
 
 	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateTokens)
-	-- hooksecurefunc('TokenFrame_Update', mod.PopulateCurrencyData)
 	hooksecurefunc(E, 'ToggleMoveMode', CheckTokensPosition)
+	mod:SecureHook(_G.TokenFrame, 'Update', mod.PopulateCurrencyData)
 end

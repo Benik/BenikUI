@@ -2,7 +2,10 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards')
 local LSM = E.LSM
 
+local next = next
 local CreateFrame = CreateFrame
+local GetInstanceInfo = GetInstanceInfo
+local GetZonePVPInfo = C_PvP.GetZonePVPInfo or GetZonePVPInfo
 
 local DASH_HEIGHT = 20
 local SPACING = 1
@@ -21,6 +24,7 @@ local Dashboards = {
 	{'BUI_SystemDashboard', 'system'},
 	{'BUI_ProfessionsDashboard', 'professions'},
 	{'BUI_TokensDashboard', 'tokens'},
+	{'BUI_ItemsDashboard', 'items'},
 }
 
 function mod:EnableDisableCombat(holder, option)
@@ -43,7 +47,7 @@ function mod:UpdateHolderDimensions(holder, option, tableName, isSystem)
 		holder:Width(db.width)
 	end
 
-	for _, frame in pairs(tableName) do
+	for _, frame in next, tableName do
 		frame:Width(db.width)
 	end
 end
@@ -77,7 +81,7 @@ end
 
 function mod:FontStyle(tableName)
 	local db = E.db.benikui.dashboards.dashfont
-	for _, bar in pairs(tableName) do
+	for _, bar in next, tableName do
 		if E.db.benikui.dashboards.dashfont.useDTfont then
 			bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
@@ -86,9 +90,12 @@ function mod:FontStyle(tableName)
 	end
 end
 
-function mod:FontColor(tableName)
+function mod:FontColor(tableName, override)
 	local db = E.db.benikui.dashboards
-	for _, bar in pairs(tableName) do
+
+	for _, bar in next, tableName do
+		if override then return end
+
 		if db.textColor == 1 then
 			bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		else
@@ -99,7 +106,7 @@ end
 
 function mod:BarColor(tableName)
 	local db = E.db.benikui.dashboards
-	for _, bar in pairs(tableName) do
+	for _, bar in next, tableName do
 		if db.barColor == 1 then
 			bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		else
@@ -110,27 +117,41 @@ end
 
 function mod:BarHeight(option, tableName)
 	local db = E.db.benikui.dashboards[option]
-	for _, bar in pairs(tableName) do
+	for _, bar in next, tableName do
 		bar.dummy:Height(db.barHeight)
 		bar.spark:Height(5 + db.barHeight)
 	end
 end
 
-function mod:UpdateVisibility()
-	local inInstance = IsInInstance()
+function mod:ShouldShowDashboard(option)
+	local db = E.db.benikui.dashboards[option]
+	if not db then return true end
 
-	for i, v in ipairs(Dashboards) do
-		local holder, option = unpack(v)
-		local db = E.db.benikui.dashboards[option]
-		local NotinInstance = not (db.instance and inInstance)
-		if _G[holder] then
-			_G[holder]:SetShown(NotinInstance)
+	local _, instanceType = GetInstanceInfo()
+	local inInstance = instanceType ~= 'none'
+
+	local pvpType = GetZonePVPInfo()
+	local inHousing = inInstance and pvpType == 'sanctuary'
+
+	if inHousing and db.housing then return false end
+	if inInstance and not inHousing and db.instance then return false end
+
+	return true
+end
+
+function mod:UpdateVisibility()
+	for _, v in next, Dashboards do
+		local holderName, option = unpack(v)
+		local holder = _G[holderName]
+
+		if holder then
+			holder:SetShown(mod:ShouldShowDashboard(option))
 		end
 	end
 end
 
 function mod:IconPosition(tableName, dashboard)
-	for _, bar in pairs(tableName) do
+	for _, bar in next, tableName do
 		if not bar.hasIcon then return end
 
 		bar.IconBG:ClearAllPoints()
@@ -159,42 +180,45 @@ function mod:CheckPositionForTooltip(frame)
 	if not x then return end
 
 	local position, Xoffset
+	local shadows = E.db.benikui.general.shadows
 
 	if x > (E.screenWidth * 0.5) then
 		position = 'ANCHOR_LEFT'
-		Xoffset = BUI.ShadowMode and -3 or 0
+		Xoffset = shadows and -3 or 0
 	else
 		position = 'ANCHOR_RIGHT'
-		Xoffset = BUI.ShadowMode and 3 or 0
+		Xoffset = shadows and 3 or 0
 	end
 
 	return position, Xoffset
 end
 
 function mod:CreateDashboardHolder(holderName, option)
-	local db = E.db.benikui.dashboards[option]
-
 	local holder = CreateFrame('Frame', holderName, E.UIParent)
 	holder:CreateBackdrop('Transparent')
 	holder:SetFrameStrata('BACKGROUND')
 	holder:SetFrameLevel(5)
-	holder.backdrop:BuiStyle('Outside')
+	holder.backdrop:BuiStyle()
 	holder:Hide()
 
 	holder:SetScript('OnEvent', function(self, event)
-		if db.instance and IsInInstance() then return end
-		if db.combat then
-			if event == 'PLAYER_REGEN_DISABLED' then
-				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			elseif event == 'PLAYER_REGEN_ENABLED' then
-				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-			end
+		local db = E.db.benikui.dashboards[option]
+
+		if event == 'PLAYER_REGEN_DISABLED' then
+			if db.combat then E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0) end
+		elseif event == 'PLAYER_REGEN_ENABLED' then
+			if db.combat then E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end
+		else
+			self:SetShown(mod:ShouldShowDashboard(option))
 		end
 	end)
 
 	mod:EnableDisableCombat(holder, option)
 
 	E.FrameLocks[holder] = { parent = E.UIParent }
+
+	holder:RegisterEvent('PLAYER_ENTERING_WORLD')
+	holder:RegisterEvent('ZONE_CHANGED_NEW_AREA')
 
 	return holder
 end
@@ -278,38 +302,12 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep, isToken)
 	return bar
 end
 
-local function ConvertDB()
-	if E.db.benikui.dashboards.DashboardDBConverted == nil then
-		if E.db.benikui.dashboards.enableSystem ~= nil then
-			E.db.benikui.dashboards.system.enable = E.db.benikui.dashboards.enableSystem
-			E.db.benikui.dashboards.enableSystem = nil
-		end
-		if E.db.benikui.dashboards.enableProfessions ~= nil then
-			E.db.benikui.dashboards.professions.enable = E.db.benikui.dashboards.enableProfessions
-			E.db.benikui.dashboards.enableProfessions = nil
-		end
-		if E.db.benikui.dashboards.enableTokens ~= nil then
-			E.db.benikui.dashboards.tokens.enable = E.db.benikui.dashboards.enableTokens
-			E.db.benikui.dashboards.enableTokens = nil
-		end
-		if E.db.benikui.dashboards.enableReputations ~= nil then
-			E.db.benikui.dashboards.reputations.enable = E.db.benikui.dashboards.enableReputations
-			E.db.benikui.dashboards.enableReputations = nil
-		end
-		E.db.benikui.dashboards.DashboardDBConverted = BUI.Version
-	end
-end
-
 function mod:Initialize()
-	ConvertDB()
 	mod:LoadSystem()
 	mod:LoadProfessions()
 	mod:LoadTokens()
 	mod:LoadReputations()
 	mod:LoadItems()
-
-	mod:RegisterEvent('PLAYER_ENTERING_WORLD', mod.UpdateVisibility)
-	mod:RegisterEvent('ZONE_CHANGED_NEW_AREA', mod.UpdateVisibility)
 end
 
 BUI:RegisterModule(mod:GetName())

@@ -3,14 +3,13 @@ local mod = BUI:GetModule('iLevel')
 local LSM = E.LSM
 
 local _G = _G
-local next, wipe = next, wipe
+local next, wipe, pairs = next, wipe, pairs
 
+local CreateFrame = CreateFrame
 local GetInventoryItemLink = GetInventoryItemLink
 local GetItemInfo = C_Item.GetItemInfo or GetItemInfo
 local GetItemQualityColor = C_Item.GetItemQualityColor or GetItemQualityColor
 local C_Timer_After = C_Timer.After
-
--- GLOBALS: CharacterNeckSlot
 
 local slotIDs = {
 	[1] = "HeadSlot",
@@ -57,7 +56,7 @@ function mod:UpdateItemLevel()
 		end
 		mod.f[id]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 	end
-	CharacterNeckSlot.RankFrame.Label:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+	_G.CharacterNeckSlot.RankFrame.Label:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 end
 
 local function returnPoints(id)
@@ -88,10 +87,12 @@ function mod:UpdateItemLevelPosition()
 		mod.f[id]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
 	end
 
-	CharacterNeckSlot.RankFrame:ClearAllPoints()
-	CharacterNeckSlot.RankFrame.Label:ClearAllPoints()
-	CharacterNeckSlot.RankFrame:Point('TOPRIGHT', CharacterNeckSlot, 'TOPRIGHT', 0, 4)
-	CharacterNeckSlot.RankFrame.Label:Point('RIGHT')
+	local neckSlotRank = _G.CharacterNeckSlot.RankFrame
+
+	neckSlotRank:ClearAllPoints()
+	neckSlotRank.Label:ClearAllPoints()
+	neckSlotRank:Point('TOPRIGHT', _G.CharacterNeckSlot, 'TOPRIGHT', 0, 4)
+	neckSlotRank.Label:Point('RIGHT')
 end
 
 function mod:CreateString()
@@ -101,7 +102,7 @@ function mod:CreateString()
 	end
 
 	mod:UpdateItemLevelPosition()
-	mod.f:SetFrameLevel(CharacterHeadSlot:GetFrameLevel())
+	mod.f:SetFrameLevel(_G.CharacterHeadSlot:GetFrameLevel())
 	mod.f:Hide()
 end
 
@@ -113,14 +114,14 @@ end
 function mod:Initialize()
 	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.armory.character.enable ~= false) then return end
 
-	mod.f = CreateFrame("Frame", nil, PaperDollFrame)
+	mod.f = CreateFrame("Frame", nil, _G.PaperDollFrame)
 	mod:CreateString()
 
-	PaperDollFrame:HookScript("OnShow", function(self)
+	_G.PaperDollFrame:HookScript("OnShow", function(self)
 		mod.f:Show()
 	end)
 
-	PaperDollFrame:HookScript("OnHide", function(self)
+	_G.PaperDollFrame:HookScript("OnHide", function(self)
 		mod.f:Hide()
 	end)
 

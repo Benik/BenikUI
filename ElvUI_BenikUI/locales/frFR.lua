@@ -67,6 +67,9 @@ L['iLevel'] = true
 L['Show item level per slot, on the character info frame'] = "Affiche le niveau d'objet par emplacement, dans le cadre d'informations de votre personnage"
 L['Inside the item slot'] = "Dans l'emplacement de l'objet"
 L['Outside the item slot'] = "En dehors de l'emplacement de l'objet"
+L['Chat EditBox'] = true
+L['Position'] = true
+L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'] = true
 
 -- Flight mode
 L['Flight Mode'] = true
@@ -130,11 +133,7 @@ L['You are now finished with the installation process. If you are in need of tec
 -- actionbar options
 L['Bar 1'] = "Barre 1"
 L['Bar 2'] = "Barre 2"
-L['Choose Actionbar to show to'] = "Choisissez la barre d'action pour l'afficher à"
 L['Request Stop button'] = "Bouton de demande d'arrêt"
-L['Show in:'] = "Afficher dans"
-L['Show small buttons over Actionbar 1 or 2 decoration, to show/hide Actionbars 3 or 5.'] = "Affiche des petits boutons au-dessus de la décoration de la barre d'action 1 ou 2, pour affiche/masque les barres d'action 3 ou 5."
-L['Switch Buttons (requires BenikUI Style)'] = "Change les Boutons (nécessite le style BenikUI)"
 
 -- Request stop button
 L['LeftClick to Request Stop'] = "Clic gauche pour demander un arrêt"
@@ -192,6 +191,7 @@ L['Update Throttle'] = true
 L['Use DataTexts font'] = "Utiliser la police pour les textes de données"
 L['Use Faction Colors on Bars'] = true
 L['Use Faction Colors on Text'] = true
+L['Hide in Housing'] = true
 
 -- Items
 L['Items'] = true
@@ -254,11 +254,14 @@ L['Enable Class color on health border, when mouse over'] = "Active la couleur d
 
 -- Widget Bars
 L['Widget Bars'] = true
-L['BenikUI Maw Bar'] = true
+L['Maw Bar'] = true
+L['Prey Bar'] = true
 L['Color by Tier'] = true
 L['Text yOffset'] = true
 L['Half Bar'] = true
 L["Percent"] = true
+L['Preview Bar'] = true
+L['Hide Preview'] = true
 
 -- Information
 L['Information'] = true

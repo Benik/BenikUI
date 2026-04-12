@@ -16,8 +16,7 @@ V['benikui'] = {
 		},
 
 		['professions'] = {
-			['choosePofessions'] = {
-				[5] = true,
+			['chooseProfessions'] = {
 				[6] = true,
 				[7] = true,
 				[8] = true,
@@ -41,10 +40,8 @@ V['benikui'] = {
 
 	['datatexts'] = {
 		['renown'] = {
-			['factionID'] = 2507,
-		},
-		['renownFilter'] = {
-			['expansion'] = 10,
+			['factionID'] = 2570,
+			['expansionID'] = 10,
 		},
 	},
 }

@@ -3,21 +3,21 @@ local mod = BUI:GetModule('Dashboards')
 local DT = E:GetModule('DataTexts')
 
 local _G = _G
-local getn = getn
-local tinsert, twipe, tsort = table.insert, table.wipe, table.sort
+local format = format
+local next, ipairs = next, ipairs
+local tinsert, twipe, tsort, tonumber = table.insert, table.wipe, table.sort, tonumber
+local hooksecurefunc = hooksecurefunc
 
 local GameTooltip = _G.GameTooltip
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
-local C_Container_GetContainerItemID = C_Container.GetContainerItemID
 local C_Item_GetItemIconByID = C_Item.GetItemIconByID
-local GetItemCount = GetItemCount
-local GetItemInfo = GetItemInfo
+local GetItemCount = C_Item.GetItemCount
+local GetItemInfo = C_Item.GetItemInfo
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
-local IsInInstance = IsInInstance
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
--- GLOBALS: hooksecurefunc
+local NUM_BAG_SLOTS = NUM_BAG_SLOTS + (E.Retail and 1 or 0)
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -30,7 +30,17 @@ mod.ItemsList = {}
 
 local classColor = E:ClassColor(E.myclass, true)
 
-local function OnMouseUp(self, btn)
+local function sortFunction(a, b)
+	return a.name < b.name
+end
+
+local function CheckItemsPosition()
+	if E.db.benikui.dashboards.items.enable ~= true then return end
+
+	position, Xoffset = mod:CheckPositionForTooltip(mod.itemHolder)
+end
+
+local function barOnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 
 	if btn == "RightButton" then
@@ -46,11 +56,11 @@ local function OnMouseUp(self, btn)
 	end
 end
 
-local function OnEnter(self)
+local function barOnEnter(self)
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ItemsDashboard
+	local holder = self:GetParent()
 	local id = self.id
-	
+
 	if db.items.tooltip then
 		GameTooltip:SetOwner(self, position, Xoffset, 0)
 		GameTooltip:SetItemByID(id)
@@ -65,9 +75,9 @@ local function OnEnter(self)
 	end
 end
 
-local function OnLeave(self)
+local function barOnLeave(self)
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ItemsDashboard
+	local holder = self:GetParent()
 	local BreakAmount = BreakUpLargeNumbers(self.amount)
 	local BreakMax = BreakUpLargeNumbers(self.maxValue)
 
@@ -82,38 +92,47 @@ local function OnLeave(self)
 	end
 end
 
-local function sortFunction(a, b)
-	return a.name < b.name
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards
+
+	if db.items.mouseover then
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	end
+end
+
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards
+
+	if db.items.mouseover then
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+	end
 end
 
 function mod:GetItemsInfo(id)
 	local name, icon, amount, totalMax
 
-    for bagID = 0, NUM_BAG_SLOTS do
+	for bagID = 0, NUM_BAG_SLOTS do
 		for slot = 1, C_Container_GetContainerNumSlots(bagID) do
-            if id then
-                name, _, _, _, _, _, _, totalMax = GetItemInfo(id)
+			if id then
+				name, _, _, _, _, _, _, totalMax = GetItemInfo(id)
 				icon = C_Item_GetItemIconByID(id)
-                amount = GetItemCount(id, true)
-                return name, icon, amount, totalMax
-            end
-        end
-    end
+				amount = GetItemCount(id, true)
+				return name, icon, amount, totalMax
+			end
+		end
+	end
 end
 
 function mod:UpdateItems()
 	local db = E.db.benikui.dashboards
 	local vdb = E.private.benikui.dashboards.items.chooseItems
-	local holder = _G.BUI_ItemsDashboard
+	local holder = mod.itemHolder
 
 	if not db.items.enable then holder:Hide() return end
 
-	local inInstance = IsInInstance()
-	local NotinInstance = not (db.items.instance and inInstance)
-
 	if(itemsDB[1]) then
-		for i = 1, getn(itemsDB) do
-			itemsDB[i]:Kill()
+		for i = 1, #itemsDB do
+			itemsDB[i]:Hide()
 		end
 		twipe(itemsDB)
 		holder:Hide()
@@ -121,12 +140,12 @@ function mod:UpdateItems()
 
 	if db.items.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 
-	for id in pairs(mod.ItemsList) do
+	for id in next, mod.ItemsList do
 		local name, icon, amount, totalMax = mod:GetItemsInfo(tonumber(id))
 
 		if id and name then
 			if vdb[id] and vdb[id].enable == true then
-				holder:SetShown(NotinInstance)
+				holder:SetShown(mod:ShouldShowDashboard('items'))
 
 				if db.items.orientation == 'BOTTOM' then
 					holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#itemsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
@@ -151,9 +170,9 @@ function mod:UpdateItems()
 				bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 				bar.IconBG.Icon:SetTexture(icon)
 
-				bar:SetScript('OnEnter', OnEnter)
-				bar:SetScript('OnLeave', OnLeave)
-				bar:SetScript('OnMouseUp', OnMouseUp)
+				bar:SetScript('OnEnter', barOnEnter)
+				bar:SetScript('OnLeave', barOnLeave)
+				bar:SetScript('OnMouseUp', barOnMouseUp)
 
 				bar.id = id
 				bar.name = name
@@ -167,9 +186,9 @@ function mod:UpdateItems()
 
 	tsort(itemsDB, sortFunction)
 
-	for key, frame in pairs(itemsDB) do
+	for key, frame in next, itemsDB do
 		frame:ClearAllPoints()
-		if(key == 1) then
+		if (key == 1) then
 			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
 			if db.items.orientation == 'BOTTOM' then
@@ -188,39 +207,15 @@ end
 
 function mod:GetUserItems()
 	local db = E.private.benikui.dashboards.items.chooseItems
-	for id in pairs(db) do
+	for id in next, db do
 		mod.ItemsList[id] = id
 	end
 	mod:UpdateItems()
 end
 
-local function holderOnEnter(self)
-	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ItemsDashboard
-
-	if db.items.mouseover then
-		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-	end
-end
-
-local function holderOnLeave(self)
-	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ItemsDashboard
-
-	if db.items.mouseover then
-		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-	end
-end
-
-local function CheckItemsPosition()
-	if E.db.benikui.dashboards.items.enable ~= true then return end
-
-	position, Xoffset = mod:CheckPositionForTooltip(_G.BUI_ItemsDashboard)
-end
-
 function mod:ToggleItems()
 	local db = E.db.benikui.dashboards
-	local holder = _G.BUI_ItemsDashboard
+	local holder = mod.itemHolder
 
 	if db.items.enable then
 		E:EnableMover(holder.mover.name)
@@ -228,7 +223,7 @@ function mod:ToggleItems()
 
 		mod:ToggleStyle(holder, 'items')
 		mod:ToggleTransparency(holder, 'items')
-		
+
 		holder:SetScript('OnEnter', holderOnEnter)
 		holder:SetScript('OnLeave', holderOnLeave)
 	else
@@ -248,6 +243,8 @@ function mod:CreateItemsDashboard()
 	local holder = mod:CreateDashboardHolder('BUI_ItemsDashboard', 'items')
 	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -523)
 	holder:Width(db.items.width or 150)
+
+	mod.itemHolder = holder
 
 	E:CreateMover(holder, 'itemsHolderMover', L['items'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,items')
 	mod:ToggleItems()

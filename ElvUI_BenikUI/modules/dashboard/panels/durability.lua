@@ -2,7 +2,7 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards');
 
 local _G = _G
-local pairs, format, join = pairs, string.format, string.join
+local pairs, format = pairs, format
 
 local GameTooltip = _G["GameTooltip"]
 local GetInventorySlotInfo = GetInventorySlotInfo
@@ -92,21 +92,10 @@ local function OnLeave(self)
 	GameTooltip:Hide()
 end
 
-function mod:CreateDurability()
-	local bar = _G['BUI_Durability']
-	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
-	bar:SetParent(holder)
-	bar.db = db
-
-	bar:SetScript('OnEvent', OnEvent)
-
-	bar:EnableMouse(true)
-	bar:SetScript('OnEnter', OnEnter)
-	bar:SetScript('OnLeave', OnLeave)
-	bar:SetScript('OnMouseUp', OnMouseUp)
-
+mod:RegisterSystemBoard('Durability', function()
+	local bar = mod:CreateSystemBar('Durability', OnEnter, OnLeave, OnMouseUp)
 	bar:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
 	bar:RegisterEvent('MERCHANT_SHOW')
 	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
-end
+	bar:SetScript('OnEvent', OnEvent)
+end)

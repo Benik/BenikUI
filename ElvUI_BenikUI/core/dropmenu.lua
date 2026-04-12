@@ -1,8 +1,16 @@
--- BenikUI
--- Edit ElvUI dropdown.lua to make a steady dropup menu. The menu position is not related anymore on where the mouse is clicked.
--- args: menuList, menuFrame, parentButtonName, position, xOffset, yOffset, delay
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local tinsert, unpack = table.insert, unpack
+
+local _G = _G
+local tinsert = table.insert
+
+local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
+local UIFrameFadeOut, UIFrameFadeIn = UIFrameFadeOut, UIFrameFadeIn
+local CloseMenus = CloseMenus
+local CloseAllWindows = CloseAllWindows
+local ShowUIPanel = ShowUIPanel
+local HideUIPanel = HideUIPanel
+local ToggleFrame = ToggleFrame
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
 local PADDING = 10
 local BUTTON_HEIGHT = 16
@@ -10,12 +18,9 @@ local BUTTON_WIDTH = 135
 local counter = 0
 local hoverVisible = false
 
-local CreateFrame, ToggleFrame = CreateFrame, ToggleFrame
-local UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames = UIFrameFadeOut, UIFrameFadeIn, UISpecialFrames
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local MainMenuMicroButton = MainMenuMicroButton
 
 local classColor = E:ClassColor(E.myclass, true)
-local Garrison_OnClick = GarrisonLandingPageMinimapButton_OnClick
 
 local PlayerSpellsUtil = _G.PlayerSpellsUtil
 local UIParentLoadAddOn = UIParentLoadAddOn
@@ -28,9 +33,6 @@ BUI.MenuList = {
 	{text = _G.LFG_TITLE, func = function() ToggleLFDParentFrame() end},
 	{text = _G.ACHIEVEMENT_BUTTON, func = function() ToggleAchievementFrame() end},
 	{text = _G.REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
-	{text = _G.GARRISON_TYPE_8_0_LANDING_PAGE_TITLE, func = function()
-		if Garrison_OnClick then Garrison_OnClick(_G.GarrisonLandingPageMinimapButton) else _G.ExpansionLandingPageMinimapButton:ToggleLandingPage() end
-	end},
 	{text = _G.COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
 	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
 	{text = _G.MOUNTS, func = function() ToggleCollectionsJournal(1) end},
@@ -38,6 +40,7 @@ BUI.MenuList = {
 	{text = _G.TOY_BOX, func = function() ToggleCollectionsJournal(3) end},
 	{text = _G.HEIRLOOMS, func = function() ToggleCollectionsJournal(4) end},
 	{text = _G.WARDROBE, func = function() ToggleCollectionsJournal(5) end},
+	{text = _G.WARBAND_SCENES, func = function() ToggleCollectionsJournal(6) end},
 	{text = _G.MACROS, func = function() UIParentLoadAddOn("Blizzard_MacroUI") MacroFrame_Show() end},
 	{text = _G.TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
 	{text = _G.ADVENTURE_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
@@ -54,6 +57,7 @@ BUI.MenuList = {
 		end
 	end},
 	{text = _G.HELP_BUTTON, func = function() ToggleHelpFrame() end},
+	{text = _G.HOUSING_MICRO_BUTTON, func = function() _G.HousingFramesUtil.ToggleHousingDashboard() end},
 }
 
 local function sortFunction(a, b)
@@ -161,7 +165,7 @@ function BUI:Dropmenu(list, frame, parent, pos, xOffset, yOffset, delay, addedSi
 
 	frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2)
 	frame:Width(BUTTON_WIDTH + PADDING * 2 + (addedSize or 0))
-	frame:BuiStyle('Outside')
+	frame:BuiStyle()
 	frame:ClearAllPoints()
 	frame:SetFrameStrata('DIALOG')
 

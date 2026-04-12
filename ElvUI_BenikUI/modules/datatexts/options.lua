@@ -8,10 +8,9 @@ local CH = E:GetModule('Chat')
 
 if E.db.benikui == nil then E.db.benikui = {} end
 local tinsert = table.insert
+local hooksecurefunc = hooksecurefunc
 
 local MAIL_LABEL = MAIL_LABEL
-local EXPANSION_NAME9 = EXPANSION_NAME9
-local EXPANSION_NAME10 = EXPANSION_NAME10
 
 local function Datatexts()
 	E.Options.args.benikui.args.datatexts = {
@@ -67,22 +66,6 @@ local function Datatexts()
 						order = 6,
 						type = 'description',
 						name = '',
-					},
-					editBoxPosition = {
-						order = 7,
-						type = 'select',
-						name = L['Chat EditBox Position'],
-						desc = L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'],
-						values = {
-							['BELOW_CHAT'] = L['Below Chat'],
-							['ABOVE_CHAT'] = L['Above Chat'],
-							['MIDDLE_DT'] = L['Middle Datatext'],
-							['EAB_1'] = L['Actionbar 1'],
-							['EAB_2'] = L['Actionbar 2'],
-						},
-						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
-						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; CH:UpdateEditboxAnchors() end,
 					},
 					showChatDt = {
 						order = 8,
@@ -140,22 +123,6 @@ local function Datatexts()
 						desc = L['Show/Hide Mail Icon on minimap'],
 						get = function(info) return E.db.benikui.datatexts.mail[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.datatexts.mail[ info[#info] ] = value; BUI:GetModule('DataTexts'):ToggleMailFrame() end,
-					},
-				},
-			},
-			renownFilter = {
-				order = 40,
-				type = 'group',
-				name = L["Renown"],
-				guiInline = true,
-				args = {
-					expansion = {
-						order = 1,
-						type = 'select',
-						name = L['Filter Factions by Expansion'],
-						values = {[9] = EXPANSION_NAME9, [10] = EXPANSION_NAME10, [0] = ALL},
-						get = function(info) return E.private.benikui.datatexts.renownFilter[ info[#info] ] end,
-						set = function(info, value) E.private.benikui.datatexts.renownFilter[ info[#info] ] = value; end,
 					},
 				},
 			},

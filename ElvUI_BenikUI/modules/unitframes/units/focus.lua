@@ -4,8 +4,7 @@ local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 local CreateFrame = CreateFrame
-
--- GLOBALS: hooksecurefunc
+local hooksecurefunc = hooksecurefunc
 
 function BU:Construct_FocusFrame()
 	local frame = _G["ElvUF_Focus"]
@@ -42,10 +41,10 @@ function BU:ArrangeFocus()
 
 	-- InfoPanel
 	BU:Configure_Infopanel(frame)
-	
+
 	-- AuraBars shadows
 	BU:Configure_AuraBars(frame)
-	
+
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 

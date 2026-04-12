@@ -1,5 +1,5 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local A = E:GetModule('Auras');
+local A = E:GetModule('Auras')
 
 if E.private.auras.enable ~= true then return end
 if E.private.auras.masque.buffs or E.private.auras.masque.debuffs then return end

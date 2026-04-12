@@ -4,7 +4,7 @@ local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 local CreateFrame = CreateFrame
--- GLOBALS: hooksecurefunc
+local hooksecurefunc = hooksecurefunc
 
 function BU:Construct_PetFrame()
 	local frame = _G["ElvUF_Pet"]

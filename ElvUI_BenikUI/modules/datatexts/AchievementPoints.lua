@@ -1,7 +1,9 @@
 local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
+local _G = _G
 local strjoin = strjoin
+local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local IsInGuild = IsInGuild
 local GetTotalAchievementPoints = GetTotalAchievementPoints
@@ -12,7 +14,7 @@ local icon = "|TInterface\\AchievementFrame\\UI-Achievement-TinyShield:16:16:0:-
 local displayString = ''
 
 local function OnClick()
-	ToggleAchievementFrame()
+	_G.ToggleAchievementFrame()
 end
 
 local function OnEnter()

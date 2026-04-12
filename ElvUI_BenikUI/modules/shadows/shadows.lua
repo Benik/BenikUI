@@ -5,6 +5,8 @@ local M = E:GetModule('Misc')
 local B = E:GetModule('Blizzard')
 
 local _G = _G
+local pairs = pairs
+local hooksecurefunc = hooksecurefunc
 
 local CLASS_SORT_ORDER = CLASS_SORT_ORDER
 
@@ -46,14 +48,14 @@ local function CalendarEventButtonShadows()
 end
 
 local function miscShadows()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or BUI.ShadowMode ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.db.benikui.general.shadows ~= true then return end
 
 	_G.EquipmentFlyoutFrameButtons:CreateSoftShadow()
 end
 
 -- ElvUI tabs
 function mod:TabShadows(tab)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 	if not tab then return end
 
 	if tab.backdrop then
@@ -61,12 +63,13 @@ function mod:TabShadows(tab)
 		tab.backdrop:CreateSoftShadow()
 	end
 end
-hooksecurefunc(S, "HandleTab", mod.TabShadows)
+--hooksecurefunc(S, "HandleTab", mod.TabShadows) -- this errors on BGs
 
 -- ElvUI item buttons
 function mod:ItemButtonShadows(button)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 	if not button then return end
+	if Baganator then return end
 
 	if button.backdrop then
 		button.backdrop:SetTemplate("Transparent")
@@ -110,7 +113,7 @@ function mod:START_TIMER()
 	end
 end
 
-function mod:ChatBubbles(frame, holder)
+function mod:ChatBubbles(_, holder)
 	if E.private.general.chatBubbles == 'backdrop' then
 		if holder then
 			if not holder.shadow then
@@ -157,19 +160,6 @@ local function SpellBookFrameShadows()
 		i = i + 1
 		tab = _G['SpellBookFrameTabButton'..i]
 	end
-
-	-- for j = 1, MAX_SKILLLINE_TABS do
-	-- 	local tab = _G['SpellBookSkillLineTab'..j]
-	-- 	tab:CreateSoftShadow()
-	-- end
-
-	-- hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
-	-- 	function()
-	-- 		for i = 1, MAX_SKILLLINE_TABS do
-	-- 			local tab = _G['SpellBookSkillLineTab'..i]
-	-- 			tab:CreateSoftShadow()
-	-- 		end
-	-- 	end)
 end
 
 local function PVEFrameShadows()
@@ -248,8 +238,8 @@ local function MailFrameShadows()
 	end
 end
 
-local ignoreWidgets = {
-	[283] = true -- Cosmic Energy
+local ignoreWidget = {
+	[283] = 3463 -- Cosmic Energy
 }
 
 function B:UIWidgetTemplateStatusBarShadows()
@@ -259,7 +249,7 @@ function B:UIWidgetTemplateStatusBarShadows()
 	if forbidden and bar then
 		if bar.tooltip then bar.tooltip = nil end -- EmbeddedItemTooltip is tainted just block the tooltip
 		return
-	elseif forbidden or ignoreWidgets[self.widgetSetID] or not bar then
+	elseif forbidden or (self.widgetID == ignoreWidget[self.widgetSetID]) or not bar then
 		return -- we don't want to handle these widgets
 	end
 
@@ -269,7 +259,7 @@ function B:UIWidgetTemplateStatusBarShadows()
 end
 
 function mod:Initialize()
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 
 	AltPowerBarShadows()
 	raidUtilityShadows()
