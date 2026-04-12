@@ -1,3 +1,7 @@
+v5.11 (Apr 12, 2026)
+Prey bar: Fixed hiding the anims for good
+Added shadow in the LossControl
+
 v5.10 (Apr 6, 2026)
 Prey Bar: Stop Blizzard animation from showing
 
