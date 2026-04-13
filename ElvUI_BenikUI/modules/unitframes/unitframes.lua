@@ -253,9 +253,12 @@ end
 local originalPostUpdateAura = UF.PostUpdateAura
 UF.PostUpdateAura = function(self, unit, button)
 	originalPostUpdateAura(self, unit, button)
-	if button and not button.hasShadow then
-		button.hasShadow = true
-		button:CreateSoftShadow()
+
+	if E.db.benikui.general.shadows then
+		if button and not button.hasShadow then
+			button.hasShadow = true
+			button:CreateSoftShadow()
+		end
 	end
 end
 

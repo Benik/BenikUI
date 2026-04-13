@@ -19,9 +19,11 @@ local RAID_CLASS_COLORS = _G.RAID_CLASS_COLORS
 function BU:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
 
-	if not frame.Portrait.backdrop.shadow then
-		frame.Portrait.backdrop:CreateSoftShadow()
-		frame.Portrait.backdrop.shadow:Hide()
+	if E.db.benikui.general.shadows then
+		if not frame.Portrait.backdrop.shadow then
+			frame.Portrait.backdrop:CreateSoftShadow()
+			frame.Portrait.backdrop.shadow:Hide()
+		end
 	end
 
 	if E.db.benikui.general.benikuiStyle == true then

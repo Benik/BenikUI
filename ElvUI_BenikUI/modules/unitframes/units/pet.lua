@@ -9,9 +9,11 @@ local hooksecurefunc = hooksecurefunc
 function BU:Construct_PetFrame()
 	local frame = _G["ElvUF_Pet"]
 
-	if not frame.Portrait.backdrop.shadow then
-		frame.Portrait.backdrop:CreateSoftShadow()
-		frame.Portrait.backdrop.shadow:Hide()
+	if E.db.benikui.general.shadows then
+		if not frame.Portrait.backdrop.shadow then
+			frame.Portrait.backdrop:CreateSoftShadow()
+			frame.Portrait.backdrop.shadow:Hide()
+		end
 	end
 
 	local f = CreateFrame("Frame", nil, frame)
