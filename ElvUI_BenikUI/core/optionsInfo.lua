@@ -80,9 +80,10 @@ local PATRONS = {
 	'thurin',
 	'cry1n',
 	'Roshne',
-	'Valerie K.',
 	'Wulfsie',
 	'Praeses',
+	'Mykey',
+	'Valerie K.',
 }
 tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
