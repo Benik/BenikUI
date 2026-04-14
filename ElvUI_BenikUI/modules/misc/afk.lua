@@ -86,6 +86,10 @@ local stats = {
 	5695,	-- Rated battleground won the most
 	5694,	-- Rated battlegrounds won
 	8278,	-- Pet Battles won at max level
+	14787,	-- Total deaths in dungeons
+	16745,	-- Total Crafting Orders Fulfilled
+	40734,	-- Total delves completed
+	40748,	-- Total deaths in delves
 }
 
 -- Create random stats
