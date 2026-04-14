@@ -1100,7 +1100,9 @@ local function style_ProfessionsCustomerOrders()
 		return
 	end
 
-	_G.ProfessionsCustomerOrdersFrame:BuiStyle()
+	local frame = _G.ProfessionsCustomerOrdersFrame
+	frame:BuiStyle()
+	frame.Form.QualityDialog:BuiStyle()
 end
 S:AddCallbackForAddon("Blizzard_ProfessionsCustomerOrders", "BenikUI_ProfessionsCustomerOrders", style_ProfessionsCustomerOrders)
 
