@@ -5,7 +5,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local next = next
-local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
 
 local function StyleDBM_Options()
 	if not E.db.benikui.skins.addonSkins.dbm or not BUI.AS then
@@ -19,29 +19,30 @@ local function StyleDBM_Options()
 end
 
 local function StyleInFlight()
-	if E.db.benikui.skins.variousSkins.inflight ~= true or E.db.benikui.misc.flightMode.enable == true then return end
-
 	local frame = _G.InFlightBar
 	if frame then
-		if not frame.isStyled then
-			frame:CreateBackdrop("Transparent")
-			frame.backdrop:BuiStyle()
-			frame.isStyled = true
+		if E.db.benikui.misc.flightMode.enable then
+			if not frame.isSkinned then
+				frame:CreateBackdrop('Transparent', true, true)
+				frame.backdrop:SetOutside(frame, 2, 2)
+				frame.backdrop:SetBackdropBorderColor(.3, .3, .3, 1)
+				frame.backdrop:CreateWideShadow()
+				frame.isSkinned = true
+			end
+		else
+			if not frame.isStyled then
+				frame:CreateBackdrop("Transparent")
+				frame.backdrop:BuiStyle()
+				frame.isStyled = true
+			end
 		end
 	end
 end
 
 local function LoadInFlight()
-	local f = CreateFrame("Frame")
-	f:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
-	f:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
-
-	f:SetScript("OnEvent", function(self, event)
-		if event then
-			StyleInFlight()
-			f:UnregisterEvent(event)
-		end
-	end)
+	if BUI:IsAddOnEnabled('InFlight') and E.db.benikui.skins.variousSkins.inflight then
+		hooksecurefunc(InFlight, 'StartTimer', StyleInFlight)
+	end
 end
 
 local function KalielsTracker()
@@ -143,10 +144,6 @@ function mod:LoD_AddOns(_, addon)
 	if addon == "DBM-GUI" then
 		StyleDBM_Options()
 	end
-
-	if addon == "InFlight" then
-		LoadInFlight()
-	end
 end
 
 function mod:StyleAddons()
@@ -155,4 +152,5 @@ function mod:StyleAddons()
 	TomTom()
 	Baganator()
 	AllTheThings()
+	LoadInFlight()
 end
