@@ -108,7 +108,7 @@ end
 
 function mod:ToggleTransparency()
 	local db = E.db.benikui.datatexts.chat
-	local shadows = E.db.benikui.general.shadows
+	local shadows = E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows
 	local buiLeftDT = _G.BuiLeftChatDTPanel
 	local buiRightDT = _G.BuiRightChatDTPanel
 
@@ -447,7 +447,7 @@ function mod:CreateLayout()
 	elvuiLeftChatPanel.backdrop:BuiStyle()
 	elvuiRightChatPanel.backdrop:BuiStyle()
 
-	if E.db.benikui.general.shadows then
+	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
 		elvuiMinimapPanel:CreateSoftShadow()
 		leftChatDataPanel:CreateSoftShadow()
 		leftChatToggleButton:CreateSoftShadow()
