@@ -149,13 +149,6 @@ local function SkinTable()
 				order = 3,
 				type = 'toggle',
 				name = L['InFlight'],
-				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value;
-					if E.db.benikui.skins.variousSkins.inflight then
-						BUI:LoadInFlightProfile(true)
-					else
-						BUI:LoadInFlightProfile(false)
-					end
-					E:StaticPopup_Show('PRIVATE_RL') end,
 				disabled = function() return not IsAddOnLoaded('InFlight') end,
 			},
 			kt = {
@@ -187,6 +180,12 @@ local function SkinTable()
 				type = 'toggle',
 				name = L['All The Things'],
 				disabled = function() return not IsAddOnLoaded('AllTheThings') end,
+			},
+			minimapbb = {
+				order = 9,
+				type = 'toggle',
+				name = L['MinimapButtonButton'],
+				disabled = function() return not IsAddOnLoaded('MinimapButtonButton') end,
 			},
 		},
 	}
