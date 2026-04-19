@@ -223,6 +223,7 @@ local AddonsToHide = {
 	{'!KalielsTracker','KT_ProfessionsRecipeTracker'},
 	{'!KalielsTracker','!KalielsTrackerHeaderButtons'},
 	{'RareTrackerCore','RT'},
+	{'MinimapButtonButton','MinimapButtonButtonButton'},
 }
 
 local AllTheThingsFrames = {}
