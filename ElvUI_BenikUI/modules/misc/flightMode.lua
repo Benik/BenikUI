@@ -179,6 +179,12 @@ local function Decursive(hide)
 	end
 end
 
+local function CenteredCDM()
+	if BUI:IsAddOnEnabled('CooldownManagerCentered') then
+		return true
+	end
+end
+
 local AddonsToHide = {
 	-- addon, frame
 	{'ZygorGuidesViewer', 'ZygorGuidesViewerFrame'},
@@ -349,7 +355,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- Cooldown Manager
-		if GetCVar("cooldownViewerEnabled") == "1" then
+		if CenteredCDM() or GetCVar("cooldownViewerEnabled") == "1" then
 			if _G.EssentialCooldownViewer then
 				_G.EssentialCooldownViewer:Hide()
 			end
@@ -513,7 +519,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- Cooldown Manager
-		if GetCVar("cooldownViewerEnabled") == "1" then
+		if CenteredCDM() or GetCVar("cooldownViewerEnabled") == "1" then
 			if _G.EssentialCooldownViewer then
 				_G.EssentialCooldownViewer:Show()
 			end
