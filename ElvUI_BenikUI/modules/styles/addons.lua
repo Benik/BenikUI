@@ -59,37 +59,40 @@ end
 
 local function TomTom()
 	if BUI:IsAddOnEnabled('TomTom') and E.db.benikui.skins.variousSkins.tomtom then
-
-		if _G.MyFrameDropDownBackdrop then
-			_G.MyFrameDropDownBackdrop:StripTextures()
-			_G.MyFrameDropDownBackdrop:SetTemplate("Transparent")
+		local frameDropDown = _G.MyFrameDropDownBackdrop
+		if frameDropDown then
+			frameDropDown:StripTextures()
+			frameDropDown:SetTemplate("Transparent")
 
 			if E.db.benikui.general.benikuiStyle then
-				_G.MyFrameDropDownBackdrop:BuiStyle()
+				frameDropDown:BuiStyle()
 			end
 		end
 
-		if _G.TomTomWorldMapDropdownBackdrop then
-			_G.TomTomWorldMapDropdownBackdrop:StripTextures()
-			_G.TomTomWorldMapDropdownBackdrop:SetTemplate("Transparent")
+		local mapDropDown = _G.TomTomWorldMapDropdownBackdrop
+		if mapDropDown then
+			mapDropDown:StripTextures()
+			mapDropDown:SetTemplate("Transparent")
 
 			if E.db.benikui.general.benikuiStyle then
-				_G.TomTomWorldMapDropdownBackdrop:BuiStyle()
+				mapDropDown:BuiStyle()
 			end
 		end
 
-		if _G.TomTomDropdown then --minimap dropdown
-			_G.TomTomDropdownBackdrop:StripTextures()
-			_G.TomTomDropdownBackdrop:SetTemplate("Transparent")
+		local mapDropDown = _G.TomTomDropdownBackdrop
+		if mapDropDown then --minimap dropdown
+			mapDropDown:StripTextures()
+			mapDropDown:SetTemplate("Transparent")
 
 			if E.db.benikui.general.benikuiStyle then
-				_G.TomTomDropdownBackdrop:BuiStyle()
+				mapDropDown:BuiStyle()
 			end
 		end
 
-		if _G.TomTomTooltip then
+		local tomTooltip = _G.TomTomTooltip
+		if tomTooltip then
 			if E.db.benikui.general.benikuiStyle then
-				_G.TomTomTooltip:BuiStyle()
+				tomTooltip:BuiStyle()
 			end
 		end
 	end
@@ -97,13 +100,15 @@ end
 
 local function Baganator() --credits go to plusmouse here https://github.com/Benik/BenikUI/issues/62
 	if BUI:IsAddOnEnabled('Baganator') and E.db.benikui.general.benikuiStyle and E.db.benikui.skins.variousSkins.ba then
-		_G["Baganator"].API.Skins.RegisterListener(function(details)
-			if details.regionType == "ButtonFrame" and _G["Baganator"].API.Skins.GetCurrentSkin() == "elvui" then
+		local baganator = _G["Baganator"]
+		baganator.API.Skins.RegisterListener(function(details)
+			if details.regionType == "ButtonFrame" and baganator.API.Skins.GetCurrentSkin() == "elvui" then
 				details.region:BuiStyle()
 			end
 		end)
-		if _G["Baganator"].API.Skins.GetCurrentSkin() == "elvui" then
-			for _, details in ipairs(_G["Baganator"].API.Skins.GetAllFrames()) do
+
+		if baganator.API.Skins.GetCurrentSkin() == "elvui" then
+			for _, details in ipairs(baganator.API.Skins.GetAllFrames()) do
 				if details.regionType == "ButtonFrame" then
 					details.region:BuiStyle()
 				end

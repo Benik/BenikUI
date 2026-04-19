@@ -167,28 +167,6 @@ function mod:SetFrameParent()
 	end
 end
 
-local isInFlightLoaded = false
-
-function mod:SkinInFlight()
-	if not isInFlightLoaded then
-		if not BUI.IF then
-			LoadAddOn("InFlight") -- LOD addon
-			isInFlightLoaded = true
-		end
-	end
-
-	local frame = _G["InFlightBar"]
-	if frame then
-		if not frame.isSkinned then
-			frame:CreateBackdrop('Transparent', true, true)
-			frame.backdrop:SetOutside(frame, 2, 2)
-			frame.backdrop:SetBackdropBorderColor(.3, .3, .3, 1)
-			frame.backdrop:CreateWideShadow()
-			frame.isSkinned = true
-		end
-	end
-end
-
 local DCR = _G.LibStub('AceAddon-3.0'):GetAddon('Decursive', true)
 local function Decursive(hide)
 	if not DCR then return end
@@ -418,7 +396,6 @@ function mod:SetFlightMode(status)
 		mod.coordsTimer = mod:ScheduleRepeatingTimer('UpdateCoords', 0.2)
 		mod.fpsTimer = mod:ScheduleRepeatingTimer('UpdateFps', 1)
 
-		mod:SkinInFlight()
 	elseif(mod.inFlightMode) then
 		mod.inFlightMode = false
 		_G.MainMenuBarVehicleLeaveButton:SetParent(_G.UIParent)
