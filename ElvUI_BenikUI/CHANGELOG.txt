@@ -1,3 +1,6 @@
+v5.13 (Apr 22, 2026)
+Fixed the tooltip error
+
 v5.12 (Apr 22, 2026)
 Fix micro_buttons shadows. Credit: thurin
 Styled MinimapButtonButton addon
