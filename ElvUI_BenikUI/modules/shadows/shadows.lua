@@ -96,7 +96,9 @@ local MICRO_BUTTONS = _G.MICRO_BUTTONS or {
 -- MicroBar
 local function MicroBarShadows()
 	for _, x in pairs(MICRO_BUTTONS) do
-		_G[x]:CreateSoftShadow()
+		if _G[x] then
+			_G[x]:CreateSoftShadow()
+		end
 	end
 end
 
