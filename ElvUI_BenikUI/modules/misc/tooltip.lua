@@ -123,13 +123,13 @@ function mod:GameTooltip_OnTooltipCleared(tt)
 	tt.buiUpdated = nil
 end
 
-function mod:RecolorTooltipStyle()
-	if not GameTooltip.style then return end
-	if not GameTooltip.buiUpdated then
+function mod:RecolorTooltipStyle(tt)
+	if not tt.style then return end
+	if not tt.buiUpdated then
 		local r, g, b = 0, 0, 0
 
-		if GameTooltipStatusBar:IsShown() then
-			local _,tooltipUnit = GameTooltip:GetUnit()
+		if tt.StatusBar:IsShown() then
+			local _,tooltipUnit = TT:GetDisplayedUnit(tt)
 			if tooltipUnit and E:NotSecretValue(tooltipUnit) then
 				if UnitIsPlayer(tooltipUnit) then
 					local _, tooltipUnitClass = UnitClass(tooltipUnit)
@@ -148,21 +148,21 @@ function mod:RecolorTooltipStyle()
 							r, g, b =  0.8, 0, 0
 						end
 					else
-						r, g, b = GameTooltipStatusBar:GetStatusBarColor()
+						r, g, b = tt.StatusBar:GetStatusBarColor()
 					end
 				end
 			else
-				r, g, b = GameTooltipStatusBar:GetStatusBarColor()
+				r, g, b = tt.StatusBar:GetStatusBarColor()
 			end
 		else
 			r, g, b = ttr, ttg, ttb
 		end
 
 		if (r and g and b) then
-			GameTooltip.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
+			tt.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
 		end
 
-		GameTooltip.buiUpdated = true
+		tt.buiUpdated = true
 	end
 end
 
