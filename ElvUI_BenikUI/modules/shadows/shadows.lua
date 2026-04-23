@@ -3,6 +3,7 @@ local mod = BUI:GetModule('Shadows')
 local S = E:GetModule('Skins')
 local M = E:GetModule('Misc')
 local B = E:GetModule('Blizzard')
+local AB = E:GetModule('ActionBars')
 
 local _G = _G
 local pairs = pairs
@@ -78,24 +79,9 @@ function mod:ItemButtonShadows(button)
 end
 hooksecurefunc(S, "HandleItemButton", mod.ItemButtonShadows)
 
-local MICRO_BUTTONS = _G.MICRO_BUTTONS or {
-	'CharacterMicroButton',
-	'SpellbookMicroButton',
-	'TalentMicroButton',
-	'AchievementMicroButton',
-	'QuestLogMicroButton',
-	'GuildMicroButton',
-	'LFDMicroButton',
-	'EJMicroButton',
-	'CollectionsMicroButton',
-	'MainMenuMicroButton',
-	'HelpMicroButton',
-	'StoreMicroButton',
-}
-
 -- MicroBar
 local function MicroBarShadows()
-	for _, x in pairs(MICRO_BUTTONS) do
+	for _, x in pairs(AB.MICRO_BUTTONS) do
 		if _G[x] then
 			_G[x]:CreateSoftShadow()
 		end
