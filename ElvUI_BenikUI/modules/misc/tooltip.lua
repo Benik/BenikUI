@@ -5,6 +5,7 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
+local ElvUF = E.oUF
 local hooksecurefunc = hooksecurefunc
 local CreateFrame = CreateFrame
 local GameTooltip = _G.GameTooltip
@@ -13,6 +14,10 @@ local GameTooltipStatusBar = _G.GameTooltipStatusBar
 local UnitIsPlayer = UnitIsPlayer
 local UnitClass = UnitClass
 local UnitReaction = UnitReaction
+
+local FACTION_BAR_COLORS = FACTION_BAR_COLORS
+
+local classColor = E:ClassColor(E.myclass, true)
 
 local function StyleTooltip()
 	if GameTooltip.style then return end
@@ -110,14 +115,6 @@ local function StyleBlizzardTooltips()
 end
 S:AddCallback("BenikUI_StyleBlizzardTooltips", StyleBlizzardTooltips)
 
-local ttr, ttg, ttb = 0, 0, 0
-function mod:CheckTooltipStyleColor()
-	if not GameTooltip.style then return end
-
-	local r, g, b = GameTooltip.style:GetBackdropColor()
-	ttr, ttg, ttb = r, g, b
-end
-
 function mod:GameTooltip_OnTooltipCleared(tt)
 	if tt:IsForbidden() then return end
 	tt.buiUpdated = nil
@@ -129,23 +126,28 @@ function mod:RecolorTooltipStyle(tt)
 		local r, g, b = 0, 0, 0
 
 		if tt.StatusBar:IsShown() then
-			local _,tooltipUnit = TT:GetDisplayedUnit(tt)
+			local _, tooltipUnit = TT:GetDisplayedUnit(tt)
 			if tooltipUnit and E:NotSecretValue(tooltipUnit) then
 				if UnitIsPlayer(tooltipUnit) then
 					local _, tooltipUnitClass = UnitClass(tooltipUnit)
-					local tooltipUnitClassColor = E:ClassColor(tooltipUnitClass, true)
-					r, g, b = tooltipUnitClassColor.r, tooltipUnitClassColor.g, tooltipUnitClassColor.b
+					local tooltipUnitClassColor = tooltipUnitClass and E:ClassColor(tooltipUnitClass, true)
+
+					if tooltipUnitClassColor then
+						r, g, b = tooltipUnitClassColor.r, tooltipUnitClassColor.g, tooltipUnitClassColor.b
+					else
+						r, g, b = tt.StatusBar:GetStatusBarColor()
+					end
 				else
-					local reaction = UnitReaction(tooltipUnit, "player")
-					if reaction then
-						if reaction >= 5 then
-							r, g, b =  0.2, 1,  0.2
-						elseif reaction == 4 then
-							r, g, b =  0.89, 0.89, 0
-						elseif reaction == 3 then
-							r, g, b =  0.94, 0.37, 0
-						elseif reaction == 2 or reaction == 1 then
-							r, g, b =  0.8, 0, 0
+					local unitReaction = UnitReaction(tooltipUnit, "player")
+
+					if unitReaction then
+						local factionColor = TT.db and TT.db.useCustomFactionColors and TT.db.factionColors
+						local color = (factionColor and factionColor[unitReaction]) or (ElvUF.colors.reaction[unitReaction]) or FACTION_BAR_COLORS[unitReaction]
+
+						if color then
+							r, g, b = color.r, color.g, color.b
+						else
+							r, g, b = tt.StatusBar:GetStatusBarColor()
 						end
 					else
 						r, g, b = tt.StatusBar:GetStatusBarColor()
@@ -155,7 +157,7 @@ function mod:RecolorTooltipStyle(tt)
 				r, g, b = tt.StatusBar:GetStatusBarColor()
 			end
 		else
-			r, g, b = ttr, ttg, ttb
+			r, g, b = classColor.r, classColor.g, classColor.b
 		end
 
 		if (r and g and b) then
@@ -203,7 +205,6 @@ function mod:Initialize()
 
 	StyleTooltip()
 
-	mod:CheckTooltipStyleColor()
 	mod:SecureHookScript(GameTooltip, 'OnTooltipCleared', 'GameTooltip_OnTooltipCleared')
 	mod:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
 	hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", mod.SetupStyleAndShadow)
