@@ -122,6 +122,7 @@ end
 
 function mod:RecolorTooltipStyle(tt)
 	if not tt.style then return end
+
 	if not tt.buiUpdated then
 		local r, g, b = 0, 0, 0
 
