@@ -394,17 +394,15 @@ end
 S:AddCallbackForAddon("Blizzard_CovenantSanctum", "BenikUI_CovenantSanctum", style_CovenantSanctum)
 
 -- DamageMeter
-function BUI:ApplyDamageMeterStyle(window)
+function BUI:ApplyDamageMeterStyle(_, background)
 	if E.private.skins.blizzard.damageMeter ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
 	end
 
-	if not window or not window.backdrop then return end
-
-	if not window.backdrop.style then
-		window.backdrop:BuiStyle()
+	if not background.backdrop.style then
+		background.backdrop:BuiStyle()
 	end
 end
 hooksecurefunc(S, "DamageMeter_HandleBackground", BUI.ApplyDamageMeterStyle)
