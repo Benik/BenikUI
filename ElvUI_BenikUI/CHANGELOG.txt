@@ -1,3 +1,528 @@
+v5.13 (Apr 22, 2026)
+Fixed the tooltip error
+
+v5.12 (Apr 22, 2026)
+Fix micro_buttons shadows. Credit: thurin
+Styled MinimapButtonButton addon
+Hide CenteredCooldownManager while in FlightMode
+Fixed ElvUI Datatext shadows not hiding when they are supposed to be
+Skin InFlight only once
+Hide MinimapButtonButton frame during FlightMode
+Fixed negative max reputations
+Patrons update
+Styled QualityDialog frame
+Added some new stats in AFK mode
+Added checks for frames that shouldn't have Shadows when Shadows are disabled. This will add on ticket #74
+
+v5.11 (Apr 12, 2026)
+Prey bar: Fixed hiding the anims for good
+Added shadow in the LossControl
+
+v5.10 (Apr 6, 2026)
+Prey Bar: Stop Blizzard animation from showing
+
+v5.09 (Apr 4, 2026)
+Items Dash: Fixed the Popup warning not showing when the user adds an item that is already added
+Items Dash: Clear the custom stack text
+Items Dash: Fix the Custom Stack option not being properly disabled and hidden when not used. Also added a spacer
+Fixed an old typo
+Dashboards: Added option to Show/Hide while in Housing areas
+Overhauled the Dashboards options simplifying common settings for better maintenance
+Style the Movies and Cinematics cancel confirmation frame
+Tokens Dash: Added Token description when hovering the token in the options
+Tokens Dash: Tokens with Weekly or Season cap, will now show in red text when capped
+Fixed Objective Tracker icon showing when it doesn't supposed to
+Moved the Chat Edit Box options from Datatexts to Misc
+Cleanup and cache on all files (at last)
+Fixed Assist Target shadows
+Added some missing Group UFs Shadows and wrapped on the UF.PostUpdateAura
+Apply Simpy's fix for the width error
+Tokens Dashboard: Fixed weekly max values not showing
+Added Maw Bar preview
+New: Added Prey Bar
+Fixed ObjectiveTracker Icon shadows
+Fixed Dashboards visibility while in Instance. Housing areas are considered as instances, had to go around this, so Dashboards are only hiding in Delves, Dungeons, etc
+Styled some missing Alert frames
+
+v5.08 (Mar 15, 2026)
+Prevent a pvp error
+Stop styling gamemenu when consoleport_menu is enabled
+Fixed the System dashboard module order
+Fixed WidgetBar shadows
+Show all professions that are trained (thurin)
+Removed the "broken" style in AdventureMapQuestChoiceDialog frame and just added a shadow
+Skinned AllTheThings Tradeskills frame
+
+v5.07 (Mar 4, 2026)
+Prevent a strange shadow error
+Fixed InFlight profile option
+
+v5.06 (Mar 3, 2026)
+Renown DT: New sub menu for each expansion. No need to go to the options
+Renown DT: Fixed the menu expansion title. Also added another tooltip that shows when no faction is known for the selected expansion
+Fixed DamageMeter and CooldownManager toggling while in flightMode
+Cleanup Units
+Ditch InfoPanel Color
+Group units cleanup
+Cleanup uf elements
+Cleanup Widgetbars
+Moved Castbar module in the init file
+Re enable Aurabars Shadows
+Tooltip cleanup
+Cache shadows db
+Removed BUI.ShadowMode. The cache was failing
+Renown Datatext: Added back the Filter by Expansion option
+Added AllTheThings skin
+Hide CooldownManager during FlightMode
+Hide Blizzard DamageMeter during FlightMode
+Fixed AllTheThings error during FlightMode
+Prevent Details error during flightMode
+FlightMode cleanup
+Hide Details during FlightMode
+Fixed tab shadows
+Fixed ModelTextFrame shadow
+Set 'Outside' style as default
+Actionbars cleanup
+Removed the Toggle buttons. No one knows it, no one uses it. Me either :P
+Better approach for the System Dashboard. Now it's easier to add more bars
+Updated RequestStop
+Use texture in the Item amount delete button. Looks a bit better
+Fixed the System Holder
+Updated System sub modules
+Updated System Dashboard
+Items dash: the set Custom Stack amount is now also shown in the options, along with a button to clear it
+Items options cleanup
+Fixed bar visibility
+Updated Items Dashboard
+Updated Professions
+Tokens options: Get rid of Legacy and Season headers. Expansions should show under their own headers
+Updated Tokens dashboard
+Updated Dashboards options
+Dashboards tweaks
+Portrtait db check
+Rep dashboard: moved scripts
+Update Reputations dashboard
+Updated Blizz style files
+Updated core and dropmenu files
+Updated the bags file
+Updated the layout file
+Fixed ElvUI_CopyChatFrame style
+Styled WindTools LFG Quick Access panel
+Added Styles for WindTools Inspect and Minimap buttons
+Renown DT overhaul. It will now populate with the current exp factions only
+Renown DT: On click it will show the Active Faction in the Journeys tab
+Renown DT: Added support for Midnight and fixed the click error
+Use ElvUI API (OffsetFrameLevel)
+Fixed some more tab shadows
+Fixed Encounter Journal tabs shadows
+Styled Housing frames
+
+
+v5.05 (Feb 11, 2026)
+toc update for game version 12.01
+Styled some elements in the PlayerSpellsFrame
+Update reputations.lua. Credit: Tsxy
+Added shadow on the quest item in Objective Tracker
+Don't show CDM shadows, when global shadows are disabled
+Style ClickBindingUI
+
+
+v5.04 (Feb 5, 2026)
+Style blizz Damage Meter.
+Portraits back on the menu. Credit: Tsxy
+Fixed Style level on Tooltips with the Equipped header.
+Re enabled and updated the Objective Tracker.
+
+v5.03 (Jan 31, 2026)
+Updated Donators and Patrons <3
+Added chat prints for the tag fixes
+Added commands that fix the missing tags. /fixtags1, /fixtags2, /fixtags3 for each profile. Also made minor changes in the installer
+Added fang's API fix and enabled Tooltip style
+Updated the installer with the new tags
+Fixed InFlight addon references
+Removed WeakAuras
+Styled Cooldown Manager options
+Added Housing in the Game menu and styled the Housing Dashboard
+
+v5.02 (Jan 26, 2026)
+Disable AuraBars shadows for now
+Disable Tooltip Style for now
+Styled ClassTalentLoadoutCreateDialog
+
+v5.01 (Jan 26, 2026)
+Prevent errors in Threat & TargetGlow
+Fixed Auras error
+
+v5.00 (Jan 26, 2026)
+Disable portrait bits
+Check if an addon is incompatible.
+Check tooltip unit for secret value
+Disabled portraits options
+Fixed inFlight addon profile loading. Not sure why I had it that way :D
+Added Campsites in the Game Menu
+Disabled erroring Missions from the Game Menu
+Removed outdated frames and styled the new Transmog frame
+Fixed isParagon showing on wrong reps
+Fixed Renown Datatext
+Fixed BossFrames Castbar
+Disable Party Portraits
+Disable Potraits on Target, Focus, Pet and TargetTarget
+Disable Player Portrait
+Removed some Blizz frame styles
+Disable nameplate portrait shadows
+toc update for Midnight
+2025 -> 2026, minor toc things
+
+v4.63 (Nov 7, 2025)
+Style InspectRecipeFrame
+Change E.myname to E.myguid
+Keep bugsack/buggrabber enabled during buierror on (off during buierror 1) following elvui edebug
+
+v4.62 (Aug 9, 2025)
+prep for 4.62 (Credit: Repooc)
+Update interface version (Credit: Tsxy)
+Update bags.lua (Credit: Tsxy)
+Adjust bag  theming for 13.95 (Credit: Tsxy)
+Update shadows.lua (Credit: Tsxy)
+Dont shadow buttons in baganator (Credit: Tsxy)
+Update README.md (Credit: Tsxy)
+
+v4.61 (Jul 4, 2025)
+toc update for the new patch
+moved up CompanionExperienceRingFrame so its not behind brann portrait. Credit: Tsxy
+
+v4.60 (May 11, 2025)
+Fix Pixel Perfect dimensions with ElvUI's scaler (Credit: Embdeevy)
+ - fix: for those obsessed they can't have that exact 1 pixel distance between 2 frames, well, now you can
+Custom Panels Improvements (Credits: Embdeevy)
+ - feat: add color picker instead of a transparency bar
+ - chore: even though pretty, replace the inpractical documentation (useless anyway) with clean short ones
+ - fix: deep copy clones and new panels to have them editable right away
+ - chore: move some things around to prettify
+ - feat: add texture selection for title, for the weirdos that use it
+Fixed Reputations that couldn't get tracked when they were showing as Headers
+Let more reps go through
+Added Gallagio Loyalty Rewards Club in the Renown datatext
+Update PerksProgramFrame
+Skin shoppingcart (Credit: Tsxy)
+Added Shadows on the new Cooldown Manager
+Added Flame's Radiance in Renown Datatext
+
+v4.59 (Apr 23, 2025)
+Updated Donators, Patrons, Nitro boosters and Coding members
+Styled some missing Warband Bank frames
+Added WagoID
+Fixed Flyout buttons shadows
+Styled Professions QualityDialog frame
+Removed the 'small' style template
+
+v4.58 (Mar 9, 2025)
+Fixed dashboards visibility when in instance
+Fixed Transferable Warband Currency Icon position
+Fix Reputations Dashboard height
+Hide the Legacy category in Tokens options
+Fixed Brann reputation + tweaks
+Re enable Reputations Dashboard
+Fixed Splash Screen not showing
+Added shadow on the new Worldmap tabs
+Added option to Filter Renown factions by expansion. There must be a more elegant way to do this. 
+Prevent selecting a Locked faction from the Renown DT list
+Fixed the %d glitch in the Renown Datatext
+
+v4.57 (Feb 26, 2025)
+Fix tooltip for 11.1 (thurin)
+Added Custom Class Color support in Style colors
+Tabs for Custom Panels options
+Style Dropdown Menus
+This may fix the mail icon toggle
+Properly(?) hide the Objective Tracker during FlightMode
+Fixed an error while reloading during FlightMode
+Update ruRU.lua (ZamestoTV)
+Avoid an error while creating a new Custom Panel
+Merge pull request #64 from emdeevy/feature/custom_panels_improvements
+Refactor and Optimize Custom Panels Module (emdeevy)
+
+v4.56 (Dec 20, 2024)
+Fix Baganator skinning (Credit: Tsxy)
+Fix tomtom dropdown minimap (Credit: Tsxy)
+
+v4.55 (Nov 6, 2024)
+Missed style
+toc update
+Update README.md
+Update missions.lua (Tsxy)
+hide many kt frames things for flightmode (Tsxy)
+use the unit's class instead of statusbar color (Eltreum)
+fixed Kalielstracker skin (Tsxy)
+More Styles
+Force disable Reps
+
+v4.54 (Sep 12, 2024)
+Disable Reputations dashboard, till Blizz fixes its shiat
+
+v4.53 (Sep 11, 2024)
+Implement another Rep Dashboard solution. Credit: Radu
+Fix PA import. Credit: Tsxy
+Re enabled reps in a more conservative mode.
+Delves styles
+Update elvuiPlugins.lua. Credit: Tsxy
+SLE style. Credit: Tsxy
+Fix sle style error when main bui style is disabled. Credit: Tsxy
+Renown + skins. Credit: Tsxy
+Renown DT updates. Credit: Tsxy
+Baganator Decor. Credit: Tsxy
+Adjust ExpansionLandingPage decor. Credit: Tsxy
+Tokens Dashboard: Show icon when a token is transferable (wip)
+Styled Character frames
+Fixed some missing Styles
+
+v4.52 (Aug 15, 2024)
+Fix quest npc text error for 11.0.2 (thurin)
+Styled some tooltips
+
+v4.51 (Aug 3, 2024)
+Cleanup
+This Garrison element doesn't seem to exist
+Added shadow in the Toggle Mount check box
+Fixed the Filter button that errors on opening Trading post rewards screen
+Enable Details
+Styled ElvUI Popups
+Fixed the Addons button error
+Fixed Professions in the Game Menu and styled the Professions frame
+More rep dashboard updates - set bar defaults (thurin)
+Check for factionInfo in rep dashboard (thurin)
+Fix IsAddOnEnabled method which fixes applying style to addons (thurin)
+
+
+v4.50 (Jul 24, 2024)
+Styled Class Talent Import Dialog
+Styled CurrencyTransferLog
+Style Rep and Tokens frame
+Styled the Talents etc frame
+This is gone
+Fixed the chat button Game menu
+Disable Objective tracker mods for now
+start on reputation dashboard fixes (thurin)
+comment out a few blizz styles throwing errors. will need to fix later (thurin)
+initial work for loading in TWW (thurin)
+fixed recount style (acesyde)
+
+
+v4.48 (Jun 10, 2024)
+Update for changes in dev to elvui uf changes(needs ElvUI 13.68)
+Fixed Shadow & Light Location Panel style glitches #51
+Disabled Details profile
+Actually no reason to override the text if just using default
+Update status report to match ElvUI for Other Addons Enabled
+
+v4.47 (May 9, 2024)
+Fix pet stable frame for 10.2.7. Credit Tsxy
+
+v4.46 (Mar 20, 2024)
+toc bump for 10.2.6
+Raised detached portrait max width to 1000 (for Jiberish)
+Fix Flightmode error. Credit: Tsxy
+
+v4.45 (Feb 15, 2024)
+"Fixed" Party Portrait shadow glitch, when resized
+Skin Superbloom Objective Tracker Block
+Added shadow in the Arena Trinket icon
+Fixed Group Units Power shadow glitches
+Fixed Units Power shadow glitches. At last :P
+Properly styled ObjectiveTracker blocks on some widgets. Credit: SLE
+Fixed Custom Texts shadows for Player/Target/Party, during install
+The default ObjectiveTracker font and its flags look better. I think :P
+Fixed a possible error with Castbar Icon
+Styled ObjeciveTracker Block Frames. Mythic+ needs testing
+Fixed QuestNPCModelTextFrame Shadows
+Arranged Patrons & Donators
+
+v4.44 (Jan 24, 2024)
+toc bump
+It's been 10 years? WOW
+Added Chris St at the Donators list <3
+Added Eltreum at the Coders list <3
+add a toggle for the UF textures
+
+v4.43 (Dec 10, 2023)
+Fixed FPS & MS Dashboard modules getting stuck on rare occations
+Properly disable Tooltip Style while TipTac is loaded
+Add shadow at the PurchaseButton in Trading Post
+Style the GroupLootHistoryFrame
+Don't Style the Tooltips when TipTac is loaded
+Let ElvUI handle the Chat Font Size
+fix chat show toggle with AddOnSkins embed
+
+v4.42 (Nov 9, 2023)
+toc update
+Added Dream Wardens in the Renown Datatext
+Hide AddonCompartment in FlightMode Credit: thurin
+
+v4.41 (Oct 8, 2023)
+Fixed WeakAuras Shadows
+Fixed download url for elvui. Credit: Repooc
+
+v4.40 (Sep 28, 2023)
+toc update
+
+v4.39 (Jul 12, 2023)
+Fixed Mirror Timers. Credit: thurin
+nil check style. Credit: Eltreum
+Fixed chat glitch after exiting FlightMode (ticket #44)
+Removed Tukui.org links
+
+v4.38 (May 25, 2023)
+Fixed Chat DT Style hicups
+Simpy did some changes to Debuff stuff.. so we need to take account. Credit: Merathilis
+Fixed Hekili style for ticket #42
+Fix missions datatext error change left-click behavior to DF Summary. Credit: Bauxite
+
+v4.37 (May 9, 2023)
+Prevent a Priest error. Credit: cxmplex
+AddonSkins fixes
+Mission datatext fix (untested) for ticket #39
+Added the new Loamm Niffen faction in the Renown Datatext
+Updated Patrons list
+
+v4.36 (May 2, 2023)
+toc update for patch 10.1
+Added Icon Texture
+deDE Locale update. Credit: Dlarge
+'Fix InfoPanel width' option will now also affect Pet, Focus and TargetTarget frames
+Cleaned up the Mail Datatext
+Added checked conditions in the Renown Datatext
+Fixed rep values in Renown Datatext
+Check for Eltruism skin and hide it on style
+Added 'Show Max Amount' option for Items Dashboard. Enabled by default
+
+4.35 (Mar 21, 2023)
+toc update for patch 10.0.7
+Fixed Missions DT for patch 10.0.7
+Fixed the blank icon in the Objective Tracker
+
+4.34 (Feb 25, 2023)
+DE locales. Credit: Dlarge
+DT options back to life
+Fix DT Changes and abort the soft shadows if ActionBar Masks is used. Credit: Azilroka
+For the 60 fps users. Credit: Roxanne
+Follow ElvUI DT options
+
+4.33 (Feb 9, 2023)
+Fix for the Datatext error
+missed that
+This button has glow, no shadow needed
+cleanup
+Fixed Professions Dashboard click
+Fixed InFlight skin not disabling while on flightMode
+Updated the AlertFrame System with the Cosmetics and the new MonthlyActivity
+Finished the Trading Post styles and shadows
+fix layout for benik
+Fixed the frames that were affected by the broken animations
+Removed this animations for now. They are breaking
+Styled Trading Post
+Added DesertDwarf in the Donators list, for being... a Dwarf... in the Desert <3
+Styled LootHistoryFrame
+
+4.32 (Jan 29, 2023)
+Fixed Renown Datatext for capped factions
+Fixed Tokens and Reps options not updating after re-enabling them
+Simplified the Dashboards dbs references
+Added a function that arranges the Tooltip Left or Right, according to the Dashboard position on the screen
+Added acesyde in the Donators list <3
+Update deDE.lua Credit: DlargeX
+The "Hide Mail Icon" will now properly toggle the Mail Icon
+Added the mighty Tsxy <3
+Added FrogZilla at the Donators list, cause he's awesome <3
+Items Dashboard: Drag and drop for item ID. Credit: Azilroka. Also added a check to prevent an error
+New Dashboard: Items. Track any item by adding its ID. Also with Custom Max value.
+Styled the Middle click Minimap menu
+
+4.31 (Jan 17, 2023)
+The durability value color should now match with its tooltip value color
+Cut down Artisan's Consortium name in the Rep Dashboard
+Update Datatexts following ElvUI changes. Credit: Azilroka
+More TomTom skins
+Added Chris in the Donators list <3
+
+4.30 (Jan 3, 2023)
+Avoid an error when System Dashboard is disabled
+
+4.29 (Jan 2, 2023)
+The Dashboards visibility issues should be fixed for good
+Fixed a layout error for new profiles
+License update to 2023
+
+4.28 (Dec 23, 2022)
+Fixed Dashboard Visibility issues when in Combat and in an instance
+Portraits cleanup
+Style TomTom right click menu
+Major Factions will now have Renown Color on Reputations Dashboard Statusbars
+Fixed an error while mouse hovering the MS dash module
+Toggle Reputations Dashboard without a reload
+Fixed Objective Tracker Text not showing after going AFK (with AFKMode)
+Objective Tracker: Use Color Gradient instead
+Hard code Max Quests to 35
+Toggle Tokens Dashboard without a reload
+Toggle Professions Dashboard without a reload
+Fixed Middle Datatext not applying the correct Backdrop setting
+Always show the Renown Level at the Rep Dashboard
+Localstrings, deDe locals, fixed Typos. Credit: Dlarge
+
+4.27 (Dec 11, 2022)
+Dashboards got a major overhaul
+- Revamped the Dashboards options
+- Added Spacing option for all Dashboards on Horizontal orientation
+- System Dashboards: Added option that make the Statusbars accept the Text color
+- System Dashboards: Added an Update Throttle option for FPS and MS
+- Added Horizontal Orientation option on all Dashboards
+- Added Hide in Instance option on all Dashboards
+- Better FPS colors. Idea: Roxanne
+- Volume Dashboard: ShiftClick for Sound Options
+- Revamped the System Dash modules
+
+Added Lucky and Dlarge in the Coders list
+Update deDE.lua. Credit Dlarge
+AddOnSkins removed AcceptFrame
+Stop Middle DT re enabling on reload
+Replace Missions Datatext with the new Renown DT, during install
+Prevent a Tooltip error, while Baggins is loaded. This should deal with ticket #24
+Achievement Search Styled
+Apply Style on Settings Tooltip
+Fixed the Middle Datatext behavior
+Fixed AcePopup Style not showing
+Fixed Ace3 options tooltip style
+Place the Threat databar where the Azerite was, during install
+Default settings cleanup
+Fixed private profile override. Credit: @Repooc
+Bags Dashboard will now also count the Reagent bag
+Renown DT: Added right click menu for faction tracking
+Updated the Renown Datatext to show all factions
+Updated the Alert frames
+Fixed the Standinglabel on the Rep Dash
+ChromieTime style
+VehicelExit button Shadow
+Added Widget Shadows
+Added local/realm time in FlightMode
+Follow Azils changes in DBM skin
+Fixed Mirror Timers HalfBar skin and shadows
+Fixed DBM HalfBar skin
+
+4.26 (Nov 22nd, 2022)
+Fixed Flyout Actionbars shadows
+Use ElvUI fontFlags
+Fixed the error when selecting the Widget Bars options. This should deal with #23
+Fixed DBMRangeCheckRadar style/shadow
+Fixed DBM Options skin/style
+Added WeakAuras icons and bar shadows. Credit: Merathilis
+Added missing Garrison
+Fixed Missions Datatext
+Fixed islandQueue style by removing a reference to a non existent tooltip. This will deal with ticket #22
+ProfessionsCustomerOrders style
+Fixed iLevel by using ElvUI tooltip scanning
+Fixed Bags and BagBar Style and shadow
+Added Evoker Class Crest in AFK mode
+Fixed Chat Bubble shadows
+
 4.25 (Nov 15th, 2022)
 toc update for patch v10.02
 Dashboards: Moved the MouseOver option at the dashboard creation

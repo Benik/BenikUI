@@ -1,44 +1,50 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local LSM = E.LSM
 
 local _G = _G
 local pairs, print, tinsert, strjoin, lower, next, wipe = pairs, print, table.insert, strjoin, strlower, next, wipe
-local format = string.format
-local GetAddOnMetadata = GetAddOnMetadata
-local GetAddOnEnableState = GetAddOnEnableState
-local DisableAddOn = DisableAddOn
-local EnableAddOn = EnableAddOn
-local GetAddOnInfo = GetAddOnInfo
-local GetNumAddOns = GetNumAddOns
+local format = format
+local hooksecurefunc = hooksecurefunc
+local GetAddOnMetadata = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
+local DisableAddOn = (C_AddOns and C_AddOns.DisableAddOn) or DisableAddOn
+local EnableAddOn = (C_AddOns and C_AddOns.EnableAddOn) or EnableAddOn
+local GetAddOnInfo = (C_AddOns and C_AddOns.GetAddOnInfo) or GetAddOnInfo
+local GetNumAddOns = (C_AddOns and C_AddOns.GetNumAddOns) or GetNumAddOns
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoadable = C_AddOns.IsAddOnLoadable
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
-
--- GLOBALS: LibStub, ElvDB, test
 
 BUI["styles"] = {}
 BUI["softGlow"] = {}
 BUI["shadows"] = {}
 BUI.TexCoords = {.08, 0.92, -.04, 0.92}
 BUI.Version = GetAddOnMetadata('ElvUI_BenikUI', 'Version')
-BUI.ShadowMode = false
 BUI.AddonProfileKey = ''
 BINDING_HEADER_BENIKUI = BUI.Title
 
+local function IsAddonIncompatible(addon)
+	local loadable, reason = IsAddOnLoadable(addon)
+	return loadable == false and reason == "INCOMPATIBLE"
+end
+
 function BUI:IsAddOnEnabled(addon) -- Credit: Azilroka
-	return GetAddOnEnableState(E.myname, addon) == 2
+	if IsAddonIncompatible(addon) then return end
+	return IsAddOnLoaded and E:GetAddOnEnableState(addon, E.myguid) == 2
 end
 
 -- Check other addons
 BUI.SLE = BUI:IsAddOnEnabled('ElvUI_SLE')
 BUI.MER = BUI:IsAddOnEnabled('ElvUI_MerathilisUI')
 BUI.ELT = BUI:IsAddOnEnabled('ElvUI_EltreumUI')
+BUI.WT = BUI:IsAddOnEnabled('ElvUI_WindTools')
 BUI.PA = BUI:IsAddOnEnabled('ProjectAzilroka')
 BUI.LP = BUI:IsAddOnEnabled('ElvUI_LocPlus')
 BUI.NB = BUI:IsAddOnEnabled('ElvUI_NutsAndBolts')
 BUI.AS = BUI:IsAddOnEnabled('AddOnSkins')
 BUI.CT = BUI:IsAddOnEnabled('ClassTactics')
-BUI.IF = BUI:IsAddOnEnabled('InFlight_Load')
+BUI.IF = BUI:IsAddOnEnabled('InFlight')
 BUI.ZG = BUI:IsAddOnEnabled('ZygorGuidesViewer')
 
 local classColor = E:ClassColor(E.myclass, true)
@@ -71,11 +77,12 @@ end
 
 function BUI:LuaError(msg)
 	local switch = lower(msg)
+	local bugsack = E.Status_Bugsack
 	if switch == 'on' or switch == '1' then
 		for i=1, GetNumAddOns() do
 			local name = GetAddOnInfo(i)
-			if (name ~= 'ElvUI' and name ~= 'ElvUI_Options' and name ~= 'ElvUI_Libraries' and name ~= 'ElvUI_BenikUI') and E:IsAddOnEnabled(name) then
-				DisableAddOn(name, E.myname)
+			if (name ~= 'ElvUI' and name ~= 'ElvUI_Options' and name ~= 'ElvUI_Libraries' and name ~= 'ElvUI_BenikUI' and (switch == '1' or not bugsack[name])) and E:IsAddOnEnabled(name) then
+				DisableAddOn(name, E.myguid)
 				ElvDB.BuiErrorDisabledAddOns[name] = i
 			end
 		end
@@ -90,7 +97,7 @@ function BUI:LuaError(msg)
 
 		if next(ElvDB.BuiErrorDisabledAddOns) then
 			for name in pairs(ElvDB.BuiErrorDisabledAddOns) do
-				EnableAddOn(name, E.myname)
+				EnableAddOn(name, E.myguid)
 			end
 
 			wipe(ElvDB.BuiErrorDisabledAddOns)
@@ -114,8 +121,10 @@ function BUI:UpdateStyleColors()
 				r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
 			elseif E.db.benikui.colors.StyleColor == 3 then
 				r, g, b = BUI:unpackColor(E.db.general.valuecolor)
-			else
+			elseif E.db.benikui.colors.StyleColor == 4 then
 				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
+			else
+				r, g, b = BUI:unpackColor(E.db.general.classColors[E.myclass])
 			end
 			frame:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 		else
@@ -170,7 +179,7 @@ end
 
 function BUI:DasOptions()
 	E:ToggleOptions()
-	LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
+	_G.LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui")
 end
 
 function BUI:SetupBenikUI()
@@ -181,13 +190,16 @@ function BUI:LoadCommands()
 	self:RegisterChatCommand("benikui", "DasOptions")
 	self:RegisterChatCommand("benikuisetup", "SetupBenikUI")
 	self:RegisterChatCommand("buierror", "LuaError")
+
+	-- tag fixing commands
+	self:RegisterChatCommand("fixtags1", "FixTags1")
+	self:RegisterChatCommand("fixtags2", "FixTags2")
+	self:RegisterChatCommand("fixtags3", "FixTags3")
 end
 
 function BUI:Initialize()
 	BUI:LoadCommands()
 	BUI:SplashScreen()
-
-	E:GetModule('DataTexts'):ToggleMailFrame()
 
 	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
 		if initLogin or not ElvDB.BuiErrorDisabledAddOns then
@@ -205,8 +217,6 @@ function BUI:Initialize()
 	if E.db.benikui.general.loginMessage then
 		print(format('%s%s%s %s', BUI.Title, BUI:cOption('v'..BUI.Version, "orange"), L['is loaded. For any issues or suggestions, please visit'], PrintURL('https://github.com/Benik/BenikUI/issues')))
 	end
-
-	BUI.ShadowMode = E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows or false
 
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "BENIKUI")
 	E.ConfigModeLocalizedStrings["BENIKUI"] = BUI.Title

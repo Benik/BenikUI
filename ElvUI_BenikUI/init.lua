@@ -4,6 +4,8 @@ local addon, Engine = ...
 
 local BUI = E.Libs.AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0")
 
+local GetAddOnMetadata = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
+
 Engine[1] = BUI
 Engine[2] = E
 Engine[3] = L
@@ -20,6 +22,7 @@ BUI.Erelease = tonumber(GetAddOnMetadata("ElvUI_BenikUI", "X-ElvuiVersion"))
 
 BUI.Actionbars = BUI:NewModule('Actionbars', 'AceEvent-3.0')
 BUI.Bags = BUI:NewModule('Bags', 'AceHook-3.0')
+BUI.Castbars = BUI:NewModule('Castbar', 'AceTimer-3.0', 'AceEvent-3.0')
 BUI.Chat = BUI:NewModule('Chat', 'AceHook-3.0', 'AceEvent-3.0')
 BUI.CustomPanels = BUI:NewModule('CustomPanels', 'AceEvent-3.0')
 BUI.Dashboards = BUI:NewModule('Dashboards', 'AceEvent-3.0', 'AceHook-3.0')
@@ -67,7 +70,7 @@ end
 function BUI:Init()
 	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 		E:Delay(2, function() E:StaticPopup_Show("BENIKUI_CLASSIC") end)
-		return	
+		return
 	end
 
 	--ElvUI's version check
@@ -106,8 +109,8 @@ E.PopupDialogs["BENIKUI_VERSION_MISMATCH"] = {
 		self.editBox.width = self.editBox:GetWidth()
 		self.editBox:Width(280)
 		self.editBox:AddHistoryLine("text")
-		self.editBox.temptxt = "https://www.tukui.org/download.php?ui=elvui"
-		self.editBox:SetText("https://www.tukui.org/download.php?ui=elvui")
+		self.editBox.temptxt = "https://tukui.org/elvui"
+		self.editBox:SetText("https://tukui.org/elvui")
 		self.editBox:HighlightText()
 		self.editBox:SetJustifyH("CENTER")
 	end,

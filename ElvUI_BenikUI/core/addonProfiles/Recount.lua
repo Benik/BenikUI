@@ -1,4 +1,4 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
+﻿local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
 function BUI:LoadRecountProfile()
 	local font
@@ -23,6 +23,15 @@ function BUI:LoadRecountProfile()
 					['Title Text'] = {
 						['g'] = 0.5,
 						['b'] = 0,
+					},
+					["Title"] = {
+						["a"] = 0,
+					},
+					["Background"] = {
+						["a"] = 0,
+						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
 					},
 				},
 				['Bar'] = {

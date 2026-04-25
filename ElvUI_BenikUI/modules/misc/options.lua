@@ -1,7 +1,8 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 
 local tinsert = table.insert
+local CH = E:GetModule('Chat')
 
 local function miscTable()
 	E.Options.args.benikui.args.misc = {
@@ -35,7 +36,7 @@ local function miscTable()
 					},
 					fontsize = {
 						order = 3,
-						name = L.FONT_SIZE,
+						name = L['Font Size'],
 						type = 'range',
 						min = 6, max = 22, step = 1,
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
@@ -44,12 +45,7 @@ local function miscTable()
 						order = 4,
 						name = L['Font Outline'],
 						type = 'select',
-						values = {
-							['NONE'] = L['None'],
-							['OUTLINE'] = 'OUTLINE',
-							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-							['THICKOUTLINE'] = 'THICKOUTLINE',
-						},
+						values = E.Config[1].Values.FontFlags,
 						disabled = function() return not E.db.benikui.misc.ilevel.enable end,
 					},
 					colorStyle = {
@@ -121,8 +117,32 @@ local function miscTable()
 					},
 				},
 			},
-			afkModeGroup = {
+			editBoxGroup = {
 				order = 4,
+				type = 'group',
+				guiInline = true,
+				name = L['Chat EditBox'],
+				args = {
+					editBoxPosition = {
+						order = 1,
+						type = 'select',
+						name = L['Position'],
+						desc = L['Position of the Chat EditBox, if datatexts are disabled this will be forced to be above chat.'],
+						values = {
+							['BELOW_CHAT'] = L['Below Chat'],
+							['ABOVE_CHAT'] = L['Above Chat'],
+							['MIDDLE_DT'] = L['Middle Datatext'],
+							['EAB_1'] = L['Actionbar 1'],
+							['EAB_2'] = L['Actionbar 2'],
+						},
+						disabled = function() return not E.db.benikui.datatexts.chat.enable end,
+						get = function(info) return E.db.benikui.datatexts.chat[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.datatexts.chat[ info[#info] ] = value; CH:UpdateEditboxAnchors() end,
+					},
+				},
+			},
+			afkModeGroup = {
+				order = 5,
 				type = 'group',
 				guiInline = true,
 				name = L['AFK Mode'],

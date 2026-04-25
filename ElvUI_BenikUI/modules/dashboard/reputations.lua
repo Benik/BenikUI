@@ -1,45 +1,64 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:GetModule('Dashboards');
-local DT = E:GetModule('DataTexts');
-local DB = E:GetModule('DataBars');
-local LSM = E.LSM;
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
+local mod = BUI:GetModule('Dashboards')
+local DT = E:GetModule('DataTexts')
+local DB = E:GetModule('DataBars')
 
 local _G = _G
-local getn = getn
+local format = format
+local next, ipairs = next, ipairs
 local tinsert, twipe, tsort, tostring = table.insert, table.wipe, table.sort, tostring
+local hooksecurefunc = hooksecurefunc
 
 local GameTooltip = _G.GameTooltip
-local GetFactionInfoByID = GetFactionInfoByID
-local GetFactionInfo = GetFactionInfo
-local IsPlayerAtEffectiveMaxLevel = IsPlayerAtEffectiveMaxLevel
-local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
-local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
-local C_GossipInfo_GetFriendshipReputation = C_GossipInfo.GetFriendshipReputation
-local C_Reputation_IsMajorFaction = C_Reputation.IsMajorFaction
-local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
-local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
 local InCombatLockdown = InCombatLockdown
 local IsShiftKeyDown = IsShiftKeyDown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
+local CollapseFactionHeader = C_Reputation.CollapseFactionHeader
+local ExpandFactionHeader = C_Reputation.ExpandFactionHeader
+local GetNumFactions = C_Reputation.GetNumFactions
+local GetFactionInfo = C_Reputation.GetFactionDataByIndex
+
+local C_GossipInfo_GetFriendshipReputation = C_GossipInfo.GetFriendshipReputation
+local C_MajorFactions_GetMajorFactionData = C_MajorFactions.GetMajorFactionData
+local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
+local C_Reputation_GetFactionInfoByID = C_Reputation.GetFactionDataByID
+local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
+local C_Reputation_IsFactionParagonForCurrentPlayer = C_Reputation.IsFactionParagonForCurrentPlayer
+local C_Reputation_IsMajorFaction = C_Reputation.IsMajorFaction
+
 local BLUE_FONT_COLOR = BLUE_FONT_COLOR
 local RENOWN_LEVEL_LABEL = RENOWN_LEVEL_LABEL
+local PARAGON_REPUTATION_TOOLTIP_TEXT = PARAGON_REPUTATION_TOOLTIP_TEXT
 local REPUTATION = REPUTATION
 local STANDING = STANDING
 local UNKNOWN = UNKNOWN
 
 local BLUE_COLOR_HEX = E:RGBToHex(BLUE_FONT_COLOR.r, BLUE_FONT_COLOR.g, BLUE_FONT_COLOR.b)
 
--- GLOBALS: hooksecurefunc
-BUI.ReputationsList = {}
+local position, Xoffset
+
+mod.ReputationsList = {}
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
 
+local factionsDB = mod.FactionsDB
+
 local classColor = E:ClassColor(E.myclass, true)
 
-local function OnMouseUp(self, btn)
+local function sortFunction(a, b)
+	return a.name < b.name
+end
+
+local function CheckReputationsPosition()
+	if E.db.benikui.dashboards.reputations.enable ~= true then return end
+
+	position, Xoffset = mod:CheckPositionForTooltip(mod.repHolder)
+end
+
+local function barOnMouseUp(self, btn)
 	if InCombatLockdown() then return end
 	if btn == "RightButton" then
 		if IsShiftKeyDown() then
@@ -54,53 +73,160 @@ local function OnMouseUp(self, btn)
 	end
 end
 
-local function sortFunction(a, b)
-	return a.name < b.name
+local function barOnEnter(self)
+	local db = E.db.benikui.dashboards.reputations
+	local holder = self:GetParent()
+	local hexColor = E:RGBToHex(self.color.r, self.color.g, self.color.b)
+
+	local text = self.Text
+	local standingLabel = self.standingLabel
+	local isParagon = self.isParagon
+	local isMajorFaction = self.isMajorFaction
+	local majorStandingLabel = self.majorStandingLabel
+	local barValue = self.barValue
+	local barMax = self.barMax
+	local isFriend = self.isFriend
+	local friendText = self.friendText
+
+	standingLabel = isParagon and L["Paragon"] or isMajorFaction and majorStandingLabel or standingLabel
+
+	text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
+
+	if db.mouseover then
+		E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+	end
+
+	if db.tooltip then
+		local name = self.name
+		local barMin = self.barMin
+
+		GameTooltip:SetOwner(self, position, Xoffset, 0)
+		GameTooltip:AddLine(name)
+		GameTooltip:AddLine(' ')
+
+		if isParagon then
+			GameTooltip:AddLine(format(PARAGON_REPUTATION_TOOLTIP_TEXT, '\n'..(name)), 1, 1, 1)
+			GameTooltip:AddLine(' ')
+		end
+
+		if isMajorFaction then
+			GameTooltip:AddLine(format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
+		else
+			GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
+		end
+
+		if self.standingID ~= _G.MAX_REPUTATION_REACTION or isParagon then
+			GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
+		end
+
+		GameTooltip:AddLine(' ')
+		GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', self.factionID), 0.7, 0.7, 1)
+		GameTooltip:Show()
+	end
+end
+
+local function barOnLeave(self)
+	local db = E.db.benikui.dashboards.reputations
+	local holder = self:GetParent()
+	local hexColor = E:RGBToHex(self.color.r, self.color.g, self.color.b)
+
+	local name = self.name
+	local text = self.Text
+	local barValue = self.barValue
+	local barMin = self.barMin
+	local maxMinDiff = self.maxMinDiff
+
+	if db.textFactionColors then
+		text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
+	else
+		text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
+	end
+
+	if db.tooltip then GameTooltip:Hide() end
+
+	if db.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+	end
+end
+
+local function holderOnEnter(self)
+	local db = E.db.benikui.dashboards
+
+	if db.reputations.mouseover then
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	end
+end
+
+local function holderOnLeave(self)
+	local db = E.db.benikui.dashboards
+
+	if db.reputations.mouseover then
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+	end
 end
 
 function mod:UpdateReputations()
 	local db = E.db.benikui.dashboards.reputations
-	local holder = _G.BUI_ReputationsDashboard
+	local holder = mod.repHolder
 
-	if(BUI.FactionsDB[1]) then
-		for i = 1, getn(BUI.FactionsDB) do
-			BUI.FactionsDB[i]:Kill()
+	if not db.enable then
+		holder:Hide()
+		twipe(mod.ReputationsList)
+		return
+	end
+
+	if(factionsDB[1]) then
+		for i = 1, #factionsDB do
+			factionsDB[i]:Hide()
 		end
-		twipe(BUI.FactionsDB)
+		twipe(factionsDB)
 		holder:Hide()
 	end
 
 	if db.mouseover then holder:SetAlpha(0) else holder:SetAlpha(1) end
 
-	for _, info in ipairs(BUI.ReputationsList) do
+	for _, info in ipairs(mod.ReputationsList) do
 		local _, factionID = unpack(info)
 
 		if factionID then
-			local name, _, standingID, barMin, barMax, barValue = GetFactionInfoByID(factionID)
+			local factionInfo = C_Reputation_GetFactionInfoByID(factionID)
+			if factionInfo then
+				local name = factionInfo.name
 
-			if name then
 				if E.private.benikui.dashboards.reputations.chooseReputations[factionID] == true then
-					holder:Show()
-					holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#BUI.FactionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
-					if reputationHolderMover then
-						reputationHolderMover:SetSize(holder:GetSize())
-						holder:SetPoint('TOPLEFT', reputationHolderMover, 'TOPLEFT')
+					holder:SetShown(mod:ShouldShowDashboard('reputations'))
+
+					if db.orientation == 'BOTTOM' then
+						holder:Height(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#factionsDB + 1)) + DASH_SPACING + (E.PixelMode and 0 or 2))
+						holder:Width(db.width)
+					else
+						holder:Height(DASH_HEIGHT + (DASH_SPACING))
+						holder:Width(db.width * (#factionsDB + 1) + ((#factionsDB) *db.spacing))
 					end
 
-					local isFriend, friendText, standingLabel, majorStandingLabel
-					local isParagon = C_Reputation_IsFactionParagon(factionID)
+					local isFriend, friendText, standingLabel, majorStandingLabel, renownLevel
+					local isParagon = C_Reputation_IsFactionParagonForCurrentPlayer(factionID)
 					local isMajorFaction = factionID and C_Reputation_IsMajorFaction(factionID)
 					local repInfo = factionID and C_GossipInfo_GetFriendshipReputation(factionID)
 					local currentValue, threshold, hasRewardPending, tooLowLevelForParagon
+					local standingID = factionInfo.reaction
+					local barMin = factionInfo.currentReactionThreshold
+					local barMax = factionInfo.nextReactionThreshold
+					local barValue = factionInfo.currentStanding
 
 					if repInfo and repInfo.friendshipFactionID > 0 then
 						standingLabel, barMin, barMax, barValue = repInfo.reaction, repInfo.reactionThreshold or 0, repInfo.nextThreshold or 1, repInfo.standing or 1
 					elseif isMajorFaction then
 						local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
-			
-						barMin, barMax = 0, majorFactionData.renownLevelThreshold
+
+						standingID, barMin, barMax = 10, 0, majorFactionData.renownLevelThreshold
 						barValue = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
-						majorStandingLabel = format('%s%s %s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
+						majorStandingLabel = format('%s%s|r', BLUE_COLOR_HEX, RENOWN_LEVEL_LABEL:format(majorFactionData.renownLevel))
+						renownLevel = majorFactionData.renownLevel
+					elseif standingID == _G.MAX_REPUTATION_REACTION then
+						barMin, barMax, barValue = 0, 1, 1
+					else
+						standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
 					end
 
 					if isParagon then
@@ -112,13 +238,12 @@ function mod:UpdateReputations()
 								barValue = barValue + threshold
 							end
 						end
-					elseif standingID == _G.MAX_REPUTATION_REACTION then
-						barMin, barMax, barValue = 0, 1, 1
 					end
 
 					--Normalize Values
 					barMax = barMax - barMin
 					barValue = barValue - barMin
+					if barMax < 0 then barMax = barValue end
 					barMin = 0
 
 					--Prevent a division by zero
@@ -127,162 +252,136 @@ function mod:UpdateReputations()
 						maxMinDiff = 1
 					end
 
-					local bar = mod:CreateDashboard(holder, 'reputations', false, true)
-					bar.Status:SetMinMaxValues(barMin, barMax)
-					bar.Status:SetValue(barValue)
-
-					standingLabel = _G['FACTION_STANDING_LABEL'..standingID]
-
-					local customColors = E.db.databars.colors.useCustomFactionColors
-					local color = (customColors or standingID == 9) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID] -- reaction 9 is Paragon
-					local hexColor = E:RGBToHex(color.r, color.g, color.b)
-
-					if E.db.benikui.dashboards.dashfont.useDTfont then
-						bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
-					else
-						bar.Text:FontTemplate(LSM:Fetch('font', E.db.benikui.dashboards.dashfont.dbfont), E.db.benikui.dashboards.dashfont.dbfontsize, E.db.benikui.dashboards.dashfont.dbfontflags)
+					if not standingLabel then
+						standingLabel = _G['FACTION_STANDING_LABEL'..standingID] or UNKNOWN
 					end
 
-					if not db.barFactionColors then
-						if E.db.benikui.dashboards.barColor == 1 then
-							bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-						else
-							bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
-						end
-					else
-						bar.Status:SetStatusBarColor(color.r, color.g, color.b)
-					end
+					local bar
+					if not bar then
+						bar = mod:CreateDashboard(holder, 'reputations', false, true)
+						bar.Status:SetMinMaxValues(barMin, barMax)
+						bar.Status:SetValue(barValue)
 
-					if db.textFactionColors then
-						bar.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
-					else
-						bar.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
-					end
+						local customColors = E.db.databars.colors.useCustomFactionColors
+						local customReaction = standingID == 9 or standingID == 10 -- 9 is paragon, 10 is renown
+						local color = (customColors or customReaction) and E.db.databars.colors.factionColors[standingID] or _G.FACTION_BAR_COLORS[standingID]
+						local hexColor = E:RGBToHex(color.r, color.g, color.b)
 
-					if E.db.benikui.dashboards.textColor == 1 then
-						bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
-					else
-						bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
-					end
+						-- cut down Artisan's Consortium name
+						if factionID == 2544 then name = E:ShortenString(name, 20) end
 
-					bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
-					bar.Text:SetJustifyH(db.textAlign)
+						name = isMajorFaction and format('%s%s (%s)|r', name, BLUE_COLOR_HEX, renownLevel) or name
 
-					bar.bag:SetShown(isParagon)
-					bar.bagGlow:SetShown(not tooLowLevelForParagon and hasRewardPending)
-					bar.bagCheck:SetShown(not tooLowLevelForParagon and hasRewardPending)
-
-					if isParagon then
-						bar.bag:ClearAllPoints()
-						if db.textAlign == 'LEFT' or db.textAlign == 'CENTER' then
-							bar.bag:Point('RIGHT', bar, 'RIGHT', -4, 0)
-						elseif db.textAlign == 'RIGHT' then
-							bar.bag:Point('LEFT', bar, 'LEFT', 4, 0)
-						end
-					end
-
-					bar:SetScript('OnEnter', function(self)
-						standingLabel = isParagon and L["Paragon"] or isMajorFaction and majorStandingLabel or standingLabel
-
-						self.Text:SetFormattedText('%s / %s %s(%s)|r', BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(barMax), hexColor, isFriend and friendText or standingLabel)
-
-						if db.mouseover then
-							E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-						end
-
-						if db.tooltip then
-							_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 3, 0);
-							_G.GameTooltip:AddLine(name)
-							_G.GameTooltip:AddLine(' ')
-
-							if isParagon then
-								_G.GameTooltip:AddLine(format(PARAGON_REPUTATION_TOOLTIP_TEXT, '\n'..name), selectioncolor)
-								_G.GameTooltip:AddLine(' ')
-							end
-
-							if isMajorFaction then
-								_G.GameTooltip:AddLine(format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
+						if not db.barFactionColors then
+							if E.db.benikui.dashboards.barColor == 1 then
+								bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 							else
-								_G.GameTooltip:AddDoubleLine(STANDING..':', format('%s%s|r', hexColor, isFriend and friendText or standingLabel), 1, 1, 1)
+								bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
 							end
-
-							if standingID ~= _G.MAX_REPUTATION_REACTION or isParagon then
-								_G.GameTooltip:AddDoubleLine(REPUTATION..':', format('%d / %d (%d%%)', barValue - barMin, barMax - barMin, (barValue - barMin) / ((barMax - barMin == 0) and barMax or (barMax - barMin)) * 100), 1, 1, 1)
-							end
-
-							_G.GameTooltip:AddLine(' ')
-							_G.GameTooltip:AddDoubleLine(L['Shift+RightClick to remove'], format('|cffff0000%s |r%s','ID', factionID), 0.7, 0.7, 1)
-							_G.GameTooltip:Show()
-						end
-					end)
-
-					bar:SetScript('OnLeave', function(self)
-						if db.textFactionColors then
-							self.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
 						else
-							self.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
+							bar.Status:SetStatusBarColor(color.r, color.g, color.b)
 						end
-						if db.tooltip then _G.GameTooltip:Hide() end
 
-						if db.mouseover then
-							E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+						if db.textFactionColors then
+							bar.Text:SetFormattedText('%s: %s%d%%|r', name, hexColor, ((barValue - barMin) / (maxMinDiff) * 100))
+						else
+							bar.Text:SetFormattedText('%s: %d%%|r', name, ((barValue - barMin) / (maxMinDiff) * 100))
 						end
-					end)
-					
-					bar:SetScript('OnMouseUp', OnMouseUp)
 
-					bar.factionID = factionID
-					bar.name = name
+						bar.Text:Point(db.textAlign, bar, db.textAlign, ((db.textAlign == 'LEFT' and 4) or (db.textAlign == 'CENTER' and 0) or (db.textAlign == 'RIGHT' and -2)), (E.PixelMode and 1 or 3))
+						bar.Text:SetJustifyH(db.textAlign)
 
-					tinsert(BUI.FactionsDB, bar)
+						bar.bag:SetShown(isParagon)
+						bar.bagGlow:SetShown(not tooLowLevelForParagon and hasRewardPending)
+						bar.bagCheck:SetShown(not tooLowLevelForParagon and hasRewardPending)
+
+						if isParagon then
+							bar.bag:ClearAllPoints()
+							if db.textAlign == 'LEFT' or db.textAlign == 'CENTER' then
+								bar.bag:Point('RIGHT', bar, 'RIGHT', -4, 0)
+							elseif db.textAlign == 'RIGHT' then
+								bar.bag:Point('LEFT', bar, 'LEFT', 4, 0)
+							end
+						end
+
+						bar:SetScript('OnEnter', barOnEnter)
+						bar:SetScript('OnLeave', barOnLeave)
+						bar:SetScript('OnMouseUp', barOnMouseUp)
+
+						bar.factionID = factionID
+						bar.name = name
+						bar.color = color
+						bar.barValue = barValue
+						bar.barMin = barMin
+						bar.barMax = barMax
+						bar.maxMinDiff = maxMinDiff
+
+						bar.standingLabel = standingLabel
+						bar.isParagon = isParagon
+						bar.isMajorFaction = isMajorFaction
+						bar.majorStandingLabel = majorStandingLabel
+						bar.isFriend = isFriend
+						bar.friendText = friendText
+						bar.standingID = standingID
+
+						tinsert(factionsDB, bar)
+					end
 				end
 			end
 		end
 	end
 
-	tsort(BUI.FactionsDB, sortFunction)
+	tsort(factionsDB, sortFunction)
 
-	for key, frame in pairs(BUI.FactionsDB) do
+	for key, frame in next, factionsDB do
 		frame:ClearAllPoints()
-		if(key == 1) then
-			frame:SetPoint('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+		if (key == 1) then
+			frame:Point('TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:SetPoint('TOP', BUI.FactionsDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			if db.orientation == 'BOTTOM' then
+				frame:Point('TOP', factionsDB[key - 1], 'BOTTOM', 0, -SPACING - (E.PixelMode and 0 or 2))
+			else
+				frame:Point('LEFT', factionsDB[key - 1], 'RIGHT', db.spacing + (E.PixelMode and 0 or 2), 0)
+			end
 		end
 	end
-end
 
-function mod:UpdateReputationSettings()
-	mod:FontStyle(BUI.FactionsDB)
-	mod:FontColor(BUI.FactionsDB)
-	if not E.db.benikui.dashboards.reputations.barFactionColors then
-		mod:BarColor(BUI.FactionsDB)
-	end
+	mod:FontStyle(factionsDB)
+	mod:FontColor(factionsDB)
 end
 
 function mod:PopulateFactionData()
+	twipe(mod.ReputationsList)
+
 	local Collapsed = {}
 	local numFactions = GetNumFactions()
 	local factionIndex = 1
-	local headerIndex
+	local headerIndex = 0
 
 	while (factionIndex <= numFactions) do
-		local name, _, _, _, _, _, _, _, isHeader, isCollapsed, hasRep, _, isChild, factionID = GetFactionInfo(factionIndex)
-		if isHeader and isCollapsed then
+		local info = GetFactionInfo(factionIndex)
+		if not info or not info.name then break end
+
+		if info.isHeader and info.isCollapsed then
 			ExpandFactionHeader(factionIndex)
 			numFactions = GetNumFactions()
-			Collapsed[name] = true
+			Collapsed[info.name] = true
 		end
 
-		if isHeader and not (hasRep or isChild) then
-			tinsert(BUI.ReputationsList, { name, factionID, factionIndex, isHeader, hasRep, isChild })
+		if (info.isHeader or info.isHeaderWithRep) and not info.isChild then
 			headerIndex = factionIndex
+			tinsert(mod.ReputationsList, { info.name, 0, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
 		end
 
-		if not isHeader or not isChild or hasRep then -- hasRep needs to be passed here
-			if factionID then
-				BUI.ReputationsList[tostring(factionID)] = name
-				tinsert(BUI.ReputationsList, { name, factionID, headerIndex, isHeader, hasRep, isChild })
+		if not info.isHeader and not info.isHeaderWithRep then
+			if info.factionID then
+				mod.ReputationsList[tostring(info.factionID)] = info.name
+				tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
+			end
+		elseif info.isChild and (info.isHeader or info.isHeaderWithRep) then
+			if info.factionID then
+				mod.ReputationsList[tostring(info.factionID)] = info.name
+				tinsert(mod.ReputationsList, { info.name, info.factionID, headerIndex, info.isHeader, info.isChild, info.isHeaderWithRep })
 			end
 		end
 
@@ -290,69 +389,78 @@ function mod:PopulateFactionData()
 	end
 
 	for k = 1, numFactions do
-		local name, _, _, _, _, _, _, _, isHeader, isCollapsed = GetFactionInfo(k)
-		if not name then
-			break
-		elseif isHeader and not isCollapsed and Collapsed[name] then
-			ExpandFactionHeader(k, false)
+		local info = GetFactionInfo(k)
+		if not info or not info.name then break end
+
+		if info.isHeader and not info.isCollapsed and Collapsed[info.name] then
+			CollapseFactionHeader(k)
 		end
 	end
 
-	wipe(Collapsed)
+	twipe(Collapsed)
 end
 
 function mod:UPDATE_FACTION(_, factionID)
-	if factionID and not BUI.ReputationsList[tostring(factionID)] then
-		local name = GetFactionInfoByID(factionID)
-		if name then
+	if factionID and not mod.ReputationsList[tostring(factionID)] then
+		local info = C_Reputation_GetFactionInfoByID(factionID)
+		if info and info.name then
 			mod:PopulateFactionData()
 		end
 	end
 	mod:UpdateReputations()
 end
 
-function mod:ReputationEvents()
-	mod:RegisterEvent('UPDATE_FACTION')
-	mod:RegisterEvent('QUEST_LOG_UPDATE', 'UpdateReputations')
-	mod:RegisterEvent('MAJOR_FACTION_RENOWN_LEVEL_CHANGED', 'UpdateReputations')
-	mod:RegisterEvent('MAJOR_FACTION_UNLOCKED', 'UpdateReputations')
+function mod:ToggleReputations()
+	local db = E.db.benikui.dashboards
+	local holder = mod.repHolder
+
+	if db.reputations.enable then
+		E:EnableMover(holder.mover.name)
+		mod:RegisterEvent('UPDATE_FACTION')
+		mod:RegisterEvent('QUEST_LOG_UPDATE', 'UpdateReputations')
+		mod:RegisterEvent('MAJOR_FACTION_RENOWN_LEVEL_CHANGED', 'UpdateReputations')
+		mod:RegisterEvent('MAJOR_FACTION_UNLOCKED', 'UpdateReputations')
+
+		mod:ToggleStyle(holder, 'reputations')
+		mod:ToggleTransparency(holder, 'reputations')
+
+		holder:SetScript('OnEnter', holderOnEnter)
+		holder:SetScript('OnLeave', holderOnLeave)
+
+		mod:PopulateFactionData()
+	else
+		E:DisableMover(holder.mover.name)
+		mod:UnregisterEvent('UPDATE_FACTION')
+		mod:UnregisterEvent('QUEST_LOG_UPDATE')
+		mod:UnregisterEvent('MAJOR_FACTION_RENOWN_LEVEL_CHANGED')
+		mod:UnregisterEvent('MAJOR_FACTION_UNLOCKED')
+
+		holder:SetScript('OnEnter', nil)
+		holder:SetScript('OnLeave', nil)
+	end
+
+	mod:UpdateReputations()
+	CheckReputationsPosition()
 end
 
 function mod:CreateReputationsDashboard()
 	local db = E.db.benikui.dashboards.reputations
 
-	mod.reputationHolder = mod:CreateDashboardHolder('BUI_ReputationsDashboard', 'reputations')
-	mod.reputationHolder:SetPoint('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
-	mod.reputationHolder:SetWidth(db.width or 150)
+	local holder = mod:CreateDashboardHolder('BUI_ReputationsDashboard', 'reputations')
+	holder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -320)
+	holder:Width(db.width or 150)
 
-	mod:PopulateFactionData()
-	mod:UpdateReputations()
-	mod:UpdateReputationSettings()
-	mod:UpdateHolderDimensions(mod.reputationHolder, 'reputations', BUI.FactionsDB)
-	mod:ToggleStyle(mod.reputationHolder, 'reputations')
-	mod:ToggleTransparency(mod.reputationHolder, 'reputations')
+	mod.repHolder = holder
 
-	mod.reputationHolder:SetScript('OnEnter', function()
-		if db.mouseover then
-			E:UIFrameFadeIn(mod.reputationHolder, 0.2, mod.reputationHolder:GetAlpha(), 1)
-		end
-	end)
-
-	mod.reputationHolder:SetScript('OnLeave', function()
-		if db.mouseover then
-			E:UIFrameFadeOut(mod.reputationHolder, 0.2, mod.reputationHolder:GetAlpha(), 0)
-		end
-	end)
-
-	E:CreateMover(_G.BUI_ReputationsDashboard, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
+	E:CreateMover(holder, 'reputationHolderMover', L['Reputations'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,dashboards,reputations')
+	mod:ToggleReputations()
+	mod:EnableDisableCombat(holder, 'reputations')
 end
 
 function mod:LoadReputations()
-	if E.db.benikui.dashboards.reputations.enableReputations ~= true then return end
-
 	mod:CreateReputationsDashboard()
-	mod:ReputationEvents()
 
-	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateReputationSettings)
+	hooksecurefunc(DT, 'LoadDataTexts', mod.UpdateReputations)
 	hooksecurefunc(DB, 'ReputationBar_Update', mod.UpdateReputations)
+	hooksecurefunc(E, 'ToggleMoveMode', CheckReputationsPosition)
 end

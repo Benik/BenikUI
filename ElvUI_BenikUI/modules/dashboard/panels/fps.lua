@@ -1,32 +1,30 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards');
 
 local _G = _G
 local join, floor = string.join, floor
 local select, collectgarbage = select, collectgarbage
-local sort, wipe = table.sort, table.wipe
-local format = string.format
+local sort, twipe = table.sort, table.wipe
+local format = format
 
 local GetFramerate = GetFramerate
-local GetNumAddOns = GetNumAddOns
-local GetAddOnInfo = GetAddOnInfo
-local IsAddOnLoaded = IsAddOnLoaded
+local GetNumAddOns = (C_AddOns and C_AddOns.GetNumAddOns) or GetNumAddOns
+local GetAddOnInfo = (C_AddOns and C_AddOns.GetAddOnInfo) or GetAddOnInfo
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local GetAddOnMemoryUsage = GetAddOnMemoryUsage
 local InCombatLockdown = InCombatLockdown
-local GameTooltip = _G["GameTooltip"]
+local GameTooltip = _G.GameTooltip
 
 local kiloByteString = '|cfff6a01a %d|r'..' kb'
 local megaByteString = '|cfff6a01a %.2f|r'..' mb'
 
 local totalMemory = 0
-local LastUpdate = 1
 
 local statusColors = {
-	'|cff0CD809',	-- green
-	'|cffE8DA0F',	-- yellow
-	'|cffFF9000',	-- orange
-	'|cffD80909'	-- red
+	'cff0CD809',	-- green
+	'cffE8DA0F',	-- yellow
+	'cffD80909',	-- red
 }
 
 local function formatMem(memory)
@@ -54,7 +52,7 @@ local function RebuildAddonList()
 	if (addOnCount == #memoryTable) then return end
 
 	-- Number of loaded addons changed, create new memoryTable for all addons
-	wipe(memoryTable)
+	twipe(memoryTable)
 
 	for i = 1, addOnCount do
 		memoryTable[i] = { i, select(2, GetAddOnInfo(i)), 0, IsAddOnLoaded(i) }
@@ -74,76 +72,90 @@ local function UpdateMemory()
 	sort(memoryTable, sortByMemory)
 end
 
-function mod:CreateFps()
-	local bar = _G['BUI_FPS']
-	local db = E.db.benikui.dashboards.system
-	local holder = _G.BUI_SystemDashboard
-
-	bar:SetScript('OnMouseDown', function (self)
-		if(not InCombatLockdown()) then
-			collectgarbage('collect')
-		end
-	end)
-
-	bar:SetScript('OnEnter', function(self)
-		if(not InCombatLockdown()) then
-
-			GameTooltip:SetOwner(bar, 'ANCHOR_RIGHT', 5, 0)
-			GameTooltip:ClearLines()
-
-			RebuildAddonList()
-			UpdateMemory()
-
-			GameTooltip:AddDoubleLine(L["Total Memory:"], formatMem(totalMemory), 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
-			GameTooltip:AddLine(' ')
-
-			local red, green
-			for i = 1, #memoryTable do
-				if(memoryTable[i][4] ) then
-					red = memoryTable[i][3] / totalMemory
-					green = 1 - red
-					GameTooltip:AddDoubleLine(memoryTable[i][2], formatMem(memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0)
-				end
-			end
-			GameTooltip:AddLine(' ')
-			GameTooltip:AddLine(L['Tip: Click to free memory'], 0.7, 0.7, 1)
-
-			GameTooltip:Show()
-			if db.mouseover then
-				E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
-			end
-		end
-	end)
-
-	bar:SetScript('OnLeave', function(self)
-		if db.mouseover then
-			E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
-		end
-		GameTooltip:Hide()
-	end)
-
-	bar.Status:SetScript('OnUpdate', function(self, elapsed)
-		LastUpdate = LastUpdate - elapsed
-
-		if(LastUpdate < 0) then
-			self:SetMinMaxValues(0, 200)
-			local value = floor(GetFramerate())
-			local max = 120
-			local fpscolor = 4
-			self:SetValue(value)
-
-			if(value * 100 / max >= 45) then
-				fpscolor = 1
-			elseif value * 100 / max < 45 and value * 100 / max > 30 then
-				fpscolor = 2
-			else
-				fpscolor = 3
-			end
-
-			local displayFormat = join('', 'FPS: ', statusColors[fpscolor], '%d|r')
-			bar.Text:SetFormattedText(displayFormat, value)
-
-			LastUpdate = 1
-		end
-	end)
+local function OnClick(self)
+	if(not InCombatLockdown()) then
+		collectgarbage('collect')
+	end
 end
+
+local function OnEnter(self)
+	local db = self.db
+	local holder = self:GetParent()
+
+	if(not InCombatLockdown()) then
+		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 5, 0)
+		GameTooltip:ClearLines()
+
+		RebuildAddonList()
+		UpdateMemory()
+
+		GameTooltip:AddDoubleLine(L["Total Memory:"], formatMem(totalMemory), 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
+		GameTooltip:AddLine(' ')
+
+		local red, green
+		for i = 1, #memoryTable do
+			if(memoryTable[i][4] ) then
+				red = memoryTable[i][3] / totalMemory
+				green = 1 - red
+				GameTooltip:AddDoubleLine(memoryTable[i][2], formatMem(memoryTable[i][3] ), 1, 1, 1, red, green + .5, 0)
+			end
+		end
+		GameTooltip:AddLine(' ')
+		GameTooltip:AddLine(L['Tip: Click to free memory'], 0.7, 0.7, 1)
+
+		GameTooltip:Show()
+		if db.mouseover then
+			E:UIFrameFadeIn(holder, 0.2, holder:GetAlpha(), 1)
+		end
+	end
+end
+
+local function OnLeave(self)
+	local db = self.db
+	local holder = self:GetParent()
+
+	if db.mouseover then
+		E:UIFrameFadeOut(holder, 0.2, holder:GetAlpha(), 0)
+	end
+	GameTooltip:Hide()
+end
+
+local function OnUpdate(self)
+	local db = self.db
+
+	if not mod:ShouldShowDashboard('system') then
+		self.Text:SetText('')
+		self.Status:SetValue(0)
+		return
+	end
+
+	self.Status:SetMinMaxValues(0, 200)
+	local value = floor(GetFramerate())
+	local max = 100
+	local fpscolor
+	self.Status:SetValue(value)
+
+	if(value * 100 / max >= 45) then
+		fpscolor = 1
+	elseif value * 100 / max < 45 and value * 100 / max > 30 then
+		fpscolor = 2
+	else
+		fpscolor = 3
+	end
+
+	local displayFormat = join('', 'FPS: |', statusColors[fpscolor], '%d|r')
+	self.Text:SetFormattedText(displayFormat, value)
+
+	if db.overrideColor then
+		local r, g, b = E:HexToRGB(statusColors[fpscolor])
+		self.Status:SetStatusBarColor(r/255, g/255, b/255)
+	end
+end
+
+mod:RegisterSystemBoard('FPS', function()
+	local bar = mod:CreateSystemBar('FPS', OnEnter, OnLeave, OnClick)
+	bar.elapsed = 0
+	bar.UpdateFunc = OnUpdate
+	bar:RegisterEvent('PLAYER_ENTERING_WORLD')
+	bar:SetScript('OnUpdate', mod.CommonOnUpdate)
+end)

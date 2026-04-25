@@ -1,8 +1,10 @@
-﻿local BUI, E, L, V, P, G = unpack(select(2, ...))
+﻿local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
 function BUI:LoadBigWigsProfile()
 	local font, fontsize
 	local key = BUI.AddonProfileKey
+
+	local LoadAddOn = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
 
 	LoadAddOn("BigWigs_Options")
 	LoadAddOn("BigWigs")

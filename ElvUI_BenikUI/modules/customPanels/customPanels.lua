@@ -1,131 +1,162 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+--[[
+  File: modules/customPanels.lua
+  Manages creation, configuration, and lifecycle of custom panels for BenikUI/ElvUI.
+]]
+
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('CustomPanels')
 local LSM = E.Libs.LSM
 
 local _G = _G
-local pairs = pairs
-local tcopy = table.copy
-
+local pairs, type = pairs, type
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local RegisterStateDriver = RegisterStateDriver
-local ReloadUI = ReloadUI
-local UnitInVehicle = UnitInVehicle
 local UnregisterStateDriver = UnregisterStateDriver
+local UnitInVehicle = UnitInVehicle
 
 local classColor = E:ClassColor(E.myclass, true)
+local dR, dG, dB, dA = unpack(E.media.backdropfadecolor)
 
+-- Default config for a new panel
 local PanelDefault = {
-	['enable'] = true,
-	['width'] = 200,
-	['height'] = 200,
-	['point'] = "CENTER",
-	['transparency'] = true,
-	['style'] = false,
-	['stylePosition'] = 'TOP',
-	['shadow'] = true,
-	['clickThrough'] = false,
-	['strata'] = "LOW",
-	['combatHide'] = true,
-	['petHide'] = true,
-	['vehicleHide'] = true,
-	['tooltip'] = true,
-	['visibility'] = "",
-	['styleColor'] = 1,
-	['customStyleColor'] = {r = .9, g = .7, b = 0},
-	['title'] = {
-		['enable'] = true,
-		['text'] = 'Title',
-		['height'] = 26,
-		['position'] = 'TOP',
-		['textPosition'] = 'CENTER',
-		['textXoffset'] = 0,
-		['textYoffset'] = 0,
-		['panelTexture'] = "BuiMelli",
-		['panelColor'] = {r = .9, g = .7, b = 0, a = .7},
-		['useDTfont'] = true,
-		['font'] = E.db.datatexts.font,
-		['fontsize'] = E.db.datatexts.fontSize,
-		['fontflags'] = E.db.datatexts.fontOutline,
-		['fontColor'] = {r = .9, g = .9, b = .9},
-	}
+	enable             = true,
+	width              = 200,
+	height             = 200,
+	point              = "CENTER",
+	opaque             = true,
+	transparent        = false,
+	custom             = false,
+	alpha              = 0.7, -- old alpha, used if customBackdropColor isn't set
+	customBackdropColor= { r = 0, g = 0, b = 0, a = 0.7 },
+	style              = false,
+	stylePosition      = 'TOP',
+	shadow             = true,
+	clickThrough       = false,
+	strata             = "LOW",
+	combatHide         = true,
+	petHide            = true,
+	vehicleHide        = true,
+	tooltip            = true,
+	visibility         = "",
+	styleColor         = 1,
+	customStyleColor   = { r = 0.9, g = 0.7, b = 0 },
+	title = {
+		enable       = true,
+		text         = 'Title',
+		height       = 26,
+		position     = 'TOP',
+		textPosition = 'CENTER',
+		textXoffset  = 0,
+		textYoffset  = 0,
+		panelTexture = "BuiMelli",
+		panelColor   = { r = 0.9, g = 0.7, b = 0, a = 0.7 },
+		useDTfont    = true,
+		font         = E.db.datatexts.font,
+		fontsize     = E.db.datatexts.fontSize,
+		fontflags    = E.db.datatexts.fontOutline,
+		fontColor    = { r = 0.9, g = 0.9, b = 0.9 },
+	},
 }
 
-local function InsertNewDefaults()
-	for name in pairs(E.db.benikui.panels) do
-		if name then
-			if E.db.benikui.panels[name].styleColor == nil then E.db.benikui.panels[name].styleColor = 1 end
-			if E.db.benikui.panels[name].customStyleColor == nil then E.db.benikui.panels[name].customStyleColor = {r = .9, g = .7, b = 0} end
+local function DeepCopy(orig)
+	if type(orig) ~= 'table' then
+		return orig
+	end
+	local copy = {}
+	for k, v in pairs(orig) do
+		copy[DeepCopy(k)] = DeepCopy(v)
+	end
+	setmetatable(copy, DeepCopy(getmetatable(orig)))
+	return copy
+end
 
-			if E.db.benikui.panels[name].title == nil then
-				E.db.benikui.panels[name].title = {	
-					['enable'] = true,
-					['text'] = 'Title',
-					['height'] = 26,
-					['position'] = 'TOP',
-					['textPosition'] = 'CENTER',
-					['textXoffset'] = 0,
-					['textYoffset'] = 0,
-					['panelTexture'] = "BuiMelli",
-					['panelColor'] = {r = .9, g = .7, b = 0, a = .7},
-					['useDTfont'] = true,
-					['font'] = E.db.datatexts.font,
-					['fontsize'] = E.db.datatexts.fontSize,
-					['fontflags'] = E.db.datatexts.fontOutline,
-					['fontColor'] = {r = .9, g = .9, b = .9},
-				}
+local function EnsureDisplayMode(panelData)
+	if not (panelData.opaque or panelData.transparent or panelData.custom) then
+		panelData.opaque = true
+	end
+end
+
+-- Adds missing fields, migrates old alpha to customBackdropColor
+local function InsertNewDefaults()
+	for _, data in pairs(E.db.benikui.panels) do
+		if data then
+			if data.styleColor == nil then
+				data.styleColor = PanelDefault.styleColor
 			end
+			if data.customStyleColor == nil then
+				data.customStyleColor = DeepCopy(PanelDefault.customStyleColor)
+			end
+			if data.title == nil then
+				data.title = DeepCopy(PanelDefault.title)
+			end
+			if data.customBackdropColor == nil then
+				data.customBackdropColor = DeepCopy(PanelDefault.customBackdropColor)
+				if data.alpha then
+					data.customBackdropColor.a = data.alpha
+				end
+			end
+			EnsureDisplayMode(data)
 		end
 	end
 end
 
+-- Shows panel name when hovered, minus "BenikUI_"
 local function OnEnter(self)
-	if E.db.benikui.panels[self.Name].tooltip then
+	local data = E.db.benikui.panels[self.Name]
+	if data and data.tooltip then
 		_G.GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-		_G.GameTooltip:AddLine(self.Name, 0.7, 0.7, 1)
+		local shortName = self.Name:gsub("^BenikUI_", "")
+		_G.GameTooltip:AddLine(shortName, 0.7, 0.7, 1)
 		_G.GameTooltip:Show()
 	end
 end
 
+-- Hides panel tooltip
 local function OnLeave(self)
-	if E.db.benikui.panels[self.Name].tooltip then
+	local data = E.db.benikui.panels[self.Name]
+	if data and data.tooltip then
 		_G.GameTooltip:Hide()
 	end
 end
 
+-- Creates a DB entry for a new panel
 function mod:InsertPanel(name)
 	if name == "" then return end
-
-	name = "BenikUI_"..name
-	local db = E.db.benikui.panels
-	if not db[name] then
-		db[name] = PanelDefault
+	name = "BenikUI_" .. name
+	if not E.db.benikui.panels[name] then
+		E.db.benikui.panels[name] = DeepCopy(PanelDefault)
 	else
 		E:StaticPopup_Show("BUI_Panel_Name")
 	end
 end
 
+-- Instantiates frames for each custom panel
 function mod:CreatePanel()
-	if not E.db.benikui.panels then E.db.benikui.panels = {} end
+	if not E.db.benikui.panels then
+		E.db.benikui.panels = {}
+	end
 
-	for name in pairs(E.db.benikui.panels) do
+	for name, data in pairs(E.db.benikui.panels) do
 		if name and not _G[name] then
 			local panel = CreateFrame("Frame", name, E.UIParent)
-			panel:Width(name.width or 200)
-			panel:Height(name.height or 200)
+			panel:Size(E:Scale(data.width or 200), E:Scale(data.height or 200))
 			panel:SetTemplate('Transparent')
 			panel:Point('CENTER', E.UIParent, 'CENTER', -600, 0)
 			panel:BuiStyle('Outside', nil, true, true)
-			if BUI.ShadowMode then panel:CreateSoftShadow() end
+
+			if E.db.benikui.general.shadows then
+				panel:CreateSoftShadow()
+			end
+
 			panel:SetScript("OnEnter", OnEnter)
 			panel:SetScript("OnLeave", OnLeave)
-
-			local moverName = name.."_Mover"
-			E:CreateMover(_G[name], moverName, name, nil, nil, nil, "ALL,MISC,BENIKUI", nil, 'benikui,panels')
-
-			panel.moverName = moverName
 			panel.Name = name
-			
+
+			local moverName = name .. "_Mover"
+			E:CreateMover(panel, moverName, name, nil, nil, nil, "ALL,MISC,BENIKUI", nil, 'benikui,panels')
+			panel.moverName = moverName
+
 			local title = CreateFrame("Frame", nil, panel)
 			title:SetTemplate('Transparent', false, true)
 			title:Point('TOPLEFT', panel, 'TOPLEFT', 0, (E.PixelMode and 0 or 2))
@@ -136,9 +167,9 @@ function mod:CreatePanel()
 			titleText:FontTemplate(nil, 14)
 			titleText:SetText("Title")
 			titleText:Point("CENTER")
-			titleText:SetTextColor(1, 1, 0, .7)
+			titleText:SetTextColor(1, 1, 0, 0.7)
 			panel.titleText = titleText
-			
+
 			local tex = title:CreateTexture(nil, "BACKGROUND")
 			tex:SetBlendMode("ADD")
 			tex:SetAllPoints()
@@ -148,135 +179,145 @@ function mod:CreatePanel()
 	end
 end
 
+-- Adjusts panel dimensions
 function mod:Resize()
-	if not E.db.benikui.panels then E.db.benikui.panels = {} end
+	if not E.db.benikui.panels then
+		E.db.benikui.panels = {}
+	end
 
-	for name in pairs(E.db.benikui.panels) do
-		if name and _G[name] then
-			local db = E.db.benikui.panels[name]
-			if not db.width and not db.height then return end
-			_G[name]:Size(db.width, db.height)
+	for name, data in pairs(E.db.benikui.panels) do
+		local panel = _G[name]
+		if panel and data.width and data.height then
+			panel:Size(E:Scale(data.width), E:Scale(data.height))
 		end
 	end
 end
 
+-- Updates panel title text, position, etc.
 function mod:UpdatePanelTitle()
-	for panel in pairs(E.db.benikui.panels) do
+	for panelName, panelData in pairs(E.db.benikui.panels) do
+		local panel = _G[panelName]
 		if panel then
-			local db = E.db.benikui.panels[panel].title
+			local tData = panelData.title
+			panel.title:SetShown(tData.enable)
+			panel.titleText:SetText(tData.text or 'Title')
+			panel.titleText:ClearAllPoints()
+			panel.titleText:Point(tData.textPosition or "CENTER", tData.textXoffset or 0, tData.textYoffset or 0)
 
-			-- Toggle
-			_G[panel].title:SetShown(db.enable)
-
-			-- Set Text
-			_G[panel].titleText:SetText(db.text or 'Title')
-
-			-- Text Position
-			_G[panel].titleText:ClearAllPoints()
-			_G[panel].titleText:Point(db.textPosition or "CENTER", db.textXoffset or 0, db.textYoffset or 0)
-
-			-- Title bar position
-			_G[panel].title:ClearAllPoints()
-			if db.position == 'TOP' then
-				_G[panel].title:Point('TOPLEFT', _G[panel], 'TOPLEFT', 0, (E.PixelMode and 0 or 2))
-				_G[panel].title:Point('BOTTOMRIGHT', _G[panel], 'TOPRIGHT', 0, -(db.height) or (E.PixelMode and -15 or -14))
+			panel.title:ClearAllPoints()
+			if tData.position == 'TOP' then
+				panel.title:Point('TOPLEFT', panel, 'TOPLEFT', 0, (E.PixelMode and 0 or 2))
+				panel.title:Point('BOTTOMRIGHT', panel, 'TOPRIGHT', 0, -(tData.height) or -14)
 			else
-				_G[panel].title:Point('BOTTOMLEFT', _G[panel], 'BOTTOMLEFT', 0, (E.PixelMode and 0 or 2))
-				_G[panel].title:Point('TOPRIGHT', _G[panel], 'BOTTOMRIGHT', 0, (db.height) or (E.PixelMode and -15 or -14))
+				panel.title:Point('BOTTOMLEFT', panel, 'BOTTOMLEFT', 0, (E.PixelMode and 0 or 2))
+				panel.title:Point('TOPRIGHT', panel, 'BOTTOMRIGHT', 0, tData.height or 14)
 			end
 
-			-- Texture
-			_G[panel].tex:SetTexture(LSM:Fetch('statusbar', db.panelTexture))
-			_G[panel].tex:SetVertexColor(BUI:unpackColor(db.panelColor))
-			
-			-- Fonts
-			if db.useDTfont then
-				_G[panel].titleText:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+			panel.tex:SetTexture(LSM:Fetch('statusbar', tData.panelTexture))
+			panel.tex:SetVertexColor(BUI:unpackColor(tData.panelColor))
+
+			if tData.useDTfont then
+				panel.titleText:FontTemplate(
+						LSM:Fetch('font', E.db.datatexts.font),
+						E.db.datatexts.fontSize,
+						E.db.datatexts.fontOutline
+				)
 			else
-				_G[panel].titleText:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+				panel.titleText:FontTemplate(
+						LSM:Fetch('font', tData.font),
+						tData.fontsize,
+						tData.fontflags
+				)
 			end
-			
-			_G[panel].titleText:SetTextColor(BUI:unpackColor(db.fontColor))
+			panel.titleText:SetTextColor(BUI:unpackColor(tData.fontColor))
 		end
 	end
 end
 
+-- Applies settings: visibility, templates, shadows, styles
 function mod:SetupPanels()
-	for panel in pairs(E.db.benikui.panels) do
+	local shadows = E.db.benikui.general.shadows
+	for panelName, data in pairs(E.db.benikui.panels) do
+		local panel = _G[panelName]
 		if panel then
-			local db = E.db.benikui.panels[panel]
+			local vis = (data.visibility and data.visibility:gsub('[\n\r]', '')) or ""
+			panel:EnableMouse(not data.clickThrough)
 
-			local visibility = db.visibility
-			if visibility and visibility:match('[\n\r]') then
-				visibility = visibility:gsub('[\n\r]','')
-			end
-
-			_G[panel]:EnableMouse(not db.clickThrough)
-
-			if db.enable then
-				_G[panel]:Show()
-				E:EnableMover(_G[panel].moverName)
-				RegisterStateDriver(_G[panel], "visibility", visibility)
+			if data.enable then
+				panel:Show()
+				E:EnableMover(panel.moverName)
+				RegisterStateDriver(panel, "visibility", vis)
 			else
-				_G[panel]:Hide()
-				E:DisableMover(_G[panel].moverName)
-				UnregisterStateDriver(_G[panel], "visibility")
+				panel:Hide()
+				E:DisableMover(panel.moverName)
+				UnregisterStateDriver(panel, "visibility")
 			end
 
-			_G[panel]:SetFrameStrata(db.strata or 'LOW')
-			if db.transparency then
-				_G[panel]:SetTemplate("Transparent")
+			panel:SetFrameStrata(data.strata or 'LOW')
+
+			if data.opaque then
+				panel:SetTemplate("Default", true)
+			elseif data.transparent then
+				panel:SetTemplate("Transparent")
+			elseif data.custom then
+				local c = data.customBackdropColor
+				panel:SetBackdropColor(c.r, c.g, c.b, c.a or dA)
 			else
-				_G[panel]:SetTemplate("Default", true)
+				panel:SetTemplate("Default", true)
 			end
 
-			if BUI.ShadowMode then
-				_G[panel].shadow:SetShown(db.shadow)
-				_G[panel].style.styleShadow:SetShown(db.shadow)
+			if shadows and panel.shadow and panel.style and panel.style.styleShadow then
+				panel.shadow:SetShown(data.shadow)
+				panel.style.styleShadow:SetShown(data.shadow)
 			end
 
-			if _G[panel].style then
-				local r, g, b
-				_G[panel].style:SetShown(db.style)
-
-				if db.stylePosition == 'BOTTOM' then
-					_G[panel].style:ClearAllPoints()
-					if BUI.ShadowMode then _G[panel].style.styleShadow:Hide() end
-					_G[panel].style:Point('TOPRIGHT', _G[panel], 'BOTTOMRIGHT', 0, (E.PixelMode and 5 or 7))
-					_G[panel].style:Point('BOTTOMLEFT', _G[panel], 'BOTTOMLEFT', 0, (E.PixelMode and 0 or 1))
+			if panel.style then
+				panel.style:SetShown(data.style)
+				if data.stylePosition == 'BOTTOM' then
+					panel.style:ClearAllPoints()
+					if shadows and panel.style.styleShadow then
+						panel.style.styleShadow:Hide()
+					end
+					panel.style:Point('TOPRIGHT', panel, 'BOTTOMRIGHT', 0, (E.PixelMode and 5 or 7))
+					panel.style:Point('BOTTOMLEFT', panel, 'BOTTOMLEFT', 0, 1)
 				else
-					_G[panel].style:ClearAllPoints()
-					if BUI.ShadowMode and db.shadow then _G[panel].style.styleShadow:Show() end
-					_G[panel].style:Point('TOPLEFT', _G[panel], 'TOPLEFT', 0, (E.PixelMode and 4 or 7))
-					_G[panel].style:Point('BOTTOMRIGHT', _G[panel], 'TOPRIGHT', 0, (E.PixelMode and -1 or 1))
+					panel.style:ClearAllPoints()
+					if shadows and data.shadow and panel.style.styleShadow then
+						panel.style.styleShadow:Show()
+					end
+					panel.style:Point('TOPLEFT', panel, 'TOPLEFT', 0, (E.PixelMode and 4 or 7))
+					panel.style:Point('BOTTOMRIGHT', panel, 'TOPRIGHT', 0, 1)
 				end
 
-				if db.styleColor == 1 then
+				local r, g, b
+				if data.styleColor == 1 then
 					r, g, b = classColor.r, classColor.g, classColor.b
-				elseif db.styleColor == 2 then
-					r, g, b = BUI:unpackColor(db.customStyleColor)
-				elseif db.styleColor == 3 then
+				elseif data.styleColor == 2 then
+					r, g, b = BUI:unpackColor(data.customStyleColor)
+				elseif data.styleColor == 3 then
 					r, g, b = BUI:unpackColor(E.db.general.valuecolor)
 				else
 					r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
 				end
-				_G[panel].style:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
+				panel.style:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 			end
 		end
 	end
 end
 
+-- Clears everything from a panel
 function mod:EmptyPanel(panel)
+	if not panel then return end
 	panel:Hide()
 	panel:UnregisterAllEvents()
 	panel:SetScript('OnEvent', nil)
 	panel:SetScript('OnEnter', nil)
 	panel:SetScript('OnLeave', nil)
-
 	UnregisterStateDriver(panel, 'visibility')
 	E:DisableMover(panel.moverName)
 end
 
+-- Removes a panel and its entry
 function mod:DeletePanel(givenPanel)
 	if givenPanel then
 		local panel = _G[givenPanel]
@@ -286,51 +327,53 @@ function mod:DeletePanel(givenPanel)
 	end
 end
 
+-- Duplicates a panel's configuration
 function mod:ClonePanel(from, to)
 	if from == "" or to == "" then return end
-
 	local db = E.db.benikui.panels
 	if not db[to] then
-		db[to] = db[from]
+		db[to] = DeepCopy(db[from])
 		mod:UpdatePanels()
 	else
 		E:StaticPopup_Show("BUI_Panel_Name")
 	end
 end
 
+-- Handles pet-battle, combat, vehicle hide
 function mod:OnEvent(event, unit)
 	if unit and unit ~= "player" then return end
+	local inCombat = (event == "PLAYER_REGEN_DISABLED") or InCombatLockdown()
+	local inVehicle = (event == "UNIT_ENTERING_VEHICLE") or UnitInVehicle("player")
 
-	local inCombat = (event == "PLAYER_REGEN_DISABLED" and true) or (event == "PLAYER_REGEN_ENABLED" and false) or InCombatLockdown()
-	local inVehicle = (event == "UNIT_ENTERING_VEHICLE" and true) or (event == "UNIT_EXITING_VEHICLE" and false) or UnitInVehicle("player")
-	for name in pairs(E.db.benikui.panels) do
-		if name then
-			local db = E.db.benikui.panels[name]
-			if (db.enable ~= true) or (inCombat and db.combatHide) or (inVehicle and db.vehicleHide) then
-				_G[name]:Hide()
+	for name, data in pairs(E.db.benikui.panels) do
+		local panel = _G[name]
+		if panel then
+			if (not data.enable)
+					or (inCombat and data.combatHide)
+					or (inVehicle and data.vehicleHide) then
+				panel:Hide()
 			else
-				_G[name]:Show()
+				panel:Show()
 			end
 			if event == "PET_BATTLE_CLOSE" then
-				_G[name]:SetFrameStrata(db.strata or 'LOW')
+				panel:SetFrameStrata(data.strata or 'LOW')
 			end
 		end
 	end
 end
 
+-- Maintains frame locks if petHide is set
 function mod:RegisterHide()
-	for name in pairs(E.db.benikui.panels) do
-		if name then
-			local db = E.db.benikui.panels[name]
-			if db.petHide then
-				E.FrameLocks[name] = { parent = E.UIParent }
-			else
-				E.FrameLocks[name] = nil
-			end
+	for name, data in pairs(E.db.benikui.panels) do
+		if data.petHide then
+			E.FrameLocks[name] = { parent = E.UIParent }
+		else
+			E.FrameLocks[name] = nil
 		end
 	end
 end
 
+-- Applies all updates: defaults, creation, setup, resizing, etc.
 function mod:UpdatePanels()
 	InsertNewDefaults()
 	mod:CreatePanel()
@@ -340,13 +383,14 @@ function mod:UpdatePanels()
 	mod:UpdatePanelTitle()
 end
 
+-- Initializes the module
 function mod:Initialize()
 	mod:UpdatePanels()
 	mod:RegisterEvent("PLAYER_REGEN_DISABLED", "OnEvent")
-	mod:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
+	mod:RegisterEvent("PLAYER_REGEN_ENABLED",  "OnEvent")
 	mod:RegisterEvent("UNIT_ENTERING_VEHICLE", "OnEvent")
-	mod:RegisterEvent("UNIT_EXITING_VEHICLE", "OnEvent")
-	mod:RegisterEvent("PET_BATTLE_CLOSE", "OnEvent")
+	mod:RegisterEvent("UNIT_EXITING_VEHICLE",  "OnEvent")
+	mod:RegisterEvent("PET_BATTLE_CLOSE",      "OnEvent")
 end
 
 BUI:RegisterModule(mod:GetName())

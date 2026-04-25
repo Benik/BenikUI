@@ -2,7 +2,7 @@ ElvUI_BenikUI
 =============
 an external ElvUI edit
 
-- Requires ElvUI 10+. Please run the installer when prompted.
+- Requires ElvUI 14+. Please run the installer when prompted.
 
 - Suggestions, recommendations, things to add/remove ;) or to say thanks: https://www.tukui.org/forum/viewforum.php?f=33
 

@@ -1,8 +1,11 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
+
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
 local _G = _G
 local pairs = pairs
+local hooksecurefunc = hooksecurefunc
 
 function mod:stylePlugins()
 	-- LocationPlus
@@ -16,13 +19,16 @@ function mod:stylePlugins()
 		}
 		for _, frame in pairs(framestoskin) do
 			if frame then
-				frame:BuiStyle("Outside")
+				frame:BuiStyle()
 			end
 		end
 	end
 
 	-- Shadow & Light
 	if BUI.SLE and E.db.benikui.skins.elvuiAddons.sle then
+		local SLE = unpack(ElvUI_SLE)
+		local LP = SLE:GetModule('LocationPanel')
+
 		local sleFrames = {
 			_G.SLE_BG_1,
 			_G.SLE_BG_2,
@@ -37,16 +43,27 @@ function mod:stylePlugins()
 			_G.SLE_LocationPanel_RightClickMenu2,
 			_G.InspectArmory
 		}
+
 		for _, frame in pairs(sleFrames) do
 			if frame then
-				frame:BuiStyle("Outside")
+				frame:BuiStyle()
 			end
 		end
 
+		-- fix framelevel
+		if E.db.benikui.general.benikuiStyle == true then
+			_G.SLE_LocationPanel_X.style:SetFrameLevel(3)
+			_G.SLE_LocationPanel_Y.style:SetFrameLevel(3)
+		end
+
 		-- fix shadow overlap
-		if BUI.ShadowMode then
+		if E.db.benikui.general.shadows then
 			_G.SLE_LocationPanel_X:Point('RIGHT', _G.SLE_LocationPanel, 'LEFT', -2, 0)
 			_G.SLE_LocationPanel_Y:Point('LEFT', _G.SLE_LocationPanel, 'RIGHT', 2, 0)
+			hooksecurefunc(LP, "PopulateDropdown", function()
+				_G.SLE_LocationPanel_RightClickMenu1:ClearAllPoints()
+				_G.SLE_LocationPanel_RightClickMenu1:Point('TOP', _G.SLE_LocationPanel, 'BOTTOM', 0, -6)
+			end)
 		end
 	end
 
@@ -54,18 +71,18 @@ function mod:stylePlugins()
 	if BUI.PA and E.db.benikui.skins.elvuiAddons.pa then
 		local smbFrame = _G.SquareMinimapButtonBar
 		if smbFrame then
-			smbFrame:BuiStyle("Outside")
+			smbFrame:BuiStyle()
 		end
 	end
 
 	-- ElvUI_Enhanced
 	if IsAddOnLoaded("ElvUI_Enhanced") and E.db.benikui.skins.elvuiAddons.enh then
 		if _G.MinimapButtonBar then
-			_G.MinimapButtonBar:BuiStyle("Outside")
+			_G.MinimapButtonBar:BuiStyle()
 		end
 
 		if _G.RaidMarkerBar then
-			_G.RaidMarkerBar:BuiStyle("Outside")
+			_G.RaidMarkerBar:BuiStyle()
 		end
 	end
 
@@ -73,13 +90,13 @@ function mod:stylePlugins()
 	if BUI.PA and E.db.benikui.skins.elvuiAddons.pa then
 		local stFrame = _G.stAMFrame
 		if stFrame then
-			stFrame:BuiStyle("Outside")
+			stFrame:BuiStyle()
 			stAMAddOns:SetTemplate("Transparent")
 		end
 
 		local profileFrame = _G.stAMProfileMenu
 		if profileFrame then
-			profileFrame:BuiStyle("Outside")
+			profileFrame:BuiStyle()
 		end
 	end
 
@@ -93,7 +110,55 @@ function mod:stylePlugins()
 		end
 
 		if bottomPanel then
-			bottomPanel:BuiStyle('Outside')
+			bottomPanel:BuiStyle()
 		end
 	end
+end
+
+function mod:StyleWindTools()
+	if not (BUI.WT and E.db.benikui.skins.elvuiAddons.wt) then return end
+
+	local W = unpack(WindTools)
+
+	-- Minimap Buttons
+	local MB = W:GetModule("MinimapButtons")
+	hooksecurefunc(MB, 'CreateFrames', function(self)
+		self.db = E.private.WT.maps.minimapButtons
+		if not self.db.enable then
+			return
+		end
+		self.bar.backdrop:BuiStyle()
+	end)
+
+	-- Inspect Frames
+	local I = W:GetModule("Inspect")
+	hooksecurefunc(I, 'CreatePanel', function(self, parent)
+		self.db = E.db.WT.item.inspect
+		if not self.db.enable then
+			return
+		end
+
+		parent.WTInspect:BuiStyle()
+	end)
+
+	-- Stats Compare
+	hooksecurefunc(I, 'CreateStatsComparePanel', function(self, parent)
+		self.db = E.db.WT.item.inspect
+		if not self.db.enable then
+			return
+		end
+
+		parent.WTInspectStatsCompare:BuiStyle()
+	end)
+
+	-- Quick Access
+	local LL = W:GetModule("LFGList")
+	hooksecurefunc(LL, 'InitializeRightPanel', function(self)
+		self.db = E.private.WT.misc.lfgList
+		if not self.db.enable then
+			return
+		end
+
+		self.RightPanel:BuiStyle()
+	end)
 end

@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Databars');
 local DB = E:GetModule('DataBars');
 local DT = E:GetModule('DataTexts');
@@ -6,6 +6,7 @@ local LSM = E.LSM;
 
 local _G = _G
 local floor = floor
+local hooksecurefunc = hooksecurefunc
 
 -- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_AzeriteBar
 

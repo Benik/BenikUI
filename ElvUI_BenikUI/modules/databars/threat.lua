@@ -1,11 +1,10 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Databars');
 local DB = E:GetModule('DataBars');
 local DT = E:GetModule('DataTexts');
 
 local _G = _G
-
--- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_ThreatBar
+local hooksecurefunc = hooksecurefunc
 
 function mod:ApplyThreatStyling()
 	local bar = _G.ElvUI_ThreatBar

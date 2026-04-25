@@ -1,7 +1,8 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
 local CreateFrame = CreateFrame
 local getmetatable = getmetatable
+local EnumerateFrames = EnumerateFrames
 
 local classColor = E:ClassColor(E.myclass, true)
 
@@ -10,12 +11,14 @@ local function CreateWideShadow(f)
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
 	local wideshadow = f.wideshadow or CreateFrame('Frame', nil, f, 'BackdropTemplate')
+	E:ReplaceSetupTextureCoordinates(wideshadow)
 	wideshadow:SetFrameLevel(1)
 	wideshadow:SetFrameStrata('BACKGROUND')
 	wideshadow:SetOutside(f, 6, 6)
 	wideshadow:SetBackdrop({edgeFile = E.Media.Textures.GlowTex, edgeSize = E:Scale(6)})
 	wideshadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	wideshadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.5)
+
 	f.wideshadow = wideshadow
 end
 
@@ -25,12 +28,16 @@ local function CreateSoftShadow(f)
 	local db = E.db.benikui.general
 
 	local shadow = f.shadow or CreateFrame('Frame', nil, f, 'BackdropTemplate') -- This way you can replace current shadows.
+	E:ReplaceSetupTextureCoordinates(shadow)
+	if shadow:IsObjectType('Texture') then return end
+
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, (db.shadowSize - 1) or 2, (db.shadowSize - 1) or 2)
 	shadow:SetBackdrop({edgeFile = E.Media.Textures.GlowTex, edgeSize = E:Scale(db.shadowSize or 3)})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	shadow:SetBackdropBorderColor(borderr, borderg, borderb, db.shadowAlpha or 0.6)
+
 	f.shadow = shadow
 	BUI["shadows"][shadow] = true
 end
@@ -41,6 +48,7 @@ local function CreateStyleShadow(f)
 	local db = E.db.benikui.general
 
 	local styleShadow = f.styleShadow or CreateFrame('Frame', nil, f, 'BackdropTemplate')
+	E:ReplaceSetupTextureCoordinates(styleShadow)
 	styleShadow:SetFrameLevel(1)
 	styleShadow:SetFrameStrata(f:GetFrameStrata())
 
@@ -50,6 +58,7 @@ local function CreateStyleShadow(f)
 	styleShadow:SetBackdrop({edgeFile = [[Interface\AddOns\ElvUI_BenikUI\media\textures\GlowTexCut.tga]], edgeSize = E:Scale(3)})
 	styleShadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	styleShadow:SetBackdropBorderColor(borderr, borderg, borderb, db.shadowAlpha or 0.6)
+
 	f.styleShadow = styleShadow
 end
 
@@ -58,7 +67,7 @@ local function CreateSoftGlow(f)
 
 	local r, g, b = BUI:unpackColor(E.db.general.valuecolor)
 	local sglow = CreateFrame('Frame', nil, f, 'BackdropTemplate')
-
+	E:ReplaceSetupTextureCoordinates(sglow)
 	sglow:SetFrameLevel(1)
 	sglow:SetFrameStrata(f:GetFrameStrata())
 	sglow:SetOutside(f, 3, 3)
@@ -76,11 +85,12 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 	if f.style or E.db.benikui.general.benikuiStyle ~= true then return end
 
 	local style = CreateFrame('Frame', name or nil, f, 'BackdropTemplate')
-	if not template then
-		style:CreateBackdrop('Transparent', true)
-	else
-		style:SetTemplate('Transparent', true)
-	end
+	E:ReplaceSetupTextureCoordinates(style)
+	style:SetTemplate('Transparent', true)
+
+	template = template or 'Outside'
+
+	if style.eltruismbgtexture then style.eltruismbgtexture:Hide() end --Hide Eltruism's Skin if it exists
 
 	style.ignoreUpdates = true
 
@@ -92,7 +102,7 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 		style.ignoreVisibility = ignoreVisibility
 	end
 
-	style:SetFrameLevel(f:GetFrameLevel() + 2)
+	style:OffsetFrameLevel(2, f)
 
 	local tlx, tly, brx, bry
 
@@ -100,8 +110,6 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 		tlx, tly, brx, bry = 0, (E.PixelMode and 0 or 2), 0, (E.PixelMode and -5 or -4)
 	elseif template == 'Outside' then
 		tlx, tly, brx, bry = 0, (E.PixelMode and 4 or 7), 0, (E.PixelMode and -1 or 1)
-	elseif template == 'Small' then
-		tlx, tly, brx, bry = -(E.PixelMode and 1 or 2), (E.PixelMode and 4 or 9), (E.PixelMode and 1 or 2), (E.PixelMode and -1 or 3)
 	elseif template == 'Under' then
 		tlx, tly, brx, bry = 0, (E.PixelMode and 5 or 7), 0, (E.PixelMode and 0 or 1)
 	end
@@ -121,8 +129,10 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 			r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
 		elseif E.db.benikui.colors.StyleColor == 3 then
 			r, g, b = BUI:unpackColor(E.db.general.valuecolor)
-		else
+		elseif E.db.benikui.colors.StyleColor == 4 then
 			r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
+		else
+			r, g, b = BUI:unpackColor(E.db.general.classColors[E.myclass])
 		end
 		style:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 	else
@@ -131,7 +141,7 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 
 	if E.db.benikui.general.shadows then
 		f:CreateSoftShadow()
-		if template == 'Outside' or template == 'Small' then
+		if template == 'Outside' then
 			style:CreateStyleShadow()
 		end
 	end

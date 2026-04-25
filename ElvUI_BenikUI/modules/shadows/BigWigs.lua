@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
 if not BUI.AS then return end
 local AS = unpack(AddOnSkins)
@@ -21,7 +21,7 @@ function AS:BigWigs(event, addon)
 	end
 
 	if event == 'ADDON_LOADED' and addon == 'BigWigs_Plugins' then
-		if BUI.ShadowMode and E.db.benikui.skins.addonSkins.bigwigs then
+		if E.db.benikui.general.shadows and E.db.benikui.skins.addonSkins.bigwigs then
 			BigWigsInfoBox:CreateSoftShadow()
 			--BigWigsAltPower:CreateSoftShadow()
 		end

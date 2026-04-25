@@ -1,16 +1,17 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 
 local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack
 
-local IsAddOnLoaded = IsAddOnLoaded
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local ADDONS = ADDONS
+local OBJECTIVES_TRACKER_LABEL = OBJECTIVES_TRACKER_LABEL
 
 local DecorElvUIAddons = {
 	{'ElvUI_LocPlus', L['LocationPlus'], 'locplus'},
 	{'ElvUI_SLE', L['Shadow & Light'], 'sle'},
-	{'ElvUI_Enhanced', L['ElvUI_Enhanced'], 'enh'},
+	{'ElvUI_WindTools', L['WindTools'], 'wt'},
 	{'ElvUI_MerathilisUI', L['MerathilisUI'], 'mer'},
 	{'ElvUI_Options', L['ElvUI Options'], 'elv'},
 }
@@ -43,7 +44,7 @@ local SupportedProfiles = {
 	{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
 	{'ElvUI_LocPlus', 'Location Plus'},
-	{'InFlight_Load', 'InFlight'},
+	{'InFlight', 'InFlight'},
 	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
 	{'Pawn', 'Pawn'},
 	{'Recount', 'Recount'},
@@ -64,6 +65,7 @@ local function SkinTable()
 		order = 100,
 		type = 'group',
 		name = BUI:cOption(ADDONS, "orange"),
+		childGroups = "tab",
 		args = {
 			desc = {
 				order = 2,
@@ -76,7 +78,6 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins.args.elvuiaddons = {
 		order = 3,
 		type = 'group',
-		guiInline = true,
 		name = L['ElvUI AddOns'],
 		get = function(info) return E.db.benikui.skins.elvuiAddons[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.skins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
@@ -108,7 +109,6 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins.args.addonskins = {
 		order = 4,
 		type = 'group',
-		guiInline = true,
 		name = L['AddOnSkins'],
 		get = function(info) return E.db.benikui.skins.addonSkins[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
@@ -131,7 +131,6 @@ local function SkinTable()
 	E.Options.args.benikui.args.skins.args.variousSkins = {
 		order = 5,
 		type = 'group',
-		guiInline = true,
 		name = L['Skins'],
 		get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
@@ -150,14 +149,7 @@ local function SkinTable()
 				order = 3,
 				type = 'toggle',
 				name = L['InFlight'],
-				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value;
-					if E.db.benikui.skins.variousSkins.inflight then
-						BUI:LoadInFlightProfile(true)
-					else
-						BUI:LoadInFlightProfile(false)
-					end
-					E:StaticPopup_Show('PRIVATE_RL') end,
-				disabled = function() return not IsAddOnLoaded('InFlight_Load') end,
+				disabled = function() return not IsAddOnLoaded('InFlight') end,
 			},
 			kt = {
 				order = 4,
@@ -171,13 +163,36 @@ local function SkinTable()
 				name = L['Rare Tracker'],
 				disabled = function() return not IsAddOnLoaded('RareTrackerCore') end,
 			},
+			tomtom = {
+				order = 6,
+				type = 'toggle',
+				name = L['TomTom'],
+				disabled = function() return not IsAddOnLoaded('TomTom') end,
+			},
+			ba = {
+				order = 7,
+				type = 'toggle',
+				name = L['Baganator'],
+				disabled = function() return not IsAddOnLoaded('Baganator') end,
+			},
+			alltheThings = {
+				order = 8,
+				type = 'toggle',
+				name = L['All The Things'],
+				disabled = function() return not IsAddOnLoaded('AllTheThings') end,
+			},
+			minimapbb = {
+				order = 9,
+				type = 'toggle',
+				name = L['MinimapButtonButton'],
+				disabled = function() return not IsAddOnLoaded('MinimapButtonButton') end,
+			},
 		},
 	}
 
 	E.Options.args.benikui.args.skins.args.profiles = {
 		order = 6,
 		type = 'group',
-		guiInline = true,
 		name = L['Profiles'],
 		args = {
 		},
@@ -194,16 +209,12 @@ local function SkinTable()
 			func = function()
 				if addon == 'DBM-Core' then
 					BUI:LoadDBMProfile()
-				elseif addon == 'BigWigs' then
+				--elseif addon == 'BigWigs' then
 					--BUI:LoadBigWigsProfile()
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
-				elseif addon == 'InFlight_Load'then
-					if E.db.benikui.skins.variousSkins.inflight then
-						BUI:LoadInFlightProfile(true)
-					else
-						BUI:LoadInFlightProfile(false)
-					end
+				elseif addon == 'InFlight'then
+					BUI:LoadInFlightProfile()
 				elseif addon == 'ElvUI_LocPlus' then
 					BUI:LoadLocationPlusProfile()
 				elseif addon == 'MikScrollingBattleText' then

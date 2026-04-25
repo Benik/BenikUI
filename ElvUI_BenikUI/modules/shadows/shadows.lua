@@ -1,9 +1,13 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Shadows')
 local S = E:GetModule('Skins')
 local M = E:GetModule('Misc')
+local B = E:GetModule('Blizzard')
+local AB = E:GetModule('ActionBars')
 
 local _G = _G
+local pairs = pairs
+local hooksecurefunc = hooksecurefunc
 
 local CLASS_SORT_ORDER = CLASS_SORT_ORDER
 
@@ -14,16 +18,6 @@ local function AltPowerBarShadows()
 	bar.backdrop:CreateSoftShadow()
 	if bar.textures then
 		bar:StripTextures(true)
-	end
-end
-
-local function mirrorTimersShadows()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mirrorTimers ~= true then return end
-
-	for i = 1, _G.MIRRORTIMER_NUMTIMERS do
-		local mirrorTimer = _G['MirrorTimer'..i]
-		local statusBar = mirrorTimer.StatusBar or _G[mirrorTimer:GetName()..'StatusBar']
-		statusBar:CreateSoftShadow()
 	end
 end
 
@@ -55,14 +49,14 @@ local function CalendarEventButtonShadows()
 end
 
 local function miscShadows()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or BUI.ShadowMode ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.db.benikui.general.shadows ~= true then return end
 
 	_G.EquipmentFlyoutFrameButtons:CreateSoftShadow()
 end
 
 -- ElvUI tabs
 function mod:TabShadows(tab)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 	if not tab then return end
 
 	if tab.backdrop then
@@ -70,12 +64,13 @@ function mod:TabShadows(tab)
 		tab.backdrop:CreateSoftShadow()
 	end
 end
-hooksecurefunc(S, "HandleTab", mod.TabShadows)
+--hooksecurefunc(S, "HandleTab", mod.TabShadows) -- this errors on BGs
 
 -- ElvUI item buttons
 function mod:ItemButtonShadows(button)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 	if not button then return end
+	if Baganator then return end
 
 	if button.backdrop then
 		button.backdrop:SetTemplate("Transparent")
@@ -84,25 +79,12 @@ function mod:ItemButtonShadows(button)
 end
 hooksecurefunc(S, "HandleItemButton", mod.ItemButtonShadows)
 
-local MICRO_BUTTONS = _G.MICRO_BUTTONS or {
-	'CharacterMicroButton',
-	'SpellbookMicroButton',
-	'TalentMicroButton',
-	'AchievementMicroButton',
-	'QuestLogMicroButton',
-	'GuildMicroButton',
-	'LFDMicroButton',
-	'EJMicroButton',
-	'CollectionsMicroButton',
-	'MainMenuMicroButton',
-	'HelpMicroButton',
-	'StoreMicroButton',
-}
-
 -- MicroBar
 local function MicroBarShadows()
-	for _, x in pairs(MICRO_BUTTONS) do
-		_G[x]:CreateSoftShadow()
+	for _, x in pairs(AB.MICRO_BUTTONS) do
+		if _G[x] then
+			_G[x]:CreateSoftShadow()
+		end
 	end
 end
 
@@ -119,11 +101,11 @@ function mod:START_TIMER()
 	end
 end
 
-function mod:ChatBubbles(frame, holder)
+function mod:ChatBubbles(_, holder)
 	if E.private.general.chatBubbles == 'backdrop' then
-		if holder.backdrop then
-			if not holder.backdrop.shadow then
-				holder.backdrop:CreateSoftShadow()
+		if holder then
+			if not holder.shadow then
+				holder:CreateSoftShadow()
 			end
 		end
 	end
@@ -166,19 +148,6 @@ local function SpellBookFrameShadows()
 		i = i + 1
 		tab = _G['SpellBookFrameTabButton'..i]
 	end
-
-	for j = 1, MAX_SKILLLINE_TABS do
-		local tab = _G['SpellBookSkillLineTab'..j]
-		tab:CreateSoftShadow()
-	end
-
-	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs",
-			function()
-				for i = 1, MAX_SKILLLINE_TABS do
-					local tab = _G['SpellBookSkillLineTab'..i]
-					tab:CreateSoftShadow()
-				end
-			end)
 end
 
 local function PVEFrameShadows()
@@ -257,11 +226,31 @@ local function MailFrameShadows()
 	end
 end
 
-function mod:Initialize()
-	if not BUI.ShadowMode then return end
+local ignoreWidget = {
+	[283] = 3463 -- Cosmic Energy
+}
 
+function B:UIWidgetTemplateStatusBarShadows()
+	local forbidden = self:IsForbidden()
+	local bar = self.Bar
+
+	if forbidden and bar then
+		if bar.tooltip then bar.tooltip = nil end -- EmbeddedItemTooltip is tainted just block the tooltip
+		return
+	elseif forbidden or (self.widgetID == ignoreWidget[self.widgetSetID]) or not bar then
+		return -- we don't want to handle these widgets
+	end
+
+	if bar and bar.backdrop then
+		bar.backdrop:CreateSoftShadow()
+	end
+end
+
+function mod:Initialize()
+	if not E.db.benikui.general.shadows then return end
+
+	AltPowerBarShadows()
 	raidUtilityShadows()
-	mirrorTimersShadows()
 
 	miscShadows()
 	MicroBarShadows()
@@ -272,6 +261,13 @@ function mod:Initialize()
 	MerchantFrameShadows()
 	MailFrameShadows()
 	mod:RegisterEvent('START_TIMER')
+
+	-- Widgets
+	for _, widget in pairs(_G.UIWidgetPowerBarContainerFrame.widgetFrames) do
+		B.UIWidgetTemplateStatusBarShadows(widget)
+	end
+	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, 'Setup', B.UIWidgetTemplateStatusBarShadows)
+	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, 'Setup', B.UIWidgetTemplateStatusBarShadows)
 
 	-- AddonSkins
 	mod:AddonSkins()

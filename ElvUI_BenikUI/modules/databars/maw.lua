@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Databars');
 local DB = E:GetModule('DataBars');
 local LSM = E.LSM;
@@ -7,6 +7,7 @@ local _G = _G
 local floor = floor
 
 local CreateFrame = CreateFrame
+local GameTooltip_Hide = GameTooltip_Hide
 local SplitTextIntoHeaderAndNonHeader = SplitTextIntoHeaderAndNonHeader
 local C_UIWidgetManager_GetDiscreteProgressStepsVisualizationInfo = C_UIWidgetManager.GetDiscreteProgressStepsVisualizationInfo
 local C_UIWidgetManager_GetTextureWithAnimationVisualizationInfo = C_UIWidgetManager.GetTextureWithAnimationVisualizationInfo
@@ -52,7 +53,7 @@ function mod:MawBar_Update()
 		else
 			bar.text:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 		end
-		
+
 		if db.textFormat == 'PERCENT' then
 			if tier == 5 then
 				bar.text:SetFormattedText('%s: %s', GARRISON_TIER, tier)
@@ -80,10 +81,10 @@ function mod:LoadMaw()
 	bar:SetSize(200, 20)
 	bar:SetMinMaxValues(0, maxValue)
 	bar:CreateBackdrop('Transparent')
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		bar.backdrop:CreateSoftShadow()
 	end
-	
+
 	bar:SetStatusBarTexture(E.media.normTex)
 	E:RegisterStatusBar(bar)
 
@@ -91,7 +92,7 @@ function mod:LoadMaw()
 	bar.text:FontTemplate()
 	bar.text:Point('CENTER')
 
-	E:CreateMover(bar, "BUIMawBarMover", L["BenikUI Maw Bar"], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,databars,mawBar')
+	E:CreateMover(bar, "BUIMawBarMover", L['BenikUI Maw Bar'], nil, nil, nil, 'ALL,BENIKUI', nil, 'benikui,databars,mawBar')
 
 	bar:SetScript("OnEnter", function(self)
 		local rank = GetMawBarValue()

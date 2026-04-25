@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local BU = BUI:GetModule('Units');
 
 function BU:Configure_TargetGlow(frame)
@@ -6,7 +6,7 @@ function BU:Configure_TargetGlow(frame)
 	local tGlow = frame.TargetGlow
 	tGlow:ClearAllPoints()
 
-	if frame.PORTRAIT_HEIGHT > 0 then
+	if frame.PORTRAIT_HEIGHT and frame.PORTRAIT_HEIGHT > 0 then
 		if frame.ORIENTATION == "RIGHT" then
 			tGlow:Point("TOPRIGHT", frame.Health.backdrop, "TOPRIGHT", frame.SHADOW_SPACING, frame.SHADOW_SPACING)
 		else

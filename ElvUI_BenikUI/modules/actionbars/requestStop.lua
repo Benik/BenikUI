@@ -1,16 +1,16 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Actionbars');
 
 local _G = _G
-local GameTooltip = _G["GameTooltip"]
+local next = next
+local GameTooltip = _G.GameTooltip
 local CreateFrame = CreateFrame
 local UnitOnTaxi = UnitOnTaxi
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_TimerAfter = C_Timer.After
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
+local IsInInstance = IsInInstance
 local TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION = TAXI_CANCEL, TAXI_CANCEL_DESCRIPTION
-
--- GLOBALS: selectioncolor, GameTooltip_Hide, CreateAnimationGroup, BuiTaxiButton, LeaveVehicleButton
 
 local noFlightMapIDs = {
 	-- Antoran Wastes (Legion)
@@ -22,7 +22,7 @@ local noFlightMapIDs = {
 }
 
 function BUI:CheckFlightMapID()
-	for _, id in pairs (noFlightMapIDs) do
+	for _, id in next, noFlightMapIDs do
 		local noFlightMapIDs = C_Map_GetBestMapForUnit("player")
 		if id == noFlightMapIDs then return true end
 	end
@@ -32,7 +32,8 @@ local function TaxiButton_OnEvent(self)
 	local forbiddenArea = BUI:CheckFlightMapID()
 
 	if (UnitOnTaxi("player") and not IsInInstance() and not forbiddenArea) then
-		C_TimerAfter(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
+		local MainMenuBarVehicleLeaveButton = _G.MainMenuBarVehicleLeaveButton
+		C_TimerAfter(0.05, function() MainMenuBarVehicleLeaveButton:Hide() end)
 		E:UIFrameFadeIn(self, 1, 0, 1)
 		self:Show()
 		self.textHolder.Text:SetFormattedText("%s", TAXI_CANCEL)
@@ -40,7 +41,6 @@ local function TaxiButton_OnEvent(self)
 		self.textHolder.Text:SetTextColor(1, 1, 1, .7)
 		self.IconBG.Icon:SetVertexColor(1, 1, 1, .7)
 		self:EnableMouse(true)
-		BuiTaxiButton:Width(self:GetWidth() + 42)
 	else
 		self:Hide()
 	end
@@ -57,9 +57,7 @@ local function TaxiButton_OnClick(self, btn)
 			self.textHolder.Text:SetTextColor(1, 0.1, 0.1)
 			self.textHolder.Text:SetAlpha(0)
 			self.IconBG.Icon:SetVertexColor(1, 0.1, 0.1)
-
-			self.anim.sizing:SetChange(self.textHolder.Text:GetStringWidth() + 56)
-			self.anim:Play()
+			self:Width(self.textHolder.Text:GetStringWidth() + 48)
 		end)
 
 		E:Delay(1.2, function()
@@ -67,7 +65,7 @@ local function TaxiButton_OnClick(self, btn)
 		end)
 
 		self:EnableMouse(false)
-
+		
 		E:Delay(8, function()
 			E:UIFrameFadeOut(self, 1, 1, 0)
 		end)
@@ -82,7 +80,7 @@ end
 local function TaxiButton_OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT', 1, 0)
 	GameTooltip:ClearLines()
-	GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, selectioncolor)
+	GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, 1, 1, 1)
 	GameTooltip:AddLine(L['LeftClick to Request Stop'], 0.7, 0.7, 1)
 	GameTooltip:AddLine(L['RightClick to Hide'], 0.7, 0.7, 1)
 	GameTooltip:Show()
@@ -107,11 +105,8 @@ function mod:TaxiButton()
 	tbtn:Size(240, 40)
 	tbtn:Point('TOP', E.UIParent, 'TOP', 0, -150)
 	tbtn:SetTemplate("Transparent")
-	tbtn:BuiStyle('Outside')
+	tbtn:BuiStyle()
 	tbtn:RegisterForClicks("AnyUp")
-
-	tbtn.anim = CreateAnimationGroup(tbtn)
-	tbtn.anim.sizing = tbtn.anim:CreateAnimation("Width")
 
 	tbtn.IconBG = CreateFrame('Frame', nil, tbtn)
 	tbtn.IconBG:Size(32, 32)
@@ -140,7 +135,7 @@ function mod:TaxiButton()
 
 	tbtn:SetScript("OnEvent", TaxiButton_OnEvent)
 
-	E:CreateMover(BuiTaxiButton, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS,BENIKUI')
+	E:CreateMover(tbtn, 'RequestStopButton', L['Request Stop button'], nil, nil, nil, 'ALL,ACTIONBARS,BENIKUI')
 end
 
 function mod:LoadRequestButton()

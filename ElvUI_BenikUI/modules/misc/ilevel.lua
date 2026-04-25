@@ -1,22 +1,15 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('iLevel')
 local LSM = E.LSM
 
 local _G = _G
-local match, gsub = string.match, gsub
+local next, wipe, pairs = next, wipe, pairs
 
 local CreateFrame = CreateFrame
-local SetInventoryItem = SetInventoryItem
 local GetInventoryItemLink = GetInventoryItemLink
-local GetItemInfo = GetItemInfo
-local GetItemQualityColor = GetItemQualityColor
+local GetItemInfo = C_Item.GetItemInfo or GetItemInfo
+local GetItemQualityColor = C_Item.GetItemQualityColor or GetItemQualityColor
 local C_Timer_After = C_Timer.After
-
--- GLOBALS: CharacterHeadSlot, CharacterNeckSlot, CharacterShoulderSlot, CharacterBackSlot, CharacterChestSlot, CharacterWristSlot
--- GLOBALS: CharacterHandsSlot, CharacterWaistSlot, CharacterLegsSlot, CharacterFeetSlot, CharacterFinger0Slot, CharacterFinger1Slot
--- GLOBALS: CharacterTrinket0Slot, CharacterTrinket1Slot, CharacterMainHandSlot, CharacterSecondaryHandSlot, PaperDollFrame
-
-local equipped = {}
 
 local slotIDs = {
 	[1] = "HeadSlot",
@@ -37,53 +30,33 @@ local slotIDs = {
 	[17] = "SecondaryHandSlot"
 }
 
--- Tooltip and scanning by Phanx @ http://www.wowinterface.com/forums/showthread.php?p=271406
-local S_ITEM_LEVEL = "^" .. gsub(ITEM_LEVEL, "%%d", "(%%d+)")
-local scantip = CreateFrame("GameTooltip", "BenikUIiLvlScanningTooltip", nil, "GameTooltipTemplate")
-scantip:SetOwner(UIParent, "ANCHOR_NONE")
-
-local function getItemLevel(slotId)
-	local hasItem = scantip:SetInventoryItem("player", slotId)
-	local realItemLevel
-	if not hasItem then return nil end
-
-	for i = 2, scantip:NumLines() do
-		local text = _G["BenikUIiLvlScanningTooltipTextLeft"..i]:GetText()
-		if text and text ~= "" then
-			realItemLevel = realItemLevel or match(text, S_ITEM_LEVEL)
-			if realItemLevel then
-				break
-			end
-		end
-	end
-
-	return realItemLevel
-end
+local iLevelDB = {}
 
 function mod:UpdateItemLevel()
 	local db = E.db.benikui.misc.ilevel
 
+	if next(iLevelDB) then wipe(iLevelDB) end
+
 	for id, _ in pairs(slotIDs) do
 		local itemLink = GetInventoryItemLink("player", id)
-		local iLvl = getItemLevel(id)
-		if (equipped[id] ~= itemLink or mod.f[id]:GetText() ~= nil) then
-			equipped[id] = itemLink
-			if (itemLink ~= nil) then
-				mod.f[id]:SetText(iLvl)
-				local _, _, ItemRarity = GetItemInfo(itemLink)
-				if ItemRarity and db.colorStyle == 'RARITY' then
-					local r, g, b = GetItemQualityColor(ItemRarity)
-					mod.f[id]:SetTextColor(r, g, b)
-				else
-					mod.f[id]:SetTextColor(BUI:unpackColor(db.color))
-				end
+		local slotInfo = E:GetGearSlotInfo("player", id)
+		if (itemLink ~= nil) then
+			iLevelDB[id] = slotInfo.iLvl
+			mod.f[id]:SetText(slotInfo.iLvl)
+
+			local _, _, ItemRarity = GetItemInfo(itemLink)
+			if ItemRarity and db.colorStyle == 'RARITY' then
+				local r, g, b = GetItemQualityColor(ItemRarity)
+				mod.f[id]:SetTextColor(r, g, b)
 			else
-				mod.f[id]:SetText("")
+				mod.f[id]:SetTextColor(BUI:unpackColor(db.color))
 			end
-			mod.f[id]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+		else
+			mod.f[id]:SetText("")
 		end
+		mod.f[id]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 	end
-	CharacterNeckSlot.RankFrame.Label:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+	_G.CharacterNeckSlot.RankFrame.Label:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
 end
 
 local function returnPoints(id)
@@ -114,10 +87,12 @@ function mod:UpdateItemLevelPosition()
 		mod.f[id]:Point(myPoint, parent, parentPoint, x or 0, y or 0)
 	end
 
-	CharacterNeckSlot.RankFrame:ClearAllPoints()
-	CharacterNeckSlot.RankFrame.Label:ClearAllPoints()
-	CharacterNeckSlot.RankFrame:Point('TOPRIGHT', CharacterNeckSlot, 'TOPRIGHT', 0, 4)
-	CharacterNeckSlot.RankFrame.Label:Point('RIGHT')
+	local neckSlotRank = _G.CharacterNeckSlot.RankFrame
+
+	neckSlotRank:ClearAllPoints()
+	neckSlotRank.Label:ClearAllPoints()
+	neckSlotRank:Point('TOPRIGHT', _G.CharacterNeckSlot, 'TOPRIGHT', 0, 4)
+	neckSlotRank.Label:Point('RIGHT')
 end
 
 function mod:CreateString()
@@ -127,7 +102,7 @@ function mod:CreateString()
 	end
 
 	mod:UpdateItemLevelPosition()
-	mod.f:SetFrameLevel(CharacterHeadSlot:GetFrameLevel())
+	mod.f:SetFrameLevel(_G.CharacterHeadSlot:GetFrameLevel())
 	mod.f:Hide()
 end
 
@@ -139,14 +114,14 @@ end
 function mod:Initialize()
 	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.armory.character.enable ~= false) then return end
 
-	mod.f = CreateFrame("Frame", nil, PaperDollFrame)
+	mod.f = CreateFrame("Frame", nil, _G.PaperDollFrame)
 	mod:CreateString()
 
-	PaperDollFrame:HookScript("OnShow", function(self)
+	_G.PaperDollFrame:HookScript("OnShow", function(self)
 		mod.f:Show()
 	end)
 
-	PaperDollFrame:HookScript("OnHide", function(self)
+	_G.PaperDollFrame:HookScript("OnHide", function(self)
 		mod.f:Hide()
 	end)
 

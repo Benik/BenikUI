@@ -1,6 +1,5 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local BU = BUI:GetModule('Units');
-local UF = E:GetModule('UnitFrames');
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
+local BU = BUI:GetModule('Units')
 local LSM = E.LSM;
 
 local _G = _G
@@ -45,6 +44,8 @@ function BU:ChangePartyHealthBarTexture()
 end
 
 function BU:ChangeHealthBarTexture()
-	BU:ChangeRaidHealthBarTexture()
-	BU:ChangePartyHealthBarTexture()
+	if E.db.benikui.unitframes.textures.enableHealth then
+		BU:ChangeRaidHealthBarTexture()
+		BU:ChangePartyHealthBarTexture()
+	end
 end

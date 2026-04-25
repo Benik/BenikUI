@@ -1,7 +1,7 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-local mod = BUI:NewModule('Castbar', 'AceTimer-3.0', 'AceEvent-3.0')
-local UF = E:GetModule('UnitFrames');
-local LSM = LibStub("LibSharedMedia-3.0");
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
+local mod = BUI:GetModule('Castbar')
+local UF = E:GetModule('UnitFrames')
+local LSM = LibStub("LibSharedMedia-3.0")
 
 --[[
 	CREDIT:
@@ -11,6 +11,8 @@ local LSM = LibStub("LibSharedMedia-3.0");
 ]]
 
 local _G = _G
+local pairs = pairs
+local hooksecurefunc = hooksecurefunc
 
 local INVERT_ANCHORPOINT = {
 	TOPLEFT = 'BOTTOMRIGHT',
@@ -24,17 +26,15 @@ local INVERT_ANCHORPOINT = {
 	BOTTOM = 'TOP',
 }
 
-local MAX_BOSS_FRAMES = 8
+local MAX_BOSS_FRAMES = 5
 local units = {"Player", "Target", "Focus", "Pet"}
 
--- GLOBALS: hooksecurefunc
-
-local function changeCastbarLevel(unit, unitframe)
+local function changeCastbarLevel(_, unitframe)
 	local castbar = unitframe.Castbar
 	if not castbar then return end
 
 	castbar:SetFrameStrata("LOW")
-	castbar:SetFrameLevel(unitframe.InfoPanel:GetFrameLevel() + 10)
+	castbar:OffsetFrameLevel(10, unitframe.InfoPanel)
 end
 
 local function resetCastbarLevel(unit, unitframe)
@@ -56,7 +56,7 @@ local function resetCastbarLevel(unit, unitframe)
 end
 
 local function ConfigureCastbarShadow(unit, unitframe)
-	if not BUI.ShadowMode then return end
+	if not E.db.benikui.general.shadows then return end
 	local castbar = unitframe.Castbar
 
 	if not castbar then return end
@@ -79,17 +79,17 @@ local function ConfigureCastbarShadow(unit, unitframe)
 	if not db.iconAttached and db.icon then
 		local attachPoint = db.iconAttachedTo == "Frame" and unitframe or unitframe.Castbar
 		local anchorPoint = db.iconPosition
-		if castbar.Icon then
-			castbar.Icon.bg:ClearAllPoints()
-			castbar.Icon.bg:Point(INVERT_ANCHORPOINT[anchorPoint], attachPoint, anchorPoint, db.iconXOffset, db.iconYOffset)
+		if castbar.ButtonIcon then
+			castbar.ButtonIcon.bg:ClearAllPoints()
+			castbar.ButtonIcon.bg:Point(INVERT_ANCHORPOINT[anchorPoint], attachPoint, anchorPoint, db.iconXOffset, db.iconYOffset)
 		end
 	elseif(db.icon) then
-		if castbar.Icon then
-			castbar.Icon.bg:ClearAllPoints()
+		if castbar.ButtonIcon then
+			castbar.ButtonIcon.bg:ClearAllPoints()
 			if unitframe.ORIENTATION == "RIGHT" then
-				castbar.Icon.bg:Point("LEFT", castbar, "RIGHT", (UF.SPACING*3), 0)
+				castbar.ButtonIcon.bg:Point("LEFT", castbar, "RIGHT", (UF.SPACING*3), 0)
 			else
-				castbar.Icon.bg:Point("RIGHT", castbar, "LEFT", -(UF.SPACING*3), 0)
+				castbar.ButtonIcon.bg:Point("RIGHT", castbar, "LEFT", -(UF.SPACING*3), 0)
 			end
 		end
 	end
@@ -145,11 +145,9 @@ function mod:UpdateAllCastbars()
 end
 
 --Castbar texture
-function mod:PostCast(unit, unitframe)
-	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
-
-	if not self.isTransparent then
-		self:SetStatusBarTexture(castTexture)
+function mod:PostCast()
+	if E.db.benikui.unitframes.textures.enableCastbar and not self.isTransparent then
+		self:SetStatusBarTexture(LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar))
 	end
 
 	if not E.db.benikui.unitframes.castbarColor.enable then return; end
@@ -170,13 +168,11 @@ function mod:PostCast(unit, unitframe)
 	end
 end
 
-function mod:PostCastInterruptible(unit, unitframe)
+function mod:PostCastInterruptible(unit)
 	if unit == "vehicle" or unit == "player" then return end
 
-	local castTexture = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar)
-
-	if not self.isTransparent then
-		self:SetStatusBarTexture(castTexture)
+	if E.db.benikui.unitframes.textures.enableCastbar and not self.isTransparent then
+		self:SetStatusBarTexture(LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.castbar))
 	end
 
 	if not E.db.benikui.unitframes.castbarColor.enable then return; end
@@ -198,11 +194,12 @@ function mod:PostCastInterruptible(unit, unitframe)
 end
 
 function mod:CastBarHooks()
+	local shadowsEnabled = E.db.benikui.general.shadows
 	for _, unit in pairs(units) do
 		local unitframe = _G["ElvUF_"..unit];
 		local castbar = unitframe and unitframe.Castbar
 		if castbar then
-			if BUI.ShadowMode then
+			if shadowsEnabled then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
@@ -215,7 +212,7 @@ function mod:CastBarHooks()
 	for i = 1, 5 do
 		local castbar = _G["ElvUF_Arena"..i].Castbar
 		if castbar then
-			if BUI.ShadowMode then
+			if shadowsEnabled then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
@@ -228,7 +225,7 @@ function mod:CastBarHooks()
 	for i = 1, MAX_BOSS_FRAMES do
 		local castbar = _G["ElvUF_Boss"..i].Castbar
 		if castbar then
-			if BUI.ShadowMode then
+			if shadowsEnabled then
 				castbar.backdrop:CreateSoftShadow()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()

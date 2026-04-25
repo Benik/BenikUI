@@ -1,30 +1,34 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 local select = select
 local CreateFrame = CreateFrame
-local UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction = UnitClass, UnitPowerMax, UnitPowerType, UnitIsPlayer, UnitReaction
+local hooksecurefunc = hooksecurefunc
 
--- GLOBALS: hooksecurefunc, ElvUF
+local UnitClass = UnitClass
+local UnitPowerMax = UnitPowerMax
+local UnitPowerType = UnitPowerType
+local UnitIsPlayer = UnitIsPlayer
+local UnitReaction = UnitReaction
+
+local CUSTOM_CLASS_COLORS = _G.CUSTOM_CLASS_COLORS
+local RAID_CLASS_COLORS = _G.RAID_CLASS_COLORS
 
 function BU:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]
 
-	if not frame.Portrait.backdrop.shadow then
-		frame.Portrait.backdrop:CreateSoftShadow()
-		frame.Portrait.backdrop.shadow:Hide()
+	if E.db.benikui.general.shadows then
+		if not frame.Portrait.backdrop.shadow then
+			frame.Portrait.backdrop:CreateSoftShadow()
+			frame.Portrait.backdrop.shadow:Hide()
+		end
 	end
 
 	if E.db.benikui.general.benikuiStyle == true then
 		frame.Portrait.backdrop:BuiStyle('Inside')
 		frame.Portrait.backdrop.style:Hide()
-	end
-
-	if BUI.ShadowMode then
-		frame.Power.backdrop:CreateSoftShadow()
-		frame.Power.backdrop.shadow:Hide()
 	end
 
 	local f = CreateFrame("Frame", nil, frame)
@@ -49,12 +53,12 @@ function BU:RecolorTargetDetachedPortraitStyle()
 		if frame.USE_PORTRAIT and portrait.backdrop.style and E.db.benikui.unitframes.target.portraitStyle then
 			local maxValue = UnitPowerMax("target")
 			local _, _, altR, altG, altB = UnitPowerType("target")
-			local mu = power.BG.multiplier or 1
+			local mu = power.bg.multiplier or 1
 			local isPlayer = UnitIsPlayer("target")
 			local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
 
 			local reaction = UnitReaction('target', 'player')
-			if maxValue > 0 then
+			if  E:NotSecretValue(maxValue) and maxValue > 0 then
 				if isPlayer then
 					r, g, b = classColor.r, classColor.g, classColor.b
 				else
@@ -90,7 +94,7 @@ function BU:ArrangeTarget()
 		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.target.getPlayerPortraitSize and E.db.benikui.unitframes.player.portraitHeight or E.db.benikui.unitframes.target.portraitHeight
 		frame.DETACHED_PORTRAIT_STRATA = E.db.benikui.unitframes.target.portraitFrameStrata
 
-		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH 
+		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH
 		frame.POWER_VERTICAL = db.power.vertical
 
 		frame.IS_ELTREUM = BUI.ELT and frame.InfoPanelOnTop
@@ -113,7 +117,6 @@ end
 
 function BU:PLAYER_TARGET_CHANGED()
 	BU:RecolorTargetDetachedPortraitStyle()
-	BU:UnitInfoPanelColor()
 end
 
 function BU:InitTarget()
@@ -130,6 +133,14 @@ function BU:InitTarget()
 
 		if unitframeType == "target" then
 			BU:Configure_Portrait(frame, false)
+		end
+	end)
+
+	hooksecurefunc(UF, "Configure_Power", function(self, frame)
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "target" then
+			BU:UnitPowerShadows(frame)
 		end
 	end)
 end
