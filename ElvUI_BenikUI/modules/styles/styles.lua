@@ -57,24 +57,18 @@ local function StyleElvUIPopups()
 	end
 end
 
-function mod:PLAYER_ENTERING_WORLD(...)
-	mod:styleAlertFrames()
-	mod:stylePlugins()
-	mod:styleWorldMap()
-
-	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end
-
 function mod:Initialize()
 	mod:StyleAddons()
-	mod:StyleWindTools()
+
 	StyleElvUIBindPopup()
 	StyleElvUIPopups()
 
 	hooksecurefunc(E, "ToggleOptions", StyleElvUIConfig)
 
-	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
-	mod:RegisterEvent("ADDON_LOADED", "LoD_AddOns")
+	mod:RegisterEvent("PLAYER_ENTERING_WORLD", function(...)
+		mod:stylePlugins()
+		mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	end)
 end
 
 BUI:RegisterModule(mod:GetName())

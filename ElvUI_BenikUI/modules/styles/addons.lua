@@ -5,18 +5,8 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local next = next
+local ipairs = ipairs
 local hooksecurefunc = hooksecurefunc
-
-local function StyleDBM_Options()
-	if not E.db.benikui.skins.addonSkins.dbm or not BUI.AS then
-		return
-	end
-
-	local DBM_GUI_OptionsFrame = _G.DBM_GUI_OptionsFrame
-	DBM_GUI_OptionsFrame:StripTextures()
-	DBM_GUI_OptionsFrame:SetTemplate("Transparent")
-	DBM_GUI_OptionsFrame:BuiStyle()
-end
 
 local function StyleInFlight()
 	local frame = _G.InFlightBar
@@ -44,12 +34,15 @@ local function LoadInFlight()
 		hooksecurefunc(InFlight, 'StartTimer', StyleInFlight)
 	end
 end
+S:AddCallback("BenikUI_InFlight", LoadInFlight)
 
 local function KalielsTracker()
 	if BUI:IsAddOnEnabled('!KalielsTracker') and E.db.benikui.general.benikuiStyle and E.db.benikui.skins.variousSkins.kt then
 		_G['!KalielsTrackerBackground']:BuiStyle()
+		-- needs profile update
 	end
 end
+S:AddCallback("BenikUI_KalielsTracker", KalielsTracker)
 
 local function RareTracker()
 	if BUI:IsAddOnEnabled('RareTrackerCore') and E.db.benikui.general.benikuiStyle and E.db.benikui.skins.variousSkins.rt then
@@ -97,6 +90,7 @@ local function TomTom()
 		end
 	end
 end
+S:AddCallback("BenikUI_TomTom", TomTom)
 
 local function Baganator() --credits go to plusmouse here https://github.com/Benik/BenikUI/issues/62
 	if BUI:IsAddOnEnabled('Baganator') and E.db.benikui.general.benikuiStyle and E.db.benikui.skins.variousSkins.ba then
@@ -144,6 +138,7 @@ local function AllTheThings()
 	att.AddEventHandler("OnReady", SkinAllTheThings)
 	att.AddEventHandler("OnWindowCreated", SkinAllTheThings)
 end
+S:AddCallback("BenikUI_ATT", AllTheThings)
 
 local function MinimapButtonButton()
 	if not (BUI:IsAddOnEnabled('MinimapButtonButton') and E.db.benikui.general.benikuiStyle and E.db.benikui.skins.variousSkins.minimapbb) then return end
@@ -179,19 +174,9 @@ local function MinimapButtonButton()
 		end
 	end
 end
-
-function mod:LoD_AddOns(_, addon)
-	if addon == "DBM-GUI" then
-		StyleDBM_Options()
-	end
-end
+S:AddCallback("BenikUI_MBB", MinimapButtonButton)
 
 function mod:StyleAddons()
-	KalielsTracker()
 	RareTracker()
-	TomTom()
 	Baganator()
-	AllTheThings()
-	LoadInFlight()
-	MinimapButtonButton()
 end

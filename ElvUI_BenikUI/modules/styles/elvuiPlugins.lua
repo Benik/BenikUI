@@ -1,11 +1,12 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
-
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
 local hooksecurefunc = hooksecurefunc
+
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
 function mod:stylePlugins()
 	-- LocationPlus
@@ -114,6 +115,7 @@ function mod:stylePlugins()
 		end
 	end
 end
+--S:AddCallback("BenikUI_ElvUIPlugins", mod.stylePlugins)
 
 function mod:StyleWindTools()
 	if not (BUI.WT and E.db.benikui.skins.elvuiAddons.wt) then return end
@@ -162,3 +164,4 @@ function mod:StyleWindTools()
 		self.RightPanel:BuiStyle()
 	end)
 end
+S:AddCallback("BenikUI_WidTools", mod.StyleWindTools)

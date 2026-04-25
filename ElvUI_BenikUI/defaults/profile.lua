@@ -219,7 +219,6 @@ P['benikui'] = {
 			['altoholic'] = true,
 			['clique'] = true,
 			['ora'] = true,
-			['pawn'] = true,
 			['dbm'] = true,
 			['bigwigs'] = true,
 			['zygor'] = true,
