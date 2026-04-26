@@ -242,7 +242,8 @@ P['benikui'] = {
 			['ba'] = true,
 			['alltheThings'] = true,
 			['minimapbb'] = true,
-			['dbm'] = true,
+			['dbmSkin'] = true,
+			['dbmHalfBar'] = true,
 		},
 	},
 

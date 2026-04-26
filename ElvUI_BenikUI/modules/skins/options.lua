@@ -154,6 +154,31 @@ local function SkinTable()
 		}
 	end
 
+	E.Options.args.benikui.args.skins.args.variousSkins.args.dbm = {
+		order = 3,
+		type = 'group',
+		name = L['DBM'],
+		guiInline = true,
+		disabled = function() return not BUI:IsAddOnEnabled("DBM-Core") end,
+		args = {
+			dbmSkin = {
+				order = 1,
+				type = 'toggle',
+				name = L['Skin'],
+				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+			},
+			dbmHalfBar = {
+				order = 2,
+				type = 'toggle',
+				name = L['Half Bar'],
+				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; end,
+				disabled = function() return not E.db.benikui.skins.variousSkins.dbmSkin or not BUI:IsAddOnEnabled("DBM-Core") end,
+			},
+		},
+	}
+
 	E.Options.args.benikui.args.skins.args.profiles = {
 		order = 6,
 		type = 'group',

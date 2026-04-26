@@ -6,8 +6,9 @@ local _G = _G
 local hooksecurefunc = hooksecurefunc
 
 function mod:DbmHalfBarSkin()
+	if not E.db.benikui.skins.variousSkins.dbmSkin then return end
 	if not BUI:IsAddOnEnabled("DBM-Core") then return end
-	--if E.db.benikui.general.shadows and E.db.benikui.skins.addonSkins.dbm then return end
+
 	local DBM = _G.DBM
 	if not DBM then return end
 
@@ -18,10 +19,10 @@ function mod:DbmHalfBarSkin()
 			if not bar.injected then
 				hooksecurefunc(bar, "Update", function()
 					local sparkEnabled = DBT.Options.Spark
-					if not sparkEnabled then return end
 
+					if not (E.db.benikui.skins.variousSkins.dbmHalfBar and sparkEnabled) then return end
 					local spark = _G[bar.frame:GetName().."BarSpark"]
-					spark:SetSize(12, DBT.Options.Height*3/2 - 2)
+					spark:SetSize(12, ((bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height) * 3) - 2)
 
 					local a, b, c, d = spark:GetPoint()
 					spark:SetPoint(a, b, c, d, 0)
@@ -40,7 +41,11 @@ function mod:DbmHalfBarSkin()
 					local timer = _G[frame:GetName()..'BarTimer']
 					local iconSize = bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height
 
-					iconSize = iconSize * 2
+					if E.db.benikui.skins.variousSkins.dbmHalfBar then
+						iconSize = iconSize * 2
+					else
+						iconSize = iconSize
+					end
 
 					S:HandleIcon(icon1, true)
 					icon1:ClearAllPoints()
@@ -58,7 +63,6 @@ function mod:DbmHalfBarSkin()
 					jIcons4:SetSize(iconSize, iconSize)
 
 					frame:CreateBackdrop("Transparent")
-					frame.backdrop:CreateSoftShadow()
 
 					name:ClearAllPoints()
 					name:SetJustifyH('LEFT')
@@ -66,14 +70,28 @@ function mod:DbmHalfBarSkin()
 					timer:ClearAllPoints()
 					timer:SetJustifyH('RIGHT')
 
-					name:SetPoint('BOTTOMLEFT', frame, 'TOPLEFT', 0, 3)
-					timer:SetPoint('BOTTOMRIGHT', frame, 'TOPRIGHT', -1, 3)
+					if E.db.benikui.skins.variousSkins.dbmHalfBar then
+						name:SetPoint('BOTTOMLEFT', frame, 'TOPLEFT', 0, 3)
+						timer:SetPoint('BOTTOMRIGHT', frame, 'TOPRIGHT', -1, 3)
+					else
+						name:SetPoint('LEFT', frame, 'LEFT', 4, 0)
+						timer:SetPoint('RIGHT', frame, 'RIGHT', -4, 0)
+					end
 
 					if DBT.Options.IconLeft then icon1.backdrop:Show() else icon1.backdrop:Hide() end
 					if DBT.Options.IconRight then icon2.backdrop:Show() else icon2.backdrop:Hide() end
 
-					icon1.backdrop:CreateSoftShadow()
-					icon2.backdrop:CreateSoftShadow()
+					if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+						if not frame.backdrop.shadow then
+							frame.backdrop:CreateSoftShadow()
+						end
+						if not icon1.backdrop.shadow then
+							icon1.backdrop:CreateSoftShadow()
+						end
+						if not icon2.backdrop.shadow then
+							icon2.backdrop:CreateSoftShadow()
+						end
+					end
 
 					bar.injected = true
 				end)
@@ -126,10 +144,6 @@ end
 S:AddCallback("BenikUI_DbmFrames", mod.DbmFrames)
 
 local function DBM_Options()
-	--if not E.db.benikui.skins.addonSkins.dbm or not BUI.AS then
-		--return
-	--end
-
 	local DBM_GUI_OptionsFrame = _G.DBM_GUI_OptionsFrame
 	DBM_GUI_OptionsFrame:StripTextures()
 	DBM_GUI_OptionsFrame:SetTemplate("Transparent")
@@ -138,7 +152,7 @@ local function DBM_Options()
 end
 
 function mod:LoadDBMOptions()
-	--if not (E.db.benikui.general.benikuiStyle and E.db.benikui.skins.addonSkins.dbm) then return end
+	if not E.db.benikui.skins.variousSkins.dbmSkin then return end
 	if not BUI:IsAddOnEnabled("DBM-GUI") then return end
 
 	mod:RegisterEvent("ADDON_LOADED", function(_, addon)
