@@ -5,6 +5,10 @@ local mod = BUI:GetModule('Shadows')
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
+-------------------------------------------------------
+-- Based on Azilroka's DBM skin and Half bar feature --
+-------------------------------------------------------
+
 function mod:DbmHalfBarSkin()
 	if not E.db.benikui.skins.variousSkins.dbmSkin then return end
 	if not BUI:IsAddOnEnabled("DBM-Core") then return end
