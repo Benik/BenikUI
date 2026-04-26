@@ -38,6 +38,16 @@ local DecorAddonSkins = {
 	{'WoWPro', L['WoWPro'], 'wowpro'},
 }
 
+local SkinsForAddons = {
+	{'InFlight', L['InFlight'], 'inflight'},
+	{'!KalielsTracker', L['Kaliels Tracker'], 'kt'},
+	{'RareTrackerCore', L['Rare Tracker'], 'rt'},
+	{'TomTom', L['TomTom'], 'tomtom'},
+	{'Baganator', L['Baganator'], 'ba'},
+	{'AllTheThings', L['All The Things'], 'alltheThings'},
+	{'MinimapButtonButton', L['MinimapButtonButton'], 'minimapbb'},
+}
+
 local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
 	--{'BigWigs', 'BigWigs'},
@@ -86,7 +96,7 @@ local function SkinTable()
 		}
 
 	local elvorder = 0
-	for i, v in ipairs(DecorElvUIAddons) do
+	for _, v in ipairs(DecorElvUIAddons) do
 		local addonName, addonString, addonOption = unpack( v )
 		E.Options.args.benikui.args.skins.args.elvuiaddons.args[addonOption] = {
 			order = elvorder + 1,
@@ -97,37 +107,6 @@ local function SkinTable()
 		}
 	end
 
-	-- Project Azilroka
-	E.Options.args.benikui.args.skins.args.elvuiaddons.args.pa = {
-		order = elvorder + 1,
-		type = 'toggle',
-		name = pa,
-		desc = format('%s '..pa..' %s', L['Enable/Disable'], L['decor.']),
-		disabled = function() return not (BUI.PA) or not E.db.benikui.general.benikuiStyle end,
-	}
-
-	E.Options.args.benikui.args.skins.args.addonskins = {
-		order = 4,
-		type = 'group',
-		name = L['AddOnSkins'],
-		get = function(info) return E.db.benikui.skins.addonSkins[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
-		args = {
-			},
-		}
-
-	local addorder = 0
-	for i, v in ipairs(DecorAddonSkins) do
-		local addonName, addonString, addonOption = unpack( v )
-		E.Options.args.benikui.args.skins.args.addonskins.args[addonOption] = {
-			order = addorder + 1,
-			type = 'toggle',
-			name = addonString,
-			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
-			disabled = function() return not (BUI.AS and IsAddOnLoaded(addonName)) or not E.db.benikui.general.benikuiStyle end,
-		}
-	end
-
 	E.Options.args.benikui.args.skins.args.variousSkins = {
 		order = 5,
 		type = 'group',
@@ -135,60 +114,45 @@ local function SkinTable()
 		get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
 		set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
-			talkingHead = {
+			blizzard = {
 				order = 1,
-				type = 'toggle',
-				name = L["TalkingHead"],
+				type = 'group',
+				name = L['Blizzard'],
+				guiInline = true,
+				args = {
+					talkingHead = {
+						order = 1,
+						type = 'toggle',
+						name = L["TalkingHead"],
+					},
+					objectiveTracker = {
+						order = 2,
+						type = 'toggle',
+						name = OBJECTIVES_TRACKER_LABEL,
+					},
+				},
 			},
-			objectiveTracker = {
+			addOns = {
 				order = 2,
-				type = 'toggle',
-				name = OBJECTIVES_TRACKER_LABEL,
-			},
-			inflight = {
-				order = 3,
-				type = 'toggle',
-				name = L['InFlight'],
-				disabled = function() return not IsAddOnLoaded('InFlight') end,
-			},
-			kt = {
-				order = 4,
-				type = 'toggle',
-				name = L['Kaliels Tracker'],
-				disabled = function() return not IsAddOnLoaded('!KalielsTracker') end,
-			},
-			rt = {
-				order = 5,
-				type = 'toggle',
-				name = L['Rare Tracker'],
-				disabled = function() return not IsAddOnLoaded('RareTrackerCore') end,
-			},
-			tomtom = {
-				order = 6,
-				type = 'toggle',
-				name = L['TomTom'],
-				disabled = function() return not IsAddOnLoaded('TomTom') end,
-			},
-			ba = {
-				order = 7,
-				type = 'toggle',
-				name = L['Baganator'],
-				disabled = function() return not IsAddOnLoaded('Baganator') end,
-			},
-			alltheThings = {
-				order = 8,
-				type = 'toggle',
-				name = L['All The Things'],
-				disabled = function() return not IsAddOnLoaded('AllTheThings') end,
-			},
-			minimapbb = {
-				order = 9,
-				type = 'toggle',
-				name = L['MinimapButtonButton'],
-				disabled = function() return not IsAddOnLoaded('MinimapButtonButton') end,
-			},
+				type = 'group',
+				name = L['AddOns'],
+				guiInline = true,
+				args = {
+				},
+			}
 		},
 	}
+
+	for _, v in ipairs(SkinsForAddons) do
+		local addonName, addonString, addonOption = unpack( v )
+		E.Options.args.benikui.args.skins.args.variousSkins.args.addOns.args[addonOption] = {
+			order = 3,
+			type = 'toggle',
+			name = addonString,
+			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['skin.']),
+			disabled = function() return not IsAddOnLoaded(addonName) end,
+		}
+	end
 
 	E.Options.args.benikui.args.skins.args.profiles = {
 		order = 6,
