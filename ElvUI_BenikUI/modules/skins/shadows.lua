@@ -269,9 +269,6 @@ function mod:Initialize()
 	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, 'Setup', B.UIWidgetTemplateStatusBarShadows)
 	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, 'Setup', B.UIWidgetTemplateStatusBarShadows)
 
-	-- AddonSkins
-	mod:AddonSkins()
-
 	-- Callbacks
 	S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_CalendarEventButtonShadows", CalendarEventButtonShadows)
 	hooksecurefunc(M, "SkinBubble", mod.ChatBubbles)

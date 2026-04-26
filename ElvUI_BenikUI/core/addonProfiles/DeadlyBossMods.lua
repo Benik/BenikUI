@@ -10,7 +10,7 @@ function BUI:LoadDBMProfile()
 
 		local font
 		if E.private.benikui.expressway == true then
-			font = "Interface\\AddOns\\ElvUI\\media\\fonts\\Expressway.ttf"
+			font = "Interface\\AddOns\\ElvUI\\Game\\Shared\\Media\\Fonts\\Expressway.ttf"
 		else
 			font = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE.TTF"
 		end
@@ -18,13 +18,17 @@ function BUI:LoadDBMProfile()
 		DBM_AllSavedOptions[profileName]["SpecialWarningFontShadow"] = true
 		DBM_AllSavedOptions[profileName]["SpecialWarningFontStyle"] = "NONE"
 		DBT_AllPersistentOptions[profileName]["DBM"]["Texture"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Flat.tga"
-		DBT_AllPersistentOptions[profileName]["DBM"]["Scale"] = 1
+		DBT_AllPersistentOptions[profileName]["DBM"]["VarianceTexture"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Flat.tga"
+		DBT_AllPersistentOptions[profileName]["DBM"]["Scale"] = 0.9
 		DBT_AllPersistentOptions[profileName]["DBM"]["FontSize"] = 12
+		DBT_AllPersistentOptions[profileName]["DBM"]["FontFlag"] = "OUTLINE"
 		DBT_AllPersistentOptions[profileName]["DBM"]["HugeScale"] = 1
 		DBT_AllPersistentOptions[profileName]["DBM"]["Font"] = font
-		DBT_AllPersistentOptions[profileName]["DBM"]["BarYOffset"] = 16
-		DBT_AllPersistentOptions[profileName]["DBM"]["HugeBarYOffset"] = 16
-		DBT_AllPersistentOptions[profileName]["DBM"]["Height"] = 14
+		DBT_AllPersistentOptions[profileName]["DBM"]["BarYOffset"] = 25
+		DBT_AllPersistentOptions[profileName]["DBM"]["HugeBarYOffset"] = 25
+		DBT_AllPersistentOptions[profileName]["DBM"]["Height"] = 16
+		DBT_AllPersistentOptions[profileName]["DBM"]["Width"] = 220
+		DBT_AllPersistentOptions[profileName]["DBM"]["HugeWidth"] = 220
 		DBM_AllSavedOptions[profileName]["WarningFont"] = font
 		DBM_AllSavedOptions[profileName]["SpecialWarningFont"] = font
 		DBM_AllSavedOptions[profileName]["InfoFrameFont"] = font

@@ -219,8 +219,7 @@ P['benikui'] = {
 			['altoholic'] = true,
 			['clique'] = true,
 			['ora'] = true,
-			['pawn'] = true,
-			['dbm'] = true,
+			
 			['bigwigs'] = true,
 			['zygor'] = true,
 			['immersion'] = true,
@@ -243,6 +242,8 @@ P['benikui'] = {
 			['ba'] = true,
 			['alltheThings'] = true,
 			['minimapbb'] = true,
+			['dbmSkin'] = true,
+			['dbmHalfBar'] = true,
 		},
 	},
 

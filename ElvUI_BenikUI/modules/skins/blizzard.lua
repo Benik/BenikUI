@@ -274,3 +274,4 @@ function mod:styleWorldMap()
 		mapFrame.backdrop:BuiStyle()
 	end
 end
+S:AddCallback("BenikUI_WorldMap", mod.styleWorldMap)
