@@ -1,5 +1,15 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<script file="skins.lua"/>
+	<script file="shadows.lua"/>
+	<script file="styles.lua"/>
+	<script file="blizzard.lua"/>
+	<script file="blizzard_lod.lua"/>
+	<script file="alerts.lua"/>
+	<script file="addonskins.lua"/>
+	<script file="addons.lua"/>
+	<script file="elvuiPlugins.lua"/>
+	<script file="CooldownManager.lua"/>
 	<script file="dbm.lua"/>
+	<script file="BigWigs.lua"/>
 	<script file="options.lua"/>
 </Ui>
