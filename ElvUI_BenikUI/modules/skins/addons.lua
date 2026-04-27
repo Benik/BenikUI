@@ -148,6 +148,19 @@ local function KalielsTracker()
 
 	_G['!KalielsTrackerBackground']:BuiStyle()
 
+	local ktButton = _G['!KalielsTrackerActiveButton']
+	if ktButton then
+		ktButton:StripTextures()
+		ktButton:StyleButton()
+		ktButton:SetTemplate()
+		ktButton.icon:SetDrawLayer('ARTWORK', -1)
+		ktButton.icon:SetTexCoords()
+		ktButton.icon:SetInside()
+		if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+			ktButton:CreateSoftShadow()
+		end
+	end
+
 	-- Skin the EditMode
 	local ACD = _G.LibStub("MSA-AceConfigDialog-3.0", true)
 	if ACD then
