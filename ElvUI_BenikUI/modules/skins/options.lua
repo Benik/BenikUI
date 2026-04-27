@@ -18,7 +18,6 @@ local DecorElvUIAddons = {
 
 local DecorAddonSkins = {
 	{'Skada', L['Skada'], 'skada'},
-	{'Recount', L['Recount'], 'recount'},
 	{'TinyDPS', L['TinyDPS'], 'tinydps'},
 	{'AtlasLoot', L['AtlasLoot'], 'atlasloot'},
 	{'Altoholic', L['Altoholic'], 'altoholic'},
@@ -55,7 +54,6 @@ local SupportedProfiles = {
 	{'ElvUI_LocPlus', 'Location Plus'},
 	{'InFlight', 'InFlight'},
 	{'Pawn', 'Pawn'},
-	{'Recount', 'Recount'},
 	{'Skada', 'Skada'},
 	{'ProjectAzilroka', 'Project Azilroka'},
 	{'!KalielsTracker', 'Kaliels Tracker'},
@@ -206,8 +204,6 @@ local function SkinTable()
 					BUI:LoadLocationPlusProfile()
 				elseif addon == 'Pawn' then
 					BUI:LoadPawnProfile()
-				elseif addon == 'Recount' then
-					BUI:LoadRecountProfile()
 				elseif addon == 'Skada' then
 					BUI:LoadSkadaProfile()
 				elseif addon == 'AddOnSkins' then

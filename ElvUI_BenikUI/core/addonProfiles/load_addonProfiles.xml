@@ -4,7 +4,6 @@
 	<script file="Details.lua"/>
 	<script file="LocationPlus.lua"/>
 	<script file="Pawn.lua"/>
-	<script file="Recount.lua"/>
 	<script file="Skada.lua"/>
 	<script file="ProjectAzilroka.lua"/>
 	<script file="BigWigs.lua"/>
