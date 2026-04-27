@@ -43,19 +43,19 @@ S:AddCallback("BenikUI_ATT", AllTheThings)
 -- Baganator --
 ---------------
 local function Baganator() --credits go to plusmouse here https://github.com/Benik/BenikUI/issues/62
-	if BUI:IsAddOnEnabled('Baganator') and E.db.benikui.skins.variousSkins.ba then
-		local baganator = _G["Baganator"]
-		baganator.API.Skins.RegisterListener(function(details)
-			if details.regionType == "ButtonFrame" and baganator.API.Skins.GetCurrentSkin() == "elvui" then
-				details.region:BuiStyle()
-			end
-		end)
+	if not (BUI:IsAddOnEnabled('Baganator') and E.db.benikui.skins.variousSkins.baganator) then return end
 
-		if baganator.API.Skins.GetCurrentSkin() == "elvui" then
-			for _, details in ipairs(baganator.API.Skins.GetAllFrames()) do
-				if details.regionType == "ButtonFrame" then
-					details.region:BuiStyle()
-				end
+	local baganator = _G["Baganator"]
+	baganator.API.Skins.RegisterListener(function(details)
+		if details.regionType == "ButtonFrame" and baganator.API.Skins.GetCurrentSkin() == "elvui" then
+			details.region:BuiStyle()
+		end
+	end)
+
+	if baganator.API.Skins.GetCurrentSkin() == "elvui" then
+		for _, details in ipairs(baganator.API.Skins.GetAllFrames()) do
+			if details.regionType == "ButtonFrame" then
+				details.region:BuiStyle()
 			end
 		end
 	end
@@ -65,8 +65,9 @@ S:AddCallback("BenikUI_Baganator", Baganator)
 -------------
 -- BugSack --
 -------------
-
 local function BugSack()
+	if not (BUI:IsAddOnEnabled('BugSack') and E.db.benikui.skins.variousSkins.bugSack) then return end
+
 	local BugSack = _G.BugSack
 	if not BugSack then return end
 
@@ -132,9 +133,9 @@ local function StyleInFlight()
 end
 
 local function LoadInFlight()
-	if BUI:IsAddOnEnabled('InFlight') and E.db.benikui.skins.variousSkins.inflight then
-		hooksecurefunc(InFlight, 'StartTimer', StyleInFlight)
-	end
+	if not (BUI:IsAddOnEnabled('InFlight') and E.db.benikui.skins.variousSkins.inflight) then return end
+
+	hooksecurefunc(InFlight, 'StartTimer', StyleInFlight)
 end
 S:AddCallback("BenikUI_InFlight", LoadInFlight)
 
@@ -144,6 +145,7 @@ S:AddCallback("BenikUI_InFlight", LoadInFlight)
 --------------------
 local function KalielsTracker()
 	if not (BUI:IsAddOnEnabled('!KalielsTracker') and E.db.benikui.skins.variousSkins.kt) then return end
+
 	_G['!KalielsTrackerBackground']:BuiStyle()
 
 	-- Skin the EditMode
@@ -174,7 +176,7 @@ local function KalielsTracker()
 	local GUI = _G.LibStub("AceGUI-3.0", true)
 	if GUI then
 		hooksecurefunc(GUI, "RegisterAsWidget", function(_, widget)
-			local slider = widget.slider	 -- dunno why this isn't skinned by ElvUI
+			local slider = widget.slider
 			if slider and not slider.isSkinned then
 				S:HandleSliderFrame(slider)
 				slider.isSkinned = true
@@ -240,46 +242,81 @@ local function MinimapButtonButton()
 end
 S:AddCallback("BenikUI_MBB", MinimapButtonButton)
 
+--------------------------------------
+-- Skada | Based on Azilroka's skin --
+--------------------------------------
+local function SkadaSkin()
+	if not (BUI:IsAddOnEnabled('Skada') and E.db.benikui.skins.variousSkins.skada) then return end
+
+	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
+		local skada = win.bargroup
+		skada:SetTemplate("Transparent")
+		skada:BuiStyle()
+		skada.button:BuiStyle()
+		skada.button.style:Hide()
+
+		if win.db.enabletitle then
+			skada.style:Hide()
+			skada.button.style:Show()
+		end
+	end)
+
+	-- Style the options
+	local acd = LibStub("AceConfigDialog-3.0")
+	if acd then
+		hooksecurefunc(acd, "Open", function(self, appName)
+			if appName == "Skada" then
+				local frame = self.OpenFrames and self.OpenFrames[appName] and self.OpenFrames[appName].frame
+				if frame and not frame.isStyled then
+					frame:BuiStyle()
+					frame.isStyled = true
+				end
+			end
+		end)
+	end
+end
+S:AddCallback("BenikUI_Skada", SkadaSkin)
+
 ------------
 -- TomTom --
 ------------
 local function TomTom()
-	if BUI:IsAddOnEnabled('TomTom') and E.db.benikui.skins.variousSkins.tomtom then
-		local frameDropDown = _G.MyFrameDropDownBackdrop
-		if frameDropDown then
-			frameDropDown:StripTextures()
-			frameDropDown:SetTemplate("Transparent")
+	if not (BUI:IsAddOnEnabled('TomTom') and E.db.benikui.skins.variousSkins.tomtom) then return end
 
-			if E.db.benikui.general.benikuiStyle then
-				frameDropDown:BuiStyle()
-			end
+	local frameDropDown = _G.MyFrameDropDownBackdrop
+	if frameDropDown then
+		frameDropDown:StripTextures()
+		frameDropDown:SetTemplate("Transparent")
+
+		if E.db.benikui.general.benikuiStyle then
+			frameDropDown:BuiStyle()
 		end
+	end
 
-		local mapDropDown = _G.TomTomWorldMapDropdownBackdrop
-		if mapDropDown then
-			mapDropDown:StripTextures()
-			mapDropDown:SetTemplate("Transparent")
+	local mapDropDown = _G.TomTomWorldMapDropdownBackdrop
+	if mapDropDown then
+		mapDropDown:StripTextures()
+		mapDropDown:SetTemplate("Transparent")
 
-			if E.db.benikui.general.benikuiStyle then
-				mapDropDown:BuiStyle()
-			end
+		if E.db.benikui.general.benikuiStyle then
+			mapDropDown:BuiStyle()
 		end
+	end
 
-		local mapDropDown = _G.TomTomDropdownBackdrop
-		if mapDropDown then --minimap dropdown
-			mapDropDown:StripTextures()
-			mapDropDown:SetTemplate("Transparent")
+	local mapDropDown = _G.TomTomDropdownBackdrop
+	if mapDropDown then --minimap dropdown
+		mapDropDown:StripTextures()
+		mapDropDown:SetTemplate("Transparent")
 
-			if E.db.benikui.general.benikuiStyle then
-				mapDropDown:BuiStyle()
-			end
+		if E.db.benikui.general.benikuiStyle then
+			mapDropDown:BuiStyle()
 		end
+	end
 
-		local tomTooltip = _G.TomTomTooltip
-		if tomTooltip then
-			if E.db.benikui.general.benikuiStyle then
-				tomTooltip:BuiStyle()
-			end
+	local tomTooltip = _G.TomTomTooltip
+	if tomTooltip then
+		if E.db.benikui.general.benikuiStyle then
+			tomTooltip:BuiStyle()
 		end
 	end
 end
