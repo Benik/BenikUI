@@ -5,7 +5,71 @@ local S = E:GetModule('Skins')
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
+--------------
+-- AcePopup --
+--------------
+function mod:StyleAcePopup()
+	if E.private.skins.ace3Enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	if not self.style then
+		self:BuiStyle()
+	end
+end
+hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
+
+------------------------------------------------------
+-- Blizzard_DebugTools for /tableinspect or /fstack --
+------------------------------------------------------
+local function styleBlizzard_DebugTools()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.debug) or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	_G.TableAttributeDisplay:BuiStyle()
+	hooksecurefunc(_G.TableInspectorMixin, 'OnLoad', function(frame)
+		if frame.ScrollFrameArt then
+			frame:BuiStyle()
+		end
+	end)
+_G.FrameStackTooltip:BuiStyle()
+	--[[if E.private.skins.blizzard.tooltip then
+		local TT = E:GetModule('Tooltip')
+		hooksecurefunc(TT, 'SetStyle', function() _G.FrameStackTooltip:BuiStyle() end)
+	end]]
+end
+if IsAddOnLoaded('Blizzard_DebugTools') then
+	S:AddCallback("BenikUI_Blizzard_DebugTools", styleBlizzard_DebugTools)
+else
+	S:AddCallbackForAddon("Blizzard_DebugTools", "BenikUI_Blizzard_DebugTools", styleBlizzard_DebugTools)
+end
+
+-------------------------
+-- Blizzard_EventTrace --
+-------------------------
+local function styleEventTrace()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.eventLog) or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	_G.EventTrace.backdrop:BuiStyle()
+	_G.EventTraceTooltip:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_EventTrace", "BenikUI_Blizzard_EventTrace", styleEventTrace)
+
+--------------------
+-- ElvUIBindPopup --
+--------------------
+local function StyleElvUIBindPopup()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+	local bind = _G.ElvUIBindPopupWindow
+	if bind then
+		bind:BuiStyle()
+		bind.header:OffsetFrameLevel(1, bind.style)
+	end
+end
+S:AddCallback("BenikUI_StyleElvUIBindPopup", StyleElvUIBindPopup)
+
+-------------------
+-- ElvUI Options --
+-------------------
 local function StyleElvUIConfig()
 	if E.private.skins.ace3Enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
 	if InCombatLockdown() then return end
@@ -16,15 +80,24 @@ local function StyleElvUIConfig()
 	end
 end
 
-function mod:StyleAcePopup()
-	if E.private.skins.ace3Enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+-----------------
+-- ElvUIPopups --
+-----------------
+local function StyleElvUIPopups()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
 
-	if not self.style then
-		self:BuiStyle()
+	for i = 1, 4 do
+		local frame = _G['ElvUI_StaticPopup'..i]
+		if frame and not frame.style then
+			frame:BuiStyle()
+		end
 	end
 end
-hooksecurefunc(S, "Ace3_StylePopup", mod.StyleAcePopup)
+S:AddCallback("BenikUI_StyleElvUIPopups", StyleElvUIPopups)
 
+-----------------
+-- ErrorsFrame --
+-----------------
 local function StyleScriptErrorsFrame()
 	local frame = _G.ScriptErrorsFrame
 	if not frame.style then
@@ -38,28 +111,6 @@ local function ScriptErrorsFrame()
 	mod:SecureHookScript(_G.ScriptErrorsFrame, 'OnShow', StyleScriptErrorsFrame)
 end
 S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
-
-local function StyleElvUIBindPopup()
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-	local bind = _G.ElvUIBindPopupWindow
-	if bind then
-		bind:BuiStyle()
-		bind.header:OffsetFrameLevel(1, bind.style)
-	end
-end
-S:AddCallback("BenikUI_StyleElvUIBindPopup", StyleElvUIBindPopup)
-
-local function StyleElvUIPopups()
-	if E.db.benikui.general.benikuiStyle ~= true then return end
-
-	for i = 1, 4 do
-		local frame = _G['ElvUI_StaticPopup'..i]
-		if frame and not frame.style then
-			frame:BuiStyle()
-		end
-	end
-end
-S:AddCallback("BenikUI_StyleElvUIPopups", StyleElvUIPopups)
 
 function mod:Initialize()
 	hooksecurefunc(E, "ToggleOptions", StyleElvUIConfig)
