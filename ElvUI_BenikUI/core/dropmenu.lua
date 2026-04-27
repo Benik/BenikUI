@@ -43,7 +43,22 @@ BUI.MenuList = {
 	{text = _G.WARBAND_SCENES, func = function() ToggleCollectionsJournal(6) end},
 	{text = _G.MACROS, func = function() UIParentLoadAddOn("Blizzard_MacroUI") MacroFrame_Show() end},
 	{text = _G.TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
-	{text = _G.ADVENTURE_JOURNAL, func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
+	{text = _G.ADVENTURE_JOURNAL, func = function()
+		if not IsAddOnLoaded('Blizzard_EncounterJournal') then
+			EncounterJournal_LoadUI()
+		end
+		if not EncounterJournal:IsShown() then
+			ShowUIPanel(EncounterJournal); EJ_ContentTab_Select(EncounterJournal.MonthlyActivitiesTab:GetID())
+		end
+	end},
+	{text = _G.JOURNEYS_LABEL, func = function()
+		if not IsAddOnLoaded('Blizzard_EncounterJournal') then
+			EncounterJournal_LoadUI()
+		end
+		if not EncounterJournal:IsShown() then
+			ShowUIPanel(EncounterJournal); EJ_ContentTab_Select(EncounterJournal.JourneysTab:GetID())
+		end
+	end},
 	{text = _G.SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
 	{text = _G.MAINMENU_BUTTON,
 	func = function()
