@@ -54,7 +54,6 @@ local SupportedProfiles = {
 	{'Details', 'Details'},
 	{'ElvUI_LocPlus', 'Location Plus'},
 	{'InFlight', 'InFlight'},
-	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
 	{'Pawn', 'Pawn'},
 	{'Recount', 'Recount'},
 	{'Skada', 'Skada'},
@@ -187,7 +186,7 @@ local function SkinTable()
 	}
 
 	local optionOrder = 1
-	for i, v in ipairs(SupportedProfiles) do
+	for _, v in ipairs(SupportedProfiles) do
 		local addon, addonName = unpack(v)
 		E.Options.args.benikui.args.skins.args.profiles.args[addon] = {
 			order = optionOrder + 1,
@@ -205,8 +204,6 @@ local function SkinTable()
 					BUI:LoadInFlightProfile()
 				elseif addon == 'ElvUI_LocPlus' then
 					BUI:LoadLocationPlusProfile()
-				elseif addon == 'MikScrollingBattleText' then
-					BUI:LoadMSBTProfile()
 				elseif addon == 'Pawn' then
 					BUI:LoadPawnProfile()
 				elseif addon == 'Recount' then
