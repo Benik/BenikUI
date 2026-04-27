@@ -212,7 +212,7 @@ P['benikui'] = {
 		},
 
 		['addonSkins'] = {
-			['skada'] = true,
+			
 			['recount'] = true,
 			['tinydps'] = true,
 			['atlasloot'] = true,
@@ -243,6 +243,8 @@ P['benikui'] = {
 			['minimapbb'] = true,
 			['dbmSkin'] = true,
 			['dbmHalfBar'] = true,
+			['bugSack'] = true,
+			['skada'] = true,
 		},
 	},
 

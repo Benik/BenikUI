@@ -24,6 +24,7 @@ function BUI:LoadSkadaProfile()
 						["font"] = font,
 						["fontsize"] = fontsize,
 						["height"] = 18,
+						["texture"] = "BuiFlat",
 					},
 					["classcolortext"] = true,
 					["barcolor"] = {
@@ -84,7 +85,7 @@ function BUI:LoadSkadaProfile()
 						["fontflags"] = "",
 						["height"] = 18,
 						["margin"] = 0,
-						["texture"] = "Aluminium",
+						["texture"] = "BuiFlat",
 					},
 					["background"] = {
 						["borderthickness"] = 0,

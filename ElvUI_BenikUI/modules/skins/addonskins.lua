@@ -12,29 +12,6 @@ local CreateFrame = CreateFrame
 
 local classColor = E:ClassColor(E.myclass, true)
 
-local function SkadaDecor()
-	if not E.db.benikui.general.benikuiStyle or not E.db.benikui.skins.addonSkins.skada then return end
-	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
-		local skada = win.bargroup
-		skada.backdrop:BuiStyle()
-		if win.db.enabletitle then
-			skada.button:StripTextures()
-		end
-		if not skada.backdrop.ishooked then
-			hooksecurefunc(AS, 'CheckEmbed', function(self, message)
-				if skada.backdrop.style then
-					if AS.db.EmbedSystem and AS.db.EmbedSkada then
-						skada.backdrop.style:Hide()
-					else
-						skada.backdrop.style:Show()
-					end
-				end
-			end)
-			skada.backdrop.ishooked = true
-		end
-	end)
-end
-
 local function StyleRecount(name, parent, ...)
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local recountdecor = CreateFrame('Frame', name, E.UIParent)

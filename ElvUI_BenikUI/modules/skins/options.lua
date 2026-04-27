@@ -17,18 +17,18 @@ local DecorElvUIAddons = {
 }
 
 local DecorAddonSkins = {
-	{'Skada', L['Skada'], 'skada'},
+	
 	{'TinyDPS', L['TinyDPS'], 'tinydps'},
 	{'AtlasLoot', L['AtlasLoot'], 'atlasloot'},
 	{'Altoholic', L['Altoholic'], 'altoholic'},
 	{'Clique', L['Clique'], 'clique'},
 	{'oRA3', L['oRA3'], 'ora'},
 	{'Pawn', L['Pawn'], 'pawn'},
-	{'DBM-Core', L['Deadly Boss Mods'], 'dbm'},
+
 	{'BigWigs', L['BigWigs'], 'bigwigs'},
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
 	{'Immersion', L['Immersion'], 'immersion'},
-	{'AllTheThings', L['All The Things'], 'allthethings'},
+
 	{'TinyInspect', L['TinyInspect'], 'tinyinspect'},
 	{'ArkInventory', L['Ark Inventory'], 'arkinventory'},
 	{'Storyline', L['Storyline'], 'storyline'},
@@ -44,6 +44,8 @@ local SkinsForAddons = {
 	{'Baganator', L['Baganator'], 'ba'},
 	{'AllTheThings', L['All The Things'], 'alltheThings'},
 	{'MinimapButtonButton', L['MinimapButtonButton'], 'minimapbb'},
+	{'Skada', L['Skada'], 'skada'},
+	{'BugSack', L['BugSack'], 'bugSack'},
 }
 
 local SupportedProfiles = {
