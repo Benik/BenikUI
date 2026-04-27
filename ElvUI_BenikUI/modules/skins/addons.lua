@@ -8,6 +8,64 @@ local next = next
 local ipairs = ipairs
 local hooksecurefunc = hooksecurefunc
 
+------------------
+-- AllTheThings --
+------------------
+local function SkinAllTheThings()
+	local att = _G.AllTheThings
+
+	local attFrames = {
+		"MiniList",
+		"Prime",
+		"Tradeskills",
+	}
+
+	for _, frame in next, (attFrames) do
+		local skinFrame = att:GetWindow(frame)
+		if skinFrame and not skinFrame.IsSkinned then
+			S:HandleFrame(skinFrame)
+			S:HandleScrollBar(skinFrame.ScrollBar)
+			skinFrame:BuiStyle()
+			skinFrame.IsSkinned = true
+		end
+	end
+end
+
+local function AllTheThings()
+	if not (BUI:IsAddOnEnabled('AllTheThings') and E.db.benikui.skins.variousSkins.alltheThings) then return end
+
+	local att = _G.AllTheThings
+	att.AddEventHandler("OnReady", SkinAllTheThings)
+	att.AddEventHandler("OnWindowCreated", SkinAllTheThings)
+end
+S:AddCallback("BenikUI_ATT", AllTheThings)
+
+---------------
+-- Baganator --
+---------------
+local function Baganator() --credits go to plusmouse here https://github.com/Benik/BenikUI/issues/62
+	if BUI:IsAddOnEnabled('Baganator') and E.db.benikui.skins.variousSkins.ba then
+		local baganator = _G["Baganator"]
+		baganator.API.Skins.RegisterListener(function(details)
+			if details.regionType == "ButtonFrame" and baganator.API.Skins.GetCurrentSkin() == "elvui" then
+				details.region:BuiStyle()
+			end
+		end)
+
+		if baganator.API.Skins.GetCurrentSkin() == "elvui" then
+			for _, details in ipairs(baganator.API.Skins.GetAllFrames()) do
+				if details.regionType == "ButtonFrame" then
+					details.region:BuiStyle()
+				end
+			end
+		end
+	end
+end
+S:AddCallback("BenikUI_Baganator", Baganator)
+
+--------------
+-- InFlight --
+--------------
 local function StyleInFlight()
 	local frame = _G.InFlightBar
 	if frame then
@@ -36,6 +94,10 @@ local function LoadInFlight()
 end
 S:AddCallback("BenikUI_InFlight", LoadInFlight)
 
+
+--------------------
+-- KalielsTracker --
+--------------------
 local function KalielsTracker()
 	if not (BUI:IsAddOnEnabled('!KalielsTracker') and E.db.benikui.skins.variousSkins.kt) then return end
 	_G['!KalielsTrackerBackground']:BuiStyle()
@@ -78,12 +140,48 @@ local function KalielsTracker()
 end
 S:AddCallback("BenikUI_KalielsTracker", KalielsTracker)
 
-local function RareTracker()
-	if BUI:IsAddOnEnabled('RareTrackerCore') and E.db.benikui.skins.variousSkins.rt then
-		_G['RT']:BuiStyle()
+-------------------------
+-- MinimapButtonButton --
+-------------------------
+local function MinimapButtonButton()
+	if not (BUI:IsAddOnEnabled('MinimapButtonButton') and E.db.benikui.skins.variousSkins.minimapbb) then return end
+
+	local mainButton = _G.MinimapButtonButtonButton
+	if not mainButton then return end
+
+	local children = { mainButton:GetChildren() }
+
+	if not mainButton.style then
+		mainButton:BuiStyle()
+	end
+
+	for _, child in ipairs(children) do
+		if child:IsObjectType('Frame') and not child.style then
+			child:BuiStyle()
+			if not (E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows) then return end
+
+			-- force move the child frame a bit to help the shadows
+			child:ClearAllPoints()
+			child:Point('RIGHT', mainButton, 'LEFT', -2, 0)
+
+			local isMoving = false
+			hooksecurefunc(child, "SetPoint", function(self)
+				if isMoving then return end
+				isMoving = true
+
+				self:ClearAllPoints()
+				self:Point('RIGHT', mainButton, 'LEFT', -2, 0)
+
+				isMoving = false
+			end)
+		end
 	end
 end
+S:AddCallback("BenikUI_MBB", MinimapButtonButton)
 
+------------
+-- TomTom --
+------------
 local function TomTom()
 	if BUI:IsAddOnEnabled('TomTom') and E.db.benikui.skins.variousSkins.tomtom then
 		local frameDropDown = _G.MyFrameDropDownBackdrop
@@ -125,92 +223,3 @@ local function TomTom()
 	end
 end
 S:AddCallback("BenikUI_TomTom", TomTom)
-
-local function Baganator() --credits go to plusmouse here https://github.com/Benik/BenikUI/issues/62
-	if BUI:IsAddOnEnabled('Baganator') and E.db.benikui.skins.variousSkins.ba then
-		local baganator = _G["Baganator"]
-		baganator.API.Skins.RegisterListener(function(details)
-			if details.regionType == "ButtonFrame" and baganator.API.Skins.GetCurrentSkin() == "elvui" then
-				details.region:BuiStyle()
-			end
-		end)
-
-		if baganator.API.Skins.GetCurrentSkin() == "elvui" then
-			for _, details in ipairs(baganator.API.Skins.GetAllFrames()) do
-				if details.regionType == "ButtonFrame" then
-					details.region:BuiStyle()
-				end
-			end
-		end
-	end
-end
-
-local function SkinAllTheThings()
-	local att = _G.AllTheThings
-
-	local attFrames = {
-		"MiniList",
-		"Prime",
-		"Tradeskills",
-	}
-
-	for _, frame in next, (attFrames) do
-		local skinFrame = att:GetWindow(frame)
-		if skinFrame and not skinFrame.IsSkinned then
-			S:HandleFrame(skinFrame)
-			S:HandleScrollBar(skinFrame.ScrollBar)
-			skinFrame:BuiStyle()
-			skinFrame.IsSkinned = true
-		end
-	end
-end
-
-local function AllTheThings()
-	if not (BUI:IsAddOnEnabled('AllTheThings') and E.db.benikui.skins.variousSkins.alltheThings) then return end
-
-	local att = _G.AllTheThings
-	att.AddEventHandler("OnReady", SkinAllTheThings)
-	att.AddEventHandler("OnWindowCreated", SkinAllTheThings)
-end
-S:AddCallback("BenikUI_ATT", AllTheThings)
-
-local function MinimapButtonButton()
-	if not (BUI:IsAddOnEnabled('MinimapButtonButton') and E.db.benikui.skins.variousSkins.minimapbb) then return end
-
-	local mainButton = _G.MinimapButtonButtonButton
-	if not mainButton then return end
-
-	local children = { mainButton:GetChildren() }
-
-	if not mainButton.style then
-		mainButton:BuiStyle()
-	end
-
-	for _, child in ipairs(children) do
-		if child:IsObjectType('Frame') and not child.style then
-			child:BuiStyle()
-			if not (E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows) then return end
-
-			-- force move the child frame a bit to help the shadows
-			child:ClearAllPoints()
-			child:Point('RIGHT', mainButton, 'LEFT', -2, 0)
-
-			local isMoving = false
-			hooksecurefunc(child, "SetPoint", function(self)
-				if isMoving then return end
-				isMoving = true
-
-				self:ClearAllPoints()
-				self:Point('RIGHT', mainButton, 'LEFT', -2, 0)
-
-				isMoving = false
-			end)
-		end
-	end
-end
-S:AddCallback("BenikUI_MBB", MinimapButtonButton)
-
-function mod:StyleAddons()
-	RareTracker()
-	Baganator()
-end

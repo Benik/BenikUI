@@ -58,8 +58,6 @@ local function StyleElvUIPopups()
 end
 
 function mod:Initialize()
-	mod:StyleAddons()
-
 	StyleElvUIBindPopup()
 	StyleElvUIPopups()
 

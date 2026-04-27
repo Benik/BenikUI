@@ -41,7 +41,6 @@ local DecorAddonSkins = {
 local SkinsForAddons = {
 	{'InFlight', L['InFlight'], 'inflight'},
 	{'!KalielsTracker', L['Kaliels Tracker'], 'kt'},
-	{'RareTrackerCore', L['Rare Tracker'], 'rt'},
 	{'TomTom', L['TomTom'], 'tomtom'},
 	{'Baganator', L['Baganator'], 'ba'},
 	{'AllTheThings', L['All The Things'], 'alltheThings'},

@@ -237,7 +237,6 @@ P['benikui'] = {
 			['objectiveTracker'] = true,
 			['inflight'] = true,
 			['kt'] = true,
-			['rt'] = true,
 			['tomtom'] = true,
 			['ba'] = true,
 			['alltheThings'] = true,
