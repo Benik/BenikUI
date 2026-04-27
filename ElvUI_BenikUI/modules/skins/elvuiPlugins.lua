@@ -8,7 +8,7 @@ local hooksecurefunc = hooksecurefunc
 
 local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
-function mod:stylePlugins()
+function mod:styleElvUIPlugins()
 	-- LocationPlus
 	if BUI.LP and E.db.benikui.skins.elvuiAddons.locplus then
 		local framestoskin = {
@@ -115,7 +115,6 @@ function mod:stylePlugins()
 		end
 	end
 end
---S:AddCallback("BenikUI_ElvUIPlugins", mod.stylePlugins)
 
 function mod:StyleWindTools()
 	if not (BUI.WT and E.db.benikui.skins.elvuiAddons.wt) then return end

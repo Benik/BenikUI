@@ -32,6 +32,13 @@ local function StyleScriptErrorsFrame()
 	end
 end
 
+local function ScriptErrorsFrame()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.debug) or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	mod:SecureHookScript(_G.ScriptErrorsFrame, 'OnShow', StyleScriptErrorsFrame)
+end
+S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
+
 local function StyleElvUIBindPopup()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 	local bind = _G.ElvUIBindPopupWindow
@@ -40,15 +47,11 @@ local function StyleElvUIBindPopup()
 		bind.header:OffsetFrameLevel(1, bind.style)
 	end
 end
-
-local function ScriptErrorsFrame()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.debug) or E.db.benikui.general.benikuiStyle ~= true then return end
-
-	mod:SecureHookScript(_G.ScriptErrorsFrame, 'OnShow', StyleScriptErrorsFrame)
-end
-S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
+S:AddCallback("BenikUI_StyleElvUIBindPopup", StyleElvUIBindPopup)
 
 local function StyleElvUIPopups()
+	if E.db.benikui.general.benikuiStyle ~= true then return end
+
 	for i = 1, 4 do
 		local frame = _G['ElvUI_StaticPopup'..i]
 		if frame and not frame.style then
@@ -56,15 +59,13 @@ local function StyleElvUIPopups()
 		end
 	end
 end
+S:AddCallback("BenikUI_StyleElvUIPopups", StyleElvUIPopups)
 
 function mod:Initialize()
-	StyleElvUIBindPopup()
-	StyleElvUIPopups()
-
 	hooksecurefunc(E, "ToggleOptions", StyleElvUIConfig)
 
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD", function(...)
-		mod:stylePlugins()
+		mod:styleElvUIPlugins()
 		mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end)
 end
