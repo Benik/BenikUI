@@ -74,7 +74,7 @@ local function returnPoints(id)
 		elseif id <= 14 then 							-- Right side
 			return "RIGHT", "LEFT", 2, 1
 		else 											-- Weapon slots
-			return "BOTTOM", "BOTTOM", 2, 1
+			return "TOP", "BOTTOM", 2, -1
 		end
 	end
 end
