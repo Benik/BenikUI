@@ -5,7 +5,6 @@ local S = E:GetModule('Skins')
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 --------------
 -- AcePopup --
@@ -27,21 +26,16 @@ local function styleBlizzard_DebugTools()
 
 	_G.TableAttributeDisplay:BuiStyle()
 	hooksecurefunc(_G.TableInspectorMixin, 'OnLoad', function(frame)
-		if frame.ScrollFrameArt then
+		if frame.ScrollFrameArt and not frame.style then
 			frame:BuiStyle()
 		end
 	end)
-_G.FrameStackTooltip:BuiStyle()
-	--[[if E.private.skins.blizzard.tooltip then
-		local TT = E:GetModule('Tooltip')
-		hooksecurefunc(TT, 'SetStyle', function() _G.FrameStackTooltip:BuiStyle() end)
-	end]]
+
+	if E.private.skins.blizzard.tooltip then
+		_G.FrameStackTooltip:BuiStyle()
+	end
 end
-if IsAddOnLoaded('Blizzard_DebugTools') then
-	S:AddCallback("BenikUI_Blizzard_DebugTools", styleBlizzard_DebugTools)
-else
-	S:AddCallbackForAddon("Blizzard_DebugTools", "BenikUI_Blizzard_DebugTools", styleBlizzard_DebugTools)
-end
+S:AddCallbackForAddon("Blizzard_DebugTools", "BenikUI_Blizzard_DebugTools", styleBlizzard_DebugTools)
 
 -------------------------
 -- Blizzard_EventTrace --
