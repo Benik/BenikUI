@@ -6,8 +6,6 @@ local _G = _G
 local pairs = pairs
 local hooksecurefunc = hooksecurefunc
 
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
-
 function mod:styleElvUIPlugins()
 	-- LocationPlus
 	if BUI.LP and E.db.benikui.skins.elvuiAddons.locplus then
@@ -77,7 +75,7 @@ function mod:styleElvUIPlugins()
 	end
 
 	-- ElvUI_Enhanced
-	if IsAddOnLoaded("ElvUI_Enhanced") and E.db.benikui.skins.elvuiAddons.enh then
+	if BUI:IsAddOnEnabled("ElvUI_Enhanced") and E.db.benikui.skins.elvuiAddons.enh then
 		if _G.MinimapButtonBar then
 			_G.MinimapButtonBar:BuiStyle()
 		end

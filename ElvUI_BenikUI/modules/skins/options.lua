@@ -4,7 +4,6 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack
 
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 local ADDONS = ADDONS
 local OBJECTIVES_TRACKER_LABEL = OBJECTIVES_TRACKER_LABEL
 
@@ -101,7 +100,7 @@ local function SkinTable()
 			type = 'toggle',
 			name = addonString,
 			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
-			disabled = function() return not IsAddOnLoaded(addonName) or not E.db.benikui.general.benikuiStyle end,
+			disabled = function() return not BUI:IsAddOnEnabled(addonName) or not E.db.benikui.general.benikuiStyle end,
 		}
 	end
 
@@ -148,7 +147,7 @@ local function SkinTable()
 			type = 'toggle',
 			name = addonString,
 			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['skin.']),
-			disabled = function() return not IsAddOnLoaded(addonName) end,
+			disabled = function() return not BUI:IsAddOnEnabled(addonName) end,
 		}
 	end
 
@@ -217,7 +216,7 @@ local function SkinTable()
 				end
 				E:StaticPopup_Show('PRIVATE_RL')
 			end,
-			disabled = function() return not IsAddOnLoaded(addon) end,
+			disabled = function() return not BUI:IsAddOnEnabled(addon) end,
 		}
 	end
 end

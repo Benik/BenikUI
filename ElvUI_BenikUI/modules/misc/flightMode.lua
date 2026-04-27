@@ -20,8 +20,6 @@ local IsInInstance = IsInInstance
 local ToggleWorldMap = ToggleWorldMap
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
-local LoadAddOn = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
 local GetRealZoneText, GetMinimapZoneText = GetRealZoneText, GetMinimapZoneText
 local GetZonePVPInfo = (C_PvP and C_PvP.GetZonePVPInfo) or GetZonePVPInfo
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
@@ -295,7 +293,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- Details
-		if IsAddOnLoaded('Details') then
+		if BUI:IsAddOnEnabled('Details') then
 			local Details = _G._detalhes
 			local instances_amount = Details:GetNumInstancesAmount()
 
@@ -318,7 +316,7 @@ function mod:SetFlightMode(status)
 
 		for _, v in ipairs(AddonsToHide) do
 			local addon, frame = unpack(v)
-			if IsAddOnLoaded(addon) then
+			if BUI:IsAddOnEnabled(addon) then
 				if _G[frame] then
 					if _G[frame]:IsVisible() then
 						VisibleFrames[frame] = true
@@ -329,7 +327,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- special handling for VuhDo panels
-		if IsAddOnLoaded('VuhDo') then
+		if BUI:IsAddOnEnabled('VuhDo') then
 			if VUHDO_CONFIG["SHOW_PANELS"] then
 				VisibleFrames['VuhDoHealPanels'] = true
 				VUHDO_slashCmd('hide')
@@ -366,7 +364,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- AllTheThings
-		if IsAddOnLoaded('AllTheThings') then
+		if BUI:IsAddOnEnabled('AllTheThings') then
 			local att = _G.AllTheThings
 			for _, window in pairs(att.Windows) do
 				if window:IsShown() then
@@ -377,7 +375,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- special handling for Elkano Buff Bars
-		if IsAddOnLoaded('ElkBuffBars') then
+		if BUI:IsAddOnEnabled('ElkBuffBars') then
 			ElkBuffBars:PET_BATTLE_OPENING_START()
 		end
 
@@ -462,7 +460,7 @@ function mod:SetFlightMode(status)
 
 		for i, v in ipairs(AddonsToHide) do
 			local addon, frame = unpack(v)
-			if IsAddOnLoaded(addon) then
+			if BUI:IsAddOnEnabled(addon) then
 				if _G[frame] then
 					if VisibleFrames[frame] then
 						_G[frame]:Show()
@@ -472,14 +470,14 @@ function mod:SetFlightMode(status)
 		end
 
 		-- special handling for VuhDo panels
-		if IsAddOnLoaded('VuhDo') then
+		if BUI:IsAddOnEnabled('VuhDo') then
 			if VisibleFrames['VuhDoHealPanels'] then
 				VUHDO_slashCmd('show')
 			end
 		end
 
 		-- Details
-		if IsAddOnLoaded('Details') then
+		if BUI:IsAddOnEnabled('Details') then
 			local Details = _G._detalhes
 			local instances_amount = Details:GetNumInstancesAmount()
 
@@ -501,7 +499,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- AllTheThings
-		if IsAddOnLoaded('AllTheThings') then
+		if BUI:IsAddOnEnabled('AllTheThings') then
 			for _, frame in pairs(AllTheThingsFrames) do
 				frame:Show()
 			end
@@ -530,7 +528,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- special handling for Elkano Buff Bars
-		if IsAddOnLoaded('ElkBuffBars') then
+		if BUI:IsAddOnEnabled('ElkBuffBars') then
 			ElkBuffBars:PET_BATTLE_CLOSE()
 		end
 
