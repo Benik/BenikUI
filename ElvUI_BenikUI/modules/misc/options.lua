@@ -100,7 +100,7 @@ local function miscTable()
 						name = L['Enable'],
 						desc = L['Display the Flight Mode screen when taking flight paths'],
 						get = function(info) return E.db.benikui.misc.flightMode[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.flightMode[ info[#info] ] = value; BUI:GetModule('FlightMode'):Toggle() E:StaticPopup_Show('PRIVATE_RL') end,
+						set = function(info, value) E.db.benikui.misc.flightMode[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 					},
 					logo = {
 						order = 2,

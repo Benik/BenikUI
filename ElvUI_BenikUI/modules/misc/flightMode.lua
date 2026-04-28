@@ -626,25 +626,18 @@ function mod:ToggleLogo()
 	end
 end
 
-function mod:Toggle()
-	if(E.db.benikui.misc.flightMode.enable) then
-		mod:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
-		mod:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
-		mod:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
-		mod:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
-		mod:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
-		mod:RegisterEvent("ZONE_CHANGED_NEW_AREA", "OnEvent")
-	else
-		mod:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
-		mod:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
-		mod:UnregisterEvent("LFG_PROPOSAL_SHOW")
-		mod:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
-		mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		mod:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
-	end
+function mod:LoadEvents()
+	mod:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
+	mod:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
+	mod:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
+	mod:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
+	mod:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
+	mod:RegisterEvent("ZONE_CHANGED_NEW_AREA", "OnEvent")
 end
 
 function mod:Initialize()
+	if E.db.benikui.misc.flightMode.enable ~= true then return end
+
 	local db = E.db.benikui.colors
 	mod.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", _G.UIParent)
 	mod.FlightMode:SetFrameLevel(1)
@@ -1021,7 +1014,7 @@ function mod:Initialize()
 	leftPanel.backdrop.wideshadow:Hide()
 	leftPanel.backdrop.wideshadow:OffsetFrameLevel(-1, leftPanel.backdrop)
 
-	mod:Toggle()
+	mod:LoadEvents()
 	mod:ToggleLogo()
 
 	hooksecurefunc(M, "SetLargeWorldMap", mod.SetFrameParent)
