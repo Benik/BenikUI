@@ -41,6 +41,8 @@ menuFrame:CreateWideShadow()
 local LOCATION_WIDTH = 399
 local classColor = E:ClassColor(E.myclass, true)
 
+local isFlightMode = false
+
 local function AutoColoring()
 	local pvpType = GetZonePVPInfo()
 
@@ -194,7 +196,7 @@ local function UpdateCooldownManagerVisibility()
 	for frameName, _ in pairs(cdmHiddenFrames) do
 		local frame = _G[frameName]
 		if frame then
-			if UnitOnTaxi("player") then
+			if isFlightMode then
 				if frame:IsShown() then
 					cdmHiddenFrames[frameName] = true
 					frame:Hide()
@@ -598,12 +600,14 @@ function mod:OnEvent(event, ...)
 		else
 			mod:SetFlightMode(false)
 		end
+
+		isFlightMode = false
 		return
 	end
 
 	if IsInInstance() then return end
 
-	local isFlightMode = UnitOnTaxi("player")
+	isFlightMode = UnitOnTaxi("player")
 	mod:SetFlightMode(isFlightMode)
 end
 
