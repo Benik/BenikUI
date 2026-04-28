@@ -179,7 +179,33 @@ end
 
 local function CenteredCDM()
 	if BUI:IsAddOnEnabled('CooldownManagerCentered') then
-		return true
+		return false
+	end
+end
+
+local cdmHiddenFrames = {
+	EssentialCooldownViewer	= false,
+	UtilityCooldownViewer	= false,
+	BuffIconCooldownViewer	= false,
+}
+
+local function UpdateCooldownManagerVisibility()
+	if CenteredCDM() or (GetCVar("cooldownViewerEnabled") ~= "1") then return end
+	for frameName, _ in pairs(cdmHiddenFrames) do
+		local frame = _G[frameName]
+		if frame then
+			if UnitOnTaxi("player") then
+				if frame:IsShown() then
+					cdmHiddenFrames[frameName] = true
+					frame:Hide()
+				end
+			else
+				if cdmHiddenFrames[frameName] then
+					cdmHiddenFrames[frameName] = false
+					frame:Show()
+				end
+			end
+		end
 	end
 end
 
@@ -218,6 +244,8 @@ function mod:SetFlightMode(status)
 	local containerFrame = _G.ElvUI_ContainerFrame
 	local zoneFrame = _G.ZoneTextFrame
 	local leftPanel = _G.LeftChatPanel
+
+	UpdateCooldownManagerVisibility()
 
 	if(status) then
 		mod.inFlightMode = true
@@ -350,17 +378,6 @@ function mod:SetFlightMode(status)
 					end
 				end
 			end)
-		end
-
-		-- Cooldown Manager
-		if CenteredCDM() or GetCVar("cooldownViewerEnabled") == "1" then
-			if _G.EssentialCooldownViewer then
-				_G.EssentialCooldownViewer:Hide()
-			end
-
-			if _G.UtilityCooldownViewer then
-				_G.UtilityCooldownViewer:Hide()
-			end
 		end
 
 		-- AllTheThings
@@ -516,17 +533,6 @@ function mod:SetFlightMode(status)
 			twipe(DamageMeterFrames)
 		end
 
-		-- Cooldown Manager
-		if CenteredCDM() or GetCVar("cooldownViewerEnabled") == "1" then
-			if _G.EssentialCooldownViewer then
-				_G.EssentialCooldownViewer:Show()
-			end
-
-			if _G.UtilityCooldownViewer then
-				_G.UtilityCooldownViewer:Show()
-			end
-		end
-
 		-- special handling for Elkano Buff Bars
 		if BUI:IsAddOnEnabled('ElkBuffBars') then
 			ElkBuffBars:PET_BATTLE_CLOSE()
@@ -597,11 +603,8 @@ function mod:OnEvent(event, ...)
 
 	if IsInInstance() then return end
 
-	if (UnitOnTaxi("player")) then
-		mod:SetFlightMode(true)
-	else
-		mod:SetFlightMode(false)
-	end
+	local isFlightMode = UnitOnTaxi("player")
+	mod:SetFlightMode(isFlightMode)
 end
 
 function mod:ToggleLogo()
@@ -630,12 +633,14 @@ function mod:Toggle()
 		mod:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
 		mod:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
 		mod:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
+		mod:RegisterEvent("ZONE_CHANGED_NEW_AREA", "OnEvent")
 	else
 		mod:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
 		mod:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
 		mod:UnregisterEvent("LFG_PROPOSAL_SHOW")
 		mod:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
 		mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		mod:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
 	end
 end
 
