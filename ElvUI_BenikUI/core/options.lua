@@ -57,7 +57,7 @@ local function Core()
 						name = L['BenikUI Style'],
 						desc = L['Enable/Disable the decorative bars from UI elements'],
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
 					},
 					hideStyle = {
 						order = 3,
@@ -79,7 +79,7 @@ local function Core()
 						name = L['Shadows'],
 						disabled = function() return E.db.benikui.general.benikuiStyle ~= true end,
 						get = function(info) return E.db.benikui.general[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						set = function(info, value) E.db.benikui.general[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
 					},
 					shadowSize = {
 						order = 12,

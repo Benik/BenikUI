@@ -130,7 +130,7 @@ local function ufTable()
 						name = L["Enable"],
 						desc = L['This applies on all available castbars.'],
 						get = function(info) return E.db.benikui.unitframes.castbarColor[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.castbarColor[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						set = function(info, value) E.db.benikui.unitframes.castbarColor[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
 					},
 					castbarBackdropColor = {
 						type = "color",
@@ -179,7 +179,7 @@ local function ufTable()
 						name = L['SVUI Icons'],
 						desc = L['Replaces the default role icons with SVUI ones.'],
 						get = function(info) return E.db.benikui.unitframes.misc[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.misc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						set = function(info, value) E.db.benikui.unitframes.misc[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
 					},
 				},
 			},

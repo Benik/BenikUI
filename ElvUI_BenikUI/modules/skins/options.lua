@@ -87,7 +87,7 @@ local function SkinTable()
 		type = 'group',
 		name = L['ElvUI AddOns'],
 		get = function(info) return E.db.benikui.skins.elvuiAddons[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.skins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		set = function(info, value) E.db.benikui.skins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
 		args = {
 			},
 		}
@@ -109,7 +109,7 @@ local function SkinTable()
 		type = 'group',
 		name = L['Skins'],
 		get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
 		args = {
 			blizzard = {
 				order = 1,
@@ -163,7 +163,7 @@ local function SkinTable()
 				type = 'toggle',
 				name = L['Skin'],
 				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
 			},
 			dbmHalfBar = {
 				order = 2,
@@ -214,7 +214,7 @@ local function SkinTable()
 				elseif addon == '!KalielsTracker' then
 					BUI:LoadKalielsProfile()
 				end
-				E:StaticPopup_Show('PRIVATE_RL')
+				E:StaticPopup_Show('CONFIG_RL')
 			end,
 			disabled = function() return not BUI:IsAddOnEnabled(addon) end,
 		}

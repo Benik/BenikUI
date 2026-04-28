@@ -170,7 +170,7 @@ local function BuildLayoutGroup(key, dashboardFrame, updateFunc, dashboardDB, ha
 			name = L['Value Color'],
 			type = 'toggle',
 			get = function(info) return db[key][ info[#info] ] end,
-			set = function(info, value) db[key][ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL') end,
+			set = function(info, value) db[key][ info[#info] ] = value E:StaticPopup_Show('CONFIG_RL') end,
 		}
 	end
 
@@ -235,7 +235,7 @@ local function UpdateSystemOptions()
 			name = boardname,
 			desc = L['Enable/Disable ']..boardname,
 			get = function() return db.chooseSystem[boardname] end,
-			set = function(_, value) db.chooseSystem[boardname] = value E:StaticPopup_Show('PRIVATE_RL') end,
+			set = function(_, value) db.chooseSystem[boardname] = value E:StaticPopup_Show('CONFIG_RL') end,
 		}
 	end
 
@@ -249,7 +249,7 @@ local function UpdateSystemOptions()
 		},
 		disabled = function() return not db.chooseSystem.MS end,
 		get = function() return db.latency end,
-		set = function(_, value) db.latency = value E:StaticPopup_Show('PRIVATE_RL') end,
+		set = function(_, value) db.latency = value E:StaticPopup_Show('CONFIG_RL') end,
 	}
 end
 
@@ -661,7 +661,7 @@ local function dashboardsTable()
 						width = 'full',
 						desc = L['Enable the System Dashboard.'],
 						get = function(info) return db.system.enable end,
-						set = function(info, value) db.system.enable = value E:StaticPopup_Show('PRIVATE_RL') end,
+						set = function(info, value) db.system.enable = value E:StaticPopup_Show('CONFIG_RL') end,
 					},
 					select = {
 						order = 10,

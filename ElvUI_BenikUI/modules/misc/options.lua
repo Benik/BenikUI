@@ -25,7 +25,7 @@ local function miscTable()
 						desc = L['Show item level per slot, on the character info frame'],
 						width = "full",
 						get = function(info) return E.db.benikui.misc.ilevel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+						set = function(info, value) E.db.benikui.misc.ilevel[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
 					},
 					font = {
 						type = 'select', dialogControl = 'LSM30_Font',
@@ -100,7 +100,7 @@ local function miscTable()
 						name = L['Enable'],
 						desc = L['Display the Flight Mode screen when taking flight paths'],
 						get = function(info) return E.db.benikui.misc.flightMode[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc.flightMode[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+						set = function(info, value) E.db.benikui.misc.flightMode[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
 					},
 					logo = {
 						order = 2,
@@ -152,7 +152,7 @@ local function miscTable()
 						type = 'toggle',
 						name = L['Enable'],
 						get = function(info) return E.db.benikui.misc[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.misc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+						set = function(info, value) E.db.benikui.misc[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
 					},
 				},
 			},
