@@ -1,5 +1,6 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local S = E:GetModule('Skins')
+local mod = BUI:GetModule('Skins')
 
 local _G = _G
 
@@ -216,6 +217,35 @@ local function LibDBIcon()
 end
 S:AddCallback("BenikUI_LibDBIcon", LibDBIcon)
 
+--------------------
+-- Lib AceGUI-3.0 --
+--------------------
+local isHooked = {}
+function mod:HookAceGUI()
+	local AceGUI, minorVersion = LibStub("AceGUI-3.0", true)
+
+	if AceGUI and minorVersion and not isHooked[minorVersion] then
+		hooksecurefunc(AceGUI, "RegisterAsContainer", function(_, widget)
+			if widget.type == "Frame" or widget.type == "Window" then
+				if widget and not widget.isStyled then
+					if widget.frame then
+						widget.frame:BuiStyle()
+						widget.isStyled = true
+					end
+				end
+			end
+		end)
+
+		isHooked[minorVersion] = true
+	end
+end
+
+function mod:AceGUI()
+	mod:HookAceGUI()
+	mod:RegisterEvent("ADDON_LOADED", "HookAceGUI") -- I have to look if ADDON_LOADED gets registered somewhere
+end
+S:AddCallback("BenikUI_AceGUI", mod.AceGUI)
+
 -------------------------
 -- MinimapButtonButton --
 -------------------------
@@ -274,7 +304,7 @@ local function SkadaSkin()
 		end
 	end)
 
-	-- Style the options
+	--[[ Style the options
 	local acd = LibStub("AceConfigDialog-3.0")
 	if acd then
 		hooksecurefunc(acd, "Open", function(self, appName)
@@ -286,7 +316,7 @@ local function SkadaSkin()
 				end
 			end
 		end)
-	end
+	end]]
 end
 S:AddCallback("BenikUI_Skada", SkadaSkin)
 
