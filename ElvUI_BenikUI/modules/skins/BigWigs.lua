@@ -1,6 +1,6 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
-if not BUI.AS then return end
+--[[if not BUI.AS then return end
 local AS = unpack(AddOnSkins)
 
 if not AS:CheckAddOn('BigWigs') then return end
@@ -45,12 +45,12 @@ function AS:BigWigs(event, addon)
 
 			bd:Hide()
 			iconBd:Hide()
-			--[[if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
+			if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
 				bd.InsideBorder:Hide()
 				bd.OutsideBorder:Hide()
 				iconBd.InsideBorder:Hide()
 				iconBd.OutsideBorder:Hide()
-			end]]
+			end
 		end
 
 		local function ApplyStyle(bar)
@@ -76,17 +76,17 @@ function AS:BigWigs(event, addon)
 				iconBd:SetOutside(icon)
 
 				iconBd:Show()
-				--[[if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
+				if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
 					iconBd.InsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel')
 					iconBd.OutsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder')
-				end]]
+				end
 			end
 
 			bd:Show()
-			--[[if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
+			if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
 				bd.InsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel')
 				bd.OutsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder')
-			end]]
+			end]
 		end
 
 		local function ApplyStyleHalfBar(bar)
@@ -114,10 +114,10 @@ function AS:BigWigs(event, addon)
 				iconBd:CreateSoftShadow()
 
 				iconBd:Show()
-				--[[if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
+				if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
 					iconBd.InsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel')
 					iconBd.OutsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder')
-				end]]
+				end
 			end
 
 			bar.candyBarLabel:ClearAllPoints()
@@ -129,10 +129,10 @@ function AS:BigWigs(event, addon)
 			bar.candyBarDuration:Point("RIGHT", bar, "RIGHT", -2, AS:AdjustForTheme(14))
 
 			bd:Show()
-			--[[if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
+			if AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel' then
 				bd.InsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder' or AS:CheckOption('Theme') == 'TwoPixel')
 				bd.OutsideBorder:SetShown(AS:CheckOption('Theme') == 'ThickBorder')
-			end]]
+			end
 		end
 
 		_G.BigWigsAPI:RegisterBarStyle('AddOnSkins', {
@@ -157,4 +157,4 @@ function AS:BigWigs(event, addon)
 end
 
 AS:RegisterSkin('BigWigs', AS.BigWigs, 'ADDON_LOADED')
-AS:RegisterSkinForPreload('BigWigs_Plugins', AS.BigWigs, 'BigWigs')
+AS:RegisterSkinForPreload('BigWigs_Plugins', AS.BigWigs, 'BigWigs')]]

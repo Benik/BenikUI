@@ -12,4 +12,5 @@
 	<script file="dbm.lua"/>
 	<script file="BigWigs.lua"/>
 	<script file="options.lua"/>
+	<Include file="addonProfiles\load_addonProfiles.xml"/>
 </Ui>

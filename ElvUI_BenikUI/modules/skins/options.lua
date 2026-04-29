@@ -49,7 +49,7 @@ local SkinsForAddons = {
 
 local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
-	--{'BigWigs', 'BigWigs'},
+	{'BigWigs', 'BigWigs'},
 	{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
 	{'ElvUI_LocPlus', 'Location Plus'},
@@ -195,8 +195,8 @@ local function SkinTable()
 			func = function()
 				if addon == 'DBM-Core' then
 					BUI:LoadDBMProfile()
-				--elseif addon == 'BigWigs' then
-					--BUI:LoadBigWigsProfile()
+				elseif addon == 'BigWigs' then
+					BUI:LoadBigWigsProfile()
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
 				elseif addon == 'InFlight'then
@@ -214,7 +214,9 @@ local function SkinTable()
 				elseif addon == '!KalielsTracker' then
 					BUI:LoadKalielsProfile()
 				end
-				E:StaticPopup_Show('CONFIG_RL')
+				if addon ~= 'BigWigs' then
+					E:StaticPopup_Show('CONFIG_RL')
+				end
 			end,
 			disabled = function() return not BUI:IsAddOnEnabled(addon) end,
 		}
