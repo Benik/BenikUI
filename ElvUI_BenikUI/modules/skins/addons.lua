@@ -250,7 +250,7 @@ S:AddCallback("BenikUI_AceGUI", mod.AceGUI)
 -- MinimapButtonButton --
 -------------------------
 local function MinimapButtonButton()
-	if not (BUI:IsAddOnEnabled('MinimapButtonButton') and E.db.benikui.skins.variousSkins.minimapbb) then return end
+	if not (BUI:IsAddOnEnabled('MinimapButtonButton') and E.db.benikui.skins.variousSkins.minimapbb and E.db.benikui.general.benikuiStyle) then return end
 
 	local mainButton = _G.MinimapButtonButtonButton
 	if not mainButton then return end
@@ -291,16 +291,22 @@ S:AddCallback("BenikUI_MBB", MinimapButtonButton)
 local function SkadaSkin()
 	if not (BUI:IsAddOnEnabled('Skada') and E.db.benikui.skins.variousSkins.skada) then return end
 
-	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(self, win)
+	hooksecurefunc(Skada.displays['bar'], 'ApplySettings', function(_, win)
 		local skada = win.bargroup
 		skada:SetTemplate("Transparent")
+		if not E.db.benikui.general.benikuiStyle then return end
+
 		skada:BuiStyle()
 		skada.button:BuiStyle()
-		skada.button.style:Hide()
+		if skada.button.style then
+			skada.button.style:Hide()
+		end
 
 		if win.db.enabletitle then
+			if skada.button.style then
+				skada.button.style:Show()
+			end
 			skada.style:Hide()
-			skada.button.style:Show()
 		end
 	end)
 end
@@ -317,9 +323,7 @@ local function TomTom()
 		frameDropDown:StripTextures()
 		frameDropDown:SetTemplate("Transparent")
 
-		if E.db.benikui.general.benikuiStyle then
-			frameDropDown:BuiStyle()
-		end
+		frameDropDown:BuiStyle()
 	end
 
 	local mapDropDown = _G.TomTomWorldMapDropdownBackdrop
@@ -327,9 +331,7 @@ local function TomTom()
 		mapDropDown:StripTextures()
 		mapDropDown:SetTemplate("Transparent")
 
-		if E.db.benikui.general.benikuiStyle then
-			mapDropDown:BuiStyle()
-		end
+		mapDropDown:BuiStyle()
 	end
 
 	local mapDropDown = _G.TomTomDropdownBackdrop
@@ -337,16 +339,12 @@ local function TomTom()
 		mapDropDown:StripTextures()
 		mapDropDown:SetTemplate("Transparent")
 
-		if E.db.benikui.general.benikuiStyle then
-			mapDropDown:BuiStyle()
-		end
+		mapDropDown:BuiStyle()
 	end
 
 	local tomTooltip = _G.TomTomTooltip
 	if tomTooltip then
-		if E.db.benikui.general.benikuiStyle then
-			tomTooltip:BuiStyle()
-		end
+		tomTooltip:BuiStyle()
 	end
 end
 S:AddCallback("BenikUI_TomTom", TomTom)
