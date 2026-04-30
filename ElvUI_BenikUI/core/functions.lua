@@ -141,7 +141,7 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 
 	if E.db.benikui.general.shadows then
 		f:CreateSoftShadow()
-		if template == 'Outside' then
+		if template or template == 'Outside' then
 			style:CreateStyleShadow()
 		end
 	end

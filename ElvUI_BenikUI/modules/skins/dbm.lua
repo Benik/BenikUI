@@ -166,6 +166,5 @@ function mod:LoadDBMOptions()
 			return
 		end
 	end)
-
 end
 S:AddCallback("BenikUI_DbmOptions", mod.LoadDBMOptions)

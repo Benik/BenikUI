@@ -242,7 +242,7 @@ end
 
 function mod:AceGUI()
 	mod:HookAceGUI()
-	mod:RegisterEvent("ADDON_LOADED", "HookAceGUI") -- I have to look if ADDON_LOADED gets registered somewhere
+	mod:RegisterEvent("ADDON_LOADED", "HookAceGUI")
 end
 S:AddCallback("BenikUI_AceGUI", mod.AceGUI)
 
@@ -303,20 +303,6 @@ local function SkadaSkin()
 			skada.button.style:Show()
 		end
 	end)
-
-	--[[ Style the options
-	local acd = LibStub("AceConfigDialog-3.0")
-	if acd then
-		hooksecurefunc(acd, "Open", function(self, appName)
-			if appName == "Skada" then
-				local frame = self.OpenFrames and self.OpenFrames[appName] and self.OpenFrames[appName].frame
-				if frame and not frame.isStyled then
-					frame:BuiStyle()
-					frame.isStyled = true
-				end
-			end
-		end)
-	end]]
 end
 S:AddCallback("BenikUI_Skada", SkadaSkin)
 

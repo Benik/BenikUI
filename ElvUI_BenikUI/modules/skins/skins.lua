@@ -62,7 +62,7 @@ local function Style_Ace3TabSelected(self, selected)
 	end
 end
 
-local function Style_SetButtonColor(self, btn, disabled)
+local function Style_SetButtonColor(_, btn, disabled)
 	if disabled then
 		if btn.SetBackdropColor then
 			local r, g, b = unpack(E.media.rgbvaluecolor)
