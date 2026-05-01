@@ -245,7 +245,8 @@ P['benikui'] = {
 			['bugSack'] = true,
 			['skada'] = true,
 			['baganator'] = true,
-			['bigwigs'] = true,
+			['bigwigsSkin'] = true,
+			['bigwigsHalfBar'] = true,
 		},
 	},
 

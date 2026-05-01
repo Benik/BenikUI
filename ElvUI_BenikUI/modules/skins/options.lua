@@ -4,6 +4,9 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack
 
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local LoadAddOn = C_AddOns.LoadAddOn
+
 local ADDONS = ADDONS
 local OBJECTIVES_TRACKER_LABEL = OBJECTIVES_TRACKER_LABEL
 
@@ -172,6 +175,45 @@ local function SkinTable()
 				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; end,
 				disabled = function() return not E.db.benikui.skins.variousSkins.dbmSkin or not BUI:IsAddOnEnabled("DBM-Core") end,
+			},
+		},
+	}
+
+	E.Options.args.benikui.args.skins.args.variousSkins.args.bigwigs = {
+		order = 4,
+		type = 'group',
+		name = L['BigWigs'],
+		guiInline = true,
+		disabled = function() return not BUI:IsAddOnEnabled("BigWigs") end,
+		args = {
+			bigwigsSkin = {
+				order = 1,
+				type = 'toggle',
+				name = L['Skin'],
+				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
+			},
+			bigwigsHalfBar = {
+				order = 2,
+				type = 'toggle',
+				name = L['Half Bar'],
+				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value;
+					if not IsAddOnLoaded("BigWigs_Plugins") then
+						LoadAddOn("BigWigs_Plugins")
+					end
+					if BigWigs then
+						local barsPlugin = BigWigs:GetPlugin("Bars", true)
+						if barsPlugin and barsPlugin.db and barsPlugin.db.profile then
+							if value then
+								barsPlugin.db.profile.barStyle = BUI.Title..'Half Bar'
+							else
+								barsPlugin.db.profile.barStyle = BUI.Title
+							end
+						end
+					end
+				end,
+				disabled = function() return not E.db.benikui.skins.variousSkins.bigwigsSkin or not BUI:IsAddOnEnabled("BigWigs") end,
 			},
 		},
 	}
