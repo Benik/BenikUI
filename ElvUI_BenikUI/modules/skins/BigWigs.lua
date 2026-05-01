@@ -3,7 +3,7 @@ local S = E:GetModule('Skins')
 local mod = BUI:GetModule('Skins')
 
 function mod:BigWigs()
-	local shadowsEnabled = (E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows)
+	if E.db.benikui.skins.variousSkins.bigwigsSkin ~= true then return end
 
 	local function removeStyle(bar)
 		local bd = bar.candyBarBackdrop
@@ -25,6 +25,7 @@ function mod:BigWigs()
 	end
 
 	local function styleBar(bar)
+		local shadowsEnabled = (E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows)
 		local bd = bar.candyBarBackdrop
 		bd:ClearAllPoints()
 
@@ -98,6 +99,90 @@ function mod:BigWigs()
 		end
 	end
 
+	local function styleHalfBar(bar)
+		local shadowsEnabled = (E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows)
+		local bd = bar.candyBarBackdrop
+		bd:ClearAllPoints()
+
+		bd:SetTemplate("Transparent")
+		bd:SetOutside(bar)
+
+		if not E.PixelMode and bd.iborder then
+			bd.iborder:Show()
+			bd.oborder:Show()
+		end
+
+		if shadowsEnabled then
+			bd:CreateSoftShadow()
+		end
+
+		bd:Show()
+
+		local iconTexture = bar:GetIcon()
+		if iconTexture then
+			local reApplyIcon = false
+			local statusbar = bar.candyBarBar
+			local iconFrame = bar.candyBarIconFrame
+			local iconBd = bar.candyBarIconFrameBackdrop
+
+			if iconFrame.IsAnchoringSecret and iconFrame:IsAnchoringSecret() then
+				iconFrame:SetToDefaults()
+				iconBd:SetToDefaults()
+				iconBd:SetFrameLevel(0)
+				reApplyIcon = true
+			end
+
+			statusbar:ClearAllPoints()
+			iconFrame:ClearAllPoints()
+			iconBd:ClearAllPoints()
+
+			local iconSize = bar:GetHeight() * 2
+			iconFrame:SetSize(iconSize, iconSize)
+
+			if bar:GetIconPosition() == "RIGHT" then
+				statusbar:ClearAllPoints()
+				statusbar:Point("TOPRIGHT", bar, "TOPRIGHT", 0, 0)
+				statusbar:Point("BOTTOMLEFT", bar, "BOTTOMLEFT", 0, 0)
+
+				iconFrame:Point("BOTTOMLEFT", statusbar, "BOTTOMRIGHT", 4, 0)
+			else
+				statusbar:ClearAllPoints()
+				statusbar:Point("TOPLEFT", bar, "TOPLEFT", 0, 0)
+				statusbar:Point("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0, 0)
+
+				iconFrame:Point("BOTTOMRIGHT", statusbar, "BOTTOMLEFT", -4, 0)
+			end
+
+			bar.candyBarLabel:ClearAllPoints()
+			bar.candyBarLabel:Point("LEFT", bar, "LEFT", 2, 12)
+			bar.candyBarLabel:Point("RIGHT", bar, "RIGHT", -2, 12)
+
+			bar.candyBarDuration:ClearAllPoints()
+			bar.candyBarDuration:Point("LEFT", bar, "LEFT", 2, 12)
+			bar.candyBarDuration:Point("RIGHT", bar, "RIGHT", -2, 12)
+
+			bar:Set("bigwigs:restoreicon", true)
+			iconBd:SetTemplate("Transparent")
+			iconBd:SetOutside(iconFrame)
+
+			if not E.PixelMode and iconBd.iborder then
+				iconBd.iborder:Show()
+				iconBd.oborder:Show()
+			end
+
+			if shadowsEnabled then
+				iconBd:CreateSoftShadow()
+			end
+
+			iconBd:Show()
+
+			if reApplyIcon then
+				iconFrame:SetTexture(iconTexture)
+				iconFrame:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+			end
+		end
+	end
+
 	_G.BigWigsAPI:RegisterBarStyle(BUI.Title, {
 		apiVersion = 1,
 		version = 10,
@@ -107,6 +192,17 @@ function mod:BigWigs()
 		ApplyStyle = styleBar,
 		BarStopped = removeStyle,
 		GetStyleName = function() return BUI.Title end,
+	})
+
+	_G.BigWigsAPI:RegisterBarStyle(BUI.Title..'Half Bar', {
+		apiVersion = 1,
+		version = 10,
+		barSpacing = (E.PixelMode and 16 or 18) or 16,
+		barHeight = 12,
+		spellIndicatorsOffset = 30,
+		ApplyStyle = styleHalfBar,
+		BarStopped = removeStyle,
+		GetStyleName = function() return BUI.Title..'Half Bar' end,
 	})
 end
 S:AddCallbackForAddon("BigWigs_Plugins", "BenikUI_BigWigs", mod.BigWigs)
