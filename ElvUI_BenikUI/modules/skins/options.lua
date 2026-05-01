@@ -197,7 +197,22 @@ local function SkinTable()
 				order = 2,
 				type = 'toggle',
 				name = L['Half Bar'],
-				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
+				get = function(info)
+					if not IsAddOnLoaded("BigWigs_Plugins") then
+						LoadAddOn("BigWigs_Plugins")
+					end
+					if BigWigs then
+						local barsPlugin = BigWigs:GetPlugin("Bars", true)
+						if barsPlugin and barsPlugin.db and barsPlugin.db.profile then
+							local isHalfBar = (barsPlugin.db.profile.barStyle == BUI.Title..'Half Bar')
+							E.db.benikui.skins.variousSkins[ info[#info] ] = isHalfBar
+
+							return isHalfBar
+						end
+					end
+
+					return E.db.benikui.skins.variousSkins[ info[#info] ]
+				end,
 				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value;
 					if not IsAddOnLoaded("BigWigs_Plugins") then
 						LoadAddOn("BigWigs_Plugins")
