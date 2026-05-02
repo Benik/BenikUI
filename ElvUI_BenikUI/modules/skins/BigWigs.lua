@@ -75,8 +75,6 @@ function mod:BigWigs()
 				iconFrame:Point("BOTTOMRIGHT", statusbar, "BOTTOMLEFT", -4, 0)
 			end
 
-			iconFrame:SetSize(bar:GetHeight(), bar:GetHeight())
-
 			bar:Set("bigwigs:restoreicon", true)
 			iconBd:SetTemplate("Transparent")
 			iconBd:SetOutside(iconFrame)
@@ -101,7 +99,24 @@ function mod:BigWigs()
 
 	local function styleHalfBar(bar)
 		local shadowsEnabled = (E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows)
+
+		local statusbar = bar.candyBarBar
 		local bd = bar.candyBarBackdrop
+		local candyBarLabel = bar.candyBarLabel
+		local candyBarDuration = bar.candyBarDuration
+		local barHeight = bar:GetHeight()
+
+		bar:Set("bigwigs:restoreheight", barHeight)
+		bar:SetHeight(barHeight / 2)
+
+		candyBarLabel:ClearAllPoints()
+		candyBarDuration:ClearAllPoints()
+		statusbar:ClearAllPoints()
+
+		if bd.SetToDefaults then
+			bd:SetToDefaults()
+			bd:SetFrameLevel(0)
+		end
 		bd:ClearAllPoints()
 
 		bd:SetTemplate("Transparent")
@@ -121,7 +136,6 @@ function mod:BigWigs()
 		local iconTexture = bar:GetIcon()
 		if iconTexture then
 			local reApplyIcon = false
-			local statusbar = bar.candyBarBar
 			local iconFrame = bar.candyBarIconFrame
 			local iconBd = bar.candyBarIconFrameBackdrop
 
@@ -132,34 +146,24 @@ function mod:BigWigs()
 				reApplyIcon = true
 			end
 
-			statusbar:ClearAllPoints()
 			iconFrame:ClearAllPoints()
 			iconBd:ClearAllPoints()
 
 			local iconSize = bar:GetHeight() * 2
-			iconFrame:SetSize(iconSize, iconSize)
+			iconFrame:Size(iconSize+4, iconSize+4)
 
 			if bar:GetIconPosition() == "RIGHT" then
-				statusbar:ClearAllPoints()
 				statusbar:Point("TOPRIGHT", bar, "TOPRIGHT", 0, 0)
 				statusbar:Point("BOTTOMLEFT", bar, "BOTTOMLEFT", 0, 0)
 
 				iconFrame:Point("BOTTOMLEFT", statusbar, "BOTTOMRIGHT", 4, 0)
+
 			else
-				statusbar:ClearAllPoints()
 				statusbar:Point("TOPLEFT", bar, "TOPLEFT", 0, 0)
 				statusbar:Point("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0, 0)
 
 				iconFrame:Point("BOTTOMRIGHT", statusbar, "BOTTOMLEFT", -4, 0)
 			end
-
-			bar.candyBarLabel:ClearAllPoints()
-			bar.candyBarLabel:Point("LEFT", bar, "LEFT", 2, 12)
-			bar.candyBarLabel:Point("RIGHT", bar, "RIGHT", -2, 12)
-
-			bar.candyBarDuration:ClearAllPoints()
-			bar.candyBarDuration:Point("LEFT", bar, "LEFT", 2, 12)
-			bar.candyBarDuration:Point("RIGHT", bar, "RIGHT", -2, 12)
 
 			bar:Set("bigwigs:restoreicon", true)
 			iconBd:SetTemplate("Transparent")
@@ -181,6 +185,12 @@ function mod:BigWigs()
 				iconFrame:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 			end
 		end
+
+		bar.candyBarLabel:Point("LEFT", bar, "LEFT", 2, 12)
+		bar.candyBarLabel:Point("RIGHT", bar, "RIGHT", -2, 12)
+
+		bar.candyBarDuration:Point("LEFT", bar, "LEFT", 2, 12)
+		bar.candyBarDuration:Point("RIGHT", bar, "RIGHT", -2, 12)
 	end
 
 	_G.BigWigsAPI:RegisterBarStyle(BUI.Title, {
@@ -188,7 +198,10 @@ function mod:BigWigs()
 		version = 10,
 		barSpacing = (E.PixelMode and 4 or 8) or 4,
 		barHeight = 20,
+		fontSizeNormal = 12,
+		fontSizeEmphasized = 12,
 		spellIndicatorsOffset = 30,
+		spellIndicatorsSize = 3,
 		ApplyStyle = styleBar,
 		BarStopped = removeStyle,
 		GetStyleName = function() return BUI.Title end,
@@ -199,7 +212,10 @@ function mod:BigWigs()
 		version = 10,
 		barSpacing = (E.PixelMode and 16 or 18) or 16,
 		barHeight = 12,
+		fontSizeNormal = 12,
+		fontSizeEmphasized = 12,
 		spellIndicatorsOffset = 30,
+		spellIndicatorsSize = 3,
 		ApplyStyle = styleHalfBar,
 		BarStopped = removeStyle,
 		GetStyleName = function() return BUI.Title..'Half Bar' end,
