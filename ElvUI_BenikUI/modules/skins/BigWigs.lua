@@ -2,6 +2,11 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local S = E:GetModule('Skins')
 local mod = BUI:GetModule('Skins')
 
+local _G = _G
+local pairs = pairs
+
+local C_Timer_After	= C_Timer.After
+
 function mod:BigWigs()
 	if E.db.benikui.skins.variousSkins.bigwigsSkin ~= true then return end
 
@@ -225,3 +230,35 @@ function mod:BigWigs()
 	})
 end
 S:AddCallbackForAddon("BigWigs_Plugins", "BenikUI_BigWigs", mod.BigWigs)
+
+local function SkinQueueTimer(popupFrame)
+	if not popupFrame then return end
+
+	local shadowsEnabled = (E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows)
+	for _, child in pairs({popupFrame:GetChildren()}) do
+		if child:IsObjectType("StatusBar") then
+			if not child.isSkinned then
+				S:HandleStatusBar(child)
+				child:ClearAllPoints()
+				child:Point("TOP", popupFrame, "BOTTOM", 0, shadowsEnabled and -4 or -2)
+				child:Width(popupFrame:GetWidth() -2)
+				child:Height(14)
+				child:SetStatusBarColor(1, 0.1, 0)
+				if shadowsEnabled then
+					child.backdrop:CreateSoftShadow()
+				end
+				child.isSkinned = true
+			end
+			break
+		end
+	end
+end
+
+function mod:BigWigsQueueTimer()
+	if _G.LFGDungeonReadyPopup then
+		_G.LFGDungeonReadyPopup:HookScript("OnShow", function(self)
+			C_Timer_After(0.05, function() SkinQueueTimer(self) end)
+		end)
+	end
+end
+S:AddCallback("BenikUI_BigWigsQueueTimer", mod.BigWigsQueueTimer)
