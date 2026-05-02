@@ -5,6 +5,9 @@ local mod = BUI:GetModule('Skins')
 function mod:BigWigs()
 	if E.db.benikui.skins.variousSkins.bigwigsSkin ~= true then return end
 
+	local barsPlugin = BigWigs:GetPlugin("Bars", true)
+	if not barsPlugin then return end
+
 	local function removeStyle(bar)
 		local bd = bar.candyBarBackdrop
 		bd:Hide()
