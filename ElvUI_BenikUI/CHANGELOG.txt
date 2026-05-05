@@ -1,3 +1,34 @@
+v5.14 (May 5, 2026)
+NEW: Skinned BigWigsQueueTimer
+BigWigs bars tweaks
+BigWigs: Synchronize the Half Bar option condition, in case the user changes the bar style via BigWigs options
+and the options :P
+NEW: BigWigs: Added Half bar skin and options for it
+NEW: Added BigWigs bars and updated the profile
+NEW: Added Style at the Options frame for addons that create their own (Skada, BigWigs, etc)
+NEW: Enabled BigWigs Profile. Also the addonProfiles folder now rests in the Skins folder
+Replaced the PRIVATE_RL popup string with the smaller CONFIG_RL. Easier to read :P
+FlightMode: No need to toggle the events, since a reload is needed when enabling/disabling the module
+FlightMode: CDM frames have different visibility settings. This should be the best way to toggle them. Also added another event, cause some frames (like cdm) were showing when changing Areas
+Adjusted the Weapon(s) iLevel position
+Use BUI:IsAddOnEnabled
+Game menu: Separated Adventure Guide from Journeys, which has its own button now
+NEW: Skin Kaliels Active button
+NEW: Added Skada skin and updated its profile
+Removed Recount Skin/Profile. Seems outdated
+Moved BugSack and LibDBIcon blocks to the correct file
+Removed MikScrollingBattleText Profile. The addon is outdated
+NEW: Styled /eventtrace, /fstack and /tableinspect
+Fixed the path for the Expressway font in DBM Profile, although it nags with it
+Added DBM options Skin and HalfBar
+Removed AddonSkins options
+NEW: Skins: Files and folders restructure
+Fixed KalielsTracker profile from not loading, also skinned its EditMode frame
+NEW: Added DBM Half bar skin
+Fixed DamageMeter Style
+Simplified the Tooltip Style color function
+Used ElvUI AB.MICRO_BUTTONS for proper shadows on the MicroBar
+
 v5.13 (Apr 22, 2026)
 Fixed the tooltip error
 
