@@ -53,7 +53,7 @@ local SkinsForAddons = {
 local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
 	{'BigWigs', 'BigWigs'},
-	{'DBM-Core', 'Deadly Boss Mods'},
+	--{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
 	{'ElvUI_LocPlus', 'Location Plus'},
 	{'InFlight', 'InFlight'},
@@ -154,7 +154,7 @@ local function SkinTable()
 		}
 	end
 
-	E.Options.args.benikui.args.skins.args.variousSkins.args.dbm = {
+	--[[E.Options.args.benikui.args.skins.args.variousSkins.args.dbm = {
 		order = 3,
 		type = 'group',
 		name = L['DBM'],
@@ -177,7 +177,7 @@ local function SkinTable()
 				disabled = function() return not E.db.benikui.skins.variousSkins.dbmSkin or not BUI:IsAddOnEnabled("DBM-Core") end,
 			},
 		},
-	}
+	}]]
 
 	E.Options.args.benikui.args.skins.args.variousSkins.args.bigwigs = {
 		order = 4,
@@ -251,7 +251,7 @@ local function SkinTable()
 			desc = L['This will create and apply profile for ']..addonName,
 			func = function()
 				if addon == 'DBM-Core' then
-					BUI:LoadDBMProfile()
+					--BUI:LoadDBMProfile()
 				elseif addon == 'BigWigs' then
 					BUI:LoadBigWigsProfile()
 				elseif addon == 'Details' then

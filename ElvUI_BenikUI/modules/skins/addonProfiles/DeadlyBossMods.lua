@@ -41,3 +41,10 @@ function BUI:LoadDBMProfile()
 		BUI:Print(format(BUI.profileStrings[2], L['Deadly Boss Mods']))
 	end
 end
+
+if BUI:IsAddOnEnabled('DBM-Core') then
+	local profileName = "BenikUI"..E.myname.."-"..ClearRealm
+	if DBM_AllSavedOptions[profileName] ~= nil then
+		DBM:DeleteProfile(profileName)
+	end
+end
