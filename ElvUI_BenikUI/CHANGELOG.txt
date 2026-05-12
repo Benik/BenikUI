@@ -1,3 +1,7 @@
+v5.15 (May 12, 2026)
+Disabled DBM skin and profile till I have available time to fix it. This will also delete BenikUI applied profile. DBM Default will be loaded. This will deal with ticket #81
+Styled DressUpFrame.CustomSetDetailsPanel
+
 v5.14 (May 5, 2026)
 NEW: Skinned BigWigsQueueTimer
 BigWigs bars tweaks
