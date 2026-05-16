@@ -156,7 +156,6 @@ local function SkinTable()
 
 	local ClearRealm = string.gsub(E.myrealm, "%s+", "")
 	local requiredProfile = "BenikUI"..E.myname.."-"..ClearRealm
-	--desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
 	E.Options.args.benikui.args.skins.args.variousSkins.args.dbm = {
 		order = 3,
 		type = 'group',
