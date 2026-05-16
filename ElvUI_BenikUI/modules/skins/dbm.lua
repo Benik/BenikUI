@@ -5,6 +5,8 @@ local mod = BUI:GetModule('Shadows')
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
+local ClearRealm = string.gsub(E.myrealm, "%s+", "")
+
 -------------------------------------------------------
 -- Based on Azilroka's DBM skin and Half bar feature --
 -------------------------------------------------------
@@ -17,24 +19,32 @@ function mod:DbmHalfBarSkin()
 	if not DBM then return end
 
 	local DBT = _G.DBT
+	local requiredProfile = "BenikUI"..E.myname.."-"..ClearRealm
 
 	local function SkinBars(s)
 		for bar in s:GetBarIterator() do
 			if not bar.injected then
 				hooksecurefunc(bar, "Update", function()
+					if _G.DBM_UsedProfile ~= requiredProfile then return end
+
 					local sparkEnabled = DBT.Options.Spark
 
 					if not (E.db.benikui.skins.variousSkins.dbmHalfBar and sparkEnabled) then return end
 					local spark = _G[bar.frame:GetName().."BarSpark"]
-					spark:SetSize(12, ((bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height) * 3) - 2)
+
+					local baseHeight = bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height
+					spark:SetSize(12, ((baseHeight / 2) * 3) - 2)
 
 					local a, b, c, d = spark:GetPoint()
 					spark:SetPoint(a, b, c, d, 0)
 				end)
 
 				hooksecurefunc(bar, "ApplyStyle", function()
+					if _G.DBM_UsedProfile ~= requiredProfile then return end
+
 					local frame = bar.frame
 					local isSecret = bar.isSecret
+					local tbar = _G[frame:GetName()..'Bar']
 					local icon1 = _G[frame:GetName()..'BarIcon1']
 					local icon2 = _G[frame:GetName()..'BarIcon2']
 					local jIcons = isSecret and _G[frame:GetName().."BarSJIcons"] or _G[frame:GetName().."BarIJIcons"]
@@ -46,9 +56,9 @@ function mod:DbmHalfBarSkin()
 					local iconSize = bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height
 
 					if E.db.benikui.skins.variousSkins.dbmHalfBar then
-						iconSize = iconSize * 2
+						frame:Height(iconSize / 2)
 					else
-						iconSize = iconSize
+						frame:Height(iconSize)
 					end
 
 					S:HandleIcon(icon1, true)
@@ -67,6 +77,7 @@ function mod:DbmHalfBarSkin()
 					jIcons4:SetSize(iconSize, iconSize)
 
 					frame:CreateBackdrop("Transparent")
+					tbar:SetInside(frame.backdrop)
 
 					name:ClearAllPoints()
 					name:SetJustifyH('LEFT')
@@ -107,7 +118,7 @@ function mod:DbmHalfBarSkin()
 
 	hooksecurefunc(DBT, 'CreateBar', SkinBars)
 end
---S:AddCallback("BenikUI_DbmSkin", mod.DbmHalfBarSkin)
+S:AddCallback("BenikUI_DbmSkin", mod.DbmHalfBarSkin)
 
 function mod:DbmFrames()
 	if not BUI:IsAddOnEnabled("DBM-Core") then return end
@@ -145,7 +156,7 @@ function mod:DbmFrames()
 	hooksecurefunc(DBM.RangeCheck, 'Show', StyleRangeFrame)
 	hooksecurefunc(DBM.InfoFrame, 'Show', StyleInfoFrame)
 end
---S:AddCallback("BenikUI_DbmFrames", mod.DbmFrames)
+S:AddCallback("BenikUI_DbmFrames", mod.DbmFrames)
 
 local function DBM_Options()
 	local DBM_GUI_OptionsFrame = _G.DBM_GUI_OptionsFrame
@@ -167,4 +178,4 @@ function mod:LoadDBMOptions()
 		end
 	end)
 end
---S:AddCallback("BenikUI_DbmOptions", mod.LoadDBMOptions)
+S:AddCallback("BenikUI_DbmOptions", mod.LoadDBMOptions)

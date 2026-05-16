@@ -1991,8 +1991,8 @@ local function SetupAddons()
 
 	-- DBM
 	if BUI:IsAddOnEnabled('DBM-Core') then
-		--BUI:LoadDBMProfile()
-		--tinsert(addonNames, 'Deadly Boss Mods')
+		BUI:LoadDBMProfile()
+		tinsert(addonNames, 'Deadly Boss Mods')
 	end
 
 	-- Details

@@ -24,11 +24,12 @@ function BUI:LoadDBMProfile()
 		DBT_AllPersistentOptions[profileName]["DBM"]["FontFlag"] = "OUTLINE"
 		DBT_AllPersistentOptions[profileName]["DBM"]["HugeScale"] = 1
 		DBT_AllPersistentOptions[profileName]["DBM"]["Font"] = font
-		DBT_AllPersistentOptions[profileName]["DBM"]["BarYOffset"] = 25
-		DBT_AllPersistentOptions[profileName]["DBM"]["HugeBarYOffset"] = 25
+		DBT_AllPersistentOptions[profileName]["DBM"]["BarYOffset"] = 6
+		DBT_AllPersistentOptions[profileName]["DBM"]["HugeBarYOffset"] = 6
 		DBT_AllPersistentOptions[profileName]["DBM"]["Height"] = 16
 		DBT_AllPersistentOptions[profileName]["DBM"]["Width"] = 220
 		DBT_AllPersistentOptions[profileName]["DBM"]["HugeWidth"] = 220
+		DBT_AllPersistentOptions[profileName]["DBM"]["HugeHeight"] = 20
 		DBM_AllSavedOptions[profileName]["WarningFont"] = font
 		DBM_AllSavedOptions[profileName]["SpecialWarningFont"] = font
 		DBM_AllSavedOptions[profileName]["InfoFrameFont"] = font
@@ -39,12 +40,5 @@ function BUI:LoadDBMProfile()
 		end
 	else
 		BUI:Print(format(BUI.profileStrings[2], L['Deadly Boss Mods']))
-	end
-end
-
-if BUI:IsAddOnEnabled('DBM-Core') then
-	local profileName = "BenikUI"..E.myname.."-"..ClearRealm
-	if DBM_AllSavedOptions[profileName] ~= nil then
-		DBM:DeleteProfile(profileName)
 	end
 end
