@@ -60,6 +60,9 @@ L['Type a unique name for the new panel. \n|cff00c0faNote: "BenikUI_" will be ad
 L['Successfully created and applied profile(s) for |cffffff00%s|r'] = 'Perfis para |cffffff00%s|r criados e aplicados com sucesso' -- %s is the addon name
 L['|cffffff00%s|r profile for this character already exists. Aborting.'] = 'Perfil |cffffff00%s|r para este personagem já existe. Abortando.' -- %s is the addon name
 
+-- Skins
+L['|cff00c0faNote:|r The Skin and the Half Bar options will not apply if |cffffa500%s|r DBM profile is not selected in DBM options.'] = true
+
 -- Misc
 L['Shown Logo'] = "Mostrar Logo"
 L['iLevel'] = "iLevel"

@@ -154,6 +154,9 @@ local function SkinTable()
 		}
 	end
 
+	local ClearRealm = string.gsub(E.myrealm, "%s+", "")
+	local requiredProfile = "BenikUI"..E.myname.."-"..ClearRealm
+	--desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
 	E.Options.args.benikui.args.skins.args.variousSkins.args.dbm = {
 		order = 3,
 		type = 'group',
@@ -165,6 +168,7 @@ local function SkinTable()
 				order = 1,
 				type = 'toggle',
 				name = L['Skin'],
+				desc = format(L['|cff00c0faNote:|r The Skin and the Half Bar options will not apply if |cffffa500%s|r DBM profile is not selected in DBM options.'], requiredProfile),
 				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
 				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
 			},
