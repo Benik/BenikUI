@@ -48,6 +48,7 @@ local SkinsForAddons = {
 	{'MinimapButtonButton', L['MinimapButtonButton'], 'minimapbb'},
 	{'Skada', L['Skada'], 'skada'},
 	{'BugSack', L['BugSack'], 'bugSack'},
+	{'ClassCodex', L['ClassCodex'], 'classCodex'},
 }
 
 local SupportedProfiles = {
