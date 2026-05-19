@@ -49,6 +49,7 @@ local SkinsForAddons = {
 	{'Skada', L['Skada'], 'skada'},
 	{'BugSack', L['BugSack'], 'bugSack'},
 	{'ClassCodex', L['ClassCodex'], 'classCodex'},
+	{'RareScanner', L['RareScanner'], 'rareScanner'},
 }
 
 local SupportedProfiles = {

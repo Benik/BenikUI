@@ -9,6 +9,7 @@
 	<script file="InFlight.lua"/>
 	<script file="KalielsTracker.lua"/>
 	<script file="MinimapButtonButton.lua"/>
+	<script file="RareScanner.lua"/>
 	<script file="Skada.lua"/>
 	<script file="TomTom.lua"/>
 </Ui>

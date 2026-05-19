@@ -247,7 +247,8 @@ P['benikui'] = {
 			['baganator'] = true,
 			['bigwigsSkin'] = true,
 			['bigwigsHalfBar'] = true,
-			['classCodex'] = true
+			['classCodex'] = true,
+			['rareScanner'] = true,
 		},
 	},
 
