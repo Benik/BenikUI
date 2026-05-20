@@ -82,7 +82,9 @@ local function RareScanner()
 
 	for _, tt in next, Tooltips do
 		if tt then
-			tt:BuiStyle()
+			tt:HookScript("OnShow", function(self)
+				self:BuiStyle()
+			end)
 		end
 	end
 
@@ -122,16 +124,12 @@ local function RareScanner()
 	S:HandleFrame(RareScanner)
 	RareScanner:BuiStyle()
 
-	local LootBar = _G.LootBar
-	LootBar:SetTemplate("Transparent")
-
-	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
-		LootBar:CreateSoftShadow()
-	end
-
 	hooksecurefunc(RareScanner.LootBar.itemFramesPool, "Acquire", function(pool)
 		for itemFrame in pool:EnumerateActive() do
 			S:HandleIcon(itemFrame.Icon)
+			if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+				itemFrame:CreateSoftShadow()
+			end
 		end
 	end)
 end
