@@ -2,6 +2,7 @@ local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local S = E:GetModule('Skins')
 
 local _G = _G
+local next = next
 local ipairs = ipairs
 
 local C_Timer_After = C_Timer.After
@@ -72,8 +73,8 @@ local function ClassCodex()
 			if child.IsObjectType and child:IsObjectType("Button") then
 				child:SetTemplate("Transparent")
 				child:Size(24)
-				if child.border then print("hasborder") end
 				S:HandleIcon(child.icon, false)
+
 				if shadowsEnabled then
 					child:CreateSoftShadow()
 				end
