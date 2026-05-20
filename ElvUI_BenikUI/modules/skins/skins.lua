@@ -80,46 +80,6 @@ local function Style_SetButtonColor(_, btn, disabled)
 	end
 end
 
-local function LibDBIcon()
-	if BUI:IsAddOnEnabled('TipTac') then return end
-
-	local DBIcon = LibStub("LibDBIcon-1.0", true)
-	if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType('GameTooltip') then
-		DBIcon.tooltip:HookScript("OnShow", function(self)
-			if not self.style then
-				self:BuiStyle()
-			end
-		end)
-	end
-end
-S:AddCallback("BenikUI_LibDBIcon", LibDBIcon)
-
-local isHooked = {}
-function mod:HookAceGUI()
-	local AceGUI, minorVersion = LibStub("AceGUI-3.0", true)
-
-	if AceGUI and minorVersion and not isHooked[minorVersion] then
-		hooksecurefunc(AceGUI, "RegisterAsContainer", function(_, widget)
-			if widget.type == "Frame" or widget.type == "Window" then
-				if widget and not widget.isStyled then
-					if widget.frame then
-						widget.frame:BuiStyle()
-						widget.isStyled = true
-					end
-				end
-			end
-		end)
-
-		isHooked[minorVersion] = true
-	end
-end
-
-function mod:AceGUI()
-	mod:HookAceGUI()
-	mod:RegisterEvent("ADDON_LOADED", "HookAceGUI")
-end
-S:AddCallback("BenikUI_AceGUI", mod.AceGUI)
-
 function mod:Initialize()
 	if E.db.benikui.skins.elvuiAddons.elv ~= true then return end
 	hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)

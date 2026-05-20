@@ -6,6 +6,7 @@
 	<script file="blizzard_lod.lua"/>
 	<script file="alerts.lua"/>
 	<script file="elvuiPlugins.lua"/>
+	<script file="libraries.lua"/>
 	<script file="options.lua"/>
 	<Include file="addons\load_addons.xml"/>
 	<Include file="addonProfiles\load_addonProfiles.xml"/>
