@@ -1,35 +1,13 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local S = E:GetModule('Skins')
 
+local next = next
+local ipairs = ipairs
 local hooksecurefunc = hooksecurefunc
-
-local C_Timer_After = C_Timer.After
 
 local function RareScanner()
 	if not (BUI:IsAddOnEnabled('RareScanner') and E.db.benikui.skins.variousSkins.rareScanner) then return end
 
-	local RareScanner = _G.RARESCANNER_BUTTON
-	if not RareScanner then return end
-
-	S:HandleFrame(RareScanner)
-	RareScanner:BuiStyle()
-
-	local LootBar = _G.LootBar
-	LootBar:SetTemplate("Transparent")
-
-	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
-		LootBar:CreateSoftShadow()
-	end
-
-	_G.LootBarToolTip:BuiStyle()
-
-	hooksecurefunc(RareScanner.LootBar.itemFramesPool, "Acquire", function(pool)
-		for itemFrame in pool:EnumerateActive() do
-			S:HandleIcon(itemFrame.Icon)
-		end
-	end)
-
-	-- Options
 	local RSExplorerFrame = _G.RSExplorerFrame
 	if not RSExplorerFrame then return end
 
@@ -87,5 +65,74 @@ local function RareScanner()
 		customLootFrame.isSkinned = true
 	end)
 
+	local Tooltips = {
+		_G.LootBarToolTip,
+		_G.StopTooltip,
+		_G.GoTooltip,
+		_G.RSMapItemToolTip,
+		_G.RSMapItemToolTipComp1,
+		_G.RSMapItemToolTipComp2,
+		_G.RSMapInfoToolTip,
+		_G.RSShoppingTooltip1,
+		_G.RSShoppingTooltip2,
+		_G.RareScanner_AddonCompartimentTooltip,
+		_G.RSGameTooltip,
+		_G.ExplorerTooltip,
+	}
+
+	for _, tt in next, Tooltips do
+		if tt then
+			tt:BuiStyle()
+		end
+	end
+
+	-- Skin the WorldMap EditBox by searching for its position
+	local editBoxSkinned = false
+
+	_G.WorldMapFrame:HookScript("OnShow", function(self)
+		if editBoxSkinned then return end
+
+		local canvasContainer = self:GetCanvasContainer()
+		if not canvasContainer then return end
+
+		for _, child in ipairs({self:GetChildren()}) do
+			if not child:GetName() and child:GetNumPoints() > 0 then
+				local point, relativeTo, relativePoint = child:GetPoint(1)
+				if point == "CENTER" and relativeTo == canvasContainer and relativePoint == "TOP" then
+					for _, subChild in ipairs({child:GetChildren()}) do
+						if subChild:IsObjectType("EditBox") then
+							subChild:StripTextures()
+							S:HandleEditBox(subChild)
+							subChild.backdrop:SetBackdropBorderColor(0.5, 0.5, 0.5, 1) -- grey border
+							subChild:Height(20)
+
+							editBoxSkinned = true
+							return
+						end
+					end
+				end
+			end
+		end
+	end)
+
+	-- Rare Popup Frame
+	local RareScanner = _G.RARESCANNER_BUTTON
+	if not RareScanner then return end
+
+	S:HandleFrame(RareScanner)
+	RareScanner:BuiStyle()
+
+	local LootBar = _G.LootBar
+	LootBar:SetTemplate("Transparent")
+
+	if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
+		LootBar:CreateSoftShadow()
+	end
+
+	hooksecurefunc(RareScanner.LootBar.itemFramesPool, "Acquire", function(pool)
+		for itemFrame in pool:EnumerateActive() do
+			S:HandleIcon(itemFrame.Icon)
+		end
+	end)
 end
 S:AddCallback("BenikUI_RareScanner", RareScanner)
