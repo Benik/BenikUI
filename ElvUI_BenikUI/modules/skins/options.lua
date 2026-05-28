@@ -50,6 +50,7 @@ local SkinsForAddons = {
 	{'BugSack', L['BugSack'], 'bugSack'},
 	{'ClassCodex', L['ClassCodex'], 'classCodex'},
 	{'RareScanner', L['RareScanner'], 'rareScanner'},
+	{'Immersion', L['Immersion'], 'immersion'},
 }
 
 local SupportedProfiles = {

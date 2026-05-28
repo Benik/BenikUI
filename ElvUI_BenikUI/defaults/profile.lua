@@ -249,6 +249,7 @@ P['benikui'] = {
 			['bigwigsHalfBar'] = true,
 			['classCodex'] = true,
 			['rareScanner'] = true,
+			['immersion'] = true,
 		},
 	},
 

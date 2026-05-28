@@ -6,6 +6,7 @@
 	<script file="ClassCodex.lua"/>
 	<script file="CooldownManager.lua"/>
 	<script file="DeadlyBossMods.lua"/>
+	<script file="Immersion.lua"/>
 	<script file="InFlight.lua"/>
 	<script file="KalielsTracker.lua"/>
 	<script file="MinimapButtonButton.lua"/>
