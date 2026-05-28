@@ -132,5 +132,14 @@ local function RareScanner()
 			end
 		end
 	end)
+
+	if not E.db.benikui.general.benikuiStyle then return end
+
+	RareScanner:HookScript("OnEnter", function(self)
+		self.style:SetBackdropBorderColor(0.9, 0.9, 0.9)
+	end)
+	RareScanner:HookScript("OnLeave", function(self)
+		self.style:SetBackdropBorderColor(0, 0, 0)
+	end)
 end
 S:AddCallback("BenikUI_RareScanner", RareScanner)
