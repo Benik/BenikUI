@@ -1,9 +1,9 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local mod = BUI:GetModule('Skins')
 local S = E:GetModule('Skins')
 
 local hooksecurefunc = hooksecurefunc
 local pairs = pairs
+local ipairs = ipairs
 
 local function Immersion()
 	if not (BUI:IsAddOnEnabled('Immersion') and E.db.benikui.skins.variousSkins.immersion) then return end
