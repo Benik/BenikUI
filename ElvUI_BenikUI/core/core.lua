@@ -131,7 +131,7 @@ function BUI:UpdateStyleColors()
 			BUI["styles"][frame] = nil
 		end
 	end
-	BTT:CheckTooltipStyleColor()
+
 	BTT:RecolorTooltipStyle()
 end
 
