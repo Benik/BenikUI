@@ -254,24 +254,24 @@ local function UpdateSystemOptions()
 	}
 end
 
-local localePatterns = {
-	enUS = "^Season%s+%d+$",
-	enGB = "^Season%s+%d+$",
-	deDE = "^Saison%s+%d+$",
-	frFR = "^Saison%s+%d+$",
-	esES = "^Temporada%s+%d+$",
-	esMX = "^Temporada%s+%d+$",
-	ptBR = "^Temporada%s+%d+$",
-	itIT = "^Stagione%s+%d+$",
-	ruRU = "^Сезон%s+%d+$",
-	koKR = "^%d+시즌$",
-	zhCN = "^第%d+赛季$",
-	zhTW = "^第%d+賽季$",
+local seasonLocalePatterns = {
+	enUS = "^Season[^%d]+%d+$",		-- Matches "Season 1" ok
+	enGB = "^Season[^%d]+%d+$",
+	deDE = "^Saison[^%d]+%d+$",		-- Matches "Saison 1" ok
+	frFR = "^Saison[^%d]+%d+$",		-- Matches "Saison 1" (handles French non-breaking spaces) ok
+	esES = "^Temporada[^%d]+%d+$",	-- Matches "Temporada 1" ok
+	esMX = "^Temporada[^%d]+%d+$",
+	ptBR = "^Temporada[^%d]+%d+$",
+	itIT = "^Stagione[^%d]+%d+$",	-- Matches "Stagione 1" ok
+	ruRU = "^%d+[^%d]+сезон$",		-- Matches "1-й сезон" ok
+	koKR = "^%d+시즌$",				-- Matches "1시즌" (no spaces)
+	zhCN = "^第%d+赛季$",			-- Matches "第1赛季" (no spaces)
+	zhTW = "^第%d+賽季$",			-- Matches "第1賽季" (no spaces)
 }
 
 local currentLocale = GetLocale()
 local englishPattern = "^Season%s+%d+$"
-local localizedPattern = localePatterns[currentLocale] or englishPattern
+local localizedPattern = seasonLocalePatterns[currentLocale] or englishPattern
 
 local function isSeasonHeader(name)
 	if type(name) ~= "string" then return false end
@@ -279,8 +279,32 @@ local function isSeasonHeader(name)
 	return name:match(localizedPattern) ~= nil or name:match(englishPattern) ~= nil
 end
 
+local legacyTranslations = {
+	["Legacy"] = true,
+	["Vermächtnis"] = true,			-- German tested ok
+	["Héritage"] = true,			-- French tested ok
+	["Legado"] = true,				-- Spanish / Portuguese tested ok
+	["Oggetto del passato"] = true,	-- Italian tested ok
+	["Классические"] = true,		-- Russian tested ok
+	["유산"] = true,				-- Korean
+	["旧世"] = true,				-- Simplified Chinese
+	["舊世"] = true,				-- Traditional Chinese
+}
+
 local function isLegacyHeader(name)
-	return type(LFG_LIST_LEGACY) == "string" and name == LFG_LIST_LEGACY
+	if type(name) ~= "string" then return false end
+
+	if legacyTranslations[name] or legacyTranslations[name:lower()] then
+		return true
+	end
+
+	local globalString = LFG_LIST_LEGACY
+
+	if type(globalString) == "string" and name == globalString then
+		return true
+	end
+
+	return false
 end
 
 local function UpdateTokenOptions()
