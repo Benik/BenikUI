@@ -22,6 +22,7 @@ local REPUTATION = REPUTATION
 local TOKENS = TOKENS
 local TRADE_SKILLS = TRADE_SKILLS
 local DESCRIPTION = DESCRIPTION
+local OTHER = OTHER
 
 local iconOrientationValues = {
 	['LEFT'] = L['Left'],
@@ -253,8 +254,29 @@ local function UpdateSystemOptions()
 	}
 end
 
+local localePatterns = {
+	enUS = "^Season%s+%d+$",
+	enGB = "^Season%s+%d+$",
+	deDE = "^Saison%s+%d+$",
+	frFR = "^Saison%s+%d+$",
+	esES = "^Temporada%s+%d+$",
+	esMX = "^Temporada%s+%d+$",
+	ptBR = "^Temporada%s+%d+$",
+	itIT = "^Stagione%s+%d+$",
+	ruRU = "^Сезон%s+%d+$",
+	koKR = "^%d+시즌$",
+	zhCN = "^第%d+赛季$",
+	zhTW = "^第%d+賽季$",
+}
+
+local currentLocale = GetLocale()
+local englishPattern = "^Season%s+%d+$"
+local localizedPattern = localePatterns[currentLocale] or englishPattern
+
 local function isSeasonHeader(name)
-	return type(name) == "string" and name:match("^Season%s+%d+$") ~= nil
+	if type(name) ~= "string" then return false end
+
+	return name:match(localizedPattern) ~= nil or name:match(englishPattern) ~= nil
 end
 
 local function isLegacyHeader(name)
@@ -272,35 +294,50 @@ local function UpdateTokenOptions()
 
 	local foldHeaderTo = {}
 	local lastRealHeaderIndex
+	local hasSeasons = {}
+	local seasonParent = {}
 
 	for i, row in ipairs(mod.CurrencyList) do
 		local name = row[1]
 
-		if not row[2] then
+		if not row[2] then -- It's a header
 			if isLegacyHeader(name) then
 				-- do nothing and get rid of Legacy Header
 			elseif isSeasonHeader(name) then
 				if lastRealHeaderIndex then
-					foldHeaderTo[i] = lastRealHeaderIndex
+					hasSeasons[lastRealHeaderIndex] = true
+					seasonParent[i] = lastRealHeaderIndex
+
+					local parentGroup = config.args[tostring(lastRealHeaderIndex)]
+					if parentGroup then
+						parentGroup.args[tostring(i)] = {
+							order = optionOrder + i, -- Lower order to display first
+							type = "group",
+							guiInline = true,
+							name = name,
+							disabled = function() return not db.enable end,
+							args = {},
+						}
+					end
+					foldHeaderTo[i] = i
 				else
 					config.args[tostring(i)] = {
 						order = optionOrder + i,
 						type = "group",
 						name = name,
 						disabled = function() return not db.enable end,
-						args = {
-						},
+						args = {},
 					}
 					lastRealHeaderIndex = i
 				end
 			else
+				-- main expansion group
 				config.args[tostring(i)] = {
 					order = optionOrder + i,
 					type = "group",
 					name = name,
 					disabled = function() return not db.enable end,
-					args = {
-					},
+					args = {},
 				}
 				lastRealHeaderIndex = i
 			end
@@ -314,11 +351,44 @@ local function UpdateTokenOptions()
 		if parentHeaderIndex and id then
 			parentHeaderIndex = foldHeaderTo[parentHeaderIndex] or parentHeaderIndex
 
-			local parentGroup = config.args[tostring(parentHeaderIndex)]
-			if parentGroup then
+			local targetArgs = nil
+			local mainHeaderIndex = seasonParent[parentHeaderIndex]
+
+			if mainHeaderIndex then
+				local mainGroup = config.args[tostring(mainHeaderIndex)]
+				local seasonGroup = mainGroup and mainGroup.args[tostring(parentHeaderIndex)]
+				if seasonGroup then
+					targetArgs = seasonGroup.args
+				end
+			else
+				if hasSeasons[parentHeaderIndex] then
+					local mainGroup = config.args[tostring(parentHeaderIndex)]
+					if mainGroup then
+						local otherKey = "other_" .. tostring(parentHeaderIndex)
+						if not mainGroup.args[otherKey] then
+							mainGroup.args[otherKey] = {
+								order = optionOrder + 100, -- Place "Other" after all seasons
+								type = "group",
+								guiInline = true,
+								name = OTHER,
+								disabled = function() return not db.enable end,
+								args = {},
+							}
+						end
+						targetArgs = mainGroup.args[otherKey].args
+					end
+				else
+					local parentGroup = config.args[tostring(parentHeaderIndex)]
+					if parentGroup then
+						targetArgs = parentGroup.args
+					end
+				end
+			end
+
+			if targetArgs then
 				local name, amount, icon, _, _, _, _, _, _, _, description = mod:GetTokenInfo(id)
 				if name then
-					parentGroup.args[tostring(i)] = {
+					targetArgs[tostring(i)] = {
 						order = optionOrder + 2,
 						type = "toggle",
 						name = (icon and "|T"..icon..":18|t "..name) or name,
