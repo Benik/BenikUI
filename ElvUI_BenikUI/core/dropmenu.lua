@@ -73,6 +73,12 @@ BUI.MenuList = {
 	end},
 	{text = _G.HELP_BUTTON, func = function() ToggleHelpFrame() end},
 	{text = _G.HOUSING_MICRO_BUTTON, func = function() _G.HousingFramesUtil.ToggleHousingDashboard() end},
+	{text = _G.GREAT_VAULT_REWARDS, func = function()
+			if not IsAddOnLoaded('Blizzard_WeeklyRewards') then
+				WeeklyRewards_LoadUI()
+			end
+			WeeklyRewards_ShowUI()
+	end},
 }
 
 local function sortFunction(a, b)
