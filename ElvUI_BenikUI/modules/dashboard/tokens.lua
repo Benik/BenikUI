@@ -84,10 +84,8 @@ local function barOnLeave(self)
 	local db = E.db.benikui.dashboards
 	local displayString
 
-	if self.capped and self.capValue > 0 then
+	if self.capValue > 0 then
 		displayString = format('%s / %s', BreakUpLargeNumbers(self.progress), BreakUpLargeNumbers(self.capValue))
-	elseif self.capValue > 0 then
-		displayString = format('%s / %s', BreakUpLargeNumbers(self.amount), BreakUpLargeNumbers(self.capValue))
 	else
 		displayString = format('%s', BreakUpLargeNumbers(self.amount))
 	end
@@ -183,10 +181,8 @@ function mod:UpdateTokens()
 							progress = trackedQuantity
 						end
 
-						if capped and capValue > 0 then
+						if capValue > 0 then
 							displayString = format('%s / %s', BreakUpLargeNumbers(progress), BreakUpLargeNumbers(capValue))
-						elseif capValue > 0 then
-							displayString = format('%s / %s', BreakUpLargeNumbers(amount), BreakUpLargeNumbers(capValue))
 						else
 							displayString = format('%s', BreakUpLargeNumbers(amount))
 						end
@@ -194,7 +190,7 @@ function mod:UpdateTokens()
 						BarMaxValue = (capValue > 0) and capValue or ((progress > 0) and progress or (amount > 0 and amount or 1))
 
 						bar.Status:SetMinMaxValues(0, BarMaxValue)
-						bar.Status:SetValue(amount)
+						bar.Status:SetValue(progress)
 						bar.Status:SetStatusBarColor(BarColor.r, BarColor.g, BarColor.b)
 
 						if capped then
