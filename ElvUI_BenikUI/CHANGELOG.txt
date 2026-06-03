@@ -1,3 +1,23 @@
+v5.16 (Jun 3, 2026)
+Tokens Dashboard: If displaying the weekly cap, we must show weekly progress (even if it is 0)
+Prevent a tooltip style error during install
+NEW: Added "Great Vault Rewards" in the Game Menu button
+Tokens Dashboard: Use 'progress' instead of 'amount' when displaying a capped currency
+Tokens Dashboard options: Fixed the "Season 1" pattern and added "Legacy" translations to get rid of the empty Legacy category option on non English clients. Both haven't been tested on koKR, zhCN and zhTW
+Tokens Dashboard options: Split Season 1 and Other currencies into separate groups by hardcoding the "Season 1" locale, so it also works for non English clients
+Immersion Skin: Added back the default blue "Hilite" appearance, fixed button spacing when shadows enabled and added some guard flags
+RareScanner: Follow the button OnEnter border color
+NEW: Added Immersion Skin
+Fixed RareScanner LootBar icons
+ClassCodex Skin: removed test prints leftovers
+RareScanner: Skin the tooltips and the WorldMap EditBox
+Libraries Skins have now their own file
+NEW: Added skin for RareScanner
+Each Addon Skin now has its own file
+NEW: Added ClassCodex skin
+Added a description in DBM Skin option regarding the required profile #81
+Fixed the halfbar logic by cutting the bar in half, rather than doubling the icon size. Also, the skin will not apply if BenikUI profile isn't the DBM selected one. This should make #81 happy
+
 v5.15 (May 12, 2026)
 Disabled DBM skin and profile till I have available time to fix it. This will also delete BenikUI applied profile. DBM Default will be loaded. This will deal with ticket #81
 Styled DressUpFrame.CustomSetDetailsPanel
