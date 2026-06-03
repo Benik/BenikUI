@@ -23,7 +23,7 @@ local function abTable()
 				type = 'toggle',
 				name = L['Request Stop button'],
 				get = function(info) return E.db.benikui.actionbars[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.actionbars[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+				set = function(info, value) E.db.benikui.actionbars[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
 			},
 		},
 	}

@@ -191,7 +191,10 @@ local function VehicleExit()
 
 		f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
 		f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
-		f.backdrop:CreateSoftShadow()
+
+		if E.db.benikui.general.shadows then
+			f.backdrop:CreateSoftShadow()
+		end
 	end
 end
 

@@ -22,6 +22,7 @@ local REPUTATION = REPUTATION
 local TOKENS = TOKENS
 local TRADE_SKILLS = TRADE_SKILLS
 local DESCRIPTION = DESCRIPTION
+local OTHER = OTHER
 
 local iconOrientationValues = {
 	['LEFT'] = L['Left'],
@@ -170,7 +171,7 @@ local function BuildLayoutGroup(key, dashboardFrame, updateFunc, dashboardDB, ha
 			name = L['Value Color'],
 			type = 'toggle',
 			get = function(info) return db[key][ info[#info] ] end,
-			set = function(info, value) db[key][ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL') end,
+			set = function(info, value) db[key][ info[#info] ] = value E:StaticPopup_Show('CONFIG_RL') end,
 		}
 	end
 
@@ -235,7 +236,7 @@ local function UpdateSystemOptions()
 			name = boardname,
 			desc = L['Enable/Disable ']..boardname,
 			get = function() return db.chooseSystem[boardname] end,
-			set = function(_, value) db.chooseSystem[boardname] = value E:StaticPopup_Show('PRIVATE_RL') end,
+			set = function(_, value) db.chooseSystem[boardname] = value E:StaticPopup_Show('CONFIG_RL') end,
 		}
 	end
 
@@ -249,16 +250,61 @@ local function UpdateSystemOptions()
 		},
 		disabled = function() return not db.chooseSystem.MS end,
 		get = function() return db.latency end,
-		set = function(_, value) db.latency = value E:StaticPopup_Show('PRIVATE_RL') end,
+		set = function(_, value) db.latency = value E:StaticPopup_Show('CONFIG_RL') end,
 	}
 end
 
+local seasonLocalePatterns = {
+	enUS = "^Season[^%d]+%d+$",		-- Matches "Season 1" ok
+	enGB = "^Season[^%d]+%d+$",
+	deDE = "^Saison[^%d]+%d+$",		-- Matches "Saison 1" ok
+	frFR = "^Saison[^%d]+%d+$",		-- Matches "Saison 1" (handles French non-breaking spaces) ok
+	esES = "^Temporada[^%d]+%d+$",	-- Matches "Temporada 1" ok
+	esMX = "^Temporada[^%d]+%d+$",
+	ptBR = "^Temporada[^%d]+%d+$",
+	itIT = "^Stagione[^%d]+%d+$",	-- Matches "Stagione 1" ok
+	ruRU = "^%d+[^%d]+сезон$",		-- Matches "1-й сезон" ok
+	koKR = "^%d+시즌$",				-- Matches "1시즌" (no spaces)
+	zhCN = "^第%d+赛季$",			-- Matches "第1赛季" (no spaces)
+	zhTW = "^第%d+賽季$",			-- Matches "第1賽季" (no spaces)
+}
+
+local currentLocale = GetLocale()
+local englishPattern = "^Season%s+%d+$"
+local localizedPattern = seasonLocalePatterns[currentLocale] or englishPattern
+
 local function isSeasonHeader(name)
-	return type(name) == "string" and name:match("^Season%s+%d+$") ~= nil
+	if type(name) ~= "string" then return false end
+
+	return name:match(localizedPattern) ~= nil or name:match(englishPattern) ~= nil
 end
 
+local legacyTranslations = {
+	["Legacy"] = true,
+	["Vermächtnis"] = true,			-- German tested ok
+	["Héritage"] = true,			-- French tested ok
+	["Legado"] = true,				-- Spanish / Portuguese tested ok
+	["Oggetto del passato"] = true,	-- Italian tested ok
+	["Классические"] = true,		-- Russian tested ok
+	["유산"] = true,				-- Korean
+	["旧世"] = true,				-- Simplified Chinese
+	["舊世"] = true,				-- Traditional Chinese
+}
+
 local function isLegacyHeader(name)
-	return type(LFG_LIST_LEGACY) == "string" and name == LFG_LIST_LEGACY
+	if type(name) ~= "string" then return false end
+
+	if legacyTranslations[name] or legacyTranslations[name:lower()] then
+		return true
+	end
+
+	local globalString = LFG_LIST_LEGACY
+
+	if type(globalString) == "string" and name == globalString then
+		return true
+	end
+
+	return false
 end
 
 local function UpdateTokenOptions()
@@ -272,35 +318,50 @@ local function UpdateTokenOptions()
 
 	local foldHeaderTo = {}
 	local lastRealHeaderIndex
+	local hasSeasons = {}
+	local seasonParent = {}
 
 	for i, row in ipairs(mod.CurrencyList) do
 		local name = row[1]
 
-		if not row[2] then
+		if not row[2] then -- It's a header
 			if isLegacyHeader(name) then
 				-- do nothing and get rid of Legacy Header
 			elseif isSeasonHeader(name) then
 				if lastRealHeaderIndex then
-					foldHeaderTo[i] = lastRealHeaderIndex
+					hasSeasons[lastRealHeaderIndex] = true
+					seasonParent[i] = lastRealHeaderIndex
+
+					local parentGroup = config.args[tostring(lastRealHeaderIndex)]
+					if parentGroup then
+						parentGroup.args[tostring(i)] = {
+							order = optionOrder + i, -- Lower order to display first
+							type = "group",
+							guiInline = true,
+							name = name,
+							disabled = function() return not db.enable end,
+							args = {},
+						}
+					end
+					foldHeaderTo[i] = i
 				else
 					config.args[tostring(i)] = {
 						order = optionOrder + i,
 						type = "group",
 						name = name,
 						disabled = function() return not db.enable end,
-						args = {
-						},
+						args = {},
 					}
 					lastRealHeaderIndex = i
 				end
 			else
+				-- main expansion group
 				config.args[tostring(i)] = {
 					order = optionOrder + i,
 					type = "group",
 					name = name,
 					disabled = function() return not db.enable end,
-					args = {
-					},
+					args = {},
 				}
 				lastRealHeaderIndex = i
 			end
@@ -314,11 +375,44 @@ local function UpdateTokenOptions()
 		if parentHeaderIndex and id then
 			parentHeaderIndex = foldHeaderTo[parentHeaderIndex] or parentHeaderIndex
 
-			local parentGroup = config.args[tostring(parentHeaderIndex)]
-			if parentGroup then
+			local targetArgs = nil
+			local mainHeaderIndex = seasonParent[parentHeaderIndex]
+
+			if mainHeaderIndex then
+				local mainGroup = config.args[tostring(mainHeaderIndex)]
+				local seasonGroup = mainGroup and mainGroup.args[tostring(parentHeaderIndex)]
+				if seasonGroup then
+					targetArgs = seasonGroup.args
+				end
+			else
+				if hasSeasons[parentHeaderIndex] then
+					local mainGroup = config.args[tostring(parentHeaderIndex)]
+					if mainGroup then
+						local otherKey = "other_" .. tostring(parentHeaderIndex)
+						if not mainGroup.args[otherKey] then
+							mainGroup.args[otherKey] = {
+								order = optionOrder + 100, -- Place "Other" after all seasons
+								type = "group",
+								guiInline = true,
+								name = OTHER,
+								disabled = function() return not db.enable end,
+								args = {},
+							}
+						end
+						targetArgs = mainGroup.args[otherKey].args
+					end
+				else
+					local parentGroup = config.args[tostring(parentHeaderIndex)]
+					if parentGroup then
+						targetArgs = parentGroup.args
+					end
+				end
+			end
+
+			if targetArgs then
 				local name, amount, icon, _, _, _, _, _, _, _, description = mod:GetTokenInfo(id)
 				if name then
-					parentGroup.args[tostring(i)] = {
+					targetArgs[tostring(i)] = {
 						order = optionOrder + 2,
 						type = "toggle",
 						name = (icon and "|T"..icon..":18|t "..name) or name,
@@ -661,7 +755,7 @@ local function dashboardsTable()
 						width = 'full',
 						desc = L['Enable the System Dashboard.'],
 						get = function(info) return db.system.enable end,
-						set = function(info, value) db.system.enable = value E:StaticPopup_Show('PRIVATE_RL') end,
+						set = function(info, value) db.system.enable = value E:StaticPopup_Show('CONFIG_RL') end,
 					},
 					select = {
 						order = 10,

@@ -4,7 +4,9 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local tinsert, format = table.insert, string.format
 local ipairs, unpack = ipairs, unpack
 
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local LoadAddOn = C_AddOns.LoadAddOn
+
 local ADDONS = ADDONS
 local OBJECTIVES_TRACKER_LABEL = OBJECTIVES_TRACKER_LABEL
 
@@ -17,19 +19,18 @@ local DecorElvUIAddons = {
 }
 
 local DecorAddonSkins = {
-	{'Skada', L['Skada'], 'skada'},
-	{'Recount', L['Recount'], 'recount'},
+	
 	{'TinyDPS', L['TinyDPS'], 'tinydps'},
 	{'AtlasLoot', L['AtlasLoot'], 'atlasloot'},
 	{'Altoholic', L['Altoholic'], 'altoholic'},
 	{'Clique', L['Clique'], 'clique'},
 	{'oRA3', L['oRA3'], 'ora'},
 	{'Pawn', L['Pawn'], 'pawn'},
-	{'DBM-Core', L['Deadly Boss Mods'], 'dbm'},
+
 	{'BigWigs', L['BigWigs'], 'bigwigs'},
 	{'ZygorGuidesViewer', L['Zygor Guides'], 'zygor'},
 	{'Immersion', L['Immersion'], 'immersion'},
-	{'AllTheThings', L['All The Things'], 'allthethings'},
+
 	{'TinyInspect', L['TinyInspect'], 'tinyinspect'},
 	{'ArkInventory', L['Ark Inventory'], 'arkinventory'},
 	{'Storyline', L['Storyline'], 'storyline'},
@@ -38,16 +39,28 @@ local DecorAddonSkins = {
 	{'WoWPro', L['WoWPro'], 'wowpro'},
 }
 
+local SkinsForAddons = {
+	{'InFlight', L['InFlight'], 'inflight'},
+	{'!KalielsTracker', L['Kaliels Tracker'], 'kt'},
+	{'TomTom', L['TomTom'], 'tomtom'},
+	{'Baganator', L['Baganator'], 'baganator'},
+	{'AllTheThings', L['All The Things'], 'alltheThings'},
+	{'MinimapButtonButton', L['MinimapButtonButton'], 'minimapbb'},
+	{'Skada', L['Skada'], 'skada'},
+	{'BugSack', L['BugSack'], 'bugSack'},
+	{'ClassCodex', L['ClassCodex'], 'classCodex'},
+	{'RareScanner', L['RareScanner'], 'rareScanner'},
+	{'Immersion', L['Immersion'], 'immersion'},
+}
+
 local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
-	--{'BigWigs', 'BigWigs'},
+	{'BigWigs', 'BigWigs'},
 	{'DBM-Core', 'Deadly Boss Mods'},
 	{'Details', 'Details'},
 	{'ElvUI_LocPlus', 'Location Plus'},
 	{'InFlight', 'InFlight'},
-	{'MikScrollingBattleText', "Mik's Scrolling Battle Text"},
 	{'Pawn', 'Pawn'},
-	{'Recount', 'Recount'},
 	{'Skada', 'Skada'},
 	{'ProjectAzilroka', 'Project Azilroka'},
 	{'!KalielsTracker', 'Kaliels Tracker'},
@@ -80,51 +93,20 @@ local function SkinTable()
 		type = 'group',
 		name = L['ElvUI AddOns'],
 		get = function(info) return E.db.benikui.skins.elvuiAddons[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.skins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		set = function(info, value) E.db.benikui.skins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
 		args = {
 			},
 		}
 
 	local elvorder = 0
-	for i, v in ipairs(DecorElvUIAddons) do
+	for _, v in ipairs(DecorElvUIAddons) do
 		local addonName, addonString, addonOption = unpack( v )
 		E.Options.args.benikui.args.skins.args.elvuiaddons.args[addonOption] = {
 			order = elvorder + 1,
 			type = 'toggle',
 			name = addonString,
 			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
-			disabled = function() return not IsAddOnLoaded(addonName) or not E.db.benikui.general.benikuiStyle end,
-		}
-	end
-
-	-- Project Azilroka
-	E.Options.args.benikui.args.skins.args.elvuiaddons.args.pa = {
-		order = elvorder + 1,
-		type = 'toggle',
-		name = pa,
-		desc = format('%s '..pa..' %s', L['Enable/Disable'], L['decor.']),
-		disabled = function() return not (BUI.PA) or not E.db.benikui.general.benikuiStyle end,
-	}
-
-	E.Options.args.benikui.args.skins.args.addonskins = {
-		order = 4,
-		type = 'group',
-		name = L['AddOnSkins'],
-		get = function(info) return E.db.benikui.skins.addonSkins[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
-		args = {
-			},
-		}
-
-	local addorder = 0
-	for i, v in ipairs(DecorAddonSkins) do
-		local addonName, addonString, addonOption = unpack( v )
-		E.Options.args.benikui.args.skins.args.addonskins.args[addonOption] = {
-			order = addorder + 1,
-			type = 'toggle',
-			name = addonString,
-			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['decor.']),
-			disabled = function() return not (BUI.AS and IsAddOnLoaded(addonName)) or not E.db.benikui.general.benikuiStyle end,
+			disabled = function() return not BUI:IsAddOnEnabled(addonName) or not E.db.benikui.general.benikuiStyle end,
 		}
 	end
 
@@ -133,60 +115,126 @@ local function SkinTable()
 		type = 'group',
 		name = L['Skins'],
 		get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
-		set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+		set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
 		args = {
-			talkingHead = {
+			blizzard = {
+				order = 1,
+				type = 'group',
+				name = L['Blizzard'],
+				guiInline = true,
+				args = {
+					talkingHead = {
+						order = 1,
+						type = 'toggle',
+						name = L["TalkingHead"],
+					},
+					objectiveTracker = {
+						order = 2,
+						type = 'toggle',
+						name = OBJECTIVES_TRACKER_LABEL,
+					},
+				},
+			},
+			addOns = {
+				order = 2,
+				type = 'group',
+				name = L['AddOns'],
+				guiInline = true,
+				args = {
+				},
+			}
+		},
+	}
+
+	for _, v in ipairs(SkinsForAddons) do
+		local addonName, addonString, addonOption = unpack( v )
+		E.Options.args.benikui.args.skins.args.variousSkins.args.addOns.args[addonOption] = {
+			order = 3,
+			type = 'toggle',
+			name = addonString,
+			desc = format('%s '..addonString..' %s', L['Enable/Disable'], L['skin.']),
+			disabled = function() return not BUI:IsAddOnEnabled(addonName) end,
+		}
+	end
+
+	local ClearRealm = string.gsub(E.myrealm, "%s+", "")
+	local requiredProfile = "BenikUI"..E.myname.."-"..ClearRealm
+	E.Options.args.benikui.args.skins.args.variousSkins.args.dbm = {
+		order = 3,
+		type = 'group',
+		name = L['DBM'],
+		guiInline = true,
+		disabled = function() return not BUI:IsAddOnEnabled("DBM-Core") end,
+		args = {
+			dbmSkin = {
 				order = 1,
 				type = 'toggle',
-				name = L["TalkingHead"],
+				name = L['Skin'],
+				desc = format(L['|cff00c0faNote:|r The Skin and the Half Bar options will not apply if |cffffa500%s|r DBM profile is not selected in DBM options.'], requiredProfile),
+				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
 			},
-			objectiveTracker = {
+			dbmHalfBar = {
 				order = 2,
 				type = 'toggle',
-				name = OBJECTIVES_TRACKER_LABEL,
+				name = L['Half Bar'],
+				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; end,
+				disabled = function() return not E.db.benikui.skins.variousSkins.dbmSkin or not BUI:IsAddOnEnabled("DBM-Core") end,
 			},
-			inflight = {
-				order = 3,
+		},
+	}
+
+	E.Options.args.benikui.args.skins.args.variousSkins.args.bigwigs = {
+		order = 4,
+		type = 'group',
+		name = L['BigWigs'],
+		guiInline = true,
+		disabled = function() return not BUI:IsAddOnEnabled("BigWigs") end,
+		args = {
+			bigwigsSkin = {
+				order = 1,
 				type = 'toggle',
-				name = L['InFlight'],
-				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value;
-					if E.db.benikui.skins.variousSkins.inflight then
-						BUI:LoadInFlightProfile(true)
-					else
-						BUI:LoadInFlightProfile(false)
+				name = L['Skin'],
+				get = function(info) return E.db.benikui.skins.variousSkins[ info[#info] ] end,
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL') end,
+			},
+			bigwigsHalfBar = {
+				order = 2,
+				type = 'toggle',
+				name = L['Half Bar'],
+				get = function(info)
+					if not IsAddOnLoaded("BigWigs_Plugins") then
+						LoadAddOn("BigWigs_Plugins")
 					end
-					E:StaticPopup_Show('PRIVATE_RL') end,
-				disabled = function() return not IsAddOnLoaded('InFlight') end,
-			},
-			kt = {
-				order = 4,
-				type = 'toggle',
-				name = L['Kaliels Tracker'],
-				disabled = function() return not IsAddOnLoaded('!KalielsTracker') end,
-			},
-			rt = {
-				order = 5,
-				type = 'toggle',
-				name = L['Rare Tracker'],
-				disabled = function() return not IsAddOnLoaded('RareTrackerCore') end,
-			},
-			tomtom = {
-				order = 6,
-				type = 'toggle',
-				name = L['TomTom'],
-				disabled = function() return not IsAddOnLoaded('TomTom') end,
-			},
-			ba = {
-				order = 7,
-				type = 'toggle',
-				name = L['Baganator'],
-				disabled = function() return not IsAddOnLoaded('Baganator') end,
-			},
-			alltheThings = {
-				order = 8,
-				type = 'toggle',
-				name = L['All The Things'],
-				disabled = function() return not IsAddOnLoaded('AllTheThings') end,
+					if BigWigs then
+						local barsPlugin = BigWigs:GetPlugin("Bars", true)
+						if barsPlugin and barsPlugin.db and barsPlugin.db.profile then
+							local isHalfBar = (barsPlugin.db.profile.barStyle == BUI.Title..'Half Bar')
+							E.db.benikui.skins.variousSkins[ info[#info] ] = isHalfBar
+
+							return isHalfBar
+						end
+					end
+
+					return E.db.benikui.skins.variousSkins[ info[#info] ]
+				end,
+				set = function(info, value) E.db.benikui.skins.variousSkins[ info[#info] ] = value;
+					if not IsAddOnLoaded("BigWigs_Plugins") then
+						LoadAddOn("BigWigs_Plugins")
+					end
+					if BigWigs then
+						local barsPlugin = BigWigs:GetPlugin("Bars", true)
+						if barsPlugin and barsPlugin.db and barsPlugin.db.profile then
+							if value then
+								barsPlugin.db.profile.barStyle = BUI.Title..'Half Bar'
+							else
+								barsPlugin.db.profile.barStyle = BUI.Title
+							end
+						end
+					end
+				end,
+				disabled = function() return not E.db.benikui.skins.variousSkins.bigwigsSkin or not BUI:IsAddOnEnabled("BigWigs") end,
 			},
 		},
 	}
@@ -200,7 +248,7 @@ local function SkinTable()
 	}
 
 	local optionOrder = 1
-	for i, v in ipairs(SupportedProfiles) do
+	for _, v in ipairs(SupportedProfiles) do
 		local addon, addonName = unpack(v)
 		E.Options.args.benikui.args.skins.args.profiles.args[addon] = {
 			order = optionOrder + 1,
@@ -210,20 +258,16 @@ local function SkinTable()
 			func = function()
 				if addon == 'DBM-Core' then
 					BUI:LoadDBMProfile()
-				--elseif addon == 'BigWigs' then
-					--BUI:LoadBigWigsProfile()
+				elseif addon == 'BigWigs' then
+					BUI:LoadBigWigsProfile()
 				elseif addon == 'Details' then
 					BUI:LoadDetailsProfile()
 				elseif addon == 'InFlight'then
 					BUI:LoadInFlightProfile()
 				elseif addon == 'ElvUI_LocPlus' then
 					BUI:LoadLocationPlusProfile()
-				elseif addon == 'MikScrollingBattleText' then
-					BUI:LoadMSBTProfile()
 				elseif addon == 'Pawn' then
 					BUI:LoadPawnProfile()
-				elseif addon == 'Recount' then
-					BUI:LoadRecountProfile()
 				elseif addon == 'Skada' then
 					BUI:LoadSkadaProfile()
 				elseif addon == 'AddOnSkins' then
@@ -233,9 +277,11 @@ local function SkinTable()
 				elseif addon == '!KalielsTracker' then
 					BUI:LoadKalielsProfile()
 				end
-				E:StaticPopup_Show('PRIVATE_RL')
+				if addon ~= 'BigWigs' then
+					E:StaticPopup_Show('CONFIG_RL')
+				end
 			end,
-			disabled = function() return not IsAddOnLoaded(addon) end,
+			disabled = function() return not BUI:IsAddOnEnabled(addon) end,
 		}
 	end
 end

@@ -3,6 +3,7 @@ local mod = BUI:GetModule('Shadows')
 local S = E:GetModule('Skins')
 local M = E:GetModule('Misc')
 local B = E:GetModule('Blizzard')
+local AB = E:GetModule('ActionBars')
 
 local _G = _G
 local pairs = pairs
@@ -76,27 +77,14 @@ function mod:ItemButtonShadows(button)
 		button.backdrop:CreateSoftShadow()
 	end
 end
-hooksecurefunc(S, "HandleItemButton", mod.ItemButtonShadows)
-
-local MICRO_BUTTONS = _G.MICRO_BUTTONS or {
-	'CharacterMicroButton',
-	'SpellbookMicroButton',
-	'TalentMicroButton',
-	'AchievementMicroButton',
-	'QuestLogMicroButton',
-	'GuildMicroButton',
-	'LFDMicroButton',
-	'EJMicroButton',
-	'CollectionsMicroButton',
-	'MainMenuMicroButton',
-	'HelpMicroButton',
-	'StoreMicroButton',
-}
+-- hooksecurefunc(S, "HandleItemButton", mod.ItemButtonShadows) -- this needs investigation
 
 -- MicroBar
 local function MicroBarShadows()
-	for _, x in pairs(MICRO_BUTTONS) do
-		_G[x]:CreateSoftShadow()
+	for _, x in pairs(AB.MICRO_BUTTONS) do
+		if _G[x] then
+			_G[x]:CreateSoftShadow()
+		end
 	end
 end
 
@@ -280,9 +268,6 @@ function mod:Initialize()
 	end
 	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, 'Setup', B.UIWidgetTemplateStatusBarShadows)
 	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, 'Setup', B.UIWidgetTemplateStatusBarShadows)
-
-	-- AddonSkins
-	mod:AddonSkins()
 
 	-- Callbacks
 	S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_CalendarEventButtonShadows", CalendarEventButtonShadows)

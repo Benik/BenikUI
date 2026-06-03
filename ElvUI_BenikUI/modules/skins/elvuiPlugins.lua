@@ -1,13 +1,12 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
-
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
 local hooksecurefunc = hooksecurefunc
 
-function mod:stylePlugins()
+function mod:styleElvUIPlugins()
 	-- LocationPlus
 	if BUI.LP and E.db.benikui.skins.elvuiAddons.locplus then
 		local framestoskin = {
@@ -76,7 +75,7 @@ function mod:stylePlugins()
 	end
 
 	-- ElvUI_Enhanced
-	if IsAddOnLoaded("ElvUI_Enhanced") and E.db.benikui.skins.elvuiAddons.enh then
+	if BUI:IsAddOnEnabled("ElvUI_Enhanced") and E.db.benikui.skins.elvuiAddons.enh then
 		if _G.MinimapButtonBar then
 			_G.MinimapButtonBar:BuiStyle()
 		end
@@ -162,3 +161,4 @@ function mod:StyleWindTools()
 		self.RightPanel:BuiStyle()
 	end)
 end
+S:AddCallback("BenikUI_WidTools", mod.StyleWindTools)

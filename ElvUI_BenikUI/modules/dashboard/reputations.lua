@@ -243,6 +243,7 @@ function mod:UpdateReputations()
 					--Normalize Values
 					barMax = barMax - barMin
 					barValue = barValue - barMin
+					if barMax < 0 then barMax = barValue end
 					barMin = 0
 
 					--Prevent a division by zero

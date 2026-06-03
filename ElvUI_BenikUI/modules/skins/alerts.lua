@@ -1,5 +1,6 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Styles')
+local S = E:GetModule('Skins')
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -71,3 +72,4 @@ function mod:styleAlertFrames()
 	local BonusRollLootWonFrame = _G.BonusRollLootWonFrame
 	BonusRollLootWonFrame.backdrop:BuiStyle()
 end
+S:AddCallback("BenikUI_AlertFrames", mod.styleAlertFrames)

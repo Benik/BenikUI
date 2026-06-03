@@ -20,8 +20,6 @@ local IsInInstance = IsInInstance
 local ToggleWorldMap = ToggleWorldMap
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
-local LoadAddOn = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
 local GetRealZoneText, GetMinimapZoneText = GetRealZoneText, GetMinimapZoneText
 local GetZonePVPInfo = (C_PvP and C_PvP.GetZonePVPInfo) or GetZonePVPInfo
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
@@ -42,6 +40,8 @@ menuFrame:CreateWideShadow()
 
 local LOCATION_WIDTH = 399
 local classColor = E:ClassColor(E.myclass, true)
+
+local isFlightMode = false
 
 local function AutoColoring()
 	local pvpType = GetZonePVPInfo()
@@ -167,28 +167,6 @@ function mod:SetFrameParent()
 	end
 end
 
-local isInFlightLoaded = false
-
-function mod:SkinInFlight()
-	if not isInFlightLoaded then
-		if not BUI.IF then
-			LoadAddOn("InFlight") -- LOD addon
-			isInFlightLoaded = true
-		end
-	end
-
-	local frame = _G["InFlightBar"]
-	if frame then
-		if not frame.isSkinned then
-			frame:CreateBackdrop('Transparent', true, true)
-			frame.backdrop:SetOutside(frame, 2, 2)
-			frame.backdrop:SetBackdropBorderColor(.3, .3, .3, 1)
-			frame.backdrop:CreateWideShadow()
-			frame.isSkinned = true
-		end
-	end
-end
-
 local DCR = _G.LibStub('AceAddon-3.0'):GetAddon('Decursive', true)
 local function Decursive(hide)
 	if not DCR then return end
@@ -197,6 +175,38 @@ local function Decursive(hide)
 	else
 		if DCR.profile.ShowDebuffsFrame == true then
 			_G.DcrMUFsContainer:Show()
+		end
+	end
+end
+
+local function CenteredCDM()
+	if BUI:IsAddOnEnabled('CooldownManagerCentered') then
+		return false
+	end
+end
+
+local cdmHiddenFrames = {
+	EssentialCooldownViewer	= false,
+	UtilityCooldownViewer	= false,
+	BuffIconCooldownViewer	= false,
+}
+
+local function UpdateCooldownManagerVisibility()
+	if CenteredCDM() or (GetCVar("cooldownViewerEnabled") ~= "1") then return end
+	for frameName, _ in pairs(cdmHiddenFrames) do
+		local frame = _G[frameName]
+		if frame then
+			if isFlightMode then
+				if frame:IsShown() then
+					cdmHiddenFrames[frameName] = true
+					frame:Hide()
+				end
+			else
+				if cdmHiddenFrames[frameName] then
+					cdmHiddenFrames[frameName] = false
+					frame:Show()
+				end
+			end
 		end
 	end
 end
@@ -223,6 +233,7 @@ local AddonsToHide = {
 	{'!KalielsTracker','KT_ProfessionsRecipeTracker'},
 	{'!KalielsTracker','!KalielsTrackerHeaderButtons'},
 	{'RareTrackerCore','RT'},
+	{'MinimapButtonButton','MinimapButtonButtonButton'},
 }
 
 local AllTheThingsFrames = {}
@@ -235,6 +246,8 @@ function mod:SetFlightMode(status)
 	local containerFrame = _G.ElvUI_ContainerFrame
 	local zoneFrame = _G.ZoneTextFrame
 	local leftPanel = _G.LeftChatPanel
+
+	UpdateCooldownManagerVisibility()
 
 	if(status) then
 		mod.inFlightMode = true
@@ -310,7 +323,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- Details
-		if IsAddOnLoaded('Details') then
+		if BUI:IsAddOnEnabled('Details') then
 			local Details = _G._detalhes
 			local instances_amount = Details:GetNumInstancesAmount()
 
@@ -333,7 +346,7 @@ function mod:SetFlightMode(status)
 
 		for _, v in ipairs(AddonsToHide) do
 			local addon, frame = unpack(v)
-			if IsAddOnLoaded(addon) then
+			if BUI:IsAddOnEnabled(addon) then
 				if _G[frame] then
 					if _G[frame]:IsVisible() then
 						VisibleFrames[frame] = true
@@ -344,7 +357,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- special handling for VuhDo panels
-		if IsAddOnLoaded('VuhDo') then
+		if BUI:IsAddOnEnabled('VuhDo') then
 			if VUHDO_CONFIG["SHOW_PANELS"] then
 				VisibleFrames['VuhDoHealPanels'] = true
 				VUHDO_slashCmd('hide')
@@ -369,19 +382,8 @@ function mod:SetFlightMode(status)
 			end)
 		end
 
-		-- Cooldown Manager
-		if GetCVar("cooldownViewerEnabled") == "1" then
-			if _G.EssentialCooldownViewer then
-				_G.EssentialCooldownViewer:Hide()
-			end
-
-			if _G.UtilityCooldownViewer then
-				_G.UtilityCooldownViewer:Hide()
-			end
-		end
-
 		-- AllTheThings
-		if IsAddOnLoaded('AllTheThings') then
+		if BUI:IsAddOnEnabled('AllTheThings') then
 			local att = _G.AllTheThings
 			for _, window in pairs(att.Windows) do
 				if window:IsShown() then
@@ -392,7 +394,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- special handling for Elkano Buff Bars
-		if IsAddOnLoaded('ElkBuffBars') then
+		if BUI:IsAddOnEnabled('ElkBuffBars') then
 			ElkBuffBars:PET_BATTLE_OPENING_START()
 		end
 
@@ -417,7 +419,6 @@ function mod:SetFlightMode(status)
 		mod.coordsTimer = mod:ScheduleRepeatingTimer('UpdateCoords', 0.2)
 		mod.fpsTimer = mod:ScheduleRepeatingTimer('UpdateFps', 1)
 
-		mod:SkinInFlight()
 	elseif(mod.inFlightMode) then
 		mod.inFlightMode = false
 		_G.MainMenuBarVehicleLeaveButton:SetParent(_G.UIParent)
@@ -478,7 +479,7 @@ function mod:SetFlightMode(status)
 
 		for i, v in ipairs(AddonsToHide) do
 			local addon, frame = unpack(v)
-			if IsAddOnLoaded(addon) then
+			if BUI:IsAddOnEnabled(addon) then
 				if _G[frame] then
 					if VisibleFrames[frame] then
 						_G[frame]:Show()
@@ -488,14 +489,14 @@ function mod:SetFlightMode(status)
 		end
 
 		-- special handling for VuhDo panels
-		if IsAddOnLoaded('VuhDo') then
+		if BUI:IsAddOnEnabled('VuhDo') then
 			if VisibleFrames['VuhDoHealPanels'] then
 				VUHDO_slashCmd('show')
 			end
 		end
 
 		-- Details
-		if IsAddOnLoaded('Details') then
+		if BUI:IsAddOnEnabled('Details') then
 			local Details = _G._detalhes
 			local instances_amount = Details:GetNumInstancesAmount()
 
@@ -517,7 +518,7 @@ function mod:SetFlightMode(status)
 		end
 
 		-- AllTheThings
-		if IsAddOnLoaded('AllTheThings') then
+		if BUI:IsAddOnEnabled('AllTheThings') then
 			for _, frame in pairs(AllTheThingsFrames) do
 				frame:Show()
 			end
@@ -534,19 +535,8 @@ function mod:SetFlightMode(status)
 			twipe(DamageMeterFrames)
 		end
 
-		-- Cooldown Manager
-		if GetCVar("cooldownViewerEnabled") == "1" then
-			if _G.EssentialCooldownViewer then
-				_G.EssentialCooldownViewer:Show()
-			end
-
-			if _G.UtilityCooldownViewer then
-				_G.UtilityCooldownViewer:Show()
-			end
-		end
-
 		-- special handling for Elkano Buff Bars
-		if IsAddOnLoaded('ElkBuffBars') then
+		if BUI:IsAddOnEnabled('ElkBuffBars') then
 			ElkBuffBars:PET_BATTLE_CLOSE()
 		end
 
@@ -610,16 +600,15 @@ function mod:OnEvent(event, ...)
 		else
 			mod:SetFlightMode(false)
 		end
+
+		isFlightMode = false
 		return
 	end
 
 	if IsInInstance() then return end
 
-	if (UnitOnTaxi("player")) then
-		mod:SetFlightMode(true)
-	else
-		mod:SetFlightMode(false)
-	end
+	isFlightMode = UnitOnTaxi("player")
+	mod:SetFlightMode(isFlightMode)
 end
 
 function mod:ToggleLogo()
@@ -641,23 +630,18 @@ function mod:ToggleLogo()
 	end
 end
 
-function mod:Toggle()
-	if(E.db.benikui.misc.flightMode.enable) then
-		mod:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
-		mod:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
-		mod:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
-		mod:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
-		mod:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
-	else
-		mod:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
-		mod:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
-		mod:UnregisterEvent("LFG_PROPOSAL_SHOW")
-		mod:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
-		mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
-	end
+function mod:LoadEvents()
+	mod:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
+	mod:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
+	mod:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
+	mod:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
+	mod:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
+	mod:RegisterEvent("ZONE_CHANGED_NEW_AREA", "OnEvent")
 end
 
 function mod:Initialize()
+	if E.db.benikui.misc.flightMode.enable ~= true then return end
+
 	local db = E.db.benikui.colors
 	mod.FlightMode = CreateFrame("Frame", "BenikUIFlightModeFrame", _G.UIParent)
 	mod.FlightMode:SetFrameLevel(1)
@@ -1034,7 +1018,7 @@ function mod:Initialize()
 	leftPanel.backdrop.wideshadow:Hide()
 	leftPanel.backdrop.wideshadow:OffsetFrameLevel(-1, leftPanel.backdrop)
 
-	mod:Toggle()
+	mod:LoadEvents()
 	mod:ToggleLogo()
 
 	hooksecurefunc(M, "SetLargeWorldMap", mod.SetFrameParent)

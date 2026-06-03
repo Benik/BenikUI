@@ -1985,8 +1985,8 @@ local function SetupAddons()
 
 	-- BigWigs
 	if BUI:IsAddOnEnabled('BigWigs') then
-		--BUI:LoadBigWigsProfile()
-		--tinsert(addonNames, 'BigWigs')
+		BUI:LoadBigWigsProfile()
+		tinsert(addonNames, 'BigWigs')
 	end
 
 	-- DBM
@@ -2013,22 +2013,10 @@ local function SetupAddons()
 		tinsert(addonNames, 'Location Plus')
 	end
 
-	-- MikScrollingBattleText
-	if BUI:IsAddOnEnabled('MikScrollingBattleText') then
-		BUI:LoadMSBTProfile()
-		tinsert(addonNames, "Mik's Scrolling Battle Text")
-	end
-
 	-- Pawn
 	if BUI:IsAddOnEnabled('Pawn') then
 		BUI:LoadPawnProfile()
 		tinsert(addonNames, 'Pawn')
-	end
-
-	-- Recount
-	if BUI:IsAddOnEnabled('Recount') then
-		BUI:LoadRecountProfile()
-		tinsert(addonNames, 'Recount')
 	end
 
 	-- Skada

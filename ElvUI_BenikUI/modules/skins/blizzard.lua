@@ -40,6 +40,7 @@ local function LoadSkin()
 	if db.dressingroom then
 		_G.DressUpFrame:BuiStyle()
 		_G.DressUpFrame.SetSelectionPanel:BuiStyle()
+		_G.DressUpFrame.CustomSetDetailsPanel.backdrop:BuiStyle()
 	end
 
 	if db.editor then
@@ -274,3 +275,4 @@ function mod:styleWorldMap()
 		mapFrame.backdrop:BuiStyle()
 	end
 end
+S:AddCallback("BenikUI_WorldMap", mod.styleWorldMap)

@@ -26,7 +26,7 @@ local function widgetTable()
 						type = 'toggle',
 						name = L["Enable"],
 						get = function(info) return E.db.benikui.widgetbars.mawBar[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.widgetbars.mawBar[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL'); end,
+						set = function(info, value) E.db.benikui.widgetbars.mawBar[ info[#info] ] = value E:StaticPopup_Show('CONFIG_RL'); end,
 					},
 					previewBar = {
 						order = 2,
@@ -183,7 +183,7 @@ local function widgetTable()
 						type = 'toggle',
 						name = L["Enable"],
 						get = function(info) return E.db.benikui.widgetbars.preyBar[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.widgetbars.preyBar[ info[#info] ] = value E:StaticPopup_Show('PRIVATE_RL'); end,
+						set = function(info, value) E.db.benikui.widgetbars.preyBar[ info[#info] ] = value E:StaticPopup_Show('CONFIG_RL'); end,
 					},
 					previewBar = {
 						order = 2,

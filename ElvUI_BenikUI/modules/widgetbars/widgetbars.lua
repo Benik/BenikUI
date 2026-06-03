@@ -40,8 +40,10 @@ local function SetupTimer(container, timer)
 			bar.Text:Point('CENTER', bar.StatusBar, 0, 1)
 		end
 
-		if not bar.shadow then
-			bar:CreateSoftShadow()
+		if E.db.benikui.general.shadows then
+			if not bar.shadow then
+				bar:CreateSoftShadow()
+			end
 		end
 	end
 end
