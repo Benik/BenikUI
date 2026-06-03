@@ -168,15 +168,16 @@ function mod:UpdateTokens()
 						local isWeeklyCapped = weeklyMax == quantityEarnedThisWeek and weeklyMax > 0
 						local isSeasonCapped = useTotalEarnedForMaxQty and totalMax == totalEarned and totalMax > 0
 						local capped = isWeeklyCapped or isSeasonCapped
-						local capValue = (db.tokens.weekly and weeklyMax and weeklyMax > 0) and weeklyMax or (totalMax and totalMax > 0 and totalMax) or 0
+						local showWeekly = (db.tokens.weekly and weeklyMax and weeklyMax > 0)
+						local capValue = showWeekly and weeklyMax or (totalMax and totalMax > 0 and totalMax) or 0
 						local BarMaxValue
 						local displayString = ''
-
 						local progress = amount
-						if useTotalEarnedForMaxQty and totalEarned and totalEarned > 0 then
+
+						if showWeekly then
+							progress = quantityEarnedThisWeek or 0
+						elseif useTotalEarnedForMaxQty and totalEarned and totalEarned > 0 then
 							progress = totalEarned
-						elseif (db.tokens.weekly and quantityEarnedThisWeek and quantityEarnedThisWeek > 0) then
-							progress = quantityEarnedThisWeek
 						elseif trackedQuantity and trackedQuantity > 0 then
 							progress = trackedQuantity
 						end
