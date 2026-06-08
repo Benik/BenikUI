@@ -250,6 +250,7 @@ P['benikui'] = {
 			['classCodex'] = true,
 			['rareScanner'] = true,
 			['immersion'] = true,
+			['auctionator'] = true,
 		},
 	},
 

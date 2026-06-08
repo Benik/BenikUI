@@ -51,6 +51,7 @@ local SkinsForAddons = {
 	{'ClassCodex', L['ClassCodex'], 'classCodex'},
 	{'RareScanner', L['RareScanner'], 'rareScanner'},
 	{'Immersion', L['Immersion'], 'immersion'},
+	{'Auctionator', L['Auctionator'], 'auctionator'},
 }
 
 local SupportedProfiles = {

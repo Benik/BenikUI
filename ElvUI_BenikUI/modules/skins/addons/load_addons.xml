@@ -1,5 +1,6 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<script file="AllTheThings.lua"/>
+	<script file="Auctionator.lua"/>
 	<script file="Baganator.lua"/>
 	<script file="BigWigs.lua"/>
 	<script file="BugSack.lua"/>
