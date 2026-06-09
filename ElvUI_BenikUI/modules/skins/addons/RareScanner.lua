@@ -124,6 +124,12 @@ local function RareScanner()
 	S:HandleFrame(RareScanner)
 	RareScanner:BuiStyle()
 
+	local CloseButton = RareScanner.CloseButton
+	S:HandleCloseButton(CloseButton)
+	CloseButton:ClearAllPoints()
+	CloseButton:Point("BOTTOMRIGHT", RareScanner, "BOTTOMRIGHT", -2, 2)
+	CloseButton:Size(30)
+
 	hooksecurefunc(RareScanner.LootBar.itemFramesPool, "Acquire", function(pool)
 		for itemFrame in pool:EnumerateActive() do
 			S:HandleIcon(itemFrame.Icon)
