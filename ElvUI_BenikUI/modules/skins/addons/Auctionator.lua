@@ -116,11 +116,14 @@ local function SkinAuctionator()
 
 	hooksecurefunc(AuctionatorBuyCommodityFrameTemplateMixin, "UpdateView", function()
 		local CommodityFrame = _G.AuctionatorBuyCommodityFrame
+		if CommodityFrame.IsSkinned then return end
+
 		S:HandleFrame(CommodityFrame.Inset)
 		S:HandleButton(CommodityFrame.BackButton)
 		S:HandleButton(CommodityFrame.DetailsContainer.BuyButton)
 		S:HandleEditBox(CommodityFrame.DetailsContainer.Quantity)
 		S:HandleScrollBar(CommodityFrame.ResultsListing.ScrollArea.ScrollBar)
+
 		HandleHeaders(CommodityFrame.ResultsListing)
 
 		for _, child in next, {CommodityFrame:GetChildren()} do
@@ -129,6 +132,8 @@ local function SkinAuctionator()
 				child:Size(24)
 			end
 		end
+
+		CommodityFrame.IsSkinned = true
 	end)
 
 	local SellingFrame = _G.AuctionatorSellingFrame
