@@ -122,6 +122,13 @@ local function SkinAuctionator()
 		S:HandleEditBox(CommodityFrame.DetailsContainer.Quantity)
 		S:HandleScrollBar(CommodityFrame.ResultsListing.ScrollArea.ScrollBar)
 		HandleHeaders(CommodityFrame.ResultsListing)
+
+		for _, child in next, {CommodityFrame:GetChildren()} do
+			if child.iconAtlas == 'UI-RefreshButton' then
+				S:HandleButton(child)
+				child:Size(24)
+			end
+		end
 	end)
 
 	local SellingFrame = _G.AuctionatorSellingFrame
