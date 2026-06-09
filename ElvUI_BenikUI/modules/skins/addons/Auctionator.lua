@@ -148,6 +148,13 @@ local function SkinAuctionator()
 		end
 	end)
 
+	for _, child in next, {SellingFrame.AuctionatorSaleItem:GetChildren()} do
+		if child.iconAtlas == 'UI-RefreshButton' then
+			S:HandleButton(child)
+			child:Size(24)
+		end
+	end
+
 	local SellingItemFrame = SellingFrame.SaleItemFrame
 	S:HandleFrame(SellingItemFrame.Icon, true, 'Default')
 	S:HandleEditBox(SellingItemFrame.Quantity.InputBox)
@@ -181,6 +188,13 @@ local function SkinAuctionator()
 	S:HandleEditBox(ConfigFrame.ContributeLink.InputBox)
 	S:HandleEditBox(ConfigFrame.DiscordLink.InputBox)
 	S:HandleEditBox(ConfigFrame.BugReportLink.InputBox)
+
+	for _, child in next, {CancelFrame:GetChildren()} do
+		if child.iconAtlas == 'UI-RefreshButton' then
+			S:HandleButton(child)
+			child:Size(24)
+		end
+	end
 
 	-- Confirmation Dialogs
 	local function SkinEditBoxDialog(dialog)
