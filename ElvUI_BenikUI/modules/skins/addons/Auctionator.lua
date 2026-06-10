@@ -114,7 +114,7 @@ local function SkinAuctionator()
 	S:HandleButton(CSVFrame.Close)
 	S:HandleTrimScrollBar(CSVFrame.ScrollBar)
 
-	hooksecurefunc(AuctionatorBuyCommodityFrameTemplateMixin, "UpdateView", function()
+	hooksecurefunc(_G.AuctionatorBuyCommodityFrameTemplateMixin, "UpdateView", function()
 		local CommodityFrame = _G.AuctionatorBuyCommodityFrame
 		if CommodityFrame.IsSkinned then return end
 
@@ -154,7 +154,7 @@ local function SkinAuctionator()
 		S:HandleTab(_G["AuctionatorSellingFramePricesTab"..i])
 	end
 
-	hooksecurefunc(AuctionatorGroupsViewGroupMixin, "SetName", function(self)
+	hooksecurefunc(_G.AuctionatorGroupsViewGroupMixin, "SetName", function(self)
 		if self.GroupTitle then
 			S:HandleFrame(self.GroupTitle, true, 'Default')
 		end
@@ -226,7 +226,7 @@ local function SkinAuctionator()
 		end
 	end
 
-	hooksecurefunc(NineSliceUtil, "ApplyLayoutByName", function(nineSlice)
+	hooksecurefunc(_G.NineSliceUtil, "ApplyLayoutByName", function(nineSlice)
 		local parent = nineSlice:GetParent()
 		if parent then
 			local name = parent:GetName()
@@ -251,7 +251,31 @@ end
 local function LoadAuctionator()
 	if not (BUI:IsAddOnEnabled('Auctionator') and E.db.benikui.skins.variousSkins.auctionator) then return end
 
-	hooksecurefunc(_G.AuctionatorTabContainerMixin, 'OnLoad', SkinAuctionator)
+	hooksecurefunc(_G.AuctionatorTabContainerMixin, "OnLoad", SkinAuctionator)
+
+	-- Skin the Icons in the groups view
+	hooksecurefunc(_G.AuctionatorGroupsViewMixin, "UpdateFromExisting", function(self)
+		if self.buttonPool then
+			for button in self.buttonPool:EnumerateActive() do
+				if button.IconBorder then
+					button.IconBorder:Hide()
+				end
+
+				S:HandleButton(button)
+
+				if button.Icon then
+					S:HandleIcon(button.Icon)
+				end
+			end
+		end
+	end)
+
+	-- Skin the selected item for sale
+	hooksecurefunc(_G.AuctionatorGroupsViewMixin, "SetSelected", function(self)
+		local button = _G.AuctionatorSellingFrame.SaleItemFrame.Icon
+		S:HandleIcon(button.Icon)
+		button.Icon:SetInside(button.backdrop)
+	end)
 
 	-- Checkboxes
 	hooksecurefunc(_G.AuctionatorListExportFrameMixin, "RefreshLists", function(self)
