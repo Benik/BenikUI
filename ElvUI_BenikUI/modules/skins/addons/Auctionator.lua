@@ -265,6 +265,7 @@ local function LoadAuctionator()
 
 				if button.Icon then
 					S:HandleIcon(button.Icon)
+					button.Icon:SetInside(button, 1, 1)
 				end
 			end
 		end
@@ -274,7 +275,7 @@ local function LoadAuctionator()
 	hooksecurefunc(_G.AuctionatorGroupsViewMixin, "SetSelected", function(self)
 		local button = _G.AuctionatorSellingFrame.SaleItemFrame.Icon
 		S:HandleIcon(button.Icon)
-		button.Icon:SetInside(button.backdrop)
+		button.Icon:SetInside(button, 1, 1)
 	end)
 
 	-- Checkboxes
