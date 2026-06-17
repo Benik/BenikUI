@@ -48,6 +48,7 @@ local function LoadSkin()
 		_G.EditModeUnsavedChangesDialog.backdrop:BuiStyle()
 		_G.EditModeImportLayoutDialog.backdrop:BuiStyle()
 		_G.EditModeSystemSettingsDialog.backdrop:BuiStyle()
+		_G.EditModeLayoutDialog.backdrop:BuiStyle()
 	end
 
 	if db.friends then
