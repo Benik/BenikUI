@@ -1,12 +1,12 @@
-## Interface: 120005
+## Interface: 120007
 ## Author: Benik
-## Version: 5.16
+## Version: 5.17
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
 ## Notes: an ElvUI 15+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia, AddOnSkins, ProjectAzilroka
-## X-ElvuiVersion: 15.14
+## X-ElvuiVersion: 15.17
 ## IconTexture: Interface\AddOns\ElvUI_BenikUI\media\textures\AddonLogo
 ## X-Wago-ID: anKWx3GE
 

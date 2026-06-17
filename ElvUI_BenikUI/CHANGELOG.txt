@@ -1,3 +1,9 @@
+v5.17 (Jun 17, 2026)
+toc bump for 12.07
+Style EditModeLayoutDialog
+Fixed RareScanner Close Button behaviour #82
+NEW: Added Auctionator Skin
+
 v5.16 (Jun 3, 2026)
 Tokens Dashboard: If displaying the weekly cap, we must show weekly progress (even if it is 0)
 Prevent a tooltip style error during install
