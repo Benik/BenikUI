@@ -146,6 +146,7 @@ function mod:UpdateProfessions()
 							bar:SetScript('OnLeave', barOnLeave)
 							bar:SetScript('OnMouseUp', barOnMouseUp)
 
+							bar.Text:SetJustifyH('CENTER')
 							bar.Text:SetText(displayString)
 							bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 							bar.IconBG.Icon:SetTexture(icon)

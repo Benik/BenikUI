@@ -200,6 +200,7 @@ function mod:UpdateTokens()
 							bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 						end
 
+						bar.Text:SetJustifyH('CENTER')
 						bar.Text:SetText(displayString)
 						bar.IconBG.Icon:SetTexture(icon)
 

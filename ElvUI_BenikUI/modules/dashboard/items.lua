@@ -166,6 +166,7 @@ function mod:UpdateItems()
 				bar.Status:SetValue(amount)
 				bar.Status:SetStatusBarColor(BarColor.r, BarColor.g, BarColor.b)
 
+				bar.Text:SetJustifyH('CENTER')
 				bar.Text:SetText(db.items.showMax and format('%s / %s', BreakAmount, BreakMax) or (format('%s', BreakAmount)))
 				bar.Text:SetTextColor(TextColor.r, TextColor.g, TextColor.b)
 				bar.IconBG.Icon:SetTexture(icon)
