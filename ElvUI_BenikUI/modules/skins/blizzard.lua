@@ -29,6 +29,10 @@ local function LoadSkin()
 		_G.SplashFrame.backdrop:BuiStyle()
 	end
 
+	if db.catalogShop then
+		_G.CatalogShopFrame:BuiStyle()
+	end
+
 	if db.character then
 		_G.PaperDollFrame:BuiStyle()
 		_G.ReputationFrame:BuiStyle()
