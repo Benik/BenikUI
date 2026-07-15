@@ -120,6 +120,28 @@ function mod:GameTooltip_OnTooltipCleared(tt)
 	tt.buiUpdated = nil
 end
 
+function mod:GetConfiguredStyleColor()
+	local r, g, b = 0, 0, 0
+
+	if E.db.benikui.colors.StyleColor == 1 then
+		if classColor then
+			r, g, b = classColor.r, classColor.g, classColor.b
+		else
+			r, g, b = BUI:unpackColor(E.db.general.classColors[E.myclass])
+		end
+	elseif E.db.benikui.colors.StyleColor == 2 then
+		r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
+	elseif E.db.benikui.colors.StyleColor == 3 then
+		r, g, b = BUI:unpackColor(E.db.general.valuecolor)
+	elseif E.db.benikui.colors.StyleColor == 4 then
+		r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
+	else
+		r, g, b = BUI:unpackColor(E.db.general.classColors[E.myclass])
+	end
+
+	return r, g, b
+end
+
 function mod:RecolorTooltipStyle(tt)
 	if not tt or not tt.style then return end
 
@@ -158,7 +180,7 @@ function mod:RecolorTooltipStyle(tt)
 				r, g, b = tt.StatusBar:GetStatusBarColor()
 			end
 		else
-			r, g, b = classColor.r, classColor.g, classColor.b
+			r, g, b = mod:GetConfiguredStyleColor()
 		end
 
 		if (r and g and b) then
