@@ -78,8 +78,6 @@ function BUI:Init()
 		E:Delay(2, function() E:StaticPopup_Show("BENIKUI_VERSION_MISMATCH") end)
 		return
 	end
-	E.data:RegisterDefaults(E.DF)
-	E.charSettings:RegisterDefaults(E.privateVars)
 
 	-- Copied from Mera <3
 	for _, data in next, { { E.db, P.benikui }, { E.global, G.benikui }, { E.private, V.benikui } } do
