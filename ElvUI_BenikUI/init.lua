@@ -81,6 +81,14 @@ function BUI:Init()
 	E.data:RegisterDefaults(E.DF)
 	E.charSettings:RegisterDefaults(E.privateVars)
 
+	-- Copied from Mera <3
+	for _, data in next, { { E.db, P.benikui }, { E.global, G.benikui }, { E.private, V.benikui } } do
+		local target, defaults = data[1], data[2]
+		if target and defaults then
+			target.benikui = E:CopyTable(target.benikui, defaults, true)
+		end
+	end
+
 	self.initialized = true
 	self:Initialize()
 	self:InitializeModules()
