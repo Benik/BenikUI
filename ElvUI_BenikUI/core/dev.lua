@@ -71,7 +71,7 @@ function BUI:FixTags1()
 	E.db["unitframe"]["units"]["party"]["power"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
 
-	E:UpdateAll(nil, true)
+	E:UpdateAll()
 	BUI:Print('Tag fixes have been applied for profile 1')
 end
 
@@ -142,7 +142,7 @@ function BUI:FixTags2()
 	E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 16
 	E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 2
 
-	E:UpdateAll(nil, true)
+	E:UpdateAll()
 	BUI:Print('Tag fixes have been applied for profile 2')
 end
 
@@ -215,6 +215,6 @@ function BUI:FixTags3()
 	E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 4
 	E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 0
 
-	E:UpdateAll(nil, true)
+	E:UpdateAll()
 	BUI:Print('Tag fixes have been applied for profile 3')
 end
