@@ -178,50 +178,6 @@ local function GetXPinfo()
 	return format('|cfff0ff00%d%%|r (%s) %s |cfff0ff00%d|r', (max - cur) / max * 100, E:ShortValue(max - cur), L["remaining till level"], curlvl + 1)
 end
 
-AFK.SetAFKBui = AFK.SetAFK
-function AFK:SetAFK(status)
-	self:SetAFKBui(status)
-	if E.db.benikui.misc.afkMode ~= true then return end
-
-	if(status) then
-		local xptxt = GetXPinfo()
-		local level = UnitLevel('player')
-		local race = UnitRace('player')
-		local localizedClass = UnitClass('player')
-		local spec = getSpec()
-		local ilvl = getItemLevel()
-		local displayline = ""
-
-		self.AFKMode.top:Height(0)
-		self.AFKMode.top.anim.height:Play()
-		self.AFKMode.bottom:Height(0)
-		self.AFKMode.bottom.anim.height:Play()
-		self.startTime = GetTime()
-		self.statsTimer = self:ScheduleRepeatingTimer("UpdateStatMessage", 5)
-		self.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
-
-		if xptxt then
-			self.AFKMode.xp:Show()
-			self.AFKMode.xp.text:SetText(xptxt)
-		else
-			self.AFKMode.xp:Hide()
-			self.AFKMode.xp.text:SetText("")
-		end
-
-		displayline = (format("%s - %s\n%s %s %s %s %s\n%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl))
-
-		self.AFKMode.bottom.name:SetText(displayline)
-		self.isAFK = true
-	else
-		self:CancelTimer(self.statsTimer)
-		self:CancelTimer(self.logoffTimer)
-
-		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
-		self.AFKMode.statMsg.info:SetFormattedText("|cffb3b3b3%s|r", L["Random Stats"])
-		self.isAFK = false
-	end
-end
-
 local find = string.find
 
 local function IsFoolsDay()
@@ -479,3 +435,51 @@ local function Initialize()
 end
 
 hooksecurefunc(AFK, "Initialize", Initialize)
+
+AFK.SetAFKBui = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:SetAFKBui(status)
+	if E.db.benikui.misc.afkMode ~= true then return end
+
+	if not (self.AFKMode and self.AFKMode.top) then
+		Initialize()
+	end
+
+	if(status) then
+		local xptxt = GetXPinfo()
+		local level = UnitLevel('player')
+		local race = UnitRace('player')
+		local localizedClass = UnitClass('player')
+		local spec = getSpec()
+		local ilvl = getItemLevel()
+		local displayline = ""
+
+		self.AFKMode.top:Height(0)
+		self.AFKMode.top.anim.height:Play()
+		self.AFKMode.bottom:Height(0)
+		self.AFKMode.bottom.anim.height:Play()
+		self.startTime = GetTime()
+		self.statsTimer = self:ScheduleRepeatingTimer("UpdateStatMessage", 5)
+		self.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
+
+		if xptxt then
+			self.AFKMode.xp:Show()
+			self.AFKMode.xp.text:SetText(xptxt)
+		else
+			self.AFKMode.xp:Hide()
+			self.AFKMode.xp.text:SetText("")
+		end
+
+		displayline = (format("%s - %s\n%s %s %s %s %s\n%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl))
+
+		self.AFKMode.bottom.name:SetText(displayline)
+		self.isAFK = true
+	else
+		self:CancelTimer(self.statsTimer)
+		self:CancelTimer(self.logoffTimer)
+
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+		self.AFKMode.statMsg.info:SetFormattedText("|cffb3b3b3%s|r", L["Random Stats"])
+		self.isAFK = false
+	end
+end
