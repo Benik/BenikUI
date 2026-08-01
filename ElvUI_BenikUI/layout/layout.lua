@@ -568,7 +568,7 @@ function mod:PLAYER_ENTERING_WORLD(...)
 	mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function mod:Initialize()
+function mod:PLAYER_LOGIN()
 	mod:CreateLayout()
 	mod:CreateMiddlePanel()
 	mod:ToggleMinimapStyle()
@@ -581,7 +581,10 @@ function mod:Initialize()
 	hooksecurefunc(DT, 'UpdatePanelInfo', mod.ToggleTransparency)
 	hooksecurefunc(DT, 'LoadDataTexts', mod.LoadDataTexts)
 	hooksecurefunc(E, 'UpdateMedia', updateButtons)
+end
 
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 	mod:RegisterEvent('PLAYER_ENTERING_WORLD')
 	mod:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
 end

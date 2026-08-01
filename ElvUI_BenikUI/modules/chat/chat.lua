@@ -40,8 +40,14 @@ end
 function mod:ToggleChatStyle()
 	if not E.db.benikui.general.benikuiStyle then return end
 	local db = E.db.chat.benikuiStyle
-	_G.LeftChatPanel.backdrop.style:SetShown(db)
-	_G.RightChatPanel.backdrop.style:SetShown(db)
+
+	if _G.LeftChatPanel.backdrop.style then
+		_G.LeftChatPanel.backdrop.style:SetShown(db)
+	end
+
+	if _G.RightChatPanel.backdrop.style then
+		_G.RightChatPanel.backdrop.style:SetShown(db)
+	end
 end
 
 local function InjectChatPanelOption()
