@@ -400,7 +400,7 @@ function mod:PopulateFactionData()
 	twipe(Collapsed)
 end
 
-function mod:UPDATE_FACTION(event, factionID)
+function mod:UPDATE_FACTION(_, factionID)
 	if not mod.ReputationsList or not next(mod.ReputationsList) then
 		mod:PopulateFactionData()
 	elseif factionID and not mod.ReputationsList[tostring(factionID)] then
