@@ -465,7 +465,7 @@ function mod:CreateLayout()
 	local elvuiCopyChatFrame = _G.ElvUI_CopyChatFrame
 	if elvuiCopyChatFrame then elvuiCopyChatFrame:BuiStyle() end
 
-	self:ToggleTransparency()
+	mod:ToggleTransparency()
 end
 
 -- Add minimap styling option in ElvUI minimap options
@@ -549,10 +549,6 @@ function mod:ToggleMinimapStyle()
 	end
 end
 
-function mod:regEvents()
-	mod:ToggleTransparency()
-end
-
 function mod:LoadDataTexts(...)
 	DT:UpdatePanelInfo('BuiLeftChatDTPanel')
 	DT:UpdatePanelInfo('BuiRightChatDTPanel')
@@ -560,17 +556,13 @@ function mod:LoadDataTexts(...)
 	updateButtonFont()
 end
 
-function mod:PLAYER_ENTERING_WORLD(...)
-	mod:ToggleBuiDts()
-	mod:regEvents()
-
-	mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end
-
 function mod:PLAYER_LOGIN()
 	mod:CreateLayout()
 	mod:CreateMiddlePanel()
 	mod:ToggleMinimapStyle()
+	mod:ToggleBuiDts()
+	mod:ToggleTransparency()
+
 	C_TimerAfter(0.5, mod.ChatStyles)
 
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
@@ -584,8 +576,6 @@ end
 
 function mod:Initialize()
 	mod:RegisterEvent('PLAYER_LOGIN')
-	mod:RegisterEvent('PLAYER_ENTERING_WORLD')
-	mod:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
 end
 
 BUI:RegisterModule(mod:GetName())
