@@ -1,6 +1,5 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Widgetbars')
-local LSM = E.LSM
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -142,7 +141,7 @@ function mod:PreyBar_Update()
 		bar.text:SetTextColor(1, 1, 1)
 		bar.text:Point('CENTER', 0, db.textYoffset or 0)
 
-		bar.text:FontTemplate(LSM:Fetch('font', db.useDTfont and E.db.datatexts.font or db.font), db.useDTfont and E.db.datatexts.fontSize or db.fontsize, db.useDTfont and E.db.datatexts.fontOutline or db.fontflags)
+		bar.text:FontTemplate(db.useDTfont and E.db.datatexts.font or db.font, db.useDTfont and E.db.datatexts.fontSize or db.fontsize, db.useDTfont and E.db.datatexts.fontOutline or db.fontflags)
 		bar.text:SetFormattedText('Prey: %s', PreyStateLabel[displayState] or '')
 
 		bar:SetValue(PreyStateStep[displayState] or 0)

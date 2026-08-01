@@ -3,7 +3,6 @@ local mod = BUI:GetModule('Layout')
 local LO = E:GetModule('Layout')
 local DT = E:GetModule('DataTexts')
 local M = E:GetModule('Minimap')
-local LSM = E.LSM
 
 local _G = _G
 local tinsert = table.insert
@@ -199,7 +198,7 @@ local function updateButtonFont()
 	for panelName, panel in pairs(dts) do
 		for i = 1, panel.numPoints do
 			if panel.dataPanels[i] then
-				panel.dataPanels[i].text:FontTemplate(LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
+				panel.dataPanels[i].text:FontTemplate(db.font, db.fontSize, db.fontOutline)
 			end
 		end
 		DT:UpdatePanelInfo(panelName, panel)

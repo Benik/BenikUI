@@ -218,13 +218,13 @@ function mod:UpdatePanelTitle()
 
 			if tData.useDTfont then
 				panel.titleText:FontTemplate(
-						LSM:Fetch('font', E.db.datatexts.font),
+						E.db.datatexts.font,
 						E.db.datatexts.fontSize,
 						E.db.datatexts.fontOutline
 				)
 			else
 				panel.titleText:FontTemplate(
-						LSM:Fetch('font', tData.font),
+						tData.font,
 						tData.fontsize,
 						tData.fontflags
 				)

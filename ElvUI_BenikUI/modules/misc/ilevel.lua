@@ -1,6 +1,5 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('iLevel')
-local LSM = E.LSM
 
 local _G = _G
 local next, wipe, pairs = next, wipe, pairs
@@ -54,9 +53,9 @@ function mod:UpdateItemLevel()
 		else
 			mod.f[id]:SetText("")
 		end
-		mod.f[id]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+		mod.f[id]:FontTemplate(db.font, db.fontsize, db.fontflags)
 	end
-	_G.CharacterNeckSlot.RankFrame.Label:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+	_G.CharacterNeckSlot.RankFrame.Label:FontTemplate(db.font, db.fontsize, db.fontflags)
 end
 
 local function returnPoints(id)

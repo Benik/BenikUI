@@ -1,6 +1,5 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards');
-local LSM = E.LSM
 
 local _G = _G
 local join, tonumber, floor = string.join, tonumber, floor
@@ -203,7 +202,7 @@ mod:RegisterSystemBoard('Volume', function()
 	iconBG:Point('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', 0, (E.PixelMode and 4 or 6))
 	iconBG:SetFrameStrata('LOW')
 	iconBG.text = iconBG:CreateFontString(nil, 'OVERLAY')
-	iconBG.text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+	iconBG.text:FontTemplate(E.db.datatexts.font, E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 	iconBG.text:Point('RIGHT', iconBG, 'RIGHT')
 	iconBG.text:SetJustifyH('LEFT')
 	iconBG.text:SetTextColor(1, 0.5, 0.1)
