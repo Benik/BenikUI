@@ -86,7 +86,7 @@ local function BuiStyle(f, template, name, ignoreColor, ignoreVisibility)
 
 	local style = CreateFrame('Frame', name or nil, f, 'BackdropTemplate')
 	E:ReplaceSetupTextureCoordinates(style)
-	style:SetTemplate('Transparent', true)
+	style:SetTemplate('Transparent')
 
 	template = template or 'Outside'
 
