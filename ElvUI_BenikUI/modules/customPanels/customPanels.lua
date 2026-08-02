@@ -384,13 +384,21 @@ function mod:UpdatePanels()
 end
 
 -- Initializes the module
-function mod:Initialize()
+function mod:Init()
 	mod:UpdatePanels()
 	mod:RegisterEvent("PLAYER_REGEN_DISABLED", "OnEvent")
 	mod:RegisterEvent("PLAYER_REGEN_ENABLED",  "OnEvent")
 	mod:RegisterEvent("UNIT_ENTERING_VEHICLE", "OnEvent")
 	mod:RegisterEvent("UNIT_EXITING_VEHICLE",  "OnEvent")
 	mod:RegisterEvent("PET_BATTLE_CLOSE",      "OnEvent")
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

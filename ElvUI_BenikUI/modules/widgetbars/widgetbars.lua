@@ -48,12 +48,20 @@ local function SetupTimer(container, timer)
 	end
 end
 
-function mod:Initialize()
+function mod:Init()
 	mod:LoadMaw()
 	mod:AltPowerBar()
 	mod:LoadPrey()
 	hooksecurefunc(B, "UpdateAltPowerBarSettings", mod.AltPowerBar)
 	hooksecurefunc(_G.MirrorTimerContainer, 'SetupTimer', SetupTimer)
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

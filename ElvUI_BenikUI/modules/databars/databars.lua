@@ -122,12 +122,20 @@ function mod:StyleBar(bar, onClick)
 	bar.holder:BuiStyle('Outside', nil, false, true)
 end
 
-function mod:Initialize()
+function mod:Init()
 	self:LoadXP()
 	self:LoadRep()
 	self:LoadAzerite()
 	self:LoadHonor()
 	self:LoadThreat()
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

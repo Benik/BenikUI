@@ -349,15 +349,22 @@ function mod:Setup()
 end
 
 
-function mod:Initialize()
+function mod:Init()
 	if E.private.unitframe.enable ~= true then return end
 
 	mod:Setup()
 
-	hooksecurefunc(UF, "LoadUnits", mod.Setup)
 	hooksecurefunc(UF, "Configure_ReadyCheckIcon", mod.Configure_ReadyCheckIcon)
 
 	self:RegisterEvent("ADDON_LOADED")
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())
