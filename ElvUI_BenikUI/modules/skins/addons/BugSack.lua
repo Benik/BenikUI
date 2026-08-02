@@ -45,4 +45,4 @@ local function BugSack()
 		_G.BugSackFrame.IsSkinned = true
 	end)
 end
-S:AddCallback("BenikUI_BugSackSkin", BugSack)
+S:AddCallbackForAddon("BugSack", "BenikUI_BugSack", BugSack)

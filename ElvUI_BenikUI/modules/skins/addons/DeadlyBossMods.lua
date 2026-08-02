@@ -118,7 +118,6 @@ function mod:DbmHalfBarSkin()
 
 	hooksecurefunc(DBT, 'CreateBar', SkinBars)
 end
-S:AddCallback("BenikUI_DbmSkin", mod.DbmHalfBarSkin)
 
 function mod:DbmFrames()
 	if not BUI:IsAddOnEnabled("DBM-Core") then return end
@@ -156,7 +155,12 @@ function mod:DbmFrames()
 	hooksecurefunc(DBM.RangeCheck, 'Show', StyleRangeFrame)
 	hooksecurefunc(DBM.InfoFrame, 'Show', StyleInfoFrame)
 end
-S:AddCallback("BenikUI_DbmFrames", mod.DbmFrames)
+
+function mod:DBM()
+	mod:DbmHalfBarSkin()
+	mod:DbmFrames()
+end
+S:AddCallbackForAddon("DBM-Core", "BenikUI_DBM", mod.DBM)
 
 local function DBM_Options()
 	local DBM_GUI_OptionsFrame = _G.DBM_GUI_OptionsFrame
@@ -170,12 +174,6 @@ function mod:LoadDBMOptions()
 	if not E.db.benikui.skins.variousSkins.dbmSkin then return end
 	if not BUI:IsAddOnEnabled("DBM-GUI") then return end
 
-	mod:RegisterEvent("ADDON_LOADED", function(_, addon)
-		if addon == "DBM-GUI" then
-			DBM_Options()
-			mod:UnregisterEvent("ADDON_LOADED")
-			return
-		end
-	end)
+	DBM_Options()
 end
-S:AddCallback("BenikUI_DbmOptions", mod.LoadDBMOptions)
+S:AddCallbackForAddon("DBM-GUI", "BenikUI_DBMOptions", mod.LoadDBMOptions)

@@ -89,4 +89,4 @@ local function Immersion()
 		return tooltip
 	end
 end
-S:AddCallback("BenikUI_Immersion", Immersion)
+S:AddCallbackForAddon("Immersion", "BenikUI_Immersion", Immersion)

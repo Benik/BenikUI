@@ -31,4 +31,4 @@ local function AllTheThings()
 	att.AddEventHandler("OnReady", SkinAllTheThings)
 	att.AddEventHandler("OnWindowCreated", SkinAllTheThings)
 end
-S:AddCallback("BenikUI_ATT", AllTheThings)
+S:AddCallbackForAddon("AllTheThings", "BenikUI_AllTheThings", AllTheThings)

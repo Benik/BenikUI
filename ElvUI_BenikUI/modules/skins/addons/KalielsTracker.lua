@@ -58,4 +58,4 @@ local function KalielsTracker()
 		end)
 	end
 end
-S:AddCallback("BenikUI_KalielsTracker", KalielsTracker)
+S:AddCallbackForAddon("!KalielsTracker", "BenikUI_KalielsTracker", KalielsTracker)
