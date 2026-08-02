@@ -33,7 +33,8 @@ function mod:AceGUI()
 	mod:HookAceGUI()
 	mod:RegisterEvent("ADDON_LOADED", "HookAceGUI")
 end
-S:AddCallback("BenikUI_AceGUI", mod.AceGUI)
+mod:AceGUI()
+--S:AddCallback("BenikUI_AceGUI", mod.AceGUI)
 
 ---------------------------------
 -- LibDBIcon. Credit: Azilroka --
@@ -50,7 +51,8 @@ local function LibDBIcon()
 		end)
 	end
 end
-S:AddCallback("BenikUI_LibDBIcon", LibDBIcon)
+LibDBIcon()
+--S:AddCallback("BenikUI_LibDBIcon", LibDBIcon)
 
 -------------------------------
 -- LibQTip. Credit: Azilroka --
@@ -80,7 +82,5 @@ function mod:LibQTip()
 		end)
 	end
 end
-S:AddCallback("BenikUI_LibQTip", mod.LibQTip)
-
-
-
+mod:LibQTip()
+--S:AddCallback("BenikUI_LibQTip", mod.LibQTip)
