@@ -1,5 +1,5 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
-local mod = BUI:GetModule('Castbar')
+local mod = BUI:GetModule('Units')
 local UF = E:GetModule('UnitFrames')
 local LSM = LibStub("LibSharedMedia-3.0")
 
@@ -56,7 +56,7 @@ local function resetCastbarLevel(unit, unitframe)
 end
 
 local function ConfigureCastbarShadow(unit, unitframe)
-	if not E.db.benikui.general.shadows then return end
+	if not (E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows) then return end
 	local castbar = unitframe.Castbar
 
 	if not castbar then return end
@@ -64,6 +64,8 @@ local function ConfigureCastbarShadow(unit, unitframe)
 	local db = E.db.unitframe.units[unit].castbar;
 
 	if not castbar.backdrop.shadow then return end
+
+	local SPACING = UF.BORDER + UF.SPACING
 
 	if db.overlayOnFrame == 'None' then
 		castbar.backdrop.shadow:Show()
@@ -87,9 +89,9 @@ local function ConfigureCastbarShadow(unit, unitframe)
 		if castbar.ButtonIcon then
 			castbar.ButtonIcon.bg:ClearAllPoints()
 			if unitframe.ORIENTATION == "RIGHT" then
-				castbar.ButtonIcon.bg:Point("LEFT", castbar, "RIGHT", (UF.SPACING*3), 0)
+				castbar.ButtonIcon.bg:Point("LEFT", castbar, "RIGHT", (SPACING*3), 0)
 			else
-				castbar.ButtonIcon.bg:Point("RIGHT", castbar, "LEFT", -(UF.SPACING*3), 0)
+				castbar.ButtonIcon.bg:Point("RIGHT", castbar, "LEFT", -(SPACING*3), 0)
 			end
 		end
 	end
@@ -126,7 +128,7 @@ local function ConfigureCastbar(unit, unitframe)
 end
 
 --Initiate update of unit
-function mod:UpdateSettings(unit)
+function mod:UpdateCastbarSettings(unit)
 	if unit then
 		local unitFrameName = "ElvUF_"..E:StringTitle(unit)
 		local unitframe = _G[unitFrameName]
@@ -136,12 +138,12 @@ end
 
 -- Function to be called when registered events fire
 function mod:UpdateAllCastbars()
-	mod:UpdateSettings("player")
-	mod:UpdateSettings("target")
-	mod:UpdateSettings("focus")
-	mod:UpdateSettings("pet")
-	mod:UpdateSettings("arena")
-	mod:UpdateSettings("boss")
+	mod:UpdateCastbarSettings("player")
+	mod:UpdateCastbarSettings("target")
+	mod:UpdateCastbarSettings("focus")
+	mod:UpdateCastbarSettings("pet")
+	mod:UpdateCastbarSettings("arena")
+	mod:UpdateCastbarSettings("boss")
 end
 
 --Castbar texture
@@ -194,7 +196,8 @@ function mod:PostCastInterruptible(unit)
 end
 
 function mod:CastBarHooks()
-	local shadowsEnabled = E.db.benikui.general.shadows
+	local shadowsEnabled = E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows
+
 	for _, unit in pairs(units) do
 		local unitframe = _G["ElvUF_"..unit];
 		local castbar = unitframe and unitframe.Castbar
@@ -204,8 +207,8 @@ function mod:CastBarHooks()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
-			hooksecurefunc(castbar, "PostCastStart", mod.PostCast)
-			hooksecurefunc(castbar, "PostCastInterruptible", mod.PostCastInterruptible)
+			self:SecureHook(castbar, "PostCastStart", mod.PostCast)
+			self:SecureHook(castbar, "PostCastInterruptible", mod.PostCastInterruptible)
 		end
 	end
 
@@ -217,8 +220,8 @@ function mod:CastBarHooks()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
-			hooksecurefunc(castbar, "PostCastStart", mod.PostCast)
-			hooksecurefunc(castbar, "PostCastInterruptible", mod.PostCastInterruptible)
+			self:SecureHook(castbar, "PostCastStart", mod.PostCast)
+			self:SecureHook(castbar, "PostCastInterruptible", mod.PostCastInterruptible)
 		end
 	end
 
@@ -230,16 +233,20 @@ function mod:CastBarHooks()
 				castbar.backdrop.shadow:SetFrameLevel(castbar.backdrop:GetFrameLevel())
 				castbar.ButtonIcon.bg:CreateSoftShadow()
 			end
-			hooksecurefunc(castbar, "PostCastStart", mod.PostCast)
-			hooksecurefunc(castbar, "PostCastInterruptible", mod.PostCastInterruptible)
+			self:SecureHook(castbar, "PostCastStart", mod.PostCast)
+			self:SecureHook(castbar, "PostCastInterruptible", mod.PostCastInterruptible)
 		end
 	end
 end
 
-function mod:Initialize()
+function mod:CastBarSecureHooks()
+	mod:CastBarHooks()
+	mod:UpdateAllCastbars()
+end
+
+function mod:CastBarShadows()
 	--ElvUI UnitFrames are not enabled, stop right here!
 	if E.private.unitframe.enable ~= true then return end
-
 	--Profile changed, update castbar overlay settings
 	hooksecurefunc(E, "UpdateAll", function()
 		--Delay it a bit to allow all db changes to take effect before we update
@@ -247,15 +254,13 @@ function mod:Initialize()
 	end)
 
 	--Castbar was modified, re-apply settings
-	hooksecurefunc(UF, "Configure_Castbar", function(self, frame)
+	self:SecureHook(UF, "Configure_Castbar", function(self, frame)
 		local unit = frame.unitframeType
 		if unit and (unit == 'player' or unit == 'target') then
-			mod:UpdateSettings(unit)
+			mod:UpdateCastbarSettings(unit)
 		end
 	end)
 
-	hooksecurefunc(UF, "LoadUnits", mod.CastBarHooks)
-	hooksecurefunc(UF, "LoadUnits", mod.UpdateAllCastbars)
+	mod:CastBarSecureHooks()
+	self:SecureHook(UF, "LoadUnits", mod.CastBarSecureHooks)
 end
-
-BUI:RegisterModule(mod:GetName())

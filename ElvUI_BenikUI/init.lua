@@ -22,7 +22,6 @@ BUI.Erelease = tonumber(GetAddOnMetadata("ElvUI_BenikUI", "X-ElvuiVersion"))
 
 BUI.Actionbars = BUI:NewModule('Actionbars', 'AceEvent-3.0') --fixed
 BUI.Bags = BUI:NewModule('Bags', 'AceHook-3.0', 'AceEvent-3.0') --fixed
-BUI.Castbars = BUI:NewModule('Castbar', 'AceTimer-3.0', 'AceEvent-3.0') --embed to unitframes?
 BUI.Chat = BUI:NewModule('Chat', 'AceHook-3.0', 'AceEvent-3.0') --works as is
 BUI.CustomPanels = BUI:NewModule('CustomPanels', 'AceEvent-3.0') --fixed
 BUI.Dashboards = BUI:NewModule('Dashboards', 'AceEvent-3.0', 'AceHook-3.0')	--fixed
@@ -82,9 +81,9 @@ function BUI:Init()
 	E.data:RegisterDefaults(E.DF)
 	E.charSettings:RegisterDefaults(E.privateVars)
 
-	self.initialized = true
 	self:Initialize()
 	self:InitializeModules()
+	self.initialized = true
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
