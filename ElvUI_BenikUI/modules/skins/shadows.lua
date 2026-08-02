@@ -260,6 +260,7 @@ function mod:Init()
 	FriendsFrameShadows()
 	MerchantFrameShadows()
 	MailFrameShadows()
+	mod:AuraShadows()
 	mod:RegisterEvent('START_TIMER')
 
 	-- Widgets
