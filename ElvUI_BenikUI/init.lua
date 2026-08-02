@@ -79,21 +79,14 @@ function BUI:Init()
 		return
 	end
 
-	-- Copied from Mera <3
-	for _, data in next, { { E.db, P.benikui }, { E.global, G.benikui }, { E.private, V.benikui } } do
-		local target, defaults = data[1], data[2]
-		if target and defaults then
-			target.benikui = E:CopyTable(target.benikui, defaults, true)
-		end
-	end
+	E.data:RegisterDefaults(E.DF)
+	E.charSettings:RegisterDefaults(E.privateVars)
 
 	self.initialized = true
 	self:Initialize()
 	self:InitializeModules()
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
-
---E.Libs.EP:HookInitialize(BUI, BUI.Init)
 
 -- BenikUI retail on classic
 E.PopupDialogs["BENIKUI_CLASSIC"] = {
