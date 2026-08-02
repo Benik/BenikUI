@@ -218,4 +218,6 @@ function BUI:Initialize()
 
 	hooksecurefunc(E, "UpdateMedia", BUI.UpdateSoftGlowColor)
 	hooksecurefunc(BUI, "SetupColorThemes", BUI.UpdateStyleColors)
+
+	self.initialized = true
 end

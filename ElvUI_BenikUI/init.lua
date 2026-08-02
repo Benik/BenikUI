@@ -66,6 +66,10 @@ function BUI:AddOptions()
 	end
 end
 
+function BUI:PLAYER_LOGIN()
+	self:Initialize()
+end
+
 function BUI:Init()
 	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 		E:Delay(2, function() E:StaticPopup_Show("BENIKUI_CLASSIC") end)
@@ -81,9 +85,8 @@ function BUI:Init()
 	E.data:RegisterDefaults(E.DF)
 	E.charSettings:RegisterDefaults(E.privateVars)
 
-	self:Initialize()
 	self:InitializeModules()
-	self.initialized = true
+	self:RegisterEvent('PLAYER_LOGIN')
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
