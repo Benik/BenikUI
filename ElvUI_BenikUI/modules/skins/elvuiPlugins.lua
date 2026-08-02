@@ -161,4 +161,4 @@ function mod:StyleWindTools()
 		self.RightPanel:BuiStyle()
 	end)
 end
-S:AddCallback("BenikUI_WidTools", mod.StyleWindTools)
+S:AddCallbackForAddon("ElvUI_WindTools", "BenikUI_WindTools", mod.StyleWindTools)
