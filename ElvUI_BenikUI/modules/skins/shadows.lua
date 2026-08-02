@@ -246,7 +246,7 @@ function B:UIWidgetTemplateStatusBarShadows()
 	end
 end
 
-function mod:Initialize()
+function mod:Init()
 	if not E.db.benikui.general.shadows then return end
 
 	AltPowerBarShadows()
@@ -272,6 +272,14 @@ function mod:Initialize()
 	-- Callbacks
 	S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_CalendarEventButtonShadows", CalendarEventButtonShadows)
 	hooksecurefunc(M, "SkinBubble", mod.ChatBubbles)
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

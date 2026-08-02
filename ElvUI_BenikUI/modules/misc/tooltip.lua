@@ -221,7 +221,7 @@ function mod:StyleAceTooltip()
 end
 hooksecurefunc(S, "Ace3_StyleTooltip", mod.StyleAceTooltip)
 
-function mod:Initialize()
+function mod:Init()
 	if E.db.benikui.general.benikuiStyle ~= true or E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
 
 	if BUI:IsAddOnEnabled('TinyTooltip') or BUI:IsAddOnEnabled('TipTac') then return end
@@ -232,6 +232,14 @@ function mod:Initialize()
 	mod:SecureHookScript(GameTooltip, 'OnUpdate', 'RecolorTooltipStyle')
 	hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", mod.SetupStyleAndShadow)
 	hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", StyleCagedBattlePetTooltip)
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

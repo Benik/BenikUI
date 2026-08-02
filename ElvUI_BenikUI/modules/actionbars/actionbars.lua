@@ -198,7 +198,7 @@ local function VehicleExit()
 	end
 end
 
-function mod:Initialize()
+function mod:Init()
 	mod:StyleBackdrops()
 	mod:PetShadows()
 	mod:StyleColor()
@@ -216,6 +216,14 @@ function mod:Initialize()
 	if not E.db.benikui.general.shadows then return end
 	mod:FlyoutShadows()
 	mod:ExtraAB()
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

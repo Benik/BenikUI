@@ -106,13 +106,21 @@ local function AllInOneBags()
 	hooksecurefunc(B, "BankTabs_MenuSkin", mod.StyleWarbandMenu)
 end
 
-function mod:Initialize()
+function mod:Init()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
 
 	AllInOneBags()
 	StyleAllBags()
 	StyleBankBags()
 	StyleBagBar()
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

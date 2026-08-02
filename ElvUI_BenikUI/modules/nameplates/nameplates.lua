@@ -34,11 +34,19 @@ function mod:Construct_AuraIcon(button)
 	end
 end
 
-function mod:Initialize()
+function mod:Init()
 	if not E.db.benikui.general.shadows then return end
 
 	hooksecurefunc(NP, 'StylePlate', mod.NameplateShadows)
 	hooksecurefunc(NP, 'Construct_AuraIcon', mod.Construct_AuraIcon)
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())
