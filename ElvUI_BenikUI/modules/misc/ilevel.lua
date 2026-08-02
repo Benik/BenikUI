@@ -127,6 +127,8 @@ function mod:Initialize()
 	mod:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", mod.UpdateItemLevel)
 	mod:RegisterEvent("PLAYER_AVG_ITEM_LEVEL_UPDATE", mod.UpdateItemLevel)
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+	mod.initialized = true
 end
 
 BUI:RegisterModule(mod:GetName())

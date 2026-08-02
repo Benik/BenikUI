@@ -54,6 +54,8 @@ function mod:Init()
 	mod:LoadPrey()
 	hooksecurefunc(B, "UpdateAltPowerBarSettings", mod.AltPowerBar)
 	hooksecurefunc(_G.MirrorTimerContainer, 'SetupTimer', SetupTimer)
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

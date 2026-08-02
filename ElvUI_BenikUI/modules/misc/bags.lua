@@ -113,6 +113,8 @@ function mod:Init()
 	StyleAllBags()
 	StyleBankBags()
 	StyleBagBar()
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

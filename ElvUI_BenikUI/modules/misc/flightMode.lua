@@ -640,7 +640,7 @@ function mod:LoadEvents()
 	mod:RegisterEvent("ZONE_CHANGED_NEW_AREA", "OnEvent")
 end
 
-function mod:Init()
+function mod:CreateFlightMode()
 	if E.db.benikui.misc.flightMode.enable ~= true then return end
 
 	local db = E.db.benikui.colors
@@ -1030,6 +1030,12 @@ function mod:Init()
 	E.FrameLocks['ElvUI_ReputationBar'] = { parent = E.UIParent }
 	E.FrameLocks['ElvUI_HonorBar'] = { parent = E.UIParent }
 	E.FrameLocks['ElvUI_AzeriteBar'] = { parent = E.UIParent }
+end
+
+function mod:Init()
+	mod:CreateFlightMode()
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

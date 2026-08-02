@@ -67,6 +67,7 @@ function mod:Initialize()
 	mod:ToggleChatStyle()
 
 	hooksecurefunc(CH, "UpdateEditboxAnchors", mod.UpdateEditboxAnchors)
+	mod.initialized = true
 end
 
 BUI:RegisterModule(mod:GetName())

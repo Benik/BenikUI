@@ -303,6 +303,8 @@ function mod:Setup()
 		mod:AssistShadows()
 		mod:RaidpetShadows()
 
+		mod:CastBarShadows()
+
 		for _, frame in pairs(UF.units) do
 			if frame then
 				mod:UnitPowerShadows(frame)
@@ -357,6 +359,8 @@ function mod:Init()
 	hooksecurefunc(UF, "Configure_ReadyCheckIcon", mod.Configure_ReadyCheckIcon)
 
 	self:RegisterEvent("ADDON_LOADED")
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

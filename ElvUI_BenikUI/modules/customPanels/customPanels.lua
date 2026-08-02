@@ -391,6 +391,8 @@ function mod:Init()
 	mod:RegisterEvent("UNIT_ENTERING_VEHICLE", "OnEvent")
 	mod:RegisterEvent("UNIT_EXITING_VEHICLE",  "OnEvent")
 	mod:RegisterEvent("PET_BATTLE_CLOSE",      "OnEvent")
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

@@ -39,6 +39,8 @@ function mod:Init()
 
 	hooksecurefunc(NP, 'StylePlate', mod.NameplateShadows)
 	hooksecurefunc(NP, 'Construct_AuraIcon', mod.Construct_AuraIcon)
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

@@ -572,6 +572,8 @@ function mod:PLAYER_LOGIN()
 	hooksecurefunc(DT, 'UpdatePanelInfo', mod.ToggleTransparency)
 	hooksecurefunc(DT, 'LoadDataTexts', mod.LoadDataTexts)
 	hooksecurefunc(E, 'UpdateMedia', updateButtons)
+
+	mod.initialized = true
 end
 
 function mod:Initialize()

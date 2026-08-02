@@ -216,6 +216,8 @@ function mod:Init()
 	if not E.db.benikui.general.shadows then return end
 	mod:FlyoutShadows()
 	mod:ExtraAB()
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

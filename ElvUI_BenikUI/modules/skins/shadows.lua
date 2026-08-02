@@ -273,6 +273,8 @@ function mod:Init()
 	-- Callbacks
 	S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_CalendarEventButtonShadows", CalendarEventButtonShadows)
 	hooksecurefunc(M, "SkinBubble", mod.ChatBubbles)
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

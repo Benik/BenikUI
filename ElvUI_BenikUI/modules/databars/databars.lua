@@ -123,11 +123,13 @@ function mod:StyleBar(bar, onClick)
 end
 
 function mod:Init()
-	self:LoadXP()
-	self:LoadRep()
-	self:LoadAzerite()
-	self:LoadHonor()
-	self:LoadThreat()
+	mod:LoadXP()
+	mod:LoadRep()
+	mod:LoadAzerite()
+	mod:LoadHonor()
+	mod:LoadThreat()
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

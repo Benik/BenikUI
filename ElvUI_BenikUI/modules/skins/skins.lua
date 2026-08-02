@@ -82,8 +82,11 @@ end
 
 function mod:Init()
 	if E.db.benikui.skins.elvuiAddons.elv ~= true then return end
+
 	hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)
 	hooksecurefunc(S, 'Ace3_TabSetSelected', Style_Ace3TabSelected)
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

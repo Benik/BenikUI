@@ -116,6 +116,8 @@ function mod:Init()
 		mod:styleElvUIPlugins()
 		mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end)
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

@@ -307,6 +307,8 @@ function mod:Init()
 	mod:LoadTokens()
 	mod:LoadReputations()
 	mod:LoadItems()
+
+	mod.initialized = true
 end
 
 function mod:PLAYER_LOGIN()

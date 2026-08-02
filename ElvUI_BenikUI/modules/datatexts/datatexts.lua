@@ -45,6 +45,8 @@ function mod:Initialize()
 	hooksecurefunc(DT, "UpdatePanelInfo", mod.UpdatePanelInfo)
 	hooksecurefunc(DT, "SetupTooltip", mod.SetupTooltip)
 	C_TimerAfter(5, mod.ToggleMailFrame)
+
+	mod.initialized = true
 end
 
 BUI:RegisterModule(mod:GetName())
