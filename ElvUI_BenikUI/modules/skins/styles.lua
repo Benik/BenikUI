@@ -107,9 +107,6 @@ end
 S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
 
 function mod:Init()
-	-- till AddCallBack works again
-	mod:TempBlizzardStyleFunction()
-	mod:styleAlertFrames()
 	hooksecurefunc(E, "ToggleOptions", StyleElvUIConfig)
 
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD", function(...)

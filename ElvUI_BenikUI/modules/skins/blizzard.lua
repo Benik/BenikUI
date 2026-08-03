@@ -281,8 +281,3 @@ function mod:styleWorldMap()
 	end
 end
 S:AddCallback("BenikUI_WorldMap", mod.styleWorldMap)
-
-function mod:TempBlizzardStyleFunction()
-	LoadSkin()
-	mod:styleWorldMap()
-end
