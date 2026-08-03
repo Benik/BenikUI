@@ -110,7 +110,7 @@ function mod:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function mod:Initialize()
+function mod:Init()
 	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.armory.character.enable ~= false) then return end
 
 	mod.f = CreateFrame("Frame", nil, _G.PaperDollFrame)
@@ -129,6 +129,14 @@ function mod:Initialize()
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 	mod.initialized = true
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

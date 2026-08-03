@@ -62,12 +62,20 @@ local function InjectChatPanelOption()
 end
 tinsert(BUI.Config, InjectChatPanelOption)
 
-function mod:Initialize()
+function mod:Init()
 	mod:UpdateEditboxAnchors()
 	mod:ToggleChatStyle()
 
 	hooksecurefunc(CH, "UpdateEditboxAnchors", mod.UpdateEditboxAnchors)
 	mod.initialized = true
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

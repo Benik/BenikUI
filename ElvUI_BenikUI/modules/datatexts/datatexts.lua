@@ -40,13 +40,21 @@ function mod:ToggleMailFrame(event)
 	end
 end
 
-function mod:Initialize()
+function mod:Init()
 	hooksecurefunc(DT, "BuildPanelFrame", mod.BuildPanelFrame)
 	hooksecurefunc(DT, "UpdatePanelInfo", mod.UpdatePanelInfo)
 	hooksecurefunc(DT, "SetupTooltip", mod.SetupTooltip)
 	C_TimerAfter(5, mod.ToggleMailFrame)
 
 	mod.initialized = true
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())
