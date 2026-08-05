@@ -82,8 +82,8 @@ function BUI:Init()
 		return
 	end
 
-	E.data:RegisterDefaults(E.DF)
-	E.charSettings:RegisterDefaults(E.privateVars)
+--	E.data:RegisterDefaults(E.DF)
+--	E.charSettings:RegisterDefaults(E.privateVars)
 
 	self:InitializeModules()
 	self:RegisterEvent('PLAYER_LOGIN')
