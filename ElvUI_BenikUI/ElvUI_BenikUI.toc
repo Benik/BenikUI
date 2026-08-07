@@ -1,4 +1,4 @@
-## Interface: 120007
+## Interface: 120007, 120100
 ## Author: Benik
 ## Version: 5.17
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
