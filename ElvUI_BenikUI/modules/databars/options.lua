@@ -1,4 +1,4 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 local mod = BUI:GetModule('Databars');
 
@@ -55,7 +55,7 @@ local function databarsTable()
 					type = 'toggle',
 					name = L["Enable"],
 					get = function(info) return E.db.benikui.databars[option].enable end,
-					set = function(info, value) E.db.benikui.databars[option].enable = value E:StaticPopup_Show('PRIVATE_RL'); end,
+					set = function(info, value) E.db.benikui.databars[option].enable = value E:StaticPopup_Show('CONFIG_RL'); end,
 				},
 				spacer1 = {
 					order = 2,
@@ -90,7 +90,7 @@ local function databarsTable()
 							type = 'toggle',
 							name = L["Enable"],
 							get = function(info) return E.db.benikui.databars[option].notifiers.enable end,
-							set = function(info, value) E.db.benikui.databars[option].notifiers.enable = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+							set = function(info, value) E.db.benikui.databars[option].notifiers.enable = value; E:StaticPopup_Show('CONFIG_RL'); end,
 						},
 						position = {
 							order = 2,

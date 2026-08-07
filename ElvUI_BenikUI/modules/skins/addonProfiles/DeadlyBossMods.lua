@@ -1,0 +1,44 @@
+﻿local BUI, E, L, V, P, G = unpack((select(2, ...)))
+
+local ClearRealm = string.gsub(E.myrealm, "%s+", "")
+
+function BUI:LoadDBMProfile()
+	local profileName = "BenikUI"..E.myname.."-"..ClearRealm -- DBM doesn't like spaces in the profile name
+
+	if DBM_AllSavedOptions[profileName] == nil then
+		DBM:CreateProfile(profileName)
+
+		local font
+		if E.private.benikui.expressway == true then
+			font = "Interface\\AddOns\\ElvUI\\Game\\Shared\\Media\\Fonts\\Expressway.ttf"
+		else
+			font = "Interface\\AddOns\\ElvUI_BenikUI\\media\\fonts\\PROTOTYPE.TTF"
+		end
+
+		DBM_AllSavedOptions[profileName]["SpecialWarningFontShadow"] = true
+		DBM_AllSavedOptions[profileName]["SpecialWarningFontStyle"] = "NONE"
+		DBT_AllPersistentOptions[profileName]["DBM"]["Texture"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Flat.tga"
+		DBT_AllPersistentOptions[profileName]["DBM"]["VarianceTexture"] = "Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Flat.tga"
+		DBT_AllPersistentOptions[profileName]["DBM"]["Scale"] = 0.9
+		DBT_AllPersistentOptions[profileName]["DBM"]["FontSize"] = 12
+		DBT_AllPersistentOptions[profileName]["DBM"]["FontFlag"] = "OUTLINE"
+		DBT_AllPersistentOptions[profileName]["DBM"]["HugeScale"] = 1
+		DBT_AllPersistentOptions[profileName]["DBM"]["Font"] = font
+		DBT_AllPersistentOptions[profileName]["DBM"]["BarYOffset"] = 6
+		DBT_AllPersistentOptions[profileName]["DBM"]["HugeBarYOffset"] = 6
+		DBT_AllPersistentOptions[profileName]["DBM"]["Height"] = 16
+		DBT_AllPersistentOptions[profileName]["DBM"]["Width"] = 220
+		DBT_AllPersistentOptions[profileName]["DBM"]["HugeWidth"] = 220
+		DBT_AllPersistentOptions[profileName]["DBM"]["HugeHeight"] = 20
+		DBM_AllSavedOptions[profileName]["WarningFont"] = font
+		DBM_AllSavedOptions[profileName]["SpecialWarningFont"] = font
+		DBM_AllSavedOptions[profileName]["InfoFrameFont"] = font
+
+		DBM:ApplyProfile(profileName)
+		if BUI.isInstallerRunning == false then
+			BUI:Print(format(BUI.profileStrings[1], L['Deadly Boss Mods']))
+		end
+	else
+		BUI:Print(format(BUI.profileStrings[2], L['Deadly Boss Mods']))
+	end
+end

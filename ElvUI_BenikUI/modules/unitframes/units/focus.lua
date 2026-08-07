@@ -1,18 +1,19 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
 local CreateFrame = CreateFrame
-
--- GLOBALS: hooksecurefunc
+local hooksecurefunc = hooksecurefunc
 
 function BU:Construct_FocusFrame()
 	local frame = _G["ElvUF_Focus"]
 
-	if not frame.Portrait.backdrop.shadow then
-		frame.Portrait.backdrop:CreateSoftShadow()
-		frame.Portrait.backdrop.shadow:Hide()
+	if E.db.benikui.general.shadows then
+		if not frame.Portrait.backdrop.shadow then
+			frame.Portrait.backdrop:CreateSoftShadow()
+			frame.Portrait.backdrop.shadow:Hide()
+		end
 	end
 
 	local f = CreateFrame("Frame", nil, frame)
@@ -32,15 +33,20 @@ function BU:ArrangeFocus()
 		frame.PORTRAIT_BACKDROP = E.db.benikui.unitframes.focus.portraitBackdrop
 
 		frame.DETACHED_PORTRAIT_WIDTH = E.db.benikui.unitframes.focus.portraitWidth
-		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.focus.portraitHeight	
+		frame.DETACHED_PORTRAIT_HEIGHT = E.db.benikui.unitframes.focus.portraitHeight
+
+		frame.PORTRAIT_AND_INFOPANEL = E.db.benikui.unitframes.infoPanel.fixInfoPanel and frame.USE_INFO_PANEL and frame.PORTRAIT_WIDTH
 	end
-	
+
 	-- Portrait
 	BU:Configure_Portrait(frame)
-	
+
+	-- InfoPanel
+	BU:Configure_Infopanel(frame)
+
 	-- AuraBars shadows
 	BU:Configure_AuraBars(frame)
-	
+
 	frame:UpdateAllElements("BenikUI_UpdateAllElements")
 end
 
@@ -55,6 +61,14 @@ function BU:InitFocus()
 
 		if unitframeType == "focus" then
 			BU:Configure_Portrait(frame, false)
+		end
+	end)
+
+	hooksecurefunc(UF, "Configure_Power", function(self, frame)
+		local unitframeType = frame.unitframeType
+
+		if unitframeType == "focus" then
+			BU:UnitPowerShadows(frame)
 		end
 	end)
 end

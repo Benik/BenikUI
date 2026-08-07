@@ -1,24 +1,22 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
-
--- GLOBALS: BenikUISplashScreen
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 
 local C_TimerAfter = C_Timer.After
 local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 
 local function HideSplashScreen()
-	BenikUISplashScreen:Hide()
+	_G.BenikUISplashScreen:Hide()
 end
 
 local function FadeSplashScreen()
 	E:Delay(2, function()
-		E:UIFrameFadeOut(BenikUISplashScreen, 2, 1, 0)
-		BenikUISplashScreen.fadeInfo.finishedFunc = HideSplashScreen
+		E:UIFrameFadeOut(_G.BenikUISplashScreen, 2, 1, 0)
+		_G.BenikUISplashScreen.fadeInfo.finishedFunc = HideSplashScreen
 	end)
 end
 
 local function ShowSplashScreen()
-	E:UIFrameFadeIn(BenikUISplashScreen, 4, 0, 1)
-	BenikUISplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
+	E:UIFrameFadeIn(_G.BenikUISplashScreen, 4, 0, 1)
+	_G.BenikUISplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
 end
 
 local function CreateSplashScreen()
@@ -27,7 +25,6 @@ local function CreateSplashScreen()
 	f:Point('CENTER')
 	f:SetFrameStrata('TOOLTIP')
 	f:SetAlpha(0)
-	f:Hide()
 
 	f.bg = f:CreateTexture(nil, 'BACKGROUND')
 	f.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
@@ -72,6 +69,6 @@ function BUI:SplashScreen()
 	if presentWeekday == db.day then return end
 
 	-- Show Splash Screen only if the install is completed
-	if E.db.benikui.installed == true then C_TimerAfter(6, ShowSplashScreen) end
+	if E.db.benikui.installed == true then C_TimerAfter(8, ShowSplashScreen) end
 	db.day = presentWeekday
 end

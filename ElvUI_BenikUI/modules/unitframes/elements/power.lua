@@ -1,4 +1,4 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 local LSM = E.LSM;
@@ -16,19 +16,13 @@ function BU:Configure_Power(frame)
 			else
 				power:SetOrientation('HORIZONTAL')
 			end
-			if power.backdrop.shadow then
-				power.backdrop.shadow:Show()
-			end
-		else
-			if power.backdrop.shadow then
-				power.backdrop.shadow:Hide()
-			end
 		end
 	end
 end
 
 -- Units
 function BU:ChangeUnitPowerBarTexture()
+	if not E.db.benikui.unitframes.textures.enablePower then return end
 	local bar = LSM:Fetch("statusbar", E.db.benikui.unitframes.textures.power)
 	for _, frame in pairs(UF.units) do
 		if frame.Power then
@@ -94,9 +88,11 @@ function BU:ChangeBossPowerBarTexture()
 end
 
 function BU:ChangePowerBarTexture()
-	BU:ChangeUnitPowerBarTexture()
-	BU:ChangeRaidPowerBarTexture()
-	BU:ChangePartyPowerBarTexture()
-	BU:ChangeArenaPowerBarTexture()
-	BU:ChangeBossPowerBarTexture()
+	if E.db.benikui.unitframes.textures.enablePower then
+		BU:ChangeUnitPowerBarTexture()
+		BU:ChangeRaidPowerBarTexture()
+		BU:ChangePartyPowerBarTexture()
+		BU:ChangeArenaPowerBarTexture()
+		BU:ChangeBossPowerBarTexture()
+	end
 end

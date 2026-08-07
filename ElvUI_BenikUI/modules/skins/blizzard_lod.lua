@@ -1,0 +1,1265 @@
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
+local S = E:GetModule("Skins")
+
+local _G = _G
+local pairs= pairs
+local hooksecurefunc = hooksecurefunc
+
+-- AchievementUI
+local function style_AchievementUI()
+	if E.private.skins.blizzard.achievement ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.AchievementFrame
+	if frame then
+		frame:BuiStyle()
+		frame.SearchPreviewContainer.backdrop:BuiStyle()
+		frame.SearchResults.backdrop:BuiStyle()
+	end
+end
+S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
+
+-- AdventureMap
+local function style_AdventureMap()
+	if E.private.skins.blizzard.adventureMap ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	-- only create a wide shadow for this
+	if E.db.benikui.general.shadows then
+		local frame = _G.AdventureMapQuestChoiceDialog
+		frame.backdrop:CreateWideShadow()
+	end
+end
+S:AddCallbackForAddon("Blizzard_AdventureMap", "BenikUI_AdventureMap", style_AdventureMap)
+
+-- AlliedRacesUI
+local function style_AlliedRacesUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alliedRaces ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.AlliedRacesFrame
+	if frame then
+		frame:BuiStyle()
+	end
+end
+S:AddCallbackForAddon("Blizzard_AlliedRacesUI", "BenikUI_AlliedRaces", style_AlliedRacesUI)
+
+-- AnimaDiversionUI
+local function style_AnimaDiversionUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.animaDiversion ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.AnimaDiversionFrame
+	if frame then
+		frame:BuiStyle()
+	end
+end
+S:AddCallbackForAddon("Blizzard_AnimaDiversionUI", "BenikUI_AnimaDiversion", style_AnimaDiversionUI)
+
+-- ArchaeologyUI
+local function style_ArchaeologyUI()
+	if E.private.skins.blizzard.archaeology ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ArchaeologyFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ArchaeologyUI", "BenikUI_ArchaeologyUI", style_ArchaeologyUI)
+
+-- ArtifactUI
+local function style_ArtifactUI()
+	if E.private.skins.blizzard.artifact ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.ArtifactFrame
+	frame:BuiStyle()
+	frame.CloseButton:ClearAllPoints()
+	frame.CloseButton:Point("TOPRIGHT", frame, "TOPRIGHT", 2, 2)
+end
+S:AddCallbackForAddon("Blizzard_ArtifactUI", "BenikUI_ArtifactUI", style_ArtifactUI)
+
+-- AuctionHouseUI
+local function style_AuctionHouseUI()
+	if E.private.skins.blizzard.auctionhouse ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.AuctionHouseFrame
+	frame:BuiStyle()
+	frame.WoWTokenResults.GameTimeTutorial:BuiStyle()
+	frame.BuyDialog:BuiStyle()
+
+end
+S:AddCallbackForAddon("Blizzard_AuctionHouseUI", "BenikUI_AuctionHouseUI", style_AuctionHouseUI)
+
+-- AzeriteEssenceUI
+local function style_AzeriteEssenceUI()
+	if E.private.skins.blizzard.azeriteEssence ~= true or E.private.skins.blizzard.enable ~= true or E.db.benikui.general.benikuiStyle ~= true then return end
+
+	_G.AzeriteEssenceUI:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_AzeriteEssenceUI", "BenikUI_AzeriteEssenceUI", style_AzeriteEssenceUI)
+
+-- AzeriteUI
+local function style_AzeriteUI()
+	if E.private.skins.blizzard.azerite ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.AzeriteEmpoweredItemUI:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_AzeriteUI", "BenikUI_AzeriteUI", style_AzeriteUI)
+
+-- AzeriteRespecFrame
+local function style_AzeriteRespecUI()
+	if E.private.skins.blizzard.azeriteRespec ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.AzeriteRespecFrame
+	frame:BuiStyle("Inside")
+
+	local CloseButton = frame.CloseButton
+	CloseButton:ClearAllPoints()
+	CloseButton:Point("TOPRIGHT", frame, "TOPRIGHT", -2, -6)
+
+	AzeriteRespecFrameTitleText:ClearAllPoints()
+	AzeriteRespecFrameTitleText:Point("TOP", frame, "TOP", 0, -12)
+
+	frame.ButtonFrame.AzeriteRespecButton:ClearAllPoints()
+	frame.ButtonFrame.AzeriteRespecButton:Point("TOP", frame.ItemSlot, "BOTTOM", 0, -20)
+end
+S:AddCallbackForAddon("Blizzard_AzeriteRespecUI", "BenikUI_AzeriteRespecUI", style_AzeriteRespecUI)
+
+-- BattlefieldMap
+local function style_BattlefieldMap()
+	if E.private.skins.blizzard.bgmap ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.BattlefieldMapFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_BattlefieldMap", "BenikUI_BattlefieldMap", style_BattlefieldMap)
+
+-- BindingUI
+local function style_BindingUI()
+	if E.private.skins.blizzard.binding ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.KeyBindingFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_BindingUI", "BenikUI_BindingUI", style_BindingUI)
+
+-- BlackMarketUI
+local function style_BlackMarketUI()
+	if E.private.skins.blizzard.bmah ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.BlackMarketFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_BlackMarketUI", "BenikUI_BlackMarketUI", style_BlackMarketUI)
+
+-- Calendar
+local function style_Calendar()
+	if E.private.skins.blizzard.calendar ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.CalendarFrame.backdrop:BuiStyle()
+	_G.CalendarViewEventFrame:BuiStyle()
+	_G.CalendarViewHolidayFrame:BuiStyle()
+	_G.CalendarCreateEventFrame:BuiStyle()
+	_G.CalendarViewRaidFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_Calendar", "BenikUI_Calendar", style_Calendar)
+
+-- ChallengesUI
+local function style_ChallengesUI()
+	if E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ChallengesKeystoneFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ChallengesUI", "BenikUI_ChallengesUI", style_ChallengesUI)
+
+-- Channels
+local function style_Channels()
+	if E.private.skins.blizzard.channels ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ChannelFrame:BuiStyle()
+	_G.CreateChannelPopup:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_Channels", "BenikUI_Channels", style_Channels)
+
+-- ChromieTime
+local function style_chromieTime()
+	if E.private.skins.blizzard.chromieTime ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ChromieTimeFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ChromieTimeUI", "BenikUI_chromieTime", style_chromieTime)
+
+-- Class Talents
+local function style_ClassTalents()
+	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ClassTalentFrame:BuiStyle()
+	_G.ClassTalentLoadoutCreateDialog.backdrop:BuiStyle()
+	_G.ClassTalentLoadoutImportDialog.backdrop:BuiStyle()
+	_G.ClassTalentLoadoutEditDialog.backdrop:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ClassTalentUI", "BenikUI_ClassTalents", style_ClassTalents)
+
+-- ClickBindingUI
+local function style_ClickBinding()
+	if E.private.skins.blizzard.binding ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.ClickBindingFrame
+	frame:BuiStyle()
+	frame.TutorialFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ClickBindingUI", "BenikUI_ClickBindingUI", style_ClickBinding)
+
+-- Collections
+local function style_Collections()
+	if E.private.skins.blizzard.collections ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.CollectionsJournal:BuiStyle()
+	if E.private.skins.blizzard.tooltip then
+		_G.PetJournalPrimaryAbilityTooltip:BuiStyle()
+	end
+end
+S:AddCallbackForAddon("Blizzard_Collections", "BenikUI_Collections", style_Collections)
+
+-- Communities
+local function style_Communities()
+	if E.private.skins.blizzard.communities ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.CommunitiesFrame
+	if frame then
+		frame:BuiStyle()
+		frame.GuildMemberDetailFrame:BuiStyle()
+		frame.NotificationSettingsDialog:BuiStyle()
+	end
+	_G.CommunitiesGuildLogFrame:BuiStyle()
+	_G.CommunitiesSettingsDialog:BuiStyle()
+	_G.CommunitiesAvatarPickerDialog:BuiStyle()
+	_G.ClubFinderCommunityAndGuildFinderFrame.RequestToJoinFrame:BuiStyle()
+	_G.ClubFinderGuildFinderFrame.RequestToJoinFrame:BuiStyle()
+
+	if E.db.benikui.general.shadows then
+		frame.ChatTab:CreateSoftShadow()
+		frame.RosterTab:CreateSoftShadow()
+		frame.GuildBenefitsTab:CreateSoftShadow()
+		frame.GuildInfoTab:CreateSoftShadow()
+	end
+end
+S:AddCallbackForAddon("Blizzard_Communities", "BenikUI_Communities", style_Communities)
+
+-- Contribution
+local function style_Contribution()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.contribution ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.ContributionCollectionFrame
+	if not frame then
+		frame:CreateBackdrop("Transparent")
+	end
+
+	if frame then
+		frame:BuiStyle()
+	end
+
+	-- Not sure about this tooltip tho -- Merathilis
+	if E.private.skins.blizzard.tooltip ~= true then
+		return
+	end
+	_G.ContributionBuffTooltip:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_Contribution", "BenikUI_Contribution", style_Contribution)
+
+-- CovenantPreviewUI
+local function style_CovenantPreviewUI()
+	if E.private.skins.blizzard.covenantPreview ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.CovenantPreviewFrame
+	hooksecurefunc(frame, 'TryShow', function(covenantInfo)
+		if covenantInfo and not frame.IsStyled then
+			frame:BuiStyle()
+			frame.IsStyled = true
+		end
+	end)
+end
+S:AddCallbackForAddon("Blizzard_CovenantPreviewUI", "BenikUI_CovenantPreviewUI", style_CovenantPreviewUI)
+
+-- CovenantRenown
+local function style_CovenantRenown()
+	if E.private.skins.blizzard.covenantRenown ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.CovenantRenownFrame
+	hooksecurefunc(frame, 'SetUpCovenantData', function(Frame)
+		if not Frame.style then
+			Frame:BuiStyle()
+		end
+	end)
+end
+S:AddCallbackForAddon("Blizzard_CovenantRenown", "BenikUI_CovenantRenown", style_CovenantRenown)
+
+-- CovenantSanctum
+local function style_CovenantSanctum()
+	if E.private.skins.blizzard.covenantSanctum ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.CovenantSanctumFrame
+	frame:HookScript('OnShow', function()
+		if not frame.style then
+			frame:BuiStyle()
+		end
+	end)
+end
+S:AddCallbackForAddon("Blizzard_CovenantSanctum", "BenikUI_CovenantSanctum", style_CovenantSanctum)
+
+-- DamageMeter
+function BUI:ApplyDamageMeterStyle(_, background)
+	if E.private.skins.blizzard.damageMeter ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	if not background.backdrop.style then
+		background.backdrop:BuiStyle()
+	end
+end
+hooksecurefunc(S, "DamageMeter_HandleBackground", BUI.ApplyDamageMeterStyle)
+
+-- DeathRecap
+local function style_DeathRecap()
+	if E.private.skins.blizzard.deathRecap ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.DeathRecapFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_DeathRecap", "BenikUI_DeathRecap", style_DeathRecap)
+
+-- DelvesCompanionConfiguration
+local function style_DelvesCompanionConfiguration()
+	if E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local CompanionConfigurationFrame = _G.DelvesCompanionConfigurationFrame
+	CompanionConfigurationFrame:BuiStyle()
+	CompanionConfigurationFrame.CompanionPortraitFrame:SetFrameLevel(10)
+	CompanionConfigurationFrame.CompanionExperienceRingFrame:SetFrameLevel(10)
+	CompanionConfigurationFrame.style:SetFrameLevel(5)
+	_G.DelvesCompanionAbilityListFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_DelvesCompanionConfiguration", "BenikUI_DelvesCompanionConfiguration", style_DelvesCompanionConfiguration)
+
+-- DelvesDifficultyPicker
+local function style_DelvesDifficultyPicker()
+	if E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.DelvesDifficultyPickerFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_DelvesDifficultyPicker", "BenikUI_DelvesDifficultyPicker", style_DelvesDifficultyPicker)
+
+-- EncounterJournal
+local function style_EncounterJournal()
+	if E.private.skins.blizzard.encounterjournal ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.EncounterJournal:BuiStyle()
+
+	if E.db.benikui.general.shadows then
+		for _, name in next, { 'overviewTab', 'modelTab', 'bossTab', 'lootTab' } do
+			local tab = _G.EncounterJournal.encounter.info[name]
+			if tab then
+				tab.backdrop:CreateSoftShadow()
+			end
+		end
+	end
+
+	if E.private.skins.blizzard.tooltip ~= true then
+		return
+	end
+	_G.EncounterJournalTooltip:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_EncounterJournal", "BenikUI_EncounterJournal", style_EncounterJournal)
+
+-- ExpansionLandingPage
+local function style_ExpansionLandingPage()
+	if E.private.skins.blizzard.expansionLanding ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.ExpansionLandingPage
+	if frame.Overlay.WarWithinLandingOverlay then
+		frame.Overlay.WarWithinLandingOverlay:BuiStyle()
+	end
+	if frame.Overlay.DragonflightLandingOverlay then
+		frame.Overlay.DragonflightLandingOverlay:BuiStyle()
+	end
+end
+S:AddCallbackForAddon("Blizzard_ExpansionLandingPage", "BenikUI_ExpansionLandingPage", style_ExpansionLandingPage)
+
+-- FlightMap
+local function style_FlightMap()
+	if E.private.skins.blizzard.taxi ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.FlightMapFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_FlightMap", "BenikUI_FlightMap", style_FlightMap)
+
+-- Garrison BuiStyle
+local fRecruits = {}
+local function style_GarrisonUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.OrderHallMissionFrame.backdrop:BuiStyle()
+
+	_G.BFAMissionFrame:BuiStyle()
+	local CovenantMissionFrame = _G.CovenantMissionFrame
+	CovenantMissionFrame:BuiStyle()
+
+	CovenantMissionFrame.Top:Hide()
+	CovenantMissionFrame.TopBorder:Hide()
+	CovenantMissionFrame.Bottom:Hide()
+	CovenantMissionFrame.BottomBorder:Hide()
+	CovenantMissionFrame.Left:Hide()
+	CovenantMissionFrame.LeftBorder:Hide()
+	CovenantMissionFrame.Right:Hide()
+	CovenantMissionFrame.RightBorder:Hide()
+	CovenantMissionFrame.TopLeftCorner:Hide()
+	CovenantMissionFrame.TopRightCorner:Hide()
+	CovenantMissionFrame.BotRightCorner:Hide()
+	CovenantMissionFrame.BotLeftCorner:Hide()
+
+	local capacitiveDisplay = _G.GarrisonCapacitiveDisplayFrame
+	capacitiveDisplay:BuiStyle()
+	capacitiveDisplay.IncrementButton:ClearAllPoints()
+	capacitiveDisplay.IncrementButton:Point("LEFT", capacitiveDisplay.Count, "RIGHT", 4, 0)
+
+	if E.private.skins.blizzard.tooltip then
+		_G.GarrisonFollowerAbilityWithoutCountersTooltip:BuiStyle()
+		_G.GarrisonFollowerMissionAbilityWithoutCountersTooltip:BuiStyle()
+	end
+
+	_G.GarrisonMissionFrame:BuiStyle()
+	_G.GarrisonLandingPage:BuiStyle()
+	_G.GarrisonBuildingFrame:BuiStyle()
+
+	-- ShipYard
+	_G.GarrisonShipyardFrame:BuiStyle()
+
+	-- Tooltips
+	if E.private.skins.blizzard.tooltip then
+		_G.GarrisonShipyardMapMissionTooltip:BuiStyle()
+
+		local bonusAreaTT = _G.GarrisonBonusAreaTooltip
+		bonusAreaTT:StripTextures()
+		bonusAreaTT:CreateBackdrop("Transparent")
+		bonusAreaTT:BuiStyle()
+
+		_G.GarrisonMissionMechanicTooltip:BuiStyle()
+		_G.FloatingGarrisonShipyardFollowerTooltip:BuiStyle()
+		_G.GarrisonShipyardFollowerTooltip:BuiStyle()
+		_G.GarrisonBuildingFrame.BuildingLevelTooltip:BuiStyle()
+		_G.GarrisonFollowerAbilityTooltip:BuiStyle()
+
+		local missionMechanicTT = _G.GarrisonMissionMechanicTooltip
+		missionMechanicTT:StripTextures()
+		missionMechanicTT:CreateBackdrop("Transparent")
+		missionMechanicTT:BuiStyle()
+
+		local missionMechFollowerTT = _G.GarrisonMissionMechanicFollowerCounterTooltip
+		missionMechFollowerTT:StripTextures()
+		missionMechFollowerTT:CreateBackdrop("Transparent")
+		missionMechFollowerTT:BuiStyle()
+
+		_G.FloatingGarrisonFollowerTooltip:BuiStyle()
+		_G.GarrisonFollowerTooltip:BuiStyle()
+	end
+
+	-- Garrison Monument
+	local gMonument = _G.GarrisonMonumentFrame
+	gMonument:StripTextures()
+	gMonument:CreateBackdrop("Transparent")
+	gMonument.backdrop:BuiStyle()
+	gMonument:ClearAllPoints()
+	gMonument:Point("CENTER", E.UIParent, "CENTER", 0, -200)
+	gMonument:Height(70)
+	gMonument.RightBtn:Size(25, 25)
+	gMonument.LeftBtn:Size(25, 25)
+
+	-- Follower recruiting (available at the Inn)
+	local recruiterFrame = _G.GarrisonRecruiterFrame
+	recruiterFrame:BuiStyle()
+	local rBtn = recruiterFrame.Pick.ChooseRecruits
+	rBtn:ClearAllPoints()
+	rBtn:Point("BOTTOM", recruiterFrame, "BOTTOM", 0, 30)
+	S:HandleButton(rBtn)
+
+	local recruitSelect = _G.GarrisonRecruitSelectFrame
+	recruitSelect:StripTextures()
+	recruitSelect:CreateBackdrop("Transparent")
+	recruitSelect:BuiStyle()
+	S:HandleCloseButton(recruitSelect.CloseButton)
+	S:HandleEditBox(recruitSelect.FollowerList.SearchBox)
+
+	recruitSelect.FollowerList:StripTextures()
+	recruitSelect.FollowerSelection:StripTextures()
+
+	recruitSelect.FollowerSelection.Recruit1:CreateBackdrop()
+	recruitSelect.FollowerSelection.Recruit1:ClearAllPoints()
+	recruitSelect.FollowerSelection.Recruit1:Point("LEFT", recruitSelect.FollowerSelection, "LEFT", 6, 0)
+	recruitSelect.FollowerSelection.Recruit2:CreateBackdrop()
+	recruitSelect.FollowerSelection.Recruit2:ClearAllPoints()
+	recruitSelect.FollowerSelection.Recruit2:Point("LEFT", recruitSelect.FollowerSelection.Recruit1, "RIGHT", 6, 0)
+	recruitSelect.FollowerSelection.Recruit3:CreateBackdrop()
+	recruitSelect.FollowerSelection.Recruit3:ClearAllPoints()
+	recruitSelect.FollowerSelection.Recruit3:Point("LEFT", recruitSelect.FollowerSelection.Recruit2, "RIGHT", 6, 0)
+
+	for i = 1, 3 do
+		fRecruits[i] = CreateFrame("Frame", nil, E.UIParent)
+		fRecruits[i]:SetTemplate("Default", true)
+		fRecruits[i]:Size(190, 60)
+		if i == 1 then
+			fRecruits[i]:SetParent(recruitSelect.FollowerSelection.Recruit1)
+			fRecruits[i]:Point("TOP", recruitSelect.FollowerSelection.Recruit1, "TOP")
+			fRecruits[i]:SetFrameLevel(recruitSelect.FollowerSelection.Recruit1:GetFrameLevel())
+			recruitSelect.FollowerSelection.Recruit1.Class:Size(60, 58)
+		elseif i == 2 then
+			fRecruits[i]:SetParent(recruitSelect.FollowerSelection.Recruit2)
+			fRecruits[i]:Point("TOP", recruitSelect.FollowerSelection.Recruit2, "TOP")
+			fRecruits[i]:SetFrameLevel(recruitSelect.FollowerSelection.Recruit2:GetFrameLevel())
+			recruitSelect.FollowerSelection.Recruit2.Class:Size(60, 58)
+		elseif i == 3 then
+			fRecruits[i]:SetParent(recruitSelect.FollowerSelection.Recruit3)
+			fRecruits[i]:Point("TOP", recruitSelect.FollowerSelection.Recruit3, "TOP")
+			fRecruits[i]:SetFrameLevel(recruitSelect.FollowerSelection.Recruit3:GetFrameLevel())
+			recruitSelect.FollowerSelection.Recruit3.Class:Size(60, 58)
+		end
+	end
+	S:HandleButton(recruitSelect.FollowerSelection.Recruit1.HireRecruits)
+	S:HandleButton(recruitSelect.FollowerSelection.Recruit2.HireRecruits)
+	S:HandleButton(recruitSelect.FollowerSelection.Recruit3.HireRecruits)
+end
+S:AddCallbackForAddon("Blizzard_GarrisonUI", "BenikUI_GarrisonUI", style_GarrisonUI)
+
+-- Generic Trait Frame
+local function style_GenericTraitUI()
+	if E.private.skins.blizzard.genericTrait ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.GenericTraitFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_GenericTraitUI", "BenikUI_GenericTraitUI", style_GenericTraitUI)
+
+-- GuildBankUI
+local function style_GuildBankUI()
+	if E.private.skins.blizzard.gbank ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.GuildBankFrame:BuiStyle()
+
+	if E.db.benikui.general.shadows then
+		for i = 1, 8 do
+			local tab = _G['GuildBankTab'..i]
+			local button = tab.Button
+			button:SetTemplate("Transparent")
+			button:CreateSoftShadow()
+		end
+	end
+end
+S:AddCallbackForAddon("Blizzard_GuildBankUI", "BenikUI_GuildBankUI", style_GuildBankUI)
+
+-- GuildUI
+local function style_GuildUI()
+	if E.private.skins.blizzard.guild ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.GuildFrame:BuiStyle()
+
+	local GuildFrames = {
+		_G.GuildMemberDetailFrame,
+		_G.GuildTextEditFrame,
+		_G.GuildLogFrame,
+		_G.GuildNewsFiltersFrame
+	}
+	for _, frame in pairs(GuildFrames) do
+		if frame and frame and not frame.style then
+			frame:BuiStyle()
+		end
+	end
+end
+S:AddCallbackForAddon("Blizzard_GuildUI", "BenikUI_GuildUI", style_GuildUI)
+
+-- GuildControlUI
+local function style_GuildControlUI()
+	if E.private.skins.blizzard.guildcontrol ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.GuildControlUI:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_GuildControlUI", "BenikUI_GuildControlUI", style_GuildControlUI)
+
+-- HousingDashboard
+local function style_HousingDashboard()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local dashBoardFrame = _G.HousingDashboardFrame
+	dashBoardFrame:BuiStyle()
+
+	if E.db.benikui.general.shadows then
+		for i, tab in next, { dashBoardFrame.HouseInfoTabButton, dashBoardFrame.CatalogTabButton } do
+			if tab then
+				tab.backdrop:CreateSoftShadow()
+			end
+		end
+	end
+end
+S:AddCallbackForAddon("Blizzard_HousingDashboard", "BenikUI_HousingDashboard", style_HousingDashboard)
+
+-- HousingBulletinBoard
+local function style_HousingBulletinBoard()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local bulletinBoardFrame = _G.HousingBulletinBoardFrame
+	if bulletinBoardFrame then
+		bulletinBoardFrame:BuiStyle()
+	end
+end
+S:AddCallbackForAddon("Blizzard_HousingBulletinBoard", "BenikUI_HousingBulletinBoard", style_HousingBulletinBoard)
+
+-- HousingCornerstone
+local function style_HousingCornerstone()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local cornerVisitorFrame = _G.HousingCornerstoneVisitorFrame
+	if cornerVisitorFrame then
+		cornerVisitorFrame.backdrop:BuiStyle()
+	end
+
+	local cornerInfoFrame = _G.HousingCornerstoneHouseInfoFrame
+	if cornerInfoFrame then
+		cornerInfoFrame.backdrop:BuiStyle()
+	end
+
+	local purchaseFrame = _G.HousingCornerstonePurchaseFrame
+	if purchaseFrame then
+		purchaseFrame.backdrop:BuiStyle()
+	end
+
+	local saleSign = purchaseFrame.ForSaleSign
+	saleSign:StripTextures()
+	saleSign:SetTemplate()
+	saleSign:OffsetFrameLevel(2, purchaseFrame.backdrop.style)
+
+	local moveHouseConfirmation = _G.MoveHouseConfirmationDialog
+	if moveHouseConfirmation then
+		moveHouseConfirmation.backdrop:BuiStyle()
+	end
+end
+S:AddCallbackForAddon("Blizzard_HousingCornerstone", "BenikUI_HousingCornerstone", style_HousingCornerstone)
+
+-- HouseEditor
+local function style_HouseEditor()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local editorFrame = _G.HouseEditorFrame
+	editorFrame.ExteriorCustomizationModeFrame.FixtureOptionList:BuiStyle()
+	local storagePanel = editorFrame.StoragePanel
+	storagePanel:BuiStyle()
+
+	if E.db.benikui.general.shadows then
+		storagePanel.CollapseButton:CreateSoftShadow()
+		editorFrame.StorageButton:CreateSoftShadow()
+	end
+end
+S:AddCallbackForAddon("Blizzard_HouseEditor", "BenikUI_HouseEditor", style_HouseEditor)
+
+-- HousingHouseFinder
+local function style_HousingHouseFinder()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.HouseFinderFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_HousingHouseFinder", "BenikUI_HousingHouseFinder", style_HousingHouseFinder)
+
+-- HousingHouseSettings
+local function style_HousingHouseSettings()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.HousingHouseSettingsFrame:BuiStyle()
+	_G.AbandonHouseConfirmationDialog:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_HousingHouseSettings", "BenikUI_HousingHouseSettings", style_HousingHouseSettings)
+
+-- HousingModelPreview
+local function style_HousingModelPreview()
+	if E.private.skins.blizzard.housing ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.HousingModelPreviewFrame.backdrop:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_HousingModelPreview", "BenikUI_HousingModelPreview", style_HousingModelPreview)
+
+-- IslandsQueueUI
+local function style_IslandsQueueUI()
+	if E.private.skins.blizzard.islandQueue ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.IslandsQueueFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "BenikUI_IslandsQueueUI", style_IslandsQueueUI)
+
+-- InspectUI
+local function style_InspectUI()
+	if E.private.skins.blizzard.inspect ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.InspectFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_InspectUI", "BenikUI_InspectUI", style_InspectUI)
+
+-- ItemInteractionUI
+local function style_ItemInteractionUI()
+	if E.private.skins.blizzard.itemInteraction ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ItemInteractionFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ItemInteractionUI", "BenikUI_ItemInteractionUI", style_ItemInteractionUI)
+
+-- ItemSocketingUI
+local function style_ItemSocketingUI()
+	if E.private.skins.blizzard.socket ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ItemSocketingFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ItemSocketingUI", "BenikUI_ItemSocketingUI", style_ItemSocketingUI)
+
+-- ItemUpgradeUI
+local function style_ItemUpgradeUI()
+	if E.private.skins.blizzard.itemUpgrade ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ItemUpgradeFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ItemUpgradeUI", "BenikUI_ItemUpgradeUI", style_ItemUpgradeUI)
+
+-- LookingForGuildUI
+local function style_LookingForGuildUI()
+	if E.private.skins.blizzard.lfguild ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.LookingForGuildFrame:BuiStyle()
+end
+
+local function LoadGuildUIStyle()
+	if _G.LookingForGuildFrame then
+		--Frame already created
+		style_LookingForGuildUI()
+	else
+		--Frame not created yet, wait until it is
+		hooksecurefunc("LookingForGuildFrame_CreateUIElements", style_LookingForGuildUI)
+	end
+end
+S:AddCallbackForAddon("Blizzard_LookingForGuildUI", "BenikUI_LookingForGuildUI", LoadGuildUIStyle)
+
+-- MacroUI
+local function style_MacroUI()
+	if E.private.skins.blizzard.macro ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.MacroFrame:BuiStyle()
+	_G.MacroPopupFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_MacroUI", "BenikUI_MacroUI", style_MacroUI)
+
+-- Blizzard Menus
+local function StyleFrame(frame)
+	if frame.backdrop and not frame.backdrop.style then
+		frame.backdrop:BuiStyle()
+	end
+end
+
+local function OpenMenu(manager, _, menuDescription)
+	local menu = manager:GetOpenMenu()
+	if menu then
+		-- Initial context menu
+		StyleFrame(menu)
+		-- SubMenus
+		menuDescription:AddMenuAcquiredCallback(StyleFrame)
+	end
+end
+
+local function style_Blizzard_Menu()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc and E.db.benikui.general.benikuiStyle) then return end
+
+	local manager = _G.Menu.GetManager()
+	if manager then
+		hooksecurefunc(manager, 'OpenMenu', OpenMenu)
+		hooksecurefunc(manager, 'OpenContextMenu', OpenMenu)
+	end
+end
+S:AddCallbackForAddon("Blizzard_Menu", "BenikUI_Blizzard_Menu", style_Blizzard_Menu)
+
+-- ObliterumUI
+local function style_ObliterumUI()
+	if E.private.skins.blizzard.obliterum ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ObliterumForgeFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ObliterumUI", "BenikUI_ObliterumUI", style_ObliterumUI)
+
+-- OrderHallUI
+local function style_OrderHallUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.OrderHallTalentFrame:HookScript(
+		"OnShow",
+		function(self)
+			if self.styled then
+				return
+			end
+			self:BuiStyle()
+			self.styled = true
+		end
+	)
+end
+S:AddCallbackForAddon("Blizzard_OrderHallUI", "BenikUI_OrderHallUI", style_OrderHallUI)
+
+-- Perks Programm (Trading Post)
+local function style_PerksProgramm()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.perks and E.db.benikui.general.benikuiStyle) then return end
+	local frame = _G.PerksProgramFrame
+	local productsFrame = frame.ProductsFrame
+
+	if productsFrame then
+		productsFrame.ProductsScrollBoxContainer.backdrop:BuiStyle()
+		productsFrame.PerksProgramProductDetailsContainerFrame.backdrop:BuiStyle()
+		productsFrame.PerksProgramShoppingCartFrame.backdrop:BuiStyle()
+
+		if E.db.benikui.general.shadows then
+			productsFrame.PerksProgramFilter:CreateSoftShadow()
+			productsFrame.PerksProgramCurrencyFrame.Icon:CreateBackdrop()
+			productsFrame.PerksProgramCurrencyFrame.Icon.backdrop:CreateSoftShadow()
+		end
+
+		local productsContainer = productsFrame.ProductsScrollBoxContainer
+		productsContainer:BuiStyle()
+
+		if E.private.skins.blizzard.tooltip then
+			_G.PerksProgramTooltip:BuiStyle()
+		end
+	end
+
+	if not E.db.benikui.general.shadows then return end
+
+	local footer = frame.FooterFrame
+	if footer then
+		footer.LeaveButton:CreateSoftShadow()
+		footer.RefundButton:CreateSoftShadow()
+		footer.TogglePlayerPreview.backdrop:CreateSoftShadow()
+		footer.ToggleHideArmor.backdrop:CreateSoftShadow()
+		footer.RotateButtonContainer.RotateLeftButton:CreateSoftShadow()
+		footer.RotateButtonContainer.RotateRightButton:CreateSoftShadow()
+		footer.PurchaseButton:CreateSoftShadow()
+		footer.ToggleMountSpecial.backdrop:CreateSoftShadow()
+		footer.AddToCartButton:CreateSoftShadow()
+		footer.ViewCartButton:CreateSoftShadow()
+	end
+end
+S:AddCallbackForAddon("Blizzard_PerksProgram", "BenikUI_PerksProgram", style_PerksProgramm)
+
+-- PlayerChoiceUI
+local function style_PlayerChoice()
+	if E.private.skins.blizzard.playerChoice ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.PlayerChoiceFrame
+	hooksecurefunc(frame, 'SetupOptions', function()
+		local kit = S.PlayerChoice_TextureKits[frame.uiTextureKit]
+		if kit then return end
+		if not frame.IsStyled then
+			frame:BuiStyle()
+			frame.IsStyled = true
+		end
+	end)
+end
+S:AddCallbackForAddon("Blizzard_PlayerChoice", "BenikUI_PlayerChoice", style_PlayerChoice)
+
+-- Professions
+local function style_Professions()
+	if E.private.skins.blizzard.tradeskill ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local professionsFrame = _G.ProfessionsFrame
+	local inspectRecipeFrame = _G.InspectRecipeFrame
+	professionsFrame:BuiStyle()
+	professionsFrame.CraftingPage.CraftingOutputLog:BuiStyle()
+	professionsFrame.OrdersPage.OrderView.CraftingOutputLog:BuiStyle()
+	professionsFrame.CraftingPage.SchematicForm.QualityDialog:BuiStyle()
+	inspectRecipeFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Professions)
+
+-- ProfessionsBook
+local function style_ProfessionsBook()
+	if E.private.skins.blizzard.spellbook ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ProfessionsBookFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ProfessionsBook", "BenikUI_ProfessionsBook", style_ProfessionsBook)
+
+-- ProfessionsCustomerOrders
+local function style_ProfessionsCustomerOrders()
+	if E.private.skins.blizzard.tradeskill ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.ProfessionsCustomerOrdersFrame
+	frame:BuiStyle()
+	frame.Form.QualityDialog:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ProfessionsCustomerOrders", "BenikUI_ProfessionsCustomerOrders", style_ProfessionsCustomerOrders)
+
+-- PVPUI
+local function style_PVPUI()
+	if E.private.skins.blizzard.pvp ~= true or E.private.skins.blizzard.tooltip ~= true or
+		E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	if E.private.skins.blizzard.tooltip then
+		_G.ConquestTooltip:BuiStyle()
+	end
+end
+S:AddCallbackForAddon("Blizzard_PVPUI", "BenikUI_PVPUI", style_PVPUI)
+
+-- PVPMatch
+local function style_PVPMatch()
+	if E.private.skins.blizzard.bgscore ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	--_G.PVPMatchScoreboard.backdrop:BuiStyle()
+	--_G.PVPMatchResults.backdrop:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_PVPMatch", "BenikUI_PVPMatch", style_PVPMatch)
+
+-- QuestChoice
+local function style_QuestChoice()
+	if E.private.skins.blizzard.questChoice ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.QuestChoiceFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_QuestChoice", "BenikUI_QuestChoice", style_QuestChoice)
+
+-- ScrappingMachine
+local function style_ScrappingMachineUI()
+	if E.private.skins.blizzard.scrapping ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ScrappingMachineFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_ScrappingMachineUI", "BenikUI_ScrappingMachineUI", style_ScrappingMachineUI)
+
+-- PlayerSpells
+local function style_PlayerSpells()
+	if E.private.skins.blizzard.talent ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local playerSpells = _G.PlayerSpellsFrame
+	playerSpells:BuiStyle()
+
+	local TalentsFrame = playerSpells.TalentsFrame
+	TalentsFrame.PvPTalentList.backdrop:BuiStyle()
+
+	_G.ClassTalentLoadoutImportDialog:BuiStyle()
+	_G.ClassTalentLoadoutCreateDialog:BuiStyle()
+	_G.HeroTalentsSelectionDialog:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_PlayerSpells", "BenikUI_PlayerSpells", style_PlayerSpells)
+
+-- Soulbinds
+local function style_Soulbinds()
+	if E.private.skins.blizzard.soulbinds ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.SoulbindViewer:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_Soulbinds", "BenikUI_Soulbinds", style_Soulbinds)
+
+local function style_TimeManager()
+	if E.private.skins.blizzard.timemanager ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.TimeManagerFrame:BuiStyle()
+	_G.StopwatchFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_TimeManager", "BenikUI_TimeManager", style_TimeManager)
+
+-- TradeSkillUI (Classic & Wrath)
+local function style_TradeSkillUI()
+	if E.private.skins.blizzard.tradeskill ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local frame = _G.TradeSkillFrame
+	frame:BuiStyle()
+	frame.DetailsFrame.GuildFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_TradeSkillUI", "BenikUI_TradeSkillUI", style_TradeSkillUI)
+
+-- TrainerUI
+local function style_TrainerUI()
+	if E.private.skins.blizzard.trainer ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ClassTrainerFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_TrainerUI", "BenikUI_TrainerUI", style_TrainerUI)
+
+-- Transmog
+local function style_Transmog()
+	if E.private.skins.blizzard.transmogrify ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.TransmogFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_Transmog", "BenikUI_Transmog", style_Transmog)
+
+-- UIPanels_Game
+local function style_UIPanels_Game()
+	if E.private.skins.blizzard.character ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.ReputationFrame.ReputationDetailFrame:BuiStyle()
+	_G.CurrencyTransferMenu:BuiStyle()
+	_G.GearManagerPopupFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_UIPanels_Game", "BenikUI_UIPanels_Game", style_UIPanels_Game)
+
+-- WeeklyRewards
+local function style_WeeklyRewards()
+	if E.private.skins.blizzard.weeklyRewards ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	_G.WeeklyRewardsFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_WeeklyRewards", "BenikUI_WeeklyRewards", style_WeeklyRewards)

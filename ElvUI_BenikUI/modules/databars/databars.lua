@@ -1,7 +1,8 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Databars')
 local S = E:GetModule('Skins')
-local LSM = E.LSM
+
+local CreateFrame = CreateFrame
 
 local SPACING = (E.PixelMode and 1 or 3)
 
@@ -63,17 +64,17 @@ function mod:UpdateNotifierPositions(bar, option)
 			bar.f.arrow:SetRotation(S.ArrowRotation.down)
 		end
 	end
-	
+
 	local toggleCondition = not (E.db.databars[option].orientation == 'VERTICAL' and (db.position == 'ABOVE' or db.position == 'BELOW')) or
 		(E.db.databars[option].orientation == 'HORIZONTAL' and (db.position == 'LEFT' or db.position == 'RIGHT'))
 	bar.f.arrow:SetShown(toggleCondition)
 	bar.f.txt:SetShown(toggleCondition)
-	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+	bar.f.txt:FontTemplate(E.db.datatexts.font, E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 end
 
 function mod:ToggleBackdrop(bar, option)
 	local db = E.db.benikui.databars[option]
-	
+
 	if bar.fb then
 		if db.buttonStyle == 'DEFAULT' then
 			bar.fb:SetTemplate('Default', true)
@@ -113,7 +114,7 @@ function mod:StyleBar(bar, onClick)
 
 	bar.fb:SetScript('OnClick', onClick)
 
-	if BUI.ShadowMode then
+	if E.db.benikui.general.shadows then
 		bar.fb:CreateSoftShadow()
 	end
 
@@ -121,12 +122,22 @@ function mod:StyleBar(bar, onClick)
 	bar.holder:BuiStyle('Outside', nil, false, true)
 end
 
+function mod:Init()
+	mod:LoadXP()
+	mod:LoadRep()
+	mod:LoadAzerite()
+	mod:LoadHonor()
+	mod:LoadThreat()
+
+	mod.initialized = true
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
 function mod:Initialize()
-	self:LoadXP()
-	self:LoadRep()
-	self:LoadAzerite()
-	self:LoadHonor()
-	self:LoadThreat()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

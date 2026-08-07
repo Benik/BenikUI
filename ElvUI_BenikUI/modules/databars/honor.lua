@@ -1,11 +1,10 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Databars');
 local DT = E:GetModule('DataTexts');
 local DB = E:GetModule('DataBars');
 
 local _G = _G
-
--- GLOBALS: hooksecurefunc, selectioncolor, ElvUI_HonorBar
+local hooksecurefunc = hooksecurefunc
 
 local function OnClick(self)
 	if self.template == 'NoBackdrop' then return end

@@ -1,0 +1,164 @@
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
+local mod = BUI:GetModule('Styles')
+local S = E:GetModule('Skins')
+
+local _G = _G
+local pairs = pairs
+local hooksecurefunc = hooksecurefunc
+
+function mod:styleElvUIPlugins()
+	-- LocationPlus
+	if BUI.LP and E.db.benikui.skins.elvuiAddons.locplus then
+		local framestoskin = {
+			_G.LocPlusLeftDT,
+			_G.LocPlusRightDT,
+			_G.LocationPlusPanel,
+			_G.XCoordsPanel,
+			_G.YCoordsPanel
+		}
+		for _, frame in pairs(framestoskin) do
+			if frame then
+				frame:BuiStyle()
+			end
+		end
+	end
+
+	-- Shadow & Light
+	if BUI.SLE and E.db.benikui.skins.elvuiAddons.sle then
+		local SLE = unpack(ElvUI_SLE)
+		local LP = SLE:GetModule('LocationPanel')
+
+		local sleFrames = {
+			_G.SLE_BG_1,
+			_G.SLE_BG_2,
+			_G.SLE_BG_3,
+			_G.SLE_BG_4,
+			_G.SLE_RaidMarkerBar,
+			_G.SLE_SquareMinimapButtonBar,
+			_G.SLE_LocationPanel,
+			_G.SLE_LocationPanel_X,
+			_G.SLE_LocationPanel_Y,
+			_G.SLE_LocationPanel_RightClickMenu1,
+			_G.SLE_LocationPanel_RightClickMenu2,
+			_G.InspectArmory
+		}
+
+		for _, frame in pairs(sleFrames) do
+			if frame then
+				frame:BuiStyle()
+			end
+		end
+
+		-- fix framelevel
+		if E.db.benikui.general.benikuiStyle == true then
+			_G.SLE_LocationPanel_X.style:SetFrameLevel(3)
+			_G.SLE_LocationPanel_Y.style:SetFrameLevel(3)
+		end
+
+		-- fix shadow overlap
+		if E.db.benikui.general.shadows then
+			_G.SLE_LocationPanel_X:Point('RIGHT', _G.SLE_LocationPanel, 'LEFT', -2, 0)
+			_G.SLE_LocationPanel_Y:Point('LEFT', _G.SLE_LocationPanel, 'RIGHT', 2, 0)
+			hooksecurefunc(LP, "PopulateDropdown", function()
+				_G.SLE_LocationPanel_RightClickMenu1:ClearAllPoints()
+				_G.SLE_LocationPanel_RightClickMenu1:Point('TOP', _G.SLE_LocationPanel, 'BOTTOM', 0, -6)
+			end)
+		end
+	end
+
+	-- SquareMinimapButtons
+	if BUI.PA and E.db.benikui.skins.elvuiAddons.pa then
+		local smbFrame = _G.SquareMinimapButtonBar
+		if smbFrame then
+			smbFrame:BuiStyle()
+		end
+	end
+
+	-- ElvUI_Enhanced
+	if BUI:IsAddOnEnabled("ElvUI_Enhanced") and E.db.benikui.skins.elvuiAddons.enh then
+		if _G.MinimapButtonBar then
+			_G.MinimapButtonBar:BuiStyle()
+		end
+
+		if _G.RaidMarkerBar then
+			_G.RaidMarkerBar:BuiStyle()
+		end
+	end
+
+	-- stAddonManager
+	if BUI.PA and E.db.benikui.skins.elvuiAddons.pa then
+		local stFrame = _G.stAMFrame
+		if stFrame then
+			stFrame:BuiStyle()
+			stAMAddOns:SetTemplate("Transparent")
+		end
+
+		local profileFrame = _G.stAMProfileMenu
+		if profileFrame then
+			profileFrame:BuiStyle()
+		end
+	end
+
+	-- MerathilisUI
+	if BUI.MER and E.db.benikui.skins.elvuiAddons.mer then
+		local topPanel = _G.MER_TopPanel
+		local bottomPanel = _G.MER_BottomPanel
+
+		if topPanel then
+			topPanel:BuiStyle('Under')
+		end
+
+		if bottomPanel then
+			bottomPanel:BuiStyle()
+		end
+	end
+end
+
+function mod:StyleWindTools()
+	if not (BUI.WT and E.db.benikui.skins.elvuiAddons.wt) then return end
+
+	local W = unpack(WindTools)
+
+	-- Minimap Buttons
+	local MB = W:GetModule("MinimapButtons")
+	hooksecurefunc(MB, 'CreateFrames', function(self)
+		self.db = E.private.WT.maps.minimapButtons
+		if not self.db.enable then
+			return
+		end
+		self.bar.backdrop:BuiStyle()
+	end)
+
+	-- Inspect Frames
+	local I = W:GetModule("Inspect")
+	hooksecurefunc(I, 'CreatePanel', function(self, parent)
+		self.db = E.db.WT.item.inspect
+		if not self.db.enable then
+			return
+		end
+
+		parent.WTInspect:BuiStyle()
+	end)
+
+	-- Stats Compare
+	hooksecurefunc(I, 'CreateStatsComparePanel', function(self, parent)
+		self.db = E.db.WT.item.inspect
+		if not self.db.enable then
+			return
+		end
+
+		parent.WTInspectStatsCompare:BuiStyle()
+	end)
+
+	-- Quick Access
+	local LL = W:GetModule("LFGList")
+	hooksecurefunc(LL, 'InitializeRightPanel', function(self)
+		self.db = E.private.WT.misc.lfgList
+		if not self.db.enable then
+			return
+		end
+
+		self.RightPanel:BuiStyle()
+	end)
+end
+S:AddCallbackForAddon("ElvUI_WindTools", "BenikUI_WindTools", mod.StyleWindTools)

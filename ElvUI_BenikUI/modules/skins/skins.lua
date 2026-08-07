@@ -1,6 +1,8 @@
-local BUI, E, L, V, P, G = unpack(select(2, ...))
+local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Skins')
 local S = E:GetModule('Skins')
+
+local hooksecurefunc = hooksecurefunc
 
 local classColor = E:ClassColor(E.myclass, true)
 local CloseButton = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\Close.tga'
@@ -12,15 +14,19 @@ function mod:HandleCloseButton(f)
 	end
 
 	f:HookScript('OnEnter', function(self)
-		if E.myclass == 'PRIEST' then
-			self.Texture:SetVertexColor(unpack(E["media"].rgbvaluecolor))
-		else
-			self.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		if self.Texture then
+			if E.myclass == 'PRIEST' then
+				self.Texture:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+			else
+				self.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			end
 		end
 	end)
 
 	f:HookScript('OnLeave', function(self)
-		self.Texture:SetVertexColor(1, 1, 1)
+		if self.Texture then
+			self.Texture:SetVertexColor(1, 1, 1)
+		end
 	end)
 end
 hooksecurefunc(S, "HandleCloseButton", mod.HandleCloseButton)
@@ -56,7 +62,7 @@ local function Style_Ace3TabSelected(self, selected)
 	end
 end
 
-local function Style_SetButtonColor(self, btn, disabled)
+local function Style_SetButtonColor(_, btn, disabled)
 	if disabled then
 		if btn.SetBackdropColor then
 			local r, g, b = unpack(E.media.rgbvaluecolor)
@@ -74,10 +80,21 @@ local function Style_SetButtonColor(self, btn, disabled)
 	end
 end
 
-function mod:Initialize()
+function mod:Init()
 	if E.db.benikui.skins.elvuiAddons.elv ~= true then return end
+
 	hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)
 	hooksecurefunc(S, 'Ace3_TabSetSelected', Style_Ace3TabSelected)
+
+	mod.initialized = true
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

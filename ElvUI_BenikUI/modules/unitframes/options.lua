@@ -1,14 +1,11 @@
-local BUI, E, _, V, P, G = unpack(select(2, ...))
+local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 
 local BU = BUI:GetModule('Units');
-local BC = BUI:GetModule('Castbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
 local PLAYER, TARGET = PLAYER, TARGET
-
--- GLOBALS: AceGUIWidgetLSMlists
 
 local strataValues = {
 	BACKGROUND = "BACKGROUND",
@@ -41,84 +38,6 @@ local function ufTable()
 						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UpdateUF() end,
 					},
-					colors = {
-						order = 2,
-						type = 'group',
-						name = L['Colors'],
-						guiInline = true,
-						args = {
-							enableColor = {
-								type = 'toggle',
-								order = 1,
-								name = L["Enable"],
-								width = "full", 
-								get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-							},
-							customColor = {
-								order = 2,
-								type = "select",
-								name = format("%s (%s)", L.COLOR, L["Individual Units"]),
-								disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
-								values = {
-									[1] = L.CLASS_COLORS,
-									[2] = L["Custom Color"],
-								},
-								get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-								set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UnitInfoPanelColor() end,
-							},
-							color = {
-								order = 3,
-								type = "color",
-								name = L["Custom Color"],
-								hasAlpha = true,
-								disabled = function() return E.db.benikui.unitframes.infoPanel.customColor == 1 or not E.db.benikui.unitframes.infoPanel.enableColor end,
-								get = function(info)
-									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
-									local d = P.benikui.unitframes.infoPanel[info[#info]]
-									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-									end,
-								set = function(info, r, g, b, a)
-									E.db.benikui.unitframes.infoPanel[ info[#info] ] = {}
-									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
-									t.r, t.g, t.b, t.a = r, g, b, a
-									BU:UnitInfoPanelColor()
-								end,
-							},
-							spacer = {
-								order = 4,
-								type = 'header',
-								name = '',
-							},
-							groupColor = {
-								order = 5,
-								type = "color",
-								name = format("%s (%s)", L["Custom Color"], L["Group Units"]),
-								disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
-								hasAlpha = true,
-								get = function(info)
-									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
-									local d = P.benikui.unitframes.infoPanel[info[#info]]
-									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-									end,
-								set = function(info, r, g, b, a)
-									E.db.benikui.unitframes.infoPanel[ info[#info] ] = {}
-									local t = E.db.benikui.unitframes.infoPanel[ info[#info] ]
-									t.r, t.g, t.b, t.a = r, g, b, a
-									BU:UpdateGroupInfoPanelColor()
-								end,
-							},
-						},
-					},
-					texture = {
-						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 3,
-						name = L["Texture"],
-						disabled = function() return not E.db.benikui.unitframes.infoPanel.enableColor end,
-						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.benikui.unitframes.infoPanel[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.infoPanel[ info[#info] ] = value; BU:UnitInfoPanelColor() BU:UpdateGroupInfoPanelColor() end,
-					},
 				},
 			},
 			textures = {
@@ -127,9 +46,17 @@ local function ufTable()
 				name = L['Textures'],
 				guiInline = true,
 				args = {
+					enableHealth = {
+						type = 'toggle',
+						order = 1,
+						name = L["Enable"],
+						--width = "full", 
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
+					},
 					health = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 1,
+						order = 2,
 						name = L['Health'],
 						desc = L['Health statusbar texture. Applies only on Group Frames'],
 						values = AceGUIWidgetLSMlists.statusbar,
@@ -138,20 +65,28 @@ local function ufTable()
 					},
 					ignoreTransparency = {
 						type = 'toggle',
-						order = 2,
+						order = 3,
 						name = L['Ignore Transparency'],
 						desc = L['This will ignore ElvUI Health Transparency setting on all Group Frames.'],
 						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
 						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; UF:Update_AllFrames(); end,
 					},
 					spacer = {
-						order = 3,
+						order = 4,
 						type = 'header',
 						name = '',
 					},
+					enablePower = {
+						type = 'toggle',
+						order = 5,
+						name = L["Enable"],
+						--width = "full", 
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
+					},
 					power = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 4,
+						order = 6,
 						name = L['Power'],
 						desc = L['Power statusbar texture.'],
 						values = AceGUIWidgetLSMlists.statusbar,
@@ -159,18 +94,26 @@ local function ufTable()
 						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BU:ChangePowerBarTexture() end,
 					},
 					spacer2 = {
-						order = 5,
+						order = 7,
 						type = 'header',
 						name = '',
 					},
+					enableCastbar = {
+						type = 'toggle',
+						order = 8,
+						name = L["Enable"],
+						--width = "full", 
+						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
+					},
 					castbar = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 6,
+						order = 9,
 						name = L['Castbar'],
 						desc = L['This applies on all available castbars.'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BC:CastBarHooks(); end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BU:UpdateAllCastbars(); end,
 					},
 				},
 			},
@@ -186,7 +129,7 @@ local function ufTable()
 						name = L["Enable"],
 						desc = L['This applies on all available castbars.'],
 						get = function(info) return E.db.benikui.unitframes.castbarColor[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.castbarColor[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						set = function(info, value) E.db.benikui.unitframes.castbarColor[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
 					},
 					castbarBackdropColor = {
 						type = "color",
@@ -213,7 +156,7 @@ local function ufTable()
 				name = L['Castbar Text'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
 				get = function(info) return E.db.benikui.unitframes.castbar.text[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BC:UpdateAllCastbars(); end,
+				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BU:UpdateAllCastbars(); end,
 				args = {
 					ShowInfoText = {
 						type = 'toggle',
@@ -235,7 +178,7 @@ local function ufTable()
 						name = L['SVUI Icons'],
 						desc = L['Replaces the default role icons with SVUI ones.'],
 						get = function(info) return E.db.benikui.unitframes.misc[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.misc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						set = function(info, value) E.db.benikui.unitframes.misc[ info[#info] ] = value; E:StaticPopup_Show('CONFIG_RL'); end,
 					},
 				},
 			},
@@ -297,7 +240,7 @@ local function ufPlayerTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.player.detachPortrait end,
-				min = 10, max = 500, step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 6,
@@ -407,7 +350,7 @@ local function ufTargetTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return E.db.benikui.unitframes.target.getPlayerPortraitSize or not E.db.benikui.unitframes.target.detachPortrait end,
-				min = 10, max = 500, step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 7,
@@ -511,7 +454,7 @@ local function ufTargetTargetTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.targettarget.detachPortrait end,
-				min = 10, max = 500, step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 6,
@@ -587,7 +530,7 @@ local function ufFocusTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.focus.detachPortrait end,
-				min = 10, max = 500, step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 6,
@@ -663,7 +606,7 @@ local function ufPetTable()
 				name = L['Width'],
 				desc = L['Change the detached portrait width'],
 				disabled = function() return not E.db.benikui.unitframes.pet.detachPortrait end,
-				min = 10, max = 500, step = 1,
+				min = 10, max = 1000, step = 1,
 			},
 			portraitHeight = {
 				order = 6,
