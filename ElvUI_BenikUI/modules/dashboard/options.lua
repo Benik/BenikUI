@@ -254,31 +254,6 @@ local function UpdateSystemOptions()
 	}
 end
 
-local seasonLocalePatterns = {
-	enUS = "^Season[^%d]+%d+$",		-- Matches "Season 1" ok
-	enGB = "^Season[^%d]+%d+$",
-	deDE = "^Saison[^%d]+%d+$",		-- Matches "Saison 1" ok
-	frFR = "^Saison[^%d]+%d+$",		-- Matches "Saison 1" (handles French non-breaking spaces) ok
-	esES = "^Temporada[^%d]+%d+$",	-- Matches "Temporada 1" ok
-	esMX = "^Temporada[^%d]+%d+$",
-	ptBR = "^Temporada[^%d]+%d+$",
-	itIT = "^Stagione[^%d]+%d+$",	-- Matches "Stagione 1" ok
-	ruRU = "^%d+[^%d]+сезон$",		-- Matches "1-й сезон" ok
-	koKR = "^%d+시즌$",				-- Matches "1시즌" (no spaces)
-	zhCN = "^第%d+赛季$",			-- Matches "第1赛季" (no spaces)
-	zhTW = "^第%d+賽季$",			-- Matches "第1賽季" (no spaces)
-}
-
-local currentLocale = GetLocale()
-local englishPattern = "^Season%s+%d+$"
-local localizedPattern = seasonLocalePatterns[currentLocale] or englishPattern
-
-local function isSeasonHeader(name)
-	if type(name) ~= "string" then return false end
-
-	return name:match(localizedPattern) ~= nil or name:match(englishPattern) ~= nil
-end
-
 local legacyTranslations = {
 	["Legacy"] = true,
 	["Vermächtnis"] = true,			-- German tested ok
@@ -294,13 +269,12 @@ local legacyTranslations = {
 local function isLegacyHeader(name)
 	if type(name) ~= "string" then return false end
 
-	if legacyTranslations[name] or legacyTranslations[name:lower()] then
+	if legacyTranslations[name] then
 		return true
 	end
 
-	local globalString = LFG_LIST_LEGACY
-
-	if type(globalString) == "string" and name == globalString then
+	local legacyLFG = _G.LFG_LIST_LEGACY
+	if type(legacyLFG) == "string" and name == legacyLFG then
 		return true
 	end
 
@@ -316,34 +290,43 @@ local function UpdateTokenOptions()
 		if tonumber(k) then config.args[k] = nil end
 	end
 
-	local foldHeaderTo = {}
 	local lastRealHeaderIndex
-	local hasSeasons = {}
-	local seasonParent = {}
+	local legacyHeaderIndex = nil
+	local headerParents = {}
 
-	for i, row in ipairs(mod.CurrencyList) do
-		local name = row[1]
+	for i, info in ipairs(mod.CurrencyList) do
+		local name, currencyID, parentIndex, isMainHeader = unpack(info)
 
-		if not row[2] then -- It's a header
+		if not currencyID then
+			local isSub = false
+			local targetParentIndex = parentIndex
+
 			if isLegacyHeader(name) then
-				-- do nothing and get rid of Legacy Header
-			elseif isSeasonHeader(name) then
-				if lastRealHeaderIndex then
-					hasSeasons[lastRealHeaderIndex] = true
-					seasonParent[i] = lastRealHeaderIndex
+				legacyHeaderIndex = i
+			else
+				if targetParentIndex then
+					isSub = true
+				elseif not legacyHeaderIndex then
+					if not isMainHeader and lastRealHeaderIndex then
+						isSub = true
+						targetParentIndex = lastRealHeaderIndex
+					end
+				end
 
-					local parentGroup = config.args[tostring(lastRealHeaderIndex)]
+				if isSub and targetParentIndex then
+					headerParents[i] = targetParentIndex
+
+					local parentGroup = config.args[tostring(targetParentIndex)]
 					if parentGroup then
 						parentGroup.args[tostring(i)] = {
-							order = optionOrder + i, -- Lower order to display first
+							order = optionOrder + i,
 							type = "group",
-							guiInline = true,
+							inline = true,
 							name = name,
 							disabled = function() return not db.enable end,
 							args = {},
 						}
 					end
-					foldHeaderTo[i] = i
 				else
 					config.args[tostring(i)] = {
 						order = optionOrder + i,
@@ -354,78 +337,45 @@ local function UpdateTokenOptions()
 					}
 					lastRealHeaderIndex = i
 				end
-			else
-				-- main expansion group
-				config.args[tostring(i)] = {
-					order = optionOrder + i,
-					type = "group",
-					name = name,
-					disabled = function() return not db.enable end,
-					args = {},
-				}
-				lastRealHeaderIndex = i
 			end
 		end
 	end
 
-	for i, row in ipairs(mod.CurrencyList) do
-		local id = row[2]
-		local parentHeaderIndex = row[3]
+	for i, info in ipairs(mod.CurrencyList) do
+		local name, currencyID, parentIndex, isHeader = unpack(info)
 
-		if parentHeaderIndex and id then
-			parentHeaderIndex = foldHeaderTo[parentHeaderIndex] or parentHeaderIndex
-
+		if currencyID and parentIndex then
 			local targetArgs = nil
-			local mainHeaderIndex = seasonParent[parentHeaderIndex]
+			local parentParentIndex = headerParents[parentIndex]
 
-			if mainHeaderIndex then
-				local mainGroup = config.args[tostring(mainHeaderIndex)]
-				local seasonGroup = mainGroup and mainGroup.args[tostring(parentHeaderIndex)]
-				if seasonGroup then
-					targetArgs = seasonGroup.args
+			if parentParentIndex then
+				local mainGroup = config.args[tostring(parentParentIndex)]
+				local subGroup = mainGroup and mainGroup.args[tostring(parentIndex)]
+				if subGroup then
+					targetArgs = subGroup.args
 				end
 			else
-				if hasSeasons[parentHeaderIndex] then
-					local mainGroup = config.args[tostring(parentHeaderIndex)]
-					if mainGroup then
-						local otherKey = "other_" .. tostring(parentHeaderIndex)
-						if not mainGroup.args[otherKey] then
-							mainGroup.args[otherKey] = {
-								order = optionOrder + 100, -- Place "Other" after all seasons
-								type = "group",
-								guiInline = true,
-								name = OTHER,
-								disabled = function() return not db.enable end,
-								args = {},
-							}
-						end
-						targetArgs = mainGroup.args[otherKey].args
-					end
-				else
-					local parentGroup = config.args[tostring(parentHeaderIndex)]
-					if parentGroup then
-						targetArgs = parentGroup.args
-					end
+				local mainGroup = config.args[tostring(parentIndex)]
+				if mainGroup then
+					targetArgs = mainGroup.args
 				end
 			end
 
 			if targetArgs then
-				local name, amount, icon, _, _, _, _, _, _, _, description = mod:GetTokenInfo(id)
-				if name then
-					targetArgs[tostring(i)] = {
-						order = optionOrder + 2,
-						type = "toggle",
-						name = (icon and "|T"..icon..":18|t "..name) or name,
-						desc = format("%s %s\n\n|cffffff00%s: %s|r %s",
-							L["Enable/Disable"], name, L["Amount"], BreakUpLargeNumbers(amount), description and format("\n\n|cffffff00%s:|r %s", DESCRIPTION, description) or ""),
-						disabled = function() return not db.enable end,
-						get = function() return E.private.benikui.dashboards.tokens.chooseTokens[id] end,
-						set = function(_, value)
-							E.private.benikui.dashboards.tokens.chooseTokens[id] = value
-							mod:UpdateTokens()
-						end,
-					}
-				end
+				local _, amount, icon, _, _, _, _, _, _, _, description = mod:GetTokenInfo(currencyID)
+				targetArgs[tostring(i)] = {
+					order = optionOrder + i,
+					type = "toggle",
+					name = (icon and "|T"..icon..":18|t "..name) or name,
+					desc = format("%s %s\n\n|cffffff00%s: %s|r %s",
+						L["Enable/Disable"], name, L["Amount"], BreakUpLargeNumbers(amount or 0), description and format("\n\n|cffffff00%s:|r %s", DESCRIPTION, description) or ""),
+					disabled = function() return not db.enable end,
+					get = function() return E.private.benikui.dashboards.tokens.chooseTokens[currencyID] end,
+					set = function(_, value)
+						E.private.benikui.dashboards.tokens.chooseTokens[currencyID] = value
+						mod:UpdateTokens()
+					end,
+				}
 			end
 		end
 	end
