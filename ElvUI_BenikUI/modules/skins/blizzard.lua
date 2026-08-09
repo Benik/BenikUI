@@ -5,7 +5,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 local next = next
 local hooksecurefunc = hooksecurefunc
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local function LoadSkin()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
