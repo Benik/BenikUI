@@ -8,7 +8,7 @@ local C_MajorFactions_HasMaximumRenown = C_MajorFactions.HasMaximumRenown
 local C_MajorFactions_GetMajorFactionIDs = C_MajorFactions.GetMajorFactionIDs
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagonForCurrentPlayer
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local InCombatLockdown = InCombatLockdown
 local ShowUIPanel = ShowUIPanel
 
@@ -183,7 +183,7 @@ local function OnClick(self, btn)
 		E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
 	else
 		if not IsAddOnLoaded('Blizzard_EncounterJournal') then
-			EncounterJournal_LoadUI()
+			E:LoadAddon('Blizzard_EncounterJournal')
 		end
 
 		local ej = _G.EncounterJournal
