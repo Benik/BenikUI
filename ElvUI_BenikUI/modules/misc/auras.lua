@@ -1,7 +1,7 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Shadows')
 
-function mod:AuraIconShadow(_, button)
+function mod:AuraIconShadow(container, button)
 	if (E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows) ~= true then return end
 	if not button then return end
 
@@ -9,8 +9,10 @@ function mod:AuraIconShadow(_, button)
 		button:CreateSoftShadow()
 	end
 
-	if button.statusbar and not button.statusbar.backdrop.shadow then
-		button.statusbar.backdrop:CreateSoftShadow()
+	if container and not container.isAuraBar then
+		if button.statusbar and not button.statusbar.backdrop.shadow then
+			button.statusbar.backdrop:CreateSoftShadow()
+		end
 	end
 end
 
