@@ -16,7 +16,7 @@ local function style_AchievementUI()
 	local frame = _G.AchievementFrame
 	if frame then
 		frame:BuiStyle()
-		frame.SearchPreviewContainer.backdrop:BuiStyle()
+		frame.HeaderDetails.Filters.SearchBox.SearchPreviewContainer.backdrop:BuiStyle()
 		frame.SearchResults.backdrop:BuiStyle()
 	end
 end
