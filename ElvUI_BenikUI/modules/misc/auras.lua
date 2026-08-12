@@ -10,8 +10,8 @@ function mod:AuraIconShadow(container, button)
 	end
 
 	if container and not container.isAuraBar then
-		if button.statusbar and not button.statusbar.backdrop.shadow then
-			button.statusbar.backdrop:CreateSoftShadow()
+		if button.statusbar and not button.statusbar.shadow then
+			button.statusbar:CreateSoftShadow()
 		end
 	end
 end
