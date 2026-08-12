@@ -30,4 +30,4 @@ local function LoadInFlight()
 
 	hooksecurefunc(InFlight, 'StartTimer', StyleInFlight)
 end
-S:AddCallback("BenikUI_InFlight", LoadInFlight)
+S:AddCallbackForAddon("InFlight", "BenikUI_InFlight", LoadInFlight)

@@ -218,13 +218,13 @@ function mod:UpdatePanelTitle()
 
 			if tData.useDTfont then
 				panel.titleText:FontTemplate(
-						LSM:Fetch('font', E.db.datatexts.font),
+						E.db.datatexts.font,
 						E.db.datatexts.fontSize,
 						E.db.datatexts.fontOutline
 				)
 			else
 				panel.titleText:FontTemplate(
-						LSM:Fetch('font', tData.font),
+						tData.font,
 						tData.fontsize,
 						tData.fontflags
 				)
@@ -384,13 +384,23 @@ function mod:UpdatePanels()
 end
 
 -- Initializes the module
-function mod:Initialize()
+function mod:Init()
 	mod:UpdatePanels()
 	mod:RegisterEvent("PLAYER_REGEN_DISABLED", "OnEvent")
 	mod:RegisterEvent("PLAYER_REGEN_ENABLED",  "OnEvent")
 	mod:RegisterEvent("UNIT_ENTERING_VEHICLE", "OnEvent")
 	mod:RegisterEvent("UNIT_EXITING_VEHICLE",  "OnEvent")
 	mod:RegisterEvent("PET_BATTLE_CLOSE",      "OnEvent")
+
+	mod.initialized = true
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

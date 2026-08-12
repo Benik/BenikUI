@@ -28,4 +28,4 @@ local function Skada()
 		end
 	end)
 end
-S:AddCallback("BenikUI_Skada", Skada)
+S:AddCallbackForAddon("Skada", "BenikUI_Skada", Skada)

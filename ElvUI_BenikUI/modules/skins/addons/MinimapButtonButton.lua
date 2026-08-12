@@ -38,4 +38,4 @@ local function MinimapButtonButton()
 		end
 	end
 end
-S:AddCallback("BenikUI_MBB", MinimapButtonButton)
+S:AddCallbackForAddon("MinimapButtonButton", "BenikUI_MinimapButtonButton", MinimapButtonButton)

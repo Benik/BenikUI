@@ -21,4 +21,4 @@ local function Baganator() --credits go to plusmouse here https://github.com/Ben
 		end
 	end
 end
-S:AddCallback("BenikUI_Baganator", Baganator)
+S:AddCallbackForAddon("Baganator", "BenikUI_Baganator", Baganator)

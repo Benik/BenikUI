@@ -33,4 +33,4 @@ local function TomTom()
 		tomTooltip:BuiStyle()
 	end
 end
-S:AddCallback("BenikUI_TomTom", TomTom)
+S:AddCallbackForAddon("TomTom", "BenikUI_TomTom", TomTom)

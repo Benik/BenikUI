@@ -1,7 +1,6 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Databars')
 local S = E:GetModule('Skins')
-local LSM = E.LSM
 
 local CreateFrame = CreateFrame
 
@@ -70,7 +69,7 @@ function mod:UpdateNotifierPositions(bar, option)
 		(E.db.databars[option].orientation == 'HORIZONTAL' and (db.position == 'LEFT' or db.position == 'RIGHT'))
 	bar.f.arrow:SetShown(toggleCondition)
 	bar.f.txt:SetShown(toggleCondition)
-	bar.f.txt:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+	bar.f.txt:FontTemplate(E.db.datatexts.font, E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 end
 
 function mod:ToggleBackdrop(bar, option)
@@ -123,12 +122,22 @@ function mod:StyleBar(bar, onClick)
 	bar.holder:BuiStyle('Outside', nil, false, true)
 end
 
+function mod:Init()
+	mod:LoadXP()
+	mod:LoadRep()
+	mod:LoadAzerite()
+	mod:LoadHonor()
+	mod:LoadThreat()
+
+	mod.initialized = true
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
 function mod:Initialize()
-	self:LoadXP()
-	self:LoadRep()
-	self:LoadAzerite()
-	self:LoadHonor()
-	self:LoadThreat()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

@@ -1,6 +1,5 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('iLevel')
-local LSM = E.LSM
 
 local _G = _G
 local next, wipe, pairs = next, wipe, pairs
@@ -54,9 +53,9 @@ function mod:UpdateItemLevel()
 		else
 			mod.f[id]:SetText("")
 		end
-		mod.f[id]:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+		mod.f[id]:FontTemplate(db.font, db.fontsize, db.fontflags)
 	end
-	_G.CharacterNeckSlot.RankFrame.Label:FontTemplate(LSM:Fetch('font', db.font), db.fontsize, db.fontflags)
+	_G.CharacterNeckSlot.RankFrame.Label:FontTemplate(db.font, db.fontsize, db.fontflags)
 end
 
 local function returnPoints(id)
@@ -111,7 +110,7 @@ function mod:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function mod:Initialize()
+function mod:Init()
 	if E.db.benikui.misc.ilevel.enable == false or (BUI.SLE and E.db.sle.armory.character.enable ~= false) then return end
 
 	mod.f = CreateFrame("Frame", nil, _G.PaperDollFrame)
@@ -128,6 +127,16 @@ function mod:Initialize()
 	mod:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", mod.UpdateItemLevel)
 	mod:RegisterEvent("PLAYER_AVG_ITEM_LEVEL_UPDATE", mod.UpdateItemLevel)
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+	mod.initialized = true
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

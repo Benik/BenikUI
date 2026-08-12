@@ -148,4 +148,4 @@ local function RareScanner()
 		self.style:SetBackdropBorderColor(0, 0, 0)
 	end)
 end
-S:AddCallback("BenikUI_RareScanner", RareScanner)
+S:AddCallbackForAddon("RareScanner", "BenikUI_RareScanner", RareScanner)

@@ -1,3 +1,29 @@
+v5.18 (Aug 12, 2026)
+toc update for 12.1
+Fixed Achievements frame error
+Auras Shadows
+retail cleanup
+E:LoadAddon
+Updated Tokens options
+Added PLAYER_LOGIN on all modules
+Also initialize bui on PLAYER_LOGIN
+Fixed Detached Castbar shadows and removed its module
+Use "AddCallbackForAddon" on 3rd party addon skins
+Added AceEvent on needed modules and notes
+More PLAYER_LOGIN fixes
+Utilize PLAYER_LOGIN on module init
+Fixed Style template
+Fixed Fonts
+Fixed Chat Panels Style not showing on login
+Fixed Unitframes shadows not showing
+Fixed Reputations Dashboard not showing on login
+Fixed AFKMode
+Replaced StaggeredUpdateAll with UpdateAll
+Adjust for changes in elvui
+Added mini progress in the Achievements datatext tooltip
+Fixed Tooltip Style Color
+Update blizzard.lua
+
 v5.17 (Jun 17, 2026)
 toc bump for 12.07
 Style EditModeLayoutDialog

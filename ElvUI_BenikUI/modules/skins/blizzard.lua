@@ -5,7 +5,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 local next = next
 local hooksecurefunc = hooksecurefunc
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local function LoadSkin()
 	if E.db.benikui.general.benikuiStyle ~= true then return end
@@ -27,6 +27,10 @@ local function LoadSkin()
 		_G.ReadyCheckListenerFrame:BuiStyle()
 		_G.SplashFrame:CreateBackdrop("Transparent")
 		_G.SplashFrame.backdrop:BuiStyle()
+	end
+
+	if db.catalogShop then
+		_G.CatalogShopFrame:BuiStyle()
 	end
 
 	if db.character then

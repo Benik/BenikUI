@@ -3,7 +3,6 @@ local mod = BUI:GetModule('Layout')
 local LO = E:GetModule('Layout')
 local DT = E:GetModule('DataTexts')
 local M = E:GetModule('Minimap')
-local LSM = E.LSM
 
 local _G = _G
 local tinsert = table.insert
@@ -16,9 +15,8 @@ local PlaySound = PlaySound
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
 local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
-local EncounterJournal_LoadUI = EncounterJournal_LoadUI
 local C_TimerAfter = C_Timer.After
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local MAINMENU_BUTTON = MAINMENU_BUTTON
 local LFG_TITLE = LFG_TITLE
@@ -199,7 +197,7 @@ local function updateButtonFont()
 	for panelName, panel in pairs(dts) do
 		for i = 1, panel.numPoints do
 			if panel.dataPanels[i] then
-				panel.dataPanels[i].text:FontTemplate(LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
+				panel.dataPanels[i].text:FontTemplate(db.font, db.fontSize, db.fontOutline)
 			end
 		end
 		DT:UpdatePanelInfo(panelName, panel)
@@ -412,7 +410,7 @@ function mod:CreateLayout()
 					PVEFrame_ToggleFrame()
 				elseif btn == "RightButton" then
 					if not IsAddOnLoaded('Blizzard_EncounterJournal') then
-						EncounterJournal_LoadUI();
+						E:LoadAddon('Blizzard_EncounterJournal')
 					end
 					ToggleFrame(_G.EncounterJournal)
 				end
@@ -466,7 +464,7 @@ function mod:CreateLayout()
 	local elvuiCopyChatFrame = _G.ElvUI_CopyChatFrame
 	if elvuiCopyChatFrame then elvuiCopyChatFrame:BuiStyle() end
 
-	self:ToggleTransparency()
+	mod:ToggleTransparency()
 end
 
 -- Add minimap styling option in ElvUI minimap options
@@ -550,10 +548,6 @@ function mod:ToggleMinimapStyle()
 	end
 end
 
-function mod:regEvents()
-	mod:ToggleTransparency()
-end
-
 function mod:LoadDataTexts(...)
 	DT:UpdatePanelInfo('BuiLeftChatDTPanel')
 	DT:UpdatePanelInfo('BuiRightChatDTPanel')
@@ -561,17 +555,13 @@ function mod:LoadDataTexts(...)
 	updateButtonFont()
 end
 
-function mod:PLAYER_ENTERING_WORLD(...)
-	mod:ToggleBuiDts()
-	mod:regEvents()
-
-	mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end
-
-function mod:Initialize()
+function mod:PLAYER_LOGIN()
 	mod:CreateLayout()
 	mod:CreateMiddlePanel()
 	mod:ToggleMinimapStyle()
+	mod:ToggleBuiDts()
+	mod:ToggleTransparency()
+
 	C_TimerAfter(0.5, mod.ChatStyles)
 
 	hooksecurefunc(LO, 'ToggleChatPanels', mod.ToggleBuiDts)
@@ -582,8 +572,11 @@ function mod:Initialize()
 	hooksecurefunc(DT, 'LoadDataTexts', mod.LoadDataTexts)
 	hooksecurefunc(E, 'UpdateMedia', updateButtons)
 
-	mod:RegisterEvent('PLAYER_ENTERING_WORLD')
-	mod:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'regEvents')
+	mod.initialized = true
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

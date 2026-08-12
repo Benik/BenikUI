@@ -2,7 +2,6 @@ local BUI, E, _, V, P, G = unpack((select(2, ...)))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS');
 
 local BU = BUI:GetModule('Units');
-local BC = BUI:GetModule('Castbar');
 local UF = E:GetModule('UnitFrames');
 
 local tinsert = table.insert
@@ -114,7 +113,7 @@ local function ufTable()
 						desc = L['This applies on all available castbars.'],
 						values = AceGUIWidgetLSMlists.statusbar,
 						get = function(info) return E.db.benikui.unitframes.textures[ info[#info] ] end,
-						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BC:CastBarHooks(); end,
+						set = function(info, value) E.db.benikui.unitframes.textures[ info[#info] ] = value; BU:UpdateAllCastbars(); end,
 					},
 				},
 			},
@@ -157,7 +156,7 @@ local function ufTable()
 				name = L['Castbar Text'].." ("..PLAYER.."/"..TARGET..")",
 				guiInline = true,
 				get = function(info) return E.db.benikui.unitframes.castbar.text[ info[#info] ] end,
-				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BC:UpdateAllCastbars(); end,
+				set = function(info, value) E.db.benikui.unitframes.castbar.text[ info[#info] ] = value; BU:UpdateAllCastbars(); end,
 				args = {
 					ShowInfoText = {
 						type = 'toggle',

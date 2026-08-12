@@ -1,6 +1,5 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Widgetbars')
-local LSM = E.LSM;
 
 local _G = _G
 local floor = floor
@@ -84,7 +83,7 @@ function mod:MawBar_Update()
 
 		bar.text:SetTextColor(db.textColor.r, db.textColor.g, db.textColor.b)
 		bar.text:Point('CENTER', 0, db.textYoffset or 0)
-		bar.text:FontTemplate(LSM:Fetch('font', db.useDTfont and E.db.datatexts.font or db.font), db.useDTfont and E.db.datatexts.fontSize or db.fontsize, db.useDTfont and E.db.datatexts.fontOutline or db.fontflags)
+		bar.text:FontTemplate(db.useDTfont and E.db.datatexts.font or db.font, db.useDTfont and E.db.datatexts.fontSize or db.fontsize, db.useDTfont and E.db.datatexts.fontOutline or db.fontflags)
 
 		if db.textFormat == 'PERCENT' then
 			if displayState == 5 then

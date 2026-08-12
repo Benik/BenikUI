@@ -8,9 +8,9 @@ local sort, twipe = table.sort, table.wipe
 local format = format
 
 local GetFramerate = GetFramerate
-local GetNumAddOns = (C_AddOns and C_AddOns.GetNumAddOns) or GetNumAddOns
-local GetAddOnInfo = (C_AddOns and C_AddOns.GetAddOnInfo) or GetAddOnInfo
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local GetNumAddOns = C_AddOns.GetNumAddOns
+local GetAddOnInfo = C_AddOns.GetAddOnInfo
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local GetAddOnMemoryUsage = GetAddOnMemoryUsage
 local InCombatLockdown = InCombatLockdown

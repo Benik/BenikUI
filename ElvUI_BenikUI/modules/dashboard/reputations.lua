@@ -401,12 +401,15 @@ function mod:PopulateFactionData()
 end
 
 function mod:UPDATE_FACTION(_, factionID)
-	if factionID and not mod.ReputationsList[tostring(factionID)] then
+	if not mod.ReputationsList or not next(mod.ReputationsList) then
+		mod:PopulateFactionData()
+	elseif factionID and not mod.ReputationsList[tostring(factionID)] then
 		local info = C_Reputation_GetFactionInfoByID(factionID)
 		if info and info.name then
 			mod:PopulateFactionData()
 		end
 	end
+
 	mod:UpdateReputations()
 end
 

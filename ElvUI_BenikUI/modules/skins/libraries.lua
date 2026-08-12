@@ -81,6 +81,3 @@ function mod:LibQTip()
 	end
 end
 S:AddCallback("BenikUI_LibQTip", mod.LibQTip)
-
-
-

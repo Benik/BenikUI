@@ -108,31 +108,24 @@ function BUI:LuaError(msg)
 	end
 end
 
-local r, g, b = 0, 0, 0
 function BUI:UpdateStyleColors()
 	if not E.db.benikui.general.benikuiStyle then return end
 
 	local BTT = BUI:GetModule('Tooltip')
+	local r, g, b = BTT:GetConfiguredStyleColor()
+
 	for frame, _ in pairs(BUI["styles"]) do
 		if frame and not frame.ignoreColor then
-			if E.db.benikui.colors.StyleColor == 1 then
-				r, g, b = classColor.r, classColor.g, classColor.b
-			elseif E.db.benikui.colors.StyleColor == 2 then
-				r, g, b = BUI:unpackColor(E.db.benikui.colors.customStyleColor)
-			elseif E.db.benikui.colors.StyleColor == 3 then
-				r, g, b = BUI:unpackColor(E.db.general.valuecolor)
-			elseif E.db.benikui.colors.StyleColor == 4 then
-				r, g, b = BUI:unpackColor(E.db.general.backdropcolor)
-			else
-				r, g, b = BUI:unpackColor(E.db.general.classColors[E.myclass])
-			end
 			frame:SetBackdropColor(r, g, b, E.db.benikui.colors.styleAlpha or 1)
 		else
 			BUI["styles"][frame] = nil
 		end
 	end
 
-	BTT:RecolorTooltipStyle()
+	if GameTooltip and GameTooltip.style then
+		GameTooltip.buiUpdated = nil
+		BTT:RecolorTooltipStyle(GameTooltip)
+	end
 end
 
 function BUI:UpdateStyleVisibility()
@@ -225,4 +218,6 @@ function BUI:Initialize()
 
 	hooksecurefunc(E, "UpdateMedia", BUI.UpdateSoftGlowColor)
 	hooksecurefunc(BUI, "SetupColorThemes", BUI.UpdateStyleColors)
+
+	self.initialized = true
 end

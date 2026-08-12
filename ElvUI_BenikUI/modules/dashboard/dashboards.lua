@@ -1,6 +1,5 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards')
-local LSM = E.LSM
 
 local next = next
 local CreateFrame = CreateFrame
@@ -83,9 +82,9 @@ function mod:FontStyle(tableName)
 	local db = E.db.benikui.dashboards.dashfont
 	for _, bar in next, tableName do
 		if E.db.benikui.dashboards.dashfont.useDTfont then
-			bar.Text:FontTemplate(LSM:Fetch('font', E.db.datatexts.font), E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
+			bar.Text:FontTemplate(E.db.datatexts.font, E.db.datatexts.fontSize, E.db.datatexts.fontOutline)
 		else
-			bar.Text:FontTemplate(LSM:Fetch('font', db.dbfont), db.dbfontsize, db.dbfontflags)
+			bar.Text:FontTemplate(db.dbfont, db.dbfontsize, db.dbfontflags)
 		end
 	end
 end
@@ -302,12 +301,22 @@ function mod:CreateDashboard(barHolder, option, hasIcon, isRep, isToken)
 	return bar
 end
 
-function mod:Initialize()
+function mod:Init()
 	mod:LoadSystem()
 	mod:LoadProfessions()
 	mod:LoadTokens()
 	mod:LoadReputations()
 	mod:LoadItems()
+
+	mod.initialized = true
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

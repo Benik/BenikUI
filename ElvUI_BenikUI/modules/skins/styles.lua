@@ -106,13 +106,23 @@ local function ScriptErrorsFrame()
 end
 S:AddCallback("BenikUI_ScriptErrorsFrame", ScriptErrorsFrame)
 
-function mod:Initialize()
+function mod:Init()
 	hooksecurefunc(E, "ToggleOptions", StyleElvUIConfig)
 
 	mod:RegisterEvent("PLAYER_ENTERING_WORLD", function(...)
 		mod:styleElvUIPlugins()
 		mod:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end)
+
+	mod.initialized = true
+end
+
+function mod:PLAYER_LOGIN()
+	mod:Init()
+end
+
+function mod:Initialize()
+	mod:RegisterEvent('PLAYER_LOGIN')
 end
 
 BUI:RegisterModule(mod:GetName())

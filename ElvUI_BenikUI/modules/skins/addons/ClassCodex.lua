@@ -134,4 +134,4 @@ local function ClassCodex()
 	-- add another delay. The compendium is lazy
 	C_Timer_After(0.1, ApplySkin)
 end
-S:AddCallback("BenikUI_ClassCodex", ClassCodex)
+S:AddCallbackForAddon("ClassCodex", "BenikUI_ClassCodex", ClassCodex)
