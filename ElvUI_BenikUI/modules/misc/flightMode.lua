@@ -86,7 +86,6 @@ function mod:UpdateLocation()
 	end
 
 	local r, g, b = AutoColoring()
-	mod.FlightMode.top.location.text:SetJustifyH('CENTER')
 	mod.FlightMode.top.location.text:SetText(displayLine)
 	mod.FlightMode.top.location.text:SetTextColor(r, g, b)
 	mod.FlightMode.top.location.text:Width(LOCATION_WIDTH - 30)
