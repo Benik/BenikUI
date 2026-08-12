@@ -15,9 +15,8 @@ local PlaySound = PlaySound
 local IsShiftKeyDown = IsShiftKeyDown
 local InCombatLockdown = InCombatLockdown
 local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
-local EncounterJournal_LoadUI = EncounterJournal_LoadUI
 local C_TimerAfter = C_Timer.After
-local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local MAINMENU_BUTTON = MAINMENU_BUTTON
 local LFG_TITLE = LFG_TITLE
@@ -411,7 +410,7 @@ function mod:CreateLayout()
 					PVEFrame_ToggleFrame()
 				elseif btn == "RightButton" then
 					if not IsAddOnLoaded('Blizzard_EncounterJournal') then
-						EncounterJournal_LoadUI();
+						E:LoadAddon('Blizzard_EncounterJournal')
 					end
 					ToggleFrame(_G.EncounterJournal)
 				end

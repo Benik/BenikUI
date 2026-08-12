@@ -23,6 +23,7 @@ local InCombatLockdown = InCombatLockdown
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local LFG_TYPE_DUNGEON = LFG_TYPE_DUNGEON
 local MISCELLANEOUS = MISCELLANEOUS
+local PLAYER_V_PLAYER = PLAYER_V_PLAYER
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -260,7 +261,8 @@ function mod:PopulateCurrencyData()
 		end
 
 		if info.isHeader then
-			mod.CurrencyList[i] = { info.name, nil, nil, (info.name == expansion or info.name == MISCELLANEOUS) or strfind(info.name, LFG_TYPE_DUNGEON) }
+			local isMain = (info.name == expansion or info.name == MISCELLANEOUS or info.name == PLAYER_V_PLAYER) or strfind(info.name, LFG_TYPE_DUNGEON)
+			mod.CurrencyList[i] = { info.name, nil, nil, isMain }
 			headerIndex = i
 		end
 
