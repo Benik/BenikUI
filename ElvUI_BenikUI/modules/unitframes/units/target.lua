@@ -1,15 +1,14 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
+local ElvUF = E.oUF
 local BU = BUI:GetModule('Units');
 local UF = E:GetModule('UnitFrames');
 
 local _G = _G
-local select = select
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 
 local UnitClass = UnitClass
 local UnitPowerMax = UnitPowerMax
-local UnitPowerType = UnitPowerType
 local UnitIsPlayer = UnitIsPlayer
 local UnitReaction = UnitReaction
 
@@ -43,36 +42,38 @@ function BU:RecolorTargetDetachedPortraitStyle()
 
 	if E.db.benikui.unitframes.target.portraitStyle ~= true or db.portrait.overlay == true then return end
 
-	local targetClass = select(2, UnitClass("target"));
-
 	do
 		local portrait = frame.Portrait
 		local power = frame.Power
 		local r, g, b = 0, 0, 0
 
-		if frame.USE_PORTRAIT and portrait.backdrop.style and E.db.benikui.unitframes.target.portraitStyle then
+		if frame.USE_PORTRAIT and portrait and portrait.backdrop and portrait.backdrop.style and E.db.benikui.unitframes.target.portraitStyle then
 			local maxValue = UnitPowerMax("target")
-			local _, _, altR, altG, altB = UnitPowerType("target")
-			local mu = power.bg.multiplier or 1
-			local isPlayer = UnitIsPlayer("target")
-			local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
+			local mu = power and power.bg and power.bg.multiplier or 1
+			local isPlayer = UnitIsPlayer("target") or UnitInPartyIsAI("target")
+			local _, targetClass = UnitClass("target")
+			local reaction = UnitReaction("target", "player")
 
-			local reaction = UnitReaction('target', 'player')
-			if  E:NotSecretValue(maxValue) and maxValue > 0 then
+			if E:NotSecretValue(maxValue) and maxValue > 0 then
 				if isPlayer then
-					r, g, b = classColor.r, classColor.g, classColor.b
+					local classColor = E:NotSecretValue(targetClass) and (ElvUF.colors.class[targetClass] or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass]) or RAID_CLASS_COLORS[targetClass])
+					if classColor then
+						r, g, b = classColor.r, classColor.g, classColor.b
+					end
 				else
-					if reaction then
+					if E:NotSecretValue(reaction) and ElvUF.colors.reaction[reaction] then
 						local tpet = ElvUF.colors.reaction[reaction]
-						r, g, b = tpet[1], tpet[2], tpet[3]
+						r, g, b = tpet.r or tpet[1] or 0, tpet.g or tpet[2] or 0, tpet.b or tpet[3] or 0
 					end
 				end
 			else
-				if reaction and mu then
+				if E:NotSecretValue(reaction) and ElvUF.colors.reaction[reaction] and mu then
 					local t = ElvUF.colors.reaction[reaction]
-					r, g, b = t[1] * mu, t[2] * mu, t[3] * mu
+					local tr, tg, tb = t.r or t[1] or 0, t.g or t[2] or 0, t.b or t[3] or 0
+					r, g, b = tr * mu, tg * mu, tb * mu
 				end
 			end
+
 			portrait.backdrop.style:SetBackdropColor(r, g, b, (E.db.benikui.colors.styleAlpha or 1))
 		end
 	end
