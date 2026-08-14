@@ -10,8 +10,8 @@ function mod:AuraIconShadow(container, button)
 	end
 
 	if container and not container.isAuraBar then
-		if button.statusbar and not button.statusbar.shadow then
-			button.statusbar:CreateSoftShadow()
+		if button.statusbar and not button.statusbar.backdrop.shadow then
+			button.statusbar.backdrop:CreateSoftShadow()
 		end
 	end
 end
@@ -22,6 +22,8 @@ function mod:Initialize()
 
 	hooksecurefunc(E, "Auras_CreateButton", mod.AuraIconShadow)
 	hooksecurefunc(E, "Auras_UpdateButton", mod.AuraIconShadow)
+
+	mod.initialized = true
 end
 
 BUI:RegisterModule(mod:GetName())
