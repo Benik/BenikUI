@@ -22,6 +22,8 @@ function mod:Initialize()
 
 	hooksecurefunc(E, "Auras_CreateButton", mod.AuraIconShadow)
 	hooksecurefunc(E, "Auras_UpdateButton", mod.AuraIconShadow)
+
+	mod.initialized = true
 end
 
 BUI:RegisterModule(mod:GetName())

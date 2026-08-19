@@ -61,19 +61,19 @@ function BU:Configure_Portrait(frame, isPlayer)
 
 				if not frame.portraitmover.mover then
 					frame.portraitmover:ClearAllPoints()
-					if frame.unit == "player" then
+					if frame.__unit == "player" then
 						frame.portraitmover:Point('TOPRIGHT', frame, 'TOPLEFT', -UF.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'PlayerPortraitMover', 'Player Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,player,generalGroup')
-					elseif frame.unit == "target" then
+					elseif frame.__unit == "target" then
 						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', UF.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'TargetPortraitMover', 'Target Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,target,generalGroup')
-					elseif frame.unit == "targettarget" then
+					elseif frame.__unit == "targettarget" then
 						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', UF.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'TargetTargetPortraitMover', 'TargetTarget Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,targettarget,generalGroup')
-					elseif frame.unit == "focus" then
+					elseif frame.__unit == "focus" then
 						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', UF.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'FocusPortraitMover', 'Focus Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,focus,generalGroup')
-					elseif frame.unit == "pet" then
+					elseif frame.__unit == "pet" then
 						frame.portraitmover:Point('TOPLEFT', frame, 'TOPRIGHT', UF.BORDER, 0)
 						E:CreateMover(frame.portraitmover, 'PetPortraitMover', 'Pet Portrait', nil, nil, nil, 'ALL,SOLO,BENIKUI', nil, 'unitframe,pet,generalGroup')
 					end
