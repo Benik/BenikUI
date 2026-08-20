@@ -34,12 +34,9 @@ function mod:DbmHalfBarSkin()
 
 					local baseHeight = bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height
 					spark:SetSize(12, ((baseHeight / 2) * 3) - 2)
-
-					local a, b, c, d = spark:GetPoint()
-					spark:SetPoint(a, b, c, d, 0)
 				end)
 
-				hooksecurefunc(bar, "ApplyStyle", function()
+				local function ApplySkin()
 					if _G.DBM_UsedProfile ~= requiredProfile then return end
 
 					local frame = bar.frame
@@ -107,11 +104,13 @@ function mod:DbmHalfBarSkin()
 							icon2.backdrop:CreateSoftShadow()
 						end
 					end
+				end
 
-					bar.injected = true
-				end)
+				hooksecurefunc(bar, "ApplyStyle", ApplySkin)
 
-				bar:ApplyStyle()
+				ApplySkin()
+
+				bar.injected = true
 			end
 		end
 	end
