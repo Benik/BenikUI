@@ -24,22 +24,6 @@ function mod:DbmHalfBarSkin()
 	local function SkinBars(s)
 		for bar in s:GetBarIterator() do
 			if not bar.injected then
-				hooksecurefunc(bar, "Update", function()
-					if _G.DBM_UsedProfile ~= requiredProfile then return end
-
-					local sparkEnabled = DBT.Options.Spark
-					if not (E.db.benikui.skins.variousSkins.dbmHalfBar and sparkEnabled) then return end
-
-					local frameName = bar.frame:GetName()
-					if not frameName then return end
-
-					local spark = _G[frameName.."BarSpark"]
-					if spark then
-						local baseHeight = bar.enlarged and DBT.Options.HugeHeight or DBT.Options.Height
-						spark:Size(12, ((baseHeight / 2) * 3) - 2)
-					end
-				end)
-
 				local function ApplySkin()
 					if _G.DBM_UsedProfile ~= requiredProfile then return end
 
@@ -49,6 +33,7 @@ function mod:DbmHalfBarSkin()
 
 					local isSecret = bar.isSecret
 					local tbar = _G[frameName..'Bar']
+					local spark = _G[frameName.."BarSpark"]
 					local icon1 = _G[frameName..'BarIcon1']
 					local icon2 = _G[frameName..'BarIcon2']
 					local jIcons = isSecret and _G[frameName.."BarSJIcons"] or _G[frameName.."BarIJIcons"]
@@ -61,6 +46,10 @@ function mod:DbmHalfBarSkin()
 
 					if E.db.benikui.skins.variousSkins.dbmHalfBar then
 						frame:Height(iconSize / 2)
+
+						if spark and DBT.Options.Spark then
+							spark:Size(12, ((iconSize / 2) * 3) - 2)
+						end
 					else
 						frame:Height(iconSize)
 					end
