@@ -27,30 +27,8 @@ local function ClassCodex()
 		end
 	end
 
-	local function HuntCloseButton(parent)
-		for _, child in ipairs({parent:GetChildren()}) do
-			if child:IsObjectType("Button") then
-				local width, height = child:GetSize()
-				if math.floor(width) == 20 and math.floor(height) == 20 then -- size is 20
-					local point = child:GetPoint(1)
-					if point == "RIGHT" then -- and pointed right
-						return child
-					end
-				end
-			end
-			-- search deeper
-			if child:GetNumChildren() > 0 then
-				local found = HuntCloseButton(child)
-				if found then return found end
-			end
-		end
-		return nil
-	end
-
-	local closeBtn = HuntCloseButton(frame)
-	if closeBtn then
-		S:HandleCloseButton(closeBtn)
-	end
+	-- Close button
+	S:HandleCloseButton(_G.ClassCodexPanelCloseButton)
 
 	local dropDowns = {
 		_G.ClassCodexHeroDropdown,
@@ -68,19 +46,7 @@ local function ClassCodex()
 	end
 
 	-- tabs
-	frame:HookScript("OnShow", function(self)
-		for _, child in ipairs({self:GetChildren()}) do
-			if child.IsObjectType and child:IsObjectType("Button") then
-				child:SetTemplate("Transparent")
-				child:Size(24)
-				S:HandleIcon(child.icon, false)
-
-				if shadowsEnabled then
-					child:CreateSoftShadow()
-				end
-			end
-		end
-	end)
+	-- not global
 
 	local function ApplySkin()
 		local compendium = _G["ClassCodexCompendium"]
@@ -103,17 +69,14 @@ local function ClassCodex()
 			_G.ClassCodexCompHeroDD,
 			_G.ClassCodexCompClassDD,
 			_G.ClassCodexCompSpecDD,
-			_G.ClassCodexCompStatCtxDD,
-			_G.ClassCodexCompBisSourceDD,
-			_G.ClassCodexCompBisTabDD,
-			_G.ClassCodexCompTrinketCtxDD,
 			_G.ClassCodexCompendiumTalentSourceDropdown,
 			_G.ClassCodexCompEnhancementsSourceDD,
 		}
 		for _, dropDown in ipairs(compendiumDropDowns) do
-			S:HandleDropDownBox(dropDown)
+			if dropDown then
+				S:HandleDropDownBox(dropDown)
+			end
 		end
-		_G.ClassCodexCompHeroDD:Point("TOPRIGHT", compendium, "TOPRIGHT", -30, -28)
 
 		for i = 1, 6 do
 			local tab = _G["ClassCodexCompendiumTab"..i]
@@ -128,7 +91,6 @@ local function ClassCodex()
 			end
 		end
 
-		S:HandleScrollBar(_G.ClassCodexCompendiumScrollScrollBar)
 		compendium.isSkinned = true
 	end
 	-- add another delay. The compendium is lazy
