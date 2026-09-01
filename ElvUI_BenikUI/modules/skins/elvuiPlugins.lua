@@ -160,5 +160,16 @@ function mod:StyleWindTools()
 
 		self.RightPanel:BuiStyle()
 	end)
+
+	-- Damage Meter Layout
+	local DML = W:GetModule("DamageMeterLayout")
+	hooksecurefunc(DML, 'Initialize', function(self)
+		self.db = E.db.WT.combat.damageMeterLayout
+		if not self.db.enable then
+			return
+		end
+
+		WTDamageMeterLayout.backdrop:BuiStyle()
+	end)
 end
 S:AddCallbackForAddon("ElvUI_WindTools", "BenikUI_WindTools", mod.StyleWindTools)
