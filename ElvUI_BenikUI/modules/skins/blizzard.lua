@@ -21,7 +21,7 @@ local function LoadSkin()
 	end
 
 	if db.blizzardOptions then
-		_G.SettingsPanel.backdrop:BuiStyle()
+		_G.SettingsPanel:BuiStyle()
 		_G.ChatConfigFrame:BuiStyle()
 		_G.ReadyCheckFrame:BuiStyle()
 		_G.ReadyCheckListenerFrame:BuiStyle()
@@ -44,15 +44,7 @@ local function LoadSkin()
 	if db.dressingroom then
 		_G.DressUpFrame:BuiStyle()
 		_G.DressUpFrame.SetSelectionPanel:BuiStyle()
-		_G.DressUpFrame.CustomSetDetailsPanel.backdrop:BuiStyle()
-	end
-
-	if db.editor then
-		_G.EditModeManagerFrame.backdrop:BuiStyle()
-		_G.EditModeUnsavedChangesDialog.backdrop:BuiStyle()
-		_G.EditModeImportLayoutDialog.backdrop:BuiStyle()
-		_G.EditModeSystemSettingsDialog.backdrop:BuiStyle()
-		_G.EditModeLayoutDialog.backdrop:BuiStyle()
+		_G.DressUpFrame.CustomSetDetailsPanel:BuiStyle()
 	end
 
 	if db.friends then
@@ -77,9 +69,6 @@ local function LoadSkin()
 		_G.GuildRegistrarFrame:BuiStyle()
 	end
 
-	if db.help then
-		_G.HelpFrame.backdrop:BuiStyle()
-	end
 
 	if db.lfg then
 		_G.LFGInvitePopup:BuiStyle()
@@ -160,7 +149,6 @@ local function LoadSkin()
 		_G.LFDRoleCheckPopup:BuiStyle()
 		_G.ReportFrame:BuiStyle()
 		_G.QueueStatusFrame:BuiStyle()
-		_G.ReportCheatingDialog:BuiStyle()
 		_G.SideDressUpFrame:BuiStyle()
 		_G.StackSplitFrame:BuiStyle()
 		_G.StaticPopup1:BuiStyle()
@@ -204,36 +192,12 @@ local function LoadSkin()
 		_G.PVPReadyDialog:BuiStyle()
 	end
 
-	if db.quest then
-		_G.QuestFrame:BuiStyle()
-		_G.QuestLogPopupDetailFrame:BuiStyle()
-
-		local questModelScene = _G.QuestModelScene
-		questModelScene.backdrop:BuiStyle()
-		questModelScene.ModelTextFrame:ClearAllPoints()
-		questModelScene.ModelTextFrame:Point("TOP", questModelScene.backdrop, "BOTTOM", 0, -4)
-
-		if E.db.benikui.general.shadows then
-			questModelScene.ModelTextFrame.backdrop:CreateSoftShadow()
-		end
-	end
-
 	if db.stable then
 		_G.StableFrame:BuiStyle()
 	end
 
 	if db.tabard then
 		_G.TabardFrame:BuiStyle()
-	end
-
-	if db.talkinghead then
-		local talkingHeadFrame = _G.TalkingHeadFrame
-
-		if E.db.general.talkingHeadFrameBackdrop then
-			talkingHeadFrame:BuiStyle()
-		else
-			talkingHeadFrame.MainFrame.Model.backdrop:BuiStyle()
-		end
 	end
 
 	if db.taxi then

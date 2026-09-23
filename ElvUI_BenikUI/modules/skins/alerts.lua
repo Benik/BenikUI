@@ -67,9 +67,9 @@ function mod:styleAlertFrames()
 	hooksecurefunc(_G.NewWarbandSceneAlertSystem, 'setUpFunction', StyleAlert)
 
 	local BonusRollMoneyWonFrame = _G.BonusRollMoneyWonFrame
-	BonusRollMoneyWonFrame.backdrop:BuiStyle()
+	BonusRollMoneyWonFrame:BuiStyle()
 
 	local BonusRollLootWonFrame = _G.BonusRollLootWonFrame
-	BonusRollLootWonFrame.backdrop:BuiStyle()
+	BonusRollLootWonFrame:BuiStyle()
 end
 S:AddCallback("BenikUI_AlertFrames", mod.styleAlertFrames)

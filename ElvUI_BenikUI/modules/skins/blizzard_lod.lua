@@ -448,6 +448,21 @@ local function style_DelvesDifficultyPicker()
 end
 S:AddCallbackForAddon("Blizzard_DelvesDifficultyPicker", "BenikUI_DelvesDifficultyPicker", style_DelvesDifficultyPicker)
 
+--EditMode
+local function style_EditMode()
+	if E.private.skins.blizzard.editor ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+	_G.EditModeManagerFrame.backdrop:BuiStyle("Outside")
+	_G.EditModeUnsavedChangesDialog.backdrop:BuiStyle("Outside")
+	_G.EditModeImportLayoutDialog.backdrop:BuiStyle("Outside")
+	_G.EditModeSystemSettingsDialog.backdrop:BuiStyle("Outside")
+	_G.EditModeLayoutDialog.backdrop:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_EditMode", "BenikUI_EditMode", style_EditMode)
+
 -- EncounterJournal
 local function style_EncounterJournal()
 	if E.private.skins.blizzard.encounterjournal ~= true or E.private.skins.blizzard.enable ~= true or
@@ -712,6 +727,17 @@ local function style_GuildControlUI()
 	_G.GuildControlUI:BuiStyle()
 end
 S:AddCallbackForAddon("Blizzard_GuildControlUI", "BenikUI_GuildControlUI", style_GuildControlUI)
+
+--HelpFrame
+local function style_HelpFrame()
+	if E.private.skins.blizzard.help ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+	_G.HelpFrame.backdrop:BuiStyle("Outside")
+end
+S:AddCallbackForAddon("Blizzard_UIPanels_Game", "BenikUI_HelpFrame",style_HelpFrame)
 
 -- HousingDashboard
 local function style_HousingDashboard()
@@ -1132,6 +1158,27 @@ local function style_PVPMatch()
 end
 S:AddCallbackForAddon("Blizzard_PVPMatch", "BenikUI_PVPMatch", style_PVPMatch)
 
+--QuestLogFrame
+local function style_QuestLogFrame()
+	if E.private.skins.blizzard.quest  ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+	_G.QuestFrame:BuiStyle()
+	_G.QuestLogPopupDetailFrame:BuiStyle()
+
+	local questModelScene = _G.QuestModelScene
+	questModelScene.backdrop:BuiStyle()
+	questModelScene.ModelTextFrame:ClearAllPoints()
+	questModelScene.ModelTextFrame:Point("TOP", questModelScene.backdrop, "BOTTOM", 0, -4)
+
+	if E.db.benikui.general.shadows then
+		questModelScene.ModelTextFrame.backdrop:CreateSoftShadow()
+	end
+end
+S:AddCallbackForAddon("Blizzard_UIPanels_Game", "BenikUI_QuestLogFrame",style_QuestLogFrame)
+
 -- QuestChoice
 local function style_QuestChoice()
 	if E.private.skins.blizzard.questChoice ~= true or E.private.skins.blizzard.enable ~= true or
@@ -1199,6 +1246,25 @@ local function style_TimeManager()
 	_G.StopwatchFrame:BuiStyle()
 end
 S:AddCallbackForAddon("Blizzard_TimeManager", "BenikUI_TimeManager", style_TimeManager)
+
+--TalkingHeadFrame
+local function style_TalkingHeadFrame()
+
+	if E.private.skins.blizzard.talkinghead ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true
+	then
+		return
+	end
+
+	local talkingHeadFrame = _G.TalkingHeadFrame
+
+	if E.db.general.talkingHeadFrameBackdrop then
+		talkingHeadFrame:BuiStyle()
+	else
+		talkingHeadFrame.MainFrame.Model.backdrop:BuiStyle()
+	end
+end
+S:AddCallbackForAddon("Blizzard_FrameXML", "BenikUI_TalkingHeadFrame", style_TalkingHeadFrame)
 
 -- TradeSkillUI (Classic & Wrath)
 local function style_TradeSkillUI()

@@ -24,14 +24,19 @@ local function BugSack()
 			end
 		end
 
-		_G.BugSackTabAll:SetPoint("TOPLEFT", frame, "BOTTOMLEFT")
+		_G.BugSackTabAll:ClearAllPoints()
+		_G.BugSackTabAll:Point("TOPLEFT", frame, "BOTTOMLEFT")
 
 		local buttons = { _G.BugSackNextButton, _G.BugSackSendButton, _G.BugSackPrevButton }
 		for _, button in next, buttons do
 			S:HandleButton(button)
 		end
 
-		S:HandleScrollBar(_G.BugSackScrollScrollBar)
+		local textArea = _G.BugSackScrollText
+		local scrollBar = textArea and textArea:GetParent().ScrollBar
+		if scrollBar then
+			S:HandleTrimScrollBar(scrollBar)
+		end
 			if not frame.style then
 				frame:BuiStyle()
 			end
