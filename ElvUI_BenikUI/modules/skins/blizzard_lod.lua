@@ -8,7 +8,7 @@ local hooksecurefunc = hooksecurefunc
 -- AchievementUI
 local function style_AchievementUI()
 	if E.private.skins.blizzard.achievement ~= true or E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true
+		E.db.benikui.general.benikuiStyle ~= true or E.Retail ~= true
 	then
 		return
 	end
@@ -21,6 +21,18 @@ local function style_AchievementUI()
 	end
 end
 S:AddCallbackForAddon("Blizzard_AchievementUI", "BenikUI_AchievementUI", style_AchievementUI)
+
+--Blizzard_LegacySystem
+local function style_Blizzard_LegacySystem()
+	if E.private.skins.blizzard.achievement ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~= true or E.Forever ~= true
+	then
+		return
+	end
+	local frame = _G.LegacySystemFrame
+	frame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_LegacySystem", "BenikUI_Blizzard_LegacySystem", style_Blizzard_LegacySystem)
 
 -- AdventureMap
 local function style_AdventureMap()
