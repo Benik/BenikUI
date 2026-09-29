@@ -34,11 +34,16 @@ local function LoadSkin()
 	end
 
 	if db.character then
-		_G.PaperDollFrame:BuiStyle()
-		_G.ReputationFrame:BuiStyle()
-		_G.TokenFrame:BuiStyle()
-		_G.CurrencyTransferLog:BuiStyle()
-		_G.TokenFramePopup:BuiStyle()
+		if E.Retail then
+			_G.PaperDollFrame:BuiStyle()
+			_G.ReputationFrame:BuiStyle()
+			_G.TokenFrame:BuiStyle()
+			_G.CurrencyTransferLog:BuiStyle()
+			_G.TokenFramePopup:BuiStyle()
+		end
+		if E.Forever then
+			_G.CharacterFrame:BuiStyle()
+		end
 	end
 
 	if db.dressingroom then
@@ -52,7 +57,9 @@ local function LoadSkin()
 		_G.FriendsFrame:BuiStyle()
 		_G.FriendsFrame.IgnoreListWindow:BuiStyle()
 		_G.FriendsFriendsFrame:BuiStyle()
-		_G.QuickJoinRoleSelectionFrame:BuiStyle()
+		if E.Retail then
+			_G.QuickJoinRoleSelectionFrame:BuiStyle()
+		end
 		_G.RecruitAFriendFrame:BuiStyle()
 	end
 
@@ -71,27 +78,29 @@ local function LoadSkin()
 
 
 	if db.lfg then
-		_G.LFGInvitePopup:BuiStyle()
-		_G.LFGDungeonReadyDialog:BuiStyle()
-		_G.LFGDungeonReadyStatus:BuiStyle()
-		_G.LFGListApplicationDialog:BuiStyle()
-		_G.LFGListInviteDialog:BuiStyle()
-		_G.PVEFrame:BuiStyle()
+		if E.Retail then
+			_G.LFGInvitePopup:BuiStyle()
+			_G.LFGDungeonReadyDialog:BuiStyle()
+			_G.LFGDungeonReadyStatus:BuiStyle()
+			_G.LFGListApplicationDialog:BuiStyle()
+			_G.LFGListInviteDialog:BuiStyle()
+			_G.PVEFrame:BuiStyle()
 
-		local function forceTabFont(button)
-			if button.isSkinned then
-				return
+			local function forceTabFont(button)
+				if button.isSkinned then
+					return
+				end
+				local text = button:GetFontString()
+				if text then
+					text:FontTemplate(nil, 11)
+				end
+				button.isSkinned = true
 			end
-			local text = button:GetFontString()
-			if text then
-				text:FontTemplate(nil, 11)
-			end
-			button.isSkinned = true
+
+			forceTabFont(_G.LFGListFrame.ApplicationViewer.NameColumnHeader)
+			forceTabFont(_G.LFGListFrame.ApplicationViewer.RoleColumnHeader)
+			forceTabFont(_G.LFGListFrame.ApplicationViewer.ItemLevelColumnHeader)
 		end
-
-		forceTabFont(_G.LFGListFrame.ApplicationViewer.NameColumnHeader)
-		forceTabFont(_G.LFGListFrame.ApplicationViewer.RoleColumnHeader)
-		forceTabFont(_G.LFGListFrame.ApplicationViewer.ItemLevelColumnHeader)
 	end
 
 	if db.loot then
@@ -146,7 +155,9 @@ local function LoadSkin()
 
 		_G.BNToastFrame:BuiStyle()
 		_G.GhostFrame:BuiStyle()
-		_G.LFDRoleCheckPopup:BuiStyle()
+		if E.Retail then
+			_G.LFDRoleCheckPopup:BuiStyle()
+		end
 		_G.ReportFrame:BuiStyle()
 		_G.QueueStatusFrame:BuiStyle()
 		_G.SideDressUpFrame:BuiStyle()
@@ -193,7 +204,9 @@ local function LoadSkin()
 	end
 
 	if db.stable then
-		_G.StableFrame:BuiStyle()
+		if E.Retail then
+			_G.StableFrame:BuiStyle()
+		end
 	end
 
 	if db.tabard then
@@ -209,6 +222,7 @@ local function LoadSkin()
 	end
 
 	if db.worldmap then
+		if E.Forever then return end
 		local questMapFrame = _G.QuestMapFrame
 		local tabs = {
 			questMapFrame.QuestsTab,
@@ -232,16 +246,3 @@ local function LoadSkin()
 	end)
 end
 S:AddCallback("BenikUI_styleFreeBlizzardFrames", LoadSkin)
-
--- WorldMap
-function mod:styleWorldMap()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.db.benikui.general.benikuiStyle ~= true then
-		return
-	end
-
-	local mapFrame = _G.WorldMapFrame
-	if not mapFrame.backdrop.style then
-		mapFrame.backdrop:BuiStyle()
-	end
-end
-S:AddCallback("BenikUI_WorldMap", mod.styleWorldMap)

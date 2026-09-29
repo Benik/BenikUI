@@ -1,12 +1,13 @@
-## Interface: 120100
+## Interface: 16001, 120100
 ## Author: Benik
 ## Version: 5.19
-## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r
+## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r |cfd9b9b9bMidnight|r [AllowLoadGameType standard]
+## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r |cfd9b9b9bForever|r [AllowLoadGameType camelot][ExcludeLoadGameType standard, classic]
 ## Notes: an ElvUI 15+ decorative/enhancement edit
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia, AddOnSkins, ProjectAzilroka
-## X-ElvuiVersion: 15.20
+## X-ElvuiVersion: 15.26
 ## IconTexture: Interface\AddOns\ElvUI_BenikUI\media\textures\AddonLogo
 ## X-Wago-ID: anKWx3GE
 
@@ -16,4 +17,5 @@ defaults\load_defaults.xml
 init.lua
 core\load_core.xml
 layout\load_layout.xml
-modules\load_modules.xml
+modules\load_modules.xml [AllowLoadGameType standard]
+modules\load_modules_forever.xml [AllowLoadGameType camelot][ExcludeLoadGameType standard]

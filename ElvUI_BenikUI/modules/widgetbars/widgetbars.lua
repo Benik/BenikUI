@@ -49,9 +49,11 @@ local function SetupTimer(container, timer)
 end
 
 function mod:Init()
-	mod:LoadMaw()
+	if E.Retail then
+		mod:LoadMaw()
+		mod:LoadPrey()
+	end
 	mod:AltPowerBar()
-	mod:LoadPrey()
 	hooksecurefunc(B, "UpdateAltPowerBarSettings", mod.AltPowerBar)
 	hooksecurefunc(_G.MirrorTimerContainer, 'SetupTimer', SetupTimer)
 

@@ -36,6 +36,12 @@ local addonsIcon = 'Interface\\AddOns\\ElvUI_BenikUI\\media\\textures\\buttons\\
 local dummyChatFrame = CreateFrame('Frame', 'BuiDummyChat', E.UIParent)
 local dummyEditBoxHolder = CreateFrame('Frame', 'BuiDummyEditBoxHolder', E.UIParent)
 
+local menuList
+if E.Retail then
+	menuList = BUI.MenuListRetail
+elseif E.Forever then
+	menuList = BUI.MenuListForever
+end
 local menuFrame = CreateFrame('Frame', 'BuiGameClickMenu', E.UIParent)
 menuFrame:SetTemplate('Transparent', true)
 menuFrame:SetFrameStrata('DIALOG')
@@ -45,7 +51,7 @@ local function GameMenu_OnMouseUp()
 
 	local buiButton2 = _G.BuiButton_2
 	GameTooltip:Hide()
-	BUI:Dropmenu(BUI.MenuList, menuFrame, buiButton2, 'tLeft', -SPACING, SPACING, 4)
+	BUI:Dropmenu(menuList, menuFrame, buiButton2, 'tLeft', -SPACING, SPACING, 4)
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 end
 

@@ -18,9 +18,9 @@ local IsPlayerAtEffectiveMaxLevel = IsPlayerAtEffectiveMaxLevel and IsPlayerAtEf
 local UnitXP, UnitXPMax = UnitXP, UnitXPMax
 local UnitLevel = UnitLevel
 local InCombatLockdown = InCombatLockdown
-local GetSpecialization = GetSpecialization
-local GetActiveSpecGroup = GetActiveSpecGroup
-local GetSpecializationInfo = GetSpecializationInfo
+local GetSpecialization = C_SpecializationInfo.GetSpecialization
+local GetActiveSpecGroup = C_SpecializationInfo.GetActiveSpecGroup
+local GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local GetAverageItemLevel = GetAverageItemLevel
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
@@ -131,6 +131,7 @@ local function getItemLevel()
 end
 
 function AFK:UpdateStatMessage()
+	if E.Forever then return end
 	E:UIFrameFadeIn(self.AFKMode.statMsg.info, 1, 1, 0)
 	local createdStat = createStats()
 	self.AFKMode.statMsg.info:SetText(createdStat)
@@ -304,7 +305,11 @@ local function Initialize()
 	-- Add more info in the name and position it to the center
 	AFK.AFKMode.bottom.name:ClearAllPoints()
 	AFK.AFKMode.bottom.name:Point("TOP", AFK.AFKMode.bottom.factionb, "BOTTOM", 0, 5)
-	AFK.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
+	if E.Retail then
+		AFK.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s %s %s%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl)
+	elseif E.Forever then
+		AFK.AFKMode.bottom.name:SetFormattedText("%s - %s\n%s %s %s%s", E.mynameRealm, LEVEL, level, race, localizedClass, ilvl)
+	end
 	AFK.AFKMode.bottom.name:SetJustifyH("CENTER")
 	AFK.AFKMode.bottom.name:FontTemplate(nil, 18)
 
@@ -425,13 +430,15 @@ local function Initialize()
 	AFK.AFKMode.xp.text:SetText(xptxt)
 	AFK.AFKMode.xp.text:SetTextColor(0.7, 0.7, 0.7)
 
-	-- Random stats frame
-	AFK.AFKMode.statMsg.info = AFK.AFKMode.statMsg:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.statMsg.info:FontTemplate(nil, 18)
-	AFK.AFKMode.statMsg.info:Point("CENTER", AFK.AFKMode.statMsg, "CENTER", 0, -2)
-	AFK.AFKMode.statMsg.info:SetText(format("|cffb3b3b3%s|r", L["Random Stats"]))
-	AFK.AFKMode.statMsg.info:SetJustifyH("CENTER")
-	AFK.AFKMode.statMsg.info:SetTextColor(0.7, 0.7, 0.7)
+	if E.Retail then
+		-- Random stats frame
+		AFK.AFKMode.statMsg.info = AFK.AFKMode.statMsg:CreateFontString(nil, 'OVERLAY')
+		AFK.AFKMode.statMsg.info:FontTemplate(nil, 18)
+		AFK.AFKMode.statMsg.info:Point("CENTER", AFK.AFKMode.statMsg, "CENTER", 0, -2)
+		AFK.AFKMode.statMsg.info:SetText(format("|cffb3b3b3%s|r", L["Random Stats"]))
+		AFK.AFKMode.statMsg.info:SetJustifyH("CENTER")
+		AFK.AFKMode.statMsg.info:SetTextColor(0.7, 0.7, 0.7)
+	end
 end
 
 hooksecurefunc(AFK, "Initialize", Initialize)
@@ -470,7 +477,13 @@ function AFK:SetAFK(status)
 			self.AFKMode.xp.text:SetText("")
 		end
 
-		displayline = (format("%s - %s\n%s %s %s %s %s\n%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl))
+		if E.Retail then
+			displayline = (format("%s - %s\n%s %s %s %s %s\n%s", E.myname, E.myrealm, LEVEL, level, race, spec, localizedClass, ilvl))
+		elseif E.Forever then
+			displayline = (format("%s\n%s %s %s %s\n%s", E.mynameRealm, LEVEL, level, race, localizedClass, ilvl))
+		end
+
+
 
 		self.AFKMode.bottom.name:SetText(displayline)
 		self.isAFK = true
@@ -479,7 +492,9 @@ function AFK:SetAFK(status)
 		self:CancelTimer(self.logoffTimer)
 
 		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
-		self.AFKMode.statMsg.info:SetFormattedText("|cffb3b3b3%s|r", L["Random Stats"])
+		if E.Retail then
+			self.AFKMode.statMsg.info:SetFormattedText("|cffb3b3b3%s|r", L["Random Stats"])
+		end
 		self.isAFK = false
 	end
 end

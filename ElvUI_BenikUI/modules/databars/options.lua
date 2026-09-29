@@ -19,7 +19,7 @@ local positionValues = {
 	['RIGHT'] = L['Right'],
 }
 
-local databarsTbl = {
+local databarsTblRetail = {
 	-- bar, option, name
 	{'ElvUI_ExperienceBar', 'experience', L['XP Bar']},
 	{'ElvUI_AzeriteBar', 'azerite', L['Azerite Bar']},
@@ -27,6 +27,23 @@ local databarsTbl = {
 	{'ElvUI_HonorBar', 'honor', HONOR},
 	{'ElvUI_ThreatBar', 'threat', L["Threat"]}
 }
+
+local databarsTblForever = {
+	-- bar, option, name
+	{'ElvUI_ExperienceBar', 'experience', L['XP Bar']},
+	{'ElvUI_ReputationBar', 'reputation', REPUTATION},
+	{'ElvUI_ThreatBar', 'threat', L["Threat"]}
+}
+
+if E.Retail then
+	databarsTbl = databarsTblRetail
+elseif E.Forever then
+	if E.myclass == 'HUNTER' then
+		tinsert(databarsTblForever, 2, {'ElvUI_PetExperienceBar', 'petExperience', L['Pet XP Bar']})
+	end
+	databarsTbl = databarsTblForever
+end
+
 
 local textFormatValues = {
 	NONE = L["NONE"],
@@ -123,14 +140,24 @@ local function injectElvUIDatabarOptions()
 		name = BUI.Title..XPBAR_LABEL,
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "databars", "experience") end,
 	}
+	
+	if E.Retail then
+		-- azerite
+		E.Options.args.databars.args.azerite.args.gotobenikui = {
+			order = -1,
+			type = "execute",
+			name = BUI.Title..L["Azerite Bar"],
+			func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "databars", "azerite") end,
+		}
+		-- honor
 
-	-- azerite
-	E.Options.args.databars.args.azerite.args.gotobenikui = {
-		order = -1,
-		type = "execute",
-		name = BUI.Title..L["Azerite Bar"],
-		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "databars", "azerite") end,
-	}
+		E.Options.args.databars.args.honor.args.gotobenikui = {
+			order = -1,
+			type = "execute",
+			name = BUI.Title..HONOR,
+			func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "databars", "honor") end,
+		}
+	end
 
 	-- reputation
 	E.Options.args.databars.args.reputation.args.gotobenikui = {
@@ -140,13 +167,15 @@ local function injectElvUIDatabarOptions()
 		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "databars", "reputation") end,
 	}
 
-	-- honor
-	E.Options.args.databars.args.honor.args.gotobenikui = {
-		order = -1,
-		type = "execute",
-		name = BUI.Title..HONOR,
-		func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "databars", "honor") end,
-	}
+	if E.Forever then
+		-- petxp
+		E.Options.args.databars.args.petExperience.args.gotobenikui = {
+			order = -1,
+			type = "execute",
+			name = BUI.Title..L['Pet XP Bar'],
+			func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "petExperience") end,
+		}
+	end
 
 	-- threat
 	E.Options.args.databars.args.threat.args.gotobenikui = {

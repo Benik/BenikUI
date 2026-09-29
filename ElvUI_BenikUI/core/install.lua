@@ -2083,7 +2083,9 @@ local function SetupDataTexts(role)
 	end
 
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][1] = 'Primary Stat'
-	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Renown (BenikUI)'
+	if E.Retail then
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][2] = 'Renown (BenikUI)'
+	end
 	E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"][3] = 'BuiMail'
 
 	E.db["datatexts"]["panels"]["BuiRightChatDTPanel"][1] = 'Talent/Loot Specialization'

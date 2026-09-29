@@ -1,0 +1,13 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<script file="chat\chat.lua"/>
+	<Include file="unitframes\load_unitframes.xml"/>
+	<Include file="nameplates\load_nameplates.xml"/>
+	<Include file="actionbars\load_actionbars.xml"/>
+	<Include file="dashboard\load_dashboards.xml"/>
+	<Include file="datatexts\load_datatexts_forever.xml"/>
+	<Include file="databars\load_databars_forever.xml"/>
+	<Include file="widgetbars\load_widgetbars_forever.xml"/>
+	<Include file="skins\load_skins.xml"/>
+	<Include file="customPanels\load_customPanels.xml"/>
+	<Include file="misc\load_misc.xml"/>
+</Ui>

@@ -30,7 +30,7 @@ local slots = {
 }
 
 local function OnMouseUp()
-	ToggleCharacter('PaperDollFrame')
+	_G.ToggleCharacter('PaperDollFrame')
 end
 
 local function OnEvent(self)

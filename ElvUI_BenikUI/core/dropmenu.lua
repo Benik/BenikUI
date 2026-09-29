@@ -24,7 +24,7 @@ local classColor = E:ClassColor(E.myclass, true)
 
 local PlayerSpellsUtil = _G.PlayerSpellsUtil
 
-BUI.MenuList = {
+BUI.MenuListRetail = {
 	{text = _G.CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
 	{text = _G.SPELLBOOK_BUTTON, func = function() if PlayerSpellsUtil then PlayerSpellsUtil.ToggleSpellBookFrame() else ToggleFrame(_G.SpellBookFrame) end end},
 	{text = _G.PROFESSIONS_BUTTON, func = function() _G.ToggleProfessionsBook() end },
@@ -80,11 +80,41 @@ BUI.MenuList = {
 	end},
 }
 
+BUI.MenuListForever = {
+	{text = _G.CHARACTER_BUTTON, func = function() ToggleCharacter("PaperDollFrame") end},
+	{text = _G.SPELLBOOK_BUTTON, func = function() if PlayerSpellsUtil then PlayerSpellsUtil.ToggleSpellBookFrame() else ToggleFrame(_G.SpellBookFrame) end end},
+	{text = _G.PROFESSIONS_BUTTON, func = function() _G.ToggleProfessionsBook() end },
+	{text = _G.TALENTS_BUTTON, func = function() if PlayerSpellsUtil then PlayerSpellsUtil.ToggleClassTalentFrame() else _G.ToggleTalentFrame() end end},
+	{text = _G.LFG_TITLE, func = function() ToggleGroupFinderFrame() end},
+	{text = _G.REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
+	{text = _G.COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
+	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},
+	{text = _G.WARDROBE, func = function() ToggleCollectionsJournal() end},
+	{text = _G.MACROS, func = function() E:LoadAddon("Blizzard_MacroUI") MacroFrame_Show() end},
+	{text = _G.TIMEMANAGER_TITLE, func = function() ToggleFrame(TimeManagerFrame) end},
+	{text = _G.SOCIAL_BUTTON, func = function() ToggleFriendsFrame() end},
+	{text = _G.MAINMENU_BUTTON,
+	func = function()
+		if ( not GameMenuFrame:IsShown() ) then
+			CloseMenus();
+			CloseAllWindows()
+			ShowUIPanel(GameMenuFrame);
+		else
+			HideUIPanel(GameMenuFrame);
+			MainMenuMicroButton:SetButtonState("NORMAL");
+		end
+	end},
+	{text = _G.HELP_BUTTON, func = function() ToggleHelpFrame() end},
+}
+
 local function sortFunction(a, b)
 	return a.text < b.text
 end
-
-table.sort(BUI.MenuList, sortFunction)
+if E.Retail then
+	table.sort(BUI.MenuListRetail, sortFunction)
+elseif E.Forever then
+	table.sort(BUI.MenuListForever, sortFunction)
+end
 
 local function OnClick(btn)
 	local parent = btn:GetParent()

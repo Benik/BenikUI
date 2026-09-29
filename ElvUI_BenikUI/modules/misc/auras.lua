@@ -20,8 +20,10 @@ function mod:Initialize()
 	if E.private.auras.enable ~= true then return end
 	if E.private.auras.masque.buffs or E.private.auras.masque.debuffs then return end
 
-	hooksecurefunc(E, "Auras_CreateButton", mod.AuraIconShadow)
-	hooksecurefunc(E, "Auras_UpdateButton", mod.AuraIconShadow)
+	if E.Retail then -- Forever seems to cause aura script timeout, fix pls
+		hooksecurefunc(E, "Auras_CreateButton", mod.AuraIconShadow)
+		hooksecurefunc(E, "Auras_UpdateButton", mod.AuraIconShadow)
+	end
 
 	mod.initialized = true
 end

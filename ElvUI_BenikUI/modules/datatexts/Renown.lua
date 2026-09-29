@@ -157,20 +157,22 @@ local function OnClick(self, btn)
 		E:SetEasyMenuAnchor(E.EasyMenu, self)
 		E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
 	else
-		if not IsAddOnLoaded('Blizzard_EncounterJournal') then
-			E:LoadAddon('Blizzard_EncounterJournal')
-		end
-
-		local ej = _G.EncounterJournal
-		if ej then
-			if not ej:IsShown() then
-				ShowUIPanel(ej)
+		if E.Retail then
+			if not IsAddOnLoaded('Blizzard_EncounterJournal') then
+				E:LoadAddon('Blizzard_EncounterJournal')
 			end
 
-			local journeys = _G.EncounterJournalJourneysFrame
-			if journeys then
-				local factionID = E.private.benikui.datatexts.renown.factionID
-				journeys:ResetView(nil, factionID)
+			local ej = _G.EncounterJournal
+			if ej then
+				if not ej:IsShown() then
+					ShowUIPanel(ej)
+				end
+
+				local journeys = _G.EncounterJournalJourneysFrame
+				if journeys then
+					local factionID = E.private.benikui.datatexts.renown.factionID
+					journeys:ResetView(nil, factionID)
+				end
 			end
 		end
 	end

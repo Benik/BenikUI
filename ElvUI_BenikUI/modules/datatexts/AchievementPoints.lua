@@ -18,7 +18,11 @@ local icon = "|TInterface\\AchievementFrame\\UI-Achievement-TinyShield:16:16:0:-
 local displayString = ''
 
 local function OnClick()
-	_G.ToggleAchievementFrame()
+	if E.Retail then
+		_G.ToggleAchievementFrame()
+	else
+		_G.ToggleLegacySystemUI()
+	end
 end
 
 local function OnEnter()

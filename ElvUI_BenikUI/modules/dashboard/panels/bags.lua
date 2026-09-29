@@ -1,6 +1,7 @@
 local BUI, E, L, V, P, G = unpack((select(2, ...)))
 local mod = BUI:GetModule('Dashboards');
 
+local _G = _G
 local join = string.join
 
 local C_Container_GetContainerNumFreeSlots = C_Container.GetContainerNumFreeSlots
@@ -46,7 +47,7 @@ local function OnEvent(self)
 end
 
 local function OnClick()
-	ToggleAllBags()
+	_G.ToggleAllBags()
 end
 
 mod:RegisterSystemBoard('Bags', function()

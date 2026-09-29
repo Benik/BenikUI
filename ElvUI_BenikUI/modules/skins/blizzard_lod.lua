@@ -1097,8 +1097,10 @@ local function style_Professions()
 	local professionsFrame = _G.ProfessionsFrame
 	local inspectRecipeFrame = _G.InspectRecipeFrame
 	professionsFrame:BuiStyle()
-	professionsFrame.CraftingPage.CraftingOutputLog:BuiStyle()
-	professionsFrame.OrdersPage.OrderView.CraftingOutputLog:BuiStyle()
+	if E.Retail then
+		professionsFrame.CraftingPage.CraftingOutputLog:BuiStyle()
+		professionsFrame.OrdersPage.OrderView.CraftingOutputLog:BuiStyle()
+	end
 	professionsFrame.CraftingPage.SchematicForm.QualityDialog:BuiStyle()
 	inspectRecipeFrame:BuiStyle()
 end
@@ -1107,7 +1109,7 @@ S:AddCallbackForAddon("Blizzard_Professions", "BenikUI_Professions", style_Profe
 -- ProfessionsBook
 local function style_ProfessionsBook()
 	if E.private.skins.blizzard.spellbook ~= true or E.private.skins.blizzard.enable ~= true or
-		E.db.benikui.general.benikuiStyle ~= true
+		E.db.benikui.general.benikuiStyle ~= true or E.Retail ~= true
 	then
 		return
 	end
@@ -1214,8 +1216,10 @@ local function style_PlayerSpells()
 	local playerSpells = _G.PlayerSpellsFrame
 	playerSpells:BuiStyle()
 
-	local TalentsFrame = playerSpells.TalentsFrame
-	TalentsFrame.PvPTalentList.backdrop:BuiStyle()
+	if E.Retail then
+		local TalentsFrame = playerSpells.TalentsFrame
+		TalentsFrame.PvPTalentList.backdrop:BuiStyle()
+	end
 
 	_G.ClassTalentLoadoutImportDialog:BuiStyle()
 	_G.ClassTalentLoadoutCreateDialog:BuiStyle()
@@ -1249,6 +1253,7 @@ S:AddCallbackForAddon("Blizzard_TimeManager", "BenikUI_TimeManager", style_TimeM
 
 --TalkingHeadFrame
 local function style_TalkingHeadFrame()
+	if E.Forever then return end
 
 	if E.private.skins.blizzard.talkinghead ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
@@ -1311,9 +1316,10 @@ local function style_UIPanels_Game()
 	then
 		return
 	end
-
-	_G.ReputationFrame.ReputationDetailFrame:BuiStyle()
-	_G.CurrencyTransferMenu:BuiStyle()
+	if E.Retail then
+		_G.ReputationFrame.ReputationDetailFrame:BuiStyle()
+		_G.CurrencyTransferMenu:BuiStyle()
+	end
 	_G.GearManagerPopupFrame:BuiStyle()
 end
 S:AddCallbackForAddon("Blizzard_UIPanels_Game", "BenikUI_UIPanels_Game", style_UIPanels_Game)
@@ -1329,3 +1335,16 @@ local function style_WeeklyRewards()
 	_G.WeeklyRewardsFrame:BuiStyle()
 end
 S:AddCallbackForAddon("Blizzard_WeeklyRewards", "BenikUI_WeeklyRewards", style_WeeklyRewards)
+
+-- WorldMap
+function styleWorldMap()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.db.benikui.general.benikuiStyle ~= true then
+		return
+	end
+
+	local mapFrame = _G.WorldMapFrame
+	if not mapFrame.backdrop.style then
+		_G.WorldMapFrame.backdrop:BuiStyle()
+	end
+end
+S:AddCallbackForAddon("Blizzard_WorldMap", "BenikUI_WorldMap", styleWorldMap)

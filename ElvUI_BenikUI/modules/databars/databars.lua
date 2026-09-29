@@ -125,8 +125,10 @@ end
 function mod:Init()
 	mod:LoadXP()
 	mod:LoadRep()
-	mod:LoadAzerite()
-	mod:LoadHonor()
+	if E.Retail then
+		mod:LoadAzerite()
+		mod:LoadHonor()
+	end
 	mod:LoadThreat()
 
 	mod.initialized = true

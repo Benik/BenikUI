@@ -19,6 +19,7 @@ local function widgetTable()
 			mawBar = {
 				order = 2,
 				type = 'group',
+				hidden = function() return not E.Retail end,
 				name = L['Maw Bar'],
 				args = {
 					enable = {
@@ -176,6 +177,7 @@ local function widgetTable()
 			preyBar = {
 				order = 1,
 				type = 'group',
+				hidden = function() return not E.Retail end,
 				name = E.NewSign..L['Prey Bar'],
 				args = {
 					enable = {
