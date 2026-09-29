@@ -293,7 +293,7 @@ local function style_Collections()
 	end
 
 	_G.CollectionsJournal:BuiStyle()
-	if E.private.skins.blizzard.tooltip then
+	if E.private.skins.blizzard.tooltip and E.Retail then
 		_G.PetJournalPrimaryAbilityTooltip:BuiStyle()
 	end
 end
