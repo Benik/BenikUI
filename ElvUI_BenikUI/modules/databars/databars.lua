@@ -129,6 +129,9 @@ function mod:Init()
 		mod:LoadAzerite()
 		mod:LoadHonor()
 	end
+	if (E.myclass == 'HUNTER' and E.Forever) then
+		mod:LoadPetXP()
+	end
 	mod:LoadThreat()
 
 	mod.initialized = true

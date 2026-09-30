@@ -305,6 +305,16 @@ P['benikui'] = {
 				['position'] = 'RIGHT',
 			},
 		},
+
+		['petExperience'] = {
+			['enable'] = true,
+			['buiStyle'] = true,
+			['buttonStyle'] = "DEFAULT",
+			['notifiers'] = {
+				['enable'] = true,
+				['position'] = 'RIGHT',
+			},
+		},
 	},
 
 	-- Widgetbars

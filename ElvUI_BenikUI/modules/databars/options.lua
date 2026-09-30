@@ -173,7 +173,7 @@ local function injectElvUIDatabarOptions()
 			order = -1,
 			type = "execute",
 			name = BUI.Title..L['Pet XP Bar'],
-			func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "benikuiDatabars", "petExperience") end,
+			func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "benikui", "databars", "petExperience") end,
 		}
 	end
 

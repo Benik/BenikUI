@@ -22,7 +22,7 @@ function mod:ApplyPetXpStyling()
 end
 
 function mod:TogglePetXPBackdrop()
-	if E.db.benikui.Databars.petExperience.enable ~= true then return end
+	if E.db.benikui.databars.petExperience.enable ~= true then return end
 	local bar = _G.ElvUI_PetExperienceBar
 
 	mod:ToggleBackdrop(bar, "petExperience")
@@ -46,7 +46,7 @@ end
 function mod:LoadPetXP()
 	local bar = _G.ElvUI_PetExperienceBar
 
-	local db = E.db.benikui.Databars.petExperience.notifiers
+	local db = E.db.benikui.databars.petExperience.notifiers
 
 	if db.enable then
 		mod:CreateNotifier(bar)
@@ -58,7 +58,7 @@ function mod:LoadPetXP()
 		hooksecurefunc(DB, 'UpdateAll', mod.UpdatePetXpNotifier)
 	end
 
-	if E.db.benikui.Databars.petExperience.enable ~= true then return end
+	if E.db.benikui.databars.petExperience.enable ~= true then return end
 
 	mod:StyleBar(bar, OnClick)
 	mod:TogglePetXPBackdrop()
