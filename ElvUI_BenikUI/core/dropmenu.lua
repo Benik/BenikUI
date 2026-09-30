@@ -86,6 +86,7 @@ BUI.MenuListForever = {
 	{text = _G.PROFESSIONS_BUTTON, func = function() _G.ToggleProfessionsBook() end },
 	{text = _G.TALENTS_BUTTON, func = function() if PlayerSpellsUtil then PlayerSpellsUtil.ToggleClassTalentFrame() else _G.ToggleTalentFrame() end end},
 	{text = _G.LFG_TITLE, func = function() ToggleGroupFinderFrame() end},
+	{text = _G.LEGACY_BUTTON, func = function() _G.ToggleLegacySystemUI() end },
 	{text = _G.REPUTATION, func = function() ToggleCharacter('ReputationFrame') end},
 	{text = _G.COMMUNITIES_FRAME_TITLE, func = function() ToggleGuildFrame() end},
 	{text = L["Calendar"], func = function() GameTimeFrame:Click() end},

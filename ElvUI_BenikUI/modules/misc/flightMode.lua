@@ -690,7 +690,11 @@ function mod:CreateFlightMode()
 	end)
 
 	mod.FlightMode.top.menuButton:SetScript('OnClick', function()
-		BUI:Dropmenu(BUI.MenuList, menuFrame, _G.FlightModeMenuBtn, 'bRight', (E.PixelMode and -32 or -30), (E.PixelMode and -13 or -15), 4, 36)
+		if E.Retail then
+			BUI:Dropmenu(BUI.MenuListRetail, menuFrame, _G.FlightModeMenuBtn, 'bRight', (E.PixelMode and -32 or -30), (E.PixelMode and -13 or -15), 4, 36)
+		elseif E.Forever then
+			BUI:Dropmenu(BUI.MenuListForever, menuFrame, _G.FlightModeMenuBtn, 'bRight', (E.PixelMode and -32 or -30), (E.PixelMode and -13 or -15), 4, 36)
+		end
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
 	end)
 
