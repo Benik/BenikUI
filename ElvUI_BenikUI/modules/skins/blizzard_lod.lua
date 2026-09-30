@@ -405,8 +405,9 @@ local function style_CovenantSanctum()
 end
 S:AddCallbackForAddon("Blizzard_CovenantSanctum", "BenikUI_CovenantSanctum", style_CovenantSanctum)
 
--- DamageMeter --Fixme:new skin method
---[[function BUI:ApplyDamageMeterStyle(_, background)
+-- DamageMeter
+local ElvUIDamageMeterData = S.addonStorage.Blizzard_DamageMeter.data
+function BUI:ApplyDamageMeterStyle(_, background)
 	if E.private.skins.blizzard.damageMeter ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
@@ -417,7 +418,7 @@ S:AddCallbackForAddon("Blizzard_CovenantSanctum", "BenikUI_CovenantSanctum", sty
 		background.backdrop:BuiStyle()
 	end
 end
-hooksecurefunc(S, "DamageMeter_HandleBackground", BUI.ApplyDamageMeterStyle)]]--
+hooksecurefunc(ElvUIDamageMeterData, "HandleBackground", BUI.ApplyDamageMeterStyle)
 
 -- DeathRecap
 local function style_DeathRecap()
