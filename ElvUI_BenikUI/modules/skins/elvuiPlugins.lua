@@ -151,15 +151,17 @@ function mod:StyleWindTools()
 	end)
 
 	-- Quick Access
-	local LL = W:GetModule("LFGList")
-	hooksecurefunc(LL, 'InitializeRightPanel', function(self)
-		self.db = E.private.WT.misc.lfgList
-		if not self.db.enable then
-			return
-		end
+	if E.Retail then
+		local LL = W:GetModule("LFGList")
+		hooksecurefunc(LL, 'InitializeRightPanel', function(self)
+			self.db = E.private.WT.misc.lfgList
+			if not self.db.enable then
+				return
+			end
 
-		self.RightPanel:BuiStyle()
-	end)
+			self.RightPanel:BuiStyle()
+		end)
+	end
 
 	-- Damage Meter Layout
 	local DML = W:GetModule("DamageMeterLayout")

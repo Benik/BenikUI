@@ -72,4 +72,4 @@ function mod:styleAlertFrames()
 	local BonusRollLootWonFrame = _G.BonusRollLootWonFrame
 	BonusRollLootWonFrame:BuiStyle()
 end
-S:AddCallback("BenikUI_AlertFrames", mod.styleAlertFrames)
+S:AddCallbackForAddon("Blizzard_FrameXML","BenikUI_AlertFrames", mod.styleAlertFrames)

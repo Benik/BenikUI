@@ -53,6 +53,9 @@ local function LoadSkin()
 	end
 
 	if db.friends then
+		if E.Forever then
+			_G.SocialUIFrame:BuiStyle()
+		end
 		_G.AddFriendFrame:BuiStyle()
 		_G.FriendsFrame:BuiStyle()
 		_G.FriendsFrame.IgnoreListWindow:BuiStyle()
