@@ -16,7 +16,7 @@ local function BugSack()
 		local frame = _G.BugSackFrame
 		S:HandleFrame(frame)
 
-		local tabs = { _G.BugSackTabAll, _G.BugSackTabSession, _G.BugSackTabLast }
+		local tabs = { _G.BugSackTabAll, _G.BugSackTabSession, _G.BugSackTabLast, _G.BugSackTabOptions }
 		for _, tab in next, tabs do
 			S:HandleTab(tab)
 			if E.db.benikui.general.benikuiStyle and E.db.benikui.general.shadows then
@@ -27,7 +27,7 @@ local function BugSack()
 		_G.BugSackTabAll:ClearAllPoints()
 		_G.BugSackTabAll:Point("TOPLEFT", frame, "BOTTOMLEFT")
 
-		local buttons = { _G.BugSackNextButton, _G.BugSackSendButton, _G.BugSackPrevButton }
+		local buttons = { _G.BugSackNextButton, _G.BugSackSendButton, _G.BugSackPrevButton, _G.BugSackWipeButton }
 		for _, button in next, buttons do
 			S:HandleButton(button)
 		end

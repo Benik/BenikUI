@@ -1080,6 +1080,7 @@ end
 S:AddCallbackForAddon("Blizzard_PerksProgram", "BenikUI_PerksProgram", style_PerksProgramm)
 
 -- PlayerChoiceUI
+local PC = E.Retail and S.addonStorage.Blizzard_PlayerChoice.data
 local function style_PlayerChoice()
 	if E.private.skins.blizzard.playerChoice ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
@@ -1089,7 +1090,7 @@ local function style_PlayerChoice()
 
 	local frame = _G.PlayerChoiceFrame
 	hooksecurefunc(frame, 'SetupOptions', function()
-		local kit = S.PlayerChoice_TextureKits[frame.uiTextureKit]
+		local kit = PC.TextureKits[frame.uiTextureKit]
 		if kit then return end
 		if not frame.IsStyled then
 			frame:BuiStyle()
