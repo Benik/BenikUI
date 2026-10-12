@@ -962,6 +962,19 @@ local function LoadGuildUIStyle()
 end
 S:AddCallbackForAddon("Blizzard_LookingForGuildUI", "BenikUI_LookingForGuildUI", LoadGuildUIStyle)
 
+-- LookingForGroup
+local function style_LFG()
+	if E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or
+		E.db.benikui.general.benikuiStyle ~=true
+		then
+			return
+		end
+			_G.LFGBrowseFrame:BuiStyle()
+			_G.LFGListingFrame:BuiStyle()
+			_G.LFGWhoListFrame:BuiStyle()
+end
+S:AddCallbackForAddon("Blizzard_GroupFinder_VanillaStyle", "BenikUI_GroupFinder_VanillaStyle", style_LFG)
+
 -- MacroUI
 local function style_MacroUI()
 	if E.private.skins.blizzard.macro ~= true or E.private.skins.blizzard.enable ~= true or

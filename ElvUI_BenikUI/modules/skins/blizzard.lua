@@ -209,6 +209,8 @@ local function LoadSkin()
 	if db.stable then
 		if E.Retail then
 			_G.StableFrame:BuiStyle()
+		elseif E.Forever then
+			_G.PetStableFrame:BuiStyle()
 		end
 	end
 
