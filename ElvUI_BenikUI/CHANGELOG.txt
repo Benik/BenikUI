@@ -1,3 +1,29 @@
+v5.20 (Oct 14, 2026)
+toc changes
+forever: stable+lfg style
+retail:fix playerchoice skin
+fix bugsack skin
+adjust achievement dt
+forever:fix alerts, socialui
+forever: fix dropmenu in flightmode
+forever: add legacy to dropmenu
+damagemeter
+forever: pet xp
+forever: re-enable shadows on auras
+re-enable shadows on auras
+temp disable style on damagemeter
+forever:collections
+forever:legacy system
+Hello Forever
+Initial Forever commit
+Fix BugSack skin.
+Fix benik styles on various frames.
+add style to wt damagemeterlayout
+Fixed ClassCodex Skin
+Moved Spark edit in the ApplySkin func for DBM and #86
+Added more DBM checks and skinned the Options Close button
+Fix for DBM, ticket #86
+
 v5.19 (Aug 19, 2026)
 fix mover for detached portrait
 Renown DT: Removed my filter and used Blizz function. This way Delves Season 2 and Prey Renown levels can be tracked

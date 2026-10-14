@@ -1,6 +1,6 @@
 ## Interface: 16001, 120100, 120105
 ## Author: Benik
-## Version: 5.19
+## Version: 5.20
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r |cfd9b9b9bMidnight|r [AllowLoadGameType standard]
 ## Title: |cff1784d1ElvUI|r |cff00c0faBenikUI|r |cfd9b9b9bForever|r [AllowLoadGameType camelot][ExcludeLoadGameType standard, classic]
 ## Notes: an ElvUI 15+ decorative/enhancement edit
