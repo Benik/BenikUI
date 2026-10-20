@@ -172,6 +172,9 @@ function mod:StyleWindTools()
 		end
 
 		WTDamageMeterLayout.backdrop:BuiStyle()
+		if E.db.benikui.general.shadows then
+			WTDamageMeterLayout.backdrop:CreateStyleShadow()
+		end
 	end)
 end
 S:AddCallbackForAddon("ElvUI_WindTools", "BenikUI_WindTools", mod.StyleWindTools)
